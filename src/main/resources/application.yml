@@ -1,0 +1,74 @@
+spring:
+  application:
+    name: financeos-backend
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:financeos}
+    username: ${DB_USERNAME:financeos}
+    password: ${DB_PASSWORD:financeos}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      connection-timeout: 20000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          time_zone: UTC
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    timeout: 24h
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+  devtools:
+    restart:
+      enabled: true
+      poll-interval: 1s
+      quiet-period: 400ms
+    livereload:
+      enabled: true
+
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: ${COOKIE_SECURE:false}
+        same-site: strict
+        max-age: 86400
+        name: FINANCEOS_SESSION
+
+# Application-specific configuration
+app:
+  encryption:
+    key: ${ENCRYPTION_KEY:your-32-byte-base64-encoded-key-here==}
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:3000}
+
+logging:
+  level:
+    com.financeos: INFO
+    org.springframework.security: INFO
+    org.hibernate.SQL: WARN
+

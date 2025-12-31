@@ -1,0 +1,1008 @@
+openapi: 3.0.3
+info:
+  title: FinanceOS API
+  description: Production-grade personal finance backend API
+  version: 1.0.0
+  contact:
+    name: FinanceOS
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+tags:
+  - name: Auth
+    description: Authentication endpoints
+  - name: Accounts
+    description: Financial account management
+  - name: Transactions
+    description: Transaction tracking
+  - name: Investments
+    description: Investment transaction and position tracking
+  - name: Gmail
+    description: Gmail integration (skeleton)
+  - name: Rules
+    description: Categorization rules (skeleton)
+  - name: Dashboard
+    description: Dashboard summary (skeleton)
+
+paths:
+  /api/v1/auth/signup:
+    post:
+      tags: [Auth]
+      summary: Create a new user account
+      operationId: signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: User with email already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/auth/login:
+    post:
+      tags: [Auth]
+      summary: Login with email and password
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+              description: Session cookie (HTTP-only)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/auth/logout:
+    post:
+      tags: [Auth]
+      summary: Logout and invalidate session
+      operationId: logout
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Logout successful
+
+  /api/v1/auth/me:
+    get:
+      tags: [Auth]
+      summary: Get current authenticated user
+      operationId: getCurrentUser
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Current user info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          description: Not authenticated
+
+  /api/v1/accounts:
+    post:
+      tags: [Accounts]
+      summary: Create a new account
+      operationId: createAccount
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountRequest'
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    get:
+      tags: [Accounts]
+      summary: List all accounts
+      operationId: listAccounts
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: List of accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountResponse'
+
+  /api/v1/accounts/{id}:
+    get:
+      tags: [Accounts]
+      summary: Get account by ID
+      operationId: getAccountById
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/accounts/{id}/bank-details:
+    post:
+      tags: [Accounts]
+      summary: Add or update bank details
+      operationId: addBankDetails
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankDetailsRequest'
+      responses:
+        '200':
+          description: Bank details added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '400':
+          description: Invalid account type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/accounts/{id}/credit-card-details:
+    post:
+      tags: [Accounts]
+      summary: Add or update credit card details
+      operationId: addCreditCardDetails
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditCardDetailsRequest'
+      responses:
+        '200':
+          description: Credit card details added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '400':
+          description: Invalid account type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/accounts/{id}/stock-details:
+    post:
+      tags: [Accounts]
+      summary: Add or update stock details
+      operationId: addStockDetails
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StockDetailsRequest'
+      responses:
+        '200':
+          description: Stock details added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '400':
+          description: Invalid account type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/accounts/{id}/mutual-fund-details:
+    post:
+      tags: [Accounts]
+      summary: Add or update mutual fund details
+      operationId: addMutualFundDetails
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MutualFundDetailsRequest'
+      responses:
+        '200':
+          description: Mutual fund details added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '400':
+          description: Invalid account type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/transactions:
+    post:
+      tags: [Transactions]
+      summary: Create a new transaction
+      operationId: createTransaction
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTransactionRequest'
+      responses:
+        '201':
+          description: Transaction created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Duplicate transaction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    get:
+      tags: [Transactions]
+      summary: List transactions (paginated)
+      operationId: listTransactions
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 50
+        - name: sort
+          in: query
+          schema:
+            type: string
+            default: date,desc
+      responses:
+        '200':
+          description: Paginated list of transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedTransactionResponse'
+
+  /api/v1/investments/transactions:
+    post:
+      tags: [Investments]
+      summary: Create investment transaction (buy/sell)
+      operationId: createInvestmentTransaction
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInvestmentTransactionRequest'
+      responses:
+        '201':
+          description: Investment transaction created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvestmentTransactionResponse'
+        '400':
+          description: Validation error (e.g., selling more than holdings)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    get:
+      tags: [Investments]
+      summary: List investment transactions (paginated)
+      operationId: listInvestmentTransactions
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: Paginated list of investment transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedInvestmentTransactionResponse'
+
+  /api/v1/investments/position:
+    get:
+      tags: [Investments]
+      summary: Get current investment positions (FIFO calculated)
+      operationId: getInvestmentPositions
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Investment positions with FIFO-calculated cost basis
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvestmentPositionResponse'
+
+  /api/v1/gmail/oauth/start:
+    get:
+      tags: [Gmail]
+      summary: Start Gmail OAuth flow (skeleton)
+      operationId: startGmailOAuth
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: OAuth URL or skeleton response
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/v1/gmail/oauth/callback:
+    get:
+      tags: [Gmail]
+      summary: Gmail OAuth callback (skeleton)
+      operationId: gmailOAuthCallback
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: code
+          in: query
+          schema:
+            type: string
+        - name: error
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OAuth callback processed
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/v1/gmail/sync:
+    post:
+      tags: [Gmail]
+      summary: Sync transactions from Gmail (skeleton)
+      operationId: syncGmail
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Sync result
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/v1/rules:
+    post:
+      tags: [Rules]
+      summary: Create categorization rule (skeleton)
+      operationId: createRule
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Rule created
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/v1/rules/apply:
+    post:
+      tags: [Rules]
+      summary: Apply rules to transactions (skeleton)
+      operationId: applyRules
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Rules applied
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/v1/dashboard/summary:
+    get:
+      tags: [Dashboard]
+      summary: Get dashboard summary (skeleton)
+      operationId: getDashboardSummary
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardSummary'
+
+components:
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: FINANCEOS_SESSION
+
+  schemas:
+    SignupRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        password:
+          type: string
+          format: password
+          minLength: 8
+          example: mypassword123
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+          example: admin@financeos.local
+        password:
+          type: string
+          format: password
+          example: changeme
+
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        createdAt:
+          type: string
+          format: date-time
+
+    CreateAccountRequest:
+      type: object
+      required: [name, type]
+      properties:
+        name:
+          type: string
+          example: HDFC Savings
+        type:
+          $ref: '#/components/schemas/AccountType'
+        excludeFromNetAsset:
+          type: boolean
+          default: false
+        financialPosition:
+          $ref: '#/components/schemas/FinancialPosition'
+        description:
+          type: string
+
+    AccountResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/AccountType'
+        excludeFromNetAsset:
+          type: boolean
+        financialPosition:
+          $ref: '#/components/schemas/FinancialPosition'
+        description:
+          type: string
+        bankDetails:
+          $ref: '#/components/schemas/BankDetailsResponse'
+        creditCardDetails:
+          $ref: '#/components/schemas/CreditCardDetailsResponse'
+        stockDetails:
+          $ref: '#/components/schemas/StockDetailsResponse'
+        mutualFundDetails:
+          $ref: '#/components/schemas/MutualFundDetailsResponse'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    AccountType:
+      type: string
+      enum: [bank_account, credit_card, stock, mutual_fund, generic]
+
+    FinancialPosition:
+      type: string
+      enum: [asset, liability]
+
+    BankDetailsRequest:
+      type: object
+      properties:
+        openingBalance:
+          type: number
+          format: decimal
+          example: 50000.00
+        last4:
+          type: string
+          example: "1234"
+
+    BankDetailsResponse:
+      type: object
+      properties:
+        openingBalance:
+          type: number
+        last4:
+          type: string
+
+    CreditCardDetailsRequest:
+      type: object
+      required: [last4, creditLimit, paymentDueDay, gracePeriodDays]
+      properties:
+        last4:
+          type: string
+          example: "9876"
+        creditLimit:
+          type: number
+          format: decimal
+          example: 200000.00
+        paymentDueDay:
+          type: integer
+          minimum: 1
+          maximum: 31
+          example: 15
+        gracePeriodDays:
+          type: integer
+          minimum: 0
+          example: 20
+        statementPassword:
+          type: string
+          description: Encrypted at rest with AES-256-GCM
+
+    CreditCardDetailsResponse:
+      type: object
+      properties:
+        last4:
+          type: string
+        creditLimit:
+          type: number
+        paymentDueDay:
+          type: integer
+        gracePeriodDays:
+          type: integer
+
+    StockDetailsRequest:
+      type: object
+      required: [instrumentCode]
+      properties:
+        instrumentCode:
+          type: string
+          example: RELIANCE
+        lastTradedPrice:
+          type: number
+          format: decimal
+          example: 2500.00
+
+    StockDetailsResponse:
+      type: object
+      properties:
+        instrumentCode:
+          type: string
+        lastTradedPrice:
+          type: number
+
+    MutualFundDetailsRequest:
+      type: object
+      required: [instrumentCode]
+      properties:
+        instrumentCode:
+          type: string
+          example: HDFC-FLEXICAP
+        lastTradedPrice:
+          type: number
+          format: decimal
+
+    MutualFundDetailsResponse:
+      type: object
+      properties:
+        instrumentCode:
+          type: string
+        lastTradedPrice:
+          type: number
+
+    CreateTransactionRequest:
+      type: object
+      required: [date, amount, description, source]
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date
+          example: "2024-12-29"
+        amount:
+          type: number
+          format: decimal
+          description: Negative for expenses, positive for income
+          example: -500.00
+        description:
+          type: string
+          example: Grocery shopping at BigBasket
+        category:
+          type: string
+          example: Food
+        subcategory:
+          type: string
+          example: Groceries
+        spentFor:
+          type: string
+        source:
+          $ref: '#/components/schemas/TransactionSource'
+        metadata:
+          type: object
+          additionalProperties: true
+
+    TransactionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        accountId:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date
+        amount:
+          type: number
+        description:
+          type: string
+        category:
+          type: string
+        subcategory:
+          type: string
+        spentFor:
+          type: string
+        source:
+          $ref: '#/components/schemas/TransactionSource'
+        metadata:
+          type: object
+        createdAt:
+          type: string
+          format: date-time
+
+    TransactionSource:
+      type: string
+      enum: [gmail, manual]
+
+    PagedTransactionResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionResponse'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+        first:
+          type: boolean
+        last:
+          type: boolean
+        empty:
+          type: boolean
+
+    CreateInvestmentTransactionRequest:
+      type: object
+      required: [accountId, type, quantity, price, date]
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        type:
+          $ref: '#/components/schemas/InvestmentTransactionType'
+        quantity:
+          type: number
+          format: decimal
+          minimum: 0
+          exclusiveMinimum: true
+          example: 10
+        price:
+          type: number
+          format: decimal
+          minimum: 0
+          example: 2400.00
+        date:
+          type: string
+          format: date
+          example: "2024-11-01"
+        metadata:
+          type: object
+          additionalProperties: true
+
+    InvestmentTransactionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        accountId:
+          type: string
+          format: uuid
+        type:
+          $ref: '#/components/schemas/InvestmentTransactionType'
+        quantity:
+          type: number
+        price:
+          type: number
+        date:
+          type: string
+          format: date
+        metadata:
+          type: object
+        createdAt:
+          type: string
+          format: date-time
+
+    InvestmentTransactionType:
+      type: string
+      enum: [buy, sell]
+
+    PagedInvestmentTransactionResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvestmentTransactionResponse'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+        first:
+          type: boolean
+        last:
+          type: boolean
+        empty:
+          type: boolean
+
+    InvestmentPositionResponse:
+      type: object
+      properties:
+        positions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Position'
+
+    Position:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        instrumentCode:
+          type: string
+        accountName:
+          type: string
+        quantity:
+          type: number
+          description: Current holdings after FIFO calculation
+        averageCost:
+          type: number
+          description: FIFO-calculated average cost per unit
+        totalCost:
+          type: number
+          description: Total cost basis of current holdings
+        lastTradedPrice:
+          type: number
+        currentValue:
+          type: number
+          description: quantity × lastTradedPrice
+        unrealizedGainLoss:
+          type: number
+          description: currentValue - totalCost
+        unrealizedGainLossPercent:
+          type: number
+          description: Percentage gain/loss
+
+    DashboardSummary:
+      type: object
+      properties:
+        netWorth:
+          type: number
+        totalAssets:
+          type: number
+        totalLiabilities:
+          type: number
+        monthlyIncome:
+          type: number
+        monthlyExpenses:
+          type: number
+        categoryBreakdown:
+          type: array
+          items:
+            type: object
+            properties:
+              category:
+                type: string
+              amount:
+                type: number
+              percentage:
+                type: number
+        status:
+          type: string
+          description: "skeleton" indicates not yet implemented
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Validation failed
+        details:
+          type: object
+          additionalProperties:
+            type: string
+        timestamp:
+          type: string
+          format: date-time
+
