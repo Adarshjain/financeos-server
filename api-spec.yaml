@@ -19,7 +19,7 @@ tags:
   - name: Investments
     description: Investment transaction and position tracking
   - name: Gmail
-    description: Gmail integration (skeleton)
+    description: Gmail OAuth and email fetch engine
   - name: Rules
     description: Categorization rules (skeleton)
   - name: Dashboard
@@ -455,56 +455,95 @@ paths:
   /api/v1/gmail/oauth/start:
     get:
       tags: [Gmail]
-      summary: Start Gmail OAuth flow (skeleton)
+      summary: Start Gmail OAuth flow
+      description: Returns Google OAuth authorization URL to connect user's Gmail account
       operationId: startGmailOAuth
       security:
         - sessionAuth: []
       responses:
         '200':
-          description: OAuth URL or skeleton response
+          description: OAuth authorization URL
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/GmailOAuthStartResponse'
 
   /api/v1/gmail/oauth/callback:
     get:
       tags: [Gmail]
-      summary: Gmail OAuth callback (skeleton)
+      summary: Gmail OAuth callback
+      description: Handles OAuth callback, exchanges code for tokens, stores encrypted refresh token
       operationId: gmailOAuthCallback
       security:
         - sessionAuth: []
       parameters:
         - name: code
           in: query
+          description: Authorization code from Google
           schema:
             type: string
         - name: error
           in: query
+          description: Error code if authorization failed
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: State parameter for verification
           schema:
             type: string
       responses:
         '200':
-          description: OAuth callback processed
+          description: Gmail connected successfully
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/GmailOAuthCallbackResponse'
+        '400':
+          description: OAuth failed or missing code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /api/v1/gmail/sync:
     post:
       tags: [Gmail]
-      summary: Sync transactions from Gmail (skeleton)
+      summary: Fetch emails from Gmail
+      description: |
+        Fetches raw emails from connected Gmail account.
+        - MANUAL mode: Full fetch with optional time filter
+        - PERIODIC mode: Incremental sync using historyId
+        
+        Returns raw, uninterpreted data only. No business logic, no transaction creation.
       operationId: syncGmail
       security:
         - sessionAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GmailFetchRequest'
       responses:
         '200':
-          description: Sync result
+          description: Fetch result with messages and sync state
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/GmailFetchResult'
+        '400':
+          description: Gmail not connected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Gmail authentication failed (token expired/revoked)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /api/v1/rules:
     post:
@@ -987,7 +1026,7 @@ components:
                 type: number
         status:
           type: string
-          description: "skeleton" indicates not yet implemented
+          description: skeleton indicates not yet implemented
 
     ErrorResponse:
       type: object
@@ -1005,4 +1044,105 @@ components:
         timestamp:
           type: string
           format: date-time
+
+    GmailOAuthStartResponse:
+      type: object
+      properties:
+        authorizationUrl:
+          type: string
+          description: Google OAuth consent URL to redirect user
+          example: https://accounts.google.com/o/oauth2/auth?...
+
+    GmailOAuthCallbackResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          type: string
+          example: Gmail connected successfully
+        email:
+          type: string
+          format: email
+          description: Connected Gmail address
+          example: user@gmail.com
+
+    GmailFetchRequest:
+      type: object
+      properties:
+        mode:
+          type: string
+          enum: [MANUAL, PERIODIC]
+          default: MANUAL
+          description: |
+            - MANUAL: Full fetch with optional time filter
+            - PERIODIC: Incremental sync using stored historyId
+        fromTime:
+          type: string
+          format: date-time
+          description: Fetch emails after this time (MANUAL mode only)
+        maxMessages:
+          type: integer
+          minimum: 1
+          default: 100
+          description: Maximum messages to fetch (safety cap)
+
+    GmailFetchResult:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/GmailMessageDto'
+        nextState:
+          $ref: '#/components/schemas/GmailSyncStateDto'
+
+    GmailMessageDto:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Gmail message ID
+        internalDate:
+          type: string
+          format: date-time
+          description: Email received timestamp
+        from:
+          type: string
+          description: Sender email/name
+        subject:
+          type: string
+          description: Email subject
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/GmailAttachmentDto'
+
+    GmailAttachmentDto:
+      type: object
+      properties:
+        attachmentId:
+          type: string
+          description: Gmail attachment ID
+        filename:
+          type: string
+          description: Attachment filename
+        mimeType:
+          type: string
+          description: MIME type (e.g., application/pdf)
+        contentLength:
+          type: integer
+          description: Attachment size in bytes
+
+    GmailSyncStateDto:
+      type: object
+      properties:
+        historyId:
+          type: string
+          description: Gmail history ID for incremental sync
+        lastSyncedAt:
+          type: string
+          format: date-time
+          description: Timestamp of this sync
 

@@ -66,6 +66,13 @@ app:
   cors:
     allowed-origins: ${CORS_ORIGINS:http://localhost:3000}
 
+# Gmail OAuth configuration
+gmail:
+  oauth:
+    client-id: ${GMAIL_CLIENT_ID:}
+    client-secret: ${GMAIL_CLIENT_SECRET:}
+    redirect-uri: ${GMAIL_REDIRECT_URI:http://localhost:8080/api/v1/gmail/oauth/callback}
+
 logging:
   level:
     com.financeos: INFO
