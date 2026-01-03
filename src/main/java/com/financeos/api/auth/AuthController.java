@@ -3,6 +3,7 @@ package com.financeos.api.auth;
 import com.financeos.api.auth.dto.LoginRequest;
 import com.financeos.api.auth.dto.SignupRequest;
 import com.financeos.api.auth.dto.UserResponse;
+import com.financeos.api.auth.dto.GoogleAuthStartResponse;
 import com.financeos.domain.user.AuthService;
 import com.financeos.domain.user.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,9 +18,12 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final String uiPath;
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService,
+            @org.springframework.beans.factory.annotation.Value("${app.ui-path}") String uiPath) {
         this.authService = authService;
+        this.uiPath = uiPath;
     }
 
     @PostMapping("/signup")
@@ -47,5 +51,31 @@ public class AuthController {
     public ResponseEntity<UserResponse> getCurrentUser() {
         User user = authService.getCurrentUser();
         return ResponseEntity.ok(UserResponse.from(user));
+    }
+
+    @GetMapping("/google/start")
+    public ResponseEntity<GoogleAuthStartResponse> startGoogleAuth() {
+        String url = authService.generateGoogleAuthUrl();
+        return ResponseEntity.ok(new GoogleAuthStartResponse(url));
+    }
+
+    @GetMapping("/google/callback")
+    public ResponseEntity<Void> handleGoogleCallback(
+            @RequestParam(required = false) String code,
+            @RequestParam(required = false) String error,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+
+        if (error != null) {
+            return ResponseEntity.status(HttpStatus.FOUND)
+                    .header("Location", uiPath + "/login?error=" + error)
+                    .build();
+        }
+
+        authService.handleGoogleLogin(code, request, response);
+
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .header("Location", uiPath)
+                .build();
     }
 }

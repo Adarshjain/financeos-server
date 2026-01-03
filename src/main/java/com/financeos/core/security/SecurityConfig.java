@@ -38,27 +38,23 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                        .maximumSessions(1)
-                )
+                        .maximumSessions(1))
                 .securityContext(context -> context
-                        .securityContextRepository(securityContextRepository())
-                )
+                        .securityContextRepository(securityContextRepository()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/login", "/api/v1/auth/signup").permitAll()
+                        .requestMatchers("/api/v1/auth/google/**").permitAll()
                         .requestMatchers("/actuator/health").permitAll()
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-                )
+                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .logout(logout -> logout
                         .logoutUrl("/api/v1/auth/logout")
                         .logoutSuccessHandler((request, response, authentication) -> {
                             response.setStatus(HttpStatus.OK.value());
                         })
                         .invalidateHttpSession(true)
-                        .deleteCookies("FINANCEOS_SESSION")
-                );
+                        .deleteCookies("FINANCEOS_SESSION"));
 
         return http.build();
     }
@@ -76,7 +72,7 @@ public class SecurityConfig {
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
-        
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
@@ -92,4 +88,3 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 }
-

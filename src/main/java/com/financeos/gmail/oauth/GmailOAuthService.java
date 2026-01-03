@@ -25,8 +25,8 @@ public class GmailOAuthService {
     private final UserRepository userRepository;
 
     public GmailOAuthService(GmailApiClient gmailApiClient,
-                               GmailConnectionRepository connectionRepository,
-                               UserRepository userRepository) {
+            GmailConnectionRepository connectionRepository,
+            UserRepository userRepository) {
         this.gmailApiClient = gmailApiClient;
         this.connectionRepository = connectionRepository;
         this.userRepository = userRepository;
@@ -62,11 +62,19 @@ public class GmailOAuthService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
 
         // Find or create connection
-        GmailConnection connection = connectionRepository.findByUserId(userId)
-                .orElse(new GmailConnection());
+        // Check if we already have a connection for this email
+        GmailConnection connection = connectionRepository.findByUserIdAndEmail(userId, email)
+                .orElseGet(() -> {
+                    // Start new connection
+                    GmailConnection newConn = new GmailConnection();
+                    newConn.setUser(user);
+                    newConn.setEmail(email);
+                    // Determine if this should be primary (if no primary exists)
+                    boolean hasPrimary = connectionRepository.findByUserIdAndIsPrimaryTrue(userId).isPresent();
+                    newConn.setIsPrimary(!hasPrimary);
+                    return newConn;
+                });
 
-        connection.setUser(user);
-        connection.setEmail(email);
         connection.setEncryptedRefreshToken(tokenResponse.refreshToken());
         connection.setIsConnected(true);
 
@@ -78,7 +86,7 @@ public class GmailOAuthService {
      */
     @Transactional(readOnly = true)
     public GmailConnection getConnection(UUID userId) {
-        return connectionRepository.findByUserId(userId)
+        return connectionRepository.findByUserIdAndIsPrimaryTrue(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Gmail connection", userId));
     }
 
@@ -91,4 +99,3 @@ public class GmailOAuthService {
         connectionRepository.save(connection);
     }
 }
-

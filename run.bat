@@ -44,7 +44,7 @@ if "%ENCRYPTION_KEY%"=="" (
     echo WARNING: ENCRYPTION_KEY not set!
     echo.
     echo Generate one with PowerShell:
-    echo   [Convert]::ToBase64String((1..32 ^| ForEach-Object { Get-Random -Minimum 0 -Maximum 256 }))
+    echo   [Convert]::ToBase64String^(^(1..32 ^^| ForEach-Object { Get-Random -Minimum 0 -Maximum 256 }^)^)
     echo.
     echo Then add to .env file: ENCRYPTION_KEY=your_key_here
     echo.
@@ -56,4 +56,4 @@ echo    Database: %DB_NAME%@%DB_HOST%:%DB_PORT%
 echo    CORS: %CORS_ORIGINS%
 echo.
 
-call mvnw.cmd spring-boot:run
+call mvnw.cmd -Dmaven.multiModuleProjectDirectory=%CD% spring-boot:run

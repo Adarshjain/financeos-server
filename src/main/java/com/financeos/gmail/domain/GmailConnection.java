@@ -35,6 +35,9 @@ public class GmailConnection {
     @Column(name = "is_connected", nullable = false)
     private Boolean isConnected = true;
 
+    @Column(name = "is_primary", nullable = false)
+    private Boolean isPrimary = false;
+
     @Column(name = "connected_at")
     private Instant connectedAt;
 
@@ -63,4 +66,3 @@ public class GmailConnection {
         updatedAt = Instant.now();
     }
 }
-

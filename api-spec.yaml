@@ -98,6 +98,56 @@ paths:
         '200':
           description: Logout successful
 
+  /api/v1/auth/google/start:
+    get:
+      tags: [Auth]
+      summary: Start Google SSO flow
+      description: Returns Google OAuth authorization URL for Single Sign-On + Gmail access
+      operationId: startGoogleAuth
+      responses:
+        '200':
+          description: Authorization URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleAuthStartResponse'
+
+  /api/v1/auth/google/callback:
+    get:
+      tags: [Auth]
+      summary: Google SSO callback
+      description: Handles OAuth callback, creates user (if needed), links Gmail, and logs in
+      operationId: handleGoogleCallback
+      parameters:
+        - name: code
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: error
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: state
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Auth failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /api/v1/auth/me:
     get:
       tags: [Auth]
@@ -640,9 +690,19 @@ components:
         email:
           type: string
           format: email
+        displayName:
+          type: string
+        pictureUrl:
+          type: string
         createdAt:
           type: string
           format: date-time
+
+    GoogleAuthStartResponse:
+      type: object
+      properties:
+        authorizationUrl:
+          type: string
 
     CreateAccountRequest:
       type: object

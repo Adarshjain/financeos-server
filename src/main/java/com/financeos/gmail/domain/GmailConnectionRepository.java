@@ -3,6 +3,7 @@ package com.financeos.gmail.domain;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -11,8 +12,13 @@ public interface GmailConnectionRepository extends JpaRepository<GmailConnection
 
     Optional<GmailConnection> findByUserId(UUID userId);
 
+    Optional<GmailConnection> findByUserIdAndIsPrimaryTrue(UUID userId);
+
+    Optional<GmailConnection> findByUserIdAndEmail(UUID userId, String email);
+
+    List<GmailConnection> findAllByUserId(UUID userId);
+
     Optional<GmailConnection> findByEmail(String email);
 
     boolean existsByUserId(UUID userId);
 }
-
