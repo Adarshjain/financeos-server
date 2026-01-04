@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Filter;
+import com.financeos.domain.user.User;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -13,11 +15,16 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@Filter(name = "userFilter", condition = "user_id = :userId")
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(nullable = false)
     private String name;

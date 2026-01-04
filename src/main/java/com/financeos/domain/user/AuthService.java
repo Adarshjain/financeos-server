@@ -19,6 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.UUID;
+import com.financeos.core.security.UserContext;
 
 @Service
 @Transactional
@@ -62,10 +64,13 @@ public class AuthService {
                 request.password());
 
         Authentication authentication = authenticationManager.authenticate(token);
-        createSession(authentication, httpRequest, httpResponse);
 
-        return userRepository.findByEmail(request.email())
+        User user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new ResourceNotFoundException("User", request.email()));
+
+        createSession(authentication, httpRequest, httpResponse, user.getId());
+
+        return user;
     }
 
     public String generateGoogleAuthUrl() {
@@ -129,17 +134,29 @@ public class AuthService {
         // Or simply force authentication into context.
         UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                 user.getEmail(), null, java.util.Collections.emptyList());
-        createSession(auth, httpRequest, httpResponse);
+        createSession(auth, httpRequest, httpResponse, user.getId());
 
         return user;
     }
 
     private void createSession(Authentication authentication, HttpServletRequest request,
-            HttpServletResponse response) {
+            HttpServletResponse response, UUID userId) {
         SecurityContext context = securityContextHolderStrategy.createEmptyContext();
         context.setAuthentication(authentication);
         securityContextHolderStrategy.setContext(context);
         securityContextRepository.saveContext(context, request, response);
+
+        // TODO: userId should not be null in any case, throw exception if null
+        if (userId != null) {
+            UserContext.setCurrentUserId(userId);
+        }
+    }
+
+    // Overload for existing callers if necessary, or just rely on the main method
+    // being updated
+    private void createSession(Authentication authentication, HttpServletRequest request,
+            HttpServletResponse response) {
+        createSession(authentication, request, response, null);
     }
 
     @Transactional(readOnly = true)

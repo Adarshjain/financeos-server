@@ -26,7 +26,7 @@ public class InvestmentService {
     private final AccountRepository accountRepository;
 
     public InvestmentService(InvestmentTransactionRepository investmentTransactionRepository,
-                              AccountRepository accountRepository) {
+            AccountRepository accountRepository) {
         this.investmentTransactionRepository = investmentTransactionRepository;
         this.accountRepository = accountRepository;
     }
@@ -52,8 +52,8 @@ public class InvestmentService {
                 request.type(),
                 request.quantity(),
                 request.price(),
-                request.date()
-        );
+                request.date());
+        transaction.setUser(account.getUser());
         transaction.setMetadata(request.metadata());
 
         return investmentTransactionRepository.save(transaction);
@@ -71,24 +71,27 @@ public class InvestmentService {
 
         for (UUID accountId : accountIds) {
             Account account = accountRepository.findById(accountId).orElse(null);
-            if (account == null) continue;
+            if (account == null)
+                continue;
 
             FifoResult fifoResult = calculateFifoPosition(accountId);
-            
+
             if (fifoResult.quantity.compareTo(BigDecimal.ZERO) <= 0) {
                 continue; // Skip accounts with no holdings
             }
 
             BigDecimal lastTradedPrice = getLastTradedPrice(account);
-            BigDecimal currentValue = lastTradedPrice != null 
-                    ? fifoResult.quantity.multiply(lastTradedPrice) 
+            BigDecimal currentValue = lastTradedPrice != null
+                    ? fifoResult.quantity.multiply(lastTradedPrice)
                     : null;
-            BigDecimal unrealizedGainLoss = currentValue != null 
-                    ? currentValue.subtract(fifoResult.totalCost) 
+            BigDecimal unrealizedGainLoss = currentValue != null
+                    ? currentValue.subtract(fifoResult.totalCost)
                     : null;
-            BigDecimal unrealizedGainLossPercent = unrealizedGainLoss != null && fifoResult.totalCost.compareTo(BigDecimal.ZERO) > 0
-                    ? unrealizedGainLoss.divide(fifoResult.totalCost, 4, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100))
-                    : null;
+            BigDecimal unrealizedGainLossPercent = unrealizedGainLoss != null
+                    && fifoResult.totalCost.compareTo(BigDecimal.ZERO) > 0
+                            ? unrealizedGainLoss.divide(fifoResult.totalCost, 4, RoundingMode.HALF_UP)
+                                    .multiply(BigDecimal.valueOf(100))
+                            : null;
 
             positions.add(new InvestmentPositionResponse.Position(
                     accountId,
@@ -100,8 +103,7 @@ public class InvestmentService {
                     lastTradedPrice,
                     currentValue,
                     unrealizedGainLoss,
-                    unrealizedGainLossPercent
-            ));
+                    unrealizedGainLossPercent));
         }
 
         return new InvestmentPositionResponse(positions);
@@ -110,7 +112,7 @@ public class InvestmentService {
     private BigDecimal calculateCurrentQuantity(UUID accountId) {
         List<InvestmentTransaction> transactions = investmentTransactionRepository
                 .findByAccountIdOrderByDateAsc(accountId);
-        
+
         BigDecimal quantity = BigDecimal.ZERO;
         for (InvestmentTransaction tx : transactions) {
             if (tx.getType() == InvestmentTransactionType.buy) {
@@ -155,7 +157,7 @@ public class InvestmentService {
         // Calculate totals from remaining lots
         BigDecimal totalQuantity = BigDecimal.ZERO;
         BigDecimal totalCost = BigDecimal.ZERO;
-        
+
         for (Lot lot : lots) {
             totalQuantity = totalQuantity.add(lot.quantity);
             totalCost = totalCost.add(lot.quantity.multiply(lot.costPerUnit));
@@ -198,6 +200,6 @@ public class InvestmentService {
         }
     }
 
-    private record FifoResult(BigDecimal quantity, BigDecimal totalCost, BigDecimal averageCost) {}
+    private record FifoResult(BigDecimal quantity, BigDecimal totalCost, BigDecimal averageCost) {
+    }
 }
-
