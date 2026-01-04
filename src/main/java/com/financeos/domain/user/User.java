@@ -4,15 +4,19 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 
 import java.time.Instant;
 import java.util.UUID;
+import org.hibernate.type.descriptor.java.UUIDJavaType;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
+@FilterDef(name = "userFilter", parameters = @ParamDef(name = "userId", type = UUIDJavaType.class))
 public class User {
 
     @Id

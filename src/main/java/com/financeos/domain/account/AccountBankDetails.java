@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Filter;
+import com.financeos.domain.user.User;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -13,11 +15,15 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@Filter(name = "userFilter", condition = "user_id = :userId")
 public class AccountBankDetails {
 
     @Id
-    @Column(name = "account_id")
     private UUID accountId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToOne
     @MapsId
@@ -37,4 +43,3 @@ public class AccountBankDetails {
         this.last4 = last4;
     }
 }
-

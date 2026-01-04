@@ -17,6 +17,7 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.web.context.SecurityContextHolderFilter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,9 +27,11 @@ import java.util.List;
 public class SecurityConfig {
 
     private final AppConfigProperties appConfig;
+    private final UserContextFilter userContextFilter;
 
-    public SecurityConfig(AppConfigProperties appConfig) {
+    public SecurityConfig(AppConfigProperties appConfig, UserContextFilter userContextFilter) {
         this.appConfig = appConfig;
+        this.userContextFilter = userContextFilter;
     }
 
     @Bean
@@ -46,6 +49,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/google/**").permitAll()
                         .requestMatchers("/actuator/health").permitAll()
                         .anyRequest().authenticated())
+                .addFilterAfter(userContextFilter, SecurityContextHolderFilter.class)
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .logout(logout -> logout

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.Filter;
+import com.financeos.domain.user.User;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -19,11 +21,16 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@Filter(name = "userFilter", condition = "user_id = :userId")
 public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
@@ -69,7 +76,7 @@ public class Transaction {
     }
 
     public Transaction(Account account, LocalDate date, BigDecimal amount, String description,
-                       TransactionSource source, String originalHash) {
+            TransactionSource source, String originalHash) {
         this.account = account;
         this.date = date;
         this.amount = amount;
