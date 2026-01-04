@@ -9,6 +9,8 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Filter;
 import com.financeos.domain.user.User;
+import org.hibernate.annotations.Filter;
+import com.financeos.domain.user.User;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -58,9 +60,6 @@ public class Transaction {
     @Column(nullable = false)
     private TransactionSource source;
 
-    @Column(name = "original_hash", unique = true, nullable = false)
-    private String originalHash;
-
     @Type(JsonType.class)
     @Column(columnDefinition = "jsonb")
     private Map<String, Object> metadata;
@@ -76,12 +75,11 @@ public class Transaction {
     }
 
     public Transaction(Account account, LocalDate date, BigDecimal amount, String description,
-            TransactionSource source, String originalHash) {
+            TransactionSource source) {
         this.account = account;
         this.date = date;
         this.amount = amount;
         this.description = description;
         this.source = source;
-        this.originalHash = originalHash;
     }
 }
