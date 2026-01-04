@@ -31,8 +31,7 @@ public class SyncStateService {
         return repository.findByConnectionId(connectionId)
                 .map(state -> new GmailSyncState(
                         state.getHistoryId(),
-                        state.getLastSyncedAt()
-                ))
+                        state.getLastSyncedAt()))
                 .orElse(null);
     }
 
@@ -44,6 +43,7 @@ public class SyncStateService {
                 .orElse(new GmailSyncStateEntity());
 
         state.setConnection(connection);
+        state.setUser(connection.getUser());
         state.setHistoryId(historyId);
         state.setLastSyncedAt(lastSyncedAt);
 
@@ -58,4 +58,3 @@ public class SyncStateService {
                 .ifPresent(repository::delete);
     }
 }
-

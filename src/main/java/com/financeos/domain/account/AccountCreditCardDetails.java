@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Filter;
+import com.financeos.domain.user.User;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -14,10 +16,14 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@Filter(name = "userFilter", condition = "user_id = :userId")
 public class AccountCreditCardDetails {
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Id
-    @Column(name = "account_id")
     private UUID accountId;
 
     @OneToOne
@@ -42,7 +48,7 @@ public class AccountCreditCardDetails {
     private String statementPassword;
 
     public AccountCreditCardDetails(Account account, String last4, BigDecimal creditLimit,
-                                     Integer paymentDueDay, Integer gracePeriodDays, String statementPassword) {
+            Integer paymentDueDay, Integer gracePeriodDays, String statementPassword) {
         this.account = account;
         this.accountId = account.getId();
         this.last4 = last4;
@@ -52,4 +58,3 @@ public class AccountCreditCardDetails {
         this.statementPassword = statementPassword;
     }
 }
-

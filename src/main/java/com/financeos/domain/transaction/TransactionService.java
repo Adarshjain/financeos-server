@@ -22,7 +22,7 @@ public class TransactionService {
     private final AccountRepository accountRepository;
 
     public TransactionService(TransactionRepository transactionRepository,
-                               AccountRepository accountRepository) {
+            AccountRepository accountRepository) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
     }
@@ -30,7 +30,7 @@ public class TransactionService {
     public Transaction createTransaction(CreateTransactionRequest request) {
         // Generate hash for deduplication
         String originalHash = generateHash(request);
-        
+
         if (transactionRepository.existsByOriginalHash(originalHash)) {
             throw new DuplicateResourceException("Transaction with same details already exists");
         }
@@ -46,8 +46,9 @@ public class TransactionService {
                 request.amount(),
                 request.description(),
                 request.source(),
-                originalHash
-        );
+                originalHash);
+        // TODO: Set user even if account is null
+        transaction.setUser(account != null ? account.getUser() : null);
         transaction.setCategory(request.category());
         transaction.setSubcategory(request.subcategory());
         transaction.setSpentFor(request.spentFor());
@@ -67,9 +68,8 @@ public class TransactionService {
                 request.date(),
                 request.amount().toPlainString(),
                 request.description(),
-                request.source()
-        );
-        
+                request.source());
+
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(data.getBytes(StandardCharsets.UTF_8));
@@ -79,4 +79,3 @@ public class TransactionService {
         }
     }
 }
-
