@@ -2,6 +2,7 @@ package com.financeos.domain.transaction;
 
 import com.financeos.api.transaction.dto.CreateTransactionRequest;
 import com.financeos.core.exception.DuplicateResourceException;
+import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import org.springframework.data.domain.Page;
@@ -35,10 +36,8 @@ public class TransactionService {
             throw new DuplicateResourceException("Transaction with same details already exists");
         }
 
-        Account account = null;
-        if (request.accountId() != null) {
-            account = accountRepository.findById(request.accountId()).orElse(null);
-        }
+        Account account = accountRepository.findById(request.accountId())
+                .orElseThrow(() -> new ResourceNotFoundException("Account", request.accountId()));
 
         Transaction transaction = new Transaction(
                 account,
@@ -47,8 +46,8 @@ public class TransactionService {
                 request.description(),
                 request.source(),
                 originalHash);
-        // TODO: Set user even if account is null
-        transaction.setUser(account != null ? account.getUser() : null);
+
+        transaction.setUser(account.getUser());
         transaction.setCategory(request.category());
         transaction.setSubcategory(request.subcategory());
         transaction.setSpentFor(request.spentFor());
