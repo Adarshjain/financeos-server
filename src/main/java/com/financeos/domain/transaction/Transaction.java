@@ -58,8 +58,9 @@ public class Transaction {
     @Column(nullable = false)
     private TransactionSource source;
 
-    @Column(name = "original_hash", unique = true, nullable = false)
-    private String originalHash;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TransactionType type;
 
     @Type(JsonType.class)
     @Column(columnDefinition = "jsonb")
@@ -76,12 +77,12 @@ public class Transaction {
     }
 
     public Transaction(Account account, LocalDate date, BigDecimal amount, String description,
-            TransactionSource source, String originalHash) {
+            TransactionSource source, TransactionType type) {
         this.account = account;
         this.date = date;
         this.amount = amount;
         this.description = description;
         this.source = source;
-        this.originalHash = originalHash;
+        this.type = type;
     }
 }
