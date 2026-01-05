@@ -10,26 +10,19 @@ import java.util.Map;
 import java.util.UUID;
 
 public record CreateTransactionRequest(
-        UUID accountId,
+        @NotNull(message = "Account ID is required") UUID accountId,
 
-        @NotNull(message = "Date is required")
-        LocalDate date,
+        @NotNull(message = "Date is required") LocalDate date,
 
-        @NotNull(message = "Amount is required")
-        BigDecimal amount,
+        @NotNull(message = "Amount is required") BigDecimal amount,
 
-        @NotBlank(message = "Description is required")
-        String description,
+        @NotBlank(message = "Description is required") String description,
 
         String category,
-
         String subcategory,
-
         String spentFor,
 
-        @NotNull(message = "Source is required")
-        TransactionSource source,
+        @NotNull(message = "Source is required") TransactionSource source,
 
-        Map<String, Object> metadata
-) {}
-
+        Map<String, Object> metadata) {
+}
