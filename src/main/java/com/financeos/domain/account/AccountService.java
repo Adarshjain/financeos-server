@@ -3,11 +3,11 @@ package com.financeos.domain.account;
 import com.financeos.api.account.dto.*;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.core.security.UserContext;
+import com.financeos.domain.user.User;
+import com.financeos.domain.user.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.financeos.domain.user.UserRepository;
-import com.financeos.domain.user.User;
-import com.financeos.core.security.UserContext;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,6 +34,48 @@ public class AccountService {
         account.setExcludeFromNetAsset(request.excludeFromNetAsset() != null ? request.excludeFromNetAsset() : false);
         account.setFinancialPosition(request.financialPosition());
         account.setDescription(request.description());
+
+        switch (request) {
+            case CreateAccountRequest.BankAccountRequest bankReq -> {
+                AccountBankDetails details = new AccountBankDetails(
+                        account,
+                        bankReq.openingBalance(),
+                        bankReq.last4());
+                details.setUser(user);
+                account.setBankDetails(details);
+            }
+            case CreateAccountRequest.CreditCardRequest ccReq -> {
+                AccountCreditCardDetails details = new AccountCreditCardDetails(
+                        account,
+                        ccReq.last4(),
+                        ccReq.creditLimit(),
+                        ccReq.paymentDueDay(),
+                        ccReq.gracePeriodDays(),
+                        ccReq.statementPassword());
+                details.setUser(user);
+                account.setCreditCardDetails(details);
+            }
+            case CreateAccountRequest.StockRequest stockReq -> {
+                AccountStockDetails details = new AccountStockDetails(
+                        account,
+                        stockReq.instrumentCode(),
+                        stockReq.lastTradedPrice());
+                details.setUser(user);
+                account.setStockDetails(details);
+            }
+            case CreateAccountRequest.MutualFundRequest mfReq -> {
+                AccountMutualFundDetails details = new AccountMutualFundDetails(
+                        account,
+                        mfReq.instrumentCode(),
+                        mfReq.lastTradedPrice());
+                details.setUser(user);
+                account.setMutualFundDetails(details);
+            }
+            case CreateAccountRequest.GenericAccountRequest genericReq -> {
+                // No extra details
+            }
+        }
+
         return accountRepository.save(account);
     }
 
@@ -46,6 +88,86 @@ public class AccountService {
     public Account getAccountById(UUID id) {
         return accountRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", id));
+    }
+
+    public Account updateAccount(UUID id, UpdateAccountRequest request) {
+        Account account = getAccountById(id);
+
+        if (account.getType() != request.type()) {
+            throw new ValidationException("Changing account type is not supported");
+        }
+
+        account.setName(request.name());
+        account.setExcludeFromNetAsset(request.excludeFromNetAsset() != null ? request.excludeFromNetAsset() : false);
+        account.setFinancialPosition(request.financialPosition());
+        account.setDescription(request.description());
+
+        switch (request) {
+            case UpdateAccountRequest.BankAccountRequest bankReq -> {
+                AccountBankDetails details = account.getBankDetails();
+                if (details == null) {
+                    details = new AccountBankDetails(account, bankReq.openingBalance(), bankReq.last4());
+                    details.setUser(account.getUser());
+                    account.setBankDetails(details);
+                } else {
+                    details.setOpeningBalance(bankReq.openingBalance());
+                    details.setLast4(bankReq.last4());
+                }
+            }
+            case UpdateAccountRequest.CreditCardRequest ccReq -> {
+                AccountCreditCardDetails details = account.getCreditCardDetails();
+                if (details == null) {
+                    details = new AccountCreditCardDetails(
+                            account,
+                            ccReq.last4(),
+                            ccReq.creditLimit(),
+                            ccReq.paymentDueDay(),
+                            ccReq.gracePeriodDays(),
+                            ccReq.statementPassword());
+                    details.setUser(account.getUser());
+                    account.setCreditCardDetails(details);
+                } else {
+                    details.setLast4(ccReq.last4());
+                    details.setCreditLimit(ccReq.creditLimit());
+                    details.setPaymentDueDay(ccReq.paymentDueDay());
+                    details.setGracePeriodDays(ccReq.gracePeriodDays());
+                    details.setStatementPassword(ccReq.statementPassword());
+                }
+            }
+            case UpdateAccountRequest.StockRequest stockReq -> {
+                AccountStockDetails details = account.getStockDetails();
+                if (details == null) {
+                    details = new AccountStockDetails(
+                            account,
+                            stockReq.instrumentCode(),
+                            stockReq.lastTradedPrice());
+                    details.setUser(account.getUser());
+                    account.setStockDetails(details);
+                } else {
+                    details.setInstrumentCode(stockReq.instrumentCode());
+                    details.setLastTradedPrice(stockReq.lastTradedPrice());
+                }
+            }
+            case UpdateAccountRequest.MutualFundRequest mfReq -> {
+                AccountMutualFundDetails details = account.getMutualFundDetails();
+                if (details == null) {
+                    details = new AccountMutualFundDetails(
+                            account,
+                            mfReq.instrumentCode(),
+                            mfReq.lastTradedPrice());
+                    details.setUser(account.getUser());
+                    account.setMutualFundDetails(details);
+                } else {
+                    details.setInstrumentCode(mfReq.instrumentCode());
+                    details.setLastTradedPrice(mfReq.lastTradedPrice());
+                }
+            }
+            case UpdateAccountRequest.GenericAccountRequest genericReq -> {
+                // No extra details to update
+            }
+        }
+
+        return accountRepository.save(account);
     }
 
     public Account addBankDetails(UUID accountId, BankDetailsRequest request) {
