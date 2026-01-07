@@ -11,13 +11,13 @@ import java.math.BigDecimal;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type", visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = CreateAccountRequest.BankAccountRequest.class, name = "bank_account"),
-        @JsonSubTypes.Type(value = CreateAccountRequest.CreditCardRequest.class, name = "credit_card"),
-        @JsonSubTypes.Type(value = CreateAccountRequest.StockRequest.class, name = "stock"),
-        @JsonSubTypes.Type(value = CreateAccountRequest.MutualFundRequest.class, name = "mutual_fund"),
-        @JsonSubTypes.Type(value = CreateAccountRequest.GenericAccountRequest.class, name = "generic")
+        @JsonSubTypes.Type(value = UpdateAccountRequest.BankAccountRequest.class, name = "bank_account"),
+        @JsonSubTypes.Type(value = UpdateAccountRequest.CreditCardRequest.class, name = "credit_card"),
+        @JsonSubTypes.Type(value = UpdateAccountRequest.StockRequest.class, name = "stock"),
+        @JsonSubTypes.Type(value = UpdateAccountRequest.MutualFundRequest.class, name = "mutual_fund"),
+        @JsonSubTypes.Type(value = UpdateAccountRequest.GenericAccountRequest.class, name = "generic")
 })
-public sealed interface CreateAccountRequest {
+public sealed interface UpdateAccountRequest {
     @NotBlank(message = "Name is required")
     String name();
 
@@ -37,7 +37,7 @@ public sealed interface CreateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             BigDecimal openingBalance,
-            String last4) implements CreateAccountRequest {
+            String last4) implements UpdateAccountRequest {
     }
 
     record CreditCardRequest(
@@ -50,7 +50,7 @@ public sealed interface CreateAccountRequest {
             @NotNull(message = "Credit limit is required") BigDecimal creditLimit,
             @NotNull(message = "Payment due day is required") Integer paymentDueDay,
             @NotNull(message = "Grace period days is required") Integer gracePeriodDays,
-            String statementPassword) implements CreateAccountRequest {
+            String statementPassword) implements UpdateAccountRequest {
     }
 
     record StockRequest(
@@ -60,7 +60,7 @@ public sealed interface CreateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             @NotBlank(message = "Instrument code is required") String instrumentCode,
-            BigDecimal lastTradedPrice) implements CreateAccountRequest {
+            BigDecimal lastTradedPrice) implements UpdateAccountRequest {
     }
 
     record MutualFundRequest(
@@ -70,7 +70,7 @@ public sealed interface CreateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             @NotBlank(message = "Instrument code is required") String instrumentCode,
-            BigDecimal lastTradedPrice) implements CreateAccountRequest {
+            BigDecimal lastTradedPrice) implements UpdateAccountRequest {
     }
 
     record GenericAccountRequest(
@@ -78,6 +78,6 @@ public sealed interface CreateAccountRequest {
             @NotNull(message = "Account type is required") AccountType type,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
-            String description) implements CreateAccountRequest {
+            String description) implements UpdateAccountRequest {
     }
 }

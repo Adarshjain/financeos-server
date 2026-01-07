@@ -2,22 +2,33 @@
 # FinanceOS Backend Runner
 # Usage: ./run.sh
 
+# Change to script directory
 cd "$(dirname "$0")"
 
-# Load .env if exists
+# Load .env if exists (handling Windows line endings)
 if [ -f .env ]; then
-    export $(grep -v '^#' .env | xargs)
+    # Use sed to remove \r (CR) and grep to skip comments/empty lines
+    export $(sed 's/\r$//' .env | grep -v '^#' | grep -v '^\s*$' | xargs)
 fi
 
 # Defaults
-export JAVA_HOME="${JAVA_HOME:-/opt/homebrew/opt/openjdk@21}"
-export PATH="$JAVA_HOME/bin:$PATH"
 export DB_HOST="${DB_HOST:-localhost}"
 export DB_PORT="${DB_PORT:-5432}"
 export DB_NAME="${DB_NAME:-financeos}"
-export DB_USERNAME="${DB_USERNAME:-$(whoami)}"
-export DB_PASSWORD="${DB_PASSWORD:-}"
-export CORS_ORIGINS="${CORS_ORIGINS:-http://localhost:3000}"
+export DB_USERNAME="${DB_USERNAME:-financeos}"
+export DB_PASSWORD="${DB_PASSWORD:-financeos}"
+export CORS_ORIGINS="${CORS_ORIGINS:-http://localhost:3001}"
+
+# Check for Java
+if ! command -v java &> /dev/null; then
+    if [ -n "$JAVA_HOME" ] && [ -x "$JAVA_HOME/bin/java" ]; then
+        export PATH="$JAVA_HOME/bin:$PATH"
+    else
+        echo "ERROR: Java is not installed or not in PATH!"
+        echo "Please install Java 21."
+        exit 1
+    fi
+fi
 
 # Check encryption key
 if [ -z "$ENCRYPTION_KEY" ]; then
@@ -37,6 +48,9 @@ echo "🚀 Starting FinanceOS Backend..."
 echo "   Database: $DB_NAME@$DB_HOST:$DB_PORT"
 echo "   CORS: $CORS_ORIGINS"
 echo ""
+
+# Ensure mvnw is executable
+chmod +x mvnw 2>/dev/null
 
 ./mvnw spring-boot:run
 
