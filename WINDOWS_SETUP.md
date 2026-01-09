@@ -112,7 +112,7 @@ DB_NAME=financeos
 DB_USERNAME=postgres
 DB_PASSWORD=your_postgres_password_here
 ENCRYPTION_KEY=your_generated_encryption_key_here
-CORS_ORIGINS=http://localhost:3000
+CORS_ORIGINS=http://localhost:3001
 ```
 
 Replace:

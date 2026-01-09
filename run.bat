@@ -37,7 +37,7 @@ if "%DB_PORT%"=="" set DB_PORT=5432
 if "%DB_NAME%"=="" set DB_NAME=financeos
 if "%DB_USERNAME%"=="" set DB_USERNAME=%USERNAME%
 if "%DB_PASSWORD%"=="" set DB_PASSWORD=
-if "%CORS_ORIGINS%"=="" set CORS_ORIGINS=http://localhost:3000
+if "%CORS_ORIGINS%"=="" set CORS_ORIGINS=http://localhost:3001
 
 REM Check encryption key
 if "%ENCRYPTION_KEY%"=="" (

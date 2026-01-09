@@ -53,7 +53,7 @@ export DB_NAME=financeos
 export DB_USERNAME=your_username
 export DB_PASSWORD=your_password
 export ENCRYPTION_KEY=your-32-byte-base64-key
-export CORS_ORIGINS=http://localhost:3000
+export CORS_ORIGINS=http://localhost:3001
 ```
 
 ### 4. Run the Application
@@ -178,14 +178,14 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 
 ## Configuration Reference
 
-| Property | Environment Variable | Default | Description |
-|----------|---------------------|---------|-------------|
+| Property | Environment Variable | Default                  | Description |
+|----------|---------------------|--------------------------|-------------|
 | `spring.datasource.url` | `DB_HOST`, `DB_PORT`, `DB_NAME` | localhost:5432/financeos | Database connection |
-| `spring.datasource.username` | `DB_USERNAME` | financeos | Database username |
-| `spring.datasource.password` | `DB_PASSWORD` | financeos | Database password |
-| `app.encryption.key` | `ENCRYPTION_KEY` | - | AES-256 encryption key (base64) |
-| `app.cors.allowed-origins` | `CORS_ORIGINS` | http://localhost:3000 | CORS allowed origins |
-| `server.port` | `SERVER_PORT` | 8080 | Server port |
+| `spring.datasource.username` | `DB_USERNAME` | financeos                | Database username |
+| `spring.datasource.password` | `DB_PASSWORD` | financeos                | Database password |
+| `app.encryption.key` | `ENCRYPTION_KEY` | -                        | AES-256 encryption key (base64) |
+| `app.cors.allowed-origins` | `CORS_ORIGINS` | http://localhost:3001    | CORS allowed origins |
+| `server.port` | `SERVER_PORT` | 8080                     | Server port |
 
 ## License
 
