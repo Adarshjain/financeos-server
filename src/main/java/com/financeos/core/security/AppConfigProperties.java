@@ -39,7 +39,7 @@ public class AppConfigProperties {
     }
 
     public static class Cors {
-        private String allowedOrigins = "http://localhost:3000";
+        private String allowedOrigins = "http://localhost:3001";
 
         public String getAllowedOrigins() {
             return allowedOrigins;

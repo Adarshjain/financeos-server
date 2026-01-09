@@ -64,8 +64,8 @@ app:
   encryption:
     key: ${ENCRYPTION_KEY:your-32-byte-base64-encoded-key-here==}
   cors:
-    allowed-origins: ${CORS_ORIGINS:http://localhost:3000}
-  ui-path: ${UI_PATH:http://localhost:3000}
+    allowed-origins: ${CORS_ORIGINS:http://localhost:3001}
+  ui-path: ${UI_PATH:http://localhost:3001}
 
 # Gmail OAuth configuration
 gmail:
