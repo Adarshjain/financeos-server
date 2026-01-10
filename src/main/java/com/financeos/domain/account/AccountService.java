@@ -3,11 +3,11 @@ package com.financeos.domain.account;
 import com.financeos.api.account.dto.*;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.core.security.UserContext;
+import com.financeos.domain.user.User;
+import com.financeos.domain.user.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.financeos.domain.user.UserRepository;
-import com.financeos.domain.user.User;
-import com.financeos.core.security.UserContext;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +24,7 @@ public class AccountService {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
     }
-
+    
     public Account createAccount(CreateAccountRequest request) {
         UUID userId = UserContext.getCurrentUserId();
         User user = userRepository.getReferenceById(userId);
@@ -34,6 +34,30 @@ public class AccountService {
         account.setExcludeFromNetAsset(request.excludeFromNetAsset() != null ? request.excludeFromNetAsset() : false);
         account.setFinancialPosition(request.financialPosition());
         account.setDescription(request.description());
+
+        switch (request) {
+            case CreateAccountRequest.BankAccountRequest bankReq -> {
+                AccountBankDetails details = new AccountBankDetails(
+                        account,
+                        bankReq.openingBalance(),
+                        bankReq.last4());
+                details.setUser(user);
+                account.setBankDetails(details);
+            }
+            case CreateAccountRequest.CreditCardRequest ccReq -> {
+                account = addCreditCardDetails(account, ccReq);
+            }
+            case CreateAccountRequest.StockRequest stockReq -> {
+                account = addStockDetails(account, stockReq);
+            }
+            case CreateAccountRequest.MutualFundRequest mfReq -> {
+                account = addMutualFundDetails(account, mfReq);
+            }
+            case CreateAccountRequest.GenericAccountRequest genericReq -> {
+                // No extra details to update
+            }
+        }
+
         return accountRepository.save(account);
     }
 
@@ -48,9 +72,32 @@ public class AccountService {
                 .orElseThrow(() -> new ResourceNotFoundException("Account", id));
     }
 
-    public Account addBankDetails(UUID accountId, BankDetailsRequest request) {
-        Account account = getAccountById(accountId);
+    public Account updateAccount(UUID id, CreateAccountRequest request) {
+        Account account = getAccountById(id);
 
+        if (account.getType() != request.type()) {
+            throw new ValidationException("Changing account type is not supported");
+        }
+
+        account.setName(request.name());
+        account.setExcludeFromNetAsset(request.excludeFromNetAsset() != null ? request.excludeFromNetAsset() : false);
+        account.setFinancialPosition(request.financialPosition());
+        account.setDescription(request.description());
+
+        switch (request) {
+            case CreateAccountRequest.BankAccountRequest bankReq -> account = addBankDetails(account, bankReq);
+            case CreateAccountRequest.CreditCardRequest ccReq -> account = addCreditCardDetails(account, ccReq);
+            case CreateAccountRequest.StockRequest stockReq -> account = addStockDetails(account, stockReq);
+            case CreateAccountRequest.MutualFundRequest mfReq -> account = addMutualFundDetails(account, mfReq);
+            case CreateAccountRequest.GenericAccountRequest genericReq -> {
+                // No extra details to update
+            }
+        }
+
+        return accountRepository.save(account);
+    }
+
+    public Account addBankDetails(Account account, CreateAccountRequest.BankAccountRequest request) {
         if (account.getType() != AccountType.bank_account) {
             throw new ValidationException("Bank details can only be added to bank accounts");
         }
@@ -68,9 +115,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account addCreditCardDetails(UUID accountId, CreditCardDetailsRequest request) {
-        Account account = getAccountById(accountId);
-
+    public Account addCreditCardDetails(Account account, CreateAccountRequest.CreditCardRequest request) {
         if (account.getType() != AccountType.credit_card) {
             throw new ValidationException("Credit card details can only be added to credit card accounts");
         }
@@ -98,9 +143,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account addStockDetails(UUID accountId, StockDetailsRequest request) {
-        Account account = getAccountById(accountId);
-
+    public Account addStockDetails(Account account, CreateAccountRequest.StockRequest request) {
         if (account.getType() != AccountType.stock) {
             throw new ValidationException("Stock details can only be added to stock accounts");
         }
@@ -118,9 +161,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account addMutualFundDetails(UUID accountId, MutualFundDetailsRequest request) {
-        Account account = getAccountById(accountId);
-
+    public Account addMutualFundDetails(Account account, CreateAccountRequest.MutualFundRequest request) {
         if (account.getType() != AccountType.mutual_fund) {
             throw new ValidationException("Mutual fund details can only be added to mutual fund accounts");
         }
@@ -136,5 +177,9 @@ public class AccountService {
         }
 
         return accountRepository.save(account);
+    }
+
+    public void deleteAccount(UUID id) {
+        accountRepository.deleteById(id);
     }
 }
