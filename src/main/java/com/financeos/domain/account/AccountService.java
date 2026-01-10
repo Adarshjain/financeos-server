@@ -24,7 +24,7 @@ public class AccountService {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
     }
-
+    
     public Account createAccount(CreateAccountRequest request) {
         UUID userId = UserContext.getCurrentUserId();
         User user = userRepository.getReferenceById(userId);
@@ -45,34 +45,16 @@ public class AccountService {
                 account.setBankDetails(details);
             }
             case CreateAccountRequest.CreditCardRequest ccReq -> {
-                AccountCreditCardDetails details = new AccountCreditCardDetails(
-                        account,
-                        ccReq.last4(),
-                        ccReq.creditLimit(),
-                        ccReq.paymentDueDay(),
-                        ccReq.gracePeriodDays(),
-                        ccReq.statementPassword());
-                details.setUser(user);
-                account.setCreditCardDetails(details);
+                account = addCreditCardDetails(account, ccReq);
             }
             case CreateAccountRequest.StockRequest stockReq -> {
-                AccountStockDetails details = new AccountStockDetails(
-                        account,
-                        stockReq.instrumentCode(),
-                        stockReq.lastTradedPrice());
-                details.setUser(user);
-                account.setStockDetails(details);
+                account = addStockDetails(account, stockReq);
             }
             case CreateAccountRequest.MutualFundRequest mfReq -> {
-                AccountMutualFundDetails details = new AccountMutualFundDetails(
-                        account,
-                        mfReq.instrumentCode(),
-                        mfReq.lastTradedPrice());
-                details.setUser(user);
-                account.setMutualFundDetails(details);
+                account = addMutualFundDetails(account, mfReq);
             }
             case CreateAccountRequest.GenericAccountRequest genericReq -> {
-                // No extra details
+                // No extra details to update
             }
         }
 
@@ -90,7 +72,7 @@ public class AccountService {
                 .orElseThrow(() -> new ResourceNotFoundException("Account", id));
     }
 
-    public Account updateAccount(UUID id, UpdateAccountRequest request) {
+    public Account updateAccount(UUID id, CreateAccountRequest request) {
         Account account = getAccountById(id);
 
         if (account.getType() != request.type()) {
@@ -103,66 +85,11 @@ public class AccountService {
         account.setDescription(request.description());
 
         switch (request) {
-            case UpdateAccountRequest.BankAccountRequest bankReq -> {
-                AccountBankDetails details = account.getBankDetails();
-                if (details == null) {
-                    details = new AccountBankDetails(account, bankReq.openingBalance(), bankReq.last4());
-                    details.setUser(account.getUser());
-                    account.setBankDetails(details);
-                } else {
-                    details.setOpeningBalance(bankReq.openingBalance());
-                    details.setLast4(bankReq.last4());
-                }
-            }
-            case UpdateAccountRequest.CreditCardRequest ccReq -> {
-                AccountCreditCardDetails details = account.getCreditCardDetails();
-                if (details == null) {
-                    details = new AccountCreditCardDetails(
-                            account,
-                            ccReq.last4(),
-                            ccReq.creditLimit(),
-                            ccReq.paymentDueDay(),
-                            ccReq.gracePeriodDays(),
-                            ccReq.statementPassword());
-                    details.setUser(account.getUser());
-                    account.setCreditCardDetails(details);
-                } else {
-                    details.setLast4(ccReq.last4());
-                    details.setCreditLimit(ccReq.creditLimit());
-                    details.setPaymentDueDay(ccReq.paymentDueDay());
-                    details.setGracePeriodDays(ccReq.gracePeriodDays());
-                    details.setStatementPassword(ccReq.statementPassword());
-                }
-            }
-            case UpdateAccountRequest.StockRequest stockReq -> {
-                AccountStockDetails details = account.getStockDetails();
-                if (details == null) {
-                    details = new AccountStockDetails(
-                            account,
-                            stockReq.instrumentCode(),
-                            stockReq.lastTradedPrice());
-                    details.setUser(account.getUser());
-                    account.setStockDetails(details);
-                } else {
-                    details.setInstrumentCode(stockReq.instrumentCode());
-                    details.setLastTradedPrice(stockReq.lastTradedPrice());
-                }
-            }
-            case UpdateAccountRequest.MutualFundRequest mfReq -> {
-                AccountMutualFundDetails details = account.getMutualFundDetails();
-                if (details == null) {
-                    details = new AccountMutualFundDetails(
-                            account,
-                            mfReq.instrumentCode(),
-                            mfReq.lastTradedPrice());
-                    details.setUser(account.getUser());
-                    account.setMutualFundDetails(details);
-                } else {
-                    details.setInstrumentCode(mfReq.instrumentCode());
-                    details.setLastTradedPrice(mfReq.lastTradedPrice());
-                }
-            }
-            case UpdateAccountRequest.GenericAccountRequest genericReq -> {
+            case CreateAccountRequest.BankAccountRequest bankReq -> account = addBankDetails(account, bankReq);
+            case CreateAccountRequest.CreditCardRequest ccReq -> account = addCreditCardDetails(account, ccReq);
+            case CreateAccountRequest.StockRequest stockReq -> account = addStockDetails(account, stockReq);
+            case CreateAccountRequest.MutualFundRequest mfReq -> account = addMutualFundDetails(account, mfReq);
+            case CreateAccountRequest.GenericAccountRequest genericReq -> {
                 // No extra details to update
             }
         }
@@ -170,9 +97,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account addBankDetails(UUID accountId, BankDetailsRequest request) {
-        Account account = getAccountById(accountId);
-
+    public Account addBankDetails(Account account, CreateAccountRequest.BankAccountRequest request) {
         if (account.getType() != AccountType.bank_account) {
             throw new ValidationException("Bank details can only be added to bank accounts");
         }
@@ -190,9 +115,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account addCreditCardDetails(UUID accountId, CreditCardDetailsRequest request) {
-        Account account = getAccountById(accountId);
-
+    public Account addCreditCardDetails(Account account, CreateAccountRequest.CreditCardRequest request) {
         if (account.getType() != AccountType.credit_card) {
             throw new ValidationException("Credit card details can only be added to credit card accounts");
         }
@@ -220,9 +143,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account addStockDetails(UUID accountId, StockDetailsRequest request) {
-        Account account = getAccountById(accountId);
-
+    public Account addStockDetails(Account account, CreateAccountRequest.StockRequest request) {
         if (account.getType() != AccountType.stock) {
             throw new ValidationException("Stock details can only be added to stock accounts");
         }
@@ -240,9 +161,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account addMutualFundDetails(UUID accountId, MutualFundDetailsRequest request) {
-        Account account = getAccountById(accountId);
-
+    public Account addMutualFundDetails(Account account, CreateAccountRequest.MutualFundRequest request) {
         if (account.getType() != AccountType.mutual_fund) {
             throw new ValidationException("Mutual fund details can only be added to mutual fund accounts");
         }
@@ -258,5 +177,9 @@ public class AccountService {
         }
 
         return accountRepository.save(account);
+    }
+
+    public void deleteAccount(UUID id) {
+        accountRepository.deleteById(id);
     }
 }

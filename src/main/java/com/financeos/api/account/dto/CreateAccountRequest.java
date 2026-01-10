@@ -37,7 +37,8 @@ public sealed interface CreateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             BigDecimal openingBalance,
-            String last4) implements CreateAccountRequest {
+            String last4
+    ) implements CreateAccountRequest {
     }
 
     record CreditCardRequest(
@@ -50,7 +51,8 @@ public sealed interface CreateAccountRequest {
             @NotNull(message = "Credit limit is required") BigDecimal creditLimit,
             @NotNull(message = "Payment due day is required") Integer paymentDueDay,
             @NotNull(message = "Grace period days is required") Integer gracePeriodDays,
-            String statementPassword) implements CreateAccountRequest {
+            String statementPassword
+    ) implements CreateAccountRequest {
     }
 
     record StockRequest(
@@ -60,7 +62,8 @@ public sealed interface CreateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             @NotBlank(message = "Instrument code is required") String instrumentCode,
-            BigDecimal lastTradedPrice) implements CreateAccountRequest {
+            BigDecimal lastTradedPrice
+    ) implements CreateAccountRequest {
     }
 
     record MutualFundRequest(
@@ -70,7 +73,8 @@ public sealed interface CreateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             @NotBlank(message = "Instrument code is required") String instrumentCode,
-            BigDecimal lastTradedPrice) implements CreateAccountRequest {
+            BigDecimal lastTradedPrice
+    ) implements CreateAccountRequest {
     }
 
     record GenericAccountRequest(
@@ -78,6 +82,7 @@ public sealed interface CreateAccountRequest {
             @NotNull(message = "Account type is required") AccountType type,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
-            String description) implements CreateAccountRequest {
+            String description
+    ) implements CreateAccountRequest {
     }
 }

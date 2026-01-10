@@ -37,7 +37,8 @@ public sealed interface UpdateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             BigDecimal openingBalance,
-            String last4) implements UpdateAccountRequest {
+            String last4
+    ) implements UpdateAccountRequest {
     }
 
     record CreditCardRequest(
@@ -50,7 +51,8 @@ public sealed interface UpdateAccountRequest {
             @NotNull(message = "Credit limit is required") BigDecimal creditLimit,
             @NotNull(message = "Payment due day is required") Integer paymentDueDay,
             @NotNull(message = "Grace period days is required") Integer gracePeriodDays,
-            String statementPassword) implements UpdateAccountRequest {
+            String statementPassword
+    ) implements UpdateAccountRequest {
     }
 
     record StockRequest(
@@ -60,7 +62,8 @@ public sealed interface UpdateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             @NotBlank(message = "Instrument code is required") String instrumentCode,
-            BigDecimal lastTradedPrice) implements UpdateAccountRequest {
+            BigDecimal lastTradedPrice
+    ) implements UpdateAccountRequest {
     }
 
     record MutualFundRequest(
@@ -70,7 +73,8 @@ public sealed interface UpdateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             @NotBlank(message = "Instrument code is required") String instrumentCode,
-            BigDecimal lastTradedPrice) implements UpdateAccountRequest {
+            BigDecimal lastTradedPrice
+    ) implements UpdateAccountRequest {
     }
 
     record GenericAccountRequest(
@@ -78,6 +82,7 @@ public sealed interface UpdateAccountRequest {
             @NotNull(message = "Account type is required") AccountType type,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
-            String description) implements UpdateAccountRequest {
+            String description
+    ) implements UpdateAccountRequest {
     }
 }
