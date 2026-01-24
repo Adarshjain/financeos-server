@@ -1,6 +1,17 @@
 -- FinanceOS Initial Schema
 -- V1: Core tables for personal finance tracking
 
+/*
+  INITIAL SETUP (Run as 'postgres' superuser)
+  -------------------------------------------
+  CREATE DATABASE financeos;
+  CREATE USER financeos WITH PASSWORD 'financeos';
+  GRANT ALL PRIVILEGES ON DATABASE financeos TO financeos;
+  
+  -- Connect to the new database before running the rest of the script
+  \c financeos
+*/
+
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
