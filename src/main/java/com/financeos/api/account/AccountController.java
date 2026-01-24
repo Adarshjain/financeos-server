@@ -42,36 +42,17 @@ public class AccountController {
         return ResponseEntity.ok(AccountResponse.from(account));
     }
 
-    @PostMapping("/{id}/bank-details")
-    public ResponseEntity<AccountResponse> addBankDetails(
+    @PutMapping("/{id}")
+    public ResponseEntity<AccountResponse> updateAccount(
             @PathVariable UUID id,
-            @Valid @RequestBody BankDetailsRequest request) {
-        Account account = accountService.addBankDetails(id, request);
+            @Valid @RequestBody CreateAccountRequest request) {
+        Account account = accountService.updateAccount(id, request);
         return ResponseEntity.ok(AccountResponse.from(account));
     }
 
-    @PostMapping("/{id}/credit-card-details")
-    public ResponseEntity<AccountResponse> addCreditCardDetails(
-            @PathVariable UUID id,
-            @Valid @RequestBody CreditCardDetailsRequest request) {
-        Account account = accountService.addCreditCardDetails(id, request);
-        return ResponseEntity.ok(AccountResponse.from(account));
-    }
-
-    @PostMapping("/{id}/stock-details")
-    public ResponseEntity<AccountResponse> addStockDetails(
-            @PathVariable UUID id,
-            @Valid @RequestBody StockDetailsRequest request) {
-        Account account = accountService.addStockDetails(id, request);
-        return ResponseEntity.ok(AccountResponse.from(account));
-    }
-
-    @PostMapping("/{id}/mutual-fund-details")
-    public ResponseEntity<AccountResponse> addMutualFundDetails(
-            @PathVariable UUID id,
-            @Valid @RequestBody MutualFundDetailsRequest request) {
-        Account account = accountService.addMutualFundDetails(id, request);
-        return ResponseEntity.ok(AccountResponse.from(account));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAccount(@PathVariable UUID id) {
+        accountService.deleteAccount(id);
+        return ResponseEntity.ok().build();
     }
 }
-
