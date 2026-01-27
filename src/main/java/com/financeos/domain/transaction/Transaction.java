@@ -1,6 +1,7 @@
 package com.financeos.domain.transaction;
 
 import com.financeos.domain.account.Account;
+import com.financeos.domain.category.Category;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,10 +12,13 @@ import org.hibernate.annotations.Filter;
 import com.financeos.domain.user.User;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import com.financeos.core.util.UuidGenerator;
 
 @Entity
 @Table(name = "transactions")
@@ -36,7 +40,7 @@ public class Transaction {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @Column(nullable = false)
+    @Column(name = "transaction_date", nullable = false)
     private LocalDate date;
 
     @Column(nullable = false, precision = 19, scale = 4)
@@ -45,14 +49,15 @@ public class Transaction {
     @Column(nullable = false)
     private String description;
 
-    @Column
-    private String category;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "transaction_categories", joinColumns = @JoinColumn(name = "transaction_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories = new HashSet<>();
 
-    @Column
-    private String subcategory;
+    @Column(name = "is_transaction_excluded", nullable = false)
+    private Boolean isTransactionExcluded = false;
 
-    @Column(name = "spent_for")
-    private String spentFor;
+    @Column(name = "is_transaction_under_monitoring", nullable = false)
+    private Boolean isTransactionUnderMonitoring = false;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -67,12 +72,15 @@ public class Transaction {
     private Map<String, Object> metadata;
 
     @Column(name = "created_at")
-    private Instant createdAt;
+    private LocalDateTime createdAt;
 
     @PrePersist
     protected void onCreate() {
+        if (id == null) {
+            id = UuidGenerator.generateUuid7();
+        }
         if (createdAt == null) {
-            createdAt = Instant.now();
+            createdAt = LocalDateTime.now();
         }
     }
 

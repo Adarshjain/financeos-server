@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Filter;
 import com.financeos.domain.user.User;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -44,10 +44,10 @@ public class Account {
     private String description;
 
     @Column(name = "created_at")
-    private Instant createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
 
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private AccountBankDetails bankDetails;
@@ -63,7 +63,7 @@ public class Account {
 
     @PrePersist
     protected void onCreate() {
-        Instant now = Instant.now();
+        LocalDateTime now = LocalDateTime.now();
         if (createdAt == null) {
             createdAt = now;
         }
@@ -74,7 +74,7 @@ public class Account {
 
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = Instant.now();
+        updatedAt = LocalDateTime.now();
     }
 
     public Account(String name, AccountType type) {

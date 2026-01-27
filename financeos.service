@@ -1,0 +1,22 @@
+[Unit]
+Description=FinanceOS Backend Service
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/financeos-server
+EnvironmentFile=/home/ubuntu/financeos-server/.env
+ExecStart=/usr/bin/java -Xmx1024m -jar /home/ubuntu/financeos-server/target/backend-1.0.0.jar --spring.profiles.active=prod
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=financeos
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

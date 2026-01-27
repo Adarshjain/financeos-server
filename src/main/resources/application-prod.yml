@@ -1,0 +1,94 @@
+spring:
+  application:
+    name: financeos-backend
+
+  datasource:
+    url: jdbc:oracle:thin:@financeosdb_medium?TNS_ADMIN=/home/ubuntu/financeos-server/wallet
+    username: ${DB_USERNAME:ADMIN}
+    password: ${DB_PASSWORD}
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      connection-timeout: 20000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.OracleDialect
+        format_sql: false
+    database-platform: org.hibernate.dialect.OracleDialect
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration/oracle
+    clean-disabled: false
+    clean-on-validation-error: true
+
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    timeout: 24h
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: true
+        same-site: strict
+        max-age: 86400
+        name: FINANCEOS_SESSION
+
+# Application-specific configuration
+app:
+  encryption:
+    key: ${ENCRYPTION_KEY}
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://129.159.22.124:8080}
+  ui-path: ${UI_PATH:http://129.159.22.124:8080}
+
+# Gmail OAuth configuration
+gmail:
+  oauth:
+    client-id: ${GMAIL_CLIENT_ID}
+    client-secret: ${GMAIL_CLIENT_SECRET}
+    redirect-uri: ${GMAIL_REDIRECT_URI:http://localhost:8080/api/v1/gmail/oauth/callback}
+
+# Google SSO configuration
+google:
+  oauth:
+    client-id: ${GOOGLE_CLIENT_ID}
+    client-secret: ${GOOGLE_CLIENT_SECRET}
+    redirect-uri: ${GOOGLE_OAUTH_REDIRECT_URI:http://localhost:8080/api/v1/auth/google/callback}
+
+logging:
+  level:
+    com.financeos: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+  file:
+    name: /home/ubuntu/financeos-server/logs/application.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 30

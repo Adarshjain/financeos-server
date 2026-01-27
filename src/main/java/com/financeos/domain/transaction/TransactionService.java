@@ -6,12 +6,15 @@ import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.category.Category;
+import com.financeos.domain.category.CategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @Transactional
@@ -19,11 +22,14 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountRepository;
+    private final CategoryService categoryService;
 
     public TransactionService(TransactionRepository transactionRepository,
-            AccountRepository accountRepository) {
+            AccountRepository accountRepository,
+            CategoryService categoryService) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
+        this.categoryService = categoryService;
     }
 
     public Transaction createTransaction(CreateTransactionRequest request) {
@@ -51,10 +57,22 @@ public class TransactionService {
                 type); // Store type
 
         transaction.setUser(account.getUser());
-        transaction.setCategory(request.category());
-        transaction.setSubcategory(request.subcategory());
-        transaction.setSpentFor(request.spentFor());
         transaction.setMetadata(request.metadata());
+
+        // Set monitoring flags (default to false if not provided)
+        transaction.setIsTransactionExcluded(
+                request.isTransactionExcluded() != null ? request.isTransactionExcluded() : false);
+        transaction.setIsTransactionUnderMonitoring(
+                request.isTransactionUnderMonitoring() != null ? request.isTransactionUnderMonitoring() : false);
+
+        // Associate categories if provided
+        if (request.categoryIds() != null && !request.categoryIds().isEmpty()) {
+            List<Category> categories = categoryService.findCategoriesByIds(request.categoryIds());
+            if (categories.size() != request.categoryIds().size()) {
+                throw new ValidationException("One or more category IDs are invalid");
+            }
+            transaction.getCategories().addAll(categories);
+        }
 
         return transactionRepository.save(transaction);
     }

@@ -20,9 +20,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
     List<Transaction> findByDateRange(@Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
 
-    @Query("SELECT t FROM Transaction t WHERE t.category = :category ORDER BY t.date DESC")
-    List<Transaction> findByCategory(@Param("category") String category);
-
     @Query("SELECT t FROM Transaction t ORDER BY t.date DESC, t.createdAt DESC")
     Page<Transaction> findAllOrdered(Pageable pageable);
 }
