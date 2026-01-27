@@ -133,7 +133,7 @@ if exist .env (
 REM Set defaults
 if "%DB_NAME%"=="" set DB_NAME=financeos
 if "%DB_USERNAME%"=="" set DB_USERNAME=postgres
-if "%DB_PASSWORD%"=="" set DB_PASSWORD=postgres
+if "%DB_PASSWORD%"=="" set DB_PASSWORD=kumar007AJAY
 if "%DB_PORT%"=="" set DB_PORT=5432
 
 echo Database configuration:

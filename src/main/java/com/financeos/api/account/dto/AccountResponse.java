@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.financeos.domain.account.*;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type", visible = true)
@@ -29,9 +29,9 @@ public sealed interface AccountResponse {
 
     String description();
 
-    Instant createdAt();
+    LocalDateTime createdAt();
 
-    Instant updatedAt();
+    LocalDateTime updatedAt();
 
     static AccountResponse from(Account account) {
         return switch (account.getType()) {
@@ -112,8 +112,8 @@ public sealed interface AccountResponse {
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
-            Instant createdAt,
-            Instant updatedAt,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
             BigDecimal openingBalance,
             String last4) implements AccountResponse {
     }
@@ -125,8 +125,8 @@ public sealed interface AccountResponse {
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
-            Instant createdAt,
-            Instant updatedAt,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
             String last4,
             BigDecimal creditLimit,
             Integer paymentDueDay,
@@ -140,8 +140,8 @@ public sealed interface AccountResponse {
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
-            Instant createdAt,
-            Instant updatedAt,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
             String instrumentCode,
             BigDecimal lastTradedPrice) implements AccountResponse {
     }
@@ -153,8 +153,8 @@ public sealed interface AccountResponse {
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
-            Instant createdAt,
-            Instant updatedAt,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
             String instrumentCode,
             BigDecimal lastTradedPrice) implements AccountResponse {
     }
@@ -166,7 +166,7 @@ public sealed interface AccountResponse {
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
-            Instant createdAt,
-            Instant updatedAt) implements AccountResponse {
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt) implements AccountResponse {
     }
 }
