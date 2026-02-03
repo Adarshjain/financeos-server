@@ -9,7 +9,6 @@ import com.financeos.domain.user.User;
 
 import java.time.Instant;
 import java.util.UUID;
-import com.financeos.core.util.UuidGenerator;
 
 @Entity
 @Table(name = "gmail_sync_state")
@@ -45,9 +44,6 @@ public class GmailSyncStateEntity {
 
     @PrePersist
     protected void onCreate() {
-        if (id == null) {
-            id = UuidGenerator.generateUuid7();
-        }
         Instant now = Instant.now();
         if (createdAt == null) {
             createdAt = now;

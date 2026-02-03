@@ -11,11 +11,10 @@ import org.hibernate.annotations.Filter;
 import com.financeos.domain.user.User;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
-import com.financeos.core.util.UuidGenerator;
 
 @Entity
 @Table(name = "investment_transactions")
@@ -47,7 +46,7 @@ public class InvestmentTransaction {
     @Column(nullable = false, precision = 19, scale = 4)
     private BigDecimal price;
 
-    @Column(name = "transaction_date", nullable = false)
+    @Column(nullable = false)
     private LocalDate date;
 
     @Type(JsonType.class)
@@ -55,15 +54,12 @@ public class InvestmentTransaction {
     private Map<String, Object> metadata;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
     @PrePersist
     protected void onCreate() {
-        if (id == null) {
-            id = UuidGenerator.generateUuid7();
-        }
         if (createdAt == null) {
-            createdAt = LocalDateTime.now();
+            createdAt = Instant.now();
         }
     }
 

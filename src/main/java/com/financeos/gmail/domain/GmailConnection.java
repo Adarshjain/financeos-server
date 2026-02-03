@@ -10,7 +10,6 @@ import org.hibernate.annotations.Filter;
 
 import java.time.Instant;
 import java.util.UUID;
-import com.financeos.core.util.UuidGenerator;
 
 @Entity
 @Table(name = "gmail_connections")
@@ -52,9 +51,6 @@ public class GmailConnection {
 
     @PrePersist
     protected void onCreate() {
-        if (id == null) {
-            id = UuidGenerator.generateUuid7();
-        }
         Instant now = Instant.now();
         if (createdAt == null) {
             createdAt = now;
