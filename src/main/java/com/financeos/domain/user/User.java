@@ -7,10 +7,9 @@ import lombok.Setter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 import org.hibernate.type.descriptor.java.UUIDJavaType;
-import com.financeos.core.util.UuidGenerator;
 
 @Entity
 @Table(name = "users")
@@ -40,15 +39,12 @@ public class User {
     private String pictureUrl;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
     @PrePersist
     protected void onCreate() {
-        if (id == null) {
-            id = UuidGenerator.generateUuid7();
-        }
         if (createdAt == null) {
-            createdAt = LocalDateTime.now();
+            createdAt = Instant.now();
         }
     }
 

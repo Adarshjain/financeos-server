@@ -4,7 +4,6 @@
 setlocal
 
 set MAVEN_PROJECTBASEDIR=%~dp0
-set MAVEN_PROJECTBASEDIR_NO_SLASH=%MAVEN_PROJECTBASEDIR:~0,-1%
 set WRAPPER_JAR=%MAVEN_PROJECTBASEDIR%.mvn\wrapper\maven-wrapper.jar
 set WRAPPER_PROPERTIES=%MAVEN_PROJECTBASEDIR%.mvn\wrapper\maven-wrapper.properties
 
@@ -18,7 +17,7 @@ if not exist "%WRAPPER_JAR%" (
 
 if not defined MAVEN_OPTS set MAVEN_OPTS=-Xmx512m
 
-java %MAVEN_OPTS% -Dmaven.multiModuleProjectDirectory="%MAVEN_PROJECTBASEDIR_NO_SLASH%" -classpath "%WRAPPER_JAR%" org.apache.maven.wrapper.MavenWrapperMain %*
+java %MAVEN_OPTS% -classpath "%WRAPPER_JAR%" org.apache.maven.wrapper.MavenWrapperMain %*
 
 endlocal
 
