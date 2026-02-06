@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.Filter;
 import com.financeos.domain.user.User;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -19,15 +21,19 @@ import java.util.UUID;
 public class AccountBankDetails {
 
     @Id
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(name = "account_id", length = 36)
     private UUID accountId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private User user;
 
     @OneToOne
     @MapsId
     @JoinColumn(name = "account_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private Account account;
 
     @Column(name = "opening_balance", precision = 19, scale = 4)

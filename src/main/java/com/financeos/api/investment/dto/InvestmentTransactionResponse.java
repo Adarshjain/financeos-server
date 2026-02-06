@@ -6,7 +6,6 @@ import com.financeos.domain.investment.InvestmentTransactionType;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.UUID;
 
 public record InvestmentTransactionResponse(
@@ -16,9 +15,7 @@ public record InvestmentTransactionResponse(
         BigDecimal quantity,
         BigDecimal price,
         LocalDate date,
-        Map<String, Object> metadata,
-        Instant createdAt
-) {
+        Instant createdAt) {
     public static InvestmentTransactionResponse from(InvestmentTransaction transaction) {
         return new InvestmentTransactionResponse(
                 transaction.getId(),
@@ -27,9 +24,6 @@ public record InvestmentTransactionResponse(
                 transaction.getQuantity(),
                 transaction.getPrice(),
                 transaction.getDate(),
-                transaction.getMetadata(),
-                transaction.getCreatedAt()
-        );
+                transaction.getCreatedAt());
     }
 }
-

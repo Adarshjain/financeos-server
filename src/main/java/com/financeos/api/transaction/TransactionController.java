@@ -1,6 +1,7 @@
 package com.financeos.api.transaction;
 
 import com.financeos.api.transaction.dto.CreateTransactionRequest;
+import com.financeos.api.transaction.dto.UpdateTransactionRequest;
 import com.financeos.api.transaction.dto.TransactionResponse;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionService;
@@ -11,6 +12,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/transactions")
@@ -31,10 +34,24 @@ public class TransactionController {
 
     @GetMapping
     public ResponseEntity<Page<TransactionResponse>> getAllTransactions(
-            @PageableDefault(size = 50, sort = "date") Pageable pageable) {
+            @PageableDefault(size = 50, sort = { "date", "createdAt",
+                    "id" }, direction = org.springframework.data.domain.Sort.Direction.DESC) Pageable pageable) {
         Page<Transaction> transactions = transactionService.getAllTransactions(pageable);
-        Page<TransactionResponse> response = transactions.map(TransactionResponse::from);
+        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance()));
         return ResponseEntity.ok(response);
     }
-}
 
+    @PutMapping("/{id}")
+    public ResponseEntity<TransactionResponse> updateTransaction(
+            @PathVariable UUID id,
+            @Valid @RequestBody UpdateTransactionRequest request) {
+        Transaction transaction = transactionService.updateTransaction(id, request);
+        return ResponseEntity.ok(TransactionResponse.from(transaction));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTransaction(@PathVariable UUID id) {
+        transactionService.deleteTransaction(id);
+        return ResponseEntity.noContent().build();
+    }
+}
