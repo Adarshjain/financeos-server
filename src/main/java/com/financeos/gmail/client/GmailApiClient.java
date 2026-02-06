@@ -3,7 +3,6 @@ package com.financeos.gmail.client;
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.BasicAuthentication;
 import com.google.api.client.http.GenericUrl;
@@ -69,8 +68,7 @@ public class GmailApiClient {
         return new TokenResponse(
                 tokenResponse.getAccessToken(),
                 tokenResponse.getRefreshToken(),
-                tokenResponse.getExpiresInSeconds()
-        );
+                tokenResponse.getExpiresInSeconds());
     }
 
     /**
@@ -86,7 +84,8 @@ public class GmailApiClient {
     /**
      * List messages with pagination.
      */
-    public ListMessagesResponse listMessages(Gmail service, String query, String pageToken, Long maxResults) throws IOException {
+    public ListMessagesResponse listMessages(Gmail service, String query, String pageToken, Long maxResults)
+            throws IOException {
         Gmail.Users.Messages.List request = service.users().messages().list("me")
                 .setQ(query);
 
@@ -122,7 +121,8 @@ public class GmailApiClient {
     /**
      * Get history (for incremental sync).
      */
-    public ListHistoryResponse getHistory(Gmail service, BigInteger startHistoryId, String pageToken, Long maxResults) throws IOException {
+    public ListHistoryResponse getHistory(Gmail service, BigInteger startHistoryId, String pageToken, Long maxResults)
+            throws IOException {
         Gmail.Users.History.List request = service.users().history().list("me")
                 .setStartHistoryId(startHistoryId);
 
@@ -166,5 +166,6 @@ public class GmailApiClient {
         return credential;
     }
 
-    public record TokenResponse(String accessToken, String refreshToken, Long expiresInSeconds) {}
+    public record TokenResponse(String accessToken, String refreshToken, Long expiresInSeconds) {
+    }
 }

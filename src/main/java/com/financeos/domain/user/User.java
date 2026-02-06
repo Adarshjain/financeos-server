@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import java.time.Instant;
 import java.util.UUID;
 import org.hibernate.type.descriptor.java.UUIDJavaType;
@@ -16,11 +18,13 @@ import org.hibernate.type.descriptor.java.UUIDJavaType;
 @Getter
 @Setter
 @NoArgsConstructor
-@FilterDef(name = "userFilter", parameters = @ParamDef(name = "userId", type = UUIDJavaType.class))
+@FilterDef(name = "userFilter", parameters = @ParamDef(name = "userId", type = String.class))
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(length = 36)
     private UUID id;
 
     @Column(nullable = false, unique = true)
