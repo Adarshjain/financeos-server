@@ -2,6 +2,7 @@ package com.financeos.domain.transaction;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,6 +21,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
     List<Transaction> findByDateRange(@Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
 
+    // Eager-fetch categories so response mapping (which reads t.categories) works
+    // with open-in-view=false, instead of throwing LazyInitializationException.
+    @EntityGraph(attributePaths = "categories")
     @Query("SELECT t FROM Transaction t ORDER BY t.date DESC, t.createdAt DESC")
     Page<Transaction> findAllOrdered(Pageable pageable);
 }

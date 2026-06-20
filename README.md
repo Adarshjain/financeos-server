@@ -64,14 +64,61 @@ export CORS_ORIGINS=http://localhost:3001
 
 The API will be available at `http://localhost:8080`.
 
-## Default Credentials
+## Running Against Oracle Locally (prod parity)
 
-```
-Email: admin@financeos.local
-Password: changeme
+Production runs on **Oracle**, while local defaults to **PostgreSQL**. The two
+schemas differ in real ways (`RAW(16)` vs `uuid`, `CLOB` vs `JSONB`,
+`NUMBER(1)` vs `BOOLEAN`, `VARCHAR2` vs `TEXT`), so to catch Oracle-specific
+issues before they reach prod, run a local Oracle that mirrors it.
+
+Requires Docker. The `oracle-local` Spring profile points at a local Oracle
+23ai Free container (this is separate from the `prod` profile, which connects to
+Oracle Cloud via a TNS wallet).
+
+```bash
+# 1. Start a local Oracle 23ai Free container (multi-arch; works on Apple Silicon)
+docker compose -f docker-compose.oracle.yml up -d
+
+# 2. Wait until it reports healthy
+docker compose -f docker-compose.oracle.yml ps
+
+# 3. Run the app against Oracle (uses the oracle-local profile + db/migration/oracle)
+./run-oracle.sh
 ```
 
-**⚠️ Change this password immediately after first login!**
+The container creates an app user `financeos/financeos` in PDB `FREEPDB1` on
+`localhost:1521`. Flyway applies the Oracle migration set on first boot.
+
+```bash
+docker compose -f docker-compose.oracle.yml down      # stop (data persists in a volume)
+docker compose -f docker-compose.oracle.yml down -v   # stop and wipe the database
+```
+
+> Note: the default `application.yml` scopes Flyway to `classpath:db/migration/postgresql`
+> so the Postgres and Oracle migration sets don't collide.
+
+## Accounts & Seeding
+
+A migration (`V2`) seeds an `admin@financeos.local` user, but its BCrypt hash does
+**not** correspond to the literal `changeme` documented historically — so logging in
+as admin won't work out of the box. The simplest way to get a working account is the
+public signup endpoint:
+
+```bash
+curl -X POST http://localhost:8080/api/v1/auth/signup \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"you@example.com","password":"yourpassword"}'
+```
+
+### Seed sample data
+
+With the app running (either DB), populate a demo user + sample accounts,
+transactions, and investments via the API:
+
+```bash
+./seed.sh
+# logs in as demo@financeos.local / demo1234 and creates sample data
+```
 
 ## API Endpoints
 

@@ -1,0 +1,31 @@
+# Local ORACLE profile — mirrors the prod Oracle DB for dev/prod parity.
+# Unlike the `prod` profile (which connects to Oracle Cloud via a TNS wallet),
+# this targets a local Oracle 23ai Free container (see docker-compose.oracle.yml).
+#
+# Activate with:   ./run-oracle.sh
+#            or:   SPRING_PROFILES_ACTIVE=oracle-local ./mvnw spring-boot:run
+#
+# Only the deltas from application.yml are listed here — everything else
+# (server, session, cors, gmail, encryption, etc.) is inherited from the base config.
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@//${ORACLE_HOST:localhost}:${ORACLE_PORT:1521}/${ORACLE_SERVICE:FREEPDB1}
+    username: ${ORACLE_USER:financeos}
+    password: ${ORACLE_PASSWORD:financeos}
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      connection-timeout: 20000
+      max-lifetime: 1800000
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.OracleDialect
+    database-platform: org.hibernate.dialect.OracleDialect
+
+  # Use the Oracle migration set (RAW(16) ids, CLOB json, NUMBER(1) booleans, etc.)
+  flyway:
+    locations: classpath:db/migration/oracle

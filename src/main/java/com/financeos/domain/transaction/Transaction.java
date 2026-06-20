@@ -2,12 +2,12 @@ package com.financeos.domain.transaction;
 
 import com.financeos.domain.account.Account;
 import com.financeos.domain.category.Category;
-import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.hibernate.annotations.Filter;
 import com.financeos.domain.user.User;
 
@@ -67,8 +67,8 @@ public class Transaction {
     @Column(nullable = false)
     private TransactionType type;
 
-    @Type(JsonType.class)
-    @Column(columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "metadata")
     private Map<String, Object> metadata;
 
     @Column(name = "created_at")

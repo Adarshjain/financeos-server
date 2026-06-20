@@ -1,0 +1,30 @@
+# Local Oracle Database (23ai Free) for dev/prod parity.
+# Apple-Silicon friendly — gvenzl images are multi-arch (amd64 + arm64).
+#
+#   Start:        docker compose -f docker-compose.oracle.yml up -d
+#   Stop:         docker compose -f docker-compose.oracle.yml down       (keeps data)
+#   Reset/wipe:   docker compose -f docker-compose.oracle.yml down -v    (drops data)
+#   Logs:         docker compose -f docker-compose.oracle.yml logs -f oracle
+#
+# App connects as user `financeos` to PDB `FREEPDB1` on localhost:1521.
+services:
+  oracle:
+    image: gvenzl/oracle-free:23-slim
+    container_name: financeos-oracle
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PASSWORD: oracle        # SYS / SYSTEM password (admin only)
+      APP_USER: financeos            # app schema created in FREEPDB1
+      APP_USER_PASSWORD: financeos
+    volumes:
+      - financeos-oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 90s
+
+volumes:
+  financeos-oracle-data:

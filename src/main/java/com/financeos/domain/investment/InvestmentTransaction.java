@@ -1,12 +1,12 @@
 package com.financeos.domain.investment;
 
 import com.financeos.domain.account.Account;
-import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.hibernate.annotations.Filter;
 import com.financeos.domain.user.User;
 
@@ -50,8 +50,8 @@ public class InvestmentTransaction {
     @Column(name = "transaction_date", nullable = false)
     private LocalDate date;
 
-    @Type(JsonType.class)
-    @Column(columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "metadata")
     private Map<String, Object> metadata;
 
     @Column(name = "created_at")
