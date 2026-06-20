@@ -28,9 +28,11 @@ public class CategoryService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
 
-        // Optional: Check for existing by name to prevent duplicates
-        return categoryRepository.findByNameAndUser(name, user)
-                .orElseGet(() -> categoryRepository.save(new Category(name, user)));
+        // Check for existing by name to prevent duplicates (also enforced by a
+        // DB unique constraint on (user_id, name))
+        String trimmedName = name.trim();
+        return categoryRepository.findByNameAndUser(trimmedName, user)
+                .orElseGet(() -> categoryRepository.save(new Category(trimmedName, user)));
     }
 
     @Transactional(readOnly = true)
@@ -56,14 +58,15 @@ public class CategoryService {
         Category category = getCategory(id); // Reuses ownership check
 
         // Check for duplicates for this user
-        categoryRepository.findByNameAndUser(newName, category.getUser())
+        String trimmedName = newName.trim();
+        categoryRepository.findByNameAndUser(trimmedName, category.getUser())
                 .ifPresent(existing -> {
                     if (!existing.getId().equals(id)) {
                         throw new ValidationException("A category with this name already exists.");
                     }
                 });
 
-        category.setName(newName);
+        category.setName(trimmedName);
         return categoryRepository.save(category);
     }
 

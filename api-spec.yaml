@@ -688,7 +688,7 @@ paths:
               schema:
                 type: object
 
-    /api/v1/dashboard/summary:
+  /api/v1/dashboard/summary:
     get:
       tags: [Dashboard]
       summary: Get dashboard summary (skeleton)
