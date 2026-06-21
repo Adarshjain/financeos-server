@@ -21,12 +21,14 @@ public class HibernateFilterAspect {
     // Advice that runs before any method annotated with @Transactional
     // We assume most data access happens within a transaction.
     // Adjust pointcut if necessary to cover all Service methods.
-    @Before("@annotation(org.springframework.transaction.annotation.Transactional)")
+    // Advice that runs before any method or within a class annotated with
+    // @Transactional
+    @Before("@within(org.springframework.transaction.annotation.Transactional) || @annotation(org.springframework.transaction.annotation.Transactional)")
     public void enableUserFilter() {
         UUID userId = UserContext.getCurrentUserId();
         if (userId != null) {
             Session session = entityManager.unwrap(Session.class);
-            session.enableFilter("userFilter").setParameter("userId", userId);
+            session.enableFilter("userFilter").setParameter("userId", userId.toString());
         }
     }
 }

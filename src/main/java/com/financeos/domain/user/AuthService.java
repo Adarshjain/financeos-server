@@ -154,10 +154,6 @@ public class AuthService {
 
     // Overload for existing callers if necessary, or just rely on the main method
     // being updated
-    private void createSession(Authentication authentication, HttpServletRequest request,
-            HttpServletResponse response) {
-        createSession(authentication, request, response, null);
-    }
 
     @Transactional(readOnly = true)
     public User getCurrentUser() {

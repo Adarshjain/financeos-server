@@ -1,10 +1,10 @@
 package com.financeos.domain.category;
 
-import com.financeos.core.exception.ResourceNotFoundException;
-import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
+import com.financeos.core.exception.ResourceNotFoundException;
+import com.financeos.core.exception.ValidationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,49 +24,54 @@ public class CategoryService {
     }
 
     public Category createCategory(String name) {
-        // Check for duplicate category name
-        if (categoryRepository.existsByNameIgnoreCase(name.trim())) {
-            throw new ValidationException("Category with name '" + name + "' already exists");
-        }
-
         UUID userId = UserContext.getCurrentUserId();
-        User user = userRepository.getReferenceById(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", userId));
 
-        Category category = new Category(user, name.trim());
-        return categoryRepository.save(category);
+        // Check for existing by name to prevent duplicates (also enforced by a
+        // DB unique constraint on (user_id, name))
+        String trimmedName = name.trim();
+        return categoryRepository.findByNameAndUser(trimmedName, user)
+                .orElseGet(() -> categoryRepository.save(new Category(trimmedName, user)));
     }
 
     @Transactional(readOnly = true)
     public List<Category> getAllCategories() {
-        return categoryRepository.findAllByOrderByNameAsc();
+        return categoryRepository.findAll();
     }
 
     @Transactional(readOnly = true)
-    public List<Category> searchCategories(String searchTerm) {
-        if (searchTerm == null || searchTerm.trim().isEmpty()) {
-            return getAllCategories();
-        }
-        return categoryRepository.findByNameContainingIgnoreCase(searchTerm.trim());
-    }
-
-    @Transactional(readOnly = true)
-    public Category getCategoryById(UUID id) {
-        return categoryRepository.findById(id)
+    public Category getCategory(UUID id) {
+        Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", id));
+
+        // SECURITY: Explicit ownership check
+        UUID currentUserId = UserContext.getCurrentUserId();
+        if (!category.getUser().getId().equals(currentUserId)) {
+            throw new ValidationException("You do not have permission to access this category.");
+        }
+
+        return category;
+    }
+
+    public Category updateCategory(UUID id, String newName) {
+        Category category = getCategory(id); // Reuses ownership check
+
+        // Check for duplicates for this user
+        String trimmedName = newName.trim();
+        categoryRepository.findByNameAndUser(trimmedName, category.getUser())
+                .ifPresent(existing -> {
+                    if (!existing.getId().equals(id)) {
+                        throw new ValidationException("A category with this name already exists.");
+                    }
+                });
+
+        category.setName(trimmedName);
+        return categoryRepository.save(category);
     }
 
     public void deleteCategory(UUID id) {
-        if (!categoryRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Category", id);
-        }
-        categoryRepository.deleteById(id);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Category> findCategoriesByIds(List<UUID> categoryIds) {
-        if (categoryIds == null || categoryIds.isEmpty()) {
-            return List.of();
-        }
-        return categoryRepository.findAllById(categoryIds);
+        Category category = getCategory(id); // Reuses ownership check
+        categoryRepository.delete(category);
     }
 }

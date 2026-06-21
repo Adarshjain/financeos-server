@@ -7,7 +7,9 @@ import lombok.Setter;
 import org.hibernate.annotations.Filter;
 import com.financeos.domain.user.User;
 
-import java.time.LocalDateTime;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -20,10 +22,13 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(length = 36)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private User user;
 
     @Column(nullable = false)
@@ -44,10 +49,10 @@ public class Account {
     private String description;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private Instant updatedAt;
 
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private AccountBankDetails bankDetails;
@@ -63,7 +68,7 @@ public class Account {
 
     @PrePersist
     protected void onCreate() {
-        LocalDateTime now = LocalDateTime.now();
+        Instant now = Instant.now();
         if (createdAt == null) {
             createdAt = now;
         }
@@ -74,7 +79,7 @@ public class Account {
 
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        updatedAt = Instant.now();
     }
 
     public Account(String name, AccountType type) {

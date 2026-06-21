@@ -6,8 +6,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public record CreateTransactionRequest(
@@ -17,14 +15,8 @@ public record CreateTransactionRequest(
 
         @NotNull(message = "Amount is required") BigDecimal amount,
 
-        @NotBlank(message = "Description is required") String description,
-
-        List<UUID> categoryIds,
-
-        Boolean isTransactionExcluded,
+        String description,
+        java.util.List<UUID> categoryIds,
         Boolean isTransactionUnderMonitoring,
-
-        @NotNull(message = "Source is required") TransactionSource source,
-
-        Map<String, Object> metadata) {
+        Boolean isTransactionExcluded) {
 }

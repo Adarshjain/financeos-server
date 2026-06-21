@@ -47,7 +47,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/login", "/api/v1/auth/signup").permitAll()
                         .requestMatchers("/api/v1/auth/google/**").permitAll()
-                        .requestMatchers("/api/v1/health/**").permitAll()
                         .requestMatchers("/actuator/health").permitAll()
                         .anyRequest().authenticated())
                 .addFilterAfter(userContextFilter, SecurityContextHolderFilter.class)

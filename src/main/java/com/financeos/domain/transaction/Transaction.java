@@ -1,24 +1,24 @@
 package com.financeos.domain.transaction;
 
 import com.financeos.domain.account.Account;
-import com.financeos.domain.category.Category;
-import io.hypersistence.utils.hibernate.type.json.JsonType;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.hibernate.annotations.Filter;
 import com.financeos.domain.user.User;
+import com.financeos.domain.category.Category;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
+import java.util.HashSet;
 import java.util.UUID;
-import com.financeos.core.util.UuidGenerator;
 
 @Entity
 @Table(name = "transactions")
@@ -30,14 +30,18 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(length = 36)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private Account account;
 
     @Column(name = "transaction_date", nullable = false)
@@ -46,18 +50,39 @@ public class Transaction {
     @Column(nullable = false, precision = 19, scale = 4)
     private BigDecimal amount;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "transaction_categories", joinColumns = @JoinColumn(name = "transaction_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories = new HashSet<>();
+    @Column(name = "sourced_description", length = 4000)
+    private String sourcedDescription;
 
-    @Column(name = "is_transaction_excluded", nullable = false)
-    private Boolean isTransactionExcluded = false;
+    @Transient
+    private BigDecimal balance;
 
-    @Column(name = "is_transaction_under_monitoring", nullable = false)
-    private Boolean isTransactionUnderMonitoring = false;
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<TransactionCategory> categories = new HashSet<>();
+
+    public void setCategories(Set<Category> newCategories) {
+        if (newCategories == null) {
+            this.categories.clear();
+            return;
+        }
+
+        // 1. Remove categories that are no longer present
+        this.categories.removeIf(tc -> !newCategories.contains(tc.getCategory()));
+
+        // 2. Identify categories already present to avoid redundant inserts
+        java.util.Set<Category> existingCategories = this.categories.stream()
+                .map(TransactionCategory::getCategory)
+                .collect(java.util.stream.Collectors.toSet());
+
+        // 3. Add only the newly associated categories
+        for (Category category : newCategories) {
+            if (!existingCategories.contains(category)) {
+                this.categories.add(new TransactionCategory(this, category));
+            }
+        }
+    }
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -67,30 +92,32 @@ public class Transaction {
     @Column(nullable = false)
     private TransactionType type;
 
-    @Type(JsonType.class)
-    @Column(columnDefinition = "jsonb")
-    private Map<String, Object> metadata;
+    @Column(name = "is_under_monitoring", nullable = false)
+    private boolean isTransactionUnderMonitoring = false;
+
+    @Column(name = "is_excluded", nullable = false)
+    private boolean isTransactionExcluded = false;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
     @PrePersist
     protected void onCreate() {
-        if (id == null) {
-            id = UuidGenerator.generateUuid7();
-        }
         if (createdAt == null) {
-            createdAt = LocalDateTime.now();
+            createdAt = Instant.now();
         }
     }
 
     public Transaction(Account account, LocalDate date, BigDecimal amount, String description,
-            TransactionSource source, TransactionType type) {
+            TransactionSource source, TransactionType type,
+            boolean isTransactionUnderMonitoring, boolean isTransactionExcluded) {
         this.account = account;
         this.date = date;
         this.amount = amount;
         this.description = description;
         this.source = source;
         this.type = type;
+        this.isTransactionUnderMonitoring = isTransactionUnderMonitoring;
+        this.isTransactionExcluded = isTransactionExcluded;
     }
 }

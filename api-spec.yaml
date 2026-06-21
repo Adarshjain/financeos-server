@@ -24,6 +24,8 @@ tags:
     description: Categorization rules (skeleton)
   - name: Dashboard
     description: Dashboard summary (skeleton)
+  - name: Categories
+    description: Transaction category management
 
 paths:
   /api/v1/auth/signup:
@@ -435,6 +437,61 @@ paths:
               schema:
                 $ref: '#/components/schemas/PagedTransactionResponse'
 
+  /api/v1/transactions/{id}:
+    put:
+      tags: [Transactions]
+      summary: Update an existing transaction
+      operationId: updateTransaction
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTransactionRequest'
+      responses:
+        '200':
+          description: Transaction updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '400':
+          description: Validation error
+        '403':
+          description: Forbidden (not transaction owner)
+        '404':
+          description: Transaction not found
+
+    delete:
+      tags: [Transactions]
+      summary: Delete a transaction
+      operationId: deleteTransaction
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Transaction deleted
+        '403':
+          description: Forbidden (not transaction owner)
+        '404':
+          description: Transaction not found
+
   /api/v1/investments/transactions:
     post:
       tags: [Investments]
@@ -646,6 +703,120 @@ paths:
               schema:
                 $ref: '#/components/schemas/DashboardSummary'
 
+  /api/v1/categories:
+    get:
+      tags: [Categories]
+      summary: List all categories
+      operationId: listCategories
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryResponse'
+    post:
+      tags: [Categories]
+      summary: Create a new category
+      operationId: createCategory
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+      responses:
+        '201':
+          description: Category created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+
+  /api/v1/categories/{id}:
+    get:
+      tags: [Categories]
+      summary: Get category by ID
+      operationId: getCategoryById
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Category details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        '404':
+          description: Category not found
+
+    put:
+      tags: [Categories]
+      summary: Update a category
+      operationId: updateCategory
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+      responses:
+        '200':
+          description: Category updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        '400':
+          description: Validation error
+        '403':
+          description: Forbidden (not category owner)
+        '404':
+          description: Category not found
+
+    delete:
+      tags: [Categories]
+      summary: Delete a category
+      operationId: deleteCategory
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Category deleted
+        '403':
+          description: Forbidden (not category owner)
+        '404':
+          description: Category not found
+
 components:
   securitySchemes:
     sessionAuth:
@@ -856,7 +1027,7 @@ components:
 
     CreateTransactionRequest:
       type: object
-      required: [date, amount, description, source]
+      required: [accountId, date, amount]
       properties:
         accountId:
           type: string
@@ -873,19 +1044,16 @@ components:
         description:
           type: string
           example: Grocery shopping at BigBasket
-        category:
-          type: string
-          example: Food
-        subcategory:
-          type: string
-          example: Groceries
-        spentFor:
-          type: string
-        source:
-          $ref: '#/components/schemas/TransactionSource'
-        metadata:
-          type: object
-          additionalProperties: true
+        categoryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          example: ["550e8400-e29b-41d4-a716-446655440000"]
+        isTransactionUnderMonitoring:
+          type: boolean
+        isTransactionExcluded:
+          type: boolean
 
     TransactionResponse:
       type: object
@@ -903,19 +1071,45 @@ components:
           type: number
         description:
           type: string
-        category:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryResponse'
+        isTransactionUnderMonitoring:
+          type: boolean
+          default: false
+        isTransactionExcluded:
+          type: boolean
+          default: false
+        sourcedDescription:
           type: string
-        subcategory:
-          type: string
-        spentFor:
-          type: string
-        source:
-          $ref: '#/components/schemas/TransactionSource'
-        metadata:
-          type: object
+          description: Original description from the transaction source (read-only)
         createdAt:
           type: string
           format: date-time
+
+    UpdateTransactionRequest:
+      type: object
+      required: [date, amount]
+      properties:
+        date:
+          type: string
+          format: date
+        amount:
+          type: number
+          format: decimal
+          description: Negative for expenses, positive for income
+        description:
+          type: string
+        categoryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        isTransactionUnderMonitoring:
+          type: boolean
+        isTransactionExcluded:
+          type: boolean
 
     TransactionSource:
       type: string
@@ -967,9 +1161,6 @@ components:
           type: string
           format: date
           example: "2024-11-01"
-        metadata:
-          type: object
-          additionalProperties: true
 
     InvestmentTransactionResponse:
       type: object
@@ -989,8 +1180,6 @@ components:
         date:
           type: string
           format: date
-        metadata:
-          type: object
         createdAt:
           type: string
           format: date-time
@@ -1087,6 +1276,24 @@ components:
         status:
           type: string
           description: skeleton indicates not yet implemented
+
+    CategoryRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          example: Food
+
+    CategoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: Food
 
     ErrorResponse:
       type: object

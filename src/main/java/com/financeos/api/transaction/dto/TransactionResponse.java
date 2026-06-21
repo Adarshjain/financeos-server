@@ -1,15 +1,12 @@
 package com.financeos.api.transaction.dto;
 
-import com.financeos.api.category.dto.CategoryResponse;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public record TransactionResponse(
@@ -18,22 +15,27 @@ public record TransactionResponse(
                 LocalDate date,
                 BigDecimal amount,
                 String description,
-                List<CategoryResponse> categories,
-                Boolean isTransactionExcluded,
-                Boolean isTransactionUnderMonitoring,
+                String sourcedDescription,
+                java.util.List<com.financeos.api.category.dto.CategoryResponse> categories,
                 TransactionSource source,
-                Map<String, Object> metadata,
-                LocalDateTime createdAt) {
+                boolean isTransactionUnderMonitoring,
+                boolean isTransactionExcluded,
+                Instant createdAt,
+                BigDecimal balance) {
         public static TransactionResponse from(Transaction transaction) {
+                return from(transaction, null);
+        }
+
+        public static TransactionResponse from(Transaction transaction, BigDecimal balance) {
                 // Convert internal representation (unsigned + type) to API representation
                 // (signed)
                 BigDecimal signedAmount = transaction.getType() == TransactionType.DEBIT
                                 ? transaction.getAmount().negate()
                                 : transaction.getAmount();
 
-                // Map categories to CategoryResponse DTOs
-                List<CategoryResponse> categoryResponses = transaction.getCategories().stream()
-                                .map(CategoryResponse::from)
+                java.util.List<com.financeos.api.category.dto.CategoryResponse> categoryResponses = transaction
+                                .getCategories().stream()
+                                .map(tc -> com.financeos.api.category.dto.CategoryResponse.from(tc.getCategory()))
                                 .toList();
 
                 return new TransactionResponse(
@@ -42,11 +44,12 @@ public record TransactionResponse(
                                 transaction.getDate(),
                                 signedAmount, // Return signed amount
                                 transaction.getDescription(),
-                                categoryResponses, // Return categories list
-                                transaction.getIsTransactionExcluded(),
-                                transaction.getIsTransactionUnderMonitoring(),
+                                transaction.getSourcedDescription(),
+                                categoryResponses,
                                 transaction.getSource(),
-                                transaction.getMetadata(),
-                                transaction.getCreatedAt());
+                                transaction.isTransactionUnderMonitoring(),
+                                transaction.isTransactionExcluded(),
+                                transaction.getCreatedAt(),
+                                balance);
         }
 }
