@@ -1,45 +1,57 @@
 package com.financeos.api.dashboard;
 
+import com.financeos.api.dashboard.dto.CreateDashboardRequest;
+import com.financeos.api.dashboard.dto.DashboardResponse;
+import com.financeos.api.dashboard.dto.DashboardSummaryResponse;
+import com.financeos.api.dashboard.dto.UpdateDashboardRequest;
+import com.financeos.domain.dashboard.DashboardService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 /**
- * SKELETON CONTROLLER - Dashboard summary endpoints.
- * TODO: Implement aggregated dashboard data
+ * CRUD for composable dashboards — grids of report widgets. Widget data itself is fetched
+ * per-widget by the client via {@code POST /api/v1/reports/{id}/data}.
  */
 @RestController
-@RequestMapping("/api/v1/dashboard")
+@RequestMapping("/api/v1/dashboards")
 public class DashboardController {
 
-        @GetMapping("/summary")
-        public ResponseEntity<DashboardSummary> getSummary() {
-                // TODO: Calculate actual summary from transactions and accounts
-                return ResponseEntity.ok(new DashboardSummary(
-                                BigDecimal.ZERO,
-                                BigDecimal.ZERO,
-                                BigDecimal.ZERO,
-                                BigDecimal.ZERO,
-                                BigDecimal.ZERO,
-                                List.of(),
-                                "skeleton"));
-        }
+    private final DashboardService dashboardService;
 
-        public record DashboardSummary(
-                        BigDecimal netWorth,
-                        BigDecimal totalAssets,
-                        BigDecimal totalLiabilities,
-                        BigDecimal monthlyIncome,
-                        BigDecimal monthlyExpenses,
-                        List<CategoryBreakdown> categoryBreakdown,
-                        String status) {
-        }
+    public DashboardController(DashboardService dashboardService) {
+        this.dashboardService = dashboardService;
+    }
 
-        public record CategoryBreakdown(
-                        String category,
-                        BigDecimal amount,
-                        BigDecimal percentage) {
-        }
+    @PostMapping
+    public ResponseEntity<DashboardResponse> createDashboard(@Valid @RequestBody CreateDashboardRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(dashboardService.create(request));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DashboardSummaryResponse>> listDashboards() {
+        return ResponseEntity.ok(dashboardService.list());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DashboardResponse> getDashboard(@PathVariable UUID id) {
+        return ResponseEntity.ok(dashboardService.get(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DashboardResponse> updateDashboard(
+            @PathVariable UUID id,
+            @Valid @RequestBody UpdateDashboardRequest request) {
+        return ResponseEntity.ok(dashboardService.update(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDashboard(@PathVariable UUID id) {
+        dashboardService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
