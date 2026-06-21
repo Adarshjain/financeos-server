@@ -8,9 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Filter;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import java.time.Instant;
 import java.util.UUID;
-import com.financeos.core.util.UuidGenerator;
 
 @Entity
 @Table(name = "gmail_connections")
@@ -22,10 +23,13 @@ public class GmailConnection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(length = 36)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private User user;
 
     @Column(nullable = false)
@@ -52,9 +56,6 @@ public class GmailConnection {
 
     @PrePersist
     protected void onCreate() {
-        if (id == null) {
-            id = UuidGenerator.generateUuid7();
-        }
         Instant now = Instant.now();
         if (createdAt == null) {
             createdAt = now;

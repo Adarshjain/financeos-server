@@ -1,7 +1,7 @@
 package com.financeos.api.category;
 
+import com.financeos.api.category.dto.CategoryRequest;
 import com.financeos.api.category.dto.CategoryResponse;
-import com.financeos.api.category.dto.CreateCategoryRequest;
 import com.financeos.domain.category.Category;
 import com.financeos.domain.category.CategoryService;
 import jakarta.validation.Valid;
@@ -23,29 +23,31 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryResponse> createCategory(
-            @Valid @RequestBody CreateCategoryRequest request) {
+    public ResponseEntity<CategoryResponse> createCategory(@Valid @RequestBody CategoryRequest request) {
         Category category = categoryService.createCategory(request.name());
         return ResponseEntity.status(HttpStatus.CREATED).body(CategoryResponse.from(category));
     }
 
     @GetMapping
     public ResponseEntity<List<CategoryResponse>> getAllCategories() {
-        List<Category> categories = categoryService.getAllCategories();
-        List<CategoryResponse> response = categories.stream()
+        List<CategoryResponse> responses = categoryService.getAllCategories().stream()
                 .map(CategoryResponse::from)
                 .toList();
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<CategoryResponse>> searchCategories(
-            @RequestParam(name = "q", required = false) String searchTerm) {
-        List<Category> categories = categoryService.searchCategories(searchTerm);
-        List<CategoryResponse> response = categories.stream()
-                .map(CategoryResponse::from)
-                .toList();
-        return ResponseEntity.ok(response);
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoryResponse> getCategory(@PathVariable UUID id) {
+        Category category = categoryService.getCategory(id);
+        return ResponseEntity.ok(CategoryResponse.from(category));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryResponse> updateCategory(
+            @PathVariable UUID id,
+            @Valid @RequestBody CategoryRequest request) {
+        Category category = categoryService.updateCategory(id, request.name());
+        return ResponseEntity.ok(CategoryResponse.from(category));
     }
 
     @DeleteMapping("/{id}")

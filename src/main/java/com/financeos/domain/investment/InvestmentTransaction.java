@@ -1,21 +1,21 @@
 package com.financeos.domain.investment;
 
 import com.financeos.domain.account.Account;
-import io.hypersistence.utils.hibernate.type.json.JsonType;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.hibernate.annotations.Filter;
 import com.financeos.domain.user.User;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.UUID;
-import com.financeos.core.util.UuidGenerator;
 
 @Entity
 @Table(name = "investment_transactions")
@@ -27,14 +27,18 @@ public class InvestmentTransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(length = 36)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private Account account;
 
     @Enumerated(EnumType.STRING)
@@ -50,20 +54,13 @@ public class InvestmentTransaction {
     @Column(name = "transaction_date", nullable = false)
     private LocalDate date;
 
-    @Type(JsonType.class)
-    @Column(columnDefinition = "jsonb")
-    private Map<String, Object> metadata;
-
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
     @PrePersist
     protected void onCreate() {
-        if (id == null) {
-            id = UuidGenerator.generateUuid7();
-        }
         if (createdAt == null) {
-            createdAt = LocalDateTime.now();
+            createdAt = Instant.now();
         }
     }
 

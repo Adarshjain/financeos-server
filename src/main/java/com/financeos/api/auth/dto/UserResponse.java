@@ -2,7 +2,7 @@ package com.financeos.api.auth.dto;
 
 import com.financeos.domain.user.User;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 public record UserResponse(
@@ -10,7 +10,7 @@ public record UserResponse(
         String email,
         String displayName,
         String pictureUrl,
-        LocalDateTime createdAt) {
+        Instant createdAt) {
     public static UserResponse from(User user) {
         return new UserResponse(
                 user.getId(),

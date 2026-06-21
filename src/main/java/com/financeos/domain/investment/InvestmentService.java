@@ -54,7 +54,6 @@ public class InvestmentService {
                 request.price(),
                 request.date());
         transaction.setUser(account.getUser());
-        transaction.setMetadata(request.metadata());
 
         return investmentTransactionRepository.save(transaction);
     }
