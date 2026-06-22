@@ -9,14 +9,14 @@ import java.util.Set;
 
 /**
  * Validates a dashboard's structure: a name is required, widget ids are unique, and each
- * widget fits the 12-column grid. Report references are NOT checked here — they resolve at
+ * widget fits the {@value #GRID_COLUMNS}-column grid. Report references are NOT checked here — they resolve at
  * read time (a deleted/foreign report renders as unavailable), so editing a dashboard is
  * never blocked by an unrelated report having been deleted.
  */
 @Component
 public class DashboardValidator {
 
-    private static final int GRID_COLUMNS = 12;
+    private static final int GRID_COLUMNS = 100;
 
     public void validate(String name, List<DashboardWidget> widgets) {
         if (name == null || name.isBlank()) {
@@ -43,7 +43,8 @@ public class DashboardValidator {
             if (layout.x() < 0 || layout.w() < 1 || layout.x() + layout.w() > GRID_COLUMNS
                     || layout.y() < 0 || layout.h() < 1) {
                 throw new ValidationException(
-                        "Widget '" + widget.id() + "' has an invalid layout (must fit a 12-column grid)");
+                        "Widget '" + widget.id() + "' has an invalid layout (must fit a "
+                                + GRID_COLUMNS + "-column grid)");
             }
         }
     }
