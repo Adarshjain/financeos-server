@@ -33,7 +33,7 @@ public class DashboardController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DashboardSummaryResponse>> listDashboards() {
+    public ResponseEntity<List<DashboardResponse>> listDashboards() {
         return ResponseEntity.ok(dashboardService.list());
     }
 
