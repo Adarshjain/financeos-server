@@ -1113,6 +1113,29 @@ paths:
         '401':
           description: Not authenticated
 
+  /api/v1/dashboards/default:
+    get:
+      tags: [Dashboards]
+      summary: Get the current user's default dashboard (no id required)
+      operationId: getDefaultDashboard
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: The default dashboard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '401':
+          description: Not authenticated
+        '404':
+          description: No default dashboard set
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /api/v1/dashboards/{id}:
     get:
       tags: [Dashboards]
@@ -2251,6 +2274,8 @@ components:
         description:
           type: string
           nullable: true
+        isDefault:
+          type: boolean
         widgets:
           type: array
           items:
@@ -2265,6 +2290,8 @@ components:
         description:
           type: string
           nullable: true
+        isDefault:
+          type: boolean
         widgets:
           type: array
           items:
@@ -2311,6 +2338,8 @@ components:
         description:
           type: string
           nullable: true
+        isDefault:
+          type: boolean
         widgets:
           type: array
           items:
@@ -2333,6 +2362,8 @@ components:
         description:
           type: string
           nullable: true
+        isDefault:
+          type: boolean
         widgetCount:
           type: integer
         createdAt:

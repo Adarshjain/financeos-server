@@ -53,6 +53,7 @@ public class DashboardService {
         UUID userId = UserContext.getCurrentUserId();
         User user = userRepository.getReferenceById(userId);
         Dashboard dashboard = new Dashboard(user, req.name(), req.description(), serialize(widgets));
+        applyDefault(dashboard, req.isDefault());
         return toResponse(dashboardRepository.save(dashboard));
     }
 
@@ -74,11 +75,28 @@ public class DashboardService {
         dashboard.setName(req.name());
         dashboard.setDescription(req.description());
         dashboard.setWidgets(serialize(widgets));
+        applyDefault(dashboard, req.isDefault());
         return toResponse(dashboardRepository.save(dashboard));
     }
 
     public void delete(UUID id) {
         dashboardRepository.delete(loadOwned(id));
+    }
+
+    /** Applies the default flag on save: when true, clears any previous default for the user first. */
+    private void applyDefault(Dashboard dashboard, boolean isDefault) {
+        if (isDefault) {
+            dashboardRepository.clearDefaultForUser(UserContext.getCurrentUserId());
+        }
+        dashboard.setDefault(isDefault);
+    }
+
+    /** The current user's default dashboard, or 404 if none is set. */
+    @Transactional(readOnly = true)
+    public DashboardResponse getDefault() {
+        Dashboard dashboard = dashboardRepository.findDefault()
+                .orElseThrow(() -> new ResourceNotFoundException("No default dashboard set"));
+        return toResponse(dashboard);
     }
 
     // ------------------------------------------------------------------ helpers
@@ -116,12 +134,13 @@ public class DashboardService {
         }).toList();
 
         return new DashboardResponse(dashboard.getId(), dashboard.getName(), dashboard.getDescription(),
-                widgetResponses, dashboard.getCreatedAt(), dashboard.getUpdatedAt());
+                dashboard.isDefault(), widgetResponses, dashboard.getCreatedAt(), dashboard.getUpdatedAt());
     }
 
     private DashboardSummaryResponse toSummary(Dashboard dashboard) {
         return new DashboardSummaryResponse(dashboard.getId(), dashboard.getName(), dashboard.getDescription(),
-                parse(dashboard.getWidgets()).size(), dashboard.getCreatedAt(), dashboard.getUpdatedAt());
+                dashboard.isDefault(), parse(dashboard.getWidgets()).size(), dashboard.getCreatedAt(),
+                dashboard.getUpdatedAt());
     }
 
     private String serialize(List<DashboardWidget> widgets) {

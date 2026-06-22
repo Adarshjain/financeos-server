@@ -41,9 +41,9 @@ class DashboardValidatorTest {
 
     @Test
     void widgetExceedingGridWidthFails() {
-        // x=8, w=6 -> 14 > 12
+        // x=96, w=6 -> 102 > 100 (grid is 100 columns)
         assertThrows(ValidationException.class, () -> validator.validate("D",
-                List.of(widget("w1", 8, 0, 6, 4))));
+                List.of(widget("w1", 96, 0, 6, 4))));
     }
 
     @Test

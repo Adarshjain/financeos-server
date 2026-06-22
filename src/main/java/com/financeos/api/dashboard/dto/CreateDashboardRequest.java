@@ -9,5 +9,6 @@ import java.util.List;
 public record CreateDashboardRequest(
         @NotBlank String name,
         String description,
+        boolean isDefault,
         List<DashboardWidget> widgets) {
 }

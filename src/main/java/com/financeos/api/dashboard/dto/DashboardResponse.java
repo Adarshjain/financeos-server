@@ -9,6 +9,7 @@ public record DashboardResponse(
         UUID id,
         String name,
         String description,
+        boolean isDefault,
         List<WidgetResponse> widgets,
         Instant createdAt,
         Instant updatedAt) {

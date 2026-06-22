@@ -43,6 +43,9 @@ public class Dashboard {
     @Column
     private String description;
 
+    @Column(name = "is_default", nullable = false)
+    private boolean isDefault = false;
+
     /** JSON array of {@link DashboardWidget}. */
     @JdbcTypeCode(SqlTypes.CLOB)
     @Column(nullable = false)
