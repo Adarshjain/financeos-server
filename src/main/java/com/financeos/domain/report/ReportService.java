@@ -53,6 +53,7 @@ public class ReportService {
         User currentUser = userRepository.getReferenceById(currentSessionUserId);
 
         Report report = new Report(currentUser, req.name(), req.type(), req.datasource(), json);
+        report.setDescription(req.description());
         return reportRepository.save(report);
     }
 
@@ -96,6 +97,7 @@ public class ReportService {
         String json = ReportDefinitions.toJson(definition, mapper);
 
         report.setName(req.name());
+        report.setDescription(req.description());
         report.setDefinition(json);
 
         return reportRepository.save(report);

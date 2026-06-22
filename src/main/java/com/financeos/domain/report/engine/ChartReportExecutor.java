@@ -43,7 +43,6 @@ public class ChartReportExecutor {
 
     @Transactional(readOnly = true)
     public ChartData execute(ChartDefinition def, UUID userId) {
-        boolean includeExcluded = Boolean.TRUE.equals(def.includeExcluded());
         List<FilterClause> filters = def.filters() == null ? List.of() : def.filters();
         // Pie/Donut render a single dimension as slices; any series split is ignored.
         boolean pie = def.chartType() == ChartType.PIE || def.chartType() == ChartType.DONUT;
@@ -52,7 +51,7 @@ public class ChartReportExecutor {
 
         Set<Join> joins = EnumSet.noneOf(Join.class);
         Map<String, Object> params = new HashMap<>();
-        String where = queryBuilder.buildWhere(filters, includeExcluded, userId, params, joins);
+        String where = queryBuilder.buildWhere(filters, userId, params, joins);
 
         // True contributing-transaction count (DISTINCT guards against category-join fan-out).
         long rowCount = countDistinct(joins, where, params);

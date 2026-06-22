@@ -8,8 +8,11 @@ import com.financeos.domain.report.definition.Granularity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -55,7 +58,8 @@ public class TransactionQueryBuilder {
             Map.entry("account", new Mapping("a.name", Join.ACCOUNTS)),
             Map.entry("accountType", new Mapping("a.type", Join.ACCOUNTS)),
             Map.entry("category", new Mapping("c.name", Join.CATEGORIES)),
-            Map.entry("isUnderMonitoring", new Mapping("t.is_under_monitoring", null)));
+            Map.entry("isUnderMonitoring", new Mapping("t.is_under_monitoring", null)),
+            Map.entry("isExcluded", new Mapping("t.is_excluded", null)));
 
     private final DatasourceCatalog catalog;
     private final DateRangeResolver dateRangeResolver;
@@ -94,14 +98,11 @@ public class TransactionQueryBuilder {
      * Builds the {@code WHERE} clause: mandatory user scoping, the include-excluded rule, and
      * each filter as a bound predicate. Populates {@code params} and {@code joins} as a side effect.
      */
-    public String buildWhere(List<FilterClause> filters, boolean includeExcluded, UUID userId,
+    public String buildWhere(List<FilterClause> filters, UUID userId,
             Map<String, Object> params, Set<Join> joins) {
         List<String> predicates = new ArrayList<>();
         predicates.add("t.user_id = :userId");
         params.put("userId", userId.toString());
-        if (!includeExcluded) {
-            predicates.add("t.is_excluded = 0");
-        }
         if (filters != null) {
             int idx = 0;
             for (FilterClause filter : filters) {
@@ -125,14 +126,26 @@ public class TransactionQueryBuilder {
         };
     }
 
-    /** Formats a truncated bucket date into its display label for the given granularity. */
+    private static final DateTimeFormatter DAY_FORMAT = DateTimeFormatter.ofPattern("dd MMM yy", Locale.ENGLISH);
+    private static final DateTimeFormatter MONTH_FORMAT = DateTimeFormatter.ofPattern("MMM yy", Locale.ENGLISH);
+
+    /**
+     * Formats a truncated bucket date into a granularity-appropriate display label:
+     * day "15 Jun 26", week "W12 26" (ISO), month "Jun 26", quarter "Q3 26", year "2026".
+     */
     public static String bucketLabel(LocalDate bucket, Granularity granularity) {
         return switch (granularity) {
-            case DAY, WEEK -> bucket.toString(); // yyyy-MM-dd (week = its Monday)
-            case MONTH -> String.format("%04d-%02d", bucket.getYear(), bucket.getMonthValue());
-            case QUARTER -> bucket.getYear() + "-Q" + ((bucket.getMonthValue() - 1) / 3 + 1);
+            case DAY -> bucket.format(DAY_FORMAT);
+            case WEEK -> "W" + bucket.get(WeekFields.ISO.weekOfWeekBasedYear())
+                    + " " + twoDigitYear(bucket.get(WeekFields.ISO.weekBasedYear()));
+            case MONTH -> bucket.format(MONTH_FORMAT);
+            case QUARTER -> "Q" + ((bucket.getMonthValue() - 1) / 3 + 1) + " " + twoDigitYear(bucket.getYear());
             case YEAR -> String.valueOf(bucket.getYear());
         };
+    }
+
+    private static String twoDigitYear(int year) {
+        return String.format("%02d", Math.floorMod(year, 100));
     }
 
     // ------------------------------------------------------------------ predicates

@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record CreateReportRequest(
         @NotBlank String name,
+        String description,
         @NotNull ReportType type,
         @NotNull String datasource,
         @NotNull JsonNode definition

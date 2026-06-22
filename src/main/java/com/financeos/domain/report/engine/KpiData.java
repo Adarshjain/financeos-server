@@ -15,9 +15,11 @@ public record KpiData(
     /** Period-over-period comparison; null when disabled or the range is unbounded. */
     public record Comparison(
             BigDecimal previousValue,
+            DateRangeView previousDateRange,
             BigDecimal change,
             BigDecimal changePercent,
-            String direction) {
+            String direction,
+            String sentiment) {
     }
 
     public record Meta(long rowCount, DateRangeView dateRange) {
