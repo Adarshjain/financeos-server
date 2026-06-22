@@ -91,7 +91,8 @@ public class DatasourceCatalog {
             new FieldDef("source", "Source", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("gmail", "manual"), null, CHART_TABLE),
             new FieldDef("description", "Description", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
-            new FieldDef("isUnderMonitoring", "Under monitoring", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE));
+            new FieldDef("isUnderMonitoring", "Under monitoring", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+            new FieldDef("isExcluded", "Is Excluded", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE));
 
     private static final Map<String, FieldDef> BY_NAME = FIELDS.stream()
             .collect(Collectors.toMap(FieldDef::name, f -> f, (a, b) -> a, LinkedHashMap::new));

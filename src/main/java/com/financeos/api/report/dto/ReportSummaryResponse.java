@@ -9,6 +9,7 @@ import java.util.UUID;
 public record ReportSummaryResponse(
         UUID id,
         String name,
+        String description,
         ReportType type,
         String datasource,
         Instant createdAt,
@@ -18,6 +19,7 @@ public record ReportSummaryResponse(
         return new ReportSummaryResponse(
                 report.getId(),
                 report.getName(),
+                report.getDescription(),
                 report.getType(),
                 report.getDatasource(),
                 report.getCreatedAt(),

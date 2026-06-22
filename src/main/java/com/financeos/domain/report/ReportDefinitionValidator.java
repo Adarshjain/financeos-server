@@ -7,14 +7,15 @@ import com.financeos.domain.report.datasource.DatasourceCatalog;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
+import com.financeos.domain.report.definition.AggregatedTableDefinition;
 import com.financeos.domain.report.definition.ChartDefinition;
 import com.financeos.domain.report.definition.DimensionRef;
 import com.financeos.domain.report.definition.FilterClause;
 import com.financeos.domain.report.definition.KpiDefinition;
 import com.financeos.domain.report.definition.MeasureRef;
+import com.financeos.domain.report.definition.RawTableDefinition;
 import com.financeos.domain.report.definition.ReportDefinition;
 import com.financeos.domain.report.definition.SortClause;
-import com.financeos.domain.report.definition.TableDefinition;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -22,15 +23,14 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Validates a {@link ReportDefinition} against the {@link DatasourceCatalog} before it is
- * stored or executed: every referenced field must exist, be used in a role/report-type the
- * catalog permits, and every filter operator + value must be legal for its field type.
- * Throws {@link ValidationException} (mapped to HTTP 400) on the first problem found.
+ * Validates a {@link ReportDefinition} against the {@link DatasourceCatalog}: every referenced
+ * field must exist and be used in a role/report-type the catalog permits, and every filter
+ * operator + value must be legal for its field type. Throws {@link ValidationException} on the
+ * first problem found. Exclusion of "excluded" transactions is expressed as a normal filter on the
+ * {@code isExcluded} field — there is no dedicated flag.
  */
 @Component
 public class ReportDefinitionValidator {
-
-    private static final int MAX_PAGE_SIZE = 1000;
 
     private static final Set<String> ARRAY_OPS = Set.of("in", "not_in");
     private static final Set<String> VALUELESS_DATE_OPS = Set.of(
@@ -55,8 +55,10 @@ public class ReportDefinitionValidator {
             validateKpi(kpi);
         } else if (definition instanceof ChartDefinition chart) {
             validateChart(chart);
-        } else if (definition instanceof TableDefinition table) {
-            validateTable(table);
+        } else if (definition instanceof RawTableDefinition raw) {
+            validateRawTable(raw);
+        } else if (definition instanceof AggregatedTableDefinition aggregated) {
+            validateAggregatedTable(aggregated);
         } else {
             throw new ValidationException("Unsupported report definition type");
         }
@@ -65,18 +67,14 @@ public class ReportDefinitionValidator {
     // ------------------------------------------------------------------ KPI
 
     private void validateKpi(KpiDefinition kpi) {
-        requireIncludeExcluded(kpi.includeExcluded());
         FieldDef measure = requireMeasure(kpi.measure(), ReportType.KPI);
         requireAggregation(measure, kpi.aggregation());
         validateFilters(kpi.filters());
-        // comparison is optional; the only ComparisonPeriod is previous_period, and the
-        // executor defaults a null period when enabled, so nothing else to enforce here.
     }
 
     // ------------------------------------------------------------------ Chart
 
     private void validateChart(ChartDefinition chart) {
-        requireIncludeExcluded(chart.includeExcluded());
         if (chart.chartType() == null) {
             throw new ValidationException("chartType is required for a Chart report");
         }
@@ -99,22 +97,7 @@ public class ReportDefinitionValidator {
 
     // ------------------------------------------------------------------ Table
 
-    private void validateTable(TableDefinition table) {
-        requireIncludeExcluded(table.includeExcluded());
-        if (table.mode() == null) {
-            throw new ValidationException("mode is required for a Table report");
-        }
-        switch (table.mode()) {
-            case RAW -> validateRawTable(table);
-            case AGGREGATED -> validateAggregatedTable(table);
-        }
-        validateFilters(table.filters());
-    }
-
-    private void validateRawTable(TableDefinition table) {
-        if (!isEmpty(table.groupBy()) || !isEmpty(table.measures())) {
-            throw new ValidationException("A raw table must not define groupBy or measures");
-        }
+    private void validateRawTable(RawTableDefinition table) {
         if (isEmpty(table.columns())) {
             throw new ValidationException("A raw table requires at least one column");
         }
@@ -125,39 +108,50 @@ public class ReportDefinitionValidator {
             sortKeys.add(column);
         }
         validateSortKeys(table.sort(), sortKeys);
-        validatePageSize(table.pageSize());
+        validateFilters(table.filters());
     }
 
-    private void validateAggregatedTable(TableDefinition table) {
-        if (!isEmpty(table.columns())) {
-            throw new ValidationException("An aggregated table must not define columns; use groupBy + measures");
-        }
-        if (isEmpty(table.groupBy())) {
-            throw new ValidationException("An aggregated table requires at least one groupBy");
+    private void validateAggregatedTable(AggregatedTableDefinition table) {
+        if (isEmpty(table.rows())) {
+            throw new ValidationException("An aggregated table requires at least one row dimension");
         }
         if (isEmpty(table.measures())) {
             throw new ValidationException("An aggregated table requires at least one measure");
         }
-        Set<String> sortKeys = new HashSet<>();
-        for (DimensionRef dimension : table.groupBy()) {
-            validateDimension(dimension, ReportType.TABLE, "groupBy");
-            sortKeys.add(dimension.field());
+        Set<String> rowFields = new HashSet<>();
+        for (DimensionRef dimension : table.rows()) {
+            validateDimension(dimension, ReportType.TABLE, "rows");
+            if (!rowFields.add(dimension.field())) {
+                throw new ValidationException("Duplicate row dimension: " + dimension.field());
+            }
+        }
+        Set<String> sortKeys = new HashSet<>(rowFields);
+        boolean hasColumns = !isEmpty(table.columns());
+        if (hasColumns) {
+            Set<String> columnFields = new HashSet<>();
+            for (DimensionRef dimension : table.columns()) {
+                validateDimension(dimension, ReportType.TABLE, "columns");
+                if (!columnFields.add(dimension.field())) {
+                    throw new ValidationException("Duplicate column dimension: " + dimension.field());
+                }
+                if (rowFields.contains(dimension.field())) {
+                    throw new ValidationException(
+                            "Dimension '" + dimension.field() + "' cannot be both a row and a column");
+                }
+            }
         }
         for (MeasureRef measure : table.measures()) {
             validateMeasureRef(measure, ReportType.TABLE);
-            sortKeys.add(columnKey(measure));
+            if (!hasColumns) {
+                // Measure-key sorting is only unambiguous when there are no column dimensions.
+                sortKeys.add(measure.field() + "_" + measure.aggregation().json());
+            }
         }
         validateSortKeys(table.sort(), sortKeys);
-        validatePageSize(table.pageSize());
+        validateFilters(table.filters());
     }
 
     // ------------------------------------------------------------------ shared helpers
-
-    private void requireIncludeExcluded(Boolean includeExcluded) {
-        if (includeExcluded == null) {
-            throw new ValidationException("includeExcluded is required and must be sent explicitly");
-        }
-    }
 
     private FieldDef requireField(String name) {
         if (name == null || name.isBlank()) {
@@ -236,16 +230,6 @@ public class ReportDefinitionValidator {
         }
     }
 
-    private void validatePageSize(Integer pageSize) {
-        if (pageSize != null && (pageSize < 1 || pageSize > MAX_PAGE_SIZE)) {
-            throw new ValidationException("pageSize must be between 1 and " + MAX_PAGE_SIZE);
-        }
-    }
-
-    private static String columnKey(MeasureRef measure) {
-        return measure.field() + "_" + measure.aggregation().json();
-    }
-
     private static boolean isEmpty(List<?> list) {
         return list == null || list.isEmpty();
     }
@@ -278,14 +262,12 @@ public class ReportDefinitionValidator {
     }
 
     private void validateFilterValue(FieldDef field, String operator, JsonNode value) {
-        // Valueless relative-date operators (this_month, today, all_time, ...).
         if (field.type() == FieldType.DATE && VALUELESS_DATE_OPS.contains(operator)) {
             if (value != null && !value.isNull()) {
                 throw new ValidationException("Operator '" + operator + "' does not take a value");
             }
             return;
         }
-        // Parameterised relative-date operators: { "amount": <positive integer> }.
         if (field.type() == FieldType.DATE && PARAM_DATE_OPS.contains(operator)) {
             JsonNode amount = value == null ? null : value.get("amount");
             if (amount == null || !amount.isIntegralNumber() || amount.asInt() <= 0) {
@@ -293,7 +275,6 @@ public class ReportDefinitionValidator {
             }
             return;
         }
-        // Array operators (in / not_in) — only reachable for string/enum fields.
         if (ARRAY_OPS.contains(operator)) {
             if (value == null || !value.isArray() || value.isEmpty()) {
                 throw new ValidationException(
@@ -304,12 +285,10 @@ public class ReportDefinitionValidator {
             }
             return;
         }
-        // Range operator (between) — only reachable for number/date fields.
         if ("between".equals(operator)) {
             requireFromTo(field, value);
             return;
         }
-        // Everything else is a single scalar value.
         requireScalar(field, operator, value);
     }
 
@@ -356,7 +335,6 @@ public class ReportDefinitionValidator {
         }
     }
 
-    /** A text value that, for static enums, must be one of the catalog's allowed values. */
     private void validateTextMember(FieldDef field, JsonNode element) {
         if (element == null || !element.isTextual()) {
             throw new ValidationException("'" + field.name() + "' values must be text");

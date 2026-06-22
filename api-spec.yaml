@@ -1889,6 +1889,9 @@ components:
       properties:
         name:
           type: string
+        description:
+          type: string
+          nullable: true
         type:
           $ref: '#/components/schemas/ReportType'
         datasource:
@@ -1904,6 +1907,9 @@ components:
       properties:
         name:
           type: string
+        description:
+          type: string
+          nullable: true
         definition:
           type: object
           description: Type-specific report definition; must match the stored report's type.
@@ -1929,6 +1935,9 @@ components:
           format: uuid
         name:
           type: string
+        description:
+          type: string
+          nullable: true
         type:
           $ref: '#/components/schemas/ReportType'
         datasource:
@@ -1950,6 +1959,9 @@ components:
           format: uuid
         name:
           type: string
+        description:
+          type: string
+          nullable: true
         type:
           $ref: '#/components/schemas/ReportType'
         datasource:
@@ -1967,6 +1979,7 @@ components:
         - $ref: '#/components/schemas/KpiData'
         - $ref: '#/components/schemas/ChartData'
         - $ref: '#/components/schemas/TableData'
+        - $ref: '#/components/schemas/PivotTableData'
 
     KpiData:
       type: object
@@ -1987,6 +2000,16 @@ components:
           properties:
             previousValue:
               type: number
+            previousDateRange:
+              type: object
+              nullable: true
+              properties:
+                from:
+                  type: string
+                  format: date
+                to:
+                  type: string
+                  format: date
             change:
               type: number
             changePercent:
@@ -1995,6 +2018,10 @@ components:
             direction:
               type: string
               enum: [up, down, flat]
+            sentiment:
+              type: string
+              enum: [good, bad, neutral]
+              description: Business read of the change, driven by the definition's comparison.higherIsBetter.
         meta:
           type: object
           properties:
@@ -2070,7 +2097,8 @@ components:
           example: TABLE
         mode:
           type: string
-          enum: [raw, aggregated]
+          enum: [raw]
+          description: This shape is returned for raw tables; aggregated tables return PivotTableData.
         columns:
           type: array
           items:
@@ -2087,6 +2115,89 @@ components:
           items:
             type: object
             additionalProperties: true
+        page:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+            totalElements:
+              type: integer
+              format: int64
+            totalPages:
+              type: integer
+
+    PivotDimensionInfo:
+      type: object
+      properties:
+        field:
+          type: string
+        label:
+          type: string
+
+    PivotTableData:
+      type: object
+      description: Aggregated (pivot) table — row dimensions × column dimensions × measures.
+      properties:
+        type:
+          type: string
+          example: TABLE
+        mode:
+          type: string
+          enum: [aggregated]
+        rowDimensions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PivotDimensionInfo'
+        columnDimensions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PivotDimensionInfo'
+        measures:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              field:
+                type: string
+              aggregation:
+                type: string
+              label:
+                type: string
+        columns:
+          type: array
+          description: Distinct column-value combinations (ordered). With no column dimensions, a single column with key "".
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              values:
+                type: object
+                additionalProperties:
+                  type: string
+        rows:
+          type: array
+          description: Row groups for the requested page.
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              values:
+                type: object
+                additionalProperties:
+                  type: string
+              cells:
+                type: object
+                description: columnKey -> (measureKey -> value)
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    type: number
         page:
           type: object
           properties:

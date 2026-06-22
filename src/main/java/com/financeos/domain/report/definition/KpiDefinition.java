@@ -7,15 +7,12 @@ import java.util.List;
 
 /**
  * Definition for a KPI report — a single aggregated scalar value with an optional
- * period-over-period comparison.
- *
- * <p>{@code includeExcluded} is a {@link Boolean} wrapper (nullable) so the validator
- * can detect when the client omitted the field. No default is applied here.
+ * period-over-period comparison. Exclusion of "excluded" transactions, if desired, is expressed
+ * as a normal filter on the {@code isExcluded} field (no dedicated flag).
  */
 public record KpiDefinition(
         String measure,
         Aggregation aggregation,
-        Boolean includeExcluded,
         List<FilterClause> filters,
         Comparison comparison
 ) implements ReportDefinition {

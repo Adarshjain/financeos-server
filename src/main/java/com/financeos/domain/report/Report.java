@@ -40,6 +40,9 @@ public class Report {
     @Column(nullable = false)
     private String name;
 
+    @Column
+    private String description;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReportType type;

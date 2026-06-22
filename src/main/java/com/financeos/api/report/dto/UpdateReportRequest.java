@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record UpdateReportRequest(
         @NotBlank String name,
+        String description,
         @NotNull JsonNode definition
 ) {
 }

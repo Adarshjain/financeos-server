@@ -11,6 +11,7 @@ import java.util.UUID;
 public record ReportResponse(
         UUID id,
         String name,
+        String description,
         ReportType type,
         String datasource,
         JsonNode definition,
@@ -28,6 +29,7 @@ public record ReportResponse(
         return new ReportResponse(
                 report.getId(),
                 report.getName(),
+                report.getDescription(),
                 report.getType(),
                 report.getDatasource(),
                 definitionNode,

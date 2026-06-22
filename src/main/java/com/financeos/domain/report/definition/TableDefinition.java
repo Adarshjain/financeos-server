@@ -5,30 +5,24 @@ import com.financeos.domain.report.ReportType;
 import java.util.List;
 
 /**
- * Definition for a Table report. Supports two modes:
+ * A Table report, in one of two distinct shapes (discriminated by {@code mode}):
  * <ul>
- *   <li>{@link TableMode#RAW} — selected columns from the transaction list.</li>
- *   <li>{@link TableMode#AGGREGATED} — GROUP BY summary with one or more measures.</li>
+ *   <li>{@link RawTableDefinition} — selected columns from the transaction list.</li>
+ *   <li>{@link AggregatedTableDefinition} — a pivot: row dimensions × column dimensions × measures.</li>
  * </ul>
- *
- * <p>Fields that are only relevant to one mode ({@code columns} for RAW;
- * {@code groupBy} and {@code measures} for AGGREGATED) may be null or empty in the
- * other mode; the validator enforces the cross-mode constraints. {@code includeExcluded}
- * is a {@link Boolean} wrapper (nullable) so omission is detectable.
+ * Page size is NOT part of the definition — it is supplied at run time.
  */
-public record TableDefinition(
-        TableMode mode,
-        List<String> columns,
-        List<DimensionRef> groupBy,
-        List<MeasureRef> measures,
-        Boolean includeExcluded,
-        List<FilterClause> filters,
-        List<SortClause> sort,
-        Integer pageSize
-) implements ReportDefinition {
+public sealed interface TableDefinition extends ReportDefinition
+        permits RawTableDefinition, AggregatedTableDefinition {
+
+    TableMode mode();
+
+    List<FilterClause> filters();
+
+    List<SortClause> sort();
 
     @Override
-    public ReportType type() {
+    default ReportType type() {
         return ReportType.TABLE;
     }
 }

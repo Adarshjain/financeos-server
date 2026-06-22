@@ -40,10 +40,9 @@ public class KpiReportExecutor {
 
     @Transactional(readOnly = true)
     public KpiData execute(KpiDefinition def, UUID userId) {
-        boolean includeExcluded = Boolean.TRUE.equals(def.includeExcluded());
         List<FilterClause> filters = def.filters() == null ? List.of() : def.filters();
 
-        Aggregate main = runAggregate(def, filters, includeExcluded, userId);
+        Aggregate main = runAggregate(def, filters, userId);
 
         FilterClause dateFilter = dateRangeResolver.findDateFilter(filters);
         DateRange currentRange = dateRangeResolver.effectiveRange(dateFilter);
@@ -53,8 +52,9 @@ public class KpiReportExecutor {
             DateRange previous = dateRangeResolver.previousPeriod(dateFilter.operator(), currentRange);
             if (previous.bounded()) {
                 List<FilterClause> previousFilters = withDateRange(filters, dateFilter, previous);
-                Aggregate prior = runAggregate(def, previousFilters, includeExcluded, userId);
-                comparison = buildComparison(main.value(), prior.value());
+                Aggregate prior = runAggregate(def, previousFilters, userId);
+                Boolean higherIsBetter = def.comparison() == null ? null : def.comparison().higherIsBetter();
+                comparison = buildComparison(main.value(), prior.value(), previous, higherIsBetter);
             }
         }
 
@@ -70,14 +70,13 @@ public class KpiReportExecutor {
     private record Aggregate(BigDecimal value, long rowCount) {
     }
 
-    private Aggregate runAggregate(KpiDefinition def, List<FilterClause> filters,
-            boolean includeExcluded, UUID userId) {
+    private Aggregate runAggregate(KpiDefinition def, List<FilterClause> filters, UUID userId) {
         Set<Join> joins = EnumSet.noneOf(Join.class);
         Map<String, Object> params = new HashMap<>();
 
         String measureExpr = queryBuilder.expression(def.measure(), joins);
         String aggFn = def.aggregation().name(); // SUM / AVG / COUNT / MIN / MAX
-        String where = queryBuilder.buildWhere(filters, includeExcluded, userId, params, joins);
+        String where = queryBuilder.buildWhere(filters, userId, params, joins);
 
         String sql = "SELECT " + aggFn + "(" + measureExpr + ") AS agg_value, COUNT(*) AS row_count"
                 + queryBuilder.fromClause(joins) + where;
@@ -118,10 +117,12 @@ public class KpiReportExecutor {
         return comparison.enabled() == null || comparison.enabled();
     }
 
-    private static KpiData.Comparison buildComparison(BigDecimal current, BigDecimal previous) {
+    private static KpiData.Comparison buildComparison(BigDecimal current, BigDecimal previousValue,
+            DateRange previousRange, Boolean higherIsBetter) {
         BigDecimal cur = current == null ? BigDecimal.ZERO : current;
-        BigDecimal prev = previous == null ? BigDecimal.ZERO : previous;
+        BigDecimal prev = previousValue == null ? BigDecimal.ZERO : previousValue;
         BigDecimal change = cur.subtract(prev);
+
         BigDecimal changePercent = null;
         if (prev.signum() != 0) {
             changePercent = change
@@ -129,7 +130,19 @@ public class KpiReportExecutor {
                     .multiply(BigDecimal.valueOf(100))
                     .setScale(2, RoundingMode.HALF_UP);
         }
+
         String direction = change.signum() > 0 ? "up" : change.signum() < 0 ? "down" : "flat";
-        return new KpiData.Comparison(prev, change, changePercent, direction);
+
+        String sentiment;
+        if (higherIsBetter == null || change.signum() == 0) {
+            sentiment = "neutral";
+        } else if (change.signum() > 0) {
+            sentiment = higherIsBetter ? "good" : "bad";
+        } else {
+            sentiment = higherIsBetter ? "bad" : "good";
+        }
+
+        KpiData.DateRangeView previousView = new KpiData.DateRangeView(previousRange.from(), previousRange.to());
+        return new KpiData.Comparison(prev, previousView, change, changePercent, direction, sentiment);
     }
 }

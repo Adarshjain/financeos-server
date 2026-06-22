@@ -1,7 +1,17 @@
 # Reports Module — Design Specification
 
-> Status: **Design locked (planning phase).** No implementation yet.
-> Scope: dynamic, user-defined reports over the `transactions` data source.
+> Status: **BUILT.** Scope: dynamic, user-defined reports over the `transactions` data source.
+>
+> **Revisions (v2 — applied; supersede the inline §2–§6 examples where they differ):**
+> 1. **No `includeExcluded` flag** — exclusion is a normal filter on the new boolean `isExcluded`
+>    field (§3.2). 2. **KPI comparison** gains `comparison.higherIsBetter` (definition); the response
+>    adds `sentiment` (good/bad/neutral) + `previousDateRange {from,to}` next to `previousValue`.
+> 3. **Table `pageSize` removed** from definitions — `page`/`size` are runtime query params.
+> 4. **Aggregated tables are pivots**: definition uses `rows` + `columns` + `measures` (not flat
+>    `groupBy`) and returns `PivotTableData` (rows × columns × measures); raw tables unchanged.
+> 5. **Bucket labels are display-formatted** per granularity: day `15 Jun 26`, week `W12 26`, month
+>    `Jun 26`, quarter `Q3 26`, year `2026`. 6. **Reports gain an optional `description`**.
+>    Exact shapes: `api-spec.yaml` + `docs/frontend-reports-changes-prompt.md`.
 
 ## 1. Overview
 
@@ -91,9 +101,10 @@ Field attributes:
 }
 ```
 
-### 3.2 `includeExcluded` (required, every definition)
-Boolean. The backend applies **no silent default** — the client always sends it.
-`false` → transactions flagged `is_excluded` are kept out (GUI default). `true` → included.
+### 3.2 Excluding "excluded" transactions (v2)
+There is **no dedicated flag**. The catalog exposes a boolean **filter** field `isExcluded`; to hide
+excluded transactions, add a normal filter `{ "field": "isExcluded", "operator": "is", "value": false }`.
+The backend applies no default (omit it and excluded txns are included); the GUI defaults it on.
 
 ### 3.3 Filters
 Flat list, **AND-ed** together (no nested AND/OR groups in v1). Each filter:
