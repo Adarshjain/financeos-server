@@ -1,7 +1,14 @@
 # Dashboards Module — Design Specification
 
-> Status: **Design locked (planning phase).** No implementation yet.
-> Builds directly on the Reports module (`docs/reports-module-spec.md`).
+> Status: **BUILT.** Builds directly on the Reports module (`docs/reports-module-spec.md`).
+>
+> **Revisions (v2 — applied; supersede inline details below where they differ):**
+> 1. **Grid is 100 columns** (not 12): `x` 0..99, `w` 1..100, `x + w <= 100`.
+> 2. **Default dashboard** — a dashboard carries an `isDefault` boolean (in responses), set as part
+>    of its meta via create/update (`POST` / `PUT /api/v1/dashboards[/{id}]`). Setting it true clears
+>    any previous default (one default per user, also enforced by a partial unique index). There is
+>    **no** dedicated set-default endpoint.
+> 3. **`GET /api/v1/dashboards/default`** returns the user's default dashboard (404 if none).
 
 ## 1. Overview
 
@@ -87,8 +94,9 @@ to a typed `DashboardWidget` record list. New code under `com.financeos.domain.d
 |---|---|---|
 | `POST` | `/api/v1/dashboards` | Create a dashboard |
 | `GET` | `/api/v1/dashboards` | List the user's dashboards (summaries) |
+| `GET` | `/api/v1/dashboards/default` | Get the user's default dashboard (no id; 404 if none) |
 | `GET` | `/api/v1/dashboards/{id}` | Get one dashboard (widgets enriched with report metadata) |
-| `PUT` | `/api/v1/dashboards/{id}` | Update (name, description, widgets) |
+| `PUT` | `/api/v1/dashboards/{id}` | Update (name, description, isDefault, widgets) |
 | `DELETE` | `/api/v1/dashboards/{id}` | Delete |
 
 **No dashboard-level data endpoint in v1.** Widget data is fetched **per-widget** by the client via

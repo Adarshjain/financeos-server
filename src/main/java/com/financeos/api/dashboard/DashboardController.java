@@ -37,6 +37,12 @@ public class DashboardController {
         return ResponseEntity.ok(dashboardService.list());
     }
 
+    /** The current user's default dashboard (no id needed); 404 if none is set. */
+    @GetMapping("/default")
+    public ResponseEntity<DashboardResponse> getDefaultDashboard() {
+        return ResponseEntity.ok(dashboardService.getDefault());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<DashboardResponse> getDashboard(@PathVariable UUID id) {
         return ResponseEntity.ok(dashboardService.get(id));

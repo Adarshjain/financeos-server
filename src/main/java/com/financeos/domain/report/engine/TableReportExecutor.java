@@ -65,6 +65,8 @@ public class TableReportExecutor {
         Map<String, Object> params = new HashMap<>();
         String where = queryBuilder.buildWhere(def.filters(), userId, params, joins);
 
+        // Column order mirrors def.columns() exactly: the response `columns` list is the
+        // authoritative ordering, and each row is a LinkedHashMap emitted in that same order.
         List<TableData.Column> columns = new ArrayList<>();
         List<String> selectExprs = new ArrayList<>();
         List<FieldType> colTypes = new ArrayList<>();

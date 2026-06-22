@@ -8,6 +8,7 @@ public record DashboardSummaryResponse(
         UUID id,
         String name,
         String description,
+        boolean isDefault,
         int widgetCount,
         Instant createdAt,
         Instant updatedAt) {
