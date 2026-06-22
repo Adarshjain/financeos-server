@@ -58,8 +58,8 @@ public class DashboardService {
     }
 
     @Transactional(readOnly = true)
-    public List<DashboardSummaryResponse> list() {
-        return dashboardRepository.findAll().stream().map(this::toSummary).toList();
+    public List<DashboardResponse> list() {
+        return dashboardRepository.findAll().stream().map(this::toResponse).toList();
     }
 
     @Transactional(readOnly = true)

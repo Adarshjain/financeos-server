@@ -1109,7 +1109,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/DashboardSummaryResponse'
+                  $ref: '#/components/schemas/DashboardResponse'
         '401':
           description: Not authenticated
 
