@@ -21,4 +21,6 @@ public interface GmailConnectionRepository extends JpaRepository<GmailConnection
     Optional<GmailConnection> findByEmail(String email);
 
     boolean existsByUserId(UUID userId);
+
+    List<GmailConnection> findByIsConnectedTrue();
 }

@@ -59,7 +59,6 @@ public class GmailEngine {
             // Update sync state
             String newHistoryId = extractHistoryId(service, currentState);
             Instant lastSyncedAt = Instant.now();
-            syncStateService.saveSyncState(connection, newHistoryId, lastSyncedAt);
 
             GmailSyncState nextState = new GmailSyncState(newHistoryId, lastSyncedAt);
 
@@ -91,7 +90,7 @@ public class GmailEngine {
             messages = fetchIncremental(service, currentState.historyId(), request.maxMessages());
         } else {
             // Full sync or manual fetch
-            messages = fetchFull(service, request.fromTime(), request.maxMessages());
+            messages = fetchFull(service, request, request.maxMessages());
         }
 
         return messages;
@@ -150,9 +149,9 @@ public class GmailEngine {
     /**
      * Fetch messages with time filter.
      */
-    private List<GmailMessage> fetchFull(Gmail service, Instant fromTime, Integer maxMessages) throws IOException {
+    private List<GmailMessage> fetchFull(Gmail service, GmailFetchRequest request, Integer maxMessages) throws IOException {
         List<GmailMessage> messages = new ArrayList<>();
-        String query = buildQuery(fromTime);
+        String query = buildQuery(request);
         String pageToken = null;
         int fetched = 0;
 
@@ -335,7 +334,11 @@ public class GmailEngine {
     /**
      * Build Gmail query string.
      */
-    private String buildQuery(Instant fromTime) {
+    private String buildQuery(GmailFetchRequest request) {
+        if (request.q() != null && !request.q().isEmpty()) {
+            return request.q();
+        }
+        Instant fromTime = request.fromTime();
         if (fromTime == null) {
             return "";
         }

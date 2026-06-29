@@ -52,4 +52,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
 
     @Query("SELECT t FROM Transaction t JOIN t.categories tc JOIN tc.category c WHERE c.name = :category ORDER BY t.date DESC")
     List<Transaction> findByCategory(@Param("category") String category);
+
+    boolean existsBySourceMessageId(String sourceMessageId);
 }

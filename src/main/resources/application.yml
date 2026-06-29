@@ -75,6 +75,11 @@ gmail:
     client-id: ${GMAIL_CLIENT_ID:}
     client-secret: ${GMAIL_CLIENT_SECRET:}
     redirect-uri: ${GMAIL_REDIRECT_URI:http://localhost:8080/api/v1/gmail/oauth/callback}
+  ingest:
+    enabled: ${GMAIL_INGEST_ENABLED:true}
+    cron: ${GMAIL_INGEST_CRON:0 0 10-22/2 * * *}
+    first-backfill-days: ${GMAIL_INGEST_BACKFILL_DAYS:30}
+    zone: ${GMAIL_INGEST_ZONE:Asia/Kolkata}
 
 # Google SSO configuration
 google:
