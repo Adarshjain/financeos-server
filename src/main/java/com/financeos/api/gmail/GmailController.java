@@ -1,40 +1,40 @@
 package com.financeos.api.gmail;
 
-import com.financeos.api.gmail.dto.GmailFetchRequestDto;
-import com.financeos.api.gmail.dto.GmailFetchResultDto;
+import com.financeos.api.gmail.dto.GmailSenderRequest;
+import com.financeos.api.gmail.dto.GmailSenderResponse;
 import com.financeos.api.gmail.dto.OAuthStartResponse;
 import com.financeos.domain.user.AuthService;
 import com.financeos.domain.user.User;
 import com.financeos.gmail.domain.GmailConnection;
-import com.financeos.gmail.engine.GmailEngine;
-import com.financeos.gmail.internal.FetchMode;
-import com.financeos.gmail.internal.GmailFetchRequest;
+import com.financeos.gmail.ingest.GmailIngestionService;
+import com.financeos.gmail.ingest.SenderAllowlistService;
+import com.financeos.gmail.ingest.SyncSummary;
 import com.financeos.gmail.oauth.GmailOAuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-/**
- * Gmail Controller - Delegates to Gmail Engine.
- * NO business logic here - pure delegation.
- */
 @RestController
 @RequestMapping("/api/v1/gmail")
 public class GmailController {
 
     private final GmailOAuthService oauthService;
-    private final GmailEngine gmailEngine;
     private final AuthService authService;
+    private final GmailIngestionService gmailIngestionService;
+    private final SenderAllowlistService senderAllowlistService;
 
     public GmailController(GmailOAuthService oauthService,
-                           GmailEngine gmailEngine,
-                           AuthService authService) {
+                           AuthService authService,
+                           GmailIngestionService gmailIngestionService,
+                           SenderAllowlistService senderAllowlistService) {
         this.oauthService = oauthService;
-        this.gmailEngine = gmailEngine;
         this.authService = authService;
+        this.gmailIngestionService = gmailIngestionService;
+        this.senderAllowlistService = senderAllowlistService;
     }
 
     @GetMapping("/oauth/start")
@@ -83,9 +83,7 @@ public class GmailController {
     }
 
     @PostMapping("/sync")
-    public ResponseEntity<GmailFetchResultDto> syncEmails(
-            @Valid @RequestBody(required = false) GmailFetchRequestDto request) {
-        
+    public ResponseEntity<SyncSummary> syncEmails() {
         User currentUser = authService.getCurrentUser();
         GmailConnection connection = oauthService.getConnection(currentUser.getId());
 
@@ -93,21 +91,41 @@ public class GmailController {
             return ResponseEntity.badRequest().build();
         }
 
-        // Build fetch request
-        FetchMode mode = request != null && request.mode() != null 
-                ? FetchMode.valueOf(request.mode()) 
-                : FetchMode.MANUAL;
-        Instant fromTime = request != null ? request.fromTime() : null;
-        Integer maxMessages = request != null ? request.maxMessages() : 100;
+        // Run full ingestion pipeline
+        SyncSummary summary = gmailIngestionService.syncConnection(connection);
 
-        GmailFetchRequest fetchRequest = new GmailFetchRequest(mode, fromTime, maxMessages);
+        return ResponseEntity.ok(summary);
+    }
 
-        // Delegate to engine
-        var result = gmailEngine.fetch(connection, fetchRequest);
+    @GetMapping("/senders")
+    public ResponseEntity<List<GmailSenderResponse>> getSenders() {
+        User currentUser = authService.getCurrentUser();
+        List<GmailSenderResponse> response = senderAllowlistService.getSenders(currentUser.getId()).stream()
+                .map(GmailSenderResponse::from)
+                .toList();
+        return ResponseEntity.ok(response);
+    }
 
-        // Convert to DTO
-        GmailFetchResultDto dto = GmailFetchResultDto.from(result);
+    @PostMapping("/senders")
+    public ResponseEntity<GmailSenderResponse> createSender(@Valid @RequestBody GmailSenderRequest request) {
+        User currentUser = authService.getCurrentUser();
+        var sender = senderAllowlistService.createSender(currentUser.getId(), request);
+        return ResponseEntity.ok(GmailSenderResponse.from(sender));
+    }
 
-        return ResponseEntity.ok(dto);
+    @PutMapping("/senders/{id}")
+    public ResponseEntity<GmailSenderResponse> updateSender(
+            @PathVariable UUID id,
+            @Valid @RequestBody GmailSenderRequest request) {
+        User currentUser = authService.getCurrentUser();
+        var sender = senderAllowlistService.updateSender(currentUser.getId(), id, request);
+        return ResponseEntity.ok(GmailSenderResponse.from(sender));
+    }
+
+    @DeleteMapping("/senders/{id}")
+    public ResponseEntity<Void> deleteSender(@PathVariable UUID id) {
+        User currentUser = authService.getCurrentUser();
+        senderAllowlistService.deleteSender(currentUser.getId(), id);
+        return ResponseEntity.noContent().build();
     }
 }
