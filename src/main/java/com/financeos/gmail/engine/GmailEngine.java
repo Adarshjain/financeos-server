@@ -10,8 +10,10 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -200,54 +202,117 @@ public class GmailEngine {
         Long internalDate = message.getInternalDate();
         Instant date = internalDate != null ? Instant.ofEpochMilli(internalDate) : Instant.now();
 
+        // Extract snippet
+        String snippet = message.getSnippet();
+
+        // Extract body text and HTML
+        StringBuilder textBuilder = new StringBuilder();
+        StringBuilder htmlBuilder = new StringBuilder();
+        MessagePart payload = message.getPayload();
+        if (payload != null) {
+            extractBodyPartsRecursive(payload, textBuilder, htmlBuilder);
+        }
+
         // Extract attachments
-        List<GmailAttachment> attachments = extractAttachments(service, message);
+        List<GmailAttachment> attachments = extractAttachments(message);
 
         return new GmailMessage(
                 messageId,
                 date,
                 from != null ? from : "",
                 subject != null ? subject : "",
+                snippet != null ? snippet : "",
+                textBuilder.toString(),
+                htmlBuilder.toString(),
                 attachments != null ? attachments : List.of()
         );
     }
 
     /**
-     * Extract attachments from message.
+     * Decode a base64url-encoded string.
      */
-    private List<GmailAttachment> extractAttachments(Gmail service, Message message) {
-        List<GmailAttachment> attachments = new ArrayList<>();
-        MessagePart payload = message.getPayload();
-        if (payload == null) {
-            return attachments;
+    private String decodeBase64Url(String base64UrlStr) {
+        if (base64UrlStr == null || base64UrlStr.isEmpty()) {
+            return "";
         }
-
-        extractAttachmentsRecursive(service, message.getId(), payload, attachments);
-        return attachments;
+        try {
+            return new String(Base64.getUrlDecoder().decode(base64UrlStr), StandardCharsets.UTF_8);
+        } catch (IllegalArgumentException e) {
+            return "";
+        }
     }
 
     /**
-     * Recursively extract attachments from message parts.
+     * Recursively walk the MIME tree to extract body text and html.
      */
-    private void extractAttachmentsRecursive(Gmail service, String messageId, MessagePart part, List<GmailAttachment> attachments) {
-        if (part.getFilename() != null && !part.getFilename().isEmpty() && part.getBody() != null && part.getBody().getAttachmentId() != null) {
-            try {
-                byte[] content = gmailApiClient.getAttachment(service, messageId, part.getBody().getAttachmentId());
-                attachments.add(new GmailAttachment(
-                        part.getBody().getAttachmentId(),
-                        part.getFilename(),
-                        part.getMimeType(),
-                        content
-                ));
-            } catch (IOException e) {
-                // Skip attachment if fetch fails
+    private void extractBodyPartsRecursive(MessagePart part, StringBuilder textBuilder, StringBuilder htmlBuilder) {
+        String mimeType = part.getMimeType();
+        MessagePartBody body = part.getBody();
+
+        if (body != null && body.getData() != null && !body.getData().isEmpty() && (part.getFilename() == null || part.getFilename().isEmpty())) {
+            String decodedData = decodeBase64Url(body.getData());
+            if ("text/plain".equalsIgnoreCase(mimeType)) {
+                textBuilder.append(decodedData);
+            } else if ("text/html".equalsIgnoreCase(mimeType)) {
+                htmlBuilder.append(decodedData);
             }
         }
 
         List<MessagePart> parts = part.getParts();
         if (parts != null) {
             for (MessagePart subPart : parts) {
-                extractAttachmentsRecursive(service, messageId, subPart, attachments);
+                extractBodyPartsRecursive(subPart, textBuilder, htmlBuilder);
+            }
+        }
+    }
+
+    /**
+     * Fetch attachment content lazily.
+     */
+    public byte[] fetchAttachmentContent(GmailConnection connection, String messageId, String attachmentId) {
+        try {
+            String refreshToken = connection.getEncryptedRefreshToken();
+            if (refreshToken == null || refreshToken.isEmpty()) {
+                throw new GmailEngineException(GmailError.INVALID_STATE, "No refresh token available");
+            }
+            Gmail service = gmailApiClient.createGmailService(refreshToken);
+            return gmailApiClient.getAttachment(service, messageId, attachmentId);
+        } catch (IOException e) {
+            throw new GmailEngineException(GmailError.NETWORK_ERROR, "Failed to fetch attachment content", e);
+        }
+    }
+
+    /**
+     * Extract attachments from message.
+     */
+    private List<GmailAttachment> extractAttachments(Message message) {
+        List<GmailAttachment> attachments = new ArrayList<>();
+        MessagePart payload = message.getPayload();
+        if (payload == null) {
+            return attachments;
+        }
+
+        extractAttachmentsRecursive(payload, attachments);
+        return attachments;
+    }
+
+    /**
+     * Recursively extract attachments from message parts.
+     */
+    private void extractAttachmentsRecursive(MessagePart part, List<GmailAttachment> attachments) {
+        if (part.getFilename() != null && !part.getFilename().isEmpty() && part.getBody() != null && part.getBody().getAttachmentId() != null) {
+            attachments.add(new GmailAttachment(
+                    part.getBody().getAttachmentId(),
+                    part.getFilename(),
+                    part.getMimeType(),
+                    null // Fetched lazily
+            ));
+        }
+
+        List<MessagePart> parts = part.getParts();
+        if (parts != null) {
+            for (MessagePart subPart : parts) {
+                extractAttachmentsRecursive(subPart, attachments);
             }
         }
     }
