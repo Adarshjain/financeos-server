@@ -54,4 +54,16 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
     List<Transaction> findByCategory(@Param("category") String category);
 
     boolean existsBySourceMessageId(String sourceMessageId);
+
+    @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.source = :source AND t.reviewType = :reviewType")
+    List<Transaction> findByAccountIdAndSourceAndReviewType(
+            @Param("accountId") UUID accountId,
+            @Param("source") TransactionSource source,
+            @Param("reviewType") ReviewType reviewType);
+
+    @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.date BETWEEN :startDate AND :endDate")
+    List<Transaction> findByAccountIdAndDateRange(
+            @Param("accountId") UUID accountId,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate);
 }

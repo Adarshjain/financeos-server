@@ -12,4 +12,5 @@ import org.springframework.stereotype.Component;
 public class GmailIngestProperties {
     private boolean enabled = true;
     private int firstBackfillDays = 30;
+    private int dateWindowDays = 3;
 }

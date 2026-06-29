@@ -40,7 +40,8 @@ public class AccountService {
                 AccountBankDetails details = new AccountBankDetails(
                         account,
                         bankReq.openingBalance(),
-                        bankReq.last4());
+                        bankReq.last4(),
+                        bankReq.statementPassword());
                 details.setUser(user);
                 account.setBankDetails(details);
             }
@@ -106,8 +107,9 @@ public class AccountService {
             // Update existing
             account.getBankDetails().setOpeningBalance(request.openingBalance());
             account.getBankDetails().setLast4(request.last4());
+            account.getBankDetails().setStatementPassword(request.statementPassword());
         } else {
-            AccountBankDetails details = new AccountBankDetails(account, request.openingBalance(), request.last4());
+            AccountBankDetails details = new AccountBankDetails(account, request.openingBalance(), request.last4(), request.statementPassword());
             details.setUser(account.getUser());
             account.setBankDetails(details);
         }

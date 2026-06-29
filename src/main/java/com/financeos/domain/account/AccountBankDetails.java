@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Filter;
 import com.financeos.domain.user.User;
+import com.financeos.core.crypto.EncryptedStringConverter;
 
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -42,10 +43,22 @@ public class AccountBankDetails {
     @Column(name = "last4")
     private String last4;
 
+    @Convert(converter = EncryptedStringConverter.class)
+    @Column(name = "statement_password", length = 500)
+    private String statementPassword;
+
     public AccountBankDetails(Account account, BigDecimal openingBalance, String last4) {
         this.account = account;
         this.accountId = account.getId();
         this.openingBalance = openingBalance;
         this.last4 = last4;
+    }
+
+    public AccountBankDetails(Account account, BigDecimal openingBalance, String last4, String statementPassword) {
+        this.account = account;
+        this.accountId = account.getId();
+        this.openingBalance = openingBalance;
+        this.last4 = last4;
+        this.statementPassword = statementPassword;
     }
 }

@@ -14,6 +14,8 @@ import com.financeos.gmail.internal.GmailFetchResult;
 import com.financeos.gmail.internal.GmailMessage;
 import com.financeos.gmail.ingest.gemini.GeminiExtractionResult;
 import com.financeos.gmail.ingest.gemini.GeminiExtractor;
+import com.financeos.gmail.reconcile.StatementReconciliationService;
+import com.financeos.gmail.reconcile.ReconSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,7 @@ public class GmailIngestionService {
     private final GeminiExtractor geminiExtractor;
     private final GmailProcessedMessageRepository processedMessageRepository;
     private final GmailIngestProperties ingestProperties;
+    private final StatementReconciliationService statementReconciliationService;
 
     public GmailIngestionService(GmailEngine gmailEngine,
                                  SyncStateService syncStateService,
@@ -45,7 +48,8 @@ public class GmailIngestionService {
                                  GmailTransactionWriter gmailTransactionWriter,
                                  GeminiExtractor geminiExtractor,
                                  GmailProcessedMessageRepository processedMessageRepository,
-                                 GmailIngestProperties ingestProperties) {
+                                 GmailIngestProperties ingestProperties,
+                                 StatementReconciliationService statementReconciliationService) {
         this.gmailEngine = gmailEngine;
         this.syncStateService = syncStateService;
         this.gmailSenderRepository = gmailSenderRepository;
@@ -54,6 +58,7 @@ public class GmailIngestionService {
         this.geminiExtractor = geminiExtractor;
         this.processedMessageRepository = processedMessageRepository;
         this.ingestProperties = ingestProperties;
+        this.statementReconciliationService = statementReconciliationService;
     }
 
     /**
@@ -127,10 +132,10 @@ public class GmailIngestionService {
                 }
 
                 if (sender.getPurpose() == SenderPurpose.STATEMENT) {
-                    // M4 reconciliation logic goes here. For M2/M3, we skip statement emails.
-                    gmailTransactionWriter.recordSkipped(connection, message.messageId(),
-                            GmailProcessedStatus.SKIPPED_NOT_TRANSACTION, "Statement emails reconciliation deferred to M4");
-                    skipped++;
+                    ReconSummary recon = statementReconciliationService.reconcile(connection, message, sender);
+                    created += recon.created();
+                    reconciled += recon.matched();
+                    failed += recon.failed();
                     continue;
                 }
 
