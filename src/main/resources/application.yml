@@ -81,6 +81,13 @@ gmail:
     first-backfill-days: ${GMAIL_INGEST_BACKFILL_DAYS:30}
     zone: ${GMAIL_INGEST_ZONE:Asia/Kolkata}
 
+# Gemini (Google AI Studio) configuration for transaction extraction
+gemini:
+  api-key: ${GEMINI_API_KEY:}
+  model: ${GEMINI_MODEL:gemini-3.5-flash}
+  statement-model: ${GEMINI_STATEMENT_MODEL:gemini-3.5-flash}
+  timeout: ${GEMINI_TIMEOUT_MS:30000}
+
 # Google SSO configuration
 google:
   oauth:
