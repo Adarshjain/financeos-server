@@ -37,7 +37,8 @@ public sealed interface UpdateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             BigDecimal openingBalance,
-            String last4
+            String last4,
+            String statementPassword
     ) implements UpdateAccountRequest {
     }
 

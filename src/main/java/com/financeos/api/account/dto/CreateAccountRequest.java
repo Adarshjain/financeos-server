@@ -37,7 +37,8 @@ public sealed interface CreateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             BigDecimal openingBalance,
-            String last4
+            String last4,
+            String statementPassword
     ) implements CreateAccountRequest {
     }
 
