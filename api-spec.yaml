@@ -26,6 +26,8 @@ tags:
     description: Dashboard summary (skeleton)
   - name: Categories
     description: Transaction category management
+  - name: Reports
+    description: Dynamic user-defined reports over the transactions data source
 
 paths:
   /api/v1/auth/signup:
@@ -817,6 +819,417 @@ paths:
         '404':
           description: Category not found
 
+  /api/v1/report/datasource:
+    get:
+      tags: [Reports]
+      summary: Get datasource field and operator catalog
+      description: Returns the catalog of reportable fields and operators the GUI uses to build report definitions.
+      operationId: getDatasourceCatalog
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Field and operator catalog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasourceView'
+        '401':
+          description: Not authenticated
+
+  /api/v1/reports:
+    post:
+      tags: [Reports]
+      summary: Create and save a report definition
+      operationId: createReport
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReportRequest'
+      responses:
+        '201':
+          description: Report created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Not authenticated
+
+    get:
+      tags: [Reports]
+      summary: List all saved reports for the current user
+      operationId: listReports
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: type
+          in: query
+          required: false
+          description: Filter by report type
+          schema:
+            $ref: '#/components/schemas/ReportType'
+      responses:
+        '200':
+          description: List of report summaries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReportSummaryResponse'
+        '401':
+          description: Not authenticated
+
+  /api/v1/reports/data:
+    post:
+      tags: [Reports]
+      summary: Run an ad-hoc (unsaved) report definition
+      operationId: runAdHocReport
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: Page number (zero-based); applies to TABLE reports
+          schema:
+            type: integer
+        - name: size
+          in: query
+          required: false
+          description: Page size; applies to TABLE reports
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunReportRequest'
+      responses:
+        '200':
+          description: Computed report data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportData'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Not authenticated
+
+  /api/v1/reports/{id}:
+    get:
+      tags: [Reports]
+      summary: Get a saved report definition by ID
+      operationId: getReport
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Report definition
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+        '401':
+          description: Not authenticated
+        '404':
+          description: Report not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      tags: [Reports]
+      summary: Update a saved report definition
+      operationId: updateReport
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReportRequest'
+      responses:
+        '200':
+          description: Report updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Not authenticated
+        '404':
+          description: Report not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      tags: [Reports]
+      summary: Delete a saved report
+      operationId: deleteReport
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Report deleted
+        '401':
+          description: Not authenticated
+        '404':
+          description: Report not found
+
+  /api/v1/reports/{id}/data:
+    post:
+      tags: [Reports]
+      summary: Run a saved report and return computed data
+      operationId: runSavedReport
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: page
+          in: query
+          required: false
+          description: Page number (zero-based); applies to TABLE reports
+          schema:
+            type: integer
+        - name: size
+          in: query
+          required: false
+          description: Page size; applies to TABLE reports
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Computed report data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportData'
+        '401':
+          description: Not authenticated
+        '404':
+          description: Report not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/dashboards:
+    post:
+      tags: [Dashboards]
+      summary: Create a dashboard
+      operationId: createDashboard
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDashboardRequest'
+      responses:
+        '201':
+          description: Dashboard created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Not authenticated
+    get:
+      tags: [Dashboards]
+      summary: List the current user's dashboards (summaries)
+      operationId: listDashboards
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: List of dashboard summaries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DashboardResponse'
+        '401':
+          description: Not authenticated
+
+  /api/v1/dashboards/default:
+    get:
+      tags: [Dashboards]
+      summary: Get the current user's default dashboard (no id required)
+      operationId: getDefaultDashboard
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: The default dashboard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '401':
+          description: Not authenticated
+        '404':
+          description: No default dashboard set
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/dashboards/{id}:
+    get:
+      tags: [Dashboards]
+      summary: Get a dashboard (widgets enriched with referenced-report metadata)
+      operationId: getDashboard
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Dashboard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '401':
+          description: Not authenticated
+        '404':
+          description: Dashboard not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags: [Dashboards]
+      summary: Update a dashboard
+      operationId: updateDashboard
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDashboardRequest'
+      responses:
+        '200':
+          description: Dashboard updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Not authenticated
+        '404':
+          description: Dashboard not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags: [Dashboards]
+      summary: Delete a dashboard
+      operationId: deleteDashboard
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Dashboard deleted
+        '401':
+          description: Not authenticated
+        '404':
+          description: Dashboard not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   securitySchemes:
     sessionAuth:
@@ -1412,4 +1825,551 @@ components:
           type: string
           format: date-time
           description: Timestamp of this sync
+
+    ReportType:
+      type: string
+      enum: [KPI, CHART, TABLE]
+      description: The kind of report.
+
+    FieldDefinition:
+      type: object
+      description: A reportable field in the datasource catalog.
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+          enum: [number, date, string, enum, boolean]
+        role:
+          type: string
+          enum: [measure, dimension, filter]
+        aggregations:
+          type: array
+          description: Present for measures only.
+          items:
+            type: string
+            enum: [sum, avg, count, min, max]
+        values:
+          type: array
+          description: Allowed values for static enum fields.
+          items:
+            type: string
+        dynamic:
+          type: boolean
+          description: True for user-specific enums (category, account); values fetched from their own endpoints.
+        allowedInReports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportType'
+
+    OperatorCatalog:
+      type: object
+      properties:
+        date:
+          type: object
+          properties:
+            absolute:
+              type: array
+              items:
+                type: string
+            relative:
+              type: array
+              items:
+                type: string
+        string:
+          type: array
+          items:
+            type: string
+        number:
+          type: array
+          items:
+            type: string
+        enum:
+          type: array
+          items:
+            type: string
+        boolean:
+          type: array
+          items:
+            type: string
+
+    DatasourceView:
+      type: object
+      description: The reportable field and operator catalog.
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDefinition'
+        operators:
+          $ref: '#/components/schemas/OperatorCatalog'
+
+    CreateReportRequest:
+      type: object
+      required: [name, type, datasource, definition]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/ReportType'
+        datasource:
+          type: string
+          example: transactions
+        definition:
+          type: object
+          description: Type-specific report definition (KPI/Chart/Table). See docs/reports-module-spec.md.
+
+    UpdateReportRequest:
+      type: object
+      required: [name, definition]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        definition:
+          type: object
+          description: Type-specific report definition; must match the stored report's type.
+
+    RunReportRequest:
+      type: object
+      required: [type, datasource, definition]
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportType'
+        datasource:
+          type: string
+          example: transactions
+        definition:
+          type: object
+          description: Type-specific report definition to run without saving.
+
+    ReportResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/ReportType'
+        datasource:
+          type: string
+        definition:
+          type: object
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    ReportSummaryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/ReportType'
+        datasource:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    ReportData:
+      description: Computed report data; the concrete shape is discriminated by its `type` field.
+      oneOf:
+        - $ref: '#/components/schemas/KpiData'
+        - $ref: '#/components/schemas/ChartData'
+        - $ref: '#/components/schemas/TableData'
+        - $ref: '#/components/schemas/PivotTableData'
+
+    KpiData:
+      type: object
+      properties:
+        type:
+          type: string
+          example: KPI
+        value:
+          type: number
+          nullable: true
+        measure:
+          type: string
+        aggregation:
+          type: string
+        comparison:
+          type: object
+          nullable: true
+          properties:
+            previousValue:
+              type: number
+            previousDateRange:
+              type: object
+              nullable: true
+              properties:
+                from:
+                  type: string
+                  format: date
+                to:
+                  type: string
+                  format: date
+            change:
+              type: number
+            changePercent:
+              type: number
+              nullable: true
+            direction:
+              type: string
+              enum: [up, down, flat]
+            sentiment:
+              type: string
+              enum: [good, bad, neutral]
+              description: Business read of the change, driven by the definition's comparison.higherIsBetter.
+        meta:
+          type: object
+          properties:
+            rowCount:
+              type: integer
+              format: int64
+            dateRange:
+              type: object
+              nullable: true
+              properties:
+                from:
+                  type: string
+                  format: date
+                to:
+                  type: string
+                  format: date
+
+    ChartData:
+      type: object
+      properties:
+        type:
+          type: string
+          example: CHART
+        chartType:
+          type: string
+        dimension:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        series:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              data:
+                type: array
+                items:
+                  type: number
+                  nullable: true
+        measure:
+          type: object
+          properties:
+            field:
+              type: string
+            aggregation:
+              type: string
+        meta:
+          type: object
+          properties:
+            rowCount:
+              type: integer
+              format: int64
+            dateRange:
+              type: object
+              nullable: true
+              properties:
+                from:
+                  type: string
+                  format: date
+                to:
+                  type: string
+                  format: date
+
+    TableData:
+      type: object
+      properties:
+        type:
+          type: string
+          example: TABLE
+        mode:
+          type: string
+          enum: [raw]
+          description: This shape is returned for raw tables; aggregated tables return PivotTableData.
+        columns:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              label:
+                type: string
+              type:
+                type: string
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        page:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+            totalElements:
+              type: integer
+              format: int64
+            totalPages:
+              type: integer
+
+    PivotDimensionInfo:
+      type: object
+      properties:
+        field:
+          type: string
+        label:
+          type: string
+
+    PivotTableData:
+      type: object
+      description: Aggregated (pivot) table — row dimensions × column dimensions × measures.
+      properties:
+        type:
+          type: string
+          example: TABLE
+        mode:
+          type: string
+          enum: [aggregated]
+        rowDimensions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PivotDimensionInfo'
+        columnDimensions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PivotDimensionInfo'
+        measures:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              field:
+                type: string
+              aggregation:
+                type: string
+              label:
+                type: string
+        columns:
+          type: array
+          description: Distinct column-value combinations (ordered). With no column dimensions, a single column with key "".
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              values:
+                type: object
+                additionalProperties:
+                  type: string
+        rows:
+          type: array
+          description: Row groups for the requested page.
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              values:
+                type: object
+                additionalProperties:
+                  type: string
+              cells:
+                type: object
+                description: columnKey -> (measureKey -> value)
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    type: number
+        page:
+          type: object
+          properties:
+            number:
+              type: integer
+            size:
+              type: integer
+            totalElements:
+              type: integer
+              format: int64
+            totalPages:
+              type: integer
+
+    WidgetLayout:
+      type: object
+      description: Widget placement on the 12-column dashboard grid.
+      properties:
+        x:
+          type: integer
+        y:
+          type: integer
+        w:
+          type: integer
+        h:
+          type: integer
+
+    DashboardWidget:
+      type: object
+      description: A widget referencing a saved report plus its grid placement.
+      required: [id, reportId, layout]
+      properties:
+        id:
+          type: string
+          description: Client-generated; unique within the dashboard.
+        reportId:
+          type: string
+          format: uuid
+        title:
+          type: string
+          nullable: true
+          description: Optional display override; null = use the report's name.
+        layout:
+          $ref: '#/components/schemas/WidgetLayout'
+
+    CreateDashboardRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        isDefault:
+          type: boolean
+        widgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardWidget'
+
+    UpdateDashboardRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        isDefault:
+          type: boolean
+        widgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardWidget'
+
+    ReportRef:
+      type: object
+      description: Server-resolved metadata for a widget's referenced report (null/false when deleted or not owned).
+      properties:
+        name:
+          type: string
+          nullable: true
+        type:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/ReportType'
+        available:
+          type: boolean
+
+    WidgetResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        reportId:
+          type: string
+          format: uuid
+        title:
+          type: string
+          nullable: true
+        layout:
+          $ref: '#/components/schemas/WidgetLayout'
+        report:
+          $ref: '#/components/schemas/ReportRef'
+
+    DashboardResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        isDefault:
+          type: boolean
+        widgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/WidgetResponse'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    DashboardSummaryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        isDefault:
+          type: boolean
+        widgetCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
 
