@@ -1,6 +1,6 @@
 # Gmail Transaction Ingestion — Design Spec
 
-**Status:** Draft / Proposed (v4 — `transaction_alert` + reconciliation both designed)
+**Status:** Implemented (v4) — M1–M4 built on the `gmail_ingestion` branch; pending end-to-end test + frontend.
 **Date:** 2026-06-29
 **Scope:** Complete the Gmail → Transaction pipeline: cron fetch → **Gemini extraction** → persist (with review status) → **reconcile against statements**.
 **Context:** Personal project. Single instance. INR only. ≤ 5–10 senders. No compliance/verification constraints.
@@ -262,6 +262,7 @@ Cursor: reuse `gmail_sync_state.last_synced_at` (no migration). `TransactionSour
 | Missing amount/date | `FAILED`, surfaced. |
 | Statement re-processed | Per-line idempotency key; recon promotes only `NEEDS_REVIEW → AUTO_REVIEWED`. |
 | Seam vs historical import | Watermark gates statement-row creation; match-check spans all period txns. |
+| Statement processed before its alerts (same batch / initial backfill) | **Known edge case:** the alert-creation path does not yet dedupe against existing `gmail_statement` rows, so a statement reconciled before its corresponding alert emails (only possible in a first backfill) can yield a `gmail_statement` + `gmail_transaction_alert` duplicate. Steady-state safe (alerts arrive in real time, ahead of the month-end statement). Future guard: have the alert path also match against unmatched `gmail_statement` rows. |
 | Transient Gmail 429/5xx | Backoff + jitter; honor `Retry-After`. |
 | Crash mid-run | Advance `last_synced_at` only after durable processing. |
 | Token revoked (401/403) | Mark `is_connected=false`; surface "reconnect Gmail". |
@@ -290,7 +291,7 @@ Deferred — added later.
 | **M3 — Automation** | `@EnableScheduling` cron (2h, 10–22 IST) with `from:(allowlist) after:lastSync`. | Alerts ingest automatically. |
 | **M4 — Reconciliation** | V20 (source values + statement passwords); statement routing; PDFBox/POI decrypt; Gemini Pro parse; matcher (1:1 greedy, watermark-gated); outcomes → `AUTO_REVIEWED` / new `gmail_statement`. | Alerts cross-verified by statements. |
 
-**Order:** M1 → M2 → M3 → M4.
+**Status: all milestones M1–M4 implemented** on `gmail_ingestion` (built in order M1 → M2 → M3 → M4). Pending: end-to-end test + frontend integration.
 
 ---
 
