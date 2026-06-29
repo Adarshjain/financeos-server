@@ -146,7 +146,7 @@ public class DevDataSeeder implements CommandLineRunner {
             amount = BigDecimal.valueOf(1000 + random.nextInt(50000)).setScale(2, RoundingMode.HALF_UP);
             List<String> incomeCats = List.of("Salary", "Freelance", "Interest");
             category = categories.get(incomeCats.get(random.nextInt(incomeCats.size())));
-            tempDescription = type + " - " + category.getName();
+            tempDescription = category.getName();
         } else {
             amount = BigDecimal.valueOf(10 + random.nextInt(2000)).setScale(2, RoundingMode.HALF_UP);
             List<String> expenseCats = List.of("Dining", "Shopping", "Groceries", "Fuel", "Utilities", "Travel",
@@ -157,10 +157,8 @@ public class DevDataSeeder implements CommandLineRunner {
 
         if (isAutomated) {
             sourcedDescription = "SIMULATED_GMAIL_ALERT: " + tempDescription + " of amount " + amount + " on " + date;
-            description = null;
-        } else {
-            description = tempDescription;
         }
+        description = tempDescription;
 
         boolean isMonitoring = random.nextDouble() < 0.10;
         boolean isExcluded = random.nextDouble() < 0.05;
