@@ -98,6 +98,13 @@ public class Transaction {
     @Column(name = "is_excluded", nullable = false)
     private boolean isTransactionExcluded = false;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "review_type")
+    private ReviewType reviewType;
+
+    @Column(name = "source_message_id", unique = true)
+    private String sourceMessageId;
+
     @Column(name = "created_at")
     private Instant createdAt;
 
