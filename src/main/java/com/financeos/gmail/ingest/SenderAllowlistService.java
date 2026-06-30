@@ -15,12 +15,16 @@ public class SenderAllowlistService {
 
     private final GmailSenderRepository gmailSenderRepository;
     private final UserRepository userRepository;
+    private final com.financeos.domain.account.AccountRepository accountRepository;
 
     public SenderAllowlistService(GmailSenderRepository gmailSenderRepository,
-                                  UserRepository userRepository) {
+                                  UserRepository userRepository,
+                                  com.financeos.domain.account.AccountRepository accountRepository) {
         this.gmailSenderRepository = gmailSenderRepository;
         this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
     }
+
 
     @Transactional(readOnly = true)
     public List<GmailSender> getSenders(UUID userId) {
@@ -36,6 +40,17 @@ public class SenderAllowlistService {
         sender.setName(request.name() != null && !request.name().trim().isEmpty() ? request.name().trim() : null);
         sender.setSenderAddress(request.senderAddress().trim().toLowerCase());
         sender.setEnabled(request.enabled() != null ? request.enabled() : true);
+
+        if (request.accountId() != null) {
+            com.financeos.domain.account.Account account = accountRepository.findById(request.accountId())
+                    .orElseThrow(() -> new IllegalArgumentException("Account not found: " + request.accountId()));
+            if (!account.getUser().getId().equals(userId)) {
+                throw new SecurityException("Unauthorized access to Account");
+            }
+            sender.setAccount(account);
+        } else {
+            sender.setAccount(null);
+        }
 
         return gmailSenderRepository.save(sender);
     }
@@ -54,8 +69,20 @@ public class SenderAllowlistService {
             sender.setEnabled(request.enabled());
         }
 
+        if (request.accountId() != null) {
+            com.financeos.domain.account.Account account = accountRepository.findById(request.accountId())
+                    .orElseThrow(() -> new IllegalArgumentException("Account not found: " + request.accountId()));
+            if (!account.getUser().getId().equals(userId)) {
+                throw new SecurityException("Unauthorized access to Account");
+            }
+            sender.setAccount(account);
+        } else {
+            sender.setAccount(null);
+        }
+
         return gmailSenderRepository.save(sender);
     }
+
 
     public void deleteSender(UUID userId, UUID senderId) {
         GmailSender sender = gmailSenderRepository.findById(senderId)

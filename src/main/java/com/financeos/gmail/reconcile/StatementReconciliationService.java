@@ -43,20 +43,24 @@ public class StatementReconciliationService {
     private final GmailProcessedMessageRepository processedMessageRepository;
     private final GmailIngestProperties ingestProperties;
     private final AccountRepository accountRepository;
+    private final com.financeos.gmail.ingest.AccountResolver accountResolver;
 
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
                                           TransactionRepository transactionRepository,
                                           GmailProcessedMessageRepository processedMessageRepository,
                                           GmailIngestProperties ingestProperties,
-                                          AccountRepository accountRepository) {
+                                          AccountRepository accountRepository,
+                                          com.financeos.gmail.ingest.AccountResolver accountResolver) {
         this.gmailEngine = gmailEngine;
         this.statementParser = statementParser;
         this.transactionRepository = transactionRepository;
         this.processedMessageRepository = processedMessageRepository;
         this.ingestProperties = ingestProperties;
         this.accountRepository = accountRepository;
+        this.accountResolver = accountResolver;
     }
+
 
     private record ChosenAttachment(GmailAttachment attachment, byte[] bytes) {}
 
@@ -159,14 +163,9 @@ public class StatementReconciliationService {
         Account resolvedAccount = null;
         String statementLast4 = result.accountLast4();
 
-        // Resolve by statement's last-4 using exactly-one rule
-        Account last4ResolvedAccount = null;
-        if (statementLast4 != null && !statementLast4.trim().isEmpty()) {
-            List<Account> matches = accountRepository.findByLast4(statementLast4.trim());
-            if (matches.size() == 1) {
-                last4ResolvedAccount = matches.get(0);
-            }
-        }
+        // Resolve by statement's last-4 using exactly-one rule (via AccountResolver)
+        Account last4ResolvedAccount = accountResolver.resolve(statementLast4).orElse(null);
+
 
         if (candidateAccount != null) {
             String candidateLast4 = null;
