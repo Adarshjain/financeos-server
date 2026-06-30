@@ -70,8 +70,13 @@ public class AccountService {
 
     @Transactional(readOnly = true)
     public Account getAccountById(UUID id) {
-        return accountRepository.findById(id)
+        Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", id));
+        UUID currentUserId = UserContext.getCurrentUserId();
+        if (currentUserId != null && !account.getUser().getId().equals(currentUserId)) {
+            throw new ValidationException("You do not have permission to access this account.");
+        }
+        return account;
     }
 
     public Account updateAccount(UUID id, CreateAccountRequest request) {
@@ -184,6 +189,7 @@ public class AccountService {
     }
 
     public void deleteAccount(UUID id) {
-        accountRepository.deleteById(id);
+        Account account = getAccountById(id); // Performs ownership check
+        accountRepository.delete(account);
     }
 }

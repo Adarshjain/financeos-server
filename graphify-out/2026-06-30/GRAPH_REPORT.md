@@ -1,18 +1,13 @@
-# Graph Report - financeos-server  (2026-06-30)
+# Graph Report - .  (2026-06-30)
 
 ## Corpus Check
-- 224 files · ~50,796 words
+- 225 files · ~50,555 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2047 nodes · 4692 edges · 167 communities (115 shown, 52 thin omitted)
-- Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 439 edges (avg confidence: 0.8)
-- Token cost: 0 input · 0 output
-
-## Graph Freshness
-- Built from commit: `5c8bd58c`
-- Run `git rev-parse HEAD` and compare to check if the graph is stale.
-- Run `graphify update .` after code changes (no API cost).
+- 1872 nodes · 4546 edges · 114 communities (106 shown, 8 thin omitted)
+- Extraction: 90% EXTRACTED · 10% INFERRED · 0% AMBIGUOUS · INFERRED: 433 edges (avg confidence: 0.81)
+- Token cost: 116,152 input · 0 output
 
 ## Community Hubs (Navigation)
 - [[_COMMUNITY_Account REST API|Account REST API]]
@@ -129,73 +124,22 @@
 - [[_COMMUNITY_Date Bucket Labels Concept|Date Bucket Labels Concept]]
 - [[_COMMUNITY_Maven Artifact|Maven Artifact]]
 - [[_COMMUNITY_FIFO Position Concept|FIFO Position Concept]]
-- [[_COMMUNITY_Community 114|Community 114]]
-- [[_COMMUNITY_Community 115|Community 115]]
-- [[_COMMUNITY_Community 116|Community 116]]
-- [[_COMMUNITY_Community 117|Community 117]]
-- [[_COMMUNITY_Community 118|Community 118]]
-- [[_COMMUNITY_Community 119|Community 119]]
-- [[_COMMUNITY_Community 120|Community 120]]
-- [[_COMMUNITY_Community 121|Community 121]]
-- [[_COMMUNITY_Community 122|Community 122]]
-- [[_COMMUNITY_Community 123|Community 123]]
-- [[_COMMUNITY_Community 124|Community 124]]
-- [[_COMMUNITY_Community 125|Community 125]]
-- [[_COMMUNITY_Community 126|Community 126]]
-- [[_COMMUNITY_Community 127|Community 127]]
-- [[_COMMUNITY_Community 128|Community 128]]
-- [[_COMMUNITY_Community 129|Community 129]]
-- [[_COMMUNITY_Community 130|Community 130]]
-- [[_COMMUNITY_Community 131|Community 131]]
-- [[_COMMUNITY_Community 132|Community 132]]
-- [[_COMMUNITY_Community 133|Community 133]]
-- [[_COMMUNITY_Community 134|Community 134]]
-- [[_COMMUNITY_Community 135|Community 135]]
-- [[_COMMUNITY_Community 136|Community 136]]
-- [[_COMMUNITY_Community 137|Community 137]]
-- [[_COMMUNITY_Community 138|Community 138]]
-- [[_COMMUNITY_Community 139|Community 139]]
-- [[_COMMUNITY_Community 140|Community 140]]
-- [[_COMMUNITY_Community 141|Community 141]]
-- [[_COMMUNITY_Community 142|Community 142]]
-- [[_COMMUNITY_Community 143|Community 143]]
-- [[_COMMUNITY_Community 144|Community 144]]
-- [[_COMMUNITY_Community 145|Community 145]]
-- [[_COMMUNITY_Community 146|Community 146]]
-- [[_COMMUNITY_Community 147|Community 147]]
-- [[_COMMUNITY_Community 148|Community 148]]
-- [[_COMMUNITY_Community 149|Community 149]]
-- [[_COMMUNITY_Community 150|Community 150]]
-- [[_COMMUNITY_Community 151|Community 151]]
-- [[_COMMUNITY_Community 152|Community 152]]
-- [[_COMMUNITY_Community 153|Community 153]]
-- [[_COMMUNITY_Community 154|Community 154]]
-- [[_COMMUNITY_Community 155|Community 155]]
-- [[_COMMUNITY_Community 156|Community 156]]
-- [[_COMMUNITY_Community 157|Community 157]]
-- [[_COMMUNITY_Community 158|Community 158]]
-- [[_COMMUNITY_Community 159|Community 159]]
-- [[_COMMUNITY_Community 160|Community 160]]
-- [[_COMMUNITY_Community 161|Community 161]]
-- [[_COMMUNITY_Community 162|Community 162]]
-- [[_COMMUNITY_Community 163|Community 163]]
-- [[_COMMUNITY_Community 164|Community 164]]
-- [[_COMMUNITY_Community 165|Community 165]]
-- [[_COMMUNITY_Community 166|Community 166]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `Account` - 64 edges
 2. `User` - 60 edges
-3. `ValidationException` - 59 edges
+3. `ValidationException` - 57 edges
 4. `GmailConnection` - 44 edges
 5. `Transaction` - 43 edges
-6. `UserRepository` - 41 edges
+6. `UserRepository` - 39 edges
 7. `ReportType` - 35 edges
-8. `ResourceNotFoundException` - 31 edges
-9. `ReportDefinitionValidator` - 31 edges
-10. `AccountRepository` - 30 edges
+8. `ReportDefinitionValidator` - 31 edges
+9. `ResourceNotFoundException` - 30 edges
+10. `TransactionQueryBuilder` - 30 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `Windows Setup Guide` --references--> `FinanceOS Backend`  [INFERRED]
+  WINDOWS_SETUP.md → README.md
 - `sessionAuth (FINANCEOS_SESSION cookie)` --conceptually_related_to--> `Session-Based Authentication`  [INFERRED]
   api-spec.yaml → README.md
 - `JDBC Session Store config` --conceptually_related_to--> `sessionAuth (FINANCEOS_SESSION cookie)`  [INFERRED]
@@ -204,8 +148,6 @@
   api-spec.yaml → src/main/resources/application.yml
 - `gmail.oauth config` --conceptually_related_to--> `Google SSO + Gmail OAuth Flow`  [INFERRED]
   src/main/resources/application.yml → api-spec.yaml
-- `Gmail Sender Allowlist Endpoints` --references--> `SenderAllowlistService + GmailSender`  [INFERRED]
-  api-spec.yaml → docs/gmail-ingestion-spec.md
 
 ## Import Cycles
 - None detected.
@@ -215,155 +157,155 @@
 - **ReportData Type-Specific Shapes** — api_spec_report_data, api_spec_kpi_data, api_spec_chart_data, api_spec_table_data, api_spec_pivot_table_data [EXTRACTED 1.00]
 - **Dashboards Compose Saved Reports via Widgets** — docs_dashboards_module_spec_dashboards_module, docs_dashboards_module_spec_widget, docs_reports_module_spec_reports_module, docs_frontend_dashboards_integration_prompt_per_widget_render_flow [EXTRACTED 1.00]
 
-## Communities (167 total, 52 thin omitted)
+## Communities (114 total, 8 thin omitted)
 
 ### Community 0 - "Account REST API"
 Cohesion: 0.06
 Nodes (58): AccountController, DeleteMapping, GetMapping, List, PostMapping, PutMapping, RequestMapping, ResponseEntity (+50 more)
 
 ### Community 1 - "Authentication Controller"
-Cohesion: 0.05
-Nodes (44): SecurityContextHolderStrategy, AuthController, GetMapping, HttpServletRequest, HttpServletResponse, PostMapping, RequestMapping, ResponseEntity (+36 more)
+Cohesion: 0.06
+Nodes (42): SecurityContextHolderStrategy, AuthController, GetMapping, HttpServletRequest, HttpServletResponse, PostMapping, RequestMapping, ResponseEntity (+34 more)
 
 ### Community 2 - "Gmail DTOs & Sync State"
-Cohesion: 0.20
-Nodes (12): GmailAttachmentDto, GmailFetchResultDto, GmailMessageDto, GmailSyncStateDto, Integer, List, String, GmailFetchResult (+4 more)
+Cohesion: 0.07
+Nodes (34): GmailAttachmentDto, GmailFetchResultDto, GmailMessageDto, GmailSyncStateDto, Integer, List, String, GmailSyncStateEntity (+26 more)
 
 ### Community 3 - "Spring Security Config"
-Cohesion: 0.06
-Nodes (36): AfterEach, Authentication, AuthenticationConfiguration, Bean, BeforeEach, Configuration, CorsConfigurationSource, EnableWebSecurity (+28 more)
+Cohesion: 0.09
+Nodes (25): Authentication, AuthenticationConfiguration, Bean, Configuration, CorsConfigurationSource, EnableWebSecurity, FilterChain, HttpSecurity (+17 more)
 
 ### Community 4 - "Account Detail Repositories"
-Cohesion: 0.12
-Nodes (19): GmailSender, Boolean, Entity, Filter, Getter, Instant, NoArgsConstructor, PrePersist (+11 more)
+Cohesion: 0.08
+Nodes (32): JpaRepository, AccountBankDetailsRepository, Repository, UUID, AccountCreditCardDetailsRepository, Repository, UUID, AccountMutualFundDetailsRepository (+24 more)
 
 ### Community 5 - "Report Definition Models"
-Cohesion: 0.18
-Nodes (9): FilterClause, JsonNode, String, Comparison, List, String, KpiDefinition, Test (+1 more)
+Cohesion: 0.11
+Nodes (22): AggregatedTableDefinition, List, ChartDefinition, List, DimensionRef, String, FilterClause, JsonNode (+14 more)
 
 ### Community 6 - "Report REST API"
-Cohesion: 0.17
-Nodes (13): DeleteMapping, GetMapping, Integer, List, ObjectMapper, PostMapping, PutMapping, RequestMapping (+5 more)
+Cohesion: 0.11
+Nodes (24): DeleteMapping, GetMapping, Integer, List, ObjectMapper, PostMapping, PutMapping, RequestMapping (+16 more)
 
 ### Community 7 - "Exception Handling"
-Cohesion: 0.27
-Nodes (12): BadCredentialsException, Exception, ExceptionHandler, MethodArgumentNotValidException, RestControllerAdvice, ErrorResponse, GlobalExceptionHandler, Instant (+4 more)
+Cohesion: 0.10
+Nodes (22): BadCredentialsException, Exception, ExceptionHandler, MethodArgumentNotValidException, RestControllerAdvice, RuntimeException, EncryptionException, String (+14 more)
 
 ### Community 8 - "Field Encryption Service"
 Cohesion: 0.11
 Nodes (23): AttributeConverter, Converter, PostConstruct, SecretKey, SecureRandom, EncryptedStringConverter, Component, Override (+15 more)
 
 ### Community 9 - "Gmail REST API"
-Cohesion: 0.12
+Cohesion: 0.11
 Nodes (19): GmailSenderResponse, String, UUID, String, OAuthStartResponse, GmailController, DeleteMapping, GetMapping (+11 more)
 
 ### Community 10 - "Report Request DTOs"
-Cohesion: 0.17
-Nodes (8): ChartDefinition, List, Override, Override, ReportDefinition, Override, TableDefinition, ReportType
+Cohesion: 0.10
+Nodes (18): Class, CreateReportRequest, JsonNode, String, JsonNode, String, RunReportRequest, Override (+10 more)
 
 ### Community 11 - "Report Definition Validation"
-Cohesion: 0.23
-Nodes (9): ValidationException, FieldDef, Boolean, List, JsonNode, List, Set, String (+1 more)
+Cohesion: 0.21
+Nodes (10): String, ValidationException, FieldDef, Boolean, Component, JsonNode, List, Set (+2 more)
 
 ### Community 12 - "Date Range Resolution"
-Cohesion: 0.05
-Nodes (39): Map, Object, PostMapping, RequestMapping, ResponseEntity, RestController, String, RulesController (+31 more)
+Cohesion: 0.16
+Nodes (12): DateRange, LocalDate, DateRangeResolver, Component, JsonNode, List, LocalDate, Set (+4 more)
 
 ### Community 13 - "Gmail Processed Messages"
-Cohesion: 0.12
+Cohesion: 0.10
 Nodes (20): GmailProcessedMessage, Entity, Filter, Getter, Instant, NoArgsConstructor, PrePersist, Setter (+12 more)
 
 ### Community 14 - "Gmail Fetch Engine"
-Cohesion: 0.20
-Nodes (10): BigInteger, MessagePart, Message, GmailEngine, Component, Gmail, Integer, List (+2 more)
+Cohesion: 0.14
+Nodes (14): BigInteger, ListHistoryResponse, MessagePart, Gmail, Message, Profile, GmailEngine, Component (+6 more)
 
 ### Community 15 - "Gmail Ingestion Design (Docs)"
-Cohesion: 0.22
-Nodes (10): Google SSO + Gmail OAuth Flow, sessionAuth (FINANCEOS_SESSION cookie), Session-Based Authentication, Spring application.yml, gemini config (api-key, model, statement-model), gmail.ingest config (cron, backfill, zone), gmail.oauth config, google.oauth SSO config (+2 more)
+Cohesion: 0.07
+Nodes (31): Gmail Sender Allowlist Endpoints, POST /api/v1/gmail/sync, Google SSO + Gmail OAuth Flow, Per-account ingest_from_date watermark, ReviewType enum, sessionAuth (FINANCEOS_SESSION cookie), SyncSummary (ingestion run counts), Background Tenancy via UserContext (+23 more)
 
 ### Community 16 - "Gmail Ingestion Service"
 Cohesion: 0.13
-Nodes (16): GmailIngestionService, List, Logger, Service, String, GmailIngestProperties, Component, ConfigurationProperties (+8 more)
+Nodes (20): GmailProcessedMessageRepository, AccountResolver, Component, Optional, String, Transactional, GmailIngestionService, List (+12 more)
 
 ### Community 17 - "Table Report Executor"
-Cohesion: 0.16
-Nodes (16): DimensionRef, String, Granularity, EntityManager, Integer, List, Map, Object (+8 more)
+Cohesion: 0.17
+Nodes (11): EntityManager, Integer, List, Map, Object, Service, Set, String (+3 more)
 
 ### Community 18 - "Dashboard Service"
-Cohesion: 0.21
-Nodes (8): DashboardService, List, ObjectMapper, Service, Slf4j, String, Transactional, UUID
+Cohesion: 0.16
+Nodes (13): String, ReportRef, String, UUID, WidgetResponse, DashboardService, List, ObjectMapper (+5 more)
 
 ### Community 19 - "Statement & Recon Extraction"
-Cohesion: 0.13
-Nodes (12): GmailProcessedStatus, GmailAttachment, String, ChosenAttachment, List, Logger, Service, Set (+4 more)
+Cohesion: 0.12
+Nodes (8): Cell, UUID, ReconSummary, String, List, Set, String, UUID
 
 ### Community 20 - "Category REST API"
 Cohesion: 0.13
 Nodes (16): CategoryController, DeleteMapping, GetMapping, List, PostMapping, PutMapping, RequestMapping, ResponseEntity (+8 more)
 
 ### Community 21 - "Dashboard REST API"
-Cohesion: 0.16
+Cohesion: 0.15
 Nodes (16): DashboardController, DeleteMapping, GetMapping, List, PostMapping, PutMapping, RequestMapping, ResponseEntity (+8 more)
 
 ### Community 22 - "Datasource Catalog API"
-Cohesion: 0.17
+Cohesion: 0.18
 Nodes (14): GetMapping, RequestMapping, ResponseEntity, RestController, ReportDatasourceController, DatasourceCatalog, DatasourceView, DateOperators (+6 more)
 
 ### Community 23 - "Transaction Query Builder"
-Cohesion: 0.26
-Nodes (12): Component, DateTimeFormatter, JsonNode, List, LocalDate, Map, Object, Set (+4 more)
+Cohesion: 0.28
+Nodes (11): Component, DateTimeFormatter, JsonNode, List, LocalDate, Map, Object, String (+3 more)
 
 ### Community 24 - "Report Entity"
-Cohesion: 0.18
-Nodes (12): Entity, Filter, Getter, Instant, NoArgsConstructor, PrePersist, PreUpdate, Setter (+4 more)
+Cohesion: 0.13
+Nodes (16): Instant, String, UUID, ReportSummaryResponse, Entity, Filter, Getter, Instant (+8 more)
 
 ### Community 25 - "Chart Report Executor"
-Cohesion: 0.14
-Nodes (21): ChartData, DateRangeView, BigDecimal, DateRangeView, List, LocalDate, Meta, String (+13 more)
+Cohesion: 0.18
+Nodes (12): ChartReportExecutor, EntityManager, List, Map, Object, Service, Set, String (+4 more)
 
 ### Community 26 - "Email Classifier & Gemini Config"
-Cohesion: 0.16
-Nodes (17): EmailClassifier, Component, HttpClient, Logger, ObjectMapper, GeminiExtractor, Component, HttpClient (+9 more)
+Cohesion: 0.17
+Nodes (17): EmailClassifier, Component, HttpClient, Logger, ObjectMapper, GeminiProperties, Component, ConfigurationProperties (+9 more)
 
 ### Community 27 - "Gmail API Client (OAuth)"
-Cohesion: 0.16
-Nodes (14): Credential, GoogleAuthorizationCodeFlow, GsonFactory, ListHistoryResponse, ListMessagesResponse, NetHttpTransport, GmailApiClient, Component (+6 more)
+Cohesion: 0.18
+Nodes (11): Credential, GoogleAuthorizationCodeFlow, GsonFactory, ListMessagesResponse, NetHttpTransport, GmailApiClient, Component, List (+3 more)
 
 ### Community 28 - "Transaction Repository"
 Cohesion: 0.22
 Nodes (11): EntityGraph, List, LocalDate, Override, Pageable, Query, Repository, String (+3 more)
 
 ### Community 29 - "Report Data Types (Docs)"
-Cohesion: 0.25
-Nodes (8): ChartData, KpiData, PivotTableData (aggregated), ReportData union, TableData (raw), Chart Report, KPI Report, Table Report (raw + aggregated)
+Cohesion: 0.11
+Nodes (20): ChartData, DatasourceView (field + operator catalog), KpiData, PivotTableData (aggregated), ReportData union, TableData (raw), Aggregated Tables as Pivots, isExcluded Filter Field (replaces includeExcluded) (+12 more)
 
 ### Community 30 - "Dev Data Seeder"
-Cohesion: 0.20
+Cohesion: 0.19
 Nodes (13): CommandLineRunner, Random, RequiredArgsConstructor, DevDataSeeder, Component, List, LocalDate, Map (+5 more)
 
 ### Community 31 - "KPI Report Executor"
-Cohesion: 0.07
-Nodes (29): 0. Locked Decisions, 10. Configuration (`application.yml`), 11. Testing, 12. Rollout Plan, 13. Open / Parked Questions, 1. Current State (recap), 2. Goals & Non-Goals, 3. Target Architecture (+21 more)
+Cohesion: 0.18
+Nodes (12): Comparison, Boolean, Aggregate, BigDecimal, Boolean, Comparison, EntityManager, List (+4 more)
 
 ### Community 32 - "Transaction Entity"
-Cohesion: 0.19
-Nodes (14): BigDecimal, Entity, Filter, Getter, Instant, LocalDate, NoArgsConstructor, PrePersist (+6 more)
+Cohesion: 0.17
+Nodes (15): BigDecimal, Entity, Filter, Getter, Instant, LocalDate, NoArgsConstructor, PrePersist (+7 more)
 
 ### Community 33 - "Transaction Type Test"
-Cohesion: 0.22
-Nodes (9): fromLlmDirection(), String, TransactionType, NullAndEmptySource, ParameterizedTest, String, Test, ValueSource (+1 more)
+Cohesion: 0.25
+Nodes (8): fromLlmDirection(), String, NullAndEmptySource, ParameterizedTest, String, Test, ValueSource, TransactionTypeFromLlmDirectionTest
 
 ### Community 34 - "Gemini Extraction Results"
-Cohesion: 0.23
-Nodes (7): ExtractedTransaction, BigDecimal, String, GeminiExtractionResult, BigDecimal, LocalDate, String
+Cohesion: 0.16
+Nodes (12): ExtractedTransaction, BigDecimal, String, GeminiExtractionResult, BigDecimal, LocalDate, String, GeminiExtractor (+4 more)
 
 ### Community 35 - "Account Service"
-Cohesion: 0.19
+Cohesion: 0.20
 Nodes (9): BankAccountRequest, CreditCardRequest, MutualFundRequest, AccountService, List, Service, Transactional, UUID (+1 more)
 
 ### Community 36 - "Email Classification Result"
-Cohesion: 0.22
-Nodes (7): EmailClassificationResult, String, EmailType, GmailMessage, Instant, List, String
+Cohesion: 0.15
+Nodes (10): EmailClassificationResult, String, EmailType, GmailAttachment, String, GmailMessage, Instant, List (+2 more)
 
 ### Community 37 - "Transaction REST API"
 Cohesion: 0.15
@@ -382,28 +324,28 @@ Cohesion: 0.22
 Nodes (8): FifoResult, InvestmentService, BigDecimal, Pageable, Service, Transactional, UUID, Lot
 
 ### Community 41 - "User Context (Tenancy)"
-Cohesion: 0.08
-Nodes (24): 10. Deferred (post-v1), 1. Overview, 2.1 Fields, 2.2 Operators (by field type), 2. Data source — `GET /api/v1/report/datasource`, 3.1 Envelope (all report types), 3.2 Excluding "excluded" transactions (v2), 3.3 Filters (+16 more)
+Cohesion: 0.23
+Nodes (7): Runnable, UUID, UserContext, UUID, UserContextHelper, Supplier, ThreadLocal
 
 ### Community 42 - "Dashboard Entity"
 Cohesion: 0.18
 Nodes (12): Dashboard, Entity, Filter, Getter, Instant, NoArgsConstructor, PrePersist, PreUpdate (+4 more)
 
 ### Community 43 - "Gmail Connection Entity"
-Cohesion: 0.13
-Nodes (17): GmailConnectionResponse, Instant, String, UUID, GmailConnection, Boolean, Entity, Filter (+9 more)
+Cohesion: 0.17
+Nodes (13): GmailConnection, Boolean, Entity, Filter, Getter, Instant, NoArgsConstructor, PrePersist (+5 more)
 
 ### Community 44 - "Gmail OAuth Service"
 Cohesion: 0.25
 Nodes (8): Object, String, ResourceNotFoundException, GmailOAuthService, Service, String, Transactional, UUID
 
 ### Community 45 - "Account Repository"
-Cohesion: 0.32
+Cohesion: 0.26
 Nodes (6): AccountRepository, List, Query, Repository, String, UUID
 
 ### Community 46 - "Dashboard Validator Test"
-Cohesion: 0.10
-Nodes (19): 1. Generate Encryption Key, 1. Install Java 21, 2. Create .env File, 2. Set JAVA_HOME (If Java is not in PATH), 3. Install PostgreSQL 14+, 4. Create Database, Configuration, "Connection refused" or Database Errors (+11 more)
+Cohesion: 0.25
+Nodes (5): WidgetLayout, DashboardValidatorTest, String, Test, UUID
 
 ### Community 47 - "Investment Transaction Entity"
 Cohesion: 0.23
@@ -422,16 +364,20 @@ Cohesion: 0.24
 Nodes (10): CreateInvestmentTransactionRequest, BigDecimal, LocalDate, UUID, InvestmentTransactionResponse, BigDecimal, Instant, LocalDate (+2 more)
 
 ### Community 51 - "Report Service"
-Cohesion: 0.21
-Nodes (10): JsonNode, String, UpdateReportRequest, List, ObjectMapper, Service, Slf4j, Transactional (+2 more)
+Cohesion: 0.19
+Nodes (8): JsonNode, String, UpdateReportRequest, List, Service, Slf4j, Transactional, UUID
 
 ### Community 52 - "Gmail Connection Repository"
-Cohesion: 0.19
-Nodes (10): Scheduled, GmailConnectionRepository, List, Optional, Repository, String, UUID, IngestionScheduler (+2 more)
+Cohesion: 0.30
+Nodes (6): GmailConnectionRepository, List, Optional, Repository, String, UUID
 
 ### Community 53 - "Granularity & Bucketing"
-Cohesion: 0.53
-Nodes (5): from(), JsonCreator, JsonValue, String, json()
+Cohesion: 0.27
+Nodes (8): from(), Granularity, JsonCreator, JsonValue, String, json(), BucketLabelTest, Test
+
+### Community 54 - "Dashboards Module Design (Docs)"
+Cohesion: 0.23
+Nodes (12): DashboardWidget, FinanceOS OpenAPI Spec, Dashboard (named widget canvas), Dashboards Module, 100-column Grid Layout, JSON-in-CLOB Storage (Oracle IS JSON), Report Widget, Frontend Dashboards API Client Task (+4 more)
 
 ### Community 55 - "Date Parser Test"
 Cohesion: 0.29
@@ -446,8 +392,8 @@ Cohesion: 0.24
 Nodes (9): CreateDashboardRequest, List, String, List, String, UpdateDashboardRequest, DashboardWidget, String (+1 more)
 
 ### Community 58 - "Sender Allowlist Service"
-Cohesion: 0.22
-Nodes (9): GmailSenderRequest, Boolean, String, UUID, List, Service, Transactional, UUID (+1 more)
+Cohesion: 0.24
+Nodes (8): GmailSenderRequest, Boolean, String, UUID, List, Service, Transactional, SenderAllowlistService
 
 ### Community 59 - "Investment REST API"
 Cohesion: 0.24
@@ -470,12 +416,12 @@ Cohesion: 0.33
 Nodes (6): CategoryService, List, Service, String, Transactional, UUID
 
 ### Community 64 - "Chart Data Model"
-Cohesion: 0.12
-Nodes (16): 1. Overview, 2. Relationship to the existing `/api/v1/dashboard/summary`, 3. Data model, 4. Storage, 5. Endpoints, 6. Request / response shapes, 7. Validation (on create / update), 8. Rendering flow (client) (+8 more)
+Cohesion: 0.29
+Nodes (11): ChartData, DateRangeView, BigDecimal, DateRangeView, List, LocalDate, Meta, String (+3 more)
 
 ### Community 65 - "Rules API"
-Cohesion: 0.21
-Nodes (13): JpaRepository, AccountBankDetailsRepository, Repository, UUID, AccountCreditCardDetailsRepository, Repository, UUID, AccountMutualFundDetailsRepository (+5 more)
+Cohesion: 0.31
+Nodes (8): Map, Object, PostMapping, RequestMapping, ResponseEntity, RestController, String, RulesController
 
 ### Community 66 - "Category Entity"
 Cohesion: 0.29
@@ -514,7 +460,7 @@ Cohesion: 0.31
 Nodes (7): CreateTransactionRequest, BigDecimal, Boolean, List, LocalDate, String, UUID
 
 ### Community 75 - "Chart Type Enum"
-Cohesion: 0.52
+Cohesion: 0.36
 Nodes (6): ChartType, from(), JsonCreator, JsonValue, String, json()
 
 ### Community 76 - "Report Definitions Test"
@@ -526,8 +472,8 @@ Cohesion: 0.31
 Nodes (7): Entity, Getter, Long, NoArgsConstructor, Setter, Table, TransactionCategory
 
 ### Community 78 - "Transaction Service"
-Cohesion: 0.20
-Nodes (11): CategoryRepository, Optional, Repository, String, UUID, Pageable, Service, Slf4j (+3 more)
+Cohesion: 0.39
+Nodes (6): Pageable, Service, Slf4j, Transactional, UUID, TransactionService
 
 ### Community 79 - "Hibernate Tenant Filter Aspect"
 Cohesion: 0.43
@@ -542,28 +488,28 @@ Cohesion: 0.39
 Nodes (6): Instant, JsonNode, ObjectMapper, String, UUID, ReportResponse
 
 ### Community 82 - "Table Mode Enum"
-Cohesion: 0.17
-Nodes (13): AggregatedTableDefinition, List, List, String, RawTableDefinition, String, SortClause, from() (+5 more)
+Cohesion: 0.43
+Nodes (6): from(), JsonCreator, JsonValue, String, json(), TableMode
 
 ### Community 83 - "Flexible Date Parser"
 Cohesion: 0.36
 Nodes (5): FlexibleDateParser, DateTimeFormatter, List, LocalDate, String
 
 ### Community 84 - "Gmail Fetch Request"
-Cohesion: 0.23
-Nodes (10): GmailSyncStateRepository, Optional, Repository, UUID, Instant, Service, String, Transactional (+2 more)
+Cohesion: 0.39
+Nodes (5): FetchMode, GmailFetchRequest, Instant, Integer, String
 
 ### Community 85 - "Ingestion Scheduler (Cron)"
-Cohesion: 0.13
-Nodes (14): 1. Datasource catalog — `GET /report/datasource` response, 2. Report definition — a discriminated union on `type`, 3. Filter `value` shapes (by operator) — get this exactly right, 4. Requests / responses, 5. Report DATA — discriminated union on `type`, Decisions you MUST honour (these affect correctness), Deliverables, Do NOT (+6 more)
+Cohesion: 0.43
+Nodes (4): Scheduled, IngestionScheduler, Component, Logger
 
 ### Community 86 - "Category Repository"
-Cohesion: 0.28
-Nodes (9): ReportData, Integer, JsonNode, ObjectMapper, Service, String, Transactional, UUID (+1 more)
+Cohesion: 0.43
+Nodes (5): CategoryRepository, Optional, Repository, String, UUID
 
 ### Community 87 - "Aggregation Enum"
-Cohesion: 0.27
-Nodes (9): Aggregation, from(), JsonCreator, JsonValue, String, json(), String, MeasureRef (+1 more)
+Cohesion: 0.52
+Nodes (6): Aggregation, from(), JsonCreator, JsonValue, String, json()
 
 ### Community 88 - "Comparison Period Enum"
 Cohesion: 0.52
@@ -574,8 +520,8 @@ Cohesion: 0.52
 Nodes (6): from(), JsonCreator, JsonValue, String, json(), SortDirection
 
 ### Community 90 - "Result Values"
-Cohesion: 0.21
-Nodes (8): FieldType, JsonValue, String, json(), BigDecimal, LocalDate, Object, ResultValues
+Cohesion: 0.33
+Nodes (4): BigDecimal, LocalDate, Object, ResultValues
 
 ### Community 91 - "Table Data Model"
 Cohesion: 0.48
@@ -586,8 +532,8 @@ Cohesion: 0.47
 Nodes (4): EnableScheduling, SpringBootApplication, FinanceOsApplication, String
 
 ### Community 93 - "Gmail Connection Response"
-Cohesion: 0.19
-Nodes (12): GmailSyncStateEntity, Entity, Filter, Getter, Instant, NoArgsConstructor, PrePersist, PreUpdate (+4 more)
+Cohesion: 0.53
+Nodes (4): GmailConnectionResponse, Instant, String, UUID
 
 ### Community 94 - "Dashboard Validator"
 Cohesion: 0.47
@@ -602,7 +548,7 @@ Cohesion: 0.50
 Nodes (4): CreditCardDetailsRequest, BigDecimal, Integer, String
 
 ### Community 97 - "Dashboard Summary Response"
-Cohesion: 0.47
+Cohesion: 0.60
 Nodes (4): DashboardSummaryResponse, Instant, String, UUID
 
 ### Community 98 - "Gmail Fetch Request DTO"
@@ -614,8 +560,16 @@ Cohesion: 0.60
 Nodes (4): FieldRole, JsonValue, String, json()
 
 ### Community 100 - "Field Type Enum"
-Cohesion: 0.16
-Nodes (8): RuntimeException, EncryptionException, String, Throwable, GmailEngineException, String, Throwable, GmailError
+Cohesion: 0.60
+Nodes (4): FieldType, JsonValue, String, json()
+
+### Community 101 - "Widget Reference Design (Docs)"
+Cohesion: 0.50
+Nodes (4): ReportRef (server-resolved widget metadata), Graceful Unavailable Widget Reference, Per-Widget Data Fetch Render Flow, Saved vs Ad-hoc Run Modes
+
+### Community 102 - "Gmail Ingestion Brief (Docs)"
+Cohesion: 0.50
+Nodes (4): TransactionSource enum, Gmail Ingestion Implementation Brief, Milestone Plan M1-M4, Gmail Transaction Ingestion Design Spec
 
 ### Community 103 - "Bank Details DTO"
 Cohesion: 0.67
@@ -629,73 +583,25 @@ Nodes (3): BigDecimal, String, MutualFundDetailsRequest
 Cohesion: 0.67
 Nodes (3): BigDecimal, String, StockDetailsRequest
 
-### Community 107 - "Encryption Concept"
-Cohesion: 0.06
-Nodes (30): 1. Database Setup, 2. Generate Encryption Key, 3. Configure Environment, 4. Run the Application, Account Types, Accounts, API Endpoints, Authentication (+22 more)
-
-### Community 114 - "Community 114"
-Cohesion: 0.27
-Nodes (7): Cell, Component, HttpClient, Logger, ObjectMapper, String, StatementParser
-
-### Community 115 - "Community 115"
-Cohesion: 0.29
-Nodes (5): Class, JsonNode, ObjectMapper, String, ReportDefinitions
-
-### Community 116 - "Community 116"
-Cohesion: 0.20
-Nodes (9): Decisions you MUST honour, Deliverables, Endpoints to implement (see `api-spec.yaml`), Frontend task — Dashboards module API client layer, Rendering flow (for when the UI is built later — encode it in the client's shape/JSDoc), Step 0 — match the existing codebase (do this first), The feature in one paragraph, Types to model (+1 more)
-
-### Community 117 - "Community 117"
-Cohesion: 0.20
-Nodes (9): 1. KPI: "good vs bad" sentiment, 2. KPI: actual previous period, 3. `includeExcluded` removed → it's now a filter field (BREAKING), 4. Table: page size is runtime (BREAKING), 5. Date labels are pre-formatted per granularity, 6. Aggregated tables are now PIVOTS (BREAKING — request + response), 7. Reports have descriptions, Frontend task — Reports module CHANGES (update client + UI) (+1 more)
-
-### Community 118 - "Community 118"
-Cohesion: 0.31
-Nodes (5): AccountResolver, Component, Optional, String, Transactional
-
-### Community 119 - "Community 119"
-Cohesion: 0.22
-Nodes (8): 1. Read first — the source of truth, 2. Work milestone-by-milestone (mandatory), 3. Stack & conventions (match the existing code exactly), 4. Hard guardrails (do NOT), 5. Dependencies to add to `pom.xml`, 6. What the human will provide (ask if missing), 7. Definition of done & verification per milestone, Gmail Ingestion — Implementation Brief (for the coding agent)
-
-### Community 120 - "Community 120"
-Cohesion: 0.33
-Nodes (5): String, ReportRef, String, UUID, WidgetResponse
-
-### Community 121 - "Community 121"
-Cohesion: 0.47
-Nodes (4): Instant, String, UUID, ReportSummaryResponse
-
-### Community 122 - "Community 122"
-Cohesion: 0.67
-Nodes (3): CreateReportRequest, JsonNode, String
-
-### Community 123 - "Community 123"
-Cohesion: 0.67
-Nodes (3): JsonNode, String, RunReportRequest
-
-### Community 124 - "Community 124"
-Cohesion: 0.67
-Nodes (3): POST /api/v1/gmail/sync, SyncSummary (ingestion run counts), GmailIngestionService (orchestrator)
-
 ## Knowledge Gaps
-- **193 isolated node(s):** `com.financeos:backend`, `run.sh script`, `DB_HOST`, `DB_PORT`, `DB_NAME` (+188 more)
+- **40 isolated node(s):** `com.financeos:backend`, `run.sh script`, `DB_HOST`, `DB_PORT`, `DB_NAME` (+35 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **52 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `User` connect `User Entity` to `Account REST API`, `Authentication Controller`, `Account Detail Repositories`, `Field Encryption Service`, `Gmail Processed Messages`, `Report Entity`, `Dev Data Seeder`, `Transaction Entity`, `User Details Service`, `Account Entity`, `Dashboard Entity`, `Gmail Connection Entity`, `Investment Transaction Entity`, `Bank Account Details`, `Mutual Fund Details`, `Stock Details`, `Category Entity`, `Transaction Service`, `Gmail Connection Response`?**
-  _High betweenness centrality (0.116) - this node is a cross-community bridge._
-- **Why does `ValidationException` connect `Report Definition Validation` to `Community 129`, `Authentication Controller`, `Spring Security Config`, `Exception Handling`, `Gmail REST API`, `Date Range Resolution`, `Dashboard Service`, `Transaction Entity`, `Account Service`, `Investment Service (FIFO)`, `Gmail OAuth Service`, `Report Service`, `Category Service`, `Update Transaction DTO`, `Transaction Service`, `Table Mode Enum`, `Category Repository`, `Aggregation Enum`, `Dashboard Validator`, `Field Type Enum`, `Community 115`?**
-  _High betweenness centrality (0.104) - this node is a cross-community bridge._
-- **Why does `Account` connect `Account Entity` to `Account REST API`, `Transaction Entity`, `Account Service`, `Account Detail Repositories`, `Investment Position Response`, `Field Encryption Service`, `Investment Service (FIFO)`, `Account Repository`, `Gmail Processed Messages`, `Investment Transaction Entity`, `User Entity`, `Statement & Recon Extraction`, `Community 118`, `Stock Details`, `Bank Account Details`, `Mutual Fund Details`, `Dev Data Seeder`?**
-  _High betweenness centrality (0.080) - this node is a cross-community bridge._
+- **Why does `User` connect `User Entity` to `Transaction Entity`, `Authentication Controller`, `Category Entity`, `Gmail DTOs & Sync State`, `Account Detail Repositories`, `User Details Service`, `Account Entity`, `Field Encryption Service`, `Dashboard Entity`, `Gmail Connection Entity`, `Gmail Processed Messages`, `Investment Transaction Entity`, `Category Repository`, `Stock Details`, `Report Entity`, `Bank Account Details`, `Mutual Fund Details`, `Dev Data Seeder`?**
+  _High betweenness centrality (0.134) - this node is a cross-community bridge._
+- **Why does `ValidationException` connect `Report Definition Validation` to `Authentication Controller`, `Account Service`, `Report Definition Models`, `Report REST API`, `Exception Handling`, `Investment Service (FIFO)`, `Gmail REST API`, `Report Request DTOs`, `Update Transaction DTO`, `Gmail OAuth Service`, `Transaction Service`, `Dashboard Validator Test`, `Dashboard Service`, `Report Service`, `Statement & Recon Extraction`, `Dashboard Validator`, `Category Service`?**
+  _High betweenness centrality (0.119) - this node is a cross-community bridge._
+- **Why does `Account` connect `Account Entity` to `Account REST API`, `Transaction Entity`, `Account Service`, `Account Detail Repositories`, `Investment Position Response`, `Field Encryption Service`, `Investment Service (FIFO)`, `Account Repository`, `Gmail Processed Messages`, `Investment Transaction Entity`, `Gmail Ingestion Service`, `User Entity`, `Statement & Recon Extraction`, `Stock Details`, `Bank Account Details`, `Mutual Fund Details`, `Dev Data Seeder`?**
+  _High betweenness centrality (0.091) - this node is a cross-community bridge._
 - **What connects `com.financeos:backend`, `run.sh script`, `DB_HOST` to the rest of the system?**
-  _200 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _46 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Account REST API` be split into smaller, more focused modules?**
-  _Cohesion score 0.05948399426660296 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06031746031746032 - nodes in this community are weakly interconnected._
 - **Should `Authentication Controller` be split into smaller, more focused modules?**
-  _Cohesion score 0.05220288781932617 - nodes in this community are weakly interconnected._
-- **Should `Spring Security Config` be split into smaller, more focused modules?**
-  _Cohesion score 0.056189640035118525 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.055130784708249496 - nodes in this community are weakly interconnected._
+- **Should `Gmail DTOs & Sync State` be split into smaller, more focused modules?**
+  _Cohesion score 0.07183673469387755 - nodes in this community are weakly interconnected._
