@@ -131,8 +131,20 @@ public class GmailIngestionService {
                     continue;
                 }
 
-                if (sender.getPurpose() == SenderPurpose.STATEMENT) {
-                    ReconSummary recon = statementReconciliationService.reconcile(connection, message, sender);
+                // Auto-classification of Alert vs. Statement based on attachments
+                boolean isStatementFlow = false;
+                if (message.attachments() != null) {
+                    for (var att : message.attachments()) {
+                        String filename = att.filename().toLowerCase();
+                        if (filename.endsWith(".pdf") || filename.endsWith(".xlsx") || filename.endsWith(".xls")) {
+                            isStatementFlow = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (isStatementFlow) {
+                    ReconSummary recon = statementReconciliationService.reconcile(connection, message);
                     created += recon.created();
                     reconciled += recon.matched();
                     failed += recon.failed();
@@ -156,7 +168,7 @@ public class GmailIngestionService {
                 }
 
                 // Resolve account
-                Account account = accountResolver.resolve(extractionResult.accountLast4(), sender).orElse(null);
+                Account account = accountResolver.resolve(extractionResult.accountLast4()).orElse(null);
 
                 // Write transaction (includes watermark check)
                 GmailProcessedMessage processed = gmailTransactionWriter.writeTransaction(

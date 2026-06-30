@@ -1,6 +1,7 @@
 package com.financeos.gmail.reconcile;
 
 import com.financeos.domain.account.Account;
+import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.transaction.ReviewType;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
@@ -12,14 +13,20 @@ import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.gmail.domain.GmailProcessedStatus;
 import com.financeos.gmail.engine.GmailEngine;
 import com.financeos.gmail.ingest.GmailIngestProperties;
-import com.financeos.gmail.ingest.GmailSender;
 import com.financeos.gmail.internal.GmailAttachment;
 import com.financeos.gmail.internal.GmailMessage;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.*;
@@ -35,62 +42,96 @@ public class StatementReconciliationService {
     private final TransactionRepository transactionRepository;
     private final GmailProcessedMessageRepository processedMessageRepository;
     private final GmailIngestProperties ingestProperties;
+    private final AccountRepository accountRepository;
 
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
                                           TransactionRepository transactionRepository,
                                           GmailProcessedMessageRepository processedMessageRepository,
-                                          GmailIngestProperties ingestProperties) {
+                                          GmailIngestProperties ingestProperties,
+                                          AccountRepository accountRepository) {
         this.gmailEngine = gmailEngine;
         this.statementParser = statementParser;
         this.transactionRepository = transactionRepository;
         this.processedMessageRepository = processedMessageRepository;
         this.ingestProperties = ingestProperties;
+        this.accountRepository = accountRepository;
     }
+
+    private record ChosenAttachment(GmailAttachment attachment, byte[] bytes) {}
 
     /**
      * Reconcile transactions from a bank statement email attachment.
      */
     @Transactional
-    public ReconSummary reconcile(GmailConnection connection, GmailMessage message, GmailSender sender) {
-        Account account = sender.getAccount();
-        if (account == null) {
-            log.error("No account bound to statement sender: {}", sender.getSenderAddress());
-            recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED, "No account bound to statement sender");
-            return new ReconSummary(0, 0, 1);
-        }
-
-        // 1. Find matching attachment
-        GmailAttachment attachment = findStatementAttachment(message, sender);
-        if (attachment == null) {
-            log.warn("No attachment found in statement email: {}", message.messageId());
+    public ReconSummary reconcile(GmailConnection connection, GmailMessage message) {
+        // 1. Pick statement attachment (PDF/XLSX, prefer password-protected); fetch bytes lazily
+        ChosenAttachment chosen = pickStatementAttachment(connection, message);
+        if (chosen == null) {
+            log.warn("No statement attachment found in email: {}", message.messageId());
             recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED, "No statement attachment found");
             return new ReconSummary(0, 0, 1);
         }
 
-        // 2. Fetch lazy attachment content
-        byte[] attachmentBytes;
-        try {
-            attachmentBytes = gmailEngine.fetchAttachmentContent(connection, message.messageId(), attachment.attachmentId());
-        } catch (Exception e) {
-            log.error("Failed to fetch statement attachment content", e);
-            recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED, "Failed to download attachment: " + e.getMessage());
-            return new ReconSummary(0, 0, 1);
+        GmailAttachment chosenAttachment = chosen.attachment();
+        byte[] chosenBytes = chosen.bytes();
+        String filename = chosenAttachment.filename().toLowerCase();
+
+        // 2. Identify the account by password-trial for a protected file
+        boolean isProtected = false;
+        if (filename.endsWith(".pdf")) {
+            isProtected = isPdfEncrypted(chosenBytes);
+        } else if (filename.endsWith(".xlsx") || filename.endsWith(".xls")) {
+            isProtected = isExcelEncrypted(chosenBytes);
         }
 
-        // 3. Decrypt and extract text content from PDF/Excel
+        Account candidateAccount = null;
+        String correctPassword = null;
+
+        if (isProtected) {
+            List<Account> pwdAccounts = accountRepository.findByUserIdAndHasStatementPassword(connection.getUser().getId());
+            for (Account acc : pwdAccounts) {
+                String pwd = getStatementPassword(acc);
+                if (pwd == null || pwd.trim().isEmpty()) {
+                    continue;
+                }
+                if (filename.endsWith(".pdf")) {
+                    try {
+                        try (PDDocument doc = Loader.loadPDF(chosenBytes, pwd)) {
+                            candidateAccount = acc;
+                            correctPassword = pwd;
+                            break;
+                        }
+                    } catch (IOException e) {
+                        // try next password
+                    }
+                } else {
+                    try (InputStream is = new ByteArrayInputStream(chosenBytes);
+                         Workbook wb = WorkbookFactory.create(is, pwd)) {
+                        candidateAccount = acc;
+                        correctPassword = pwd;
+                        break;
+                    } catch (Exception e) {
+                        // try next password
+                    }
+                }
+            }
+
+            if (candidateAccount == null) {
+                log.error("Encrypted statement could not be decrypted with any stored password. File: {}", chosenAttachment.filename());
+                recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED,
+                        "Encrypted statement could not be decrypted with any stored password.");
+                return new ReconSummary(0, 0, 1);
+            }
+        }
+
+        // 3. Extract text content
         String text;
         try {
-            String filename = attachment.filename().toLowerCase();
             if (filename.endsWith(".pdf")) {
-                String password = getStatementPassword(account);
-                text = statementParser.extractTextFromPdf(attachmentBytes, password);
-            } else if (filename.endsWith(".xlsx") || filename.endsWith(".xls")) {
-                text = statementParser.extractTextFromExcel(attachmentBytes);
+                text = statementParser.extractTextFromPdf(chosenBytes, correctPassword);
             } else {
-                log.warn("Unsupported attachment type: {}", attachment.filename());
-                recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED, "Unsupported file format: " + attachment.filename());
-                return new ReconSummary(0, 0, 1);
+                text = statementParser.extractTextFromExcel(chosenBytes, correctPassword);
             }
         } catch (Exception e) {
             log.error("Failed to extract text from attachment", e);
@@ -98,7 +139,7 @@ public class StatementReconciliationService {
             return new ReconSummary(0, 0, 1);
         }
 
-        // 4. Parse text using Gemini
+        // 4. Parse content with Gemini statement model
         StatementExtractionResult result = statementParser.parse(text);
         if (!result.success()) {
             log.error("Gemini failed to parse statement: {}", result.failureReason());
@@ -108,13 +149,45 @@ public class StatementReconciliationService {
 
         List<ParsedStatementLine> allLines = result.lines();
         if (allLines.isEmpty()) {
-            log.info("No transaction lines parsed from statement: {}", message.messageId());
-            recordLedger(connection, message.messageId(), GmailProcessedStatus.RECONCILED, null);
+            log.info("No transaction lines parsed from statement: {}. Skipping as non-statement.", message.messageId());
+            recordLedger(connection, message.messageId(), GmailProcessedStatus.SKIPPED_NOT_TRANSACTION,
+                    "No transaction lines parsed from statement; skipped as non-statement");
             return new ReconSummary(0, 0, 0);
         }
 
-        // 5. Watermark gate check: drop lines dated before the account watermark
-        LocalDate watermark = account.getIngestFromDate();
+        // 5. Confirm/resolve account
+        Account resolvedAccount = null;
+        String statementLast4 = result.accountLast4();
+
+        // Resolve by statement's last-4 using exactly-one rule
+        Account last4ResolvedAccount = null;
+        if (statementLast4 != null && !statementLast4.trim().isEmpty()) {
+            List<Account> matches = accountRepository.findByLast4(statementLast4.trim());
+            if (matches.size() == 1) {
+                last4ResolvedAccount = matches.get(0);
+            }
+        }
+
+        if (candidateAccount != null) {
+            String candidateLast4 = null;
+            if (candidateAccount.getBankDetails() != null) {
+                candidateLast4 = candidateAccount.getBankDetails().getLast4();
+            } else if (candidateAccount.getCreditCardDetails() != null) {
+                candidateLast4 = candidateAccount.getCreditCardDetails().getLast4();
+            }
+
+            if (candidateLast4 != null && statementLast4 != null
+                    && candidateLast4.trim().equalsIgnoreCase(statementLast4.trim())) {
+                resolvedAccount = candidateAccount;
+            } else {
+                resolvedAccount = last4ResolvedAccount;
+            }
+        } else {
+            resolvedAccount = last4ResolvedAccount;
+        }
+
+        // 6. Watermark gate check: drop lines dated before the account watermark (if account resolved)
+        LocalDate watermark = resolvedAccount != null ? resolvedAccount.getIngestFromDate() : null;
         List<ParsedStatementLine> candidateLines = allLines.stream()
                 .filter(line -> watermark == null || !line.date().isBefore(watermark))
                 .toList();
@@ -125,63 +198,86 @@ public class StatementReconciliationService {
             return new ReconSummary(0, 0, 0);
         }
 
-        // Find min and max dates of the lines to define query window
-        LocalDate minLineDate = candidateLines.stream().map(ParsedStatementLine::date).min(LocalDate::compareTo).get();
-        LocalDate maxLineDate = candidateLines.stream().map(ParsedStatementLine::date).max(LocalDate::compareTo).get();
-
-        int dateWindow = ingestProperties.getDateWindowDays();
-        LocalDate searchStart = minLineDate.minusDays(dateWindow);
-        LocalDate searchEnd = maxLineDate.plusDays(dateWindow);
-
-        // Fetch all transactions for this account in the window
-        List<Transaction> allPeriodTxns = transactionRepository.findByAccountIdAndDateRange(account.getId(), searchStart, searchEnd);
-
-        // Separate NEEDS_REVIEW alerts from other transactions (AUTO_REVIEWED, manual, gmail_statement, etc.)
-        List<Transaction> alertsToPromote = new ArrayList<>();
-        List<Transaction> alreadyMatchedTxns = new ArrayList<>();
-
-        for (Transaction t : allPeriodTxns) {
-            if (t.getSource() == TransactionSource.gmail_transaction_alert && t.getReviewType() == ReviewType.NEEDS_REVIEW) {
-                alertsToPromote.add(t);
-            } else {
-                alreadyMatchedTxns.add(t);
-            }
-        }
-
-        Set<UUID> consumedTxnIds = new HashSet<>();
         int matchedCount = 0;
         int createdCount = 0;
 
-        // Loop over candidate statement lines and match/reconcile
-        for (int i = 0; i < candidateLines.size(); i++) {
-            ParsedStatementLine line = candidateLines.get(i);
-            
-            // Check if there is already a transaction matching this line (safety against seams)
-            Transaction seamMatch = findBestMatch(line, alreadyMatchedTxns, dateWindow, consumedTxnIds);
-            if (seamMatch != null) {
-                // Already matching a manual/import/AUTO_REVIEWED transaction, skip creating or promoting (no-op)
-                consumedTxnIds.add(seamMatch.getId());
-                continue;
+        if (resolvedAccount != null) {
+            // Find min and max dates of the lines to define query window
+            LocalDate minLineDate = candidateLines.stream().map(ParsedStatementLine::date).min(LocalDate::compareTo).get();
+            LocalDate maxLineDate = candidateLines.stream().map(ParsedStatementLine::date).max(LocalDate::compareTo).get();
+
+            int dateWindow = ingestProperties.getDateWindowDays();
+            LocalDate searchStart = minLineDate.minusDays(dateWindow);
+            LocalDate searchEnd = maxLineDate.plusDays(dateWindow);
+
+            // Fetch all transactions for this account in the window
+            List<Transaction> allPeriodTxns = transactionRepository.findByAccountIdAndDateRange(resolvedAccount.getId(), searchStart, searchEnd);
+
+            // Separate NEEDS_REVIEW alerts from other transactions (AUTO_REVIEWED, manual, gmail_statement, etc.)
+            List<Transaction> alertsToPromote = new ArrayList<>();
+            List<Transaction> alreadyMatchedTxns = new ArrayList<>();
+
+            for (Transaction t : allPeriodTxns) {
+                if (t.getSource() == TransactionSource.gmail_transaction_alert && t.getReviewType() == ReviewType.NEEDS_REVIEW) {
+                    alertsToPromote.add(t);
+                } else {
+                    alreadyMatchedTxns.add(t);
+                }
             }
 
-            // Try to match against NEEDS_REVIEW alerts to promote
-            Transaction alertMatch = findBestMatch(line, alertsToPromote, dateWindow, consumedTxnIds);
-            if (alertMatch != null) {
-                // Match found! Promote alert to AUTO_REVIEWED
-                consumedTxnIds.add(alertMatch.getId());
-                alertMatch.setReviewType(ReviewType.AUTO_REVIEWED);
-                transactionRepository.save(alertMatch);
-                matchedCount++;
-            } else {
-                // No match found -> materialize as a new gmail_statement transaction
+            Set<UUID> consumedTxnIds = new HashSet<>();
+
+            // Loop over candidate statement lines and match/reconcile
+            for (int i = 0; i < candidateLines.size(); i++) {
+                ParsedStatementLine line = candidateLines.get(i);
+
+                // Check if there is already a transaction matching this line (safety against seams)
+                Transaction seamMatch = findBestMatch(line, alreadyMatchedTxns, dateWindow, consumedTxnIds);
+                if (seamMatch != null) {
+                    consumedTxnIds.add(seamMatch.getId());
+                    continue;
+                }
+
+                // Try to match against NEEDS_REVIEW alerts to promote
+                Transaction alertMatch = findBestMatch(line, alertsToPromote, dateWindow, consumedTxnIds);
+                if (alertMatch != null) {
+                    consumedTxnIds.add(alertMatch.getId());
+                    alertMatch.setReviewType(ReviewType.AUTO_REVIEWED);
+                    transactionRepository.save(alertMatch);
+                    matchedCount++;
+                } else {
+                    // No match found -> materialize as a new gmail_statement transaction
+                    String sourceMsgId = String.format("%s:%d", message.messageId(), i);
+                    boolean alreadyCreated = transactionRepository.existsBySourceMessageId(sourceMsgId);
+                    if (!alreadyCreated) {
+                        Transaction statementTxn = new Transaction();
+                        statementTxn.setUser(connection.getUser());
+                        statementTxn.setAccount(resolvedAccount);
+                        statementTxn.setDate(line.date());
+                        statementTxn.setAmount(line.amount().abs());
+                        statementTxn.setDescription(line.description());
+                        statementTxn.setSource(TransactionSource.gmail_statement);
+                        statementTxn.setType(TransactionType.valueOf(line.direction().toUpperCase()));
+                        statementTxn.setReviewType(ReviewType.NEEDS_REVIEW);
+                        statementTxn.setSourceMessageId(sourceMsgId);
+                        statementTxn.setTransactionUnderMonitoring(false);
+                        statementTxn.setTransactionExcluded(false);
+
+                        transactionRepository.save(statementTxn);
+                        createdCount++;
+                    }
+                }
+            }
+        } else {
+            // account is null, we can't run matching or promote alerts, just write gmail_statement lines with account=null
+            for (int i = 0; i < candidateLines.size(); i++) {
+                ParsedStatementLine line = candidateLines.get(i);
                 String sourceMsgId = String.format("%s:%d", message.messageId(), i);
-                
-                // Idempotency check: verify if this statement line is already persisted
                 boolean alreadyCreated = transactionRepository.existsBySourceMessageId(sourceMsgId);
                 if (!alreadyCreated) {
                     Transaction statementTxn = new Transaction();
                     statementTxn.setUser(connection.getUser());
-                    statementTxn.setAccount(account);
+                    statementTxn.setAccount(null);
                     statementTxn.setDate(line.date());
                     statementTxn.setAmount(line.amount().abs());
                     statementTxn.setDescription(line.description());
@@ -202,6 +298,65 @@ public class StatementReconciliationService {
         recordLedger(connection, message.messageId(), GmailProcessedStatus.RECONCILED, null);
 
         return new ReconSummary(createdCount, matchedCount, 0);
+    }
+
+    private ChosenAttachment pickStatementAttachment(GmailConnection connection, GmailMessage message) {
+        List<GmailAttachment> statementAtts = new ArrayList<>();
+        for (GmailAttachment att : message.attachments()) {
+            String filename = att.filename().toLowerCase();
+            if (filename.endsWith(".pdf") || filename.endsWith(".xlsx") || filename.endsWith(".xls")) {
+                statementAtts.add(att);
+            }
+        }
+        if (statementAtts.isEmpty()) {
+            return null;
+        }
+        if (statementAtts.size() == 1) {
+            GmailAttachment att = statementAtts.get(0);
+            byte[] bytes = gmailEngine.fetchAttachmentContent(connection, message.messageId(), att.attachmentId());
+            return new ChosenAttachment(att, bytes);
+        }
+
+        // Among multiple, prefer a password-protected PDF
+        for (GmailAttachment att : statementAtts) {
+            if (att.filename().toLowerCase().endsWith(".pdf")) {
+                try {
+                    byte[] bytes = gmailEngine.fetchAttachmentContent(connection, message.messageId(), att.attachmentId());
+                    if (isPdfEncrypted(bytes)) {
+                        return new ChosenAttachment(att, bytes);
+                    }
+                } catch (Exception e) {
+                    log.warn("Failed to check encryption status of PDF {}", att.filename(), e);
+                }
+            }
+        }
+
+        // None were password-protected PDFs, ties/none -> first
+        GmailAttachment first = statementAtts.get(0);
+        byte[] bytes = gmailEngine.fetchAttachmentContent(connection, message.messageId(), first.attachmentId());
+        return new ChosenAttachment(first, bytes);
+    }
+
+    private boolean isPdfEncrypted(byte[] bytes) {
+        try {
+            try (PDDocument doc = Loader.loadPDF(bytes)) {
+                return doc.isEncrypted();
+            }
+        } catch (IOException e) {
+            return true;
+        }
+    }
+
+    private boolean isExcelEncrypted(byte[] bytes) {
+        try (InputStream is = new ByteArrayInputStream(bytes)) {
+            try (Workbook workbook = WorkbookFactory.create(is)) {
+                return false;
+            }
+        } catch (org.apache.poi.EncryptedDocumentException e) {
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private Transaction findBestMatch(
@@ -256,34 +411,18 @@ public class StatementReconciliationService {
         String clean2 = s2.toLowerCase().replaceAll("[^a-z0-9\\s]", "");
         String[] tokens1 = clean1.split("\\s+");
         String[] tokens2 = clean2.split("\\s+");
-        
+
         Set<String> set1 = Arrays.stream(tokens1).filter(t -> !t.isEmpty()).collect(Collectors.toSet());
         Set<String> set2 = Arrays.stream(tokens2).filter(t -> !t.isEmpty()).collect(Collectors.toSet());
-        
+
         Set<String> intersection = new HashSet<>(set1);
         intersection.retainAll(set2);
-        
+
         Set<String> union = new HashSet<>(set1);
         union.addAll(set2);
-        
+
         if (union.isEmpty()) return 0.0;
         return (double) intersection.size() / union.size();
-    }
-
-    private GmailAttachment findStatementAttachment(GmailMessage message, GmailSender sender) {
-        List<GmailAttachment> attachments = message.attachments();
-        if (attachments.isEmpty()) {
-            return null;
-        }
-        String pattern = sender.getAttachmentPattern();
-        if (pattern != null && !pattern.isBlank()) {
-            for (GmailAttachment att : attachments) {
-                if (att.filename().matches(pattern) || att.filename().toLowerCase().contains(pattern.toLowerCase())) {
-                    return att;
-                }
-            }
-        }
-        return attachments.get(0);
     }
 
     private String getStatementPassword(Account account) {

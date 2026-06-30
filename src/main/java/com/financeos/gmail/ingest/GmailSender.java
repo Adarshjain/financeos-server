@@ -1,6 +1,5 @@
 package com.financeos.gmail.ingest;
 
-import com.financeos.domain.account.Account;
 import com.financeos.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,26 +31,11 @@ public class GmailSender {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private User user;
 
-    @Column(nullable = false)
+    @Column
     private String name;
 
     @Column(name = "sender_address", nullable = false)
     private String senderAddress;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
-    @JdbcTypeCode(SqlTypes.VARCHAR)
-    private Account account;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private SenderPurpose purpose = SenderPurpose.TRANSACTION_ALERT;
-
-    @Column(name = "attachment_pattern")
-    private String attachmentPattern;
-
-    @Column(name = "statement_format")
-    private String statementFormat;
 
     @Column(nullable = false)
     private Boolean enabled = true;

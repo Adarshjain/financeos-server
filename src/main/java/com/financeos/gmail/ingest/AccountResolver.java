@@ -18,19 +18,13 @@ public class AccountResolver {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Account> resolve(String accountLast4, GmailSender sender) {
+    public Optional<Account> resolve(String accountLast4) {
         if (accountLast4 != null && !accountLast4.trim().isEmpty()) {
             List<Account> accounts = accountRepository.findByLast4(accountLast4.trim());
-            if (!accounts.isEmpty()) {
+            if (accounts.size() == 1) {
                 return Optional.of(accounts.get(0));
             }
         }
-        
-        // Fallback to sender's bound account
-        if (sender != null && sender.getAccount() != null) {
-            return Optional.of(sender.getAccount());
-        }
-        
         return Optional.empty();
     }
 }

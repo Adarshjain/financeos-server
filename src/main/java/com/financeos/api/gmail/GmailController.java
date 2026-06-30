@@ -1,19 +1,32 @@
 package com.financeos.api.gmail;
 
+import com.financeos.api.gmail.dto.GmailConnectionResponse;
 import com.financeos.api.gmail.dto.GmailSenderRequest;
 import com.financeos.api.gmail.dto.GmailSenderResponse;
 import com.financeos.api.gmail.dto.OAuthStartResponse;
+import com.financeos.core.exception.ResourceNotFoundException;
+import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.user.AuthService;
 import com.financeos.domain.user.User;
 import com.financeos.gmail.domain.GmailConnection;
+import com.financeos.gmail.domain.GmailConnectionRepository;
+import com.financeos.gmail.history.SyncStateService;
 import com.financeos.gmail.ingest.GmailIngestionService;
 import com.financeos.gmail.ingest.SenderAllowlistService;
 import com.financeos.gmail.ingest.SyncSummary;
 import com.financeos.gmail.oauth.GmailOAuthService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -22,19 +35,30 @@ import java.util.UUID;
 @RequestMapping("/api/v1/gmail")
 public class GmailController {
 
+    private static final Logger log = LoggerFactory.getLogger(GmailController.class);
+
     private final GmailOAuthService oauthService;
     private final AuthService authService;
     private final GmailIngestionService gmailIngestionService;
     private final SenderAllowlistService senderAllowlistService;
+    private final GmailConnectionRepository connectionRepository;
+    private final SyncStateService syncStateService;
+
+    @Value("${app.ui-path:http://localhost:3001}")
+    private String uiPath;
 
     public GmailController(GmailOAuthService oauthService,
                            AuthService authService,
                            GmailIngestionService gmailIngestionService,
-                           SenderAllowlistService senderAllowlistService) {
+                           SenderAllowlistService senderAllowlistService,
+                           GmailConnectionRepository connectionRepository,
+                           SyncStateService syncStateService) {
         this.oauthService = oauthService;
         this.authService = authService;
         this.gmailIngestionService = gmailIngestionService;
         this.senderAllowlistService = senderAllowlistService;
+        this.connectionRepository = connectionRepository;
+        this.syncStateService = syncStateService;
     }
 
     @GetMapping("/oauth/start")
@@ -46,39 +70,30 @@ public class GmailController {
     }
 
     @GetMapping("/oauth/callback")
-    public ResponseEntity<Map<String, String>> handleCallback(
+    public ResponseEntity<Void> handleCallback(
             @RequestParam(required = false) String code,
             @RequestParam(required = false) String error,
             @RequestParam(required = false) String state) {
         
         if (error != null) {
-            return ResponseEntity.badRequest().body(Map.of(
-                    "error", error,
-                    "message", "OAuth authorization failed"
-            ));
+            String redirectUrl = uiPath + "/settings/gmail?gmail=error&message=" + URLEncoder.encode(error, StandardCharsets.UTF_8);
+            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
         }
 
         if (code == null) {
-            return ResponseEntity.badRequest().body(Map.of(
-                    "error", "missing_code",
-                    "message", "Authorization code is required"
-            ));
+            String redirectUrl = uiPath + "/settings/gmail?gmail=error&message=" + URLEncoder.encode("missing_code", StandardCharsets.UTF_8);
+            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
         }
 
         try {
             User currentUser = authService.getCurrentUser();
             GmailConnection connection = oauthService.handleCallback(currentUser.getId(), code);
             
-            return ResponseEntity.ok(Map.of(
-                    "status", "success",
-                    "message", "Gmail connected successfully",
-                    "email", connection.getEmail()
-            ));
+            String redirectUrl = uiPath + "/settings/gmail?gmail=success&email=" + URLEncoder.encode(connection.getEmail(), StandardCharsets.UTF_8);
+            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(Map.of(
-                    "error", "callback_failed",
-                    "message", e.getMessage()
-            ));
+            String redirectUrl = uiPath + "/settings/gmail?gmail=error&message=" + URLEncoder.encode(e.getMessage() != null ? e.getMessage() : "callback_failed", StandardCharsets.UTF_8);
+            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
         }
     }
 
@@ -95,6 +110,40 @@ public class GmailController {
         SyncSummary summary = gmailIngestionService.syncConnection(connection);
 
         return ResponseEntity.ok(summary);
+    }
+
+    @GetMapping("/connections")
+    public ResponseEntity<List<GmailConnectionResponse>> getConnections() {
+        User currentUser = authService.getCurrentUser();
+        List<GmailConnection> connections = connectionRepository.findByUserId(currentUser.getId());
+        List<GmailConnectionResponse> responses = connections.stream()
+                .map(connection -> {
+                    var syncState = syncStateService.getSyncState(connection.getId());
+                    Instant lastSyncedAt = syncState != null ? syncState.lastSyncedAt() : null;
+                    return GmailConnectionResponse.from(connection, lastSyncedAt);
+                })
+                .toList();
+        return ResponseEntity.ok(responses);
+    }
+
+    @DeleteMapping("/connections/{id}")
+    public ResponseEntity<Void> disconnectConnection(@PathVariable UUID id) {
+        User currentUser = authService.getCurrentUser();
+        GmailConnection connection = connectionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Gmail connection", id));
+
+        // Ownership check
+        if (!connection.getUser().getId().equals(currentUser.getId())) {
+            log.error("Security Breach Attempt: User {} tried to disconnect Gmail connection {} owned by User {}",
+                    currentUser.getId(), id, connection.getUser().getId());
+            throw new ValidationException("You do not have permission to access this connection.");
+        }
+
+        connection.setIsConnected(false);
+        connectionRepository.save(connection);
+        syncStateService.deleteSyncState(id);
+
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/senders")

@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type", visible = true)
 @JsonSubTypes({
@@ -30,6 +31,8 @@ public sealed interface CreateAccountRequest {
 
     String description();
 
+    LocalDate ingestFromDate();
+
     record BankAccountRequest(
             @NotBlank(message = "Name is required") String name,
             @NotNull(message = "Account type is required") AccountType type,
@@ -38,7 +41,8 @@ public sealed interface CreateAccountRequest {
             String description,
             BigDecimal openingBalance,
             String last4,
-            String statementPassword
+            String statementPassword,
+            LocalDate ingestFromDate
     ) implements CreateAccountRequest {
     }
 
@@ -52,7 +56,8 @@ public sealed interface CreateAccountRequest {
             @NotNull(message = "Credit limit is required") BigDecimal creditLimit,
             @NotNull(message = "Payment due day is required") Integer paymentDueDay,
             @NotNull(message = "Grace period days is required") Integer gracePeriodDays,
-            String statementPassword
+            String statementPassword,
+            LocalDate ingestFromDate
     ) implements CreateAccountRequest {
     }
 
@@ -63,7 +68,8 @@ public sealed interface CreateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             @NotBlank(message = "Instrument code is required") String instrumentCode,
-            BigDecimal lastTradedPrice
+            BigDecimal lastTradedPrice,
+            LocalDate ingestFromDate
     ) implements CreateAccountRequest {
     }
 
@@ -74,7 +80,8 @@ public sealed interface CreateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             @NotBlank(message = "Instrument code is required") String instrumentCode,
-            BigDecimal lastTradedPrice
+            BigDecimal lastTradedPrice,
+            LocalDate ingestFromDate
     ) implements CreateAccountRequest {
     }
 
@@ -83,7 +90,8 @@ public sealed interface CreateAccountRequest {
             @NotNull(message = "Account type is required") AccountType type,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
-            String description
+            String description,
+            LocalDate ingestFromDate
     ) implements CreateAccountRequest {
     }
 }

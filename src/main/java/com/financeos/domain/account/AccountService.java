@@ -34,6 +34,7 @@ public class AccountService {
         account.setExcludeFromNetAsset(request.excludeFromNetAsset() != null ? request.excludeFromNetAsset() : false);
         account.setFinancialPosition(request.financialPosition());
         account.setDescription(request.description());
+        account.setIngestFromDate(request.ingestFromDate());
 
         switch (request) {
             case CreateAccountRequest.BankAccountRequest bankReq -> {
@@ -84,6 +85,7 @@ public class AccountService {
         account.setExcludeFromNetAsset(request.excludeFromNetAsset() != null ? request.excludeFromNetAsset() : false);
         account.setFinancialPosition(request.financialPosition());
         account.setDescription(request.description());
+        account.setIngestFromDate(request.ingestFromDate());
 
         switch (request) {
             case CreateAccountRequest.BankAccountRequest bankReq -> account = addBankDetails(account, bankReq);
