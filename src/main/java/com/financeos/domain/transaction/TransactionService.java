@@ -1,6 +1,7 @@
 package com.financeos.domain.transaction;
 
 import com.financeos.api.transaction.dto.CreateTransactionRequest;
+import com.financeos.api.transaction.dto.TransactionSearchRequest;
 
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
@@ -94,45 +95,13 @@ public class TransactionService {
         return transactionRepository.save(transaction);
     }
 
-    @Transactional(readOnly = true)
-    public Page<Transaction> getAllTransactions(Pageable pageable) {
+    private Page<Transaction> queryTransactions(TransactionSearchCriteria criteria, Pageable pageable) {
         UUID userId = com.financeos.core.security.UserContext.getCurrentUserId();
         log.debug("Fetching transactions with running balance for user session: {}", userId);
 
-        // Map sort properties and ensure stability with tie-breakers
-        List<org.springframework.data.domain.Sort.Order> orders = new java.util.ArrayList<>();
-        pageable.getSort().forEach(order -> {
-            String property = order.getProperty();
-            if (property.equalsIgnoreCase("date")) {
-                orders.add(new org.springframework.data.domain.Sort.Order(order.getDirection(), "transaction_date"));
-            } else if (property.equalsIgnoreCase("createdAt")) {
-                orders.add(new org.springframework.data.domain.Sort.Order(order.getDirection(), "created_at"));
-            } else if (!property.equalsIgnoreCase("balance")) { // Don't sort by the calculated balance field
-                orders.add(order);
-            }
-        });
-
-        // Mandatory tie-breakers for running balance stability
-        if (orders.stream().noneMatch(o -> o.getProperty().equals("transaction_date"))) {
-            orders.add(org.springframework.data.domain.Sort.Order.desc("transaction_date"));
-        }
-        if (orders.stream().noneMatch(o -> o.getProperty().equals("created_at"))) {
-            orders.add(org.springframework.data.domain.Sort.Order.desc("created_at"));
-        }
-        if (orders.stream().noneMatch(o -> o.getProperty().equals("id"))) {
-            orders.add(org.springframework.data.domain.Sort.Order.desc("id"));
-        }
-
-        Pageable nativePageable = org.springframework.data.domain.PageRequest.of(
-                pageable.getPageNumber(),
-                pageable.getPageSize(),
-                org.springframework.data.domain.Sort.by(orders));
-
-        log.debug("Native pagination sort: {}", nativePageable.getSort());
-
         // 1. Fetch IDs and running balances with pagination
         Page<TransactionRepository.TransactionBalanceProjection> idPage = transactionRepository
-                .findIdsWithRunningBalance(userId.toString(), nativePageable);
+                .findFiltered(userId, criteria, pageable);
 
         if (idPage.isEmpty()) {
             return Page.empty(pageable);
@@ -166,6 +135,19 @@ public class TransactionService {
                 orderedTransactions,
                 pageable,
                 idPage.getTotalElements());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Transaction> getAllTransactions(Pageable pageable) {
+        return queryTransactions(new TransactionSearchCriteria(List.of(), null), pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Transaction> searchTransactions(TransactionSearchRequest request, Pageable pageable) {
+        TransactionSearchCriteria criteria = new TransactionSearchCriteria(
+                request.filters() != null ? request.filters() : List.of(),
+                request.search());
+        return queryTransactions(criteria, pageable);
     }
 
     public Transaction updateTransaction(UUID id, com.financeos.api.transaction.dto.UpdateTransactionRequest request) {

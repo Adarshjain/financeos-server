@@ -439,6 +439,49 @@ paths:
               schema:
                 $ref: '#/components/schemas/PagedTransactionResponse'
 
+  /api/v1/transactions/search:
+    post:
+      tags: [Transactions]
+      summary: Search and filter transactions (paginated)
+      operationId: searchTransactions
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 50
+        - name: sort
+          in: query
+          schema:
+            type: string
+            default: date,desc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionSearchRequest'
+      responses:
+        '200':
+          description: Paginated list of filtered transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedTransactionResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /api/v1/transactions/{id}:
     put:
       tags: [Transactions]
@@ -2583,4 +2626,33 @@ components:
         updatedAt:
           type: string
           format: date-time
+
+    TransactionSearchRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterClause'
+        search:
+          type: string
+          nullable: true
+
+    FilterClause:
+      type: object
+      required: [field, operator]
+      properties:
+        field:
+          type: string
+        operator:
+          type: string
+        value:
+          nullable: true
+          description: >
+            Value shape depends on the operator:
+            - Scalar (string/number/boolean) for 'is', 'equals', 'contains', etc.
+            - Array of strings for 'in', 'not_in'.
+            - Object { from, to } for 'between'.
+            - Object { amount } for parameterized relative-date operators (e.g. 'last_x_days').
+
 

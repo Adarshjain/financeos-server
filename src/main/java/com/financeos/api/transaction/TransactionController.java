@@ -3,6 +3,7 @@ package com.financeos.api.transaction;
 import com.financeos.api.transaction.dto.CreateTransactionRequest;
 import com.financeos.api.transaction.dto.UpdateTransactionRequest;
 import com.financeos.api.transaction.dto.TransactionResponse;
+import com.financeos.api.transaction.dto.TransactionSearchRequest;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionService;
 import jakarta.validation.Valid;
@@ -37,6 +38,16 @@ public class TransactionController {
             @PageableDefault(size = 50, sort = { "date", "createdAt",
                     "id" }, direction = org.springframework.data.domain.Sort.Direction.DESC) Pageable pageable) {
         Page<Transaction> transactions = transactionService.getAllTransactions(pageable);
+        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance()));
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<Page<TransactionResponse>> searchTransactions(
+            @Valid @RequestBody TransactionSearchRequest request,
+            @PageableDefault(size = 50, sort = { "date", "createdAt",
+                    "id" }, direction = org.springframework.data.domain.Sort.Direction.DESC) Pageable pageable) {
+        Page<Transaction> transactions = transactionService.searchTransactions(request, pageable);
         Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance()));
         return ResponseEntity.ok(response);
     }
