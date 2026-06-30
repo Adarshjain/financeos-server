@@ -14,6 +14,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 @Component
 public class GeminiExtractor {
@@ -126,12 +128,27 @@ public class GeminiExtractor {
                 return GeminiExtractionResult.notTransaction();
             }
 
-            if (extracted.amount() == null || extracted.date() == null) {
-                log.warn("Extracted transaction is missing amount or date for message: {}", message.messageId());
-                return GeminiExtractionResult.failure("Missing required transaction fields: amount or date");
+            if (extracted.amount() == null) {
+                log.warn("Extracted transaction is missing amount for message: {}", message.messageId());
+                return GeminiExtractionResult.failure("Missing required transaction field: amount");
             }
 
-            return GeminiExtractionResult.success(extracted);
+            // Parse the raw date string using FlexibleDateParser (tolerates non-ISO formats)
+            LocalDate parsedDate;
+            if (extracted.date() == null || extracted.date().isBlank()) {
+                log.warn("Extracted transaction is missing date for message: {}", message.messageId());
+                return GeminiExtractionResult.failure("Missing required transaction field: date");
+            }
+            try {
+                parsedDate = FlexibleDateParser.parse(extracted.date());
+            } catch (DateTimeParseException e) {
+                log.warn("Unable to parse date '{}' for message: {} — {}",
+                        extracted.date(), message.messageId(), e.getMessage());
+                return GeminiExtractionResult.failure(
+                        "Unparseable date: " + extracted.date());
+            }
+
+            return GeminiExtractionResult.success(extracted, parsedDate);
 
         } catch (Exception e) {
             log.error("Failed to extract transaction using Gemini", e);

@@ -54,7 +54,7 @@ public class GmailTransactionWriter {
         txn.setAmount(extractionResult.amount().abs()); // Store unsigned magnitude
         txn.setDescription(extractionResult.description());
         txn.setSource(TransactionSource.gmail_transaction_alert);
-        txn.setType(TransactionType.valueOf(extractionResult.direction().toUpperCase()));
+        txn.setType(TransactionType.fromLlmDirection(extractionResult.direction()));
         txn.setReviewType(ReviewType.NEEDS_REVIEW);
         txn.setSourceMessageId(gmailMessageId);
         txn.setTransactionUnderMonitoring(false);
