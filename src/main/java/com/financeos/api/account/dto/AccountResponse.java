@@ -6,6 +6,7 @@ import com.financeos.domain.account.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type", visible = true)
@@ -33,6 +34,8 @@ public sealed interface AccountResponse {
 
     Instant updatedAt();
 
+    LocalDate ingestFromDate();
+
     static AccountResponse from(Account account) {
         return switch (account.getType()) {
             case bank_account -> {
@@ -46,6 +49,7 @@ public sealed interface AccountResponse {
                         account.getDescription(),
                         account.getCreatedAt(),
                         account.getUpdatedAt(),
+                        account.getIngestFromDate(),
                         details != null ? details.getOpeningBalance() : null,
                         details != null ? details.getLast4() : null);
             }
@@ -60,6 +64,7 @@ public sealed interface AccountResponse {
                         account.getDescription(),
                         account.getCreatedAt(),
                         account.getUpdatedAt(),
+                        account.getIngestFromDate(),
                         details != null ? details.getLast4() : null,
                         details != null ? details.getCreditLimit() : null,
                         details != null ? details.getPaymentDueDay() : null,
@@ -76,6 +81,7 @@ public sealed interface AccountResponse {
                         account.getDescription(),
                         account.getCreatedAt(),
                         account.getUpdatedAt(),
+                        account.getIngestFromDate(),
                         details != null ? details.getInstrumentCode() : null,
                         details != null ? details.getLastTradedPrice() : null);
             }
@@ -90,6 +96,7 @@ public sealed interface AccountResponse {
                         account.getDescription(),
                         account.getCreatedAt(),
                         account.getUpdatedAt(),
+                        account.getIngestFromDate(),
                         details != null ? details.getInstrumentCode() : null,
                         details != null ? details.getLastTradedPrice() : null);
             }
@@ -101,7 +108,8 @@ public sealed interface AccountResponse {
                     account.getFinancialPosition(),
                     account.getDescription(),
                     account.getCreatedAt(),
-                    account.getUpdatedAt());
+                    account.getUpdatedAt(),
+                    account.getIngestFromDate());
         };
     }
 
@@ -114,6 +122,7 @@ public sealed interface AccountResponse {
             String description,
             Instant createdAt,
             Instant updatedAt,
+            LocalDate ingestFromDate,
             BigDecimal openingBalance,
             String last4) implements AccountResponse {
     }
@@ -127,6 +136,7 @@ public sealed interface AccountResponse {
             String description,
             Instant createdAt,
             Instant updatedAt,
+            LocalDate ingestFromDate,
             String last4,
             BigDecimal creditLimit,
             Integer paymentDueDay,
@@ -142,6 +152,7 @@ public sealed interface AccountResponse {
             String description,
             Instant createdAt,
             Instant updatedAt,
+            LocalDate ingestFromDate,
             String instrumentCode,
             BigDecimal lastTradedPrice) implements AccountResponse {
     }
@@ -155,6 +166,7 @@ public sealed interface AccountResponse {
             String description,
             Instant createdAt,
             Instant updatedAt,
+            LocalDate ingestFromDate,
             String instrumentCode,
             BigDecimal lastTradedPrice) implements AccountResponse {
     }
@@ -167,6 +179,7 @@ public sealed interface AccountResponse {
             FinancialPosition financialPosition,
             String description,
             Instant createdAt,
-            Instant updatedAt) implements AccountResponse {
+            Instant updatedAt,
+            LocalDate ingestFromDate) implements AccountResponse {
     }
 }

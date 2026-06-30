@@ -10,6 +10,7 @@ import com.financeos.domain.user.User;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -47,6 +48,9 @@ public class Account {
 
     @Column
     private String description;
+
+    @Column(name = "ingest_from_date")
+    private LocalDate ingestFromDate;
 
     @Column(name = "created_at")
     private Instant createdAt;

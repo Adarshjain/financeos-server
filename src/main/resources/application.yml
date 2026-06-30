@@ -75,6 +75,18 @@ gmail:
     client-id: ${GMAIL_CLIENT_ID:}
     client-secret: ${GMAIL_CLIENT_SECRET:}
     redirect-uri: ${GMAIL_REDIRECT_URI:http://localhost:8080/api/v1/gmail/oauth/callback}
+  ingest:
+    enabled: ${GMAIL_INGEST_ENABLED:true}
+    cron: ${GMAIL_INGEST_CRON:0 0 10-22/2 * * *}
+    first-backfill-days: ${GMAIL_INGEST_BACKFILL_DAYS:30}
+    zone: ${GMAIL_INGEST_ZONE:Asia/Kolkata}
+
+# Gemini (Google AI Studio) configuration for transaction extraction
+gemini:
+  api-key: ${GEMINI_API_KEY:}
+  model: ${GEMINI_MODEL:gemini-3.5-flash}
+  statement-model: ${GEMINI_STATEMENT_MODEL:gemini-3.5-flash}
+  timeout: ${GEMINI_TIMEOUT_MS:30000}
 
 # Google SSO configuration
 google:

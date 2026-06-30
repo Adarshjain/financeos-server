@@ -1,5 +1,6 @@
 package com.financeos.api.transaction.dto;
 
+import com.financeos.domain.transaction.ReviewType;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
@@ -21,7 +22,9 @@ public record TransactionResponse(
                 boolean isTransactionUnderMonitoring,
                 boolean isTransactionExcluded,
                 Instant createdAt,
-                BigDecimal balance) {
+                BigDecimal balance,
+                ReviewType reviewType) {
+
         public static TransactionResponse from(Transaction transaction) {
                 return from(transaction, null);
         }
@@ -50,6 +53,7 @@ public record TransactionResponse(
                                 transaction.isTransactionUnderMonitoring(),
                                 transaction.isTransactionExcluded(),
                                 transaction.getCreatedAt(),
-                                balance);
+                                balance,
+                                transaction.getReviewType());
         }
 }

@@ -132,7 +132,7 @@ public class DevDataSeeder implements CommandLineRunner {
     private Transaction generateRandomTransaction(User user, Account account, LocalDate date,
             Map<String, Category> categories) {
         boolean isAutomated = random.nextDouble() < 0.9;
-        TransactionSource source = isAutomated ? TransactionSource.gmail : TransactionSource.manual;
+        TransactionSource source = isAutomated ? TransactionSource.gmail_transaction_alert : TransactionSource.manual;
 
         TransactionType type = TransactionType.DEBIT;
         BigDecimal amount;
