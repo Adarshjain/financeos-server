@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
+public interface TransactionRepository extends JpaRepository<Transaction, UUID>, TransactionRepositoryCustom {
 
     interface TransactionBalanceProjection {
         UUID getId();
@@ -25,20 +25,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
     @EntityGraph(attributePaths = { "categories.category", "account" })
     Page<Transaction> findAll(Pageable pageable);
 
-    @Query(value = """
-            SELECT sub.id, sub.balance, sub.transaction_date, sub.created_at FROM (
-                SELECT t.id,
-                       t.transaction_date,
-                       t.created_at,
-                       (COALESCE(abd.opening_balance, 0) +
-                        SUM(CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END)
-                        OVER (PARTITION BY t.account_id ORDER BY t.transaction_date ASC, t.created_at ASC, t.id ASC)) as balance
-                FROM transactions t
-                LEFT JOIN account_bank_details abd ON t.account_id = abd.account_id
-                WHERE t.user_id = :userId
-            ) sub
-            """, countQuery = "SELECT count(*) FROM transactions WHERE user_id = :userId", nativeQuery = true)
-    Page<TransactionBalanceProjection> findIdsWithRunningBalance(@Param("userId") String userId, Pageable pageable);
 
     @EntityGraph(attributePaths = { "categories.category", "account" })
     List<Transaction> findAllByIdIn(List<UUID> ids);
