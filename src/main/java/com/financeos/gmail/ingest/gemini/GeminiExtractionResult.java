@@ -15,13 +15,13 @@ public record GeminiExtractionResult(
     boolean isSuccess,
     String failureReason
 ) {
-    public static GeminiExtractionResult success(ExtractedTransaction tx) {
+    public static GeminiExtractionResult success(ExtractedTransaction tx, LocalDate parsedDate) {
         return new GeminiExtractionResult(
             tx.isTransaction(),
             tx.amount(),
             tx.currency(),
             tx.direction(),
-            tx.date(),
+            parsedDate,
             tx.description(),
             tx.accountLast4(),
             tx.confidence(),

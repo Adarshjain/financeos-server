@@ -256,7 +256,7 @@ public class StatementReconciliationService {
                         statementTxn.setAmount(line.amount().abs());
                         statementTxn.setDescription(line.description());
                         statementTxn.setSource(TransactionSource.gmail_statement);
-                        statementTxn.setType(TransactionType.valueOf(line.direction().toUpperCase()));
+                        statementTxn.setType(TransactionType.fromLlmDirection(line.direction()));
                         statementTxn.setReviewType(ReviewType.NEEDS_REVIEW);
                         statementTxn.setSourceMessageId(sourceMsgId);
                         statementTxn.setTransactionUnderMonitoring(false);
@@ -281,7 +281,7 @@ public class StatementReconciliationService {
                     statementTxn.setAmount(line.amount().abs());
                     statementTxn.setDescription(line.description());
                     statementTxn.setSource(TransactionSource.gmail_statement);
-                    statementTxn.setType(TransactionType.valueOf(line.direction().toUpperCase()));
+                    statementTxn.setType(TransactionType.fromLlmDirection(line.direction()));
                     statementTxn.setReviewType(ReviewType.NEEDS_REVIEW);
                     statementTxn.setSourceMessageId(sourceMsgId);
                     statementTxn.setTransactionUnderMonitoring(false);
@@ -377,7 +377,8 @@ public class StatementReconciliationService {
             if (candidate.getAmount().compareTo(line.amount().abs()) != 0) {
                 continue;
             }
-            if (!candidate.getType().name().equalsIgnoreCase(line.direction())) {
+            TransactionType lineType = TransactionType.fromLlmDirection(line.direction());
+            if (candidate.getType() != lineType) {
                 continue;
             }
 
