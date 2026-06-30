@@ -40,6 +40,7 @@ public class GmailIngestionService {
     private final GmailProcessedMessageRepository processedMessageRepository;
     private final GmailIngestProperties ingestProperties;
     private final StatementReconciliationService statementReconciliationService;
+    private final EmailClassifier emailClassifier;
 
     public GmailIngestionService(GmailEngine gmailEngine,
                                  SyncStateService syncStateService,
@@ -49,7 +50,8 @@ public class GmailIngestionService {
                                  GeminiExtractor geminiExtractor,
                                  GmailProcessedMessageRepository processedMessageRepository,
                                  GmailIngestProperties ingestProperties,
-                                 StatementReconciliationService statementReconciliationService) {
+                                 StatementReconciliationService statementReconciliationService,
+                                 EmailClassifier emailClassifier) {
         this.gmailEngine = gmailEngine;
         this.syncStateService = syncStateService;
         this.gmailSenderRepository = gmailSenderRepository;
@@ -59,7 +61,9 @@ public class GmailIngestionService {
         this.processedMessageRepository = processedMessageRepository;
         this.ingestProperties = ingestProperties;
         this.statementReconciliationService = statementReconciliationService;
+        this.emailClassifier = emailClassifier;
     }
+
 
     /**
      * Run sync and ingestion for a specific connection.
@@ -131,17 +135,23 @@ public class GmailIngestionService {
                     continue;
                 }
 
-                // Auto-classification of Alert vs. Statement based on attachments
-                boolean isStatementFlow = false;
-                if (message.attachments() != null) {
-                    for (var att : message.attachments()) {
-                        String filename = att.filename().toLowerCase();
-                        if (filename.endsWith(".pdf") || filename.endsWith(".xlsx") || filename.endsWith(".xls")) {
-                            isStatementFlow = true;
-                            break;
-                        }
-                    }
+                // Auto-classification of Alert vs. Statement based on content via Gemini
+                EmailClassificationResult classification = emailClassifier.classify(message);
+                if (!classification.isSuccess()) {
+                    gmailTransactionWriter.recordSkipped(connection, message.messageId(), 
+                            GmailProcessedStatus.FAILED, "Classification failed: " + classification.failureReason());
+                    failed++;
+                    continue;
                 }
+
+                if (classification.emailType() == EmailType.OTHER) {
+                    gmailTransactionWriter.recordSkipped(connection, message.messageId(), 
+                            GmailProcessedStatus.SKIPPED_NOT_TRANSACTION, "Classified as non-transaction: " + classification.reasoning());
+                    skipped++;
+                    continue;
+                }
+
+                boolean isStatementFlow = (classification.emailType() == EmailType.STATEMENT);
 
                 if (isStatementFlow) {
                     ReconSummary recon = statementReconciliationService.reconcile(connection, message);
@@ -167,8 +177,9 @@ public class GmailIngestionService {
                     continue;
                 }
 
-                // Resolve account
-                Account account = accountResolver.resolve(extractionResult.accountLast4()).orElse(null);
+                // Resolve account with sender fallback
+                Account account = accountResolver.resolve(extractionResult.accountLast4(), sender).orElse(null);
+
 
                 // Write transaction (includes watermark check)
                 GmailProcessedMessage processed = gmailTransactionWriter.writeTransaction(
