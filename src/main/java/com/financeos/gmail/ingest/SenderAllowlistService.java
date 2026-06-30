@@ -1,7 +1,5 @@
 package com.financeos.gmail.ingest;
 
-import com.financeos.domain.account.Account;
-import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.api.gmail.dto.GmailSenderRequest;
@@ -16,14 +14,11 @@ import java.util.UUID;
 public class SenderAllowlistService {
 
     private final GmailSenderRepository gmailSenderRepository;
-    private final AccountRepository accountRepository;
     private final UserRepository userRepository;
 
     public SenderAllowlistService(GmailSenderRepository gmailSenderRepository,
-                                  AccountRepository accountRepository,
                                   UserRepository userRepository) {
         this.gmailSenderRepository = gmailSenderRepository;
-        this.accountRepository = accountRepository;
         this.userRepository = userRepository;
     }
 
@@ -38,18 +33,9 @@ public class SenderAllowlistService {
 
         GmailSender sender = new GmailSender();
         sender.setUser(user);
-        sender.setName(request.name());
+        sender.setName(request.name() != null && !request.name().trim().isEmpty() ? request.name().trim() : null);
         sender.setSenderAddress(request.senderAddress().trim().toLowerCase());
-        sender.setPurpose(request.purpose());
-        sender.setAttachmentPattern(request.attachmentPattern());
-        sender.setStatementFormat(request.statementFormat());
         sender.setEnabled(request.enabled() != null ? request.enabled() : true);
-
-        if (request.accountId() != null) {
-            Account account = accountRepository.findById(request.accountId())
-                    .orElseThrow(() -> new IllegalArgumentException("Account not found: " + request.accountId()));
-            sender.setAccount(account);
-        }
 
         return gmailSenderRepository.save(sender);
     }
@@ -62,21 +48,10 @@ public class SenderAllowlistService {
             throw new SecurityException("Unauthorized access to Gmail sender");
         }
 
-        sender.setName(request.name());
+        sender.setName(request.name() != null && !request.name().trim().isEmpty() ? request.name().trim() : null);
         sender.setSenderAddress(request.senderAddress().trim().toLowerCase());
-        sender.setPurpose(request.purpose());
-        sender.setAttachmentPattern(request.attachmentPattern());
-        sender.setStatementFormat(request.statementFormat());
         if (request.enabled() != null) {
             sender.setEnabled(request.enabled());
-        }
-
-        if (request.accountId() != null) {
-            Account account = accountRepository.findById(request.accountId())
-                    .orElseThrow(() -> new IllegalArgumentException("Account not found: " + request.accountId()));
-            sender.setAccount(account);
-        } else {
-            sender.setAccount(null);
         }
 
         return gmailSenderRepository.save(sender);

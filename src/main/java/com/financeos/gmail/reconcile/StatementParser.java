@@ -56,10 +56,10 @@ public class StatementParser {
     /**
      * Extract CSV-like plain text from Excel sheets.
      */
-    public String extractTextFromExcel(byte[] excelBytes) throws Exception {
+    public String extractTextFromExcel(byte[] excelBytes, String password) throws Exception {
         StringBuilder sb = new StringBuilder();
         try (InputStream is = new ByteArrayInputStream(excelBytes);
-             Workbook workbook = WorkbookFactory.create(is)) {
+             Workbook workbook = WorkbookFactory.create(is, password)) {
             for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
                 Sheet sheet = workbook.getSheetAt(i);
                 sb.append("--- Sheet: ").append(sheet.getSheetName()).append(" ---\n");
@@ -131,6 +131,11 @@ public class StatementParser {
             schema.put("type", "OBJECT");
             
             ObjectNode properties = schema.putObject("properties");
+
+            ObjectNode accountLast4Prop = properties.putObject("accountLast4");
+            accountLast4Prop.put("type", "STRING");
+            accountLast4Prop.put("description", "The last 4 digits of the bank account or credit card number if found in the statement content, otherwise null.");
+
             ObjectNode linesProperty = properties.putObject("lines");
             linesProperty.put("type", "ARRAY");
             
@@ -187,7 +192,12 @@ public class StatementParser {
             }
 
             String jsonText = textNode.asText();
-            JsonNode linesNode = objectMapper.readTree(jsonText).get("lines");
+            JsonNode rootNode = objectMapper.readTree(jsonText);
+            
+            JsonNode accountLast4Node = rootNode.get("accountLast4");
+            String accountLast4 = (accountLast4Node != null && !accountLast4Node.isNull()) ? accountLast4Node.asText() : null;
+
+            JsonNode linesNode = rootNode.get("lines");
             if (linesNode == null || !linesNode.isArray()) {
                 return StatementExtractionResult.failure("Missing 'lines' array in output format");
             }
@@ -206,7 +216,7 @@ public class StatementParser {
                 }
             }
 
-            return StatementExtractionResult.success(lines);
+            return StatementExtractionResult.success(lines, accountLast4);
 
         } catch (Exception e) {
             log.error("Failed to parse statement using Gemini", e);

@@ -602,45 +602,36 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: Gmail connected successfully
-          content:
-            application/json:
+        '302':
+          description: |
+            Redirects the browser to `${app.ui-path}/settings/gmail` with
+            `?gmail=success&email=<address>` on success, or
+            `?gmail=error&message=<reason>` on failure / missing code.
+          headers:
+            Location:
+              description: SPA URL with gmail status query params
               schema:
-                $ref: '#/components/schemas/GmailOAuthCallbackResponse'
-        '400':
-          description: OAuth failed or missing code
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: string
 
   /api/v1/gmail/sync:
     post:
       tags: [Gmail]
-      summary: Fetch emails from Gmail
+      summary: Run Gmail ingestion for the current user
       description: |
-        Fetches raw emails from connected Gmail account.
-        - MANUAL mode: Full fetch with optional time filter
-        - PERIODIC mode: Incremental sync using historyId
-        
-        Returns raw, uninterpreted data only. No business logic, no transaction creation.
+        Manually triggers an ingestion run for the user's connected Gmail account(s):
+        fetches new emails from allowlisted senders (`from:(...) after:<lastSync>`),
+        extracts transactions via Gemini (alerts) and reconciles statements, then persists
+        transactions. The same pipeline also runs automatically on a cron schedule.
       operationId: syncGmail
       security:
         - sessionAuth: []
-      requestBody:
-        required: false
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/GmailFetchRequest'
       responses:
         '200':
-          description: Fetch result with messages and sync state
+          description: Ingestion run summary (counts of processed messages)
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GmailFetchResult'
+                $ref: '#/components/schemas/SyncSummary'
         '400':
           description: Gmail not connected
           content:
@@ -649,6 +640,129 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '401':
           description: Gmail authentication failed (token expired/revoked)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/gmail/senders:
+    get:
+      tags: [Gmail]
+      summary: List Gmail sender allowlist
+      description: Senders whose emails are ingested (exact email address or domain)
+      operationId: listGmailSenders
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: List of configured senders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GmailSenderResponse'
+    post:
+      tags: [Gmail]
+      summary: Add a Gmail sender to the allowlist
+      operationId: createGmailSender
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GmailSenderRequest'
+      responses:
+        '200':
+          description: Created sender
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GmailSenderResponse'
+
+  /api/v1/gmail/senders/{id}:
+    put:
+      tags: [Gmail]
+      summary: Update a Gmail sender
+      operationId: updateGmailSender
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GmailSenderRequest'
+      responses:
+        '200':
+          description: Updated sender
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GmailSenderResponse'
+    delete:
+      tags: [Gmail]
+      summary: Delete a Gmail sender
+      operationId: deleteGmailSender
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Sender deleted
+
+  /api/v1/gmail/connections:
+    get:
+      tags: [Gmail]
+      summary: List connected Gmail accounts
+      operationId: listGmailConnections
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: The current user's Gmail connections
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GmailConnectionResponse'
+
+  /api/v1/gmail/connections/{id}:
+    delete:
+      tags: [Gmail]
+      summary: Disconnect a Gmail account
+      description: Marks the connection disconnected and clears its sync state
+      operationId: disconnectGmailConnection
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Connection disconnected
+        '400':
+          description: Not the owner / invalid connection
           content:
             application/json:
               schema:
@@ -1304,6 +1418,13 @@ components:
           $ref: '#/components/schemas/FinancialPosition'
         description:
           type: string
+        ingestFromDate:
+          type: string
+          format: date
+          description: |
+            Per-account watermark. Gmail ingestion only creates transactions dated
+            on/after this date (older activity is assumed covered by imported history).
+            Null = ingest everything.
 
     AccountResponse:
       type: object
@@ -1335,6 +1456,10 @@ components:
         updatedAt:
           type: string
           format: date-time
+        ingestFromDate:
+          type: string
+          format: date
+          description: Per-account ingestion watermark (nullable)
 
     AccountType:
       type: string
@@ -1354,6 +1479,9 @@ components:
         last4:
           type: string
           example: "1234"
+        statementPassword:
+          type: string
+          description: Encrypted at rest with AES-256-GCM
 
     BankDetailsResponse:
       type: object
@@ -1497,6 +1625,10 @@ components:
         sourcedDescription:
           type: string
           description: Original description from the transaction source (read-only)
+        source:
+          $ref: '#/components/schemas/TransactionSource'
+        reviewType:
+          $ref: '#/components/schemas/ReviewType'
         createdAt:
           type: string
           format: date-time
@@ -1523,10 +1655,21 @@ components:
           type: boolean
         isTransactionExcluded:
           type: boolean
+        reviewType:
+          $ref: '#/components/schemas/ReviewType'
 
     TransactionSource:
       type: string
-      enum: [gmail, manual]
+      enum: [gmail_transaction_alert, gmail_statement, manual]
+
+    ReviewType:
+      type: string
+      enum: [NEEDS_REVIEW, AUTO_REVIEWED, MANUALLY_REVIEWED]
+      description: |
+        Review state of an ingested transaction.
+        - NEEDS_REVIEW: created from an email alert, awaiting confirmation
+        - AUTO_REVIEWED: confirmed by a matching statement line
+        - MANUALLY_REVIEWED: reviewed/edited by the user
 
     PagedTransactionResponse:
       type: object
@@ -1825,6 +1968,74 @@ components:
           type: string
           format: date-time
           description: Timestamp of this sync
+    GmailSenderRequest:
+      type: object
+      required: [senderAddress]
+      properties:
+        name:
+          type: string
+          description: Optional name or label for the sender
+          example: HDFC Card Alerts
+        senderAddress:
+          type: string
+          description: Sender email address or domain (exact address or domain)
+          example: alerts@hdfcbank.net
+        enabled:
+          type: boolean
+          default: true
+
+    GmailSenderResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        senderAddress:
+          type: string
+        enabled:
+          type: boolean
+
+    GmailConnectionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        isConnected:
+          type: boolean
+        isPrimary:
+          type: boolean
+        connectedAt:
+          type: string
+          format: date-time
+        lastSyncedAt:
+          type: string
+          format: date-time
+          description: Timestamp of the last successful sync (nullable)
+
+    SyncSummary:
+      type: object
+      properties:
+        fetched:
+          type: integer
+          description: Messages fetched from Gmail this run
+        created:
+          type: integer
+          description: Transactions created (alerts + new statement lines)
+        skipped:
+          type: integer
+          description: Messages skipped (already processed, not a transaction, or before watermark)
+        failed:
+          type: integer
+          description: Messages that failed processing
+        reconciled:
+          type: integer
+          description: Alert transactions promoted to AUTO_REVIEWED by a matching statement line
 
     ReportType:
       type: string

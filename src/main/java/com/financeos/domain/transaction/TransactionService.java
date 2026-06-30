@@ -188,7 +188,6 @@ public class TransactionService {
         // Update fields
         transaction.setDate(request.date());
         transaction.setDescription(request.description());
-        transaction.setSource(TransactionSource.manual); // Corrected to lowercase
 
         // Handle flags
         if (request.isTransactionUnderMonitoring() != null) {
@@ -196,6 +195,9 @@ public class TransactionService {
         }
         if (request.isTransactionExcluded() != null) {
             transaction.setTransactionExcluded(request.isTransactionExcluded());
+        }
+        if (request.reviewType() != null) {
+            transaction.setReviewType(request.reviewType());
         }
 
         // Handle amount and type

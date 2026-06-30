@@ -10,8 +10,6 @@ import java.util.UUID;
 @Repository
 public interface GmailConnectionRepository extends JpaRepository<GmailConnection, UUID> {
 
-    Optional<GmailConnection> findByUserId(UUID userId);
-
     Optional<GmailConnection> findByUserIdAndIsPrimaryTrue(UUID userId);
 
     Optional<GmailConnection> findByUserIdAndEmail(UUID userId, String email);
@@ -23,4 +21,6 @@ public interface GmailConnectionRepository extends JpaRepository<GmailConnection
     boolean existsByUserId(UUID userId);
 
     List<GmailConnection> findByIsConnectedTrue();
+
+    List<GmailConnection> findByUserId(UUID userId);
 }
