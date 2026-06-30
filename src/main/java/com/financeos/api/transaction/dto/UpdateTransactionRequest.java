@@ -1,5 +1,6 @@
 package com.financeos.api.transaction.dto;
 
+import com.financeos.domain.transaction.ReviewType;
 import com.financeos.domain.transaction.TransactionSource;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,5 +18,6 @@ public record UpdateTransactionRequest(
                 String description,
                 List<UUID> categoryIds,
                 Boolean isTransactionUnderMonitoring,
-                Boolean isTransactionExcluded) {
+                Boolean isTransactionExcluded,
+                ReviewType reviewType) {
 }
