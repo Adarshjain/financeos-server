@@ -29,7 +29,6 @@ public class GeminiExtractor {
         this.geminiProperties = geminiProperties;
         this.objectMapper = objectMapper.copy().registerModule(new JavaTimeModule());
         this.httpClient = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofMillis(geminiProperties.getTimeout()))
                 .build();
     }
 
@@ -102,7 +101,6 @@ public class GeminiExtractor {
                     .uri(URI.create(url))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .timeout(Duration.ofMillis(geminiProperties.getTimeout()))
                     .build();
 
             log.info("Calling Gemini API for message ID: {}", message.messageId());
