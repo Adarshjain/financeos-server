@@ -28,7 +28,6 @@ public class EmailClassifier {
         this.geminiProperties = geminiProperties;
         this.objectMapper = objectMapper.copy().registerModule(new JavaTimeModule());
         this.httpClient = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofMillis(geminiProperties.getTimeout()))
                 .build();
     }
 
@@ -97,7 +96,6 @@ public class EmailClassifier {
                     .uri(URI.create(url))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .timeout(Duration.ofMillis(geminiProperties.getTimeout()))
                     .build();
 
             log.info("Calling Gemini API to classify message ID: {}", message.messageId());

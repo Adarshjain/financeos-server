@@ -84,8 +84,12 @@ gmail:
 # Gemini (Google AI Studio) configuration for transaction extraction
 gemini:
   api-key: ${GEMINI_API_KEY:}
-  model: ${GEMINI_MODEL:gemini-3.5-flash}
-  statement-model: ${GEMINI_STATEMENT_MODEL:gemini-3.5-flash}
+  # Flash-Lite has a generous free tier (~1,500 req/day, 15 RPM) and is well-suited to
+  # extraction/classification. gemini-3.5-flash was the premium tier with only ~20 req/day free.
+  # Bump GEMINI_STATEMENT_MODEL to gemini-2.5-flash / gemini-3-flash (also ~1,500 RPD free) if
+  # statement-table accuracy needs it.
+  model: ${GEMINI_MODEL:gemini-2.5-flash-lite}
+  statement-model: ${GEMINI_STATEMENT_MODEL:gemini-2.5-flash-lite}
   timeout: ${GEMINI_TIMEOUT_MS:30000}
 
 # Google SSO configuration
