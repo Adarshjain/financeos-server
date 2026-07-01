@@ -32,6 +32,8 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.financeos.domain.transaction.TransactionMatcher;
+
 @Service
 public class StatementReconciliationService {
 
@@ -44,6 +46,7 @@ public class StatementReconciliationService {
     private final GmailIngestProperties ingestProperties;
     private final AccountRepository accountRepository;
     private final com.financeos.gmail.ingest.AccountResolver accountResolver;
+    private final TransactionMatcher transactionMatcher;
 
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
@@ -51,7 +54,8 @@ public class StatementReconciliationService {
                                           GmailProcessedMessageRepository processedMessageRepository,
                                           GmailIngestProperties ingestProperties,
                                           AccountRepository accountRepository,
-                                          com.financeos.gmail.ingest.AccountResolver accountResolver) {
+                                          com.financeos.gmail.ingest.AccountResolver accountResolver,
+                                          TransactionMatcher transactionMatcher) {
         this.gmailEngine = gmailEngine;
         this.statementParser = statementParser;
         this.transactionRepository = transactionRepository;
@@ -59,6 +63,7 @@ public class StatementReconciliationService {
         this.ingestProperties = ingestProperties;
         this.accountRepository = accountRepository;
         this.accountResolver = accountResolver;
+        this.transactionMatcher = transactionMatcher;
     }
 
 
@@ -231,14 +236,14 @@ public class StatementReconciliationService {
                 ParsedStatementLine line = candidateLines.get(i);
 
                 // Check if there is already a transaction matching this line (safety against seams)
-                Transaction seamMatch = findBestMatch(line, alreadyMatchedTxns, dateWindow, consumedTxnIds);
+                Transaction seamMatch = transactionMatcher.findBestMatch(line, alreadyMatchedTxns, dateWindow, consumedTxnIds);
                 if (seamMatch != null) {
                     consumedTxnIds.add(seamMatch.getId());
                     continue;
                 }
 
                 // Try to match against NEEDS_REVIEW alerts to promote
-                Transaction alertMatch = findBestMatch(line, alertsToPromote, dateWindow, consumedTxnIds);
+                Transaction alertMatch = transactionMatcher.findBestMatch(line, alertsToPromote, dateWindow, consumedTxnIds);
                 if (alertMatch != null) {
                     consumedTxnIds.add(alertMatch.getId());
                     alertMatch.setReviewType(ReviewType.AUTO_REVIEWED);
@@ -358,72 +363,7 @@ public class StatementReconciliationService {
         }
     }
 
-    private Transaction findBestMatch(
-            ParsedStatementLine line,
-            List<Transaction> candidates,
-            int dateWindow,
-            Set<UUID> consumedTxnIds) {
 
-        Transaction bestMatch = null;
-        long bestDateDiff = Long.MAX_VALUE;
-        double bestSimilarity = -1.0;
-
-        for (Transaction candidate : candidates) {
-            if (consumedTxnIds.contains(candidate.getId())) {
-                continue;
-            }
-
-            // Exact amount and same direction check
-            if (candidate.getAmount().compareTo(line.amount().abs()) != 0) {
-                continue;
-            }
-            TransactionType lineType = TransactionType.fromLlmDirection(line.direction());
-            if (candidate.getType() != lineType) {
-                continue;
-            }
-
-            // Date within window check
-            long dateDiff = Math.abs(java.time.temporal.ChronoUnit.DAYS.between(line.date(), candidate.getDate()));
-            if (dateDiff > dateWindow) {
-                continue;
-            }
-
-            // Find best using greedy metric (closest date, then description similarity)
-            if (dateDiff < bestDateDiff) {
-                bestMatch = candidate;
-                bestDateDiff = dateDiff;
-                bestSimilarity = calculateSimilarity(line.description(), candidate.getDescription());
-            } else if (dateDiff == bestDateDiff) {
-                double similarity = calculateSimilarity(line.description(), candidate.getDescription());
-                if (similarity > bestSimilarity) {
-                    bestMatch = candidate;
-                    bestSimilarity = similarity;
-                }
-            }
-        }
-
-        return bestMatch;
-    }
-
-    private double calculateSimilarity(String s1, String s2) {
-        if (s1 == null || s2 == null) return 0.0;
-        String clean1 = s1.toLowerCase().replaceAll("[^a-z0-9\\s]", "");
-        String clean2 = s2.toLowerCase().replaceAll("[^a-z0-9\\s]", "");
-        String[] tokens1 = clean1.split("\\s+");
-        String[] tokens2 = clean2.split("\\s+");
-
-        Set<String> set1 = Arrays.stream(tokens1).filter(t -> !t.isEmpty()).collect(Collectors.toSet());
-        Set<String> set2 = Arrays.stream(tokens2).filter(t -> !t.isEmpty()).collect(Collectors.toSet());
-
-        Set<String> intersection = new HashSet<>(set1);
-        intersection.retainAll(set2);
-
-        Set<String> union = new HashSet<>(set1);
-        union.addAll(set2);
-
-        if (union.isEmpty()) return 0.0;
-        return (double) intersection.size() / union.size();
-    }
 
     private String getStatementPassword(Account account) {
         if (account.getCreditCardDetails() != null) {

@@ -37,7 +37,6 @@ public class StatementParser {
         this.geminiProperties = geminiProperties;
         this.objectMapper = objectMapper.copy().registerModule(new JavaTimeModule());
         this.httpClient = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofMillis(geminiProperties.getTimeout()))
                 .build();
     }
 
@@ -110,6 +109,12 @@ public class StatementParser {
         try {
             String prompt = String.format(
                     "You are a financial document parser. Extract the full transaction history from the following bank or credit card statement text into a structured JSON array of transaction lines.\n" +
+                    "CRITICAL PARSING RULES:\n" +
+                    "- Carefully examine the column headers of the tables to determine the transaction direction.\n" +
+                    "- Map inflows / money coming into the account (under headers like 'Deposit', 'Received', 'Inflow', 'Credit', 'CR', 'Refund', 'Receipts') to 'CREDIT'.\n" +
+                    "- Map outflows / money going out of the account (under headers like 'Withdrawal', 'Paid', 'Outflow', 'Debit', 'DR', 'Charge', 'Purchase', 'Payment', 'Fee') to 'DEBIT'.\n" +
+                    "- Do not swap these. Withdrawals/payments are always DEBIT, and deposits/receipts are always CREDIT.\n" +
+                    "- If the statement lists transactions in a single amount column, look for sign indicators (e.g., negative numbers for outflows/debits, positive numbers for inflows/credits) or suffix/prefix indicators like 'DR' (debit/outflow) and 'CR' (credit/inflow) to determine the direction.\n" +
                     "If there are multiple pages or tables, extract all lines chronologically.\n" +
                     "Statement text:\n%s",
                     content
@@ -152,6 +157,7 @@ public class StatementParser {
             
             ObjectNode direction = itemProperties.putObject("direction");
             direction.put("type", "STRING");
+            direction.put("description", "Direction of the transaction. Map inflows (deposits, credits, receipts, refunds) to 'CREDIT', and outflows (withdrawals, debits, payments, charges, purchases, fees) to 'DEBIT'. Pay close attention to column headers like 'Deposit' vs 'Withdrawal' to avoid swapping them.");
             direction.putArray("enum").add("DEBIT").add("CREDIT");
             
             itemProperties.putObject("description").put("type", "STRING");
@@ -173,7 +179,6 @@ public class StatementParser {
                     .uri(URI.create(url))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .timeout(Duration.ofMillis(geminiProperties.getTimeout()))
                     .build();
 
             log.info("Calling Gemini API for statement extraction using model: {}", geminiProperties.getStatementModel());
@@ -183,6 +188,8 @@ public class StatementParser {
                 log.error("Gemini API returned error status: {}. Response: {}", response.statusCode(), response.body());
                 return StatementExtractionResult.failure("Gemini API returned error: " + response.statusCode());
             }
+
+            log.info("Gemini API success response: {}", response.body());
 
             JsonNode responseJson = objectMapper.readTree(response.body());
             JsonNode textNode = responseJson.at("/candidates/0/content/parts/0/text");

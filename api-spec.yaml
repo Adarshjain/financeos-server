@@ -28,6 +28,8 @@ tags:
     description: Transaction category management
   - name: Reports
     description: Dynamic user-defined reports over the transactions data source
+  - name: Ingestion
+    description: File upload ingestion for bulk transaction import
 
 paths:
   /api/v1/auth/signup:
@@ -371,6 +373,68 @@ paths:
                 $ref: '#/components/schemas/AccountResponse'
         '400':
           description: Invalid account type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/accounts/{accountId}/ingest:
+    post:
+      tags: [Ingestion]
+      summary: Ingest transactions from uploaded statement files
+      description: >
+        Accepts one or more PDF or Excel files containing financial statements
+        for a specific account. Files are parsed using Gemini AI to extract
+        transactions. Password-protected files are decrypted using the account's
+        configured statement password. Duplicate transactions (same date, amount,
+        type, and description) are flagged as NEEDS_REVIEW on both the existing
+        and newly uploaded entries.
+      operationId: ingestFiles
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          description: UUID of the account to ingest transactions into
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [files]
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: One or more PDF (.pdf) or Excel (.xlsx, .xls) statement files
+      responses:
+        '200':
+          description: Ingestion completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileIngestionResult'
+        '400':
+          description: Validation error (unsupported file type, empty file, etc.)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Account does not belong to the authenticated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Account not found
           content:
             application/json:
               schema:
@@ -2655,4 +2719,45 @@ components:
             - Object { from, to } for 'between'.
             - Object { amount } for parameterized relative-date operators (e.g. 'last_x_days').
 
+    FileIngestionResult:
+      type: object
+      properties:
+        filesProcessed:
+          type: integer
+          description: Number of files that were successfully processed
+          example: 2
+        totalCreated:
+          type: integer
+          description: Total number of transactions created across all files
+          example: 45
+        totalDuplicatesFound:
+          type: integer
+          description: Number of newly uploaded transactions flagged as duplicates
+          example: 3
+        fileDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileSummary'
+
+    FileSummary:
+      type: object
+      properties:
+        filename:
+          type: string
+          description: Original filename of the uploaded file
+          example: statement_june_2026.pdf
+        status:
+          type: string
+          enum: [SUCCESS, FAILED]
+          description: Processing status for this file
+          example: SUCCESS
+        linesParsed:
+          type: integer
+          description: Number of transaction lines extracted from this file
+          example: 22
+        errorMessage:
+          type: string
+          nullable: true
+          description: Error details if the file processing failed
+          example: null
 
