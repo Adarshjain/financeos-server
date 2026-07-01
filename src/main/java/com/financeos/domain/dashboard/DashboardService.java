@@ -83,10 +83,11 @@ public class DashboardService {
         dashboardRepository.delete(loadOwned(id));
     }
 
-    /** Applies the default flag on save: when true, clears any previous default for the user first. */
     private void applyDefault(Dashboard dashboard, boolean isDefault) {
         if (isDefault) {
-            dashboardRepository.clearDefaultForUser(UserContext.getCurrentUserId());
+            if (!dashboard.isDefault()) {
+                dashboardRepository.clearDefaultForUser(UserContext.getCurrentUserId());
+            }
         }
         dashboard.setDefault(isDefault);
     }
