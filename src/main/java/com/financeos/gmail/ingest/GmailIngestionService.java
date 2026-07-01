@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,6 @@ public class GmailIngestionService {
     private final GmailProcessedMessageRepository processedMessageRepository;
     private final GmailIngestProperties ingestProperties;
     private final StatementReconciliationService statementReconciliationService;
-    private final EmailClassifier emailClassifier;
 
     public GmailIngestionService(GmailEngine gmailEngine,
                                  SyncStateService syncStateService,
@@ -50,8 +50,7 @@ public class GmailIngestionService {
                                  GeminiExtractor geminiExtractor,
                                  GmailProcessedMessageRepository processedMessageRepository,
                                  GmailIngestProperties ingestProperties,
-                                 StatementReconciliationService statementReconciliationService,
-                                 EmailClassifier emailClassifier) {
+                                 StatementReconciliationService statementReconciliationService) {
         this.gmailEngine = gmailEngine;
         this.syncStateService = syncStateService;
         this.gmailSenderRepository = gmailSenderRepository;
@@ -61,7 +60,6 @@ public class GmailIngestionService {
         this.processedMessageRepository = processedMessageRepository;
         this.ingestProperties = ingestProperties;
         this.statementReconciliationService = statementReconciliationService;
-        this.emailClassifier = emailClassifier;
     }
 
 
@@ -135,25 +133,10 @@ public class GmailIngestionService {
                     continue;
                 }
 
-                // Auto-classification of Alert vs. Statement based on content via Gemini
-                EmailClassificationResult classification = emailClassifier.classify(message);
-                if (!classification.isSuccess()) {
-                    gmailTransactionWriter.recordSkipped(connection, message.messageId(), 
-                            GmailProcessedStatus.FAILED, "Classification failed: " + classification.failureReason());
-                    failed++;
-                    continue;
-                }
-
-                if (classification.emailType() == EmailType.OTHER) {
-                    gmailTransactionWriter.recordSkipped(connection, message.messageId(), 
-                            GmailProcessedStatus.SKIPPED_NOT_TRANSACTION, "Classified as non-transaction: " + classification.reasoning());
-                    skipped++;
-                    continue;
-                }
-
-                boolean isStatementFlow = (classification.emailType() == EmailType.STATEMENT);
-
-                if (isStatementFlow) {
+                // Route Statement vs. Alert by a zero-cost attachment heuristic instead of an LLM call.
+                // Statements arrive as PDF/Excel attachments; anything else is treated as a transaction
+                // alert, and the extractor itself filters out non-transactions (returns notTransaction()).
+                if (hasStatementAttachment(message)) {
                     ReconSummary recon = statementReconciliationService.reconcile(connection, message);
                     created += recon.created();
                     reconciled += recon.matched();
@@ -209,6 +192,22 @@ public class GmailIngestionService {
         syncStateService.saveSyncState(connection, fetchResult.nextState().historyId(), fetchResult.nextState().lastSyncedAt());
 
         return new SyncSummary(fetched, created, skipped, failed, reconciled);
+    }
+
+    private static final Set<String> STATEMENT_ATTACHMENT_EXTENSIONS = Set.of(".pdf", ".xlsx", ".xls");
+
+    /**
+     * Heuristic route: an email is treated as a statement (vs. a transaction alert) when it carries a
+     * PDF/Excel attachment. This replaces a per-email Gemini classification call. Note this mirrors the
+     * attachment selection in StatementReconciliationService#pickStatementAttachment; keep them in sync.
+     */
+    private boolean hasStatementAttachment(GmailMessage message) {
+        if (message.attachments() == null) {
+            return false;
+        }
+        return message.attachments().stream()
+                .map(att -> att.filename() == null ? "" : att.filename().toLowerCase())
+                .anyMatch(name -> STATEMENT_ATTACHMENT_EXTENSIONS.stream().anyMatch(name::endsWith));
     }
 
     private String extractEmailAddress(String fromHeader) {
