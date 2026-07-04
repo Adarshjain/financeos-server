@@ -198,6 +198,7 @@ public class StatementReconciliationService {
 
         if (candidateLines.isEmpty()) {
             log.info("All statement lines were before watermark date: {}", watermark);
+            updateLastStatementDate(resolvedAccount, result);
             recordLedger(connection, message.messageId(), GmailProcessedStatus.RECONCILED, null);
             return new ReconSummary(0, 0, 0);
         }
@@ -299,6 +300,7 @@ public class StatementReconciliationService {
         }
 
         // Record successful reconciliation run in the ledger
+        updateLastStatementDate(resolvedAccount, result);
         recordLedger(connection, message.messageId(), GmailProcessedStatus.RECONCILED, null);
 
         return new ReconSummary(createdCount, matchedCount, 0);
@@ -389,5 +391,33 @@ public class StatementReconciliationService {
         processed.setError(error);
         processed.setProcessedAt(Instant.now());
         processedMessageRepository.save(processed);
+    }
+
+    private void updateLastStatementDate(Account account, StatementExtractionResult result) {
+        if (account == null) {
+            return;
+        }
+        LocalDate effectiveEnd = null;
+        if (result.statementPeriodEnd() != null && !result.statementPeriodEnd().trim().isEmpty()) {
+            try {
+                effectiveEnd = LocalDate.parse(result.statementPeriodEnd().trim());
+            } catch (Exception e) {
+                log.warn("Failed to parse statementPeriodEnd '{}' as date, falling back to max line date", result.statementPeriodEnd(), e);
+            }
+        }
+        if (effectiveEnd == null) {
+            log.warn("Statement period end missing or invalid; falling back to max line date");
+            effectiveEnd = result.lines().stream()
+                    .map(ParsedStatementLine::date)
+                    .max(LocalDate::compareTo)
+                    .orElse(null);
+        }
+        if (effectiveEnd != null) {
+            LocalDate existing = account.getLastStatementDate();
+            if (existing == null || effectiveEnd.isAfter(existing)) {
+                account.setLastStatementDate(effectiveEnd);
+                accountRepository.save(account);
+            }
+        }
     }
 }

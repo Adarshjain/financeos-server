@@ -75,6 +75,7 @@ public class FileIngestionService {
         int filesProcessed = 0;
         List<Transaction> newTransactionsToInsert = new ArrayList<>();
         List<FileIngestionResult.FileSummary> fileDetails = new ArrayList<>();
+        LocalDate maxEffectiveEnd = null;
 
         // Loop over files to parse them (Gemini I/O runs here outside the write transaction)
         for (MultipartFile file : files) {
@@ -130,6 +131,28 @@ public class FileIngestionService {
                 com.financeos.gmail.reconcile.StatementExtractionResult parseResult = statementParser.parse(textContent);
                 if (!parseResult.success()) {
                     throw new ValidationException("Failed to parse statement using Gemini: " + parseResult.failureReason());
+                }
+
+                LocalDate effectiveEnd = null;
+                if (parseResult.statementPeriodEnd() != null && !parseResult.statementPeriodEnd().trim().isEmpty()) {
+                    try {
+                        effectiveEnd = LocalDate.parse(parseResult.statementPeriodEnd().trim());
+                    } catch (Exception e) {
+                        log.warn("Failed to parse statementPeriodEnd '{}' as date for file {}, falling back to max line date",
+                                parseResult.statementPeriodEnd(), filename, e);
+                    }
+                }
+                if (effectiveEnd == null) {
+                    log.warn("Statement period end missing or invalid in file {}; falling back to max line date", filename);
+                    effectiveEnd = parseResult.lines().stream()
+                            .map(com.financeos.gmail.reconcile.ParsedStatementLine::date)
+                            .max(LocalDate::compareTo)
+                            .orElse(null);
+                }
+                if (effectiveEnd != null) {
+                    if (maxEffectiveEnd == null || effectiveEnd.isAfter(maxEffectiveEnd)) {
+                        maxEffectiveEnd = effectiveEnd;
+                    }
                 }
 
                 List<com.financeos.gmail.reconcile.ParsedStatementLine> lines = parseResult.lines();
@@ -211,6 +234,14 @@ public class FileIngestionService {
 
             // Persist changes inside a write transaction boundary
             dbHandler.saveTransactions(newTransactionsToInsert, new ArrayList<>(dbTxnsToUpdate));
+        }
+
+        if (maxEffectiveEnd != null) {
+            LocalDate existing = account.getLastStatementDate();
+            if (existing == null || maxEffectiveEnd.isAfter(existing)) {
+                account.setLastStatementDate(maxEffectiveEnd);
+                accountRepository.save(account);
+            }
         }
 
         return new FileIngestionResult(

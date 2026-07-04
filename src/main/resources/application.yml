@@ -51,7 +51,7 @@ spring:
       enabled: true
 
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${SERVER_PORT:6969}
   servlet:
     session:
       cookie:
@@ -74,7 +74,7 @@ gmail:
   oauth:
     client-id: ${GMAIL_CLIENT_ID:}
     client-secret: ${GMAIL_CLIENT_SECRET:}
-    redirect-uri: ${GMAIL_REDIRECT_URI:http://localhost:8080/api/v1/gmail/oauth/callback}
+    redirect-uri: ${GMAIL_REDIRECT_URI:http://localhost:6969/api/v1/gmail/oauth/callback}
   ingest:
     enabled: ${GMAIL_INGEST_ENABLED:true}
     cron: ${GMAIL_INGEST_CRON:0 0 10-22/2 * * *}
@@ -97,7 +97,7 @@ google:
   oauth:
     client-id: ${GOOGLE_CLIENT_ID:${GMAIL_CLIENT_ID:}}
     client-secret: ${GOOGLE_CLIENT_SECRET:${GMAIL_CLIENT_SECRET:}}
-    redirect-uri: ${GOOGLE_OAUTH_REDIRECT_URI:http://localhost:8080/api/v1/auth/google/callback}
+    redirect-uri: ${GOOGLE_OAUTH_REDIRECT_URI:http://localhost:6969/api/v1/auth/google/callback}
 
 debug: true
 

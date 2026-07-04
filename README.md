@@ -62,7 +62,7 @@ export CORS_ORIGINS=http://localhost:3001
 ./mvnw spring-boot:run
 ```
 
-The API will be available at `http://localhost:8080`.
+The API will be available at `http://localhost:6969`.
 
 ## Default Credentials
 
@@ -185,7 +185,7 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 | `spring.datasource.password` | `DB_PASSWORD` | financeos                | Database password |
 | `app.encryption.key` | `ENCRYPTION_KEY` | -                        | AES-256 encryption key (base64) |
 | `app.cors.allowed-origins` | `CORS_ORIGINS` | http://localhost:3001    | CORS allowed origins |
-| `server.port` | `SERVER_PORT` | 8080                     | Server port |
+| `server.port` | `SERVER_PORT` | 6969                     | Server port |
 
 ## License
 
