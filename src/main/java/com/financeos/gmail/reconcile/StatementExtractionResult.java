@@ -6,13 +6,15 @@ public record StatementExtractionResult(
     boolean success,
     List<ParsedStatementLine> lines,
     String accountLast4,
+    String statementPeriodStart,
+    String statementPeriodEnd,
     String failureReason
 ) {
-    public static StatementExtractionResult success(List<ParsedStatementLine> lines, String accountLast4) {
-        return new StatementExtractionResult(true, lines, accountLast4, null);
+    public static StatementExtractionResult success(List<ParsedStatementLine> lines, String accountLast4, String statementPeriodStart, String statementPeriodEnd) {
+        return new StatementExtractionResult(true, lines, accountLast4, statementPeriodStart, statementPeriodEnd, null);
     }
     
     public static StatementExtractionResult failure(String reason) {
-        return new StatementExtractionResult(false, List.of(), null, reason);
+        return new StatementExtractionResult(false, List.of(), null, null, null, reason);
     }
 }

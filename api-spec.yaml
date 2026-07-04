@@ -6,7 +6,7 @@ info:
   contact:
     name: FinanceOS
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:6969
     description: Local development server
 
 tags:
@@ -507,6 +507,9 @@ paths:
     post:
       tags: [Transactions]
       summary: Search and filter transactions (paginated)
+      description: |
+        Search and filter transactions with custom filters.
+        Supports virtual filter field `coveredByStatement` (boolean, operator `is`, values `true`/`false`).
       operationId: searchTransactions
       security:
         - sessionAuth: []
@@ -541,6 +544,60 @@ paths:
                 $ref: '#/components/schemas/PagedTransactionResponse'
         '400':
           description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/transactions/batch-review:
+    post:
+      tags: [Transactions]
+      summary: Batch update the review type of transactions
+      operationId: batchReviewTransactions
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchReviewRequest'
+      responses:
+        '200':
+          description: Batch update successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchReviewResponse'
+        '400':
+          description: Validation error or unauthorized/missing transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/transactions/batch-delete:
+    post:
+      tags: [Transactions]
+      summary: Batch delete transactions
+      operationId: batchDeleteTransactions
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchDeleteRequest'
+      responses:
+        '200':
+          description: Batch delete successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchDeleteResponse'
+        '400':
+          description: Validation error or unauthorized/missing transactions
           content:
             application/json:
               schema:
@@ -1567,6 +1624,11 @@ components:
           type: string
           format: date
           description: Per-account ingestion watermark (nullable)
+        lastStatementDate:
+          type: string
+          format: date
+          nullable: true
+          description: Period end date of the last parsed statement (bank and credit card accounts only)
 
     AccountType:
       type: string
@@ -2760,4 +2822,49 @@ components:
           nullable: true
           description: Error details if the file processing failed
           example: null
+
+    BatchReviewRequest:
+      type: object
+      required: [transactionIds, reviewType]
+      properties:
+        transactionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          maxItems: 500
+          description: List of transaction IDs to update (1-500 items, no nulls)
+        reviewType:
+          $ref: '#/components/schemas/ReviewType'
+
+    BatchReviewResponse:
+      type: object
+      required: [updated]
+      properties:
+        updated:
+          type: integer
+          description: Number of transactions updated
+          example: 5
+
+    BatchDeleteRequest:
+      type: object
+      required: [transactionIds]
+      properties:
+        transactionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          maxItems: 500
+          description: List of transaction IDs to delete (1-500 items, no nulls)
+
+    BatchDeleteResponse:
+      type: object
+      required: [deleted]
+      properties:
+        deleted:
+          type: integer
+          description: Number of transactions deleted
+          example: 5
+
 

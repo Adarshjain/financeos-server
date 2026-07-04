@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
         log.warn("Validation error: {}", ex.getMessage());
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorResponse("VALIDATION_ERROR", ex.getMessage()));
+                .body(new ErrorResponse("VALIDATION_ERROR", ex.getMessage(), ex.getDetails()));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
