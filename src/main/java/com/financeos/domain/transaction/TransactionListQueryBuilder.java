@@ -43,7 +43,8 @@ public class TransactionListQueryBuilder {
             Map.entry("category", new FieldMetadata("category", FieldType.ENUM, null, null, null)),
             Map.entry("reviewType", new FieldMetadata("reviewType", FieldType.ENUM, "sub.review_type", null, Set.of("NEEDS_REVIEW", "AUTO_REVIEWED", "MANUALLY_REVIEWED"))),
             Map.entry("isUnderMonitoring", new FieldMetadata("isUnderMonitoring", FieldType.BOOLEAN, "sub.is_under_monitoring", null, null)),
-            Map.entry("isExcluded", new FieldMetadata("isExcluded", FieldType.BOOLEAN, "sub.is_excluded", null, null))
+            Map.entry("isExcluded", new FieldMetadata("isExcluded", FieldType.BOOLEAN, "sub.is_excluded", null, null)),
+            Map.entry("coveredByStatement", new FieldMetadata("coveredByStatement", FieldType.BOOLEAN, null, Join.ACCOUNTS, null))
     );
 
     private static final Set<String> ARRAY_OPS = Set.of("in", "not_in");
@@ -180,6 +181,19 @@ public class TransactionListQueryBuilder {
 
                 if ("category".equals(fieldName)) {
                     predicates.add(sqlPredicates.category(op, value, params, p, "sub.id"));
+                } else if ("coveredByStatement".equals(fieldName)) {
+                    if (!"is".equals(op)) {
+                        throw new ValidationException("Operator '" + op + "' is not valid for field 'coveredByStatement'");
+                    }
+                    if (value == null || !value.isBoolean()) {
+                        throw new ValidationException("'coveredByStatement' requires a boolean value");
+                    }
+                    boolean val = value.asBoolean();
+                    if (val) {
+                        predicates.add("(a.last_statement_date IS NULL OR sub.transaction_date <= a.last_statement_date)");
+                    } else {
+                        predicates.add("(a.last_statement_date IS NOT NULL AND sub.transaction_date > a.last_statement_date)");
+                    }
                 } else {
                     String pred = sqlPredicates.build(meta.type(), meta.expression(), op, value, params, p);
                     if (pred != null) {

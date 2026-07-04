@@ -52,6 +52,9 @@ public class Account {
     @Column(name = "ingest_from_date")
     private LocalDate ingestFromDate;
 
+    @Column(name = "last_statement_date")
+    private LocalDate lastStatementDate;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

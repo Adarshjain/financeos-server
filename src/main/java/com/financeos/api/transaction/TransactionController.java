@@ -1,9 +1,6 @@
 package com.financeos.api.transaction;
 
-import com.financeos.api.transaction.dto.CreateTransactionRequest;
-import com.financeos.api.transaction.dto.UpdateTransactionRequest;
-import com.financeos.api.transaction.dto.TransactionResponse;
-import com.financeos.api.transaction.dto.TransactionSearchRequest;
+import com.financeos.api.transaction.dto.*;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionService;
 import jakarta.validation.Valid;
@@ -64,5 +61,19 @@ public class TransactionController {
     public ResponseEntity<Void> deleteTransaction(@PathVariable UUID id) {
         transactionService.deleteTransaction(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/batch-review")
+    public ResponseEntity<BatchReviewResponse> batchReview(
+            @Valid @RequestBody BatchReviewRequest request) {
+        int updated = transactionService.batchReview(request.transactionIds(), request.reviewType());
+        return ResponseEntity.ok(new BatchReviewResponse(updated));
+    }
+
+    @PostMapping("/batch-delete")
+    public ResponseEntity<BatchDeleteResponse> batchDelete(
+            @Valid @RequestBody BatchDeleteRequest request) {
+        int deleted = transactionService.batchDelete(request.transactionIds());
+        return ResponseEntity.ok(new BatchDeleteResponse(deleted));
     }
 }
