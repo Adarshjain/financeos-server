@@ -139,7 +139,7 @@ run.bat
 .\mvnw.cmd spring-boot:run
 ```
 
-The application will start on `http://localhost:8080`
+The application will start on `http://localhost:6969`
 
 ## Troubleshooting
 
@@ -174,14 +174,14 @@ PostgreSQL is not in your PATH. Either:
    psql -U postgres -d financeos
    ```
 
-### Port 8080 Already in Use
+### Port 6969 Already in Use
 
 Change the port in your `.env` file:
 ```env
 SERVER_PORT=8081
 ```
 
-Or stop the application using port 8080.
+Or stop the application using port 6969.
 
 ## Default Login Credentials
 

@@ -193,4 +193,27 @@ class TransactionSearchTest {
         
         verifyNoInteractions(entityManager);
     }
+
+    @Test
+    void validateFilter_coveredByStatement_success() {
+        FilterClause filter = new FilterClause("coveredByStatement", "is", mapper.valueToTree(true));
+        TransactionSearchCriteria criteria = new TransactionSearchCriteria(List.of(filter), null);
+        
+        TransactionListQueryBuilder.QueryResult dataQuery = queryBuilder.buildDataQuery(UUID.randomUUID(), criteria, Pageable.unpaged());
+        assertTrue(dataQuery.sql().contains("(a.last_statement_date IS NULL OR sub.transaction_date <= a.last_statement_date)"));
+        
+        FilterClause filterFalse = new FilterClause("coveredByStatement", "is", mapper.valueToTree(false));
+        TransactionSearchCriteria criteriaFalse = new TransactionSearchCriteria(List.of(filterFalse), null);
+        TransactionListQueryBuilder.QueryResult dataQueryFalse = queryBuilder.buildDataQuery(UUID.randomUUID(), criteriaFalse, Pageable.unpaged());
+        assertTrue(dataQueryFalse.sql().contains("(a.last_statement_date IS NOT NULL AND sub.transaction_date > a.last_statement_date)"));
+    }
+
+    @Test
+    void validateFilter_coveredByStatement_invalidOperator_throwsValidationException() {
+        FilterClause filter = new FilterClause("coveredByStatement", "contains", mapper.valueToTree(true));
+        TransactionSearchCriteria criteria = new TransactionSearchCriteria(List.of(filter), null);
+        
+        assertThrows(ValidationException.class, () -> 
+                queryBuilder.buildDataQuery(UUID.randomUUID(), criteria, Pageable.unpaged()));
+    }
 }

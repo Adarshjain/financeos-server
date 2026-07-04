@@ -108,7 +108,8 @@ public class StatementParser {
 
         try {
             String prompt = String.format(
-                    "You are a financial document parser. Extract the full transaction history from the following bank or credit card statement text into a structured JSON array of transaction lines.\n" +
+                    "You are a financial document parser. Extract the full transaction history from the following bank or credit card statement text into a structured JSON array of transaction lines. " +
+                    "Also, extract the statement period start date and end date if they are present in the text.\n" +
                     "CRITICAL PARSING RULES:\n" +
                     "- Carefully examine the column headers of the tables to determine the transaction direction.\n" +
                     "- Map inflows / money coming into the account (under headers like 'Deposit', 'Received', 'Inflow', 'Credit', 'CR', 'Refund', 'Receipts') to 'CREDIT'.\n" +
@@ -140,6 +141,14 @@ public class StatementParser {
             ObjectNode accountLast4Prop = properties.putObject("accountLast4");
             accountLast4Prop.put("type", "STRING");
             accountLast4Prop.put("description", "The last 4 digits of the bank account or credit card number if found in the statement content, otherwise null.");
+
+            ObjectNode statementPeriodStartProp = properties.putObject("statementPeriodStart");
+            statementPeriodStartProp.put("type", "STRING");
+            statementPeriodStartProp.put("description", "The start date of the statement period, format: YYYY-MM-DD. Null if not found.");
+
+            ObjectNode statementPeriodEndProp = properties.putObject("statementPeriodEnd");
+            statementPeriodEndProp.put("type", "STRING");
+            statementPeriodEndProp.put("description", "The end date of the statement period, format: YYYY-MM-DD. Null if not found.");
 
             ObjectNode linesProperty = properties.putObject("lines");
             linesProperty.put("type", "ARRAY");
@@ -204,6 +213,12 @@ public class StatementParser {
             JsonNode accountLast4Node = rootNode.get("accountLast4");
             String accountLast4 = (accountLast4Node != null && !accountLast4Node.isNull()) ? accountLast4Node.asText() : null;
 
+            JsonNode startNode = rootNode.get("statementPeriodStart");
+            String statementPeriodStart = (startNode != null && !startNode.isNull()) ? startNode.asText() : null;
+
+            JsonNode endNode = rootNode.get("statementPeriodEnd");
+            String statementPeriodEnd = (endNode != null && !endNode.isNull()) ? endNode.asText() : null;
+
             JsonNode linesNode = rootNode.get("lines");
             if (linesNode == null || !linesNode.isArray()) {
                 return StatementExtractionResult.failure("Missing 'lines' array in output format");
@@ -223,7 +238,7 @@ public class StatementParser {
                 }
             }
 
-            return StatementExtractionResult.success(lines, accountLast4);
+            return StatementExtractionResult.success(lines, accountLast4, statementPeriodStart, statementPeriodEnd);
 
         } catch (Exception e) {
             log.error("Failed to parse statement using Gemini", e);

@@ -51,7 +51,8 @@ public sealed interface AccountResponse {
                         account.getUpdatedAt(),
                         account.getIngestFromDate(),
                         details != null ? details.getOpeningBalance() : null,
-                        details != null ? details.getLast4() : null);
+                        details != null ? details.getLast4() : null,
+                        account.getLastStatementDate());
             }
             case credit_card -> {
                 AccountCreditCardDetails details = account.getCreditCardDetails();
@@ -68,7 +69,8 @@ public sealed interface AccountResponse {
                         details != null ? details.getLast4() : null,
                         details != null ? details.getCreditLimit() : null,
                         details != null ? details.getPaymentDueDay() : null,
-                        details != null ? details.getGracePeriodDays() : null);
+                        details != null ? details.getGracePeriodDays() : null,
+                        account.getLastStatementDate());
             }
             case stock -> {
                 AccountStockDetails details = account.getStockDetails();
@@ -124,7 +126,8 @@ public sealed interface AccountResponse {
             Instant updatedAt,
             LocalDate ingestFromDate,
             BigDecimal openingBalance,
-            String last4) implements AccountResponse {
+            String last4,
+            LocalDate lastStatementDate) implements AccountResponse {
     }
 
     record CreditCardAccountResponse(
@@ -140,7 +143,8 @@ public sealed interface AccountResponse {
             String last4,
             BigDecimal creditLimit,
             Integer paymentDueDay,
-            Integer gracePeriodDays) implements AccountResponse {
+            Integer gracePeriodDays,
+            LocalDate lastStatementDate) implements AccountResponse {
     }
 
     record StockAccountResponse(

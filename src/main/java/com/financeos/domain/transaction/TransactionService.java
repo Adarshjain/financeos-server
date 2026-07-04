@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.List;
@@ -216,5 +218,51 @@ public class TransactionService {
         }
 
         transactionRepository.delete(transaction);
+    }
+
+    public int batchReview(List<UUID> transactionIds, ReviewType reviewType) {
+        List<Transaction> transactions = loadOwnedTransactions(transactionIds, "batch-review");
+        for (Transaction transaction : transactions) {
+            transaction.setReviewType(reviewType);
+        }
+        transactionRepository.saveAll(transactions);
+        return transactions.size();
+    }
+
+    public int batchDelete(List<UUID> transactionIds) {
+        List<Transaction> transactions = loadOwnedTransactions(transactionIds, "batch-delete");
+        transactionRepository.deleteAll(transactions);
+        return transactions.size();
+    }
+
+    private List<Transaction> loadOwnedTransactions(List<UUID> transactionIds, String action) {
+        Set<UUID> ids = new LinkedHashSet<>(transactionIds);
+        if (ids.size() > 500) {
+            throw new ValidationException("Transaction IDs batch cannot exceed 500");
+        }
+
+        UUID currentSessionUserId = UserContext.getCurrentUserId();
+        Map<UUID, Transaction> transactionsById = transactionRepository.findAllById(ids).stream()
+                .collect(Collectors.toMap(Transaction::getId, t -> t));
+
+        List<UUID> offendingIds = new ArrayList<>();
+        List<Transaction> owned = new ArrayList<>(ids.size());
+        for (UUID id : ids) {
+            Transaction transaction = transactionsById.get(id);
+            if (transaction == null || transaction.getUser() == null
+                    || !transaction.getUser().getId().equals(currentSessionUserId)) {
+                offendingIds.add(id);
+            } else {
+                owned.add(transaction);
+            }
+        }
+
+        if (!offendingIds.isEmpty()) {
+            log.error("Security Breach Attempt: User {} attempted {} on transactions they do not own or that do not exist. Offending IDs: {}",
+                    currentSessionUserId, action, offendingIds);
+            throw new ValidationException("You do not have permission to modify these transactions.",
+                    Map.of("offendingIds", offendingIds.stream().map(UUID::toString).collect(Collectors.joining(","))));
+        }
+        return owned;
     }
 }
