@@ -26,7 +26,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     Page<Transaction> findAll(Pageable pageable);
 
 
-    @EntityGraph(attributePaths = { "categories.category", "account" })
+    @EntityGraph(attributePaths = { "categories.category", "account", "reviewReasons" })
     List<Transaction> findAllByIdIn(List<UUID> ids);
 
     @EntityGraph(attributePaths = { "categories.category", "account" })
@@ -52,4 +52,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("accountId") UUID accountId,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
+
+    List<Transaction> findByAppliedRuleId(UUID appliedRuleId);
 }

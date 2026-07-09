@@ -16,11 +16,14 @@ public class GmailTransactionWriter {
 
     private final TransactionRepository transactionRepository;
     private final GmailProcessedMessageRepository processedMessageRepository;
+    private final ReviewStatusManager reviewStatusManager;
 
     public GmailTransactionWriter(TransactionRepository transactionRepository,
-                                  GmailProcessedMessageRepository processedMessageRepository) {
+                                  GmailProcessedMessageRepository processedMessageRepository,
+                                  ReviewStatusManager reviewStatusManager) {
         this.transactionRepository = transactionRepository;
         this.processedMessageRepository = processedMessageRepository;
+        this.reviewStatusManager = reviewStatusManager;
     }
 
     @Transactional
@@ -55,7 +58,7 @@ public class GmailTransactionWriter {
         txn.setDescription(extractionResult.description());
         txn.setSource(TransactionSource.gmail_transaction_alert);
         txn.setType(TransactionType.fromLlmDirection(extractionResult.direction()));
-        txn.setReviewType(ReviewType.NEEDS_REVIEW);
+        reviewStatusManager.addReason(txn, ReviewReason.UNRECONCILED);
         txn.setSourceMessageId(gmailMessageId);
         txn.setTransactionUnderMonitoring(false);
         txn.setTransactionExcluded(false);

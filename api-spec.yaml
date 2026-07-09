@@ -21,7 +21,7 @@ tags:
   - name: Gmail
     description: Gmail OAuth and email fetch engine
   - name: Rules
-    description: Categorization rules (skeleton)
+    description: Categorization rules
   - name: Dashboard
     description: Dashboard summary (skeleton)
   - name: Categories
@@ -933,9 +933,49 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 
   /api/v1/rules:
+    get:
+      tags: [Rules]
+      summary: List categorization rules (paginated)
+      operationId: listRules
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: verified
+          in: query
+          schema:
+            type: boolean
+          description: Filter by verification status
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: Search merchant key or display name
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          schema:
+            type: string
+            default: verified,asc;lastAppliedAt,desc
+      responses:
+        '200':
+          description: Paginated list of rules
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedRuleResponse'
+
     post:
       tags: [Rules]
-      summary: Create categorization rule (skeleton)
+      summary: Create a categorization rule
       operationId: createRule
       security:
         - sessionAuth: []
@@ -944,29 +984,123 @@ paths:
         content:
           application/json:
             schema:
-              type: object
+              $ref: '#/components/schemas/CreateRuleRequest'
       responses:
         '201':
           description: Rule created
           content:
             application/json:
               schema:
-                type: object
-
-  /api/v1/rules/apply:
-    post:
-      tags: [Rules]
-      summary: Apply rules to transactions (skeleton)
-      operationId: applyRules
-      security:
-        - sessionAuth: []
-      responses:
-        '200':
-          description: Rules applied
+                $ref: '#/components/schemas/RuleResponse'
+        '400':
+          description: Validation error
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Merchant key already exists for user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/rules/{id}:
+    put:
+      tags: [Rules]
+      summary: Update a categorization rule
+      operationId: updateRule
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRuleRequest'
+      responses:
+        '200':
+          description: Rule updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Rule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Merchant key already exists for user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      tags: [Rules]
+      summary: Delete a categorization rule
+      operationId: deleteRule
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Rule deleted
+        '404':
+          description: Rule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/rules/{id}/verify:
+    post:
+      tags: [Rules]
+      summary: Verify a categorization rule
+      operationId: verifyRule
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Rule verified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleResponse'
+        '404':
+          description: Rule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /api/v1/dashboard/summary:
     get:
@@ -1096,6 +1230,34 @@ paths:
           description: Forbidden (not category owner)
         '404':
           description: Category not found
+
+  /api/v1/categorize:
+    post:
+      tags: [Categories]
+      summary: Suggest categories for a transaction description
+      description: Matches against user rules first; falls back to AI suggestion if no rule match. Returns empty categories when no suggestion is available.
+      operationId: suggestCategories
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategorizeSuggestionRequest'
+      responses:
+        '200':
+          description: Category suggestions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategorizeSuggestionResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /api/v1/report/datasource:
     get:
@@ -1798,6 +1960,16 @@ components:
           $ref: '#/components/schemas/TransactionSource'
         reviewType:
           $ref: '#/components/schemas/ReviewType'
+        reviewReasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewReason'
+          description: Reasons flagging this transaction for review
+        appliedRuleId:
+          type: string
+          format: uuid
+          nullable: true
+          description: UUID of the rule that auto-categorized this transaction, if any
         createdAt:
           type: string
           format: date-time
@@ -1839,6 +2011,11 @@ components:
         - NEEDS_REVIEW: created from an email alert, awaiting confirmation
         - AUTO_REVIEWED: confirmed by a matching statement line
         - MANUALLY_REVIEWED: reviewed/edited by the user
+
+    ReviewReason:
+      type: string
+      enum: [UNRECONCILED, CATEGORY_UNVERIFIED, DUPLICATE_SUSPECT, OTHER]
+      description: Reasons a transaction may be flagged for review
 
     PagedTransactionResponse:
       type: object
@@ -2019,6 +2196,123 @@ components:
         name:
           type: string
           example: Food
+
+    RuleResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        merchantKey:
+          type: string
+          description: Normalized merchant key for matching
+        displayName:
+          type: string
+          description: User-friendly display name
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryResponse'
+        verified:
+          type: boolean
+        source:
+          type: string
+          example: USER
+        appliedCount:
+          type: integer
+          description: Number of times this rule has been applied to transactions
+        lastAppliedAt:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+
+    CreateRuleRequest:
+      type: object
+      required: [merchantKey, categoryIds]
+      properties:
+        merchantKey:
+          type: string
+          description: Merchant key to match (e.g., transaction description substring)
+          example: Amazon
+        displayName:
+          type: string
+          description: Optional user-friendly name; defaults to merchantKey
+          example: Amazon Purchases
+        categoryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          minItems: 1
+          description: One or more category IDs to assign when rule matches
+
+    UpdateRuleRequest:
+      type: object
+      properties:
+        merchantKey:
+          type: string
+          description: Merchant key to match (optional; updated if provided)
+        displayName:
+          type: string
+          description: User-friendly name (optional)
+        categoryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Categories to assign (optional; replaces existing if provided)
+
+    PagedRuleResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleResponse'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+        first:
+          type: boolean
+        last:
+          type: boolean
+        empty:
+          type: boolean
+
+    CategorizeSuggestionRequest:
+      type: object
+      required: [description]
+      properties:
+        description:
+          type: string
+          minLength: 1
+          description: Transaction description to categorize
+          example: "Amazon Purchase"
+
+    CategorizeSuggestionResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryResponse'
+          description: Suggested categories (empty if no suggestion available)
+        ruleId:
+          type: string
+          format: uuid
+          nullable: true
+          description: ID of the rule that matched (if any)
+        fromRule:
+          type: boolean
+          description: True if categories came from a matching rule; false if from AI
 
     ErrorResponse:
       type: object
