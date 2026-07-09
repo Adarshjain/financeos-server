@@ -177,7 +177,7 @@ public class FileIngestionService {
                     txn.setAccount(account);
                     txn.setDate(line.date());
                     txn.setAmount(line.amount().abs());
-                    txn.setDescription(line.description());
+                    txn.setSourcedDescription(line.description());
                     txn.setSource(TransactionSource.file_upload);
                     txn.setType(TransactionType.fromLlmDirection(line.direction()));
                     txn.setReviewType(ReviewType.AUTO_REVIEWED); // Default initially
