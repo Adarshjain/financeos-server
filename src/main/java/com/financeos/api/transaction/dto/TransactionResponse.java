@@ -23,7 +23,9 @@ public record TransactionResponse(
                 boolean isTransactionExcluded,
                 Instant createdAt,
                 BigDecimal balance,
-                ReviewType reviewType) {
+                ReviewType reviewType,
+                java.util.List<com.financeos.domain.transaction.ReviewReason> reviewReasons,
+                UUID appliedRuleId) {
 
         public static TransactionResponse from(Transaction transaction) {
                 return from(transaction, null);
@@ -41,6 +43,10 @@ public record TransactionResponse(
                                 .map(tc -> com.financeos.api.category.dto.CategoryResponse.from(tc.getCategory()))
                                 .toList();
 
+                java.util.List<com.financeos.domain.transaction.ReviewReason> reviewReasonsList = transaction.getReviewReasons() != null
+                                ? new java.util.ArrayList<>(transaction.getReviewReasons())
+                                : java.util.Collections.emptyList();
+
                 return new TransactionResponse(
                                 transaction.getId(),
                                 transaction.getAccount() != null ? transaction.getAccount().getId() : null,
@@ -54,6 +60,8 @@ public record TransactionResponse(
                                 transaction.isTransactionExcluded(),
                                 transaction.getCreatedAt(),
                                 balance,
-                                transaction.getReviewType());
+                                transaction.getReviewType(),
+                                reviewReasonsList,
+                                transaction.getAppliedRule() != null ? transaction.getAppliedRule().getId() : null);
         }
 }

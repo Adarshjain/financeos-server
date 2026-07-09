@@ -12,6 +12,7 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.category.Category;
 import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.categorization.CategorizationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,15 +37,21 @@ public class TransactionService {
     private final AccountRepository accountRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final ReviewStatusManager reviewStatusManager;
+    private final CategorizationService categorizationService;
 
     public TransactionService(TransactionRepository transactionRepository,
             AccountRepository accountRepository,
             CategoryRepository categoryRepository,
-            UserRepository userRepository) {
+            UserRepository userRepository,
+            ReviewStatusManager reviewStatusManager,
+            CategorizationService categorizationService) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
+        this.reviewStatusManager = reviewStatusManager;
+        this.categorizationService = categorizationService;
     }
 
     public Transaction createTransaction(CreateTransactionRequest request) {
@@ -180,8 +187,28 @@ public class TransactionService {
         if (request.isTransactionExcluded() != null) {
             transaction.setTransactionExcluded(request.isTransactionExcluded());
         }
+        // Feedback loop
+        boolean categoriesEqual = false;
+        if (request.categoryIds() != null) {
+            Set<UUID> currentCategoryIds = transaction.getCategories().stream()
+                    .map(tc -> tc.getCategory().getId())
+                    .collect(Collectors.toSet());
+            Set<UUID> requestCatIds = new java.util.HashSet<>(request.categoryIds());
+            categoriesEqual = currentCategoryIds.equals(requestCatIds);
+        }
+
+        if (transaction.getAppliedRule() != null && request.categoryIds() != null) {
+            if (categoriesEqual) {
+                categorizationService.verifyRule(transaction.getAppliedRule());
+            }
+        }
+
         if (request.reviewType() != null) {
-            transaction.setReviewType(request.reviewType());
+            if (request.reviewType() == ReviewType.MANUALLY_REVIEWED) {
+                reviewStatusManager.clearAllReasons(transaction, ReviewType.MANUALLY_REVIEWED);
+            } else {
+                transaction.setReviewType(request.reviewType());
+            }
         }
 
         // Handle amount and type
@@ -223,7 +250,14 @@ public class TransactionService {
     public int batchReview(List<UUID> transactionIds, ReviewType reviewType) {
         List<Transaction> transactions = loadOwnedTransactions(transactionIds, "batch-review");
         for (Transaction transaction : transactions) {
-            transaction.setReviewType(reviewType);
+            if (reviewType == ReviewType.MANUALLY_REVIEWED) {
+                reviewStatusManager.clearAllReasons(transaction, ReviewType.MANUALLY_REVIEWED);
+                if (transaction.getAppliedRule() != null && !transaction.getAppliedRule().isVerified()) {
+                    categorizationService.verifyRule(transaction.getAppliedRule());
+                }
+            } else {
+                transaction.setReviewType(reviewType);
+            }
         }
         transactionRepository.saveAll(transactions);
         return transactions.size();
