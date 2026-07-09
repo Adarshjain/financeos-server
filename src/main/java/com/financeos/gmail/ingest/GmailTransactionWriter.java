@@ -55,7 +55,7 @@ public class GmailTransactionWriter {
         txn.setAccount(resolvedAccount);
         txn.setDate(txDate);
         txn.setAmount(extractionResult.amount().abs()); // Store unsigned magnitude
-        txn.setDescription(extractionResult.description());
+        txn.setSourcedDescription(extractionResult.description());
         txn.setSource(TransactionSource.gmail_transaction_alert);
         txn.setType(TransactionType.fromLlmDirection(extractionResult.direction()));
         reviewStatusManager.addReason(txn, ReviewReason.UNRECONCILED);
