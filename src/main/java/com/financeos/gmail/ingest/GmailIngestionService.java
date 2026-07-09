@@ -26,6 +26,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import com.financeos.domain.categorization.CategorizationService;
+import com.financeos.domain.transaction.Transaction;
+import java.util.ArrayList;
 
 @Service
 public class GmailIngestionService {
@@ -41,6 +44,7 @@ public class GmailIngestionService {
     private final GmailProcessedMessageRepository processedMessageRepository;
     private final GmailIngestProperties ingestProperties;
     private final StatementReconciliationService statementReconciliationService;
+    private final CategorizationService categorizationService;
 
     public GmailIngestionService(GmailEngine gmailEngine,
                                  SyncStateService syncStateService,
@@ -50,7 +54,8 @@ public class GmailIngestionService {
                                  GeminiExtractor geminiExtractor,
                                  GmailProcessedMessageRepository processedMessageRepository,
                                  GmailIngestProperties ingestProperties,
-                                 StatementReconciliationService statementReconciliationService) {
+                                 StatementReconciliationService statementReconciliationService,
+                                 CategorizationService categorizationService) {
         this.gmailEngine = gmailEngine;
         this.syncStateService = syncStateService;
         this.gmailSenderRepository = gmailSenderRepository;
@@ -60,6 +65,7 @@ public class GmailIngestionService {
         this.processedMessageRepository = processedMessageRepository;
         this.ingestProperties = ingestProperties;
         this.statementReconciliationService = statementReconciliationService;
+        this.categorizationService = categorizationService;
     }
 
 
@@ -111,6 +117,7 @@ public class GmailIngestionService {
         int skipped = 0;
         int failed = 0;
         int reconciled = 0;
+        List<Transaction> createdTxns = new ArrayList<>();
 
         // 4. Process each message
         for (GmailMessage message : fetchResult.messages()) {
@@ -141,6 +148,8 @@ public class GmailIngestionService {
                     created += recon.created();
                     reconciled += recon.matched();
                     failed += recon.failed();
+                    // Categorized after the loop alongside alert transactions, outside reconcile's tx
+                    createdTxns.addAll(recon.createdTransactions());
                     continue;
                 }
 
@@ -170,6 +179,9 @@ public class GmailIngestionService {
                 
                 if (processed.getStatus() == GmailProcessedStatus.CREATED) {
                     created++;
+                    if (processed.getTransaction() != null) {
+                        createdTxns.add(processed.getTransaction());
+                    }
                 } else if (processed.getStatus() == GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK) {
                     skipped++;
                 } else {
@@ -186,6 +198,10 @@ public class GmailIngestionService {
                 }
                 failed++;
             }
+        }
+
+        if (!createdTxns.isEmpty()) {
+            categorizationService.batchCategorize(createdTxns);
         }
 
         // 5. Advance watermark only after successful batch processing (durable cursor)

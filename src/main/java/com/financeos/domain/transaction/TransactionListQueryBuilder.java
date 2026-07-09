@@ -42,6 +42,7 @@ public class TransactionListQueryBuilder {
             Map.entry("accountType", new FieldMetadata("accountType", FieldType.ENUM, "a.type", Join.ACCOUNTS, Set.of("bank_account", "credit_card", "stock", "mutual_fund", "generic"))),
             Map.entry("category", new FieldMetadata("category", FieldType.ENUM, null, null, null)),
             Map.entry("reviewType", new FieldMetadata("reviewType", FieldType.ENUM, "sub.review_type", null, Set.of("NEEDS_REVIEW", "AUTO_REVIEWED", "MANUALLY_REVIEWED"))),
+            Map.entry("reviewReason", new FieldMetadata("reviewReason", FieldType.ENUM, null, null, Set.of("UNRECONCILED", "CATEGORY_UNVERIFIED", "DUPLICATE_SUSPECT", "OTHER"))),
             Map.entry("isUnderMonitoring", new FieldMetadata("isUnderMonitoring", FieldType.BOOLEAN, "sub.is_under_monitoring", null, null)),
             Map.entry("isExcluded", new FieldMetadata("isExcluded", FieldType.BOOLEAN, "sub.is_excluded", null, null)),
             Map.entry("coveredByStatement", new FieldMetadata("coveredByStatement", FieldType.BOOLEAN, null, Join.ACCOUNTS, null))
@@ -181,6 +182,27 @@ public class TransactionListQueryBuilder {
 
                 if ("category".equals(fieldName)) {
                     predicates.add(sqlPredicates.category(op, value, params, p, "sub.id"));
+                } else if ("reviewReason".equals(fieldName)) {
+                    String inner = "SELECT 1 FROM transaction_review_reasons r WHERE r.transaction_id = sub.id AND ";
+                    switch (op) {
+                        case "is" -> {
+                            params.put(p, value.asText());
+                            predicates.add("EXISTS (" + inner + "r.reason = :" + p + ")");
+                        }
+                        case "is_not" -> {
+                            params.put(p, value.asText());
+                            predicates.add("NOT EXISTS (" + inner + "r.reason = :" + p + ")");
+                        }
+                        case "in" -> {
+                            params.put(p, com.financeos.domain.report.engine.SqlPredicates.textList(value));
+                            predicates.add("EXISTS (" + inner + "r.reason IN (:" + p + "))");
+                        }
+                        case "not_in" -> {
+                            params.put(p, com.financeos.domain.report.engine.SqlPredicates.textList(value));
+                            predicates.add("NOT EXISTS (" + inner + "r.reason IN (:" + p + "))");
+                        }
+                        default -> throw new ValidationException("Operator '" + op + "' is not valid for field 'reviewReason'");
+                    }
                 } else if ("coveredByStatement".equals(fieldName)) {
                     if (!"is".equals(op)) {
                         throw new ValidationException("Operator '" + op + "' is not valid for field 'coveredByStatement'");
