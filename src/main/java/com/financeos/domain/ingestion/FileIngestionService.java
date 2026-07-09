@@ -13,6 +13,9 @@ import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.ingest.GmailIngestProperties;
 import com.financeos.gmail.reconcile.StatementParser;
+import com.financeos.domain.transaction.ReviewStatusManager;
+import com.financeos.domain.transaction.ReviewReason;
+import com.financeos.domain.categorization.CategorizationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,19 +37,25 @@ public class FileIngestionService {
     private final FileIngestionDbHandler dbHandler;
     private final TransactionMatcher transactionMatcher;
     private final GmailIngestProperties ingestProperties;
+    private final ReviewStatusManager reviewStatusManager;
+    private final CategorizationService categorizationService;
 
     public FileIngestionService(AccountRepository accountRepository,
                                 UserRepository userRepository,
                                 StatementParser statementParser,
                                 FileIngestionDbHandler dbHandler,
                                 TransactionMatcher transactionMatcher,
-                                GmailIngestProperties ingestProperties) {
+                                GmailIngestProperties ingestProperties,
+                                ReviewStatusManager reviewStatusManager,
+                                CategorizationService categorizationService) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.statementParser = statementParser;
         this.dbHandler = dbHandler;
         this.transactionMatcher = transactionMatcher;
         this.ingestProperties = ingestProperties;
+        this.reviewStatusManager = reviewStatusManager;
+        this.categorizationService = categorizationService;
     }
 
     public FileIngestionResult ingest(UUID accountId, List<MultipartFile> files) {
@@ -207,10 +216,8 @@ public class FileIngestionService {
                 for (Transaction dbTx : dbTxns) {
                     if (transactionMatcher.areDuplicates(newTx, dbTx, dateWindow)) {
                         duplicateNewTxns.add(newTx);
-                        if (dbTx.getReviewType() != ReviewType.NEEDS_REVIEW) {
-                            dbTx.setReviewType(ReviewType.NEEDS_REVIEW);
-                            dbTxnsToUpdate.add(dbTx);
-                        }
+                        reviewStatusManager.addReason(dbTx, ReviewReason.DUPLICATE_SUSPECT);
+                        dbTxnsToUpdate.add(dbTx);
                     }
                 }
 
@@ -227,10 +234,13 @@ public class FileIngestionService {
 
             // Flag duplicate new transactions
             for (Transaction newTx : duplicateNewTxns) {
-                newTx.setReviewType(ReviewType.NEEDS_REVIEW);
+                reviewStatusManager.addReason(newTx, ReviewReason.DUPLICATE_SUSPECT);
             }
 
             totalDuplicatesFound = duplicateNewTxns.size();
+
+            // Categorize transactions before persisting
+            categorizationService.batchCategorize(newTransactionsToInsert);
 
             // Persist changes inside a write transaction boundary
             dbHandler.saveTransactions(newTransactionsToInsert, new ArrayList<>(dbTxnsToUpdate));

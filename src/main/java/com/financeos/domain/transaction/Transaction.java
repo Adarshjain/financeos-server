@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.UUID;
+import com.financeos.domain.categorization.CategoryRule;
 
 @Entity
 @Table(name = "transactions")
@@ -101,6 +102,16 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     @Column(name = "review_type")
     private ReviewType reviewType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "applied_rule_id")
+    private CategoryRule appliedRule;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "transaction_review_reasons", joinColumns = @JoinColumn(name = "transaction_id"))
+    @Column(name = "reason")
+    @Enumerated(EnumType.STRING)
+    private Set<ReviewReason> reviewReasons = new HashSet<>();
 
     @Column(name = "source_message_id", unique = true)
     private String sourceMessageId;

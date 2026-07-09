@@ -33,6 +33,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.financeos.domain.transaction.TransactionMatcher;
+import com.financeos.domain.transaction.ReviewStatusManager;
+import com.financeos.domain.transaction.ReviewReason;
+import java.util.ArrayList;
 
 @Service
 public class StatementReconciliationService {
@@ -47,6 +50,7 @@ public class StatementReconciliationService {
     private final AccountRepository accountRepository;
     private final com.financeos.gmail.ingest.AccountResolver accountResolver;
     private final TransactionMatcher transactionMatcher;
+    private final ReviewStatusManager reviewStatusManager;
 
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
@@ -55,7 +59,8 @@ public class StatementReconciliationService {
                                           GmailIngestProperties ingestProperties,
                                           AccountRepository accountRepository,
                                           com.financeos.gmail.ingest.AccountResolver accountResolver,
-                                          TransactionMatcher transactionMatcher) {
+                                          TransactionMatcher transactionMatcher,
+                                          ReviewStatusManager reviewStatusManager) {
         this.gmailEngine = gmailEngine;
         this.statementParser = statementParser;
         this.transactionRepository = transactionRepository;
@@ -64,6 +69,7 @@ public class StatementReconciliationService {
         this.accountRepository = accountRepository;
         this.accountResolver = accountResolver;
         this.transactionMatcher = transactionMatcher;
+        this.reviewStatusManager = reviewStatusManager;
     }
 
 
@@ -205,6 +211,7 @@ public class StatementReconciliationService {
 
         int matchedCount = 0;
         int createdCount = 0;
+        List<Transaction> createdTxns = new ArrayList<>();
 
         if (resolvedAccount != null) {
             // Find min and max dates of the lines to define query window
@@ -247,7 +254,7 @@ public class StatementReconciliationService {
                 Transaction alertMatch = transactionMatcher.findBestMatch(line, alertsToPromote, dateWindow, consumedTxnIds);
                 if (alertMatch != null) {
                     consumedTxnIds.add(alertMatch.getId());
-                    alertMatch.setReviewType(ReviewType.AUTO_REVIEWED);
+                    reviewStatusManager.clearReason(alertMatch, ReviewReason.UNRECONCILED, ReviewType.AUTO_REVIEWED);
                     transactionRepository.save(alertMatch);
                     matchedCount++;
                 } else {
@@ -263,13 +270,14 @@ public class StatementReconciliationService {
                         statementTxn.setDescription(line.description());
                         statementTxn.setSource(TransactionSource.gmail_statement);
                         statementTxn.setType(TransactionType.fromLlmDirection(line.direction()));
-                        statementTxn.setReviewType(ReviewType.NEEDS_REVIEW);
+                        reviewStatusManager.addReason(statementTxn, ReviewReason.UNRECONCILED);
                         statementTxn.setSourceMessageId(sourceMsgId);
                         statementTxn.setTransactionUnderMonitoring(false);
                         statementTxn.setTransactionExcluded(false);
 
                         transactionRepository.save(statementTxn);
                         createdCount++;
+                        createdTxns.add(statementTxn);
                     }
                 }
             }
@@ -288,13 +296,14 @@ public class StatementReconciliationService {
                     statementTxn.setDescription(line.description());
                     statementTxn.setSource(TransactionSource.gmail_statement);
                     statementTxn.setType(TransactionType.fromLlmDirection(line.direction()));
-                    statementTxn.setReviewType(ReviewType.NEEDS_REVIEW);
+                    reviewStatusManager.addReason(statementTxn, ReviewReason.UNRECONCILED);
                     statementTxn.setSourceMessageId(sourceMsgId);
                     statementTxn.setTransactionUnderMonitoring(false);
                     statementTxn.setTransactionExcluded(false);
 
                     transactionRepository.save(statementTxn);
                     createdCount++;
+                    createdTxns.add(statementTxn);
                 }
             }
         }
@@ -303,7 +312,10 @@ public class StatementReconciliationService {
         updateLastStatementDate(resolvedAccount, result);
         recordLedger(connection, message.messageId(), GmailProcessedStatus.RECONCILED, null);
 
-        return new ReconSummary(createdCount, matchedCount, 0);
+        // Categorization is deliberately NOT done here: this method is @Transactional and the
+        // categorizer makes a Gemini HTTP call, which must not run while holding a DB connection.
+        // The caller (GmailIngestionService) categorizes the returned transactions outside the tx.
+        return new ReconSummary(createdCount, matchedCount, 0, createdTxns);
     }
 
     private ChosenAttachment pickStatementAttachment(GmailConnection connection, GmailMessage message) {
