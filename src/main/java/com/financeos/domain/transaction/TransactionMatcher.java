@@ -67,9 +67,9 @@ public class TransactionMatcher {
             if (dateDiff < bestDateDiff) {
                 bestMatch = candidate;
                 bestDateDiff = dateDiff;
-                bestSimilarity = calculateSimilarity(line.description(), candidate.getDescription());
+                bestSimilarity = calculateSimilarity(line.description(), effectiveDescription(candidate));
             } else if (dateDiff == bestDateDiff) {
-                double similarity = calculateSimilarity(line.description(), candidate.getDescription());
+                double similarity = calculateSimilarity(line.description(), effectiveDescription(candidate));
                 if (similarity > bestSimilarity) {
                     bestMatch = candidate;
                     bestSimilarity = similarity;
@@ -88,7 +88,15 @@ public class TransactionMatcher {
         if (t1.getAmount().compareTo(t2.getAmount()) != 0) return false;
         if (t1.getType() != t2.getType()) return false;
         
-        double similarity = calculateSimilarity(t1.getDescription(), t2.getDescription());
+        double similarity = calculateSimilarity(effectiveDescription(t1), effectiveDescription(t2));
         return similarity >= 0.7; // 70% Jaccard token similarity overlap threshold
+    }
+
+    /**
+     * Returns the source description for matching: prefers sourcedDescription (original from ingestion),
+     * falls back to description (for manually created transactions that have no sourcedDescription).
+     */
+    private String effectiveDescription(Transaction t) {
+        return t.getSourcedDescription() != null ? t.getSourcedDescription() : t.getDescription();
     }
 }
