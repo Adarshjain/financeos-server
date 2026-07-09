@@ -157,8 +157,10 @@ public class DevDataSeeder implements CommandLineRunner {
 
         if (isAutomated) {
             sourcedDescription = "SIMULATED_GMAIL_ALERT: " + tempDescription + " of amount " + amount + " on " + date;
+            description = null;
+        } else {
+            description = tempDescription;
         }
-        description = tempDescription;
 
         boolean isMonitoring = random.nextDouble() < 0.10;
         boolean isExcluded = random.nextDouble() < 0.05;

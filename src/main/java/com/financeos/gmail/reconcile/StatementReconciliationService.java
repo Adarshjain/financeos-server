@@ -267,7 +267,7 @@ public class StatementReconciliationService {
                         statementTxn.setAccount(resolvedAccount);
                         statementTxn.setDate(line.date());
                         statementTxn.setAmount(line.amount().abs());
-                        statementTxn.setDescription(line.description());
+                        statementTxn.setSourcedDescription(line.description());
                         statementTxn.setSource(TransactionSource.gmail_statement);
                         statementTxn.setType(TransactionType.fromLlmDirection(line.direction()));
                         reviewStatusManager.addReason(statementTxn, ReviewReason.UNRECONCILED);
@@ -293,7 +293,7 @@ public class StatementReconciliationService {
                     statementTxn.setAccount(null);
                     statementTxn.setDate(line.date());
                     statementTxn.setAmount(line.amount().abs());
-                    statementTxn.setDescription(line.description());
+                    statementTxn.setSourcedDescription(line.description());
                     statementTxn.setSource(TransactionSource.gmail_statement);
                     statementTxn.setType(TransactionType.fromLlmDirection(line.direction()));
                     reviewStatusManager.addReason(statementTxn, ReviewReason.UNRECONCILED);
