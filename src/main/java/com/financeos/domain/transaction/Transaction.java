@@ -96,6 +96,9 @@ public class Transaction {
     @Column(name = "is_under_monitoring", nullable = false)
     private boolean isTransactionUnderMonitoring = false;
 
+    @Column(name = "monitoring_reason", length = 500)
+    private String monitoringReason;
+
     @Column(name = "is_excluded", nullable = false)
     private boolean isTransactionExcluded = false;
 
