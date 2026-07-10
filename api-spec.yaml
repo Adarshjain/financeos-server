@@ -1926,6 +1926,9 @@ components:
           type: boolean
         isTransactionExcluded:
           type: boolean
+        monitoringReason:
+          type: string
+          maxLength: 500
 
     TransactionResponse:
       type: object
@@ -1950,6 +1953,8 @@ components:
         isTransactionUnderMonitoring:
           type: boolean
           default: false
+        monitoringReason:
+          type: string
         isTransactionExcluded:
           type: boolean
           default: false
@@ -1996,6 +2001,9 @@ components:
           type: boolean
         isTransactionExcluded:
           type: boolean
+        monitoringReason:
+          type: string
+          maxLength: 500
         reviewType:
           $ref: '#/components/schemas/ReviewType'
 
