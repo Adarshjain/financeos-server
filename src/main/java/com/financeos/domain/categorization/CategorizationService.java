@@ -43,7 +43,7 @@ public class CategorizationService {
         this.userRepository = userRepository;
         this.geminiCategorizer = geminiCategorizer;
         this.reviewStatusManager = reviewStatusManager;
-        this.self = self;
+        this.self = self != null ? self : this;
     }
 
     /**
