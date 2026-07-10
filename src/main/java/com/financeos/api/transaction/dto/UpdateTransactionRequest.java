@@ -19,5 +19,6 @@ public record UpdateTransactionRequest(
                 List<UUID> categoryIds,
                 Boolean isTransactionUnderMonitoring,
                 Boolean isTransactionExcluded,
-                ReviewType reviewType) {
+                ReviewType reviewType,
+                String monitoringReason) {
 }

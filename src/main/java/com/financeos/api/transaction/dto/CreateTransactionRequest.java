@@ -18,5 +18,6 @@ public record CreateTransactionRequest(
         String description,
         java.util.List<UUID> categoryIds,
         Boolean isTransactionUnderMonitoring,
-        Boolean isTransactionExcluded) {
+        Boolean isTransactionExcluded,
+        String monitoringReason) {
 }
