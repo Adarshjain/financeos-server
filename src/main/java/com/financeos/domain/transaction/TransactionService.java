@@ -78,6 +78,12 @@ public class TransactionService {
                 request.isTransactionUnderMonitoring() != null && request.isTransactionUnderMonitoring(),
                 request.isTransactionExcluded() != null && request.isTransactionExcluded());
 
+        if (transaction.isTransactionUnderMonitoring()) {
+            transaction.setMonitoringReason(request.monitoringReason());
+        } else {
+            transaction.setMonitoringReason(null);
+        }
+
         // SECURITY: Enforce session-based identity.
         // We do NOT trust the account owner alone; we use the current session user.
         UUID currentSessionUserId = com.financeos.core.security.UserContext.getCurrentUserId();
@@ -180,9 +186,13 @@ public class TransactionService {
         transaction.setDate(request.date());
         transaction.setDescription(request.description());
 
-        // Handle flags
         if (request.isTransactionUnderMonitoring() != null) {
             transaction.setTransactionUnderMonitoring(request.isTransactionUnderMonitoring());
+        }
+        if (transaction.isTransactionUnderMonitoring()) {
+            transaction.setMonitoringReason(request.monitoringReason());
+        } else {
+            transaction.setMonitoringReason(null);
         }
         if (request.isTransactionExcluded() != null) {
             transaction.setTransactionExcluded(request.isTransactionExcluded());
