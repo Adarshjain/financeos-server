@@ -46,7 +46,8 @@ public class CategorizationServiceTest {
                 transactionRepository,
                 userRepository,
                 geminiCategorizer,
-                reviewStatusManager
+                reviewStatusManager,
+                null
         );
 
         userId = UUID.randomUUID();
@@ -59,6 +60,8 @@ public class CategorizationServiceTest {
         shoppingCategory.setId(UUID.randomUUID());
 
         when(categoryRepository.findAll()).thenReturn(List.of(foodCategory, shoppingCategory));
+        when(categoryRepository.findByUserId(any(UUID.class))).thenReturn(List.of(foodCategory, shoppingCategory));
+        when(categoryRuleRepository.save(any(CategoryRule.class))).thenAnswer(invocation -> invocation.getArgument(0));
     }
 
     @Test
@@ -115,6 +118,7 @@ public class CategorizationServiceTest {
         rule.setCategories(Set.of(foodCategory));
 
         when(categoryRuleRepository.findByUserId(userId)).thenReturn(List.of(rule));
+        when(categoryRuleRepository.findWithCategoriesById(rule.getId())).thenReturn(Optional.of(rule));
 
         Transaction txn = new Transaction();
         txn.setUser(testUser);
@@ -138,6 +142,7 @@ public class CategorizationServiceTest {
         rule.setCategories(Set.of(foodCategory));
 
         when(categoryRuleRepository.findByUserId(userId)).thenReturn(List.of(rule));
+        when(categoryRuleRepository.findWithCategoriesById(rule.getId())).thenReturn(Optional.of(rule));
 
         Transaction txn = new Transaction();
         txn.setUser(testUser);
