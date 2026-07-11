@@ -114,6 +114,7 @@ public class Transaction {
     @CollectionTable(name = "transaction_review_reasons", joinColumns = @JoinColumn(name = "transaction_id"))
     @Column(name = "reason")
     @Enumerated(EnumType.STRING)
+    @org.hibernate.annotations.BatchSize(size = 50)
     private Set<ReviewReason> reviewReasons = new HashSet<>();
 
     @Column(name = "source_message_id", unique = true)

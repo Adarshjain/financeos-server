@@ -103,11 +103,15 @@ public class CategorizationService {
         categoryRuleRepository.save(rule);
 
         List<Transaction> txns = transactionRepository.findByAppliedRuleId(rule.getId());
+        List<Transaction> toSave = new ArrayList<>();
         for (Transaction txn : txns) {
             if (txn.getReviewReasons() != null && txn.getReviewReasons().contains(ReviewReason.CATEGORY_UNVERIFIED)) {
                 reviewStatusManager.clearReason(txn, ReviewReason.CATEGORY_UNVERIFIED, ReviewType.AUTO_REVIEWED);
-                transactionRepository.save(txn);
+                toSave.add(txn);
             }
+        }
+        if (!toSave.isEmpty()) {
+            transactionRepository.saveAll(toSave);
         }
     }
 
@@ -117,11 +121,15 @@ public class CategorizationService {
         categoryRuleRepository.save(rule);
 
         List<Transaction> txns = transactionRepository.findByAppliedRuleId(rule.getId());
+        List<Transaction> toSave = new ArrayList<>();
         for (Transaction txn : txns) {
             if (txn.getReviewType() != ReviewType.MANUALLY_REVIEWED) {
                 txn.setCategories(newCategories);
-                transactionRepository.save(txn);
+                toSave.add(txn);
             }
+        }
+        if (!toSave.isEmpty()) {
+            transactionRepository.saveAll(toSave);
         }
     }
 
