@@ -172,6 +172,15 @@ public class GmailIngestionService {
                 // Resolve account with sender fallback
                 Account account = accountResolver.resolve(extractionResult.accountLast4(), sender).orElse(null);
 
+                if (account == null) {
+                    log.error("Could not resolve account for transaction (last4: {}, sender: {}). Ingestion failed.",
+                            extractionResult.accountLast4(), sender);
+                    gmailTransactionWriter.recordSkipped(connection, message.messageId(),
+                            GmailProcessedStatus.FAILED, "Failed to resolve account for last4: " + extractionResult.accountLast4());
+                    failed++;
+                    continue;
+                }
+
 
                 // Write transaction (includes watermark check)
                 GmailProcessedMessage processed = gmailTransactionWriter.writeTransaction(
