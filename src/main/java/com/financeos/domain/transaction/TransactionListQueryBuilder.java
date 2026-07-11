@@ -42,7 +42,7 @@ public class TransactionListQueryBuilder {
             Map.entry("accountType", new FieldMetadata("accountType", FieldType.ENUM, "a.type", Join.ACCOUNTS, Set.of("bank_account", "credit_card", "stock", "mutual_fund", "generic"))),
             Map.entry("category", new FieldMetadata("category", FieldType.ENUM, null, null, null)),
             Map.entry("reviewType", new FieldMetadata("reviewType", FieldType.ENUM, "sub.review_type", null, Set.of("NEEDS_REVIEW", "AUTO_REVIEWED", "MANUALLY_REVIEWED", "NA"))),
-            Map.entry("reviewReason", new FieldMetadata("reviewReason", FieldType.ENUM, null, null, Set.of("UNRECONCILED", "CATEGORY_UNVERIFIED", "DUPLICATE_SUSPECT", "OTHER"))),
+            Map.entry("reviewReason", new FieldMetadata("reviewReason", FieldType.ENUM, null, null, Set.of("UNRECONCILED", "CATEGORY_UNVERIFIED", "DUPLICATE_SUSPECT"))),
             Map.entry("isUnderMonitoring", new FieldMetadata("isUnderMonitoring", FieldType.BOOLEAN, "sub.is_under_monitoring", null, null)),
             Map.entry("isExcluded", new FieldMetadata("isExcluded", FieldType.BOOLEAN, "sub.is_excluded", null, null)),
             Map.entry("coveredByStatement", new FieldMetadata("coveredByStatement", FieldType.BOOLEAN, null, Join.ACCOUNTS, null))
