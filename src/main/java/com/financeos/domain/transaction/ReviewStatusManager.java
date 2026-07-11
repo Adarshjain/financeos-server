@@ -11,17 +11,17 @@ public class ReviewStatusManager {
             txn.setReviewReasons(new HashSet<>());
         }
         txn.getReviewReasons().add(reason);
-        txn.setReviewType(ReviewType.NEEDS_REVIEW);
+        transitionTo(txn, ReviewType.NEEDS_REVIEW);
     }
 
     public void clearReason(Transaction txn, ReviewReason reason, ReviewType promoteTo) {
         if (txn.getReviewReasons() != null) {
             txn.getReviewReasons().remove(reason);
             if (txn.getReviewReasons().isEmpty()) {
-                txn.setReviewType(promoteTo);
+                transitionTo(txn, promoteTo);
             }
         } else {
-            txn.setReviewType(promoteTo);
+            transitionTo(txn, promoteTo);
         }
     }
 
@@ -29,6 +29,26 @@ public class ReviewStatusManager {
         if (txn.getReviewReasons() != null) {
             txn.getReviewReasons().clear();
         }
-        txn.setReviewType(promoteTo);
+        transitionTo(txn, promoteTo);
+    }
+
+    public void transitionTo(Transaction txn, ReviewType targetType) {
+        if (targetType == ReviewType.NEEDS_REVIEW) {
+            if (txn.getReviewReasons() == null || txn.getReviewReasons().isEmpty()) {
+                throw new com.financeos.core.exception.ValidationException("Transaction needs at least one review reason to transition to NEEDS_REVIEW");
+            }
+            txn.setReviewType(ReviewType.NEEDS_REVIEW);
+            txn.setReviewedAt(null);
+        } else if (targetType == ReviewType.MANUALLY_REVIEWED || targetType == ReviewType.AUTO_REVIEWED || targetType == ReviewType.NA) {
+            if (txn.getReviewReasons() != null) {
+                txn.getReviewReasons().clear();
+            }
+            txn.setReviewType(targetType);
+            if (targetType == ReviewType.MANUALLY_REVIEWED || targetType == ReviewType.AUTO_REVIEWED) {
+                txn.setReviewedAt(java.time.Instant.now());
+            } else {
+                txn.setReviewedAt(null);
+            }
+        }
     }
 }
