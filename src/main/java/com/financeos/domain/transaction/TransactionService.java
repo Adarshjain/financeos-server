@@ -107,6 +107,8 @@ public class TransactionService {
             transaction.setCategories(new java.util.HashSet<>(foundCategories));
         }
 
+        transaction.setReviewType(ReviewType.NA);
+
         return transactionRepository.save(transaction);
     }
 
