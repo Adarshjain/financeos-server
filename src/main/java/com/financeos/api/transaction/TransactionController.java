@@ -66,14 +66,15 @@ public class TransactionController {
     @PostMapping("/batch-review")
     public ResponseEntity<BatchReviewResponse> batchReview(
             @Valid @RequestBody BatchReviewRequest request) {
-        int updated = transactionService.batchReview(request.transactionIds(), request.reviewType());
-        return ResponseEntity.ok(new BatchReviewResponse(updated));
+        BatchReviewResponse response = transactionService.batchReview(
+                request.transactionIds(), request.reviewType(), request.reviewReasons());
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/batch-delete")
     public ResponseEntity<BatchDeleteResponse> batchDelete(
             @Valid @RequestBody BatchDeleteRequest request) {
-        int deleted = transactionService.batchDelete(request.transactionIds());
-        return ResponseEntity.ok(new BatchDeleteResponse(deleted));
+        BatchDeleteResponse response = transactionService.batchDelete(request.transactionIds());
+        return ResponseEntity.ok(response);
     }
 }
