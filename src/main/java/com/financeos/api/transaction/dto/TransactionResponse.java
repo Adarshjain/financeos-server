@@ -52,7 +52,7 @@ public record TransactionResponse(
 
                 return new TransactionResponse(
                                 transaction.getId(),
-                                transaction.getAccount() != null ? transaction.getAccount().getId() : null,
+                                transaction.getAccount().getId(),
                                 transaction.getDate(),
                                 signedAmount, // Return signed amount
                                 transaction.getDescription(),
