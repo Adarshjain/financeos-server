@@ -35,7 +35,7 @@ public class TransactionListQueryBuilder {
             Map.entry("amount", new FieldMetadata("amount", FieldType.NUMBER, "sub.signed_amount", null, null)),
             Map.entry("date", new FieldMetadata("date", FieldType.DATE, "sub.transaction_date", null, null)),
             Map.entry("type", new FieldMetadata("type", FieldType.ENUM, "sub.type", null, Set.of("DEBIT", "CREDIT"))),
-            Map.entry("source", new FieldMetadata("source", FieldType.ENUM, "sub.source", null, Set.of("gmail_transaction_alert", "gmail_statement", "manual"))),
+            Map.entry("source", new FieldMetadata("source", FieldType.ENUM, "sub.source", null, Set.of("gmail_transaction_alert", "gmail_statement", "manual", "file_upload"))),
             Map.entry("description", new FieldMetadata("description", FieldType.STRING, "sub.description", null, null)),
             Map.entry("accountId", new FieldMetadata("accountId", FieldType.ENUM, "sub.account_id", null, null)),
             Map.entry("account", new FieldMetadata("account", FieldType.ENUM, "a.name", Join.ACCOUNTS, null)),

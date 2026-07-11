@@ -196,6 +196,13 @@ public class StatementReconciliationService {
             resolvedAccount = last4ResolvedAccount;
         }
 
+        if (resolvedAccount == null) {
+            log.error("Could not resolve account for statement (last4: {}). Ingestion failed.", statementLast4);
+            recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED,
+                    "Failed to resolve account for statement last4: " + statementLast4);
+            return new ReconSummary(0, 0, 0);
+        }
+
         // 6. Watermark gate check: drop lines dated before the account watermark (if account resolved)
         LocalDate watermark = resolvedAccount != null ? resolvedAccount.getIngestFromDate() : null;
         List<ParsedStatementLine> candidateLines = allLines.stream()
