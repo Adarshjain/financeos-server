@@ -1,5 +1,9 @@
 package com.financeos.api.transaction.dto;
 
+import java.util.List;
+
 public record BatchReviewResponse(
-    int updated
+    List<String> succeededIds,
+    List<String> skippedIds,
+    List<BatchFailure> failures
 ) {}

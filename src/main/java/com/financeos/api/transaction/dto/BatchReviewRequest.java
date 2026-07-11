@@ -1,5 +1,6 @@
 package com.financeos.api.transaction.dto;
 
+import com.financeos.domain.transaction.ReviewReason;
 import com.financeos.domain.transaction.ReviewType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -13,5 +14,7 @@ public record BatchReviewRequest(
     List<@NotNull(message = "Transaction ID cannot be null") UUID> transactionIds,
 
     @NotNull(message = "Review type is required")
-    ReviewType reviewType
+    ReviewType reviewType,
+
+    List<ReviewReason> reviewReasons
 ) {}

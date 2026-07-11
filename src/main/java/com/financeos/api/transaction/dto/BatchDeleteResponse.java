@@ -1,5 +1,8 @@
 package com.financeos.api.transaction.dto;
 
+import java.util.List;
+
 public record BatchDeleteResponse(
-    int deleted
+    List<String> succeededIds,
+    List<BatchFailure> failures
 ) {}
