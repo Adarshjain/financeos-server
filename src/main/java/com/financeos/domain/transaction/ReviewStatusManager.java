@@ -25,12 +25,7 @@ public class ReviewStatusManager {
         }
     }
 
-    public void clearAllReasons(Transaction txn, ReviewType promoteTo) {
-        if (txn.getReviewReasons() != null) {
-            txn.getReviewReasons().clear();
-        }
-        transitionTo(txn, promoteTo);
-    }
+
 
     public void transitionTo(Transaction txn, ReviewType targetType) {
         if (targetType == ReviewType.NEEDS_REVIEW) {

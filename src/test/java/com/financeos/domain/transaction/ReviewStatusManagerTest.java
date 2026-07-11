@@ -40,17 +40,5 @@ public class ReviewStatusManagerTest {
         assertTrue(txn.getReviewReasons().isEmpty());
     }
 
-    @Test
-    public void testClearAllReasons() {
-        Transaction txn = new Transaction();
-        txn.setReviewReasons(new HashSet<>());
-        txn.getReviewReasons().add(ReviewReason.UNRECONCILED);
-        txn.getReviewReasons().add(ReviewReason.CATEGORY_UNVERIFIED);
-        txn.setReviewType(ReviewType.NEEDS_REVIEW);
 
-        reviewStatusManager.clearAllReasons(txn, ReviewType.MANUALLY_REVIEWED);
-
-        assertEquals(ReviewType.MANUALLY_REVIEWED, txn.getReviewType());
-        assertTrue(txn.getReviewReasons().isEmpty());
-    }
 }

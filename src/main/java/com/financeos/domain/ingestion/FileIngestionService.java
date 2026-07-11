@@ -180,7 +180,7 @@ public class FileIngestionService {
                     txn.setSourcedDescription(line.description());
                     txn.setSource(TransactionSource.file_upload);
                     txn.setType(TransactionType.fromLlmDirection(line.direction()));
-                    txn.setReviewType(ReviewType.AUTO_REVIEWED); // Default initially
+                    reviewStatusManager.transitionTo(txn, ReviewType.AUTO_REVIEWED);
                     txn.setTransactionUnderMonitoring(false);
                     txn.setTransactionExcluded(false);
 

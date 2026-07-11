@@ -110,7 +110,7 @@ public class TransactionService {
             transaction.setCategories(new java.util.HashSet<>(foundCategories));
         }
 
-        transaction.setReviewType(ReviewType.NA);
+        reviewStatusManager.transitionTo(transaction, ReviewType.NA);
 
         return transactionRepository.save(transaction);
     }
@@ -463,34 +463,5 @@ public class TransactionService {
         }
     }
 
-    private List<Transaction> loadOwnedTransactions(List<UUID> transactionIds, String action) {
-        Set<UUID> ids = new LinkedHashSet<>(transactionIds);
-        if (ids.size() > 500) {
-            throw new ValidationException("Transaction IDs batch cannot exceed 500");
-        }
 
-        UUID currentSessionUserId = UserContext.getCurrentUserId();
-        Map<UUID, Transaction> transactionsById = transactionRepository.findAllById(ids).stream()
-                .collect(Collectors.toMap(Transaction::getId, t -> t));
-
-        List<UUID> offendingIds = new ArrayList<>();
-        List<Transaction> owned = new ArrayList<>(ids.size());
-        for (UUID id : ids) {
-            Transaction transaction = transactionsById.get(id);
-            if (transaction == null || transaction.getUser() == null
-                    || !transaction.getUser().getId().equals(currentSessionUserId)) {
-                offendingIds.add(id);
-            } else {
-                owned.add(transaction);
-            }
-        }
-
-        if (!offendingIds.isEmpty()) {
-            log.error("Security Breach Attempt: User {} attempted {} on transactions they do not own or that do not exist. Offending IDs: {}",
-                    currentSessionUserId, action, offendingIds);
-            throw new ValidationException("You do not have permission to modify these transactions.",
-                    Map.of("offendingIds", offendingIds.stream().map(UUID::toString).collect(Collectors.joining(","))));
-        }
-        return owned;
-    }
 }
