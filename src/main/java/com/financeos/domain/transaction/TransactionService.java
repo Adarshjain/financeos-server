@@ -209,9 +209,15 @@ public class TransactionService {
             categoriesEqual = currentCategoryIds.equals(requestCatIds);
         }
 
+        if (request.categoryIds() != null) {
+            reviewStatusManager.clearReason(transaction, ReviewReason.CATEGORY_UNVERIFIED, ReviewType.MANUALLY_REVIEWED);
+        }
+
         if (transaction.getAppliedRule() != null && request.categoryIds() != null) {
             if (categoriesEqual) {
                 categorizationService.verifyRule(transaction.getAppliedRule());
+            } else {
+                transaction.setAppliedRule(null);
             }
         }
 
