@@ -216,11 +216,7 @@ public class TransactionService {
         }
 
         if (request.reviewType() != null) {
-            if (request.reviewType() == ReviewType.MANUALLY_REVIEWED) {
-                reviewStatusManager.clearAllReasons(transaction, ReviewType.MANUALLY_REVIEWED);
-            } else {
-                transaction.setReviewType(request.reviewType());
-            }
+            reviewStatusManager.transitionTo(transaction, request.reviewType());
         }
 
         // Handle amount and type
@@ -262,13 +258,11 @@ public class TransactionService {
     public int batchReview(List<UUID> transactionIds, ReviewType reviewType) {
         List<Transaction> transactions = loadOwnedTransactions(transactionIds, "batch-review");
         for (Transaction transaction : transactions) {
+            reviewStatusManager.transitionTo(transaction, reviewType);
             if (reviewType == ReviewType.MANUALLY_REVIEWED) {
-                reviewStatusManager.clearAllReasons(transaction, ReviewType.MANUALLY_REVIEWED);
                 if (transaction.getAppliedRule() != null && !transaction.getAppliedRule().isVerified()) {
                     categorizationService.verifyRule(transaction.getAppliedRule());
                 }
-            } else {
-                transaction.setReviewType(reviewType);
             }
         }
         transactionRepository.saveAll(transactions);
