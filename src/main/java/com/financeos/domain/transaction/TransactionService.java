@@ -287,7 +287,14 @@ public class TransactionService {
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 
         for (UUID id : transactionIds) {
-            String result = self.attemptReviewItem(id, reviewType, reviewReasons, currentSessionUserId);
+            String result;
+            try {
+                result = self.attemptReviewItem(id, reviewType, reviewReasons, currentSessionUserId);
+            } catch (Exception e) {
+                log.error("Commit-time or proxy exception during review of item " + id, e);
+                result = "FAILURE:ERROR";
+            }
+
             if (result.equals("SUCCESS")) {
                 succeededIds.add(id.toString());
             } else if (result.equals("SKIPPED")) {
@@ -296,16 +303,28 @@ public class TransactionService {
                 String errorReason = result.substring("FAILURE:".length());
                 if (errorReason.equals("NOT_FOUND") || errorReason.equals("NOT_OWNED")) {
                     failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), errorReason));
+                } else if (errorReason.equals("VALIDATION_ERROR")) {
+                    failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), "ERROR"));
                 } else {
                     // Unexpected error: retry once
                     log.warn("Retrying transaction review for ID: {} due to transient/unexpected error: {}", id, errorReason);
-                    String retryResult = self.attemptReviewItem(id, reviewType, reviewReasons, currentSessionUserId);
+                    String retryResult;
+                    try {
+                        retryResult = self.attemptReviewItem(id, reviewType, reviewReasons, currentSessionUserId);
+                    } catch (Exception e) {
+                        log.error("Commit-time exception during retry of review item " + id, e);
+                        retryResult = "FAILURE:ERROR";
+                    }
+
                     if (retryResult.equals("SUCCESS")) {
                         succeededIds.add(id.toString());
                     } else if (retryResult.equals("SKIPPED")) {
                         skippedIds.add(id.toString());
                     } else {
                         String retryErrorReason = retryResult.substring("FAILURE:".length());
+                        if (retryErrorReason.equals("VALIDATION_ERROR")) {
+                            retryErrorReason = "ERROR";
+                        }
                         failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), retryErrorReason));
                     }
                 }
@@ -357,7 +376,8 @@ public class TransactionService {
             transactionRepository.save(transaction);
             return "SUCCESS";
         } catch (ValidationException e) {
-            return "FAILURE:ERROR (" + e.getMessage() + ")";
+            log.warn("Validation error during batch review of item " + id + ": " + e.getMessage());
+            return "FAILURE:VALIDATION_ERROR";
         } catch (Exception e) {
             log.error("Error during batch review of item " + id, e);
             return "FAILURE:ERROR";
@@ -379,21 +399,40 @@ public class TransactionService {
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 
         for (UUID id : transactionIds) {
-            String result = self.attemptDeleteItem(id, currentSessionUserId);
+            String result;
+            try {
+                result = self.attemptDeleteItem(id, currentSessionUserId);
+            } catch (Exception e) {
+                log.error("Commit-time or proxy exception during delete of item " + id, e);
+                result = "FAILURE:ERROR";
+            }
+
             if (result.equals("SUCCESS")) {
                 succeededIds.add(id.toString());
             } else if (result.startsWith("FAILURE:")) {
                 String errorReason = result.substring("FAILURE:".length());
                 if (errorReason.equals("NOT_FOUND") || errorReason.equals("NOT_OWNED")) {
                     failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), errorReason));
+                } else if (errorReason.equals("VALIDATION_ERROR")) {
+                    failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), "ERROR"));
                 } else {
                     // Unexpected error: retry once
                     log.warn("Retrying transaction delete for ID: {} due to transient/unexpected error: {}", id, errorReason);
-                    String retryResult = self.attemptDeleteItem(id, currentSessionUserId);
+                    String retryResult;
+                    try {
+                        retryResult = self.attemptDeleteItem(id, currentSessionUserId);
+                    } catch (Exception e) {
+                        log.error("Commit-time exception during retry of delete item " + id, e);
+                        retryResult = "FAILURE:ERROR";
+                    }
+
                     if (retryResult.equals("SUCCESS")) {
                         succeededIds.add(id.toString());
                     } else {
                         String retryErrorReason = retryResult.substring("FAILURE:".length());
+                        if (retryErrorReason.equals("VALIDATION_ERROR")) {
+                            retryErrorReason = "ERROR";
+                        }
                         failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), retryErrorReason));
                     }
                 }
@@ -415,6 +454,9 @@ public class TransactionService {
             }
             transactionRepository.delete(transaction);
             return "SUCCESS";
+        } catch (ValidationException e) {
+            log.warn("Validation error during batch delete of item " + id + ": " + e.getMessage());
+            return "FAILURE:VALIDATION_ERROR";
         } catch (Exception e) {
             log.error("Error during batch delete of item " + id, e);
             return "FAILURE:ERROR";
