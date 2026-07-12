@@ -7,7 +7,7 @@ USING (
     SELECT 
         'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11' AS id,
         'admin@financeos.local' AS email,
-        '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/X4.5XLPmS8QAVKf0u' AS password_hash,
+        '$2a$12$hk7CgIyMBG919vNSYU4saerqD7/lGIbWspcYgsfq7vSqLvzjh0MRm' AS password_hash,
         CURRENT_TIMESTAMP AS created_at
     FROM dual
 ) src

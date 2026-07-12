@@ -31,6 +31,7 @@ public class DevDataSeeder implements CommandLineRunner {
     private final AccountRepository accountRepository;
     private final CategoryRepository categoryRepository;
     private final TransactionRepository transactionRepository;
+    private final ReviewStatusManager reviewStatusManager;
     private final Random random = new Random();
 
     @Override
@@ -38,7 +39,7 @@ public class DevDataSeeder implements CommandLineRunner {
     public void run(String... args) {
         log.info("Checking if data seeding is required...");
 
-        Optional<User> adminUserOpt = userRepository.findByEmail("asd@asd.asd");
+        Optional<User> adminUserOpt = userRepository.findByEmail("admin@financeos.local");
         if (adminUserOpt.isEmpty()) {
             log.warn("Admin user not found. Skipping data seeding.");
             return;
@@ -156,7 +157,7 @@ public class DevDataSeeder implements CommandLineRunner {
         }
 
         if (isAutomated) {
-            sourcedDescription = "SIMULATED_GMAIL_ALERT: " + tempDescription + " of amount " + amount + " on " + date;
+            sourcedDescription = tempDescription + " of amount " + amount + " on " + date;
             description = null;
         } else {
             description = tempDescription;
@@ -176,10 +177,22 @@ public class DevDataSeeder implements CommandLineRunner {
                 isExcluded);
         transaction.setUser(user);
         transaction.setSourcedDescription(sourcedDescription);
+        if (isMonitoring) {
+            transaction.setMonitoringReason("Flagged for monitoring (seeded)");
+        }
 
         Set<Category> cats = new HashSet<>();
         cats.add(category);
         transaction.setCategories(cats);
+
+        // Mirror the real write paths so review state stays internally consistent:
+        // GmailTransactionWriter always flags automated transactions UNRECONCILED,
+        // while TransactionService marks manually-entered transactions NA.
+        if (isAutomated) {
+            reviewStatusManager.addReason(transaction, ReviewReason.UNRECONCILED);
+        } else {
+            reviewStatusManager.transitionTo(transaction, ReviewType.NA);
+        }
 
         return transaction;
     }
