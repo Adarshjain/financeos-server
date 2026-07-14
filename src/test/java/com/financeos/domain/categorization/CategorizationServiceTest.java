@@ -280,4 +280,51 @@ public class CategorizationServiceTest {
         assertTrue(txn.getCategories().isEmpty());
         verify(reviewStatusManager, times(1)).addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
     }
+
+    @Test
+    public void testBatchCategorizeAppliesMcc() {
+        CategoryRule rule = new CategoryRule();
+        rule.setId(UUID.randomUUID());
+        rule.setMerchantKey("SWIGGY");
+        rule.setVerified(true);
+        rule.setMcc("5812");
+        rule.setCategories(Set.of(foodCategory));
+
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(List.of(rule));
+        when(categoryRuleRepository.findWithCategoriesById(rule.getId())).thenReturn(Optional.of(rule));
+
+        Transaction txn = new Transaction();
+        txn.setUser(testUser);
+        txn.setDescription("SWIGGY FOOD DELIVERY");
+        txn.setCategories(new HashSet<>());
+
+        categorizationService.batchCategorize(List.of(txn));
+
+        assertEquals("5812", txn.getMcc());
+        assertEquals(rule, txn.getAppliedRule());
+    }
+
+    @Test
+    public void testBatchCategorizeDoesNotOverwriteExistingMcc() {
+        CategoryRule rule = new CategoryRule();
+        rule.setId(UUID.randomUUID());
+        rule.setMerchantKey("SWIGGY");
+        rule.setVerified(true);
+        rule.setMcc("5812");
+        rule.setCategories(Set.of(foodCategory));
+
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(List.of(rule));
+        when(categoryRuleRepository.findWithCategoriesById(rule.getId())).thenReturn(Optional.of(rule));
+
+        Transaction txn = new Transaction();
+        txn.setUser(testUser);
+        txn.setDescription("SWIGGY FOOD DELIVERY");
+        txn.setCategories(new HashSet<>());
+        txn.setMcc("5411"); // Pre-existing MCC from card statement
+
+        categorizationService.batchCategorize(List.of(txn));
+
+        assertEquals("5411", txn.getMcc());
+        assertEquals(rule, txn.getAppliedRule());
+    }
 }

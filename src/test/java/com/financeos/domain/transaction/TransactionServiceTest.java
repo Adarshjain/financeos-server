@@ -13,6 +13,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.*;
+import java.time.LocalDate;
+import java.math.BigDecimal;
+import com.financeos.api.transaction.dto.UpdateTransactionRequest;
+import com.financeos.domain.account.Account;
 
 class TransactionServiceTest {
 
@@ -332,5 +336,57 @@ class TransactionServiceTest {
         assertEquals(List.of(idA.toString()), response.succeededIds());
         assertEquals(1, response.failures().size());
         assertEquals("NOT_OWNED", response.failures().get(0).reason());
+    }
+
+    @Test
+    void testUpdateTransactionMccPreserveAndClear() {
+        UUID currentUserId = UUID.randomUUID();
+        UserContext.setCurrentUserId(currentUserId);
+        User user = new User();
+        user.setId(currentUserId);
+
+        Account account = new Account();
+        account.setId(UUID.randomUUID());
+
+        Transaction txn = new Transaction();
+        txn.setId(UUID.randomUUID());
+        txn.setUser(user);
+        txn.setAccount(account);
+        txn.setDate(LocalDate.now());
+        txn.setAmount(new BigDecimal("-10.00"));
+        txn.setMcc("5411");
+
+        when(transactionRepository.findById(txn.getId())).thenReturn(Optional.of(txn));
+        when(transactionRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        // 1. Omit mcc (null) -> preserve 5411
+        UpdateTransactionRequest omitRequest = new UpdateTransactionRequest(
+                LocalDate.now(),
+                new BigDecimal("-10.00"),
+                "Desc",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        transactionService.updateTransaction(txn.getId(), omitRequest);
+        assertEquals("5411", txn.getMcc());
+
+        // 2. Pass empty string -> clear mcc to null
+        UpdateTransactionRequest clearRequest = new UpdateTransactionRequest(
+                LocalDate.now(),
+                new BigDecimal("-10.00"),
+                "Desc",
+                null,
+                null,
+                null,
+                null,
+                null,
+                ""
+        );
+        transactionService.updateTransaction(txn.getId(), clearRequest);
+        assertNull(txn.getMcc());
     }
 }

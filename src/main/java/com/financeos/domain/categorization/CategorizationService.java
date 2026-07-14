@@ -50,7 +50,11 @@ public class CategorizationService {
      * Result of an on-demand categorization suggestion. Never null; empty categories/null ruleId/false
      * fromRule signals "no suggestion available".
      */
-    public record SuggestionResult(Set<Category> categories, UUID ruleId, boolean fromRule) {}
+    public record SuggestionResult(Set<Category> categories, UUID ruleId, boolean fromRule, String mcc) {
+        public SuggestionResult(Set<Category> categories, UUID ruleId, boolean fromRule) {
+            this(categories, ruleId, fromRule, null);
+        }
+    }
 
     public Optional<CategoryRule> findBestMatchingRule(UUID userId, String description) {
         List<CategoryRule> rules = categoryRuleRepository.findByUserId(userId);
@@ -227,6 +231,9 @@ public class CategorizationService {
 
             txn.setCategories(rule.getCategories());
             txn.setAppliedRule(rule);
+            if ((txn.getMcc() == null || txn.getMcc().isBlank()) && rule.getMcc() != null && !rule.getMcc().isBlank()) {
+                txn.setMcc(rule.getMcc());
+            }
             rule.setAppliedCount(rule.getAppliedCount() + 1);
             rule.setLastAppliedAt(Instant.now());
             categoryRuleRepository.save(rule);
@@ -355,7 +362,7 @@ public class CategorizationService {
         }
         CategoryRule rule = match.get();
         Set<Category> categories = new HashSet<>(rule.getCategories());
-        return Optional.of(new SuggestionResult(categories, rule.getId(), true));
+        return Optional.of(new SuggestionResult(categories, rule.getId(), true, rule.getMcc()));
     }
 
     private void saveAllTxnsIfPersisted(List<Transaction> txns) {

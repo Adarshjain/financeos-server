@@ -43,6 +43,9 @@ public class CategoryRule {
     @Column(name = "display_name")
     private String displayName;
 
+    @Column(name = "mcc", length = 4)
+    private String mcc;
+
     @Column(nullable = false)
     private boolean verified;
 

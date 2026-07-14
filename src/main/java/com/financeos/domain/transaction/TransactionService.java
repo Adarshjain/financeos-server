@@ -86,6 +86,7 @@ public class TransactionService {
         } else {
             transaction.setMonitoringReason(null);
         }
+        transaction.setMcc(request.mcc());
 
         // SECURITY: Enforce session-based identity.
         // We do NOT trust the account owner alone; we use the current session user.
@@ -201,6 +202,9 @@ public class TransactionService {
         }
         if (request.isTransactionExcluded() != null) {
             transaction.setTransactionExcluded(request.isTransactionExcluded());
+        }
+        if (request.mcc() != null) {
+            transaction.setMcc(request.mcc().isBlank() ? null : request.mcc());
         }
         // Feedback loop
         boolean categoriesEqual = false;
