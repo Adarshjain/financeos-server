@@ -22,7 +22,7 @@ public class CategorizationServiceTest {
     private CategoryRepository categoryRepository;
     private TransactionRepository transactionRepository;
     private UserRepository userRepository;
-    private GeminiCategorizer geminiCategorizer;
+    private TransactionCategorizer transactionCategorizer;
     private ReviewStatusManager reviewStatusManager;
     private CategorizationService categorizationService;
 
@@ -37,7 +37,7 @@ public class CategorizationServiceTest {
         categoryRepository = mock(CategoryRepository.class);
         transactionRepository = mock(TransactionRepository.class);
         userRepository = mock(UserRepository.class);
-        geminiCategorizer = mock(GeminiCategorizer.class);
+        transactionCategorizer = mock(TransactionCategorizer.class);
         reviewStatusManager = mock(ReviewStatusManager.class);
 
         categorizationService = new CategorizationService(
@@ -45,7 +45,7 @@ public class CategorizationServiceTest {
                 categoryRepository,
                 transactionRepository,
                 userRepository,
-                geminiCategorizer,
+                transactionCategorizer,
                 reviewStatusManager,
                 null
         );
@@ -165,14 +165,14 @@ public class CategorizationServiceTest {
         txn.setDescription("AMAZON PAY INDIA");
         txn.setCategories(new HashSet<>());
 
-        GeminiCategorizer.CategorizeItemResponse response = new GeminiCategorizer.CategorizeItemResponse(
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
                 0,
                 "AMAZON",
                 "Amazon",
                 List.of("Shopping"),
                 false
         );
-        when(geminiCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
 
         CategoryRule newRule = new CategoryRule();
         newRule.setId(UUID.randomUUID());
@@ -193,7 +193,7 @@ public class CategorizationServiceTest {
     @Test
     public void testBatchCategorizeLlmFailure() {
         when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
-        when(geminiCategorizer.categorize(any(), any())).thenReturn(Collections.emptyList()); // Failure / Empty
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(Collections.emptyList()); // Failure / Empty
 
         Transaction txn = new Transaction();
         txn.setUser(testUser);
@@ -215,14 +215,14 @@ public class CategorizationServiceTest {
         txn.setDescription("XYZ PAYMENTS");
         txn.setCategories(new HashSet<>());
 
-        GeminiCategorizer.CategorizeItemResponse response = new GeminiCategorizer.CategorizeItemResponse(
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
                 0,
                 "XYZ",
                 "Xyz",
                 Collections.emptyList(),
                 true // noFit = true
         );
-        when(geminiCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
 
         categorizationService.batchCategorize(List.of(txn));
 
@@ -240,14 +240,14 @@ public class CategorizationServiceTest {
         txn.setDescription("SWIGGY DELIVERY");
         txn.setCategories(new HashSet<>());
 
-        GeminiCategorizer.CategorizeItemResponse response = new GeminiCategorizer.CategorizeItemResponse(
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
                 0,
                 "SWIGGY",
                 "Swiggy",
                 List.of("Gifts & Charities"), // Hallucinated category (not in foodCategory / shoppingCategory)
                 false
         );
-        when(geminiCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
 
         categorizationService.batchCategorize(List.of(txn));
 
@@ -265,14 +265,14 @@ public class CategorizationServiceTest {
         txn.setDescription("SWIGGY DELIVERY");
         txn.setCategories(new HashSet<>());
 
-        GeminiCategorizer.CategorizeItemResponse response = new GeminiCategorizer.CategorizeItemResponse(
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
                 0,
                 "AMAZON", // Hallucinated merchant key (AMAZON is not in "SWIGGY DELIVERY")
                 "Amazon",
                 List.of("Shopping"),
                 false
         );
-        when(geminiCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
 
         categorizationService.batchCategorize(List.of(txn));
 
@@ -315,14 +315,14 @@ public class CategorizationServiceTest {
         txn.setSourcedDescription("AMAZON PAY INDIA");
         txn.setCategories(new HashSet<>());
 
-        GeminiCategorizer.CategorizeItemResponse response = new GeminiCategorizer.CategorizeItemResponse(
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
                 0,
                 "AMAZON",
                 "Amazon",
                 List.of("Shopping"),
                 false
         );
-        when(geminiCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
 
         when(categoryRuleRepository.findByUserIdAndMerchantKey(userId, "AMAZON")).thenReturn(Optional.empty());
 
