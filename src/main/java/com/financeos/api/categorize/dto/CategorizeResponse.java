@@ -10,13 +10,14 @@ import java.util.UUID;
 public record CategorizeResponse(
         List<CategoryResponse> categories,
         UUID ruleId,
-        boolean fromRule
+        boolean fromRule,
+        String mcc
 ) {
     public static CategorizeResponse from(CategorizationService.SuggestionResult result) {
         List<CategoryResponse> categoryResponses = result.categories().stream()
                 .map(CategoryResponse::from)
                 .sorted(Comparator.comparing(CategoryResponse::name))
                 .toList();
-        return new CategorizeResponse(categoryResponses, result.ruleId(), result.fromRule());
+        return new CategorizeResponse(categoryResponses, result.ruleId(), result.fromRule(), result.mcc());
     }
 }

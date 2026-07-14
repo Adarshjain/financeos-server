@@ -57,6 +57,9 @@ public class Transaction {
     @Column(name = "sourced_description", length = 4000)
     private String sourcedDescription;
 
+    @Column(name = "mcc", length = 4)
+    private String mcc;
+
     @Transient
     private BigDecimal balance;
 

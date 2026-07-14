@@ -4,6 +4,7 @@ import com.financeos.domain.transaction.ReviewType;
 import com.financeos.domain.transaction.TransactionSource;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import com.financeos.core.validation.MccCode;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,5 +21,6 @@ public record UpdateTransactionRequest(
                 Boolean isTransactionUnderMonitoring,
                 Boolean isTransactionExcluded,
                 ReviewType reviewType,
-                String monitoringReason) {
+                String monitoringReason,
+                @MccCode String mcc) {
 }

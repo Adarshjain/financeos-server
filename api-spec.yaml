@@ -1929,6 +1929,11 @@ components:
         monitoringReason:
           type: string
           maxLength: 500
+        mcc:
+          type: string
+          pattern: '^(\d{4})?$'
+          example: '5411'
+          nullable: true
 
     TransactionResponse:
       type: object
@@ -1978,6 +1983,11 @@ components:
         createdAt:
           type: string
           format: date-time
+        mcc:
+          type: string
+          pattern: '^(\d{4})?$'
+          example: '5411'
+          nullable: true
 
     UpdateTransactionRequest:
       type: object
@@ -2006,6 +2016,11 @@ components:
           maxLength: 500
         reviewType:
           $ref: '#/components/schemas/ReviewType'
+        mcc:
+          type: string
+          pattern: '^(\d{4})?$'
+          example: '5411'
+          nullable: true
 
     TransactionSource:
       type: string
@@ -2236,6 +2251,12 @@ components:
         createdAt:
           type: string
           format: date-time
+        mcc:
+          type: string
+          pattern: '^(\d{4})?$'
+          example: '5411'
+          nullable: true
+          nullable: true
 
     CreateRuleRequest:
       type: object
@@ -2256,6 +2277,11 @@ components:
             format: uuid
           minItems: 1
           description: One or more category IDs to assign when rule matches
+        mcc:
+          type: string
+          pattern: '^(\d{4})?$'
+          example: '5411'
+          nullable: true
 
     UpdateRuleRequest:
       type: object
@@ -2272,6 +2298,11 @@ components:
             type: string
             format: uuid
           description: Categories to assign (optional; replaces existing if provided)
+        mcc:
+          type: string
+          pattern: '^(\d{4})?$'
+          example: '5411'
+          nullable: true
 
     PagedRuleResponse:
       type: object
@@ -2321,6 +2352,12 @@ components:
         fromRule:
           type: boolean
           description: True if categories came from a matching rule; false if from AI
+        mcc:
+          type: string
+          pattern: '^(\d{4})?$'
+          nullable: true
+          description: Suggested 4-digit MCC code from matching rule (if any)
+          example: "5411"
 
     ErrorResponse:
       type: object

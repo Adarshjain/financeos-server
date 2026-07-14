@@ -28,7 +28,8 @@ public record TransactionResponse(
                 BigDecimal balance,
                 ReviewType reviewType,
                 java.util.List<com.financeos.domain.transaction.ReviewReason> reviewReasons,
-                UUID appliedRuleId) {
+                UUID appliedRuleId,
+                String mcc) {
 
         public static TransactionResponse from(Transaction transaction) {
                 return from(transaction, null);
@@ -68,6 +69,7 @@ public record TransactionResponse(
                                 balance,
                                 transaction.getReviewType(),
                                 reviewReasonsList,
-                                transaction.getAppliedRule() != null ? transaction.getAppliedRule().getId() : null);
+                                transaction.getAppliedRule() != null ? transaction.getAppliedRule().getId() : null,
+                                transaction.getMcc());
         }
 }

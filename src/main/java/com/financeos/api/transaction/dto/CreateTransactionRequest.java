@@ -3,6 +3,7 @@ package com.financeos.api.transaction.dto;
 import com.financeos.domain.transaction.TransactionSource;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import com.financeos.core.validation.MccCode;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,5 +20,6 @@ public record CreateTransactionRequest(
         java.util.List<UUID> categoryIds,
         Boolean isTransactionUnderMonitoring,
         Boolean isTransactionExcluded,
-        String monitoringReason) {
+        String monitoringReason,
+        @MccCode String mcc) {
 }

@@ -15,7 +15,8 @@ public record RuleResponse(
         String source,
         int appliedCount,
         Instant lastAppliedAt,
-        Instant createdAt
+        Instant createdAt,
+        String mcc
 ) {
     public static RuleResponse from(CategoryRule rule) {
         List<CategoryResponse> categoryResponses = rule.getCategories().stream()
@@ -30,7 +31,8 @@ public record RuleResponse(
                 rule.getSource(),
                 rule.getAppliedCount(),
                 rule.getLastAppliedAt(),
-                rule.getCreatedAt()
+                rule.getCreatedAt(),
+                rule.getMcc()
         );
     }
 }

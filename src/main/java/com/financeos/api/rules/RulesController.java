@@ -104,6 +104,7 @@ public class RulesController {
         rule.setVerified(true);
         rule.setSource("USER");
         rule.setCategories(new HashSet<>(categories));
+        rule.setMcc(request.mcc());
 
         CategoryRule saved = categoryRuleRepository.save(rule);
         return ResponseEntity.status(HttpStatus.CREATED).body(RuleResponse.from(saved));
@@ -112,7 +113,7 @@ public class RulesController {
     @PutMapping("/{id}")
     public ResponseEntity<RuleResponse> updateRule(
             @PathVariable UUID id,
-            @RequestBody UpdateRuleRequest request) {
+            @Valid @RequestBody UpdateRuleRequest request) {
 
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 
@@ -139,6 +140,10 @@ public class RulesController {
 
         if (request.displayName() != null) {
             rule.setDisplayName(request.displayName());
+        }
+
+        if (request.mcc() != null) {
+            rule.setMcc(request.mcc().isBlank() ? null : request.mcc());
         }
 
         if (request.categoryIds() != null) {
