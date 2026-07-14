@@ -282,6 +282,59 @@ public class CategorizationServiceTest {
     }
 
     @Test
+    public void testBatchCategorizeUsesSourcedDescription() {
+        // Ingested transactions (file upload / gmail) set only sourcedDescription, never description.
+        CategoryRule rule = new CategoryRule();
+        rule.setId(UUID.randomUUID());
+        rule.setMerchantKey("SWIGGY");
+        rule.setVerified(true);
+        rule.setMcc("5812");
+        rule.setCategories(Set.of(foodCategory));
+
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(List.of(rule));
+        when(categoryRuleRepository.findWithCategoriesById(rule.getId())).thenReturn(Optional.of(rule));
+
+        Transaction txn = new Transaction();
+        txn.setUser(testUser);
+        txn.setSourcedDescription("SWIGGY FOOD DELIVERY");
+        txn.setCategories(new HashSet<>());
+
+        categorizationService.batchCategorize(List.of(txn));
+
+        assertEquals(1, txn.getCategories().size());
+        assertEquals(rule, txn.getAppliedRule());
+        assertEquals("5812", txn.getMcc());
+    }
+
+    @Test
+    public void testBatchCategorizeSourcedDescriptionLlmMiss() {
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        Transaction txn = new Transaction();
+        txn.setUser(testUser);
+        txn.setSourcedDescription("AMAZON PAY INDIA");
+        txn.setCategories(new HashSet<>());
+
+        GeminiCategorizer.CategorizeItemResponse response = new GeminiCategorizer.CategorizeItemResponse(
+                0,
+                "AMAZON",
+                "Amazon",
+                List.of("Shopping"),
+                false
+        );
+        when(geminiCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+
+        when(categoryRuleRepository.findByUserIdAndMerchantKey(userId, "AMAZON")).thenReturn(Optional.empty());
+
+        categorizationService.batchCategorize(List.of(txn));
+
+        // The merchant-key validity check must normalize sourcedDescription, not the null description.
+        assertEquals(1, txn.getCategories().size());
+        assertNotNull(txn.getAppliedRule());
+        verify(reviewStatusManager, times(1)).addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
+    }
+
+    @Test
     public void testBatchCategorizeAppliesMcc() {
         CategoryRule rule = new CategoryRule();
         rule.setId(UUID.randomUUID());
