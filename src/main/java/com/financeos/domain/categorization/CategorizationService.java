@@ -76,7 +76,7 @@ public class CategorizationService {
     }
 
     private CategoryRule getOrCreateRule(UUID userId, String normalizedKey, String displayName,
-                                          Set<Category> categories, Map<String, CategoryRule> batchCache) {
+                                         Set<Category> categories, Map<String, CategoryRule> batchCache) {
         CategoryRule cached = batchCache.get(normalizedKey);
         if (cached != null) {
             return cached;
@@ -168,15 +168,16 @@ public class CategorizationService {
 
         for (int i = 0; i < txns.size(); i++) {
             Transaction txn = txns.get(i);
-            if (txn.getDescription() == null || txn.getDescription().isBlank() || !txn.getCategories().isEmpty()) {
+            String description = effectiveDescription(txn);
+            if (description == null || description.isBlank() || !txn.getCategories().isEmpty()) {
                 continue;
             }
 
-            Optional<CategoryRule> matchingRule = bestMatch(rules, txn.getDescription());
+            Optional<CategoryRule> matchingRule = bestMatch(rules, description);
             if (matchingRule.isPresent()) {
                 ruleMatchesByIndex.put(i, matchingRule.get().getId());
             } else {
-                llmBatchRequests.add(new GeminiCategorizer.CategorizeItemRequest(i, txn.getDescription()));
+                llmBatchRequests.add(new GeminiCategorizer.CategorizeItemRequest(i, description));
             }
         }
 
@@ -201,15 +202,16 @@ public class CategorizationService {
      */
     @Transactional
     public void applyCategorizationResults(List<Transaction> txns,
-                                            List<Category> userCategories,
-                                            UUID userId,
-                                            Map<Integer, UUID> ruleMatchesByIndex,
-                                            List<GeminiCategorizer.CategorizeItemRequest> llmBatchRequests,
-                                            List<GeminiCategorizer.CategorizeItemResponse> llmResponses) {
+                                           List<Category> userCategories,
+                                           UUID userId,
+                                           Map<Integer, UUID> ruleMatchesByIndex,
+                                           List<GeminiCategorizer.CategorizeItemRequest> llmBatchRequests,
+                                           List<GeminiCategorizer.CategorizeItemResponse> llmResponses) {
         if (userCategories.isEmpty()) {
             log.info("User has zero categories. Flagging all transactions with CATEGORY_UNVERIFIED.");
             for (Transaction txn : txns) {
-                if (txn.getDescription() != null && !txn.getDescription().isBlank() && txn.getCategories().isEmpty()) {
+                String description = effectiveDescription(txn);
+                if (description != null && !description.isBlank() && txn.getCategories().isEmpty()) {
                     reviewStatusManager.addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
                 }
             }
@@ -273,7 +275,7 @@ public class CategorizationService {
                         }
 
                         String normalizedKey = DescriptionNormalizer.normalize(res.merchantKey());
-                        String normalizedDesc = DescriptionNormalizer.normalize(txn.getDescription());
+                        String normalizedDesc = DescriptionNormalizer.normalize(effectiveDescription(txn));
                         boolean keyValid = normalizedKey.length() >= 3 && normalizedDesc.contains(normalizedKey);
 
                         if (catsValid && keyValid) {
@@ -363,6 +365,15 @@ public class CategorizationService {
         CategoryRule rule = match.get();
         Set<Category> categories = new HashSet<>(rule.getCategories());
         return Optional.of(new SuggestionResult(categories, rule.getId(), true, rule.getMcc()));
+    }
+
+    /**
+     * Returns the description to categorize against: prefers sourcedDescription (original from
+     * ingestion), falls back to description (for manually created transactions that have no
+     * sourcedDescription). Mirrors TransactionMatcher#effectiveDescription.
+     */
+    private static String effectiveDescription(Transaction txn) {
+        return txn.getSourcedDescription() != null ? txn.getSourcedDescription() : txn.getDescription();
     }
 
     private void saveAllTxnsIfPersisted(List<Transaction> txns) {
