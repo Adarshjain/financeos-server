@@ -4,7 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.financeos.gmail.ingest.gemini.GeminiProperties;
+import com.financeos.llm.LlmClient;
+import com.financeos.llm.LlmException;
+import com.financeos.llm.LlmRequest;
+import com.financeos.llm.LlmResponse;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -16,11 +19,6 @@ import org.springframework.stereotype.Component;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,15 +27,12 @@ public class StatementParser {
 
     private static final Logger log = LoggerFactory.getLogger(StatementParser.class);
 
-    private final GeminiProperties geminiProperties;
+    private final LlmClient llmClient;
     private final ObjectMapper objectMapper;
-    private final HttpClient httpClient;
 
-    public StatementParser(GeminiProperties geminiProperties, ObjectMapper objectMapper) {
-        this.geminiProperties = geminiProperties;
+    public StatementParser(LlmClient llmClient, ObjectMapper objectMapper) {
+        this.llmClient = llmClient;
         this.objectMapper = objectMapper.copy().registerModule(new JavaTimeModule());
-        this.httpClient = HttpClient.newBuilder()
-                .build();
     }
 
     /**
@@ -101,11 +96,6 @@ public class StatementParser {
      * Parse text content into structured statement lines using Gemini.
      */
     public StatementExtractionResult parse(String content) {
-        String apiKey = geminiProperties.getApiKey();
-        if (apiKey == null || apiKey.trim().isEmpty()) {
-            return StatementExtractionResult.failure("Gemini API key is not configured");
-        }
-
         try {
             String prompt = String.format(
                     "You are a financial document parser. Extract the full transaction history from the following bank or credit card statement text into a structured JSON array of transaction lines. " +
@@ -121,95 +111,58 @@ public class StatementParser {
                     content
             );
 
-            ObjectNode requestJson = objectMapper.createObjectNode();
-            
-            ObjectNode contentPart = objectMapper.createObjectNode().put("text", prompt);
-            requestJson.putArray("contents")
-                    .addObject()
-                    .putArray("parts")
-                    .add(contentPart);
-
-            ObjectNode generationConfig = objectMapper.createObjectNode();
-            generationConfig.put("responseMimeType", "application/json");
-            generationConfig.put("temperature", 0.0);
-
             ObjectNode schema = objectMapper.createObjectNode();
-            schema.put("type", "OBJECT");
-            
+            schema.put("type", "object");
+
             ObjectNode properties = schema.putObject("properties");
 
             ObjectNode accountLast4Prop = properties.putObject("accountLast4");
-            accountLast4Prop.put("type", "STRING");
+            accountLast4Prop.put("type", "string");
             accountLast4Prop.put("description", "The last 4 digits of the bank account or credit card number if found in the statement content, otherwise null.");
 
             ObjectNode statementPeriodStartProp = properties.putObject("statementPeriodStart");
-            statementPeriodStartProp.put("type", "STRING");
+            statementPeriodStartProp.put("type", "string");
             statementPeriodStartProp.put("description", "The start date of the statement period, format: YYYY-MM-DD. Null if not found.");
 
             ObjectNode statementPeriodEndProp = properties.putObject("statementPeriodEnd");
-            statementPeriodEndProp.put("type", "STRING");
+            statementPeriodEndProp.put("type", "string");
             statementPeriodEndProp.put("description", "The end date of the statement period, format: YYYY-MM-DD. Null if not found.");
 
             ObjectNode linesProperty = properties.putObject("lines");
-            linesProperty.put("type", "ARRAY");
-            
+            linesProperty.put("type", "array");
+
             ObjectNode items = linesProperty.putObject("items");
-            items.put("type", "OBJECT");
-            
+            items.put("type", "object");
+
             ObjectNode itemProperties = items.putObject("properties");
-            
+
             ObjectNode date = itemProperties.putObject("date");
-            date.put("type", "STRING");
+            date.put("type", "string");
             date.put("description", "Format: YYYY-MM-DD");
-            
-            itemProperties.putObject("amount").put("type", "NUMBER");
-            
+
+            itemProperties.putObject("amount").put("type", "number");
+
             ObjectNode direction = itemProperties.putObject("direction");
-            direction.put("type", "STRING");
+            direction.put("type", "string");
             direction.put("description", "Direction of the transaction. Map inflows (deposits, credits, receipts, refunds) to 'CREDIT', and outflows (withdrawals, debits, payments, charges, purchases, fees) to 'DEBIT'. Pay close attention to column headers like 'Deposit' vs 'Withdrawal' to avoid swapping them.");
             direction.putArray("enum").add("DEBIT").add("CREDIT");
-            
-            itemProperties.putObject("description").put("type", "STRING");
-            itemProperties.putObject("balance").put("type", "NUMBER");
+
+            itemProperties.putObject("description").put("type", "string");
+            itemProperties.putObject("balance").put("type", "number");
 
             items.putArray("required").add("date").add("amount").add("direction").add("description");
             schema.putArray("required").add("lines");
 
-            generationConfig.set("responseSchema", schema);
-            requestJson.set("generationConfig", generationConfig);
+            LlmRequest request = new LlmRequest("statement-parse", prompt, schema, 0.0);
 
-            String requestBody = objectMapper.writeValueAsString(requestJson);
-            String url = String.format(
-                    "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent?key=%s",
-                    geminiProperties.getStatementModel(), apiKey
-            );
+            LlmResponse response = llmClient.complete(request);
+            log.info("Statement extraction served by provider {} using model {}", response.providerId(), response.model());
 
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .build();
+            log.info("Gemini API success response: {}", response.jsonText());
 
-            log.info("Calling Gemini API for statement extraction using model: {}", geminiProperties.getStatementModel());
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() != 200) {
-                log.error("Gemini API returned error status: {}. Response: {}", response.statusCode(), response.body());
-                return StatementExtractionResult.failure("Gemini API returned error: " + response.statusCode());
-            }
-
-            log.info("Gemini API success response: {}", response.body());
-
-            JsonNode responseJson = objectMapper.readTree(response.body());
-            JsonNode textNode = responseJson.at("/candidates/0/content/parts/0/text");
-            if (textNode.isMissingNode()) {
-                log.error("No text found in Gemini response: {}", response.body());
-                return StatementExtractionResult.failure("No text content returned from Gemini API");
-            }
-
-            String jsonText = textNode.asText();
+            String jsonText = response.jsonText();
             JsonNode rootNode = objectMapper.readTree(jsonText);
-            
+
             JsonNode accountLast4Node = rootNode.get("accountLast4");
             String accountLast4 = (accountLast4Node != null && !accountLast4Node.isNull()) ? accountLast4Node.asText() : null;
 
@@ -240,6 +193,9 @@ public class StatementParser {
 
             return StatementExtractionResult.success(lines, accountLast4, statementPeriodStart, statementPeriodEnd);
 
+        } catch (LlmException e) {
+            log.error("Failed to parse statement using Gemini", e);
+            return StatementExtractionResult.failure(e.getMessage());
         } catch (Exception e) {
             log.error("Failed to parse statement using Gemini", e);
             return StatementExtractionResult.failure("Statement parser failure: " + e.getMessage());

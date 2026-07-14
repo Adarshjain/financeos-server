@@ -5,38 +5,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.financeos.gmail.internal.GmailMessage;
-import com.financeos.gmail.ingest.gemini.GeminiProperties;
+import com.financeos.llm.LlmClient;
+import com.financeos.llm.LlmException;
+import com.financeos.llm.LlmRequest;
+import com.financeos.llm.LlmResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.time.Duration;
 
 @Component
 public class EmailClassifier {
 
     private static final Logger log = LoggerFactory.getLogger(EmailClassifier.class);
-    private final GeminiProperties geminiProperties;
+    private final LlmClient llmClient;
     private final ObjectMapper objectMapper;
-    private final HttpClient httpClient;
 
-    public EmailClassifier(GeminiProperties geminiProperties, ObjectMapper objectMapper) {
-        this.geminiProperties = geminiProperties;
+    public EmailClassifier(LlmClient llmClient, ObjectMapper objectMapper) {
+        this.llmClient = llmClient;
         this.objectMapper = objectMapper.copy().registerModule(new JavaTimeModule());
-        this.httpClient = HttpClient.newBuilder()
-                .build();
     }
 
     public EmailClassificationResult classify(GmailMessage message) {
-        String apiKey = geminiProperties.getApiKey();
-        if (apiKey == null || apiKey.trim().isEmpty()) {
-            return EmailClassificationResult.failure("Gemini API key is not configured");
-        }
-
         try {
             // Build prompt with subject, body, and attachments metadata
             StringBuilder promptBuilder = new StringBuilder();
@@ -57,63 +46,24 @@ public class EmailClassifier {
 
             String prompt = promptBuilder.toString();
 
-            // Build request JSON
-            ObjectNode requestJson = objectMapper.createObjectNode();
-            
-            ObjectNode contentPart = objectMapper.createObjectNode().put("text", prompt);
-            requestJson.putArray("contents")
-                    .addObject()
-                    .putArray("parts")
-                    .add(contentPart);
-
-            ObjectNode generationConfig = objectMapper.createObjectNode();
-            generationConfig.put("responseMimeType", "application/json");
-            generationConfig.put("temperature", 0.0);
-
             ObjectNode schema = objectMapper.createObjectNode();
-            schema.put("type", "OBJECT");
-            
+            schema.put("type", "object");
+
             ObjectNode properties = schema.putObject("properties");
             ObjectNode emailType = properties.putObject("emailType");
-            emailType.put("type", "STRING");
+            emailType.put("type", "string");
             emailType.putArray("enum").add("TRANSACTION_ALERT").add("STATEMENT").add("OTHER");
-            
-            properties.putObject("confidence").put("type", "NUMBER");
-            properties.putObject("reasoning").put("type", "STRING");
+
+            properties.putObject("confidence").put("type", "number");
+            properties.putObject("reasoning").put("type", "string");
 
             schema.putArray("required").add("emailType");
 
-            generationConfig.set("responseSchema", schema);
-            requestJson.set("generationConfig", generationConfig);
-
-            String requestBody = objectMapper.writeValueAsString(requestJson);
-            String url = String.format(
-                    "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent?key=%s",
-                    geminiProperties.getModel(), apiKey
-            );
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .build();
+            LlmRequest request = new LlmRequest("email-classify", prompt, schema, 0.0);
 
             log.info("Calling Gemini API to classify message ID: {}", message.messageId());
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() != 200) {
-                log.error("Gemini API returned error code {}: {}", response.statusCode(), response.body());
-                return EmailClassificationResult.failure("Gemini API error code: " + response.statusCode());
-            }
-
-            JsonNode responseJson = objectMapper.readTree(response.body());
-            JsonNode textNode = responseJson.at("/candidates/0/content/parts/0/text");
-            if (textNode.isMissingNode()) {
-                log.error("No text found in Gemini response: {}", response.body());
-                return EmailClassificationResult.failure("Invalid Gemini response format");
-            }
-
-            String jsonText = textNode.asText();
+            LlmResponse response = llmClient.complete(request);
+            String jsonText = response.jsonText();
             log.debug("Gemini returned JSON text for classification: {}", jsonText);
 
             JsonNode rootNode = objectMapper.readTree(jsonText);
@@ -124,6 +74,9 @@ public class EmailClassifier {
             EmailType type = EmailType.valueOf(typeStr);
             return EmailClassificationResult.success(type, confidence, reasoning);
 
+        } catch (LlmException e) {
+            log.error("Failed to classify email using Gemini", e);
+            return EmailClassificationResult.failure(e.getMessage());
         } catch (Exception e) {
             log.error("Failed to classify email using Gemini", e);
             return EmailClassificationResult.failure("Classification error: " + e.getMessage());

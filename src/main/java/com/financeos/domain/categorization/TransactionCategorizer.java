@@ -3,30 +3,26 @@ package com.financeos.domain.categorization;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.financeos.gmail.ingest.gemini.GeminiProperties;
+import com.financeos.llm.LlmClient;
+import com.financeos.llm.LlmException;
+import com.financeos.llm.LlmRequest;
+import com.financeos.llm.LlmResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @Slf4j
-public class GeminiCategorizer {
+public class TransactionCategorizer {
 
-    private final GeminiProperties geminiProperties;
+    private final LlmClient llmClient;
     private final ObjectMapper objectMapper;
-    private final HttpClient httpClient;
 
-    public GeminiCategorizer(GeminiProperties geminiProperties, ObjectMapper objectMapper) {
-        this.geminiProperties = geminiProperties;
+    public TransactionCategorizer(LlmClient llmClient, ObjectMapper objectMapper) {
+        this.llmClient = llmClient;
         this.objectMapper = objectMapper;
-        this.httpClient = HttpClient.newBuilder().build();
     }
 
     public record CategorizeItemRequest(int index, String description) {}
@@ -41,12 +37,6 @@ public class GeminiCategorizer {
 
     public List<CategorizeItemResponse> categorize(List<CategorizeItemRequest> items, List<String> availableCategories) {
         List<CategorizeItemResponse> fallbackResults = new ArrayList<>();
-
-        String apiKey = geminiProperties.getApiKey();
-        if (apiKey == null || apiKey.trim().isEmpty()) {
-            log.warn("Gemini API key is not configured. Skipping Gemini categorization.");
-            return fallbackResults;
-        }
 
         if (items == null || items.isEmpty() || availableCategories == null || availableCategories.isEmpty()) {
             return fallbackResults;
@@ -74,39 +64,27 @@ public class GeminiCategorizer {
 
             String prompt = promptBuilder.toString();
 
-            // Build request JSON structure matching GeminiExtractor
-            ObjectNode requestJson = objectMapper.createObjectNode();
-            ObjectNode contentPart = objectMapper.createObjectNode().put("text", prompt);
-            requestJson.putArray("contents")
-                    .addObject()
-                    .putArray("parts")
-                    .add(contentPart);
-
-            ObjectNode generationConfig = objectMapper.createObjectNode();
-            generationConfig.put("responseMimeType", "application/json");
-            generationConfig.put("temperature", 0.0);
-
-            // responseSchema
+            // responseSchema in standard JSON Schema (lowercase types)
             ObjectNode schema = objectMapper.createObjectNode();
-            schema.put("type", "OBJECT");
+            schema.put("type", "object");
 
             ObjectNode schemaProperties = schema.putObject("properties");
             ObjectNode resultsSchema = schemaProperties.putObject("results");
-            resultsSchema.put("type", "ARRAY");
+            resultsSchema.put("type", "array");
 
             ObjectNode itemSchema = resultsSchema.putObject("items");
-            itemSchema.put("type", "OBJECT");
+            itemSchema.put("type", "object");
             ObjectNode itemProperties = itemSchema.putObject("properties");
 
-            itemProperties.putObject("index").put("type", "INTEGER");
-            itemProperties.putObject("merchantKey").put("type", "STRING");
-            itemProperties.putObject("displayName").put("type", "STRING");
+            itemProperties.putObject("index").put("type", "integer");
+            itemProperties.putObject("merchantKey").put("type", "string");
+            itemProperties.putObject("displayName").put("type", "string");
 
             ObjectNode categoryNamesSchema = itemProperties.putObject("categoryNames");
-            categoryNamesSchema.put("type", "ARRAY");
-            categoryNamesSchema.putObject("items").put("type", "STRING");
+            categoryNamesSchema.put("type", "array");
+            categoryNamesSchema.putObject("items").put("type", "string");
 
-            itemProperties.putObject("noFit").put("type", "BOOLEAN");
+            itemProperties.putObject("noFit").put("type", "boolean");
 
             itemSchema.putArray("required")
                     .add("index")
@@ -116,38 +94,11 @@ public class GeminiCategorizer {
 
             schema.putArray("required").add("results");
 
-            generationConfig.set("responseSchema", schema);
-            requestJson.set("generationConfig", generationConfig);
-
-            String requestBody = objectMapper.writeValueAsString(requestJson);
-            String url = String.format(
-                    "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent?key=%s",
-                    geminiProperties.getModel(), apiKey
-            );
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .header("Content-Type", "application/json")
-                    .timeout(Duration.ofMillis(geminiProperties.getTimeout() != null ? geminiProperties.getTimeout() : 30000))
-                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .build();
+            LlmRequest request = new LlmRequest("categorize", prompt, schema, 0.0);
 
             log.info("Calling Gemini API to categorize batch of {} items", items.size());
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() != 200) {
-                log.error("Gemini API returned error code {}: {}", response.statusCode(), response.body());
-                return fallbackResults;
-            }
-
-            JsonNode responseJson = objectMapper.readTree(response.body());
-            JsonNode textNode = responseJson.at("/candidates/0/content/parts/0/text");
-            if (textNode.isMissingNode()) {
-                log.error("No text found in Gemini response: {}", response.body());
-                return fallbackResults;
-            }
-
-            String jsonText = textNode.asText();
+            LlmResponse response = llmClient.complete(request);
+            String jsonText = response.jsonText();
             log.debug("Gemini returned JSON text: {}", jsonText);
 
             JsonNode resultsNode = objectMapper.readTree(jsonText).get("results");
@@ -163,6 +114,9 @@ public class GeminiCategorizer {
             }
             return results;
 
+        } catch (LlmException e) {
+            log.warn("LLM categorization unavailable: {}", e.getMessage());
+            return fallbackResults;
         } catch (Exception e) {
             log.error("Failed to categorize transactions using Gemini", e);
             return fallbackResults;

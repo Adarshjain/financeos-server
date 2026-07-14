@@ -21,7 +21,7 @@ public class CategorizationService {
     private final CategoryRepository categoryRepository;
     private final TransactionRepository transactionRepository;
     private final UserRepository userRepository;
-    private final GeminiCategorizer geminiCategorizer;
+    private final TransactionCategorizer transactionCategorizer;
     private final ReviewStatusManager reviewStatusManager;
     private final CategorizationService self;
 
@@ -34,14 +34,14 @@ public class CategorizationService {
                                  CategoryRepository categoryRepository,
                                  TransactionRepository transactionRepository,
                                  UserRepository userRepository,
-                                 GeminiCategorizer geminiCategorizer,
+                                 TransactionCategorizer transactionCategorizer,
                                  ReviewStatusManager reviewStatusManager,
                                  @Lazy CategorizationService self) {
         this.categoryRuleRepository = categoryRuleRepository;
         this.categoryRepository = categoryRepository;
         this.transactionRepository = transactionRepository;
         this.userRepository = userRepository;
-        this.geminiCategorizer = geminiCategorizer;
+        this.transactionCategorizer = transactionCategorizer;
         this.reviewStatusManager = reviewStatusManager;
         this.self = self != null ? self : this;
     }
@@ -164,7 +164,7 @@ public class CategorizationService {
         List<CategoryRule> rules = categoryRuleRepository.findByUserId(userId);
 
         Map<Integer, UUID> ruleMatchesByIndex = new HashMap<>();
-        List<GeminiCategorizer.CategorizeItemRequest> llmBatchRequests = new ArrayList<>();
+        List<TransactionCategorizer.CategorizeItemRequest> llmBatchRequests = new ArrayList<>();
 
         for (int i = 0; i < txns.size(); i++) {
             Transaction txn = txns.get(i);
@@ -177,14 +177,14 @@ public class CategorizationService {
             if (matchingRule.isPresent()) {
                 ruleMatchesByIndex.put(i, matchingRule.get().getId());
             } else {
-                llmBatchRequests.add(new GeminiCategorizer.CategorizeItemRequest(i, description));
+                llmBatchRequests.add(new TransactionCategorizer.CategorizeItemRequest(i, description));
             }
         }
 
-        List<GeminiCategorizer.CategorizeItemResponse> llmResponses = List.of();
+        List<TransactionCategorizer.CategorizeItemResponse> llmResponses = List.of();
         if (!llmBatchRequests.isEmpty()) {
             List<String> categoryNames = userCategories.stream().map(Category::getName).toList();
-            llmResponses = geminiCategorizer.categorize(llmBatchRequests, categoryNames);
+            llmResponses = transactionCategorizer.categorize(llmBatchRequests, categoryNames);
         }
 
         self.applyCategorizationResults(txns, userCategories, userId, ruleMatchesByIndex, llmBatchRequests, llmResponses);
@@ -205,8 +205,8 @@ public class CategorizationService {
                                            List<Category> userCategories,
                                            UUID userId,
                                            Map<Integer, UUID> ruleMatchesByIndex,
-                                           List<GeminiCategorizer.CategorizeItemRequest> llmBatchRequests,
-                                           List<GeminiCategorizer.CategorizeItemResponse> llmResponses) {
+                                           List<TransactionCategorizer.CategorizeItemRequest> llmBatchRequests,
+                                           List<TransactionCategorizer.CategorizeItemResponse> llmResponses) {
         if (userCategories.isEmpty()) {
             log.info("User has zero categories. Flagging all transactions with CATEGORY_UNVERIFIED.");
             for (Transaction txn : txns) {
@@ -246,10 +246,10 @@ public class CategorizationService {
         }
 
         if (!llmBatchRequests.isEmpty()) {
-            for (GeminiCategorizer.CategorizeItemRequest req : llmBatchRequests) {
+            for (TransactionCategorizer.CategorizeItemRequest req : llmBatchRequests) {
                 Transaction txn = txns.get(req.index());
 
-                GeminiCategorizer.CategorizeItemResponse res = llmResponses.stream()
+                TransactionCategorizer.CategorizeItemResponse res = llmResponses.stream()
                         .filter(r -> r.index() != null && r.index() == req.index())
                         .findFirst()
                         .orElse(null);
@@ -323,10 +323,10 @@ public class CategorizationService {
             }
 
             List<String> categoryNames = userCategories.stream().map(Category::getName).toList();
-            List<GeminiCategorizer.CategorizeItemResponse> responses = geminiCategorizer.categorize(
-                    List.of(new GeminiCategorizer.CategorizeItemRequest(0, description)), categoryNames);
+            List<TransactionCategorizer.CategorizeItemResponse> responses = transactionCategorizer.categorize(
+                    List.of(new TransactionCategorizer.CategorizeItemRequest(0, description)), categoryNames);
 
-            GeminiCategorizer.CategorizeItemResponse res = responses.stream().findFirst().orElse(null);
+            TransactionCategorizer.CategorizeItemResponse res = responses.stream().findFirst().orElse(null);
             if (res == null || Boolean.TRUE.equals(res.noFit()) || res.categoryNames() == null || res.categoryNames().isEmpty()) {
                 return new SuggestionResult(Set.of(), null, false);
             }
