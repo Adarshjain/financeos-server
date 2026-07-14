@@ -1,6 +1,7 @@
 #!/bin/bash
 # FinanceOS Backend Runner
 # Usage: ./run.sh
+#        DEBUG=1 ./run.sh   (starts with JDWP debugger on port 5005)
 
 # Change to script directory
 cd "$(dirname "$0")"
@@ -52,5 +53,10 @@ echo ""
 # Ensure mvnw is executable
 chmod +x mvnw 2>/dev/null
 
-./mvnw spring-boot:run
+if [ -n "$DEBUG" ]; then
+    echo "🐛 Debug mode: JDWP listening on port 5005"
+    ./mvnw spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+else
+    ./mvnw spring-boot:run
+fi
 
