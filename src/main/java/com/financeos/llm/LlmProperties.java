@@ -39,6 +39,7 @@ public class LlmProperties {
         private String structuredOutput = "json-schema";
         private boolean allowNoKey = false;
         private Map<String, String> headers = new HashMap<>();
+        private int batchSize = 50;
     }
 
     @Getter
