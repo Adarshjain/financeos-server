@@ -111,4 +111,46 @@ class AccountServiceTest {
         assertThrows(ValidationException.class, () -> accountService.deleteAccount(accountId));
         verify(accountRepository, never()).delete(any());
     }
+
+    @Test
+    void calculateBalanceInfo_noRepo_fallbackOpeningBalance() {
+        UUID userId = UUID.randomUUID();
+        UUID accountId = UUID.randomUUID();
+        UserContext.setCurrentUserId(userId);
+
+        User user = new User();
+        user.setId(userId);
+
+        Account account = new Account("My Bank", AccountType.bank_account);
+        account.setId(accountId);
+        account.setUser(user);
+        AccountBankDetails details = new AccountBankDetails(account, java.math.BigDecimal.valueOf(500), "1234", null);
+        account.setBankDetails(details);
+
+        com.financeos.api.account.dto.AccountBalanceInfo info = accountService.calculateBalanceInfo(account);
+        assertNotNull(info);
+        assertEquals(java.math.BigDecimal.valueOf(500), info.anchoredBalance());
+        assertNull(info.anchorStatementId());
+        assertEquals(0, info.unreconciledTransactionCount());
+    }
+
+    @Test
+    void getCardCycleSummary_notCreditCard_returnsEmpty() {
+        UUID userId = UUID.randomUUID();
+        UUID accountId = UUID.randomUUID();
+        UserContext.setCurrentUserId(userId);
+
+        User user = new User();
+        user.setId(userId);
+
+        Account account = new Account("My Bank", AccountType.bank_account);
+        account.setId(accountId);
+        account.setUser(user);
+
+        when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
+
+        com.financeos.api.account.dto.CardCycleSummaryResponse summary = accountService.getCardCycleSummary(accountId);
+        assertNotNull(summary);
+        assertNull(summary.statementId());
+    }
 }

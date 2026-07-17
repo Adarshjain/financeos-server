@@ -24,14 +24,14 @@ public class AccountController {
     @PostMapping
     public ResponseEntity<AccountResponse> createAccount(@Valid @RequestBody CreateAccountRequest request) {
         Account account = accountService.createAccount(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(AccountResponse.from(account));
+        return ResponseEntity.status(HttpStatus.CREATED).body(accountService.toResponse(account));
     }
 
     @GetMapping
     public ResponseEntity<List<AccountResponse>> getAllAccounts() {
         List<Account> accounts = accountService.getAllAccounts();
         List<AccountResponse> response = accounts.stream()
-                .map(AccountResponse::from)
+                .map(accountService::toResponse)
                 .toList();
         return ResponseEntity.ok(response);
     }
@@ -39,7 +39,13 @@ public class AccountController {
     @GetMapping("/{id}")
     public ResponseEntity<AccountResponse> getAccountById(@PathVariable UUID id) {
         Account account = accountService.getAccountById(id);
-        return ResponseEntity.ok(AccountResponse.from(account));
+        return ResponseEntity.ok(accountService.toResponse(account));
+    }
+
+    @GetMapping("/{id}/card-summary")
+    public ResponseEntity<CardCycleSummaryResponse> getCardCycleSummary(@PathVariable UUID id) {
+        CardCycleSummaryResponse summary = accountService.getCardCycleSummary(id);
+        return ResponseEntity.ok(summary);
     }
 
     @PutMapping("/{id}")
@@ -47,7 +53,7 @@ public class AccountController {
             @PathVariable UUID id,
             @Valid @RequestBody CreateAccountRequest request) {
         Account account = accountService.updateAccount(id, request);
-        return ResponseEntity.ok(AccountResponse.from(account));
+        return ResponseEntity.ok(accountService.toResponse(account));
     }
 
     @DeleteMapping("/{id}")
