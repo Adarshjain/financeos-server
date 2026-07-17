@@ -11,7 +11,6 @@ import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
-import com.financeos.gmail.ingest.GmailIngestProperties;
 import com.financeos.gmail.reconcile.ParsedStatementLine;
 import com.financeos.gmail.reconcile.StatementExtractionResult;
 import com.financeos.gmail.reconcile.StatementParser;
@@ -45,7 +44,6 @@ public class FileIngestionService {
     private final StatementParser statementParser;
     private final FileIngestionDbHandler dbHandler;
     private final TransactionMatcher transactionMatcher;
-    private final GmailIngestProperties ingestProperties;
     private final ReviewStatusManager reviewStatusManager;
     private final CategorizationService categorizationService;
     private final StatementPersistenceService statementPersistenceService;
@@ -55,7 +53,6 @@ public class FileIngestionService {
                                 StatementParser statementParser,
                                 FileIngestionDbHandler dbHandler,
                                 TransactionMatcher transactionMatcher,
-                                GmailIngestProperties ingestProperties,
                                 ReviewStatusManager reviewStatusManager,
                                 CategorizationService categorizationService,
                                 StatementPersistenceService statementPersistenceService) {
@@ -64,7 +61,6 @@ public class FileIngestionService {
         this.statementParser = statementParser;
         this.dbHandler = dbHandler;
         this.transactionMatcher = transactionMatcher;
-        this.ingestProperties = ingestProperties;
         this.reviewStatusManager = reviewStatusManager;
         this.categorizationService = categorizationService;
         this.statementPersistenceService = statementPersistenceService;
