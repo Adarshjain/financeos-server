@@ -2,6 +2,9 @@ package com.financeos.gmail.reconcile;
 
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.statement.Statement;
+import com.financeos.domain.statement.StatementPersistenceService;
+import com.financeos.domain.statement.StatementSource;
 import com.financeos.domain.transaction.ReviewType;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
@@ -51,6 +54,7 @@ public class StatementReconciliationService {
     private final com.financeos.gmail.ingest.AccountResolver accountResolver;
     private final TransactionMatcher transactionMatcher;
     private final ReviewStatusManager reviewStatusManager;
+    private final StatementPersistenceService statementPersistenceService;
 
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
@@ -60,7 +64,8 @@ public class StatementReconciliationService {
                                           AccountRepository accountRepository,
                                           com.financeos.gmail.ingest.AccountResolver accountResolver,
                                           TransactionMatcher transactionMatcher,
-                                          ReviewStatusManager reviewStatusManager) {
+                                          ReviewStatusManager reviewStatusManager,
+                                          StatementPersistenceService statementPersistenceService) {
         this.gmailEngine = gmailEngine;
         this.statementParser = statementParser;
         this.transactionRepository = transactionRepository;
@@ -70,6 +75,7 @@ public class StatementReconciliationService {
         this.accountResolver = accountResolver;
         this.transactionMatcher = transactionMatcher;
         this.reviewStatusManager = reviewStatusManager;
+        this.statementPersistenceService = statementPersistenceService;
     }
 
 
@@ -140,25 +146,11 @@ public class StatementReconciliationService {
             }
         }
 
-        // 3. Extract text content
-        String text;
-        try {
-            if (filename.endsWith(".pdf")) {
-                text = statementParser.extractTextFromPdf(chosenBytes, correctPassword);
-            } else {
-                text = statementParser.extractTextFromExcel(chosenBytes, correctPassword);
-            }
-        } catch (Exception e) {
-            log.error("Failed to extract text from attachment", e);
-            recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED, "Failed to extract text: " + e.getMessage());
-            return new ReconSummary(0, 0, 1);
-        }
-
-        // 4. Parse content with Gemini statement model
-        StatementExtractionResult result = statementParser.parse(text);
+        // 3. Parse content with the statement parser
+        StatementExtractionResult result = statementParser.parse(chosenBytes, correctPassword);
         if (!result.success()) {
-            log.error("Gemini failed to parse statement: {}", result.failureReason());
-            recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED, "Gemini parse failed: " + result.failureReason());
+            log.error("Statement parse failed: {}", result.failureReason());
+            recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED, "Statement parse failed: " + result.failureReason());
             return new ReconSummary(0, 0, 1);
         }
 
@@ -170,12 +162,12 @@ public class StatementReconciliationService {
             return new ReconSummary(0, 0, 0);
         }
 
-        // 5. Confirm/resolve account
+        // 4. Confirm/resolve account
         Account resolvedAccount = null;
-        String statementLast4 = result.accountLast4();
+        String statementAccountNumber = result.accountNumber();
 
-        // Resolve by statement's last-4 using exactly-one rule (via AccountResolver)
-        Account last4ResolvedAccount = accountResolver.resolve(statementLast4).orElse(null);
+        // Resolve by statement's account number using exactly-one rule (via AccountResolver)
+        Account last4ResolvedAccount = accountResolver.resolve(statementAccountNumber).orElse(null);
 
 
         if (candidateAccount != null) {
@@ -186,8 +178,7 @@ public class StatementReconciliationService {
                 candidateLast4 = candidateAccount.getCreditCardDetails().getLast4();
             }
 
-            if (candidateLast4 != null && statementLast4 != null
-                    && candidateLast4.trim().equalsIgnoreCase(statementLast4.trim())) {
+            if (statementNumberMatches(statementAccountNumber, candidateLast4)) {
                 resolvedAccount = candidateAccount;
             } else {
                 resolvedAccount = last4ResolvedAccount;
@@ -197,10 +188,20 @@ public class StatementReconciliationService {
         }
 
         if (resolvedAccount == null) {
-            log.error("Could not resolve account for statement (last4: {}). Ingestion failed.", statementLast4);
+            log.error("Could not resolve account for statement (accountNumber: {}). Ingestion failed.", statementAccountNumber);
             recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED,
-                    "Failed to resolve account for statement last4: " + statementLast4);
+                    "Failed to resolve account for statement accountNumber: " + statementAccountNumber);
             return new ReconSummary(0, 0, 1);
+        }
+
+        // 5. Create statement record if not a duplicate (before watermark filtering / matching)
+        Optional<Statement> stmt = statementPersistenceService.createIfNew(connection.getUser(), resolvedAccount,
+                StatementSource.gmail, message.messageId(), StatementPersistenceService.sha256Hex(chosenBytes), result.draft());
+        if (stmt.isEmpty()) {
+            log.info("Statement already ingested for account {} (message {})", resolvedAccount.getId(), message.messageId());
+            updateLastStatementDate(resolvedAccount, result);
+            recordLedger(connection, message.messageId(), GmailProcessedStatus.RECONCILED, null);
+            return new ReconSummary(0, 0, 0);
         }
 
         // 6. Watermark gate check: drop lines dated before the account watermark (if account resolved)
@@ -219,6 +220,7 @@ public class StatementReconciliationService {
         int matchedCount = 0;
         int createdCount = 0;
         List<Transaction> createdTxns = new ArrayList<>();
+        List<StatementPersistenceService.TxnLink> links = new ArrayList<>();
 
         if (resolvedAccount != null) {
             // Find min and max dates of the lines to define query window
@@ -254,6 +256,7 @@ public class StatementReconciliationService {
                 Transaction seamMatch = transactionMatcher.findBestMatch(line, alreadyMatchedTxns, dateWindow, consumedTxnIds);
                 if (seamMatch != null) {
                     consumedTxnIds.add(seamMatch.getId());
+                    links.add(new StatementPersistenceService.TxnLink(seamMatch.getId(), i, line.balance(), line.chainValid()));
                     continue;
                 }
 
@@ -264,6 +267,7 @@ public class StatementReconciliationService {
                     reviewStatusManager.clearReason(alertMatch, ReviewReason.UNRECONCILED, ReviewType.AUTO_REVIEWED);
                     transactionRepository.save(alertMatch);
                     matchedCount++;
+                    links.add(new StatementPersistenceService.TxnLink(alertMatch.getId(), i, line.balance(), line.chainValid()));
                 } else {
                     // No match found -> materialize as a new gmail_statement transaction
                     String sourceMsgId = String.format("%s:%d", message.messageId(), i);
@@ -285,6 +289,7 @@ public class StatementReconciliationService {
                         transactionRepository.save(statementTxn);
                         createdCount++;
                         createdTxns.add(statementTxn);
+                        links.add(new StatementPersistenceService.TxnLink(statementTxn.getId(), i, line.balance(), line.chainValid()));
                     }
                 }
             }
@@ -313,6 +318,10 @@ public class StatementReconciliationService {
                     createdTxns.add(statementTxn);
                 }
             }
+        }
+
+        if (stmt.isPresent()) {
+            statementPersistenceService.linkTransactions(stmt.get().getId(), links);
         }
 
         // Record successful reconciliation run in the ledger
@@ -386,6 +395,18 @@ public class StatementReconciliationService {
 
 
 
+    private boolean statementNumberMatches(String parsedNumber, String fragment) {
+        if (parsedNumber == null || fragment == null) {
+            return false;
+        }
+        String normalizedNumber = parsedNumber.trim().replaceAll("\\s+", "").toLowerCase();
+        String normalizedFragment = fragment.trim().replaceAll("\\s+", "").toLowerCase();
+        if (normalizedNumber.isEmpty() || normalizedFragment.isEmpty()) {
+            return false;
+        }
+        return normalizedNumber.contains(normalizedFragment);
+    }
+
     private String getStatementPassword(Account account) {
         if (account.getCreditCardDetails() != null) {
             return account.getCreditCardDetails().getStatementPassword();
@@ -416,14 +437,7 @@ public class StatementReconciliationService {
         if (account == null) {
             return;
         }
-        LocalDate effectiveEnd = null;
-        if (result.statementPeriodEnd() != null && !result.statementPeriodEnd().trim().isEmpty()) {
-            try {
-                effectiveEnd = LocalDate.parse(result.statementPeriodEnd().trim());
-            } catch (Exception e) {
-                log.warn("Failed to parse statementPeriodEnd '{}' as date, falling back to max line date", result.statementPeriodEnd(), e);
-            }
-        }
+        LocalDate effectiveEnd = result.periodEnd();
         if (effectiveEnd == null) {
             log.warn("Statement period end missing or invalid; falling back to max line date");
             effectiveEnd = result.lines().stream()
