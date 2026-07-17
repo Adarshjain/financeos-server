@@ -36,6 +36,9 @@ public class AccountResolver {
             if (cleanExt.startsWith(cleanDb) || cleanDb.startsWith(cleanExt)) {
                 return true;
             }
+            if (cleanExt.toLowerCase().contains(cleanDb.toLowerCase()) || cleanDb.toLowerCase().contains(cleanExt.toLowerCase())) {
+                return true;
+            }
         }
         return false;
     }

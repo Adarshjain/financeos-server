@@ -12,7 +12,12 @@ import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.ingest.GmailIngestProperties;
+import com.financeos.gmail.reconcile.ParsedStatementLine;
+import com.financeos.gmail.reconcile.StatementExtractionResult;
 import com.financeos.gmail.reconcile.StatementParser;
+import com.financeos.domain.statement.Statement;
+import com.financeos.domain.statement.StatementPersistenceService;
+import com.financeos.domain.statement.StatementSource;
 import com.financeos.domain.transaction.ReviewStatusManager;
 import com.financeos.domain.transaction.ReviewReason;
 import com.financeos.domain.categorization.CategorizationService;
@@ -20,10 +25,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -39,6 +48,7 @@ public class FileIngestionService {
     private final GmailIngestProperties ingestProperties;
     private final ReviewStatusManager reviewStatusManager;
     private final CategorizationService categorizationService;
+    private final StatementPersistenceService statementPersistenceService;
 
     public FileIngestionService(AccountRepository accountRepository,
                                 UserRepository userRepository,
@@ -47,7 +57,8 @@ public class FileIngestionService {
                                 TransactionMatcher transactionMatcher,
                                 GmailIngestProperties ingestProperties,
                                 ReviewStatusManager reviewStatusManager,
-                                CategorizationService categorizationService) {
+                                CategorizationService categorizationService,
+                                StatementPersistenceService statementPersistenceService) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.statementParser = statementParser;
@@ -56,7 +67,10 @@ public class FileIngestionService {
         this.ingestProperties = ingestProperties;
         this.reviewStatusManager = reviewStatusManager;
         this.categorizationService = categorizationService;
+        this.statementPersistenceService = statementPersistenceService;
     }
+
+    private record PendingLink(Transaction txn, UUID statementId, int lineIndex, BigDecimal balanceAfter, Boolean chainValid) {}
 
     public FileIngestionResult ingest(UUID accountId, List<MultipartFile> files) {
         // Read account (this does not need a long-lived transaction)
@@ -84,9 +98,10 @@ public class FileIngestionService {
         int filesProcessed = 0;
         List<Transaction> newTransactionsToInsert = new ArrayList<>();
         List<FileIngestionResult.FileSummary> fileDetails = new ArrayList<>();
+        List<PendingLink> pendingLinks = new ArrayList<>();
         LocalDate maxEffectiveEnd = null;
 
-        // Loop over files to parse them (Gemini I/O runs here outside the write transaction)
+        // Loop over files to parse them (statement parsing runs here outside the write transaction)
         for (MultipartFile file : files) {
             String filename = file.getOriginalFilename();
             if (filename == null || filename.isBlank()) {
@@ -100,61 +115,45 @@ public class FileIngestionService {
                     continue;
                 }
 
-                String filenameLower = filename.toLowerCase();
-                String textContent = null;
-
-                if (filenameLower.endsWith(".pdf")) {
-                    try {
-                        // Attempt to extract without a password first
-                        textContent = statementParser.extractTextFromPdf(bytes, null);
-                    } catch (org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException e) {
-                        // Fallback to password decrypt check if configured
-                        if (password == null || password.trim().isEmpty()) {
-                            throw new ValidationException("File is password-protected, but no statement password is configured for this account.");
-                        }
-                        try {
-                            textContent = statementParser.extractTextFromPdf(bytes, password);
-                        } catch (Exception ex) {
-                            throw new ValidationException("Failed to decrypt PDF statement with the configured password: " + ex.getMessage());
-                        }
-                    }
-                } else if (filenameLower.endsWith(".xlsx") || filenameLower.endsWith(".xls")) {
-                    try {
-                        // Attempt to extract without a password first
-                        textContent = statementParser.extractTextFromExcel(bytes, null);
-                    } catch (org.apache.poi.EncryptedDocumentException e) {
-                        // Fallback to password decrypt check if configured
-                        if (password == null || password.trim().isEmpty()) {
-                            throw new ValidationException("File is password-protected, but no statement password is configured for this account.");
-                        }
-                        try {
-                            textContent = statementParser.extractTextFromExcel(bytes, password);
-                        } catch (Exception ex) {
-                            throw new ValidationException("Failed to decrypt Excel statement with the configured password: " + ex.getMessage());
-                        }
-                    }
-                } else {
-                    throw new ValidationException("Unsupported file type. Only PDF and Excel files are supported.");
-                }
-
-                com.financeos.gmail.reconcile.StatementExtractionResult parseResult = statementParser.parse(textContent);
+                StatementExtractionResult parseResult = statementParser.parse(bytes, password);
                 if (!parseResult.success()) {
-                    throw new ValidationException("Failed to parse statement using Gemini: " + parseResult.failureReason());
+                    fileDetails.add(new FileIngestionResult.FileSummary(filename, "FAILED", 0, parseResult.failureReason()));
+                    continue;
                 }
 
-                LocalDate effectiveEnd = null;
-                if (parseResult.statementPeriodEnd() != null && !parseResult.statementPeriodEnd().trim().isEmpty()) {
-                    try {
-                        effectiveEnd = LocalDate.parse(parseResult.statementPeriodEnd().trim());
-                    } catch (Exception e) {
-                        log.warn("Failed to parse statementPeriodEnd '{}' as date for file {}, falling back to max line date",
-                                parseResult.statementPeriodEnd(), filename, e);
+                List<ParsedStatementLine> lines = parseResult.lines();
+                if (lines == null || lines.isEmpty()) {
+                    fileDetails.add(new FileIngestionResult.FileSummary(filename, "SUCCESS", 0, "No transactions found"));
+                    filesProcessed++;
+                    continue;
+                }
+
+                Optional<Statement> stmt = statementPersistenceService.createIfNew(user, account, StatementSource.file_upload,
+                        filename, StatementPersistenceService.sha256Hex(bytes), parseResult.draft());
+                if (stmt.isEmpty()) {
+                    fileDetails.add(new FileIngestionResult.FileSummary(filename, "SKIPPED", 0, "Statement already ingested (same period or file)"));
+                    filesProcessed++;
+                    continue;
+                }
+
+                String fileMessage = null;
+                String fragment = account.getBankDetails() != null ? account.getBankDetails().getLast4()
+                        : account.getCreditCardDetails() != null ? account.getCreditCardDetails().getLast4() : null;
+                if (parseResult.accountNumber() != null && fragment != null) {
+                    String normalizedNumber = parseResult.accountNumber().replaceAll("\\s+", "").toLowerCase();
+                    String normalizedFragment = fragment.replaceAll("\\s+", "").toLowerCase();
+                    if (!normalizedNumber.contains(normalizedFragment)) {
+                        log.warn("Statement account number '{}' does not match account {} (file {})",
+                                parseResult.accountNumber(), account.getId(), filename);
+                        fileMessage = "Warning: statement account number does not match this account";
                     }
                 }
+
+                LocalDate effectiveEnd = parseResult.periodEnd();
                 if (effectiveEnd == null) {
-                    log.warn("Statement period end missing or invalid in file {}; falling back to max line date", filename);
-                    effectiveEnd = parseResult.lines().stream()
-                            .map(com.financeos.gmail.reconcile.ParsedStatementLine::date)
+                    log.warn("Statement period end missing in file {}; falling back to max line date", filename);
+                    effectiveEnd = lines.stream()
+                            .map(ParsedStatementLine::date)
                             .max(LocalDate::compareTo)
                             .orElse(null);
                 }
@@ -164,14 +163,9 @@ public class FileIngestionService {
                     }
                 }
 
-                List<com.financeos.gmail.reconcile.ParsedStatementLine> lines = parseResult.lines();
-                if (lines == null || lines.isEmpty()) {
-                    fileDetails.add(new FileIngestionResult.FileSummary(filename, "SUCCESS", 0, "No transactions found"));
-                    filesProcessed++;
-                    continue;
-                }
-
-                for (com.financeos.gmail.reconcile.ParsedStatementLine line : lines) {
+                UUID statementId = stmt.get().getId();
+                for (int i = 0; i < lines.size(); i++) {
+                    ParsedStatementLine line = lines.get(i);
                     Transaction txn = new Transaction();
                     txn.setUser(user);
                     txn.setAccount(account);
@@ -185,9 +179,10 @@ public class FileIngestionService {
                     txn.setTransactionExcluded(false);
 
                     newTransactionsToInsert.add(txn);
+                    pendingLinks.add(new PendingLink(txn, statementId, i, line.balance(), line.chainValid()));
                 }
 
-                fileDetails.add(new FileIngestionResult.FileSummary(filename, "SUCCESS", lines.size(), null));
+                fileDetails.add(new FileIngestionResult.FileSummary(filename, "SUCCESS", lines.size(), fileMessage));
                 filesProcessed++;
 
             } catch (Exception e) {
@@ -244,6 +239,15 @@ public class FileIngestionService {
 
             // Persist changes inside a write transaction boundary
             dbHandler.saveTransactions(newTransactionsToInsert, new ArrayList<>(dbTxnsToUpdate));
+
+            Map<UUID, List<StatementPersistenceService.TxnLink>> linksByStatement = new HashMap<>();
+            for (PendingLink pl : pendingLinks) {
+                linksByStatement.computeIfAbsent(pl.statementId(), k -> new ArrayList<>())
+                        .add(new StatementPersistenceService.TxnLink(pl.txn().getId(), pl.lineIndex(), pl.balanceAfter(), pl.chainValid()));
+            }
+            for (Map.Entry<UUID, List<StatementPersistenceService.TxnLink>> entry : linksByStatement.entrySet()) {
+                statementPersistenceService.linkTransactions(entry.getKey(), entry.getValue());
+            }
         }
 
         if (maxEffectiveEnd != null) {

@@ -8,5 +8,6 @@ public record ParsedStatementLine(
     BigDecimal amount,
     String direction, // "DEBIT" or "CREDIT"
     String description,
-    BigDecimal balance
+    BigDecimal balance,
+    Boolean chainValid
 ) {}
