@@ -68,13 +68,7 @@ public class FailoverLlmClient implements LlmClient {
             throw new LlmException(LlmException.Kind.FATAL, "none", null, null, "No LLM chain configured for task: " + task);
         }
 
-        List<String> eligibleChain = new ArrayList<>();
-        for (String id : rawChain) {
-            String trimmed = id.trim();
-            if (!trimmed.isEmpty() && isEligible(trimmed)) {
-                eligibleChain.add(trimmed);
-            }
-        }
+        List<String> eligibleChain = buildEligibleChain(rawChain);
 
         if (eligibleChain.isEmpty()) {
             throw new LlmException(LlmException.Kind.FATAL, "none", null, null, "All providers in chain are skipped or have no API key for task: " + task);
@@ -152,6 +146,49 @@ public class FailoverLlmClient implements LlmClient {
         String chainMessage = "All providers failed for task '" + task + "': " + String.join("; ", failureMessages);
         throw new LlmException(LlmException.Kind.FATAL, "chain", null, null,
                 LlmHttpSupport.truncate(chainMessage, 1500));
+    }
+
+    @Override
+    public int recommendedBatchSize(String task) {
+        String t = task != null ? task : "";
+        List<String> eligibleChain = buildEligibleChain(resolveChain(t));
+        if (eligibleChain.isEmpty()) {
+            return 50;
+        }
+
+        boolean allOpen = eligibleChain.stream().allMatch(this::isCircuitOpen);
+        for (String providerId : eligibleChain) {
+            if (!allOpen && isCircuitOpen(providerId)) {
+                continue;
+            }
+            if (providers.get(providerId) == null) {
+                continue;
+            }
+            return batchSizeOf(providerId);
+        }
+        return 50;
+    }
+
+    @Override
+    public int batchSizeOf(String providerId) {
+        if (properties != null && properties.getProviders() != null && properties.getProviders().containsKey(providerId)) {
+            LlmProperties.ProviderProperties prop = properties.getProviders().get(providerId);
+            if (prop != null) {
+                return prop.getBatchSize();
+            }
+        }
+        return 50;
+    }
+
+    private List<String> buildEligibleChain(List<String> rawChain) {
+        List<String> eligibleChain = new ArrayList<>();
+        for (String id : rawChain) {
+            String trimmed = id.trim();
+            if (!trimmed.isEmpty() && isEligible(trimmed)) {
+                eligibleChain.add(trimmed);
+            }
+        }
+        return eligibleChain;
     }
 
     private List<String> resolveChain(String task) {
