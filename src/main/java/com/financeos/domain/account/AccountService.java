@@ -4,19 +4,11 @@ import com.financeos.api.account.dto.*;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
-import com.financeos.domain.statement.Statement;
-import com.financeos.domain.statement.StatementRepository;
-import com.financeos.domain.transaction.Transaction;
-import com.financeos.domain.transaction.TransactionRepository;
-import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,25 +18,13 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
-    private final StatementRepository statementRepository;
-    private final TransactionRepository transactionRepository;
-
-    @Autowired
-    public AccountService(AccountRepository accountRepository,
-            UserRepository userRepository,
-            StatementRepository statementRepository,
-            TransactionRepository transactionRepository) {
-        this.accountRepository = accountRepository;
-        this.userRepository = userRepository;
-        this.statementRepository = statementRepository;
-        this.transactionRepository = transactionRepository;
-    }
 
     public AccountService(AccountRepository accountRepository,
             UserRepository userRepository) {
-        this(accountRepository, userRepository, null, null);
+        this.accountRepository = accountRepository;
+        this.userRepository = userRepository;
     }
-
+    
     public Account createAccount(CreateAccountRequest request) {
         UUID userId = UserContext.getCurrentUserId();
         User user = userRepository.getReferenceById(userId);
@@ -211,70 +191,5 @@ public class AccountService {
     public void deleteAccount(UUID id) {
         Account account = getAccountById(id); // Performs ownership check
         accountRepository.delete(account);
-    }
-
-    @Transactional(readOnly = true)
-    public AccountBalanceInfo calculateBalanceInfo(Account account) {
-        if (statementRepository == null || transactionRepository == null) {
-            BigDecimal baseBalance = BigDecimal.ZERO;
-            if (account.getType() == AccountType.bank_account && account.getBankDetails() != null && account.getBankDetails().getOpeningBalance() != null) {
-                baseBalance = account.getBankDetails().getOpeningBalance();
-            }
-            return new AccountBalanceInfo(baseBalance, null, null, 0);
-        }
-
-        List<Statement> statements = statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(account.getId());
-        Statement latestStatement = statements.isEmpty() ? null : statements.get(0);
-
-        List<Transaction> transactions;
-        if (latestStatement != null && latestStatement.getPeriodEnd() != null) {
-            transactions = transactionRepository.findByAccountIdAndDateAfter(account.getId(), latestStatement.getPeriodEnd());
-        } else {
-            transactions = transactionRepository.findAllByAccountId(account.getId());
-        }
-
-        BigDecimal baseBalance = BigDecimal.ZERO;
-        if (latestStatement != null && latestStatement.getClosingBalance() != null) {
-            baseBalance = latestStatement.getClosingBalance();
-        } else if (account.getType() == AccountType.bank_account && account.getBankDetails() != null && account.getBankDetails().getOpeningBalance() != null) {
-            baseBalance = account.getBankDetails().getOpeningBalance();
-        }
-
-        BigDecimal netFlow = BigDecimal.ZERO;
-        for (Transaction t : transactions) {
-            if (t.getAmount() != null) {
-                if (t.getType() == TransactionType.CREDIT) {
-                    netFlow = netFlow.add(t.getAmount());
-                } else if (t.getType() == TransactionType.DEBIT) {
-                    netFlow = netFlow.subtract(t.getAmount());
-                }
-            }
-        }
-
-        BigDecimal anchoredBalance = baseBalance.add(netFlow);
-        UUID anchorId = latestStatement != null ? latestStatement.getId() : null;
-        LocalDate anchorDate = latestStatement != null ? latestStatement.getPeriodEnd() : null;
-        int count = transactions.size();
-
-        return new AccountBalanceInfo(anchoredBalance, anchorId, anchorDate, count);
-    }
-
-    @Transactional(readOnly = true)
-    public CardCycleSummaryResponse getCardCycleSummary(UUID accountId) {
-        Account account = getAccountById(accountId);
-        if (account.getType() != AccountType.credit_card || statementRepository == null) {
-            return CardCycleSummaryResponse.empty();
-        }
-        List<Statement> statements = statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId);
-        if (statements.isEmpty()) {
-            return CardCycleSummaryResponse.empty();
-        }
-        return CardCycleSummaryResponse.from(statements.get(0));
-    }
-
-    @Transactional(readOnly = true)
-    public AccountResponse toResponse(Account account) {
-        AccountBalanceInfo info = calculateBalanceInfo(account);
-        return AccountResponse.from(account, info);
     }
 }

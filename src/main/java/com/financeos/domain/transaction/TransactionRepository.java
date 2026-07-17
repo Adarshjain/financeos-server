@@ -54,10 +54,4 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("endDate") LocalDate endDate);
 
     List<Transaction> findByAppliedRuleId(UUID appliedRuleId);
-
-    @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.date > :afterDate")
-    List<Transaction> findByAccountIdAndDateAfter(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
-
-    @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId")
-    List<Transaction> findAllByAccountId(@Param("accountId") UUID accountId);
 }
