@@ -81,9 +81,7 @@ public class OpenAiCompatProvider implements LlmProvider {
         }
 
         String modelName = properties.getModel() != null ? properties.getModel() : "unknown";
-        log.info("================================================================================");
-        log.info("Making API call to provider [{}] using model [{}]", id, modelName);
-        log.info("================================================================================");
+        log.info("Making API call to provider [{}], model [{}], task [{}]", id, modelName, request.task());
         HttpResponse<String> response = LlmHttpSupport.executeAndHandleExceptions(
                 () -> httpClient.send(requestBuilder.build(), HttpResponse.BodyHandlers.ofString()), id);
         return parseResponseBody(response.body(), response.statusCode(), LlmHttpSupport.parseRetryAfter(response), id, properties.getModel(), objectMapper);

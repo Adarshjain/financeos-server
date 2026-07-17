@@ -67,9 +67,7 @@ public class GeminiProvider implements LlmProvider {
                 .build();
 
         String modelName = properties.getModel() != null ? properties.getModel() : "gemini-2.5-flash-lite";
-        log.info("================================================================================");
-        log.info("Making API call to provider [{}] using model [{}]", id, modelName);
-        log.info("================================================================================");
+        log.info("Making API call to provider [{}], model [{}], task [{}]", id, modelName, request.task());
         HttpResponse<String> response = LlmHttpSupport.executeAndHandleExceptions(
                 () -> httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString()), id);
         return parseResponseBody(response.body(), response.statusCode(), LlmHttpSupport.parseRetryAfter(response), id, properties.getModel(), objectMapper);
