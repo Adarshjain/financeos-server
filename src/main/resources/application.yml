@@ -96,12 +96,6 @@ llm:
       model: ${GEMINI_MODEL:gemini-2.5-flash-lite}
       timeout-ms: ${GEMINI_TIMEOUT_MS:30000}
       batch-size: ${GEMINI_BATCH_SIZE:200}
-    gemini-statement:           # same key, statement model — used only by the task override
-      type: gemini
-      api-key: ${GEMINI_API_KEY:}
-      model: ${GEMINI_STATEMENT_MODEL:gemini-2.5-flash-lite}
-      timeout-ms: ${GEMINI_TIMEOUT_MS:30000}
-      batch-size: ${GEMINI_BATCH_SIZE:200}
     cerebras:
       type: openai
       base-url: https://api.cerebras.ai/v1
@@ -130,10 +124,6 @@ llm:
     #   base-url: http://<ampere-ip>:11434/v1
     #   allow-no-key: true
     #   model: qwen3:8b
-  tasks:
-    statement-parse:
-      chain: ${LLM_STATEMENT_CHAIN:gemini-statement,cerebras}   # large payloads; Groq's free
-                                                                 # TPM (~12k) can't fit them
 
 # Google SSO configuration
 google:
