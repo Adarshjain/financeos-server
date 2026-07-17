@@ -17,4 +17,19 @@ public record StatementLineResponse(
         ReviewType reviewType,
         BigDecimal balanceAfter,
         Boolean chainValid
-) {}
+) {
+    public static StatementLineResponse from(com.financeos.domain.statement.StatementLineProjection p) {
+        if (p == null) return null;
+        return new StatementLineResponse(
+                p.transactionId(),
+                p.lineIndex(),
+                p.date(),
+                p.description(),
+                p.amount(),
+                p.type(),
+                p.reviewType(),
+                p.balanceAfter(),
+                p.chainValid()
+        );
+    }
+}

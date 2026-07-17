@@ -18,4 +18,16 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
 
     @Query("SELECT s FROM Statement s WHERE s.account.id = :accountId ORDER BY s.periodEnd DESC NULLS LAST, s.createdAt DESC")
     List<Statement> findByAccountIdOrderByPeriodEndDescNullsLast(@Param("accountId") UUID accountId);
+
+    interface AnchorStatementProjection {
+        UUID getId();
+        LocalDate getPeriodEnd();
+        java.math.BigDecimal getClosingBalance();
+    }
+
+    @Query("SELECT s FROM Statement s JOIN FETCH s.creditCardDetails d WHERE s.account.id = :accountId AND s.statementType = 'credit_card' AND s.verdict != com.financeos.domain.statement.StatementVerdict.REJECTED ORDER BY s.periodEnd ASC NULLS LAST, s.createdAt ASC")
+    List<Statement> findQualifyingCreditCardStatements(@Param("accountId") UUID accountId);
+
+    @Query("SELECT s.id AS id, s.periodEnd AS periodEnd, s.closingBalance AS closingBalance FROM Statement s WHERE s.account.id = :accountId AND s.periodEnd IS NOT NULL AND s.closingBalance IS NOT NULL AND s.verdict != com.financeos.domain.statement.StatementVerdict.REJECTED ORDER BY s.periodEnd DESC, s.createdAt DESC")
+    List<AnchorStatementProjection> findEligibleAnchorStatements(@Param("accountId") UUID accountId, org.springframework.data.domain.Pageable pageable);
 }

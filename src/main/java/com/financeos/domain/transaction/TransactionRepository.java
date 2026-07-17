@@ -54,4 +54,20 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("endDate") LocalDate endDate);
 
     List<Transaction> findByAppliedRuleId(UUID appliedRuleId);
+
+    @Query("SELECT COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END), 0) FROM Transaction t WHERE t.account.id = :accountId")
+    java.math.BigDecimal findTotalTransactionSumByAccountId(@Param("accountId") UUID accountId);
+
+    @Query("SELECT COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END), 0) FROM Transaction t WHERE t.account.id = :accountId AND t.date > :afterDate")
+    java.math.BigDecimal findPostAnchorTransactionSumByAccountId(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
+
+    interface BalanceAggregatesProjection {
+        java.math.BigDecimal getTotalSum();
+        java.math.BigDecimal getPostAnchorSum();
+    }
+
+    @Query("SELECT COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END), 0) AS totalSum, " +
+           "COALESCE(SUM(CASE WHEN t.date > :afterDate THEN (CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END) ELSE 0 END), 0) AS postAnchorSum " +
+           "FROM Transaction t WHERE t.account.id = :accountId")
+    BalanceAggregatesProjection findBalanceAggregatesByAccountId(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
 }
