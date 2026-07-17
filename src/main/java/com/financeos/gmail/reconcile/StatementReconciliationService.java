@@ -33,12 +33,10 @@ import java.io.InputStream;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import com.financeos.domain.transaction.TransactionMatcher;
 import com.financeos.domain.transaction.ReviewStatusManager;
 import com.financeos.domain.transaction.ReviewReason;
-import java.util.ArrayList;
 
 @Service
 public class StatementReconciliationService {
@@ -204,8 +202,8 @@ public class StatementReconciliationService {
             return new ReconSummary(0, 0, 0);
         }
 
-        // 6. Watermark gate check: drop lines dated before the account watermark (if account resolved)
-        LocalDate watermark = resolvedAccount != null ? resolvedAccount.getIngestFromDate() : null;
+        // 6. Watermark gate check: drop lines dated before the account watermark
+        LocalDate watermark = resolvedAccount.getIngestFromDate();
         List<ParsedStatementLine> candidateLines = allLines.stream()
                 .filter(line -> watermark == null || !line.date().isBefore(watermark))
                 .toList();
@@ -222,87 +220,59 @@ public class StatementReconciliationService {
         List<Transaction> createdTxns = new ArrayList<>();
         List<StatementPersistenceService.TxnLink> links = new ArrayList<>();
 
-        if (resolvedAccount != null) {
-            // Find min and max dates of the lines to define query window
-            LocalDate minLineDate = candidateLines.stream().map(ParsedStatementLine::date).min(LocalDate::compareTo).get();
-            LocalDate maxLineDate = candidateLines.stream().map(ParsedStatementLine::date).max(LocalDate::compareTo).get();
+        // Find min and max dates of the lines to define query window
+        LocalDate minLineDate = candidateLines.stream().map(ParsedStatementLine::date).min(LocalDate::compareTo).get();
+        LocalDate maxLineDate = candidateLines.stream().map(ParsedStatementLine::date).max(LocalDate::compareTo).get();
 
-            int dateWindow = ingestProperties.getDateWindowDays();
-            LocalDate searchStart = minLineDate.minusDays(dateWindow);
-            LocalDate searchEnd = maxLineDate.plusDays(dateWindow);
+        int dateWindow = ingestProperties.getDateWindowDays();
+        LocalDate searchStart = minLineDate.minusDays(dateWindow);
+        LocalDate searchEnd = maxLineDate.plusDays(dateWindow);
 
-            // Fetch all transactions for this account in the window
-            List<Transaction> allPeriodTxns = transactionRepository.findByAccountIdAndDateRange(resolvedAccount.getId(), searchStart, searchEnd);
+        // Fetch all transactions for this account in the window
+        List<Transaction> allPeriodTxns = transactionRepository.findByAccountIdAndDateRange(resolvedAccount.getId(), searchStart, searchEnd);
 
-            // Separate NEEDS_REVIEW alerts from other transactions (AUTO_REVIEWED, manual, gmail_statement, etc.)
-            List<Transaction> alertsToPromote = new ArrayList<>();
-            List<Transaction> alreadyMatchedTxns = new ArrayList<>();
+        // Separate NEEDS_REVIEW alerts from other transactions (AUTO_REVIEWED, manual, gmail_statement, etc.)
+        List<Transaction> alertsToPromote = new ArrayList<>();
+        List<Transaction> alreadyMatchedTxns = new ArrayList<>();
 
-            for (Transaction t : allPeriodTxns) {
-                if (t.getSource() == TransactionSource.gmail_transaction_alert && t.getReviewType() == ReviewType.NEEDS_REVIEW) {
-                    alertsToPromote.add(t);
-                } else {
-                    alreadyMatchedTxns.add(t);
-                }
+        for (Transaction t : allPeriodTxns) {
+            if (t.getSource() == TransactionSource.gmail_transaction_alert && t.getReviewType() == ReviewType.NEEDS_REVIEW) {
+                alertsToPromote.add(t);
+            } else {
+                alreadyMatchedTxns.add(t);
+            }
+        }
+
+        Set<UUID> consumedTxnIds = new HashSet<>();
+
+        // Loop over candidate statement lines and match/reconcile
+        for (int i = 0; i < candidateLines.size(); i++) {
+            ParsedStatementLine line = candidateLines.get(i);
+
+            // Check if there is already a transaction matching this line (safety against seams)
+            Transaction seamMatch = transactionMatcher.findBestMatch(line, alreadyMatchedTxns, dateWindow, consumedTxnIds);
+            if (seamMatch != null) {
+                consumedTxnIds.add(seamMatch.getId());
+                links.add(new StatementPersistenceService.TxnLink(seamMatch.getId(), i, line.balance(), line.chainValid()));
+                continue;
             }
 
-            Set<UUID> consumedTxnIds = new HashSet<>();
-
-            // Loop over candidate statement lines and match/reconcile
-            for (int i = 0; i < candidateLines.size(); i++) {
-                ParsedStatementLine line = candidateLines.get(i);
-
-                // Check if there is already a transaction matching this line (safety against seams)
-                Transaction seamMatch = transactionMatcher.findBestMatch(line, alreadyMatchedTxns, dateWindow, consumedTxnIds);
-                if (seamMatch != null) {
-                    consumedTxnIds.add(seamMatch.getId());
-                    links.add(new StatementPersistenceService.TxnLink(seamMatch.getId(), i, line.balance(), line.chainValid()));
-                    continue;
-                }
-
-                // Try to match against NEEDS_REVIEW alerts to promote
-                Transaction alertMatch = transactionMatcher.findBestMatch(line, alertsToPromote, dateWindow, consumedTxnIds);
-                if (alertMatch != null) {
-                    consumedTxnIds.add(alertMatch.getId());
-                    reviewStatusManager.clearReason(alertMatch, ReviewReason.UNRECONCILED, ReviewType.AUTO_REVIEWED);
-                    transactionRepository.save(alertMatch);
-                    matchedCount++;
-                    links.add(new StatementPersistenceService.TxnLink(alertMatch.getId(), i, line.balance(), line.chainValid()));
-                } else {
-                    // No match found -> materialize as a new gmail_statement transaction
-                    String sourceMsgId = String.format("%s:%d", message.messageId(), i);
-                    boolean alreadyCreated = transactionRepository.existsBySourceMessageId(sourceMsgId);
-                    if (!alreadyCreated) {
-                        Transaction statementTxn = new Transaction();
-                        statementTxn.setUser(connection.getUser());
-                        statementTxn.setAccount(resolvedAccount);
-                        statementTxn.setDate(line.date());
-                        statementTxn.setAmount(line.amount().abs());
-                        statementTxn.setSourcedDescription(line.description());
-                        statementTxn.setSource(TransactionSource.gmail_statement);
-                        statementTxn.setType(TransactionType.fromLlmDirection(line.direction()));
-                        reviewStatusManager.addReason(statementTxn, ReviewReason.UNRECONCILED);
-                        statementTxn.setSourceMessageId(sourceMsgId);
-                        statementTxn.setTransactionUnderMonitoring(false);
-                        statementTxn.setTransactionExcluded(false);
-
-                        transactionRepository.save(statementTxn);
-                        createdCount++;
-                        createdTxns.add(statementTxn);
-                        links.add(new StatementPersistenceService.TxnLink(statementTxn.getId(), i, line.balance(), line.chainValid()));
-                    }
-                }
-            }
-        } else {
-            // account is null, we can't run matching or promote alerts, just write gmail_statement lines with account=null
-            for (int i = 0; i < candidateLines.size(); i++) {
-                ParsedStatementLine line = candidateLines.get(i);
+            // Try to match against NEEDS_REVIEW alerts to promote
+            Transaction alertMatch = transactionMatcher.findBestMatch(line, alertsToPromote, dateWindow, consumedTxnIds);
+            if (alertMatch != null) {
+                consumedTxnIds.add(alertMatch.getId());
+                reviewStatusManager.clearReason(alertMatch, ReviewReason.UNRECONCILED, ReviewType.AUTO_REVIEWED);
+                transactionRepository.save(alertMatch);
+                matchedCount++;
+                links.add(new StatementPersistenceService.TxnLink(alertMatch.getId(), i, line.balance(), line.chainValid()));
+            } else {
+                // No match found -> materialize as a new gmail_statement transaction
                 String sourceMsgId = String.format("%s:%d", message.messageId(), i);
                 boolean alreadyCreated = transactionRepository.existsBySourceMessageId(sourceMsgId);
                 if (!alreadyCreated) {
                     Transaction statementTxn = new Transaction();
                     statementTxn.setUser(connection.getUser());
-                    statementTxn.setAccount(null);
+                    statementTxn.setAccount(resolvedAccount);
                     statementTxn.setDate(line.date());
                     statementTxn.setAmount(line.amount().abs());
                     statementTxn.setSourcedDescription(line.description());
@@ -316,6 +286,7 @@ public class StatementReconciliationService {
                     transactionRepository.save(statementTxn);
                     createdCount++;
                     createdTxns.add(statementTxn);
+                    links.add(new StatementPersistenceService.TxnLink(statementTxn.getId(), i, line.balance(), line.chainValid()));
                 }
             }
         }
