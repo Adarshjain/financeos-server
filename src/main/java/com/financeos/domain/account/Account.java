@@ -73,6 +73,18 @@ public class Account {
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private AccountMutualFundDetails mutualFundDetails;
 
+    @Transient
+    private java.math.BigDecimal calculatedBalance;
+
+    @Transient
+    private Boolean balanceAnchored;
+
+    @Transient
+    private java.math.BigDecimal reconciliationGap;
+
+    @Transient
+    private LocalDate anchorDate;
+
     @PrePersist
     protected void onCreate() {
         Instant now = Instant.now();

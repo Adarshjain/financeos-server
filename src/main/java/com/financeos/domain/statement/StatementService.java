@@ -50,7 +50,10 @@ public class StatementService {
             cardDetails = StatementCardDetailsResponse.from(statement.getCreditCardDetails());
         }
 
-        List<StatementLineResponse> lines = statementTransactionRepository.findLinesByStatementId(statementId);
+        List<StatementLineResponse> lines = statementTransactionRepository.findLinesByStatementId(statementId)
+                .stream()
+                .map(StatementLineResponse::from)
+                .toList();
 
         return StatementDetailResponse.from(statement, cardDetails, lines);
     }

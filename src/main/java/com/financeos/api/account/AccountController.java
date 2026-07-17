@@ -42,6 +42,11 @@ public class AccountController {
         return ResponseEntity.ok(AccountResponse.from(account));
     }
 
+    @GetMapping("/{id}/card-summary")
+    public ResponseEntity<CardCycleSummaryResponse> getCardCycleSummary(@PathVariable UUID id) {
+        return ResponseEntity.ok(accountService.getCardCycleSummary(id));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<AccountResponse> updateAccount(
             @PathVariable UUID id,

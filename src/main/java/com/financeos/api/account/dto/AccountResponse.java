@@ -36,10 +36,26 @@ public sealed interface AccountResponse {
 
     LocalDate ingestFromDate();
 
+    BigDecimal balance();
+
+    Boolean balanceAnchored();
+
+    BigDecimal reconciliationGap();
+
+    LocalDate anchorDate();
+
     static AccountResponse from(Account account) {
+        BigDecimal bal = account.getCalculatedBalance();
+        Boolean anchored = account.getBalanceAnchored() != null ? account.getBalanceAnchored() : false;
+        BigDecimal gap = account.getReconciliationGap();
+        LocalDate anchorDate = account.getAnchorDate();
+
         return switch (account.getType()) {
             case bank_account -> {
                 AccountBankDetails details = account.getBankDetails();
+                if (bal == null && details != null) {
+                    bal = details.getOpeningBalance();
+                }
                 yield new BankAccountResponse(
                         account.getId(),
                         account.getName(),
@@ -52,7 +68,11 @@ public sealed interface AccountResponse {
                         account.getIngestFromDate(),
                         details != null ? details.getOpeningBalance() : null,
                         details != null ? details.getLast4() : null,
-                        account.getLastStatementDate());
+                        account.getLastStatementDate(),
+                        bal,
+                        anchored,
+                        gap,
+                        anchorDate);
             }
             case credit_card -> {
                 AccountCreditCardDetails details = account.getCreditCardDetails();
@@ -70,7 +90,11 @@ public sealed interface AccountResponse {
                         details != null ? details.getCreditLimit() : null,
                         details != null ? details.getPaymentDueDay() : null,
                         details != null ? details.getGracePeriodDays() : null,
-                        account.getLastStatementDate());
+                        account.getLastStatementDate(),
+                        bal,
+                        anchored,
+                        gap,
+                        anchorDate);
             }
             case stock -> {
                 AccountStockDetails details = account.getStockDetails();
@@ -85,7 +109,11 @@ public sealed interface AccountResponse {
                         account.getUpdatedAt(),
                         account.getIngestFromDate(),
                         details != null ? details.getInstrumentCode() : null,
-                        details != null ? details.getLastTradedPrice() : null);
+                        details != null ? details.getLastTradedPrice() : null,
+                        bal,
+                        anchored,
+                        gap,
+                        anchorDate);
             }
             case mutual_fund -> {
                 AccountMutualFundDetails details = account.getMutualFundDetails();
@@ -100,7 +128,11 @@ public sealed interface AccountResponse {
                         account.getUpdatedAt(),
                         account.getIngestFromDate(),
                         details != null ? details.getInstrumentCode() : null,
-                        details != null ? details.getLastTradedPrice() : null);
+                        details != null ? details.getLastTradedPrice() : null,
+                        bal,
+                        anchored,
+                        gap,
+                        anchorDate);
             }
             default -> new GenericAccountResponse(
                     account.getId(),
@@ -111,7 +143,11 @@ public sealed interface AccountResponse {
                     account.getDescription(),
                     account.getCreatedAt(),
                     account.getUpdatedAt(),
-                    account.getIngestFromDate());
+                    account.getIngestFromDate(),
+                    bal,
+                    anchored,
+                    gap,
+                    anchorDate);
         };
     }
 
@@ -127,7 +163,11 @@ public sealed interface AccountResponse {
             LocalDate ingestFromDate,
             BigDecimal openingBalance,
             String last4,
-            LocalDate lastStatementDate) implements AccountResponse {
+            LocalDate lastStatementDate,
+            BigDecimal balance,
+            Boolean balanceAnchored,
+            BigDecimal reconciliationGap,
+            LocalDate anchorDate) implements AccountResponse {
     }
 
     record CreditCardAccountResponse(
@@ -144,7 +184,11 @@ public sealed interface AccountResponse {
             BigDecimal creditLimit,
             Integer paymentDueDay,
             Integer gracePeriodDays,
-            LocalDate lastStatementDate) implements AccountResponse {
+            LocalDate lastStatementDate,
+            BigDecimal balance,
+            Boolean balanceAnchored,
+            BigDecimal reconciliationGap,
+            LocalDate anchorDate) implements AccountResponse {
     }
 
     record StockAccountResponse(
@@ -158,7 +202,11 @@ public sealed interface AccountResponse {
             Instant updatedAt,
             LocalDate ingestFromDate,
             String instrumentCode,
-            BigDecimal lastTradedPrice) implements AccountResponse {
+            BigDecimal lastTradedPrice,
+            BigDecimal balance,
+            Boolean balanceAnchored,
+            BigDecimal reconciliationGap,
+            LocalDate anchorDate) implements AccountResponse {
     }
 
     record MutualFundAccountResponse(
@@ -172,7 +220,11 @@ public sealed interface AccountResponse {
             Instant updatedAt,
             LocalDate ingestFromDate,
             String instrumentCode,
-            BigDecimal lastTradedPrice) implements AccountResponse {
+            BigDecimal lastTradedPrice,
+            BigDecimal balance,
+            Boolean balanceAnchored,
+            BigDecimal reconciliationGap,
+            LocalDate anchorDate) implements AccountResponse {
     }
 
     record GenericAccountResponse(
@@ -184,6 +236,10 @@ public sealed interface AccountResponse {
             String description,
             Instant createdAt,
             Instant updatedAt,
-            LocalDate ingestFromDate) implements AccountResponse {
+            LocalDate ingestFromDate,
+            BigDecimal balance,
+            Boolean balanceAnchored,
+            BigDecimal reconciliationGap,
+            LocalDate anchorDate) implements AccountResponse {
     }
 }
