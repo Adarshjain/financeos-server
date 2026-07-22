@@ -86,7 +86,22 @@ public final class StatementParseEngine {
             }
         }
         int maxTxnPage = cr.maxTxnPage();
-        LinkedHashMap<String, Object> summaryFields = SummaryFieldHarvester.harvest(lines, txnLines, maxTxnPage);
+        // Closing/outstanding totals often sit on a summary page after the last
+        // transaction page. Extend the harvest window across trailing summary pages
+        // (short label/value lines) but stop at prose-heavy T&C pages, which carry
+        // example figures next to the same labels.
+        int harvestMaxPage = maxTxnPage;
+        int lastPage = 0;
+        for (Line ln : lines) {
+            lastPage = Math.max(lastPage, ln.page());
+        }
+        for (int pg = maxTxnPage + 1; pg <= lastPage; pg++) {
+            if (isProsePage(lines, pg)) {
+                break;
+            }
+            harvestMaxPage = pg;
+        }
+        LinkedHashMap<String, Object> summaryFields = SummaryFieldHarvester.harvest(lines, txnLines, harvestMaxPage);
 
         List<RowResult> results;
         String mode;
@@ -297,6 +312,42 @@ public final class StatementParseEngine {
             meta.closingBalance = closingDerived;
         }
 
+        // Credit-card summary boxes sometimes render their labels in an undecodable
+        // font, so the label harvester can't tag the payment due date. Structurally,
+        // it's the lone date in the summary zone falling just after the period end;
+        // an amount sharing that row is the minimum due.
+        if (isCreditCard && !summaryFields.containsKey("payment_due_date") && meta.periodEnd != null) {
+            Set<LocalDate> dueDates = new HashSet<>();
+            List<Line> dueLines = new ArrayList<>();
+            for (Line ln : lines) {
+                if (txnLines.contains(ln) || ln.page() > harvestMaxPage) {
+                    continue;
+                }
+                for (LocalDate d : Dates.findDatesInWords(ln.words(), Dates.DATE_FORMATS)) {
+                    if (d.getYear() > 1990 && d.isAfter(meta.periodEnd)
+                            && !d.isAfter(meta.periodEnd.plusDays(60))) {
+                        dueDates.add(d);
+                        dueLines.add(ln);
+                    }
+                }
+            }
+            if (dueDates.size() == 1) {
+                summaryFields.put("payment_due_date", dueDates.iterator().next());
+                if (!summaryFields.containsKey("minimum_amount_due") && dueLines.size() == 1) {
+                    List<Double> amts = new ArrayList<>();
+                    for (Word w : dueLines.get(0).words()) {
+                        Double v = Tokens.looseAmount(w.text());
+                        if (v != null) {
+                            amts.add(v);
+                        }
+                    }
+                    if (amts.size() == 1) {
+                        summaryFields.put("minimum_amount_due", amts.get(0));
+                    }
+                }
+            }
+        }
+
         String statementType = mode.equals("balance-chain") ? "bank_account"
                 : isCreditCard ? "credit_card" : "bank_account";
 
@@ -330,6 +381,23 @@ public final class StatementParseEngine {
         parseInfo.verdict = verdict;
 
         return new ParsedStatement(meta, statementType, summaryFields, derived, parseInfo, results);
+    }
+
+    // A page is prose (terms & conditions) when a meaningful share of its lines run
+    // long; genuine summary pages are short label/value rows.
+    private static boolean isProsePage(List<Line> lines, int page) {
+        int nonEmpty = 0;
+        int longLines = 0;
+        for (Line ln : lines) {
+            if (ln.page() != page || ln.words().isEmpty()) {
+                continue;
+            }
+            nonEmpty++;
+            if (ln.words().size() > 15) {
+                longLines++;
+            }
+        }
+        return nonEmpty > 0 && (double) longLines / nonEmpty > 0.3;
     }
 
     private static double round2(double x) {
