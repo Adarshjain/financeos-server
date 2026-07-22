@@ -265,6 +265,21 @@ final class SignAssigner {
                 }
             }
         }
+        // The amount lives in the statement's dominant amount column. Foreign-currency
+        // originals ("GBP 140.00" beside the INR charge) and stray decimals in the
+        // description parse as amount cells too, but sit in minority columns — pick by
+        // column, not by position, so they aren't mistaken for the transaction amount.
+        Map<Integer, Integer> colFreq = new HashMap<>();
+        for (TxnDraft t : txns) {
+            for (AmountCell a : t.amounts) {
+                colFreq.merge(a.col, 1, Integer::sum);
+            }
+        }
+        int mainCol = colFreq.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(-1);
+
         List<RowResult> results = new ArrayList<>();
         for (TxnDraft t : txns) {
             Double amount = null;
@@ -277,7 +292,7 @@ final class SignAssigner {
                 }
             }
             if (amount == null && !t.amounts.isEmpty()) {
-                AmountCell a = t.amounts.get(0);
+                AmountCell a = selectAmountCell(t.amounts, debitX, creditX, mainCol);
                 if (debitX != null && Math.abs(a.x1 - debitX) < 40) {
                     amount = -a.value;
                     source = "header";
@@ -294,5 +309,32 @@ final class SignAssigner {
             results.add(rr);
         }
         return results;
+    }
+
+    private static AmountCell selectAmountCell(List<AmountCell> cells, Double debitX, Double creditX, int mainCol) {
+        if (debitX != null || creditX != null) {
+            for (AmountCell a : cells) {
+                if ((debitX != null && Math.abs(a.x1 - debitX) < 40)
+                        || (creditX != null && Math.abs(a.x1 - creditX) < 40)) {
+                    return a;
+                }
+            }
+        }
+        AmountCell inMain = null;
+        for (AmountCell a : cells) {
+            if (a.col == mainCol && (inMain == null || a.x1 > inMain.x1)) {
+                inMain = a;
+            }
+        }
+        if (inMain != null) {
+            return inMain;
+        }
+        AmountCell rightmost = cells.get(0);
+        for (AmountCell a : cells) {
+            if (a.x1 > rightmost.x1) {
+                rightmost = a;
+            }
+        }
+        return rightmost;
     }
 }

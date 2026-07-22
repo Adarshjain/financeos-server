@@ -20,7 +20,7 @@ import json
 import re
 import sys
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timedelta
 
 try:
     import pdfplumber
@@ -700,6 +700,27 @@ def assign_signs_no_balance(txns, header_words, default_sign=1):
                 debit_x = w["x1"]
             if any(k in wl for k in ("credit", "deposit", "paid in")):
                 credit_x = w["x1"]
+    # The amount lives in the statement's dominant amount column. Foreign-currency
+    # originals ("GBP 140.00" beside the INR charge) and stray decimals in the
+    # description parse as amount cells too, but sit in minority columns — pick by
+    # column, not by position, so they aren't mistaken for the transaction amount.
+    col_freq = {}
+    for t in txns:
+        for a in t["amounts"]:
+            col_freq[a["col"]] = col_freq.get(a["col"], 0) + 1
+    main_col = max(col_freq, key=col_freq.get) if col_freq else -1
+
+    def select_cell(cells):
+        if debit_x is not None or credit_x is not None:
+            for a in cells:
+                if (debit_x is not None and abs(a["x1"] - debit_x) < 40) \
+                        or (credit_x is not None and abs(a["x1"] - credit_x) < 40):
+                    return a
+        in_main = [a for a in cells if a["col"] == main_col]
+        if in_main:
+            return max(in_main, key=lambda a: a["x1"])
+        return max(cells, key=lambda a: a["x1"])
+
     results = []
     for t in txns:
         amount, source = None, None
@@ -708,7 +729,7 @@ def assign_signs_no_balance(txns, header_words, default_sign=1):
                 amount, source = a["value"] * a["sign"], "explicit"
                 break
         if amount is None and t["amounts"]:
-            a = t["amounts"][0]
+            a = select_cell(t["amounts"])
             if debit_x is not None and abs(a["x1"] - debit_x) < 40:
                 amount, source = -a["value"], "header"
             elif credit_x is not None and abs(a["x1"] - credit_x) < 40:
@@ -991,7 +1012,25 @@ def main():
 
     txn_line_ids = {id(ln) for ln, is_new, _a in raw_rows if is_new}
     max_txn_page = max((ln[0]["page"] for ln, is_new, _a in raw_rows if is_new), default=0)
-    summary_fields = harvest_summary_fields(lines, txn_line_ids, max_txn_page)
+
+    # Closing/outstanding totals often sit on a summary page after the last
+    # transaction page. Extend the harvest window across trailing summary pages
+    # (short label/value lines) but stop at prose-heavy T&C pages, which carry
+    # example figures next to the same labels.
+    def _is_prose_page(pg):
+        page_lines = [ln for ln in lines if ln and ln[0]["page"] == pg]
+        if not page_lines:
+            return False
+        long_lines = sum(1 for ln in page_lines if len(ln) > 15)
+        return long_lines / len(page_lines) > 0.3
+
+    harvest_max_page = max_txn_page
+    last_page = max((ln[0]["page"] for ln in lines if ln), default=max_txn_page)
+    for pg in range(max_txn_page + 1, last_page + 1):
+        if _is_prose_page(pg):
+            break
+        harvest_max_page = pg
+    summary_fields = harvest_summary_fields(lines, txn_line_ids, harvest_max_page)
 
     if balance_col is not None and oracle_score >= 0.6:
         results, chain_breaks, opening_used = assign_signs(
@@ -1118,6 +1157,29 @@ def main():
         meta["period_start"], meta["period_end"] = min(dates), max(dates)
     if meta["closing_balance"] is None:
         meta["closing_balance"] = closing_derived
+
+    # Credit-card summary boxes sometimes render their labels in an undecodable font,
+    # so the label harvester can't tag the payment due date. Structurally, it's the
+    # lone date in the summary zone falling just after the period end; an amount
+    # sharing that row is the minimum due.
+    if (is_credit_card and "payment_due_date" not in summary_fields
+            and meta["period_end"] is not None):
+        due_dates, due_lines = set(), []
+        for ln in lines:
+            if id(ln) in txn_line_ids or ln[0]["page"] > harvest_max_page:
+                continue
+            for d in find_dates_in_words(ln, DATE_FORMATS):
+                if (d.year > 1990 and d > meta["period_end"]
+                        and d <= meta["period_end"] + timedelta(days=60)):
+                    due_dates.add(d)
+                    due_lines.append(ln)
+        if len(due_dates) == 1:
+            summary_fields["payment_due_date"] = next(iter(due_dates))
+            if "minimum_amount_due" not in summary_fields and len(due_lines) == 1:
+                amts = [loose_amount(w["text"]) for w in due_lines[0]]
+                amts = [a for a in amts if a is not None]
+                if len(amts) == 1:
+                    summary_fields["minimum_amount_due"] = amts[0]
 
     def _ser(v):
         return v.strftime("%Y-%m-%d") if isinstance(v, datetime) else v
