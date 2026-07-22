@@ -18,9 +18,12 @@ import java.util.UUID;
 public class TransactionController {
 
     private final TransactionService transactionService;
+    private final com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService;
 
-    public TransactionController(TransactionService transactionService) {
+    public TransactionController(TransactionService transactionService,
+                                 com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService) {
         this.transactionService = transactionService;
+        this.transactionLinkService = transactionLinkService;
     }
 
     @PostMapping
@@ -35,7 +38,10 @@ public class TransactionController {
             @PageableDefault(size = 50, sort = { "date", "createdAt",
                     "id" }, direction = org.springframework.data.domain.Sort.Direction.DESC) Pageable pageable) {
         Page<Transaction> transactions = transactionService.getAllTransactions(pageable);
-        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance()));
+        java.util.List<UUID> ids = transactions.getContent().stream().map(Transaction::getId).toList();
+        java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap =
+                transactionLinkService.linkSummariesFor(ids);
+        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap));
         return ResponseEntity.ok(response);
     }
 
@@ -45,7 +51,10 @@ public class TransactionController {
             @PageableDefault(size = 50, sort = { "date", "createdAt",
                     "id" }, direction = org.springframework.data.domain.Sort.Direction.DESC) Pageable pageable) {
         Page<Transaction> transactions = transactionService.searchTransactions(request, pageable);
-        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance()));
+        java.util.List<UUID> ids = transactions.getContent().stream().map(Transaction::getId).toList();
+        java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap =
+                transactionLinkService.linkSummariesFor(ids);
+        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap));
         return ResponseEntity.ok(response);
     }
 
@@ -54,7 +63,9 @@ public class TransactionController {
             @PathVariable UUID id,
             @Valid @RequestBody UpdateTransactionRequest request) {
         Transaction transaction = transactionService.updateTransaction(id, request);
-        return ResponseEntity.ok(TransactionResponse.from(transaction));
+        java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap =
+                transactionLinkService.linkSummariesFor(java.util.List.of(id));
+        return ResponseEntity.ok(TransactionResponse.from(transaction, null, linkMap));
     }
 
     @DeleteMapping("/{id}")

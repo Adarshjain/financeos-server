@@ -39,14 +39,17 @@ public class TransactionService {
     private final UserRepository userRepository;
     private final ReviewStatusManager reviewStatusManager;
     private final CategorizationService categorizationService;
+    private final com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService;
     private final TransactionService self;
 
+    @org.springframework.beans.factory.annotation.Autowired
     public TransactionService(TransactionRepository transactionRepository,
             AccountRepository accountRepository,
             CategoryRepository categoryRepository,
             UserRepository userRepository,
             ReviewStatusManager reviewStatusManager,
             CategorizationService categorizationService,
+            @org.springframework.context.annotation.Lazy com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService,
             @org.springframework.context.annotation.Lazy TransactionService self) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
@@ -54,7 +57,18 @@ public class TransactionService {
         this.userRepository = userRepository;
         this.reviewStatusManager = reviewStatusManager;
         this.categorizationService = categorizationService;
+        this.transactionLinkService = transactionLinkService;
         this.self = self != null ? self : this;
+    }
+
+    public TransactionService(TransactionRepository transactionRepository,
+            AccountRepository accountRepository,
+            CategoryRepository categoryRepository,
+            UserRepository userRepository,
+            ReviewStatusManager reviewStatusManager,
+            CategorizationService categorizationService,
+            TransactionService self) {
+        this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, null, self);
     }
 
     public Transaction createTransaction(CreateTransactionRequest request) {
@@ -265,6 +279,9 @@ public class TransactionService {
             throw new ValidationException("You do not have permission to delete this transaction.");
         }
 
+        if (transactionLinkService != null) {
+            transactionLinkService.autoDissolveLinksForDeletedTransactions(List.of(id));
+        }
         transactionRepository.delete(transaction);
     }
 
@@ -455,6 +472,9 @@ public class TransactionService {
             }
             if (transaction.getUser() == null || !transaction.getUser().getId().equals(currentSessionUserId)) {
                 return "FAILURE:NOT_OWNED";
+            }
+            if (transactionLinkService != null) {
+                transactionLinkService.autoDissolveLinksForDeletedTransactions(List.of(id));
             }
             transactionRepository.delete(transaction);
             return "SUCCESS";
