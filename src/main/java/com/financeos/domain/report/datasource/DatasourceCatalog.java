@@ -16,8 +16,7 @@ import java.util.stream.Collectors;
  * {@code transactions} data source (v1's only data source). This is the single source of
  * truth served by {@code GET /api/v1/report/datasource} and consumed by report validation.
  *
- * <p>Note: {@code is_excluded} is intentionally NOT a generic field here — it is controlled
- * by the dedicated, required {@code includeExcluded} flag on every report definition.
+ * <p>Exclusion and transfer filtering are normal boolean filter fields (isExcluded, isTransferLeg, isRefundLeg).
  */
 @Component
 public class DatasourceCatalog {
@@ -92,7 +91,11 @@ public class DatasourceCatalog {
                     List.of("gmail", "manual"), null, CHART_TABLE),
             new FieldDef("description", "Description", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
             new FieldDef("isUnderMonitoring", "Under monitoring", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
-            new FieldDef("isExcluded", "Is Excluded", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE));
+            new FieldDef("isExcluded", "Is Excluded", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+            new FieldDef("isTransferLeg", "Is transfer leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+            new FieldDef("isRefundLeg", "Is refund leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+            new FieldDef("linkType", "Link type", FieldType.ENUM, FieldRole.DIMENSION, null,
+                    List.of("TRANSFER", "CC_PAYMENT", "REFUND", "REVERSAL", "FEE", "EMI"), null, CHART_TABLE));
 
     private static final Map<String, FieldDef> BY_NAME = FIELDS.stream()
             .collect(Collectors.toMap(FieldDef::name, f -> f, (a, b) -> a, LinkedHashMap::new));

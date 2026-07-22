@@ -29,13 +29,19 @@ public record TransactionResponse(
                 ReviewType reviewType,
                 java.util.List<com.financeos.domain.transaction.ReviewReason> reviewReasons,
                 UUID appliedRuleId,
-                String mcc) {
+                String mcc,
+                java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary> links) {
 
         public static TransactionResponse from(Transaction transaction) {
-                return from(transaction, null);
+                return from(transaction, null, java.util.Collections.emptyMap());
         }
 
         public static TransactionResponse from(Transaction transaction, BigDecimal balance) {
+                return from(transaction, balance, java.util.Collections.emptyMap());
+        }
+
+        public static TransactionResponse from(Transaction transaction, BigDecimal balance,
+                        java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap) {
                 // Convert internal representation (unsigned + type) to API representation
                 // (signed)
                 BigDecimal signedAmount = transaction.getType() == TransactionType.DEBIT
@@ -50,6 +56,11 @@ public record TransactionResponse(
                 java.util.List<com.financeos.domain.transaction.ReviewReason> reviewReasonsList = transaction.getReviewReasons() != null
                                 ? new java.util.ArrayList<>(transaction.getReviewReasons())
                                 : java.util.Collections.emptyList();
+
+                java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary> transactionLinks = linkMap != null
+                                && linkMap.containsKey(transaction.getId())
+                                                ? linkMap.get(transaction.getId())
+                                                : java.util.Collections.emptyList();
 
                 return new TransactionResponse(
                                 transaction.getId(),
@@ -70,6 +81,7 @@ public record TransactionResponse(
                                 transaction.getReviewType(),
                                 reviewReasonsList,
                                 transaction.getAppliedRule() != null ? transaction.getAppliedRule().getId() : null,
-                                transaction.getMcc());
+                                transaction.getMcc(),
+                                transactionLinks);
         }
 }

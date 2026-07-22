@@ -40,6 +40,15 @@ public class TransactionQueryBuilder {
             + " FROM transaction_categories tcx JOIN categories cx ON cx.id = tcx.category_id"
             + " WHERE tcx.transaction_id = t.id)";
 
+    public static final String IS_TRANSFER_LEG =
+            "(CASE WHEN EXISTS (SELECT 1 FROM transaction_link_members m JOIN transaction_links l ON l.id = m.link_id WHERE m.transaction_id = t.id AND l.type IN ('TRANSFER','CC_PAYMENT','REVERSAL')) THEN 1 ELSE 0 END)";
+
+    public static final String IS_REFUND_LEG =
+            "(CASE WHEN EXISTS (SELECT 1 FROM transaction_link_members m JOIN transaction_links l ON l.id = m.link_id WHERE m.transaction_id = t.id AND l.type = 'REFUND') THEN 1 ELSE 0 END)";
+
+    public static final String LINK_TYPE =
+            "(SELECT l.type FROM transaction_link_members m JOIN transaction_links l ON l.id = m.link_id WHERE m.transaction_id = t.id AND ROWNUM = 1)";
+
     /** Joins a query may need, beyond the base {@code transactions t}. */
     public enum Join {
         ACCOUNTS,
@@ -59,7 +68,10 @@ public class TransactionQueryBuilder {
             Map.entry("accountType", new Mapping("a.type", Join.ACCOUNTS)),
             Map.entry("category", new Mapping("c.name", Join.CATEGORIES)),
             Map.entry("isUnderMonitoring", new Mapping("t.is_under_monitoring", null)),
-            Map.entry("isExcluded", new Mapping("t.is_excluded", null)));
+            Map.entry("isExcluded", new Mapping("t.is_excluded", null)),
+            Map.entry("isTransferLeg", new Mapping(IS_TRANSFER_LEG, null)),
+            Map.entry("isRefundLeg", new Mapping(IS_REFUND_LEG, null)),
+            Map.entry("linkType", new Mapping(LINK_TYPE, null)));
 
     private final DatasourceCatalog catalog;
     private final DateRangeResolver dateRangeResolver;
