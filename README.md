@@ -14,7 +14,7 @@ Production-grade personal finance backend built with Java 21 and Spring Boot.
 
 - Java 21
 - Spring Boot 3.2
-- PostgreSQL
+- Oracle Database (19c / 21c / 23c)
 - Flyway migrations
 - Spring Security (session-based)
 - Spring Data JPA
@@ -22,20 +22,14 @@ Production-grade personal finance backend built with Java 21 and Spring Boot.
 ## Prerequisites
 
 - Java 21+
-- PostgreSQL 14+
+- Oracle Database 19c+
 - Maven 3.9+
 
 ## Quick Start
 
 ### 1. Database Setup
 
-```bash
-# Create PostgreSQL database
-createdb financeos
-
-# Or using psql
-psql -c "CREATE DATABASE financeos;"
-```
+Ensure your Oracle Database instance or Autonomous Database is running and accessible.
 
 ### 2. Generate Encryption Key
 
@@ -47,9 +41,7 @@ openssl rand -base64 32
 ### 3. Configure Environment
 
 ```bash
-export DB_HOST=localhost
-export DB_PORT=5432
-export DB_NAME=financeos
+export DB_URL=jdbc:oracle:thin:@localhost:1521/XEPDB1
 export DB_USERNAME=your_username
 export DB_PASSWORD=your_password
 export ENCRYPTION_KEY=your-32-byte-base64-key

@@ -113,14 +113,14 @@ public class Transaction {
     @JoinColumn(name = "applied_rule_id")
     private CategoryRule appliedRule;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "transaction_review_reasons", joinColumns = @JoinColumn(name = "transaction_id"))
     @Column(name = "reason")
     @Enumerated(EnumType.STRING)
     @org.hibernate.annotations.BatchSize(size = 50)
     private Set<ReviewReason> reviewReasons = new HashSet<>();
 
-    @Column(name = "source_message_id", unique = true)
+    @Column(name = "source_message_id")
     private String sourceMessageId;
 
     @Column(name = "created_at")
@@ -134,6 +134,9 @@ public class Transaction {
 
     @PrePersist
     protected void onCreate() {
+        if (id == null) {
+            id = com.financeos.core.util.UUIDv7Generator.generate();
+        }
         if (createdAt == null) {
             createdAt = Instant.now();
         }

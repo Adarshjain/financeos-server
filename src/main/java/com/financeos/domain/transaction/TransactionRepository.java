@@ -29,6 +29,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     @EntityGraph(attributePaths = { "categories.category", "account", "reviewReasons" })
     List<Transaction> findAllByIdIn(List<UUID> ids);
 
+    @EntityGraph(attributePaths = { "categories.category", "account", "reviewReasons" })
+    List<Transaction> findAllByIdInAndUserId(List<UUID> ids, UUID userId);
+
     @EntityGraph(attributePaths = { "categories.category", "account" })
     Page<Transaction> findByAccountId(UUID accountId, Pageable pageable);
 
