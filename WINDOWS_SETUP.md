@@ -55,35 +55,10 @@ If `java -version` doesn't work, you need to set JAVA_HOME:
    7. Click "OK" to save
    8. Also add `%JAVA_HOME%\bin` to your PATH variable
 
-### 3. Install PostgreSQL 14+
+### 3. Setup Oracle Database
 
-1. Visit https://www.postgresql.org/download/windows/
-2. Download the PostgreSQL installer
-3. Run the installer:
-   - Remember the password you set for the `postgres` user
-   - Default port is 5432 (keep this unless you have a conflict)
-4. During installation, make sure PostgreSQL is added to PATH
-
-**Verify Installation:**
-```cmd
-psql --version
-```
-
-### 4. Create Database
-
-Open Command Prompt or PowerShell and run:
-
-```cmd
-psql -U postgres -c "CREATE DATABASE financeos;"
-```
-
-You'll be prompted for the password you set during PostgreSQL installation.
-
-**Alternative:** If `psql` is not in PATH, use pgAdmin:
-1. Open pgAdmin
-2. Connect to your PostgreSQL server
-3. Right-click "Databases" → "Create" → "Database"
-4. Name it `financeos` and click "Save"
+1. Ensure your Oracle Database (e.g. Oracle Free/XE 21c/23c or Oracle Autonomous Database) is installed and running.
+2. Verify you have connection credentials (TNS/URL, Username, Password).
 
 ## Configuration
 
@@ -106,17 +81,15 @@ Copy the generated key - you'll need it in the next step.
 Create a file named `.env` in the project root directory with the following content:
 
 ```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=financeos
-DB_USERNAME=postgres
-DB_PASSWORD=your_postgres_password_here
+DB_URL=jdbc:oracle:thin:@localhost:1521/XEPDB1
+DB_USERNAME=ADMIN
+DB_PASSWORD=your_oracle_password_here
 ENCRYPTION_KEY=your_generated_encryption_key_here
 CORS_ORIGINS=http://localhost:3001
 ```
 
 Replace:
-- `your_postgres_password_here` with your PostgreSQL password
+- `your_oracle_password_here` with your Oracle DB password
 - `your_generated_encryption_key_here` with the key you generated in step 1
 
 ## Running the Application
@@ -154,25 +127,10 @@ The application will start on `http://localhost:6969`
 set JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-21.x.x-hotspot
 ```
 
-### "psql is not recognized"
-
-PostgreSQL is not in your PATH. Either:
-- Add PostgreSQL `bin` directory to PATH, OR
-- Use pgAdmin to create the database
-
 ### "Connection refused" or Database Errors
 
-1. Make sure PostgreSQL is running:
-   - Open Services (`Win + R`, type `services.msc`)
-   - Find "postgresql-x64-XX" service
-   - Make sure it's "Running"
-
-2. Verify database credentials in your `.env` file
-
-3. Test connection:
-   ```cmd
-   psql -U postgres -d financeos
-   ```
+1. Make sure Oracle Database listener and service are running.
+2. Verify database connection details (`DB_URL`, `DB_USERNAME`, `DB_PASSWORD`) in your `.env` file.
 
 ### Port 6969 Already in Use
 

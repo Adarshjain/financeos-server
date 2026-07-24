@@ -1,6 +1,6 @@
 # Implementation Prompt — Transaction Categorization (SERVER)
 
-You are implementing the **transaction categorization** feature in the FinanceOS server (this repository — Spring Boot 3 / Java, Maven, PostgreSQL, Flyway, Lombok). A matching frontend prompt exists for the client repo; the API contract in section 8 is shared between both and must be implemented **exactly as written**.
+You are implementing the **transaction categorization** feature in the FinanceOS server (this repository — Spring Boot 3 / Java, Maven, Oracle DB, Flyway, Lombok). A matching frontend prompt exists for the client repo; the API contract in section 8 is shared between both and must be implemented **exactly as written**.
 
 ## 0. Ground rules — read first
 

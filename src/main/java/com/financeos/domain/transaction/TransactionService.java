@@ -285,7 +285,7 @@ public class TransactionService {
         transactionRepository.delete(transaction);
     }
 
-    @org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.NOT_SUPPORTED)
+    @Transactional
     public com.financeos.api.transaction.dto.BatchReviewResponse batchReview(List<UUID> transactionIds, ReviewType reviewType, List<ReviewReason> reviewReasons) {
         if (transactionIds == null || transactionIds.isEmpty()) {
             return new com.financeos.api.transaction.dto.BatchReviewResponse(List.of(), List.of(), List.of());
@@ -301,73 +301,29 @@ public class TransactionService {
             }
         }
 
+        UUID currentSessionUserId = UserContext.getCurrentUserId();
+        List<Transaction> fetched = transactionRepository.findAllByIdIn(transactionIds);
+        Map<UUID, Transaction> map = fetched.stream()
+                .collect(Collectors.toMap(Transaction::getId, t -> t, (a, b) -> a));
+
         List<String> succeededIds = new ArrayList<>();
         List<String> skippedIds = new ArrayList<>();
         List<com.financeos.api.transaction.dto.BatchFailure> failures = new ArrayList<>();
-
-        UUID currentSessionUserId = UserContext.getCurrentUserId();
+        List<Transaction> toSave = new ArrayList<>();
 
         for (UUID id : transactionIds) {
-            String result;
-            try {
-                result = self.attemptReviewItem(id, reviewType, reviewReasons, currentSessionUserId);
-            } catch (Exception e) {
-                log.error("Commit-time or proxy exception during review of item " + id, e);
-                result = "FAILURE:ERROR";
-            }
-
-            if (result.equals("SUCCESS")) {
-                succeededIds.add(id.toString());
-            } else if (result.equals("SKIPPED")) {
-                skippedIds.add(id.toString());
-            } else if (result.startsWith("FAILURE:")) {
-                String errorReason = result.substring("FAILURE:".length());
-                if (errorReason.equals("NOT_FOUND") || errorReason.equals("NOT_OWNED")) {
-                    failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), errorReason));
-                } else if (errorReason.equals("VALIDATION_ERROR")) {
-                    failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), "ERROR"));
-                } else {
-                    // Unexpected error: retry once
-                    log.warn("Retrying transaction review for ID: {} due to transient/unexpected error: {}", id, errorReason);
-                    String retryResult;
-                    try {
-                        retryResult = self.attemptReviewItem(id, reviewType, reviewReasons, currentSessionUserId);
-                    } catch (Exception e) {
-                        log.error("Commit-time exception during retry of review item " + id, e);
-                        retryResult = "FAILURE:ERROR";
-                    }
-
-                    if (retryResult.equals("SUCCESS")) {
-                        succeededIds.add(id.toString());
-                    } else if (retryResult.equals("SKIPPED")) {
-                        skippedIds.add(id.toString());
-                    } else {
-                        String retryErrorReason = retryResult.substring("FAILURE:".length());
-                        if (retryErrorReason.equals("VALIDATION_ERROR")) {
-                            retryErrorReason = "ERROR";
-                        }
-                        failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), retryErrorReason));
-                    }
-                }
-            }
-        }
-
-        return new com.financeos.api.transaction.dto.BatchReviewResponse(succeededIds, skippedIds, failures);
-    }
-
-    @org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRES_NEW)
-    public String attemptReviewItem(UUID id, ReviewType reviewType, List<ReviewReason> reviewReasons, UUID currentSessionUserId) {
-        try {
-            Transaction transaction = transactionRepository.findById(id).orElse(null);
+            Transaction transaction = map.get(id);
             if (transaction == null) {
-                return "FAILURE:NOT_FOUND";
+                failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), "NOT_FOUND"));
+                continue;
             }
+
             if (transaction.getUser() == null || !transaction.getUser().getId().equals(currentSessionUserId)) {
-                return "FAILURE:NOT_OWNED";
+                failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), "NOT_OWNED"));
+                continue;
             }
 
             if (reviewType == ReviewType.MANUALLY_REVIEWED || reviewType == ReviewType.AUTO_REVIEWED || reviewType == ReviewType.NA) {
-                // Reason-scoped approve
                 boolean hasAny = false;
                 if (transaction.getReviewReasons() != null) {
                     for (ReviewReason r : reviewReasons) {
@@ -378,7 +334,8 @@ public class TransactionService {
                     }
                 }
                 if (!hasAny) {
-                    return "SKIPPED";
+                    skippedIds.add(id.toString());
+                    continue;
                 }
 
                 for (ReviewReason r : reviewReasons) {
@@ -394,18 +351,18 @@ public class TransactionService {
                 reviewStatusManager.transitionTo(transaction, reviewType);
             }
 
-            transactionRepository.save(transaction);
-            return "SUCCESS";
-        } catch (ValidationException e) {
-            log.warn("Validation error during batch review of item " + id + ": " + e.getMessage());
-            return "FAILURE:VALIDATION_ERROR";
-        } catch (Exception e) {
-            log.error("Error during batch review of item " + id, e);
-            return "FAILURE:ERROR";
+            toSave.add(transaction);
+            succeededIds.add(id.toString());
         }
+
+        if (!toSave.isEmpty()) {
+            transactionRepository.saveAll(toSave);
+        }
+
+        return new com.financeos.api.transaction.dto.BatchReviewResponse(succeededIds, skippedIds, failures);
     }
 
-    @org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.NOT_SUPPORTED)
+    @Transactional
     public com.financeos.api.transaction.dto.BatchDeleteResponse batchDelete(List<UUID> transactionIds) {
         if (transactionIds == null || transactionIds.isEmpty()) {
             return new com.financeos.api.transaction.dto.BatchDeleteResponse(List.of(), List.of());
@@ -414,77 +371,35 @@ public class TransactionService {
             throw new ValidationException("Transaction IDs batch cannot exceed 500");
         }
 
+        UUID currentSessionUserId = UserContext.getCurrentUserId();
+        List<Transaction> fetched = transactionRepository.findAllByIdIn(transactionIds);
+        Map<UUID, Transaction> map = fetched.stream()
+                .collect(Collectors.toMap(Transaction::getId, t -> t, (a, b) -> a));
+
         List<String> succeededIds = new ArrayList<>();
         List<com.financeos.api.transaction.dto.BatchFailure> failures = new ArrayList<>();
-
-        UUID currentSessionUserId = UserContext.getCurrentUserId();
+        List<UUID> toDeleteIds = new ArrayList<>();
 
         for (UUID id : transactionIds) {
-            String result;
-            try {
-                result = self.attemptDeleteItem(id, currentSessionUserId);
-            } catch (Exception e) {
-                log.error("Commit-time or proxy exception during delete of item " + id, e);
-                result = "FAILURE:ERROR";
-            }
-
-            if (result.equals("SUCCESS")) {
+            Transaction transaction = map.get(id);
+            if (transaction == null) {
+                failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), "NOT_FOUND"));
+            } else if (transaction.getUser() == null || !transaction.getUser().getId().equals(currentSessionUserId)) {
+                failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), "NOT_OWNED"));
+            } else {
+                toDeleteIds.add(id);
                 succeededIds.add(id.toString());
-            } else if (result.startsWith("FAILURE:")) {
-                String errorReason = result.substring("FAILURE:".length());
-                if (errorReason.equals("NOT_FOUND") || errorReason.equals("NOT_OWNED")) {
-                    failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), errorReason));
-                } else if (errorReason.equals("VALIDATION_ERROR")) {
-                    failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), "ERROR"));
-                } else {
-                    // Unexpected error: retry once
-                    log.warn("Retrying transaction delete for ID: {} due to transient/unexpected error: {}", id, errorReason);
-                    String retryResult;
-                    try {
-                        retryResult = self.attemptDeleteItem(id, currentSessionUserId);
-                    } catch (Exception e) {
-                        log.error("Commit-time exception during retry of delete item " + id, e);
-                        retryResult = "FAILURE:ERROR";
-                    }
-
-                    if (retryResult.equals("SUCCESS")) {
-                        succeededIds.add(id.toString());
-                    } else {
-                        String retryErrorReason = retryResult.substring("FAILURE:".length());
-                        if (retryErrorReason.equals("VALIDATION_ERROR")) {
-                            retryErrorReason = "ERROR";
-                        }
-                        failures.add(new com.financeos.api.transaction.dto.BatchFailure(id.toString(), retryErrorReason));
-                    }
-                }
             }
+        }
+
+        if (!toDeleteIds.isEmpty()) {
+            if (transactionLinkService != null) {
+                transactionLinkService.autoDissolveLinksForDeletedTransactions(toDeleteIds);
+            }
+            transactionRepository.deleteAllByIdInBatch(toDeleteIds);
         }
 
         return new com.financeos.api.transaction.dto.BatchDeleteResponse(succeededIds, failures);
-    }
-
-    @org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRES_NEW)
-    public String attemptDeleteItem(UUID id, UUID currentSessionUserId) {
-        try {
-            Transaction transaction = transactionRepository.findById(id).orElse(null);
-            if (transaction == null) {
-                return "FAILURE:NOT_FOUND";
-            }
-            if (transaction.getUser() == null || !transaction.getUser().getId().equals(currentSessionUserId)) {
-                return "FAILURE:NOT_OWNED";
-            }
-            if (transactionLinkService != null) {
-                transactionLinkService.autoDissolveLinksForDeletedTransactions(List.of(id));
-            }
-            transactionRepository.delete(transaction);
-            return "SUCCESS";
-        } catch (ValidationException e) {
-            log.warn("Validation error during batch delete of item " + id + ": " + e.getMessage());
-            return "FAILURE:VALIDATION_ERROR";
-        } catch (Exception e) {
-            log.error("Error during batch delete of item " + id, e);
-            return "FAILURE:ERROR";
-        }
     }
 
 
