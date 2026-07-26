@@ -1,17 +1,15 @@
 package com.financeos.api.investment;
 
-import com.financeos.api.investment.dto.CreateInvestmentTransactionRequest;
-import com.financeos.api.investment.dto.InvestmentPositionResponse;
-import com.financeos.api.investment.dto.InvestmentTransactionResponse;
+import com.financeos.api.investment.dto.*;
 import com.financeos.domain.investment.InvestmentService;
-import com.financeos.domain.investment.InvestmentTransaction;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/investments")
@@ -24,24 +22,41 @@ public class InvestmentController {
     }
 
     @PostMapping("/transactions")
-    public ResponseEntity<InvestmentTransactionResponse> createTransaction(
+    @ResponseStatus(HttpStatus.CREATED)
+    public InvestmentTransactionResponse createTransaction(
             @Valid @RequestBody CreateInvestmentTransactionRequest request) {
-        InvestmentTransaction transaction = investmentService.createTransaction(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(InvestmentTransactionResponse.from(transaction));
+        return investmentService.createTransaction(request);
+    }
+
+    @PutMapping("/transactions/{id}")
+    public InvestmentTransactionResponse updateTransaction(
+            @PathVariable UUID id,
+            @Valid @RequestBody UpdateInvestmentTransactionRequest request) {
+        return investmentService.updateTransaction(id, request);
+    }
+
+    @DeleteMapping("/transactions/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTransaction(@PathVariable UUID id) {
+        investmentService.deleteTransaction(id);
     }
 
     @GetMapping("/transactions")
-    public ResponseEntity<Page<InvestmentTransactionResponse>> getAllTransactions(
-            @PageableDefault(size = 50, sort = "date") Pageable pageable) {
-        Page<InvestmentTransaction> transactions = investmentService.getAllTransactions(pageable);
-        Page<InvestmentTransactionResponse> response = transactions.map(InvestmentTransactionResponse::from);
-        return ResponseEntity.ok(response);
+    public Page<InvestmentTransactionResponse> getTransactions(
+            @RequestParam(required = false) UUID brokerAccountId,
+            @RequestParam(required = false) UUID instrumentId,
+            @RequestParam(required = false) UUID holdingId,
+            @PageableDefault(size = 50, sort = "tradeDate") Pageable pageable) {
+        return investmentService.getTransactions(brokerAccountId, instrumentId, holdingId, pageable);
     }
 
-    @GetMapping("/position")
-    public ResponseEntity<InvestmentPositionResponse> getPositions() {
-        InvestmentPositionResponse positions = investmentService.getPositions();
-        return ResponseEntity.ok(positions);
+    @GetMapping("/positions")
+    public PositionsResponse getPositions() {
+        return investmentService.getPositions();
+    }
+
+    @GetMapping("/summary")
+    public SummaryResponse getSummary() {
+        return investmentService.getSummary();
     }
 }
-

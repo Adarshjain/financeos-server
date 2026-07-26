@@ -1,16 +1,14 @@
 package com.financeos.domain.investment;
 
-import com.financeos.domain.account.Account;
-
+import com.financeos.domain.holding.Holding;
+import com.financeos.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.hibernate.annotations.Filter;
-import com.financeos.domain.user.User;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -37,9 +35,9 @@ public class InvestmentTransaction {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "holding_id", nullable = false)
     @JdbcTypeCode(SqlTypes.VARCHAR)
-    private Account account;
+    private Holding holding;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -51,25 +49,63 @@ public class InvestmentTransaction {
     @Column(nullable = false, precision = 19, scale = 4)
     private BigDecimal price;
 
-    @Column(name = "transaction_date", nullable = false)
-    private LocalDate date;
+    @Column(name = "trade_date", nullable = false)
+    private LocalDate tradeDate;
+
+    @Column(precision = 19, scale = 4)
+    private BigDecimal brokerage;
+
+    @Column(precision = 19, scale = 4)
+    private BigDecimal stt;
+
+    @Column(name = "exchange_txn_charges", precision = 19, scale = 4)
+    private BigDecimal exchangeTxnCharges;
+
+    @Column(name = "sebi_charges", precision = 19, scale = 4)
+    private BigDecimal sebiCharges;
+
+    @Column(name = "stamp_duty", precision = 19, scale = 4)
+    private BigDecimal stampDuty;
+
+    @Column(precision = 19, scale = 4)
+    private BigDecimal gst;
+
+    @Column(name = "dp_charges", precision = 19, scale = 4)
+    private BigDecimal dpCharges;
+
+    @Column(name = "other_charges", precision = 19, scale = 4)
+    private BigDecimal otherCharges;
+
+    @Column(name = "total_charges", precision = 19, scale = 4)
+    private BigDecimal totalCharges = BigDecimal.ZERO;
+
+    @Column
+    private String source = "manual";
+
+    @Column(name = "external_ref")
+    private String externalRef;
+
+    @Column
+    private String notes;
 
     @Column(name = "created_at")
     private Instant createdAt;
 
     @PrePersist
-    protected void onCreate() {
+    @PreUpdate
+    protected void calculateTotalCharges() {
         if (createdAt == null) {
             createdAt = Instant.now();
         }
-    }
-
-    public InvestmentTransaction(Account account, InvestmentTransactionType type,
-            BigDecimal quantity, BigDecimal price, LocalDate date) {
-        this.account = account;
-        this.type = type;
-        this.quantity = quantity;
-        this.price = price;
-        this.date = date;
+        BigDecimal sum = BigDecimal.ZERO;
+        if (brokerage != null) sum = sum.add(brokerage);
+        if (stt != null) sum = sum.add(stt);
+        if (exchangeTxnCharges != null) sum = sum.add(exchangeTxnCharges);
+        if (sebiCharges != null) sum = sum.add(sebiCharges);
+        if (stampDuty != null) sum = sum.add(stampDuty);
+        if (gst != null) sum = sum.add(gst);
+        if (dpCharges != null) sum = sum.add(dpCharges);
+        if (otherCharges != null) sum = sum.add(otherCharges);
+        this.totalCharges = sum;
     }
 }

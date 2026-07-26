@@ -7,6 +7,7 @@ import com.financeos.api.account.dto.CardCycleSummaryResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.domain.holding.HoldingValuationService;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementCreditCardDetails;
 import com.financeos.domain.statement.StatementRepository;
@@ -38,7 +39,8 @@ class AccountServiceTest {
         userRepository = mock(UserRepository.class);
         statementRepository = mock(StatementRepository.class);
         transactionRepository = mock(TransactionRepository.class);
-        accountService = new AccountService(accountRepository, userRepository, statementRepository, transactionRepository);
+        HoldingValuationService holdingValuationService = mock(HoldingValuationService.class);
+        accountService = new AccountService(accountRepository, userRepository, statementRepository, transactionRepository, holdingValuationService);
         UserContext.clear();
     }
 

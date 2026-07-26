@@ -14,8 +14,7 @@ import java.time.LocalDate;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = CreateAccountRequest.BankAccountRequest.class, name = "bank_account"),
         @JsonSubTypes.Type(value = CreateAccountRequest.CreditCardRequest.class, name = "credit_card"),
-        @JsonSubTypes.Type(value = CreateAccountRequest.StockRequest.class, name = "stock"),
-        @JsonSubTypes.Type(value = CreateAccountRequest.MutualFundRequest.class, name = "mutual_fund"),
+        @JsonSubTypes.Type(value = CreateAccountRequest.BrokerRequest.class, name = "broker"),
         @JsonSubTypes.Type(value = CreateAccountRequest.GenericAccountRequest.class, name = "generic")
 })
 public sealed interface CreateAccountRequest {
@@ -61,26 +60,15 @@ public sealed interface CreateAccountRequest {
     ) implements CreateAccountRequest {
     }
 
-    record StockRequest(
+    record BrokerRequest(
             @NotBlank(message = "Name is required") String name,
             @NotNull(message = "Account type is required") AccountType type,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
-            @NotBlank(message = "Instrument code is required") String instrumentCode,
-            BigDecimal lastTradedPrice,
-            LocalDate ingestFromDate
-    ) implements CreateAccountRequest {
-    }
-
-    record MutualFundRequest(
-            @NotBlank(message = "Name is required") String name,
-            @NotNull(message = "Account type is required") AccountType type,
-            Boolean excludeFromNetAsset,
-            FinancialPosition financialPosition,
-            String description,
-            @NotBlank(message = "Instrument code is required") String instrumentCode,
-            BigDecimal lastTradedPrice,
+            @NotBlank(message = "Provider is required") String provider,
+            String clientId,
+            BigDecimal cashBalance,
             LocalDate ingestFromDate
     ) implements CreateAccountRequest {
     }
