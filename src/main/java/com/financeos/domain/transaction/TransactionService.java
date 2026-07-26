@@ -220,6 +220,10 @@ public class TransactionService {
         if (request.mcc() != null) {
             transaction.setMcc(request.mcc().isBlank() ? null : request.mcc());
         }
+        // Capture the stored review status before any mutation so we can tell an
+        // explicit status change apart from the client merely echoing the current value.
+        ReviewType originalReviewType = transaction.getReviewType();
+
         // Feedback loop
         boolean categoriesEqual = false;
         if (request.categoryIds() != null) {
@@ -230,7 +234,11 @@ public class TransactionService {
             categoriesEqual = currentCategoryIds.equals(requestCatIds);
         }
 
-        if (request.categoryIds() != null) {
+        // Only clear CATEGORY_UNVERIFIED when the categories actually changed.
+        // The client round-trips the existing categoryIds on every edit, so gating
+        // on presence alone would wrongly clear the reason when unrelated fields
+        // (e.g. monitoring flag) are edited, then fail to re-apply NEEDS_REVIEW.
+        if (request.categoryIds() != null && !categoriesEqual) {
             reviewStatusManager.clearReason(transaction, ReviewReason.CATEGORY_UNVERIFIED, ReviewType.MANUALLY_REVIEWED);
         }
 
@@ -242,7 +250,12 @@ public class TransactionService {
             }
         }
 
-        if (request.reviewType() != null) {
+        // Only drive a transition when the caller actually asks for a *different* status.
+        // The edit form always echoes the transaction's current reviewType, so re-applying
+        // it unconditionally could try to force NEEDS_REVIEW after clearReason already
+        // promoted the txn (emptying its reasons), which throws. A field edit must not
+        // move review status on its own.
+        if (request.reviewType() != null && request.reviewType() != originalReviewType) {
             reviewStatusManager.transitionTo(transaction, request.reviewType());
         }
 
