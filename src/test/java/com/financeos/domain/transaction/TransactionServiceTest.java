@@ -8,11 +8,14 @@ import com.financeos.domain.category.CategoryRepository;
 import com.financeos.domain.categorization.CategorizationService;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
+import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.time.LocalDate;
 import java.math.BigDecimal;
 import com.financeos.api.transaction.dto.UpdateTransactionRequest;
@@ -28,6 +31,8 @@ class TransactionServiceTest {
     private CategorizationService categorizationService;
 
     private TransactionService transactionService;
+
+    private UUID currentUserId;
 
     @BeforeEach
     void setUp() {
@@ -47,6 +52,9 @@ class TransactionServiceTest {
                 categorizationService,
                 null
         );
+
+        currentUserId = UUID.randomUUID();
+        UserContext.setCurrentUserId(currentUserId);
     }
 
     @AfterEach
@@ -54,294 +62,143 @@ class TransactionServiceTest {
         UserContext.clear();
     }
 
-    @Test
-    void testAttemptReviewItem_whenNotFound_returnsNotFound() {
-        UUID txnId = UUID.randomUUID();
-        when(transactionRepository.findById(txnId)).thenReturn(Optional.empty());
-
-        String result = transactionService.attemptReviewItem(txnId, ReviewType.MANUALLY_REVIEWED, List.of(ReviewReason.UNRECONCILED), UUID.randomUUID());
-
-        assertEquals("FAILURE:NOT_FOUND", result);
+    private Transaction ownedTxn(UUID id, Set<ReviewReason> reasons) {
+        return txnForUser(id, currentUserId, reasons);
     }
 
-    @Test
-    void testAttemptReviewItem_whenNotOwned_returnsNotOwned() {
-        UUID txnId = UUID.randomUUID();
-        UUID currentUserId = UUID.randomUUID();
-        UUID ownerId = UUID.randomUUID();
-
+    private Transaction txnForUser(UUID id, UUID ownerId, Set<ReviewReason> reasons) {
         User owner = new User();
         owner.setId(ownerId);
-
         Transaction txn = new Transaction();
-        txn.setId(txnId);
+        txn.setId(id);
         txn.setUser(owner);
-
-        when(transactionRepository.findById(txnId)).thenReturn(Optional.of(txn));
-
-        String result = transactionService.attemptReviewItem(txnId, ReviewType.MANUALLY_REVIEWED, List.of(ReviewReason.UNRECONCILED), currentUserId);
-
-        assertEquals("FAILURE:NOT_OWNED", result);
+        if (reasons != null) {
+            txn.setReviewReasons(new HashSet<>(reasons));
+        }
+        return txn;
     }
 
-    @Test
-    void testAttemptReviewItem_whenOwnedAndMatchesReason_clearsReasonAndReturnsSuccess() {
-        UUID txnId = UUID.randomUUID();
-        UUID currentUserId = UUID.randomUUID();
-
-        User owner = new User();
-        owner.setId(currentUserId);
-
-        Transaction txn = new Transaction();
-        txn.setId(txnId);
-        txn.setUser(owner);
-        txn.setReviewReasons(new HashSet<>(List.of(ReviewReason.UNRECONCILED)));
-
-        when(transactionRepository.findById(txnId)).thenReturn(Optional.of(txn));
-
-        String result = transactionService.attemptReviewItem(txnId, ReviewType.MANUALLY_REVIEWED, List.of(ReviewReason.UNRECONCILED), currentUserId);
-
-        assertEquals("SUCCESS", result);
-        verify(reviewStatusManager).clearReason(txn, ReviewReason.UNRECONCILED, ReviewType.MANUALLY_REVIEWED);
-        verify(transactionRepository).save(txn);
-    }
+    // ---- batchReview ----
 
     @Test
-    void testAttemptReviewItem_whenOwnedAndNoReasonMatches_returnsSkipped() {
-        UUID txnId = UUID.randomUUID();
-        UUID currentUserId = UUID.randomUUID();
+    void testBatchReview_emptyIds_returnsEmptyResponse() {
+        var response = transactionService.batchReview(List.of(), ReviewType.MANUALLY_REVIEWED, List.of(ReviewReason.UNRECONCILED));
 
-        User owner = new User();
-        owner.setId(currentUserId);
-
-        Transaction txn = new Transaction();
-        txn.setId(txnId);
-        txn.setUser(owner);
-        txn.setReviewReasons(new HashSet<>(List.of(ReviewReason.CATEGORY_UNVERIFIED)));
-
-        when(transactionRepository.findById(txnId)).thenReturn(Optional.of(txn));
-
-        String result = transactionService.attemptReviewItem(txnId, ReviewType.MANUALLY_REVIEWED, List.of(ReviewReason.UNRECONCILED), currentUserId);
-
-        assertEquals("SKIPPED", result);
-        verifyNoInteractions(reviewStatusManager);
-        verify(transactionRepository, never()).save(any());
-    }
-
-    @Test
-    void testAttemptDeleteItem_whenNotOwned_returnsNotOwned() {
-        UUID txnId = UUID.randomUUID();
-        UUID currentUserId = UUID.randomUUID();
-        UUID ownerId = UUID.randomUUID();
-
-        User owner = new User();
-        owner.setId(ownerId);
-
-        Transaction txn = new Transaction();
-        txn.setId(txnId);
-        txn.setUser(owner);
-
-        when(transactionRepository.findById(txnId)).thenReturn(Optional.of(txn));
-
-        String result = transactionService.attemptDeleteItem(txnId, currentUserId);
-
-        assertEquals("FAILURE:NOT_OWNED", result);
-        verify(transactionRepository, never()).delete(any());
-    }
-
-    @Test
-    void testAttemptDeleteItem_whenOwned_deletesAndReturnsSuccess() {
-        UUID txnId = UUID.randomUUID();
-        UUID currentUserId = UUID.randomUUID();
-
-        User owner = new User();
-        owner.setId(currentUserId);
-
-        Transaction txn = new Transaction();
-        txn.setId(txnId);
-        txn.setUser(owner);
-
-        when(transactionRepository.findById(txnId)).thenReturn(Optional.of(txn));
-
-        String result = transactionService.attemptDeleteItem(txnId, currentUserId);
-
-        assertEquals("SUCCESS", result);
-        verify(transactionRepository).delete(txn);
-    }
-
-    @Test
-    void testBatchReview_aggregationOfResults() {
-        TransactionService mockedSelf = mock(TransactionService.class);
-        TransactionService localService = new TransactionService(
-                transactionRepository,
-                accountRepository,
-                categoryRepository,
-                userRepository,
-                reviewStatusManager,
-                categorizationService,
-                mockedSelf
-        );
-
-        UUID idA = UUID.randomUUID();
-        UUID idB = UUID.randomUUID();
-        UUID idC = UUID.randomUUID();
-
-        when(mockedSelf.attemptReviewItem(eq(idA), any(), any(), any())).thenReturn("SUCCESS");
-        when(mockedSelf.attemptReviewItem(eq(idB), any(), any(), any())).thenReturn("SKIPPED");
-        when(mockedSelf.attemptReviewItem(eq(idC), any(), any(), any())).thenReturn("FAILURE:NOT_FOUND");
-
-        var response = localService.batchReview(List.of(idA, idB, idC), ReviewType.MANUALLY_REVIEWED, List.of(ReviewReason.UNRECONCILED));
-
-        assertEquals(List.of(idA.toString()), response.succeededIds());
-        assertEquals(List.of(idB.toString()), response.skippedIds());
-        assertEquals(1, response.failures().size());
-        assertEquals(idC.toString(), response.failures().get(0).id());
-        assertEquals("NOT_FOUND", response.failures().get(0).reason());
-    }
-
-    @Test
-    void testBatchReview_noRetryForDeterministicFailures() {
-        TransactionService mockedSelf = mock(TransactionService.class);
-        TransactionService localService = new TransactionService(
-                transactionRepository,
-                accountRepository,
-                categoryRepository,
-                userRepository,
-                reviewStatusManager,
-                categorizationService,
-                mockedSelf
-        );
-
-        UUID idNotFound = UUID.randomUUID();
-        UUID idNotOwned = UUID.randomUUID();
-        UUID idValidation = UUID.randomUUID();
-
-        when(mockedSelf.attemptReviewItem(eq(idNotFound), any(), any(), any())).thenReturn("FAILURE:NOT_FOUND");
-        when(mockedSelf.attemptReviewItem(eq(idNotOwned), any(), any(), any())).thenReturn("FAILURE:NOT_OWNED");
-        when(mockedSelf.attemptReviewItem(eq(idValidation), any(), any(), any())).thenReturn("FAILURE:VALIDATION_ERROR");
-
-        var response = localService.batchReview(List.of(idNotFound, idNotOwned, idValidation), ReviewType.MANUALLY_REVIEWED, List.of(ReviewReason.UNRECONCILED));
-
-        verify(mockedSelf, times(1)).attemptReviewItem(eq(idNotFound), any(), any(), any());
-        verify(mockedSelf, times(1)).attemptReviewItem(eq(idNotOwned), any(), any(), any());
-        verify(mockedSelf, times(1)).attemptReviewItem(eq(idValidation), any(), any(), any());
-
-        assertEquals(3, response.failures().size());
-        assertTrue(response.failures().stream().allMatch(f -> f.reason().equals("NOT_FOUND") || f.reason().equals("NOT_OWNED") || f.reason().equals("ERROR")));
-    }
-
-    @Test
-    void testBatchReview_retryOnceOnUnexpectedError_thenSucceed() {
-        TransactionService mockedSelf = mock(TransactionService.class);
-        TransactionService localService = new TransactionService(
-                transactionRepository,
-                accountRepository,
-                categoryRepository,
-                userRepository,
-                reviewStatusManager,
-                categorizationService,
-                mockedSelf
-        );
-
-        UUID idA = UUID.randomUUID();
-        when(mockedSelf.attemptReviewItem(eq(idA), any(), any(), any()))
-                .thenReturn("FAILURE:ERROR")
-                .thenReturn("SUCCESS");
-
-        var response = localService.batchReview(List.of(idA), ReviewType.MANUALLY_REVIEWED, List.of(ReviewReason.UNRECONCILED));
-
-        verify(mockedSelf, times(2)).attemptReviewItem(eq(idA), any(), any(), any());
-        assertEquals(List.of(idA.toString()), response.succeededIds());
-        assertTrue(response.failures().isEmpty());
-    }
-
-    @Test
-    void testBatchReview_retryOnceOnUnexpectedError_thenFail() {
-        TransactionService mockedSelf = mock(TransactionService.class);
-        TransactionService localService = new TransactionService(
-                transactionRepository,
-                accountRepository,
-                categoryRepository,
-                userRepository,
-                reviewStatusManager,
-                categorizationService,
-                mockedSelf
-        );
-
-        UUID idA = UUID.randomUUID();
-        when(mockedSelf.attemptReviewItem(eq(idA), any(), any(), any()))
-                .thenReturn("FAILURE:ERROR")
-                .thenReturn("FAILURE:ERROR");
-
-        var response = localService.batchReview(List.of(idA), ReviewType.MANUALLY_REVIEWED, List.of(ReviewReason.UNRECONCILED));
-
-        verify(mockedSelf, times(2)).attemptReviewItem(eq(idA), any(), any(), any());
         assertTrue(response.succeededIds().isEmpty());
-        assertEquals(1, response.failures().size());
-        assertEquals("ERROR", response.failures().get(0).reason());
-    }
-
-    @Test
-    void testBatchReview_itemExceptionRecovery() {
-        TransactionService mockedSelf = mock(TransactionService.class);
-        TransactionService localService = new TransactionService(
-                transactionRepository,
-                accountRepository,
-                categoryRepository,
-                userRepository,
-                reviewStatusManager,
-                categorizationService,
-                mockedSelf
-        );
-
-        UUID idA = UUID.randomUUID();
-        when(mockedSelf.attemptReviewItem(eq(idA), any(), any(), any()))
-                .thenThrow(new RuntimeException("Commit fail"))
-                .thenReturn("SUCCESS");
-
-        var response = localService.batchReview(List.of(idA), ReviewType.MANUALLY_REVIEWED, List.of(ReviewReason.UNRECONCILED));
-
-        verify(mockedSelf, times(2)).attemptReviewItem(eq(idA), any(), any(), any());
-        assertEquals(List.of(idA.toString()), response.succeededIds());
+        assertTrue(response.skippedIds().isEmpty());
         assertTrue(response.failures().isEmpty());
+        verifyNoInteractions(transactionRepository);
     }
 
     @Test
-    void testBatchDelete_aggregationAndRetry() {
-        TransactionService mockedSelf = mock(TransactionService.class);
-        TransactionService localService = new TransactionService(
-                transactionRepository,
-                accountRepository,
-                categoryRepository,
-                userRepository,
-                reviewStatusManager,
-                categorizationService,
-                mockedSelf
-        );
+    void testBatchReview_tooManyIds_throwsValidation() {
+        List<UUID> ids = IntStream.range(0, 501).mapToObj(i -> UUID.randomUUID()).collect(Collectors.toList());
 
+        assertThrows(ValidationException.class,
+                () -> transactionService.batchReview(ids, ReviewType.MANUALLY_REVIEWED, List.of(ReviewReason.UNRECONCILED)));
+    }
+
+    @Test
+    void testBatchReview_clearingTypeWithoutReasons_throwsValidation() {
+        List<UUID> ids = List.of(UUID.randomUUID());
+
+        assertThrows(ValidationException.class,
+                () -> transactionService.batchReview(ids, ReviewType.MANUALLY_REVIEWED, List.of()));
+    }
+
+    @Test
+    void testBatchReview_clearingType_aggregatesSuccessSkipAndFailures() {
+        UUID idSuccess = UUID.randomUUID();
+        UUID idSkipped = UUID.randomUUID();
+        UUID idNotOwned = UUID.randomUUID();
+        UUID idNotFound = UUID.randomUUID();
+
+        Transaction success = ownedTxn(idSuccess, Set.of(ReviewReason.UNRECONCILED));
+        Transaction skipped = ownedTxn(idSkipped, Set.of(ReviewReason.CATEGORY_UNVERIFIED));
+        Transaction notOwned = txnForUser(idNotOwned, UUID.randomUUID(), Set.of(ReviewReason.UNRECONCILED));
+
+        List<UUID> ids = List.of(idSuccess, idSkipped, idNotOwned, idNotFound);
+        when(transactionRepository.findAllByIdIn(ids)).thenReturn(List.of(success, skipped, notOwned));
+
+        var response = transactionService.batchReview(ids, ReviewType.MANUALLY_REVIEWED, List.of(ReviewReason.UNRECONCILED));
+
+        assertEquals(List.of(idSuccess.toString()), response.succeededIds());
+        assertEquals(List.of(idSkipped.toString()), response.skippedIds());
+
+        Map<String, String> failureReasons = response.failures().stream()
+                .collect(Collectors.toMap(f -> f.id(), f -> f.reason()));
+        assertEquals("NOT_OWNED", failureReasons.get(idNotOwned.toString()));
+        assertEquals("NOT_FOUND", failureReasons.get(idNotFound.toString()));
+        assertEquals(2, failureReasons.size());
+
+        // Only the matching-reason txn has its reason cleared and is persisted.
+        verify(reviewStatusManager).clearReason(success, ReviewReason.UNRECONCILED, ReviewType.MANUALLY_REVIEWED);
+        verify(reviewStatusManager, never()).clearReason(eq(skipped), any(), any());
+        verify(transactionRepository).saveAll(argThat((Iterable<Transaction> saved) -> {
+            List<Transaction> list = new ArrayList<>();
+            saved.forEach(list::add);
+            return list.size() == 1 && list.contains(success);
+        }));
+    }
+
+    @Test
+    void testBatchReview_nonClearingType_transitionsWithoutReasonMatching() {
         UUID idA = UUID.randomUUID();
-        UUID idB = UUID.randomUUID();
+        Transaction txn = ownedTxn(idA, Set.of(ReviewReason.UNRECONCILED));
 
-        when(mockedSelf.attemptDeleteItem(eq(idA), any()))
-                .thenReturn("FAILURE:ERROR")
-                .thenReturn("SUCCESS");
-        when(mockedSelf.attemptDeleteItem(eq(idB), any()))
-                .thenReturn("FAILURE:NOT_OWNED");
+        List<UUID> ids = List.of(idA);
+        when(transactionRepository.findAllByIdIn(ids)).thenReturn(List.of(txn));
 
-        var response = localService.batchDelete(List.of(idA, idB));
-
-        verify(mockedSelf, times(2)).attemptDeleteItem(eq(idA), any());
-        verify(mockedSelf, times(1)).attemptDeleteItem(eq(idB), any());
+        // Non-clearing type: reasons are not required and no skip-gating applies.
+        var response = transactionService.batchReview(ids, ReviewType.NEEDS_REVIEW, null);
 
         assertEquals(List.of(idA.toString()), response.succeededIds());
-        assertEquals(1, response.failures().size());
-        assertEquals("NOT_OWNED", response.failures().get(0).reason());
+        assertTrue(response.skippedIds().isEmpty());
+        assertTrue(response.failures().isEmpty());
+        verify(reviewStatusManager).transitionTo(txn, ReviewType.NEEDS_REVIEW);
+        verify(transactionRepository).saveAll(anyList());
     }
+
+    // ---- batchDelete ----
+
+    @Test
+    void testBatchDelete_emptyIds_returnsEmptyResponse() {
+        var response = transactionService.batchDelete(List.of());
+
+        assertTrue(response.succeededIds().isEmpty());
+        assertTrue(response.failures().isEmpty());
+        verifyNoInteractions(transactionRepository);
+    }
+
+    @Test
+    void testBatchDelete_aggregatesSuccessAndFailures() {
+        UUID idOwned = UUID.randomUUID();
+        UUID idNotOwned = UUID.randomUUID();
+        UUID idNotFound = UUID.randomUUID();
+
+        Transaction owned = ownedTxn(idOwned, null);
+        Transaction notOwned = txnForUser(idNotOwned, UUID.randomUUID(), null);
+
+        List<UUID> ids = List.of(idOwned, idNotOwned, idNotFound);
+        when(transactionRepository.findAllByIdIn(ids)).thenReturn(List.of(owned, notOwned));
+
+        var response = transactionService.batchDelete(ids);
+
+        assertEquals(List.of(idOwned.toString()), response.succeededIds());
+
+        Map<String, String> failureReasons = response.failures().stream()
+                .collect(Collectors.toMap(f -> f.id(), f -> f.reason()));
+        assertEquals("NOT_OWNED", failureReasons.get(idNotOwned.toString()));
+        assertEquals("NOT_FOUND", failureReasons.get(idNotFound.toString()));
+        assertEquals(2, failureReasons.size());
+
+        verify(transactionRepository).deleteAllByIdInBatch(List.of(idOwned));
+    }
+
+    // ---- updateTransaction ----
 
     @Test
     void testUpdateTransactionMccPreserveAndClear() {
-        UUID currentUserId = UUID.randomUUID();
-        UserContext.setCurrentUserId(currentUserId);
         User user = new User();
         user.setId(currentUserId);
 
