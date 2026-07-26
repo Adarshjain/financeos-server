@@ -68,10 +68,7 @@ public class Account {
     private AccountCreditCardDetails creditCardDetails;
 
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private AccountStockDetails stockDetails;
-
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private AccountMutualFundDetails mutualFundDetails;
+    private AccountBrokerDetails brokerDetails;
 
     @Transient
     private java.math.BigDecimal calculatedBalance;

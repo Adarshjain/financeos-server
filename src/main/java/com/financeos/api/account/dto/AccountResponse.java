@@ -13,8 +13,7 @@ import java.util.UUID;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = AccountResponse.BankAccountResponse.class, name = "bank_account"),
         @JsonSubTypes.Type(value = AccountResponse.CreditCardAccountResponse.class, name = "credit_card"),
-        @JsonSubTypes.Type(value = AccountResponse.StockAccountResponse.class, name = "stock"),
-        @JsonSubTypes.Type(value = AccountResponse.MutualFundAccountResponse.class, name = "mutual_fund"),
+        @JsonSubTypes.Type(value = AccountResponse.BrokerAccountResponse.class, name = "broker"),
         @JsonSubTypes.Type(value = AccountResponse.GenericAccountResponse.class, name = "generic")
 })
 public sealed interface AccountResponse {
@@ -96,9 +95,9 @@ public sealed interface AccountResponse {
                         gap,
                         anchorDate);
             }
-            case stock -> {
-                AccountStockDetails details = account.getStockDetails();
-                yield new StockAccountResponse(
+            case broker -> {
+                AccountBrokerDetails details = account.getBrokerDetails();
+                yield new BrokerAccountResponse(
                         account.getId(),
                         account.getName(),
                         account.getType(),
@@ -108,27 +107,9 @@ public sealed interface AccountResponse {
                         account.getCreatedAt(),
                         account.getUpdatedAt(),
                         account.getIngestFromDate(),
-                        details != null ? details.getInstrumentCode() : null,
-                        details != null ? details.getLastTradedPrice() : null,
-                        bal,
-                        anchored,
-                        gap,
-                        anchorDate);
-            }
-            case mutual_fund -> {
-                AccountMutualFundDetails details = account.getMutualFundDetails();
-                yield new MutualFundAccountResponse(
-                        account.getId(),
-                        account.getName(),
-                        account.getType(),
-                        account.getExcludeFromNetAsset(),
-                        account.getFinancialPosition(),
-                        account.getDescription(),
-                        account.getCreatedAt(),
-                        account.getUpdatedAt(),
-                        account.getIngestFromDate(),
-                        details != null ? details.getInstrumentCode() : null,
-                        details != null ? details.getLastTradedPrice() : null,
+                        details != null ? details.getProvider() : null,
+                        details != null ? details.getClientId() : null,
+                        details != null ? details.getCashBalance() : BigDecimal.ZERO,
                         bal,
                         anchored,
                         gap,
@@ -191,7 +172,7 @@ public sealed interface AccountResponse {
             LocalDate anchorDate) implements AccountResponse {
     }
 
-    record StockAccountResponse(
+    record BrokerAccountResponse(
             UUID id,
             String name,
             AccountType type,
@@ -201,26 +182,9 @@ public sealed interface AccountResponse {
             Instant createdAt,
             Instant updatedAt,
             LocalDate ingestFromDate,
-            String instrumentCode,
-            BigDecimal lastTradedPrice,
-            BigDecimal balance,
-            Boolean balanceAnchored,
-            BigDecimal reconciliationGap,
-            LocalDate anchorDate) implements AccountResponse {
-    }
-
-    record MutualFundAccountResponse(
-            UUID id,
-            String name,
-            AccountType type,
-            Boolean excludeFromNetAsset,
-            FinancialPosition financialPosition,
-            String description,
-            Instant createdAt,
-            Instant updatedAt,
-            LocalDate ingestFromDate,
-            String instrumentCode,
-            BigDecimal lastTradedPrice,
+            String provider,
+            String clientId,
+            BigDecimal cashBalance,
             BigDecimal balance,
             Boolean balanceAnchored,
             BigDecimal reconciliationGap,

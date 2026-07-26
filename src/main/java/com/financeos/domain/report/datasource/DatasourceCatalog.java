@@ -86,7 +86,7 @@ public class DatasourceCatalog {
             new FieldDef("category", "Category", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
             new FieldDef("account", "Account", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
             new FieldDef("accountType", "Account Type", FieldType.ENUM, FieldRole.DIMENSION, null,
-                    List.of("bank_account", "credit_card", "stock", "mutual_fund", "generic"), null, CHART_TABLE),
+                    List.of("bank_account", "credit_card", "broker", "generic"), null, CHART_TABLE),
             new FieldDef("source", "Source", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("gmail", "manual"), null, CHART_TABLE),
             new FieldDef("description", "Description", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),

@@ -4,6 +4,7 @@ import com.financeos.api.account.dto.*;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.domain.holding.HoldingValuationService;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementCreditCardDetails;
 import com.financeos.domain.statement.StatementRepository;
@@ -26,17 +27,20 @@ public class AccountService {
     private final UserRepository userRepository;
     private final StatementRepository statementRepository;
     private final TransactionRepository transactionRepository;
+    private final HoldingValuationService holdingValuationService;
 
     public AccountService(AccountRepository accountRepository,
             UserRepository userRepository,
             StatementRepository statementRepository,
-            TransactionRepository transactionRepository) {
+            TransactionRepository transactionRepository,
+            HoldingValuationService holdingValuationService) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.statementRepository = statementRepository;
         this.transactionRepository = transactionRepository;
+        this.holdingValuationService = holdingValuationService;
     }
-    
+
     public Account createAccount(CreateAccountRequest request) {
         UUID userId = UserContext.getCurrentUserId();
         User user = userRepository.getReferenceById(userId);
@@ -44,7 +48,12 @@ public class AccountService {
         Account account = new Account(request.name(), request.type());
         account.setUser(user);
         account.setExcludeFromNetAsset(request.excludeFromNetAsset() != null ? request.excludeFromNetAsset() : false);
-        account.setFinancialPosition(request.financialPosition());
+        
+        FinancialPosition position = request.financialPosition();
+        if (position == null && request.type() == AccountType.broker) {
+            position = FinancialPosition.asset;
+        }
+        account.setFinancialPosition(position);
         account.setDescription(request.description());
         account.setIngestFromDate(request.ingestFromDate());
 
@@ -61,11 +70,8 @@ public class AccountService {
             case CreateAccountRequest.CreditCardRequest ccReq -> {
                 account = addCreditCardDetails(account, ccReq);
             }
-            case CreateAccountRequest.StockRequest stockReq -> {
-                account = addStockDetails(account, stockReq);
-            }
-            case CreateAccountRequest.MutualFundRequest mfReq -> {
-                account = addMutualFundDetails(account, mfReq);
+            case CreateAccountRequest.BrokerRequest brokerReq -> {
+                account = addBrokerDetails(account, brokerReq);
             }
             case CreateAccountRequest.GenericAccountRequest genericReq -> {
                 // No extra details to update
@@ -112,8 +118,7 @@ public class AccountService {
         switch (request) {
             case CreateAccountRequest.BankAccountRequest bankReq -> account = addBankDetails(account, bankReq);
             case CreateAccountRequest.CreditCardRequest ccReq -> account = addCreditCardDetails(account, ccReq);
-            case CreateAccountRequest.StockRequest stockReq -> account = addStockDetails(account, stockReq);
-            case CreateAccountRequest.MutualFundRequest mfReq -> account = addMutualFundDetails(account, mfReq);
+            case CreateAccountRequest.BrokerRequest brokerReq -> account = addBrokerDetails(account, brokerReq);
             case CreateAccountRequest.GenericAccountRequest genericReq -> {
                 // No extra details to update
             }
@@ -171,37 +176,24 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account addStockDetails(Account account, CreateAccountRequest.StockRequest request) {
-        if (account.getType() != AccountType.stock) {
-            throw new ValidationException("Stock details can only be added to stock accounts");
+    public Account addBrokerDetails(Account account, CreateAccountRequest.BrokerRequest request) {
+        if (account.getType() != AccountType.broker) {
+            throw new ValidationException("Broker details can only be added to broker accounts");
         }
 
-        if (account.getStockDetails() != null) {
-            account.getStockDetails().setInstrumentCode(request.instrumentCode());
-            account.getStockDetails().setLastTradedPrice(request.lastTradedPrice());
+        if (account.getBrokerDetails() != null) {
+            AccountBrokerDetails details = account.getBrokerDetails();
+            details.setProvider(request.provider());
+            details.setClientId(request.clientId());
+            details.setCashBalance(request.cashBalance() != null ? request.cashBalance() : BigDecimal.ZERO);
         } else {
-            AccountStockDetails details = new AccountStockDetails(account, request.instrumentCode(),
-                    request.lastTradedPrice());
+            AccountBrokerDetails details = new AccountBrokerDetails(
+                    account,
+                    request.provider(),
+                    request.clientId(),
+                    request.cashBalance() != null ? request.cashBalance() : BigDecimal.ZERO);
             details.setUser(account.getUser());
-            account.setStockDetails(details);
-        }
-
-        return accountRepository.save(account);
-    }
-
-    public Account addMutualFundDetails(Account account, CreateAccountRequest.MutualFundRequest request) {
-        if (account.getType() != AccountType.mutual_fund) {
-            throw new ValidationException("Mutual fund details can only be added to mutual fund accounts");
-        }
-
-        if (account.getMutualFundDetails() != null) {
-            account.getMutualFundDetails().setInstrumentCode(request.instrumentCode());
-            account.getMutualFundDetails().setLastTradedPrice(request.lastTradedPrice());
-        } else {
-            AccountMutualFundDetails details = new AccountMutualFundDetails(account, request.instrumentCode(),
-                    request.lastTradedPrice());
-            details.setUser(account.getUser());
-            account.setMutualFundDetails(details);
+            account.setBrokerDetails(details);
         }
 
         return accountRepository.save(account);
@@ -246,8 +238,6 @@ public class AccountService {
             daysUntilDue = java.time.temporal.ChronoUnit.DAYS.between(LocalDate.now(), d.getPaymentDueDate());
         }
 
-        // The statement's harvested limit wins; fall back to the limit configured
-        // on the account when the statement didn't carry one.
         BigDecimal creditLimit = d != null && d.getCreditLimit() != null
                 ? d.getCreditLimit()
                 : (account.getCreditCardDetails() != null ? account.getCreditCardDetails().getCreditLimit() : null);
@@ -277,6 +267,18 @@ public class AccountService {
     }
 
     private void populateBalanceInfo(Account account) {
+        if (account.getType() == AccountType.broker) {
+            BigDecimal cash = account.getBrokerDetails() != null && account.getBrokerDetails().getCashBalance() != null
+                    ? account.getBrokerDetails().getCashBalance()
+                    : BigDecimal.ZERO;
+            BigDecimal marketValue = holdingValuationService.getBrokerMarketValue(account.getId());
+            account.setCalculatedBalance(marketValue.add(cash));
+            account.setBalanceAnchored(false);
+            account.setAnchorDate(null);
+            account.setReconciliationGap(null);
+            return;
+        }
+
         List<StatementRepository.AnchorStatementProjection> eligible = statementRepository.findEligibleAnchorStatements(account.getId(), org.springframework.data.domain.PageRequest.of(0, 1));
         if (!eligible.isEmpty()) {
             StatementRepository.AnchorStatementProjection anchor = eligible.get(0);

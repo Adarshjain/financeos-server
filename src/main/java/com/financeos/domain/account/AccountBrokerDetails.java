@@ -1,24 +1,24 @@
 package com.financeos.domain.account;
 
+import com.financeos.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Filter;
-import com.financeos.domain.user.User;
-
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-@Table(name = "account_mutual_fund_details")
+@Table(name = "account_broker_details")
 @Getter
 @Setter
 @NoArgsConstructor
 @Filter(name = "userFilter", condition = "user_id = :userId")
-public class AccountMutualFundDetails {
+public class AccountBrokerDetails {
 
     @Id
     @JdbcTypeCode(SqlTypes.VARCHAR)
@@ -36,16 +36,20 @@ public class AccountMutualFundDetails {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private Account account;
 
-    @Column(name = "instrument_code", nullable = false)
-    private String instrumentCode;
+    @Column(name = "provider", nullable = false)
+    private String provider;
 
-    @Column(name = "last_traded_price", precision = 19, scale = 4)
-    private BigDecimal lastTradedPrice;
+    @Column(name = "client_id")
+    private String clientId;
 
-    public AccountMutualFundDetails(Account account, String instrumentCode, BigDecimal lastTradedPrice) {
+    @Column(name = "cash_balance", precision = 19, scale = 2)
+    private BigDecimal cashBalance = BigDecimal.ZERO;
+
+    public AccountBrokerDetails(Account account, String provider, String clientId, BigDecimal cashBalance) {
         this.account = account;
         this.accountId = account.getId();
-        this.instrumentCode = instrumentCode;
-        this.lastTradedPrice = lastTradedPrice;
+        this.provider = provider;
+        this.clientId = clientId;
+        this.cashBalance = cashBalance != null ? cashBalance : BigDecimal.ZERO;
     }
 }

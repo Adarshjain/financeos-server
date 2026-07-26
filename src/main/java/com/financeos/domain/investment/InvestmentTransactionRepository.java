@@ -2,7 +2,6 @@ package com.financeos.domain.investment;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,20 +13,21 @@ import java.util.UUID;
 @Repository
 public interface InvestmentTransactionRepository extends JpaRepository<InvestmentTransaction, UUID> {
 
-    @Query("SELECT it FROM InvestmentTransaction it WHERE it.account.id = :accountId ORDER BY it.date ASC, it.createdAt ASC")
-    List<InvestmentTransaction> findByAccountIdOrderByDateAsc(@Param("accountId") UUID accountId);
+    List<InvestmentTransaction> findByHoldingIdOrderByTradeDateAscCreatedAtAsc(UUID holdingId);
 
-    @EntityGraph(attributePaths = { "account" })
-    Page<InvestmentTransaction> findByAccountId(UUID accountId, Pageable pageable);
+    List<InvestmentTransaction> findByHoldingBrokerAccountIdOrderByTradeDateAscCreatedAtAsc(UUID brokerAccountId);
 
-    @Override
-    @EntityGraph(attributePaths = { "account" })
-    Page<InvestmentTransaction> findAll(Pageable pageable);
-
-    @EntityGraph(attributePaths = { "account" })
-    @Query("SELECT it FROM InvestmentTransaction it ORDER BY it.date DESC, it.createdAt DESC")
-    Page<InvestmentTransaction> findAllOrdered(Pageable pageable);
-
-    @Query("SELECT DISTINCT it.account.id FROM InvestmentTransaction it")
-    List<UUID> findDistinctAccountIds();
+    @Query(value = "SELECT t FROM InvestmentTransaction t JOIN FETCH t.holding h JOIN FETCH h.instrument i JOIN FETCH h.brokerAccount b WHERE " +
+                   "(:brokerAccountId IS NULL OR b.id = :brokerAccountId) AND " +
+                   "(:instrumentId IS NULL OR i.id = :instrumentId) AND " +
+                   "(:holdingId IS NULL OR h.id = :holdingId)",
+           countQuery = "SELECT COUNT(t) FROM InvestmentTransaction t JOIN t.holding h JOIN h.instrument i JOIN h.brokerAccount b WHERE " +
+                        "(:brokerAccountId IS NULL OR b.id = :brokerAccountId) AND " +
+                        "(:instrumentId IS NULL OR i.id = :instrumentId) AND " +
+                        "(:holdingId IS NULL OR h.id = :holdingId)")
+    Page<InvestmentTransaction> findFilteredTransactions(
+            @Param("brokerAccountId") UUID brokerAccountId,
+            @Param("instrumentId") UUID instrumentId,
+            @Param("holdingId") UUID holdingId,
+            Pageable pageable);
 }

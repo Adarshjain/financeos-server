@@ -17,7 +17,7 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
     @Query("SELECT a FROM Account a WHERE a.excludeFromNetAsset = false")
     List<Account> findIncludedInNetAsset();
 
-    @Query("SELECT a FROM Account a WHERE a.type IN ('stock', 'mutual_fund')")
+    @Query("SELECT a FROM Account a WHERE a.type = 'broker'")
     List<Account> findInvestmentAccounts();
 
     @Query("SELECT a FROM Account a LEFT JOIN a.bankDetails b LEFT JOIN a.creditCardDetails c WHERE (b.last4 = :last4 OR c.last4 = :last4)")

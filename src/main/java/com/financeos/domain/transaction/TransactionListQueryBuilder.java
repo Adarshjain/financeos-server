@@ -39,7 +39,7 @@ public class TransactionListQueryBuilder {
             Map.entry("description", new FieldMetadata("description", FieldType.STRING, "sub.description", null, null)),
             Map.entry("accountId", new FieldMetadata("accountId", FieldType.ENUM, "sub.account_id", null, null)),
             Map.entry("account", new FieldMetadata("account", FieldType.ENUM, "a.name", Join.ACCOUNTS, null)),
-            Map.entry("accountType", new FieldMetadata("accountType", FieldType.ENUM, "a.type", Join.ACCOUNTS, Set.of("bank_account", "credit_card", "stock", "mutual_fund", "generic"))),
+            Map.entry("accountType", new FieldMetadata("accountType", FieldType.ENUM, "a.type", Join.ACCOUNTS, Set.of("bank_account", "credit_card", "broker", "generic"))),
             Map.entry("category", new FieldMetadata("category", FieldType.ENUM, null, null, null)),
             Map.entry("reviewType", new FieldMetadata("reviewType", FieldType.ENUM, "sub.review_type", null, Set.of("NEEDS_REVIEW", "AUTO_REVIEWED", "MANUALLY_REVIEWED", "NA"))),
             Map.entry("reviewReason", new FieldMetadata("reviewReason", FieldType.ENUM, null, null, Set.of("UNRECONCILED", "CATEGORY_UNVERIFIED", "DUPLICATE_SUSPECT"))),

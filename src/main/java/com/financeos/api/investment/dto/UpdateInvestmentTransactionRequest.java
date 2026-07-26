@@ -6,11 +6,8 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.UUID;
 
-public record CreateInvestmentTransactionRequest(
-        @NotNull(message = "Broker account ID is required") UUID brokerAccountId,
-        @NotNull(message = "Instrument ID is required") UUID instrumentId,
+public record UpdateInvestmentTransactionRequest(
         @NotNull(message = "Transaction type is required") InvestmentTransactionType type,
         @NotNull(message = "Quantity is required") @Positive(message = "Quantity must be positive") BigDecimal quantity,
         @NotNull(message = "Price is required") BigDecimal price,
