@@ -133,5 +133,22 @@ google:
     client-secret: ${GOOGLE_CLIENT_SECRET:${GMAIL_CLIENT_SECRET:}}
     redirect-uri: ${GOOGLE_OAUTH_REDIRECT_URI:http://localhost:6969/api/v1/auth/google/callback}
 
+# Price Feed configuration
+price:
+  enabled: ${PRICE_FEED_ENABLED:true}
+  refresh-cron: ${PRICE_REFRESH_CRON:0 0 19 * * *}
+  timezone: ${PRICE_TIMEZONE:Asia/Kolkata}
+  providers:
+    amfi:
+      enabled: true
+      base-url: ${AMFI_BASE_URL:https://www.amfiindia.com}
+      timeout-ms: 30000
+    yahoo:
+      enabled: true
+      base-url: ${YAHOO_BASE_URL:https://query1.finance.yahoo.com}
+      timeout-ms: 30000
+      user-agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
 debug: true
+
 

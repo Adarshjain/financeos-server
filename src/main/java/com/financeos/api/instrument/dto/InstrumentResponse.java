@@ -3,6 +3,7 @@ package com.financeos.api.instrument.dto;
 import com.financeos.domain.instrument.Instrument;
 import com.financeos.domain.instrument.InstrumentPrice;
 import com.financeos.domain.instrument.InstrumentType;
+import com.financeos.domain.instrument.PriceSource;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -22,6 +23,7 @@ public record InstrumentResponse(
         String currency,
         BigDecimal lastPrice,
         LocalDate lastPriceAsOf,
+        PriceSource lastPriceSource,
         Instant createdAt,
         Instant updatedAt
 ) {
@@ -38,6 +40,7 @@ public record InstrumentResponse(
                 instrument.getCurrency() != null ? instrument.getCurrency() : "INR",
                 latestPrice.map(InstrumentPrice::getClose).orElse(null),
                 latestPrice.map(InstrumentPrice::getAsOf).orElse(null),
+                latestPrice.map(InstrumentPrice::getSource).orElse(null),
                 instrument.getCreatedAt(),
                 instrument.getUpdatedAt()
         );
