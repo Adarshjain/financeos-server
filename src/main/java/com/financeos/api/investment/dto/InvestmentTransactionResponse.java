@@ -12,30 +12,29 @@ import java.util.UUID;
 
 public record InvestmentTransactionResponse(
         UUID id,
-        HoldingDto holding,
+        UUID brokerAccountId,
+        String brokerName,
+        String provider,
+        UUID instrumentId,
+        InstrumentInfoDto instrument,
         InvestmentTransactionType type,
         BigDecimal quantity,
         BigDecimal price,
         LocalDate tradeDate,
-        ItemizedChargesDto charges,
+        BigDecimal brokerage,
+        BigDecimal stt,
+        BigDecimal exchangeTxnCharges,
+        BigDecimal sebiCharges,
+        BigDecimal stampDuty,
+        BigDecimal gst,
+        BigDecimal dpCharges,
+        BigDecimal otherCharges,
         BigDecimal totalCharges,
         String source,
         String externalRef,
         String notes,
         Instant createdAt
 ) {
-    public record HoldingDto(
-            UUID id,
-            BrokerInfoDto broker,
-            InstrumentInfoDto instrument
-    ) {}
-
-    public record BrokerInfoDto(
-            UUID id,
-            String name,
-            String provider
-    ) {}
-
     public record InstrumentInfoDto(
             UUID id,
             InstrumentType type,
@@ -47,13 +46,24 @@ public record InvestmentTransactionResponse(
         Holding h = txn.getHolding();
         String provider = h.getBrokerAccount().getBrokerDetails() != null ? h.getBrokerAccount().getBrokerDetails().getProvider() : null;
 
-        HoldingDto holdingDto = new HoldingDto(
-                h.getId(),
-                new BrokerInfoDto(h.getBrokerAccount().getId(), h.getBrokerAccount().getName(), provider),
-                new InstrumentInfoDto(h.getInstrument().getId(), h.getInstrument().getType(), h.getInstrument().getName(), h.getInstrument().getSymbol())
+        InstrumentInfoDto instrumentDto = new InstrumentInfoDto(
+                h.getInstrument().getId(),
+                h.getInstrument().getType(),
+                h.getInstrument().getName(),
+                h.getInstrument().getSymbol()
         );
 
-        ItemizedChargesDto charges = new ItemizedChargesDto(
+        return new InvestmentTransactionResponse(
+                txn.getId(),
+                h.getBrokerAccount().getId(),
+                h.getBrokerAccount().getName(),
+                provider,
+                h.getInstrument().getId(),
+                instrumentDto,
+                txn.getType(),
+                txn.getQuantity(),
+                txn.getPrice(),
+                txn.getTradeDate(),
                 txn.getBrokerage(),
                 txn.getStt(),
                 txn.getExchangeTxnCharges(),
@@ -61,17 +71,7 @@ public record InvestmentTransactionResponse(
                 txn.getStampDuty(),
                 txn.getGst(),
                 txn.getDpCharges(),
-                txn.getOtherCharges()
-        );
-
-        return new InvestmentTransactionResponse(
-                txn.getId(),
-                holdingDto,
-                txn.getType(),
-                txn.getQuantity(),
-                txn.getPrice(),
-                txn.getTradeDate(),
-                charges,
+                txn.getOtherCharges(),
                 txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO,
                 txn.getSource(),
                 txn.getExternalRef(),

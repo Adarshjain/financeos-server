@@ -122,9 +122,9 @@ public class SipService {
     }
 
     @Transactional(readOnly = true)
-    public Page<SipResponse> getSips(UUID brokerAccountId, UUID instrumentId, Boolean active, Pageable pageable) {
-        Page<Sip> page = sipRepository.findFilteredSips(brokerAccountId, instrumentId, active, pageable);
-        return page.map(sip -> SipResponse.from(sip, computeProgress(sip)));
+    public List<SipResponse> getSips(UUID brokerAccountId, UUID instrumentId, Boolean active) {
+        List<Sip> sips = sipRepository.findFilteredSips(brokerAccountId, instrumentId, active);
+        return sips.stream().map(sip -> SipResponse.from(sip, computeProgress(sip))).toList();
     }
 
     /**
