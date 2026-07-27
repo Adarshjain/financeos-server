@@ -36,6 +36,12 @@ public class PriceRefreshService {
         this.priceProperties = priceProperties;
     }
 
+    /**
+     * Refreshes instrument prices.
+     * Note: When called via an HTTP request, userFilter is active so holdingRepository.findDistinctInstrumentsHeld()
+     * returns instruments held by the authenticated user. When called via the scheduled background job, UserContext
+     * is clear so userFilter is inactive and instruments across all users are refreshed.
+     */
     public PriceRefreshResult refresh(Optional<UUID> instrumentId) {
         List<Instrument> targets;
         if (instrumentId.isPresent()) {

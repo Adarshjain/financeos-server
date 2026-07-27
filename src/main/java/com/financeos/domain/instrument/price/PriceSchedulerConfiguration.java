@@ -28,7 +28,7 @@ public class PriceSchedulerConfiguration {
         try {
             PriceRefreshResult result = priceRefreshService.refresh(Optional.empty());
             log.info("Completed daily price refresh: refreshed={}, skipped={}, failed={}",
-                    result.refreshedCount(), result.skippedCount(), result.failedList().size());
+                    result.refreshed(), result.skipped(), result.failed().size());
         } catch (Exception e) {
             log.error("Daily price refresh scheduled job failed", e);
         }
