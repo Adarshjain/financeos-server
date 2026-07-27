@@ -34,9 +34,11 @@ public record ImportCommitRequest(
     ) {}
 
     public record ParsedRowData(
+            String kind,
             InvestmentTransactionType type,
             BigDecimal quantity,
             BigDecimal price,
+            BigDecimal amount,
             LocalDate tradeDate,
             ItemizedChargesDto charges,
             String externalRef,
