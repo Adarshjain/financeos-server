@@ -1,14 +1,17 @@
 package com.financeos.api.instrument;
 
+import com.financeos.api.instrument.dto.InstrumentPriceResponse;
 import com.financeos.api.instrument.dto.InstrumentRequest;
 import com.financeos.api.instrument.dto.InstrumentResponse;
 import com.financeos.api.instrument.dto.UpsertPriceRequest;
 import com.financeos.domain.instrument.InstrumentService;
 import com.financeos.domain.instrument.InstrumentType;
 import jakarta.validation.Valid;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,5 +51,13 @@ public class InstrumentController {
     @PostMapping("/{id}/price")
     public InstrumentResponse upsertPrice(@PathVariable UUID id, @Valid @RequestBody UpsertPriceRequest request) {
         return instrumentService.upsertPrice(id, request);
+    }
+
+    @GetMapping("/{id}/prices")
+    public List<InstrumentPriceResponse> getPriceHistory(
+            @PathVariable UUID id,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+        return instrumentService.getPriceHistory(id, from, to);
     }
 }

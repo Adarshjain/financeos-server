@@ -1,6 +1,8 @@
 package com.financeos.api.investment;
 
 import com.financeos.api.investment.dto.*;
+import com.financeos.domain.instrument.price.PriceRefreshResult;
+import com.financeos.domain.instrument.price.PriceRefreshService;
 import com.financeos.domain.investment.InvestmentService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -9,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -16,9 +19,12 @@ import java.util.UUID;
 public class InvestmentController {
 
     private final InvestmentService investmentService;
+    private final PriceRefreshService priceRefreshService;
 
-    public InvestmentController(InvestmentService investmentService) {
+    public InvestmentController(InvestmentService investmentService,
+                                PriceRefreshService priceRefreshService) {
         this.investmentService = investmentService;
+        this.priceRefreshService = priceRefreshService;
     }
 
     @PostMapping("/transactions")
@@ -58,5 +64,10 @@ public class InvestmentController {
     @GetMapping("/summary")
     public SummaryResponse getSummary() {
         return investmentService.getSummary();
+    }
+
+    @PostMapping("/prices/refresh")
+    public PriceRefreshResult refreshPrices(@RequestParam(required = false) UUID instrumentId) {
+        return priceRefreshService.refresh(Optional.ofNullable(instrumentId));
     }
 }

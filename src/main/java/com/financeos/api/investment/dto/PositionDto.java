@@ -1,6 +1,7 @@
 package com.financeos.api.investment.dto;
 
 import com.financeos.domain.instrument.InstrumentType;
+import com.financeos.domain.instrument.PriceSource;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ public record PositionDto(
         BigDecimal openCost,
         BigDecimal latestPrice,
         LocalDate priceAsOf,
+        PriceSource lastPriceSource,
         BigDecimal currentValue,
         BigDecimal unrealized,
         BigDecimal unrealizedPercent,

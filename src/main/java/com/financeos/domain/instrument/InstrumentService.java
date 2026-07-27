@@ -1,5 +1,6 @@
 package com.financeos.domain.instrument;
 
+import com.financeos.api.instrument.dto.InstrumentPriceResponse;
 import com.financeos.api.instrument.dto.InstrumentRequest;
 import com.financeos.api.instrument.dto.InstrumentResponse;
 import com.financeos.api.instrument.dto.UpsertPriceRequest;
@@ -109,5 +110,14 @@ public class InstrumentService {
 
         Optional<InstrumentPrice> latestPrice = priceRepository.findTopByInstrumentIdOrderByAsOfDesc(id);
         return InstrumentResponse.from(instrument, latestPrice);
+    }
+
+    @Transactional(readOnly = true)
+    public List<InstrumentPriceResponse> getPriceHistory(UUID instrumentId, LocalDate from, LocalDate to) {
+        if (!instrumentRepository.existsById(instrumentId)) {
+            throw new ResourceNotFoundException("Instrument", instrumentId);
+        }
+        List<InstrumentPrice> prices = priceRepository.findPriceHistory(instrumentId, from, to);
+        return prices.stream().map(InstrumentPriceResponse::from).toList();
     }
 }

@@ -14,6 +14,7 @@ import com.financeos.domain.instrument.InstrumentPrice;
 import com.financeos.domain.instrument.InstrumentPriceRepository;
 import com.financeos.domain.instrument.InstrumentRepository;
 import com.financeos.domain.instrument.InstrumentType;
+import com.financeos.domain.instrument.PriceSource;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import org.springframework.data.domain.Page;
@@ -331,6 +332,7 @@ public class InvestmentService {
         Optional<InstrumentPrice> latestPrice = priceRepository.findTopByInstrumentIdOrderByAsOfDesc(holding.getInstrument().getId());
         BigDecimal priceClose = latestPrice.map(InstrumentPrice::getClose).orElse(null);
         LocalDate priceAsOf = latestPrice.map(InstrumentPrice::getAsOf).orElse(null);
+        PriceSource priceSource = latestPrice.map(InstrumentPrice::getSource).orElse(null);
 
         BigDecimal currentValue = null;
         BigDecimal unrealized = null;
@@ -351,6 +353,7 @@ public class InvestmentService {
                 openCost.setScale(4, RoundingMode.HALF_UP),
                 priceClose,
                 priceAsOf,
+                priceSource,
                 currentValue,
                 unrealized,
                 unrealizedPercent,
@@ -376,6 +379,7 @@ public class InvestmentService {
             BigDecimal openCost,
             BigDecimal latestPrice,
             LocalDate priceAsOf,
+            PriceSource priceSource,
             BigDecimal currentValue,
             BigDecimal unrealized,
             BigDecimal unrealizedPercent,
@@ -404,6 +408,7 @@ public class InvestmentService {
                     openCost,
                     latestPrice,
                     priceAsOf,
+                    priceSource,
                     currentValue,
                     unrealized,
                     unrealizedPercent,
