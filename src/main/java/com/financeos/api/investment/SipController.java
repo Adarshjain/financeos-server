@@ -5,11 +5,10 @@ import com.financeos.api.investment.dto.SipResponse;
 import com.financeos.api.investment.dto.UpdateSipRequest;
 import com.financeos.domain.investment.sip.SipService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -29,12 +28,11 @@ public class SipController {
     }
 
     @GetMapping
-    public Page<SipResponse> getSips(
+    public List<SipResponse> getSips(
             @RequestParam(required = false) UUID brokerAccountId,
             @RequestParam(required = false) UUID instrumentId,
-            @RequestParam(required = false) Boolean active,
-            Pageable pageable) {
-        return sipService.getSips(brokerAccountId, instrumentId, active, pageable);
+            @RequestParam(required = false) Boolean active) {
+        return sipService.getSips(brokerAccountId, instrumentId, active);
     }
 
     @GetMapping("/{id}")
