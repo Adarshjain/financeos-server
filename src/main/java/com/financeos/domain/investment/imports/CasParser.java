@@ -188,9 +188,11 @@ public class CasParser implements ImportParser {
                             boolean attributed = false;
                             if (chargeAmt != null && lastTradeRow != null && lastTradeRowListIndex >= 0) {
                                 boolean sameIsin = Objects.equals(lastTradeRow.parsedIsin(), currentIsin);
+                                String lastFolio = lastTradeRow.rawData() != null ? lastTradeRow.rawData().get("folio") : null;
+                                boolean sameFolio = Objects.equals(lastFolio, currentFolio != null ? currentFolio : "");
                                 boolean dateClose = lastTradeRow.tradeDate() != null && Math.abs(java.time.temporal.ChronoUnit.DAYS.between(lastTradeRow.tradeDate(), date)) <= 1;
 
-                                if (sameIsin && dateClose) {
+                                if (sameIsin && sameFolio && dateClose) {
                                     ItemizedChargesDto existingCharges = lastTradeRow.charges();
                                     BigDecimal stampDuty = (existingCharges != null && existingCharges.stampDuty() != null)
                                             ? existingCharges.stampDuty().add(chargeAmt)
@@ -255,7 +257,7 @@ public class CasParser implements ImportParser {
                             // Unclassified row
                             ParsedRow unclassified = new ParsedRow(
                                     rowIndex, "trade", null, currentIsin, currentIsin,
-                                    currentScheme != null ? currentScheme : "Mutual Fund Scheme", "MUTUAL_FUND",
+                                    currentScheme != null ? currentScheme : "Mutual Fund Scheme", null,
                                     null, null, date, null, null, Map.of("line", trimmed),
                                     "Unrecognized transaction description: " + trimmed
                             );

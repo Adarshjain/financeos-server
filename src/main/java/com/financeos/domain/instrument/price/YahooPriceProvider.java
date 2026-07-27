@@ -65,58 +65,72 @@ public class YahooPriceProvider implements PriceProvider {
             return result;
         }
 
-        String baseUrl = props != null && props.getBaseUrl() != null && !props.getBaseUrl().isBlank()
+        String primaryBaseUrl = props != null && props.getBaseUrl() != null && !props.getBaseUrl().isBlank()
                 ? props.getBaseUrl()
-                : "https://query1.finance.yahoo.com";
+                : "https://query2.finance.yahoo.com";
         String userAgent = props != null && props.getUserAgent() != null && !props.getUserAgent().isBlank()
                 ? props.getUserAgent()
-                : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+                : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36";
         long timeoutMs = props != null && props.getTimeoutMs() > 0 ? props.getTimeoutMs() : 30000L;
         ZoneId zoneId = ZoneId.of(priceProperties.getTimezone() != null ? priceProperties.getTimezone() : "Asia/Kolkata");
 
+        List<String> baseUrls = List.of(
+                primaryBaseUrl,
+                primaryBaseUrl.contains("query2") ? "https://query1.finance.yahoo.com" : "https://query2.finance.yahoo.com"
+        );
+
         for (Instrument inst : targetInstruments) {
             String symbol = inst.getYahooSymbol().trim();
-            String url = baseUrl.replaceAll("/+$", "") + "/v8/finance/chart/" + symbol;
+            PriceQuote quote = fetchQuoteForSymbol(symbol, baseUrls, userAgent, timeoutMs, zoneId);
+            if (quote != null) {
+                result.put(inst.getId(), quote);
+            }
+        }
 
+        return result;
+    }
+
+    private PriceQuote fetchQuoteForSymbol(String symbol, List<String> baseUrls, String userAgent, long timeoutMs, ZoneId zoneId) {
+        for (String baseUrl : baseUrls) {
+            String url = baseUrl.replaceAll("/+$", "") + "/v8/finance/chart/" + symbol + "?interval=1d&range=1d";
             try {
                 HttpRequest httpRequest = HttpRequest.newBuilder()
                         .uri(URI.create(url))
                         .header("User-Agent", userAgent)
+                        .header("Accept", "application/json, text/plain, */*")
+                        .header("Accept-Language", "en-US,en;q=0.9")
                         .timeout(Duration.ofMillis(timeoutMs))
                         .GET()
                         .build();
 
                 HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-                if (response.statusCode() != 200) {
-                    log.warn("Yahoo Finance query for symbol {} returned HTTP status {}", symbol, response.statusCode());
-                    continue;
-                }
+                if (response.statusCode() == 200) {
+                    JsonNode root = objectMapper.readTree(response.body());
+                    JsonNode resultNode = root.path("chart").path("result");
+                    if (resultNode.isArray() && !resultNode.isEmpty()) {
+                        JsonNode meta = resultNode.get(0).path("meta");
+                        JsonNode priceNode = meta.path("regularMarketPrice");
+                        JsonNode timeNode = meta.path("regularMarketTime");
 
-                JsonNode root = objectMapper.readTree(response.body());
-                JsonNode resultNode = root.path("chart").path("result");
-                if (resultNode.isArray() && !resultNode.isEmpty()) {
-                    JsonNode meta = resultNode.get(0).path("meta");
-                    JsonNode priceNode = meta.path("regularMarketPrice");
-                    JsonNode timeNode = meta.path("regularMarketTime");
-
-                    if (!priceNode.isMissingNode() && !priceNode.isNull()) {
-                        BigDecimal price = new BigDecimal(priceNode.asText());
-                        LocalDate asOf;
-                        if (!timeNode.isMissingNode() && !timeNode.isNull() && timeNode.isNumber()) {
-                            long epochSeconds = timeNode.asLong();
-                            asOf = Instant.ofEpochSecond(epochSeconds).atZone(zoneId).toLocalDate();
-                        } else {
-                            asOf = LocalDate.now(zoneId);
+                        if (!priceNode.isMissingNode() && !priceNode.isNull()) {
+                            BigDecimal price = new BigDecimal(priceNode.asText());
+                            LocalDate asOf;
+                            if (!timeNode.isMissingNode() && !timeNode.isNull() && timeNode.isNumber()) {
+                                long epochSeconds = timeNode.asLong();
+                                asOf = Instant.ofEpochSecond(epochSeconds).atZone(zoneId).toLocalDate();
+                            } else {
+                                asOf = LocalDate.now(zoneId);
+                            }
+                            return new PriceQuote(price, asOf);
                         }
-
-                        result.put(inst.getId(), new PriceQuote(price, asOf));
                     }
+                } else {
+                    log.warn("Yahoo Finance query for symbol {} at host {} returned HTTP status {}", symbol, baseUrl, response.statusCode());
                 }
             } catch (Exception e) {
-                log.warn("Failed to fetch Yahoo Finance price for symbol: " + symbol, e);
+                log.warn("Failed to fetch Yahoo Finance price for symbol: {} at host {}", symbol, baseUrl, e);
             }
         }
-
-        return result;
+        return null;
     }
 }

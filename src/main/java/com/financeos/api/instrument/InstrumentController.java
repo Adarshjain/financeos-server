@@ -1,9 +1,6 @@
 package com.financeos.api.instrument;
 
-import com.financeos.api.instrument.dto.InstrumentPriceResponse;
-import com.financeos.api.instrument.dto.InstrumentRequest;
-import com.financeos.api.instrument.dto.InstrumentResponse;
-import com.financeos.api.instrument.dto.UpsertPriceRequest;
+import com.financeos.api.instrument.dto.*;
 import com.financeos.domain.instrument.InstrumentService;
 import com.financeos.domain.instrument.InstrumentType;
 import jakarta.validation.Valid;
@@ -51,6 +48,22 @@ public class InstrumentController {
     @PostMapping("/{id}/price")
     public InstrumentResponse upsertPrice(@PathVariable UUID id, @Valid @RequestBody UpsertPriceRequest request) {
         return instrumentService.upsertPrice(id, request);
+    }
+
+    @PutMapping("/{instrumentId}/prices/{priceId}")
+    public InstrumentResponse updateManualPrice(
+            @PathVariable UUID instrumentId,
+            @PathVariable UUID priceId,
+            @Valid @RequestBody UpdatePriceRequest request) {
+        return instrumentService.updateManualPrice(instrumentId, priceId, request.price());
+    }
+
+    @DeleteMapping("/{instrumentId}/prices/{priceId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteManualPrice(
+            @PathVariable UUID instrumentId,
+            @PathVariable UUID priceId) {
+        instrumentService.deleteManualPrice(instrumentId, priceId);
     }
 
     @GetMapping("/{id}/prices")
