@@ -12,6 +12,9 @@ import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.*;
 import com.financeos.domain.investment.InvestmentTransaction;
 import com.financeos.domain.investment.InvestmentTransactionRepository;
+import com.financeos.domain.investment.dividend.Dividend;
+import com.financeos.domain.investment.dividend.DividendRepository;
+import com.financeos.domain.investment.dividend.DividendType;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import org.slf4j.Logger;
@@ -22,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -34,6 +38,7 @@ public class ImportService {
     private final InstrumentRepository instrumentRepository;
     private final HoldingRepository holdingRepository;
     private final InvestmentTransactionRepository transactionRepository;
+    private final DividendRepository dividendRepository;
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
 
@@ -41,18 +46,25 @@ public class ImportService {
                          InstrumentRepository instrumentRepository,
                          HoldingRepository holdingRepository,
                          InvestmentTransactionRepository transactionRepository,
+                         DividendRepository dividendRepository,
                          AccountRepository accountRepository,
                          UserRepository userRepository) {
         this.parsers = parsers;
         this.instrumentRepository = instrumentRepository;
         this.holdingRepository = holdingRepository;
         this.transactionRepository = transactionRepository;
+        this.dividendRepository = dividendRepository;
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
     }
 
     @Transactional(readOnly = true)
     public ImportPreviewResponse preview(InputStream inputStream, ImportSource source, UUID brokerAccountId) {
+        return preview(inputStream, source, brokerAccountId, null);
+    }
+
+    @Transactional(readOnly = true)
+    public ImportPreviewResponse preview(InputStream inputStream, ImportSource source, UUID brokerAccountId, String password) {
         Account brokerAccount = accountRepository.findById(brokerAccountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", brokerAccountId));
 
@@ -65,7 +77,7 @@ public class ImportService {
                 .findFirst()
                 .orElseThrow(() -> new ValidationException("No import parser configured for source " + source));
 
-        List<ParsedRow> parsedRows = parser.parse(inputStream, new ParseContext(brokerAccountId));
+        List<ParsedRow> parsedRows = parser.parse(inputStream, new ParseContext(brokerAccountId, password));
 
         List<ImportPreviewResponse.ImportRowPreviewDto> rowDtos = new ArrayList<>();
         int matchedCount = 0;
@@ -116,22 +128,38 @@ public class ImportService {
                         matchedInstrument.getIsin()
                 );
 
-                // Duplicate check
-                Page<InvestmentTransaction> existingTxnsPage = transactionRepository.findFilteredTransactions(
-                        brokerAccountId, matchedInstrument.getId(), null, Pageable.unpaged());
-
-                for (InvestmentTransaction existingTxn : existingTxnsPage.getContent()) {
-                    if (row.externalRef() != null && existingTxn.getExternalRef() != null
-                            && existingTxn.getExternalRef().equalsIgnoreCase(row.externalRef())) {
-                        isDuplicate = true;
-                        break;
+                if ("dividend".equalsIgnoreCase(row.kind())) {
+                    // Check duplicate for dividend
+                    Optional<Holding> holdingOpt = holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccountId, matchedInstrument.getId());
+                    if (holdingOpt.isPresent()) {
+                        List<Dividend> existingDivs = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holdingOpt.get().getId());
+                        BigDecimal divAmt = row.amount() != null ? row.amount() : row.price();
+                        for (Dividend existingDiv : existingDivs) {
+                            if (row.tradeDate() != null && row.tradeDate().equals(existingDiv.getPayDate())
+                                    && divAmt != null && divAmt.compareTo(existingDiv.getAmount()) == 0) {
+                                isDuplicate = true;
+                                break;
+                            }
+                        }
                     }
-                    if (row.tradeDate() != null && row.tradeDate().equals(existingTxn.getTradeDate())
-                            && row.type() == existingTxn.getType()
-                            && row.quantity() != null && row.quantity().compareTo(existingTxn.getQuantity()) == 0
-                            && row.price() != null && row.price().compareTo(existingTxn.getPrice()) == 0) {
-                        isDuplicate = true;
-                        break;
+                } else {
+                    // Check duplicate for trade
+                    Page<InvestmentTransaction> existingTxnsPage = transactionRepository.findFilteredTransactions(
+                            brokerAccountId, matchedInstrument.getId(), null, Pageable.unpaged());
+
+                    for (InvestmentTransaction existingTxn : existingTxnsPage.getContent()) {
+                        if (row.externalRef() != null && existingTxn.getExternalRef() != null
+                                && existingTxn.getExternalRef().equalsIgnoreCase(row.externalRef())) {
+                            isDuplicate = true;
+                            break;
+                        }
+                        if (row.tradeDate() != null && row.tradeDate().equals(existingTxn.getTradeDate())
+                                && row.type() == existingTxn.getType()
+                                && row.quantity() != null && row.quantity().compareTo(existingTxn.getQuantity()) == 0
+                                && row.price() != null && row.price().compareTo(existingTxn.getPrice()) == 0) {
+                            isDuplicate = true;
+                            break;
+                        }
                     }
                 }
 
@@ -151,7 +179,9 @@ public class ImportService {
 
         String note = source == ImportSource.zerodha_tradebook
                 ? "Zerodha tradebook does not include itemized charges. Charges were set to null."
-                : null;
+                : (source == ImportSource.mf_cas
+                        ? "CAMS/KFintech MF CAS: Multiple folios of the same scheme were merged into single broker holdings by ISIN."
+                        : (source == ImportSource.groww ? "Groww stock exports do not include itemized charges. Charges were set to null." : null));
 
         ImportPreviewResponse.SummaryDto summary = new ImportPreviewResponse.SummaryDto(
                 parsedRows.size(), matchedCount, unmatchedCount, duplicateCount, errorCount, note
@@ -207,15 +237,16 @@ public class ImportService {
 
                     if (instrument == null) {
                         Instrument newInst = new Instrument();
-                        newInst.setType(newInstDto.type() != null ? newInstDto.type() : InstrumentType.stock);
+                        InstrumentType defaultType = (source == ImportSource.mf_cas) ? InstrumentType.mutual_fund : InstrumentType.stock;
+                        newInst.setType(newInstDto.type() != null ? newInstDto.type() : defaultType);
                         newInst.setName(newInstDto.name() != null ? newInstDto.name() : newInstDto.symbol());
                         newInst.setSymbol(newInstDto.symbol());
-                        newInst.setExchange(newInstDto.exchange() != null ? newInstDto.exchange() : "NSE");
+                        newInst.setExchange(newInstDto.exchange() != null ? newInstDto.exchange() : (source == ImportSource.mf_cas ? "MUTUAL_FUND" : "NSE"));
                         newInst.setIsin(newInstDto.isin() != null ? newInstDto.isin().trim() : null);
                         newInst.setAmfiCode(newInstDto.amfiCode());
 
                         String yahooSym = newInstDto.yahooSymbol();
-                        if (yahooSym == null || yahooSym.isBlank()) {
+                        if ((yahooSym == null || yahooSym.isBlank()) && newInst.getType() == InstrumentType.stock) {
                             String ex = newInst.getExchange();
                             yahooSym = newInst.getSymbol() + ("BSE".equalsIgnoreCase(ex) ? ".BO" : ".NS");
                         }
@@ -229,7 +260,7 @@ public class ImportService {
                     throw new ValidationException("Row " + rowDto.rowIndex() + ": No instrument provided or created");
                 }
 
-                // Resolve or create Holding
+                // Resolve or create Holding (Note: Multiple folios of the same scheme collapse into one holding for (brokerAccount x instrument))
                 final Instrument finalInstrument = instrument;
                 Holding holding = holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccount.getId(), finalInstrument.getId())
                         .orElseGet(() -> {
@@ -240,51 +271,90 @@ public class ImportService {
 
                 ImportCommitRequest.ParsedRowData rowData = rowDto.row();
                 if (rowData == null) {
-                    throw new ValidationException("Row " + rowDto.rowIndex() + ": Missing parsed trade row data");
+                    throw new ValidationException("Row " + rowDto.rowIndex() + ": Missing parsed row data");
                 }
 
-                // Duplicate re-check
-                boolean isDup = false;
-                Page<InvestmentTransaction> existingTxnsPage = transactionRepository.findFilteredTransactions(
-                        brokerAccountId, finalInstrument.getId(), null, Pageable.unpaged());
+                boolean isDividend = rowData.kind() != null && rowData.kind().equalsIgnoreCase("dividend");
 
-                for (InvestmentTransaction existingTxn : existingTxnsPage.getContent()) {
-                    if (rowData.externalRef() != null && existingTxn.getExternalRef() != null
-                            && existingTxn.getExternalRef().equalsIgnoreCase(rowData.externalRef())) {
-                        isDup = true;
-                        break;
+                if (isDividend) {
+                    BigDecimal divAmount = rowData.amount() != null ? rowData.amount() : rowData.price();
+                    if (divAmount == null) {
+                        throw new ValidationException("Row " + rowDto.rowIndex() + ": Dividend amount is missing");
                     }
-                    if (rowData.tradeDate() != null && rowData.tradeDate().equals(existingTxn.getTradeDate())
-                            && rowData.type() == existingTxn.getType()
-                            && rowData.quantity() != null && rowData.quantity().compareTo(existingTxn.getQuantity()) == 0
-                            && rowData.price() != null && rowData.price().compareTo(existingTxn.getPrice()) == 0) {
-                        isDup = true;
-                        break;
+
+                    // Duplicate check for Dividend
+                    boolean isDup = false;
+                    List<Dividend> existingDivs = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId());
+                    for (Dividend existingDiv : existingDivs) {
+                        if (rowData.tradeDate() != null && rowData.tradeDate().equals(existingDiv.getPayDate())
+                                && divAmount.compareTo(existingDiv.getAmount()) == 0) {
+                            isDup = true;
+                            break;
+                        }
                     }
+
+                    if (isDup) {
+                        skipped++;
+                        log.info("Skipping commit for dividend row {} as duplicate dividend exists.", rowDto.rowIndex());
+                        continue;
+                    }
+
+                    Dividend dividend = new Dividend();
+                    dividend.setUser(user);
+                    dividend.setHolding(holding);
+                    dividend.setType(DividendType.dividend);
+                    dividend.setAmount(divAmount);
+                    dividend.setExDate(rowData.tradeDate());
+                    dividend.setPayDate(rowData.tradeDate());
+                    dividend.setSource("import");
+                    dividend.setNotes(rowData.notes());
+
+                    dividendRepository.save(dividend);
+                    committed++;
+
+                } else {
+                    // Trade (BUY / SELL)
+                    boolean isDup = false;
+                    Page<InvestmentTransaction> existingTxnsPage = transactionRepository.findFilteredTransactions(
+                            brokerAccountId, finalInstrument.getId(), null, Pageable.unpaged());
+
+                    for (InvestmentTransaction existingTxn : existingTxnsPage.getContent()) {
+                        if (rowData.externalRef() != null && existingTxn.getExternalRef() != null
+                                && existingTxn.getExternalRef().equalsIgnoreCase(rowData.externalRef())) {
+                            isDup = true;
+                            break;
+                        }
+                        if (rowData.tradeDate() != null && rowData.tradeDate().equals(existingTxn.getTradeDate())
+                                && rowData.type() == existingTxn.getType()
+                                && rowData.quantity() != null && rowData.quantity().compareTo(existingTxn.getQuantity()) == 0
+                                && rowData.price() != null && rowData.price().compareTo(existingTxn.getPrice()) == 0) {
+                            isDup = true;
+                            break;
+                        }
+                    }
+
+                    if (isDup) {
+                        skipped++;
+                        log.info("Skipping commit for row {} as duplicate transaction exists.", rowDto.rowIndex());
+                        continue;
+                    }
+
+                    InvestmentTransaction txn = new InvestmentTransaction();
+                    txn.setUser(user);
+                    txn.setHolding(holding);
+                    txn.setType(rowData.type());
+                    txn.setQuantity(rowData.quantity());
+                    txn.setPrice(rowData.price());
+                    txn.setTradeDate(rowData.tradeDate());
+                    txn.setSource("import");
+                    txn.setExternalRef(rowData.externalRef());
+                    txn.setNotes(rowData.notes());
+
+                    applyItemizedCharges(txn, rowData.charges());
+
+                    transactionRepository.save(txn);
+                    committed++;
                 }
-
-                if (isDup) {
-                    skipped++;
-                    log.info("Skipping commit for row {} as duplicate transaction exists.", rowDto.rowIndex());
-                    continue;
-                }
-
-                // Save InvestmentTransaction
-                InvestmentTransaction txn = new InvestmentTransaction();
-                txn.setUser(user);
-                txn.setHolding(holding);
-                txn.setType(rowData.type());
-                txn.setQuantity(rowData.quantity());
-                txn.setPrice(rowData.price());
-                txn.setTradeDate(rowData.tradeDate());
-                txn.setSource("import");
-                txn.setExternalRef(rowData.externalRef());
-                txn.setNotes(rowData.notes());
-
-                applyItemizedCharges(txn, rowData.charges());
-
-                transactionRepository.save(txn);
-                committed++;
 
             } catch (Exception e) {
                 log.error("Error committing import row " + rowDto.rowIndex(), e);

@@ -26,8 +26,9 @@ public class ImportController {
     public ImportPreviewResponse preview(
             @RequestPart("file") MultipartFile file,
             @RequestParam ImportSource source,
-            @RequestParam UUID brokerAccountId) throws Exception {
-        return importService.preview(file.getInputStream(), source, brokerAccountId);
+            @RequestParam UUID brokerAccountId,
+            @RequestParam(required = false) String password) throws Exception {
+        return importService.preview(file.getInputStream(), source, brokerAccountId, password);
     }
 
     @PostMapping("/commit")
