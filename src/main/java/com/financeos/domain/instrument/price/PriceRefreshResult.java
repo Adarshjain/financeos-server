@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.UUID;
 
 public record PriceRefreshResult(
-        int refreshedCount,
-        int skippedCount,
-        List<FailedItem> failedList,
+        int refreshed,
+        int skipped,
+        List<FailedItem> failed,
         LocalDate asOf
 ) {
     public record FailedItem(

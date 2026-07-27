@@ -9,32 +9,33 @@ import java.util.UUID;
 
 public record PositionDto(
         UUID holdingId,
-        BrokerInfoDto broker,
+        UUID brokerAccountId,
+        String brokerName,
+        String provider,
         InstrumentInfoDto instrument,
-        BigDecimal openQty,
+        BigDecimal quantity,
         BigDecimal avgCost,
-        BigDecimal openCost,
-        BigDecimal latestPrice,
-        LocalDate priceAsOf,
+        BigDecimal invested,
+        BigDecimal lastPrice,
+        LocalDate lastPriceAsOf,
         PriceSource lastPriceSource,
         BigDecimal currentValue,
-        BigDecimal unrealized,
-        BigDecimal unrealizedPercent,
-        BigDecimal realized,
+        BigDecimal unrealizedGainLoss,
+        BigDecimal unrealizedGainLossPercent,
+        BigDecimal realizedGainLoss,
+        BigDecimal dividends,
+        Double xirr,
+        BigDecimal absoluteReturnPercent,
         BigDecimal totalCharges,
         String notes
 ) {
-    public record BrokerInfoDto(
-            UUID id,
-            String name,
-            String provider
-    ) {}
-
     public record InstrumentInfoDto(
             UUID id,
             InstrumentType type,
             String name,
             String symbol,
-            String isin
+            String isin,
+            String amfiCode,
+            String yahooSymbol
     ) {}
 }
