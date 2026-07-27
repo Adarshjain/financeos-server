@@ -5,9 +5,11 @@ import com.financeos.api.instrument.dto.InstrumentRequest;
 import com.financeos.api.instrument.dto.InstrumentResponse;
 import com.financeos.api.instrument.dto.UpsertPriceRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
+import com.financeos.core.exception.ValidationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -110,6 +112,49 @@ public class InstrumentService {
 
         Optional<InstrumentPrice> latestPrice = priceRepository.findTopByInstrumentIdOrderByAsOfDesc(id);
         return InstrumentResponse.from(instrument, latestPrice);
+    }
+
+    public InstrumentResponse updateManualPrice(UUID instrumentId, UUID priceId, BigDecimal newClose) {
+        if (newClose == null || newClose.compareTo(BigDecimal.ZERO) < 0) {
+            throw new ValidationException("Price must be non-negative");
+        }
+
+        InstrumentPrice price = priceRepository.findById(priceId)
+                .orElseThrow(() -> new ResourceNotFoundException("InstrumentPrice", priceId));
+
+        if (!price.getInstrument().getId().equals(instrumentId)) {
+            throw new ResourceNotFoundException("InstrumentPrice", priceId);
+        }
+
+        if (price.getSource() != PriceSource.MANUAL) {
+            throw new ValidationException("Only manually-entered prices can be edited; auto-fetched prices refresh from AMFI/Yahoo.");
+        }
+
+        price.setClose(newClose);
+        priceRepository.save(price);
+
+        // Note: deleting/editing the latest point simply makes positions recompute their
+        // currentValue from the next-latest price (or null if none) — no extra work, positions read latest dynamically.
+        Instrument instrument = price.getInstrument();
+        Optional<InstrumentPrice> latestPrice = priceRepository.findTopByInstrumentIdOrderByAsOfDesc(instrumentId);
+        return InstrumentResponse.from(instrument, latestPrice);
+    }
+
+    public void deleteManualPrice(UUID instrumentId, UUID priceId) {
+        InstrumentPrice price = priceRepository.findById(priceId)
+                .orElseThrow(() -> new ResourceNotFoundException("InstrumentPrice", priceId));
+
+        if (!price.getInstrument().getId().equals(instrumentId)) {
+            throw new ResourceNotFoundException("InstrumentPrice", priceId);
+        }
+
+        if (price.getSource() != PriceSource.MANUAL) {
+            throw new ValidationException("Only manually-entered prices can be deleted; auto-fetched prices refresh from AMFI/Yahoo.");
+        }
+
+        // Note: deleting/editing the latest point simply makes positions recompute their
+        // currentValue from the next-latest price (or null if none) — no extra work, positions read latest dynamically.
+        priceRepository.delete(price);
     }
 
     @Transactional(readOnly = true)

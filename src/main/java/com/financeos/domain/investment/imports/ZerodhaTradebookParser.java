@@ -118,7 +118,7 @@ public class ZerodhaTradebookParser implements ImportParser {
                     error = "Missing symbol";
                 }
 
-                // externalRef is set to trade_id (Zerodha's unique trade execution identifier)
+                // externalRef is set to trade_id (Zerodha's unique trade execution identifier), falling back to order_id if trade_id is missing
                 String externalRef = tradeId != null && !tradeId.isBlank() ? tradeId : orderId;
 
                 ParsedRow parsedRow = new ParsedRow(
