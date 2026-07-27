@@ -9,12 +9,12 @@ import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.holding.Holding;
 import com.financeos.domain.holding.HoldingRepository;
-import com.financeos.domain.instrument.Instrument;
-import com.financeos.domain.instrument.InstrumentPrice;
-import com.financeos.domain.instrument.InstrumentPriceRepository;
-import com.financeos.domain.instrument.InstrumentRepository;
-import com.financeos.domain.instrument.InstrumentType;
-import com.financeos.domain.instrument.PriceSource;
+import com.financeos.domain.instrument.*;
+import com.financeos.domain.instrument.corporateaction.CorporateAction;
+import com.financeos.domain.instrument.corporateaction.CorporateActionRepository;
+import com.financeos.domain.investment.dividend.Dividend;
+import com.financeos.domain.investment.dividend.DividendRepository;
+import com.financeos.domain.investment.returncalc.XirrCalculator;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import org.springframework.data.domain.Page;
@@ -37,19 +37,25 @@ public class InvestmentService {
     private final InstrumentRepository instrumentRepository;
     private final InstrumentPriceRepository priceRepository;
     private final UserRepository userRepository;
+    private final CorporateActionRepository corporateActionRepository;
+    private final DividendRepository dividendRepository;
 
     public InvestmentService(InvestmentTransactionRepository transactionRepository,
-                             HoldingRepository holdingRepository,
-                             AccountRepository accountRepository,
-                             InstrumentRepository instrumentRepository,
-                             InstrumentPriceRepository priceRepository,
-                             UserRepository userRepository) {
+                              HoldingRepository holdingRepository,
+                              AccountRepository accountRepository,
+                              InstrumentRepository instrumentRepository,
+                              InstrumentPriceRepository priceRepository,
+                              UserRepository userRepository,
+                              CorporateActionRepository corporateActionRepository,
+                              DividendRepository dividendRepository) {
         this.transactionRepository = transactionRepository;
         this.holdingRepository = holdingRepository;
         this.accountRepository = accountRepository;
         this.instrumentRepository = instrumentRepository;
         this.priceRepository = priceRepository;
         this.userRepository = userRepository;
+        this.corporateActionRepository = corporateActionRepository;
+        this.dividendRepository = dividendRepository;
     }
 
     public InvestmentTransactionResponse createTransaction(CreateInvestmentTransactionRequest request) {
@@ -99,6 +105,11 @@ public class InvestmentService {
         InvestmentTransaction txn = transactionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("InvestmentTransaction", id));
 
+        UUID currentUserId = UserContext.getCurrentUserId();
+        if (txn.getUser() == null || !txn.getUser().getId().equals(currentUserId)) {
+            throw new ResourceNotFoundException("InvestmentTransaction", id);
+        }
+
         txn.setType(request.type());
         txn.setQuantity(request.quantity());
         txn.setPrice(request.price());
@@ -118,6 +129,11 @@ public class InvestmentService {
     public void deleteTransaction(UUID id) {
         InvestmentTransaction txn = transactionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("InvestmentTransaction", id));
+
+        UUID currentUserId = UserContext.getCurrentUserId();
+        if (txn.getUser() == null || !txn.getUser().getId().equals(currentUserId)) {
+            throw new ResourceNotFoundException("InvestmentTransaction", id);
+        }
 
         Holding holding = txn.getHolding();
         transactionRepository.delete(txn);
@@ -160,6 +176,8 @@ public class InvestmentService {
         Map<UUID, BrokerSummaryAccumulator> brokerMap = new LinkedHashMap<>();
         Map<InstrumentType, InstrumentTypeAccumulator> typeMap = new EnumMap<>(InstrumentType.class);
 
+        List<XirrCalculator.Cashflow> portfolioCashflows = new ArrayList<>();
+
         for (Holding holding : holdings) {
             HoldingPosition pos = calculateHoldingPosition(holding);
             totalRealized = totalRealized.add(pos.realized());
@@ -170,6 +188,25 @@ public class InvestmentService {
                 if (pos.currentValue() != null) {
                     totalCurrentValue = totalCurrentValue.add(pos.currentValue());
                 }
+            }
+
+            // Accumulate transaction cashflows
+            List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
+            for (InvestmentTransaction txn : txns) {
+                BigDecimal charges = txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO;
+                if (txn.getType() == InvestmentTransactionType.buy) {
+                    BigDecimal outflow = txn.getQuantity().multiply(txn.getPrice()).add(charges);
+                    portfolioCashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), outflow.negate()));
+                } else if (txn.getType() == InvestmentTransactionType.sell) {
+                    BigDecimal inflow = txn.getQuantity().multiply(txn.getPrice()).subtract(charges);
+                    portfolioCashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), inflow));
+                }
+            }
+
+            // Accumulate dividend cashflows
+            List<Dividend> dividends = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId());
+            for (Dividend div : dividends) {
+                portfolioCashflows.add(new XirrCalculator.Cashflow(div.getPayDate(), div.getAmount()));
             }
 
             // Broker accumulation
@@ -202,11 +239,26 @@ public class InvestmentService {
             }
         }
 
+        BigDecimal totalDividends = dividendRepository.sumTotalUserDividends();
+        if (totalDividends == null) {
+            totalDividends = BigDecimal.ZERO;
+        }
+
         BigDecimal totalUnrealized = totalCurrentValue.subtract(totalInvested);
         BigDecimal totalUnrealizedPercent = totalInvested.compareTo(BigDecimal.ZERO) > 0
                 ? totalUnrealized.divide(totalInvested, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP)
                 : BigDecimal.ZERO;
-        BigDecimal totalPnl = totalRealized.add(totalUnrealized);
+        BigDecimal totalPnl = totalRealized.add(totalUnrealized).add(totalDividends);
+
+        // Portfolio terminal cashflow
+        if (totalCurrentValue.compareTo(BigDecimal.ZERO) > 0) {
+            portfolioCashflows.add(new XirrCalculator.Cashflow(LocalDate.now(), totalCurrentValue));
+        }
+
+        Double portfolioXirr = XirrCalculator.calculateXirr(portfolioCashflows);
+        BigDecimal absoluteReturnPercent = totalInvested.compareTo(BigDecimal.ZERO) > 0
+                ? totalPnl.divide(totalInvested, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP)
+                : BigDecimal.ZERO;
 
         List<SummaryResponse.BrokerSummaryDto> byBroker = brokerMap.values().stream()
                 .map(b -> {
@@ -247,8 +299,10 @@ public class InvestmentService {
                 totalUnrealizedPercent,
                 totalRealized.setScale(2, RoundingMode.HALF_UP),
                 totalCharges.setScale(2, RoundingMode.HALF_UP),
-                BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP), // totalDividends
+                totalDividends.setScale(2, RoundingMode.HALF_UP),
                 totalPnl.setScale(2, RoundingMode.HALF_UP),
+                portfolioXirr,
+                absoluteReturnPercent,
                 byBroker,
                 byInstrumentType
         );
@@ -277,44 +331,87 @@ public class InvestmentService {
 
     private HoldingPosition calculateHoldingPosition(Holding holding) {
         List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
+        List<CorporateAction> corpActions = corporateActionRepository.findByInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
+
+        // Interleave transactions and corporate actions into a chronological timeline
+        List<TimelineEvent> timeline = new ArrayList<>();
+        for (InvestmentTransaction txn : txns) {
+            timeline.add(new TxnEvent(txn));
+        }
+        for (CorporateAction ca : corpActions) {
+            timeline.add(new CorpActionEvent(ca));
+        }
+
+        timeline.sort((e1, e2) -> {
+            int dateCompare = e1.date().compareTo(e2.date());
+            if (dateCompare != 0) {
+                return dateCompare;
+            }
+            // If on the same date, corporate actions are processed BEFORE trades
+            if (e1 instanceof CorpActionEvent && e2 instanceof TxnEvent) {
+                return -1;
+            }
+            if (e1 instanceof TxnEvent && e2 instanceof CorpActionEvent) {
+                return 1;
+            }
+            return 0;
+        });
 
         LinkedList<Lot> openLots = new LinkedList<>();
         BigDecimal cumulativeRealized = BigDecimal.ZERO;
         BigDecimal totalHoldingCharges = BigDecimal.ZERO;
+        List<XirrCalculator.Cashflow> cashflows = new ArrayList<>();
 
-        for (InvestmentTransaction txn : txns) {
-            BigDecimal txnCharges = txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO;
-            totalHoldingCharges = totalHoldingCharges.add(txnCharges);
-
-            if (txn.getType() == InvestmentTransactionType.buy) {
-                BigDecimal totalCost = txn.getQuantity().multiply(txn.getPrice()).add(txnCharges);
-                BigDecimal costPerUnit = totalCost.divide(txn.getQuantity(), 8, RoundingMode.HALF_UP);
-                openLots.add(new Lot(txn.getQuantity(), costPerUnit));
-            } else if (txn.getType() == InvestmentTransactionType.sell) {
-                BigDecimal sellQty = txn.getQuantity();
-                BigDecimal grossProceeds = sellQty.multiply(txn.getPrice());
-                BigDecimal netProceeds = grossProceeds.subtract(txnCharges);
-
-                BigDecimal matchedCost = BigDecimal.ZERO;
-                BigDecimal qtyToMatch = sellQty;
-
-                while (qtyToMatch.compareTo(BigDecimal.ZERO) > 0) {
-                    if (openLots.isEmpty()) {
-                        throw new IllegalStateException("Insufficient buy lots available to match sell of quantity " + sellQty);
-                    }
-                    Lot oldestLot = openLots.peek();
-                    BigDecimal takeQty = qtyToMatch.min(oldestLot.remainingQty);
-                    matchedCost = matchedCost.add(takeQty.multiply(oldestLot.costPerUnit));
-                    oldestLot.remainingQty = oldestLot.remainingQty.subtract(takeQty);
-                    qtyToMatch = qtyToMatch.subtract(takeQty);
-
-                    if (oldestLot.remainingQty.compareTo(BigDecimal.ZERO) == 0) {
-                        openLots.poll();
+        for (TimelineEvent event : timeline) {
+            if (event instanceof CorpActionEvent caEvent) {
+                CorporateAction ca = caEvent.action();
+                if (ca.getRatioFrom() != null && ca.getRatioFrom() > 0 && ca.getRatioTo() != null && ca.getRatioTo() > 0) {
+                    BigDecimal multiplier = BigDecimal.valueOf(ca.getRatioTo())
+                            .divide(BigDecimal.valueOf(ca.getRatioFrom()), 10, RoundingMode.HALF_UP);
+                    for (Lot lot : openLots) {
+                        lot.remainingQty = lot.remainingQty.multiply(multiplier).setScale(8, RoundingMode.HALF_UP);
+                        lot.costPerUnit = lot.costPerUnit.divide(multiplier, 8, RoundingMode.HALF_UP);
                     }
                 }
+            } else if (event instanceof TxnEvent txnEvent) {
+                InvestmentTransaction txn = txnEvent.txn();
+                BigDecimal txnCharges = txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO;
+                totalHoldingCharges = totalHoldingCharges.add(txnCharges);
 
-                BigDecimal txnRealized = netProceeds.subtract(matchedCost);
-                cumulativeRealized = cumulativeRealized.add(txnRealized);
+                if (txn.getType() == InvestmentTransactionType.buy) {
+                    BigDecimal totalCost = txn.getQuantity().multiply(txn.getPrice()).add(txnCharges);
+                    BigDecimal costPerUnit = totalCost.divide(txn.getQuantity(), 8, RoundingMode.HALF_UP);
+                    openLots.add(new Lot(txn.getQuantity(), costPerUnit));
+
+                    cashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), totalCost.negate()));
+                } else if (txn.getType() == InvestmentTransactionType.sell) {
+                    BigDecimal sellQty = txn.getQuantity();
+                    BigDecimal grossProceeds = sellQty.multiply(txn.getPrice());
+                    BigDecimal netProceeds = grossProceeds.subtract(txnCharges);
+
+                    BigDecimal matchedCost = BigDecimal.ZERO;
+                    BigDecimal qtyToMatch = sellQty;
+
+                    while (qtyToMatch.compareTo(BigDecimal.ZERO) > 0) {
+                        if (openLots.isEmpty()) {
+                            throw new IllegalStateException("Insufficient buy lots available to match sell of quantity " + sellQty);
+                        }
+                        Lot oldestLot = openLots.peek();
+                        BigDecimal takeQty = qtyToMatch.min(oldestLot.remainingQty);
+                        matchedCost = matchedCost.add(takeQty.multiply(oldestLot.costPerUnit));
+                        oldestLot.remainingQty = oldestLot.remainingQty.subtract(takeQty);
+                        qtyToMatch = qtyToMatch.subtract(takeQty);
+
+                        if (oldestLot.remainingQty.compareTo(BigDecimal.ZERO) == 0) {
+                            openLots.poll();
+                        }
+                    }
+
+                    BigDecimal txnRealized = netProceeds.subtract(matchedCost);
+                    cumulativeRealized = cumulativeRealized.add(txnRealized);
+
+                    cashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), netProceeds));
+                }
             }
         }
 
@@ -346,6 +443,35 @@ public class InvestmentService {
                     : BigDecimal.ZERO;
         }
 
+        // Add dividends to cashflows
+        BigDecimal holdingDividends = dividendRepository.sumAmountByHoldingId(holding.getId());
+        if (holdingDividends == null) {
+            holdingDividends = BigDecimal.ZERO;
+        }
+
+        List<Dividend> dividendsList = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId());
+        for (Dividend div : dividendsList) {
+            cashflows.add(new XirrCalculator.Cashflow(div.getPayDate(), div.getAmount()));
+        }
+
+        // Terminal cashflow for XIRR
+        if (currentValue != null && openQty.compareTo(BigDecimal.ZERO) > 0) {
+            cashflows.add(new XirrCalculator.Cashflow(LocalDate.now(), currentValue));
+        }
+
+        Double xirr = XirrCalculator.calculateXirr(cashflows);
+
+        BigDecimal absoluteReturnPercent = null;
+        if (currentValue != null && openCost.compareTo(BigDecimal.ZERO) > 0) {
+            BigDecimal totalHoldingGain = currentValue
+                    .subtract(openCost)
+                    .add(cumulativeRealized)
+                    .add(holdingDividends);
+            absoluteReturnPercent = totalHoldingGain.divide(openCost, 4, RoundingMode.HALF_UP)
+                    .multiply(new BigDecimal("100"))
+                    .setScale(2, RoundingMode.HALF_UP);
+        }
+
         return new HoldingPosition(
                 holding,
                 openQty.setScale(8, RoundingMode.HALF_UP),
@@ -358,8 +484,29 @@ public class InvestmentService {
                 unrealized,
                 unrealizedPercent,
                 cumulativeRealized.setScale(4, RoundingMode.HALF_UP),
-                totalHoldingCharges.setScale(4, RoundingMode.HALF_UP)
+                totalHoldingCharges.setScale(4, RoundingMode.HALF_UP),
+                holdingDividends.setScale(2, RoundingMode.HALF_UP),
+                xirr,
+                absoluteReturnPercent
         );
+    }
+
+    private interface TimelineEvent {
+        LocalDate date();
+    }
+
+    private record TxnEvent(InvestmentTransaction txn) implements TimelineEvent {
+        @Override
+        public LocalDate date() {
+            return txn.getTradeDate();
+        }
+    }
+
+    private record CorpActionEvent(CorporateAction action) implements TimelineEvent {
+        @Override
+        public LocalDate date() {
+            return action.getExDate();
+        }
     }
 
     private static class Lot {
@@ -384,24 +531,31 @@ public class InvestmentService {
             BigDecimal unrealized,
             BigDecimal unrealizedPercent,
             BigDecimal realized,
-            BigDecimal totalCharges
+            BigDecimal totalCharges,
+            BigDecimal dividends,
+            Double xirr,
+            BigDecimal absoluteReturnPercent
     ) {
         PositionDto toPositionDto() {
             Account b = holding.getBrokerAccount();
             String provider = b.getBrokerDetails() != null ? b.getBrokerDetails().getProvider() : null;
 
-            PositionDto.BrokerInfoDto brokerInfo = new PositionDto.BrokerInfoDto(b.getId(), b.getName(), provider);
             PositionDto.InstrumentInfoDto instInfo = new PositionDto.InstrumentInfoDto(
                     holding.getInstrument().getId(),
                     holding.getInstrument().getType(),
                     holding.getInstrument().getName(),
                     holding.getInstrument().getSymbol(),
-                    holding.getInstrument().getIsin()
+                    holding.getInstrument().getIsin(),
+                    holding.getInstrument().getAmfiCode(),
+                    holding.getInstrument().getYahooSymbol(),
+                    priceSource
             );
 
             return new PositionDto(
                     holding.getId(),
-                    brokerInfo,
+                    b.getId(),
+                    b.getName(),
+                    provider,
                     instInfo,
                     openQty,
                     avgCost,
@@ -413,6 +567,9 @@ public class InvestmentService {
                     unrealized,
                     unrealizedPercent,
                     realized,
+                    dividends,
+                    xirr,
+                    absoluteReturnPercent,
                     totalCharges,
                     holding.getNotes()
             );

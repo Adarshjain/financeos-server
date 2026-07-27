@@ -15,6 +15,8 @@ public record SummaryResponse(
         BigDecimal totalCharges,
         BigDecimal totalDividends,
         BigDecimal totalPnl,
+        Double xirr,
+        BigDecimal absoluteReturnPercent,
         List<BrokerSummaryDto> byBroker,
         List<InstrumentTypeSummaryDto> byInstrumentType
 ) {

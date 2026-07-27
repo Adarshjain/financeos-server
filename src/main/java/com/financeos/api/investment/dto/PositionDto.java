@@ -36,6 +36,7 @@ public record PositionDto(
             String symbol,
             String isin,
             String amfiCode,
-            String yahooSymbol
+            String yahooSymbol,
+            PriceSource lastPriceSource
     ) {}
 }
