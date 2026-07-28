@@ -255,7 +255,7 @@ public class InvestmentService {
             portfolioCashflows.add(new XirrCalculator.Cashflow(LocalDate.now(), totalCurrentValue));
         }
 
-        Double portfolioXirr = XirrCalculator.calculateXirr(portfolioCashflows);
+        Double portfolioXirr = calculateXirrPercentage(portfolioCashflows);
         BigDecimal absoluteReturnPercent = totalInvested.compareTo(BigDecimal.ZERO) > 0
                 ? totalPnl.divide(totalInvested, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP)
                 : BigDecimal.ZERO;
@@ -459,7 +459,7 @@ public class InvestmentService {
             cashflows.add(new XirrCalculator.Cashflow(LocalDate.now(), currentValue));
         }
 
-        Double xirr = XirrCalculator.calculateXirr(cashflows);
+        Double xirr = calculateXirrPercentage(cashflows);
 
         BigDecimal absoluteReturnPercent = null;
         if (currentValue != null && openCost.compareTo(BigDecimal.ZERO) > 0) {
@@ -489,6 +489,17 @@ public class InvestmentService {
                 xirr,
                 absoluteReturnPercent
         );
+    }
+
+    private Double calculateXirrPercentage(List<XirrCalculator.Cashflow> cashflows) {
+        Double rawXirr = XirrCalculator.calculateXirr(cashflows);
+        if (rawXirr == null || Double.isNaN(rawXirr) || Double.isInfinite(rawXirr)) {
+            return null;
+        }
+        return BigDecimal.valueOf(rawXirr)
+                .multiply(new BigDecimal("100"))
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
     }
 
     private interface TimelineEvent {
