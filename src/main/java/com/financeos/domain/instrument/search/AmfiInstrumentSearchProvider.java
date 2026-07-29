@@ -32,7 +32,18 @@ public class AmfiInstrumentSearchProvider implements InstrumentSearchProvider {
             return List.of();
         }
 
-        String lowerQuery = query.trim().toLowerCase();
+        String trimmed = query.trim();
+        boolean isIsin = trimmed.matches("(?i)^[A-Za-z]{2}[A-Za-z0-9]{9}[0-9]$");
+
+        if (isIsin) {
+            return amfiFeedClient.all().stream()
+                    .filter(scheme -> scheme.isin() != null && scheme.isin().equalsIgnoreCase(trimmed))
+                    .limit(15)
+                    .map(this::toCandidate)
+                    .toList();
+        }
+
+        String lowerQuery = trimmed.toLowerCase();
 
         return amfiFeedClient.all().stream()
                 .filter(scheme -> scheme.name() != null && scheme.name().toLowerCase().contains(lowerQuery))

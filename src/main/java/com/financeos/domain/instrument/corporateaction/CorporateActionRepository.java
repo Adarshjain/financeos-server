@@ -10,4 +10,6 @@ import java.util.UUID;
 public interface CorporateActionRepository extends JpaRepository<CorporateAction, UUID> {
 
     List<CorporateAction> findByInstrumentIdOrderByExDateAsc(UUID instrumentId);
+
+    List<CorporateAction> findByTargetInstrumentIdOrderByExDateAsc(UUID targetInstrumentId);
 }

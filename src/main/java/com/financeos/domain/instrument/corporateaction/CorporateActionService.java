@@ -4,12 +4,20 @@ import com.financeos.api.instrument.dto.CorporateActionResponse;
 import com.financeos.api.instrument.dto.CreateCorporateActionRequest;
 import com.financeos.api.instrument.dto.UpdateCorporateActionRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
+import com.financeos.core.exception.ValidationException;
+import com.financeos.core.security.UserContext;
+import com.financeos.domain.holding.Holding;
+import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.Instrument;
 import com.financeos.domain.instrument.InstrumentRepository;
+import com.financeos.domain.user.User;
+import com.financeos.domain.user.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -18,16 +26,24 @@ public class CorporateActionService {
 
     private final CorporateActionRepository corporateActionRepository;
     private final InstrumentRepository instrumentRepository;
+    private final HoldingRepository holdingRepository;
+    private final UserRepository userRepository;
 
     public CorporateActionService(CorporateActionRepository corporateActionRepository,
-                                  InstrumentRepository instrumentRepository) {
+                                  InstrumentRepository instrumentRepository,
+                                  HoldingRepository holdingRepository,
+                                  UserRepository userRepository) {
         this.corporateActionRepository = corporateActionRepository;
         this.instrumentRepository = instrumentRepository;
+        this.holdingRepository = holdingRepository;
+        this.userRepository = userRepository;
     }
 
     public CorporateActionResponse createCorporateAction(UUID instrumentId, CreateCorporateActionRequest request) {
         Instrument instrument = instrumentRepository.findById(instrumentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Instrument", instrumentId));
+
+        validateRequest(instrumentId, request.type(), request.targetInstrumentId(), request.costAllocationPct());
 
         CorporateAction ca = new CorporateAction();
         ca.setInstrument(instrument);
@@ -37,7 +53,22 @@ public class CorporateActionService {
         ca.setExDate(request.exDate());
         ca.setNotes(request.notes());
 
+        if (request.type() == CorporateActionType.demerger) {
+            Instrument targetInst = instrumentRepository.findById(request.targetInstrumentId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Instrument", request.targetInstrumentId()));
+            ca.setTargetInstrument(targetInst);
+            ca.setCostAllocationPct(request.costAllocationPct());
+        } else {
+            ca.setTargetInstrument(null);
+            ca.setCostAllocationPct(null);
+        }
+
         CorporateAction saved = corporateActionRepository.save(ca);
+
+        if (saved.getType() == CorporateActionType.demerger && saved.getTargetInstrument() != null) {
+            materializeChildHoldings(saved.getInstrument().getId(), saved.getTargetInstrument());
+        }
+
         return CorporateActionResponse.from(saved);
     }
 
@@ -49,14 +80,70 @@ public class CorporateActionService {
             throw new ResourceNotFoundException("CorporateAction", id);
         }
 
+        validateRequest(instrumentId, request.type(), request.targetInstrumentId(), request.costAllocationPct());
+
         ca.setType(request.type());
         ca.setRatioFrom(request.ratioFrom());
         ca.setRatioTo(request.ratioTo());
         ca.setExDate(request.exDate());
         ca.setNotes(request.notes());
 
+        if (request.type() == CorporateActionType.demerger) {
+            Instrument targetInst = instrumentRepository.findById(request.targetInstrumentId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Instrument", request.targetInstrumentId()));
+            ca.setTargetInstrument(targetInst);
+            ca.setCostAllocationPct(request.costAllocationPct());
+        } else {
+            ca.setTargetInstrument(null);
+            ca.setCostAllocationPct(null);
+        }
+
         CorporateAction saved = corporateActionRepository.save(ca);
+
+        if (saved.getType() == CorporateActionType.demerger && saved.getTargetInstrument() != null) {
+            materializeChildHoldings(saved.getInstrument().getId(), saved.getTargetInstrument());
+        }
+
         return CorporateActionResponse.from(saved);
+    }
+
+    private void validateRequest(UUID parentInstrumentId, CorporateActionType type, UUID targetInstrumentId, BigDecimal costAllocationPct) {
+        if (type == CorporateActionType.demerger) {
+            if (targetInstrumentId == null) {
+                throw new ValidationException("Target instrument is required for demerger corporate action.");
+            }
+            if (targetInstrumentId.equals(parentInstrumentId)) {
+                throw new ValidationException("Target instrument must be different from parent instrument.");
+            }
+            if (!instrumentRepository.existsById(targetInstrumentId)) {
+                throw new ResourceNotFoundException("Instrument", targetInstrumentId);
+            }
+            if (costAllocationPct == null ||
+                    costAllocationPct.compareTo(BigDecimal.ZERO) <= 0 ||
+                    costAllocationPct.compareTo(new BigDecimal("100")) > 0) {
+                throw new ValidationException("Cost allocation percentage must be greater than 0 and less than or equal to 100.");
+            }
+        }
+    }
+
+    private void materializeChildHoldings(UUID parentInstrumentId, Instrument targetInstrument) {
+        UUID userId = UserContext.getCurrentUserId();
+        if (userId == null) {
+            return;
+        }
+        User user = userRepository.getReferenceById(userId);
+        List<Holding> parentHoldings = holdingRepository.findByInstrumentId(parentInstrumentId);
+        for (Holding parentHolding : parentHoldings) {
+            Optional<Holding> existingChild = holdingRepository.findByBrokerAccountIdAndInstrumentId(
+                    parentHolding.getBrokerAccount().getId(),
+                    targetInstrument.getId()
+            );
+            if (existingChild.isEmpty()) {
+                Holding childHolding = new Holding(parentHolding.getBrokerAccount(), targetInstrument, "Created via demerger corporate action");
+                childHolding.setUser(user);
+                holdingRepository.save(childHolding);
+            }
+        }
     }
 
     public void deleteCorporateAction(UUID instrumentId, UUID id) {

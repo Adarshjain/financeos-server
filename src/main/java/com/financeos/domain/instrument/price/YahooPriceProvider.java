@@ -93,7 +93,8 @@ public class YahooPriceProvider implements PriceProvider {
 
     private PriceQuote fetchQuoteForSymbol(String symbol, List<String> baseUrls, String userAgent, long timeoutMs, ZoneId zoneId) {
         for (String baseUrl : baseUrls) {
-            String url = baseUrl.replaceAll("/+$", "") + "/v8/finance/chart/" + symbol + "?interval=1d&range=1d";
+            String encodedSymbol = java.net.URLEncoder.encode(symbol, java.nio.charset.StandardCharsets.UTF_8);
+            String url = baseUrl.replaceAll("/+$", "") + "/v8/finance/chart/" + encodedSymbol + "?interval=1d&range=1d";
             try {
                 HttpRequest httpRequest = HttpRequest.newBuilder()
                         .uri(URI.create(url))

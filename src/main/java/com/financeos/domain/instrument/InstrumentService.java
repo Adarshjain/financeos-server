@@ -6,6 +6,8 @@ import com.financeos.api.instrument.dto.InstrumentResponse;
 import com.financeos.api.instrument.dto.UpsertPriceRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.domain.instrument.price.PriceRefreshEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -21,11 +24,17 @@ public class InstrumentService {
 
     private final InstrumentRepository instrumentRepository;
     private final InstrumentPriceRepository priceRepository;
+    private final InstrumentAliasRepository aliasRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     public InstrumentService(InstrumentRepository instrumentRepository,
-                             InstrumentPriceRepository priceRepository) {
+                             InstrumentPriceRepository priceRepository,
+                             InstrumentAliasRepository aliasRepository,
+                             ApplicationEventPublisher eventPublisher) {
         this.instrumentRepository = instrumentRepository;
         this.priceRepository = priceRepository;
+        this.aliasRepository = aliasRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     @Transactional(readOnly = true)
@@ -77,6 +86,16 @@ public class InstrumentService {
         Instrument instrument = instrumentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Instrument", id));
 
+        String oldSymbol = instrument.getSymbol();
+        String oldName = instrument.getName();
+        String oldYahooSymbol = instrument.getYahooSymbol();
+        String oldAmfiCode = instrument.getAmfiCode();
+
+        if (oldSymbol != null && !oldSymbol.isBlank() && request.symbol() != null && !request.symbol().isBlank()
+                && !oldSymbol.equalsIgnoreCase(request.symbol().trim())) {
+            aliasRepository.save(new InstrumentAlias(instrument, oldSymbol, oldName, "USER_EDIT"));
+        }
+
         instrument.setType(request.type());
         instrument.setName(request.name());
         instrument.setSymbol(request.symbol());
@@ -89,6 +108,16 @@ public class InstrumentService {
         }
 
         Instrument saved = instrumentRepository.save(instrument);
+
+        boolean yahooChanged = (oldYahooSymbol == null && saved.getYahooSymbol() != null) ||
+                (oldYahooSymbol != null && !oldYahooSymbol.equalsIgnoreCase(saved.getYahooSymbol()));
+        boolean amfiChanged = (oldAmfiCode == null && saved.getAmfiCode() != null) ||
+                (oldAmfiCode != null && !oldAmfiCode.equalsIgnoreCase(saved.getAmfiCode()));
+
+        if ((yahooChanged || amfiChanged) && eventPublisher != null) {
+            eventPublisher.publishEvent(new PriceRefreshEvent(Set.of(saved.getId())));
+        }
+
         Optional<InstrumentPrice> latestPrice = priceRepository.findTopByInstrumentIdOrderByAsOfDesc(id);
         return InstrumentResponse.from(saved, latestPrice);
     }

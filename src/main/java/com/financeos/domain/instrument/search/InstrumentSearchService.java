@@ -15,13 +15,16 @@ public class InstrumentSearchService {
 
     private final InstrumentRepository instrumentRepository;
     private final InstrumentPriceRepository priceRepository;
+    private final InstrumentAliasRepository aliasRepository;
     private final List<InstrumentSearchProvider> searchProviders;
 
     public InstrumentSearchService(InstrumentRepository instrumentRepository,
                                    InstrumentPriceRepository priceRepository,
+                                   InstrumentAliasRepository aliasRepository,
                                    List<InstrumentSearchProvider> searchProviders) {
         this.instrumentRepository = instrumentRepository;
         this.priceRepository = priceRepository;
+        this.aliasRepository = aliasRepository;
         this.searchProviders = searchProviders;
     }
 
@@ -127,31 +130,75 @@ public class InstrumentSearchService {
             }
         }
 
-        Optional<Instrument> existing = findExistingInstrument(req);
+        boolean matchedByIsin = false;
+        Optional<Instrument> existing = Optional.empty();
+
+        if (!isEmpty(req.isin())) {
+            existing = instrumentRepository.findByIsin(req.isin().trim());
+            if (existing.isPresent()) {
+                matchedByIsin = true;
+            }
+        }
+        if (existing.isEmpty() && !isEmpty(req.amfiCode())) {
+            existing = instrumentRepository.findByAmfiCode(req.amfiCode().trim());
+        }
+        if (existing.isEmpty() && !isEmpty(req.yahooSymbol())) {
+            existing = instrumentRepository.findByYahooSymbol(req.yahooSymbol().trim());
+        }
+        if (existing.isEmpty() && !isEmpty(req.symbol()) && !isEmpty(req.exchange())) {
+            existing = instrumentRepository.findBySymbolAndExchange(req.symbol().trim(), req.exchange().trim());
+        }
 
         if (existing.isPresent()) {
             Instrument inst = existing.get();
             boolean updated = false;
 
-            if (isEmpty(inst.getAmfiCode()) && !isEmpty(req.amfiCode())) {
-                inst.setAmfiCode(req.amfiCode().trim());
-                updated = true;
-            }
-            if (isEmpty(inst.getYahooSymbol()) && !isEmpty(req.yahooSymbol())) {
-                inst.setYahooSymbol(req.yahooSymbol().trim());
-                updated = true;
-            }
-            if (isEmpty(inst.getIsin()) && !isEmpty(req.isin())) {
-                inst.setIsin(req.isin().trim());
-                updated = true;
-            }
-            if (isEmpty(inst.getSymbol()) && !isEmpty(req.symbol())) {
-                inst.setSymbol(req.symbol().trim());
-                updated = true;
-            }
-            if (isEmpty(inst.getExchange()) && !isEmpty(req.exchange())) {
-                inst.setExchange(req.exchange().trim());
-                updated = true;
+            if (matchedByIsin) {
+                // ISIN-authoritative refresh: update symbol, exchange, yahooSymbol, name even if already populated
+                if (!isEmpty(req.symbol()) && !req.symbol().trim().equalsIgnoreCase(inst.getSymbol())) {
+                    if (!isEmpty(inst.getSymbol())) {
+                        aliasRepository.save(new InstrumentAlias(inst, inst.getSymbol(), inst.getName(), "IMPORT_RESOLVE"));
+                    }
+                    inst.setSymbol(req.symbol().trim());
+                    updated = true;
+                }
+                if (!isEmpty(req.name()) && !req.name().trim().equalsIgnoreCase(inst.getName())) {
+                    inst.setName(req.name().trim());
+                    updated = true;
+                }
+                if (!isEmpty(req.exchange()) && !req.exchange().trim().equalsIgnoreCase(inst.getExchange())) {
+                    inst.setExchange(req.exchange().trim());
+                    updated = true;
+                }
+                if (!isEmpty(req.yahooSymbol()) && !req.yahooSymbol().trim().equalsIgnoreCase(inst.getYahooSymbol())) {
+                    inst.setYahooSymbol(req.yahooSymbol().trim());
+                    updated = true;
+                }
+                if (!isEmpty(req.amfiCode()) && !req.amfiCode().trim().equalsIgnoreCase(inst.getAmfiCode())) {
+                    inst.setAmfiCode(req.amfiCode().trim());
+                    updated = true;
+                }
+            } else {
+                if (isEmpty(inst.getAmfiCode()) && !isEmpty(req.amfiCode())) {
+                    inst.setAmfiCode(req.amfiCode().trim());
+                    updated = true;
+                }
+                if (isEmpty(inst.getYahooSymbol()) && !isEmpty(req.yahooSymbol())) {
+                    inst.setYahooSymbol(req.yahooSymbol().trim());
+                    updated = true;
+                }
+                if (isEmpty(inst.getIsin()) && !isEmpty(req.isin())) {
+                    inst.setIsin(req.isin().trim());
+                    updated = true;
+                }
+                if (isEmpty(inst.getSymbol()) && !isEmpty(req.symbol())) {
+                    inst.setSymbol(req.symbol().trim());
+                    updated = true;
+                }
+                if (isEmpty(inst.getExchange()) && !isEmpty(req.exchange())) {
+                    inst.setExchange(req.exchange().trim());
+                    updated = true;
+                }
             }
 
             if (updated) {

@@ -39,9 +39,9 @@ import java.util.*;
 public class ImportService {
 
     private static final Logger log = LoggerFactory.getLogger(ImportService.class);
-
     private final List<ImportParser> parsers;
     private final InstrumentRepository instrumentRepository;
+    private final InstrumentAliasRepository aliasRepository;
     private final HoldingRepository holdingRepository;
     private final InvestmentTransactionRepository transactionRepository;
     private final DividendRepository dividendRepository;
@@ -52,6 +52,7 @@ public class ImportService {
 
     public ImportService(List<ImportParser> parsers,
                          InstrumentRepository instrumentRepository,
+                         InstrumentAliasRepository aliasRepository,
                          HoldingRepository holdingRepository,
                          InvestmentTransactionRepository transactionRepository,
                          DividendRepository dividendRepository,
@@ -61,6 +62,7 @@ public class ImportService {
                          ApplicationEventPublisher eventPublisher) {
         this.parsers = parsers;
         this.instrumentRepository = instrumentRepository;
+        this.aliasRepository = aliasRepository;
         this.holdingRepository = holdingRepository;
         this.transactionRepository = transactionRepository;
         this.dividendRepository = dividendRepository;
@@ -120,22 +122,34 @@ public class ImportService {
                         }
                     }
                 }
+                if (matchedInstrument == null && aliasRepository != null) {
+                    matchedInstrument = aliasRepository.findFirstByOldSymbolIgnoreCase(row.parsedSymbol().trim())
+                            .map(InstrumentAlias::getInstrument)
+                            .orElse(null);
+                }
             }
 
             // Auto-find via external APIs (Yahoo Finance / AMFI) if not matched locally
             if (matchedInstrument == null && instrumentSearchService != null) {
                 try {
                     InstrumentType searchType = (source == ImportSource.mf_cas) ? InstrumentType.mutual_fund : InstrumentType.stock;
-                    // Neither external provider can search by Indian ISIN: Yahoo's search endpoint
-                    // doesn't index ISINs, and AMFI matches on scheme-name substring only. Query by
-                    // symbol (stocks) / name (MFs); the parsed ISIN is still used below to pick the
-                    // exact candidate out of the results.
-                    String queryStr = (searchType == InstrumentType.mutual_fund)
+                    // Query external providers ISIN-first if parsedIsin is present.
+                    // If ISIN query returns no candidates, retry once using symbol (stocks) / name (MFs).
+                    String isinStr = (row.parsedIsin() != null && !row.parsedIsin().isBlank()) ? row.parsedIsin().trim() : null;
+                    String fallbackQueryStr = (searchType == InstrumentType.mutual_fund)
                             ? (row.parsedName() != null && !row.parsedName().isBlank() ? row.parsedName() : row.parsedSymbol())
                             : (row.parsedSymbol() != null && !row.parsedSymbol().isBlank() ? row.parsedSymbol() : row.parsedName());
 
-                    if (queryStr != null && queryStr.trim().length() >= 2) {
-                        List<InstrumentCandidate> candidates = instrumentSearchService.catalogSearch(queryStr.trim(), searchType);
+                    List<InstrumentCandidate> candidates = List.of();
+                    if (isinStr != null && isinStr.length() >= 2) {
+                        candidates = instrumentSearchService.catalogSearch(isinStr, searchType);
+                    }
+
+                    if (candidates.isEmpty() && fallbackQueryStr != null && fallbackQueryStr.trim().length() >= 2) {
+                        candidates = instrumentSearchService.catalogSearch(fallbackQueryStr.trim(), searchType);
+                    }
+
+                    if (!candidates.isEmpty()) {
                         InstrumentCandidate bestCandidate = null;
 
                         // 1. Exact ISIN match
@@ -178,7 +192,7 @@ public class ImportService {
                                     bestCandidate.name(),
                                     bestCandidate.symbol(),
                                     bestCandidate.exchange(),
-                                    bestCandidate.isin(),
+                                    bestCandidate.isin() != null ? bestCandidate.isin() : row.parsedIsin(),
                                     bestCandidate.amfiCode(),
                                     bestCandidate.yahooSymbol(),
                                     bestCandidate.currency(),
@@ -344,6 +358,11 @@ public class ImportService {
                                     break;
                                 }
                             }
+                        }
+                        if (instrument == null && aliasRepository != null) {
+                            instrument = aliasRepository.findFirstByOldSymbolIgnoreCase(newInstDto.symbol().trim())
+                                    .map(InstrumentAlias::getInstrument)
+                                    .orElse(null);
                         }
                     }
 

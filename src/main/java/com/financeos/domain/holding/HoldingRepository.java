@@ -16,6 +16,8 @@ public interface HoldingRepository extends JpaRepository<Holding, UUID> {
 
     List<Holding> findByBrokerAccountId(UUID brokerAccountId);
 
+    List<Holding> findByInstrumentId(UUID instrumentId);
+
     @Query("SELECT DISTINCT h.instrument FROM Holding h")
     List<Instrument> findDistinctInstrumentsHeld();
 }
