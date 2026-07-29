@@ -87,13 +87,16 @@ public class YahooInstrumentSearchProvider implements InstrumentSearchProvider {
                 primaryBaseUrl.contains("query2") ? "https://query1.finance.yahoo.com" : "https://query2.finance.yahoo.com"
         );
 
-        List<InstrumentCandidate> results = executeSearch(normalizedQuery, type, baseUrls, userAgent, timeoutMs, zoneId);
+        String trimmedQuery = query.trim();
+        String isinQuery = trimmedQuery.matches("(?i)^[A-Za-z]{2}[A-Za-z0-9]{9}[0-9]$") ? trimmedQuery.toUpperCase() : null;
+
+        List<InstrumentCandidate> results = executeSearch(normalizedQuery, isinQuery, type, baseUrls, userAgent, timeoutMs, zoneId);
 
         cache.put(cacheKey, new CacheValue(Instant.now().plus(CACHE_TTL), results));
         return results;
     }
 
-    private List<InstrumentCandidate> executeSearch(String query, InstrumentType requestedType, List<String> baseUrls, String userAgent, long timeoutMs, ZoneId zoneId) {
+    private List<InstrumentCandidate> executeSearch(String query, String isinQuery, InstrumentType requestedType, List<String> baseUrls, String userAgent, long timeoutMs, ZoneId zoneId) {
         String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
         for (String baseUrl : baseUrls) {
             String url = baseUrl.replaceAll("/+$", "") + "/v1/finance/search?q=" + encodedQuery + "&quotesCount=15&newsCount=0";
@@ -109,7 +112,7 @@ public class YahooInstrumentSearchProvider implements InstrumentSearchProvider {
 
                 HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
                 if (response.statusCode() == 200) {
-                    return parseQuotes(response.body(), requestedType, zoneId);
+                    return parseQuotes(response.body(), isinQuery, requestedType, zoneId);
                 } else {
                     log.warn("Yahoo search query for '{}' at host {} returned HTTP status {}", query, baseUrl, response.statusCode());
                 }
@@ -120,7 +123,7 @@ public class YahooInstrumentSearchProvider implements InstrumentSearchProvider {
         return List.of();
     }
 
-    private List<InstrumentCandidate> parseQuotes(String jsonBody, InstrumentType requestedType, ZoneId zoneId) {
+    private List<InstrumentCandidate> parseQuotes(String jsonBody, String isinQuery, InstrumentType requestedType, ZoneId zoneId) {
         List<InstrumentCandidate> candidates = new ArrayList<>();
         try {
             JsonNode root = objectMapper.readTree(jsonBody);
@@ -171,7 +174,7 @@ public class YahooInstrumentSearchProvider implements InstrumentSearchProvider {
                             name,
                             symbol,
                             exchange,
-                            null,
+                            isinQuery,
                             null,
                             yahooSymbol,
                             currency,

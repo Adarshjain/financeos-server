@@ -12,6 +12,7 @@ import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.*;
 import com.financeos.domain.instrument.corporateaction.CorporateAction;
 import com.financeos.domain.instrument.corporateaction.CorporateActionRepository;
+import com.financeos.domain.instrument.corporateaction.CorporateActionType;
 import com.financeos.domain.instrument.price.PriceRefreshEvent;
 import com.financeos.domain.investment.dividend.Dividend;
 import com.financeos.domain.investment.dividend.DividendRepository;
@@ -364,7 +365,34 @@ public class InvestmentService {
         List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
         List<CorporateAction> corpActions = corporateActionRepository.findByInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
 
-        // Interleave transactions and corporate actions into a chronological timeline
+        // Check if this holding's instrument is the target of any demerger corporate actions
+        List<CorporateAction> demergerCAs = corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
+        List<DemergerSeedEvent> demergerSeedEvents = new ArrayList<>();
+        for (CorporateAction ca : demergerCAs) {
+            Optional<Holding> parentHoldingOpt = holdingRepository.findByBrokerAccountIdAndInstrumentId(
+                    holding.getBrokerAccount().getId(),
+                    ca.getInstrument().getId()
+            );
+            if (parentHoldingOpt.isPresent() && ca.getCostAllocationPct() != null && ca.getRatioFrom() != null && ca.getRatioFrom() > 0 && ca.getRatioTo() != null && ca.getRatioTo() > 0) {
+                List<Lot> parentOpenLots = buildParentOpenLotsBeforeCa(parentHoldingOpt.get(), ca);
+                for (Lot parentLot : parentOpenLots) {
+                    BigDecimal childQty = parentLot.remainingQty
+                            .multiply(BigDecimal.valueOf(ca.getRatioTo()))
+                            .divide(BigDecimal.valueOf(ca.getRatioFrom()), 10, RoundingMode.HALF_UP)
+                            .setScale(8, RoundingMode.HALF_UP);
+                    BigDecimal childCost = parentLot.remainingQty
+                            .multiply(parentLot.costPerUnit)
+                            .multiply(ca.getCostAllocationPct())
+                            .divide(BigDecimal.valueOf(100), 10, RoundingMode.HALF_UP);
+                    if (childQty.compareTo(BigDecimal.ZERO) > 0) {
+                        BigDecimal costPerUnit = childCost.divide(childQty, 8, RoundingMode.HALF_UP);
+                        demergerSeedEvents.add(new DemergerSeedEvent(ca.getExDate(), childQty, costPerUnit));
+                    }
+                }
+            }
+        }
+
+        // Interleave transactions, corporate actions, and demerger seed events into a chronological timeline
         List<TimelineEvent> timeline = new ArrayList<>();
         for (InvestmentTransaction txn : txns) {
             timeline.add(new TxnEvent(txn));
@@ -372,20 +400,18 @@ public class InvestmentService {
         for (CorporateAction ca : corpActions) {
             timeline.add(new CorpActionEvent(ca));
         }
+        for (DemergerSeedEvent seed : demergerSeedEvents) {
+            timeline.add(seed);
+        }
 
         timeline.sort((e1, e2) -> {
             int dateCompare = e1.date().compareTo(e2.date());
             if (dateCompare != 0) {
                 return dateCompare;
             }
-            // If on the same date, corporate actions are processed BEFORE trades
-            if (e1 instanceof CorpActionEvent && e2 instanceof TxnEvent) {
-                return -1;
-            }
-            if (e1 instanceof TxnEvent && e2 instanceof CorpActionEvent) {
-                return 1;
-            }
-            return 0;
+            int order1 = getEventOrder(e1);
+            int order2 = getEventOrder(e2);
+            return Integer.compare(order1, order2);
         });
 
         LinkedList<Lot> openLots = new LinkedList<>();
@@ -394,9 +420,20 @@ public class InvestmentService {
         List<XirrCalculator.Cashflow> cashflows = new ArrayList<>();
 
         for (TimelineEvent event : timeline) {
-            if (event instanceof CorpActionEvent caEvent) {
+            if (event instanceof DemergerSeedEvent seed) {
+                openLots.add(new Lot(seed.qty(), seed.costPerUnit()));
+            } else if (event instanceof CorpActionEvent caEvent) {
                 CorporateAction ca = caEvent.action();
-                if (ca.getRatioFrom() != null && ca.getRatioFrom() > 0 && ca.getRatioTo() != null && ca.getRatioTo() > 0) {
+                if (ca.getType() == CorporateActionType.demerger) {
+                    if (ca.getCostAllocationPct() != null && ca.getCostAllocationPct().compareTo(BigDecimal.ZERO) > 0) {
+                        BigDecimal factor = BigDecimal.ONE.subtract(
+                                ca.getCostAllocationPct().divide(BigDecimal.valueOf(100), 10, RoundingMode.HALF_UP)
+                        );
+                        for (Lot lot : openLots) {
+                            lot.costPerUnit = lot.costPerUnit.multiply(factor).setScale(8, RoundingMode.HALF_UP);
+                        }
+                    }
+                } else if (ca.getRatioFrom() != null && ca.getRatioFrom() > 0 && ca.getRatioTo() != null && ca.getRatioTo() > 0) {
                     BigDecimal multiplier = BigDecimal.valueOf(ca.getRatioTo())
                             .divide(BigDecimal.valueOf(ca.getRatioFrom()), 10, RoundingMode.HALF_UP);
                     for (Lot lot : openLots) {
@@ -549,6 +586,96 @@ public class InvestmentService {
         public LocalDate date() {
             return action.getExDate();
         }
+    }
+
+    private record DemergerSeedEvent(LocalDate date, BigDecimal qty, BigDecimal costPerUnit) implements TimelineEvent {}
+
+    private int getEventOrder(TimelineEvent e) {
+        if (e instanceof DemergerSeedEvent) return 0;
+        if (e instanceof CorpActionEvent) return 1;
+        return 2;
+    }
+
+    private List<Lot> buildParentOpenLotsBeforeCa(Holding parentHolding, CorporateAction demergerCa) {
+        List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(parentHolding.getId());
+        List<CorporateAction> corpActions = corporateActionRepository.findByInstrumentIdOrderByExDateAsc(parentHolding.getInstrument().getId());
+
+        List<TimelineEvent> timeline = new ArrayList<>();
+        for (InvestmentTransaction txn : txns) {
+            if (txn.getTradeDate().compareTo(demergerCa.getExDate()) <= 0) {
+                timeline.add(new TxnEvent(txn));
+            }
+        }
+        for (CorporateAction ca : corpActions) {
+            if (!ca.getId().equals(demergerCa.getId()) && ca.getExDate().compareTo(demergerCa.getExDate()) <= 0) {
+                timeline.add(new CorpActionEvent(ca));
+            }
+        }
+
+        timeline.sort((e1, e2) -> {
+            int dateCompare = e1.date().compareTo(e2.date());
+            if (dateCompare != 0) {
+                return dateCompare;
+            }
+            if (e1 instanceof CorpActionEvent && e2 instanceof TxnEvent) {
+                return -1;
+            }
+            if (e1 instanceof TxnEvent && e2 instanceof CorpActionEvent) {
+                return 1;
+            }
+            return 0;
+        });
+
+        LinkedList<Lot> openLots = new LinkedList<>();
+
+        for (TimelineEvent event : timeline) {
+            if (event instanceof CorpActionEvent caEvent) {
+                CorporateAction ca = caEvent.action();
+                if (ca.getType() == CorporateActionType.demerger) {
+                    if (ca.getCostAllocationPct() != null && ca.getCostAllocationPct().compareTo(BigDecimal.ZERO) > 0) {
+                        BigDecimal factor = BigDecimal.ONE.subtract(
+                                ca.getCostAllocationPct().divide(BigDecimal.valueOf(100), 10, RoundingMode.HALF_UP)
+                        );
+                        for (Lot lot : openLots) {
+                            lot.costPerUnit = lot.costPerUnit.multiply(factor).setScale(8, RoundingMode.HALF_UP);
+                        }
+                    }
+                } else if (ca.getRatioFrom() != null && ca.getRatioFrom() > 0 && ca.getRatioTo() != null && ca.getRatioTo() > 0) {
+                    BigDecimal multiplier = BigDecimal.valueOf(ca.getRatioTo())
+                            .divide(BigDecimal.valueOf(ca.getRatioFrom()), 10, RoundingMode.HALF_UP);
+                    for (Lot lot : openLots) {
+                        lot.remainingQty = lot.remainingQty.multiply(multiplier).setScale(8, RoundingMode.HALF_UP);
+                        lot.costPerUnit = lot.costPerUnit.divide(multiplier, 8, RoundingMode.HALF_UP);
+                    }
+                }
+            } else if (event instanceof TxnEvent txnEvent) {
+                InvestmentTransaction txn = txnEvent.txn();
+                BigDecimal txnCharges = txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO;
+
+                if (txn.getType() == InvestmentTransactionType.buy) {
+                    BigDecimal totalCost = txn.getQuantity().multiply(txn.getPrice()).add(txnCharges);
+                    BigDecimal costPerUnit = totalCost.divide(txn.getQuantity(), 8, RoundingMode.HALF_UP);
+                    openLots.add(new Lot(txn.getQuantity(), costPerUnit));
+                } else if (txn.getType() == InvestmentTransactionType.sell) {
+                    BigDecimal qtyToMatch = txn.getQuantity();
+                    while (qtyToMatch.compareTo(BigDecimal.ZERO) > 0) {
+                        if (openLots.isEmpty()) {
+                            break;
+                        }
+                        Lot oldestLot = openLots.peek();
+                        BigDecimal takeQty = qtyToMatch.min(oldestLot.remainingQty);
+                        oldestLot.remainingQty = oldestLot.remainingQty.subtract(takeQty);
+                        qtyToMatch = qtyToMatch.subtract(takeQty);
+
+                        if (oldestLot.remainingQty.compareTo(BigDecimal.ZERO) == 0) {
+                            openLots.poll();
+                        }
+                    }
+                }
+            }
+        }
+
+        return openLots;
     }
 
     private static class Lot {

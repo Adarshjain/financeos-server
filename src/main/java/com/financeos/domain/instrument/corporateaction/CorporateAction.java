@@ -43,6 +43,14 @@ public class CorporateAction {
     @Column(name = "ex_date", nullable = false)
     private LocalDate exDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "target_instrument_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private Instrument targetInstrument;
+
+    @Column(name = "cost_allocation_pct", precision = 7, scale = 4)
+    private java.math.BigDecimal costAllocationPct;
+
     @Column
     private String notes;
 
