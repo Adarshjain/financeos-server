@@ -1,5 +1,10 @@
 package com.financeos.domain.investment.imports;
 
+import com.financeos.api.instrument.dto.InstrumentCandidate;
+import com.financeos.api.instrument.dto.InstrumentResponse;
+import com.financeos.api.instrument.dto.ResolveInstrumentRequest;
+import com.financeos.domain.instrument.price.PriceRefreshEvent;
+import com.financeos.domain.instrument.search.InstrumentSearchService;
 import com.financeos.api.investment.dto.*;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
@@ -19,6 +24,7 @@ import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,6 +47,8 @@ public class ImportService {
     private final DividendRepository dividendRepository;
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
+    private final InstrumentSearchService instrumentSearchService;
+    private final ApplicationEventPublisher eventPublisher;
 
     public ImportService(List<ImportParser> parsers,
                          InstrumentRepository instrumentRepository,
@@ -48,7 +56,9 @@ public class ImportService {
                          InvestmentTransactionRepository transactionRepository,
                          DividendRepository dividendRepository,
                          AccountRepository accountRepository,
-                         UserRepository userRepository) {
+                         UserRepository userRepository,
+                         InstrumentSearchService instrumentSearchService,
+                         ApplicationEventPublisher eventPublisher) {
         this.parsers = parsers;
         this.instrumentRepository = instrumentRepository;
         this.holdingRepository = holdingRepository;
@@ -56,14 +66,14 @@ public class ImportService {
         this.dividendRepository = dividendRepository;
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
+        this.instrumentSearchService = instrumentSearchService;
+        this.eventPublisher = eventPublisher;
     }
 
-    @Transactional(readOnly = true)
     public ImportPreviewResponse preview(InputStream inputStream, ImportSource source, UUID brokerAccountId) {
         return preview(inputStream, source, brokerAccountId, null);
     }
 
-    @Transactional(readOnly = true)
     public ImportPreviewResponse preview(InputStream inputStream, ImportSource source, UUID brokerAccountId, String password) {
         Account brokerAccount = accountRepository.findById(brokerAccountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", brokerAccountId));
@@ -109,6 +119,107 @@ public class ImportService {
                             break;
                         }
                     }
+                }
+            }
+
+            // Auto-find via external APIs (Yahoo Finance / AMFI) if not matched locally
+            if (matchedInstrument == null && instrumentSearchService != null) {
+                try {
+                    InstrumentType searchType = (source == ImportSource.mf_cas) ? InstrumentType.mutual_fund : InstrumentType.stock;
+                    // Neither external provider can search by Indian ISIN: Yahoo's search endpoint
+                    // doesn't index ISINs, and AMFI matches on scheme-name substring only. Query by
+                    // symbol (stocks) / name (MFs); the parsed ISIN is still used below to pick the
+                    // exact candidate out of the results.
+                    String queryStr = (searchType == InstrumentType.mutual_fund)
+                            ? (row.parsedName() != null && !row.parsedName().isBlank() ? row.parsedName() : row.parsedSymbol())
+                            : (row.parsedSymbol() != null && !row.parsedSymbol().isBlank() ? row.parsedSymbol() : row.parsedName());
+
+                    if (queryStr != null && queryStr.trim().length() >= 2) {
+                        List<InstrumentCandidate> candidates = instrumentSearchService.catalogSearch(queryStr.trim(), searchType);
+                        InstrumentCandidate bestCandidate = null;
+
+                        // 1. Exact ISIN match
+                        if (row.parsedIsin() != null && !row.parsedIsin().isBlank()) {
+                            for (InstrumentCandidate candidate : candidates) {
+                                if (candidate.isin() != null && candidate.isin().equalsIgnoreCase(row.parsedIsin().trim())) {
+                                    bestCandidate = candidate;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // 2. Exact Symbol & Exchange match
+                        if (bestCandidate == null && row.parsedSymbol() != null && !row.parsedSymbol().isBlank()) {
+                            for (InstrumentCandidate candidate : candidates) {
+                                if (candidate.symbol() != null && candidate.symbol().equalsIgnoreCase(row.parsedSymbol().trim())) {
+                                    if (row.exchange() == null || candidate.exchange() == null || candidate.exchange().equalsIgnoreCase(row.exchange())) {
+                                        bestCandidate = candidate;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        // 3. Top candidate match
+                        if (bestCandidate == null && !candidates.isEmpty()) {
+                            InstrumentCandidate top = candidates.get(0);
+                            if (top.symbol() != null && row.parsedSymbol() != null && top.symbol().equalsIgnoreCase(row.parsedSymbol().trim())) {
+                                bestCandidate = top;
+                            } else if (top.name() != null && row.parsedName() != null && top.name().toLowerCase().contains(row.parsedName().toLowerCase())) {
+                                bestCandidate = top;
+                            } else if (row.parsedSymbol() != null && !row.parsedSymbol().isBlank()) {
+                                bestCandidate = top;
+                            }
+                        }
+
+                        if (bestCandidate != null) {
+                            InstrumentResponse resolved = instrumentSearchService.resolve(new ResolveInstrumentRequest(
+                                    bestCandidate.type(),
+                                    bestCandidate.name(),
+                                    bestCandidate.symbol(),
+                                    bestCandidate.exchange(),
+                                    bestCandidate.isin(),
+                                    bestCandidate.amfiCode(),
+                                    bestCandidate.yahooSymbol(),
+                                    bestCandidate.currency(),
+                                    bestCandidate.existingInstrumentId()
+                            ));
+                            matchedInstrument = instrumentRepository.findById(resolved.id()).orElse(null);
+                        }
+                    }
+                } catch (Exception e) {
+                    log.warn("Auto-find API search failed for row {}: {}", row.rowIndex(), e.getMessage());
+                }
+            }
+
+            // Fallback: If still unmatched, auto-create and map the Instrument directly using details from CSV
+            if (matchedInstrument == null) {
+                try {
+                    Instrument newInst = new Instrument();
+                    InstrumentType defaultType = (source == ImportSource.mf_cas || (row.parsedIsin() != null && row.parsedIsin().startsWith("INF")))
+                            ? InstrumentType.mutual_fund
+                            : InstrumentType.stock;
+                    newInst.setType(defaultType);
+
+                    String name = row.parsedName();
+                    if (name == null || name.isBlank()) {
+                        name = row.parsedSymbol() != null ? row.parsedSymbol() : "Unknown Instrument";
+                    }
+                    newInst.setName(name.trim());
+                    newInst.setSymbol(row.parsedSymbol() != null ? row.parsedSymbol().trim() : null);
+                    newInst.setExchange(row.exchange() != null ? row.exchange().trim() : (defaultType == InstrumentType.mutual_fund ? "MUTUAL_FUND" : "NSE"));
+                    newInst.setIsin(row.parsedIsin() != null ? row.parsedIsin().trim() : null);
+
+                    String yahooSym = null;
+                    if (defaultType == InstrumentType.stock && newInst.getSymbol() != null && !newInst.getSymbol().isBlank()) {
+                        String ex = newInst.getExchange();
+                        yahooSym = newInst.getSymbol().toUpperCase() + ("BSE".equalsIgnoreCase(ex) ? ".BO" : ".NS");
+                    }
+                    newInst.setYahooSymbol(yahooSym);
+
+                    matchedInstrument = instrumentRepository.save(newInst);
+                } catch (Exception e) {
+                    log.warn("Failed to auto-create fallback instrument for row {}: {}", row.rowIndex(), e.getMessage());
                 }
             }
 
@@ -204,6 +315,7 @@ public class ImportService {
         int committed = 0;
         int skipped = 0;
         List<ImportCommitResponse.FailedCommitItem> failedList = new ArrayList<>();
+        Set<UUID> touchedInstrumentIds = new HashSet<>();
 
         for (ImportCommitRequest.CommitRowDto rowDto : rows) {
             if (rowDto.skip()) {
@@ -311,6 +423,7 @@ public class ImportService {
 
                     dividendRepository.save(dividend);
                     committed++;
+                    touchedInstrumentIds.add(finalInstrument.getId());
 
                 } else {
                     // Trade (BUY / SELL)
@@ -354,12 +467,19 @@ public class ImportService {
 
                     transactionRepository.save(txn);
                     committed++;
+                    touchedInstrumentIds.add(finalInstrument.getId());
                 }
 
             } catch (Exception e) {
                 log.error("Error committing import row " + rowDto.rowIndex(), e);
                 failedList.add(new ImportCommitResponse.FailedCommitItem(rowDto.rowIndex(), e.getMessage()));
             }
+        }
+
+        // Auto-fetch latest prices for every instrument touched by this import once it commits,
+        // so the UI reflects them without a manual price refresh (handled by PriceRefreshEventListener).
+        if (!touchedInstrumentIds.isEmpty()) {
+            eventPublisher.publishEvent(new PriceRefreshEvent(touchedInstrumentIds));
         }
 
         return new ImportCommitResponse(committed, skipped, failedList);

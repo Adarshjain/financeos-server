@@ -17,15 +17,18 @@ public class PriceSchedulerConfiguration {
     private static final Logger log = LoggerFactory.getLogger(PriceSchedulerConfiguration.class);
 
     private final PriceRefreshService priceRefreshService;
+    private final AmfiFeedClient amfiFeedClient;
 
-    public PriceSchedulerConfiguration(PriceRefreshService priceRefreshService) {
+    public PriceSchedulerConfiguration(PriceRefreshService priceRefreshService, AmfiFeedClient amfiFeedClient) {
         this.priceRefreshService = priceRefreshService;
+        this.amfiFeedClient = amfiFeedClient;
     }
 
     @Scheduled(cron = "${price.refresh-cron}", zone = "${price.timezone}")
     public void runDailyPriceRefresh() {
         log.info("Starting daily automated price refresh job...");
         try {
+            amfiFeedClient.load();
             PriceRefreshResult result = priceRefreshService.refresh(Optional.empty());
             log.info("Completed daily price refresh: refreshed={}, skipped={}, failed={}",
                     result.refreshed(), result.skipped(), result.failed().size());

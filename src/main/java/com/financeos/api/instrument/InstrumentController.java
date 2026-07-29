@@ -3,6 +3,7 @@ package com.financeos.api.instrument;
 import com.financeos.api.instrument.dto.*;
 import com.financeos.domain.instrument.InstrumentService;
 import com.financeos.domain.instrument.InstrumentType;
+import com.financeos.domain.instrument.search.InstrumentSearchService;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,23 @@ import java.util.UUID;
 public class InstrumentController {
 
     private final InstrumentService instrumentService;
+    private final InstrumentSearchService instrumentSearchService;
 
-    public InstrumentController(InstrumentService instrumentService) {
+    public InstrumentController(InstrumentService instrumentService, InstrumentSearchService instrumentSearchService) {
         this.instrumentService = instrumentService;
+        this.instrumentSearchService = instrumentSearchService;
+    }
+
+    @GetMapping("/catalog-search")
+    public List<InstrumentCandidate> catalogSearch(
+            @RequestParam(required = false) String q,
+            @RequestParam(required = false) InstrumentType type) {
+        return instrumentSearchService.catalogSearch(q, type);
+    }
+
+    @PostMapping("/resolve")
+    public InstrumentResponse resolve(@Valid @RequestBody ResolveInstrumentRequest request) {
+        return instrumentSearchService.resolve(request);
     }
 
     @GetMapping

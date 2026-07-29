@@ -73,8 +73,8 @@ public class PriceRefreshService {
             } else {
                 failedList.add(new PriceRefreshResult.FailedItem(
                         inst.getId(),
-                        inst.getSymbol() != null ? inst.getSymbol() : inst.getName(),
-                        "No supporting price provider found for instrument type " + inst.getType()
+                        label(inst),
+                        "No price provider is available for " + inst.getType() + " instruments."
                 ));
             }
         }
@@ -114,21 +114,62 @@ public class PriceRefreshService {
                     } else {
                         failedList.add(new PriceRefreshResult.FailedItem(
                                 inst.getId(),
-                                inst.getSymbol() != null ? inst.getSymbol() : inst.getName(),
-                                "Failed to fetch price quote from provider " + provider.source()
+                                label(inst),
+                                describeFetchFailure(inst, provider)
                         ));
                     }
                 } catch (Exception e) {
                     log.error("Error processing price quote for instrument {}", inst.getName(), e);
                     failedList.add(new PriceRefreshResult.FailedItem(
                             inst.getId(),
-                            inst.getSymbol() != null ? inst.getSymbol() : inst.getName(),
-                            "Error saving price quote: " + e.getMessage()
+                            label(inst),
+                            "Error saving the fetched price: " + e.getMessage()
                     ));
                 }
             }
         }
 
         return new PriceRefreshResult(refreshedCount, skippedCount, failedList, LocalDate.now(zoneId));
+    }
+
+    /** Human-readable label for error messages: "Name (SYMBOL)" when the symbol adds information. */
+    private String label(Instrument inst) {
+        String name = inst.getName();
+        String symbol = inst.getSymbol();
+        if (symbol != null && !symbol.isBlank() && !symbol.equalsIgnoreCase(name)) {
+            return name + " (" + symbol + ")";
+        }
+        return name;
+    }
+
+    /**
+     * Builds an actionable reason for why a quote could not be fetched, based on what the instrument
+     * is missing vs. what the provider actually returned. Replaces the old generic "Failed to fetch".
+     */
+    private String describeFetchFailure(Instrument inst, PriceProvider provider) {
+        InstrumentType type = inst.getType();
+
+        if (type == InstrumentType.stock || type == InstrumentType.etf) {
+            if (inst.getYahooSymbol() == null || inst.getYahooSymbol().isBlank()) {
+                String guess = (inst.getSymbol() != null && !inst.getSymbol().isBlank())
+                        ? inst.getSymbol().toUpperCase() + ".NS"
+                        : "e.g. RELIANCE.NS";
+                return "No Yahoo symbol is set, so its price can't be fetched. Edit the instrument and add one (" + guess + ").";
+            }
+            return "Yahoo has no data for \"" + inst.getYahooSymbol() + "\". The ticker may have been renamed or delisted, "
+                    + "or Yahoo is temporarily unreachable — check and update the Yahoo symbol.";
+        }
+
+        if (type == InstrumentType.mutual_fund) {
+            boolean noAmfi = inst.getAmfiCode() == null || inst.getAmfiCode().isBlank();
+            boolean noIsin = inst.getIsin() == null || inst.getIsin().isBlank();
+            if (noAmfi && noIsin) {
+                return "No AMFI code or ISIN is set, so its NAV can't be fetched. Edit the instrument and add one.";
+            }
+            String ref = !noAmfi ? "AMFI scheme code " + inst.getAmfiCode() : "ISIN " + inst.getIsin();
+            return "AMFI has no current NAV for " + ref + " — verify it is correct.";
+        }
+
+        return "Could not fetch a price from provider " + provider.source() + ".";
     }
 }

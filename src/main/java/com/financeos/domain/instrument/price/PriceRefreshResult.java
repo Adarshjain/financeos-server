@@ -12,7 +12,7 @@ public record PriceRefreshResult(
 ) {
     public record FailedItem(
             UUID instrumentId,
-            String symbol,
+            String instrumentName,
             String reason
     ) {}
 }
