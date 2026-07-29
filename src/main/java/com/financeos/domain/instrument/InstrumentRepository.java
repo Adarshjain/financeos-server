@@ -14,6 +14,12 @@ public interface InstrumentRepository extends JpaRepository<Instrument, UUID> {
 
     Optional<Instrument> findByIsin(String isin);
 
+    Optional<Instrument> findByAmfiCode(String amfiCode);
+
+    Optional<Instrument> findByYahooSymbol(String yahooSymbol);
+
+    Optional<Instrument> findBySymbolAndExchange(String symbol, String exchange);
+
     @Query("SELECT i FROM Instrument i WHERE " +
            "(:type IS NULL OR i.type = :type) AND " +
            "(:search IS NULL OR :search = '' OR " +

@@ -12,11 +12,15 @@ import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.*;
 import com.financeos.domain.instrument.corporateaction.CorporateAction;
 import com.financeos.domain.instrument.corporateaction.CorporateActionRepository;
+import com.financeos.domain.instrument.price.PriceRefreshEvent;
 import com.financeos.domain.investment.dividend.Dividend;
 import com.financeos.domain.investment.dividend.DividendRepository;
 import com.financeos.domain.investment.returncalc.XirrCalculator;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,6 +35,8 @@ import java.util.*;
 @Transactional
 public class InvestmentService {
 
+    private static final Logger log = LoggerFactory.getLogger(InvestmentService.class);
+
     private final InvestmentTransactionRepository transactionRepository;
     private final HoldingRepository holdingRepository;
     private final AccountRepository accountRepository;
@@ -39,6 +45,7 @@ public class InvestmentService {
     private final UserRepository userRepository;
     private final CorporateActionRepository corporateActionRepository;
     private final DividendRepository dividendRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     public InvestmentService(InvestmentTransactionRepository transactionRepository,
                               HoldingRepository holdingRepository,
@@ -47,7 +54,8 @@ public class InvestmentService {
                               InstrumentPriceRepository priceRepository,
                               UserRepository userRepository,
                               CorporateActionRepository corporateActionRepository,
-                              DividendRepository dividendRepository) {
+                              DividendRepository dividendRepository,
+                              ApplicationEventPublisher eventPublisher) {
         this.transactionRepository = transactionRepository;
         this.holdingRepository = holdingRepository;
         this.accountRepository = accountRepository;
@@ -56,6 +64,7 @@ public class InvestmentService {
         this.userRepository = userRepository;
         this.corporateActionRepository = corporateActionRepository;
         this.dividendRepository = dividendRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     public InvestmentTransactionResponse createTransaction(CreateInvestmentTransactionRequest request) {
@@ -98,6 +107,11 @@ public class InvestmentService {
         applyItemizedCharges(txn, request.charges());
 
         InvestmentTransaction saved = transactionRepository.save(txn);
+
+        // Auto-fetch the latest price for this instrument once the trade commits, so the UI
+        // reflects it without a manual price refresh (handled by PriceRefreshEventListener).
+        eventPublisher.publishEvent(new PriceRefreshEvent(Set.of(instrument.getId())));
+
         return InvestmentTransactionResponse.from(saved);
     }
 
@@ -155,7 +169,16 @@ public class InvestmentService {
         List<PositionDto> positions = new ArrayList<>();
 
         for (Holding holding : holdings) {
-            HoldingPosition pos = calculateHoldingPosition(holding);
+            HoldingPosition pos;
+            try {
+                pos = calculateHoldingPosition(holding);
+            } catch (Exception e) {
+                // One holding with inconsistent history (e.g. a tradebook whose earlier buys weren't
+                // imported, so a sell can't be FIFO-matched) must not blank out every other holding.
+                log.warn("Skipping holding {} ({}) in positions: {}",
+                        holding.getId(), holding.getInstrument().getName(), e.getMessage());
+                continue;
+            }
             if (pos.openQty().compareTo(BigDecimal.ZERO) > 0) {
                 positions.add(pos.toPositionDto());
             }
@@ -179,7 +202,15 @@ public class InvestmentService {
         List<XirrCalculator.Cashflow> portfolioCashflows = new ArrayList<>();
 
         for (Holding holding : holdings) {
-            HoldingPosition pos = calculateHoldingPosition(holding);
+            HoldingPosition pos;
+            try {
+                pos = calculateHoldingPosition(holding);
+            } catch (Exception e) {
+                // Skip a holding with inconsistent history rather than failing the whole summary.
+                log.warn("Skipping holding {} ({}) in summary: {}",
+                        holding.getId(), holding.getInstrument().getName(), e.getMessage());
+                continue;
+            }
             totalRealized = totalRealized.add(pos.realized());
             totalCharges = totalCharges.add(pos.totalCharges());
 
