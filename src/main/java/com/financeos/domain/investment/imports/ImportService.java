@@ -268,7 +268,11 @@ public class ImportService {
                         }
                     }
                 } else {
-                    // Check duplicate for trade
+                    // Check duplicate for trade. Zerodha assigns a unique trade_id per
+                    // execution (carried as externalRef), so for the tradebook we match on
+                    // that alone — the date+type+qty+price heuristic would wrongly flag
+                    // legitimate identical fills (e.g. an order split across executions).
+                    boolean matchByExternalRefOnly = source == ImportSource.zerodha_tradebook;
                     Page<InvestmentTransaction> existingTxnsPage = transactionRepository.findFilteredTransactions(
                             brokerAccountId, matchedInstrument.getId(), null, Pageable.unpaged());
 
@@ -278,7 +282,8 @@ public class ImportService {
                             isDuplicate = true;
                             break;
                         }
-                        if (row.tradeDate() != null && row.tradeDate().equals(existingTxn.getTradeDate())
+                        if (!matchByExternalRefOnly
+                                && row.tradeDate() != null && row.tradeDate().equals(existingTxn.getTradeDate())
                                 && row.type() == existingTxn.getType()
                                 && row.quantity() != null && row.quantity().compareTo(existingTxn.getQuantity()) == 0
                                 && row.price() != null && row.price().compareTo(existingTxn.getPrice()) == 0) {
@@ -445,8 +450,10 @@ public class ImportService {
                     touchedInstrumentIds.add(finalInstrument.getId());
 
                 } else {
-                    // Trade (BUY / SELL)
+                    // Trade (BUY / SELL). See preview(): Zerodha rows dedupe on trade_id
+                    // (externalRef) only; other sources keep the date+type+qty+price fallback.
                     boolean isDup = false;
+                    boolean matchByExternalRefOnly = source == ImportSource.zerodha_tradebook;
                     Page<InvestmentTransaction> existingTxnsPage = transactionRepository.findFilteredTransactions(
                             brokerAccountId, finalInstrument.getId(), null, Pageable.unpaged());
 
@@ -456,7 +463,8 @@ public class ImportService {
                             isDup = true;
                             break;
                         }
-                        if (rowData.tradeDate() != null && rowData.tradeDate().equals(existingTxn.getTradeDate())
+                        if (!matchByExternalRefOnly
+                                && rowData.tradeDate() != null && rowData.tradeDate().equals(existingTxn.getTradeDate())
                                 && rowData.type() == existingTxn.getType()
                                 && rowData.quantity() != null && rowData.quantity().compareTo(existingTxn.getQuantity()) == 0
                                 && rowData.price() != null && rowData.price().compareTo(existingTxn.getPrice()) == 0) {
