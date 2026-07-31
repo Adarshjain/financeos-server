@@ -52,8 +52,9 @@ public class InvestmentController {
             @RequestParam(required = false) UUID brokerAccountId,
             @RequestParam(required = false) UUID instrumentId,
             @RequestParam(required = false) UUID holdingId,
+            @RequestParam(required = false) String search,
             @PageableDefault(size = 50, sort = "tradeDate") Pageable pageable) {
-        return investmentService.getTransactions(brokerAccountId, instrumentId, holdingId, pageable);
+        return investmentService.getTransactions(brokerAccountId, instrumentId, holdingId, search, pageable);
     }
 
     @GetMapping("/positions")

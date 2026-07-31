@@ -23,7 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -159,9 +161,30 @@ public class InvestmentService {
     }
 
     @Transactional(readOnly = true)
-    public Page<InvestmentTransactionResponse> getTransactions(UUID brokerAccountId, UUID instrumentId, UUID holdingId, Pageable pageable) {
-        Page<InvestmentTransaction> page = transactionRepository.findFilteredTransactions(brokerAccountId, instrumentId, holdingId, pageable);
+    public Page<InvestmentTransactionResponse> getTransactions(UUID brokerAccountId, UUID instrumentId, UUID holdingId, String search, Pageable pageable) {
+        String normalizedSearch = (search != null && !search.isBlank()) ? search.trim() : null;
+        Page<InvestmentTransaction> page = transactionRepository.findFilteredTransactions(
+                brokerAccountId, instrumentId, holdingId, normalizedSearch, withStableSort(pageable));
         return page.map(InvestmentTransactionResponse::from);
+    }
+
+    /**
+     * tradeDate is a day-granularity LocalDate, so many trades tie on it. Sorting by tradeDate
+     * alone gives the DB freedom to order tied rows differently per page query, which makes a
+     * transaction straddle a page boundary (missing on one page size, visible on another). Append
+     * createdAt and the unique id as tiebreakers so pagination has a stable total ordering.
+     */
+    private Pageable withStableSort(Pageable pageable) {
+        Sort sort = pageable.getSort();
+        boolean hasUniqueKey = sort.stream().anyMatch(o -> o.getProperty().equals("id"));
+        if (hasUniqueKey) {
+            return pageable;
+        }
+        Sort.Direction direction = sort.stream().findFirst().map(Sort.Order::getDirection).orElse(Sort.Direction.ASC);
+        Sort stableSort = sort
+                .and(Sort.by(direction, "createdAt"))
+                .and(Sort.by(direction, "id"));
+        return PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), stableSort);
     }
 
     @Transactional(readOnly = true)

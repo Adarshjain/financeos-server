@@ -163,7 +163,7 @@ public class SipService {
 
         if (holdingOpt.isPresent()) {
             Page<InvestmentTransaction> txns = transactionRepository.findFilteredTransactions(
-                    sip.getBrokerAccount().getId(), sip.getInstrument().getId(), null, Pageable.unpaged());
+                    sip.getBrokerAccount().getId(), sip.getInstrument().getId(), null, null, Pageable.unpaged());
 
             for (InvestmentTransaction txn : txns.getContent()) {
                 if (txn.getType() == InvestmentTransactionType.buy) {
