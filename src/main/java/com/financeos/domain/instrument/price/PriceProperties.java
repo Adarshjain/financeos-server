@@ -23,8 +23,10 @@ public class PriceProperties {
     @Setter
     public static class ProviderProperties {
         private boolean enabled = true;
+        private boolean batchEnabled = true;
+        private int batchSize = 50;
         private String baseUrl;
         private long timeoutMs = 30000L;
-        private String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+        private String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36";
     }
 }
