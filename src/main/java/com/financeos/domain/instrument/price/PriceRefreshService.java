@@ -38,9 +38,11 @@ public class PriceRefreshService {
 
     /**
      * Refreshes instrument prices.
-     * Note: When called via an HTTP request, userFilter is active so holdingRepository.findDistinctInstrumentsHeld()
-     * returns instruments held by the authenticated user. When called via the scheduled background job, UserContext
-     * is clear so userFilter is inactive and instruments across all users are refreshed.
+     * Note: When no instrumentId is given, only actively held instruments (net open quantity &gt; 0)
+     * are refreshed — fully sold-out positions are skipped. When called via an HTTP request, userFilter
+     * is active so only the authenticated user's active instruments are returned. When called via the
+     * scheduled background job, UserContext is clear so userFilter is inactive and active instruments
+     * across all users are refreshed.
      */
     public PriceRefreshResult refresh(Optional<UUID> instrumentId) {
         List<Instrument> targets;
@@ -50,7 +52,8 @@ public class PriceRefreshService {
                     .orElseThrow(() -> new ResourceNotFoundException("Instrument", id));
             targets = List.of(inst);
         } else {
-            targets = holdingRepository.findDistinctInstrumentsHeld();
+            List<UUID> activeIds = holdingRepository.findDistinctActiveInstrumentIdsHeld();
+            targets = activeIds.isEmpty() ? List.of() : instrumentRepository.findAllById(activeIds);
         }
 
         int refreshedCount = 0;

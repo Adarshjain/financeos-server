@@ -1,6 +1,5 @@
 package com.financeos.domain.holding;
 
-import com.financeos.domain.instrument.Instrument;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,6 +17,15 @@ public interface HoldingRepository extends JpaRepository<Holding, UUID> {
 
     List<Holding> findByInstrumentId(UUID instrumentId);
 
-    @Query("SELECT DISTINCT h.instrument FROM Holding h")
-    List<Instrument> findDistinctInstrumentsHeld();
+    /**
+     * Instrument ids that are still actively held, i.e. net open quantity (buys - sells) &gt; 0.
+     * Aggregates over investment transactions so fully sold-out positions are excluded.
+     * The userFilter (when active, i.e. on an HTTP request) scopes both Holding and
+     * InvestmentTransaction to the authenticated user; when inactive (scheduled job) it spans all users.
+     */
+    @Query("SELECT h.instrument.id FROM Holding h, InvestmentTransaction t WHERE t.holding = h " +
+           "GROUP BY h.instrument.id " +
+           "HAVING SUM(CASE WHEN t.type = com.financeos.domain.investment.InvestmentTransactionType.buy " +
+           "THEN t.quantity ELSE -t.quantity END) > 0")
+    List<UUID> findDistinctActiveInstrumentIdsHeld();
 }
