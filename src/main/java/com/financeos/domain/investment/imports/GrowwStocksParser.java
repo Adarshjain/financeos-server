@@ -50,7 +50,7 @@ public class GrowwStocksParser implements ImportParser {
         List<Map<String, String>> rawRows;
         try {
             if (isXlsx(bytes)) {
-                rawRows = ExcelReader.readExcel(new ByteArrayInputStream(bytes));
+                rawRows = ExcelReader.readExcel(new ByteArrayInputStream(bytes), List.of("isin", "quantity", "type"));
             } else {
                 rawRows = SimpleCsvReader.readCsv(new ByteArrayInputStream(bytes));
             }
@@ -69,21 +69,29 @@ public class GrowwStocksParser implements ImportParser {
             Map<String, String> row = rawRows.get(i);
 
             String symbol = findAlias(row, "symbol", "stock name", "stock", "company", "instrument", "name");
+            String name = findAlias(row, "stock name", "company name", "scrip name");
             String isin = findAlias(row, "isin");
             String typeStr = findAlias(row, "type", "buy/sell", "action", "order type", "transaction type");
             String quantityStr = findAlias(row, "quantity", "qty", "shares", "units", "no of shares");
             String priceStr = findAlias(row, "price", "avg price", "execution price", "price per share", "rate");
-            String tradeDateStr = findAlias(row, "date", "trade date", "order date", "transaction date", "time");
-            String orderId = findAlias(row, "order id", "reference", "trade id", "order no", "ref no");
+            String valueStr = findAlias(row, "value", "amount", "order value", "net amount", "traded value", "total value");
+            String tradeDateStr = findAlias(row, "execution date and time", "execution date", "trade date", "order date", "transaction date", "date", "time");
+            String orderId = findAlias(row, "order id", "reference", "trade id", "order no", "ref no", "exchange order id");
             String exchangeStr = findAlias(row, "exchange");
             String categoryStr = findAlias(row, "category", "segment", "asset class");
+            String orderStatusStr = findAlias(row, "order status", "status");
 
             String error = null;
 
+            // Order status filter check
+            if (orderStatusStr != null && !orderStatusStr.isBlank() && !orderStatusStr.trim().equalsIgnoreCase("Executed")) {
+                error = "Order not executed (status: " + orderStatusStr.trim() + ")";
+            }
+
             // Mutual Fund exclusion check
-            if ((isin != null && isin.toUpperCase().startsWith("INF"))
+            if (error == null && ((isin != null && isin.toUpperCase().startsWith("INF"))
                     || (categoryStr != null && categoryStr.toLowerCase().contains("mutual fund"))
-                    || (symbol != null && (symbol.toLowerCase().contains("mutual fund") || symbol.toLowerCase().contains("scheme")))) {
+                    || (symbol != null && (symbol.toLowerCase().contains("mutual fund") || symbol.toLowerCase().contains("scheme"))))) {
                 error = "Groww Mutual Fund transaction detected — Mutual Funds must be imported via CAMS/KFintech CAS (Phase 4b) to avoid double counting.";
             }
 
@@ -130,8 +138,26 @@ public class GrowwStocksParser implements ImportParser {
                     } catch (Exception e) {
                         error = "Invalid price: " + priceStr;
                     }
+                } else if (valueStr != null && !valueStr.isBlank()) {
+                    if (quantity != null && quantity.compareTo(BigDecimal.ZERO) > 0) {
+                        try {
+                            BigDecimal value = new BigDecimal(valueStr.replace(",", ""));
+                            if (value.compareTo(BigDecimal.ZERO) < 0) {
+                                error = "Value must be non-negative: " + valueStr;
+                            } else {
+                                price = value.divide(quantity, 4, java.math.RoundingMode.HALF_UP);
+                                if (price.compareTo(BigDecimal.ZERO) < 0) {
+                                    error = "Price must be non-negative: " + price;
+                                }
+                            }
+                        } catch (Exception e) {
+                            error = "Invalid value: " + valueStr;
+                        }
+                    } else {
+                        error = "Missing price/value";
+                    }
                 } else {
-                    error = "Missing price";
+                    error = "Missing price/value";
                 }
             }
 
@@ -159,7 +185,7 @@ public class GrowwStocksParser implements ImportParser {
                     type,
                     symbol != null ? symbol.trim() : null,
                     isin != null && !isin.isBlank() ? isin.trim() : null,
-                    symbol != null ? symbol.trim() : null,
+                    name != null && !name.isBlank() ? name.trim() : (symbol != null ? symbol.trim() : null),
                     exchange,
                     quantity,
                     price,
