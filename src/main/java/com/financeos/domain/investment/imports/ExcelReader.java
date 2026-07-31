@@ -13,6 +13,10 @@ public class ExcelReader {
     private static final Logger log = LoggerFactory.getLogger(ExcelReader.class);
 
     public static List<Map<String, String>> readExcel(InputStream inputStream) throws Exception {
+        return readExcel(inputStream, Collections.emptyList());
+    }
+
+    public static List<Map<String, String>> readExcel(InputStream inputStream, Collection<String> headerHints) throws Exception {
         Workbook workbook = WorkbookFactory.create(inputStream);
         Sheet sheet = workbook.getSheetAt(0);
 
@@ -24,16 +28,59 @@ public class ExcelReader {
             return result;
         }
 
-        // Header Row
-        Row headerRow = rowIterator.next();
+        Row headerRow = null;
+        if (headerHints != null && !headerHints.isEmpty()) {
+            List<String> cleanHints = headerHints.stream()
+                    .filter(h -> h != null && !h.isBlank())
+                    .map(String::toLowerCase)
+                    .toList();
+
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                if (isRowEmpty(row)) {
+                    continue;
+                }
+                List<String> cellValues = new ArrayList<>();
+                for (Cell cell : row) {
+                    String val = getCellValueAsString(cell).trim().toLowerCase();
+                    if (!val.isBlank()) {
+                        cellValues.add(val);
+                    }
+                }
+                boolean matchesAll = cleanHints.stream()
+                        .allMatch(hint -> cellValues.stream().anyMatch(val -> val.contains(hint)));
+                if (matchesAll) {
+                    headerRow = row;
+                    break;
+                }
+            }
+        }
+
+        if (headerRow == null) {
+            rowIterator = sheet.iterator();
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                if (!isRowEmpty(row)) {
+                    headerRow = row;
+                    break;
+                }
+            }
+        }
+
+        if (headerRow == null) {
+            workbook.close();
+            return result;
+        }
+
         List<String> headers = new ArrayList<>();
         for (Cell cell : headerRow) {
             headers.add(getCellValueAsString(cell).trim().toLowerCase());
         }
 
-        // Data Rows
-        while (rowIterator.hasNext()) {
-            Row row = rowIterator.next();
+        for (Row row : sheet) {
+            if (row.getRowNum() <= headerRow.getRowNum()) {
+                continue;
+            }
             if (isRowEmpty(row)) {
                 continue;
             }
