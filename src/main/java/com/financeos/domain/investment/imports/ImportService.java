@@ -274,7 +274,7 @@ public class ImportService {
                     // legitimate identical fills (e.g. an order split across executions).
                     boolean matchByExternalRefOnly = source == ImportSource.zerodha_tradebook;
                     Page<InvestmentTransaction> existingTxnsPage = transactionRepository.findFilteredTransactions(
-                            brokerAccountId, matchedInstrument.getId(), null, Pageable.unpaged());
+                            brokerAccountId, matchedInstrument.getId(), null, null, Pageable.unpaged());
 
                     for (InvestmentTransaction existingTxn : existingTxnsPage.getContent()) {
                         if (row.externalRef() != null && existingTxn.getExternalRef() != null
@@ -455,7 +455,7 @@ public class ImportService {
                     boolean isDup = false;
                     boolean matchByExternalRefOnly = source == ImportSource.zerodha_tradebook;
                     Page<InvestmentTransaction> existingTxnsPage = transactionRepository.findFilteredTransactions(
-                            brokerAccountId, finalInstrument.getId(), null, Pageable.unpaged());
+                            brokerAccountId, finalInstrument.getId(), null, null, Pageable.unpaged());
 
                     for (InvestmentTransaction existingTxn : existingTxnsPage.getContent()) {
                         if (rowData.externalRef() != null && existingTxn.getExternalRef() != null

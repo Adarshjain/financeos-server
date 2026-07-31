@@ -18,14 +18,23 @@ public interface InvestmentTransactionRepository extends JpaRepository<Investmen
     @Query(value = "SELECT t FROM InvestmentTransaction t JOIN FETCH t.holding h JOIN FETCH h.instrument i JOIN FETCH h.brokerAccount b WHERE " +
                    "(:brokerAccountId IS NULL OR b.id = :brokerAccountId) AND " +
                    "(:instrumentId IS NULL OR i.id = :instrumentId) AND " +
-                   "(:holdingId IS NULL OR h.id = :holdingId)",
+                   "(:holdingId IS NULL OR h.id = :holdingId) AND " +
+                   "(:search IS NULL OR " +
+                   "LOWER(i.name) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+                   "LOWER(i.symbol) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+                   "LOWER(i.yahooSymbol) LIKE LOWER(CONCAT('%', :search, '%')))",
            countQuery = "SELECT COUNT(t) FROM InvestmentTransaction t JOIN t.holding h JOIN h.instrument i JOIN h.brokerAccount b WHERE " +
                         "(:brokerAccountId IS NULL OR b.id = :brokerAccountId) AND " +
                         "(:instrumentId IS NULL OR i.id = :instrumentId) AND " +
-                        "(:holdingId IS NULL OR h.id = :holdingId)")
+                        "(:holdingId IS NULL OR h.id = :holdingId) AND " +
+                        "(:search IS NULL OR " +
+                        "LOWER(i.name) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+                        "LOWER(i.symbol) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+                        "LOWER(i.yahooSymbol) LIKE LOWER(CONCAT('%', :search, '%')))")
     Page<InvestmentTransaction> findFilteredTransactions(
             @Param("brokerAccountId") UUID brokerAccountId,
             @Param("instrumentId") UUID instrumentId,
             @Param("holdingId") UUID holdingId,
+            @Param("search") String search,
             Pageable pageable);
 }
