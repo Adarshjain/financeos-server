@@ -43,6 +43,10 @@ public class InvestmentTransaction {
     @Column(nullable = false)
     private InvestmentTransactionType type;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "settlement_type", nullable = false)
+    private SettlementType settlementType = SettlementType.delivery;
+
     @Column(nullable = false, precision = 19, scale = 8)
     private BigDecimal quantity;
 

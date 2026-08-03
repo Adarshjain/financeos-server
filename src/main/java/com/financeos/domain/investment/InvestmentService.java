@@ -48,6 +48,7 @@ public class InvestmentService {
     private final UserRepository userRepository;
     private final CorporateActionRepository corporateActionRepository;
     private final DividendRepository dividendRepository;
+    private final TradeSettlementClassificationRepository classificationRepository;
     private final ApplicationEventPublisher eventPublisher;
 
     public InvestmentService(InvestmentTransactionRepository transactionRepository,
@@ -58,6 +59,7 @@ public class InvestmentService {
                               UserRepository userRepository,
                               CorporateActionRepository corporateActionRepository,
                               DividendRepository dividendRepository,
+                              TradeSettlementClassificationRepository classificationRepository,
                               ApplicationEventPublisher eventPublisher) {
         this.transactionRepository = transactionRepository;
         this.holdingRepository = holdingRepository;
@@ -67,6 +69,7 @@ public class InvestmentService {
         this.userRepository = userRepository;
         this.corporateActionRepository = corporateActionRepository;
         this.dividendRepository = dividendRepository;
+        this.classificationRepository = classificationRepository;
         this.eventPublisher = eventPublisher;
     }
 
@@ -102,6 +105,7 @@ public class InvestmentService {
         txn.setUser(user);
         txn.setHolding(holding);
         txn.setType(request.type());
+        txn.setSettlementType(request.settlementType() != null ? request.settlementType() : SettlementType.delivery);
         txn.setQuantity(request.quantity());
         txn.setPrice(request.price());
         txn.setTradeDate(request.tradeDate());
@@ -110,6 +114,10 @@ public class InvestmentService {
         applyItemizedCharges(txn, request.charges());
 
         InvestmentTransaction saved = transactionRepository.save(txn);
+
+        // Keep the day's intraday classification (which drives the FIFO split) in sync with
+        // the per-transaction settlement_type tags.
+        recomputeClassificationForDay(holding, saved.getTradeDate());
 
         // Auto-fetch the latest price for this instrument once the trade commits, so the UI
         // reflects it without a manual price refresh (handled by PriceRefreshEventListener).
@@ -127,7 +135,12 @@ public class InvestmentService {
             throw new ResourceNotFoundException("InvestmentTransaction", id);
         }
 
+        LocalDate oldDate = txn.getTradeDate();
+
         txn.setType(request.type());
+        if (request.settlementType() != null) {
+            txn.setSettlementType(request.settlementType());
+        }
         txn.setQuantity(request.quantity());
         txn.setPrice(request.price());
         txn.setTradeDate(request.tradeDate());
@@ -137,7 +150,12 @@ public class InvestmentService {
 
         InvestmentTransaction saved = transactionRepository.save(txn);
 
-        // Validate FIFO consistency
+        // Re-derive the intraday classification for the affected day(s) from the current
+        // settlement_type tags, then validate FIFO consistency.
+        recomputeClassificationForDay(saved.getHolding(), saved.getTradeDate());
+        if (oldDate != null && !oldDate.equals(saved.getTradeDate())) {
+            recomputeClassificationForDay(saved.getHolding(), oldDate);
+        }
         validateHoldingFifo(saved.getHolding());
 
         return InvestmentTransactionResponse.from(saved);
@@ -153,10 +171,13 @@ public class InvestmentService {
         }
 
         Holding holding = txn.getHolding();
+        LocalDate date = txn.getTradeDate();
         transactionRepository.delete(txn);
         transactionRepository.flush();
 
-        // Validate FIFO consistency after deletion
+        // Re-derive the day's intraday classification without the deleted txn, then
+        // validate FIFO consistency.
+        recomputeClassificationForDay(holding, date);
         validateHoldingFifo(holding);
     }
 
@@ -218,6 +239,7 @@ public class InvestmentService {
         BigDecimal totalInvested = BigDecimal.ZERO;
         BigDecimal totalCurrentValue = BigDecimal.ZERO;
         BigDecimal totalRealized = BigDecimal.ZERO;
+        BigDecimal totalIntradayRealized = BigDecimal.ZERO;
         BigDecimal totalCharges = BigDecimal.ZERO;
 
         Map<UUID, BrokerSummaryAccumulator> brokerMap = new LinkedHashMap<>();
@@ -236,6 +258,7 @@ public class InvestmentService {
                 continue;
             }
             totalRealized = totalRealized.add(pos.realized());
+            totalIntradayRealized = totalIntradayRealized.add(pos.intradayRealized());
             totalCharges = totalCharges.add(pos.totalCharges());
 
             if (pos.openQty().compareTo(BigDecimal.ZERO) > 0) {
@@ -281,6 +304,7 @@ public class InvestmentService {
                 }
             }
             brokerAcc.realized = brokerAcc.realized.add(pos.realized());
+            brokerAcc.intradayRealized = brokerAcc.intradayRealized.add(pos.intradayRealized());
             brokerAcc.totalCharges = brokerAcc.totalCharges.add(pos.totalCharges());
 
             // Instrument Type accumulation
@@ -303,7 +327,7 @@ public class InvestmentService {
         BigDecimal totalUnrealizedPercent = totalInvested.compareTo(BigDecimal.ZERO) > 0
                 ? totalUnrealized.divide(totalInvested, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP)
                 : BigDecimal.ZERO;
-        BigDecimal totalPnl = totalRealized.add(totalUnrealized).add(totalDividends);
+        BigDecimal totalPnl = totalRealized.add(totalIntradayRealized).add(totalUnrealized).add(totalDividends);
 
         // Portfolio terminal cashflow
         if (totalCurrentValue.compareTo(BigDecimal.ZERO) > 0) {
@@ -326,6 +350,7 @@ public class InvestmentService {
                             b.invested.setScale(2, RoundingMode.HALF_UP),
                             b.currentValue.setScale(2, RoundingMode.HALF_UP),
                             b.realized.setScale(2, RoundingMode.HALF_UP),
+                            b.intradayRealized.setScale(2, RoundingMode.HALF_UP),
                             unrell.setScale(2, RoundingMode.HALF_UP),
                             b.totalCharges.setScale(2, RoundingMode.HALF_UP)
                     );
@@ -353,6 +378,7 @@ public class InvestmentService {
                 totalUnrealized.setScale(2, RoundingMode.HALF_UP),
                 totalUnrealizedPercent,
                 totalRealized.setScale(2, RoundingMode.HALF_UP),
+                totalIntradayRealized.setScale(2, RoundingMode.HALF_UP),
                 totalCharges.setScale(2, RoundingMode.HALF_UP),
                 totalDividends.setScale(2, RoundingMode.HALF_UP),
                 totalPnl.setScale(2, RoundingMode.HALF_UP),
@@ -415,11 +441,101 @@ public class InvestmentService {
             }
         }
 
-        // Interleave transactions, corporate actions, and demerger seed events into a chronological timeline
-        List<TimelineEvent> timeline = new ArrayList<>();
-        for (InvestmentTransaction txn : txns) {
-            timeline.add(new TxnEvent(txn));
+        List<TradeSettlementClassification> classifications = classificationRepository.findByHoldingId(holding.getId());
+        Map<LocalDate, TradeSettlementClassification> classMap = new HashMap<>();
+        for (TradeSettlementClassification c : classifications) {
+            classMap.put(c.getTradeDate(), c);
         }
+
+        BigDecimal intradayRealized = BigDecimal.ZERO;
+        BigDecimal totalHoldingCharges = BigDecimal.ZERO;
+        List<XirrCalculator.Cashflow> cashflows = new ArrayList<>();
+        List<TimelineEvent> timeline = new ArrayList<>();
+
+        // Group raw transactions by trade date
+        Map<LocalDate, List<InvestmentTransaction>> txnsByDate = new LinkedHashMap<>();
+        for (InvestmentTransaction txn : txns) {
+            txnsByDate.computeIfAbsent(txn.getTradeDate(), k -> new ArrayList<>()).add(txn);
+        }
+
+        for (Map.Entry<LocalDate, List<InvestmentTransaction>> entry : txnsByDate.entrySet()) {
+            LocalDate date = entry.getKey();
+            List<InvestmentTransaction> dayTxns = entry.getValue();
+
+            BigDecimal dayCharges = BigDecimal.ZERO;
+            for (InvestmentTransaction t : dayTxns) {
+                if (t.getTotalCharges() != null) {
+                    dayCharges = dayCharges.add(t.getTotalCharges());
+                }
+            }
+            totalHoldingCharges = totalHoldingCharges.add(dayCharges);
+
+            if (classMap.containsKey(date)) {
+                TradeSettlementClassification c = classMap.get(date);
+                BigDecimal intradayQty = c.getIntradayQty();
+                BigDecimal intradayBuyVal = c.getIntradayBuyValue();
+                BigDecimal intradaySellVal = c.getIntradaySellValue();
+
+                BigDecimal dayIntradayRealized = intradaySellVal.subtract(intradayBuyVal);
+                intradayRealized = intradayRealized.add(dayIntradayRealized);
+
+                BigDecimal dayBuyQty = BigDecimal.ZERO;
+                BigDecimal dayBuyVal = BigDecimal.ZERO;
+                BigDecimal daySellQty = BigDecimal.ZERO;
+                BigDecimal daySellVal = BigDecimal.ZERO;
+
+                for (InvestmentTransaction t : dayTxns) {
+                    BigDecimal val = t.getQuantity().multiply(t.getPrice());
+                    if (t.getType() == InvestmentTransactionType.buy) {
+                        dayBuyQty = dayBuyQty.add(t.getQuantity());
+                        dayBuyVal = dayBuyVal.add(val);
+                    } else {
+                        daySellQty = daySellQty.add(t.getQuantity());
+                        daySellVal = daySellVal.add(val);
+                    }
+                }
+
+                BigDecimal delivBuyQty = dayBuyQty.subtract(intradayQty).max(BigDecimal.ZERO);
+                BigDecimal delivBuyVal = dayBuyVal.subtract(intradayBuyVal).max(BigDecimal.ZERO);
+                BigDecimal delivSellQty = daySellQty.subtract(intradayQty).max(BigDecimal.ZERO);
+                BigDecimal delivSellVal = daySellVal.subtract(intradaySellVal).max(BigDecimal.ZERO);
+
+                if (delivBuyQty.compareTo(BigDecimal.ZERO) > 0) {
+                    BigDecimal costPerUnit = delivBuyVal.divide(delivBuyQty, 8, RoundingMode.HALF_UP);
+                    InvestmentTransaction delivBuyTxn = new InvestmentTransaction();
+                    delivBuyTxn.setTradeDate(date);
+                    delivBuyTxn.setType(InvestmentTransactionType.buy);
+                    delivBuyTxn.setQuantity(delivBuyQty);
+                    delivBuyTxn.setPrice(costPerUnit);
+                    delivBuyTxn.setTotalCharges(BigDecimal.ZERO);
+                    timeline.add(new TxnEvent(delivBuyTxn));
+                }
+
+                if (delivSellQty.compareTo(BigDecimal.ZERO) > 0) {
+                    BigDecimal sellPrice = delivSellVal.divide(delivSellQty, 8, RoundingMode.HALF_UP);
+                    InvestmentTransaction delivSellTxn = new InvestmentTransaction();
+                    delivSellTxn.setTradeDate(date);
+                    delivSellTxn.setType(InvestmentTransactionType.sell);
+                    delivSellTxn.setQuantity(delivSellQty);
+                    delivSellTxn.setPrice(sellPrice);
+                    delivSellTxn.setTotalCharges(BigDecimal.ZERO);
+                    timeline.add(new TxnEvent(delivSellTxn));
+                }
+
+                // XIRR: the delivery leg's cashflows are emitted by the synthetic
+                // delivery txns below (in the FIFO loop). Here we add ONLY the intraday
+                // net flow (plus the day's charges) so the delivery leg is not counted twice.
+                BigDecimal intradayDayCashflow = intradaySellVal
+                        .subtract(intradayBuyVal)
+                        .subtract(dayCharges);
+                cashflows.add(new XirrCalculator.Cashflow(date, intradayDayCashflow));
+            } else {
+                for (InvestmentTransaction t : dayTxns) {
+                    timeline.add(new TxnEvent(t));
+                }
+            }
+        }
+
         for (CorporateAction ca : corpActions) {
             timeline.add(new CorpActionEvent(ca));
         }
@@ -439,8 +555,6 @@ public class InvestmentService {
 
         LinkedList<Lot> openLots = new LinkedList<>();
         BigDecimal cumulativeRealized = BigDecimal.ZERO;
-        BigDecimal totalHoldingCharges = BigDecimal.ZERO;
-        List<XirrCalculator.Cashflow> cashflows = new ArrayList<>();
 
         for (TimelineEvent event : timeline) {
             if (event instanceof DemergerSeedEvent seed) {
@@ -466,15 +580,19 @@ public class InvestmentService {
                 }
             } else if (event instanceof TxnEvent txnEvent) {
                 InvestmentTransaction txn = txnEvent.txn();
+                // NOTE: charges are already accumulated once per day (dayCharges) when
+                // building the timeline above. Do NOT re-add them here — delivery-only
+                // days would otherwise double-count charges. txnCharges is still used
+                // locally for the XIRR net-proceeds / outflow figures.
                 BigDecimal txnCharges = txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO;
-                totalHoldingCharges = totalHoldingCharges.add(txnCharges);
 
                 if (txn.getType() == InvestmentTransactionType.buy) {
-                    BigDecimal totalCost = txn.getQuantity().multiply(txn.getPrice()).add(txnCharges);
-                    BigDecimal costPerUnit = totalCost.divide(txn.getQuantity(), 8, RoundingMode.HALF_UP);
+                    // Clean cost basis: costPerUnit uses traded price ONLY (no + txnCharges)
+                    BigDecimal costPerUnit = txn.getPrice();
                     openLots.add(new Lot(txn.getQuantity(), costPerUnit));
 
-                    cashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), totalCost.negate()));
+                    BigDecimal totalOutflow = txn.getQuantity().multiply(txn.getPrice()).add(txnCharges);
+                    cashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), totalOutflow.negate()));
                 } else if (txn.getType() == InvestmentTransactionType.sell) {
                     BigDecimal sellQty = txn.getQuantity();
                     BigDecimal grossProceeds = sellQty.multiply(txn.getPrice());
@@ -485,7 +603,12 @@ public class InvestmentService {
 
                     while (qtyToMatch.compareTo(BigDecimal.ZERO) > 0) {
                         if (openLots.isEmpty()) {
-                            throw new IllegalStateException("Insufficient buy lots available to match sell of quantity " + sellQty);
+                            // Incomplete tradebook history (or an off-market removal):
+                            // sold more than the imported buys. Match what we can and
+                            // stop, rather than failing the whole portfolio calculation.
+                            log.warn("Holding {}: sell of {} exceeds available buy lots ({} unmatched) — incomplete history",
+                                    holding.getId(), sellQty, qtyToMatch);
+                            break;
                         }
                         Lot oldestLot = openLots.peek();
                         BigDecimal takeQty = qtyToMatch.min(oldestLot.remainingQty);
@@ -498,7 +621,8 @@ public class InvestmentService {
                         }
                     }
 
-                    BigDecimal txnRealized = netProceeds.subtract(matchedCost);
+                    // Gross realized P&L (gross proceeds - matched clean cost)
+                    BigDecimal txnRealized = grossProceeds.subtract(matchedCost);
                     cumulativeRealized = cumulativeRealized.add(txnRealized);
 
                     cashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), netProceeds));
@@ -557,6 +681,7 @@ public class InvestmentService {
             BigDecimal totalHoldingGain = currentValue
                     .subtract(openCost)
                     .add(cumulativeRealized)
+                    .add(intradayRealized)
                     .add(holdingDividends);
             absoluteReturnPercent = totalHoldingGain.divide(openCost, 4, RoundingMode.HALF_UP)
                     .multiply(new BigDecimal("100"))
@@ -575,6 +700,7 @@ public class InvestmentService {
                 unrealized,
                 unrealizedPercent,
                 cumulativeRealized.setScale(4, RoundingMode.HALF_UP),
+                intradayRealized.setScale(4, RoundingMode.HALF_UP),
                 totalHoldingCharges.setScale(4, RoundingMode.HALF_UP),
                 holdingDividends.setScale(2, RoundingMode.HALF_UP),
                 xirr,
@@ -619,14 +745,132 @@ public class InvestmentService {
         return 2;
     }
 
+    /**
+     * Re-derive the intraday classification row for (holding, date) from the current
+     * per-transaction settlement_type tags. This makes settlement_type the editable source of
+     * truth — the FIFO split in calculateHoldingPosition keys off this classification.
+     * intradayQty = min(intraday buys, intraday sells), so imperfect tagging degrades to
+     * delivery rather than producing wrong holdings.
+     */
+    private void recomputeClassificationForDay(Holding holding, LocalDate date) {
+        List<InvestmentTransaction> dayTxns = transactionRepository
+                .findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId())
+                .stream().filter(t -> date.equals(t.getTradeDate())).toList();
+
+        BigDecimal iBuyQty = BigDecimal.ZERO, iBuyVal = BigDecimal.ZERO;
+        BigDecimal iSellQty = BigDecimal.ZERO, iSellVal = BigDecimal.ZERO;
+        for (InvestmentTransaction t : dayTxns) {
+            if (t.getSettlementType() != SettlementType.intraday) continue;
+            BigDecimal val = t.getQuantity().multiply(t.getPrice());
+            if (t.getType() == InvestmentTransactionType.buy) {
+                iBuyQty = iBuyQty.add(t.getQuantity());
+                iBuyVal = iBuyVal.add(val);
+            } else {
+                iSellQty = iSellQty.add(t.getQuantity());
+                iSellVal = iSellVal.add(val);
+            }
+        }
+
+        Optional<TradeSettlementClassification> existing = classificationRepository
+                .findByBrokerAccountIdAndInstrumentIdAndTradeDate(
+                        holding.getBrokerAccount().getId(), holding.getInstrument().getId(), date);
+
+        BigDecimal intradayQty = iBuyQty.min(iSellQty);
+        if (intradayQty.compareTo(BigDecimal.ZERO) <= 0) {
+            existing.ifPresent(classificationRepository::delete);
+            return;
+        }
+
+        BigDecimal intradayBuyValue = iBuyQty.compareTo(BigDecimal.ZERO) > 0
+                ? iBuyVal.multiply(intradayQty).divide(iBuyQty, 4, RoundingMode.HALF_UP) : BigDecimal.ZERO;
+        BigDecimal intradaySellValue = iSellQty.compareTo(BigDecimal.ZERO) > 0
+                ? iSellVal.multiply(intradayQty).divide(iSellQty, 4, RoundingMode.HALF_UP) : BigDecimal.ZERO;
+
+        TradeSettlementClassification c = existing.orElseGet(() -> new TradeSettlementClassification(
+                holding.getUser(), holding.getBrokerAccount(), holding, holding.getInstrument(), date,
+                intradayQty, intradayBuyValue, intradaySellValue));
+        c.setIntradayQty(intradayQty);
+        c.setIntradayBuyValue(intradayBuyValue);
+        c.setIntradaySellValue(intradaySellValue);
+        classificationRepository.save(c);
+    }
+
     private List<Lot> buildParentOpenLotsBeforeCa(Holding parentHolding, CorporateAction demergerCa) {
         List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(parentHolding.getId());
         List<CorporateAction> corpActions = corporateActionRepository.findByInstrumentIdOrderByExDateAsc(parentHolding.getInstrument().getId());
 
+        List<TradeSettlementClassification> classifications = classificationRepository.findByHoldingId(parentHolding.getId());
+        Map<LocalDate, TradeSettlementClassification> classMap = new HashMap<>();
+        for (TradeSettlementClassification c : classifications) {
+            if (c.getTradeDate().compareTo(demergerCa.getExDate()) <= 0) {
+                classMap.put(c.getTradeDate(), c);
+            }
+        }
+
         List<TimelineEvent> timeline = new ArrayList<>();
+        Map<LocalDate, List<InvestmentTransaction>> txnsByDate = new LinkedHashMap<>();
         for (InvestmentTransaction txn : txns) {
             if (txn.getTradeDate().compareTo(demergerCa.getExDate()) <= 0) {
-                timeline.add(new TxnEvent(txn));
+                txnsByDate.computeIfAbsent(txn.getTradeDate(), k -> new ArrayList<>()).add(txn);
+            }
+        }
+
+        for (Map.Entry<LocalDate, List<InvestmentTransaction>> entry : txnsByDate.entrySet()) {
+            LocalDate date = entry.getKey();
+            List<InvestmentTransaction> dayTxns = entry.getValue();
+
+            if (classMap.containsKey(date)) {
+                TradeSettlementClassification c = classMap.get(date);
+                BigDecimal intradayQty = c.getIntradayQty();
+                BigDecimal intradayBuyVal = c.getIntradayBuyValue();
+                BigDecimal intradaySellVal = c.getIntradaySellValue();
+
+                BigDecimal dayBuyQty = BigDecimal.ZERO;
+                BigDecimal dayBuyVal = BigDecimal.ZERO;
+                BigDecimal daySellQty = BigDecimal.ZERO;
+                BigDecimal daySellVal = BigDecimal.ZERO;
+
+                for (InvestmentTransaction t : dayTxns) {
+                    BigDecimal val = t.getQuantity().multiply(t.getPrice());
+                    if (t.getType() == InvestmentTransactionType.buy) {
+                        dayBuyQty = dayBuyQty.add(t.getQuantity());
+                        dayBuyVal = dayBuyVal.add(val);
+                    } else {
+                        daySellQty = daySellQty.add(t.getQuantity());
+                        daySellVal = daySellVal.add(val);
+                    }
+                }
+
+                BigDecimal delivBuyQty = dayBuyQty.subtract(intradayQty).max(BigDecimal.ZERO);
+                BigDecimal delivBuyVal = dayBuyVal.subtract(intradayBuyVal).max(BigDecimal.ZERO);
+                BigDecimal delivSellQty = daySellQty.subtract(intradayQty).max(BigDecimal.ZERO);
+                BigDecimal delivSellVal = daySellVal.subtract(intradaySellVal).max(BigDecimal.ZERO);
+
+                if (delivBuyQty.compareTo(BigDecimal.ZERO) > 0) {
+                    BigDecimal costPerUnit = delivBuyVal.divide(delivBuyQty, 8, RoundingMode.HALF_UP);
+                    InvestmentTransaction delivBuyTxn = new InvestmentTransaction();
+                    delivBuyTxn.setTradeDate(date);
+                    delivBuyTxn.setType(InvestmentTransactionType.buy);
+                    delivBuyTxn.setQuantity(delivBuyQty);
+                    delivBuyTxn.setPrice(costPerUnit);
+                    delivBuyTxn.setTotalCharges(BigDecimal.ZERO);
+                    timeline.add(new TxnEvent(delivBuyTxn));
+                }
+
+                if (delivSellQty.compareTo(BigDecimal.ZERO) > 0) {
+                    BigDecimal sellPrice = delivSellVal.divide(delivSellQty, 8, RoundingMode.HALF_UP);
+                    InvestmentTransaction delivSellTxn = new InvestmentTransaction();
+                    delivSellTxn.setTradeDate(date);
+                    delivSellTxn.setType(InvestmentTransactionType.sell);
+                    delivSellTxn.setQuantity(delivSellQty);
+                    delivSellTxn.setPrice(sellPrice);
+                    delivSellTxn.setTotalCharges(BigDecimal.ZERO);
+                    timeline.add(new TxnEvent(delivSellTxn));
+                }
+            } else {
+                for (InvestmentTransaction t : dayTxns) {
+                    timeline.add(new TxnEvent(t));
+                }
             }
         }
         for (CorporateAction ca : corpActions) {
@@ -673,11 +917,9 @@ public class InvestmentService {
                 }
             } else if (event instanceof TxnEvent txnEvent) {
                 InvestmentTransaction txn = txnEvent.txn();
-                BigDecimal txnCharges = txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO;
 
                 if (txn.getType() == InvestmentTransactionType.buy) {
-                    BigDecimal totalCost = txn.getQuantity().multiply(txn.getPrice()).add(txnCharges);
-                    BigDecimal costPerUnit = totalCost.divide(txn.getQuantity(), 8, RoundingMode.HALF_UP);
+                    BigDecimal costPerUnit = txn.getPrice();
                     openLots.add(new Lot(txn.getQuantity(), costPerUnit));
                 } else if (txn.getType() == InvestmentTransactionType.sell) {
                     BigDecimal qtyToMatch = txn.getQuantity();
@@ -723,6 +965,7 @@ public class InvestmentService {
             BigDecimal unrealized,
             BigDecimal unrealizedPercent,
             BigDecimal realized,
+            BigDecimal intradayRealized,
             BigDecimal totalCharges,
             BigDecimal dividends,
             Double xirr,
@@ -759,6 +1002,7 @@ public class InvestmentService {
                     unrealized,
                     unrealizedPercent,
                     realized,
+                    intradayRealized,
                     dividends,
                     xirr,
                     absoluteReturnPercent,
@@ -776,6 +1020,7 @@ public class InvestmentService {
         BigDecimal invested = BigDecimal.ZERO;
         BigDecimal currentValue = BigDecimal.ZERO;
         BigDecimal realized = BigDecimal.ZERO;
+        BigDecimal intradayRealized = BigDecimal.ZERO;
         BigDecimal totalCharges = BigDecimal.ZERO;
 
         BrokerSummaryAccumulator(UUID brokerAccountId, String brokerName, String provider, BigDecimal cashBalance) {

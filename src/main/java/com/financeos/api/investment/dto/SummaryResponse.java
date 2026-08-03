@@ -12,6 +12,7 @@ public record SummaryResponse(
         BigDecimal totalUnrealized,
         BigDecimal totalUnrealizedPercent,
         BigDecimal totalRealized,
+        BigDecimal totalIntradayRealized,
         BigDecimal totalCharges,
         BigDecimal totalDividends,
         BigDecimal totalPnl,
@@ -28,6 +29,7 @@ public record SummaryResponse(
             BigDecimal invested,
             BigDecimal currentValue,
             BigDecimal realized,
+            BigDecimal intradayRealized,
             BigDecimal unrealized,
             BigDecimal totalCharges
     ) {}

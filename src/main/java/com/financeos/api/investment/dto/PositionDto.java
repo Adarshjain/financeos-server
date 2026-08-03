@@ -23,6 +23,7 @@ public record PositionDto(
         BigDecimal unrealizedGainLoss,
         BigDecimal unrealizedGainLossPercent,
         BigDecimal realizedGainLoss,
+        BigDecimal intradayRealized,
         BigDecimal dividends,
         Double xirr,
         BigDecimal absoluteReturnPercent,

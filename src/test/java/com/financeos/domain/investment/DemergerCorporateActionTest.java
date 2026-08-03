@@ -53,6 +53,7 @@ class DemergerCorporateActionTest {
                 mock(com.financeos.domain.user.UserRepository.class),
                 corporateActionRepository,
                 mock(com.financeos.domain.investment.dividend.DividendRepository.class),
+                mock(com.financeos.domain.investment.TradeSettlementClassificationRepository.class),
                 mock(org.springframework.context.ApplicationEventPublisher.class)
         );
 
