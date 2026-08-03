@@ -334,11 +334,15 @@ public class ImportService {
         int committed = 0;
         int skipped = 0;
         List<ImportCommitResponse.FailedCommitItem> failedList = new ArrayList<>();
+        List<ImportCommitResponse.SkippedCommitItem> skippedItems = new ArrayList<>();
         Set<UUID> touchedInstrumentIds = new HashSet<>();
 
         for (ImportCommitRequest.CommitRowDto rowDto : rows) {
+            String scripName = extractScrip(rowDto);
             if (rowDto.skip()) {
                 skipped++;
+                skippedItems.add(new ImportCommitResponse.SkippedCommitItem(
+                        rowDto.rowIndex(), scripName, "Excluded during review"));
                 continue;
             }
 
@@ -431,6 +435,8 @@ public class ImportService {
 
                     if (isDup) {
                         skipped++;
+                        skippedItems.add(new ImportCommitResponse.SkippedCommitItem(
+                                rowDto.rowIndex(), scripName, "Duplicate — dividend already in portfolio"));
                         log.info("Skipping commit for dividend row {} as duplicate dividend exists.", rowDto.rowIndex());
                         continue;
                     }
@@ -475,6 +481,8 @@ public class ImportService {
 
                     if (isDup) {
                         skipped++;
+                        skippedItems.add(new ImportCommitResponse.SkippedCommitItem(
+                                rowDto.rowIndex(), scripName, "Duplicate — already in your portfolio"));
                         log.info("Skipping commit for row {} as duplicate transaction exists.", rowDto.rowIndex());
                         continue;
                     }
@@ -499,7 +507,7 @@ public class ImportService {
 
             } catch (Exception e) {
                 log.error("Error committing import row " + rowDto.rowIndex(), e);
-                failedList.add(new ImportCommitResponse.FailedCommitItem(rowDto.rowIndex(), e.getMessage()));
+                failedList.add(new ImportCommitResponse.FailedCommitItem(rowDto.rowIndex(), scripName, e.getMessage()));
             }
         }
 
@@ -509,7 +517,19 @@ public class ImportService {
             eventPublisher.publishEvent(new PriceRefreshEvent(touchedInstrumentIds));
         }
 
-        return new ImportCommitResponse(committed, skipped, failedList);
+        return new ImportCommitResponse(committed, skipped, failedList, skippedItems);
+    }
+
+    private String extractScrip(ImportCommitRequest.CommitRowDto rowDto) {
+        if (rowDto.newInstrument() != null) {
+            if (rowDto.newInstrument().name() != null && !rowDto.newInstrument().name().isBlank()) {
+                return rowDto.newInstrument().name();
+            }
+            if (rowDto.newInstrument().symbol() != null && !rowDto.newInstrument().symbol().isBlank()) {
+                return rowDto.newInstrument().symbol();
+            }
+        }
+        return null;
     }
 
     private void applyItemizedCharges(InvestmentTransaction txn, ItemizedChargesDto charges) {

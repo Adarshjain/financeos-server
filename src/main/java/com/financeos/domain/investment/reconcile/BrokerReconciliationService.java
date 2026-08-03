@@ -653,11 +653,17 @@ public class BrokerReconciliationService {
         int committed = 0;
         int skipped = 0;
         List<ImportCommitResponse.FailedCommitItem> failedList = new ArrayList<>();
+        List<ImportCommitResponse.SkippedCommitItem> skippedItems = new ArrayList<>();
         Set<UUID> touchedInstrumentIds = new HashSet<>();
 
         for (ReconcileCommitRequest.CommitExecutionDto execDto : request.executions()) {
             if (execDto.skip()) {
                 skipped++;
+                boolean dup = execDto.instrumentId() != null
+                        && checkDuplicateInDb(brokerAccount.getId(), execDto.instrumentId(), execDto);
+                skippedItems.add(new ImportCommitResponse.SkippedCommitItem(
+                        execDto.rowIndex(), execDto.symbol(),
+                        dup ? "Duplicate — already in your portfolio" : "Excluded during review"));
                 continue;
             }
 
@@ -706,7 +712,7 @@ public class BrokerReconciliationService {
                 }
 
                 if (instrument == null) {
-                    throw new ValidationException("Row " + execDto.rowIndex() + ": No instrument resolved");
+                    throw new ValidationException("No instrument mapped — set a match in the review step before importing");
                 }
 
                 // Resolve or create Holding
@@ -722,6 +728,8 @@ public class BrokerReconciliationService {
                 boolean isDup = checkDuplicateInDb(brokerAccount.getId(), finalInstrument.getId(), execDto);
                 if (isDup) {
                     skipped++;
+                    skippedItems.add(new ImportCommitResponse.SkippedCommitItem(
+                            execDto.rowIndex(), execDto.symbol(), "Duplicate — already in your portfolio"));
                     log.info("Skipping execution row {} as duplicate in DB", execDto.rowIndex());
                     continue;
                 }
@@ -754,7 +762,7 @@ public class BrokerReconciliationService {
 
             } catch (Exception e) {
                 log.error("Error committing reconciled execution row " + execDto.rowIndex(), e);
-                failedList.add(new ImportCommitResponse.FailedCommitItem(execDto.rowIndex(), e.getMessage()));
+                failedList.add(new ImportCommitResponse.FailedCommitItem(execDto.rowIndex(), execDto.symbol(), e.getMessage()));
             }
         }
 
@@ -801,7 +809,7 @@ public class BrokerReconciliationService {
             eventPublisher.publishEvent(new PriceRefreshEvent(touchedInstrumentIds));
         }
 
-        return new ImportCommitResponse(committed, skipped, failedList);
+        return new ImportCommitResponse(committed, skipped, failedList, skippedItems);
     }
 
     private List<InternalExecution> dedupeExecutions(List<InternalExecution> rawExecs) {
@@ -911,21 +919,33 @@ public class BrokerReconciliationService {
         return null;
     }
 
+    /** True if the existing txn is the same trade as the incoming one.
+     *  When BOTH sides carry a broker ref, the ref is the sole arbiter (no fuzzy fallback);
+     *  the fuzzy tuple is used only when a reliable ref is missing on either side. */
+    private static boolean isSameTrade(String incomingRef, LocalDate date,
+                                       InvestmentTransactionType type, BigDecimal qty, BigDecimal price,
+                                       InvestmentTransaction t) {
+        String existingRef = t.getExternalRef();
+        boolean bothHaveRef = incomingRef != null && !incomingRef.isBlank()
+                && existingRef != null && !existingRef.isBlank();
+        if (bothHaveRef) {
+            return incomingRef.equalsIgnoreCase(existingRef);   // ref is authoritative; NO fuzzy fallback
+        }
+        return date != null && date.equals(t.getTradeDate())
+                && type == t.getType()
+                && qty != null && qty.compareTo(t.getQuantity()) == 0
+                && price != null && price.compareTo(t.getPrice()) == 0;
+    }
+
     private boolean checkDuplicateInDb(UUID brokerAccountId, UUID instrumentId, InternalExecution e) {
         if (instrumentId == null) return false;
         Page<InvestmentTransaction> existing = transactionRepository.findFilteredTransactions(
                 brokerAccountId, instrumentId, null, null, Pageable.unpaged());
 
-        String extRef = (e.tradeId != null && !e.tradeId.isBlank()) ? e.tradeId : e.orderId;
+        String incomingRef = (e.tradeId != null && !e.tradeId.isBlank()) ? e.tradeId : e.orderId;
 
         for (InvestmentTransaction t : existing.getContent()) {
-            if (extRef != null && !extRef.isBlank() && t.getExternalRef() != null && extRef.equalsIgnoreCase(t.getExternalRef())) {
-                return true;
-            }
-            if (e.date != null && e.date.equals(t.getTradeDate())
-                    && e.type == t.getType()
-                    && e.qty != null && e.qty.compareTo(t.getQuantity()) == 0
-                    && e.price != null && e.price.compareTo(t.getPrice()) == 0) {
+            if (isSameTrade(incomingRef, e.date, e.type, e.qty, e.price, t)) {
                 return true;
             }
         }
@@ -937,14 +957,10 @@ public class BrokerReconciliationService {
         Page<InvestmentTransaction> existing = transactionRepository.findFilteredTransactions(
                 brokerAccountId, instrumentId, null, null, Pageable.unpaged());
 
+        String incomingRef = e.externalRef();
+
         for (InvestmentTransaction t : existing.getContent()) {
-            if (e.externalRef() != null && !e.externalRef().isBlank() && t.getExternalRef() != null && e.externalRef().equalsIgnoreCase(t.getExternalRef())) {
-                return true;
-            }
-            if (e.tradeDate() != null && e.tradeDate().equals(t.getTradeDate())
-                    && e.type() == t.getType()
-                    && e.quantity() != null && e.quantity().compareTo(t.getQuantity()) == 0
-                    && e.price() != null && e.price().compareTo(t.getPrice()) == 0) {
+            if (isSameTrade(incomingRef, e.tradeDate(), e.type(), e.quantity(), e.price(), t)) {
                 return true;
             }
         }
