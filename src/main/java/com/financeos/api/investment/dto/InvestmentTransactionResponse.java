@@ -4,6 +4,7 @@ import com.financeos.domain.holding.Holding;
 import com.financeos.domain.instrument.InstrumentType;
 import com.financeos.domain.investment.InvestmentTransaction;
 import com.financeos.domain.investment.InvestmentTransactionType;
+import com.financeos.domain.investment.SettlementType;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -18,6 +19,7 @@ public record InvestmentTransactionResponse(
         UUID instrumentId,
         InstrumentInfoDto instrument,
         InvestmentTransactionType type,
+        SettlementType settlementType,
         BigDecimal quantity,
         BigDecimal price,
         LocalDate tradeDate,
@@ -61,6 +63,7 @@ public record InvestmentTransactionResponse(
                 h.getInstrument().getId(),
                 instrumentDto,
                 txn.getType(),
+                txn.getSettlementType(),
                 txn.getQuantity(),
                 txn.getPrice(),
                 txn.getTradeDate(),
