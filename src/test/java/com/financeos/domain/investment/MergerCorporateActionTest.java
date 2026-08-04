@@ -201,4 +201,58 @@ class MergerCorporateActionTest {
         // Acquirer openQty is 168 @ 1500 = 252,000.00
         assertEquals(0, marketValue.compareTo(new BigDecimal("252000.0000")));
     }
+
+    @Test
+    void testCalculateHoldingPositionNoPriceOpenQtyValuesAtCost() {
+        InvestmentTransaction buyTxn = new InvestmentTransaction();
+        buyTxn.setId(UUID.randomUUID());
+        buyTxn.setType(InvestmentTransactionType.buy);
+        buyTxn.setQuantity(new BigDecimal("10"));
+        buyTxn.setPrice(new BigDecimal("100.00"));
+        buyTxn.setTradeDate(LocalDate.of(2024, 1, 1));
+        buyTxn.setHolding(transferorHolding);
+
+        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(transferorHolding.getId()))
+                .thenReturn(List.of(buyTxn));
+        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(transferorInstrument.getId()))
+                .thenReturn(List.of());
+        when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(transferorInstrument.getId()))
+                .thenReturn(List.of());
+        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(transferorInstrument.getId()))
+                .thenReturn(Optional.empty());
+
+        HoldingPosition pos = investmentService.calculateHoldingPosition(transferorHolding);
+
+        assertNull(pos.latestPrice());
+        assertEquals(0, pos.currentValue().compareTo(new BigDecimal("1000.0000")));
+        assertEquals(0, pos.unrealized().compareTo(new BigDecimal("0.0000")));
+        assertEquals(0, pos.unrealizedPercent().compareTo(new BigDecimal("0.00")));
+    }
+
+    @Test
+    void testGetSummaryIncludesUnpricedHoldingAtCost() {
+        InvestmentTransaction buyTxn = new InvestmentTransaction();
+        buyTxn.setId(UUID.randomUUID());
+        buyTxn.setType(InvestmentTransactionType.buy);
+        buyTxn.setQuantity(new BigDecimal("10"));
+        buyTxn.setPrice(new BigDecimal("100.00"));
+        buyTxn.setTradeDate(LocalDate.of(2024, 1, 1));
+        buyTxn.setHolding(transferorHolding);
+
+        when(holdingRepository.findAll())
+                .thenReturn(List.of(transferorHolding));
+        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(transferorHolding.getId()))
+                .thenReturn(List.of(buyTxn));
+        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(transferorInstrument.getId()))
+                .thenReturn(List.of());
+        when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(transferorInstrument.getId()))
+                .thenReturn(List.of());
+        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(transferorInstrument.getId()))
+                .thenReturn(Optional.empty());
+
+        com.financeos.api.investment.dto.SummaryResponse summary = investmentService.getSummary();
+
+        assertEquals(0, summary.totalInvested().compareTo(new BigDecimal("1000.0000")));
+        assertEquals(0, summary.totalCurrentValue().compareTo(new BigDecimal("1000.0000")));
+    }
 }

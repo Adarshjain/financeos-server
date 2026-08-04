@@ -129,6 +129,8 @@ public class ImportService {
                 }
             }
 
+            boolean externalSearchExhausted = false;
+
             // Auto-find via external APIs (Yahoo Finance / AMFI) if not matched locally
             if (matchedInstrument == null && instrumentSearchService != null) {
                 try {
@@ -148,6 +150,8 @@ public class ImportService {
                     if (candidates.isEmpty() && fallbackQueryStr != null && fallbackQueryStr.trim().length() >= 2) {
                         candidates = instrumentSearchService.catalogSearch(fallbackQueryStr.trim(), searchType);
                     }
+
+                    externalSearchExhausted = candidates.isEmpty();
 
                     if (!candidates.isEmpty()) {
                         InstrumentCandidate bestCandidate = null;
@@ -224,8 +228,10 @@ public class ImportService {
                     newInst.setExchange(row.exchange() != null ? row.exchange().trim() : (defaultType == InstrumentType.mutual_fund ? "MUTUAL_FUND" : "NSE"));
                     newInst.setIsin(row.parsedIsin() != null ? row.parsedIsin().trim() : null);
 
+                    boolean likelyDelisted = externalSearchExhausted && row.parsedIsin() != null && !row.parsedIsin().isBlank();
+
                     String yahooSym = null;
-                    if (defaultType == InstrumentType.stock && newInst.getSymbol() != null && !newInst.getSymbol().isBlank()) {
+                    if (!likelyDelisted && defaultType == InstrumentType.stock && newInst.getSymbol() != null && !newInst.getSymbol().isBlank()) {
                         String ex = newInst.getExchange();
                         yahooSym = newInst.getSymbol().toUpperCase() + ("BSE".equalsIgnoreCase(ex) ? ".BO" : ".NS");
                     }
@@ -234,6 +240,28 @@ public class ImportService {
                     matchedInstrument = instrumentRepository.save(newInst);
                 } catch (Exception e) {
                     log.warn("Failed to auto-create fallback instrument for row {}: {}", row.rowIndex(), e.getMessage());
+                    if (row.parsedSymbol() != null && !row.parsedSymbol().isBlank()) {
+                        List<Instrument> searchResults = instrumentRepository.searchInstruments(row.parsedSymbol().trim(), null);
+                        InstrumentType defaultType = (source == ImportSource.mf_cas || (row.parsedIsin() != null && row.parsedIsin().startsWith("INF")))
+                                ? InstrumentType.mutual_fund
+                                : InstrumentType.stock;
+                        String rowExchange = row.exchange() != null ? row.exchange().trim() : (defaultType == InstrumentType.mutual_fund ? "MUTUAL_FUND" : "NSE");
+                        String rowIsin = row.parsedIsin() != null ? row.parsedIsin().trim() : null;
+
+                        for (Instrument inst : searchResults) {
+                            if (inst.getSymbol() != null && inst.getSymbol().equalsIgnoreCase(row.parsedSymbol().trim())) {
+                                boolean exMatch = inst.getExchange() == null || rowExchange == null || inst.getExchange().equalsIgnoreCase(rowExchange);
+                                if (exMatch) {
+                                    String existingIsin = inst.getIsin();
+                                    boolean isinCompatible = (rowIsin == null || rowIsin.isBlank() || existingIsin == null || existingIsin.isBlank() || existingIsin.equalsIgnoreCase(rowIsin));
+                                    if (isinCompatible) {
+                                        matchedInstrument = inst;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
