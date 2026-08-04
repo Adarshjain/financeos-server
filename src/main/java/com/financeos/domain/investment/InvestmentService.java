@@ -673,6 +673,10 @@ public class InvestmentService {
             unrealizedPercent = openCost.compareTo(BigDecimal.ZERO) > 0
                     ? unrealized.divide(openCost, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP)
                     : BigDecimal.ZERO;
+        } else if (openQty.compareTo(BigDecimal.ZERO) > 0) {
+            currentValue = openCost.setScale(4, RoundingMode.HALF_UP);
+            unrealized = BigDecimal.ZERO.setScale(4, RoundingMode.HALF_UP);
+            unrealizedPercent = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
         }
 
         // Add dividends to cashflows
