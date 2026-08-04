@@ -53,11 +53,11 @@ public class CorporateActionService {
         ca.setExDate(request.exDate());
         ca.setNotes(request.notes());
 
-        if (request.type() == CorporateActionType.demerger) {
+        if (request.type() == CorporateActionType.demerger || request.type() == CorporateActionType.merger) {
             Instrument targetInst = instrumentRepository.findById(request.targetInstrumentId())
                     .orElseThrow(() -> new ResourceNotFoundException("Instrument", request.targetInstrumentId()));
             ca.setTargetInstrument(targetInst);
-            ca.setCostAllocationPct(request.costAllocationPct());
+            ca.setCostAllocationPct(request.type() == CorporateActionType.demerger ? request.costAllocationPct() : new BigDecimal("100"));
         } else {
             ca.setTargetInstrument(null);
             ca.setCostAllocationPct(null);
@@ -65,7 +65,7 @@ public class CorporateActionService {
 
         CorporateAction saved = corporateActionRepository.save(ca);
 
-        if (saved.getType() == CorporateActionType.demerger && saved.getTargetInstrument() != null) {
+        if ((saved.getType() == CorporateActionType.demerger || saved.getType() == CorporateActionType.merger) && saved.getTargetInstrument() != null) {
             materializeChildHoldings(saved.getInstrument().getId(), saved.getTargetInstrument());
         }
 
@@ -88,11 +88,11 @@ public class CorporateActionService {
         ca.setExDate(request.exDate());
         ca.setNotes(request.notes());
 
-        if (request.type() == CorporateActionType.demerger) {
+        if (request.type() == CorporateActionType.demerger || request.type() == CorporateActionType.merger) {
             Instrument targetInst = instrumentRepository.findById(request.targetInstrumentId())
                     .orElseThrow(() -> new ResourceNotFoundException("Instrument", request.targetInstrumentId()));
             ca.setTargetInstrument(targetInst);
-            ca.setCostAllocationPct(request.costAllocationPct());
+            ca.setCostAllocationPct(request.type() == CorporateActionType.demerger ? request.costAllocationPct() : new BigDecimal("100"));
         } else {
             ca.setTargetInstrument(null);
             ca.setCostAllocationPct(null);
@@ -100,7 +100,7 @@ public class CorporateActionService {
 
         CorporateAction saved = corporateActionRepository.save(ca);
 
-        if (saved.getType() == CorporateActionType.demerger && saved.getTargetInstrument() != null) {
+        if ((saved.getType() == CorporateActionType.demerger || saved.getType() == CorporateActionType.merger) && saved.getTargetInstrument() != null) {
             materializeChildHoldings(saved.getInstrument().getId(), saved.getTargetInstrument());
         }
 
@@ -108,9 +108,9 @@ public class CorporateActionService {
     }
 
     private void validateRequest(UUID parentInstrumentId, CorporateActionType type, UUID targetInstrumentId, BigDecimal costAllocationPct) {
-        if (type == CorporateActionType.demerger) {
+        if (type == CorporateActionType.demerger || type == CorporateActionType.merger) {
             if (targetInstrumentId == null) {
-                throw new ValidationException("Target instrument is required for demerger corporate action.");
+                throw new ValidationException("Target instrument is required for corporate action.");
             }
             if (targetInstrumentId.equals(parentInstrumentId)) {
                 throw new ValidationException("Target instrument must be different from parent instrument.");
@@ -118,10 +118,12 @@ public class CorporateActionService {
             if (!instrumentRepository.existsById(targetInstrumentId)) {
                 throw new ResourceNotFoundException("Instrument", targetInstrumentId);
             }
-            if (costAllocationPct == null ||
-                    costAllocationPct.compareTo(BigDecimal.ZERO) <= 0 ||
-                    costAllocationPct.compareTo(new BigDecimal("100")) > 0) {
-                throw new ValidationException("Cost allocation percentage must be greater than 0 and less than or equal to 100.");
+            if (type == CorporateActionType.demerger) {
+                if (costAllocationPct == null ||
+                        costAllocationPct.compareTo(BigDecimal.ZERO) <= 0 ||
+                        costAllocationPct.compareTo(new BigDecimal("100")) > 0) {
+                    throw new ValidationException("Cost allocation percentage must be greater than 0 and less than or equal to 100.");
+                }
             }
         }
     }
@@ -139,7 +141,7 @@ public class CorporateActionService {
                     targetInstrument.getId()
             );
             if (existingChild.isEmpty()) {
-                Holding childHolding = new Holding(parentHolding.getBrokerAccount(), targetInstrument, "Created via demerger corporate action");
+                Holding childHolding = new Holding(parentHolding.getBrokerAccount(), targetInstrument, "Created via corporate action");
                 childHolding.setUser(user);
                 holdingRepository.save(childHolding);
             }
