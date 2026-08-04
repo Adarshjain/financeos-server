@@ -43,7 +43,7 @@ public class CorporateActionService {
         Instrument instrument = instrumentRepository.findById(instrumentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Instrument", instrumentId));
 
-        validateRequest(instrumentId, request.type(), request.targetInstrumentId(), request.costAllocationPct());
+        validateRequest(instrumentId, request.type(), request.targetInstrumentId(), request.costAllocationPct(), request.fractionalCashInLieu());
 
         CorporateAction ca = new CorporateAction();
         ca.setInstrument(instrument);
@@ -58,9 +58,11 @@ public class CorporateActionService {
                     .orElseThrow(() -> new ResourceNotFoundException("Instrument", request.targetInstrumentId()));
             ca.setTargetInstrument(targetInst);
             ca.setCostAllocationPct(request.type() == CorporateActionType.demerger ? request.costAllocationPct() : new BigDecimal("100"));
+            ca.setFractionalCashInLieu(request.fractionalCashInLieu());
         } else {
             ca.setTargetInstrument(null);
             ca.setCostAllocationPct(null);
+            ca.setFractionalCashInLieu(null);
         }
 
         CorporateAction saved = corporateActionRepository.save(ca);
@@ -80,7 +82,7 @@ public class CorporateActionService {
             throw new ResourceNotFoundException("CorporateAction", id);
         }
 
-        validateRequest(instrumentId, request.type(), request.targetInstrumentId(), request.costAllocationPct());
+        validateRequest(instrumentId, request.type(), request.targetInstrumentId(), request.costAllocationPct(), request.fractionalCashInLieu());
 
         ca.setType(request.type());
         ca.setRatioFrom(request.ratioFrom());
@@ -93,9 +95,11 @@ public class CorporateActionService {
                     .orElseThrow(() -> new ResourceNotFoundException("Instrument", request.targetInstrumentId()));
             ca.setTargetInstrument(targetInst);
             ca.setCostAllocationPct(request.type() == CorporateActionType.demerger ? request.costAllocationPct() : new BigDecimal("100"));
+            ca.setFractionalCashInLieu(request.fractionalCashInLieu());
         } else {
             ca.setTargetInstrument(null);
             ca.setCostAllocationPct(null);
+            ca.setFractionalCashInLieu(null);
         }
 
         CorporateAction saved = corporateActionRepository.save(ca);
@@ -107,7 +111,10 @@ public class CorporateActionService {
         return CorporateActionResponse.from(saved);
     }
 
-    private void validateRequest(UUID parentInstrumentId, CorporateActionType type, UUID targetInstrumentId, BigDecimal costAllocationPct) {
+    private void validateRequest(UUID parentInstrumentId, CorporateActionType type, UUID targetInstrumentId, BigDecimal costAllocationPct, BigDecimal fractionalCashInLieu) {
+        if (fractionalCashInLieu != null && fractionalCashInLieu.compareTo(BigDecimal.ZERO) < 0) {
+            throw new ValidationException("Fractional cash-in-lieu amount must be greater than or equal to 0.");
+        }
         if (type == CorporateActionType.demerger || type == CorporateActionType.merger) {
             if (targetInstrumentId == null) {
                 throw new ValidationException("Target instrument is required for corporate action.");

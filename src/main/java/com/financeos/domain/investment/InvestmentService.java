@@ -418,6 +418,8 @@ public class InvestmentService {
         List<CorporateAction> targetCAs = corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
         List<DemergerSeedEvent> demergerSeedEvents = new ArrayList<>();
         List<XirrCalculator.Cashflow> mergerBridgeOutflows = new ArrayList<>();
+        BigDecimal fractionalRealized = BigDecimal.ZERO;
+        List<XirrCalculator.Cashflow> fractionalCashflows = new ArrayList<>();
         for (CorporateAction ca : targetCAs) {
             Optional<Holding> parentHoldingOpt = holdingRepository.findByBrokerAccountIdAndInstrumentId(
                     holding.getBrokerAccount().getId(),
@@ -426,7 +428,9 @@ public class InvestmentService {
             if (parentHoldingOpt.isPresent() && (ca.getCostAllocationPct() != null || ca.getType() == CorporateActionType.merger) && ca.getRatioFrom() != null && ca.getRatioFrom() > 0 && ca.getRatioTo() != null && ca.getRatioTo() > 0) {
                 List<Lot> parentOpenLots = buildParentOpenLotsBeforeCa(parentHoldingOpt.get(), ca);
                 BigDecimal costAllocPct = ca.getType() == CorporateActionType.merger ? new BigDecimal("100") : ca.getCostAllocationPct();
-                BigDecimal totalSeedCostForCa = BigDecimal.ZERO;
+                BigDecimal E = BigDecimal.ZERO;
+                BigDecimal Cseed = BigDecimal.ZERO;
+                List<BigDecimal[]> rawLots = new ArrayList<>();
                 for (Lot parentLot : parentOpenLots) {
                     BigDecimal childQty = parentLot.remainingQty
                             .multiply(BigDecimal.valueOf(ca.getRatioTo()))
@@ -438,12 +442,39 @@ public class InvestmentService {
                             .divide(BigDecimal.valueOf(100), 10, RoundingMode.HALF_UP);
                     if (childQty.compareTo(BigDecimal.ZERO) > 0) {
                         BigDecimal costPerUnit = childCost.divide(childQty, 8, RoundingMode.HALF_UP);
-                        demergerSeedEvents.add(new DemergerSeedEvent(ca.getExDate(), childQty, costPerUnit));
-                        totalSeedCostForCa = totalSeedCostForCa.add(childCost);
+                        rawLots.add(new BigDecimal[]{childQty, costPerUnit});
+                        E = E.add(childQty);
+                        Cseed = Cseed.add(childCost);
                     }
                 }
-                if (ca.getType() == CorporateActionType.merger && totalSeedCostForCa.compareTo(BigDecimal.ZERO) > 0) {
-                    mergerBridgeOutflows.add(new XirrCalculator.Cashflow(ca.getExDate(), totalSeedCostForCa.negate()));
+                if (E.compareTo(BigDecimal.ZERO) > 0) {
+                    BigDecimal W = E.setScale(0, RoundingMode.FLOOR);
+                    BigDecimal F = E.subtract(W);
+                    BigDecimal scale = W.compareTo(BigDecimal.ZERO) > 0 ? W.divide(E, 10, RoundingMode.HALF_UP) : BigDecimal.ZERO;
+
+                    for (BigDecimal[] r : rawLots) {
+                        BigDecimal seedQty = r[0].multiply(scale).setScale(8, RoundingMode.HALF_UP);
+                        if (seedQty.compareTo(BigDecimal.ZERO) > 0) {
+                            demergerSeedEvents.add(new DemergerSeedEvent(ca.getExDate(), seedQty, r[1]));
+                        }
+                    }
+
+                    if (ca.getType() == CorporateActionType.merger && Cseed.compareTo(BigDecimal.ZERO) > 0) {
+                        mergerBridgeOutflows.add(new XirrCalculator.Cashflow(ca.getExDate(), Cseed.negate()));
+                    }
+
+                    if (F.compareTo(BigDecimal.ZERO) > 0) {
+                        BigDecimal proceeds = BigDecimal.ZERO;
+                        if (ca.getFractionalCashInLieu() != null && ca.getFractionalCashInLieu().compareTo(BigDecimal.ZERO) > 0) {
+                            BigDecimal totalFrac = computeTotalFractionForCa(ca);
+                            if (totalFrac.compareTo(BigDecimal.ZERO) > 0) {
+                                proceeds = ca.getFractionalCashInLieu().multiply(F).divide(totalFrac, 4, RoundingMode.HALF_UP);
+                            }
+                        }
+                        BigDecimal fractionalCost = F.multiply(Cseed.divide(E, 10, RoundingMode.HALF_UP));
+                        fractionalRealized = fractionalRealized.add(proceeds.subtract(fractionalCost));
+                        fractionalCashflows.add(new XirrCalculator.Cashflow(ca.getExDate(), proceeds));
+                    }
                 }
             }
         }
@@ -458,6 +489,7 @@ public class InvestmentService {
         BigDecimal totalHoldingCharges = BigDecimal.ZERO;
         List<XirrCalculator.Cashflow> cashflows = new ArrayList<>();
         cashflows.addAll(mergerBridgeOutflows);
+        cashflows.addAll(fractionalCashflows);
         List<TimelineEvent> timeline = new ArrayList<>();
 
         // Group raw transactions by trade date
@@ -562,7 +594,7 @@ public class InvestmentService {
         });
 
         LinkedList<Lot> openLots = new LinkedList<>();
-        BigDecimal cumulativeRealized = BigDecimal.ZERO;
+        BigDecimal cumulativeRealized = fractionalRealized;
 
         for (TimelineEvent event : timeline) {
             if (event instanceof DemergerSeedEvent seed) {
@@ -826,6 +858,19 @@ public class InvestmentService {
         c.setIntradayBuyValue(intradayBuyValue);
         c.setIntradaySellValue(intradaySellValue);
         classificationRepository.save(c);
+    }
+
+    private BigDecimal computeTotalFractionForCa(CorporateAction ca) {
+        BigDecimal total = BigDecimal.ZERO;
+        for (Holding ph : holdingRepository.findByInstrumentId(ca.getInstrument().getId())) {
+            BigDecimal e = BigDecimal.ZERO;
+            for (Lot lot : buildParentOpenLotsBeforeCa(ph, ca)) {
+                e = e.add(lot.remainingQty.multiply(BigDecimal.valueOf(ca.getRatioTo()))
+                        .divide(BigDecimal.valueOf(ca.getRatioFrom()), 10, RoundingMode.HALF_UP).setScale(8, RoundingMode.HALF_UP));
+            }
+            total = total.add(e.subtract(e.setScale(0, RoundingMode.FLOOR)));
+        }
+        return total;
     }
 
     private List<Lot> buildParentOpenLotsBeforeCa(Holding parentHolding, CorporateAction demergerCa) {
