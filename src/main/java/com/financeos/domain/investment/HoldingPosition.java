@@ -24,8 +24,31 @@ public record HoldingPosition(
         BigDecimal totalCharges,
         BigDecimal dividends,
         Double xirr,
-        BigDecimal absoluteReturnPercent
+        BigDecimal absoluteReturnPercent,
+        String mergedIntoName,
+        LocalDate mergedIntoDate
 ) {
+    public HoldingPosition(
+            Holding holding,
+            BigDecimal openQty,
+            BigDecimal avgCost,
+            BigDecimal openCost,
+            BigDecimal latestPrice,
+            LocalDate priceAsOf,
+            PriceSource priceSource,
+            BigDecimal currentValue,
+            BigDecimal unrealized,
+            BigDecimal unrealizedPercent,
+            BigDecimal realized,
+            BigDecimal intradayRealized,
+            BigDecimal totalCharges,
+            BigDecimal dividends,
+            Double xirr,
+            BigDecimal absoluteReturnPercent
+    ) {
+        this(holding, openQty, avgCost, openCost, latestPrice, priceAsOf, priceSource, currentValue, unrealized, unrealizedPercent, realized, intradayRealized, totalCharges, dividends, xirr, absoluteReturnPercent, null, null);
+    }
+
     PositionDto toPositionDto() {
         Account b = holding.getBrokerAccount();
         String provider = b.getBrokerDetails() != null ? b.getBrokerDetails().getProvider() : null;
@@ -62,7 +85,9 @@ public record HoldingPosition(
                 xirr,
                 absoluteReturnPercent,
                 totalCharges,
-                holding.getNotes()
+                holding.getNotes(),
+                mergedIntoName,
+                mergedIntoDate
         );
     }
 }

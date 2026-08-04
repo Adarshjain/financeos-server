@@ -410,20 +410,23 @@ public class InvestmentService {
         }
     }
 
-    private HoldingPosition calculateHoldingPosition(Holding holding) {
+    public HoldingPosition calculateHoldingPosition(Holding holding) {
         List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
         List<CorporateAction> corpActions = corporateActionRepository.findByInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
 
-        // Check if this holding's instrument is the target of any demerger corporate actions
-        List<CorporateAction> demergerCAs = corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
+        // Check if this holding's instrument is the target of any corporate actions (demerger or merger)
+        List<CorporateAction> targetCAs = corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
         List<DemergerSeedEvent> demergerSeedEvents = new ArrayList<>();
-        for (CorporateAction ca : demergerCAs) {
+        List<XirrCalculator.Cashflow> mergerBridgeOutflows = new ArrayList<>();
+        for (CorporateAction ca : targetCAs) {
             Optional<Holding> parentHoldingOpt = holdingRepository.findByBrokerAccountIdAndInstrumentId(
                     holding.getBrokerAccount().getId(),
                     ca.getInstrument().getId()
             );
-            if (parentHoldingOpt.isPresent() && ca.getCostAllocationPct() != null && ca.getRatioFrom() != null && ca.getRatioFrom() > 0 && ca.getRatioTo() != null && ca.getRatioTo() > 0) {
+            if (parentHoldingOpt.isPresent() && (ca.getCostAllocationPct() != null || ca.getType() == CorporateActionType.merger) && ca.getRatioFrom() != null && ca.getRatioFrom() > 0 && ca.getRatioTo() != null && ca.getRatioTo() > 0) {
                 List<Lot> parentOpenLots = buildParentOpenLotsBeforeCa(parentHoldingOpt.get(), ca);
+                BigDecimal costAllocPct = ca.getType() == CorporateActionType.merger ? new BigDecimal("100") : ca.getCostAllocationPct();
+                BigDecimal totalSeedCostForCa = BigDecimal.ZERO;
                 for (Lot parentLot : parentOpenLots) {
                     BigDecimal childQty = parentLot.remainingQty
                             .multiply(BigDecimal.valueOf(ca.getRatioTo()))
@@ -431,12 +434,16 @@ public class InvestmentService {
                             .setScale(8, RoundingMode.HALF_UP);
                     BigDecimal childCost = parentLot.remainingQty
                             .multiply(parentLot.costPerUnit)
-                            .multiply(ca.getCostAllocationPct())
+                            .multiply(costAllocPct)
                             .divide(BigDecimal.valueOf(100), 10, RoundingMode.HALF_UP);
                     if (childQty.compareTo(BigDecimal.ZERO) > 0) {
                         BigDecimal costPerUnit = childCost.divide(childQty, 8, RoundingMode.HALF_UP);
                         demergerSeedEvents.add(new DemergerSeedEvent(ca.getExDate(), childQty, costPerUnit));
+                        totalSeedCostForCa = totalSeedCostForCa.add(childCost);
                     }
+                }
+                if (ca.getType() == CorporateActionType.merger && totalSeedCostForCa.compareTo(BigDecimal.ZERO) > 0) {
+                    mergerBridgeOutflows.add(new XirrCalculator.Cashflow(ca.getExDate(), totalSeedCostForCa.negate()));
                 }
             }
         }
@@ -450,6 +457,7 @@ public class InvestmentService {
         BigDecimal intradayRealized = BigDecimal.ZERO;
         BigDecimal totalHoldingCharges = BigDecimal.ZERO;
         List<XirrCalculator.Cashflow> cashflows = new ArrayList<>();
+        cashflows.addAll(mergerBridgeOutflows);
         List<TimelineEvent> timeline = new ArrayList<>();
 
         // Group raw transactions by trade date
@@ -561,7 +569,16 @@ public class InvestmentService {
                 openLots.add(new Lot(seed.qty(), seed.costPerUnit()));
             } else if (event instanceof CorpActionEvent caEvent) {
                 CorporateAction ca = caEvent.action();
-                if (ca.getType() == CorporateActionType.demerger) {
+                if (ca.getType() == CorporateActionType.merger) {
+                    BigDecimal mergerValue = BigDecimal.ZERO;
+                    for (Lot lot : openLots) {
+                        mergerValue = mergerValue.add(lot.remainingQty.multiply(lot.costPerUnit));
+                    }
+                    if (mergerValue.compareTo(BigDecimal.ZERO) > 0) {
+                        cashflows.add(new XirrCalculator.Cashflow(ca.getExDate(), mergerValue));
+                    }
+                    openLots.clear();
+                } else if (ca.getType() == CorporateActionType.demerger) {
                     if (ca.getCostAllocationPct() != null && ca.getCostAllocationPct().compareTo(BigDecimal.ZERO) > 0) {
                         BigDecimal factor = BigDecimal.ONE.subtract(
                                 ca.getCostAllocationPct().divide(BigDecimal.valueOf(100), 10, RoundingMode.HALF_UP)
@@ -688,6 +705,16 @@ public class InvestmentService {
                     .setScale(2, RoundingMode.HALF_UP);
         }
 
+        String mergedIntoName = null;
+        LocalDate mergedIntoDate = null;
+        for (CorporateAction ca : corpActions) {
+            if (ca.getType() == CorporateActionType.merger && ca.getTargetInstrument() != null && !ca.getExDate().isAfter(LocalDate.now())) {
+                mergedIntoName = ca.getTargetInstrument().getName();
+                mergedIntoDate = ca.getExDate();
+                break;
+            }
+        }
+
         return new HoldingPosition(
                 holding,
                 openQty.setScale(8, RoundingMode.HALF_UP),
@@ -704,7 +731,9 @@ public class InvestmentService {
                 totalHoldingCharges.setScale(4, RoundingMode.HALF_UP),
                 holdingDividends.setScale(2, RoundingMode.HALF_UP),
                 xirr,
-                absoluteReturnPercent
+                absoluteReturnPercent,
+                mergedIntoName,
+                mergedIntoDate
         );
     }
 
@@ -953,64 +982,7 @@ public class InvestmentService {
         }
     }
 
-    private record HoldingPosition(
-            Holding holding,
-            BigDecimal openQty,
-            BigDecimal avgCost,
-            BigDecimal openCost,
-            BigDecimal latestPrice,
-            LocalDate priceAsOf,
-            PriceSource priceSource,
-            BigDecimal currentValue,
-            BigDecimal unrealized,
-            BigDecimal unrealizedPercent,
-            BigDecimal realized,
-            BigDecimal intradayRealized,
-            BigDecimal totalCharges,
-            BigDecimal dividends,
-            Double xirr,
-            BigDecimal absoluteReturnPercent
-    ) {
-        PositionDto toPositionDto() {
-            Account b = holding.getBrokerAccount();
-            String provider = b.getBrokerDetails() != null ? b.getBrokerDetails().getProvider() : null;
 
-            PositionDto.InstrumentInfoDto instInfo = new PositionDto.InstrumentInfoDto(
-                    holding.getInstrument().getId(),
-                    holding.getInstrument().getType(),
-                    holding.getInstrument().getName(),
-                    holding.getInstrument().getSymbol(),
-                    holding.getInstrument().getIsin(),
-                    holding.getInstrument().getAmfiCode(),
-                    holding.getInstrument().getYahooSymbol(),
-                    priceSource
-            );
-
-            return new PositionDto(
-                    holding.getId(),
-                    b.getId(),
-                    b.getName(),
-                    provider,
-                    instInfo,
-                    openQty,
-                    avgCost,
-                    openCost,
-                    latestPrice,
-                    priceAsOf,
-                    priceSource,
-                    currentValue,
-                    unrealized,
-                    unrealizedPercent,
-                    realized,
-                    intradayRealized,
-                    dividends,
-                    xirr,
-                    absoluteReturnPercent,
-                    totalCharges,
-                    holding.getNotes()
-            );
-        }
-    }
 
     private static class BrokerSummaryAccumulator {
         UUID brokerAccountId;
