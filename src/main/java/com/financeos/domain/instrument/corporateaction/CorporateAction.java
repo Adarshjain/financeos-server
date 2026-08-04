@@ -51,6 +51,9 @@ public class CorporateAction {
     @Column(name = "cost_allocation_pct", precision = 7, scale = 4)
     private java.math.BigDecimal costAllocationPct;
 
+    @Column(name = "fractional_cash_in_lieu", precision = 19, scale = 4)
+    private java.math.BigDecimal fractionalCashInLieu;
+
     @Column
     private String notes;
 

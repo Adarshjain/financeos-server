@@ -22,6 +22,7 @@ public record CorporateActionResponse(
         String targetInstrumentName,
         String targetInstrumentSymbol,
         BigDecimal costAllocationPct,
+        BigDecimal fractionalCashInLieu,
         Instant createdAt
 ) {
     public static CorporateActionResponse from(CorporateAction ca) {
@@ -39,6 +40,7 @@ public record CorporateActionResponse(
                 ca.getTargetInstrument() != null ? ca.getTargetInstrument().getName() : null,
                 ca.getTargetInstrument() != null ? ca.getTargetInstrument().getSymbol() : null,
                 ca.getCostAllocationPct(),
+                ca.getFractionalCashInLieu(),
                 ca.getCreatedAt()
         );
     }

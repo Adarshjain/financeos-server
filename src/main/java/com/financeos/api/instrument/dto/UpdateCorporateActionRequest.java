@@ -15,6 +15,7 @@ public record UpdateCorporateActionRequest(
         @NotNull(message = "Ex date is required") LocalDate exDate,
         String notes,
         UUID targetInstrumentId,
-        BigDecimal costAllocationPct
+        BigDecimal costAllocationPct,
+        BigDecimal fractionalCashInLieu
 ) {
 }

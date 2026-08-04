@@ -255,4 +255,99 @@ class MergerCorporateActionTest {
         assertEquals(0, summary.totalInvested().compareTo(new BigDecimal("1000.0000")));
         assertEquals(0, summary.totalCurrentValue().compareTo(new BigDecimal("1000.0000")));
     }
+
+    @Test
+    void testFractionalMergerWithCashInLieu() {
+        // 121 A bought @ Rs 100 = Rs 12,100
+        InvestmentTransaction buyTxn = new InvestmentTransaction();
+        buyTxn.setType(InvestmentTransactionType.buy);
+        buyTxn.setQuantity(new BigDecimal("121"));
+        buyTxn.setPrice(new BigDecimal("100.00"));
+        buyTxn.setTradeDate(LocalDate.of(2024, 1, 1));
+        buyTxn.setHolding(transferorHolding);
+
+        // Merger: ratio 100:155 (121 * 155 / 100 = 187.55 entitlement -> 187 whole + 0.55 fraction)
+        // cash-in-lieu received = 385
+        CorporateAction merger = new CorporateAction();
+        merger.setId(UUID.randomUUID());
+        merger.setInstrument(transferorInstrument);
+        merger.setTargetInstrument(acquirerInstrument);
+        merger.setType(CorporateActionType.merger);
+        merger.setRatioFrom(100);
+        merger.setRatioTo(155);
+        merger.setCostAllocationPct(new BigDecimal("100.0"));
+        merger.setFractionalCashInLieu(new BigDecimal("385.00"));
+        merger.setExDate(LocalDate.of(2024, 6, 1));
+
+        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(acquirerHolding.getId()))
+                .thenReturn(List.of());
+        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(acquirerInstrument.getId()))
+                .thenReturn(List.of());
+        when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(acquirerInstrument.getId()))
+                .thenReturn(List.of(merger));
+        when(holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccount.getId(), transferorInstrument.getId()))
+                .thenReturn(Optional.of(transferorHolding));
+        when(holdingRepository.findByInstrumentId(transferorInstrument.getId()))
+                .thenReturn(List.of(transferorHolding));
+        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(transferorHolding.getId()))
+                .thenReturn(List.of(buyTxn));
+        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(transferorInstrument.getId()))
+                .thenReturn(List.of(merger));
+        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(acquirerInstrument.getId()))
+                .thenReturn(Optional.empty());
+
+        HoldingPosition acquirerPos = investmentService.calculateHoldingPosition(acquirerHolding);
+
+        // 187 whole shares kept
+        assertEquals(0, acquirerPos.openQty().compareTo(new BigDecimal("187.00000000")));
+        // Cash-in-lieu = 385, fractional cost = 0.55 * (12100 / 187.55) = 35.4839... -> realized PnL = +349.5161
+        assertEquals(0, acquirerPos.realized().compareTo(new BigDecimal("349.5161")));
+    }
+
+    @Test
+    void testFractionalMergerWithZeroCashInLieu() {
+        // 121 A bought @ Rs 100 = Rs 12,100
+        InvestmentTransaction buyTxn = new InvestmentTransaction();
+        buyTxn.setType(InvestmentTransactionType.buy);
+        buyTxn.setQuantity(new BigDecimal("121"));
+        buyTxn.setPrice(new BigDecimal("100.00"));
+        buyTxn.setTradeDate(LocalDate.of(2024, 1, 1));
+        buyTxn.setHolding(transferorHolding);
+
+        // Merger: ratio 100:155, fractionalCashInLieu = 0 / null
+        CorporateAction merger = new CorporateAction();
+        merger.setId(UUID.randomUUID());
+        merger.setInstrument(transferorInstrument);
+        merger.setTargetInstrument(acquirerInstrument);
+        merger.setType(CorporateActionType.merger);
+        merger.setRatioFrom(100);
+        merger.setRatioTo(155);
+        merger.setCostAllocationPct(new BigDecimal("100.0"));
+        merger.setFractionalCashInLieu(BigDecimal.ZERO);
+        merger.setExDate(LocalDate.of(2024, 6, 1));
+
+        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(acquirerHolding.getId()))
+                .thenReturn(List.of());
+        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(acquirerInstrument.getId()))
+                .thenReturn(List.of());
+        when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(acquirerInstrument.getId()))
+                .thenReturn(List.of(merger));
+        when(holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccount.getId(), transferorInstrument.getId()))
+                .thenReturn(Optional.of(transferorHolding));
+        when(holdingRepository.findByInstrumentId(transferorInstrument.getId()))
+                .thenReturn(List.of(transferorHolding));
+        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(transferorHolding.getId()))
+                .thenReturn(List.of(buyTxn));
+        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(transferorInstrument.getId()))
+                .thenReturn(List.of(merger));
+        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(acquirerInstrument.getId()))
+                .thenReturn(Optional.empty());
+
+        HoldingPosition acquirerPos = investmentService.calculateHoldingPosition(acquirerHolding);
+
+        // 187 whole shares kept
+        assertEquals(0, acquirerPos.openQty().compareTo(new BigDecimal("187.00000000")));
+        // Cash-in-lieu = 0 -> realized PnL = 0 - 35.4839 = -35.4839
+        assertEquals(0, acquirerPos.realized().compareTo(new BigDecimal("-35.4839")));
+    }
 }
