@@ -11,6 +11,8 @@ import java.util.UUID;
 public record CorporateActionResponse(
         UUID id,
         UUID instrumentId,
+        String instrumentName,
+        String instrumentSymbol,
         CorporateActionType type,
         Integer ratioFrom,
         Integer ratioTo,
@@ -25,7 +27,9 @@ public record CorporateActionResponse(
     public static CorporateActionResponse from(CorporateAction ca) {
         return new CorporateActionResponse(
                 ca.getId(),
-                ca.getInstrument().getId(),
+                ca.getInstrument() != null ? ca.getInstrument().getId() : null,
+                ca.getInstrument() != null ? ca.getInstrument().getName() : null,
+                ca.getInstrument() != null ? ca.getInstrument().getSymbol() : null,
                 ca.getType(),
                 ca.getRatioFrom(),
                 ca.getRatioTo(),

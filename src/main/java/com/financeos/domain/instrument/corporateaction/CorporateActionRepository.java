@@ -12,4 +12,6 @@ public interface CorporateActionRepository extends JpaRepository<CorporateAction
     List<CorporateAction> findByInstrumentIdOrderByExDateAsc(UUID instrumentId);
 
     List<CorporateAction> findByTargetInstrumentIdOrderByExDateAsc(UUID targetInstrumentId);
+
+    List<CorporateAction> findAllByOrderByExDateDesc();
 }

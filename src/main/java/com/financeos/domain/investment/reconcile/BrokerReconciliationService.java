@@ -696,11 +696,12 @@ public class BrokerReconciliationService {
                         newInst.setIsin(newInstDto.isin() != null ? newInstDto.isin().trim() : null);
                         newInst.setAmfiCode(newInstDto.amfiCode());
 
-                        String yahooSym = newInstDto.yahooSymbol();
-                        if ((yahooSym == null || yahooSym.isBlank()) && newInst.getType() == InstrumentType.stock && newInst.getSymbol() != null) {
-                            yahooSym = newInst.getSymbol() + ("BSE".equalsIgnoreCase(newInst.getExchange()) ? ".BO" : ".NS");
-                        }
-                        newInst.setYahooSymbol(yahooSym);
+                        // Honor the client's yahooSymbol as-is (do not fabricate a
+                        // SYMBOL.NS guess). The import wizard's "Create new" is used
+                        // when external search can't resolve the scrip — i.e. it's
+                        // delisted/merged — so a null yahooSymbol makes the instrument
+                        // manual-price-only rather than chasing a dead or reused ticker.
+                        newInst.setYahooSymbol(newInstDto.yahooSymbol());
                         instrument = instrumentRepository.save(newInst);
                     }
                 } else {
