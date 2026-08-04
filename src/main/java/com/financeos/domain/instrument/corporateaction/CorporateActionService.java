@@ -167,4 +167,10 @@ public class CorporateActionService {
         List<CorporateAction> actions = corporateActionRepository.findByInstrumentIdOrderByExDateAsc(instrumentId);
         return actions.stream().map(CorporateActionResponse::from).toList();
     }
+
+    @Transactional(readOnly = true)
+    public List<CorporateActionResponse> getAllCorporateActions() {
+        List<CorporateAction> actions = corporateActionRepository.findAllByOrderByExDateDesc();
+        return actions.stream().map(CorporateActionResponse::from).toList();
+    }
 }
