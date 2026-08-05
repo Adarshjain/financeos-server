@@ -11,8 +11,11 @@ public interface SipRepository extends JpaRepository<Sip, UUID> {
 
     @Query("""
         SELECT s FROM Sip s
-        WHERE (:brokerAccountId IS NULL OR s.brokerAccount.id = :brokerAccountId)
-          AND (:instrumentId IS NULL OR s.instrument.id = :instrumentId)
+        LEFT JOIN FETCH s.brokerAccount b
+        LEFT JOIN FETCH b.brokerDetails bd
+        LEFT JOIN FETCH s.instrument i
+        WHERE (:brokerAccountId IS NULL OR b.id = :brokerAccountId)
+          AND (:instrumentId IS NULL OR i.id = :instrumentId)
           AND (:active IS NULL OR s.active = :active)
     """)
     List<Sip> findFilteredSips(

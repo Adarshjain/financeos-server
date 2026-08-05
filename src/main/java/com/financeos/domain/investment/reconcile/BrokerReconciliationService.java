@@ -22,6 +22,10 @@ import com.financeos.domain.investment.InvestmentTransactionType;
 import com.financeos.domain.investment.SettlementType;
 import com.financeos.domain.investment.TradeSettlementClassification;
 import com.financeos.domain.investment.TradeSettlementClassificationRepository;
+import com.financeos.domain.investment.fno.FnoContractType;
+import com.financeos.domain.investment.fno.FnoTrade;
+import com.financeos.domain.investment.fno.FnoTradeRepository;
+import com.financeos.domain.investment.fno.FnoTradeService;
 import com.financeos.domain.investment.charges.ChargeCalculator;
 import com.financeos.domain.investment.imports.ImportParser;
 import com.financeos.domain.investment.imports.ParseContext;
@@ -64,6 +68,8 @@ public class BrokerReconciliationService {
     private final HoldingsSnapshotParser holdingsSnapshotParser;
     private final TradeSettlementClassificationRepository classificationRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final FnoTradeRepository fnoTradeRepository;
+    private final FnoTradeService fnoTradeService;
 
     public BrokerReconciliationService(
             ZerodhaTradebookParser zerodhaTradebookParser,
@@ -80,7 +86,9 @@ public class BrokerReconciliationService {
             InstrumentSearchService instrumentSearchService,
             HoldingsSnapshotParser holdingsSnapshotParser,
             TradeSettlementClassificationRepository classificationRepository,
-            ApplicationEventPublisher eventPublisher
+            ApplicationEventPublisher eventPublisher,
+            FnoTradeRepository fnoTradeRepository,
+            FnoTradeService fnoTradeService
     ) {
         this.zerodhaTradebookParser = zerodhaTradebookParser;
         this.zerodhaTaxPnlParser = zerodhaTaxPnlParser;
@@ -97,6 +105,8 @@ public class BrokerReconciliationService {
         this.holdingsSnapshotParser = holdingsSnapshotParser;
         this.classificationRepository = classificationRepository;
         this.eventPublisher = eventPublisher;
+        this.fnoTradeRepository = fnoTradeRepository;
+        this.fnoTradeService = fnoTradeService;
     }
 
     private record InternalExecution(
@@ -565,92 +575,58 @@ public class BrokerReconciliationService {
             }
         }
 
+        List<FnoTradePreviewDto> fnoTradeDtos = new ArrayList<>();
         if (includeFno) {
             for (ZerodhaTaxPnlParser.TaxPnlExit x : fnoExits) {
                 String tradingSymbol = x.symbol();
                 FnoSymbolParser.FnoParsedContract parsed = FnoSymbolParser.parse(tradingSymbol);
-                ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentLocally(null, tradingSymbol, "NSE");
 
-                BigDecimal buyPrice = x.quantity().compareTo(BigDecimal.ZERO) > 0
-                        ? x.buyValue().divide(x.quantity(), 8, RoundingMode.HALF_UP)
-                        : BigDecimal.ZERO;
-                BigDecimal sellPrice = x.quantity().compareTo(BigDecimal.ZERO) > 0
-                        ? x.sellValue().divide(x.quantity(), 8, RoundingMode.HALF_UP)
-                        : BigDecimal.ZERO;
+                LocalDate entryDate = x.entryDate() != null ? x.entryDate() : x.exitDate();
+                LocalDate exitDate = x.exitDate() != null ? x.exitDate() : x.entryDate();
 
-                ItemizedChargesDto zeroCharges = new ItemizedChargesDto(
-                        BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
-                        BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO
-                );
+                BigDecimal buyVal = x.buyValue() != null ? x.buyValue() : BigDecimal.ZERO;
+                BigDecimal sellVal = x.sellValue() != null ? x.sellValue() : BigDecimal.ZERO;
 
-                LocalDate buyDate = x.entryDate() != null ? x.entryDate() : x.exitDate();
-                LocalDate sellDate = x.exitDate() != null ? x.exitDate() : x.entryDate();
+                BigDecimal totalCharges = BigDecimal.ZERO;
+                if (x.charges() != null) {
+                    ItemizedChargesDto c = x.charges();
+                    if (c.brokerage() != null) totalCharges = totalCharges.add(c.brokerage());
+                    if (c.stt() != null) totalCharges = totalCharges.add(c.stt());
+                    if (c.exchangeTxnCharges() != null) totalCharges = totalCharges.add(c.exchangeTxnCharges());
+                    if (c.sebiCharges() != null) totalCharges = totalCharges.add(c.sebiCharges());
+                    if (c.stampDuty() != null) totalCharges = totalCharges.add(c.stampDuty());
+                    if (c.gst() != null) totalCharges = totalCharges.add(c.gst());
+                    if (c.dpCharges() != null) totalCharges = totalCharges.add(c.dpCharges());
+                    if (c.otherCharges() != null) totalCharges = totalCharges.add(c.otherCharges());
+                }
 
-                String buyRef = "FNO_BUY_" + tradingSymbol + "_" + buyDate + "_" + sellDate + "_" + x.quantity().toPlainString();
-                String sellRef = "FNO_SELL_" + tradingSymbol + "_" + buyDate + "_" + sellDate + "_" + x.quantity().toPlainString();
+                BigDecimal realizedPnl = sellVal.subtract(buyVal).subtract(totalCharges);
+                String externalRef = "FNO_" + tradingSymbol + "_" + entryDate + "_" + exitDate + "_" + x.quantity().toPlainString();
+                boolean isDuplicate = fnoTradeRepository.existsByBrokerAccountIdAndExternalRef(brokerAccountId, externalRef);
 
-                boolean buyDup = checkDuplicateInDb(brokerAccountId, matchedInst != null ? matchedInst.id() : null,
-                        buyDate, InvestmentTransactionType.buy, x.quantity(), buyPrice, buyRef);
-                boolean sellDup = checkDuplicateInDb(brokerAccountId, matchedInst != null ? matchedInst.id() : null,
-                        sellDate, InvestmentTransactionType.sell, x.quantity(), sellPrice, sellRef);
-
-                classifiedDtos.add(new ReconcilePreviewResponse.ReconciledExecutionDto(
-                        rowIndexCounter++,
-                        buyDate,
-                        InvestmentTransactionType.buy,
-                        SettlementType.delivery,
+                fnoTradeDtos.add(new FnoTradePreviewDto(
                         tradingSymbol,
-                        null,
-                        "NSE",
-                        x.quantity(),
-                        buyPrice,
-                        x.buyValue(),
-                        zeroCharges,
-                        buyRef,
-                        matchedInst,
-                        buyDup,
-                        "F&O Buy Leg (" + parsed.instrumentType() + ")",
-                        parsed.instrumentType(),
                         parsed.underlyingSymbol(),
-                        parsed.expiryDate(),
+                        parsed.contractType(),
                         parsed.optionType(),
                         parsed.strikePrice(),
-                        null,
-                        tradingSymbol
-                ));
-
-                classifiedDtos.add(new ReconcilePreviewResponse.ReconciledExecutionDto(
-                        rowIndexCounter++,
-                        sellDate,
-                        InvestmentTransactionType.sell,
-                        SettlementType.delivery,
-                        tradingSymbol,
-                        null,
-                        "NSE",
-                        x.quantity(),
-                        sellPrice,
-                        x.sellValue(),
-                        x.charges(),
-                        sellRef,
-                        matchedInst,
-                        sellDup,
-                        "F&O Sell Leg (" + parsed.instrumentType() + ")",
-                        parsed.instrumentType(),
-                        parsed.underlyingSymbol(),
                         parsed.expiryDate(),
-                        parsed.optionType(),
-                        parsed.strikePrice(),
-                        null,
-                        tradingSymbol
+                        x.quantity(),
+                        buyVal,
+                        sellVal,
+                        totalCharges,
+                        realizedPnl,
+                        entryDate,
+                        exitDate,
+                        externalRef,
+                        isDuplicate
                 ));
             }
         }
 
         // Post-filtering based on scope
-        if (!includeFno)    classifiedDtos.removeIf(e -> e.suggestedType() != null);
-        if (!includeEquity) classifiedDtos.removeIf(e -> e.suggestedType() == null);
-
         if (!includeEquity) {
+            classifiedDtos.clear();
             derivedHoldings.clear();
         }
 
@@ -753,7 +729,8 @@ public class BrokerReconciliationService {
                 realizedSummary,
                 warnings,
                 stats,
-                classificationDtos
+                classificationDtos,
+                fnoTradeDtos
         );
     }
 
@@ -796,9 +773,6 @@ public class BrokerReconciliationService {
                     if (newInstDto.isin() != null && !newInstDto.isin().isBlank()) {
                         instrument = instrumentRepository.findByIsin(newInstDto.isin().trim()).orElse(null);
                     }
-                    if (instrument == null && newInstDto.tradingSymbol() != null && !newInstDto.tradingSymbol().isBlank()) {
-                        instrument = instrumentRepository.findByTradingSymbolIgnoreCase(newInstDto.tradingSymbol().trim()).orElse(null);
-                    }
                     if (instrument == null && newInstDto.symbol() != null && !newInstDto.symbol().isBlank()) {
                         List<Instrument> searchResults = instrumentRepository.searchInstruments(newInstDto.symbol().trim(), null);
                         for (Instrument inst : searchResults) {
@@ -823,13 +797,6 @@ public class BrokerReconciliationService {
                         // delisted/merged — so a null yahooSymbol makes the instrument
                         // manual-price-only rather than chasing a dead or reused ticker.
                         newInst.setYahooSymbol(newInstDto.yahooSymbol());
-                        newInst.setUnderlyingSymbol(newInstDto.underlyingSymbol());
-                        newInst.setUnderlyingInstrumentId(newInstDto.underlyingInstrumentId());
-                        newInst.setExpiryDate(newInstDto.expiryDate());
-                        newInst.setOptionType(newInstDto.optionType());
-                        newInst.setStrikePrice(newInstDto.strikePrice());
-                        newInst.setLotSize(newInstDto.lotSize());
-                        newInst.setTradingSymbol(newInstDto.tradingSymbol() != null ? newInstDto.tradingSymbol() : newInstDto.symbol());
                         instrument = instrumentRepository.save(newInst);
                     }
                 } else {
@@ -934,6 +901,23 @@ public class BrokerReconciliationService {
             }
         }
 
+        if (request.fnoTrades() != null && !request.fnoTrades().isEmpty()) {
+            for (CommitFnoTradeDto dto : request.fnoTrades()) {
+                if (dto.skip()) {
+                    skipped++;
+                    skippedItems.add(new ImportCommitResponse.SkippedCommitItem(
+                            -1, dto.tradingSymbol(), "Excluded during review"));
+                } else if (dto.externalRef() != null && !dto.externalRef().isBlank() &&
+                        fnoTradeRepository.existsByBrokerAccountIdAndExternalRef(brokerAccount.getId(), dto.externalRef())) {
+                    skipped++;
+                    skippedItems.add(new ImportCommitResponse.SkippedCommitItem(
+                            -1, dto.tradingSymbol(), "Duplicate — already imported"));
+                }
+            }
+            List<FnoTrade> importedFno = fnoTradeService.importTrades(request.brokerAccountId(), request.fnoTrades());
+            committed += importedFno.size();
+        }
+
         if (!touchedInstrumentIds.isEmpty()) {
             eventPublisher.publishEvent(new PriceRefreshEvent(touchedInstrumentIds));
         }
@@ -1018,9 +1002,6 @@ public class BrokerReconciliationService {
         Instrument matched = null;
         if (isin != null && !isin.isBlank()) {
             matched = instrumentRepository.findByIsin(isin.trim()).orElse(null);
-        }
-        if (matched == null && symbol != null && !symbol.isBlank()) {
-            matched = instrumentRepository.findByTradingSymbolIgnoreCase(symbol.trim()).orElse(null);
         }
         if (matched == null && symbol != null && !symbol.isBlank()) {
             List<Instrument> list = instrumentRepository.searchInstruments(symbol.trim(), null);

@@ -56,7 +56,8 @@ class MergerCorporateActionTest {
                 corporateActionRepository,
                 mock(com.financeos.domain.investment.dividend.DividendRepository.class),
                 mock(com.financeos.domain.investment.TradeSettlementClassificationRepository.class),
-                mock(org.springframework.context.ApplicationEventPublisher.class)
+                mock(org.springframework.context.ApplicationEventPublisher.class),
+                mock(com.financeos.domain.investment.fno.FnoTradeRepository.class)
         );
 
         holdingValuationService = new HoldingValuationService(holdingRepository, investmentService);
@@ -239,7 +240,7 @@ class MergerCorporateActionTest {
         buyTxn.setTradeDate(LocalDate.of(2024, 1, 1));
         buyTxn.setHolding(transferorHolding);
 
-        when(holdingRepository.findAll())
+        when(holdingRepository.findAllWithDetails())
                 .thenReturn(List.of(transferorHolding));
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(transferorHolding.getId()))
                 .thenReturn(List.of(buyTxn));

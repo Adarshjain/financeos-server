@@ -16,6 +16,7 @@ import com.financeos.domain.instrument.corporateaction.CorporateActionType;
 import com.financeos.domain.instrument.price.PriceRefreshEvent;
 import com.financeos.domain.investment.dividend.Dividend;
 import com.financeos.domain.investment.dividend.DividendRepository;
+import com.financeos.domain.investment.fno.FnoTradeRepository;
 import com.financeos.domain.investment.returncalc.XirrCalculator;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
@@ -50,6 +51,7 @@ public class InvestmentService {
     private final DividendRepository dividendRepository;
     private final TradeSettlementClassificationRepository classificationRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final FnoTradeRepository fnoTradeRepository;
 
     public InvestmentService(InvestmentTransactionRepository transactionRepository,
                               HoldingRepository holdingRepository,
@@ -60,7 +62,8 @@ public class InvestmentService {
                               CorporateActionRepository corporateActionRepository,
                               DividendRepository dividendRepository,
                               TradeSettlementClassificationRepository classificationRepository,
-                              ApplicationEventPublisher eventPublisher) {
+                              ApplicationEventPublisher eventPublisher,
+                              FnoTradeRepository fnoTradeRepository) {
         this.transactionRepository = transactionRepository;
         this.holdingRepository = holdingRepository;
         this.accountRepository = accountRepository;
@@ -71,6 +74,7 @@ public class InvestmentService {
         this.dividendRepository = dividendRepository;
         this.classificationRepository = classificationRepository;
         this.eventPublisher = eventPublisher;
+        this.fnoTradeRepository = fnoTradeRepository;
     }
 
     public InvestmentTransactionResponse createTransaction(CreateInvestmentTransactionRequest request) {
@@ -94,9 +98,7 @@ public class InvestmentService {
                     return holdingRepository.save(h);
                 });
 
-        if (request.type() == InvestmentTransactionType.sell &&
-                instrument.getType() != InstrumentType.future &&
-                instrument.getType() != InstrumentType.option) {
+        if (request.type() == InvestmentTransactionType.sell) {
             HoldingPosition currentPos = calculateHoldingPosition(holding);
             if (request.quantity().compareTo(currentPos.openQty()) > 0) {
                 throw new ValidationException("Cannot sell more than current open quantity: " + currentPos.openQty());
@@ -212,7 +214,7 @@ public class InvestmentService {
 
     @Transactional(readOnly = true)
     public PositionsResponse getPositions() {
-        List<Holding> holdings = holdingRepository.findAll();
+        List<Holding> holdings = holdingRepository.findAllWithDetails();
         List<PositionDto> positions = new ArrayList<>();
 
         for (Holding holding : holdings) {
@@ -226,9 +228,7 @@ public class InvestmentService {
                         holding.getId(), holding.getInstrument().getName(), e.getMessage());
                 continue;
             }
-            if (pos.openQty().compareTo(BigDecimal.ZERO) > 0 ||
-                    holding.getInstrument().getType() == InstrumentType.future ||
-                    holding.getInstrument().getType() == InstrumentType.option) {
+            if (pos.openQty().compareTo(BigDecimal.ZERO) > 0) {
                 positions.add(pos.toPositionDto());
             }
         }
@@ -238,13 +238,16 @@ public class InvestmentService {
 
     @Transactional(readOnly = true)
     public SummaryResponse getSummary() {
-        List<Holding> holdings = holdingRepository.findAll();
+        List<Holding> holdings = holdingRepository.findAllWithDetails();
 
         BigDecimal totalInvested = BigDecimal.ZERO;
         BigDecimal totalCurrentValue = BigDecimal.ZERO;
         BigDecimal totalRealized = BigDecimal.ZERO;
         BigDecimal totalIntradayRealized = BigDecimal.ZERO;
-        BigDecimal totalFnoRealized = BigDecimal.ZERO;
+        BigDecimal totalFnoRealized = fnoTradeRepository.sumRealizedPnl();
+        if (totalFnoRealized == null) {
+            totalFnoRealized = BigDecimal.ZERO;
+        }
         BigDecimal totalCharges = BigDecimal.ZERO;
 
         Map<UUID, BrokerSummaryAccumulator> brokerMap = new LinkedHashMap<>();
@@ -262,9 +265,6 @@ public class InvestmentService {
                         holding.getId(), holding.getInstrument().getName(), e.getMessage());
                 continue;
             }
-            if (holding.getInstrument().getType() == InstrumentType.future || holding.getInstrument().getType() == InstrumentType.option) {
-                totalFnoRealized = totalFnoRealized.add(pos.realized());
-            }
             totalRealized = totalRealized.add(pos.realized());
             totalIntradayRealized = totalIntradayRealized.add(pos.intradayRealized());
             totalCharges = totalCharges.add(pos.totalCharges());
@@ -276,28 +276,23 @@ public class InvestmentService {
                 }
             }
 
-            // Accumulate transaction cashflows for XIRR (skip F&O holdings)
-            boolean isFnoHolding = holding.getInstrument().getType() == InstrumentType.future
-                    || holding.getInstrument().getType() == InstrumentType.option;
-
-            if (!isFnoHolding) {
-                List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
-                for (InvestmentTransaction txn : txns) {
-                    BigDecimal charges = txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO;
-                    if (txn.getType() == InvestmentTransactionType.buy) {
-                        BigDecimal outflow = txn.getQuantity().multiply(txn.getPrice()).add(charges);
-                        portfolioCashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), outflow.negate()));
-                    } else if (txn.getType() == InvestmentTransactionType.sell) {
-                        BigDecimal inflow = txn.getQuantity().multiply(txn.getPrice()).subtract(charges);
-                        portfolioCashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), inflow));
-                    }
+            // Accumulate transaction cashflows for XIRR
+            List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
+            for (InvestmentTransaction txn : txns) {
+                BigDecimal charges = txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO;
+                if (txn.getType() == InvestmentTransactionType.buy) {
+                    BigDecimal outflow = txn.getQuantity().multiply(txn.getPrice()).add(charges);
+                    portfolioCashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), outflow.negate()));
+                } else if (txn.getType() == InvestmentTransactionType.sell) {
+                    BigDecimal inflow = txn.getQuantity().multiply(txn.getPrice()).subtract(charges);
+                    portfolioCashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), inflow));
                 }
+            }
 
-                // Accumulate dividend cashflows
-                List<Dividend> dividends = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId());
-                for (Dividend div : dividends) {
-                    portfolioCashflows.add(new XirrCalculator.Cashflow(div.getPayDate(), div.getAmount()));
-                }
+            // Accumulate dividend cashflows
+            List<Dividend> dividends = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId());
+            for (Dividend div : dividends) {
+                portfolioCashflows.add(new XirrCalculator.Cashflow(div.getPayDate(), div.getAmount()));
             }
 
             // Broker accumulation
@@ -425,69 +420,6 @@ public class InvestmentService {
     }
 
     public HoldingPosition calculateHoldingPosition(Holding holding) {
-        if (holding.getInstrument().getType() == InstrumentType.future || holding.getInstrument().getType() == InstrumentType.option) {
-            List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
-            BigDecimal buyQty = BigDecimal.ZERO;
-            BigDecimal buyValue = BigDecimal.ZERO;
-            BigDecimal sellQty = BigDecimal.ZERO;
-            BigDecimal sellValue = BigDecimal.ZERO;
-            BigDecimal totalCharges = BigDecimal.ZERO;
-
-            for (InvestmentTransaction txn : txns) {
-                BigDecimal qty = txn.getQuantity() != null ? txn.getQuantity() : BigDecimal.ZERO;
-                BigDecimal price = txn.getPrice() != null ? txn.getPrice() : BigDecimal.ZERO;
-                BigDecimal charges = txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO;
-                totalCharges = totalCharges.add(charges);
-
-                if (txn.getType() == InvestmentTransactionType.buy) {
-                    buyQty = buyQty.add(qty);
-                    buyValue = buyValue.add(qty.multiply(price));
-                } else if (txn.getType() == InvestmentTransactionType.sell) {
-                    sellQty = sellQty.add(qty);
-                    sellValue = sellValue.add(qty.multiply(price));
-                }
-            }
-
-            BigDecimal avgBuy = buyQty.compareTo(BigDecimal.ZERO) > 0 ? buyValue.divide(buyQty, 8, RoundingMode.HALF_UP) : BigDecimal.ZERO;
-            BigDecimal avgSell = sellQty.compareTo(BigDecimal.ZERO) > 0 ? sellValue.divide(sellQty, 8, RoundingMode.HALF_UP) : BigDecimal.ZERO;
-            BigDecimal realizedPnl = sellValue.subtract(buyValue).subtract(totalCharges);
-            BigDecimal netQty = buyQty.subtract(sellQty);
-            boolean unclosed = netQty.compareTo(BigDecimal.ZERO) != 0;
-
-            BigDecimal absReturnPct = buyValue.compareTo(BigDecimal.ZERO) > 0
-                    ? realizedPnl.multiply(new BigDecimal("100")).divide(buyValue, 4, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP)
-                    : null;
-
-            return new HoldingPosition(
-                    holding,
-                    netQty,
-                    avgBuy,
-                    BigDecimal.ZERO,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    realizedPnl,
-                    BigDecimal.ZERO,
-                    totalCharges,
-                    BigDecimal.ZERO,
-                    null,
-                    absReturnPct,
-                    null,
-                    null,
-                    buyQty,
-                    buyValue,
-                    avgBuy,
-                    sellQty,
-                    sellValue,
-                    avgSell,
-                    netQty,
-                    unclosed
-            );
-        }
-
         List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
         List<CorporateAction> corpActions = corporateActionRepository.findByInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
 

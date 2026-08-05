@@ -1,7 +1,6 @@
 package com.financeos.api.investment.dto;
 
 import com.financeos.domain.instrument.InstrumentType;
-import com.financeos.domain.instrument.OptionType;
 import com.financeos.domain.instrument.PriceSource;
 
 import java.math.BigDecimal;
@@ -103,26 +102,6 @@ public record PositionDto(
             String isin,
             String amfiCode,
             String yahooSymbol,
-            PriceSource lastPriceSource,
-            String underlyingSymbol,
-            UUID underlyingInstrumentId,
-            LocalDate expiryDate,
-            OptionType optionType,
-            BigDecimal strikePrice,
-            Integer lotSize,
-            String tradingSymbol
-    ) {
-        public InstrumentInfoDto(
-                UUID id,
-                InstrumentType type,
-                String name,
-                String symbol,
-                String isin,
-                String amfiCode,
-                String yahooSymbol,
-                PriceSource lastPriceSource
-        ) {
-            this(id, type, name, symbol, isin, amfiCode, yahooSymbol, lastPriceSource, null, null, null, null, null, null, null);
-        }
-    }
+            PriceSource lastPriceSource
+    ) {}
 }

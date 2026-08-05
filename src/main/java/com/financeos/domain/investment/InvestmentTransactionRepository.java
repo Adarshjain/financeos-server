@@ -15,7 +15,7 @@ public interface InvestmentTransactionRepository extends JpaRepository<Investmen
 
     List<InvestmentTransaction> findByHoldingIdOrderByTradeDateAscCreatedAtAsc(UUID holdingId);
 
-    @Query(value = "SELECT t FROM InvestmentTransaction t JOIN FETCH t.holding h JOIN FETCH h.instrument i JOIN FETCH h.brokerAccount b WHERE " +
+    @Query(value = "SELECT t FROM InvestmentTransaction t JOIN FETCH t.holding h JOIN FETCH h.instrument i JOIN FETCH h.brokerAccount b LEFT JOIN FETCH b.brokerDetails bd WHERE " +
                    "(:brokerAccountId IS NULL OR b.id = :brokerAccountId) AND " +
                    "(:instrumentId IS NULL OR i.id = :instrumentId) AND " +
                    "(:holdingId IS NULL OR h.id = :holdingId) AND " +

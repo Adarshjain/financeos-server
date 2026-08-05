@@ -54,7 +54,8 @@ class DemergerCorporateActionTest {
                 corporateActionRepository,
                 mock(com.financeos.domain.investment.dividend.DividendRepository.class),
                 mock(com.financeos.domain.investment.TradeSettlementClassificationRepository.class),
-                mock(org.springframework.context.ApplicationEventPublisher.class)
+                mock(org.springframework.context.ApplicationEventPublisher.class),
+                mock(com.financeos.domain.investment.fno.FnoTradeRepository.class)
         );
 
         brokerAccount = new Account();

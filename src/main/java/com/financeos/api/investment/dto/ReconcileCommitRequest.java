@@ -1,9 +1,9 @@
 package com.financeos.api.investment.dto;
 
+import com.financeos.api.investment.dto.ImportCommitRequest.CreateInstrumentDto;
 import com.financeos.domain.investment.InvestmentTransactionType;
 import com.financeos.domain.investment.SettlementType;
 import com.financeos.domain.investment.reconcile.Broker;
-import com.financeos.api.investment.dto.ImportCommitRequest.CreateInstrumentDto;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -15,7 +15,8 @@ public record ReconcileCommitRequest(
         @NotNull Broker broker,
         @NotNull UUID brokerAccountId,
         @NotNull List<CommitExecutionDto> executions,
-        List<CommitClassificationDto> classifications
+        List<CommitClassificationDto> classifications,
+        List<CommitFnoTradeDto> fnoTrades
 ) {
     public record CommitExecutionDto(
             int rowIndex,

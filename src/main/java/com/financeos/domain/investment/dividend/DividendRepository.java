@@ -18,7 +18,7 @@ public interface DividendRepository extends JpaRepository<Dividend, UUID> {
 
     List<Dividend> findByHoldingBrokerAccountIdOrderByPayDateDescCreatedAtDesc(UUID brokerAccountId);
 
-    @Query(value = "SELECT d FROM Dividend d JOIN FETCH d.holding h JOIN FETCH h.instrument i JOIN FETCH h.brokerAccount b WHERE " +
+    @Query(value = "SELECT d FROM Dividend d JOIN FETCH d.holding h JOIN FETCH h.instrument i JOIN FETCH h.brokerAccount b LEFT JOIN FETCH b.brokerDetails bd WHERE " +
                    "(:holdingId IS NULL OR h.id = :holdingId) AND " +
                    "(:brokerAccountId IS NULL OR b.id = :brokerAccountId) AND " +
                    "(:instrumentId IS NULL OR i.id = :instrumentId)",

@@ -1,5 +1,6 @@
 package com.financeos.domain.instrument;
 
+import com.financeos.domain.investment.fno.FnoContractType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,13 +33,13 @@ public class FnoSymbolParser {
             LocalDate expiryDate,
             OptionType optionType,
             BigDecimal strikePrice,
-            InstrumentType instrumentType,
+            FnoContractType contractType,
             String tradingSymbol
     ) {}
 
     public static FnoParsedContract parse(String rawSymbol) {
         if (rawSymbol == null || rawSymbol.isBlank()) {
-            return new FnoParsedContract("UNKNOWN", null, null, null, InstrumentType.future, "");
+            return new FnoParsedContract("UNKNOWN", null, null, null, FnoContractType.future, "");
         }
 
         String symbol = rawSymbol.trim().toUpperCase(Locale.ROOT);
@@ -50,7 +51,7 @@ public class FnoSymbolParser {
             int year = 2000 + Integer.parseInt(mFut.group(2));
             Month month = parseMonth(mFut.group(3));
             LocalDate expiry = month != null ? YearMonth.of(year, month).atEndOfMonth() : null;
-            return new FnoParsedContract(underlying, expiry, null, null, InstrumentType.future, symbol);
+            return new FnoParsedContract(underlying, expiry, null, null, FnoContractType.future, symbol);
         }
 
         // 2. Monthly Option
@@ -62,7 +63,7 @@ public class FnoSymbolParser {
             BigDecimal strike = parseDecimal(mOpt.group(4));
             OptionType optType = OptionType.valueOf(mOpt.group(5).toUpperCase(Locale.ROOT));
             LocalDate expiry = month != null ? YearMonth.of(year, month).atEndOfMonth() : null;
-            return new FnoParsedContract(underlying, expiry, optType, strike, InstrumentType.option, symbol);
+            return new FnoParsedContract(underlying, expiry, optType, strike, FnoContractType.option, symbol);
         }
 
         // 3. Weekly Option
@@ -80,7 +81,7 @@ public class FnoSymbolParser {
                     expiry = LocalDate.of(year, month, Math.min(day, month.length(YearMonth.of(year, month).isLeapYear())));
                 } catch (Exception ignored) {}
             }
-            return new FnoParsedContract(underlying, expiry, optType, strike, InstrumentType.option, symbol);
+            return new FnoParsedContract(underlying, expiry, optType, strike, FnoContractType.option, symbol);
         }
 
         // 4. General Option Fallback
@@ -89,18 +90,18 @@ public class FnoSymbolParser {
             String underlying = gOpt.group(1);
             BigDecimal strike = parseDecimal(gOpt.group(2));
             OptionType optType = OptionType.valueOf(gOpt.group(3).toUpperCase(Locale.ROOT));
-            return new FnoParsedContract(underlying, null, optType, strike, InstrumentType.option, symbol);
+            return new FnoParsedContract(underlying, null, optType, strike, FnoContractType.option, symbol);
         }
 
         // 5. Raw Fallback
-        InstrumentType instType = InstrumentType.future;
+        FnoContractType cType = FnoContractType.future;
         OptionType optType = null;
         if (symbol.endsWith("CE") || symbol.endsWith("PE")) {
-            instType = InstrumentType.option;
+            cType = FnoContractType.option;
             optType = symbol.endsWith("CE") ? OptionType.CE : OptionType.PE;
         }
 
-        return new FnoParsedContract(symbol, null, optType, null, instType, symbol);
+        return new FnoParsedContract(symbol, null, optType, null, cType, symbol);
     }
 
     private static Month parseMonth(String str) {

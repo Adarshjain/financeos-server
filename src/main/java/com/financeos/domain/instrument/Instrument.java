@@ -7,9 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -46,29 +44,6 @@ public class Instrument {
 
     @Column(name = "yahoo_symbol")
     private String yahooSymbol;
-
-    @Column(name = "underlying_symbol")
-    private String underlyingSymbol;
-
-    @JdbcTypeCode(SqlTypes.VARCHAR)
-    @Column(name = "underlying_instrument_id", length = 36)
-    private UUID underlyingInstrumentId;
-
-    @Column(name = "expiry_date")
-    private LocalDate expiryDate;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "option_type")
-    private OptionType optionType;
-
-    @Column(name = "strike_price", precision = 19, scale = 4)
-    private BigDecimal strikePrice;
-
-    @Column(name = "lot_size")
-    private Integer lotSize;
-
-    @Column(name = "trading_symbol")
-    private String tradingSymbol;
 
     @Column(nullable = false)
     private String currency = "INR";

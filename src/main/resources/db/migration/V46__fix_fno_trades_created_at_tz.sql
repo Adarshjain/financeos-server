@@ -1,0 +1,11 @@
+-- Fix ORA-18716 ("<value> not in any time zone") on GET /api/v1/investments/fno.
+--
+-- V44 created fno_trades.created_at as a plain TIMESTAMP, but FnoTrade.createdAt
+-- is a java.time.Instant. Hibernate 6 maps Instant to TIMESTAMP_UTC and reads the
+-- column as a timezone-aware OffsetDateTime; Oracle cannot attach a zone to a
+-- zoneless TIMESTAMP, so extraction fails with ORA-18716.
+--
+-- Every other table (accounts, investment_transactions, dividends,
+-- corporate_actions) already uses TIMESTAMP WITH TIME ZONE for created_at.
+-- Bring fno_trades in line so the Instant mapping reads correctly.
+ALTER TABLE fno_trades MODIFY (created_at TIMESTAMP WITH TIME ZONE);
