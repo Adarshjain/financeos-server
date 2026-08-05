@@ -5,6 +5,7 @@ import com.financeos.domain.investment.imports.ImportService;
 import com.financeos.domain.investment.imports.ImportSource;
 import com.financeos.domain.investment.reconcile.Broker;
 import com.financeos.domain.investment.reconcile.BrokerReconciliationService;
+import com.financeos.domain.investment.reconcile.ImportAssetScope;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -45,21 +46,26 @@ public class ImportController {
     public ReconcilePreviewResponse reconcilePreview(
             @RequestParam Broker broker,
             @RequestParam UUID brokerAccountId,
-            @RequestPart("tradebookFiles") List<MultipartFile> tradebookFiles,
+            @RequestParam(required = false, defaultValue = "all") ImportAssetScope assetScope,
+            @RequestPart(value = "tradebookFiles", required = false) List<MultipartFile> tradebookFiles,
             @RequestPart("taxpnlFiles") List<MultipartFile> taxpnlFiles,
             @RequestPart(value = "holdingsFile", required = false) MultipartFile holdingsFile) throws Exception {
         List<InputStream> tbStreams = new ArrayList<>();
-        for (MultipartFile f : tradebookFiles) {
-            tbStreams.add(f.getInputStream());
+        if (tradebookFiles != null) {
+            for (MultipartFile f : tradebookFiles) {
+                tbStreams.add(f.getInputStream());
+            }
         }
         List<InputStream> taxStreams = new ArrayList<>();
-        for (MultipartFile f : taxpnlFiles) {
-            taxStreams.add(f.getInputStream());
+        if (taxpnlFiles != null) {
+            for (MultipartFile f : taxpnlFiles) {
+                taxStreams.add(f.getInputStream());
+            }
         }
         InputStream holdingsStream = holdingsFile != null ? holdingsFile.getInputStream() : null;
         String holdingsFilename = holdingsFile != null ? holdingsFile.getOriginalFilename() : null;
 
-        return reconciliationService.preview(broker, brokerAccountId, tbStreams, taxStreams, holdingsStream, holdingsFilename);
+        return reconciliationService.preview(broker, brokerAccountId, tbStreams, taxStreams, holdingsStream, holdingsFilename, assetScope);
     }
 
     @PostMapping("/reconcile/commit")

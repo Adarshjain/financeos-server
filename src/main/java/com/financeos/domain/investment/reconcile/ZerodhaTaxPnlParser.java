@@ -74,7 +74,10 @@ public class ZerodhaTaxPnlParser {
                 // Tradewise Exits sheet has a leading blank column A, and the POI cell iterator
                 // skips physically-absent cells, so a compacted index would be off-by-one and
                 // every data lookup via row.getCell(absoluteIndex) would read the wrong column.
-                if (currentBucket != null && containsIgnoreCase(cellStrs, "symbol") && containsIgnoreCase(cellStrs, "isin")) {
+                boolean isFnoBucket = "FNO".equalsIgnoreCase(currentBucket);
+                boolean hasSymbol = containsIgnoreCase(cellStrs, "symbol");
+                boolean hasIsin = containsIgnoreCase(cellStrs, "isin");
+                if (currentBucket != null && hasSymbol && (hasIsin || isFnoBucket)) {
                     headerMap = new HashMap<>();
                     for (Cell cell : row) {
                         String colName = getCellValueAsString(cell).trim().toLowerCase();
@@ -156,7 +159,8 @@ public class ZerodhaTaxPnlParser {
             if (lower.contains("equity - short term")) return "equity - short term";
             if (lower.contains("equity - long term")) return "equity - long term";
             if (lower.contains("equity - buyback")) return "equity - buyback";
-            if (lower.contains("mutual funds") || lower.contains("f&o") || lower.contains("currency") || lower.contains("commodity")) {
+            if (lower.contains("f&o") || lower.contains("futures") || lower.contains("derivatives") || lower.contains("equity - f&o")) return "fno";
+            if (lower.contains("mutual funds") || lower.contains("currency") || lower.contains("commodity")) {
                 return "NON_EQUITY";
             }
         }
@@ -169,6 +173,7 @@ public class ZerodhaTaxPnlParser {
             case "equity - short term" -> "STCG";
             case "equity - long term" -> "LTCG";
             case "equity - buyback" -> "BUYBACK";
+            case "fno" -> "FNO";
             default -> null; // Resets current bucket on non-equity sections!
         };
     }

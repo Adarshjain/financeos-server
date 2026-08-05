@@ -199,4 +199,80 @@ class BrokerReconciliationServiceTest {
         // Fuzzy fallback triggers because ref is missing on existing side -> duplicate
         assertTrue(preview.executions().get(0).isDuplicate());
     }
+
+    @Test
+    void testImportAssetScopeFiltering() throws Exception {
+        String csvContent = "symbol,isin,trade_date,exchange,segment,series,trade_type,auction,quantity,price,trade_id,order_id,order_execution_time\n" +
+                "TATAMOTORS,INE155A01022,2021-02-15,NSE,EQ,EQ,buy,false,10,300.0,101,201,2021-02-15 10:00:00\n";
+
+        org.apache.poi.ss.usermodel.Workbook workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook();
+        org.apache.poi.ss.usermodel.Sheet sheet = workbook.createSheet("Tradewise Exits");
+        org.apache.poi.ss.usermodel.Row row0 = sheet.createRow(0);
+        row0.createCell(0).setCellValue("Equity - F&O");
+        org.apache.poi.ss.usermodel.Row row1 = sheet.createRow(1);
+        row1.createCell(0).setCellValue("Symbol");
+        row1.createCell(1).setCellValue("Quantity");
+        row1.createCell(2).setCellValue("Buy Value");
+        row1.createCell(3).setCellValue("Sell Value");
+        row1.createCell(4).setCellValue("Profit");
+        row1.createCell(5).setCellValue("Entry Date");
+        row1.createCell(6).setCellValue("Exit Date");
+        org.apache.poi.ss.usermodel.Row row2 = sheet.createRow(2);
+        row2.createCell(0).setCellValue("NIFTY24AUG24500CE");
+        row2.createCell(1).setCellValue(50);
+        row2.createCell(2).setCellValue(5000);
+        row2.createCell(3).setCellValue(7500);
+        row2.createCell(4).setCellValue(2500);
+        row2.createCell(5).setCellValue("2024-08-01");
+        row2.createCell(6).setCellValue("2024-08-05");
+
+        java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
+        workbook.write(baos);
+        workbook.close();
+        byte[] taxpnlBytes = baos.toByteArray();
+
+        // 1. AssetScope.all -> Both Equity and F&O returned
+        ReconcilePreviewResponse previewAll = reconciliationService.preview(
+                Broker.zerodha,
+                brokerAccountId,
+                List.of(new ByteArrayInputStream(csvContent.getBytes(StandardCharsets.UTF_8))),
+                List.of(new ByteArrayInputStream(taxpnlBytes)),
+                null,
+                null,
+                ImportAssetScope.all
+        );
+        assertEquals(3, previewAll.executions().size()); // 1 equity buy + 2 F&O legs (buy & sell)
+        assertEquals(1, previewAll.derivedHoldings().size());
+        assertNotNull(previewAll.realizedSummary());
+
+        // 2. AssetScope.equity -> Stocks only
+        ReconcilePreviewResponse previewEquity = reconciliationService.preview(
+                Broker.zerodha,
+                brokerAccountId,
+                List.of(new ByteArrayInputStream(csvContent.getBytes(StandardCharsets.UTF_8))),
+                List.of(new ByteArrayInputStream(taxpnlBytes)),
+                null,
+                null,
+                ImportAssetScope.equity
+        );
+        assertEquals(1, previewEquity.executions().size()); // Only 1 equity buy
+        assertNull(previewEquity.executions().get(0).suggestedType());
+        assertEquals(1, previewEquity.derivedHoldings().size());
+        assertNotNull(previewEquity.realizedSummary());
+
+        // 3. AssetScope.fno -> F&O only
+        ReconcilePreviewResponse previewFno = reconciliationService.preview(
+                Broker.zerodha,
+                brokerAccountId,
+                List.of(), // Tradebook optional for F&O only
+                List.of(new ByteArrayInputStream(taxpnlBytes)),
+                null,
+                null,
+                ImportAssetScope.fno
+        );
+        assertEquals(2, previewFno.executions().size()); // 2 F&O legs
+        assertTrue(previewFno.executions().stream().allMatch(e -> e.suggestedType() != null));
+        assertTrue(previewFno.derivedHoldings().isEmpty());
+        assertNull(previewFno.realizedSummary());
+    }
 }
