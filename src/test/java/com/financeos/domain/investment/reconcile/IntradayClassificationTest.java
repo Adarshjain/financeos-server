@@ -56,6 +56,8 @@ class IntradayClassificationTest {
     @Mock private HoldingsSnapshotParser holdingsSnapshotParser;
     @Mock private TradeSettlementClassificationRepository classificationRepository;
     @Mock private ApplicationEventPublisher eventPublisher;
+    @Mock private com.financeos.domain.investment.fno.FnoTradeRepository fnoTradeRepository;
+    @Mock private com.financeos.domain.investment.fno.FnoTradeService fnoTradeService;
 
     private BrokerReconciliationService svc;
     private final UUID brokerAccountId = UUID.randomUUID();
@@ -70,7 +72,9 @@ class IntradayClassificationTest {
                 new ChargeCalculator(),
                 instrumentRepository, aliasRepository, holdingRepository, transactionRepository,
                 accountRepository, userRepository, instrumentSearchService, holdingsSnapshotParser,
-                classificationRepository, eventPublisher);
+                classificationRepository, eventPublisher,
+                fnoTradeRepository,
+                fnoTradeService);
 
         Account account = new Account();
         account.setType(AccountType.broker);

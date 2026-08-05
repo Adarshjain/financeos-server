@@ -12,6 +12,8 @@ import com.financeos.domain.investment.InvestmentTransactionRepository;
 import com.financeos.domain.investment.TradeSettlementClassificationRepository;
 import com.financeos.domain.investment.charges.ChargeCalculator;
 import com.financeos.domain.investment.imports.ZerodhaTradebookParser;
+import com.financeos.domain.investment.fno.FnoTradeRepository;
+import com.financeos.domain.investment.fno.FnoTradeService;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.domain.instrument.Instrument;
 import com.financeos.domain.instrument.InstrumentType;
@@ -53,6 +55,8 @@ class BrokerReconciliationServiceTest {
     @Mock private HoldingsSnapshotParser holdingsSnapshotParser;
     @Mock private TradeSettlementClassificationRepository classificationRepository;
     @Mock private ApplicationEventPublisher eventPublisher;
+    @Mock private FnoTradeRepository fnoTradeRepository;
+    @Mock private FnoTradeService fnoTradeService;
 
     private BrokerReconciliationService reconciliationService;
     private final UUID brokerAccountId = UUID.randomUUID();
@@ -80,7 +84,9 @@ class BrokerReconciliationServiceTest {
                 instrumentSearchService,
                 holdingsSnapshotParser,
                 classificationRepository,
-                eventPublisher
+                eventPublisher,
+                fnoTradeRepository,
+                fnoTradeService
         );
 
         Account account = new Account();
@@ -241,7 +247,8 @@ class BrokerReconciliationServiceTest {
                 null,
                 ImportAssetScope.all
         );
-        assertEquals(3, previewAll.executions().size()); // 1 equity buy + 2 F&O legs (buy & sell)
+        assertEquals(1, previewAll.executions().size()); // 1 equity buy
+        assertEquals(1, previewAll.fnoTrades().size()); // 1 standalone F&O trade
         assertEquals(1, previewAll.derivedHoldings().size());
         assertNotNull(previewAll.realizedSummary());
 
@@ -256,7 +263,6 @@ class BrokerReconciliationServiceTest {
                 ImportAssetScope.equity
         );
         assertEquals(1, previewEquity.executions().size()); // Only 1 equity buy
-        assertNull(previewEquity.executions().get(0).suggestedType());
         assertEquals(1, previewEquity.derivedHoldings().size());
         assertNotNull(previewEquity.realizedSummary());
 
@@ -270,8 +276,8 @@ class BrokerReconciliationServiceTest {
                 null,
                 ImportAssetScope.fno
         );
-        assertEquals(2, previewFno.executions().size()); // 2 F&O legs
-        assertTrue(previewFno.executions().stream().allMatch(e -> e.suggestedType() != null));
+        assertEquals(0, previewFno.executions().size());
+        assertEquals(1, previewFno.fnoTrades().size());
         assertTrue(previewFno.derivedHoldings().isEmpty());
         assertNull(previewFno.realizedSummary());
     }

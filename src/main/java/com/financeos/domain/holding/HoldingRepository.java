@@ -17,6 +17,9 @@ public interface HoldingRepository extends JpaRepository<Holding, UUID> {
 
     List<Holding> findByInstrumentId(UUID instrumentId);
 
+    @Query("SELECT DISTINCT h FROM Holding h LEFT JOIN FETCH h.brokerAccount b LEFT JOIN FETCH b.brokerDetails LEFT JOIN FETCH h.instrument")
+    List<Holding> findAllWithDetails();
+
     /**
      * Instrument ids that are still actively held, i.e. net open quantity (buys - sells) &gt; 0.
      * Aggregates over investment transactions so fully sold-out positions are excluded.

@@ -94,14 +94,7 @@ public record HoldingPosition(
                 inst.getIsin(),
                 inst.getAmfiCode(),
                 inst.getYahooSymbol(),
-                priceSource,
-                inst.getUnderlyingSymbol(),
-                inst.getUnderlyingInstrumentId(),
-                inst.getExpiryDate(),
-                inst.getOptionType(),
-                inst.getStrikePrice(),
-                inst.getLotSize(),
-                inst.getTradingSymbol()
+                priceSource
         );
 
         return new PositionDto(
