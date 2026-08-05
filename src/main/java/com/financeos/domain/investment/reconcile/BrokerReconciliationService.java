@@ -121,7 +121,7 @@ public class BrokerReconciliationService {
             List<InputStream> tradebookStreams,
             List<InputStream> taxpnlStreams
     ) {
-        return preview(broker, brokerAccountId, tradebookStreams, taxpnlStreams, null, null);
+        return preview(broker, brokerAccountId, tradebookStreams, taxpnlStreams, null, null, ImportAssetScope.all);
     }
 
     public ReconcilePreviewResponse preview(
@@ -132,6 +132,18 @@ public class BrokerReconciliationService {
             InputStream holdingsSnapshotStream,
             String holdingsFilename
     ) {
+        return preview(broker, brokerAccountId, tradebookStreams, taxpnlStreams, holdingsSnapshotStream, holdingsFilename, ImportAssetScope.all);
+    }
+
+    public ReconcilePreviewResponse preview(
+            Broker broker,
+            UUID brokerAccountId,
+            List<InputStream> tradebookStreams,
+            List<InputStream> taxpnlStreams,
+            InputStream holdingsSnapshotStream,
+            String holdingsFilename,
+            ImportAssetScope assetScope
+    ) {
         Account brokerAccount = accountRepository.findById(brokerAccountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", brokerAccountId));
 
@@ -139,49 +151,57 @@ public class BrokerReconciliationService {
             throw new ValidationException("Account must be a broker account");
         }
 
+        if (assetScope == null) {
+            assetScope = ImportAssetScope.all;
+        }
+        boolean includeEquity = assetScope != ImportAssetScope.fno;
+        boolean includeFno    = assetScope != ImportAssetScope.equity;
+
         // 1. Parse raw executions
         List<InternalExecution> rawExecs = new ArrayList<>();
-        if (broker == Broker.zerodha) {
-            for (InputStream is : tradebookStreams) {
-                List<ParsedRow> rows = zerodhaTradebookParser.parse(is, new ParseContext(brokerAccountId, null));
-                for (ParsedRow r : rows) {
-                    if (r.error() == null && r.type() != null && r.quantity() != null && r.price() != null && r.tradeDate() != null) {
+        if (includeEquity && tradebookStreams != null) {
+            if (broker == Broker.zerodha) {
+                for (InputStream is : tradebookStreams) {
+                    List<ParsedRow> rows = zerodhaTradebookParser.parse(is, new ParseContext(brokerAccountId, null));
+                    for (ParsedRow r : rows) {
+                        if (r.error() == null && r.type() != null && r.quantity() != null && r.price() != null && r.tradeDate() != null) {
+                            rawExecs.add(new InternalExecution(
+                                    r.parsedIsin(),
+                                    r.parsedSymbol(),
+                                    r.tradeDate(),
+                                    r.type(),
+                                    r.quantity(),
+                                    r.price(),
+                                    r.quantity().multiply(r.price()),
+                                    r.exchange() != null ? r.exchange() : "NSE",
+                                    r.rawData() != null ? r.rawData().get("order_id") : null,
+                                    r.rawData() != null ? r.rawData().get("trade_id") : null,
+                                    r.rawData() != null ? r.rawData().get("order_execution_time") : null
+                            ));
+                        }
+                    }
+                }
+            } else if (broker == Broker.groww) {
+                for (InputStream is : tradebookStreams) {
+                    List<GrowwOrderHistoryParser.GrowwExecution> rows = growwOrderHistoryParser.parse(is);
+                    for (GrowwOrderHistoryParser.GrowwExecution r : rows) {
+                        if (r.tradeDate() == null || r.quantity() == null || r.price() == null) {
+                            continue; // skip unparseable rows (e.g. bad date) instead of crashing downstream
+                        }
                         rawExecs.add(new InternalExecution(
-                                r.parsedIsin(),
-                                r.parsedSymbol(),
+                                r.isin(),
+                                r.symbol(),
                                 r.tradeDate(),
                                 r.type(),
                                 r.quantity(),
                                 r.price(),
-                                r.quantity().multiply(r.price()),
-                                r.exchange() != null ? r.exchange() : "NSE",
-                                r.rawData() != null ? r.rawData().get("order_id") : null,
-                                r.rawData() != null ? r.rawData().get("trade_id") : null,
-                                r.rawData() != null ? r.rawData().get("order_execution_time") : null
+                                r.value(),
+                                r.exchange(),
+                                r.orderId(),
+                                "",
+                                r.execTime()
                         ));
                     }
-                }
-            }
-        } else if (broker == Broker.groww) {
-            for (InputStream is : tradebookStreams) {
-                List<GrowwOrderHistoryParser.GrowwExecution> rows = growwOrderHistoryParser.parse(is);
-                for (GrowwOrderHistoryParser.GrowwExecution r : rows) {
-                    if (r.tradeDate() == null || r.quantity() == null || r.price() == null) {
-                        continue; // skip unparseable rows (e.g. bad date) instead of crashing downstream
-                    }
-                    rawExecs.add(new InternalExecution(
-                            r.isin(),
-                            r.symbol(),
-                            r.tradeDate(),
-                            r.type(),
-                            r.quantity(),
-                            r.price(),
-                            r.value(),
-                            r.exchange(),
-                            r.orderId(),
-                            "",
-                            r.execTime()
-                    ));
                 }
             }
         }
@@ -204,6 +224,7 @@ public class BrokerReconciliationService {
         Map<String, BigDecimal> classifierDelivSoldQty = new HashMap<>();
         Map<String, BigDecimal> classifierDelivSoldValue = new HashMap<>();
         Map<String, LocalDate> classifierLatestExitDate = new HashMap<>();
+        List<ZerodhaTaxPnlParser.TaxPnlExit> fnoExits = new ArrayList<>();
 
         if (broker == Broker.zerodha) {
             for (InputStream is : taxpnlStreams) {
@@ -245,6 +266,10 @@ public class BrokerReconciliationService {
                                 String.format("Buyback exit: %s shares of %s on %s — treated as an off-market delivery removal.",
                                         x.quantity().toPlainString(), x.symbol(), x.exitDate())
                         ));
+                    } else if ("FNO".equalsIgnoreCase(x.bucket())) {
+                        if (includeFno) {
+                            fnoExits.add(x);
+                        }
                     }
                 }
             }
@@ -540,6 +565,95 @@ public class BrokerReconciliationService {
             }
         }
 
+        if (includeFno) {
+            for (ZerodhaTaxPnlParser.TaxPnlExit x : fnoExits) {
+                String tradingSymbol = x.symbol();
+                FnoSymbolParser.FnoParsedContract parsed = FnoSymbolParser.parse(tradingSymbol);
+                ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentLocally(null, tradingSymbol, "NSE");
+
+                BigDecimal buyPrice = x.quantity().compareTo(BigDecimal.ZERO) > 0
+                        ? x.buyValue().divide(x.quantity(), 8, RoundingMode.HALF_UP)
+                        : BigDecimal.ZERO;
+                BigDecimal sellPrice = x.quantity().compareTo(BigDecimal.ZERO) > 0
+                        ? x.sellValue().divide(x.quantity(), 8, RoundingMode.HALF_UP)
+                        : BigDecimal.ZERO;
+
+                ItemizedChargesDto zeroCharges = new ItemizedChargesDto(
+                        BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                        BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO
+                );
+
+                LocalDate buyDate = x.entryDate() != null ? x.entryDate() : x.exitDate();
+                LocalDate sellDate = x.exitDate() != null ? x.exitDate() : x.entryDate();
+
+                String buyRef = "FNO_BUY_" + tradingSymbol + "_" + buyDate + "_" + sellDate + "_" + x.quantity().toPlainString();
+                String sellRef = "FNO_SELL_" + tradingSymbol + "_" + buyDate + "_" + sellDate + "_" + x.quantity().toPlainString();
+
+                boolean buyDup = checkDuplicateInDb(brokerAccountId, matchedInst != null ? matchedInst.id() : null,
+                        buyDate, InvestmentTransactionType.buy, x.quantity(), buyPrice, buyRef);
+                boolean sellDup = checkDuplicateInDb(brokerAccountId, matchedInst != null ? matchedInst.id() : null,
+                        sellDate, InvestmentTransactionType.sell, x.quantity(), sellPrice, sellRef);
+
+                classifiedDtos.add(new ReconcilePreviewResponse.ReconciledExecutionDto(
+                        rowIndexCounter++,
+                        buyDate,
+                        InvestmentTransactionType.buy,
+                        SettlementType.delivery,
+                        tradingSymbol,
+                        null,
+                        "NSE",
+                        x.quantity(),
+                        buyPrice,
+                        x.buyValue(),
+                        zeroCharges,
+                        buyRef,
+                        matchedInst,
+                        buyDup,
+                        "F&O Buy Leg (" + parsed.instrumentType() + ")",
+                        parsed.instrumentType(),
+                        parsed.underlyingSymbol(),
+                        parsed.expiryDate(),
+                        parsed.optionType(),
+                        parsed.strikePrice(),
+                        null,
+                        tradingSymbol
+                ));
+
+                classifiedDtos.add(new ReconcilePreviewResponse.ReconciledExecutionDto(
+                        rowIndexCounter++,
+                        sellDate,
+                        InvestmentTransactionType.sell,
+                        SettlementType.delivery,
+                        tradingSymbol,
+                        null,
+                        "NSE",
+                        x.quantity(),
+                        sellPrice,
+                        x.sellValue(),
+                        x.charges(),
+                        sellRef,
+                        matchedInst,
+                        sellDup,
+                        "F&O Sell Leg (" + parsed.instrumentType() + ")",
+                        parsed.instrumentType(),
+                        parsed.underlyingSymbol(),
+                        parsed.expiryDate(),
+                        parsed.optionType(),
+                        parsed.strikePrice(),
+                        null,
+                        tradingSymbol
+                ));
+            }
+        }
+
+        // Post-filtering based on scope
+        if (!includeFno)    classifiedDtos.removeIf(e -> e.suggestedType() != null);
+        if (!includeEquity) classifiedDtos.removeIf(e -> e.suggestedType() == null);
+
+        if (!includeEquity) {
+            derivedHoldings.clear();
+        }
+
         // Sort holdings by cost value descending
         derivedHoldings.sort(Comparator.comparing(ReconcilePreviewResponse.DerivedHoldingDto::costValue).reversed());
 
@@ -609,7 +723,7 @@ public class BrokerReconciliationService {
         BigDecimal delivDiff = computedDeliveryRealized.subtract(classifierDeliveryRealized);
         BigDecimal intraDiff = computedIntradayRealized.subtract(classifierIntradayRealized);
 
-        ReconcilePreviewResponse.RealizedSummaryDto realizedSummary = new ReconcilePreviewResponse.RealizedSummaryDto(
+        ReconcilePreviewResponse.RealizedSummaryDto realizedSummary = includeEquity ? new ReconcilePreviewResponse.RealizedSummaryDto(
                 computedDeliveryRealized.setScale(2, RoundingMode.HALF_UP),
                 computedIntradayRealized.setScale(2, RoundingMode.HALF_UP),
                 totalChargesAcc.setScale(2, RoundingMode.HALF_UP),
@@ -617,15 +731,19 @@ public class BrokerReconciliationService {
                 classifierIntradayRealized.setScale(2, RoundingMode.HALF_UP),
                 delivDiff.setScale(2, RoundingMode.HALF_UP),
                 intraDiff.setScale(2, RoundingMode.HALF_UP)
-        );
+        ) : null;
+
+        int deliveryCountFiltered = (int) classifiedDtos.stream().filter(e -> e.settlementType() == SettlementType.delivery).count();
+        int intradayCountFiltered = (int) classifiedDtos.stream().filter(e -> e.settlementType() == SettlementType.intraday).count();
+        int duplicateCountFiltered = (int) classifiedDtos.stream().filter(ReconcilePreviewResponse.ReconciledExecutionDto::isDuplicate).count();
 
         ReconcilePreviewResponse.SummaryStatsDto stats = new ReconcilePreviewResponse.SummaryStatsDto(
                 classifiedDtos.size(),
-                deliveryCount,
-                intradayCount,
+                deliveryCountFiltered,
+                intradayCountFiltered,
                 classifiedDtos.size() - unresolvedScrips.size(),
                 unresolvedScrips.size(),
-                duplicateCount,
+                duplicateCountFiltered,
                 warnings.size()
         );
 
@@ -678,6 +796,9 @@ public class BrokerReconciliationService {
                     if (newInstDto.isin() != null && !newInstDto.isin().isBlank()) {
                         instrument = instrumentRepository.findByIsin(newInstDto.isin().trim()).orElse(null);
                     }
+                    if (instrument == null && newInstDto.tradingSymbol() != null && !newInstDto.tradingSymbol().isBlank()) {
+                        instrument = instrumentRepository.findByTradingSymbolIgnoreCase(newInstDto.tradingSymbol().trim()).orElse(null);
+                    }
                     if (instrument == null && newInstDto.symbol() != null && !newInstDto.symbol().isBlank()) {
                         List<Instrument> searchResults = instrumentRepository.searchInstruments(newInstDto.symbol().trim(), null);
                         for (Instrument inst : searchResults) {
@@ -702,6 +823,13 @@ public class BrokerReconciliationService {
                         // delisted/merged — so a null yahooSymbol makes the instrument
                         // manual-price-only rather than chasing a dead or reused ticker.
                         newInst.setYahooSymbol(newInstDto.yahooSymbol());
+                        newInst.setUnderlyingSymbol(newInstDto.underlyingSymbol());
+                        newInst.setUnderlyingInstrumentId(newInstDto.underlyingInstrumentId());
+                        newInst.setExpiryDate(newInstDto.expiryDate());
+                        newInst.setOptionType(newInstDto.optionType());
+                        newInst.setStrikePrice(newInstDto.strikePrice());
+                        newInst.setLotSize(newInstDto.lotSize());
+                        newInst.setTradingSymbol(newInstDto.tradingSymbol() != null ? newInstDto.tradingSymbol() : newInstDto.symbol());
                         instrument = instrumentRepository.save(newInst);
                     }
                 } else {
@@ -892,6 +1020,9 @@ public class BrokerReconciliationService {
             matched = instrumentRepository.findByIsin(isin.trim()).orElse(null);
         }
         if (matched == null && symbol != null && !symbol.isBlank()) {
+            matched = instrumentRepository.findByTradingSymbolIgnoreCase(symbol.trim()).orElse(null);
+        }
+        if (matched == null && symbol != null && !symbol.isBlank()) {
             List<Instrument> list = instrumentRepository.searchInstruments(symbol.trim(), null);
             for (Instrument inst : list) {
                 if (inst.getSymbol() != null && inst.getSymbol().equalsIgnoreCase(symbol.trim())) {
@@ -947,6 +1078,19 @@ public class BrokerReconciliationService {
 
         for (InvestmentTransaction t : existing.getContent()) {
             if (isSameTrade(incomingRef, e.date, e.type, e.qty, e.price, t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkDuplicateInDb(UUID brokerAccountId, UUID instrumentId, LocalDate date, InvestmentTransactionType type, BigDecimal qty, BigDecimal price, String externalRef) {
+        if (instrumentId == null) return false;
+        Page<InvestmentTransaction> existing = transactionRepository.findFilteredTransactions(
+                brokerAccountId, instrumentId, null, null, Pageable.unpaged());
+
+        for (InvestmentTransaction t : existing.getContent()) {
+            if (isSameTrade(externalRef, date, type, qty, price, t)) {
                 return true;
             }
         }

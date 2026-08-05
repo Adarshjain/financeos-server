@@ -1,6 +1,7 @@
 package com.financeos.api.investment.dto;
 
 import com.financeos.domain.instrument.InstrumentType;
+import com.financeos.domain.instrument.OptionType;
 import com.financeos.domain.investment.InvestmentTransactionType;
 import com.financeos.domain.investment.imports.ImportSource;
 import jakarta.validation.constraints.NotNull;
@@ -30,8 +31,27 @@ public record ImportCommitRequest(
             String exchange,
             String isin,
             String amfiCode,
-            String yahooSymbol
-    ) {}
+            String yahooSymbol,
+            String underlyingSymbol,
+            UUID underlyingInstrumentId,
+            LocalDate expiryDate,
+            OptionType optionType,
+            BigDecimal strikePrice,
+            Integer lotSize,
+            String tradingSymbol
+    ) {
+        public CreateInstrumentDto(
+                InstrumentType type,
+                String name,
+                String symbol,
+                String exchange,
+                String isin,
+                String amfiCode,
+                String yahooSymbol
+        ) {
+            this(type, name, symbol, exchange, isin, amfiCode, yahooSymbol, null, null, null, null, null, null, null);
+        }
+    }
 
     public record ParsedRowData(
             String kind,

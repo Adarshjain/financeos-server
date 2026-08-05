@@ -1,6 +1,7 @@
 package com.financeos.api.investment.dto;
 
 import com.financeos.domain.instrument.InstrumentType;
+import com.financeos.domain.instrument.OptionType;
 import com.financeos.domain.investment.InvestmentTransactionType;
 import com.financeos.domain.investment.SettlementType;
 
@@ -40,8 +41,25 @@ public record ReconcilePreviewResponse(
             String externalRef,
             MatchedInstrumentDto matchedInstrument,
             boolean isDuplicate,
-            String note
-    ) {}
+            String note,
+            InstrumentType suggestedType,
+            String underlyingSymbol,
+            LocalDate expiryDate,
+            OptionType optionType,
+            BigDecimal strikePrice,
+            Integer lotSize,
+            String tradingSymbol
+    ) {
+        public ReconciledExecutionDto(
+                int rowIndex, LocalDate tradeDate, InvestmentTransactionType type, SettlementType settlementType,
+                String symbol, String isin, String exchange, BigDecimal quantity, BigDecimal price,
+                BigDecimal totalValue, ItemizedChargesDto charges, String externalRef,
+                MatchedInstrumentDto matchedInstrument, boolean isDuplicate, String note) {
+            this(rowIndex, tradeDate, type, settlementType, symbol, isin, exchange, quantity, price, totalValue,
+                 charges, externalRef, matchedInstrument, isDuplicate, note,
+                 null, null, null, null, null, null, null);
+        }
+    }
 
     public record MatchedInstrumentDto(
             UUID id,

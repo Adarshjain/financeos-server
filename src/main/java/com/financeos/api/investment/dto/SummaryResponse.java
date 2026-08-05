@@ -19,8 +19,27 @@ public record SummaryResponse(
         Double xirr,
         BigDecimal absoluteReturnPercent,
         List<BrokerSummaryDto> byBroker,
-        List<InstrumentTypeSummaryDto> byInstrumentType
+        List<InstrumentTypeSummaryDto> byInstrumentType,
+        BigDecimal totalFnoRealized
 ) {
+    public SummaryResponse(
+            BigDecimal totalInvested,
+            BigDecimal totalCurrentValue,
+            BigDecimal totalUnrealized,
+            BigDecimal totalUnrealizedPercent,
+            BigDecimal totalRealized,
+            BigDecimal totalIntradayRealized,
+            BigDecimal totalCharges,
+            BigDecimal totalDividends,
+            BigDecimal totalPnl,
+            Double xirr,
+            BigDecimal absoluteReturnPercent,
+            List<BrokerSummaryDto> byBroker,
+            List<InstrumentTypeSummaryDto> byInstrumentType
+    ) {
+        this(totalInvested, totalCurrentValue, totalUnrealized, totalUnrealizedPercent, totalRealized, totalIntradayRealized, totalCharges, totalDividends, totalPnl, xirr, absoluteReturnPercent, byBroker, byInstrumentType, BigDecimal.ZERO);
+    }
+
     public record BrokerSummaryDto(
             UUID brokerAccountId,
             String brokerName,

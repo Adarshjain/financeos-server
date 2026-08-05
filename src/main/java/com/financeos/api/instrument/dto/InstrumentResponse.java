@@ -3,6 +3,7 @@ package com.financeos.api.instrument.dto;
 import com.financeos.domain.instrument.Instrument;
 import com.financeos.domain.instrument.InstrumentPrice;
 import com.financeos.domain.instrument.InstrumentType;
+import com.financeos.domain.instrument.OptionType;
 import com.financeos.domain.instrument.PriceSource;
 
 import java.math.BigDecimal;
@@ -25,7 +26,14 @@ public record InstrumentResponse(
         LocalDate lastPriceAsOf,
         PriceSource lastPriceSource,
         Instant createdAt,
-        Instant updatedAt
+        Instant updatedAt,
+        String underlyingSymbol,
+        UUID underlyingInstrumentId,
+        LocalDate expiryDate,
+        OptionType optionType,
+        BigDecimal strikePrice,
+        Integer lotSize,
+        String tradingSymbol
 ) {
     public static InstrumentResponse from(Instrument instrument, Optional<InstrumentPrice> latestPrice) {
         return new InstrumentResponse(
@@ -42,7 +50,14 @@ public record InstrumentResponse(
                 latestPrice.map(InstrumentPrice::getAsOf).orElse(null),
                 latestPrice.map(InstrumentPrice::getSource).orElse(null),
                 instrument.getCreatedAt(),
-                instrument.getUpdatedAt()
+                instrument.getUpdatedAt(),
+                instrument.getUnderlyingSymbol(),
+                instrument.getUnderlyingInstrumentId(),
+                instrument.getExpiryDate(),
+                instrument.getOptionType(),
+                instrument.getStrikePrice(),
+                instrument.getLotSize(),
+                instrument.getTradingSymbol()
         );
     }
 }
