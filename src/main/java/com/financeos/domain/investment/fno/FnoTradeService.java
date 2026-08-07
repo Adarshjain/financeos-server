@@ -93,6 +93,43 @@ public class FnoTradeService {
         fnoTradeRepository.delete(trade);
     }
 
+    public FnoTradeResponse updateTrade(UUID id, CreateFnoTradeRequest request) {
+        FnoTrade trade = fnoTradeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("FnoTrade", id));
+
+        Account account = accountRepository.findById(request.brokerAccountId())
+                .orElseThrow(() -> new ResourceNotFoundException("Account", request.brokerAccountId()));
+
+        if (account.getType() != AccountType.broker) {
+            throw new ValidationException("Account must be a broker account");
+        }
+
+        trade.setBrokerAccount(account);
+        trade.setTradingSymbol(request.tradingSymbol());
+
+        FnoSymbolParser.FnoParsedContract parsed = FnoSymbolParser.parse(request.tradingSymbol());
+        trade.setUnderlyingSymbol(request.underlyingSymbol() != null ? request.underlyingSymbol() : parsed.underlyingSymbol());
+        trade.setContractType(request.contractType() != null ? request.contractType() : parsed.contractType());
+        trade.setOptionType(request.optionType() != null ? request.optionType() : parsed.optionType());
+        trade.setStrikePrice(request.strikePrice() != null ? request.strikePrice() : parsed.strikePrice());
+        trade.setExpiryDate(request.expiryDate() != null ? request.expiryDate() : parsed.expiryDate());
+
+        trade.setQuantity(request.quantity());
+        trade.setBuyValue(request.buyValue());
+        trade.setSellValue(request.sellValue());
+
+        BigDecimal charges = request.totalCharges() != null ? request.totalCharges() : BigDecimal.ZERO;
+        trade.setTotalCharges(charges);
+        trade.setRealizedPnl(request.sellValue().subtract(request.buyValue()).subtract(charges));
+
+        trade.setEntryDate(request.entryDate());
+        trade.setExitDate(request.exitDate());
+        trade.setNotes(request.notes());
+
+        FnoTrade saved = fnoTradeRepository.save(trade);
+        return FnoTradeResponse.from(saved);
+    }
+
     public List<FnoTrade> importTrades(UUID brokerAccountId, List<CommitFnoTradeDto> commitTrades) {
         if (commitTrades == null || commitTrades.isEmpty()) {
             return List.of();
