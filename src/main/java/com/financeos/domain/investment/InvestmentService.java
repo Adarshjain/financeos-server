@@ -882,14 +882,28 @@ public class InvestmentService {
         return total;
     }
 
+    public BigDecimal openQtyAsOf(Holding holding, LocalDate date) {
+        List<Lot> lots = buildOpenLotsBeforeDate(holding, date, true, null);
+        BigDecimal total = BigDecimal.ZERO;
+        for (Lot lot : lots) {
+            total = total.add(lot.remainingQty);
+        }
+        return total.compareTo(BigDecimal.ZERO) > 0 ? total : BigDecimal.ZERO;
+    }
+
     private List<Lot> buildParentOpenLotsBeforeCa(Holding parentHolding, CorporateAction demergerCa) {
+        return buildOpenLotsBeforeDate(parentHolding, demergerCa.getExDate(), false, demergerCa.getId());
+    }
+
+    private List<Lot> buildOpenLotsBeforeDate(Holding parentHolding, LocalDate cutoffDate, boolean strictBefore, UUID caToIgnore) {
         List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(parentHolding.getId());
         List<CorporateAction> corpActions = corporateActionRepository.findByInstrumentIdOrderByExDateAsc(parentHolding.getInstrument().getId());
 
         List<TradeSettlementClassification> classifications = classificationRepository.findByHoldingId(parentHolding.getId());
         Map<LocalDate, TradeSettlementClassification> classMap = new HashMap<>();
         for (TradeSettlementClassification c : classifications) {
-            if (c.getTradeDate().compareTo(demergerCa.getExDate()) <= 0) {
+            boolean include = strictBefore ? c.getTradeDate().compareTo(cutoffDate) < 0 : c.getTradeDate().compareTo(cutoffDate) <= 0;
+            if (include) {
                 classMap.put(c.getTradeDate(), c);
             }
         }
@@ -897,7 +911,8 @@ public class InvestmentService {
         List<TimelineEvent> timeline = new ArrayList<>();
         Map<LocalDate, List<InvestmentTransaction>> txnsByDate = new LinkedHashMap<>();
         for (InvestmentTransaction txn : txns) {
-            if (txn.getTradeDate().compareTo(demergerCa.getExDate()) <= 0) {
+            boolean include = strictBefore ? txn.getTradeDate().compareTo(cutoffDate) < 0 : txn.getTradeDate().compareTo(cutoffDate) <= 0;
+            if (include) {
                 txnsByDate.computeIfAbsent(txn.getTradeDate(), k -> new ArrayList<>()).add(txn);
             }
         }
@@ -961,7 +976,9 @@ public class InvestmentService {
             }
         }
         for (CorporateAction ca : corpActions) {
-            if (!ca.getId().equals(demergerCa.getId()) && ca.getExDate().compareTo(demergerCa.getExDate()) <= 0) {
+            boolean notIgnored = (caToIgnore == null) || !ca.getId().equals(caToIgnore);
+            boolean include = strictBefore ? ca.getExDate().compareTo(cutoffDate) < 0 : ca.getExDate().compareTo(cutoffDate) <= 0;
+            if (notIgnored && include) {
                 timeline.add(new CorpActionEvent(ca));
             }
         }
