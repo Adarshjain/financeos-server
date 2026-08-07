@@ -31,6 +31,11 @@ public class FnoTradeController {
         return fnoTradeService.createTrade(request);
     }
 
+    @PutMapping("/{id}")
+    public FnoTradeResponse updateFnoTrade(@PathVariable UUID id, @Valid @RequestBody CreateFnoTradeRequest request) {
+        return fnoTradeService.updateTrade(id, request);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFnoTrade(@PathVariable UUID id) {
