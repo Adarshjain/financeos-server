@@ -73,4 +73,19 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
            "COALESCE(SUM(CASE WHEN t.date > :afterDate THEN (CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END) ELSE 0 END), 0) AS postAnchorSum " +
            "FROM Transaction t WHERE t.account.id = :accountId")
     BalanceAggregatesProjection findBalanceAggregatesByAccountId(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
+
+    @Query("SELECT t FROM Transaction t WHERE t.type = :type AND t.amount = :amount AND t.date BETWEEN :minDate AND :maxDate AND t.account.id = :accountId")
+    List<Transaction> findMatchCandidatesByAccount(
+            @Param("type") TransactionType type,
+            @Param("amount") java.math.BigDecimal amount,
+            @Param("minDate") LocalDate minDate,
+            @Param("maxDate") LocalDate maxDate,
+            @Param("accountId") UUID accountId);
+
+    @Query("SELECT t FROM Transaction t WHERE t.type = :type AND t.amount = :amount AND t.date BETWEEN :minDate AND :maxDate")
+    List<Transaction> findMatchCandidates(
+            @Param("type") TransactionType type,
+            @Param("amount") java.math.BigDecimal amount,
+            @Param("minDate") LocalDate minDate,
+            @Param("maxDate") LocalDate maxDate);
 }

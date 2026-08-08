@@ -30,6 +30,14 @@ tags:
     description: Dynamic user-defined reports over the transactions data source
   - name: Ingestion
     description: File upload ingestion for bulk transaction import
+  - name: Loans
+    description: Formal loan tracking, schedule engine, prepayments, and charges
+  - name: Lendings
+    description: Informal person-to-person money lent and borrowed
+  - name: Counterparties
+    description: Persons and organizations for P2P lendings
+  - name: Obligations
+    description: Upcoming loan EMIs and lending expected return calendar
 
 paths:
   /api/v1/auth/signup:
@@ -1659,16 +1667,716 @@ paths:
             type: string
             format: uuid
       responses:
-        '204':
-          description: Dashboard deleted
-        '401':
-          description: Not authenticated
-        '404':
-          description: Dashboard not found
+  /api/v1/loans:
+    get:
+      tags: [Loans]
+      summary: List loans
+      operationId: listLoans
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            $ref: '#/components/schemas/LoanStatus'
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: Paged list of loans
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/PageLoanResponse'
+    post:
+      tags: [Loans]
+      summary: Create loan
+      operationId: createLoan
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLoanRequest'
+      responses:
+        '201':
+          description: Loan created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoanResponse'
+
+  /api/v1/loans/summary:
+    get:
+      tags: [Loans]
+      summary: Get loans summary
+      operationId: getLoansSummary
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Loans summary statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoansSummaryResponse'
+
+  /api/v1/loans/{id}:
+    get:
+      tags: [Loans]
+      summary: Get loan detail
+      operationId: getLoanDetail
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Loan detail with events and charges
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoanDetailResponse'
+    put:
+      tags: [Loans]
+      summary: Update loan
+      operationId: updateLoan
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLoanRequest'
+      responses:
+        '200':
+          description: Loan updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoanResponse'
+    delete:
+      tags: [Loans]
+      summary: Delete loan
+      operationId: deleteLoan
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Loan deleted
+
+  /api/v1/loans/{id}/close:
+    post:
+      tags: [Loans]
+      summary: Close loan
+      operationId: closeLoan
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Loan closed
+
+  /api/v1/loans/{id}/reopen:
+    post:
+      tags: [Loans]
+      summary: Reopen loan
+      operationId: reopenLoan
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Loan reopened
+
+  /api/v1/loans/{id}/schedule:
+    get:
+      tags: [Loans]
+      summary: Get loan schedule
+      operationId: getLoanSchedule
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Computed loan schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleResultResponse'
+
+  /api/v1/loans/{id}/events:
+    post:
+      tags: [Loans]
+      summary: Add loan event
+      operationId: addLoanEvent
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLoanEventRequest'
+      responses:
+        '201':
+          description: Event added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoanEventResponse'
+
+  /api/v1/loans/{id}/events/{eventId}:
+    delete:
+      tags: [Loans]
+      summary: Delete loan event
+      operationId: deleteLoanEvent
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Event deleted
+
+  /api/v1/loans/{id}/payments:
+    post:
+      tags: [Loans]
+      summary: Add loan payment
+      operationId: addLoanPayment
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLoanPaymentRequest'
+      responses:
+        '201':
+          description: Payment added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoanPaymentResponse'
+
+  /api/v1/loans/{id}/payments/batch:
+    post:
+      tags: [Loans]
+      summary: Add loan payments batch
+      operationId: addLoanPaymentsBatch
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchLoanPaymentRequest'
+      responses:
+        '200':
+          description: Batch payments added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    type: integer
+
+  /api/v1/loans/{id}/payments/{paymentId}:
+    delete:
+      tags: [Loans]
+      summary: Delete loan payment
+      operationId: deleteLoanPayment
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: paymentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Payment deleted
+
+  /api/v1/loans/{id}/charges:
+    post:
+      tags: [Loans]
+      summary: Add loan charge
+      operationId: addLoanCharge
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLoanChargeRequest'
+      responses:
+        '201':
+          description: Charge added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoanChargeResponse'
+
+  /api/v1/loans/{id}/charges/{chargeId}:
+    delete:
+      tags: [Loans]
+      summary: Delete loan charge
+      operationId: deleteLoanCharge
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: chargeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Charge deleted
+
+  /api/v1/loans/{id}/match-suggestions:
+    get:
+      tags: [Loans]
+      summary: Get loan match suggestions
+      operationId: getLoanMatchSuggestions
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: EMI transaction match suggestions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchSuggestionsResponse'
+
+  /api/v1/counterparties:
+    get:
+      tags: [Counterparties]
+      summary: List counterparties
+      operationId: listCounterparties
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: Paged list of counterparties
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageCounterpartyResponse'
+    post:
+      tags: [Counterparties]
+      summary: Create counterparty
+      operationId: createCounterparty
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCounterpartyRequest'
+      responses:
+        '201':
+          description: Counterparty created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CounterpartyResponse'
+
+  /api/v1/counterparties/{id}:
+    put:
+      tags: [Counterparties]
+      summary: Update counterparty
+      operationId: updateCounterparty
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCounterpartyRequest'
+      responses:
+        '200':
+          description: Counterparty updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CounterpartyResponse'
+    delete:
+      tags: [Counterparties]
+      summary: Delete counterparty
+      operationId: deleteCounterparty
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Counterparty deleted
+
+  /api/v1/lendings:
+    get:
+      tags: [Lendings]
+      summary: List lendings
+      operationId: listLendings
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: counterpartyId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          schema:
+            $ref: '#/components/schemas/LendingStatus'
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: Paged list of lendings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageLendingResponse'
+    post:
+      tags: [Lendings]
+      summary: Create lending
+      operationId: createLending
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLendingRequest'
+      responses:
+        '201':
+          description: Lending created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LendingResponse'
+
+  /api/v1/lendings/{id}:
+    get:
+      tags: [Lendings]
+      summary: Get lending detail
+      operationId: getLendingDetail
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Lending detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LendingResponse'
+    put:
+      tags: [Lendings]
+      summary: Update lending
+      operationId: updateLending
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLendingRequest'
+      responses:
+        '200':
+          description: Lending updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LendingResponse'
+    delete:
+      tags: [Lendings]
+      summary: Delete lending
+      operationId: deleteLending
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Lending deleted
+
+  /api/v1/lendings/{id}/repayments:
+    post:
+      tags: [Lendings]
+      summary: Add lending repayment
+      operationId: addLendingRepayment
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLendingRepaymentRequest'
+      responses:
+        '201':
+          description: Repayment added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LendingRepaymentResponse'
+
+  /api/v1/lendings/{id}/repayments/{repaymentId}:
+    delete:
+      tags: [Lendings]
+      summary: Delete lending repayment
+      operationId: deleteLendingRepayment
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: repaymentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Repayment deleted
+
+  /api/v1/lendings/{id}/write-off:
+    post:
+      tags: [Lendings]
+      summary: Write off lending
+      operationId: writeOffLending
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Lending written off
+
+  /api/v1/lendings/{id}/reopen:
+    post:
+      tags: [Lendings]
+      summary: Reopen lending
+      operationId: reopenLending
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Lending reopened
+
+  /api/v1/obligations/upcoming:
+    get:
+      tags: [Obligations]
+      summary: Get upcoming obligations
+      operationId: getUpcomingObligations
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: months
+          in: query
+          schema:
+            type: integer
+            default: 3
+      responses:
+        '200':
+          description: Upcoming loan EMIs and lending returns
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObligationsResponse'
 
 components:
   securitySchemes:
@@ -3205,5 +3913,401 @@ components:
           type: integer
           description: Number of transactions deleted
           example: 5
+
+    LoanType:
+      type: string
+      enum: [home, car, personal, education, gold, two_wheeler, consumer_durable, other]
+
+    RateType:
+      type: string
+      enum: [fixed, floating]
+
+    LoanStatus:
+      type: string
+      enum: [active, closed, foreclosed]
+
+    LoanEventType:
+      type: string
+      enum: [rate_change, prepayment, foreclosure]
+
+    AdjustmentMode:
+      type: string
+      enum: [reduce_tenure, reduce_emi]
+
+    LoanChargeType:
+      type: string
+      enum: [processing_fee, insurance_premium, foreclosure_charge, bounce_charge, late_fee, legal_valuation, other]
+
+    LendingDirection:
+      type: string
+      enum: [lent, borrowed]
+
+    LendingStatus:
+      type: string
+      enum: [outstanding, partially_repaid, settled, written_off]
+
+    CreateLoanRequest:
+      type: object
+      required: [name, lender, loanType, rateType, principal, annualRatePct, tenureMonths, startDate, firstEmiDate]
+      properties:
+        name: { type: string }
+        lender: { type: string }
+        loanType: { $ref: '#/components/schemas/LoanType' }
+        rateType: { $ref: '#/components/schemas/RateType' }
+        loanAccountNumber: { type: string }
+        paymentAccountId: { type: string, format: uuid }
+        principal: { type: number }
+        annualRatePct: { type: number }
+        tenureMonths: { type: integer }
+        startDate: { type: string, format: date }
+        firstEmiDate: { type: string, format: date }
+        emiAmount: { type: number }
+        notes: { type: string }
+
+    UpdateLoanRequest:
+      type: object
+      properties:
+        name: { type: string }
+        lender: { type: string }
+        loanType: { $ref: '#/components/schemas/LoanType' }
+        rateType: { $ref: '#/components/schemas/RateType' }
+        loanAccountNumber: { type: string }
+        paymentAccountId: { type: string, format: uuid }
+        principal: { type: number }
+        annualRatePct: { type: number }
+        tenureMonths: { type: integer }
+        startDate: { type: string, format: date }
+        firstEmiDate: { type: string, format: date }
+        emiAmount: { type: number }
+        notes: { type: string }
+
+    LoanResponse:
+      type: object
+      required: [id, name, lender, loanType, rateType, principal, outstandingPrincipal, currentAnnualRatePct, currentEmi, totalInstallments, settledInstallments, startDate, firstEmiDate, status, createdAt, updatedAt]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        lender: { type: string }
+        loanType: { $ref: '#/components/schemas/LoanType' }
+        rateType: { $ref: '#/components/schemas/RateType' }
+        loanAccountNumber: { type: string }
+        paymentAccountId: { type: string, format: uuid }
+        principal: { type: number }
+        outstandingPrincipal: { type: number }
+        currentAnnualRatePct: { type: number }
+        currentEmi: { type: number }
+        totalInstallments: { type: integer }
+        settledInstallments: { type: integer }
+        startDate: { type: string, format: date }
+        firstEmiDate: { type: string, format: date }
+        nextDueDate: { type: string, format: date }
+        projectedEndDate: { type: string, format: date }
+        totalInterestPaid: { type: number }
+        totalInterestRemaining: { type: number }
+        effectiveAprPct: { type: number }
+        status: { $ref: '#/components/schemas/LoanStatus' }
+        notes: { type: string }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+
+    LoanDetailResponse:
+      type: object
+      required: [loan, events, charges]
+      properties:
+        loan: { $ref: '#/components/schemas/LoanResponse' }
+        events: { type: array, items: { $ref: '#/components/schemas/LoanEventResponse' } }
+        charges: { type: array, items: { $ref: '#/components/schemas/LoanChargeResponse' } }
+
+    CreateLoanEventRequest:
+      type: object
+      required: [eventType, effectiveDate]
+      properties:
+        eventType: { $ref: '#/components/schemas/LoanEventType' }
+        effectiveDate: { type: string, format: date }
+        newAnnualRatePct: { type: number }
+        amount: { type: number }
+        adjustmentMode: { $ref: '#/components/schemas/AdjustmentMode' }
+        newEmiOverride: { type: number }
+        transactionId: { type: string, format: uuid }
+
+    LoanEventResponse:
+      type: object
+      required: [id, loanId, eventType, effectiveDate, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        loanId: { type: string, format: uuid }
+        eventType: { $ref: '#/components/schemas/LoanEventType' }
+        effectiveDate: { type: string, format: date }
+        newAnnualRatePct: { type: number }
+        amount: { type: number }
+        adjustmentMode: { $ref: '#/components/schemas/AdjustmentMode' }
+        newEmiOverride: { type: number }
+        transactionId: { type: string, format: uuid }
+        createdAt: { type: string, format: date-time }
+
+    CreateLoanPaymentRequest:
+      type: object
+      required: [installmentSeq, paymentDate, amount]
+      properties:
+        installmentSeq: { type: integer }
+        paymentDate: { type: string, format: date }
+        amount: { type: number }
+        transactionId: { type: string, format: uuid }
+
+    BatchLoanPaymentItem:
+      type: object
+      required: [paymentDate, amount]
+      properties:
+        installmentSeq: { type: integer }
+        paymentDate: { type: string, format: date }
+        amount: { type: number }
+        transactionId: { type: string, format: uuid }
+
+    BatchLoanPaymentRequest:
+      type: object
+      required: [items]
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/BatchLoanPaymentItem' } }
+
+    LoanPaymentResponse:
+      type: object
+      required: [id, loanId, installmentSeq, paymentDate, amount, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        loanId: { type: string, format: uuid }
+        installmentSeq: { type: integer }
+        paymentDate: { type: string, format: date }
+        amount: { type: number }
+        transactionId: { type: string, format: uuid }
+        createdAt: { type: string, format: date-time }
+
+    CreateLoanChargeRequest:
+      type: object
+      required: [chargeType, amount, chargeDate]
+      properties:
+        chargeType: { $ref: '#/components/schemas/LoanChargeType' }
+        amount: { type: number }
+        chargeDate: { type: string, format: date }
+        notes: { type: string }
+        transactionId: { type: string, format: uuid }
+
+    LoanChargeResponse:
+      type: object
+      required: [id, loanId, chargeType, amount, chargeDate, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        loanId: { type: string, format: uuid }
+        chargeType: { $ref: '#/components/schemas/LoanChargeType' }
+        amount: { type: number }
+        chargeDate: { type: string, format: date }
+        notes: { type: string }
+        transactionId: { type: string, format: uuid }
+        createdAt: { type: string, format: date-time }
+
+    LoansSummaryResponse:
+      type: object
+      required: [totalOutstanding, activeLoanCount, lentOutstanding, borrowedOutstanding, netReceivable]
+      properties:
+        totalOutstanding: { type: number }
+        activeLoanCount: { type: integer }
+        lentOutstanding: { type: number }
+        borrowedOutstanding: { type: number }
+        netReceivable: { type: number }
+
+    MatchCandidateDto:
+      type: object
+      required: [id, date, amount]
+      properties:
+        id: { type: string, format: uuid }
+        date: { type: string, format: date }
+        amount: { type: number }
+        description: { type: string }
+        sourcedDescription: { type: string }
+
+    InstallmentMatchSuggestionDto:
+      type: object
+      required: [installmentSeq, dueDate, expectedAmount, candidates]
+      properties:
+        installmentSeq: { type: integer }
+        dueDate: { type: string, format: date }
+        expectedAmount: { type: number }
+        candidates: { type: array, items: { $ref: '#/components/schemas/MatchCandidateDto' } }
+
+    MatchSuggestionsResponse:
+      type: object
+      required: [suggestions]
+      properties:
+        suggestions: { type: array, items: { $ref: '#/components/schemas/InstallmentMatchSuggestionDto' } }
+
+    InstallmentDto:
+      type: object
+      required: [seq, dueDate, openingBalance, emi, interest, principal, closingBalance, status]
+      properties:
+        seq: { type: integer }
+        dueDate: { type: string, format: date }
+        openingBalance: { type: number }
+        emi: { type: number }
+        interest: { type: number }
+        principal: { type: number }
+        closingBalance: { type: number }
+        status: { type: string }
+        payment: { $ref: '#/components/schemas/LoanPaymentResponse' }
+
+    ScheduleResultResponse:
+      type: object
+      required: [installments, outstandingPrincipal, totalInterestPaid, totalInterestRemaining, effectiveAprPct]
+      properties:
+        installments: { type: array, items: { $ref: '#/components/schemas/InstallmentDto' } }
+        outstandingPrincipal: { type: number }
+        totalInterestPaid: { type: number }
+        totalInterestRemaining: { type: number }
+        effectiveAprPct: { type: number }
+
+    CreateCounterpartyRequest:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string }
+        notes: { type: string }
+
+    UpdateCounterpartyRequest:
+      type: object
+      properties:
+        name: { type: string }
+        notes: { type: string }
+
+    CounterpartyResponse:
+      type: object
+      required: [id, name, lentOutstanding, borrowedOutstanding, netPosition, openLendingCount, createdAt, updatedAt]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        notes: { type: string }
+        lentOutstanding: { type: number }
+        borrowedOutstanding: { type: number }
+        netPosition: { type: number }
+        openLendingCount: { type: integer }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+
+    CreateLendingRequest:
+      type: object
+      required: [direction, amount, lendDate]
+      properties:
+        counterpartyId: { type: string, format: uuid }
+        newCounterpartyName: { type: string }
+        direction: { $ref: '#/components/schemas/LendingDirection' }
+        amount: { type: number }
+        lendDate: { type: string, format: date }
+        expectedReturnDate: { type: string, format: date }
+        transactionId: { type: string, format: uuid }
+        notes: { type: string }
+
+    UpdateLendingRequest:
+      type: object
+      properties:
+        direction: { $ref: '#/components/schemas/LendingDirection' }
+        amount: { type: number }
+        lendDate: { type: string, format: date }
+        expectedReturnDate: { type: string, format: date }
+        notes: { type: string }
+
+    LendingResponse:
+      type: object
+      required: [id, counterparty, direction, amount, outstanding, lendDate, status, repayments, createdAt, updatedAt]
+      properties:
+        id: { type: string, format: uuid }
+        counterparty: { $ref: '#/components/schemas/CounterpartyResponse' }
+        direction: { $ref: '#/components/schemas/LendingDirection' }
+        amount: { type: number }
+        outstanding: { type: number }
+        lendDate: { type: string, format: date }
+        expectedReturnDate: { type: string, format: date }
+        status: { $ref: '#/components/schemas/LendingStatus' }
+        notes: { type: string }
+        transactionId: { type: string, format: uuid }
+        repayments: { type: array, items: { $ref: '#/components/schemas/LendingRepaymentResponse' } }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+
+    CreateLendingRepaymentRequest:
+      type: object
+      required: [amount, date]
+      properties:
+        amount: { type: number }
+        date: { type: string, format: date }
+        transactionId: { type: string, format: uuid }
+
+    LendingRepaymentResponse:
+      type: object
+      required: [id, lendingId, amount, date, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        lendingId: { type: string, format: uuid }
+        amount: { type: number }
+        date: { type: string, format: date }
+        transactionId: { type: string, format: uuid }
+        createdAt: { type: string, format: date-time }
+
+    ObligationItemDto:
+      type: object
+      required: [type, date, amount, status]
+      properties:
+        type: { type: string }
+        date: { type: string, format: date }
+        amount: { type: number }
+        status: { type: string }
+        loanId: { type: string, format: uuid }
+        loanName: { type: string }
+        installmentSeq: { type: integer }
+        lendingId: { type: string, format: uuid }
+        counterpartyId: { type: string, format: uuid }
+        counterpartyName: { type: string }
+        direction: { $ref: '#/components/schemas/LendingDirection' }
+
+    ObligationsResponse:
+      type: object
+      required: [items]
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/ObligationItemDto' } }
+
+    PageLoanResponse:
+      type: object
+      required: [content, number, size, totalElements, totalPages, first, last, empty]
+      properties:
+        content: { type: array, items: { $ref: '#/components/schemas/LoanResponse' } }
+        number: { type: integer }
+        size: { type: integer }
+        totalElements: { type: integer }
+        totalPages: { type: integer }
+        first: { type: boolean }
+        last: { type: boolean }
+        empty: { type: boolean }
+
+    PageCounterpartyResponse:
+      type: object
+      required: [content, number, size, totalElements, totalPages, first, last, empty]
+      properties:
+        content: { type: array, items: { $ref: '#/components/schemas/CounterpartyResponse' } }
+        number: { type: integer }
+        size: { type: integer }
+        totalElements: { type: integer }
+        totalPages: { type: integer }
+        first: { type: boolean }
+        last: { type: boolean }
+        empty: { type: boolean }
+
+    PageLendingResponse:
+      type: object
+      required: [content, number, size, totalElements, totalPages, first, last, empty]
+      properties:
+        content: { type: array, items: { $ref: '#/components/schemas/LendingResponse' } }
+        number: { type: integer }
+        size: { type: integer }
+        totalElements: { type: integer }
+        totalPages: { type: integer }
+        first: { type: boolean }
+        last: { type: boolean }
+        empty: { type: boolean }
 
 
