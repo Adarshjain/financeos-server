@@ -34,6 +34,8 @@ public class LoanService {
 
     private static final Logger log = LoggerFactory.getLogger(LoanService.class);
 
+    private static final BigDecimal MATCH_AMOUNT_TOLERANCE = new BigDecimal("20");
+
     private final LoanRepository loanRepository;
     private final LoanEventRepository loanEventRepository;
     private final LoanPaymentRepository loanPaymentRepository;
@@ -584,6 +586,8 @@ public class LoanService {
 
         for (InstallmentDto inst : targetInstallments) {
             BigDecimal expectedAmount = inst.emi().setScale(2, RoundingMode.HALF_UP);
+            BigDecimal minAmount = expectedAmount.subtract(MATCH_AMOUNT_TOLERANCE);
+            BigDecimal maxAmount = expectedAmount.add(MATCH_AMOUNT_TOLERANCE);
             LocalDate minDate = inst.dueDate().minusDays(7);
             LocalDate maxDate = inst.dueDate().plusDays(7);
 
@@ -591,7 +595,8 @@ public class LoanService {
             if (paymentAccountId != null) {
                 candidates = transactionRepository.findMatchCandidatesByAccount(
                         TransactionType.DEBIT,
-                        expectedAmount,
+                        minAmount,
+                        maxAmount,
                         minDate,
                         maxDate,
                         paymentAccountId
@@ -599,7 +604,8 @@ public class LoanService {
             } else {
                 candidates = transactionRepository.findMatchCandidates(
                         TransactionType.DEBIT,
-                        expectedAmount,
+                        minAmount,
+                        maxAmount,
                         minDate,
                         maxDate
                 );

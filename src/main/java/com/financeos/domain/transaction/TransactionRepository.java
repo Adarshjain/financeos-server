@@ -74,18 +74,20 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
            "FROM Transaction t WHERE t.account.id = :accountId")
     BalanceAggregatesProjection findBalanceAggregatesByAccountId(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
 
-    @Query("SELECT t FROM Transaction t WHERE t.type = :type AND t.amount = :amount AND t.date BETWEEN :minDate AND :maxDate AND t.account.id = :accountId")
+    @Query("SELECT t FROM Transaction t WHERE t.type = :type AND t.amount BETWEEN :minAmount AND :maxAmount AND t.date BETWEEN :minDate AND :maxDate AND t.account.id = :accountId")
     List<Transaction> findMatchCandidatesByAccount(
             @Param("type") TransactionType type,
-            @Param("amount") java.math.BigDecimal amount,
+            @Param("minAmount") java.math.BigDecimal minAmount,
+            @Param("maxAmount") java.math.BigDecimal maxAmount,
             @Param("minDate") LocalDate minDate,
             @Param("maxDate") LocalDate maxDate,
             @Param("accountId") UUID accountId);
 
-    @Query("SELECT t FROM Transaction t WHERE t.type = :type AND t.amount = :amount AND t.date BETWEEN :minDate AND :maxDate")
+    @Query("SELECT t FROM Transaction t WHERE t.type = :type AND t.amount BETWEEN :minAmount AND :maxAmount AND t.date BETWEEN :minDate AND :maxDate")
     List<Transaction> findMatchCandidates(
             @Param("type") TransactionType type,
-            @Param("amount") java.math.BigDecimal amount,
+            @Param("minAmount") java.math.BigDecimal minAmount,
+            @Param("maxAmount") java.math.BigDecimal maxAmount,
             @Param("minDate") LocalDate minDate,
             @Param("maxDate") LocalDate maxDate);
 }
