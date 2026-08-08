@@ -46,15 +46,11 @@ public class Lending {
     @Column(nullable = false, precision = 19, scale = 4)
     private BigDecimal amount;
 
-    @Column(name = "lend_date", nullable = false)
-    private LocalDate lendDate;
+    @Column(name = "entry_date", nullable = false)
+    private LocalDate entryDate;
 
     @Column(name = "expected_return_date")
     private LocalDate expectedReturnDate;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 30)
-    private LendingStatus status = LendingStatus.outstanding;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transaction_id")
@@ -78,9 +74,6 @@ public class Lending {
         }
         if (updatedAt == null) {
             updatedAt = now;
-        }
-        if (status == null) {
-            status = LendingStatus.outstanding;
         }
     }
 

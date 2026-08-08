@@ -2164,10 +2164,6 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: status
-          in: query
-          schema:
-            $ref: '#/components/schemas/LendingStatus'
         - name: page
           in: query
           schema:
@@ -2268,94 +2264,6 @@ paths:
       responses:
         '204':
           description: Lending deleted
-
-  /api/v1/lendings/{id}/repayments:
-    post:
-      tags: [Lendings]
-      summary: Add lending repayment
-      operationId: addLendingRepayment
-      security:
-        - sessionAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateLendingRepaymentRequest'
-      responses:
-        '201':
-          description: Repayment added
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LendingRepaymentResponse'
-
-  /api/v1/lendings/{id}/repayments/{repaymentId}:
-    delete:
-      tags: [Lendings]
-      summary: Delete lending repayment
-      operationId: deleteLendingRepayment
-      security:
-        - sessionAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: repaymentId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '204':
-          description: Repayment deleted
-
-  /api/v1/lendings/{id}/write-off:
-    post:
-      tags: [Lendings]
-      summary: Write off lending
-      operationId: writeOffLending
-      security:
-        - sessionAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Lending written off
-
-  /api/v1/lendings/{id}/reopen:
-    post:
-      tags: [Lendings]
-      summary: Reopen lending
-      operationId: reopenLending
-      security:
-        - sessionAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Lending reopened
 
   /api/v1/obligations/upcoming:
     get:
@@ -3942,10 +3850,6 @@ components:
       type: string
       enum: [lent, borrowed]
 
-    LendingStatus:
-      type: string
-      enum: [outstanding, partially_repaid, settled, written_off]
-
     CreateLoanRequest:
       type: object
       required: [name, lender, loanType, rateType, principal, annualRatePct, tenureMonths, startDate, firstEmiDate]
@@ -4178,27 +4082,25 @@ components:
 
     CounterpartyResponse:
       type: object
-      required: [id, name, lentOutstanding, borrowedOutstanding, netPosition, openLendingCount, createdAt, updatedAt]
+      required: [id, name, totalLent, totalBorrowed, netPosition, entryCount]
       properties:
         id: { type: string, format: uuid }
         name: { type: string }
         notes: { type: string }
-        lentOutstanding: { type: number }
-        borrowedOutstanding: { type: number }
+        totalLent: { type: number }
+        totalBorrowed: { type: number }
         netPosition: { type: number }
-        openLendingCount: { type: integer }
-        createdAt: { type: string, format: date-time }
-        updatedAt: { type: string, format: date-time }
+        entryCount: { type: integer }
 
     CreateLendingRequest:
       type: object
-      required: [direction, amount, lendDate]
+      required: [direction, amount, entryDate]
       properties:
         counterpartyId: { type: string, format: uuid }
         newCounterpartyName: { type: string }
         direction: { $ref: '#/components/schemas/LendingDirection' }
         amount: { type: number }
-        lendDate: { type: string, format: date }
+        entryDate: { type: string, format: date }
         expectedReturnDate: { type: string, format: date }
         transactionId: { type: string, format: uuid }
         notes: { type: string }
@@ -4208,45 +4110,23 @@ components:
       properties:
         direction: { $ref: '#/components/schemas/LendingDirection' }
         amount: { type: number }
-        lendDate: { type: string, format: date }
+        entryDate: { type: string, format: date }
         expectedReturnDate: { type: string, format: date }
         notes: { type: string }
 
     LendingResponse:
       type: object
-      required: [id, counterparty, direction, amount, outstanding, lendDate, status, repayments, createdAt, updatedAt]
+      required: [id, counterpartyId, counterpartyName, direction, amount, entryDate, createdAt]
       properties:
         id: { type: string, format: uuid }
-        counterparty: { $ref: '#/components/schemas/CounterpartyResponse' }
+        counterpartyId: { type: string, format: uuid }
+        counterpartyName: { type: string }
         direction: { $ref: '#/components/schemas/LendingDirection' }
         amount: { type: number }
-        outstanding: { type: number }
-        lendDate: { type: string, format: date }
+        entryDate: { type: string, format: date }
         expectedReturnDate: { type: string, format: date }
-        status: { $ref: '#/components/schemas/LendingStatus' }
+        transactionId: { type: string, format: uuid }
         notes: { type: string }
-        transactionId: { type: string, format: uuid }
-        repayments: { type: array, items: { $ref: '#/components/schemas/LendingRepaymentResponse' } }
-        createdAt: { type: string, format: date-time }
-        updatedAt: { type: string, format: date-time }
-
-    CreateLendingRepaymentRequest:
-      type: object
-      required: [amount, date]
-      properties:
-        amount: { type: number }
-        date: { type: string, format: date }
-        transactionId: { type: string, format: uuid }
-
-    LendingRepaymentResponse:
-      type: object
-      required: [id, lendingId, amount, date, createdAt]
-      properties:
-        id: { type: string, format: uuid }
-        lendingId: { type: string, format: uuid }
-        amount: { type: number }
-        date: { type: string, format: date }
-        transactionId: { type: string, format: uuid }
         createdAt: { type: string, format: date-time }
 
     ObligationItemDto:

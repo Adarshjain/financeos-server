@@ -2,7 +2,6 @@ package com.financeos.domain.loan;
 
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
-import com.financeos.domain.lending.LendingRepaymentRepository;
 import com.financeos.domain.lending.LendingRepository;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
@@ -27,7 +26,6 @@ public class TransactionReferenceValidator {
     private final LoanPaymentRepository loanPaymentRepository;
     private final LoanChargeRepository loanChargeRepository;
     private final LendingRepository lendingRepository;
-    private final LendingRepaymentRepository lendingRepaymentRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -37,14 +35,12 @@ public class TransactionReferenceValidator {
             LoanEventRepository loanEventRepository,
             LoanPaymentRepository loanPaymentRepository,
             LoanChargeRepository loanChargeRepository,
-            LendingRepository lendingRepository,
-            LendingRepaymentRepository lendingRepaymentRepository) {
+            LendingRepository lendingRepository) {
         this.transactionRepository = transactionRepository;
         this.loanEventRepository = loanEventRepository;
         this.loanPaymentRepository = loanPaymentRepository;
         this.loanChargeRepository = loanChargeRepository;
         this.lendingRepository = lendingRepository;
-        this.lendingRepaymentRepository = lendingRepaymentRepository;
     }
 
     public Transaction validateAndGetTransaction(UUID transactionId) {
@@ -75,8 +71,7 @@ public class TransactionReferenceValidator {
         return loanEventRepository.existsByTransaction_Id(transactionId)
                 || loanPaymentRepository.existsByTransaction_Id(transactionId)
                 || loanChargeRepository.existsByTransaction_Id(transactionId)
-                || lendingRepository.existsByTransaction_Id(transactionId)
-                || lendingRepaymentRepository.existsByTransaction_Id(transactionId);
+                || lendingRepository.existsByTransaction_Id(transactionId);
     }
 
     @SuppressWarnings("unchecked")
@@ -86,8 +81,7 @@ public class TransactionReferenceValidator {
                 "SELECT transaction_id FROM loan_events WHERE transaction_id IS NOT NULL",
                 "SELECT transaction_id FROM loan_payments WHERE transaction_id IS NOT NULL",
                 "SELECT transaction_id FROM loan_charges WHERE transaction_id IS NOT NULL",
-                "SELECT transaction_id FROM lendings WHERE transaction_id IS NOT NULL",
-                "SELECT transaction_id FROM lending_repayments WHERE transaction_id IS NOT NULL"
+                "SELECT transaction_id FROM lendings WHERE transaction_id IS NOT NULL"
         );
 
         for (String sql : queries) {

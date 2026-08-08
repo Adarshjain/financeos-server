@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public record UpdateLendingRequest(
         LendingDirection direction,
         BigDecimal amount,
-        LocalDate lendDate,
+        LocalDate entryDate,
         LocalDate expectedReturnDate,
         String notes
 ) {}
