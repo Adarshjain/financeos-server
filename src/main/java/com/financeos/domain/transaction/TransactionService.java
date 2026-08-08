@@ -277,7 +277,11 @@ public class TransactionService {
             transaction.setCategories(new java.util.HashSet<>());
         }
 
-        return transactionRepository.save(transaction);
+        Transaction saved = transactionRepository.save(transaction);
+        // The controller maps this entity to a DTO after the transaction closes;
+        // initialize the lazy reviewReasons collection while the session is open.
+        org.hibernate.Hibernate.initialize(saved.getReviewReasons());
+        return saved;
     }
 
     public void deleteTransaction(UUID id) {
