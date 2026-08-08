@@ -9,6 +9,11 @@ import com.fasterxml.jackson.databind.node.TextNode;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.DatasourceCatalog;
+import com.financeos.domain.report.datasource.DatasourceRegistry;
+import com.financeos.domain.report.datasource.impl.DividendsDatasource;
+import com.financeos.domain.report.datasource.impl.FnoTradesDatasource;
+import com.financeos.domain.report.datasource.impl.InvestmentTradesDatasource;
+import com.financeos.domain.report.datasource.impl.TransactionsDatasource;
 import com.financeos.domain.report.definition.AggregatedTableDefinition;
 import com.financeos.domain.report.definition.ChartDefinition;
 import com.financeos.domain.report.definition.ChartType;
@@ -21,12 +26,23 @@ import com.financeos.domain.report.definition.RawTableDefinition;
 import com.financeos.domain.report.definition.SortClause;
 import com.financeos.domain.report.definition.SortDirection;
 import com.financeos.domain.report.definition.TableMode;
+import com.financeos.domain.report.engine.DateRangeResolver;
+import com.financeos.domain.report.engine.SqlPredicates;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class ReportDefinitionValidatorTest {
 
-    private final ReportDefinitionValidator validator = new ReportDefinitionValidator(new DatasourceCatalog());
+    private final DatasourceCatalog catalog = new DatasourceCatalog();
+    private final DateRangeResolver dateRangeResolver = new DateRangeResolver(4);
+    private final SqlPredicates sqlPredicates = new SqlPredicates(dateRangeResolver);
+    private final DatasourceRegistry registry = new DatasourceRegistry(List.of(
+            new TransactionsDatasource(sqlPredicates, dateRangeResolver),
+            new InvestmentTradesDatasource(sqlPredicates, dateRangeResolver),
+            new DividendsDatasource(sqlPredicates, dateRangeResolver),
+            new FnoTradesDatasource(sqlPredicates, dateRangeResolver)
+    ), catalog);
+    private final ReportDefinitionValidator validator = new ReportDefinitionValidator(registry);
 
     @Test
     void validKpiPasses() {
@@ -111,10 +127,39 @@ class ReportDefinitionValidatorTest {
 
     @Test
     void rawTableRejectsMeasureSortKey() {
-        // amount_sum is not a valid raw sort key (only selected column names are).
         RawTableDefinition def = new RawTableDefinition(TableMode.RAW,
                 List.of("date", "amount"), List.of(),
                 List.of(new SortClause("amount_sum", SortDirection.DESC)));
         assertThrows(ValidationException.class, () -> validator.validate("transactions", def));
+    }
+
+    // New tests for WP5
+    @Test
+    void unknownDatasourceRejected() {
+        KpiDefinition def = new KpiDefinition("amount", Aggregation.SUM, List.of(), null);
+        assertThrows(ValidationException.class, () -> validator.validate("unknown_ds", def));
+    }
+
+    @Test
+    void fieldScopedToDatasource() {
+        // amount is valid on transactions but invalid on investment_trades
+        KpiDefinition def1 = new KpiDefinition("amount", Aggregation.SUM, List.of(), null);
+        assertThrows(ValidationException.class, () -> validator.validate("investment_trades", def1));
+
+        // tradeValue is valid on investment_trades but invalid on transactions
+        KpiDefinition def2 = new KpiDefinition("tradeValue", Aggregation.SUM, List.of(), null);
+        assertDoesNotThrow(() -> validator.validate("investment_trades", def2));
+        assertThrows(ValidationException.class, () -> validator.validate("transactions", def2));
+    }
+
+    @Test
+    void aggregationRulesEnforcedPerField() {
+        // price on investment_trades rejections: SUM rejected, AVG accepted
+        KpiDefinition sumPrice = new KpiDefinition("price", Aggregation.SUM, List.of(), null);
+        assertThrows(ValidationException.class, () -> validator.validate("investment_trades", sumPrice));
+
+        RawTableDefinition avgPriceTable = new RawTableDefinition(TableMode.RAW,
+                List.of("price"), List.of(), null);
+        assertDoesNotThrow(() -> validator.validate("investment_trades", avgPriceTable));
     }
 }

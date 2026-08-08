@@ -47,4 +47,17 @@ final class ResultValues {
         }
         throw new IllegalStateException("Unexpected date value type: " + value.getClass());
     }
+
+    static Boolean toBoolean(Object value) {
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof Boolean b) {
+            return b;
+        }
+        if (value instanceof Number n) {
+            return n.intValue() != 0;
+        }
+        return Boolean.parseBoolean(value.toString());
+    }
 }

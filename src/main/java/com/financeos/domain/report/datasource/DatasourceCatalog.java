@@ -1,5 +1,6 @@
 package com.financeos.domain.report.datasource;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.financeos.domain.report.ReportType;
 import org.springframework.stereotype.Component;
@@ -12,11 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * The catalog of reportable fields and the operators available per field type for the
- * {@code transactions} data source (v1's only data source). This is the single source of
- * truth served by {@code GET /api/v1/report/datasource} and consumed by report validation.
- *
- * <p>Exclusion and transfer filtering are normal boolean filter fields (isExcluded, isTransferLeg, isRefundLeg).
+ * Catalog shapes, field definitions, and shared operators for report datasources.
  */
 @Component
 public class DatasourceCatalog {
@@ -25,6 +22,7 @@ public class DatasourceCatalog {
 
     // ------------------------------------------------------------------ response shapes
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public record FieldDef(
             String name,
             String label,
@@ -33,7 +31,14 @@ public class DatasourceCatalog {
             List<Aggregation> aggregations, // measures only; null otherwise
             List<String> values,            // static enums only; null otherwise
             Boolean dynamic,                // true for user-specific enums; null otherwise
-            List<ReportType> allowedInReports) {
+            List<ReportType> allowedInReports,
+            String format) {                // "currency" | "number" | "percent"
+
+        public FieldDef(String name, String label, FieldType type, FieldRole role,
+                        List<Aggregation> aggregations, List<String> values,
+                        Boolean dynamic, List<ReportType> allowedInReports) {
+            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, null);
+        }
     }
 
     public record DateOperators(List<String> absolute, List<String> relative) {
@@ -45,6 +50,17 @@ public class DatasourceCatalog {
             List<String> number,
             @JsonProperty("enum") List<String> enumOperators,
             @JsonProperty("boolean") List<String> booleanOperators) {
+    }
+
+    public record SingleDatasourceView(
+            String name,
+            String label,
+            List<FieldDef> fields) {
+    }
+
+    public record ReportCatalogView(
+            List<SingleDatasourceView> datasources,
+            OperatorCatalog operators) {
     }
 
     public record DatasourceView(List<FieldDef> fields, OperatorCatalog operators) {
@@ -65,7 +81,7 @@ public class DatasourceCatalog {
     private static final List<String> ENUM_OPERATORS = List.of("is", "is_not", "in", "not_in");
     private static final List<String> BOOLEAN_OPERATORS = List.of("is");
 
-    private static final OperatorCatalog OPERATORS = new OperatorCatalog(
+    public static final OperatorCatalog OPERATORS = new OperatorCatalog(
             DATE_OPERATORS, STRING_OPERATORS, NUMBER_OPERATORS, ENUM_OPERATORS, BOOLEAN_OPERATORS);
 
     // ------------------------------------------------------------------ fields
@@ -79,7 +95,7 @@ public class DatasourceCatalog {
     private static final List<ReportType> NONE = List.of();
 
     private static final List<FieldDef> FIELDS = List.of(
-            new FieldDef("amount", "Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL),
+            new FieldDef("amount", "Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
             new FieldDef("date", "Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
             new FieldDef("type", "Type", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("DEBIT", "CREDIT"), null, CHART_TABLE),
@@ -102,13 +118,17 @@ public class DatasourceCatalog {
 
     // ------------------------------------------------------------------ public API
 
-    /** The full catalog as served by the datasource endpoint. */
-    public DatasourceView view() {
-        return new DatasourceView(FIELDS, OPERATORS);
+    /**
+     * The canonical {@code transactions} field list. {@code TransactionsDatasource} serves this
+     * same list through the registry — keep this the single definition.
+     */
+    public static List<FieldDef> transactionFields() {
+        return FIELDS;
     }
 
-    public boolean isKnownDatasource(String datasource) {
-        return TRANSACTIONS.equals(datasource);
+    /** The transactions catalog (also used by the transactions list page's filter builder). */
+    public DatasourceView view() {
+        return new DatasourceView(FIELDS, OPERATORS);
     }
 
     /** The field definition for {@code name}, or {@code null} if unknown. */

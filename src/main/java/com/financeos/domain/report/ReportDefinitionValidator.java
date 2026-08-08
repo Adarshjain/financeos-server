@@ -3,10 +3,11 @@ package com.financeos.domain.report;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.report.datasource.Aggregation;
-import com.financeos.domain.report.datasource.DatasourceCatalog;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
+import com.financeos.domain.report.datasource.DatasourceRegistry;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
+import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.definition.AggregatedTableDefinition;
 import com.financeos.domain.report.definition.ChartDefinition;
 import com.financeos.domain.report.definition.DimensionRef;
@@ -23,11 +24,10 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Validates a {@link ReportDefinition} against the {@link DatasourceCatalog}: every referenced
+ * Validates a {@link ReportDefinition} against a {@link ReportDatasource}: every referenced
  * field must exist and be used in a role/report-type the catalog permits, and every filter
  * operator + value must be legal for its field type. Throws {@link ValidationException} on the
- * first problem found. Exclusion of "excluded" transactions is expressed as a normal filter on the
- * {@code isExcluded} field — there is no dedicated flag.
+ * first problem found.
  */
 @Component
 public class ReportDefinitionValidator {
@@ -38,27 +38,28 @@ public class ReportDefinitionValidator {
             "previous_year", "today", "yesterday", "current_fy", "prev_fy", "all_time");
     private static final Set<String> PARAM_DATE_OPS = Set.of("last_x_days", "last_x_months", "last_x_years");
 
-    private final DatasourceCatalog catalog;
+    private final DatasourceRegistry registry;
 
-    public ReportDefinitionValidator(DatasourceCatalog catalog) {
-        this.catalog = catalog;
+    public ReportDefinitionValidator(DatasourceRegistry registry) {
+        this.registry = registry;
     }
 
-    public void validate(String datasource, ReportDefinition definition) {
-        if (datasource == null || !catalog.isKnownDatasource(datasource)) {
-            throw new ValidationException("Unknown report datasource: " + datasource);
+    public void validate(String datasourceName, ReportDefinition definition) {
+        if (datasourceName == null || !registry.isKnown(datasourceName)) {
+            throw new ValidationException("Unknown report datasource: " + datasourceName);
         }
         if (definition == null) {
             throw new ValidationException("Report definition is required");
         }
+        ReportDatasource datasource = registry.byName(datasourceName);
         if (definition instanceof KpiDefinition kpi) {
-            validateKpi(kpi);
+            validateKpi(datasource, kpi);
         } else if (definition instanceof ChartDefinition chart) {
-            validateChart(chart);
+            validateChart(datasource, chart);
         } else if (definition instanceof RawTableDefinition raw) {
-            validateRawTable(raw);
+            validateRawTable(datasource, raw);
         } else if (definition instanceof AggregatedTableDefinition aggregated) {
-            validateAggregatedTable(aggregated);
+            validateAggregatedTable(datasource, aggregated);
         } else {
             throw new ValidationException("Unsupported report definition type");
         }
@@ -66,24 +67,24 @@ public class ReportDefinitionValidator {
 
     // ------------------------------------------------------------------ KPI
 
-    private void validateKpi(KpiDefinition kpi) {
-        FieldDef measure = requireMeasure(kpi.measure(), ReportType.KPI);
+    private void validateKpi(ReportDatasource datasource, KpiDefinition kpi) {
+        FieldDef measure = requireMeasure(datasource, kpi.measure(), ReportType.KPI);
         requireAggregation(measure, kpi.aggregation());
-        validateFilters(kpi.filters());
+        validateFilters(datasource, kpi.filters());
     }
 
     // ------------------------------------------------------------------ Chart
 
-    private void validateChart(ChartDefinition chart) {
+    private void validateChart(ReportDatasource datasource, ChartDefinition chart) {
         if (chart.chartType() == null) {
             throw new ValidationException("chartType is required for a Chart report");
         }
         if (chart.dimension() == null) {
             throw new ValidationException("dimension is required for a Chart report");
         }
-        validateDimension(chart.dimension(), ReportType.CHART, "dimension");
+        validateDimension(datasource, chart.dimension(), ReportType.CHART, "dimension");
         if (chart.series() != null) {
-            validateDimension(chart.series(), ReportType.CHART, "series");
+            validateDimension(datasource, chart.series(), ReportType.CHART, "series");
             if (chart.series().field().equals(chart.dimension().field())) {
                 throw new ValidationException("Chart series must differ from the dimension field");
             }
@@ -91,27 +92,27 @@ public class ReportDefinitionValidator {
         if (chart.measure() == null) {
             throw new ValidationException("measure is required for a Chart report");
         }
-        validateMeasureRef(chart.measure(), ReportType.CHART);
-        validateFilters(chart.filters());
+        validateMeasureRef(datasource, chart.measure(), ReportType.CHART);
+        validateFilters(datasource, chart.filters());
     }
 
     // ------------------------------------------------------------------ Table
 
-    private void validateRawTable(RawTableDefinition table) {
+    private void validateRawTable(ReportDatasource datasource, RawTableDefinition table) {
         if (isEmpty(table.columns())) {
             throw new ValidationException("A raw table requires at least one column");
         }
         Set<String> sortKeys = new HashSet<>();
         for (String column : table.columns()) {
-            FieldDef field = requireField(column);
+            FieldDef field = requireField(datasource, column);
             requireAllowedIn(field, ReportType.TABLE, "column");
             sortKeys.add(column);
         }
         validateSortKeys(table.sort(), sortKeys);
-        validateFilters(table.filters());
+        validateFilters(datasource, table.filters());
     }
 
-    private void validateAggregatedTable(AggregatedTableDefinition table) {
+    private void validateAggregatedTable(ReportDatasource datasource, AggregatedTableDefinition table) {
         if (isEmpty(table.rows())) {
             throw new ValidationException("An aggregated table requires at least one row dimension");
         }
@@ -120,7 +121,7 @@ public class ReportDefinitionValidator {
         }
         Set<String> rowFields = new HashSet<>();
         for (DimensionRef dimension : table.rows()) {
-            validateDimension(dimension, ReportType.TABLE, "rows");
+            validateDimension(datasource, dimension, ReportType.TABLE, "rows");
             if (!rowFields.add(dimension.field())) {
                 throw new ValidationException("Duplicate row dimension: " + dimension.field());
             }
@@ -130,7 +131,7 @@ public class ReportDefinitionValidator {
         if (hasColumns) {
             Set<String> columnFields = new HashSet<>();
             for (DimensionRef dimension : table.columns()) {
-                validateDimension(dimension, ReportType.TABLE, "columns");
+                validateDimension(datasource, dimension, ReportType.TABLE, "columns");
                 if (!columnFields.add(dimension.field())) {
                     throw new ValidationException("Duplicate column dimension: " + dimension.field());
                 }
@@ -141,23 +142,22 @@ public class ReportDefinitionValidator {
             }
         }
         for (MeasureRef measure : table.measures()) {
-            validateMeasureRef(measure, ReportType.TABLE);
+            validateMeasureRef(datasource, measure, ReportType.TABLE);
             if (!hasColumns) {
-                // Measure-key sorting is only unambiguous when there are no column dimensions.
                 sortKeys.add(measure.field() + "_" + measure.aggregation().json());
             }
         }
         validateSortKeys(table.sort(), sortKeys);
-        validateFilters(table.filters());
+        validateFilters(datasource, table.filters());
     }
 
     // ------------------------------------------------------------------ shared helpers
 
-    private FieldDef requireField(String name) {
+    private FieldDef requireField(ReportDatasource datasource, String name) {
         if (name == null || name.isBlank()) {
             throw new ValidationException("A field name is required");
         }
-        FieldDef field = catalog.field(name);
+        FieldDef field = datasource.field(name);
         if (field == null) {
             throw new ValidationException("Unknown field: " + name);
         }
@@ -171,8 +171,8 @@ public class ReportDefinitionValidator {
         }
     }
 
-    private FieldDef requireMeasure(String fieldName, ReportType type) {
-        FieldDef field = requireField(fieldName);
+    private FieldDef requireMeasure(ReportDatasource datasource, String fieldName, ReportType type) {
+        FieldDef field = requireField(datasource, fieldName);
         if (field.role() != FieldRole.MEASURE) {
             throw new ValidationException("Field '" + fieldName + "' is not a measure");
         }
@@ -190,19 +190,19 @@ public class ReportDefinitionValidator {
         }
     }
 
-    private void validateMeasureRef(MeasureRef measure, ReportType type) {
+    private void validateMeasureRef(ReportDatasource datasource, MeasureRef measure, ReportType type) {
         if (measure == null || measure.field() == null) {
             throw new ValidationException("measure.field is required");
         }
-        FieldDef field = requireMeasure(measure.field(), type);
+        FieldDef field = requireMeasure(datasource, measure.field(), type);
         requireAggregation(field, measure.aggregation());
     }
 
-    private void validateDimension(DimensionRef dimension, ReportType type, String usage) {
+    private void validateDimension(ReportDatasource datasource, DimensionRef dimension, ReportType type, String usage) {
         if (dimension == null || dimension.field() == null) {
             throw new ValidationException(usage + ".field is required");
         }
-        FieldDef field = requireField(dimension.field());
+        FieldDef field = requireField(datasource, dimension.field());
         if (field.role() != FieldRole.DIMENSION) {
             throw new ValidationException("Field '" + dimension.field() + "' is not a dimension");
         }
@@ -236,25 +236,25 @@ public class ReportDefinitionValidator {
 
     // ------------------------------------------------------------------ filters
 
-    private void validateFilters(List<FilterClause> filters) {
+    private void validateFilters(ReportDatasource datasource, List<FilterClause> filters) {
         if (filters == null) {
             return;
         }
         for (FilterClause filter : filters) {
-            validateFilterClause(filter);
+            validateFilterClause(datasource, filter);
         }
     }
 
-    private void validateFilterClause(FilterClause filter) {
+    private void validateFilterClause(ReportDatasource datasource, FilterClause filter) {
         if (filter == null || filter.field() == null) {
             throw new ValidationException("filter.field is required");
         }
-        FieldDef field = requireField(filter.field());
+        FieldDef field = requireField(datasource, filter.field());
         String operator = filter.operator();
         if (operator == null) {
             throw new ValidationException("filter.operator is required for '" + filter.field() + "'");
         }
-        if (!catalog.operatorsFor(field.type()).contains(operator)) {
+        if (!registry.operatorsFor(field.type()).contains(operator)) {
             throw new ValidationException("Operator '" + operator + "' is not valid for field '"
                     + filter.field() + "' (" + field.type().json() + ")");
         }

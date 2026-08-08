@@ -22,7 +22,7 @@ public record PivotTableData(
     public record DimensionInfo(String field, String label) {
     }
 
-    public record MeasureInfo(String key, String field, String aggregation, String label) {
+    public record MeasureInfo(String key, String field, String aggregation, String label, String format) {
     }
 
     public record ColumnHeader(String key, Map<String, String> values) {

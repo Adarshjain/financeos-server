@@ -3,10 +3,10 @@ package com.financeos.domain.report.engine;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.financeos.domain.report.datasource.Aggregation;
+import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.definition.Comparison;
 import com.financeos.domain.report.definition.FilterClause;
 import com.financeos.domain.report.definition.KpiDefinition;
-import com.financeos.domain.report.engine.TransactionQueryBuilder.Join;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,21 +30,20 @@ public class KpiReportExecutor {
     @PersistenceContext
     private EntityManager em;
 
-    private final TransactionQueryBuilder queryBuilder;
     private final DateRangeResolver dateRangeResolver;
 
-    public KpiReportExecutor(TransactionQueryBuilder queryBuilder, DateRangeResolver dateRangeResolver) {
-        this.queryBuilder = queryBuilder;
+    public KpiReportExecutor(DateRangeResolver dateRangeResolver) {
         this.dateRangeResolver = dateRangeResolver;
     }
 
     @Transactional(readOnly = true)
-    public KpiData execute(KpiDefinition def, UUID userId) {
+    public KpiData execute(KpiDefinition def, ReportDatasource datasource, UUID userId) {
+        ReportQueryBuilder queryBuilder = datasource.queryBuilder();
         List<FilterClause> filters = def.filters() == null ? List.of() : def.filters();
 
-        Aggregate main = runAggregate(def, filters, userId);
+        Aggregate main = runAggregate(def, queryBuilder, filters, userId);
 
-        FilterClause dateFilter = dateRangeResolver.findDateFilter(filters);
+        FilterClause dateFilter = dateRangeResolver.findDateFilter(datasource, filters);
         DateRange currentRange = dateRangeResolver.effectiveRange(dateFilter);
 
         KpiData.Comparison comparison = null;
@@ -52,7 +51,7 @@ public class KpiReportExecutor {
             DateRange previous = dateRangeResolver.previousPeriod(dateFilter.operator(), currentRange);
             if (previous.bounded()) {
                 List<FilterClause> previousFilters = withDateRange(filters, dateFilter, previous);
-                Aggregate prior = runAggregate(def, previousFilters, userId);
+                Aggregate prior = runAggregate(def, queryBuilder, previousFilters, userId);
                 Boolean higherIsBetter = def.comparison() == null ? null : def.comparison().higherIsBetter();
                 comparison = buildComparison(main.value(), prior.value(), previous, higherIsBetter);
             }
@@ -64,14 +63,16 @@ public class KpiReportExecutor {
                         ? new KpiData.DateRangeView(currentRange.from(), currentRange.to())
                         : null);
 
-        return new KpiData("KPI", main.value(), def.measure(), def.aggregation().json(), comparison, meta);
+        var measureField = datasource.field(def.measure());
+        String format = measureField != null ? measureField.format() : null;
+        return new KpiData("KPI", main.value(), def.measure(), def.aggregation().json(), format, comparison, meta);
     }
 
     private record Aggregate(BigDecimal value, long rowCount) {
     }
 
-    private Aggregate runAggregate(KpiDefinition def, List<FilterClause> filters, UUID userId) {
-        Set<Join> joins = EnumSet.noneOf(Join.class);
+    private Aggregate runAggregate(KpiDefinition def, ReportQueryBuilder queryBuilder, List<FilterClause> filters, UUID userId) {
+        Set<String> joins = new HashSet<>();
         Map<String, Object> params = new HashMap<>();
 
         String measureExpr = queryBuilder.expression(def.measure(), joins);
@@ -106,7 +107,7 @@ public class KpiReportExecutor {
         ObjectNode value = JsonNodeFactory.instance.objectNode();
         value.put("from", range.from().toString());
         value.put("to", range.to().toString());
-        out.add(new FilterClause("date", "between", value));
+        out.add(new FilterClause(dateFilter.field(), "between", value));
         return out;
     }
 

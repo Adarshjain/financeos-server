@@ -2,11 +2,19 @@ package com.financeos.domain.report.engine;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.TextNode;
+import com.financeos.domain.report.datasource.DatasourceCatalog;
+import com.financeos.domain.report.datasource.impl.DividendsDatasource;
+import com.financeos.domain.report.datasource.impl.TransactionsDatasource;
+import com.financeos.domain.report.definition.FilterClause;
 import java.time.LocalDate;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class DateRangeResolverTest {
@@ -57,6 +65,30 @@ class DateRangeResolverTest {
         DateRange previous = resolver.previousPeriod("last_x_days", current);
         assertEquals(LocalDate.of(2026, 6, 2), previous.from());
         assertEquals(LocalDate.of(2026, 6, 8), previous.to());
+    }
+
+    @Test
+    void findDateFilterTypeDriven() {
+        DatasourceCatalog catalog = new DatasourceCatalog();
+        SqlPredicates sqlPredicates = new SqlPredicates(resolver);
+        TransactionsDatasource transactionsDs = new TransactionsDatasource(sqlPredicates, resolver);
+        DividendsDatasource dividendsDs = new DividendsDatasource(sqlPredicates, resolver);
+
+        List<FilterClause> txnFilters = List.of(
+                new FilterClause("account", "is", TextNode.valueOf("Acc1")),
+                new FilterClause("date", "this_month", null)
+        );
+        FilterClause foundTxnDate = resolver.findDateFilter(transactionsDs, txnFilters);
+        assertNotNull(foundTxnDate);
+        assertEquals("date", foundTxnDate.field());
+
+        List<FilterClause> divFilters = List.of(
+                new FilterClause("type", "is", TextNode.valueOf("dividend")),
+                new FilterClause("payDate", "current_fy", null)
+        );
+        FilterClause foundDivDate = resolver.findDateFilter(dividendsDs, divFilters);
+        assertNotNull(foundDivDate);
+        assertEquals("payDate", foundDivDate.field());
     }
 
     private static JsonNode amount(int n) {

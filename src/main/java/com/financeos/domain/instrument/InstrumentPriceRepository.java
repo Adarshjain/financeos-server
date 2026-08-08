@@ -24,4 +24,6 @@ public interface InstrumentPriceRepository extends JpaRepository<InstrumentPrice
             @Param("instrumentId") UUID instrumentId,
             @Param("from") LocalDate from,
             @Param("to") LocalDate to);
+
+    List<InstrumentPrice> findByInstrumentIdInOrderByAsOfAsc(List<UUID> instrumentIds);
 }
