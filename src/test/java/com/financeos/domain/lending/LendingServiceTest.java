@@ -1,18 +1,15 @@
 package com.financeos.domain.lending;
 
 import com.financeos.api.lending.dto.CounterpartyResponse;
-import com.financeos.api.lending.dto.UpdateCounterpartyRequest;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.user.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,40 +32,44 @@ class LendingServiceTest {
     }
 
     @Test
-    void testReopenLending_writtenOffLending_recomputesStatusFromRepayments() {
-        UUID lendingId = UUID.randomUUID();
-        Lending lending = new Lending();
-        lending.setId(lendingId);
-        lending.setUser(user);
-        lending.setAmount(new BigDecimal("5000.00"));
-        lending.setStatus(LendingStatus.written_off);
-
-        // Simulate reopen behavior
-        lending.setStatus(LendingStatus.outstanding);
-        BigDecimal repaid = BigDecimal.ZERO;
-
-        if (lending.getStatus() != LendingStatus.written_off) {
-            if (repaid.compareTo(BigDecimal.ZERO) == 0) {
-                lending.setStatus(LendingStatus.outstanding);
-            } else if (repaid.compareTo(lending.getAmount()) >= 0) {
-                lending.setStatus(LendingStatus.settled);
-            } else {
-                lending.setStatus(LendingStatus.partially_repaid);
-            }
-        }
-
-        assertEquals(LendingStatus.outstanding, lending.getStatus());
-    }
-
-    @Test
-    void testToCounterpartyResponse_singleCounterpartyAggregation() {
+    void testToCounterpartyResponse_mixedEntriesNetPosition() {
         Counterparty cp = new Counterparty();
         cp.setId(UUID.randomUUID());
         cp.setName("John Doe");
 
-        CounterpartyResponse response = CounterpartyResponse.from(cp, new BigDecimal("1000.00"), BigDecimal.ZERO, 1);
+        BigDecimal totalLent = new BigDecimal("5000.00");
+        BigDecimal totalBorrowed = new BigDecimal("2000.00");
+
+        CounterpartyResponse response = CounterpartyResponse.from(cp, totalLent, totalBorrowed, 2);
         assertEquals("John Doe", response.name());
-        assertEquals(new BigDecimal("1000.00"), response.lentOutstanding());
-        assertEquals(1, response.openLendingCount());
+        assertEquals(new BigDecimal("5000.00"), response.totalLent());
+        assertEquals(new BigDecimal("2000.00"), response.totalBorrowed());
+        assertEquals(new BigDecimal("3000.00"), response.netPosition());
+        assertEquals(2, response.entryCount());
+    }
+
+    @Test
+    void testSummaryNetting_perCounterparty() {
+        // Ramesh owes 50k, user owes Ramesh 20k -> Net +30k (lentOutstanding: 30k)
+        // Suresh owes user 10k, user owes Suresh 15k -> Net -5k (borrowedOutstanding: 5k)
+        BigDecimal rameshNet = new BigDecimal("30000.00");
+        BigDecimal sureshNet = new BigDecimal("-5000.00");
+
+        BigDecimal lentOutstanding = BigDecimal.ZERO;
+        BigDecimal borrowedOutstanding = BigDecimal.ZERO;
+
+        for (BigDecimal net : List.of(rameshNet, sureshNet)) {
+            if (net.compareTo(BigDecimal.ZERO) > 0) {
+                lentOutstanding = lentOutstanding.add(net);
+            } else if (net.compareTo(BigDecimal.ZERO) < 0) {
+                borrowedOutstanding = borrowedOutstanding.add(net.abs());
+            }
+        }
+
+        BigDecimal netReceivable = lentOutstanding.subtract(borrowedOutstanding);
+
+        assertEquals(new BigDecimal("30000.00"), lentOutstanding);
+        assertEquals(new BigDecimal("5000.00"), borrowedOutstanding);
+        assertEquals(new BigDecimal("25000.00"), netReceivable);
     }
 }

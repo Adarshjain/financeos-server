@@ -9,14 +9,14 @@ public record CounterpartyResponse(
         UUID id,
         String name,
         String notes,
-        BigDecimal lentOutstanding,
-        BigDecimal borrowedOutstanding,
+        BigDecimal totalLent,
+        BigDecimal totalBorrowed,
         BigDecimal netPosition,
-        long openLendingCount
+        long entryCount
 ) {
-    public static CounterpartyResponse from(Counterparty cp, BigDecimal lentOutstanding, BigDecimal borrowedOutstanding, long openLendingCount) {
-        BigDecimal lent = lentOutstanding != null ? lentOutstanding : BigDecimal.ZERO;
-        BigDecimal borrowed = borrowedOutstanding != null ? borrowedOutstanding : BigDecimal.ZERO;
+    public static CounterpartyResponse from(Counterparty cp, BigDecimal totalLent, BigDecimal totalBorrowed, long entryCount) {
+        BigDecimal lent = totalLent != null ? totalLent : BigDecimal.ZERO;
+        BigDecimal borrowed = totalBorrowed != null ? totalBorrowed : BigDecimal.ZERO;
         BigDecimal net = lent.subtract(borrowed);
         return new CounterpartyResponse(
                 cp.getId(),
@@ -25,7 +25,7 @@ public record CounterpartyResponse(
                 lent,
                 borrowed,
                 net,
-                openLendingCount
+                entryCount
         );
     }
 }

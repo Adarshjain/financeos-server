@@ -2,7 +2,6 @@ package com.financeos.api.lending;
 
 import com.financeos.api.lending.dto.*;
 import com.financeos.domain.lending.LendingService;
-import com.financeos.domain.lending.LendingStatus;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,9 +30,8 @@ public class LendingController {
     @GetMapping
     public Page<LendingResponse> getLendings(
             @RequestParam(required = false) UUID counterpartyId,
-            @RequestParam(required = false) LendingStatus status,
-            @PageableDefault(size = 50, sort = "lendDate", direction = Sort.Direction.DESC) Pageable pageable) {
-        return lendingService.getLendings(counterpartyId, status, pageable);
+            @PageableDefault(size = 50, sort = "entryDate", direction = Sort.Direction.DESC) Pageable pageable) {
+        return lendingService.getLendings(counterpartyId, pageable);
     }
 
     @GetMapping("/{id}")
@@ -50,28 +48,5 @@ public class LendingController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteLending(@PathVariable UUID id) {
         lendingService.deleteLending(id);
-    }
-
-    @PostMapping("/{id}/repayments")
-    public LendingRepaymentResponse addRepayment(@PathVariable UUID id, @Valid @RequestBody CreateLendingRepaymentRequest req) {
-        return lendingService.addRepayment(id, req);
-    }
-
-    @DeleteMapping("/{id}/repayments/{repaymentId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRepayment(@PathVariable UUID id, @PathVariable UUID repaymentId) {
-        lendingService.deleteRepayment(id, repaymentId);
-    }
-
-    @PostMapping("/{id}/write-off")
-    @ResponseStatus(HttpStatus.OK)
-    public void writeOffLending(@PathVariable UUID id) {
-        lendingService.writeOffLending(id);
-    }
-
-    @PostMapping("/{id}/reopen")
-    @ResponseStatus(HttpStatus.OK)
-    public void reopenLending(@PathVariable UUID id) {
-        lendingService.reopenLending(id);
     }
 }

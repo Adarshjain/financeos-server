@@ -13,7 +13,7 @@ public record CreateLendingRequest(
         String newCounterpartyName,
         @NotNull LendingDirection direction,
         @NotNull @Positive BigDecimal amount,
-        @NotNull LocalDate lendDate,
+        @NotNull LocalDate entryDate,
         LocalDate expectedReturnDate,
         UUID transactionId,
         String notes
