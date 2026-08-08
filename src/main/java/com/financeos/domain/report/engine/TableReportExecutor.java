@@ -1,8 +1,8 @@
 package com.financeos.domain.report.engine;
 
-import com.financeos.domain.report.datasource.DatasourceCatalog;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.FieldType;
+import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.definition.AggregatedTableDefinition;
 import com.financeos.domain.report.definition.DimensionRef;
 import com.financeos.domain.report.definition.Granularity;
@@ -11,7 +11,6 @@ import com.financeos.domain.report.definition.RawTableDefinition;
 import com.financeos.domain.report.definition.SortClause;
 import com.financeos.domain.report.definition.SortDirection;
 import com.financeos.domain.report.definition.TableDefinition;
-import com.financeos.domain.report.engine.TransactionQueryBuilder.Join;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -19,15 +18,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-/** Computes a Table report: raw (per-transaction) or aggregated (pivot: rows × columns × measures). */
+/** Computes a Table report: raw (per-row) or aggregated (pivot: rows × columns × measures). */
 @Service
 public class TableReportExecutor {
 
@@ -37,54 +36,52 @@ public class TableReportExecutor {
     @PersistenceContext
     private EntityManager em;
 
-    private final TransactionQueryBuilder queryBuilder;
-    private final DatasourceCatalog catalog;
+    private final DateRangeResolver dateRangeResolver;
 
-    public TableReportExecutor(TransactionQueryBuilder queryBuilder, DatasourceCatalog catalog) {
-        this.queryBuilder = queryBuilder;
-        this.catalog = catalog;
+    public TableReportExecutor(DateRangeResolver dateRangeResolver) {
+        this.dateRangeResolver = dateRangeResolver;
     }
 
     @Transactional(readOnly = true)
-    public ReportData execute(TableDefinition def, UUID userId, Integer page, Integer size) {
+    public ReportData execute(TableDefinition def, ReportDatasource datasource, UUID userId, Integer page, Integer size) {
         int pageNumber = page == null ? 0 : Math.max(0, page);
         int pageSize = resolveSize(size);
         if (def instanceof RawTableDefinition raw) {
-            return executeRaw(raw, userId, pageNumber, pageSize);
+            return executeRaw(raw, datasource, userId, pageNumber, pageSize);
         }
         if (def instanceof AggregatedTableDefinition aggregated) {
-            return executeAggregated(aggregated, userId, pageNumber, pageSize);
+            return executeAggregated(aggregated, datasource, userId, pageNumber, pageSize);
         }
         throw new IllegalStateException("Unsupported table definition: " + def.getClass());
     }
 
     // ------------------------------------------------------------------ raw mode
 
-    private TableData executeRaw(RawTableDefinition def, UUID userId, int page, int size) {
-        Set<Join> joins = EnumSet.noneOf(Join.class);
+    private TableData executeRaw(RawTableDefinition def, ReportDatasource datasource, UUID userId, int page, int size) {
+        ReportQueryBuilder queryBuilder = datasource.queryBuilder();
+        Set<String> joins = new HashSet<>();
         Map<String, Object> params = new HashMap<>();
         String where = queryBuilder.buildWhere(def.filters(), userId, params, joins);
 
-        // Column order mirrors def.columns() exactly: the response `columns` list is the
-        // authoritative ordering, and each row is a LinkedHashMap emitted in that same order.
         List<TableData.Column> columns = new ArrayList<>();
         List<String> selectExprs = new ArrayList<>();
         List<FieldType> colTypes = new ArrayList<>();
         for (String column : def.columns()) {
-            FieldDef field = catalog.field(column);
-            selectExprs.add(rawColumnExpr(column, joins));
-            columns.add(new TableData.Column(column, field.label(), field.type().json()));
-            colTypes.add(field.type());
+            FieldDef field = datasource.field(column);
+            selectExprs.add(rawColumnExpr(column, datasource, queryBuilder, joins));
+            columns.add(new TableData.Column(column, field != null ? field.label() : column,
+                    field != null ? field.type().json() : "string", field != null ? field.format() : null));
+            colTypes.add(field != null ? field.type() : FieldType.STRING);
         }
 
         long total = count("SELECT COUNT(*)" + queryBuilder.fromClause(joins) + where, params);
 
-        StringBuilder sql = new StringBuilder("SELECT t.id AS row_id");
+        StringBuilder sql = new StringBuilder("SELECT " + queryBuilder.idExpression() + " AS row_id");
         for (int i = 0; i < selectExprs.size(); i++) {
             sql.append(", ").append(selectExprs.get(i)).append(" AS c").append(i);
         }
         sql.append(queryBuilder.fromClause(joins)).append(where);
-        sql.append(rawOrderBy(def.sort(), joins));
+        sql.append(rawOrderBy(def.sort(), datasource, queryBuilder, joins));
         sql.append(pagination(page, size));
 
         Query query = em.createNativeQuery(sql.toString());
@@ -104,28 +101,38 @@ public class TableReportExecutor {
         return new TableData("TABLE", "raw", columns, data, page(page, size, total));
     }
 
-    private String rawColumnExpr(String field, Set<Join> joins) {
-        return "category".equals(field)
-                ? TransactionQueryBuilder.CATEGORY_LISTAGG
-                : queryBuilder.expression(field, joins);
+    private String rawColumnExpr(String field, ReportDatasource datasource, ReportQueryBuilder queryBuilder, Set<String> joins) {
+        if ("transactions".equals(datasource.name()) && "category".equals(field)) {
+            return TransactionQueryBuilder.CATEGORY_LISTAGG;
+        }
+        return queryBuilder.expression(field, joins);
     }
 
-    private String rawOrderBy(List<SortClause> sort, Set<Join> joins) {
-        if (sort == null || sort.isEmpty()) {
-            return " ORDER BY t.transaction_date DESC, t.id DESC";
+    private String rawOrderBy(List<SortClause> sort, ReportDatasource datasource, ReportQueryBuilder queryBuilder, Set<String> joins) {
+        // The id tiebreaker keeps OFFSET/FETCH pagination stable: without a unique sort key,
+        // Oracle may repeat or drop rows across pages whenever the sort values tie.
+        if (sort != null && !sort.isEmpty()) {
+            List<String> parts = new ArrayList<>();
+            for (SortClause clause : sort) {
+                parts.add(rawColumnExpr(clause.key(), datasource, queryBuilder, joins) + direction(clause.direction()));
+            }
+            parts.add(queryBuilder.idExpression() + " ASC");
+            return " ORDER BY " + String.join(", ", parts);
         }
-        List<String> parts = new ArrayList<>();
-        for (SortClause clause : sort) {
-            parts.add(rawColumnExpr(clause.key(), joins) + direction(clause.direction()));
+        // Default order: the datasource's first date field DESC (newest first).
+        FieldDef dateField = datasource.fields().stream().filter(f -> f.type() == FieldType.DATE).findFirst().orElse(null);
+        if (dateField != null) {
+            return " ORDER BY " + rawColumnExpr(dateField.name(), datasource, queryBuilder, joins) + " DESC, "
+                    + queryBuilder.idExpression() + " DESC";
         }
-        parts.add("t.id ASC");
-        return " ORDER BY " + String.join(", ", parts);
+        return " ORDER BY " + queryBuilder.idExpression() + " ASC";
     }
 
     // ------------------------------------------------------------------ aggregated (pivot) mode
 
-    private PivotTableData executeAggregated(AggregatedTableDefinition def, UUID userId, int page, int size) {
-        Set<Join> joins = EnumSet.noneOf(Join.class);
+    private PivotTableData executeAggregated(AggregatedTableDefinition def, ReportDatasource datasource, UUID userId, int page, int size) {
+        ReportQueryBuilder queryBuilder = datasource.queryBuilder();
+        Set<String> joins = new HashSet<>();
         Map<String, Object> params = new HashMap<>();
         String where = queryBuilder.buildWhere(def.filters(), userId, params, joins);
 
@@ -135,11 +142,11 @@ public class TableReportExecutor {
 
         List<String> rowExprs = new ArrayList<>();
         for (DimensionRef d : rowDims) {
-            rowExprs.add(dimensionExpr(d, joins));
+            rowExprs.add(dimensionExpr(queryBuilder, d, joins));
         }
         List<String> colExprs = new ArrayList<>();
         for (DimensionRef d : colDims) {
-            colExprs.add(dimensionExpr(d, joins));
+            colExprs.add(dimensionExpr(queryBuilder, d, joins));
         }
         List<String> measureExprs = new ArrayList<>();
         List<String> measureKeys = new ArrayList<>();
@@ -211,7 +218,6 @@ public class TableReportExecutor {
             pivotRow.cells().put(colKey, measureValues);
         }
 
-        // Pagination over distinct row groups (in query order).
         List<PivotTableData.Row> allRows = new ArrayList<>(rowMap.values());
         int total = allRows.size();
         int from = Math.min((int) Math.min((long) page * size, Integer.MAX_VALUE), total);
@@ -220,17 +226,20 @@ public class TableReportExecutor {
 
         List<PivotTableData.DimensionInfo> rowDimInfo = new ArrayList<>();
         for (DimensionRef d : rowDims) {
-            rowDimInfo.add(dimInfo(d));
+            rowDimInfo.add(dimInfo(d, datasource));
         }
         List<PivotTableData.DimensionInfo> colDimInfo = new ArrayList<>();
         for (DimensionRef d : colDims) {
-            colDimInfo.add(dimInfo(d));
+            colDimInfo.add(dimInfo(d, datasource));
         }
         List<PivotTableData.MeasureInfo> measureInfo = new ArrayList<>();
         for (MeasureRef m : measures) {
+            FieldDef f = datasource.field(m.field());
+            String fieldLabel = f != null ? f.label() : m.field();
             measureInfo.add(new PivotTableData.MeasureInfo(
                     m.field() + "_" + m.aggregation().json(), m.field(), m.aggregation().json(),
-                    catalog.field(m.field()).label() + " (" + capitalize(m.aggregation().json()) + ")"));
+                    fieldLabel + " (" + capitalize(m.aggregation().json()) + ")",
+                    f != null ? f.format() : null));
         }
 
         return new PivotTableData("TABLE", "aggregated", rowDimInfo, colDimInfo, measureInfo,
@@ -257,7 +266,6 @@ public class TableReportExecutor {
                 }
             }
         }
-        // Deterministic tiebreakers: row dimensions, then column dimensions.
         for (String expr : rowExprs) {
             parts.add(expr + " ASC");
         }
@@ -269,15 +277,16 @@ public class TableReportExecutor {
 
     // ------------------------------------------------------------------ shared
 
-    private String dimensionExpr(DimensionRef ref, Set<Join> joins) {
+    private String dimensionExpr(ReportQueryBuilder queryBuilder, DimensionRef ref, Set<String> joins) {
         String expr = queryBuilder.expression(ref.field(), joins);
         return ref.granularity() != null ? queryBuilder.bucketExpression(expr, ref.granularity()) : expr;
     }
 
-    private PivotTableData.DimensionInfo dimInfo(DimensionRef ref) {
+    private PivotTableData.DimensionInfo dimInfo(DimensionRef ref, ReportDatasource datasource) {
+        FieldDef f = datasource.field(ref.field());
         String label = ref.granularity() != null
                 ? granularityLabel(ref.granularity())
-                : catalog.field(ref.field()).label();
+                : (f != null ? f.label() : ref.field());
         return new PivotTableData.DimensionInfo(ref.field(), label);
     }
 
@@ -286,7 +295,7 @@ public class TableReportExecutor {
             return "(none)";
         }
         if (ref.granularity() != null) {
-            return TransactionQueryBuilder.bucketLabel(ResultValues.toLocalDate(raw), ref.granularity());
+            return BucketLabels.bucketLabel(ResultValues.toLocalDate(raw), ref.granularity(), dateRangeResolver.getFiscalYearStartMonth());
         }
         return String.valueOf(raw);
     }
@@ -334,6 +343,7 @@ public class TableReportExecutor {
             case MONTH -> "Month";
             case QUARTER -> "Quarter";
             case YEAR -> "Year";
+            case FY -> "Financial year";
         };
     }
 

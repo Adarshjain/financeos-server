@@ -9,7 +9,8 @@ public enum Granularity {
     WEEK("week"),
     MONTH("month"),
     QUARTER("quarter"),
-    YEAR("year");
+    YEAR("year"),
+    FY("fy");
 
     private final String json;
 

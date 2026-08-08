@@ -9,6 +9,7 @@ public record KpiData(
         BigDecimal value,
         String measure,
         String aggregation,
+        String format,
         Comparison comparison,
         Meta meta) implements ReportData {
 

@@ -20,4 +20,12 @@ public record DateRange(LocalDate from, LocalDate to, boolean bounded) {
     public long lengthDays() {
         return bounded ? (to.toEpochDay() - from.toEpochDay() + 1) : 0;
     }
+
+    /** Whether the date falls within this range inclusive (always true when unbounded). */
+    public boolean contains(LocalDate date) {
+        if (!bounded || date == null) {
+            return true;
+        }
+        return (from == null || !date.isBefore(from)) && (to == null || !date.isAfter(to));
+    }
 }

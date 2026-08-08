@@ -11,7 +11,7 @@ public record TableData(
         List<Map<String, Object>> rows,
         Page page) implements ReportData {
 
-    public record Column(String key, String label, String type) {
+    public record Column(String key, String label, String type, String format) {
     }
 
     public record Page(int number, int size, long totalElements, int totalPages) {

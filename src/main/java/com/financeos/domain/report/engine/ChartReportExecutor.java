@@ -1,11 +1,11 @@
 package com.financeos.domain.report.engine;
 
 import com.financeos.domain.report.datasource.Aggregation;
+import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.definition.ChartDefinition;
 import com.financeos.domain.report.definition.ChartType;
 import com.financeos.domain.report.definition.DimensionRef;
 import com.financeos.domain.report.definition.FilterClause;
-import com.financeos.domain.report.engine.TransactionQueryBuilder.Join;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -33,34 +32,35 @@ public class ChartReportExecutor {
     @PersistenceContext
     private EntityManager em;
 
-    private final TransactionQueryBuilder queryBuilder;
     private final DateRangeResolver dateRangeResolver;
 
-    public ChartReportExecutor(TransactionQueryBuilder queryBuilder, DateRangeResolver dateRangeResolver) {
-        this.queryBuilder = queryBuilder;
+    public ChartReportExecutor(DateRangeResolver dateRangeResolver) {
         this.dateRangeResolver = dateRangeResolver;
     }
 
     @Transactional(readOnly = true)
-    public ChartData execute(ChartDefinition def, UUID userId) {
+    public ChartData execute(ChartDefinition def, ReportDatasource datasource, UUID userId) {
+        ReportQueryBuilder queryBuilder = datasource.queryBuilder();
         List<FilterClause> filters = def.filters() == null ? List.of() : def.filters();
+
         // Pie/Donut render a single dimension as slices; any series split is ignored.
         boolean pie = def.chartType() == ChartType.PIE || def.chartType() == ChartType.DONUT;
         DimensionRef seriesRef = pie ? null : def.series();
         boolean hasSeries = seriesRef != null;
 
-        Set<Join> joins = EnumSet.noneOf(Join.class);
+        Set<String> joins = new HashSet<>();
         Map<String, Object> params = new HashMap<>();
         String where = queryBuilder.buildWhere(filters, userId, params, joins);
 
-        // True contributing-transaction count (DISTINCT guards against category-join fan-out).
-        long rowCount = countDistinct(joins, where, params);
+        // True contributing-row count (DISTINCT guards against dimension-join fan-out,
+        // e.g. the transactions category many-to-many).
+        long rowCount = countRows(queryBuilder, joins, where, params);
 
         DimensionRef dimRef = def.dimension();
-        String dimSql = dimensionSql(dimRef, joins);
+        String dimSql = dimensionSql(queryBuilder, dimRef, joins);
         String measureExpr = queryBuilder.expression(def.measure().field(), joins);
         String aggFn = def.measure().aggregation().name();
-        String seriesSql = hasSeries ? dimensionSql(seriesRef, joins) : null;
+        String seriesSql = hasSeries ? dimensionSql(queryBuilder, seriesRef, joins) : null;
 
         StringBuilder sql = new StringBuilder("SELECT ").append(dimSql).append(" AS dim");
         if (hasSeries) {
@@ -82,22 +82,22 @@ public class ChartReportExecutor {
         @SuppressWarnings("unchecked")
         List<Object[]> rows = query.getResultList();
 
-        return pivot(def, dimRef, seriesRef, hasSeries, rows, rowCount, filters);
+        return pivot(def, datasource, dimRef, seriesRef, hasSeries, rows, rowCount, filters);
     }
 
-    private long countDistinct(Set<Join> whereJoins, String where, Map<String, Object> params) {
-        String sql = "SELECT COUNT(DISTINCT t.id)" + queryBuilder.fromClause(whereJoins) + where;
+    private long countRows(ReportQueryBuilder queryBuilder, Set<String> whereJoins, String where, Map<String, Object> params) {
+        String sql = "SELECT COUNT(DISTINCT " + queryBuilder.idExpression() + ")" + queryBuilder.fromClause(whereJoins) + where;
         Query query = em.createNativeQuery(sql);
         params.forEach(query::setParameter);
         return ((Number) query.getSingleResult()).longValue();
     }
 
-    private String dimensionSql(DimensionRef ref, Set<Join> joins) {
+    private String dimensionSql(ReportQueryBuilder queryBuilder, DimensionRef ref, Set<String> joins) {
         String expr = queryBuilder.expression(ref.field(), joins);
         return ref.granularity() != null ? queryBuilder.bucketExpression(expr, ref.granularity()) : expr;
     }
 
-    private ChartData pivot(ChartDefinition def, DimensionRef dimRef, DimensionRef seriesRef,
+    private ChartData pivot(ChartDefinition def, ReportDatasource datasource, DimensionRef dimRef, DimensionRef seriesRef,
             boolean hasSeries, List<Object[]> rows, long rowCount, List<FilterClause> filters) {
         Aggregation agg = def.measure().aggregation();
         BigDecimal missing = (agg == Aggregation.SUM || agg == Aggregation.COUNT) ? BigDecimal.ZERO : null;
@@ -133,7 +133,7 @@ public class ChartReportExecutor {
             series.add(new ChartData.Series(entry.getKey(), data));
         }
 
-        DateRange range = dateRangeResolver.effectiveRange(dateRangeResolver.findDateFilter(filters));
+        DateRange range = dateRangeResolver.effectiveRange(dateRangeResolver.findDateFilter(datasource, filters));
         ChartData.Meta meta = new ChartData.Meta(
                 rowCount,
                 range.bounded() ? new ChartData.DateRangeView(range.from(), range.to()) : null);
@@ -148,12 +148,12 @@ public class ChartReportExecutor {
                 meta);
     }
 
-    private static String label(DimensionRef ref, Object raw) {
+    private String label(DimensionRef ref, Object raw) {
         if (raw == null) {
             return "(none)";
         }
         if (ref.granularity() != null) {
-            return TransactionQueryBuilder.bucketLabel(ResultValues.toLocalDate(raw), ref.granularity());
+            return BucketLabels.bucketLabel(ResultValues.toLocalDate(raw), ref.granularity(), dateRangeResolver.getFiscalYearStartMonth());
         }
         return String.valueOf(raw);
     }

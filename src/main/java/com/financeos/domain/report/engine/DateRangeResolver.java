@@ -25,7 +25,6 @@ public class DateRangeResolver {
     private static final Set<String> MONTH_ALIGNED = Set.of("this_month", "previous_month");
     private static final Set<String> YEAR_ALIGNED = Set.of("this_year", "previous_year");
     private static final Set<String> FY_ALIGNED = Set.of("current_fy", "prev_fy");
-
     private final int fiscalYearStartMonth;
 
     public DateRangeResolver(
@@ -34,6 +33,10 @@ public class DateRangeResolver {
             throw new IllegalArgumentException("fiscal-year-start-month must be 1-12");
         }
         this.fiscalYearStartMonth = fiscalYearStartMonth;
+    }
+
+    public int getFiscalYearStartMonth() {
+        return fiscalYearStartMonth;
     }
 
     /** Resolve a relative date operator against today's date. */
@@ -124,13 +127,14 @@ public class DateRangeResolver {
         return DateRange.of(current.from().minusDays(len), current.to().minusDays(len));
     }
 
-    /** The first {@code date} filter in the list, or null if there is none. */
-    public FilterClause findDateFilter(List<FilterClause> filters) {
-        if (filters == null) {
+    /** The first filter whose field type is DATE in the given datasource, or null. */
+    public FilterClause findDateFilter(com.financeos.domain.report.datasource.ReportDatasource datasource, List<FilterClause> filters) {
+        if (filters == null || datasource == null) {
             return null;
         }
         for (FilterClause filter : filters) {
-            if ("date".equals(filter.field())) {
+            com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef field = datasource.field(filter.field());
+            if (field != null && field.type() == com.financeos.domain.report.datasource.FieldType.DATE) {
                 return filter;
             }
         }
