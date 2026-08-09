@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public record CreateRuleRequest(
         @NotBlank String merchantKey,
+        String matchType,
         String displayName,
         @NotEmpty List<UUID> categoryIds,
         @MccCode String mcc

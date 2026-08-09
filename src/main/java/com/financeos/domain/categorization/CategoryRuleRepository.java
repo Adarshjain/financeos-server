@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public interface CategoryRuleRepository extends JpaRepository<CategoryRule, UUID> {
 
-    Optional<CategoryRule> findByUserIdAndMerchantKey(UUID userId, String merchantKey);
+    Optional<CategoryRule> findByUserIdAndMerchantKeyAndMatchType(UUID userId, String merchantKey, MatchType matchType);
 
     List<CategoryRule> findByUserId(UUID userId);
 

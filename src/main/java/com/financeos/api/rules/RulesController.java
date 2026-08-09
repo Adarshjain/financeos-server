@@ -1,6 +1,10 @@
 package com.financeos.api.rules;
 
+import com.financeos.api.rules.dto.ApplyRuleRequest;
+import com.financeos.api.rules.dto.ApplyRuleResponse;
 import com.financeos.api.rules.dto.CreateRuleRequest;
+import com.financeos.api.rules.dto.PreviewMatchesRequest;
+import com.financeos.api.rules.dto.RuleMatchTransactionResponse;
 import com.financeos.api.rules.dto.RuleResponse;
 import com.financeos.api.rules.dto.UpdateRuleRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
@@ -9,7 +13,10 @@ import com.financeos.core.security.UserContext;
 import com.financeos.domain.categorization.CategoryRule;
 import com.financeos.domain.categorization.CategoryRuleRepository;
 import com.financeos.domain.categorization.CategorizationService;
-import com.financeos.domain.categorization.DescriptionNormalizer;
+import com.financeos.domain.categorization.MatchType;
+import com.financeos.domain.categorization.RuleMatchService;
+import com.financeos.domain.categorization.RuleMatcher;
+import com.financeos.domain.categorization.RuleMatchService.MatchedTransaction;
 import com.financeos.domain.category.Category;
 import com.financeos.domain.category.CategoryRepository;
 import com.financeos.domain.user.User;
@@ -27,6 +34,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @RestController
@@ -38,15 +46,29 @@ public class RulesController {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final CategorizationService categorizationService;
+    private final RuleMatchService ruleMatchService;
 
     public RulesController(CategoryRuleRepository categoryRuleRepository,
                            CategoryRepository categoryRepository,
                            UserRepository userRepository,
-                           CategorizationService categorizationService) {
+                           CategorizationService categorizationService,
+                           RuleMatchService ruleMatchService) {
         this.categoryRuleRepository = categoryRuleRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.categorizationService = categorizationService;
+        this.ruleMatchService = ruleMatchService;
+    }
+
+    private static MatchType parseMatchType(String value) {
+        if (value == null || value.isBlank()) {
+            return MatchType.MERCHANT_KEY;
+        }
+        try {
+            return MatchType.valueOf(value.trim().toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException e) {
+            throw new ValidationException("Unknown match type: " + value);
+        }
     }
 
     @GetMapping
@@ -75,13 +97,11 @@ public class RulesController {
     public ResponseEntity<RuleResponse> createRule(@Valid @RequestBody CreateRuleRequest request) {
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 
-        String normalizedKey = DescriptionNormalizer.normalize(request.merchantKey());
-        if (normalizedKey.length() < 3) {
-            throw new ValidationException("Merchant key length must be at least 3 characters after normalization.");
-        }
+        MatchType matchType = parseMatchType(request.matchType());
+        String canonicalKey = RuleMatcher.canonicalizePattern(matchType, request.merchantKey());
 
         // Check for duplicate key
-        if (categoryRuleRepository.findByUserIdAndMerchantKey(currentSessionUserId, normalizedKey).isPresent()) {
+        if (categoryRuleRepository.findByUserIdAndMerchantKeyAndMatchType(currentSessionUserId, canonicalKey, matchType).isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
@@ -99,7 +119,8 @@ public class RulesController {
 
         CategoryRule rule = new CategoryRule();
         rule.setUser(userRepository.getReferenceById(currentSessionUserId));
-        rule.setMerchantKey(normalizedKey);
+        rule.setMerchantKey(canonicalKey);
+        rule.setMatchType(matchType);
         rule.setDisplayName(request.displayName() != null && !request.displayName().isBlank() ? request.displayName() : request.merchantKey());
         rule.setVerified(true);
         rule.setSource("USER");
@@ -125,16 +146,21 @@ public class RulesController {
             throw new ValidationException("You do not have permission to modify this rule.");
         }
 
-        if (request.merchantKey() != null) {
-            String normalizedKey = DescriptionNormalizer.normalize(request.merchantKey());
-            if (normalizedKey.length() < 3) {
-                throw new ValidationException("Merchant key length must be at least 3 characters after normalization.");
-            }
-            if (!normalizedKey.equals(rule.getMerchantKey())) {
-                if (categoryRuleRepository.findByUserIdAndMerchantKey(currentSessionUserId, normalizedKey).isPresent()) {
+        if (request.merchantKey() != null || request.matchType() != null) {
+            MatchType newType = request.matchType() != null ? parseMatchType(request.matchType()) : rule.getMatchType();
+            String rawPattern = request.merchantKey() != null ? request.merchantKey() : rule.getMerchantKey();
+            String canonicalKey = RuleMatcher.canonicalizePattern(newType, rawPattern);
+
+            if (newType != rule.getMatchType() || !canonicalKey.equals(rule.getMerchantKey())) {
+                boolean duplicate = categoryRuleRepository
+                        .findByUserIdAndMerchantKeyAndMatchType(currentSessionUserId, canonicalKey, newType)
+                        .filter(other -> !other.getId().equals(rule.getId()))
+                        .isPresent();
+                if (duplicate) {
                     return ResponseEntity.status(HttpStatus.CONFLICT).build();
                 }
-                rule.setMerchantKey(normalizedKey);
+                rule.setMerchantKey(canonicalKey);
+                rule.setMatchType(newType);
             }
         }
 
@@ -180,6 +206,57 @@ public class RulesController {
 
         categorizationService.verifyRule(rule);
         return ResponseEntity.ok(RuleResponse.from(rule));
+    }
+
+    /**
+     * Paginated preview of the transactions a rule definition would match — works for
+     * unsaved definitions, so the create/edit dialog can test a pattern before saving.
+     * POST because patterns (especially regex) don't travel well in query strings.
+     */
+    @PostMapping("/preview-matches")
+    public ResponseEntity<Page<RuleMatchTransactionResponse>> previewMatches(
+            @Valid @RequestBody PreviewMatchesRequest request,
+            @PageableDefault(size = 20) Pageable pageable) {
+
+        UUID currentSessionUserId = UserContext.getCurrentUserId();
+
+        MatchType matchType = parseMatchType(request.matchType());
+        String canonicalKey = RuleMatcher.canonicalizePattern(matchType, request.merchantKey());
+
+        Page<MatchedTransaction> matches = ruleMatchService.findMatches(
+                currentSessionUserId, matchType, canonicalKey, pageable);
+        return ResponseEntity.ok(matches.map(RuleMatchTransactionResponse::from));
+    }
+
+    /**
+     * Applies a rule to the selected transactions (or all current matches with all=true):
+     * they get the rule's categories and stay linked to the rule, so later edits to the
+     * rule's categories keep propagating to them.
+     */
+    @PostMapping("/{id}/apply")
+    public ResponseEntity<ApplyRuleResponse> applyRule(
+            @PathVariable UUID id,
+            @RequestBody ApplyRuleRequest request) {
+
+        UUID currentSessionUserId = UserContext.getCurrentUserId();
+
+        CategoryRule rule = categoryRuleRepository.findWithCategoriesById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Rule", id));
+
+        // SECURITY: verify ownership
+        if (!rule.getUser().getId().equals(currentSessionUserId)) {
+            throw new ValidationException("You do not have permission to modify this rule.");
+        }
+
+        boolean all = Boolean.TRUE.equals(request.all());
+        if (!all && (request.transactionIds() == null || request.transactionIds().isEmpty())) {
+            throw new ValidationException("Provide transactionIds or set all=true.");
+        }
+
+        int applied = all
+                ? ruleMatchService.applyToAllMatches(rule.getId())
+                : ruleMatchService.applyToTransactions(rule.getId(), request.transactionIds());
+        return ResponseEntity.ok(new ApplyRuleResponse(applied));
     }
 
     @DeleteMapping("/{id}")

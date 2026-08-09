@@ -110,6 +110,109 @@ public class CategorizationServiceTest {
     }
 
     @Test
+    public void testUserRuleAlwaysBeatsLlmRule() {
+        // LLM rule has a longer key and more literal type; USER source must still win.
+        CategoryRule llmRule = new CategoryRule();
+        llmRule.setId(UUID.randomUUID());
+        llmRule.setMerchantKey("SWIGGY INSTAMART");
+        llmRule.setMatchType(MatchType.EXACT);
+        llmRule.setSource("LLM");
+        llmRule.setVerified(true);
+        llmRule.setUpdatedAt(Instant.now());
+
+        CategoryRule userRule = new CategoryRule();
+        userRule.setId(UUID.randomUUID());
+        userRule.setMerchantKey("SWIGGY");
+        userRule.setMatchType(MatchType.MERCHANT_KEY);
+        userRule.setSource("USER");
+        userRule.setVerified(false);
+        userRule.setUpdatedAt(Instant.now().minusSeconds(500));
+
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(List.of(llmRule, userRule));
+
+        Optional<CategoryRule> match = categorizationService.findBestMatchingRule(userId, "SWIGGY INSTAMART");
+        assertTrue(match.isPresent());
+        assertEquals("USER", match.get().getSource());
+    }
+
+    @Test
+    public void testMoreLiteralMatchTypeWins() {
+        // Same source: EXACT beats CONTAINS beats MERCHANT_KEY regardless of key length.
+        CategoryRule merchantKeyRule = ruleOf("SWIGGY INSTAMART BANGALORE", MatchType.MERCHANT_KEY);
+        CategoryRule containsRule = ruleOf("SWIGGY INSTAMART", MatchType.CONTAINS);
+        CategoryRule exactRule = ruleOf("UPI SWIGGY INSTAMART BLR", MatchType.EXACT);
+
+        when(categoryRuleRepository.findByUserId(userId))
+                .thenReturn(List.of(merchantKeyRule, containsRule, exactRule));
+
+        Optional<CategoryRule> match = categorizationService.findBestMatchingRule(userId, "UPI SWIGGY INSTAMART BLR");
+        assertTrue(match.isPresent());
+        assertEquals(MatchType.EXACT, match.get().getMatchType());
+    }
+
+    @Test
+    public void testContainsMatchesRawTextTheNormalizerWouldEat() {
+        // "UPI" is a noise token and "042" is all digits — a MERCHANT_KEY rule can never
+        // hold this pattern, but a raw CONTAINS rule matches it.
+        CategoryRule rule = ruleOf("UPI-AUTOPAY/042", MatchType.CONTAINS);
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(List.of(rule));
+
+        assertTrue(categorizationService.findBestMatchingRule(userId, "upi-autopay/042/netflix").isPresent());
+        assertFalse(categorizationService.findBestMatchingRule(userId, "AUTOPAY 042 NETFLIX").isPresent());
+    }
+
+    @Test
+    public void testStartsWithAndRegexMatching() {
+        CategoryRule startsWith = ruleOf("ACH/", MatchType.STARTS_WITH);
+        CategoryRule regex = ruleOf("NEFT.*(HDFC|ICICI)", MatchType.REGEX);
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(List.of(startsWith, regex));
+
+        Optional<CategoryRule> match = categorizationService.findBestMatchingRule(userId, "ACH/SALARY CREDIT");
+        assertTrue(match.isPresent());
+        assertEquals(MatchType.STARTS_WITH, match.get().getMatchType());
+
+        match = categorizationService.findBestMatchingRule(userId, "NEFT TRANSFER TO ICICI BANK");
+        assertTrue(match.isPresent());
+        assertEquals(MatchType.REGEX, match.get().getMatchType());
+
+        // startsWith must not fire mid-string; the regex requires NEFT + a matching bank
+        assertFalse(categorizationService.findBestMatchingRule(userId, "POS ACH/ SOMETHING").isPresent());
+        assertFalse(categorizationService.findBestMatchingRule(userId, "IMPS TRANSFER TO SBI").isPresent());
+    }
+
+    @Test
+    public void testManualTransactionsAreNeverCategorized() {
+        // Manually created transactions have only a user-written description (no
+        // sourcedDescription) and are deliberately outside the rule system.
+        CategoryRule rule = ruleOf("SWIGGY", MatchType.MERCHANT_KEY);
+        rule.setCategories(Set.of(foodCategory));
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(List.of(rule));
+
+        Transaction txn = new Transaction();
+        txn.setUser(testUser);
+        txn.setDescription("SWIGGY FOOD DELIVERY");
+        txn.setCategories(new HashSet<>());
+
+        categorizationService.batchCategorize(List.of(txn));
+
+        assertTrue(txn.getCategories().isEmpty());
+        assertNull(txn.getAppliedRule());
+        verify(transactionCategorizer, never()).categorize(any(), any());
+        verify(reviewStatusManager, never()).addReason(any(), any());
+    }
+
+    private CategoryRule ruleOf(String pattern, MatchType matchType) {
+        CategoryRule rule = new CategoryRule();
+        rule.setId(UUID.randomUUID());
+        rule.setMerchantKey(pattern);
+        rule.setMatchType(matchType);
+        rule.setSource("USER");
+        rule.setVerified(true);
+        rule.setUpdatedAt(Instant.now());
+        return rule;
+    }
+
+    @Test
     public void testBatchCategorizeVerifiedHit() {
         CategoryRule rule = new CategoryRule();
         rule.setId(UUID.randomUUID());
@@ -122,7 +225,7 @@ public class CategorizationServiceTest {
 
         Transaction txn = new Transaction();
         txn.setUser(testUser);
-        txn.setDescription("SWIGGY FOOD DELIVERY");
+        txn.setSourcedDescription("SWIGGY FOOD DELIVERY");
         txn.setCategories(new HashSet<>());
 
         categorizationService.batchCategorize(List.of(txn));
@@ -146,7 +249,7 @@ public class CategorizationServiceTest {
 
         Transaction txn = new Transaction();
         txn.setUser(testUser);
-        txn.setDescription("SWIGGY FOOD DELIVERY");
+        txn.setSourcedDescription("SWIGGY FOOD DELIVERY");
         txn.setCategories(new HashSet<>());
 
         categorizationService.batchCategorize(List.of(txn));
@@ -162,7 +265,7 @@ public class CategorizationServiceTest {
 
         Transaction txn = new Transaction();
         txn.setUser(testUser);
-        txn.setDescription("AMAZON PAY INDIA");
+        txn.setSourcedDescription("AMAZON PAY INDIA");
         txn.setCategories(new HashSet<>());
 
         TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
@@ -180,7 +283,7 @@ public class CategorizationServiceTest {
         newRule.setVerified(false);
         newRule.setCategories(Set.of(shoppingCategory));
 
-        when(categoryRuleRepository.findByUserIdAndMerchantKey(userId, "AMAZON")).thenReturn(Optional.empty());
+        when(categoryRuleRepository.findByUserIdAndMerchantKeyAndMatchType(userId, "AMAZON", MatchType.MERCHANT_KEY)).thenReturn(Optional.empty());
         when(categoryRuleRepository.saveAndFlush(any())).thenReturn(newRule);
 
         categorizationService.batchCategorize(List.of(txn));
@@ -197,7 +300,7 @@ public class CategorizationServiceTest {
 
         Transaction txn = new Transaction();
         txn.setUser(testUser);
-        txn.setDescription("AMAZON PAY INDIA");
+        txn.setSourcedDescription("AMAZON PAY INDIA");
         txn.setCategories(new HashSet<>());
 
         categorizationService.batchCategorize(List.of(txn));
@@ -212,7 +315,7 @@ public class CategorizationServiceTest {
 
         Transaction txn = new Transaction();
         txn.setUser(testUser);
-        txn.setDescription("XYZ PAYMENTS");
+        txn.setSourcedDescription("XYZ PAYMENTS");
         txn.setCategories(new HashSet<>());
 
         TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
@@ -237,7 +340,7 @@ public class CategorizationServiceTest {
 
         Transaction txn = new Transaction();
         txn.setUser(testUser);
-        txn.setDescription("SWIGGY DELIVERY");
+        txn.setSourcedDescription("SWIGGY DELIVERY");
         txn.setCategories(new HashSet<>());
 
         TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
@@ -262,7 +365,7 @@ public class CategorizationServiceTest {
 
         Transaction txn = new Transaction();
         txn.setUser(testUser);
-        txn.setDescription("SWIGGY DELIVERY");
+        txn.setSourcedDescription("SWIGGY DELIVERY");
         txn.setCategories(new HashSet<>());
 
         TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
@@ -324,7 +427,7 @@ public class CategorizationServiceTest {
         );
         when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
 
-        when(categoryRuleRepository.findByUserIdAndMerchantKey(userId, "AMAZON")).thenReturn(Optional.empty());
+        when(categoryRuleRepository.findByUserIdAndMerchantKeyAndMatchType(userId, "AMAZON", MatchType.MERCHANT_KEY)).thenReturn(Optional.empty());
 
         categorizationService.batchCategorize(List.of(txn));
 
@@ -348,7 +451,7 @@ public class CategorizationServiceTest {
 
         Transaction txn = new Transaction();
         txn.setUser(testUser);
-        txn.setDescription("SWIGGY FOOD DELIVERY");
+        txn.setSourcedDescription("SWIGGY FOOD DELIVERY");
         txn.setCategories(new HashSet<>());
 
         categorizationService.batchCategorize(List.of(txn));
@@ -371,7 +474,7 @@ public class CategorizationServiceTest {
 
         Transaction txn = new Transaction();
         txn.setUser(testUser);
-        txn.setDescription("SWIGGY FOOD DELIVERY");
+        txn.setSourcedDescription("SWIGGY FOOD DELIVERY");
         txn.setCategories(new HashSet<>());
         txn.setMcc("5411"); // Pre-existing MCC from card statement
 

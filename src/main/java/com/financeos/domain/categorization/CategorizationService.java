@@ -61,18 +61,26 @@ public class CategorizationService {
         return bestMatch(rules, description);
     }
 
+    /**
+     * Precedence when several rules match the same description: manually created rules
+     * always beat auto-generated ones, then the more literal match type wins, then the
+     * longer pattern, then verified, then most recently updated.
+     */
+    static final Comparator<CategoryRule> RULE_PRECEDENCE = Comparator
+            .<CategoryRule, Integer>comparing(r -> "USER".equals(r.getSource()) ? 1 : 0)
+            .thenComparing(r -> (r.getMatchType() == null ? MatchType.MERCHANT_KEY : r.getMatchType()).specificity())
+            .thenComparing(r -> r.getMerchantKey().length())
+            .thenComparing(CategoryRule::isVerified)
+            .thenComparing(CategoryRule::getUpdatedAt, Comparator.nullsFirst(Comparator.naturalOrder()));
+
     private static Optional<CategoryRule> bestMatch(List<CategoryRule> rules, String description) {
-        String normalizedDesc = DescriptionNormalizer.normalize(description);
-        if (normalizedDesc.isBlank()) {
+        RuleMatcher.MatchContext ctx = RuleMatcher.MatchContext.of(description);
+        if (ctx.isBlank()) {
             return Optional.empty();
         }
         return rules.stream()
-                .filter(rule -> rule.getMerchantKey().length() >= 3 && normalizedDesc.contains(rule.getMerchantKey()))
-                .max(Comparator
-                        .<CategoryRule, Integer>comparing(r -> r.getMerchantKey().length())
-                        .thenComparing(CategoryRule::isVerified)
-                        .thenComparing(CategoryRule::getUpdatedAt)
-                );
+                .filter(rule -> RuleMatcher.matches(rule, ctx))
+                .max(RULE_PRECEDENCE);
     }
 
     private CategoryRule getOrCreateRule(UUID userId, String normalizedKey, String displayName,
@@ -82,7 +90,8 @@ public class CategorizationService {
             return cached;
         }
 
-        Optional<CategoryRule> existing = categoryRuleRepository.findByUserIdAndMerchantKey(userId, normalizedKey);
+        Optional<CategoryRule> existing = categoryRuleRepository.findByUserIdAndMerchantKeyAndMatchType(
+                userId, normalizedKey, MatchType.MERCHANT_KEY);
         if (existing.isPresent()) {
             batchCache.put(normalizedKey, existing.get());
             return existing.get();
@@ -91,6 +100,7 @@ public class CategorizationService {
         CategoryRule rule = new CategoryRule();
         rule.setUser(userRepository.getReferenceById(userId));
         rule.setMerchantKey(normalizedKey);
+        rule.setMatchType(MatchType.MERCHANT_KEY);
         rule.setDisplayName(displayName != null ? displayName : normalizedKey);
         rule.setCategories(categories);
         rule.setVerified(false);
@@ -368,12 +378,12 @@ public class CategorizationService {
     }
 
     /**
-     * Returns the description to categorize against: prefers sourcedDescription (original from
-     * ingestion), falls back to description (for manually created transactions that have no
-     * sourcedDescription). Mirrors TransactionMatcher#effectiveDescription.
+     * Rules match exclusively against sourcedDescription (the original text from ingestion).
+     * Manually created transactions have no sourcedDescription and are deliberately outside
+     * the rule system — their user-written description is never matched.
      */
     private static String effectiveDescription(Transaction txn) {
-        return txn.getSourcedDescription() != null ? txn.getSourcedDescription() : txn.getDescription();
+        return txn.getSourcedDescription();
     }
 
     private void saveAllTxnsIfPersisted(List<Transaction> txns) {
