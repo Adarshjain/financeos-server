@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public record UpdateRuleRequest(
         String merchantKey,
+        String matchType,
         String displayName,
         List<UUID> categoryIds,
         @MccCode String mcc

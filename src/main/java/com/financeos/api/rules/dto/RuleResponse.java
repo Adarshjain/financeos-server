@@ -9,6 +9,7 @@ import java.util.UUID;
 public record RuleResponse(
         UUID id,
         String merchantKey,
+        String matchType,
         String displayName,
         List<CategoryResponse> categories,
         boolean verified,
@@ -25,6 +26,7 @@ public record RuleResponse(
         return new RuleResponse(
                 rule.getId(),
                 rule.getMerchantKey(),
+                rule.getMatchType() != null ? rule.getMatchType().name() : "MERCHANT_KEY",
                 rule.getDisplayName(),
                 categoryResponses,
                 rule.isVerified(),

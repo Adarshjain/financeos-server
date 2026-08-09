@@ -58,6 +58,25 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
 
     List<Transaction> findByAppliedRuleId(UUID appliedRuleId);
 
+    interface RuleMatchCandidate {
+        UUID getId();
+
+        String getSourcedDescription();
+    }
+
+    /**
+     * Candidates for category-rule matching: only ingested transactions (rules never match
+     * manual descriptions) that aren't manually reviewed. Lightweight projection because the
+     * rule predicate runs in Java — MERCHANT_KEY normalization and REGEX can't be pushed to SQL.
+     */
+    @Query("SELECT t.id AS id, t.sourcedDescription AS sourcedDescription FROM Transaction t " +
+           "WHERE t.user.id = :userId AND t.sourcedDescription IS NOT NULL " +
+           "AND (t.reviewType IS NULL OR t.reviewType <> :excludedReviewType) " +
+           "ORDER BY t.date DESC, t.createdAt DESC")
+    List<RuleMatchCandidate> findRuleMatchCandidates(
+            @Param("userId") UUID userId,
+            @Param("excludedReviewType") ReviewType excludedReviewType);
+
     @Query("SELECT COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END), 0) FROM Transaction t WHERE t.account.id = :accountId")
     java.math.BigDecimal findTotalTransactionSumByAccountId(@Param("accountId") UUID accountId);
 
