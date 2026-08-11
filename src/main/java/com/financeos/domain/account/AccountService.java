@@ -153,6 +153,10 @@ public class AccountService {
             throw new ValidationException("Credit card details can only be added to credit card accounts");
         }
 
+        // Membership anniversary is part of the card, not the rewards config — the
+        // rewards engine reads it from here for ANNIVERSARY_YEAR windows.
+        account.setRewardAnniversaryDate(request.anniversaryDate());
+
         if (account.getCreditCardDetails() != null) {
             // Update existing
             AccountCreditCardDetails details = account.getCreditCardDetails();

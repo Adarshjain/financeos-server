@@ -227,7 +227,7 @@ class TransactionServiceTest {
                 null,
                 null,
                 null
-        );
+        , null);
         transactionService.updateTransaction(txn.getId(), omitRequest);
         assertEquals("5411", txn.getMcc());
 
@@ -242,7 +242,7 @@ class TransactionServiceTest {
                 null,
                 null,
                 ""
-        );
+        , null);
         transactionService.updateTransaction(txn.getId(), clearRequest);
         assertNull(txn.getMcc());
     }

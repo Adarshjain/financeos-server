@@ -102,7 +102,7 @@ class TransactionServiceUpdateReviewTest {
                 ReviewType.NEEDS_REVIEW,
                 "Watching this one",
                 null
-        );
+        , null);
 
         assertDoesNotThrow(() -> transactionService.updateTransaction(txn.getId(), request));
         assertEquals(ReviewType.NEEDS_REVIEW, txn.getReviewType());
@@ -151,7 +151,7 @@ class TransactionServiceUpdateReviewTest {
                 null,
                 null,
                 null
-        );
+        , null);
 
         transactionService.updateTransaction(txn.getId(), request);
         assertEquals(ReviewType.MANUALLY_REVIEWED, txn.getReviewType());
@@ -181,7 +181,7 @@ class TransactionServiceUpdateReviewTest {
 
         UpdateTransactionRequest request = new UpdateTransactionRequest(
                 LocalDate.now(), new BigDecimal("-10.00"), "Desc",
-                null, true, null, ReviewType.NEEDS_REVIEW, "watch", null);
+                null, true, null, ReviewType.NEEDS_REVIEW, "watch", null, null);
 
         service.updateTransaction(txn.getId(), request);
 
@@ -210,7 +210,7 @@ class TransactionServiceUpdateReviewTest {
 
         UpdateTransactionRequest request = new UpdateTransactionRequest(
                 LocalDate.now(), new BigDecimal("-10.00"), "Desc",
-                null, null, null, ReviewType.NA, null, null);
+                null, null, null, ReviewType.NA, null, null, null);
 
         service.updateTransaction(txn.getId(), request);
 

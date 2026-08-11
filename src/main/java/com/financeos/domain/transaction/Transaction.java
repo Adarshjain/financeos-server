@@ -60,6 +60,28 @@ public class Transaction {
     @Column(name = "mcc", length = 4)
     private String mcc;
 
+    /** Bank posting date; reward windows key off this when present (falls back to date). */
+    @Column(name = "settlement_date")
+    private LocalDate settlementDate;
+
+    /** Checkout discount that was never charged to the card — not part of amount. */
+    @Column(name = "instant_discount", precision = 19, scale = 4)
+    private BigDecimal instantDiscount;
+
+    /** Labeled fee portion of amount (the fee WAS charged to the card). */
+    @Column(name = "convenience_fee", precision = 19, scale = 4)
+    private BigDecimal convenienceFee;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "channel", length = 20)
+    private TransactionChannel channel;
+
+    @Column(name = "is_emi")
+    private Boolean isEmi;
+
+    @Column(name = "is_international")
+    private Boolean isInternational;
+
     @Transient
     private BigDecimal balance;
 

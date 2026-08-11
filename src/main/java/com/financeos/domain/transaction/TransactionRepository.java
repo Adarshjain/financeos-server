@@ -56,6 +56,15 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
 
+    /** Reward engine: fetch by effective date (settlement date when present, else transaction date). */
+    @EntityGraph(attributePaths = { "categories.category" })
+    @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId " +
+            "AND COALESCE(t.settlementDate, t.date) BETWEEN :startDate AND :endDate")
+    List<Transaction> findForRewardEvaluation(
+            @Param("accountId") UUID accountId,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate);
+
     List<Transaction> findByAppliedRuleId(UUID appliedRuleId);
 
     interface RuleMatchCandidate {

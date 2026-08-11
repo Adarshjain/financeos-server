@@ -30,6 +30,12 @@ public record TransactionResponse(
                 java.util.List<com.financeos.domain.transaction.ReviewReason> reviewReasons,
                 UUID appliedRuleId,
                 String mcc,
+                LocalDate settlementDate,
+                BigDecimal instantDiscount,
+                BigDecimal convenienceFee,
+                com.financeos.domain.transaction.TransactionChannel channel,
+                Boolean isEmi,
+                Boolean isInternational,
                 java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary> links) {
 
         public static TransactionResponse from(Transaction transaction) {
@@ -82,6 +88,12 @@ public record TransactionResponse(
                                 reviewReasonsList,
                                 transaction.getAppliedRule() != null ? transaction.getAppliedRule().getId() : null,
                                 transaction.getMcc(),
+                                transaction.getSettlementDate(),
+                                transaction.getInstantDiscount(),
+                                transaction.getConvenienceFee(),
+                                transaction.getChannel(),
+                                transaction.getIsEmi(),
+                                transaction.getIsInternational(),
                                 transactionLinks);
         }
 }

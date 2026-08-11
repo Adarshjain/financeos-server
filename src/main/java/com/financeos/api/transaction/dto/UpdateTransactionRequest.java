@@ -22,5 +22,6 @@ public record UpdateTransactionRequest(
                 Boolean isTransactionExcluded,
                 ReviewType reviewType,
                 String monitoringReason,
-                @MccCode String mcc) {
+                @MccCode String mcc,
+                @jakarta.validation.Valid RewardDetailsRequest rewardDetails) {
 }
