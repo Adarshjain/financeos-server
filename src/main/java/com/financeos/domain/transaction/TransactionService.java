@@ -71,6 +71,24 @@ public class TransactionService {
         this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, null, self);
     }
 
+    /**
+     * Overwrite semantics: a present rewardDetails object applies all six fields
+     * (nulls clear); an absent one leaves stored values untouched, so callers that
+     * don't know about reward details can't wipe them.
+     */
+    private static void applyRewardDetails(Transaction transaction,
+            com.financeos.api.transaction.dto.RewardDetailsRequest details) {
+        if (details == null) {
+            return;
+        }
+        transaction.setSettlementDate(details.settlementDate());
+        transaction.setInstantDiscount(details.instantDiscount());
+        transaction.setConvenienceFee(details.convenienceFee());
+        transaction.setChannel(details.channel());
+        transaction.setIsEmi(details.isEmi());
+        transaction.setIsInternational(details.isInternational());
+    }
+
     public Transaction createTransaction(CreateTransactionRequest request) {
         // Validate non-zero amount
         if (request.amount().compareTo(BigDecimal.ZERO) == 0) {
@@ -101,6 +119,7 @@ public class TransactionService {
             transaction.setMonitoringReason(null);
         }
         transaction.setMcc(request.mcc());
+        applyRewardDetails(transaction, request.rewardDetails());
 
         // SECURITY: Enforce session-based identity.
         // We do NOT trust the account owner alone; we use the current session user.
@@ -220,6 +239,7 @@ public class TransactionService {
         if (request.mcc() != null) {
             transaction.setMcc(request.mcc().isBlank() ? null : request.mcc());
         }
+        applyRewardDetails(transaction, request.rewardDetails());
         // Capture the stored review status before any mutation so we can tell an
         // explicit status change apart from the client merely echoing the current value.
         ReviewType originalReviewType = transaction.getReviewType();

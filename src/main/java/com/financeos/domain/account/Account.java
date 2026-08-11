@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Filter;
+import com.financeos.domain.reward.RewardType;
 import com.financeos.domain.user.User;
 
 import org.hibernate.annotations.JdbcTypeCode;
@@ -54,6 +55,15 @@ public class Account {
 
     @Column(name = "last_statement_date")
     private LocalDate lastStatementDate;
+
+    /** Anchor for ANNIVERSARY_YEAR reward windows (card membership anniversary). */
+    @Column(name = "reward_anniversary_date")
+    private LocalDate rewardAnniversaryDate;
+
+    /** Default currency new reward rules pay in (each rule can override it). */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "default_reward_type", nullable = false, length = 20)
+    private RewardType defaultRewardType = RewardType.CASH;
 
     @Column(name = "created_at")
     private Instant createdAt;

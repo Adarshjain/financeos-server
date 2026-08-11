@@ -21,5 +21,6 @@ public record CreateTransactionRequest(
         Boolean isTransactionUnderMonitoring,
         Boolean isTransactionExcluded,
         String monitoringReason,
-        @MccCode String mcc) {
+        @MccCode String mcc,
+        @jakarta.validation.Valid RewardDetailsRequest rewardDetails) {
 }
