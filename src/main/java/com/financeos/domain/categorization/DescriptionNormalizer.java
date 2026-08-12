@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class DescriptionNormalizer {
+class DescriptionNormalizer {
 
     private static final Set<String> NOISE_TOKENS = Set.of(
             "UPI", "POS", "NEFT", "IMPS", "RTGS", "ACH", "REF", "TXN",

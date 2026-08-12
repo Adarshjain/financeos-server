@@ -223,33 +223,6 @@ public class InstrumentSearchService {
         return InstrumentResponse.from(saved, Optional.empty());
     }
 
-    private Optional<Instrument> findExistingInstrument(ResolveInstrumentRequest req) {
-        if (!isEmpty(req.isin())) {
-            Optional<Instrument> byIsin = instrumentRepository.findByIsin(req.isin().trim());
-            if (byIsin.isPresent()) {
-                return byIsin;
-            }
-        }
-        if (!isEmpty(req.amfiCode())) {
-            Optional<Instrument> byAmfi = instrumentRepository.findByAmfiCode(req.amfiCode().trim());
-            if (byAmfi.isPresent()) {
-                return byAmfi;
-            }
-        }
-        if (!isEmpty(req.yahooSymbol())) {
-            Optional<Instrument> byYahoo = instrumentRepository.findByYahooSymbol(req.yahooSymbol().trim());
-            if (byYahoo.isPresent()) {
-                return byYahoo;
-            }
-        }
-        if (!isEmpty(req.symbol()) && !isEmpty(req.exchange())) {
-            Optional<Instrument> bySymEx = instrumentRepository.findBySymbolAndExchange(req.symbol().trim(), req.exchange().trim());
-            if (bySymEx.isPresent()) {
-                return bySymEx;
-            }
-        }
-        return Optional.empty();
-    }
 
     private boolean isEmpty(String str) {
         return str == null || str.isBlank();

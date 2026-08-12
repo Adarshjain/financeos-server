@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/instruments/{instrumentId}/corporate-actions")
 public class CorporateActionController {
 
     private final CorporateActionService corporateActionService;
@@ -21,7 +20,12 @@ public class CorporateActionController {
         this.corporateActionService = corporateActionService;
     }
 
-    @PostMapping
+    @GetMapping("/api/v1/corporate-actions")
+    public List<CorporateActionResponse> getAllCorporateActions() {
+        return corporateActionService.getAllCorporateActions();
+    }
+
+    @PostMapping("/api/v1/instruments/{instrumentId}/corporate-actions")
     @ResponseStatus(HttpStatus.CREATED)
     public CorporateActionResponse createCorporateAction(
             @PathVariable UUID instrumentId,
@@ -29,7 +33,7 @@ public class CorporateActionController {
         return corporateActionService.createCorporateAction(instrumentId, request);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/api/v1/instruments/{instrumentId}/corporate-actions/{id}")
     public CorporateActionResponse updateCorporateAction(
             @PathVariable UUID instrumentId,
             @PathVariable UUID id,
@@ -37,7 +41,7 @@ public class CorporateActionController {
         return corporateActionService.updateCorporateAction(instrumentId, id, request);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/api/v1/instruments/{instrumentId}/corporate-actions/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCorporateAction(
             @PathVariable UUID instrumentId,
@@ -45,7 +49,7 @@ public class CorporateActionController {
         corporateActionService.deleteCorporateAction(instrumentId, id);
     }
 
-    @GetMapping
+    @GetMapping("/api/v1/instruments/{instrumentId}/corporate-actions")
     public List<CorporateActionResponse> getCorporateActions(@PathVariable UUID instrumentId) {
         return corporateActionService.getCorporateActions(instrumentId);
     }

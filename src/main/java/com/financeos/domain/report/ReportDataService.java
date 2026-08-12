@@ -79,25 +79,16 @@ public class ReportDataService {
 
     private ReportData dispatch(ReportDatasource datasource, ReportDefinition definition, UUID userId, Integer page, Integer size) {
         if (datasource instanceof com.financeos.domain.report.datasource.ComputedReportDatasource) {
-            if (definition instanceof KpiDefinition kpi) {
-                return inMemoryExecutor.execute(kpi, datasource, null);
-            }
-            if (definition instanceof ChartDefinition chart) {
-                return inMemoryExecutor.execute(chart, datasource, null);
-            }
-            if (definition instanceof TableDefinition table) {
-                return inMemoryExecutor.execute(table, datasource, null, page, size);
-            }
+            return switch (definition) {
+                case KpiDefinition kpi -> inMemoryExecutor.execute(kpi, datasource, null);
+                case ChartDefinition chart -> inMemoryExecutor.execute(chart, datasource, null);
+                case TableDefinition table -> inMemoryExecutor.execute(table, datasource, null, page, size);
+            };
         }
-        if (definition instanceof KpiDefinition kpi) {
-            return kpiExecutor.execute(kpi, datasource, userId);
-        }
-        if (definition instanceof ChartDefinition chart) {
-            return chartExecutor.execute(chart, datasource, userId);
-        }
-        if (definition instanceof TableDefinition table) {
-            return tableExecutor.execute(table, datasource, userId, page, size);
-        }
-        throw new IllegalStateException("Unsupported report definition: " + definition.getClass());
+        return switch (definition) {
+            case KpiDefinition kpi -> kpiExecutor.execute(kpi, datasource, userId);
+            case ChartDefinition chart -> chartExecutor.execute(chart, datasource, userId);
+            case TableDefinition table -> tableExecutor.execute(table, datasource, userId, page, size);
+        };
     }
 }
