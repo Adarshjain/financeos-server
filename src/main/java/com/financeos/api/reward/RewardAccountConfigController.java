@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -48,6 +49,11 @@ public class RewardAccountConfigController {
                 throw new ValidationException("Unknown RewardType: " + request.defaultRewardType());
             }
         }
+        // An explicit null clears the valuation back to the recommender's fallback.
+        if (request.pointValueInr() != null && request.pointValueInr().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new ValidationException("Point value must be greater than 0.");
+        }
+        account.setPointValueInr(request.pointValueInr());
         return ResponseEntity.ok(RewardAccountConfigResponse.from(accountRepository.save(account)));
     }
 

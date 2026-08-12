@@ -10,6 +10,7 @@ import com.financeos.domain.user.User;
 
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -64,6 +65,10 @@ public class Account {
     @Enumerated(EnumType.STRING)
     @Column(name = "default_reward_type", nullable = false, length = 20)
     private RewardType defaultRewardType = RewardType.CASH;
+
+    /** Value of 1 reward point in INR for cross-card recommendation scoring. */
+    @Column(name = "point_value_inr", precision = 12, scale = 4)
+    private BigDecimal pointValueInr;
 
     @Column(name = "created_at")
     private Instant createdAt;

@@ -25,5 +25,7 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
 
     @Query("SELECT a FROM Account a LEFT JOIN a.bankDetails b LEFT JOIN a.creditCardDetails c WHERE a.user.id = :userId AND (b.statementPassword IS NOT NULL OR c.statementPassword IS NOT NULL)")
     List<Account> findByUserIdAndHasStatementPassword(UUID userId);
+
+    List<Account> findByUserId(UUID userId);
 }
 
