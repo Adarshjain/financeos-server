@@ -77,21 +77,17 @@ public class TransactionReferenceValidator {
     @SuppressWarnings("unchecked")
     public Set<UUID> getAllReferencedTransactionIds() {
         Set<UUID> ids = new HashSet<>();
-        List<String> queries = List.of(
-                "SELECT transaction_id FROM loan_events WHERE transaction_id IS NOT NULL",
-                "SELECT transaction_id FROM loan_payments WHERE transaction_id IS NOT NULL",
-                "SELECT transaction_id FROM loan_charges WHERE transaction_id IS NOT NULL",
-                "SELECT transaction_id FROM lendings WHERE transaction_id IS NOT NULL"
-        );
+        String sql = "SELECT transaction_id FROM loan_events WHERE transaction_id IS NOT NULL "
+                + "UNION ALL SELECT transaction_id FROM loan_payments WHERE transaction_id IS NOT NULL "
+                + "UNION ALL SELECT transaction_id FROM loan_charges WHERE transaction_id IS NOT NULL "
+                + "UNION ALL SELECT transaction_id FROM lendings WHERE transaction_id IS NOT NULL";
 
-        for (String sql : queries) {
-            List<String> results = entityManager.createNativeQuery(sql).getResultList();
-            for (String res : results) {
-                if (res != null) {
-                    try {
-                        ids.add(UUID.fromString(res));
-                    } catch (IllegalArgumentException ignored) {}
-                }
+        List<?> results = entityManager.createNativeQuery(sql).getResultList();
+        for (Object res : results) {
+            if (res != null) {
+                try {
+                    ids.add(UUID.fromString(res.toString()));
+                } catch (IllegalArgumentException ignored) {}
             }
         }
         return ids;
