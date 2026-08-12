@@ -38,8 +38,11 @@ tags:
     description: Persons and organizations for P2P lendings
   - name: Obligations
     description: Upcoming loan EMIs and lending expected return calendar
+  - name: Rewards
+    description: Credit card reward engine, rule management, milestones, and recommendations
 
 paths:
+
   /api/v1/auth/signup:
     post:
       tags: [Auth]
@@ -2286,7 +2289,57 @@ paths:
               schema:
                 $ref: '#/components/schemas/ObligationsResponse'
 
+  /api/v1/reward-config:
+    get:
+      tags: [Rewards]
+      summary: Get reward configuration for an account
+      operationId: getRewardAccountConfig
+      parameters:
+        - name: accountId
+          in: query
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Reward account config retrieved
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/RewardAccountConfigResponse' }
+    put:
+      tags: [Rewards]
+      summary: Update reward configuration for an account
+      operationId: updateRewardAccountConfig
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/RewardAccountConfigRequest' }
+      responses:
+        '200':
+          description: Reward account config updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/RewardAccountConfigResponse' }
+
+  /api/v1/reward-recommendations:
+    post:
+      tags: [Rewards]
+      summary: Recommend credit cards for a planned spend by marginal ₹ value
+      operationId: getRewardRecommendations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/RewardRecommendationRequest' }
+      responses:
+        '200':
+          description: Ranked card recommendations by marginal value in INR
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/RewardRecommendationResponse' }
+
 components:
+
   securitySchemes:
     sessionAuth:
       type: apiKey
@@ -4189,5 +4242,103 @@ components:
         first: { type: boolean }
         last: { type: boolean }
         empty: { type: boolean }
+
+    RewardAccountConfigRequest:
+      type: object
+      required: [accountId]
+      properties:
+        accountId: { type: string, format: uuid }
+        defaultRewardType: { type: string, enum: [CASH, POINTS] }
+        pointValueInr: { type: number, format: float, nullable: true }
+
+    RewardAccountConfigResponse:
+      type: object
+      required: [accountId]
+      properties:
+        accountId: { type: string, format: uuid }
+        rewardAnniversaryDate: { type: string, format: date, nullable: true }
+        defaultRewardType: { type: string, enum: [CASH, POINTS] }
+        pointValueInr: { type: number, format: float, nullable: true }
+
+    RewardRecommendationRequest:
+      type: object
+      required: [amount]
+      properties:
+        amount: { type: number, format: float }
+        date: { type: string, format: date }
+        categoryIds: { type: array, items: { type: string, format: uuid } }
+        mcc: { type: string }
+        merchantText: { type: string }
+        channel: { type: string, enum: [ONLINE, POS, UPI, CONTACTLESS, OTHER] }
+        isEmi: { type: boolean }
+        isIntl: { type: boolean }
+        accountIds: { type: array, items: { type: string, format: uuid } }
+
+    SimulatedCapStatusResponse:
+      type: object
+      required: [capWindow, totalCap, usedBefore, capRemainingBefore]
+      properties:
+        capWindow: { type: string }
+        totalCap: { type: number, format: float }
+        usedBefore: { type: number, format: float }
+        capRemainingBefore: { type: number, format: float }
+        windowEnd: { type: string, format: date }
+        bucketName: { type: string, nullable: true }
+
+    SimulatedRuleLineResponse:
+      type: object
+      required: [earned, earnedUnit, earnedValueInr, reason]
+      properties:
+        ruleId: { type: string, format: uuid, nullable: true }
+        ruleName: { type: string, nullable: true }
+        stacking: { type: string, nullable: true }
+        earned: { type: number, format: float }
+        earnedUnit: { type: string }
+        earnedValueInr: { type: number, format: float }
+        reason: { type: string }
+        capStatus: { $ref: '#/components/schemas/SimulatedCapStatusResponse' }
+
+    SimulatedMilestoneResponse:
+      type: object
+      required: [milestoneId, name, windowEnd, progress, threshold, remainingToThreshold, crosses, scoredValueInr, payoutType]
+      properties:
+        milestoneId: { type: string, format: uuid }
+        name: { type: string }
+        windowEnd: { type: string, format: date }
+        progress: { type: number, format: float }
+        threshold: { type: number, format: float }
+        remainingToThreshold: { type: number, format: float }
+        crosses: { type: boolean }
+        payoutInr: { type: number, format: float, nullable: true }
+        scoredValueInr: { type: number, format: float }
+        payoutType: { type: string }
+
+    RewardCardRecommendationResponse:
+      type: object
+      required: [accountId, accountName, rank, totalValueInr, guaranteedValueInr, milestoneValueInr, effectiveRatePct, pointValueSource, pointValueInr, pointsValued, ruleLines, milestones, noRulesConfigured, cycleFallback, anniversaryFallback]
+      properties:
+        accountId: { type: string, format: uuid }
+        accountName: { type: string }
+        rank: { type: integer }
+        totalValueInr: { type: number, format: float }
+        guaranteedValueInr: { type: number, format: float }
+        milestoneValueInr: { type: number, format: float }
+        effectiveRatePct: { type: number, format: float }
+        pointValueSource: { type: string, enum: [CONFIG, DEFAULT] }
+        pointValueInr: { type: number, format: float }
+        pointsValued: { type: boolean }
+        ruleLines: { type: array, items: { $ref: '#/components/schemas/SimulatedRuleLineResponse' } }
+        milestones: { type: array, items: { $ref: '#/components/schemas/SimulatedMilestoneResponse' } }
+        noRulesConfigured: { type: boolean }
+        cycleFallback: { type: boolean }
+        anniversaryFallback: { type: boolean }
+
+    RewardRecommendationResponse:
+      type: object
+      required: [input, recommendations]
+      properties:
+        input: { $ref: '#/components/schemas/RewardRecommendationRequest' }
+        recommendations: { type: array, items: { $ref: '#/components/schemas/RewardCardRecommendationResponse' } }
+
 
 

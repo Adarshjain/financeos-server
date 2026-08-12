@@ -11,6 +11,7 @@ import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.domain.transaction.Transaction;
+import com.financeos.domain.transaction.TransactionChannel;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.transaction.link.LinkType;
@@ -106,13 +107,13 @@ public class RewardCalculationService {
 
     // ---------- evaluation ----------
 
-    private record Window(LocalDate start, LocalDate end, boolean cycleFallback) {
+    record Window(LocalDate start, LocalDate end, boolean cycleFallback) {
     }
 
-    private record MilestoneWithEligibility(RewardMilestone milestone, MilestoneEligibility eligibility) {
+    record MilestoneWithEligibility(RewardMilestone milestone, MilestoneEligibility eligibility) {
     }
 
-    private static final class Evaluation {
+    static final class Evaluation {
         final List<RewardRule> rules;
         final List<MilestoneWithEligibility> milestones;
         final List<RewardLineResponse> lines = new ArrayList<>();
@@ -140,7 +141,48 @@ public class RewardCalculationService {
                                BigDecimal amount, String mcc, Set<UUID> categoryIds) {
     }
 
-    private Evaluation evaluate(UUID accountId, LocalDate from, LocalDate to, boolean includeMilestones) {
+    // ---------- predicate input abstraction ----------
+
+    record TxnFacts(
+            LocalDate date,
+            LocalDate effectiveDate,
+            BigDecimal amount,
+            BigDecimal basis,
+            String mcc,
+            TransactionChannel channel,
+            Set<UUID> categoryIds,
+            String description,
+            String sourcedDescription,
+            boolean isEmi,
+            boolean isIntl) {
+
+        static TxnFacts from(Transaction txn, BigDecimal basis, LocalDate effectiveDate) {
+            Set<UUID> catIds = txn.getCategories() != null ? txn.getCategories().stream()
+                    .map(tc -> tc.getCategory().getId())
+                    .collect(java.util.stream.Collectors.toSet()) : Set.of();
+            return new TxnFacts(
+                    txn.getDate(),
+                    effectiveDate,
+                    txn.getAmount(),
+                    basis,
+                    txn.getMcc(),
+                    txn.getChannel(),
+                    catIds,
+                    txn.getDescription(),
+                    txn.getSourcedDescription(),
+                    Boolean.TRUE.equals(txn.getIsEmi()),
+                    Boolean.TRUE.equals(txn.getIsInternational()));
+        }
+    }
+
+    record TxnRuleResolution(
+            RewardRule rule,
+            BigDecimal earned,
+            RewardLineReason reason,
+            BigDecimal basis) {
+    }
+
+    Evaluation evaluate(UUID accountId, LocalDate from, LocalDate to, boolean includeMilestones) {
         if (from == null || to == null || from.isAfter(to)) {
             throw new ValidationException("A valid from/to date range is required.");
         }
@@ -315,40 +357,53 @@ public class RewardCalculationService {
                 txn.getInstantDiscount(), txn.getConvenienceFee(),
                 txn.getAmount(), txn.getMcc(), categoryIds));
 
+        TxnFacts facts = TxnFacts.from(txn, basis, effectiveDate);
+        List<TxnRuleResolution> resolutions = resolveTxnFacts(facts, eval, regexCache);
+        for (TxnRuleResolution res : resolutions) {
+            if (res.rule() == null) {
+                eval.lines.add(zeroLine(txn, effectiveDate, res.basis(), res.reason()));
+            } else {
+                eval.lines.add(line(txn, effectiveDate, res.basis(), res.rule(), res.earned(), res.reason()));
+            }
+        }
+    }
+
+    List<TxnRuleResolution> resolveTxnFacts(TxnFacts facts, Evaluation eval, Map<UUID, Pattern> regexCache) {
         List<RewardRule> matching = eval.rules.stream()
-                .filter(r -> r.isActiveOn(effectiveDate))
-                .filter(r -> matches(r, txn, regexCache))
+                .filter(r -> r.isActiveOn(facts.effectiveDate()))
+                .filter(r -> matches(r, facts, regexCache))
                 .toList();
         if (matching.isEmpty()) {
-            eval.lines.add(zeroLine(txn, effectiveDate, basis, RewardLineReason.NO_RULE));
-            return;
+            return List.of(new TxnRuleResolution(null, BigDecimal.ZERO, RewardLineReason.NO_RULE, facts.basis()));
         }
+
+        List<TxnRuleResolution> results = new ArrayList<>();
 
         // 1. EXCLUSIVE chain: first rule (by priority) that can still pay; cap fall-through.
         List<RewardRule> exclusives = matching.stream().filter(r -> r.getStacking() == RuleStacking.EXCLUSIVE).toList();
         boolean emitted = false;
         RewardRule lastCapExhausted = null;
         for (RewardRule rule : exclusives) {
-            BigDecimal raw = accrue(rule, basis, effectiveDate, eval);
+            BigDecimal raw = accrue(rule, facts.basis(), facts.effectiveDate(), eval);
             if (raw.signum() == 0) {
-                eval.lines.add(line(txn, effectiveDate, basis, rule, BigDecimal.ZERO, zeroAccrualReason(rule)));
-                recordTierProgress(rule, basis, effectiveDate, eval);
+                results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, zeroAccrualReason(rule), facts.basis()));
+                recordTierProgress(rule, facts.basis(), facts.effectiveDate(), eval);
                 emitted = true;
                 break;
             }
-            BigDecimal award = clamp(rule, raw, effectiveDate, eval);
+            BigDecimal award = clamp(rule, raw, facts.effectiveDate(), eval);
             if (award.signum() > 0) {
-                consumeCap(rule, award, effectiveDate, eval);
+                consumeCap(rule, award, facts.effectiveDate(), eval);
                 RewardLineReason reason = award.compareTo(raw) < 0 ? RewardLineReason.PARTIAL_CAP : RewardLineReason.MATCHED;
-                eval.lines.add(line(txn, effectiveDate, basis, rule, award, reason));
-                recordTierProgress(rule, basis, effectiveDate, eval);
+                results.add(new TxnRuleResolution(rule, award, reason, facts.basis()));
+                recordTierProgress(rule, facts.basis(), facts.effectiveDate(), eval);
                 emitted = true;
                 break;
             }
             lastCapExhausted = rule;
             if (rule.getOnCapExhausted() == CapExhaustedBehavior.STOP) {
-                eval.lines.add(line(txn, effectiveDate, basis, rule, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED));
-                recordTierProgress(rule, basis, effectiveDate, eval);
+                results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED, facts.basis()));
+                recordTierProgress(rule, facts.basis(), facts.effectiveDate(), eval);
                 emitted = true;
                 break;
             }
@@ -356,11 +411,11 @@ public class RewardCalculationService {
         }
         if (!emitted) {
             if (lastCapExhausted != null) {
-                eval.lines.add(line(txn, effectiveDate, basis, lastCapExhausted, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED));
-                recordTierProgress(lastCapExhausted, basis, effectiveDate, eval);
+                results.add(new TxnRuleResolution(lastCapExhausted, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED, facts.basis()));
+                recordTierProgress(lastCapExhausted, facts.basis(), facts.effectiveDate(), eval);
             } else if (exclusives.isEmpty()) {
                 // Only additive rules matched; note the absence of a base rule explicitly.
-                eval.lines.add(zeroLine(txn, effectiveDate, basis, RewardLineReason.NO_RULE));
+                results.add(new TxnRuleResolution(null, BigDecimal.ZERO, RewardLineReason.NO_RULE, facts.basis()));
             }
         }
 
@@ -369,21 +424,23 @@ public class RewardCalculationService {
             if (rule.getStacking() != RuleStacking.ADDITIVE) {
                 continue;
             }
-            BigDecimal raw = accrue(rule, basis, effectiveDate, eval);
+            BigDecimal raw = accrue(rule, facts.basis(), facts.effectiveDate(), eval);
             // Matched spend always advances the tier threshold, even when it earns 0.
-            recordTierProgress(rule, basis, effectiveDate, eval);
+            recordTierProgress(rule, facts.basis(), facts.effectiveDate(), eval);
             if (raw.signum() == 0) {
                 continue;
             }
-            BigDecimal award = clamp(rule, raw, effectiveDate, eval);
+            BigDecimal award = clamp(rule, raw, facts.effectiveDate(), eval);
             if (award.signum() > 0) {
-                consumeCap(rule, award, effectiveDate, eval);
+                consumeCap(rule, award, facts.effectiveDate(), eval);
                 RewardLineReason reason = award.compareTo(raw) < 0 ? RewardLineReason.PARTIAL_CAP : RewardLineReason.MATCHED;
-                eval.lines.add(line(txn, effectiveDate, basis, rule, award, reason));
+                results.add(new TxnRuleResolution(rule, award, reason, facts.basis()));
             } else {
-                eval.lines.add(line(txn, effectiveDate, basis, rule, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED));
+                results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED, facts.basis()));
             }
         }
+
+        return results;
     }
 
     /**
@@ -406,43 +463,43 @@ public class RewardCalculationService {
 
     // ---------- predicates ----------
 
-    private boolean matches(RewardRule rule, Transaction txn, Map<UUID, Pattern> regexCache) {
+    private boolean matches(RewardRule rule, TxnFacts facts, Map<UUID, Pattern> regexCache) {
         // (categories OR mccs) — union, because MCC is often missing.
         boolean hasCategoryPredicate = !rule.getCategories().isEmpty();
         boolean hasMccPredicate = !rule.getMccs().isEmpty();
         if (hasCategoryPredicate || hasMccPredicate) {
-            boolean categoryHit = hasCategoryPredicate && txn.getCategories().stream()
-                    .anyMatch(tc -> rule.getCategories().stream()
-                            .anyMatch(c -> c.getId().equals(tc.getCategory().getId())));
-            boolean mccHit = hasMccPredicate && txn.getMcc() != null && rule.getMccs().contains(txn.getMcc());
+            boolean categoryHit = hasCategoryPredicate && facts.categoryIds().stream()
+                    .anyMatch(catId -> rule.getCategories().stream()
+                            .anyMatch(c -> c.getId().equals(catId)));
+            boolean mccHit = hasMccPredicate && facts.mcc() != null && rule.getMccs().contains(facts.mcc());
             if (!categoryHit && !mccHit) {
                 return false;
             }
         }
 
-        if (rule.getMerchantPattern() != null && !matchesMerchant(rule, txn, regexCache)) {
+        if (rule.getMerchantPattern() != null && !matchesMerchant(rule, facts, regexCache)) {
             return false;
         }
 
         if (!rule.getChannels().isEmpty()
-                && (txn.getChannel() == null || !rule.getChannels().contains(txn.getChannel()))) {
+                && (facts.channel() == null || !rule.getChannels().contains(facts.channel()))) {
             return false;
         }
 
         // Day-of-week is a purchase-day concept — always the transaction date, not settlement.
-        if (!rule.getDaysOfWeek().isEmpty() && !rule.getDaysOfWeek().contains(txn.getDate().getDayOfWeek())) {
+        if (!rule.getDaysOfWeek().isEmpty() && !rule.getDaysOfWeek().contains(facts.date().getDayOfWeek())) {
             return false;
         }
 
         // Amount band applies to the gross charged amount (bank behavior), not the netted basis.
-        if (rule.getMinAmount() != null && txn.getAmount().compareTo(rule.getMinAmount()) < 0) {
+        if (rule.getMinAmount() != null && facts.amount().compareTo(rule.getMinAmount()) < 0) {
             return false;
         }
-        if (rule.getMaxAmount() != null && txn.getAmount().compareTo(rule.getMaxAmount()) > 0) {
+        if (rule.getMaxAmount() != null && facts.amount().compareTo(rule.getMaxAmount()) > 0) {
             return false;
         }
 
-        boolean isEmi = Boolean.TRUE.equals(txn.getIsEmi());
+        boolean isEmi = facts.isEmi();
         if (rule.getEmiTreatment() == EmiTreatment.EXCLUDE_EMI && isEmi) {
             return false;
         }
@@ -450,16 +507,16 @@ public class RewardCalculationService {
             return false;
         }
 
-        boolean isIntl = Boolean.TRUE.equals(txn.getIsInternational());
+        boolean isIntl = facts.isIntl();
         if (rule.getIntlTreatment() == IntlTreatment.EXCLUDE_INTL && isIntl) {
             return false;
         }
         return rule.getIntlTreatment() != IntlTreatment.ONLY_INTL || isIntl;
     }
 
-    private boolean matchesMerchant(RewardRule rule, Transaction txn, Map<UUID, Pattern> regexCache) {
-        return matchesMerchantText(rule, txn.getDescription(), regexCache)
-                || matchesMerchantText(rule, txn.getSourcedDescription(), regexCache);
+    private boolean matchesMerchant(RewardRule rule, TxnFacts facts, Map<UUID, Pattern> regexCache) {
+        return matchesMerchantText(rule, facts.description(), regexCache)
+                || matchesMerchantText(rule, facts.sourcedDescription(), regexCache);
     }
 
     private boolean matchesMerchantText(RewardRule rule, String text, Map<UUID, Pattern> regexCache) {
@@ -582,11 +639,11 @@ public class RewardCalculationService {
     }
 
     /** Effective period-cap limit: the shared bucket's cap when set, else the rule's own. */
-    private BigDecimal effectiveCap(RewardRule rule) {
+    BigDecimal effectiveCap(RewardRule rule) {
         return rule.getCapBucket() != null ? rule.getCapBucket().getCap() : rule.getPeriodCap();
     }
 
-    private CapWindow effectiveCapWindow(RewardRule rule) {
+    CapWindow effectiveCapWindow(RewardRule rule) {
         return rule.getCapBucket() != null ? rule.getCapBucket().getWindowType() : rule.getCapWindow();
     }
 
@@ -621,14 +678,15 @@ public class RewardCalculationService {
     }
 
     /** Cap-counter owner: the shared bucket if any, else the rule itself. */
-    private static String capOwner(RewardRule rule) {
+    static String capOwner(RewardRule rule) {
         return rule.getCapBucket() != null ? "bucket|" + rule.getCapBucket().getId() : rule.getId().toString();
     }
 
     // ---------- windows ----------
 
     /** markFallback: only real per-transaction cap lookups may raise the report's fallback flag. */
-    private Window windowContaining(CapWindow capWindow, LocalDate date, Evaluation eval, boolean markFallback) {
+    Window windowContaining(CapWindow capWindow, LocalDate date, Evaluation eval, boolean markFallback) {
+
         return switch (capWindow) {
             case DAY -> new Window(date, date, false);
             case CALENDAR_MONTH -> new Window(date.withDayOfMonth(1), date.withDayOfMonth(date.lengthOfMonth()), false);
@@ -699,7 +757,7 @@ public class RewardCalculationService {
     }
 
     /** The line/breakdown unit is the rule's reward currency, independent of accrual math. */
-    private static String unitOf(RewardRule rule) {
+    static String unitOf(RewardRule rule) {
         return rule.getRewardType() == RewardType.POINTS ? UNIT_POINTS : UNIT_RUPEES;
     }
 
@@ -806,7 +864,7 @@ public class RewardCalculationService {
      * computed over the FULL window (the fetch range was expanded to cover it), so a
      * mid-month filter still shows the true month-to-date position.
      */
-    private List<RewardReportResponse.MilestoneStatus> evaluateMilestones(Evaluation eval, LocalDate from, LocalDate to) {
+    List<RewardReportResponse.MilestoneStatus> evaluateMilestones(Evaluation eval, LocalDate from, LocalDate to) {
         List<RewardReportResponse.MilestoneStatus> statuses = new ArrayList<>();
         for (MilestoneWithEligibility entry : eval.milestones) {
             RewardMilestone milestone = entry.milestone();
@@ -899,21 +957,30 @@ public class RewardCalculationService {
                 payoutDate, countedInSummary);
     }
 
+    boolean milestoneEligible(MilestoneEligibility eligibility, TxnFacts facts) {
+        return milestoneEligible(eligibility, facts.mcc(), facts.categoryIds());
+    }
+
     private boolean milestoneEligible(MilestoneEligibility eligibility, EligibleTxn txn) {
-        if (!eligibility.excludeMccs().isEmpty() && txn.mcc() != null
-                && eligibility.excludeMccs().contains(txn.mcc())) {
+        return milestoneEligible(eligibility, txn.mcc(), txn.categoryIds());
+    }
+
+    /** Single source of truth for eligibility — real transactions and simulated spends share it. */
+    private boolean milestoneEligible(MilestoneEligibility eligibility, String mcc, Set<UUID> categoryIds) {
+        if (!eligibility.excludeMccs().isEmpty() && mcc != null
+                && eligibility.excludeMccs().contains(mcc)) {
             return false;
         }
         if (!eligibility.excludeCategoryIds().isEmpty()
-                && txn.categoryIds().stream().anyMatch(eligibility.excludeCategoryIds()::contains)) {
+                && categoryIds.stream().anyMatch(eligibility.excludeCategoryIds()::contains)) {
             return false;
         }
         boolean hasInclude = !eligibility.includeCategoryIds().isEmpty() || !eligibility.includeMccs().isEmpty();
         if (hasInclude) {
             boolean categoryHit = !eligibility.includeCategoryIds().isEmpty()
-                    && txn.categoryIds().stream().anyMatch(eligibility.includeCategoryIds()::contains);
-            boolean mccHit = !eligibility.includeMccs().isEmpty() && txn.mcc() != null
-                    && eligibility.includeMccs().contains(txn.mcc());
+                    && categoryIds.stream().anyMatch(eligibility.includeCategoryIds()::contains);
+            boolean mccHit = !eligibility.includeMccs().isEmpty() && mcc != null
+                    && eligibility.includeMccs().contains(mcc);
             return categoryHit || mccHit;
         }
         return true;

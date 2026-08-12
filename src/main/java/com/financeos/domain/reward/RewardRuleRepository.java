@@ -19,4 +19,7 @@ public interface RewardRuleRepository extends JpaRepository<RewardRule, UUID> {
     List<RewardRule> findByAccountIdOrderByPriorityDesc(@Param("accountId") UUID accountId);
 
     long countByCapBucketId(UUID capBucketId);
+
+    long countByAccountId(UUID accountId);
 }
+
