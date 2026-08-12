@@ -39,7 +39,11 @@ class StatementControllerTest {
     @Test
     void getStatementById_returnsOk() {
         UUID statementId = UUID.randomUUID();
-        StatementDetailResponse detail = mock(StatementDetailResponse.class);
+        StatementDetailResponse detail = new StatementDetailResponse(
+                statementId, null, "ref", "BANK", null, null,
+                null, null, null, null, 0, 0, "PDF",
+                null, true, null, "HDFC", "1234", null, null, List.of()
+        );
         when(statementService.getStatementById(statementId)).thenReturn(detail);
 
         ResponseEntity<StatementDetailResponse> response = statementController.getStatementById(statementId);
