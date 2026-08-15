@@ -62,6 +62,17 @@ server:
         max-age: 86400
         name: FINANCEOS_SESSION
 
+# Actuator: health only, no details — the endpoint is unauthenticated (see SecurityConfig)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+      show-components: never
+
 # Application-specific configuration
 app:
   encryption:

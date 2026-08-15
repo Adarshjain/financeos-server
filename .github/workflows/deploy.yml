@@ -1,0 +1,77 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+env:
+  # Matches the existing manual layout on the VM — do not change without updating financeos.service.
+  APP_DIR: /home/ubuntu/financeos-server
+  APP_PORT: "8080"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Build and test
+        run: ./mvnw -B verify
+
+      - name: Set up SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+      - name: Upload JAR
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new \
+            target/backend-1.0.0.jar "$USER@$HOST:$APP_DIR/target/backend-1.0.0.jar.new"
+
+      - name: Swap in new JAR and restart
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new "$USER@$HOST" bash -se <<EOF
+            set -euo pipefail
+            cd $APP_DIR/target
+            # Keep the outgoing JAR so a bad deploy can be rolled back by hand.
+            [ -f backend-1.0.0.jar ] && cp -f backend-1.0.0.jar backend-1.0.0.jar.prev
+            mv -f backend-1.0.0.jar.new backend-1.0.0.jar
+            sudo systemctl restart financeos
+          EOF
+
+      - name: Health check
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          for i in $(seq 1 45); do
+            if ssh -i ~/.ssh/deploy_key "$USER@$HOST" \
+                 "curl -sf http://localhost:$APP_PORT/actuator/health" >/dev/null 2>&1; then
+              echo "Healthy after $((i * 4))s."
+              exit 0
+            fi
+            sleep 4
+          done
+          echo "::error::Service did not become healthy. Rolling back is manual: see deploy/README.md"
+          ssh -i ~/.ssh/deploy_key "$USER@$HOST" 'sudo journalctl -u financeos -n 80 --no-pager' || true
+          exit 1

@@ -1,0 +1,43 @@
+# Revised version of the unit already installed at /etc/systemd/system/financeos.service.
+# Only change from the running one: -Xmx1024m -> -Xmx512m.
+# The box has 952 MiB total RAM and no swap, so a 1 GB max heap lets the JVM grow past
+# physical memory and get killed by the OOM killer under load.
+#
+# To apply:
+#   sudo cp financeos.service /etc/systemd/system/financeos.service
+#   sudo systemctl daemon-reload && sudo systemctl restart financeos
+
+[Unit]
+Description=FinanceOS Backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/financeos-server
+EnvironmentFile=/home/ubuntu/financeos-server/.env
+
+# Oracle wallet configuration
+Environment="TNS_ADMIN=/home/ubuntu/financeos-server/wallet"
+ExecStart=/usr/bin/java -Xmx512m \
+  -Djava.net.preferIPv4Stack=true \
+  -Djava.net.preferIPv6Addresses=false \
+  -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts \
+  -Djavax.net.ssl.trustStorePassword=changeit \
+  -Djavax.net.ssl.trustStoreType=pkcs12 \
+  -Doracle.net.tns_admin=/home/ubuntu/financeos-server/wallet \
+  -jar /home/ubuntu/financeos-server/target/backend-1.0.0.jar --spring.profiles.active=prod
+
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=financeos
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
