@@ -4,6 +4,8 @@ The server is **already deployed and running** on OCI (`ubuntu@129.159.22.124`) 
 Autonomous Database, deployed by hand. This directory adds GitHub Actions so a push to `main`
 replaces the JAR automatically. Nothing about the existing layout is moved.
 
+Test commit
+
 ## Existing setup (observed 2026-08-15, do not "fix" silently)
 
 | Thing | Value |
