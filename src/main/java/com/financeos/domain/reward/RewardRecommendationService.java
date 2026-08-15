@@ -119,6 +119,7 @@ public class RewardRecommendationService {
                     evalDate,
                     request.amount(),
                     request.amount(),
+                    null, // a hypothetical swipe carries no labeled surcharge yet
                     request.mcc(),
                     request.channel(),
                     categoryIds,

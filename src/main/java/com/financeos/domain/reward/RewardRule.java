@@ -121,6 +121,11 @@ public class RewardRule {
     @Column(name = "intl_treatment", nullable = false, length = 20)
     private IntlTreatment intlTreatment = IntlTreatment.INCLUDE;
 
+    /** Not a predicate: nets the labeled surcharge out of the basis after the rule matches. */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "fee_treatment", nullable = false, length = 20)
+    private FeeTreatment feeTreatment = FeeTreatment.INCLUDE;
+
     // ---- accrual ----
 
     /** Currency the accrued number pays in: cashback rupees or reward points. */

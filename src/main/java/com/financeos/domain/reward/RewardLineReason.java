@@ -20,6 +20,8 @@ public enum RewardLineReason {
     NO_RULE,
     /** Linked refunds reduced the basis to zero. */
     FULLY_REFUNDED,
+    /** The matched rule excludes fees and the surcharge consumed the whole basis. */
+    FEE_ONLY,
     /** Transfer / credit-card payment / reversal leg — never earns. */
     TRANSFER_OR_PAYMENT,
     /** Transaction is marked excluded from analytics. */

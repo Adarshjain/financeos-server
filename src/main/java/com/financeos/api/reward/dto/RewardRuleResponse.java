@@ -6,6 +6,7 @@ import com.financeos.domain.reward.CapExhaustedBehavior;
 import com.financeos.domain.reward.CapWindow;
 import com.financeos.domain.reward.CashbackRounding;
 import com.financeos.domain.reward.EmiTreatment;
+import com.financeos.domain.reward.FeeTreatment;
 import com.financeos.domain.reward.IntlTreatment;
 import com.financeos.domain.reward.RewardMerchantMatch;
 import com.financeos.domain.reward.RewardRule;
@@ -39,6 +40,7 @@ public record RewardRuleResponse(
         BigDecimal maxAmount,
         EmiTreatment emiTreatment,
         IntlTreatment intlTreatment,
+        FeeTreatment feeTreatment,
         RewardType rewardType,
         AccrualType accrualType,
         BigDecimal percentRate,
@@ -81,6 +83,7 @@ public record RewardRuleResponse(
                 rule.getMaxAmount(),
                 rule.getEmiTreatment(),
                 rule.getIntlTreatment(),
+                rule.getFeeTreatment(),
                 rule.getRewardType(),
                 rule.getAccrualType(),
                 rule.getPercentRate(),

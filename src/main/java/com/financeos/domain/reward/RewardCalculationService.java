@@ -148,6 +148,8 @@ public class RewardCalculationService {
             LocalDate effectiveDate,
             BigDecimal amount,
             BigDecimal basis,
+            /** Labeled surcharge inside {@code amount}; null when none was recorded. */
+            BigDecimal convenienceFee,
             String mcc,
             TransactionChannel channel,
             Set<UUID> categoryIds,
@@ -165,6 +167,7 @@ public class RewardCalculationService {
                     effectiveDate,
                     txn.getAmount(),
                     basis,
+                    txn.getConvenienceFee(),
                     txn.getMcc(),
                     txn.getChannel(),
                     catIds,
@@ -384,10 +387,11 @@ public class RewardCalculationService {
         boolean emitted = false;
         RewardRule lastCapExhausted = null;
         for (RewardRule rule : exclusives) {
-            BigDecimal raw = accrue(rule, facts.basis(), facts.effectiveDate(), eval);
+            BigDecimal ruleBasis = basisFor(rule, facts);
+            BigDecimal raw = accrue(rule, ruleBasis, facts.effectiveDate(), eval);
             if (raw.signum() == 0) {
-                results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, zeroAccrualReason(rule), facts.basis()));
-                recordTierProgress(rule, facts.basis(), facts.effectiveDate(), eval);
+                results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, zeroAccrualReason(rule, ruleBasis), ruleBasis));
+                recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval);
                 emitted = true;
                 break;
             }
@@ -395,15 +399,15 @@ public class RewardCalculationService {
             if (award.signum() > 0) {
                 consumeCap(rule, award, facts.effectiveDate(), eval);
                 RewardLineReason reason = award.compareTo(raw) < 0 ? RewardLineReason.PARTIAL_CAP : RewardLineReason.MATCHED;
-                results.add(new TxnRuleResolution(rule, award, reason, facts.basis()));
-                recordTierProgress(rule, facts.basis(), facts.effectiveDate(), eval);
+                results.add(new TxnRuleResolution(rule, award, reason, ruleBasis));
+                recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval);
                 emitted = true;
                 break;
             }
             lastCapExhausted = rule;
             if (rule.getOnCapExhausted() == CapExhaustedBehavior.STOP) {
-                results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED, facts.basis()));
-                recordTierProgress(rule, facts.basis(), facts.effectiveDate(), eval);
+                results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED, ruleBasis));
+                recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval);
                 emitted = true;
                 break;
             }
@@ -411,8 +415,9 @@ public class RewardCalculationService {
         }
         if (!emitted) {
             if (lastCapExhausted != null) {
-                results.add(new TxnRuleResolution(lastCapExhausted, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED, facts.basis()));
-                recordTierProgress(lastCapExhausted, facts.basis(), facts.effectiveDate(), eval);
+                BigDecimal ruleBasis = basisFor(lastCapExhausted, facts);
+                results.add(new TxnRuleResolution(lastCapExhausted, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED, ruleBasis));
+                recordTierProgress(lastCapExhausted, ruleBasis, facts.effectiveDate(), eval);
             } else if (exclusives.isEmpty()) {
                 // Only additive rules matched; note the absence of a base rule explicitly.
                 results.add(new TxnRuleResolution(null, BigDecimal.ZERO, RewardLineReason.NO_RULE, facts.basis()));
@@ -424,9 +429,10 @@ public class RewardCalculationService {
             if (rule.getStacking() != RuleStacking.ADDITIVE) {
                 continue;
             }
-            BigDecimal raw = accrue(rule, facts.basis(), facts.effectiveDate(), eval);
+            BigDecimal ruleBasis = basisFor(rule, facts);
+            BigDecimal raw = accrue(rule, ruleBasis, facts.effectiveDate(), eval);
             // Matched spend always advances the tier threshold, even when it earns 0.
-            recordTierProgress(rule, facts.basis(), facts.effectiveDate(), eval);
+            recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval);
             if (raw.signum() == 0) {
                 continue;
             }
@@ -434,13 +440,26 @@ public class RewardCalculationService {
             if (award.signum() > 0) {
                 consumeCap(rule, award, facts.effectiveDate(), eval);
                 RewardLineReason reason = award.compareTo(raw) < 0 ? RewardLineReason.PARTIAL_CAP : RewardLineReason.MATCHED;
-                results.add(new TxnRuleResolution(rule, award, reason, facts.basis()));
+                results.add(new TxnRuleResolution(rule, award, reason, ruleBasis));
             } else {
-                results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED, facts.basis()));
+                results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED, ruleBasis));
             }
         }
 
         return results;
+    }
+
+    /**
+     * Per-rule earning basis: the transaction's netted basis, less the labeled surcharge
+     * when this rule excludes fees. Floored at zero — a fee larger than what survives a
+     * partial refund nets to nothing rather than going negative, and tier progress is
+     * recorded on this same reduced number so a non-earning fee never advances a threshold.
+     */
+    private BigDecimal basisFor(RewardRule rule, TxnFacts facts) {
+        if (rule.getFeeTreatment() != FeeTreatment.EXCLUDE_FEE || facts.convenienceFee() == null) {
+            return facts.basis();
+        }
+        return facts.basis().subtract(facts.convenienceFee()).max(BigDecimal.ZERO);
     }
 
     /**
@@ -626,7 +645,11 @@ public class RewardCalculationService {
     }
 
     /** Why a matched rule accrued zero: explicit exclusion, tier level, sub-slab basis, or rounding. */
-    private RewardLineReason zeroAccrualReason(RewardRule rule) {
+    private RewardLineReason zeroAccrualReason(RewardRule rule, BigDecimal ruleBasis) {
+        // Distinguish "the surcharge was the whole charge" from a rounding/slab zero.
+        if (rule.getFeeTreatment() == FeeTreatment.EXCLUDE_FEE && ruleBasis.signum() <= 0) {
+            return RewardLineReason.FEE_ONLY;
+        }
         if (rule.isTiered()) {
             return RewardLineReason.TIER_ZERO;
         }

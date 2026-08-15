@@ -259,6 +259,7 @@ public class RewardRuleService {
 
         rule.setEmiTreatment(parseEnum(EmiTreatment.class, request.emiTreatment(), EmiTreatment.INCLUDE));
         rule.setIntlTreatment(parseEnum(IntlTreatment.class, request.intlTreatment(), IntlTreatment.INCLUDE));
+        rule.setFeeTreatment(parseEnum(FeeTreatment.class, request.feeTreatment(), FeeTreatment.INCLUDE));
     }
 
     private void applyAccrual(RewardRule rule, RewardRuleRequest request) {

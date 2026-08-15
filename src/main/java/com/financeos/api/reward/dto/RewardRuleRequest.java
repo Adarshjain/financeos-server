@@ -35,6 +35,8 @@ public record RewardRuleRequest(
         BigDecimal maxAmount,
         String emiTreatment,
         String intlTreatment,
+        /** INCLUDE (default) or EXCLUDE_FEE — nets the labeled surcharge out of the basis. */
+        String feeTreatment,
 
         /** CASH or POINTS; unset = the account's default reward type. */
         String rewardType,
