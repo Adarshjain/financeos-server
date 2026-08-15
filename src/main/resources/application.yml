@@ -29,6 +29,10 @@ spring:
     enabled: true
     locations: classpath:db/migration
     baseline-on-migrate: true
+    # Must be 0. Flyway's default baseline-version is 1, which marks V1 as already
+    # applied and skips it — so bootstrapping an empty schema dies on V2 (seed_user)
+    # with ORA-00942, because V1 is what creates the users table.
+    baseline-version: 0
     repair-on-migrate: true
 
   session:
