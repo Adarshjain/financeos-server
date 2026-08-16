@@ -41,6 +41,13 @@ public class Account {
     @Column(nullable = false)
     private AccountType type;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private AccountStatus status = AccountStatus.ACTIVE;
+
+    @Column(name = "closed_on")
+    private LocalDate closedOn;
+
     @Column(name = "exclude_from_net_asset", nullable = false)
     private Boolean excludeFromNetAsset = false;
 

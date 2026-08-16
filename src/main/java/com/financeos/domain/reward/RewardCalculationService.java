@@ -47,6 +47,12 @@ import java.util.regex.Pattern;
  * consumed earlier in that month). Only lines whose effective date falls inside the
  * display range are summed into the report.
  */
+import com.financeos.api.cardfee.dto.CardFeeScheduleResponse;
+import com.financeos.api.cardfee.dto.FeeOccurrenceResponse;
+import com.financeos.domain.account.AccountType;
+import com.financeos.domain.cardfee.*;
+import java.time.temporal.ChronoUnit;
+
 @Service
 @Slf4j
 public class RewardCalculationService {
@@ -65,6 +71,8 @@ public class RewardCalculationService {
     private final TransactionLinkRepository transactionLinkRepository;
     private final StatementRepository statementRepository;
     private final AccountRepository accountRepository;
+    private final CardFeeTermRepository cardFeeTermRepository;
+    private final CardFeeChargeRepository cardFeeChargeRepository;
 
     public RewardCalculationService(RewardRuleRepository rewardRuleRepository,
                                     RewardRuleService rewardRuleService,
@@ -73,7 +81,9 @@ public class RewardCalculationService {
                                     TransactionRepository transactionRepository,
                                     TransactionLinkRepository transactionLinkRepository,
                                     StatementRepository statementRepository,
-                                    AccountRepository accountRepository) {
+                                    AccountRepository accountRepository,
+                                    CardFeeTermRepository cardFeeTermRepository,
+                                    CardFeeChargeRepository cardFeeChargeRepository) {
         this.rewardRuleRepository = rewardRuleRepository;
         this.rewardRuleService = rewardRuleService;
         this.rewardMilestoneRepository = rewardMilestoneRepository;
@@ -82,6 +92,8 @@ public class RewardCalculationService {
         this.transactionLinkRepository = transactionLinkRepository;
         this.statementRepository = statementRepository;
         this.accountRepository = accountRepository;
+        this.cardFeeTermRepository = cardFeeTermRepository;
+        this.cardFeeChargeRepository = cardFeeChargeRepository;
     }
 
     // ---------- public API ----------
@@ -105,6 +117,12 @@ public class RewardCalculationService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public CardFeeScheduleResponse feeSchedule(UUID accountId, LocalDate from, LocalDate to) {
+        Evaluation eval = evaluate(accountId, from, to, false);
+        return deriveFeeSchedule(eval, eval.account, from, to);
+    }
+
     // ---------- evaluation ----------
 
     record Window(LocalDate start, LocalDate end, boolean cycleFallback) {
@@ -125,10 +143,13 @@ public class RewardCalculationService {
         final Map<UUID, List<RewardTier>> tierSchedules = new HashMap<>();
         /** eligible debit txn id -> netted basis, display-range membership decided later. */
         final List<EligibleTxn> eligible = new ArrayList<>();
+        final Set<UUID> feeTxnIds = new HashSet<>();
         boolean cycleFallback = false;
         boolean anniversaryFallback = false;
         List<Statement> statements = List.of();
         LocalDate anniversaryDate;
+        UUID accountId;
+        Account account;
 
         Evaluation(List<RewardRule> rules, List<MilestoneWithEligibility> milestones) {
             this.rules = rules;
@@ -221,6 +242,8 @@ public class RewardCalculationService {
             usableRules.add(rule);
         }
         Evaluation eval = new Evaluation(usableRules, milestones);
+        eval.accountId = accountId;
+        eval.account = account;
         eval.tierSchedules.putAll(schedules);
         eval.anniversaryDate = account.getRewardAnniversaryDate();
         rules = usableRules;
@@ -228,6 +251,10 @@ public class RewardCalculationService {
                 .filter(s -> s.getVerdict() != StatementVerdict.REJECTED)
                 .filter(s -> s.getPeriodStart() != null && s.getPeriodEnd() != null)
                 .toList();
+
+        if (account.getType() == AccountType.credit_card) {
+            eval.feeTxnIds.addAll(cardFeeChargeRepository.findAllLinkedTransactionIdsByAccountId(accountId));
+        }
 
         // Expand to full cap windows so headroom at the range edges is correct.
         // Expansion probes must not set the report's fallback flag (markFallback=false):
@@ -288,6 +315,27 @@ public class RewardCalculationService {
             }
         }
 
+        if (account.getType() == AccountType.credit_card) {
+            Window firstFeeYear = windowContaining(CapWindow.ANNIVERSARY_YEAR, from, eval, false);
+            Window lastFeeYear = windowContaining(CapWindow.ANNIVERSARY_YEAR, to, eval, false);
+            if (firstFeeYear.start().isBefore(expandedFrom)) {
+                expandedFrom = firstFeeYear.start();
+            }
+            if (lastFeeYear.end().isAfter(expandedTo)) {
+                expandedTo = lastFeeYear.end();
+            }
+
+            List<CardFeeTerm> cardTerms = cardFeeTermRepository.findByAccountIdOrderByEffectiveFromAsc(accountId);
+            boolean hasPrecedingWaiver = cardTerms.stream()
+                    .anyMatch(t -> t.getWaiverSpendThreshold() != null && t.getWaiverBasis() == FeeWaiverBasis.PRECEDING_FEE_YEAR);
+            if (hasPrecedingWaiver) {
+                Window precedingFeeYear = windowContaining(CapWindow.ANNIVERSARY_YEAR, firstFeeYear.start().minusDays(1), eval, false);
+                if (precedingFeeYear.start().isBefore(expandedFrom)) {
+                    expandedFrom = precedingFeeYear.start();
+                }
+            }
+        }
+
         List<Transaction> transactions = transactionRepository.findForRewardEvaluation(accountId, expandedFrom, expandedTo);
         transactions = new ArrayList<>(transactions);
         transactions.sort(Comparator.comparing(RewardCalculationService::effectiveDate)
@@ -343,6 +391,13 @@ public class RewardCalculationService {
             eval.lines.add(zeroLine(txn, effectiveDate, txn.getAmount(), RewardLineReason.TRANSFER_OR_PAYMENT));
             return;
         }
+
+        // Why evaluateTransaction returns before eval.eligible.add(...) for fee transactions: Returning before eval.eligible.add(...) is the entire point: the fee is then absent from basisSpend, from every rule match, from tier/cap progress, from milestone progress, and from waiver-qualifying spend.
+        if (eval.feeTxnIds.contains(txn.getId())) {
+            eval.lines.add(zeroLine(txn, effectiveDate, txn.getAmount(), RewardLineReason.CARD_FEE));
+            return;
+        }
+
         if (txn.isTransactionExcluded()) {
             eval.lines.add(zeroLine(txn, effectiveDate, txn.getAmount(), RewardLineReason.TXN_EXCLUDED));
             return;
@@ -832,6 +887,16 @@ public class RewardCalculationService {
         BigDecimal grossValueInr = cashbackInr.add(milestonesInr);
         BigDecimal effectiveValueInr = grossValueInr.add(discounts).subtract(fees);
 
+        CardFeeScheduleResponse cardFeeSchedule = deriveFeeSchedule(eval, eval.account, from, to);
+        BigDecimal cardFeesInr = cardFeeSchedule.totalAmortisedInRange();
+        BigDecimal netValueInr = effectiveValueInr.subtract(cardFeesInr);
+        BigDecimal netPct = pct(netValueInr, basisSpend);
+
+        BigDecimal pointValueInr = eval.account.getPointValueInr() != null ? eval.account.getPointValueInr() : RewardRecommendationService.DEFAULT_POINT_VALUE_INR;
+        BigDecimal pointsValueInr = points.multiply(pointValueInr).setScale(2, RoundingMode.HALF_UP);
+        String pointValueSource = eval.account.getPointValueInr() != null ? "CONFIG" : "DEFAULT";
+        BigDecimal netValueWithPointsInr = netValueInr.add(pointsValueInr);
+
         RewardReportResponse.Summary summary = new RewardReportResponse.Summary(
                 basisSpend,
                 displayEligible.size(),
@@ -845,7 +910,13 @@ public class RewardCalculationService {
                 fees,
                 effectiveValueInr,
                 pct(grossValueInr, basisSpend),
-                pct(effectiveValueInr, basisSpend));
+                pct(effectiveValueInr, basisSpend),
+                cardFeesInr,
+                netValueInr,
+                netPct,
+                pointsValueInr,
+                netValueWithPointsInr,
+                pointValueSource);
 
         List<RewardReportResponse.RuleBreakdown> breakdowns = new ArrayList<>();
         for (RewardRule rule : eval.rules) {
@@ -879,7 +950,7 @@ public class RewardCalculationService {
                     activeInRange, matchedCount, basisMatched, earned, unitOf(rule), capStatus));
         }
 
-        return new RewardReportResponse(summary, breakdowns, milestoneStatuses, eval.cycleFallback, eval.anniversaryFallback);
+        return new RewardReportResponse(summary, breakdowns, milestoneStatuses, eval.cycleFallback, eval.anniversaryFallback, cardFeeSchedule);
     }
 
     /**
@@ -1007,6 +1078,327 @@ public class RewardCalculationService {
             return categoryHit || mccHit;
         }
         return true;
+    }
+
+    CardFeeScheduleResponse deriveFeeSchedule(Evaluation eval, Account account, LocalDate from, LocalDate to) {
+        if (account.getType() != AccountType.credit_card) {
+            return CardFeeScheduleResponse.empty();
+        }
+
+        List<CardFeeTerm> terms = cardFeeTermRepository.findByAccountIdOrderByEffectiveFromAsc(account.getId());
+        List<CardFeeCharge> charges = cardFeeChargeRepository.findByAccountId(account.getId());
+
+        boolean unanchoredFees = (account.getRewardAnniversaryDate() == null && !terms.isEmpty());
+        boolean notConfiguredFeeYears = false;
+        boolean waiverSpendIncomplete = false;
+
+        LocalDate dataStart = account.getIngestFromDate() != null
+                ? account.getIngestFromDate()
+                : transactionRepository.findEarliestTransactionDateByAccountId(account.getId()).orElse(null);
+
+        List<FeeOccurrenceResponse> occurrences = new ArrayList<>();
+        Set<UUID> selectedChargeIds = new HashSet<>();
+        List<Window> enumeratedWindows = new ArrayList<>();
+
+        LocalDate cursor = from;
+        int iterations = 0;
+        while (!cursor.isAfter(to)) {
+            if (++iterations > 500) {
+                throw new ValidationException("Date range too large for card fee calculation.");
+            }
+            Window F = windowContaining(CapWindow.ANNIVERSARY_YEAR, cursor, eval, false);
+            enumeratedWindows.add(F);
+
+            LocalDate dueDate = F.start();
+            if (account.getClosedOn() != null && account.getClosedOn().isBefore(dueDate)) {
+                if (!terms.isEmpty()) {
+                    occurrences.add(new FeeOccurrenceResponse(
+                            CardFeeKind.ANNUAL_FEE, FeeOccurrenceStatus.SUPPRESSED_CLOSED,
+                            F.start(), F.end(), F.start(), F.start(), dueDate,
+                            BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                            null, null, null, null, BigDecimal.ZERO,
+                            null, FeeWaiverSource.NONE, false, false, false,
+                            BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, List.of(), null
+                    ));
+                }
+                cursor = F.end().plusDays(1);
+                continue;
+            }
+
+            CardFeeTerm termInForce = terms.stream()
+                    .filter(t -> t.getKind() != CardFeeKind.JOINING_FEE)
+                    .filter(t -> !t.getEffectiveFrom().isAfter(F.start()))
+                    .max(Comparator.comparing(CardFeeTerm::getEffectiveFrom))
+                    .orElse(null);
+
+            if (termInForce == null) {
+                if (!terms.isEmpty()) {
+                    notConfiguredFeeYears = true;
+                    LocalDate amortTo = (account.getClosedOn() != null && account.getClosedOn().isBefore(F.end())) ? account.getClosedOn() : F.end();
+                    occurrences.add(new FeeOccurrenceResponse(
+                            CardFeeKind.ANNUAL_FEE, FeeOccurrenceStatus.NOT_CONFIGURED,
+                            F.start(), F.end(), F.start(), amortTo, dueDate,
+                            BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                            null, null, null, null, BigDecimal.ZERO,
+                            null, FeeWaiverSource.NONE, false, false, false,
+                            BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, List.of(), null
+                    ));
+                }
+            } else if (termInForce.getKind() == CardFeeKind.LTF) {
+                CardFeeCharge override = findMatchingOverride(charges, CardFeeKind.LTF, F.start(), F.end());
+                if (override != null) {
+                    selectedChargeIds.add(override.getId());
+                }
+                List<UUID> linkedIds = override != null ? new ArrayList<>(override.getTransactionIds()) : List.of();
+                BigDecimal linkedSum = calculateLinkedSum(linkedIds);
+
+                BigDecimal net;
+                FeeWaiverSource source;
+                if (override != null && override.getOverrideAmount() != null) {
+                    net = override.getOverrideAmount();
+                    source = FeeWaiverSource.MANUAL;
+                } else if (!linkedIds.isEmpty()) {
+                    net = linkedSum;
+                    source = FeeWaiverSource.LINKED_CHARGE;
+                } else if (override != null && override.getWaived() != null) {
+                    // For an LTF occurrence total fee is 0, so waived=false cannot resurrect an amount; an unexpected LTF charge must be recorded via overrideAmount or linked transaction.
+                    net = BigDecimal.ZERO;
+                    source = FeeWaiverSource.MANUAL;
+                } else {
+                    net = BigDecimal.ZERO;
+                    source = FeeWaiverSource.NONE;
+                }
+
+                FeeOccurrenceStatus status = net.signum() == 0 ? FeeOccurrenceStatus.LIFETIME_FREE : FeeOccurrenceStatus.CHARGED_MANUAL;
+                LocalDate amortiseTo = (account.getClosedOn() != null && account.getClosedOn().isBefore(F.end())) ? account.getClosedOn() : F.end();
+                BigDecimal amortisedInRange = calculateAmortisation(net, F.start(), amortiseTo, from, to);
+                LocalDate toDate = LocalDate.now().isBefore(to) ? LocalDate.now() : to;
+                BigDecimal amortisedToDate = calculateAmortisation(net, F.start(), amortiseTo, from, toDate);
+
+                occurrences.add(new FeeOccurrenceResponse(
+                        CardFeeKind.LTF, status, F.start(), F.end(), F.start(), amortiseTo, dueDate,
+                        BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                        null, null, null, null, BigDecimal.ZERO,
+                        override != null ? override.getWaived() : null, source, false, false, false,
+                        net, amortisedInRange, amortisedToDate, linkedIds, override != null ? override.getNote() : null
+                ));
+            } else {
+                // ANNUAL_FEE
+                BigDecimal baseAmount = termInForce.getAmount();
+                BigDecimal gstRate = termInForce.getGstRate() != null ? termInForce.getGstRate() : BigDecimal.valueOf(18);
+                BigDecimal gstAmount = baseAmount.multiply(gstRate).divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
+                BigDecimal totalAmount = baseAmount.add(gstAmount);
+
+                BigDecimal threshold = termInForce.getWaiverSpendThreshold();
+                FeeWaiverBasis basis = termInForce.getWaiverBasis();
+                LocalDate waiverStart = null;
+                LocalDate waiverEnd = null;
+                BigDecimal spendConsidered = BigDecimal.ZERO;
+                boolean autoWaived = false;
+                boolean provisional = false;
+                boolean occWaiverIncomplete = false;
+
+                if (threshold != null && basis != null) {
+                    if (basis == FeeWaiverBasis.PRECEDING_FEE_YEAR) {
+                        Window precWindow = windowContaining(CapWindow.ANNIVERSARY_YEAR, F.start().minusDays(1), eval, false);
+                        waiverStart = precWindow.start();
+                        waiverEnd = precWindow.end();
+                    } else {
+                        waiverStart = F.start();
+                        waiverEnd = F.end();
+                    }
+                    // Single-source-of-truth reason for computing waiver spend from eval.eligible: waiver spend is computed directly from eval.eligible to ensure strict consistency with reward-eligible spend definitions.
+                    final LocalDate wStart = waiverStart;
+                    final LocalDate wEnd = waiverEnd;
+                    spendConsidered = eval.eligible.stream()
+                            .filter(e -> !e.effectiveDate().isBefore(wStart) && !e.effectiveDate().isAfter(wEnd))
+                            .map(EligibleTxn::basis)
+                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+                    autoWaived = spendConsidered.compareTo(threshold) >= 0;
+                    provisional = !waiverEnd.isBefore(LocalDate.now());
+
+                    if (dataStart == null || waiverStart.isBefore(dataStart)) {
+                        occWaiverIncomplete = true;
+                        waiverSpendIncomplete = true;
+                    }
+                }
+
+                CardFeeCharge override = findMatchingOverride(charges, CardFeeKind.ANNUAL_FEE, F.start(), F.end());
+                if (override != null) {
+                    selectedChargeIds.add(override.getId());
+                }
+                List<UUID> linkedIds = override != null ? new ArrayList<>(override.getTransactionIds()) : List.of();
+                BigDecimal linkedSum = calculateLinkedSum(linkedIds);
+
+                // Why the linked charge outranks the auto-waiver: linked charge outranks auto-waiver because a real posted charge is ground truth.
+                BigDecimal net;
+                FeeWaiverSource source;
+                if (override != null && override.getOverrideAmount() != null) {
+                    net = override.getOverrideAmount();
+                    source = FeeWaiverSource.MANUAL;
+                } else if (!linkedIds.isEmpty()) {
+                    net = linkedSum;
+                    source = FeeWaiverSource.LINKED_CHARGE;
+                } else if (override != null && override.getWaived() != null) {
+                    net = override.getWaived() ? BigDecimal.ZERO : totalAmount;
+                    source = FeeWaiverSource.MANUAL;
+                } else if (autoWaived) {
+                    net = BigDecimal.ZERO;
+                    source = FeeWaiverSource.AUTO_SPEND;
+                } else {
+                    net = totalAmount;
+                    source = FeeWaiverSource.NONE;
+                }
+
+                boolean waived = (net.signum() == 0 && totalAmount.signum() > 0);
+                boolean waiverContradictsLinkedCharge = autoWaived && !linkedIds.isEmpty() && linkedSum.signum() > 0;
+
+                FeeOccurrenceStatus status;
+                if (net.signum() == 0 && source == FeeWaiverSource.AUTO_SPEND) status = FeeOccurrenceStatus.WAIVED_AUTO;
+                else if (net.signum() == 0 && source == FeeWaiverSource.MANUAL) status = FeeOccurrenceStatus.WAIVED_MANUAL;
+                else if (net.signum() > 0 && (source == FeeWaiverSource.MANUAL || source == FeeWaiverSource.LINKED_CHARGE)) status = FeeOccurrenceStatus.CHARGED_MANUAL;
+                else status = FeeOccurrenceStatus.DUE;
+
+                LocalDate amortiseTo = (account.getClosedOn() != null && account.getClosedOn().isBefore(F.end())) ? account.getClosedOn() : F.end();
+                BigDecimal amortisedInRange = calculateAmortisation(net, F.start(), amortiseTo, from, to);
+                LocalDate toDate = LocalDate.now().isBefore(to) ? LocalDate.now() : to;
+                BigDecimal amortisedToDate = calculateAmortisation(net, F.start(), amortiseTo, from, toDate);
+
+                occurrences.add(new FeeOccurrenceResponse(
+                        CardFeeKind.ANNUAL_FEE, status, F.start(), F.end(), F.start(), amortiseTo, dueDate,
+                        baseAmount, gstRate, gstAmount, totalAmount,
+                        threshold, basis, waiverStart, waiverEnd, spendConsidered,
+                        waived, source, provisional, occWaiverIncomplete, waiverContradictsLinkedCharge,
+                        net, amortisedInRange, amortisedToDate, linkedIds, override != null ? override.getNote() : null
+                ));
+            }
+
+            // Check JOINING_FEE occurrence during fee year F
+            CardFeeTerm joiningTerm = terms.stream().filter(t -> t.getKind() == CardFeeKind.JOINING_FEE).findFirst().orElse(null);
+            if (joiningTerm != null && !joiningTerm.getEffectiveFrom().isBefore(F.start()) && !joiningTerm.getEffectiveFrom().isAfter(F.end())) {
+                LocalDate jDueDate = joiningTerm.getEffectiveFrom();
+                if (account.getClosedOn() == null || !account.getClosedOn().isBefore(jDueDate)) {
+                    BigDecimal jBase = joiningTerm.getAmount();
+                    BigDecimal jGstRate = joiningTerm.getGstRate() != null ? joiningTerm.getGstRate() : BigDecimal.valueOf(18);
+                    BigDecimal jGst = jBase.multiply(jGstRate).divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
+                    BigDecimal jTotal = jBase.add(jGst);
+
+                    CardFeeCharge jOverride = findMatchingOverride(charges, CardFeeKind.JOINING_FEE, F.start(), F.end());
+                    if (jOverride != null) {
+                        selectedChargeIds.add(jOverride.getId());
+                    }
+                    List<UUID> jLinkedIds = jOverride != null ? new ArrayList<>(jOverride.getTransactionIds()) : List.of();
+                    BigDecimal jLinkedSum = calculateLinkedSum(jLinkedIds);
+
+                    BigDecimal jNet;
+                    FeeWaiverSource jSource;
+                    if (jOverride != null && jOverride.getOverrideAmount() != null) {
+                        jNet = jOverride.getOverrideAmount(); jSource = FeeWaiverSource.MANUAL;
+                    } else if (!jLinkedIds.isEmpty()) {
+                        jNet = jLinkedSum; jSource = FeeWaiverSource.LINKED_CHARGE;
+                    } else if (jOverride != null && jOverride.getWaived() != null) {
+                        jNet = jOverride.getWaived() ? BigDecimal.ZERO : jTotal; jSource = FeeWaiverSource.MANUAL;
+                    } else {
+                        jNet = jTotal; jSource = FeeWaiverSource.NONE;
+                    }
+
+                    FeeOccurrenceStatus jStatus = (jNet.signum() == 0) ? FeeOccurrenceStatus.WAIVED_MANUAL : (jSource == FeeWaiverSource.NONE ? FeeOccurrenceStatus.DUE : FeeOccurrenceStatus.CHARGED_MANUAL);
+                    LocalDate jAmortiseTo = (account.getClosedOn() != null && account.getClosedOn().isBefore(F.end())) ? account.getClosedOn() : F.end();
+                    BigDecimal jAmortisedInRange = calculateAmortisation(jNet, F.start(), jAmortiseTo, from, to);
+                    LocalDate toDate = LocalDate.now().isBefore(to) ? LocalDate.now() : to;
+                    BigDecimal jAmortisedToDate = calculateAmortisation(jNet, F.start(), jAmortiseTo, from, toDate);
+
+                    occurrences.add(new FeeOccurrenceResponse(
+                            CardFeeKind.JOINING_FEE, jStatus, F.start(), F.end(), F.start(), jAmortiseTo, jDueDate,
+                            jBase, jGstRate, jGst, jTotal,
+                            null, null, null, null, BigDecimal.ZERO,
+                            jNet.signum() == 0, jSource, false, false, false,
+                            jNet, jAmortisedInRange, jAmortisedToDate, jLinkedIds, jOverride != null ? jOverride.getNote() : null
+                    ));
+                }
+            }
+
+            cursor = F.end().plusDays(1);
+        }
+
+        List<LocalDate> orphanedFeeOverrides = new ArrayList<>();
+        for (CardFeeCharge charge : charges) {
+            boolean inAnyWindow = enumeratedWindows.stream()
+                    .anyMatch(w -> !charge.getFeeYearStart().isBefore(w.start()) && !charge.getFeeYearStart().isAfter(w.end()));
+            if (inAnyWindow && !selectedChargeIds.contains(charge.getId())) {
+                orphanedFeeOverrides.add(charge.getFeeYearStart());
+            }
+        }
+
+        BigDecimal totalAmortisedInRange = occurrences.stream().map(FeeOccurrenceResponse::amortisedInRange).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal totalAmortisedToDate = occurrences.stream().map(FeeOccurrenceResponse::amortisedToDate).reduce(BigDecimal.ZERO, BigDecimal::add);
+        boolean unlinkedFeeCharges = occurrences.stream().anyMatch(occ -> occ.netAmount().signum() > 0 && occ.transactionIds().isEmpty());
+
+        return new CardFeeScheduleResponse(
+                occurrences,
+                totalAmortisedInRange,
+                totalAmortisedToDate,
+                unanchoredFees,
+                unlinkedFeeCharges,
+                waiverSpendIncomplete,
+                notConfiguredFeeYears,
+                orphanedFeeOverrides
+        );
+    }
+
+    private CardFeeCharge findMatchingOverride(List<CardFeeCharge> charges, CardFeeKind kind, LocalDate feeYearStart, LocalDate feeYearEnd) {
+        List<CardFeeCharge> candidates = charges.stream()
+                .filter(c -> c.getKind() == kind)
+                .filter(c -> !c.getFeeYearStart().isBefore(feeYearStart) && !c.getFeeYearStart().isAfter(feeYearEnd))
+                .toList();
+        if (candidates.isEmpty()) {
+            return null;
+        }
+        return candidates.stream()
+                .filter(c -> c.getFeeYearStart().equals(feeYearStart))
+                .findFirst()
+                .orElseGet(() -> candidates.stream()
+                        .min(Comparator.comparingLong((CardFeeCharge c) -> Math.abs(ChronoUnit.DAYS.between(c.getFeeYearStart(), feeYearStart)))
+                                .thenComparing(CardFeeCharge::getFeeYearStart))
+                        .orElse(null));
+    }
+
+    private BigDecimal calculateLinkedSum(List<UUID> linkedIds) {
+        if (linkedIds == null || linkedIds.isEmpty()) {
+            return BigDecimal.ZERO;
+        }
+        List<Transaction> txns = transactionRepository.findAllByIdIn(linkedIds);
+        BigDecimal debits = txns.stream().filter(t -> t.getType() == TransactionType.DEBIT).map(Transaction::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal credits = txns.stream().filter(t -> t.getType() == TransactionType.CREDIT).map(Transaction::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return debits.subtract(credits).max(BigDecimal.ZERO);
+    }
+
+    // Accepted paise-level amortisation drift: summing arbitrary sub-ranges can differ from the annual fee by a few paise — that is intended, do not "fix" it into a divergent scheme.
+    public static BigDecimal calculateAmortisation(BigDecimal netAmount, LocalDate windowStart, LocalDate windowEnd, LocalDate rangeFrom, LocalDate rangeTo) {
+        if (netAmount == null || netAmount.signum() == 0) {
+            return BigDecimal.ZERO;
+        }
+        LocalDate maxStart = rangeFrom.isAfter(windowStart) ? rangeFrom : windowStart;
+        LocalDate minEnd = rangeTo.isBefore(windowEnd) ? rangeTo : windowEnd;
+
+        if (maxStart.isAfter(minEnd)) {
+            return BigDecimal.ZERO;
+        }
+
+        if (!rangeFrom.isAfter(windowStart) && !rangeTo.isBefore(windowEnd)) {
+            return netAmount;
+        }
+
+        long windowDays = ChronoUnit.DAYS.between(windowStart, windowEnd) + 1;
+        long overlapDays = ChronoUnit.DAYS.between(maxStart, minEnd) + 1;
+
+        if (windowDays <= 0) {
+            windowDays = 1;
+        }
+
+        return netAmount.multiply(BigDecimal.valueOf(overlapDays))
+                .divide(BigDecimal.valueOf(windowDays), 2, RoundingMode.HALF_UP);
     }
 
     private static BigDecimal pct(BigDecimal value, BigDecimal basis) {

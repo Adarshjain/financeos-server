@@ -11,6 +11,7 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.account.AccountStatus;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.category.Category;
 import com.financeos.domain.category.CategoryRepository;
@@ -75,12 +76,14 @@ public class RewardRecommendationService {
                 if (!account.getUser().getId().equals(currentUserId)) {
                     throw new ValidationException("You do not have permission to view rewards for this account.");
                 }
-                candidateAccounts.add(account);
+                if (account.getStatus() != AccountStatus.CLOSED) {
+                    candidateAccounts.add(account);
+                }
             }
         } else {
             List<Account> userAccounts = accountRepository.findByUserId(currentUserId);
             for (Account acct : userAccounts) {
-                if (acct.getType() == AccountType.credit_card || rewardRuleRepository.countByAccountId(acct.getId()) > 0) {
+                if (acct.getStatus() != AccountStatus.CLOSED && (acct.getType() == AccountType.credit_card || rewardRuleRepository.countByAccountId(acct.getId()) > 0)) {
                     candidateAccounts.add(acct);
                 }
             }

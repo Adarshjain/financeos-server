@@ -118,4 +118,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("maxAmount") java.math.BigDecimal maxAmount,
             @Param("minDate") LocalDate minDate,
             @Param("maxDate") LocalDate maxDate);
+
+    @Query("SELECT MIN(t.date) FROM Transaction t WHERE t.account.id = :accountId")
+    java.util.Optional<LocalDate> findEarliestTransactionDateByAccountId(@Param("accountId") UUID accountId);
 }

@@ -54,4 +54,12 @@ public class RewardReportController {
         Page<RewardLineResponse> page = new PageImpl<>(lines.subList(start, end), pageable, lines.size());
         return ResponseEntity.ok(page);
     }
+
+    @GetMapping("/fees")
+    public ResponseEntity<com.financeos.api.cardfee.dto.CardFeeScheduleResponse> getFees(
+            @RequestParam UUID accountId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+        return ResponseEntity.ok(rewardCalculationService.feeSchedule(accountId, from, to));
+    }
 }

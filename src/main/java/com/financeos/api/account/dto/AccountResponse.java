@@ -23,6 +23,10 @@ public sealed interface AccountResponse {
 
     AccountType type();
 
+    AccountStatus status();
+
+    LocalDate closedOn();
+
     Boolean excludeFromNetAsset();
 
     FinancialPosition financialPosition();
@@ -59,6 +63,8 @@ public sealed interface AccountResponse {
                         account.getId(),
                         account.getName(),
                         account.getType(),
+                        account.getStatus(),
+                        account.getClosedOn(),
                         account.getExcludeFromNetAsset(),
                         account.getFinancialPosition(),
                         account.getDescription(),
@@ -79,6 +85,8 @@ public sealed interface AccountResponse {
                         account.getId(),
                         account.getName(),
                         account.getType(),
+                        account.getStatus(),
+                        account.getClosedOn(),
                         account.getExcludeFromNetAsset(),
                         account.getFinancialPosition(),
                         account.getDescription(),
@@ -102,6 +110,8 @@ public sealed interface AccountResponse {
                         account.getId(),
                         account.getName(),
                         account.getType(),
+                        account.getStatus(),
+                        account.getClosedOn(),
                         account.getExcludeFromNetAsset(),
                         account.getFinancialPosition(),
                         account.getDescription(),
@@ -120,6 +130,8 @@ public sealed interface AccountResponse {
                     account.getId(),
                     account.getName(),
                     account.getType(),
+                    account.getStatus(),
+                    account.getClosedOn(),
                     account.getExcludeFromNetAsset(),
                     account.getFinancialPosition(),
                     account.getDescription(),
@@ -137,6 +149,8 @@ public sealed interface AccountResponse {
             UUID id,
             String name,
             AccountType type,
+            AccountStatus status,
+            LocalDate closedOn,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
@@ -156,6 +170,8 @@ public sealed interface AccountResponse {
             UUID id,
             String name,
             AccountType type,
+            AccountStatus status,
+            LocalDate closedOn,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
@@ -178,6 +194,8 @@ public sealed interface AccountResponse {
             UUID id,
             String name,
             AccountType type,
+            AccountStatus status,
+            LocalDate closedOn,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
@@ -197,6 +215,8 @@ public sealed interface AccountResponse {
             UUID id,
             String name,
             AccountType type,
+            AccountStatus status,
+            LocalDate closedOn,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,

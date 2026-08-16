@@ -25,5 +25,7 @@ public enum RewardLineReason {
     /** Transfer / credit-card payment / reversal leg — never earns. */
     TRANSFER_OR_PAYMENT,
     /** Transaction is marked excluded from analytics. */
-    TXN_EXCLUDED
+    TXN_EXCLUDED,
+    /** Card membership fee transaction — never earns. */
+    CARD_FEE
 }

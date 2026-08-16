@@ -2,6 +2,7 @@ package com.financeos.api.account.dto;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.financeos.domain.account.AccountStatus;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.FinancialPosition;
 import jakarta.validation.constraints.NotBlank;
@@ -24,6 +25,10 @@ public sealed interface CreateAccountRequest {
     @NotNull(message = "Account type is required")
     AccountType type();
 
+    AccountStatus status();
+
+    LocalDate closedOn();
+
     Boolean excludeFromNetAsset();
 
     FinancialPosition financialPosition();
@@ -35,6 +40,8 @@ public sealed interface CreateAccountRequest {
     record BankAccountRequest(
             @NotBlank(message = "Name is required") String name,
             @NotNull(message = "Account type is required") AccountType type,
+            AccountStatus status,
+            LocalDate closedOn,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
@@ -48,6 +55,8 @@ public sealed interface CreateAccountRequest {
     record CreditCardRequest(
             @NotBlank(message = "Name is required") String name,
             @NotNull(message = "Account type is required") AccountType type,
+            AccountStatus status,
+            LocalDate closedOn,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
@@ -65,6 +74,8 @@ public sealed interface CreateAccountRequest {
     record BrokerRequest(
             @NotBlank(message = "Name is required") String name,
             @NotNull(message = "Account type is required") AccountType type,
+            AccountStatus status,
+            LocalDate closedOn,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
@@ -78,6 +89,8 @@ public sealed interface CreateAccountRequest {
     record GenericAccountRequest(
             @NotBlank(message = "Name is required") String name,
             @NotNull(message = "Account type is required") AccountType type,
+            AccountStatus status,
+            LocalDate closedOn,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,

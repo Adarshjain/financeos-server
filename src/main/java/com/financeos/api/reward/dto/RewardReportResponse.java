@@ -1,5 +1,6 @@
 package com.financeos.api.reward.dto;
 
+import com.financeos.api.cardfee.dto.CardFeeScheduleResponse;
 import com.financeos.domain.reward.AccrualType;
 import com.financeos.domain.reward.CapWindow;
 import com.financeos.domain.reward.MilestoneBasis;
@@ -22,15 +23,9 @@ public record RewardReportResponse(
         List<RuleBreakdown> rules,
         List<MilestoneStatus> milestones,
         boolean cycleFallback,
-        boolean anniversaryFallback) {
+        boolean anniversaryFallback,
+        CardFeeScheduleResponse cardFees) {
 
-    /**
-     * Monetary fields in rupees; points stay points (no cash valuation of points yet).
-     * basisSpend = eligible debit spend net of refunds. grossValueInr = cashbackInr +
-     * milestonesInr (cash only — points-paying milestones land in milestonesPts);
-     * effectiveValueInr adds instant discounts and subtracts convenience fees.
-     * The percentage rates therefore cover cash value only.
-     */
     public record Summary(
             BigDecimal basisSpend,
             int transactionCount,
@@ -44,7 +39,13 @@ public record RewardReportResponse(
             BigDecimal fees,
             BigDecimal effectiveValueInr,
             BigDecimal grossPct,
-            BigDecimal effectivePct) {
+            BigDecimal effectivePct,
+            BigDecimal cardFeesInr,
+            BigDecimal netValueInr,
+            BigDecimal netPct,
+            BigDecimal pointsValueInr,
+            BigDecimal netValueWithPointsInr,
+            String pointValueSource) {
     }
 
     /**

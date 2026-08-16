@@ -45,8 +45,12 @@ public class AccountService {
         UUID userId = UserContext.getCurrentUserId();
         User user = userRepository.getReferenceById(userId);
 
+        validateAccountStatusAndClosedOn(request.status(), request.closedOn(), null);
+
         Account account = new Account(request.name(), request.type());
         account.setUser(user);
+        account.setStatus(request.status() != null ? request.status() : AccountStatus.ACTIVE);
+        account.setClosedOn(account.getStatus() == AccountStatus.CLOSED ? request.closedOn() : null);
         account.setExcludeFromNetAsset(request.excludeFromNetAsset() != null ? request.excludeFromNetAsset() : false);
         
         FinancialPosition position = request.financialPosition();
@@ -109,7 +113,11 @@ public class AccountService {
             throw new ValidationException("Changing account type is not supported");
         }
 
+        validateAccountStatusAndClosedOn(request.status(), request.closedOn(), id);
+
         account.setName(request.name());
+        account.setStatus(request.status() != null ? request.status() : AccountStatus.ACTIVE);
+        account.setClosedOn(account.getStatus() == AccountStatus.CLOSED ? request.closedOn() : null);
         account.setExcludeFromNetAsset(request.excludeFromNetAsset() != null ? request.excludeFromNetAsset() : false);
         account.setFinancialPosition(request.financialPosition());
         account.setDescription(request.description());
@@ -127,6 +135,22 @@ public class AccountService {
         Account saved = accountRepository.save(account);
         populateBalanceInfo(saved);
         return saved;
+    }
+
+    private void validateAccountStatusAndClosedOn(AccountStatus status, LocalDate closedOn, UUID accountId) {
+        AccountStatus effectiveStatus = status != null ? status : AccountStatus.ACTIVE;
+        if (effectiveStatus == AccountStatus.CLOSED) {
+            if (closedOn == null) {
+                throw new ValidationException("Close date is required when status is CLOSED");
+            }
+            if (accountId != null) {
+                transactionRepository.findEarliestTransactionDateByAccountId(accountId).ifPresent(earliestDate -> {
+                    if (closedOn.isBefore(earliestDate)) {
+                        throw new ValidationException("Account close date (" + closedOn + ") cannot precede earliest transaction date (" + earliestDate + ")");
+                    }
+                });
+            }
+        }
     }
 
     public Account addBankDetails(Account account, CreateAccountRequest.BankAccountRequest request) {
