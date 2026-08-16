@@ -61,10 +61,36 @@ Repo → Settings → Secrets and variables → Actions:
 | `DEPLOY_USER` | `ubuntu` |
 | `DEPLOY_SSH_KEY` | full private key: `pbcopy < ~/.ssh/financeos-deploy` |
 
-### 4. Push
+### 4. Create the Slack app for deploy notifications
+
+Optional — if `SLACK_WEBHOOK_URL` is unset the notify steps skip and the deploy is unaffected.
+
+1. Go to <https://api.slack.com/apps> → **Create New App** → **From an app manifest**.
+2. Pick the workspace, choose **YAML**, and paste `deploy/slack-app-manifest.yml`. Create.
+3. Left sidebar → **Incoming Webhooks**. The manifest turns this on via
+   `settings.incoming_webhooks.incoming_webhooks_enabled` — if the toggle reads *Off*, the
+   manifest didn't apply; switch it on by hand.
+4. Bottom of that page → **Add New Webhook to Workspace** → pick the channel the deploy messages
+   should land in → **Allow**. A webhook is permanently bound to the channel chosen here; to
+   change channel later add a second webhook rather than editing this one.
+5. Copy the `https://hooks.slack.com/services/...` URL it now lists, and add it as the repo
+   secret `SLACK_WEBHOOK_URL`.
+
+Test it before pushing:
+
+```bash
+curl -X POST -H 'Content-Type: application/json' \
+  --data '{"text":"FinanceOS deploy notifications wired up."}' \
+  "$SLACK_WEBHOOK_URL"
+```
+
+For a private channel, invite the app first: `/invite @FinanceOS Deploy` in that channel.
+
+### 5. Push
 
 ```bash
 git add .github deploy pom.xml src/main/resources/application.yml
+git update-index --chmod=+x .github/scripts/slack-notify.sh
 git commit -m "Add CI deployment via GitHub Actions"
 git push origin main
 ```
