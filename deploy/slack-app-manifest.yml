@@ -1,0 +1,25 @@
+# Slack app manifest for the deploy notifier.
+# Paste into https://api.slack.com/apps -> Create New App -> From an app manifest.
+# Grants nothing but the ability to post to one channel you pick at install time.
+display_information:
+  name: FinanceOS Deploy
+  description: Build and deploy status for financeos-server
+  background_color: "#2eb886"
+features:
+  bot_user:
+    display_name: FinanceOS Deploy
+    always_online: false
+oauth_config:
+  scopes:
+    bot:
+      - incoming-webhook
+settings:
+  # Without this the Incoming Webhooks page stays switched off and shows no URL,
+  # even though the incoming-webhook scope is requested above. Defaults to false.
+  incoming_webhooks:
+    incoming_webhooks_enabled: true
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
+  interactivity:
+    is_enabled: false

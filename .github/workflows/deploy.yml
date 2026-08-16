@@ -13,12 +13,21 @@ env:
   # Matches the existing manual layout on the VM — do not change without updating financeos.service.
   APP_DIR: /home/ubuntu/financeos-server
   APP_PORT: "8080"
+  # Empty when the secret is unset, which makes the Slack steps skip instead of erroring.
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Notify Slack — started
+        if: env.SLACK_WEBHOOK_URL != ''
+        continue-on-error: true
+        run: |
+          echo "DEPLOY_START_TS=$(date +%s)" >> "$GITHUB_ENV"
+          .github/scripts/slack-notify.sh started
 
       - uses: actions/setup-java@v4
         with:
@@ -75,3 +84,8 @@ jobs:
           echo "::error::Service did not become healthy. Rolling back is manual: see deploy/README.md"
           ssh -i ~/.ssh/deploy_key "$USER@$HOST" 'sudo journalctl -u financeos -n 80 --no-pager' || true
           exit 1
+
+      - name: Notify Slack — result
+        if: always() && env.SLACK_WEBHOOK_URL != ''
+        continue-on-error: true
+        run: .github/scripts/slack-notify.sh "${{ job.status }}"
