@@ -27,6 +27,7 @@ application-local.yml
 application-local.properties
 .env
 .env.local
+.env.bak.googlefix
 
 # Test results
 test-output/

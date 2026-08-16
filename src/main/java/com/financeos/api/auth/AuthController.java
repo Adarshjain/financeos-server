@@ -4,6 +4,7 @@ import com.financeos.api.auth.dto.LoginRequest;
 import com.financeos.api.auth.dto.SignupRequest;
 import com.financeos.api.auth.dto.UserResponse;
 import com.financeos.api.auth.dto.GoogleAuthStartResponse;
+import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.user.AuthService;
 import com.financeos.domain.user.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,12 +19,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
-    private final String uiPath;
 
-    public AuthController(AuthService authService,
-            @org.springframework.beans.factory.annotation.Value("${app.ui-path}") String uiPath) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
-        this.uiPath = uiPath;
     }
 
     @PostMapping("/signup")
@@ -59,23 +57,33 @@ public class AuthController {
         return ResponseEntity.ok(new GoogleAuthStartResponse(url));
     }
 
+    /**
+     * Completes the SSO flow and returns JSON, matching the contract in
+     * `api-spec.yaml`.
+     *
+     * Google redirects the browser to the *client's* callback page, which calls
+     * this from a server action and relays `FINANCEOS_SESSION` onto its own
+     * origin — the same hand-off {@link #login} uses. This used to redirect the
+     * browser here directly and then 302 to the UI, which set the session cookie
+     * on the API's origin instead. That only appeared to work locally, where
+     * cookies are shared across ports on `localhost`; anywhere the UI and API sit
+     * on different hosts, the UI saw no cookie and bounced to /login.
+     */
     @GetMapping("/google/callback")
-    public ResponseEntity<Void> handleGoogleCallback(
+    public ResponseEntity<UserResponse> handleGoogleCallback(
             @RequestParam(required = false) String code,
             @RequestParam(required = false) String error,
             HttpServletRequest request,
             HttpServletResponse response) {
 
         if (error != null) {
-            return ResponseEntity.status(HttpStatus.FOUND)
-                    .header("Location", uiPath + "/login?error=" + error)
-                    .build();
+            throw new ValidationException("Google sign-in failed: " + error);
+        }
+        if (code == null || code.isBlank()) {
+            throw new ValidationException("Missing authorization code");
         }
 
-        authService.handleGoogleLogin(code, request, response);
-
-        return ResponseEntity.status(HttpStatus.FOUND)
-                .header("Location", uiPath)
-                .build();
+        User user = authService.handleGoogleLogin(code, request, response);
+        return ResponseEntity.ok(UserResponse.from(user));
     }
 }

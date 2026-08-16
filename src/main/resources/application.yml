@@ -146,7 +146,12 @@ google:
   oauth:
     client-id: ${GOOGLE_CLIENT_ID:${GMAIL_CLIENT_ID:}}
     client-secret: ${GOOGLE_CLIENT_SECRET:${GMAIL_CLIENT_SECRET:}}
-    redirect-uri: ${GOOGLE_OAUTH_REDIRECT_URI:http://localhost:6969/api/v1/auth/google/callback}
+    # Points at the CLIENT's callback page, not this server. The client exchanges
+    # the code via a server action and sets FINANCEOS_SESSION on its own origin;
+    # pointing this back at the API sets the cookie on the wrong origin (see
+    # AuthController#handleGoogleCallback). Must also be registered verbatim as an
+    # Authorized redirect URI in the Google Cloud console.
+    redirect-uri: ${GOOGLE_OAUTH_REDIRECT_URI:https://localhost:6970/auth/google/callback}
 
 # Price Feed configuration
 price:
