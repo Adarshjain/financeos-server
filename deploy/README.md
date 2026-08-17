@@ -112,6 +112,24 @@ sudo systemctl restart financeos
 
 ---
 
+## Env vars that must track the client's origin
+
+The UI is deployed separately on Vercel at `https://financeos-client.vercel.app` — it is **not** on
+this box (ufw exposes only 22 and 8080). Three vars in `$APP_DIR/.env` name that origin, and all
+three have to move together whenever it changes. They are not in the repo, so a JAR deploy will not
+update them:
+
+| Var | Value | Used by |
+|---|---|---|
+| `GOOGLE_OAUTH_REDIRECT_URI` | `https://financeos-client.vercel.app/auth/google/callback` | `GoogleOAuthClient` — must also be registered verbatim in the Google Cloud console |
+| `UI_PATH` | `https://financeos-client.vercel.app` | `GmailController`, which still 302s the browser to `/settings/gmail` |
+| `CORS_ORIGINS` | `https://financeos-client.vercel.app` | `SecurityConfig`; vestigial today — `API_BASE_URL` is never exposed as `NEXT_PUBLIC_`, so the browser never calls this API directly |
+
+`GOOGLE_OAUTH_REDIRECT_URI` must point at the **client's** callback page, never at
+`/api/v1/auth/google/callback` on this host. Sending the browser here directly sets
+`FINANCEOS_SESSION` on the API's origin, where the Vercel app cannot read it, and every sign-in
+lands back on `/login`. See `AuthController#handleGoogleCallback`.
+
 ## Known risks on the running box
 
 Fix the first three with `ssh -i ~/.ssh/oracle-oci ubuntu@129.159.22.124 'bash -s' < deploy/harden-vm.sh`
