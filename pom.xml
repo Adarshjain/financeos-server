@@ -19,9 +19,17 @@
 
     <properties>
         <java.version>21</java.version>
+        <gitSha>local</gitSha>
     </properties>
 
     <dependencies>
+        <!-- Logstash Logback Encoder -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>8.0</version>
+        </dependency>
+
         <!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -39,10 +47,28 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-        <!-- Exposes /actuator/health, which SecurityConfig already permits and CI polls after deploy -->
+        <!-- Actuator & Prometheus Metrics -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.ttddyy.observation</groupId>
+            <artifactId>datasource-micrometer-spring-boot</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <!-- Tracing: Micrometer OTel Bridge & OTLP Exporter -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-otel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-exporter-otlp</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.session</groupId>
@@ -155,6 +181,18 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                        <configuration>
+                            <additionalProperties>
+                                <gitSha>${gitSha}</gitSha>
+                            </additionalProperties>
+                        </configuration>
+                    </execution>
+                </executions>
                 <configuration>
                     <excludes>
                         <exclude>

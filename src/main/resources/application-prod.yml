@@ -1,0 +1,37 @@
+# Log levels are intentionally managed exclusively in logback-spring.xml under <springProfile name="prod">
+# to keep level settings versioned directly next to the appenders they configure.
+
+management:
+  server:
+    port: 8081
+    address: 127.0.0.1
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers,prometheus
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+  metrics:
+    web:
+      server:
+        max-uri-tags: 60
+    tags:
+      service: financeos-server
+      env: prod
+      version: ${app.version:unknown}
+  distribution:
+    percentiles-histogram:
+      http.server.requests: true
+    slo:
+      http.server.requests: 100ms,500ms,1s,2s
+  tracing:
+    enabled: ${TRACING_ENABLED:false}
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: ${GRAFANA_OTLP_ENDPOINT:http://localhost:4318/v1/traces}
+      headers:
+        Authorization: Basic ${GRAFANA_OTLP_AUTH:none}

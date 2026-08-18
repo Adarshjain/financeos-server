@@ -1,0 +1,136 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "gridPos": { "h": 4, "w": 8, "x": 0, "y": 0 },
+      "id": 1,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "sum by (provider, outcome) (financeos_llm_attempts_total)",
+          "legendFormat": "{{provider}} - {{outcome}}",
+          "refId": "A"
+        }
+      ],
+      "title": "LLM Attempts Total by Provider & Outcome",
+      "type": "stat"
+    },
+    {
+      "gridPos": { "h": 4, "w": 8, "x": 8, "y": 0 },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "sum by (provider, kind) (financeos_llm_tokens_total)",
+          "legendFormat": "{{provider}} - {{kind}}",
+          "refId": "A"
+        }
+      ],
+      "title": "LLM Cumulative MTD Token Burn",
+      "type": "stat"
+    },
+    {
+      "gridPos": { "h": 4, "w": 8, "x": 16, "y": 0 },
+      "id": 3,
+      "options": {
+        "colorHighlightMode": "value",
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "${DS_LOKI}" },
+          "expr": "sum(count_over_time({service=\"financeos-server\"} | json | event=\"llm.chain.exhausted\" [24h]))",
+          "legendFormat": "Chain Exhaustions",
+          "refId": "A"
+        }
+      ],
+      "title": "LLM Chain Exhausted Count (24h)",
+      "type": "stat"
+    },
+    {
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+      "id": 4,
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "${DS_LOKI}" },
+          "expr": "quantile_over_time(0.95, {service=\"financeos-server\"} | json | event=\"llm.attempt\" | unwrap latencyMs [5m]) by (provider)",
+          "legendFormat": "p95 Latency - {{provider}}",
+          "refId": "A"
+        }
+      ],
+      "title": "LLM Attempt Latency Percentiles (p95 by Provider)",
+      "type": "timeseries"
+    },
+    {
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 },
+      "id": 5,
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "${DS_LOKI}" },
+          "expr": "sum by (provider, httpStatus) (count_over_time({service=\"financeos-server\"} | json | event=\"llm.attempt\" | httpStatus != \"\" [5m]))",
+          "legendFormat": "{{provider}} - HTTP {{httpStatus}}",
+          "refId": "A"
+        }
+      ],
+      "title": "LLM HTTP Status Breakdown (429 vs 401 vs 503)",
+      "type": "timeseries"
+    },
+    {
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 12 },
+      "id": 6,
+      "options": { "showHeader": true },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "${DS_LOKI}" },
+          "expr": "{service=\"financeos-server\"} | json | event=\"llm.circuit.opened\" or event=\"llm.circuit.closed\"",
+          "maxLines": 50,
+          "refId": "A"
+        }
+      ],
+      "title": "LLM Circuit Breaker State Transition Timeline",
+      "type": "table"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["financeos", "llm", "ai"],
+  "templating": {
+    "list": [
+      {
+        "current": { "selected": true, "text": "Loki", "value": "Loki" },
+        "name": "DS_LOKI",
+        "query": "loki",
+        "type": "datasource"
+      },
+      {
+        "current": { "selected": true, "text": "Prometheus", "value": "Prometheus" },
+        "name": "DS_PROM",
+        "query": "prometheus",
+        "type": "datasource"
+      }
+    ]
+  },
+  "time": { "from": "now-24h", "to": "now" },
+  "title": "LLM Providers & Resiliency — FinanceOS",
+  "uid": "financeos-llm-providers"
+}

@@ -39,6 +39,7 @@ public class GrowwOrderHistoryParser {
 
     public List<GrowwExecution> parse(InputStream inputStream) {
         List<GrowwExecution> execs = new ArrayList<>();
+        long startTimeMs = com.financeos.core.observability.ParseLogger.started(log, "GrowwOrderHistoryParser", 0, "groww-orders.xlsx");
         try (Workbook workbook = WorkbookFactory.create(inputStream)) {
             Sheet sheet = workbook.getSheetAt(0);
             Map<String, Integer> headerMap = null;
@@ -115,8 +116,10 @@ public class GrowwOrderHistoryParser {
                 }
             }
 
+            com.financeos.core.observability.ParseLogger.completed(log, "GrowwOrderHistoryParser", execs.size(), "stock_name,symbol,isin,type,quantity,price,value,exchange,order_id,execution_time", startTimeMs);
+
         } catch (Exception e) {
-            log.error("Failed to parse Groww Order History file", e);
+            com.financeos.core.observability.ParseLogger.failed(log, "GrowwOrderHistoryParser", "extract-text", 1, "Failed to parse Groww Order History file: " + e.getMessage(), e);
         }
         return execs;
     }

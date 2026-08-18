@@ -1,5 +1,7 @@
 package com.financeos.domain.loan;
 
+import com.financeos.core.observability.Events;
+import net.logstash.logback.argument.StructuredArguments;
 import com.financeos.api.account.dto.AccountResponse;
 import com.financeos.api.loan.dto.*;
 import com.financeos.api.transaction.dto.TransactionResponse;
@@ -574,6 +576,14 @@ public class LoanService {
                 .toList();
 
         if (targetInstallments.isEmpty()) {
+            log.info("Loan match attempted: loanId={}, matched=false, reason=no-candidates", loanId,
+                    StructuredArguments.keyValue("event", Events.LOAN_MATCH_ATTEMPTED),
+                    StructuredArguments.keyValue("loanId", loanId != null ? loanId.toString() : ""),
+                    StructuredArguments.keyValue("txnId", ""),
+                    StructuredArguments.keyValue("toleranceUsed", MATCH_AMOUNT_TOLERANCE.doubleValue()),
+                    StructuredArguments.keyValue("candidateCount", 0),
+                    StructuredArguments.keyValue("matched", false),
+                    StructuredArguments.keyValue("rejectReason", "no-candidates"));
             return new MatchSuggestionsResponse(Collections.emptyList());
         }
 
@@ -611,6 +621,19 @@ public class LoanService {
                 );
             }
 
+            for (Transaction t : candidates) {
+                if (referencedTxIds.contains(t.getId())) {
+                    log.info("Loan match attempted: loanId={}, txnId={}, matched=false, reason=already-matched", loanId, t.getId(),
+                            StructuredArguments.keyValue("event", Events.LOAN_MATCH_ATTEMPTED),
+                            StructuredArguments.keyValue("loanId", loanId != null ? loanId.toString() : ""),
+                            StructuredArguments.keyValue("txnId", t.getId().toString()),
+                            StructuredArguments.keyValue("toleranceUsed", MATCH_AMOUNT_TOLERANCE.doubleValue()),
+                            StructuredArguments.keyValue("candidateCount", candidates.size()),
+                            StructuredArguments.keyValue("matched", false),
+                            StructuredArguments.keyValue("rejectReason", "already-matched"));
+                }
+            }
+
             // Filter out referenced transaction IDs
             List<Transaction> unreferenced = candidates.stream()
                     .filter(t -> !referencedTxIds.contains(t.getId()))
@@ -641,6 +664,17 @@ public class LoanService {
                     }
                 }
             }
+        }
+
+        for (Map.Entry<UUID, Integer> entry : txToSeqAssignment.entrySet()) {
+            log.info("Loan match attempted: loanId={}, txnId={}, matched=true", loanId, entry.getKey(),
+                    StructuredArguments.keyValue("event", Events.LOAN_MATCH_ATTEMPTED),
+                    StructuredArguments.keyValue("loanId", loanId != null ? loanId.toString() : ""),
+                    StructuredArguments.keyValue("txnId", entry.getKey().toString()),
+                    StructuredArguments.keyValue("toleranceUsed", MATCH_AMOUNT_TOLERANCE.doubleValue()),
+                    StructuredArguments.keyValue("candidateCount", candidateMap.getOrDefault(entry.getValue(), Collections.emptyList()).size()),
+                    StructuredArguments.keyValue("matched", true),
+                    StructuredArguments.keyValue("rejectReason", ""));
         }
 
         List<MatchSuggestionsResponse.InstallmentMatchSuggestion> suggestions = new ArrayList<>();

@@ -15,6 +15,10 @@ import com.financeos.domain.account.AccountType;
 import com.financeos.domain.category.Category;
 import com.financeos.domain.category.CategoryRepository;
 
+import com.financeos.core.observability.Events;
+import net.logstash.logback.argument.StructuredArguments;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +37,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class RewardRecommendationService {
+
+    private static final Logger log = LoggerFactory.getLogger(RewardRecommendationService.class);
 
     public static final BigDecimal DEFAULT_POINT_VALUE_INR = new BigDecimal("0.25");
 
@@ -281,6 +287,18 @@ public class RewardRecommendationService {
                     card.anniversaryFallback()
             ));
         }
+
+        String topCards = rankedRecommendations.stream()
+                .limit(3)
+                .map(r -> r.accountName() + ":₹" + r.totalValueInr())
+                .collect(Collectors.joining(","));
+
+        log.info("Reward recommend ranked: txnAmount={}, merchant={}, topCards={}",
+                request.amount(), request.merchantText(), topCards,
+                StructuredArguments.keyValue("event", Events.REWARD_RECOMMEND_RANKED),
+                StructuredArguments.keyValue("txnAmount", request.amount() != null ? request.amount().toString() : "0"),
+                StructuredArguments.keyValue("merchant", request.merchantText() != null ? request.merchantText() : ""),
+                StructuredArguments.keyValue("topCards", topCards));
 
         return new RewardRecommendationResponse(request, rankedRecommendations);
     }

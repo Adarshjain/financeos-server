@@ -52,6 +52,14 @@ public class GoogleOAuthClient {
         this.httpClient = HttpClient.newHttpClient();
     }
 
+    public String getRedirectUri() {
+        return redirectUri;
+    }
+
+    public List<String> getSsoScopes() {
+        return SSO_SCOPES;
+    }
+
     /**
      * Build Authorization URL for SSO flow.
      */

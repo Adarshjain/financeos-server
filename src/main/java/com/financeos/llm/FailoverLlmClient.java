@@ -1,6 +1,9 @@
 package com.financeos.llm;
 
+import com.financeos.core.observability.Events;
+import com.financeos.core.observability.ObservabilityMetrics;
 import com.financeos.llm.provider.LlmHttpSupport;
+import net.logstash.logback.argument.StructuredArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +19,7 @@ public class FailoverLlmClient implements LlmClient {
 
     private final LlmProperties properties;
     private final Map<String, LlmProvider> providers;
+    private final ObservabilityMetrics metrics;
     private final ConcurrentHashMap<String, CircuitState> circuitStates = new ConcurrentHashMap<>();
 
     private static class CircuitState {
@@ -24,8 +28,13 @@ public class FailoverLlmClient implements LlmClient {
     }
 
     public FailoverLlmClient(LlmProperties properties, Map<String, LlmProvider> providers) {
+        this(properties, providers, null);
+    }
+
+    public FailoverLlmClient(LlmProperties properties, Map<String, LlmProvider> providers, ObservabilityMetrics metrics) {
         this.properties = properties;
         this.providers = providers != null ? providers : new HashMap<>();
+        this.metrics = metrics;
         validateChainsAtStartup();
     }
 
@@ -83,6 +92,7 @@ public class FailoverLlmClient implements LlmClient {
         long baseDelay = properties.getRetry().getBaseDelayMs();
         long maxDelay = properties.getRetry().getMaxDelayMs();
 
+        long chainStartTime = System.currentTimeMillis();
         for (String providerId : eligibleChain) {
             if (!ignoreBreaker && isCircuitOpen(providerId)) {
                 log.info("Skipping provider {} for task {} because circuit breaker is open", providerId, task);
@@ -97,21 +107,82 @@ public class FailoverLlmClient implements LlmClient {
             }
 
             String model = getModel(providerId);
+            int promptChars = request.prompt() != null ? request.prompt().length() : 0;
+            int batchSize = batchSizeOf(providerId);
 
             for (int attempt = 1; attempt <= attemptsPerProvider; attempt++) {
                 long startTime = System.currentTimeMillis();
                 try {
                     LlmResponse response = provider.complete(request);
                     long latencyMs = System.currentTimeMillis() - startTime;
-                    log.info("LLM attempt task={}, provider={}, model={}, attempt={}, outcome=SUCCESS, latency={}ms",
-                            task, providerId, model, attempt, latencyMs);
+                    int responseChars = response != null && response.jsonText() != null ? response.jsonText().length() : 0;
+
+                    log.info("LLM attempt task={}, provider={}, model={}, attempt={}, outcome=success, latency={}ms",
+                            task, providerId, model, attempt, latencyMs,
+                            StructuredArguments.keyValue("event", Events.LLM_ATTEMPT),
+                            StructuredArguments.keyValue("task", task),
+                            StructuredArguments.keyValue("provider", providerId),
+                            StructuredArguments.keyValue("model", model),
+                            StructuredArguments.keyValue("attempt", attempt),
+                            StructuredArguments.keyValue("outcome", "success"),
+                            StructuredArguments.keyValue("latencyMs", latencyMs),
+                            StructuredArguments.keyValue("promptChars", promptChars),
+                            StructuredArguments.keyValue("responseChars", responseChars),
+                            StructuredArguments.keyValue("batchSize", batchSize),
+                            StructuredArguments.keyValue("errorClass", ""),
+                            StructuredArguments.keyValue("errorBody", ""));
+
                     recordSuccess(providerId);
+                    if (metrics != null) {
+                        metrics.recordLlmAttempt(providerId, "success");
+                    }
                     return response;
                 } catch (LlmException e) {
                     long latencyMs = System.currentTimeMillis() - startTime;
-                    String outcome = e.getStatusCode() != null ? String.valueOf(e.getStatusCode()) : e.getKind().name();
-                    log.info("LLM attempt task={}, provider={}, model={}, attempt={}, outcome={}, latency={}ms",
-                            task, providerId, model, attempt, outcome, latencyMs);
+                    String outcome = e.getStatusCode() != null ? String.valueOf(e.getStatusCode()) : e.getKind().name().toLowerCase();
+                    Integer httpStatus = e.getStatusCode();
+                    String errorClass = e.getClass().getName();
+                    String errorBody = e.getMessage() != null ? LlmHttpSupport.truncate(e.getMessage(), 300) : "";
+                    long retryAfterMs = e.getRetryAfterSeconds() != null ? e.getRetryAfterSeconds() * 1000L : 0;
+
+                    if (httpStatus != null) {
+                        log.info("LLM attempt task={}, provider={}, model={}, attempt={}, outcome={}, latency={}ms",
+                                task, providerId, model, attempt, outcome, latencyMs,
+                                StructuredArguments.keyValue("event", Events.LLM_ATTEMPT),
+                                StructuredArguments.keyValue("task", task),
+                                StructuredArguments.keyValue("provider", providerId),
+                                StructuredArguments.keyValue("model", model),
+                                StructuredArguments.keyValue("attempt", attempt),
+                                StructuredArguments.keyValue("outcome", outcome),
+                                StructuredArguments.keyValue("latencyMs", latencyMs),
+                                StructuredArguments.keyValue("httpStatus", httpStatus),
+                                StructuredArguments.keyValue("promptChars", promptChars),
+                                StructuredArguments.keyValue("responseChars", 0),
+                                StructuredArguments.keyValue("batchSize", batchSize),
+                                StructuredArguments.keyValue("retryAfterMs", retryAfterMs),
+                                StructuredArguments.keyValue("errorClass", errorClass),
+                                StructuredArguments.keyValue("errorBody", errorBody));
+                    } else {
+                        log.info("LLM attempt task={}, provider={}, model={}, attempt={}, outcome={}, latency={}ms",
+                                task, providerId, model, attempt, outcome, latencyMs,
+                                StructuredArguments.keyValue("event", Events.LLM_ATTEMPT),
+                                StructuredArguments.keyValue("task", task),
+                                StructuredArguments.keyValue("provider", providerId),
+                                StructuredArguments.keyValue("model", model),
+                                StructuredArguments.keyValue("attempt", attempt),
+                                StructuredArguments.keyValue("outcome", outcome),
+                                StructuredArguments.keyValue("latencyMs", latencyMs),
+                                StructuredArguments.keyValue("promptChars", promptChars),
+                                StructuredArguments.keyValue("responseChars", 0),
+                                StructuredArguments.keyValue("batchSize", batchSize),
+                                StructuredArguments.keyValue("retryAfterMs", retryAfterMs),
+                                StructuredArguments.keyValue("errorClass", errorClass),
+                                StructuredArguments.keyValue("errorBody", errorBody));
+                    }
+
+                    if (metrics != null) {
+                        metrics.recordLlmAttempt(providerId, outcome);
+                    }
 
                     if (e.getKind() == LlmException.Kind.FATAL || e.getKind() == LlmException.Kind.BAD_OUTPUT) {
                         recordFailure(providerId);
@@ -134,14 +205,42 @@ public class FailoverLlmClient implements LlmClient {
                     }
                 } catch (Exception e) {
                     long latencyMs = System.currentTimeMillis() - startTime;
-                    log.info("LLM attempt task={}, provider={}, model={}, attempt={}, outcome=ERROR, latency={}ms",
-                            task, providerId, model, attempt, latencyMs);
+                    String errorClass = e.getClass().getName();
+                    String errorBody = e.getMessage() != null ? LlmHttpSupport.truncate(e.getMessage(), 300) : "";
+
+                    log.info("LLM attempt task={}, provider={}, model={}, attempt={}, outcome=error, latency={}ms",
+                            task, providerId, model, attempt, latencyMs,
+                            StructuredArguments.keyValue("event", Events.LLM_ATTEMPT),
+                            StructuredArguments.keyValue("task", task),
+                            StructuredArguments.keyValue("provider", providerId),
+                            StructuredArguments.keyValue("model", model),
+                            StructuredArguments.keyValue("attempt", attempt),
+                            StructuredArguments.keyValue("outcome", "error"),
+                            StructuredArguments.keyValue("latencyMs", latencyMs),
+                            StructuredArguments.keyValue("promptChars", promptChars),
+                            StructuredArguments.keyValue("responseChars", 0),
+                            StructuredArguments.keyValue("batchSize", batchSize),
+                            StructuredArguments.keyValue("errorClass", errorClass),
+                            StructuredArguments.keyValue("errorBody", errorBody));
+
                     recordFailure(providerId);
+                    if (metrics != null) {
+                        metrics.recordLlmAttempt(providerId, "error");
+                    }
                     failureMessages.add(providerId + ": " + e.getMessage());
                     break;
                 }
             }
         }
+
+        long totalChainLatency = System.currentTimeMillis() - chainStartTime;
+        log.error("LLM chain exhausted: task={}, providersTried={}, totalLatencyMs={}",
+                task, eligibleChain, totalChainLatency,
+                StructuredArguments.keyValue("event", Events.LLM_CHAIN_EXHAUSTED),
+                StructuredArguments.keyValue("task", task),
+                StructuredArguments.keyValue("providersTried", String.join(",", eligibleChain)),
+                StructuredArguments.keyValue("totalLatencyMs", totalChainLatency),
+                StructuredArguments.keyValue("failureMessages", String.join("; ", failureMessages)));
 
         String chainMessage = "All providers failed for task '" + task + "': " + String.join("; ", failureMessages);
         throw new LlmException(LlmException.Kind.FATAL, "chain", null, null,
@@ -240,14 +339,30 @@ public class FailoverLlmClient implements LlmClient {
 
     private void recordSuccess(String providerId) {
         CircuitState state = circuitStates.computeIfAbsent(providerId, k -> new CircuitState());
-        state.consecutiveFailures.set(0);
+        int previousFailures = state.consecutiveFailures.getAndSet(0);
         state.lastFailureTimestamp.set(0);
+        if (previousFailures >= 3) {
+            long cooldownMs = properties != null && properties.getRetry() != null ? properties.getRetry().getCooldownMs() : 60000;
+            log.info("LLM circuit closed: provider={}", providerId,
+                    StructuredArguments.keyValue("event", Events.LLM_CIRCUIT_CLOSED),
+                    StructuredArguments.keyValue("provider", providerId),
+                    StructuredArguments.keyValue("cooldownMs", cooldownMs),
+                    StructuredArguments.keyValue("consecutiveFailures", 0));
+        }
     }
 
     private void recordFailure(String providerId) {
         CircuitState state = circuitStates.computeIfAbsent(providerId, k -> new CircuitState());
-        state.consecutiveFailures.incrementAndGet();
+        int failures = state.consecutiveFailures.incrementAndGet();
         state.lastFailureTimestamp.set(System.currentTimeMillis());
+        if (failures == 3) {
+            long cooldownMs = properties != null && properties.getRetry() != null ? properties.getRetry().getCooldownMs() : 60000;
+            log.warn("LLM circuit opened: provider={}", providerId,
+                    StructuredArguments.keyValue("event", Events.LLM_CIRCUIT_OPENED),
+                    StructuredArguments.keyValue("provider", providerId),
+                    StructuredArguments.keyValue("cooldownMs", cooldownMs),
+                    StructuredArguments.keyValue("consecutiveFailures", failures));
+        }
     }
 
     private long calculateBackoff(int retryIndex, long baseDelay, long maxDelay, Long retryAfterSeconds) {

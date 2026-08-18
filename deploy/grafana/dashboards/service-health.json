@@ -1,0 +1,259 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 0 },
+      "id": 1,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "/^version$/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "editorMode": "code",
+          "expr": "http_server_requests_seconds_count{service=\"financeos-server\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "{{version}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Deployed Version",
+      "type": "stat"
+    },
+    {
+      "gridPos": { "h": 4, "w": 6, "x": 4, "y": 0 },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "sum(rate(http_server_requests_seconds_count{service=\"financeos-server\"}[5m]))",
+          "legendFormat": "Request Rate (req/s)",
+          "refId": "A"
+        }
+      ],
+      "title": "HTTP Request Rate",
+      "type": "stat"
+    },
+    {
+      "gridPos": { "h": 4, "w": 6, "x": 10, "y": 0 },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "sum(rate(http_server_requests_seconds_count{service=\"financeos-server\", status=~\"5..\"}[5m])) / sum(rate(http_server_requests_seconds_count{service=\"financeos-server\"}[5m]))",
+          "legendFormat": "5xx Ratio",
+          "refId": "A"
+        }
+      ],
+      "title": "HTTP 5xx Error Ratio",
+      "type": "stat"
+    },
+    {
+      "gridPos": { "h": 4, "w": 8, "x": 16, "y": 0 },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "${DS_LOKI}" },
+          "expr": "sum(count_over_time({service=\"financeos-server\", level=\"ERROR\"}[5m]))",
+          "legendFormat": "ERROR Count",
+          "refId": "A"
+        }
+      ],
+      "title": "ERROR Rate (5m Window)",
+      "type": "stat"
+    },
+    {
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+      "id": 5,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "histogram_quantile(0.50, sum by (le, uri) (rate(http_server_requests_seconds_bucket{service=\"financeos-server\"}[5m])))",
+          "legendFormat": "p50 - {{uri}}",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "histogram_quantile(0.95, sum by (le, uri) (rate(http_server_requests_seconds_bucket{service=\"financeos-server\"}[5m])))",
+          "legendFormat": "p95 - {{uri}}",
+          "refId": "B"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "histogram_quantile(0.99, sum by (le, uri) (rate(http_server_requests_seconds_bucket{service=\"financeos-server\"}[5m])))",
+          "legendFormat": "p99 - {{uri}}",
+          "refId": "C"
+        }
+      ],
+      "title": "HTTP Latency Quantiles (p50/p95/p99 by Route)",
+      "type": "timeseries"
+    },
+    {
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 },
+      "id": 6,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "jvm_memory_used_bytes{service=\"financeos-server\", area=\"heap\"}",
+          "legendFormat": "JVM Heap Used",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "jvm_memory_max_bytes{service=\"financeos-server\", area=\"heap\"}",
+          "legendFormat": "JVM Heap Max",
+          "refId": "B"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "rate(jvm_gc_pause_seconds_sum{service=\"financeos-server\"}[5m])",
+          "legendFormat": "GC Pause Rate (s/s)",
+          "refId": "C"
+        }
+      ],
+      "title": "JVM Heap & GC Metrics",
+      "type": "timeseries"
+    },
+    {
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
+      "id": 7,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "hikaricp_connections_active{service=\"financeos-server\"}",
+          "legendFormat": "Hikari Active Connections",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "hikaricp_connections_idle{service=\"financeos-server\"}",
+          "legendFormat": "Hikari Idle Connections",
+          "refId": "B"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "hikaricp_connections_pending{service=\"financeos-server\"}",
+          "legendFormat": "Hikari Pending Connections",
+          "refId": "C"
+        }
+      ],
+      "title": "Hikari Connection Pool",
+      "type": "timeseries"
+    },
+    {
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 12 },
+      "id": 8,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "node_memory_MemAvailable_bytes",
+          "legendFormat": "Host Memory Available",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "node_filesystem_avail_bytes",
+          "legendFormat": "Disk Free Bytes",
+          "refId": "B"
+        }
+      ],
+      "title": "Host Infrastructure Health",
+      "type": "timeseries"
+    },
+    {
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 20 },
+      "id": 9,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "showLabels": true,
+        "wrapLogMessage": true
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "${DS_LOKI}" },
+          "expr": "{service=\"financeos-server\", level=\"ERROR\"} | json | line_format \"errorId={{.errorId}} route={{.route}} userId={{.userId}} {{.message}}\"",
+          "maxLines": 100,
+          "refId": "A"
+        }
+      ],
+      "title": "Recent Server ERROR Logs (Extracted errorId, route, userId)",
+      "type": "logs"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["financeos", "observability", "health"],
+  "templating": {
+    "list": [
+      {
+        "current": { "selected": true, "text": "Loki", "value": "Loki" },
+        "name": "DS_LOKI",
+        "query": "loki",
+        "type": "datasource"
+      },
+      {
+        "current": { "selected": true, "text": "Prometheus", "value": "Prometheus" },
+        "name": "DS_PROM",
+        "query": "prometheus",
+        "type": "datasource"
+      },
+      {
+        "current": { "selected": true, "text": "Tempo", "value": "Tempo" },
+        "name": "DS_TEMPO",
+        "query": "tempo",
+        "type": "datasource"
+      }
+    ]
+  },
+  "time": { "from": "now-6h", "to": "now" },
+  "title": "Service Health — FinanceOS",
+  "uid": "financeos-service-health"
+}
