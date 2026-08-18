@@ -1,9 +1,13 @@
 package com.financeos.domain.loan.schedule;
 
+import com.financeos.core.observability.Events;
+import net.logstash.logback.argument.StructuredArguments;
 import com.financeos.api.loan.dto.InstallmentDto;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.investment.returncalc.XirrCalculator;
 import com.financeos.domain.loan.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -15,6 +19,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class LoanScheduleService {
+
+    private static final Logger log = LoggerFactory.getLogger(LoanScheduleService.class);
 
     public ScheduleResult compute(Loan loan, List<LoanEvent> events, List<LoanPayment> payments, List<LoanCharge> charges) {
         return compute(loan, events, payments, charges, LocalDate.now());
@@ -210,6 +216,17 @@ public class LoanScheduleService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         Double effectiveAprPct = calculateEffectiveApr(loan, safeEvents, installments, safeCharges);
+
+        LocalDate firstDue = installments.isEmpty() ? null : installments.get(0).dueDate();
+        LocalDate lastDue = projectedEndDate;
+
+        log.info("Loan schedule generated: loanId={}, installments={}, firstDue={}, lastDue={}",
+                loan.getId(), totalInstallments, firstDue, lastDue,
+                StructuredArguments.keyValue("event", Events.LOAN_SCHEDULE_GENERATED),
+                StructuredArguments.keyValue("loanId", loan.getId() != null ? loan.getId().toString() : ""),
+                StructuredArguments.keyValue("installments", totalInstallments),
+                StructuredArguments.keyValue("firstDue", firstDue != null ? firstDue.toString() : ""),
+                StructuredArguments.keyValue("lastDue", lastDue != null ? lastDue.toString() : ""));
 
         return new ScheduleResult(
                 installments,

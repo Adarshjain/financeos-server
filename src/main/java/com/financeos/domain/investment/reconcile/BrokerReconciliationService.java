@@ -1,5 +1,7 @@
 package com.financeos.domain.investment.reconcile;
 
+import com.financeos.core.observability.Events;
+import net.logstash.logback.argument.StructuredArguments;
 import com.financeos.api.instrument.dto.InstrumentCandidate;
 import com.financeos.api.instrument.dto.InstrumentResponse;
 import com.financeos.api.instrument.dto.ResolveInstrumentRequest;
@@ -942,6 +944,14 @@ public class BrokerReconciliationService {
             if (!seen.contains(key)) {
                 seen.add(key);
                 out.add(e);
+            } else {
+                String strat = (e.tradeId != null && !e.tradeId.isBlank()) ? "trade_id" : "tuple_exact";
+                String matchId = e.tradeId != null && !e.tradeId.isBlank() ? e.tradeId : (e.orderId != null ? e.orderId : "");
+                log.info("Dedup decision: strategy={}, matchedTxnId={}, score=1.0", strat, matchId,
+                        StructuredArguments.keyValue("event", Events.DEDUP_DECISION),
+                        StructuredArguments.keyValue("strategy", strat),
+                        StructuredArguments.keyValue("matchedTxnId", matchId),
+                        StructuredArguments.keyValue("score", 1.0));
             }
         }
         return out;

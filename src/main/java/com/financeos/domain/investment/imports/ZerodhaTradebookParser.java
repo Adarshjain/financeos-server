@@ -25,7 +25,7 @@ public class ZerodhaTradebookParser implements ImportParser {
     @Override
     public List<ParsedRow> parse(InputStream inputStream, ParseContext context) {
         List<ParsedRow> parsedRows = new ArrayList<>();
-
+        long startTimeMs = com.financeos.core.observability.ParseLogger.started(log, "ZerodhaTradebookParser", 0, "zerodha-tradebook.csv");
         try {
             List<Map<String, String>> rawRows = SimpleCsvReader.readCsv(inputStream);
 
@@ -62,7 +62,7 @@ public class ZerodhaTradebookParser implements ImportParser {
                         } else if (tradeTypeStr.equalsIgnoreCase("sell")) {
                             type = InvestmentTransactionType.sell;
                         } else {
-                            error = "Invalid trade_type: " + tradeTypeStr;
+                            error = "Unknown trade_type: " + tradeTypeStr;
                         }
                     } else {
                         error = "Missing trade_type";
@@ -71,55 +71,43 @@ public class ZerodhaTradebookParser implements ImportParser {
 
                 BigDecimal quantity = null;
                 if (error == null) {
-                    if (quantityStr != null && !quantityStr.isBlank()) {
-                        try {
-                            quantity = new BigDecimal(quantityStr);
-                            if (quantity.compareTo(BigDecimal.ZERO) <= 0) {
-                                error = "Quantity must be positive: " + quantityStr;
-                            }
-                        } catch (Exception e) {
-                            error = "Invalid quantity: " + quantityStr;
+                    try {
+                        quantity = new BigDecimal(quantityStr);
+                        if (quantity.compareTo(BigDecimal.ZERO) <= 0) {
+                            error = "Quantity must be positive: " + quantityStr;
                         }
-                    } else {
-                        error = "Missing quantity";
+                    } catch (Exception e) {
+                        error = "Invalid quantity: " + quantityStr;
                     }
                 }
 
                 BigDecimal price = null;
                 if (error == null) {
-                    if (priceStr != null && !priceStr.isBlank()) {
-                        try {
-                            price = new BigDecimal(priceStr);
-                            if (price.compareTo(BigDecimal.ZERO) < 0) {
-                                error = "Price must be non-negative: " + priceStr;
-                            }
-                        } catch (Exception e) {
-                            error = "Invalid price: " + priceStr;
+                    try {
+                        price = new BigDecimal(priceStr);
+                        if (price.compareTo(BigDecimal.ZERO) < 0) {
+                            error = "Price cannot be negative: " + priceStr;
                         }
-                    } else {
-                        error = "Missing price";
+                    } catch (Exception e) {
+                        error = "Invalid price: " + priceStr;
                     }
                 }
 
                 LocalDate tradeDate = null;
                 if (error == null) {
-                    if (tradeDateStr != null && !tradeDateStr.isBlank()) {
-                        try {
-                            tradeDate = LocalDate.parse(tradeDateStr.trim(), DATE_FORMATTER);
-                        } catch (Exception e) {
-                            error = "Invalid trade_date format: " + tradeDateStr + " (expected yyyy-MM-dd)";
-                        }
-                    } else {
-                        error = "Missing trade_date";
+                    try {
+                        tradeDate = LocalDate.parse(tradeDateStr);
+                    } catch (Exception e) {
+                        error = "Invalid trade_date format (expected YYYY-MM-DD): " + tradeDateStr;
                     }
                 }
 
-                if (error == null && (symbol == null || symbol.isBlank())) {
-                    error = "Missing symbol";
+                String externalRef = null;
+                if (tradeId != null && !tradeId.isBlank()) {
+                    externalRef = "zerodha_trade_" + tradeId.trim();
+                } else if (orderId != null && !orderId.isBlank()) {
+                    externalRef = "zerodha_order_" + orderId.trim();
                 }
-
-                // externalRef is set to trade_id (Zerodha's unique trade execution identifier), falling back to order_id if trade_id is missing
-                String externalRef = tradeId != null && !tradeId.isBlank() ? tradeId : orderId;
 
                 ParsedRow parsedRow = new ParsedRow(
                         rowIndex,
@@ -131,6 +119,7 @@ public class ZerodhaTradebookParser implements ImportParser {
                         exchange != null && !exchange.isBlank() ? exchange.trim().toUpperCase() : "NSE",
                         quantity,
                         price,
+                        null,
                         tradeDate,
                         null, // charges not in tradebook
                         externalRef,
@@ -139,13 +128,18 @@ public class ZerodhaTradebookParser implements ImportParser {
                 );
 
                 parsedRows.add(parsedRow);
+                if (error != null) {
+                    com.financeos.core.observability.ParseLogger.rejectedRow(log, "ZerodhaTradebookParser", rowIndex, error);
+                }
             }
 
+            com.financeos.core.observability.ParseLogger.completed(log, "ZerodhaTradebookParser", parsedRows.size(), "symbol,isin,trade_date,exchange,segment,trade_type,quantity,price,trade_id,order_id", startTimeMs);
+
         } catch (Exception e) {
-            log.error("Failed to parse Zerodha tradebook CSV", e);
+            com.financeos.core.observability.ParseLogger.failed(log, "ZerodhaTradebookParser", "extract-text", 1, "Failed to parse Zerodha tradebook CSV: " + e.getMessage(), e);
             parsedRows.add(new ParsedRow(
                     1, "trade", null, null, null, null, null,
-                    null, null, null, null, null,
+                    null, null, null, null, null, null,
                     Collections.emptyMap(), "Failed to read CSV file: " + e.getMessage()
             ));
         }

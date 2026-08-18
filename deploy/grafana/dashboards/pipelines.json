@@ -1,0 +1,149 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "gridPos": { "h": 4, "w": 12, "x": 0, "y": 0 },
+      "id": 1,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "time() - financeos_job_last_success_timestamp_seconds",
+          "legendFormat": "Job Last Success Age (s) - {{job}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Scheduled Jobs — Last Success Age",
+      "type": "stat"
+    },
+    {
+      "gridPos": { "h": 4, "w": 12, "x": 12, "y": 0 },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "${DS_LOKI}" },
+          "expr": "sum by (jobName, outcome) (count_over_time({service=\"financeos-server\"} | json | event=\"job.completed\" [24h]))",
+          "legendFormat": "{{jobName}} - {{outcome}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Scheduled Jobs — 24h Outcome Counts",
+      "type": "stat"
+    },
+    {
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 4 },
+      "id": 3,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "${DS_LOKI}" },
+          "expr": "{service=\"financeos-server\"} | json | event=\"import.preview.computed\" or event=\"import.commit.completed\"",
+          "maxLines": 50,
+          "refId": "A"
+        }
+      ],
+      "title": "Import Preview vs Commit Delta Table (Preview ≠ Final)",
+      "type": "table"
+    },
+    {
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
+      "id": 4,
+      "options": { "showHeader": true },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "${DS_LOKI}" },
+          "expr": "sum by (skipReason, failReason) (count_over_time({service=\"financeos-server\"} | json | event=\"import.commit.completed\" [24h]))",
+          "legendFormat": "Reason",
+          "refId": "A"
+        }
+      ],
+      "title": "Import Commit — Skip & Fail Reasons Breakdown",
+      "type": "table"
+    },
+    {
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 12 },
+      "id": 5,
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "${DS_LOKI}" },
+          "expr": "sum by (outcome) (count_over_time({service=\"financeos-server\"} | json | event=\"instrument.resolve\" [24h]))",
+          "legendFormat": "{{outcome}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Instrument Resolution Outcomes",
+      "type": "timeseries"
+    },
+    {
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 20 },
+      "id": 6,
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "${DS_LOKI}" },
+          "expr": "sum by (parserChosen, stage) (count_over_time({service=\"financeos-server\"} | json | event=\"parse.failed\" [24h]))",
+          "legendFormat": "{{parserChosen}} - {{stage}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Parse Failures by Parser & Stage",
+      "type": "timeseries"
+    },
+    {
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 20 },
+      "id": 7,
+      "options": { "showHeader": true },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "${DS_LOKI}" },
+          "expr": "{service=\"financeos-server\"} | json | event=\"db.slow_query\"",
+          "maxLines": 50,
+          "refId": "A"
+        }
+      ],
+      "title": "Slow SQL Queries (>500ms)",
+      "type": "table"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["financeos", "pipelines", "imports"],
+  "templating": {
+    "list": [
+      {
+        "current": { "selected": true, "text": "Loki", "value": "Loki" },
+        "name": "DS_LOKI",
+        "query": "loki",
+        "type": "datasource"
+      },
+      {
+        "current": { "selected": true, "text": "Prometheus", "value": "Prometheus" },
+        "name": "DS_PROM",
+        "query": "prometheus",
+        "type": "datasource"
+      }
+    ]
+  },
+  "time": { "from": "now-24h", "to": "now" },
+  "title": "Pipelines & Ingestion — FinanceOS",
+  "uid": "financeos-pipelines"
+}

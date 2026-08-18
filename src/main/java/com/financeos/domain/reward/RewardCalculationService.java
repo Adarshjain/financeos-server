@@ -19,6 +19,8 @@ import com.financeos.domain.transaction.link.TransactionLink;
 import com.financeos.domain.transaction.link.TransactionLinkMember;
 import com.financeos.domain.transaction.link.TransactionLinkRepository;
 
+import com.financeos.core.observability.Events;
+import net.logstash.logback.argument.StructuredArguments;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,8 +90,20 @@ public class RewardCalculationService {
 
     @Transactional(readOnly = true)
     public RewardReportResponse report(UUID accountId, LocalDate from, LocalDate to) {
-        Evaluation eval = evaluate(accountId, from, to, true);
-        return buildReport(eval, from, to);
+        long startMs = System.currentTimeMillis();
+        Evaluation eval = evaluate(accountId, from, to, true, "manual");
+        RewardReportResponse response = buildReport(eval, from, to);
+        long durationMs = System.currentTimeMillis() - startMs;
+
+        log.info("Reward report viewed: cardId={}, durationMs={}", accountId, durationMs,
+                StructuredArguments.keyValue("event", Events.REWARD_REPORT_VIEWED),
+                StructuredArguments.keyValue("cardId", accountId != null ? accountId.toString() : ""),
+                StructuredArguments.keyValue("cycleStart", from != null ? from.toString() : ""),
+                StructuredArguments.keyValue("cycleEnd", to != null ? to.toString() : ""),
+                StructuredArguments.keyValue("txnCount", eval.lines.size()),
+                StructuredArguments.keyValue("durationMs", durationMs));
+
+        return response;
     }
 
     @Transactional(readOnly = true)
@@ -186,6 +200,11 @@ public class RewardCalculationService {
     }
 
     Evaluation evaluate(UUID accountId, LocalDate from, LocalDate to, boolean includeMilestones) {
+        return evaluate(accountId, from, to, includeMilestones, "manual");
+    }
+
+    Evaluation evaluate(UUID accountId, LocalDate from, LocalDate to, boolean includeMilestones, String trigger) {
+        long startMs = System.currentTimeMillis();
         if (from == null || to == null || from.isAfter(to)) {
             throw new ValidationException("A valid from/to date range is required.");
         }
@@ -214,6 +233,10 @@ public class RewardCalculationService {
                 List<RewardTier> tiers = rewardRuleService.parseTiers(rule);
                 if (tiers.isEmpty() || rule.getTierWindow() == null) {
                     log.warn("Reward rule {} has a broken tier configuration; skipping it in evaluation", rule.getId());
+                    log.debug("Reward rule skipped: ruleId={}, reason=broken-tier-config", rule.getId(),
+                            StructuredArguments.keyValue("event", Events.REWARD_RULE_SKIPPED),
+                            StructuredArguments.keyValue("ruleId", rule.getId().toString()),
+                            StructuredArguments.keyValue("reason", "broken-tier-config"));
                     continue;
                 }
                 schedules.put(rule.getId(), tiers);
@@ -332,6 +355,16 @@ public class RewardCalculationService {
             }
             evaluateTransaction(txn, refundTotals, neverEarnIds, eval, regexCache);
         }
+        long durationMs = System.currentTimeMillis() - startMs;
+        log.info("Reward recompute completed: cardId={}, trigger={}, durationMs={}", accountId, trigger, durationMs,
+                StructuredArguments.keyValue("event", Events.REWARD_RECOMPUTE_COMPLETED),
+                StructuredArguments.keyValue("trigger", trigger != null ? trigger : "manual"),
+                StructuredArguments.keyValue("cardId", accountId != null ? accountId.toString() : ""),
+                StructuredArguments.keyValue("cycleStart", from != null ? from.toString() : ""),
+                StructuredArguments.keyValue("cycleEnd", to != null ? to.toString() : ""),
+                StructuredArguments.keyValue("txnCount", eval.lines.size()),
+                StructuredArguments.keyValue("rulesEvaluated", eval.rules.size()),
+                StructuredArguments.keyValue("durationMs", durationMs));
         return eval;
     }
 

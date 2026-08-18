@@ -10,12 +10,14 @@ import org.springframework.context.annotation.Configuration;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.financeos.core.observability.ObservabilityMetrics;
+
 @Configuration
 @EnableConfigurationProperties(LlmProperties.class)
 public class LlmConfiguration {
 
     @Bean
-    public FailoverLlmClient llmClient(LlmProperties properties, ObjectMapper objectMapper) {
+    public FailoverLlmClient llmClient(LlmProperties properties, ObjectMapper objectMapper, ObservabilityMetrics metrics) {
         Map<String, LlmProvider> providers = new HashMap<>();
         if (properties.getProviders() != null) {
             for (Map.Entry<String, LlmProperties.ProviderProperties> entry : properties.getProviders().entrySet()) {
@@ -31,6 +33,6 @@ public class LlmConfiguration {
                 }
             }
         }
-        return new FailoverLlmClient(properties, providers);
+        return new FailoverLlmClient(properties, providers, metrics);
     }
 }

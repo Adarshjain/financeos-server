@@ -1,5 +1,7 @@
 package com.financeos.domain.investment.imports;
 
+import com.financeos.core.observability.Events;
+import net.logstash.logback.argument.StructuredArguments;
 import com.financeos.api.instrument.dto.InstrumentCandidate;
 import com.financeos.api.instrument.dto.InstrumentResponse;
 import com.financeos.api.instrument.dto.ResolveInstrumentRequest;
@@ -33,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -106,10 +109,19 @@ public class ImportService {
                 continue;
             }
 
+            String resolveSource = "local";
+            String resolveOutcome = "unmatched";
+            int resolveCandidateCount = 0;
+
             // Resolve instrument
             Instrument matchedInstrument = null;
             if (row.parsedIsin() != null && !row.parsedIsin().isBlank()) {
                 matchedInstrument = instrumentRepository.findByIsin(row.parsedIsin()).orElse(null);
+                if (matchedInstrument != null) {
+                    resolveSource = "isin";
+                    resolveOutcome = "matched";
+                    resolveCandidateCount = 1;
+                }
             }
 
             if (matchedInstrument == null && row.parsedSymbol() != null && !row.parsedSymbol().isBlank()) {
@@ -118,6 +130,9 @@ public class ImportService {
                     if (inst.getSymbol() != null && inst.getSymbol().equalsIgnoreCase(row.parsedSymbol())) {
                         if (row.exchange() == null || inst.getExchange() == null || inst.getExchange().equalsIgnoreCase(row.exchange())) {
                             matchedInstrument = inst;
+                            resolveSource = "name";
+                            resolveOutcome = "matched";
+                            resolveCandidateCount = searchResults.size();
                             break;
                         }
                     }
@@ -126,6 +141,11 @@ public class ImportService {
                     matchedInstrument = aliasRepository.findFirstByOldSymbolIgnoreCase(row.parsedSymbol().trim())
                             .map(InstrumentAlias::getInstrument)
                             .orElse(null);
+                    if (matchedInstrument != null) {
+                        resolveSource = "name";
+                        resolveOutcome = "matched";
+                        resolveCandidateCount = 1;
+                    }
                 }
             }
 
@@ -135,8 +155,6 @@ public class ImportService {
             if (matchedInstrument == null && instrumentSearchService != null) {
                 try {
                     InstrumentType searchType = (source == ImportSource.mf_cas) ? InstrumentType.mutual_fund : InstrumentType.stock;
-                    // Query external providers ISIN-first if parsedIsin is present.
-                    // If ISIN query returns no candidates, retry once using symbol (stocks) / name (MFs).
                     String isinStr = (row.parsedIsin() != null && !row.parsedIsin().isBlank()) ? row.parsedIsin().trim() : null;
                     String fallbackQueryStr = (searchType == InstrumentType.mutual_fund)
                             ? (row.parsedName() != null && !row.parsedName().isBlank() ? row.parsedName() : row.parsedSymbol())
@@ -152,6 +170,7 @@ public class ImportService {
                     }
 
                     externalSearchExhausted = candidates.isEmpty();
+                    resolveCandidateCount = candidates.size();
 
                     if (!candidates.isEmpty()) {
                         InstrumentCandidate bestCandidate = null;
@@ -203,6 +222,10 @@ public class ImportService {
                                     bestCandidate.existingInstrumentId()
                             ));
                             matchedInstrument = instrumentRepository.findById(resolved.id()).orElse(null);
+                            if (matchedInstrument != null) {
+                                resolveSource = "search";
+                                resolveOutcome = "matched";
+                            }
                         }
                     }
                 } catch (Exception e) {
@@ -238,6 +261,10 @@ public class ImportService {
                     newInst.setYahooSymbol(yahooSym);
 
                     matchedInstrument = instrumentRepository.save(newInst);
+                    if (matchedInstrument != null) {
+                        resolveSource = "search";
+                        resolveOutcome = "created";
+                    }
                 } catch (Exception e) {
                     log.warn("Failed to auto-create fallback instrument for row {}: {}", row.rowIndex(), e.getMessage());
                     if (row.parsedSymbol() != null && !row.parsedSymbol().isBlank()) {
@@ -256,6 +283,8 @@ public class ImportService {
                                     boolean isinCompatible = (rowIsin == null || rowIsin.isBlank() || existingIsin == null || existingIsin.isBlank() || existingIsin.equalsIgnoreCase(rowIsin));
                                     if (isinCompatible) {
                                         matchedInstrument = inst;
+                                        resolveSource = "name";
+                                        resolveOutcome = "matched";
                                         break;
                                     }
                                 }
@@ -264,6 +293,19 @@ public class ImportService {
                     }
                 }
             }
+
+            if (matchedInstrument == null) {
+                resolveOutcome = externalSearchExhausted ? "dead" : "ambiguous";
+            }
+
+            log.info("Instrument resolve: isin={}, symbol={}, source={}, outcome={}",
+                    row.parsedIsin(), row.parsedSymbol(), resolveSource, resolveOutcome,
+                    StructuredArguments.keyValue("event", Events.INSTRUMENT_RESOLVE),
+                    StructuredArguments.keyValue("isin", row.parsedIsin() != null ? row.parsedIsin() : ""),
+                    StructuredArguments.keyValue("symbol", row.parsedSymbol() != null ? row.parsedSymbol() : ""),
+                    StructuredArguments.keyValue("source", resolveSource),
+                    StructuredArguments.keyValue("outcome", resolveOutcome),
+                    StructuredArguments.keyValue("candidateCount", resolveCandidateCount));
 
             String matchStatus;
             ImportPreviewResponse.MatchedInstrumentDto matchedDto = null;
@@ -344,6 +386,22 @@ public class ImportService {
         ImportPreviewResponse.SummaryDto summary = new ImportPreviewResponse.SummaryDto(
                 parsedRows.size(), matchedCount, unmatchedCount, duplicateCount, errorCount, note
         );
+
+        Map<String, Long> previewSkipReasons = duplicateCount > 0 ? Map.of("duplicate", (long) duplicateCount) : Collections.emptyMap();
+        Map<String, Long> previewFailReasons = parsedRows.stream()
+                .filter(r -> r.error() != null && !r.error().isBlank())
+                .collect(Collectors.groupingBy(ParsedRow::error, Collectors.counting()));
+
+        log.info("Import preview computed: candidates={}, newRows={}, dedupSkipped={}, unresolved={}, failed={}",
+                parsedRows.size(), matchedCount, duplicateCount, unmatchedCount, errorCount,
+                StructuredArguments.keyValue("event", Events.IMPORT_PREVIEW_COMPUTED),
+                StructuredArguments.keyValue("candidates", parsedRows.size()),
+                StructuredArguments.keyValue("newRows", matchedCount),
+                StructuredArguments.keyValue("dedupSkipped", duplicateCount),
+                StructuredArguments.keyValue("unresolved", unmatchedCount),
+                StructuredArguments.keyValue("failed", errorCount),
+                StructuredArguments.keyValue("skipReasons", previewSkipReasons),
+                StructuredArguments.keyValue("failReasons", previewFailReasons));
 
         return new ImportPreviewResponse(rowDtos, summary);
     }
@@ -544,6 +602,23 @@ public class ImportService {
         if (!touchedInstrumentIds.isEmpty()) {
             eventPublisher.publishEvent(new PriceRefreshEvent(touchedInstrumentIds));
         }
+
+        Map<String, Long> skipReasonsMap = skippedItems.stream()
+                .filter(i -> i.reason() != null && !i.reason().isBlank())
+                .collect(Collectors.groupingBy(ImportCommitResponse.SkippedCommitItem::reason, Collectors.counting()));
+        Map<String, Long> failReasonsMap = failedList.stream()
+                .filter(f -> f.reason() != null && !f.reason().isBlank())
+                .collect(Collectors.groupingBy(ImportCommitResponse.FailedCommitItem::reason, Collectors.counting()));
+
+        log.info("Import commit completed: candidates={}, newRows={}, dedupSkipped={}, failed={}",
+                rows.size(), committed, skipped, failedList.size(),
+                StructuredArguments.keyValue("event", Events.IMPORT_COMMIT_COMPLETED),
+                StructuredArguments.keyValue("candidates", rows.size()),
+                StructuredArguments.keyValue("newRows", committed),
+                StructuredArguments.keyValue("dedupSkipped", skipped),
+                StructuredArguments.keyValue("failed", failedList.size()),
+                StructuredArguments.keyValue("skipReasons", skipReasonsMap),
+                StructuredArguments.keyValue("failReasons", failReasonsMap));
 
         return new ImportCommitResponse(committed, skipped, failedList, skippedItems);
     }

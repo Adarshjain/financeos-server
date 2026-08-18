@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    
-    <property name="LOG_FILE" value="logs/financeos.log"/>
-    <property name="LOG_ARCHIVE" value="logs/archive/financeos-%d{yyyy-MM-dd}.%i.log.gz"/>
 
-    <!-- Console Appender -->
+    <!-- Console Appender (Plain Text) -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
@@ -13,36 +10,93 @@
         </encoder>
     </appender>
 
-    <!-- Rolling File Appender -->
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_FILE}</file>
-        <encoder>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
-            <charset>utf8</charset>
-        </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!-- Daily rollover with compression -->
-            <fileNamePattern>${LOG_ARCHIVE}</fileNamePattern>
-            <!-- Max file size before rotation -->
-            <maxFileSize>10MB</maxFileSize>
-            <!-- Keep 7 days of history -->
-            <maxHistory>7</maxHistory>
-            <!-- Total size cap for all logs -->
-            <totalSizeCap>100MB</totalSizeCap>
-        </rollingPolicy>
-    </appender>
+    <!-- Dev / Default Profile Configuration -->
+    <springProfile name="!prod">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="com.financeos" level="DEBUG"/>
+        <logger name="org.springframework.security" level="DEBUG"/>
+        <logger name="org.hibernate.SQL" level="ERROR"/>
+        <logger name="org.hibernate.orm.jdbc.bind" level="ERROR"/>
+    </springProfile>
 
-    <!-- Logging Levels -->
-    <root level="INFO">
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
-    </root>
+    <springProperty scope="context" name="appVersion" source="app.version" defaultValue="unknown"/>
 
-    <!-- Application Specific Logging -->
-    <logger name="com.financeos" level="DEBUG"/>
-    <logger name="org.springframework.security" level="DEBUG"/>
-    <logger name="org.hibernate.SQL" level="ERROR"/>
-    <logger name="org.hibernate.orm.jdbc.bind" level="ERROR"/>
+    <!-- Production Profile Configuration -->
+    <springProfile name="prod">
+        <!-- JSON File Appender for Production -->
+        <appender name="JSON_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>logs/financeos.json</file>
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <customFields>{"service":"financeos-server","env":"prod","version":"${appVersion}"}</customFields>
+                <includeMdc>true</includeMdc>
+                <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                    <maxDepthPerThrowable>30</maxDepthPerThrowable>
+                    <maxLength>8192</maxLength>
+                    <rootCauseFirst>true</rootCauseFirst>
+                    <exclude>^org\.springframework\.(web|security|aop|transaction)\.</exclude>
+                    <exclude>^java\.base/</exclude>
+                </throwableConverter>
+                <jsonGeneratorDecorator class="net.logstash.logback.mask.MaskingJsonGeneratorDecorator">
+                    <defaultMask>****</defaultMask>
+                    <valueMask>
+                        <!-- Bearer tokens -->
+                        <value>(?i)Bearer\s+[A-Za-z0-9._\-]+</value>
+                    </valueMask>
+                    <valueMask>
+                        <!-- Google API keys -->
+                        <value>AIza[0-9A-Za-z_\-]{35}</value>
+                    </valueMask>
+                    <valueMask>
+                        <!-- OpenAI-style keys -->
+                        <value>sk-[A-Za-z0-9]{20,}</value>
+                    </valueMask>
+                    <valueMask>
+                        <!-- Groq keys -->
+                        <value>gsk_[A-Za-z0-9]{20,}</value>
+                    </valueMask>
+                    <valueMask>
+                        <!-- Cerebras keys -->
+                        <value>csk-[A-Za-z0-9]{20,}</value>
+                    </valueMask>
+                    <valueMask>
+                        <!-- OAuth token JSON values -->
+                        <value>(?i)"(access_token|refresh_token|id_token|client_secret)"\s*:\s*"[^"]+"</value>
+                    </valueMask>
+                    <valueMask>
+                        <!-- Session cookie -->
+                        <value>FINANCEOS_SESSION=[A-Za-z0-9\-_]+</value>
+                    </valueMask>
+                    <valueMask>
+                        <!-- Credentials in URLs -->
+                        <value>(?i)([?&amp;](api[_-]?key|key|token|access_token)=)[^&amp;\s]+</value>
+                    </valueMask>
+                    <valueMask>
+                        <!-- Basic-auth in URLs -->
+                        <value>//[^:/@\s]+:[^@/\s]+@</value>
+                    </valueMask>
+                </jsonGeneratorDecorator>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>logs/archive/financeos-%d{yyyy-MM-dd}.%i.json.gz</fileNamePattern>
+                <maxFileSize>20MB</maxFileSize>
+                <maxHistory>5</maxHistory>
+                <totalSizeCap>100MB</totalSizeCap>
+            </rollingPolicy>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="JSON_FILE"/>
+        </root>
+        <logger name="com.financeos" level="INFO"/>
+        <logger name="org.springframework.security" level="INFO"/>
+        <logger name="org.hibernate.SQL" level="OFF"/>
+        <logger name="org.hibernate.orm.jdbc.bind" level="OFF"/>
+        <logger name="com.zaxxer.hikari" level="INFO"/>
+    </springProfile>
+
     <!-- PDFBox/FontBox emit unactionable font-decode warnings and stack traces per
          statement (broken embedded fonts, system-font-cache scans); silence them. -->
     <logger name="org.apache.pdfbox" level="OFF"/>

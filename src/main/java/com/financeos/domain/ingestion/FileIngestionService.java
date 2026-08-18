@@ -1,5 +1,7 @@
 package com.financeos.domain.ingestion;
 
+import com.financeos.core.observability.Events;
+import net.logstash.logback.argument.StructuredArguments;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.account.Account;
@@ -110,6 +112,15 @@ public class FileIngestionService {
                     fileDetails.add(new FileIngestionResult.FileSummary(filename, "FAILED", 0, "File is empty"));
                     continue;
                 }
+
+                log.info("Ingest file received: fileName={}, sizeBytes={}", filename, bytes.length,
+                        StructuredArguments.keyValue("event", Events.INGEST_FILE_RECEIVED),
+                        StructuredArguments.keyValue("fileName", filename),
+                        StructuredArguments.keyValue("sizeBytes", bytes.length),
+                        StructuredArguments.keyValue("contentType", file.getContentType() != null ? file.getContentType() : "application/octet-stream"),
+                        StructuredArguments.keyValue("sha256", ""),
+                        StructuredArguments.keyValue("parserChosen", statementParser.getClass().getSimpleName()),
+                        StructuredArguments.keyValue("brokerHint", account.getType().name()));
 
                 StatementExtractionResult parseResult = statementParser.parse(bytes, password);
                 if (!parseResult.success()) {
