@@ -1,5 +1,7 @@
 package com.financeos.domain.categorization;
 
+import com.financeos.core.observability.Events;
+import net.logstash.logback.argument.StructuredArguments;
 import com.financeos.domain.category.Category;
 import com.financeos.domain.category.CategoryRepository;
 import com.financeos.domain.transaction.*;
@@ -241,6 +243,7 @@ public class CategorizationService {
                 continue;
             }
 
+            String catBefore = txn.getCategories() != null ? txn.getCategories().toString() : "";
             txn.setCategories(rule.getCategories());
             txn.setAppliedRule(rule);
             if ((txn.getMcc() == null || txn.getMcc().isBlank()) && rule.getMcc() != null && !rule.getMcc().isBlank()) {
@@ -249,6 +252,19 @@ public class CategorizationService {
             rule.setAppliedCount(rule.getAppliedCount() + 1);
             rule.setLastAppliedAt(Instant.now());
             categoryRuleRepository.save(rule);
+
+            String catAfter = rule.getCategories() != null ? rule.getCategories().toString() : "";
+            boolean overridden = catBefore != null && !catBefore.isBlank() && !catBefore.equals("[]");
+            log.info("Categorize decision: txnId={}, source=RULE, ruleId={}, categoryBefore={}, categoryAfter={}, overridden={}",
+                    txn.getId(), rule.getId(), catBefore, catAfter, overridden,
+                    StructuredArguments.keyValue("event", Events.CATEGORIZE_DECISION),
+                    StructuredArguments.keyValue("txnId", txn.getId() != null ? txn.getId().toString() : ""),
+                    StructuredArguments.keyValue("source", "RULE"),
+                    StructuredArguments.keyValue("ruleId", rule.getId() != null ? rule.getId().toString() : ""),
+                    StructuredArguments.keyValue("matchType", rule.getMatchType() != null ? rule.getMatchType().name() : "exact"),
+                    StructuredArguments.keyValue("categoryBefore", catBefore),
+                    StructuredArguments.keyValue("categoryAfter", catAfter),
+                    StructuredArguments.keyValue("overridden", overridden));
 
             if (!rule.isVerified()) {
                 reviewStatusManager.addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
@@ -290,12 +306,26 @@ public class CategorizationService {
 
                         if (catsValid && keyValid) {
                             validResult = true;
+                            String catBefore = txn.getCategories() != null ? txn.getCategories().toString() : "";
                             CategoryRule rule = getOrCreateRule(userId, normalizedKey, res.displayName(), resolvedCategories, batchCache);
                             txn.setCategories(resolvedCategories);
                             txn.setAppliedRule(rule);
                             rule.setAppliedCount(rule.getAppliedCount() + 1);
                             rule.setLastAppliedAt(Instant.now());
                             categoryRuleRepository.save(rule);
+
+                            String catAfter = resolvedCategories.toString();
+                            boolean overridden = catBefore != null && !catBefore.isBlank() && !catBefore.equals("[]");
+                            log.info("Categorize decision: txnId={}, source=LLM, ruleId={}, categoryBefore={}, categoryAfter={}, overridden={}",
+                                    txn.getId(), rule.getId(), catBefore, catAfter, overridden,
+                                    StructuredArguments.keyValue("event", Events.CATEGORIZE_DECISION),
+                                    StructuredArguments.keyValue("txnId", txn.getId() != null ? txn.getId().toString() : ""),
+                                    StructuredArguments.keyValue("source", "LLM"),
+                                    StructuredArguments.keyValue("ruleId", rule.getId() != null ? rule.getId().toString() : ""),
+                                    StructuredArguments.keyValue("matchType", rule.getMatchType() != null ? rule.getMatchType().name() : "exact"),
+                                    StructuredArguments.keyValue("categoryBefore", catBefore),
+                                    StructuredArguments.keyValue("categoryAfter", catAfter),
+                                    StructuredArguments.keyValue("overridden", overridden));
 
                             reviewStatusManager.addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
                         }

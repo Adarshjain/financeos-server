@@ -31,14 +31,16 @@ public class StatementParser {
     );
 
     public StatementExtractionResult parse(byte[] bytes, String password) {
+        int sizeBytes = bytes != null ? bytes.length : 0;
+        long startTimeMs = com.financeos.core.observability.ParseLogger.started(log, "StatementParser", sizeBytes, "statement-file");
         ParsedStatement parsed;
         try {
             parsed = StatementParseEngine.parse(bytes, password, null);
         } catch (StatementParseException e) {
-            log.error("Failed to parse statement", e);
+            com.financeos.core.observability.ParseLogger.failed(log, "StatementParser", "extract-text", 1, "Statement parse failure: " + e.getMessage(), e);
             return StatementExtractionResult.failure(e.getMessage());
         } catch (Exception e) {
-            log.error("Failed to parse statement", e);
+            com.financeos.core.observability.ParseLogger.failed(log, "StatementParser", "extract-text", 1, "Statement parse failure: " + e.getMessage(), e);
             return StatementExtractionResult.failure("Statement parse failure: " + e.getMessage());
         }
 
@@ -84,6 +86,18 @@ public class StatementParser {
                 cardFields(parsed.summaryFields())
         );
 
+        String firstLine = null;
+        if (!lines.isEmpty()) {
+            ParsedStatementLine first = lines.get(0);
+            if (first.description() != null && !first.description().isBlank()) {
+                firstLine = first.description().trim();
+                if (firstLine.length() > 200) {
+                    firstLine = firstLine.substring(0, 200);
+                }
+            }
+        }
+
+        com.financeos.core.observability.ParseLogger.completed(log, "StatementParser", lines.size(), firstLine, startTimeMs);
         return StatementExtractionResult.success(lines, meta.accountNumber, periodStart, periodEnd, draft);
     }
 

@@ -1,7 +1,8 @@
-# Revised version of the unit already installed at /etc/systemd/system/financeos.service.
-# Only change from the running one: -Xmx1024m -> -Xmx512m.
-# The box has 952 MiB total RAM and no swap, so a 1 GB max heap lets the JVM grow past
-# physical memory and get killed by the OOM killer under load.
+# Revised version of the unit installed at /etc/systemd/system/financeos.service.
+# Observability updates:
+# - Capped heap to -Xmx512m for 952 MiB RAM boundary.
+# - Added -XX:+ExitOnOutOfMemoryError so systemd cleanly restarts wedged JVM on OOM.
+# - Added -Xlog:gc* GC logging for pause/heap monitoring.
 #
 # To apply:
 #   sudo cp financeos.service /etc/systemd/system/financeos.service
@@ -21,6 +22,8 @@ EnvironmentFile=/home/ubuntu/financeos-server/.env
 # Oracle wallet configuration
 Environment="TNS_ADMIN=/home/ubuntu/financeos-server/wallet"
 ExecStart=/usr/bin/java -Xmx512m \
+  -XX:+ExitOnOutOfMemoryError \
+  -Xlog:gc*:file=/home/ubuntu/financeos-server/logs/gc.log:time,uptime:filecount=3,filesize=5M \
   -Djava.net.preferIPv4Stack=true \
   -Djava.net.preferIPv6Addresses=false \
   -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts \

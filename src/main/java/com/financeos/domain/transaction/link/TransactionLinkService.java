@@ -1,5 +1,7 @@
 package com.financeos.domain.transaction.link;
 
+import com.financeos.core.observability.Events;
+import net.logstash.logback.argument.StructuredArguments;
 import com.financeos.api.transactionlink.dto.CreateTransactionLinkRequest;
 import com.financeos.api.transactionlink.dto.MemberRef;
 import com.financeos.api.transactionlink.dto.MemberSummary;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -127,6 +130,13 @@ public class TransactionLinkService {
         }
 
         TransactionLink savedLink = transactionLinkRepository.save(link);
+
+        log.info("Txn link created: anchorId={}, type={}, memberCount={}", anchorRef.transactionId(), request.type(), totalMembers,
+                StructuredArguments.keyValue("event", Events.TXN_LINK_CREATED),
+                StructuredArguments.keyValue("anchorId", anchorRef.transactionId().toString()),
+                StructuredArguments.keyValue("linkedId", counterparts.isEmpty() ? "" : counterparts.get(0).getId().toString()),
+                StructuredArguments.keyValue("kind", request.type().name()),
+                StructuredArguments.keyValue("derivedTransferLeg", request.type() == LinkType.TRANSFER));
 
         // WP5: Refund category alignment
         if (Boolean.TRUE.equals(request.alignRefundCategories()) && request.type() == LinkType.REFUND) {
@@ -260,7 +270,27 @@ public class TransactionLinkService {
         if (link.getUser() == null || !link.getUser().getId().equals(userId)) {
             throw new ValidationException("You do not have permission to delete this transaction link");
         }
+        String anchorTxId = link.getMembers().stream()
+                .filter(TransactionLinkMember::isAnchor)
+                .map(m -> m.getTransaction().getId().toString())
+                .findFirst()
+                .orElseGet(() -> link.getMembers().isEmpty() ? linkId.toString() : link.getMembers().iterator().next().getTransaction().getId().toString());
+
+        String linkedTxIds = link.getMembers().stream()
+                .map(m -> m.getTransaction().getId().toString())
+                .filter(id -> !id.equals(anchorTxId))
+                .collect(Collectors.joining(","));
+
+        boolean isTransfer = link.getType() == LinkType.TRANSFER;
+
         transactionLinkRepository.delete(link);
+
+        log.info("Txn link removed: linkId={}, type={}", linkId, link.getType(),
+                StructuredArguments.keyValue("event", Events.TXN_LINK_REMOVED),
+                StructuredArguments.keyValue("anchorId", anchorTxId),
+                StructuredArguments.keyValue("linkedId", linkedTxIds),
+                StructuredArguments.keyValue("kind", link.getType() != null ? link.getType().name() : ""),
+                StructuredArguments.keyValue("derivedTransferLeg", isTransfer));
     }
 
     public void autoDissolveLinksForDeletedTransactions(Collection<UUID> deletedTxnIds) {

@@ -72,18 +72,21 @@ public class AuthController {
     @GetMapping("/google/callback")
     public ResponseEntity<UserResponse> handleGoogleCallback(
             @RequestParam(required = false) String code,
+            @RequestParam(required = false) String state,
             @RequestParam(required = false) String error,
+            @RequestParam(required = false, name = "error_description") String errorDescription,
             HttpServletRequest request,
             HttpServletResponse response) {
 
         if (error != null) {
+            authService.logGoogleCallbackFailure(state, error, errorDescription);
             throw new ValidationException("Google sign-in failed: " + error);
         }
         if (code == null || code.isBlank()) {
             throw new ValidationException("Missing authorization code");
         }
 
-        User user = authService.handleGoogleLogin(code, request, response);
+        User user = authService.handleGoogleLogin(code, state, request, response);
         return ResponseEntity.ok(UserResponse.from(user));
     }
 }

@@ -58,11 +58,13 @@ public class CasParser implements ImportParser {
     @Override
     public List<ParsedRow> parse(InputStream inputStream, ParseContext context) {
         List<ParsedRow> parsedRows = new ArrayList<>();
+        long startTimeMs = System.currentTimeMillis();
         byte[] pdfBytes;
         try {
             pdfBytes = inputStream.readAllBytes();
+            startTimeMs = com.financeos.core.observability.ParseLogger.started(log, "CasParser", pdfBytes.length, "cas.pdf");
         } catch (Exception e) {
-            log.error("Failed to read CAS PDF input stream", e);
+            com.financeos.core.observability.ParseLogger.failed(log, "CasParser", "extract-text", 1, "Failed to read PDF input stream: " + e.getMessage(), e);
             parsedRows.add(new ParsedRow(
                     1, "trade", null, null, null, null, "MUTUAL_FUND",
                     null, null, null, null, null, Collections.emptyMap(),
@@ -80,6 +82,7 @@ public class CasParser implements ImportParser {
                 document = Loader.loadPDF(pdfBytes);
             }
         } catch (InvalidPasswordException e) {
+            com.financeos.core.observability.ParseLogger.failed(log, "CasParser", "extract-text", 1, "PDF is password-protected and password is missing/wrong", e);
             parsedRows.add(new ParsedRow(
                     1, "trade", null, null, null, null, "MUTUAL_FUND",
                     null, null, null, null, null, Collections.emptyMap(),
@@ -87,6 +90,7 @@ public class CasParser implements ImportParser {
             ));
             return parsedRows;
         } catch (Exception e) {
+            com.financeos.core.observability.ParseLogger.failed(log, "CasParser", "extract-text", 1, "Failed to open PDF file: " + e.getMessage(), e);
             String msg = e.getMessage() != null ? e.getMessage().toLowerCase() : "";
             if (msg.contains("password") || msg.contains("decrypt")) {
                 parsedRows.add(new ParsedRow(
@@ -110,7 +114,7 @@ public class CasParser implements ImportParser {
             stripper.setSortByPosition(true);
             fullText = stripper.getText(document);
         } catch (Exception e) {
-            log.error("Failed to extract text from CAS PDF", e);
+            com.financeos.core.observability.ParseLogger.failed(log, "CasParser", "extract-text", 1, "Failed to extract text layer from PDF: " + e.getMessage(), e);
             parsedRows.add(new ParsedRow(
                     1, "trade", null, null, null, null, "MUTUAL_FUND",
                     null, null, null, null, null, Collections.emptyMap(),
@@ -133,6 +137,17 @@ public class CasParser implements ImportParser {
         }
 
         parseCasText(fullText, parsedRows);
+
+        String firstLine = Arrays.stream(fullText.split("\r?\n"))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .findFirst()
+                .orElse(null);
+        if (firstLine != null && firstLine.length() > 200) {
+            firstLine = firstLine.substring(0, 200);
+        }
+
+        com.financeos.core.observability.ParseLogger.completed(log, "CasParser", parsedRows.size(), firstLine, startTimeMs);
         return parsedRows;
     }
 

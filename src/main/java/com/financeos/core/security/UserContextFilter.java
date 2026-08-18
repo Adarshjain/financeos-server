@@ -5,6 +5,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.MDC;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
+@Order(0)
 public class UserContextFilter extends OncePerRequestFilter {
 
     private final UserRepository userRepository;
@@ -33,12 +36,16 @@ public class UserContextFilter extends OncePerRequestFilter {
                 // We rely on email being the principal name as per current implementation
                 if (email != null && !email.equals("anonymousUser")) {
                     userRepository.findByEmail(email)
-                            .ifPresent(user -> UserContext.setCurrentUserId(user.getId()));
+                            .ifPresent(user -> {
+                                UserContext.setCurrentUserId(user.getId());
+                                MDC.put("userId", String.valueOf(user.getId()));
+                            });
                 }
             }
 
             filterChain.doFilter(request, response);
         } finally {
+            MDC.remove("userId");
             UserContext.clear();
         }
     }

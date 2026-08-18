@@ -33,6 +33,7 @@ public class GrowwCapitalGainsParser {
 
     public List<GrowwCapitalGainsExit> parse(InputStream inputStream) {
         List<GrowwCapitalGainsExit> exits = new ArrayList<>();
+        long startTimeMs = com.financeos.core.observability.ParseLogger.started(log, "GrowwCapitalGainsParser", 0, "groww-cg.xlsx");
         try (Workbook workbook = WorkbookFactory.create(inputStream)) {
             Sheet sheet = workbook.getSheetAt(0);
             String currentBucket = null;
@@ -49,33 +50,33 @@ public class GrowwCapitalGainsParser {
                 String marker = findSubSectionMarker(rawCellStrs);
                 if (marker != null) {
                     currentBucket = marker;
-                    headerMap = null;
+                    headerMap = null; // reset headers for new sub-section
                     continue;
                 }
 
-                // Header row. Key each column on its ABSOLUTE column index (cell.getColumnIndex())
-                // so a leading blank column can't push the compacted index off-by-one — the data
-                // lookups below read by absolute index via row.getCell(colIdx).
+                // Check header row
                 if (currentBucket != null && containsIgnoreCase(rawCellStrs, "isin") && containsIgnoreCase(rawCellStrs, "quantity")) {
                     headerMap = new HashMap<>();
-                    for (Cell cell : row) {
-                        String col = getCellValueAsString(cell).trim().toLowerCase();
-                        if (!col.isBlank()) {
-                            headerMap.put(col, cell.getColumnIndex());
+                    for (int c = 0; c < rawCellStrs.size(); c++) {
+                        String colName = rawCellStrs.get(c);
+                        if (!colName.isBlank()) {
+                            headerMap.put(colName.toLowerCase(), c);
                         }
                     }
                     continue;
                 }
 
-                // Data row
+                // Process data row
                 if (currentBucket != null && headerMap != null) {
-                    String isin = getCellByHeader(row, headerMap, "isin");
                     String stockName = getCellByHeader(row, headerMap, "stock name");
-                    BigDecimal qty = parseDecimal(getCellByHeader(row, headerMap, "quantity"));
+                    String isin = getCellByHeader(row, headerMap, "isin");
+                    String qtyStr = getCellByHeader(row, headerMap, "quantity");
 
-                    if (qty == null || qty.compareTo(BigDecimal.ZERO) <= 0) {
-                        continue;
-                    }
+                    if (isin == null || isin.isBlank() || isin.equalsIgnoreCase("isin")) continue;
+                    if (qtyStr == null || qtyStr.isBlank()) continue;
+
+                    BigDecimal quantity = parseDecimal(qtyStr);
+                    if (quantity == null || quantity.compareTo(BigDecimal.ZERO) <= 0) continue;
 
                     LocalDate buyDate = parseDate(getCellByHeader(row, headerMap, "buy date"));
                     BigDecimal buyPrice = parseDecimal(getCellByHeader(row, headerMap, "buy price"));
@@ -84,13 +85,15 @@ public class GrowwCapitalGainsParser {
                     LocalDate sellDate = parseDate(getCellByHeader(row, headerMap, "sell date"));
                     BigDecimal sellPrice = parseDecimal(getCellByHeader(row, headerMap, "sell price"));
                     BigDecimal sellValue = parseDecimal(getCellByHeader(row, headerMap, "sell value"));
+
                     BigDecimal pnl = parseDecimal(getCellByHeader(row, headerMap, "realised p&l"));
+                    if (pnl == null) pnl = parseDecimal(getCellByHeader(row, headerMap, "realised pnl"));
 
                     exits.add(new GrowwCapitalGainsExit(
                             currentBucket,
-                            stockName != null ? stockName.trim() : null,
-                            isin != null ? isin.trim() : null,
-                            qty,
+                            stockName,
+                            isin.trim(),
+                            quantity,
                             buyDate,
                             buyPrice,
                             buyValue,
@@ -102,8 +105,10 @@ public class GrowwCapitalGainsParser {
                 }
             }
 
+            com.financeos.core.observability.ParseLogger.completed(log, "GrowwCapitalGainsParser", exits.size(), "stock_name,isin,quantity,buy_date,buy_price,buy_value,sell_date,sell_price,sell_value,realised_pnl", startTimeMs);
+
         } catch (Exception e) {
-            log.error("Failed to parse Groww Capital Gains report", e);
+            com.financeos.core.observability.ParseLogger.failed(log, "GrowwCapitalGainsParser", "extract-text", 1, "Failed to parse Groww Capital Gains report: " + e.getMessage(), e);
         }
         return exits;
     }

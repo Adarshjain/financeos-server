@@ -1,0 +1,8 @@
+{
+  "uid": "slack-financeos",
+  "name": "slack-financeos",
+  "type": "slack",
+  "settings": {
+    "url": "${SLACK_WEBHOOK_URL}"
+  }
+}
