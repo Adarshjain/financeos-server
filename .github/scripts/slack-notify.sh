@@ -6,6 +6,12 @@ set -euo pipefail
 
 status="${1:?usage: slack-notify.sh <started|success|failure|cancelled>}"
 
+# A missing secret must be visible in the run summary, not an invisibly skipped step.
+if [ -z "${SLACK_WEBHOOK_URL:-}" ]; then
+  echo "::warning title=Slack notification skipped::SLACK_WEBHOOK_URL is not set on this repository. Add it under Settings -> Secrets and variables -> Actions -> Repository secrets."
+  exit 0
+fi
+
 case "$status" in
   started)   emoji=":rocket:"               title="Deploy started"    color="#3b82f6" ;;
   success)   emoji=":white_check_mark:"     title="Deploy succeeded"  color="#2eb886" ;;

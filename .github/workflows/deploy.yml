@@ -14,7 +14,7 @@ env:
   APP_DIR: /home/ubuntu/financeos-server
   APP_PORT: "8080"
   MGMT_PORT: "8081"
-  # Empty when the secret is unset, which makes the Slack steps skip instead of erroring.
+  # Empty when the secret is unset; slack-notify.sh then warns and exits 0.
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 jobs:
@@ -24,7 +24,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Notify Slack — started
-        if: env.SLACK_WEBHOOK_URL != ''
         continue-on-error: true
         run: |
           echo "DEPLOY_START_TS=$(date +%s)" >> "$GITHUB_ENV"
@@ -87,6 +86,6 @@ jobs:
           exit 1
 
       - name: Notify Slack — result
-        if: always() && env.SLACK_WEBHOOK_URL != ''
+        if: always()
         continue-on-error: true
         run: .github/scripts/slack-notify.sh "${{ job.status }}"
