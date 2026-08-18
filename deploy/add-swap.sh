@@ -12,22 +12,22 @@ fi
 
 echo "Creating 2 GB swap file at /swapfile..."
 if [ ! -f /swapfile ]; then
-    fallocate -l 2G /swapfile || dd if=/dev/zero of=/swapfile bs=1M count=2048
-    chmod 600 /swapfile
-    mkswap /swapfile
+    sudo fallocate -l 2G /swapfile || sudo dd if=/dev/zero of=/swapfile bs=1M count=2048
+    sudo chmod 600 /swapfile
+    sudo mkswap /swapfile
 fi
 
 echo "Enabling swap..."
-swapon /swapfile || true
+sudo swapon /swapfile || true
 
 if ! grep -q '/swapfile' /etc/fstab; then
-    echo '/swapfile none swap sw 0 0' >> /etc/fstab
+    echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab >/dev/null
 fi
 
 echo "Setting vm.swappiness=10..."
-mkdir -p /etc/sysctl.d
-echo 'vm.swappiness=10' > /etc/sysctl.d/99-swap.conf
-sysctl -p /etc/sysctl.d/99-swap.conf || true
+sudo mkdir -p /etc/sysctl.d
+echo 'vm.swappiness=10' | sudo tee /etc/sysctl.d/99-swap.conf >/dev/null
+sudo sysctl -p /etc/sysctl.d/99-swap.conf || true
 
 echo "=== Memory after swap configuration ==="
 free -m

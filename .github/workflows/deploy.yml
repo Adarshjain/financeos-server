@@ -37,7 +37,7 @@ jobs:
           cache: maven
 
       - name: Build and test
-        run: ./mvnw -B verify -DgitSha=${{ github.sha }}
+        run: ./mvnw -B verify -DgitSha=${GITHUB_SHA::12}
 
       - name: Set up SSH
         env:

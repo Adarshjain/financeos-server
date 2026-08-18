@@ -29,6 +29,7 @@
         <appender name="JSON_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <file>logs/financeos.json</file>
             <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <includeContext>false</includeContext>
                 <customFields>{"service":"financeos-server","env":"prod","version":"${appVersion}"}</customFields>
                 <includeMdc>true</includeMdc>
                 <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">

@@ -34,21 +34,39 @@ DATASOURCES_JSON=$(curl -sS -f -H "Authorization: Bearer ${GRAFANA_SA_TOKEN}" "$
   exit 1
 })
 
-LOKI_UID=$(echo "${DATASOURCES_JSON}" | jq -r '.[] | select(.type=="loki") | .uid' | head -n1)
-PROM_UID=$(echo "${DATASOURCES_JSON}" | jq -r '.[] | select(.type=="prometheus") | .uid' | head -n1)
-TEMPO_UID=$(echo "${DATASOURCES_JSON}" | jq -r '.[] | select(.type=="tempo") | .uid' | head -n1)
+# Datasource selection. A Grafana Cloud stack ships SEVERAL loki/prometheus datasources
+# (logs, usage-insights, alert-state-history, usage...). Picking the first match silently
+# points every dashboard and LogQL alert at the wrong store, so:
+#   1. an explicit *_DS_UID env override always wins
+#   2. otherwise prefer the canonical application datasource by uid
+#   3. otherwise, if exactly one candidate exists use it; if several, fail loudly
+pick_ds() {
+  local type="$1" preferred="$2" override="$3"
+  if [[ -n "${override}" ]]; then echo "${override}"; return 0; fi
+  local exact
+  exact=$(echo "${DATASOURCES_JSON}" | jq -r --arg t "$type" --arg p "$preferred" \
+    '.[] | select(.type==$t) | select(.uid==$p) | .uid' | head -n1)
+  if [[ -n "${exact}" ]]; then echo "${exact}"; return 0; fi
+  local all count
+  all=$(echo "${DATASOURCES_JSON}" | jq -r --arg t "$type" '.[] | select(.type==$t) | .uid')
+  count=$(echo "${all}" | grep -c . || true)
+  if [[ "${count}" -eq 1 ]]; then echo "${all}"; return 0; fi
+  return 1
+}
 
-# Fail-loud check for required datasources (Loki & Prometheus)
+LOKI_UID=$(pick_ds loki       grafanacloud-logs   "${GRAFANA_LOKI_DS_UID:-}")   || LOKI_UID=""
+PROM_UID=$(pick_ds prometheus grafanacloud-prom   "${GRAFANA_PROM_DS_UID:-}")   || PROM_UID=""
+TEMPO_UID=$(pick_ds tempo     grafanacloud-traces "${GRAFANA_TEMPO_DS_UID:-}")  || TEMPO_UID=""
+
 if [[ -z "${LOKI_UID}" || -z "${PROM_UID}" ]]; then
-  echo "[ERROR] Required datasources missing! Loki or Prometheus datasource could not be resolved." >&2
-  echo "[ERROR] Datasources found on Grafana stack:" >&2
-  echo "${DATASOURCES_JSON}" | jq -r '.[] | " - Name: \(.name), Type: \(.type), UID: \(.uid)"' >&2
+  echo "[ERROR] Could not unambiguously resolve the Loki and/or Prometheus datasource." >&2
+  echo "[ERROR] Set GRAFANA_LOKI_DS_UID / GRAFANA_PROM_DS_UID explicitly. Candidates found:" >&2
+  echo "${DATASOURCES_JSON}" | jq -r '.[] | select(.type=="loki" or .type=="prometheus") | " - \(.type)  uid=\(.uid)  name=\(.name)"' >&2
   exit 1
 fi
 
-# Optional datasource check for Tempo
 if [[ -z "${TEMPO_UID}" ]]; then
-  echo "[WARN] Tempo datasource not found on Grafana stack — tracing panels will use fallback UID."
+  echo "[WARN] Tempo datasource not resolved — tracing panels will use fallback UID."
   TEMPO_UID="tempo"
 fi
 

@@ -54,7 +54,8 @@ else
 fi
 
 # 3. JSON log file validity
-LOG_FILE="logs/financeos.json"
+APP_DIR="${APP_DIR:-/home/ubuntu/financeos-server}"
+LOG_FILE="${APP_DIR}/logs/financeos.json"
 if [[ -f "$LOG_FILE" ]]; then
   LAST_LINE=$(tail -n 1 "$LOG_FILE" 2>/dev/null || true)
   if echo "$LAST_LINE" | jq . >/dev/null 2>&1; then
@@ -91,7 +92,8 @@ else
 fi
 
 # 6. Fluent Bit config errors
-FB_LOGS=$(journalctl -u fluent-bit -n 50 2>/dev/null || true)
+FB_LOGS=$(journalctl -u fluent-bit --since "$(systemctl show fluent-bit -p ActiveEnterTimestamp --value)" --no-pager 2>/dev/null \
+  | grep -v "could not get an upstream connection" || true)
 if echo "$FB_LOGS" | grep -i "\[error\]" >/dev/null 2>&1; then
   log_fail 6 "Fluent Bit config errors" "journalctl contains error lines in fluent-bit logs"
 else
@@ -133,13 +135,17 @@ fi
 if [[ -n "$LOKI_HOST" && -n "$LOKI_USER" && -n "$CLOUD_TOKEN" ]]; then
   TEST_REQ_ID="req-dedup-check-$(date +%s)"
   curl -s -X POST -H "Content-Type: application/json" -H "X-Request-Id: ${TEST_REQ_ID}" -d '{}' http://127.0.0.1:8080/api/v1/auth/login >/dev/null || true
-  sleep 4
-
-  NOW_SEC=$(date +%s)
-  START_SEC=$((NOW_SEC - 120))
-  DEDUP_URL="https://${LOKI_HOST}/loki/api/v1/query_range?query=%7Bservice%3D%22financeos-server%22%7D%20%7C%20json%20%7C%20event%3D%22http.request%22%20%7C%20requestId%3D%22${TEST_REQ_ID}%22&start=${START_SEC}000000000&end=${NOW_SEC}000000000"
-  DEDUP_RESP=$(curl -s -u "${LOKI_USER}:${CLOUD_TOKEN}" "$DEDUP_URL" || true)
-  ENTRY_COUNT=$(echo "$DEDUP_RESP" | jq '[.data.result[].values[]] | length' 2>/dev/null || echo "0")
+  # Fluent Bit flush + Loki ingest is not instantaneous; poll instead of a fixed sleep.
+  ENTRY_COUNT=0
+  for _attempt in $(seq 1 18); do
+    sleep 5
+    NOW_SEC=$(date +%s)
+    START_SEC=$((NOW_SEC - 300))
+    DEDUP_URL="https://${LOKI_HOST}/loki/api/v1/query_range?query=%7Bservice%3D%22financeos-server%22%7D%20%7C%20json%20%7C%20event%3D%22http.request%22%20%7C%20requestId%3D%22${TEST_REQ_ID}%22&start=${START_SEC}000000000&end=${NOW_SEC}000000000"
+    DEDUP_RESP=$(curl -s -u "${LOKI_USER}:${CLOUD_TOKEN}" "$DEDUP_URL" || true)
+    ENTRY_COUNT=$(echo "$DEDUP_RESP" | jq '[.data.result[].values[]] | length' 2>/dev/null || echo "0")
+    [[ "$ENTRY_COUNT" -ge 1 ]] && break
+  done
 
   if [[ "$ENTRY_COUNT" -eq 1 ]]; then
     log_pass 9 "No duplicate shipping" "Unique requestId returned exactly 1 http.request log record in Loki"
@@ -156,7 +162,7 @@ fi
 if [[ -n "$LOKI_HOST" && -n "$LOKI_USER" && -n "$CLOUD_TOKEN" ]]; then
   NOW_SEC=$(date +%s)
   START_SEC=$((NOW_SEC - 900))
-  JOURNAL_URL="https://${LOKI_HOST}/loki/api/v1/query_range?query=%7Bservice%3D%22financeos-server%22%7D%20%7C%3D%20%22Started%20FinanceOS%22&start=${START_SEC}000000000&end=${NOW_SEC}000000000"
+  JOURNAL_URL="https://${LOKI_HOST}/loki/api/v1/query_range?query=%7Bservice%3D%22financeos-server%22%7D%20%7C%3D%20%22financeos.service%22&start=${START_SEC}000000000&end=${NOW_SEC}000000000"
   JOURNAL_RESP=$(curl -s -u "${LOKI_USER}:${CLOUD_TOKEN}" "$JOURNAL_URL" || true)
   J_COUNT=$(echo "$JOURNAL_RESP" | jq '[.data.result[].values[]] | length' 2>/dev/null || echo "0")
 
@@ -171,7 +177,7 @@ fi
 
 # 11. Prometheus accepts writes
 if [[ -n "$PROM_HOST" && -n "$PROM_USER" && -n "$CLOUD_TOKEN" ]]; then
-  PROM_URL="https://${PROM_HOST}/api/v1/query?query=jvm_memory_used_bytes%7Bservice%3D%22financeos-server%22%7D"
+  PROM_URL="https://${PROM_HOST}/api/prom/api/v1/query?query=jvm_memory_used_bytes%7Bservice%3D%22financeos-server%22%7D"
   PROM_RESP=$(curl -s -u "${PROM_USER}:${CLOUD_TOKEN}" "$PROM_URL" || true)
   P_COUNT=$(echo "$PROM_RESP" | jq '.data.result | length' 2>/dev/null || echo "0")
 
@@ -186,7 +192,7 @@ fi
 
 # 12. Host metrics arrive
 if [[ -n "$PROM_HOST" && -n "$PROM_USER" && -n "$CLOUD_TOKEN" ]]; then
-  NODE_URL="https://${PROM_HOST}/api/v1/query?query=node_memory_MemAvailable_bytes"
+  NODE_URL="https://${PROM_HOST}/api/prom/api/v1/query?query=node_memory_MemAvailable_bytes"
   NODE_RESP=$(curl -s -u "${PROM_USER}:${CLOUD_TOKEN}" "$NODE_URL" || true)
   N_COUNT=$(echo "$NODE_RESP" | jq '.data.result | length' 2>/dev/null || echo "0")
 
