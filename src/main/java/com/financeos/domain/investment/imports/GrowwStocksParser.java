@@ -1,5 +1,8 @@
 package com.financeos.domain.investment.imports;
 
+import com.financeos.core.observability.Events;
+import com.financeos.core.observability.ParseLogger;
+import net.logstash.logback.argument.StructuredArguments;
 import com.financeos.domain.investment.InvestmentTransactionType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,15 +50,24 @@ public class GrowwStocksParser implements ImportParser {
             return parsedRows;
         }
 
+        long startTimeMs = ParseLogger.started(log, "GrowwStocksParser", bytes.length, "groww-stocks");
         List<Map<String, String>> rawRows;
+        String headerFingerprint = "";
+
         try {
             if (isXlsx(bytes)) {
                 rawRows = ExcelReader.readExcel(new ByteArrayInputStream(bytes), List.of("isin", "quantity", "type"));
             } else {
                 rawRows = SimpleCsvReader.readCsv(new ByteArrayInputStream(bytes));
             }
+            if (!rawRows.isEmpty()) {
+                headerFingerprint = String.join(",", rawRows.get(0).keySet());
+                if (headerFingerprint.length() > 200) {
+                    headerFingerprint = headerFingerprint.substring(0, 200);
+                }
+            }
         } catch (Exception e) {
-            log.error("Failed to parse Groww file", e);
+            ParseLogger.failed(log, "GrowwStocksParser", "extract-text", 1, "Failed to parse CSV/XLSX export: " + e.getMessage(), e);
             parsedRows.add(new ParsedRow(
                     1, "trade", null, null, null, null, "NSE",
                     null, null, null, null, null, Collections.emptyMap(),
@@ -196,9 +208,14 @@ public class GrowwStocksParser implements ImportParser {
                     error
             );
 
+            if (error != null) {
+                ParseLogger.rejectedRow(log, "GrowwStocksParser", rowIndex, error);
+            }
+
             parsedRows.add(parsedRow);
         }
 
+        ParseLogger.completed(log, "GrowwStocksParser", parsedRows.size(), headerFingerprint, startTimeMs);
         return parsedRows;
     }
 

@@ -34,6 +34,7 @@ public class ZerodhaTaxPnlParser {
 
     public List<TaxPnlExit> parse(InputStream inputStream) {
         List<TaxPnlExit> exits = new ArrayList<>();
+        long startTimeMs = com.financeos.core.observability.ParseLogger.started(log, "ZerodhaTaxPnlParser", 0, "zerodha-pnl.xlsx");
         try (Workbook workbook = WorkbookFactory.create(inputStream)) {
             Sheet sheet = null;
             for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
@@ -146,8 +147,10 @@ public class ZerodhaTaxPnlParser {
                 }
             }
 
+            com.financeos.core.observability.ParseLogger.completed(log, "ZerodhaTaxPnlParser", exits.size(), "isin,symbol,entry_date,exit_date,quantity,buy_value,sell_value,profit", startTimeMs);
+
         } catch (Exception e) {
-            log.error("Failed to parse Zerodha Tax P&L file", e);
+            com.financeos.core.observability.ParseLogger.failed(log, "ZerodhaTaxPnlParser", "extract-text", 1, "Failed to parse Zerodha Tax P&L file: " + e.getMessage(), e);
         }
         return exits;
     }

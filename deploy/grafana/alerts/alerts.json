@@ -1,0 +1,285 @@
+{
+  "folder": "FinanceOS",
+  "groups": [
+    {
+      "name": "FinanceOS Server Alerts",
+      "folder": "FinanceOS",
+      "interval": "1m",
+      "rules": [
+        {
+          "uid": "financeos-alert-error-burst",
+          "title": "ERROR burst",
+          "condition": "A",
+          "for": "0m",
+          "labels": { "severity": "warning" },
+          "annotations": {
+            "summary": "High rate of ERROR log events detected in last 5 minutes.",
+            "description": "Check Grafana Service Health dashboard ERROR logs panel to identify the active errorId, route, and exception trace."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_LOKI}",
+              "model": {
+                "expr": "sum(count_over_time({service=\"financeos-server\", level=\"ERROR\"}[5m])) > 5"
+              }
+            }
+          ]
+        },
+        {
+          "uid": "financeos-alert-llm-chain-exhausted",
+          "title": "LLM chain exhausted",
+          "condition": "A",
+          "for": "0m",
+          "labels": { "severity": "warning" },
+          "annotations": {
+            "summary": "All LLM failover providers were exhausted during a request.",
+            "description": "Inspect LLM Providers dashboard to check provider status, HTTP rate limits (429), or API key invalidation (401)."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_LOKI}",
+              "model": {
+                "expr": "sum(count_over_time({service=\"financeos-server\"} | json | event=\"llm.chain.exhausted\" [15m])) > 0"
+              }
+            }
+          ]
+        },
+        {
+          "uid": "financeos-alert-dead-mans-switch",
+          "title": "Dead-man's switch",
+          "condition": "A",
+          "for": "0m",
+          "labels": { "severity": "critical" },
+          "annotations": {
+            "summary": "FinanceOS server metric telemetry stream absent for >10m (Server Down / OOM Crash).",
+            "description": "Check systemctl status financeos.service on VM and inspect systemd journal via journalctl -u financeos."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "absent_over_time({service=\"financeos-server\"}[10m])"
+              }
+            }
+          ]
+        },
+        {
+          "uid": "financeos-alert-heap-pressure",
+          "title": "Heap pressure",
+          "condition": "A",
+          "for": "5m",
+          "labels": { "severity": "critical" },
+          "annotations": {
+            "summary": "JVM Heap memory usage > 90% for >5 minutes.",
+            "description": "High risk of OutOfMemoryError. Check heap dump settings and inspect heap allocation patterns in Grafana."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "jvm_memory_used_bytes{service=\"financeos-server\", area=\"heap\"} / jvm_memory_max_bytes{service=\"financeos-server\", area=\"heap\"} > 0.9"
+              }
+            }
+          ]
+        },
+        {
+          "uid": "financeos-alert-host-memory-low",
+          "title": "Host memory low",
+          "condition": "A",
+          "for": "2m",
+          "labels": { "severity": "critical" },
+          "annotations": {
+            "summary": "Host available memory below 80MB.",
+            "description": "Kernel OOM killer risk. Run deploy/add-swap.sh if swap is missing or check running processes on the VM."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "node_memory_MemAvailable_bytes < 83886080"
+              }
+            }
+          ]
+        },
+        {
+          "uid": "financeos-alert-disk-low",
+          "title": "Disk low",
+          "condition": "A",
+          "for": "5m",
+          "labels": { "severity": "critical" },
+          "annotations": {
+            "summary": "Available disk space below 15%.",
+            "description": "Clean up VM log files or increase disk allocation before database or log buffer corruption occurs."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "node_filesystem_avail_bytes / node_filesystem_size_bytes < 0.15"
+              }
+            }
+          ]
+        },
+        {
+          "uid": "financeos-alert-db-pool-starved",
+          "title": "DB pool starved",
+          "condition": "A",
+          "for": "2m",
+          "labels": { "severity": "warning" },
+          "annotations": {
+            "summary": "HikariCP pending connection requests > 0 for >2 minutes.",
+            "description": "Database connection pool is starved. Check slow queries in Pipelines dashboard or increase maximum pool size."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "hikaricp_connections_pending{service=\"financeos-server\"} > 0"
+              }
+            }
+          ]
+        },
+        {
+          "uid": "financeos-alert-gmail-ingest-stalled",
+          "title": "Gmail ingest stalled",
+          "condition": "A",
+          "for": "0m",
+          "labels": { "severity": "warning" },
+          "annotations": {
+            "summary": "Gmail ingestion job has not succeeded in >6 hours or has never run.",
+            "description": "Check Pipelines dashboard job outcome panel and inspect OAuth tokens or Gmail API quota."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "(time() - financeos_job_last_success_timestamp_seconds{job=\"gmail-ingest\"} > 21600) OR on() absent(financeos_job_last_success_timestamp_seconds{job=\"gmail-ingest\"})"
+              }
+            }
+          ]
+        },
+        {
+          "uid": "financeos-alert-price-refresh-stalled",
+          "title": "Price refresh stalled",
+          "condition": "A",
+          "for": "0m",
+          "labels": { "severity": "warning" },
+          "annotations": {
+            "summary": "Price refresh job has not succeeded in >26 hours or has never run.",
+            "description": "Check Pipelines dashboard job outcome panel and verify external market data provider connectivity."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "(time() - financeos_job_last_success_timestamp_seconds{job=\"price-refresh\"} > 93600) OR on() absent(financeos_job_last_success_timestamp_seconds{job=\"price-refresh\"})"
+              }
+            }
+          ]
+        },
+        {
+          "uid": "financeos-alert-http-5xx-ratio",
+          "title": "5xx ratio",
+          "condition": "A",
+          "for": "10m",
+          "labels": { "severity": "warning" },
+          "annotations": {
+            "summary": "HTTP 5xx error ratio exceeds 2% for >10 minutes.",
+            "description": "Inspect Service Health dashboard and check GlobalExceptionHandler logs in Grafana."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "sum(rate(http_server_requests_seconds_count{service=\"financeos-server\", status=~\"5..\"}[10m])) / sum(rate(http_server_requests_seconds_count{service=\"financeos-server\"}[10m])) > 0.02"
+              }
+            }
+          ]
+        },
+        {
+          "uid": "financeos-alert-http-latency",
+          "title": "Latency high",
+          "condition": "A",
+          "for": "10m",
+          "labels": { "severity": "warning" },
+          "annotations": {
+            "summary": "HTTP p95 latency exceeds 2.0 seconds for >10 minutes.",
+            "description": "Check DB pool metrics, slow SQL queries, and external API latency in Grafana."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "histogram_quantile(0.95, sum by (le) (rate(http_server_requests_seconds_bucket{service=\"financeos-server\"}[10m]))) > 2"
+              }
+            }
+          ]
+        },
+        {
+          "uid": "financeos-alert-oauth-failures",
+          "title": "OAuth failures",
+          "condition": "A",
+          "for": "0m",
+          "labels": { "severity": "warning" },
+          "annotations": {
+            "summary": ">3 OAuth callback failures detected in last 10 minutes.",
+            "description": "Check Google/Gmail OAuth consent screen settings, redirect URIs, and app.config.suspect boot logs."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_LOKI}",
+              "model": {
+                "expr": "sum(count_over_time({service=\"financeos-server\"} | json | event=~\"oauth\\\\..*\\\\.callback\\\\.failed\" [10m])) > 3"
+              }
+            }
+          ]
+        },
+        {
+          "uid": "financeos-alert-config-suspect-at-boot",
+          "title": "Config suspect at boot",
+          "condition": "A",
+          "for": "0m",
+          "labels": { "severity": "warning" },
+          "annotations": {
+            "summary": "Application booted with a suspicious or misconfigured environment configuration.",
+            "description": "Check startup logs for app.config.suspect event and verify OAuth redirect URIs and cookie origins."
+          },
+          "notification_settings": { "receiver": "slack-financeos" },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_LOKI}",
+              "model": {
+                "expr": "sum(count_over_time({service=\"financeos-server\"} | json | event=\"app.config.suspect\" [1h])) > 0"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

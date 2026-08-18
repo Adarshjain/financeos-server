@@ -12,6 +12,10 @@ import com.financeos.domain.instrument.Instrument;
 import com.financeos.domain.instrument.InstrumentRepository;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
+import com.financeos.core.observability.Events;
+import net.logstash.logback.argument.StructuredArguments;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +27,8 @@ import java.util.UUID;
 @Service
 @Transactional
 public class CorporateActionService {
+
+    private static final Logger log = LoggerFactory.getLogger(CorporateActionService.class);
 
     private final CorporateActionRepository corporateActionRepository;
     private final InstrumentRepository instrumentRepository;
@@ -70,6 +76,19 @@ public class CorporateActionService {
         if ((saved.getType() == CorporateActionType.demerger || saved.getType() == CorporateActionType.merger) && saved.getTargetInstrument() != null) {
             materializeChildHoldings(saved.getInstrument().getId(), saved.getTargetInstrument());
         }
+
+        String parentIsin = saved.getInstrument() != null ? saved.getInstrument().getIsin() : "";
+        String childIsin = saved.getTargetInstrument() != null ? saved.getTargetInstrument().getIsin() : "";
+        String ratio = saved.getRatioFrom() + ":" + saved.getRatioTo();
+
+        log.info("Corporate action created: type={}, parentIsin={}, childIsin={}, ratio={}",
+                saved.getType(), parentIsin, childIsin, ratio,
+                StructuredArguments.keyValue("event", Events.CA_CREATED),
+                StructuredArguments.keyValue("type", saved.getType().name()),
+                StructuredArguments.keyValue("parentIsin", parentIsin),
+                StructuredArguments.keyValue("childIsin", childIsin),
+                StructuredArguments.keyValue("ratio", ratio),
+                StructuredArguments.keyValue("cashInLieuInr", saved.getFractionalCashInLieu() != null ? saved.getFractionalCashInLieu().toString() : "0"));
 
         return CorporateActionResponse.from(saved);
     }

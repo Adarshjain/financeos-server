@@ -40,6 +40,7 @@ public class TransactionService {
     private final ReviewStatusManager reviewStatusManager;
     private final CategorizationService categorizationService;
     private final com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService;
+    private final com.financeos.core.observability.AuditLogger auditLogger;
     private final TransactionService self;
 
     @org.springframework.beans.factory.annotation.Autowired
@@ -50,6 +51,7 @@ public class TransactionService {
             ReviewStatusManager reviewStatusManager,
             CategorizationService categorizationService,
             @org.springframework.context.annotation.Lazy com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService,
+            com.financeos.core.observability.AuditLogger auditLogger,
             @org.springframework.context.annotation.Lazy TransactionService self) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
@@ -58,6 +60,7 @@ public class TransactionService {
         this.reviewStatusManager = reviewStatusManager;
         this.categorizationService = categorizationService;
         this.transactionLinkService = transactionLinkService;
+        this.auditLogger = auditLogger;
         this.self = self != null ? self : this;
     }
 
@@ -68,7 +71,7 @@ public class TransactionService {
             ReviewStatusManager reviewStatusManager,
             CategorizationService categorizationService,
             TransactionService self) {
-        this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, null, self);
+        this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, null, null, self);
     }
 
     /**
@@ -146,7 +149,11 @@ public class TransactionService {
 
         reviewStatusManager.transitionTo(transaction, ReviewType.NA);
 
-        return transactionRepository.save(transaction);
+        Transaction savedTxn = transactionRepository.save(transaction);
+        auditLogger.mutation("Transaction", savedTxn.getId(), "CREATE", "user:" + currentSessionUserId, "manual",
+                List.of("amount", "description", "account", "date"), null, savedTxn.getAmount(), "INR");
+
+        return savedTxn;
     }
 
     private Page<Transaction> queryTransactions(TransactionSearchCriteria criteria, Pageable pageable) {
@@ -221,6 +228,8 @@ public class TransactionService {
             throw new ValidationException("Transaction amount cannot be zero");
         }
 
+        BigDecimal amountBefore = transaction.getAmount();
+
         // Update fields
         transaction.setDate(request.date());
         transaction.setDescription(request.description());
@@ -254,10 +263,6 @@ public class TransactionService {
             categoriesEqual = currentCategoryIds.equals(requestCatIds);
         }
 
-        // Only clear CATEGORY_UNVERIFIED when the categories actually changed.
-        // The client round-trips the existing categoryIds on every edit, so gating
-        // on presence alone would wrongly clear the reason when unrelated fields
-        // (e.g. monitoring flag) are edited, then fail to re-apply NEEDS_REVIEW.
         if (request.categoryIds() != null && !categoriesEqual) {
             reviewStatusManager.clearReason(transaction, ReviewReason.CATEGORY_UNVERIFIED, ReviewType.MANUALLY_REVIEWED);
         }
@@ -270,11 +275,6 @@ public class TransactionService {
             }
         }
 
-        // Only drive a transition when the caller actually asks for a *different* status.
-        // The edit form always echoes the transaction's current reviewType, so re-applying
-        // it unconditionally could try to force NEEDS_REVIEW after clearReason already
-        // promoted the txn (emptying its reasons), which throws. A field edit must not
-        // move review status on its own.
         if (request.reviewType() != null && request.reviewType() != originalReviewType) {
             reviewStatusManager.transitionTo(transaction, request.reviewType());
         }
@@ -298,8 +298,10 @@ public class TransactionService {
         }
 
         Transaction saved = transactionRepository.save(transaction);
-        // The controller maps this entity to a DTO after the transaction closes;
-        // initialize the lazy reviewReasons collection while the session is open.
+        if (auditLogger != null) {
+            auditLogger.mutation("Transaction", saved.getId(), "UPDATE", "user:" + currentSessionUserId, "manual",
+                    List.of("amount", "description", "date", "categories"), amountBefore, saved.getAmount(), "INR");
+        }
         org.hibernate.Hibernate.initialize(saved.getReviewReasons());
         return saved;
     }
@@ -318,6 +320,10 @@ public class TransactionService {
 
         if (transactionLinkService != null) {
             transactionLinkService.autoDissolveLinksForDeletedTransactions(List.of(id));
+        }
+        if (auditLogger != null) {
+            auditLogger.mutation("Transaction", id, "DELETE", "user:" + currentSessionUserId, "manual",
+                    List.of("amount", "description"), transaction.getAmount(), null, "INR");
         }
         transactionRepository.delete(transaction);
     }

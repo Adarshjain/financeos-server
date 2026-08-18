@@ -24,6 +24,7 @@ public class HoldingsSnapshotParser {
 
     public List<SnapshotItem> parse(InputStream inputStream, String filename) {
         List<SnapshotItem> items = new ArrayList<>();
+        long startTimeMs = com.financeos.core.observability.ParseLogger.started(log, "HoldingsSnapshotParser", 0, filename);
         try {
             List<Map<String, String>> rawRows;
             if (filename != null && filename.toLowerCase().endsWith(".csv")) {
@@ -50,8 +51,9 @@ public class HoldingsSnapshotParser {
                     ));
                 }
             }
+            com.financeos.core.observability.ParseLogger.completed(log, "HoldingsSnapshotParser", items.size(), "isin,symbol,quantity,average_price", startTimeMs);
         } catch (Exception e) {
-            log.error("Failed to parse holdings snapshot file", e);
+            com.financeos.core.observability.ParseLogger.failed(log, "HoldingsSnapshotParser", "extract-text", 1, "Failed to parse holdings snapshot file: " + e.getMessage(), e);
         }
         return items;
     }
