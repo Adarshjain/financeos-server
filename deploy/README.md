@@ -402,5 +402,29 @@ To make log lines with trace IDs clickable directly through to Tempo traces in G
 | 11 | **Latency high** | `http_latency_p95 > 2.0s` | 10m | `warning` | p95 HTTP latency > 2s for 10m. Check DB connection pool and slow queries. |
 | 12 | **OAuth failures** | `oauth callback failed > 3 in 10m` | 0m | `warning` | >3 OAuth callback errors. Check OAuth redirect URI and consent screen settings. |
 | 13 | **Config suspect at boot** | `app.config.suspect > 0 in 1h` | 0m | `warning` | Booted with suspicious config. Check startup logs for invalid cookie origins / URIs. |
+| 14 | **Client -> API latency high** | `quantile_over_time(0.95, client.api.call [10m]) > 3000ms` | 10m | `warning` | Client-to-API Vercel-to-OCI hop p95 latency > 3s over 10m. Check network and API response. |
+| 15 | **Client action failures** | `count_over_time(client.action.failed [10m]) > 5` | 0m | `warning` | Client action failure count > 5 in 10m. Check Client Health dashboard errorId table. |
+
+### 7. Synthetic Uptime Check (Vercel Platform Blind Spot)
+
+To catch total Vercel deployment outages (Vercel function timeouts, cold-start failures, build failures) that cannot be captured by in-app telemetry:
+
+1. In Grafana Cloud UI, navigate to **Synthetic Monitoring** $\to$ **Checks**.
+2. Click **Create check**, choose **HTTP** check type.
+3. Set **Target URL** to your production client URL (`https://<your-vercel-app>.vercel.app/login`).
+4. Set **Check frequency** to `5m`.
+5. Under **Alerting**, select contact point `slack-financeos`.
+6. Save check. (Note: Grafana Cloud includes free tier synthetic check allowances).
+
+### 8. Grafana Faro Frontend Observability Alert Routing (One-Click UI Fix)
+
+When Grafana Faro Frontend Observability is enabled, Grafana Cloud automatically creates the `Errors Count - FinanceOS Client` alert rule under an app-managed namespace. App-managed rules return HTTP 400 if updated via the provisioning API.
+
+To route Faro browser error alerts to Slack:
+1. Navigate to **Alerting** $\to$ **Alert rules**.
+2. Find `Errors Count - FinanceOS Client`.
+3. Click **Edit**, scroll to **Notification settings**, and set **Contact point** to `slack-financeos`.
+4. Click **Save rule**.
+
 
 

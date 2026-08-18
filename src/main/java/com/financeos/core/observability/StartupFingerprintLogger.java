@@ -51,6 +51,9 @@ public class StartupFingerprintLogger {
         if (gitSha == null || gitSha.startsWith("${")) {
             gitSha = "local";
         }
+        if (gitSha.length() > 12) {
+            gitSha = gitSha.substring(0, 12);
+        }
 
         String[] activeProfiles = environment.getActiveProfiles();
         String profilesStr = activeProfiles.length > 0 ? String.join(",", activeProfiles) : "default";
