@@ -28,6 +28,7 @@ public final class Events {
     public static final String AUTH_LOGIN_FAILED = "auth.login.failed";
     public static final String AUTH_SIGNUP_SUCCEEDED = "auth.signup.succeeded";
     public static final String AUTH_SIGNUP_REJECTED = "auth.signup.rejected";
+    public static final String AUTH_SIGNUP_THROTTLED = "auth.signup.throttled";
     public static final String AUTH_SESSION_CREATED = "auth.session.created";
     // Note: JDBC-backed session expiry is unobservable because Spring Session performs a bulk SQL DELETE without publishing per-session events.
 

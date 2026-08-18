@@ -73,6 +73,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too many attempts (rate limited)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /api/v1/auth/login:
     post:
@@ -2349,7 +2355,7 @@ components:
   schemas:
     SignupRequest:
       type: object
-      required: [email, password]
+      required: [email, password, inviteCode]
       properties:
         email:
           type: string
@@ -2360,6 +2366,10 @@ components:
           format: password
           minLength: 8
           example: mypassword123
+        inviteCode:
+          type: string
+          format: password
+          description: Invite code issued by the FinanceOS admin
 
     LoginRequest:
       type: object
