@@ -25,6 +25,7 @@ import org.springframework.security.authentication.InternalAuthenticationService
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.financeos.core.observability.Events;
+import com.financeos.core.security.InviteCodeService;
 import com.financeos.core.security.UserContext;
 import com.financeos.core.security.SessionHashUtils;
 import net.logstash.logback.argument.StructuredArguments;
@@ -46,22 +47,26 @@ public class AuthService {
             .getContextHolderStrategy();
     private final GoogleOAuthClient googleOAuthClient;
     private final GmailConnectionRepository gmailConnectionRepository;
+    private final InviteCodeService inviteCodeService;
 
     public AuthService(AuthenticationManager authenticationManager,
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
             SecurityContextRepository securityContextRepository,
             GoogleOAuthClient googleOAuthClient,
-            GmailConnectionRepository gmailConnectionRepository) {
+            GmailConnectionRepository gmailConnectionRepository,
+            InviteCodeService inviteCodeService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.securityContextRepository = securityContextRepository;
         this.googleOAuthClient = googleOAuthClient;
         this.gmailConnectionRepository = gmailConnectionRepository;
+        this.inviteCodeService = inviteCodeService;
     }
 
     public User signup(SignupRequest request) {
+        inviteCodeService.assertValid(request.inviteCode());
         if (userRepository.existsByEmail(request.email())) {
             log.warn("Signup rejected: email={}, reason=duplicate-email", request.email(),
                     StructuredArguments.keyValue("event", Events.AUTH_SIGNUP_REJECTED),

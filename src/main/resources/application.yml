@@ -85,6 +85,12 @@ app:
   cors:
     allowed-origins: ${CORS_ORIGINS:http://localhost:3001}
   ui-path: ${UI_PATH:http://localhost:3001}
+  # Signup is invite-only. Unset/blank => all signups refused (fail closed).
+  # Rotate by changing the env var and restarting; there is no expiry.
+  invite:
+    code: ${INVITE_CODE:}
+    max-failures: ${INVITE_MAX_FAILURES:10}
+    lockout-minutes: ${INVITE_LOCKOUT_MINUTES:15}
 
 # Gmail OAuth configuration
 gmail:
