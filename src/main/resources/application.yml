@@ -35,6 +35,15 @@ spring:
     baseline-version: 0
     repair-on-migrate: true
 
+  servlet:
+    multipart:
+      # No server-side upload size limit; without this Spring's defaults
+      # (1MB/file, 10MB/request) reject real statement PDFs. The effective cap
+      # (4.5MB, Vercel's request-body limit) is enforced by the client — kept
+      # unlimited here so a future direct-to-API upload path isn't bound by it.
+      max-file-size: -1
+      max-request-size: -1
+
   session:
     store-type: jdbc
     jdbc:

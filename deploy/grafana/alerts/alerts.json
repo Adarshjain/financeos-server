@@ -71,38 +71,6 @@
           "noDataState": "OK"
         },
         {
-          "uid": "financeos-alert-dead-mans-switch",
-          "title": "Dead-man's switch",
-          "condition": "A",
-          "for": "0m",
-          "labels": {
-            "severity": "critical"
-          },
-          "annotations": {
-            "summary": "FinanceOS server metric telemetry stream absent for >10m (Server Down / OOM Crash).",
-            "description": "Check systemctl status financeos.service on VM and inspect systemd journal via journalctl -u financeos."
-          },
-          "notification_settings": {
-            "receiver": "slack-financeos"
-          },
-          "data": [
-            {
-              "refId": "A",
-              "datasourceUid": "${DS_LOKI}",
-              "model": {
-                "expr": "absent_over_time({service=\"financeos-server\"}[10m])",
-                "queryType": "instant"
-              },
-              "relativeTimeRange": {
-                "from": 900,
-                "to": 0
-              }
-            }
-          ],
-          "execErrState": "Alerting",
-          "noDataState": "OK"
-        },
-        {
           "uid": "financeos-alert-heap-pressure",
           "title": "Heap pressure",
           "condition": "A",
