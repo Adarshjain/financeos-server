@@ -223,4 +223,50 @@ public class TransactionCategorizerTest {
             assertTrue(resultIndexes.contains(i));
         }
     }
+
+    @Test
+    public void testEmptyAvailableCategoriesInvokesLlm() {
+        FakeLlmClient fake = new FakeLlmClient();
+        TransactionCategorizer categorizer = new TransactionCategorizer(fake, new ObjectMapper());
+
+        List<TransactionCategorizer.CategorizeItemRequest> items = List.of(
+                new TransactionCategorizer.CategorizeItemRequest(0, "SWIGGY DELIVERY")
+        );
+
+        List<TransactionCategorizer.CategorizeItemResponse> results = categorizer.categorize(items, List.of());
+
+        assertEquals(1, fake.requests.size());
+        assertTrue(fake.requests.get(0).prompt().contains("The user has no categories yet"));
+        assertEquals(1, results.size());
+    }
+
+    @Test
+    public void testNovelCategoryPropagatedToSubsequentChunks() {
+        FakeLlmClient fake = new FakeLlmClient() {
+            @Override
+            public LlmResponse complete(LlmRequest request) {
+                if (requests.isEmpty()) {
+                    callCount++;
+                    requests.add(request);
+                    String json = "{\"results\":[{\"index\":0,\"merchantKey\":\"MERCHANT-0\",\"displayName\":\"Display-0\",\"categoryNames\":[\"Entertainment\"],\"noFit\":false}]}";
+                    return new LlmResponse(json, defaultProviderId, "fake-model");
+                }
+                return super.complete(request);
+            }
+        };
+        fake.recommendedBatchSize = 1;
+        TransactionCategorizer categorizer = new TransactionCategorizer(fake, new ObjectMapper());
+
+        List<TransactionCategorizer.CategorizeItemRequest> items = List.of(
+                new TransactionCategorizer.CategorizeItemRequest(0, "NETFLIX SUBSCRIPTION"),
+                new TransactionCategorizer.CategorizeItemRequest(1, "SPOTIFY SUBSCRIPTION")
+        );
+
+        List<TransactionCategorizer.CategorizeItemResponse> results = categorizer.categorize(items, new ArrayList<>(List.of("Food")));
+
+        assertEquals(2, fake.requests.size());
+        // Chunk 2 prompt should now contain the novel category "Entertainment" returned by Chunk 1
+        assertTrue(fake.requests.get(1).prompt().contains("- Entertainment"));
+        assertEquals(2, results.size());
+    }
 }
