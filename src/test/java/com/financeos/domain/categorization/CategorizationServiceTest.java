@@ -355,7 +355,7 @@ public class CategorizationServiceTest {
                 0,
                 "SWIGGY",
                 "Swiggy",
-                List.of("Gifts & Charities"),
+                List.of("Charity"),
                 false
         );
         when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
@@ -364,9 +364,60 @@ public class CategorizationServiceTest {
 
         assertEquals(1, txn.getCategories().size());
         Category assigned = txn.getCategories().iterator().next().getCategory();
-        assertEquals("Gifts & Charities", assigned.getName());
+        assertEquals("Charity", assigned.getName());
         verify(categoryRepository, times(1)).save(any(Category.class));
         verify(reviewStatusManager, times(1)).addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
+    }
+
+    @Test
+    public void testNovelCategoryNameOverTwoWordsRejected() {
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        Transaction txn = new Transaction();
+        txn.setUser(testUser);
+        txn.setSourcedDescription("SWIGGY DELIVERY");
+        txn.setCategories(new HashSet<>());
+
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
+                0,
+                "SWIGGY",
+                "Swiggy",
+                List.of("Online Food Delivery"), // 3-word novel name: over the creation cap
+                false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+
+        categorizationService.batchCategorize(List.of(txn));
+
+        assertTrue(txn.getCategories().isEmpty());
+        verify(categoryRepository, never()).save(any(Category.class));
+        verify(reviewStatusManager, times(1)).addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
+    }
+
+    @Test
+    public void testExistingMultiWordCategoryStillAccepted() {
+        // The word cap only gates creation - "Food & Dining" (3 tokens) exists, so it must resolve.
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        Transaction txn = new Transaction();
+        txn.setUser(testUser);
+        txn.setSourcedDescription("SWIGGY DELIVERY");
+        txn.setCategories(new HashSet<>());
+
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
+                0,
+                "SWIGGY",
+                "Swiggy",
+                List.of("Food & Dining"),
+                false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+
+        categorizationService.batchCategorize(List.of(txn));
+
+        assertEquals(1, txn.getCategories().size());
+        assertEquals(foodCategory, txn.getCategories().iterator().next().getCategory());
+        verify(categoryRepository, never()).save(any(Category.class));
     }
 
     @Test
@@ -433,7 +484,7 @@ public class CategorizationServiceTest {
                 0,
                 "SWIGGY",
                 "Swiggy",
-                List.of("Food & Dining"),
+                List.of("Food"),
                 false
         );
         when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
@@ -442,7 +493,7 @@ public class CategorizationServiceTest {
 
         assertEquals(1, txn.getCategories().size());
         Category assigned = txn.getCategories().iterator().next().getCategory();
-        assertEquals("Food & Dining", assigned.getName());
+        assertEquals("Food", assigned.getName());
         verify(categoryRepository, times(1)).save(any(Category.class));
         verify(reviewStatusManager, times(1)).addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
     }
