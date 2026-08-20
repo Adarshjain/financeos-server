@@ -173,7 +173,7 @@ public class GmailIngestionService {
                 Account account = accountResolver.resolve(extractionResult.accountLast4(), sender).orElse(null);
 
                 if (account == null) {
-                    log.error("Could not resolve account for transaction (last4: {}, sender: {}). Ingestion failed.",
+                    log.warn("Could not resolve account for transaction (last4: {}, sender: {}). Ingestion failed.",
                             extractionResult.accountLast4(), sender);
                     gmailTransactionWriter.recordSkipped(connection, message.messageId(),
                             GmailProcessedStatus.FAILED, "Failed to resolve account for last4: " + extractionResult.accountLast4());
@@ -198,7 +198,7 @@ public class GmailIngestionService {
                 }
 
             } catch (Exception e) {
-                log.error("Failed to process message: " + message.messageId(), e);
+                log.warn("Failed to process message: " + message.messageId(), e);
                 try {
                     gmailTransactionWriter.recordSkipped(connection, message.messageId(), 
                             GmailProcessedStatus.FAILED, "Internal error: " + e.getMessage());

@@ -21,6 +21,19 @@ class ObservabilityMetricsTest {
     }
 
     @Test
+    void testInitJobGaugesRegistersInitialTimestamps() {
+        metrics.initJobGauges();
+
+        Gauge gmailGauge = registry.find("financeos.job.last.success.timestamp").tag("job", "gmail-ingest").gauge();
+        assertNotNull(gmailGauge, "financeos.job.last.success.timestamp gauge must exist for gmail-ingest");
+        assertTrue(gmailGauge.value() > 0, "Gmail gauge value must be positive epoch second");
+
+        Gauge priceGauge = registry.find("financeos.job.last.success.timestamp").tag("job", "price-refresh").gauge();
+        assertNotNull(priceGauge, "financeos.job.last.success.timestamp gauge must exist for price-refresh");
+        assertTrue(priceGauge.value() > 0, "Price refresh gauge value must be positive epoch second");
+    }
+
+    @Test
     void testRecordJobSuccessUpdatesGauge() {
         metrics.recordJobSuccess("gmail-ingest");
 
