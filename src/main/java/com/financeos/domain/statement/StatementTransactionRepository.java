@@ -19,4 +19,6 @@ public interface StatementTransactionRepository extends JpaRepository<StatementT
            "WHERE st.id.statementId = :statementId AND t.id = st.id.transactionId " +
            "ORDER BY st.lineIndex ASC")
     List<StatementLineProjection> findLinesByStatementId(@Param("statementId") UUID statementId);
+    List<StatementTransaction> findByIdTransactionId(UUID transactionId);
 }
+
