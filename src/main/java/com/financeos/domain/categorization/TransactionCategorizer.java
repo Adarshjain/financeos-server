@@ -43,9 +43,11 @@ public class TransactionCategorizer {
     public List<CategorizeItemResponse> categorize(List<CategorizeItemRequest> items, List<String> availableCategories) {
         List<CategorizeItemResponse> fallbackResults = new ArrayList<>();
 
-        if (items == null || items.isEmpty() || availableCategories == null || availableCategories.isEmpty()) {
+        if (items == null || items.isEmpty()) {
             return fallbackResults;
         }
+
+        List<String> workingCategories = availableCategories != null ? new ArrayList<>(availableCategories) : new ArrayList<>();
 
         List<CategorizeItemRequest> representatives;
         Map<Integer, List<Integer>> groupMembers;
@@ -86,14 +88,15 @@ public class TransactionCategorizer {
 
             List<CategorizeItemResponse> chunkResponses;
             try {
-                ChunkResult result = categorizeChunk(chunk, availableCategories);
+                ChunkResult result = categorizeChunk(chunk, workingCategories);
                 log.info("Categorized chunk of {} items via provider {}", chunk.size(), result.providerId());
                 size = llmClient.batchSizeOf(result.providerId());
                 chunkResponses = result.responses();
+                updateWorkingCategories(chunkResponses, workingCategories);
             } catch (Exception e) {
                 log.warn("Chunk of {} items failed categorization, retrying in sub-chunks of {}: {}",
                         chunk.size(), RETRY_CHUNK_SIZE, e.getMessage());
-                chunkResponses = retryChunkInSubChunks(chunk, availableCategories);
+                chunkResponses = retryChunkInSubChunks(chunk, workingCategories);
             }
 
             for (CategorizeItemResponse response : chunkResponses) {
@@ -104,7 +107,7 @@ public class TransactionCategorizer {
         return fanOutResults;
     }
 
-    private List<CategorizeItemResponse> retryChunkInSubChunks(List<CategorizeItemRequest> chunk, List<String> availableCategories) {
+    private List<CategorizeItemResponse> retryChunkInSubChunks(List<CategorizeItemRequest> chunk, List<String> workingCategories) {
         List<CategorizeItemResponse> results = new ArrayList<>();
         int i = 0;
         while (i < chunk.size()) {
@@ -113,14 +116,33 @@ public class TransactionCategorizer {
             i += subSize;
 
             try {
-                ChunkResult result = categorizeChunk(subChunk, availableCategories);
+                ChunkResult result = categorizeChunk(subChunk, workingCategories);
                 log.info("Categorized retry sub-chunk of {} items via provider {}", subChunk.size(), result.providerId());
+                updateWorkingCategories(result.responses(), workingCategories);
                 results.addAll(result.responses());
             } catch (Exception e) {
                 log.warn("Sub-chunk of {} items failed categorization after retry, dropping: {}", subChunk.size(), e.getMessage());
             }
         }
         return results;
+    }
+
+    private void updateWorkingCategories(List<CategorizeItemResponse> responses, List<String> workingCategories) {
+        if (responses == null) {
+            return;
+        }
+        for (CategorizeItemResponse response : responses) {
+            if (response.categoryNames() != null) {
+                for (String catName : response.categoryNames()) {
+                    if (catName != null && !catName.isBlank()) {
+                        boolean exists = workingCategories.stream().anyMatch(c -> c.equalsIgnoreCase(catName));
+                        if (!exists) {
+                            workingCategories.add(catName);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void emitFanOut(CategorizeItemResponse response, Map<Integer, List<Integer>> groupMembers, List<CategorizeItemResponse> out) {
@@ -139,12 +161,17 @@ public class TransactionCategorizer {
     private ChunkResult categorizeChunk(List<CategorizeItemRequest> items, List<String> availableCategories) throws Exception {
         StringBuilder promptBuilder = new StringBuilder();
         promptBuilder.append("You are a transaction categorization assistant.\n");
-        promptBuilder.append("Associate each of the following transaction descriptions with one or more categories from the allowed category list.\n\n");
-        promptBuilder.append("Allowed Categories:\n");
-        for (String cat : availableCategories) {
-            promptBuilder.append("- ").append(cat).append("\n");
+        if (availableCategories == null || availableCategories.isEmpty()) {
+            promptBuilder.append("The user has no categories yet. Invent a small set of broad, reusable spending categories and assign each transaction to them.\n\n");
+        } else {
+            promptBuilder.append("Associate each of the following transaction descriptions with one or more categories from the existing category list. Prefer an existing category; only when none genuinely applies, propose ONE new category name (must be a broad, reusable spending category in Title Case, e.g. Food & Dining, Travel, Utilities, Fuel - NEVER a merchant name).\n\n");
+            promptBuilder.append("Existing Categories:\n");
+            for (String cat : availableCategories) {
+                promptBuilder.append("- ").append(cat).append("\n");
+            }
+            promptBuilder.append("\n");
         }
-        promptBuilder.append("\nTransactions to categorize:\n");
+        promptBuilder.append("Transactions to categorize:\n");
         for (CategorizeItemRequest item : items) {
             promptBuilder.append("Index: ").append(item.index()).append(", Description: ").append(item.description()).append("\n");
         }
@@ -152,8 +179,8 @@ public class TransactionCategorizer {
         promptBuilder.append("- index: the index of the transaction\n");
         promptBuilder.append("- merchantKey: the main merchant identifier string as it appears in the description (e.g. SWIGGY, AMAZON)\n");
         promptBuilder.append("- displayName: a clean human-readable name for the merchant (e.g. Swiggy, Amazon)\n");
-        promptBuilder.append("- categoryNames: array of category names chosen from the allowed categories list that genuinely apply. Never filler.\n");
-        promptBuilder.append("- noFit: boolean, set to true if no category from the allowed categories list genuinely applies.\n");
+        promptBuilder.append("- categoryNames: array of category names (existing or newly proposed broad categories) that genuinely apply. Never filler.\n");
+        promptBuilder.append("- noFit: boolean, set to true if the transaction description is unintelligible or cannot be classified at all.\n");
 
         String prompt = promptBuilder.toString();
 

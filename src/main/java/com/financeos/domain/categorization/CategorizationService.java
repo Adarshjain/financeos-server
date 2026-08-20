@@ -168,11 +168,6 @@ public class CategorizationService {
         UUID userId = user.getId();
 
         List<Category> userCategories = categoryRepository.findByUserId(userId);
-        if (userCategories.isEmpty()) {
-            self.applyCategorizationResults(txns, userCategories, userId, Map.of(), List.of(), List.of());
-            return;
-        }
-
         List<CategoryRule> rules = categoryRuleRepository.findByUserId(userId);
 
         Map<Integer, UUID> ruleMatchesByIndex = new HashMap<>();
@@ -219,19 +214,8 @@ public class CategorizationService {
                                            Map<Integer, UUID> ruleMatchesByIndex,
                                            List<TransactionCategorizer.CategorizeItemRequest> llmBatchRequests,
                                            List<TransactionCategorizer.CategorizeItemResponse> llmResponses) {
-        if (userCategories.isEmpty()) {
-            log.info("User has zero categories. Flagging all transactions with CATEGORY_UNVERIFIED.");
-            for (Transaction txn : txns) {
-                String description = effectiveDescription(txn);
-                if (description != null && !description.isBlank() && txn.getCategories().isEmpty()) {
-                    reviewStatusManager.addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
-                }
-            }
-            saveAllTxnsIfPersisted(txns);
-            return;
-        }
-
         Map<String, CategoryRule> batchCache = new HashMap<>();
+        Map<String, Category> createdCategoriesByName = new HashMap<>();
 
         for (Map.Entry<Integer, UUID> entry : ruleMatchesByIndex.entrySet()) {
             Transaction txn = txns.get(entry.getKey());
@@ -286,25 +270,45 @@ public class CategorizationService {
                         validResult = true;
                         reviewStatusManager.addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
                     } else if (res.categoryNames() != null && !res.categoryNames().isEmpty() && res.merchantKey() != null) {
-                        Set<Category> resolvedCategories = new HashSet<>();
-                        boolean catsValid = true;
-                        for (String catName : res.categoryNames()) {
-                            Category matchedCat = userCategories.stream()
-                                    .filter(c -> c.getName().equalsIgnoreCase(catName))
-                                    .findFirst()
-                                    .orElse(null);
-                            if (matchedCat == null) {
-                                catsValid = false;
-                                break;
-                            }
-                            resolvedCategories.add(matchedCat);
-                        }
-
+                        // Validate the whole response item (names + merchant key) before creating
+                        // anything: a rejected item must not leave behind categories it caused to exist.
                         String normalizedKey = DescriptionNormalizer.normalize(res.merchantKey());
                         String normalizedDesc = DescriptionNormalizer.normalize(effectiveDescription(txn));
                         boolean keyValid = normalizedKey.length() >= 3 && normalizedDesc.contains(normalizedKey);
 
+                        List<String> sanitizedNames = new ArrayList<>();
+                        boolean catsValid = true;
+                        for (String rawCatName : res.categoryNames()) {
+                            String sanitizedName = rawCatName == null ? "" : rawCatName.trim().replaceAll("\\s+", " ");
+                            if (sanitizedName.isBlank() || sanitizedName.length() > 60) {
+                                catsValid = false;
+                                break;
+                            }
+                            sanitizedNames.add(sanitizedName);
+                        }
+
                         if (catsValid && keyValid) {
+                            Set<Category> resolvedCategories = new HashSet<>();
+                            for (String sanitizedName : sanitizedNames) {
+                                Category matchedCat = userCategories.stream()
+                                        .filter(c -> c.getName().equalsIgnoreCase(sanitizedName))
+                                        .findFirst()
+                                        .orElse(null);
+
+                                if (matchedCat == null) {
+                                    matchedCat = createdCategoriesByName.get(sanitizedName.toLowerCase());
+                                }
+
+                                if (matchedCat == null) {
+                                    User userRef = userRepository.getReferenceById(userId);
+                                    Category newCategory = new Category(sanitizedName, userRef);
+                                    matchedCat = categoryRepository.save(newCategory);
+                                    createdCategoriesByName.put(sanitizedName.toLowerCase(), matchedCat);
+                                }
+
+                                resolvedCategories.add(matchedCat);
+                            }
+
                             validResult = true;
                             String catBefore = txn.getCategories() != null ? txn.getCategories().toString() : "";
                             CategoryRule rule = getOrCreateRule(userId, normalizedKey, res.displayName(), resolvedCategories, batchCache);

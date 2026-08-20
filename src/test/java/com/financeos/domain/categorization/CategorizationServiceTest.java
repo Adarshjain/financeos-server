@@ -62,6 +62,14 @@ public class CategorizationServiceTest {
         when(categoryRepository.findAll()).thenReturn(List.of(foodCategory, shoppingCategory));
         when(categoryRepository.findByUserId(any(UUID.class))).thenReturn(List.of(foodCategory, shoppingCategory));
         when(categoryRuleRepository.save(any(CategoryRule.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(userRepository.getReferenceById(userId)).thenReturn(testUser);
+        when(categoryRepository.save(any(Category.class))).thenAnswer(invocation -> {
+            Category c = invocation.getArgument(0);
+            if (c.getId() == null) {
+                c.setId(UUID.randomUUID());
+            }
+            return c;
+        });
     }
 
     @Test
@@ -335,7 +343,7 @@ public class CategorizationServiceTest {
     }
 
     @Test
-    public void testHallucinatedCategoryDiscarded() {
+    public void testNovelCategoryCreatedAndAssigned() {
         when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
 
         Transaction txn = new Transaction();
@@ -347,16 +355,191 @@ public class CategorizationServiceTest {
                 0,
                 "SWIGGY",
                 "Swiggy",
-                List.of("Gifts & Charities"), // Hallucinated category (not in foodCategory / shoppingCategory)
+                List.of("Gifts & Charities"),
                 false
         );
         when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
 
         categorizationService.batchCategorize(List.of(txn));
 
-        // Should fall back to LLM failure (uncategorized + CATEGORY_UNVERIFIED)
-        assertTrue(txn.getCategories().isEmpty());
+        assertEquals(1, txn.getCategories().size());
+        Category assigned = txn.getCategories().iterator().next().getCategory();
+        assertEquals("Gifts & Charities", assigned.getName());
+        verify(categoryRepository, times(1)).save(any(Category.class));
         verify(reviewStatusManager, times(1)).addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
+    }
+
+    @Test
+    public void testNoCategoryCreatedWhenMerchantKeyHallucinated() {
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        Transaction txn = new Transaction();
+        txn.setUser(testUser);
+        txn.setSourcedDescription("SWIGGY DELIVERY");
+        txn.setCategories(new HashSet<>());
+
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
+                0,
+                "AMAZON", // Hallucinated merchant key: item is rejected, so the novel category must not be created
+                "Amazon",
+                List.of("Shopping Extras"),
+                false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+
+        categorizationService.batchCategorize(List.of(txn));
+
+        assertTrue(txn.getCategories().isEmpty());
+        verify(categoryRepository, never()).save(any(Category.class));
+        verify(reviewStatusManager, times(1)).addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
+    }
+
+    @Test
+    public void testNoCategoryCreatedWhenAnotherNameInSameItemIsInvalid() {
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        Transaction txn = new Transaction();
+        txn.setUser(testUser);
+        txn.setSourcedDescription("SWIGGY DELIVERY");
+        txn.setCategories(new HashSet<>());
+
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
+                0,
+                "SWIGGY",
+                "Swiggy",
+                List.of("Dining Extras", "   "), // one valid novel name + one blank: whole item rejected
+                false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+
+        categorizationService.batchCategorize(List.of(txn));
+
+        assertTrue(txn.getCategories().isEmpty());
+        verify(categoryRepository, never()).save(any(Category.class));
+        verify(reviewStatusManager, times(1)).addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
+    }
+
+    @Test
+    public void testZeroCategoriesEndToEnd() {
+        when(categoryRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        Transaction txn = new Transaction();
+        txn.setUser(testUser);
+        txn.setSourcedDescription("SWIGGY DELIVERY");
+        txn.setCategories(new HashSet<>());
+
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
+                0,
+                "SWIGGY",
+                "Swiggy",
+                List.of("Food & Dining"),
+                false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+
+        categorizationService.batchCategorize(List.of(txn));
+
+        assertEquals(1, txn.getCategories().size());
+        Category assigned = txn.getCategories().iterator().next().getCategory();
+        assertEquals("Food & Dining", assigned.getName());
+        verify(categoryRepository, times(1)).save(any(Category.class));
+        verify(reviewStatusManager, times(1)).addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
+    }
+
+    @Test
+    public void testCaseInsensitiveCategoryReuse() {
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        Transaction txn = new Transaction();
+        txn.setUser(testUser);
+        txn.setSourcedDescription("SWIGGY DELIVERY");
+        txn.setCategories(new HashSet<>());
+
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
+                0,
+                "SWIGGY",
+                "Swiggy",
+                List.of("food & dining"),
+                false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+
+        categorizationService.batchCategorize(List.of(txn));
+
+        assertEquals(1, txn.getCategories().size());
+        Category assigned = txn.getCategories().iterator().next().getCategory();
+        assertEquals(foodCategory, assigned);
+        verify(categoryRepository, never()).save(any(Category.class));
+        verify(reviewStatusManager, times(1)).addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
+    }
+
+    @Test
+    public void testBatchLocalCategoryDeduplication() {
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        Transaction txn1 = new Transaction();
+        txn1.setUser(testUser);
+        txn1.setSourcedDescription("SWIGGY DELIVERY");
+        txn1.setCategories(new HashSet<>());
+
+        Transaction txn2 = new Transaction();
+        txn2.setUser(testUser);
+        txn2.setSourcedDescription("ZOMATO ORDER");
+        txn2.setCategories(new HashSet<>());
+
+        TransactionCategorizer.CategorizeItemResponse response1 = new TransactionCategorizer.CategorizeItemResponse(
+                0, "SWIGGY", "Swiggy", List.of("Dining Out"), false
+        );
+        TransactionCategorizer.CategorizeItemResponse response2 = new TransactionCategorizer.CategorizeItemResponse(
+                1, "ZOMATO", "Zomato", List.of("dining out"), false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response1, response2));
+
+        categorizationService.batchCategorize(List.of(txn1, txn2));
+
+        assertEquals(1, txn1.getCategories().size());
+        assertEquals(1, txn2.getCategories().size());
+        Category cat1 = txn1.getCategories().iterator().next().getCategory();
+        Category cat2 = txn2.getCategories().iterator().next().getCategory();
+        assertEquals("Dining Out", cat1.getName());
+        assertEquals(cat1, cat2);
+        verify(categoryRepository, times(1)).save(any(Category.class));
+    }
+
+    @Test
+    public void testSanitizationRejectsInvalidCategoryNames() {
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        Transaction txnBlank = new Transaction();
+        txnBlank.setUser(testUser);
+        txnBlank.setSourcedDescription("SWIGGY DELIVERY");
+        txnBlank.setCategories(new HashSet<>());
+
+        TransactionCategorizer.CategorizeItemResponse resBlank = new TransactionCategorizer.CategorizeItemResponse(
+                0, "SWIGGY", "Swiggy", List.of("   "), false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(resBlank));
+
+        categorizationService.batchCategorize(List.of(txnBlank));
+        assertTrue(txnBlank.getCategories().isEmpty());
+        verify(categoryRepository, never()).save(any(Category.class));
+        verify(reviewStatusManager, times(1)).addReason(txnBlank, ReviewReason.CATEGORY_UNVERIFIED);
+
+        String longName = "A".repeat(61);
+        Transaction txnLong = new Transaction();
+        txnLong.setUser(testUser);
+        txnLong.setSourcedDescription("SWIGGY DELIVERY");
+        txnLong.setCategories(new HashSet<>());
+
+        TransactionCategorizer.CategorizeItemResponse resLong = new TransactionCategorizer.CategorizeItemResponse(
+                0, "SWIGGY", "Swiggy", List.of(longName), false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(resLong));
+
+        categorizationService.batchCategorize(List.of(txnLong));
+        assertTrue(txnLong.getCategories().isEmpty());
+        verify(categoryRepository, never()).save(any(Category.class));
     }
 
     @Test
