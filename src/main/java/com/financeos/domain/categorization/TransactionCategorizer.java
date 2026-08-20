@@ -162,9 +162,9 @@ public class TransactionCategorizer {
         StringBuilder promptBuilder = new StringBuilder();
         promptBuilder.append("You are a transaction categorization assistant.\n");
         if (availableCategories == null || availableCategories.isEmpty()) {
-            promptBuilder.append("The user has no categories yet. Invent a small set of broad, reusable spending categories and assign each transaction to them.\n\n");
+            promptBuilder.append("The user has no categories yet. Invent a small set of broad, reusable spending categories and assign each transaction to them. Category names must be a single Title Case word (e.g. Food, Travel, Utilities, Fuel, Shopping); use two words only when a single word cannot describe the category.\n\n");
         } else {
-            promptBuilder.append("Associate each of the following transaction descriptions with one or more categories from the existing category list. Prefer an existing category; only when none genuinely applies, propose ONE new category name (must be a broad, reusable spending category in Title Case, e.g. Food & Dining, Travel, Utilities, Fuel - NEVER a merchant name).\n\n");
+            promptBuilder.append("Associate each of the following transaction descriptions with one or more categories from the existing category list. Prefer an existing category; only when none genuinely applies, propose ONE new category name (must be a broad, reusable spending category: a single Title Case word, e.g. Food, Travel, Utilities, Fuel; two words only when a single word cannot describe it - NEVER a merchant name).\n\n");
             promptBuilder.append("Existing Categories:\n");
             for (String cat : availableCategories) {
                 promptBuilder.append("- ").append(cat).append("\n");
@@ -179,7 +179,7 @@ public class TransactionCategorizer {
         promptBuilder.append("- index: the index of the transaction\n");
         promptBuilder.append("- merchantKey: the main merchant identifier string as it appears in the description (e.g. SWIGGY, AMAZON)\n");
         promptBuilder.append("- displayName: a clean human-readable name for the merchant (e.g. Swiggy, Amazon)\n");
-        promptBuilder.append("- categoryNames: array of category names (existing or newly proposed broad categories) that genuinely apply. Never filler.\n");
+        promptBuilder.append("- categoryNames: array of category names (existing, or newly proposed broad categories of at most two words) that genuinely apply. Never filler.\n");
         promptBuilder.append("- noFit: boolean, set to true if the transaction description is unintelligible or cannot be classified at all.\n");
 
         String prompt = promptBuilder.toString();

@@ -284,6 +284,14 @@ public class CategorizationService {
                                 catsValid = false;
                                 break;
                             }
+                            // Word cap applies only to names that would be CREATED - the LLM may still
+                            // reference the user's own multi-word categories.
+                            boolean resolvable = userCategories.stream().anyMatch(c -> c.getName().equalsIgnoreCase(sanitizedName))
+                                    || createdCategoriesByName.containsKey(sanitizedName.toLowerCase());
+                            if (!resolvable && sanitizedName.split(" ").length > 2) {
+                                catsValid = false;
+                                break;
+                            }
                             sanitizedNames.add(sanitizedName);
                         }
 
