@@ -4,7 +4,7 @@
     {
       "name": "FinanceOS Server Alerts",
       "folder": "FinanceOS",
-      "interval": "1m",
+      "interval": "5m",
       "rules": [
         {
           "uid": "financeos-alert-error-burst",
@@ -15,7 +15,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "High rate of ERROR log events detected in last 5 minutes.",
+            "summary": "High rate of ERROR log events detected in last 15 minutes.",
             "description": "Check Grafana Service Health dashboard ERROR logs panel to identify the active errorId, route, and exception trace."
           },
           "notification_settings": {
@@ -26,11 +26,11 @@
               "refId": "A",
               "datasourceUid": "${DS_LOKI}",
               "model": {
-                "expr": "sum(count_over_time({service=\"financeos-server\", level=\"ERROR\"}[5m])) > 5",
+                "expr": "sum(count_over_time({service=\"financeos-server\", level=\"ERROR\"}[15m])) > 5",
                 "queryType": "instant"
               },
               "relativeTimeRange": {
-                "from": 600,
+                "from": 900,
                 "to": 0
               }
             }
@@ -71,15 +71,47 @@
           "noDataState": "OK"
         },
         {
+          "uid": "financeos-alert-job-failed",
+          "title": "Job failed",
+          "condition": "A",
+          "for": "0m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "Scheduled job {{ $labels.jobName }} failed during execution.",
+            "description": "Check Pipelines dashboard job outcome panel and inspect logs for error details."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_LOKI}",
+              "model": {
+                "expr": "sum by (jobName) (count_over_time({service=\"financeos-server\"} | json | event=\"job.failed\" [30m])) > 0",
+                "queryType": "instant"
+              },
+              "relativeTimeRange": {
+                "from": 1800,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
+        },
+        {
           "uid": "financeos-alert-heap-pressure",
           "title": "Heap pressure",
           "condition": "A",
-          "for": "5m",
+          "for": "10m",
           "labels": {
             "severity": "critical"
           },
           "annotations": {
-            "summary": "JVM Heap memory usage > 90% for >5 minutes.",
+            "summary": "JVM Heap memory usage > 90% for >10 minutes.",
             "description": "High risk of OutOfMemoryError. Check heap dump settings and inspect heap allocation patterns in Grafana."
           },
           "notification_settings": {
@@ -90,7 +122,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "jvm_memory_used_bytes{service=\"financeos-server\", area=\"heap\"} / jvm_memory_max_bytes{service=\"financeos-server\", area=\"heap\"} > 0.9",
+                "expr": "sum(jvm_memory_used_bytes{service=\"financeos-server\", area=\"heap\"}) / sum(jvm_memory_max_bytes{service=\"financeos-server\", area=\"heap\"} > 0) > 0.9",
                 "instant": true,
                 "range": false
               },
@@ -107,7 +139,7 @@
           "uid": "financeos-alert-host-memory-low",
           "title": "Host memory low",
           "condition": "A",
-          "for": "2m",
+          "for": "10m",
           "labels": {
             "severity": "critical"
           },
@@ -140,7 +172,7 @@
           "uid": "financeos-alert-disk-low",
           "title": "Disk low",
           "condition": "A",
-          "for": "5m",
+          "for": "15m",
           "labels": {
             "severity": "critical"
           },
@@ -156,7 +188,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "node_filesystem_avail_bytes / node_filesystem_size_bytes < 0.15",
+                "expr": "node_filesystem_avail_bytes{mountpoint=\"/\"} / node_filesystem_size_bytes{mountpoint=\"/\"} < 0.15",
                 "instant": true,
                 "range": false
               },
@@ -173,12 +205,12 @@
           "uid": "financeos-alert-db-pool-starved",
           "title": "DB pool starved",
           "condition": "A",
-          "for": "2m",
+          "for": "5m",
           "labels": {
             "severity": "warning"
           },
           "annotations": {
-            "summary": "HikariCP pending connection requests > 0 for >2 minutes.",
+            "summary": "HikariCP pending connection requests > 0 for >5 minutes.",
             "description": "Database connection pool is starved. Check slow queries in Pipelines dashboard or increase maximum pool size."
           },
           "notification_settings": {
@@ -206,12 +238,12 @@
           "uid": "financeos-alert-gmail-ingest-stalled",
           "title": "Gmail ingest stalled",
           "condition": "A",
-          "for": "0m",
+          "for": "30m",
           "labels": {
             "severity": "warning"
           },
           "annotations": {
-            "summary": "Gmail ingestion job has not succeeded in >6 hours or has never run.",
+            "summary": "Gmail ingestion job has not succeeded in >15 hours.",
             "description": "Check Pipelines dashboard job outcome panel and inspect OAuth tokens or Gmail API quota."
           },
           "notification_settings": {
@@ -222,7 +254,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "(time() - financeos_job_last_success_timestamp_seconds{job=\"gmail-ingest\"} > 21600) OR on() absent(financeos_job_last_success_timestamp_seconds{job=\"gmail-ingest\"})",
+                "expr": "(time() - financeos_job_last_success_timestamp_seconds{job=\"gmail-ingest\"}) > 54000",
                 "instant": true,
                 "range": false
               },
@@ -239,12 +271,12 @@
           "uid": "financeos-alert-price-refresh-stalled",
           "title": "Price refresh stalled",
           "condition": "A",
-          "for": "0m",
+          "for": "30m",
           "labels": {
             "severity": "warning"
           },
           "annotations": {
-            "summary": "Price refresh job has not succeeded in >26 hours or has never run.",
+            "summary": "Price refresh job has not succeeded in >26 hours.",
             "description": "Check Pipelines dashboard job outcome panel and verify external market data provider connectivity."
           },
           "notification_settings": {
@@ -255,7 +287,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "(time() - financeos_job_last_success_timestamp_seconds{job=\"price-refresh\"} > 93600) OR on() absent(financeos_job_last_success_timestamp_seconds{job=\"price-refresh\"})",
+                "expr": "(time() - financeos_job_last_success_timestamp_seconds{job=\"price-refresh\"}) > 93600",
                 "instant": true,
                 "range": false
               },
@@ -270,14 +302,14 @@
         },
         {
           "uid": "financeos-alert-http-5xx-ratio",
-          "title": "5xx ratio",
+          "title": "5xx burst",
           "condition": "A",
-          "for": "10m",
+          "for": "5m",
           "labels": {
             "severity": "warning"
           },
           "annotations": {
-            "summary": "HTTP 5xx error ratio exceeds 2% for >10 minutes.",
+            "summary": "HTTP 5xx error burst detected (>3 in 15 minutes).",
             "description": "Inspect Service Health dashboard and check GlobalExceptionHandler logs in Grafana."
           },
           "notification_settings": {
@@ -288,7 +320,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "sum(rate(http_server_requests_seconds_count{service=\"financeos-server\", status=~\"5..\"}[10m])) / sum(rate(http_server_requests_seconds_count{service=\"financeos-server\"}[10m])) > 0.02",
+                "expr": "sum(increase(http_server_requests_seconds_count{service=\"financeos-server\", status=~\"5..\"}[15m])) > 3",
                 "instant": true,
                 "range": false
               },
@@ -305,12 +337,12 @@
           "uid": "financeos-alert-http-latency",
           "title": "Latency high",
           "condition": "A",
-          "for": "10m",
+          "for": "15m",
           "labels": {
             "severity": "warning"
           },
           "annotations": {
-            "summary": "HTTP p95 latency exceeds 2.0 seconds for >10 minutes.",
+            "summary": "HTTP p95 latency exceeds 2.0 seconds for >15 minutes with active traffic.",
             "description": "Check DB pool metrics, slow SQL queries, and external API latency in Grafana."
           },
           "notification_settings": {
@@ -321,7 +353,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "histogram_quantile(0.95, sum by (le) (rate(http_server_requests_seconds_bucket{service=\"financeos-server\"}[10m]))) > 2",
+                "expr": "(histogram_quantile(0.95, sum by (le) (rate(http_server_requests_seconds_bucket{service=\"financeos-server\"}[15m]))) > 2) and on() (sum(rate(http_server_requests_seconds_count{service=\"financeos-server\"}[15m])) > 0.02)",
                 "instant": true,
                 "range": false
               },
@@ -391,38 +423,6 @@
               },
               "relativeTimeRange": {
                 "from": 3900,
-                "to": 0
-              }
-            }
-          ],
-          "execErrState": "Alerting",
-          "noDataState": "OK"
-        },
-        {
-          "uid": "financeos-alert-client-api-latency",
-          "title": "Client -> API latency high",
-          "condition": "A",
-          "for": "10m",
-          "labels": {
-            "severity": "warning"
-          },
-          "annotations": {
-            "summary": "P95 latency from Client to API exceeding 3000ms over 10m window.",
-            "description": "Inspect Client Health dashboard Vercel -> OCI Hop latency panel."
-          },
-          "notification_settings": {
-            "receiver": "slack-financeos"
-          },
-          "data": [
-            {
-              "refId": "A",
-              "datasourceUid": "${DS_LOKI}",
-              "model": {
-                "expr": "quantile_over_time(0.95, {service=\"financeos-client\", env=\"prod\"} | json | event=\"client.api.call\" | unwrap durationMs [10m]) > 3000",
-                "queryType": "instant"
-              },
-              "relativeTimeRange": {
-                "from": 900,
                 "to": 0
               }
             }

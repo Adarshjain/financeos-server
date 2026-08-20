@@ -3,6 +3,7 @@ package com.financeos.core.observability;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -23,22 +24,31 @@ public class ObservabilityMetrics {
         this.registry = registry;
     }
 
+    @PostConstruct
+    public void initJobGauges() {
+        long bootTime = Instant.now().getEpochSecond();
+        getOrCreateJobGauge("gmail-ingest", bootTime);
+        getOrCreateJobGauge("price-refresh", bootTime);
+    }
+
     /**
      * Records successful execution timestamp (epoch seconds) for a scheduled job.
      * @param jobName bounded job identifier (e.g. "gmail-ingest", "price-refresh")
      */
     public void recordJobSuccess(String jobName) {
         long currentEpochSecond = Instant.now().getEpochSecond();
-        jobLastSuccessGauges
-                .computeIfAbsent(jobName, name -> {
-                    AtomicLong gaugeValue = new AtomicLong(currentEpochSecond);
-                    Gauge.builder("financeos.job.last.success.timestamp", gaugeValue, AtomicLong::doubleValue)
-                            .baseUnit("seconds")
-                            .tag("job", name)
-                            .register(registry);
-                    return gaugeValue;
-                })
-                .set(currentEpochSecond);
+        getOrCreateJobGauge(jobName, currentEpochSecond).set(currentEpochSecond);
+    }
+
+    private AtomicLong getOrCreateJobGauge(String jobName, long initialEpochSecond) {
+        return jobLastSuccessGauges.computeIfAbsent(jobName, name -> {
+            AtomicLong gaugeValue = new AtomicLong(initialEpochSecond);
+            Gauge.builder("financeos.job.last.success.timestamp", gaugeValue, AtomicLong::doubleValue)
+                    .baseUnit("seconds")
+                    .tag("job", name)
+                    .register(registry);
+            return gaugeValue;
+        });
     }
 
     /**
