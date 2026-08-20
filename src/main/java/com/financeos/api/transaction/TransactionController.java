@@ -88,4 +88,13 @@ public class TransactionController {
         BatchDeleteResponse response = transactionService.batchDelete(request.transactionIds());
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/merge")
+    public ResponseEntity<MergeTransactionsResponse> mergeTransactions(
+            @Valid @RequestBody MergeTransactionsRequest request) {
+        MergeTransactionsResponse response = transactionService.mergeTransactions(
+                request.keepId(), request.deleteId());
+        return ResponseEntity.ok(response);
+    }
 }
+

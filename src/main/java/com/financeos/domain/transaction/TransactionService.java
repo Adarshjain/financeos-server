@@ -28,6 +28,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.financeos.api.transaction.dto.MergeTransactionsResponse;
+import com.financeos.domain.transaction.link.TransactionLink;
+import com.financeos.domain.transaction.link.TransactionLinkMember;
+import com.financeos.domain.transaction.link.TransactionLinkRepository;
+import com.financeos.domain.statement.StatementTransaction;
+import com.financeos.domain.statement.StatementTransactionId;
+import com.financeos.domain.statement.StatementTransactionRepository;
+import java.util.Optional;
+
 @Service
 @Transactional
 @Slf4j
@@ -40,6 +49,8 @@ public class TransactionService {
     private final ReviewStatusManager reviewStatusManager;
     private final CategorizationService categorizationService;
     private final com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService;
+    private final TransactionLinkRepository transactionLinkRepository;
+    private final StatementTransactionRepository statementTransactionRepository;
     private final com.financeos.core.observability.AuditLogger auditLogger;
     private final TransactionService self;
 
@@ -51,6 +62,8 @@ public class TransactionService {
             ReviewStatusManager reviewStatusManager,
             CategorizationService categorizationService,
             @org.springframework.context.annotation.Lazy com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService,
+            @org.springframework.context.annotation.Lazy TransactionLinkRepository transactionLinkRepository,
+            @org.springframework.context.annotation.Lazy StatementTransactionRepository statementTransactionRepository,
             com.financeos.core.observability.AuditLogger auditLogger,
             @org.springframework.context.annotation.Lazy TransactionService self) {
         this.transactionRepository = transactionRepository;
@@ -60,6 +73,8 @@ public class TransactionService {
         this.reviewStatusManager = reviewStatusManager;
         this.categorizationService = categorizationService;
         this.transactionLinkService = transactionLinkService;
+        this.transactionLinkRepository = transactionLinkRepository;
+        this.statementTransactionRepository = statementTransactionRepository;
         this.auditLogger = auditLogger;
         this.self = self != null ? self : this;
     }
@@ -71,8 +86,9 @@ public class TransactionService {
             ReviewStatusManager reviewStatusManager,
             CategorizationService categorizationService,
             TransactionService self) {
-        this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, null, null, self);
+        this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, null, null, null, null, self);
     }
+
 
     /**
      * Overwrite semantics: a present rewardDetails object applies all six fields
@@ -445,5 +461,174 @@ public class TransactionService {
         return new com.financeos.api.transaction.dto.BatchDeleteResponse(succeededIds, failures);
     }
 
+    @Transactional
+    public MergeTransactionsResponse mergeTransactions(UUID keepId, UUID deleteId) {
+        if (keepId == null || deleteId == null) {
+            throw new ValidationException("keepId and deleteId must not be null");
+        }
+        if (keepId.equals(deleteId)) {
+            throw new ValidationException("Cannot merge a transaction with itself");
+        }
 
+        Transaction kept = transactionRepository.findById(keepId)
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction", keepId));
+        Transaction deleted = transactionRepository.findById(deleteId)
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction", deleteId));
+
+        UUID currentSessionUserId = UserContext.getCurrentUserId();
+        if (kept.getUser() == null || !kept.getUser().getId().equals(currentSessionUserId)
+                || deleted.getUser() == null || !deleted.getUser().getId().equals(currentSessionUserId)) {
+            log.error("Security Breach Attempt: User {} tried to merge transactions {} and {}",
+                    currentSessionUserId, keepId, deleteId);
+            throw new ValidationException("You do not have permission to merge these transactions.");
+        }
+
+        if (!kept.getAccount().getId().equals(deleted.getAccount().getId())) {
+            throw new ValidationException("Cannot merge transactions from different accounts.");
+        }
+
+        // --- CARRY-OVER ---
+        if (kept.getCategories().isEmpty() && !deleted.getCategories().isEmpty()) {
+            Set<Category> deletedCats = deleted.getCategories().stream()
+                    .map(TransactionCategory::getCategory)
+                    .collect(Collectors.toSet());
+            kept.setCategories(deletedCats);
+
+            if (kept.getAppliedRule() == null && deleted.getAppliedRule() != null) {
+                kept.setAppliedRule(deleted.getAppliedRule());
+            }
+        }
+
+        if (kept.getChannel() == null && deleted.getChannel() != null) {
+            kept.setChannel(deleted.getChannel());
+        }
+        if ((kept.getIsEmi() == null || !kept.getIsEmi()) && Boolean.TRUE.equals(deleted.getIsEmi())) {
+            kept.setIsEmi(true);
+        }
+        if ((kept.getIsInternational() == null || !kept.getIsInternational()) && Boolean.TRUE.equals(deleted.getIsInternational())) {
+            kept.setIsInternational(true);
+        }
+        if (kept.getConvenienceFee() == null && deleted.getConvenienceFee() != null) {
+            kept.setConvenienceFee(deleted.getConvenienceFee());
+        }
+        if (kept.getInstantDiscount() == null && deleted.getInstantDiscount() != null) {
+            kept.setInstantDiscount(deleted.getInstantDiscount());
+        }
+        if (kept.getSettlementDate() == null && deleted.getSettlementDate() != null) {
+            kept.setSettlementDate(deleted.getSettlementDate());
+        }
+        if (deleted.isTransactionUnderMonitoring()) {
+            kept.setTransactionUnderMonitoring(true);
+        }
+        if ((kept.getMonitoringReason() == null || kept.getMonitoringReason().isBlank())
+                && deleted.getMonitoringReason() != null && !deleted.getMonitoringReason().isBlank()) {
+            kept.setMonitoringReason(deleted.getMonitoringReason());
+        }
+        if ((kept.getDescription() == null || kept.getDescription().isBlank())
+                && deleted.getDescription() != null && !deleted.getDescription().isBlank()) {
+            kept.setDescription(deleted.getDescription());
+        }
+        if ((kept.getSourcedDescription() == null || kept.getSourcedDescription().isBlank())
+                && deleted.getSourcedDescription() != null && !deleted.getSourcedDescription().isBlank()) {
+            kept.setSourcedDescription(deleted.getSourcedDescription());
+        }
+        if (kept.getMcc() == null && deleted.getMcc() != null) {
+            kept.setMcc(deleted.getMcc());
+        }
+
+        // --- TRANSACTION LINKS RE-POINTING ---
+        if (transactionLinkRepository != null) {
+            List<UUID> affectedLinkIds = transactionLinkRepository.findLinkIdsByMemberTransactionIds(List.of(deleteId));
+            if (!affectedLinkIds.isEmpty()) {
+                List<TransactionLink> affectedLinks = transactionLinkRepository.findWithMembersByIdIn(affectedLinkIds);
+                for (TransactionLink link : affectedLinks) {
+                    boolean keptIsMember = link.getMembers().stream()
+                            .anyMatch(m -> m.getTransaction().getId().equals(keepId));
+
+                    Optional<TransactionLinkMember> deletedMemberOpt = link.getMembers().stream()
+                            .filter(m -> m.getTransaction().getId().equals(deleteId))
+                            .findFirst();
+
+                    boolean deletedWasAnchor = deletedMemberOpt.map(TransactionLinkMember::isAnchor).orElse(false);
+
+                    link.getMembers().removeIf(m -> m.getTransaction().getId().equals(deleteId));
+
+                    if (keptIsMember) {
+                        dissolveOrSaveLink(link);
+                    } else {
+                        Optional<TransactionLink> existingKeptLink = transactionLinkRepository.findByMembers_Transaction_Id(keepId);
+                        if (existingKeptLink.isPresent()) {
+                            dissolveOrSaveLink(link);
+                        } else {
+                            TransactionLinkMember newMember = new TransactionLinkMember(link, kept, deletedWasAnchor);
+                            link.getMembers().add(newMember);
+                            transactionLinkRepository.save(link);
+                        }
+                    }
+                }
+            }
+        }
+
+        // --- STATEMENT TRANSACTIONS RE-POINTING ---
+        if (statementTransactionRepository != null) {
+            List<StatementTransaction> deletedStRows = statementTransactionRepository.findByIdTransactionId(deleteId);
+            for (StatementTransaction st : deletedStRows) {
+                UUID stmtId = st.getId().getStatementId();
+                statementTransactionRepository.delete(st);
+                statementTransactionRepository.flush();
+
+                boolean keptAlreadyHasRow = statementTransactionRepository
+                        .existsById(new StatementTransactionId(stmtId, keepId));
+                if (!keptAlreadyHasRow) {
+                    StatementTransaction newSt = new StatementTransaction(
+                            stmtId, keepId, st.getLineIndex(), st.getBalanceAfter(), st.getChainValid());
+                    statementTransactionRepository.save(newSt);
+                }
+            }
+        }
+
+        // --- HARD-DELETE DELETED TRANSACTION ---
+        if (auditLogger != null) {
+            auditLogger.mutation("Transaction", deleteId, "DELETE_MERGED", "user:" + currentSessionUserId, "manual",
+                    List.of("mergedInto:" + keepId), deleted.getAmount(), null, "INR");
+        }
+        transactionRepository.delete(deleted);
+
+        // --- REVIEW REASONS CLEARING ON KEPT ---
+        // Only touch review state when there is actually something to clear, so a kept
+        // transaction that is already NA/AUTO_REVIEWED is not re-stamped MANUALLY_REVIEWED.
+        boolean hasClearableReason = kept.getReviewReasons() != null
+                && (kept.getReviewReasons().contains(ReviewReason.UNRECONCILED)
+                        || kept.getReviewReasons().contains(ReviewReason.DUPLICATE_SUSPECT));
+        if (hasClearableReason) {
+            reviewStatusManager.clearReason(kept, ReviewReason.UNRECONCILED, ReviewType.MANUALLY_REVIEWED);
+            reviewStatusManager.clearReason(kept, ReviewReason.DUPLICATE_SUSPECT, ReviewType.MANUALLY_REVIEWED);
+        }
+
+        if (kept.getReviewType() == ReviewType.MANUALLY_REVIEWED) {
+            if (kept.getAppliedRule() != null && !kept.getAppliedRule().isVerified()) {
+                categorizationService.verifyRule(kept.getAppliedRule());
+            }
+        }
+
+        Transaction savedKept = transactionRepository.save(kept);
+        org.hibernate.Hibernate.initialize(savedKept.getReviewReasons());
+
+        return new MergeTransactionsResponse(savedKept.getId(), savedKept.getReviewType(), savedKept.getReviewReasons());
+    }
+
+    private void dissolveOrSaveLink(TransactionLink link) {
+        List<TransactionLinkMember> remainingMembers = new ArrayList<>(link.getMembers());
+        boolean hasAnchor = remainingMembers.stream().anyMatch(TransactionLinkMember::isAnchor);
+        long counterpartCount = remainingMembers.stream().filter(m -> !m.isAnchor()).count();
+        int remainingCount = remainingMembers.size();
+
+        boolean shouldDissolve = (remainingCount < 2) || !hasAnchor || (counterpartCount < 1);
+        if (shouldDissolve) {
+            transactionLinkRepository.delete(link);
+        } else {
+            transactionLinkRepository.save(link);
+        }
+    }
 }
+
