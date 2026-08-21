@@ -38,8 +38,9 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-@Slf4j
 public class FileIngestionService {
+
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(FileIngestionService.class);
 
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
@@ -70,7 +71,11 @@ public class FileIngestionService {
 
     private record PendingLink(Transaction txn, UUID statementId, int lineIndex, BigDecimal balanceAfter, Boolean chainValid) {}
 
-    public FileIngestionResult ingest(UUID accountId, List<MultipartFile> files) {
+    public FileIngestionResult ingest(UUID accountId, List<UploadedFile> files) {
+        return ingest(accountId, files, null);
+    }
+
+    public FileIngestionResult ingest(UUID accountId, List<UploadedFile> files, com.financeos.domain.job.JobExecutionContext execCtx) {
         // Read account (this does not need a long-lived transaction)
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", accountId));
@@ -100,14 +105,20 @@ public class FileIngestionService {
         LocalDate maxEffectiveEnd = null;
 
         // Loop over files to parse them (statement parsing runs here outside the write transaction)
-        for (MultipartFile file : files) {
-            String filename = file.getOriginalFilename();
+        for (int i = 0; i < files.size(); i++) {
+            UploadedFile file = files.get(i);
+            if (execCtx != null) {
+                execCtx.checkCancelled();
+                execCtx.progress(i, files.size(), file.filename());
+            }
+
+            String filename = file.filename();
             if (filename == null || filename.isBlank()) {
                 filename = "unknown_file";
             }
 
             try {
-                byte[] bytes = file.getBytes();
+                byte[] bytes = file.bytes() != null ? file.bytes() : new byte[0];
                 if (bytes.length == 0) {
                     fileDetails.add(new FileIngestionResult.FileSummary(filename, "FAILED", 0, "File is empty"));
                     continue;
@@ -117,7 +128,7 @@ public class FileIngestionService {
                         StructuredArguments.keyValue("event", Events.INGEST_FILE_RECEIVED),
                         StructuredArguments.keyValue("fileName", filename),
                         StructuredArguments.keyValue("sizeBytes", bytes.length),
-                        StructuredArguments.keyValue("contentType", file.getContentType() != null ? file.getContentType() : "application/octet-stream"),
+                        StructuredArguments.keyValue("contentType", file.contentType() != null ? file.contentType() : "application/octet-stream"),
                         StructuredArguments.keyValue("sha256", ""),
                         StructuredArguments.keyValue("parserChosen", statementParser.getClass().getSimpleName()),
                         StructuredArguments.keyValue("brokerHint", account.getType().name()));
@@ -171,8 +182,8 @@ public class FileIngestionService {
                 }
 
                 UUID statementId = stmt.get().getId();
-                for (int i = 0; i < lines.size(); i++) {
-                    ParsedStatementLine line = lines.get(i);
+                for (int j = 0; j < lines.size(); j++) {
+                    ParsedStatementLine line = lines.get(j);
                     Transaction txn = new Transaction();
                     txn.setUser(user);
                     txn.setAccount(account);
@@ -263,6 +274,10 @@ public class FileIngestionService {
                 account.setLastStatementDate(maxEffectiveEnd);
                 accountRepository.save(account);
             }
+        }
+
+        if (execCtx != null) {
+            execCtx.progress(files.size(), files.size(), "Completed");
         }
 
         return new FileIngestionResult(
