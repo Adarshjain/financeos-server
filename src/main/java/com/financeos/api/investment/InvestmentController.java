@@ -20,11 +20,14 @@ public class InvestmentController {
 
     private final InvestmentService investmentService;
     private final PriceRefreshService priceRefreshService;
+    private final com.financeos.domain.job.JobService jobService;
 
     public InvestmentController(InvestmentService investmentService,
-                                PriceRefreshService priceRefreshService) {
+                                PriceRefreshService priceRefreshService,
+                                com.financeos.domain.job.JobService jobService) {
         this.investmentService = investmentService;
         this.priceRefreshService = priceRefreshService;
+        this.jobService = jobService;
     }
 
     @PostMapping("/transactions")
@@ -68,7 +71,16 @@ public class InvestmentController {
     }
 
     @PostMapping("/prices/refresh")
-    public PriceRefreshResult refreshPrices(@RequestParam(required = false) UUID instrumentId) {
-        return priceRefreshService.refresh(Optional.ofNullable(instrumentId));
+    public org.springframework.http.ResponseEntity<com.financeos.api.job.dto.EnqueueResponse> refreshPrices(@RequestParam(required = false) UUID instrumentId) {
+        UUID currentUserId = com.financeos.core.security.UserContext.getCurrentUserId();
+        com.financeos.domain.job.Job job = jobService.enqueue(
+                currentUserId,
+                com.financeos.domain.job.JobType.PRICE_REFRESH,
+                com.financeos.domain.job.JobTrigger.USER,
+                new com.financeos.domain.job.handlers.PriceRefreshPayload(instrumentId),
+                null,
+                instrumentId != null ? "manual-" + instrumentId : "manual"
+        );
+        return org.springframework.http.ResponseEntity.accepted().body(new com.financeos.api.job.dto.EnqueueResponse(job.getId()));
     }
 }

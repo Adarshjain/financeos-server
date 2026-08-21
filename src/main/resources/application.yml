@@ -185,4 +185,20 @@ price:
       timeout-ms: 30000
       user-agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
 
+# Background Jobs configuration
+jobs:
+  worker:
+    concurrency: ${JOBS_WORKER_CONCURRENCY:2}
+    poll-delay-ms: ${JOBS_WORKER_POLL_DELAY_MS:2000}
+    queue-capacity: ${JOBS_WORKER_QUEUE_CAPACITY:100}
+    # How long a shutdown/deploy waits for running jobs to finish before killing them
+    # (killed jobs are swept to FAILED/INTERRUPTED on next boot).
+    shutdown-grace-seconds: ${JOBS_WORKER_SHUTDOWN_GRACE_SECONDS:60}
+  retention:
+    days: ${JOBS_RETENTION_DAYS:30}
+    failed-artifact-days: ${JOBS_FAILED_ARTIFACT_DAYS:7}
+    cron: ${JOBS_RETENTION_CRON:0 30 3 * * *}
+    zone: ${JOBS_RETENTION_ZONE:Asia/Kolkata}
+
+
 

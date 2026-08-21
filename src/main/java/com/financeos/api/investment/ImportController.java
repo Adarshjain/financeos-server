@@ -22,10 +22,14 @@ public class ImportController {
 
     private final ImportService importService;
     private final BrokerReconciliationService reconciliationService;
+    private final com.financeos.domain.job.JobService jobService;
 
-    public ImportController(ImportService importService, BrokerReconciliationService reconciliationService) {
+    public ImportController(ImportService importService,
+                            BrokerReconciliationService reconciliationService,
+                            com.financeos.domain.job.JobService jobService) {
         this.importService = importService;
         this.reconciliationService = reconciliationService;
+        this.jobService = jobService;
     }
 
     @PostMapping(value = "/preview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -38,8 +42,17 @@ public class ImportController {
     }
 
     @PostMapping("/commit")
-    public ImportCommitResponse commit(@Valid @RequestBody ImportCommitRequest request) {
-        return importService.commit(request.source(), request.brokerAccountId(), request.rows());
+    public org.springframework.http.ResponseEntity<com.financeos.api.job.dto.EnqueueResponse> commit(@Valid @RequestBody ImportCommitRequest request) {
+        UUID currentUserId = com.financeos.core.security.UserContext.getCurrentUserId();
+        com.financeos.domain.job.Job job = jobService.enqueue(
+                currentUserId,
+                com.financeos.domain.job.JobType.INVESTMENT_IMPORT_COMMIT,
+                com.financeos.domain.job.JobTrigger.USER,
+                new com.financeos.domain.job.handlers.InvestmentImportCommitPayload(request),
+                null,
+                "import-commit"
+        );
+        return org.springframework.http.ResponseEntity.accepted().body(new com.financeos.api.job.dto.EnqueueResponse(job.getId()));
     }
 
     @PostMapping(value = "/reconcile/preview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -69,7 +82,16 @@ public class ImportController {
     }
 
     @PostMapping("/reconcile/commit")
-    public ImportCommitResponse reconcileCommit(@Valid @RequestBody ReconcileCommitRequest request) {
-        return reconciliationService.commit(request);
+    public org.springframework.http.ResponseEntity<com.financeos.api.job.dto.EnqueueResponse> reconcileCommit(@Valid @RequestBody ReconcileCommitRequest request) {
+        UUID currentUserId = com.financeos.core.security.UserContext.getCurrentUserId();
+        com.financeos.domain.job.Job job = jobService.enqueue(
+                currentUserId,
+                com.financeos.domain.job.JobType.BROKER_RECONCILE_COMMIT,
+                com.financeos.domain.job.JobTrigger.USER,
+                new com.financeos.domain.job.handlers.BrokerReconcileCommitPayload(request),
+                null,
+                "reconcile-commit"
+        );
+        return org.springframework.http.ResponseEntity.accepted().body(new com.financeos.api.job.dto.EnqueueResponse(job.getId()));
     }
 }

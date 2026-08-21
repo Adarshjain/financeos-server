@@ -43,6 +43,7 @@ public class GmailController {
     private final SenderAllowlistService senderAllowlistService;
     private final GmailConnectionRepository connectionRepository;
     private final SyncStateService syncStateService;
+    private final com.financeos.domain.job.JobService jobService;
 
     @Value("${app.ui-path:http://localhost:3001}")
     private String uiPath;
@@ -52,13 +53,15 @@ public class GmailController {
                            GmailIngestionService gmailIngestionService,
                            SenderAllowlistService senderAllowlistService,
                            GmailConnectionRepository connectionRepository,
-                           SyncStateService syncStateService) {
+                           SyncStateService syncStateService,
+                           com.financeos.domain.job.JobService jobService) {
         this.oauthService = oauthService;
         this.authService = authService;
         this.gmailIngestionService = gmailIngestionService;
         this.senderAllowlistService = senderAllowlistService;
         this.connectionRepository = connectionRepository;
         this.syncStateService = syncStateService;
+        this.jobService = jobService;
     }
 
     @GetMapping("/oauth/start")
@@ -98,7 +101,7 @@ public class GmailController {
     }
 
     @PostMapping("/sync")
-    public ResponseEntity<SyncSummary> syncEmails() {
+    public ResponseEntity<com.financeos.api.job.dto.EnqueueResponse> syncEmails() {
         User currentUser = authService.getCurrentUser();
         GmailConnection connection = oauthService.getConnection(currentUser.getId());
 
@@ -106,10 +109,16 @@ public class GmailController {
             return ResponseEntity.badRequest().build();
         }
 
-        // Run full ingestion pipeline
-        SyncSummary summary = gmailIngestionService.syncConnection(connection);
+        com.financeos.domain.job.Job job = jobService.enqueue(
+                currentUser.getId(),
+                com.financeos.domain.job.JobType.GMAIL_SYNC,
+                com.financeos.domain.job.JobTrigger.USER,
+                new com.financeos.domain.job.handlers.GmailSyncPayload(connection.getId()),
+                null,
+                connection.getId().toString()
+        );
 
-        return ResponseEntity.ok(summary);
+        return ResponseEntity.accepted().body(new com.financeos.api.job.dto.EnqueueResponse(job.getId()));
     }
 
     @GetMapping("/connections")

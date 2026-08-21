@@ -47,17 +47,20 @@ public class RulesController {
     private final UserRepository userRepository;
     private final CategorizationService categorizationService;
     private final RuleMatchService ruleMatchService;
+    private final com.financeos.domain.job.JobService jobService;
 
     public RulesController(CategoryRuleRepository categoryRuleRepository,
                            CategoryRepository categoryRepository,
                            UserRepository userRepository,
                            CategorizationService categorizationService,
-                           RuleMatchService ruleMatchService) {
+                           RuleMatchService ruleMatchService,
+                           com.financeos.domain.job.JobService jobService) {
         this.categoryRuleRepository = categoryRuleRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.categorizationService = categorizationService;
         this.ruleMatchService = ruleMatchService;
+        this.jobService = jobService;
     }
 
     private static MatchType parseMatchType(String value) {
@@ -234,7 +237,7 @@ public class RulesController {
      * rule's categories keep propagating to them.
      */
     @PostMapping("/{id}/apply")
-    public ResponseEntity<ApplyRuleResponse> applyRule(
+    public ResponseEntity<com.financeos.api.job.dto.EnqueueResponse> applyRule(
             @PathVariable UUID id,
             @RequestBody ApplyRuleRequest request) {
 
@@ -253,10 +256,16 @@ public class RulesController {
             throw new ValidationException("Provide transactionIds or set all=true.");
         }
 
-        int applied = all
-                ? ruleMatchService.applyToAllMatches(rule.getId())
-                : ruleMatchService.applyToTransactions(rule.getId(), request.transactionIds());
-        return ResponseEntity.ok(new ApplyRuleResponse(applied));
+        com.financeos.domain.job.Job job = jobService.enqueue(
+                currentSessionUserId,
+                com.financeos.domain.job.JobType.RULE_APPLY,
+                com.financeos.domain.job.JobTrigger.USER,
+                new com.financeos.domain.job.handlers.RuleApplyPayload(id, all, request.transactionIds()),
+                null,
+                id.toString()
+        );
+
+        return ResponseEntity.accepted().body(new com.financeos.api.job.dto.EnqueueResponse(job.getId()));
     }
 
     @DeleteMapping("/{id}")

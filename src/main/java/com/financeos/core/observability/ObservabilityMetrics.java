@@ -40,6 +40,17 @@ public class ObservabilityMetrics {
         getOrCreateJobGauge(jobName, currentEpochSecond).set(currentEpochSecond);
     }
 
+    /**
+     * Increments job failure counter for a background job.
+     * @param jobName bounded job identifier
+     */
+    public void recordJobFailure(String jobName) {
+        Counter.builder("financeos.job.failures")
+                .tag("job", jobName != null ? jobName : "unknown")
+                .register(registry)
+                .increment();
+    }
+
     private AtomicLong getOrCreateJobGauge(String jobName, long initialEpochSecond) {
         return jobLastSuccessGauges.computeIfAbsent(jobName, name -> {
             AtomicLong gaugeValue = new AtomicLong(initialEpochSecond);
