@@ -37,12 +37,6 @@ public class GmailSender {
     @Column(name = "sender_address", nullable = false)
     private String senderAddress;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
-    @JdbcTypeCode(SqlTypes.VARCHAR)
-    private com.financeos.domain.account.Account account;
-
-
     @Column(nullable = false)
     private Boolean enabled = true;
 

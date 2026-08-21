@@ -37,10 +37,11 @@ public class GmailTransactionWriter {
 
         // 1. Watermark gate check: date >= ingest_from_date
         LocalDate txDate = extractionResult.date();
-        if (resolvedAccount != null && resolvedAccount.getIngestFromDate() != null) {
+        if (resolvedAccount.getIngestFromDate() != null) {
             if (txDate.isBefore(resolvedAccount.getIngestFromDate())) {
                 // Skip before watermark
                 GmailProcessedMessage processed = findOrCreateLedgerEntry(connection, gmailMessageId);
+                processed.setAccount(resolvedAccount);
                 processed.setStatus(GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK);
                 processed.setTransaction(null);
                 processed.setError(null);
@@ -67,21 +68,12 @@ public class GmailTransactionWriter {
 
         // 3. Record in ledger
         GmailProcessedMessage processed = findOrCreateLedgerEntry(connection, gmailMessageId);
+        processed.setAccount(resolvedAccount);
         processed.setStatus(GmailProcessedStatus.CREATED);
         processed.setTransaction(txn);
         processed.setError(null);
         processed.setProcessedAt(Instant.now());
 
-        return processedMessageRepository.save(processed);
-    }
-
-    @Transactional
-    public GmailProcessedMessage recordSkipped(GmailConnection connection, String gmailMessageId, GmailProcessedStatus status, String error) {
-        GmailProcessedMessage processed = findOrCreateLedgerEntry(connection, gmailMessageId);
-        processed.setStatus(status);
-        processed.setTransaction(null);
-        processed.setError(error);
-        processed.setProcessedAt(Instant.now());
         return processedMessageRepository.save(processed);
     }
 

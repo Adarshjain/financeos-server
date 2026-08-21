@@ -122,10 +122,11 @@ public class GmailIngestionService {
         // 4. Process each message
         for (GmailMessage message : fetchResult.messages()) {
             try {
-                // Check if message is already in processed ledger (terminal/non-FAILED state)
+                // Check if message is already in processed ledger. Every persisted entry is
+                // terminal and account-scoped; failures are not persisted, so absence = retryable.
                 var processedOpt = processedMessageRepository.findByConnectionIdAndGmailMessageId(
                         connection.getId(), message.messageId());
-                if (processedOpt.isPresent() && processedOpt.get().getStatus() != GmailProcessedStatus.FAILED) {
+                if (processedOpt.isPresent()) {
                     skipped++;
                     continue;
                 }
@@ -134,8 +135,7 @@ public class GmailIngestionService {
                 String fromAddress = extractEmailAddress(message.from());
                 GmailSender sender = findMatchingSender(senders, fromAddress);
                 if (sender == null) {
-                    gmailTransactionWriter.recordSkipped(connection, message.messageId(), 
-                            GmailProcessedStatus.SKIPPED_NOT_TRANSACTION, "Sender not in allowlist: " + fromAddress);
+                    log.debug("Skipping message {}: sender not in allowlist: {}", message.messageId(), fromAddress);
                     skipped++;
                     continue;
                 }
@@ -156,27 +156,23 @@ public class GmailIngestionService {
                 // TRANSACTION_ALERT purpose -> extract details via Gemini Flash
                 GeminiExtractionResult extractionResult = geminiExtractor.extract(message);
                 if (!extractionResult.isSuccess()) {
-                    gmailTransactionWriter.recordSkipped(connection, message.messageId(), 
-                            GmailProcessedStatus.FAILED, extractionResult.failureReason());
+                    log.warn("Extraction failed for message {}: {}", message.messageId(), extractionResult.failureReason());
                     failed++;
                     continue;
                 }
 
                 if (!extractionResult.isTransaction()) {
-                    gmailTransactionWriter.recordSkipped(connection, message.messageId(), 
-                            GmailProcessedStatus.SKIPPED_NOT_TRANSACTION, "Gemini classified as non-transaction");
+                    log.debug("Skipping message {}: Gemini classified as non-transaction", message.messageId());
                     skipped++;
                     continue;
                 }
 
-                // Resolve account with sender fallback
-                Account account = accountResolver.resolve(extractionResult.accountLast4(), sender).orElse(null);
+                // Resolve account by the last4 extracted from the email body (exactly-one rule)
+                Account account = accountResolver.resolve(extractionResult.accountLast4()).orElse(null);
 
                 if (account == null) {
                     log.warn("Could not resolve account for transaction (last4: {}, sender: {}). Ingestion failed.",
-                            extractionResult.accountLast4(), sender);
-                    gmailTransactionWriter.recordSkipped(connection, message.messageId(),
-                            GmailProcessedStatus.FAILED, "Failed to resolve account for last4: " + extractionResult.accountLast4());
+                            extractionResult.accountLast4(), sender.getSenderAddress());
                     failed++;
                     continue;
                 }
@@ -199,12 +195,6 @@ public class GmailIngestionService {
 
             } catch (Exception e) {
                 log.warn("Failed to process message: " + message.messageId(), e);
-                try {
-                    gmailTransactionWriter.recordSkipped(connection, message.messageId(), 
-                            GmailProcessedStatus.FAILED, "Internal error: " + e.getMessage());
-                } catch (Exception ex) {
-                    log.error("Failed to record failure in processed ledger", ex);
-                }
                 failed++;
             }
         }
