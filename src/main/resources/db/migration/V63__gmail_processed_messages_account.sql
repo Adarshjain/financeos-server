@@ -19,6 +19,7 @@ BEGIN
         EXECUTE IMMEDIATE 'ALTER TABLE gmail_processed_messages DROP (account_id) CASCADE CONSTRAINTS';
     END IF;
 END;
+/
 
 ALTER TABLE gmail_processed_messages ADD account_id VARCHAR2(36);
 
