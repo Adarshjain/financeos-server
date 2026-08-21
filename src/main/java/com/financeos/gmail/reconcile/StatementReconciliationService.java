@@ -88,7 +88,7 @@ public class StatementReconciliationService {
         ChosenAttachment chosen = pickStatementAttachment(connection, message);
         if (chosen == null) {
             log.warn("No statement attachment found in email: {}", message.messageId());
-            recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED, "No statement attachment found");
+            recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED, "No statement attachment found");
             return new ReconSummary(0, 0, 1);
         }
 
@@ -138,7 +138,7 @@ public class StatementReconciliationService {
 
             if (candidateAccount == null) {
                 log.error("Encrypted statement could not be decrypted with any stored password. File: {}", chosenAttachment.filename());
-                recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED,
+                recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED,
                         "Encrypted statement could not be decrypted with any stored password.");
                 return new ReconSummary(0, 0, 1);
             }
@@ -148,14 +148,16 @@ public class StatementReconciliationService {
         StatementExtractionResult result = statementParser.parse(chosenBytes, correctPassword);
         if (!result.success()) {
             log.error("Statement parse failed: {}", result.failureReason());
-            recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED, "Statement parse failed: " + result.failureReason());
+            // Deliberately not attributed to candidateAccount: persisted entries are terminal
+            // (presence = skip), and a parse failure must stay retryable on a future fetch.
+            recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED, "Statement parse failed: " + result.failureReason());
             return new ReconSummary(0, 0, 1);
         }
 
         List<ParsedStatementLine> allLines = result.lines();
         if (allLines.isEmpty()) {
             log.info("No transaction lines parsed from statement: {}. Skipping as non-statement.", message.messageId());
-            recordLedger(connection, message.messageId(), GmailProcessedStatus.SKIPPED_NOT_TRANSACTION,
+            recordLedger(connection, message.messageId(), candidateAccount, GmailProcessedStatus.SKIPPED_NOT_TRANSACTION,
                     "No transaction lines parsed from statement; skipped as non-statement");
             return new ReconSummary(0, 0, 0);
         }
@@ -187,7 +189,7 @@ public class StatementReconciliationService {
 
         if (resolvedAccount == null) {
             log.error("Could not resolve account for statement (accountNumber: {}). Ingestion failed.", statementAccountNumber);
-            recordLedger(connection, message.messageId(), GmailProcessedStatus.FAILED,
+            recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED,
                     "Failed to resolve account for statement accountNumber: " + statementAccountNumber);
             return new ReconSummary(0, 0, 1);
         }
@@ -198,7 +200,7 @@ public class StatementReconciliationService {
         if (stmt.isEmpty()) {
             log.info("Statement already ingested for account {} (message {})", resolvedAccount.getId(), message.messageId());
             updateLastStatementDate(resolvedAccount, result);
-            recordLedger(connection, message.messageId(), GmailProcessedStatus.RECONCILED, null);
+            recordLedger(connection, message.messageId(), resolvedAccount, GmailProcessedStatus.RECONCILED, null);
             return new ReconSummary(0, 0, 0);
         }
 
@@ -211,7 +213,7 @@ public class StatementReconciliationService {
         if (candidateLines.isEmpty()) {
             log.info("All statement lines were before watermark date: {}", watermark);
             updateLastStatementDate(resolvedAccount, result);
-            recordLedger(connection, message.messageId(), GmailProcessedStatus.RECONCILED, null);
+            recordLedger(connection, message.messageId(), resolvedAccount, GmailProcessedStatus.RECONCILED, null);
             return new ReconSummary(0, 0, 0);
         }
 
@@ -297,7 +299,7 @@ public class StatementReconciliationService {
 
         // Record successful reconciliation run in the ledger
         updateLastStatementDate(resolvedAccount, result);
-        recordLedger(connection, message.messageId(), GmailProcessedStatus.RECONCILED, null);
+        recordLedger(connection, message.messageId(), resolvedAccount, GmailProcessedStatus.RECONCILED, null);
 
         // Categorization is deliberately NOT done here: this method is @Transactional and the
         // categorizer makes a Gemini HTTP call, which must not run while holding a DB connection.
@@ -388,7 +390,16 @@ public class StatementReconciliationService {
         return null;
     }
 
-    private void recordLedger(GmailConnection connection, String messageId, GmailProcessedStatus status, String error) {
+    /**
+     * Ledger entries are account-scoped facts and cascade-delete with the account. Outcomes with
+     * no resolved account (parse/decrypt/resolve failures, non-statements) are logged, not
+     * persisted, which leaves them implicitly retryable on a future fetch of the same message.
+     */
+    private void recordLedger(GmailConnection connection, String messageId, Account account, GmailProcessedStatus status, String error) {
+        if (account == null) {
+            log.info("Not recording ledger entry for message {} (status {}, no resolved account): {}", messageId, status, error);
+            return;
+        }
         GmailProcessedMessage processed = processedMessageRepository
                 .findByConnectionIdAndGmailMessageId(connection.getId(), messageId)
                 .orElseGet(() -> {
@@ -398,6 +409,7 @@ public class StatementReconciliationService {
                     pm.setGmailMessageId(messageId);
                     return pm;
                 });
+        processed.setAccount(account);
         processed.setStatus(status);
         processed.setError(error);
         processed.setProcessedAt(Instant.now());

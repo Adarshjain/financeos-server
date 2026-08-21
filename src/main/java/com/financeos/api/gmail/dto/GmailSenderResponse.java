@@ -7,18 +7,14 @@ public record GmailSenderResponse(
     UUID id,
     String name,
     String senderAddress,
-    boolean enabled,
-    UUID accountId,
-    String accountName
+    boolean enabled
 ) {
     public static GmailSenderResponse from(GmailSender sender) {
         return new GmailSenderResponse(
             sender.getId(),
             sender.getName(),
             sender.getSenderAddress(),
-            sender.getEnabled(),
-            sender.getAccount() != null ? sender.getAccount().getId() : null,
-            sender.getAccount() != null ? sender.getAccount().getName() : null
+            sender.getEnabled()
         );
     }
 }

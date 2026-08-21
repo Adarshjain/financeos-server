@@ -63,17 +63,4 @@ public class AccountResolver {
         return Optional.empty();
     }
 
-    @Transactional(readOnly = true)
-    public Optional<Account> resolve(String accountLast4, GmailSender sender) {
-        Optional<Account> resolved = resolve(accountLast4);
-        if (resolved.isPresent()) {
-            return resolved;
-        }
-        if (sender != null && sender.getAccount() != null) {
-            return Optional.of(sender.getAccount());
-        }
-        return Optional.empty();
-    }
-
-
 }
