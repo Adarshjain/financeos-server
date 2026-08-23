@@ -17,6 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import com.financeos.gmail.domain.GmailBackfillDemand;
+import com.financeos.gmail.domain.GmailBackfillDemandRepository;
+import com.financeos.gmail.ingest.event.AccountIngestChangedEvent;
+import org.springframework.context.ApplicationEventPublisher;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -28,17 +33,23 @@ public class AccountService {
     private final StatementRepository statementRepository;
     private final TransactionRepository transactionRepository;
     private final HoldingValuationService holdingValuationService;
+    private final GmailBackfillDemandRepository backfillDemandRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     public AccountService(AccountRepository accountRepository,
             UserRepository userRepository,
             StatementRepository statementRepository,
             TransactionRepository transactionRepository,
-            HoldingValuationService holdingValuationService) {
+            HoldingValuationService holdingValuationService,
+            GmailBackfillDemandRepository backfillDemandRepository,
+            ApplicationEventPublisher eventPublisher) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.statementRepository = statementRepository;
         this.transactionRepository = transactionRepository;
         this.holdingValuationService = holdingValuationService;
+        this.backfillDemandRepository = backfillDemandRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     public Account createAccount(CreateAccountRequest request) {
@@ -80,6 +91,13 @@ public class AccountService {
 
         Account saved = accountRepository.save(account);
         populateBalanceInfo(saved);
+
+        if (saved.getIngestFromDate() != null) {
+            ratchetDemand(user, saved.getIngestFromDate());
+        }
+        String last4 = extractLast4(saved);
+        eventPublisher.publishEvent(new AccountIngestChangedEvent(userId, last4, saved.getIngestFromDate()));
+
         return saved;
     }
 
@@ -109,11 +127,15 @@ public class AccountService {
             throw new ValidationException("Changing account type is not supported");
         }
 
+        LocalDate oldDate = account.getIngestFromDate();
+        String oldLast4 = extractLast4(account);
+        LocalDate newDate = request.ingestFromDate();
+
         account.setName(request.name());
         account.setExcludeFromNetAsset(request.excludeFromNetAsset() != null ? request.excludeFromNetAsset() : false);
         account.setFinancialPosition(request.financialPosition());
         account.setDescription(request.description());
-        account.setIngestFromDate(request.ingestFromDate());
+        account.setIngestFromDate(newDate);
 
         switch (request) {
             case CreateAccountRequest.BankAccountRequest bankReq -> account = addBankDetails(account, bankReq);
@@ -126,7 +148,47 @@ public class AccountService {
 
         Account saved = accountRepository.save(account);
         populateBalanceInfo(saved);
+
+        if (newDate != null && (oldDate == null || newDate.isBefore(oldDate))) {
+            ratchetDemand(saved.getUser(), newDate);
+        }
+
+        String newLast4 = extractLast4(saved);
+        boolean dateChanged = !Objects.equals(oldDate, newDate);
+        boolean last4Changed = !Objects.equals(oldLast4, newLast4);
+
+        if (dateChanged || last4Changed) {
+            eventPublisher.publishEvent(new AccountIngestChangedEvent(saved.getUser().getId(), newLast4, newDate));
+        }
+
         return saved;
+    }
+
+    private void ratchetDemand(User user, LocalDate newDate) {
+        if (newDate == null) {
+            return;
+        }
+        var demandOpt = backfillDemandRepository.findById(user.getId());
+        if (demandOpt.isEmpty()) {
+            GmailBackfillDemand demand = new GmailBackfillDemand(user, newDate);
+            backfillDemandRepository.save(demand);
+        } else {
+            GmailBackfillDemand demand = demandOpt.get();
+            if (demand.getFloorDate() == null || newDate.isBefore(demand.getFloorDate())) {
+                demand.setFloorDate(newDate);
+                backfillDemandRepository.save(demand);
+            }
+        }
+    }
+
+    private String extractLast4(Account account) {
+        if (account.getBankDetails() != null && account.getBankDetails().getLast4() != null) {
+            return account.getBankDetails().getLast4();
+        }
+        if (account.getCreditCardDetails() != null && account.getCreditCardDetails().getLast4() != null) {
+            return account.getCreditCardDetails().getLast4();
+        }
+        return null;
     }
 
     public Account addBankDetails(Account account, CreateAccountRequest.BankAccountRequest request) {

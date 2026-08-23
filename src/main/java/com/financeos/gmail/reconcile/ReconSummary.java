@@ -1,7 +1,7 @@
 package com.financeos.gmail.reconcile;
 
 import com.financeos.domain.transaction.Transaction;
-import com.financeos.gmail.ingest.SyncSummary;
+import com.financeos.gmail.domain.GmailProcessedStatus;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public record ReconSummary(
     int matched,
     int failed,
     List<Transaction> createdTransactions,
-    SyncSummary.Outcome failureOutcome,  // nullable — set when failed > 0
+    GmailProcessedStatus failureOutcome,  // nullable — set when failed > 0
     String failureReason,                // nullable
     String attachmentFilename,           // nullable — the chosen attachment, when known
     String accountLast4,                 // nullable — parsed statement account number tail for ACCOUNT_UNRESOLVED
@@ -24,4 +24,3 @@ public record ReconSummary(
         this(created, matched, failed, createdTransactions, null, null, null, null, false);
     }
 }
-

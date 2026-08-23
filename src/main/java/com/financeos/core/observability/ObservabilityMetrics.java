@@ -91,4 +91,22 @@ public class ObservabilityMetrics {
                 .register(registry)
                 .increment(tokenCount);
     }
+
+    public void recordGmailDiscovered(int count) {
+        if (count > 0) {
+            Counter.builder("financeos.gmail.discovered").register(registry).increment(count);
+        }
+    }
+
+    public void recordGmailProcessed(int count) {
+        if (count > 0) {
+            Counter.builder("financeos.gmail.processed").register(registry).increment(count);
+        }
+    }
+
+    public void recordGmailRetried(int count) {
+        if (count > 0) {
+            Counter.builder("financeos.gmail.retried").register(registry).increment(count);
+        }
+    }
 }

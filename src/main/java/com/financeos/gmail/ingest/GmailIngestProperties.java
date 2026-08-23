@@ -12,5 +12,11 @@ import org.springframework.stereotype.Component;
 public class GmailIngestProperties {
     private boolean enabled = true;
     private int firstBackfillDays = 30;
+    private int maxBackfillDays = 365;
     private int dateWindowDays = 3;
+    private int overlapLapMinutes = 15;
+    private int processBudget = 100;
+    private int backfillProcessBudget = 500;
+    private int retryMaxAttempts = 5;
+    private int staleProcessingMinutes = 60;
 }

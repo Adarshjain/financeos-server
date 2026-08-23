@@ -34,7 +34,11 @@ public class GeminiExtractor {
 
             // Construct prompt
             String prompt = String.format(
-                    "Extract transaction details from the following email alert.\n" +
+                    "Extract the details of the financial transaction described in this bank/card alert email.\n" +
+                    "Report only values stated in the email; never guess a missing value.\n" +
+                    "Set isTransaction=false if the email does not confirm a single completed movement of money — " +
+                    "e.g. OTPs, payment requests, failed or declined transactions, balance-only updates, " +
+                    "bill-due or autopay reminders, promotional offers. Refunds and reversals ARE transactions.\n\n" +
                     "Subject: %s\n" +
                     "Body:\n%s",
                     subject, bodyText
@@ -45,21 +49,28 @@ public class GeminiExtractor {
             schema.put("type", "object");
 
             ObjectNode properties = schema.putObject("properties");
-            properties.putObject("isTransaction").put("type", "boolean");
-            properties.putObject("amount").put("type", "number");
-            properties.putObject("currency").put("type", "string");
+            properties.putObject("isTransaction").put("type", "boolean")
+                    .put("description", "true only if the email confirms one completed transaction");
+            properties.putObject("amount").put("type", "number")
+                    .put("description", "The transaction amount only — never the available balance, credit limit, total due, or reward points also mentioned in the email");
+            properties.putObject("currency").put("type", "string")
+                    .put("description", "ISO 4217 code, e.g. INR, USD. ₹, Rs and Rs. all mean INR");
 
             ObjectNode direction = properties.putObject("direction");
             direction.put("type", "string");
+            direction.put("description", "DEBIT if money left the user's account/card (spend, transfer out, withdrawal); CREDIT if money came in (deposit, refund, cashback, reversal)");
             direction.putArray("enum").add("DEBIT").add("CREDIT");
 
             ObjectNode date = properties.putObject("date");
             date.put("type", "string");
-            date.put("description", "Format: YYYY-MM-DD");
+            date.put("description", "The date the transaction occurred — not the email date, statement date, or due date. Format: YYYY-MM-DD. Treat ambiguous numeric dates as day-first (DD/MM/YYYY)");
 
-            properties.putObject("description").put("type", "string");
-            properties.putObject("accountLast4").put("type", "string");
-            properties.putObject("confidence").put("type", "number");
+            properties.putObject("description").put("type", "string")
+                    .put("description", "The counterparty only: the merchant, payee, or sender name (or UPI ID if no name is given). Never include boilerplate like 'payment to', 'paid to', 'received from', 'purchase at', and never include amounts, dates, or reference numbers");
+            properties.putObject("accountLast4").put("type", "string")
+                    .put("description", "Last 4 digits of the user's account or card involved, digits only (e.g. 1234). Omit if not stated");
+            properties.putObject("confidence").put("type", "number")
+                    .put("description", "Confidence in the extracted values, 0 to 1");
 
             schema.putArray("required").add("isTransaction");
 

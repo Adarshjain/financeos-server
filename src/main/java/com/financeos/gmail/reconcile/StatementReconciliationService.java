@@ -89,8 +89,8 @@ public class StatementReconciliationService {
         ChosenAttachment chosen = pickStatementAttachment(connection, message);
         if (chosen == null) {
             log.warn("No statement attachment found in email: {}", message.messageId());
-            recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED, "No statement attachment found");
-            return new ReconSummary(0, 0, 1, List.of(), SyncSummary.Outcome.NO_ATTACHMENT, "No statement attachment found", null, null, false);
+            recordLedger(connection, message.messageId(), null, GmailProcessedStatus.SKIPPED_NOT_TRANSACTION, "No statement attachment found");
+            return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.SKIPPED_NOT_TRANSACTION, "No statement attachment found", null, null, false);
         }
 
         GmailAttachment chosenAttachment = chosen.attachment();
@@ -139,9 +139,9 @@ public class StatementReconciliationService {
 
             if (candidateAccount == null) {
                 log.error("Encrypted statement could not be decrypted with any stored password. File: {}", chosenAttachment.filename());
-                recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED,
+                recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED_PERMANENT,
                         "Encrypted statement could not be decrypted with any stored password.");
-                return new ReconSummary(0, 0, 1, List.of(), SyncSummary.Outcome.DECRYPT_FAILED, "Encrypted statement could not be decrypted with any stored password", chosenAttachment.filename(), null, false);
+                return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, "Encrypted statement could not be decrypted with any stored password", chosenAttachment.filename(), null, false);
             }
         }
 
@@ -149,10 +149,8 @@ public class StatementReconciliationService {
         StatementExtractionResult result = statementParser.parse(chosenBytes, correctPassword);
         if (!result.success()) {
             log.error("Statement parse failed: {}", result.failureReason());
-            // Deliberately not attributed to candidateAccount: persisted entries are terminal
-            // (presence = skip), and a parse failure must stay retryable on a future fetch.
-            recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED, "Statement parse failed: " + result.failureReason());
-            return new ReconSummary(0, 0, 1, List.of(), SyncSummary.Outcome.PARSE_FAILED, "Statement parse failed: " + result.failureReason(), chosenAttachment.filename(), null, false);
+            recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED_PERMANENT, "Statement parse failed: " + result.failureReason());
+            return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, "Statement parse failed: " + result.failureReason(), chosenAttachment.filename(), null, false);
         }
 
         List<ParsedStatementLine> allLines = result.lines();
@@ -188,16 +186,23 @@ public class StatementReconciliationService {
             resolvedAccount = last4ResolvedAccount;
         }
 
+        String statementLast4 = (statementAccountNumber != null && statementAccountNumber.length() >= 4)
+                ? statementAccountNumber.substring(statementAccountNumber.length() - 4) : statementAccountNumber;
+
         if (resolvedAccount == null) {
             log.error("Could not resolve account for statement (accountNumber: {}). Ingestion failed.", statementAccountNumber);
-            recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED,
+            recordLedger(connection, message.messageId(), null, GmailProcessedStatus.UNRESOLVED_ACCOUNT, statementLast4,
                     "Failed to resolve account for statement accountNumber: " + statementAccountNumber);
-            String last4 = (statementAccountNumber != null && statementAccountNumber.length() >= 4)
-                    ? statementAccountNumber.substring(statementAccountNumber.length() - 4) : statementAccountNumber;
-            return new ReconSummary(0, 0, 1, List.of(), SyncSummary.Outcome.ACCOUNT_UNRESOLVED,
-                    "No single account matches statement number " + statementAccountNumber, chosenAttachment.filename(), last4, false);
+            return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.UNRESOLVED_ACCOUNT,
+                    "No single account matches statement number " + statementAccountNumber, chosenAttachment.filename(), statementLast4, false);
         }
 
+        if (resolvedAccount.getIngestFromDate() == null) {
+            log.info("Resolved account {} for statement is not opted-in (ingestFromDate is null). Parking message.", resolvedAccount.getId());
+            recordLedger(connection, message.messageId(), resolvedAccount, GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN, statementLast4,
+                    "Account " + resolvedAccount.getName() + " is not opted in for Gmail ingestion");
+            return new ReconSummary(0, 0, 0, List.of(), null, "Account not opted in", chosenAttachment.filename(), statementLast4, false);
+        }
 
         // 5. Create statement record if not a duplicate (before watermark filtering / matching)
         Optional<Statement> stmt = statementPersistenceService.createIfNew(connection.getUser(), resolvedAccount,
@@ -395,16 +400,7 @@ public class StatementReconciliationService {
         return null;
     }
 
-    /**
-     * Ledger entries are account-scoped facts and cascade-delete with the account. Outcomes with
-     * no resolved account (parse/decrypt/resolve failures, non-statements) are logged, not
-     * persisted, which leaves them implicitly retryable on a future fetch of the same message.
-     */
-    private void recordLedger(GmailConnection connection, String messageId, Account account, GmailProcessedStatus status, String error) {
-        if (account == null) {
-            log.info("Not recording ledger entry for message {} (status {}, no resolved account): {}", messageId, status, error);
-            return;
-        }
+    private void recordLedger(GmailConnection connection, String messageId, Account account, GmailProcessedStatus status, String extractedLast4, String error) {
         GmailProcessedMessage processed = processedMessageRepository
                 .findByConnectionIdAndGmailMessageId(connection.getId(), messageId)
                 .orElseGet(() -> {
@@ -416,9 +412,14 @@ public class StatementReconciliationService {
                 });
         processed.setAccount(account);
         processed.setStatus(status);
+        processed.setExtractedLast4(extractedLast4);
         processed.setError(error);
         processed.setProcessedAt(Instant.now());
         processedMessageRepository.save(processed);
+    }
+
+    private void recordLedger(GmailConnection connection, String messageId, Account account, GmailProcessedStatus status, String error) {
+        recordLedger(connection, messageId, account, status, null, error);
     }
 
     private void updateLastStatementDate(Account account, StatementExtractionResult result) {

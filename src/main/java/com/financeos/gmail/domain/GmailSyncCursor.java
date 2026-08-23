@@ -1,24 +1,25 @@
 package com.financeos.gmail.domain;
 
+import com.financeos.domain.user.User;
+import com.financeos.gmail.ingest.GmailSender;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Filter;
-import com.financeos.domain.user.User;
-
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "gmail_sync_state")
+@Table(name = "gmail_sync_cursors", uniqueConstraints = {
+        @UniqueConstraint(name = "uk_gsc_conn_sender", columnNames = {"connection_id", "sender_id"})
+})
 @Getter
 @Setter
 @NoArgsConstructor
-@Filter(name = "userFilter", condition = "user_id = :userId")
-public class GmailSyncStateEntity {
+public class GmailSyncCursor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -27,25 +28,30 @@ public class GmailSyncStateEntity {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "connection_id", nullable = false, unique = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "connection_id", nullable = false)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private GmailConnection connection;
 
-    @Column(name = "history_id", nullable = false)
-    private String historyId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender_id", nullable = false)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private GmailSender sender;
 
-    @Column(name = "last_synced_at", nullable = false)
-    private Instant lastSyncedAt;
+    @Column(name = "last_listed_at", nullable = false)
+    private Instant lastListedAt;
 
-    @Column(name = "created_at")
+    @Column(name = "earliest_covered_at", nullable = false)
+    private Instant earliestCoveredAt;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
     @PrePersist

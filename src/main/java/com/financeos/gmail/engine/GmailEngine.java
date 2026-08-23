@@ -2,14 +2,13 @@ package com.financeos.gmail.engine;
 
 import com.financeos.gmail.client.GmailApiClient;
 import com.financeos.gmail.domain.GmailConnection;
-import com.financeos.gmail.history.SyncStateService;
 import com.financeos.gmail.internal.*;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.*;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -25,211 +24,165 @@ import java.util.List;
 public class GmailEngine {
 
     private final GmailApiClient gmailApiClient;
-    private final SyncStateService syncStateService;
 
-    public GmailEngine(GmailApiClient gmailApiClient, SyncStateService syncStateService) {
+    public GmailEngine(GmailApiClient gmailApiClient) {
         this.gmailApiClient = gmailApiClient;
-        this.syncStateService = syncStateService;
+    }
+
+    public Gmail createService(GmailConnection connection) throws IOException {
+        String refreshToken = connection.getEncryptedRefreshToken();
+        if (refreshToken == null || refreshToken.isEmpty()) {
+            throw new GmailEngineException(GmailError.INVALID_STATE, "No refresh token available");
+        }
+        return gmailApiClient.createGmailService(refreshToken);
     }
 
     /**
-     * Public contract: Fetch emails.
-     * 
-     * @param connection Gmail connection with encrypted refresh token
-     * @param request Fetch request with mode, time range, limits
-     * @return Raw messages and attachments, plus next sync state
-     * @throws GmailEngineException on fetch errors
+     * Uncapped message ID listing by query.
      */
-    public GmailFetchResult fetch(GmailConnection connection, GmailFetchRequest request) {
+    public List<String> listMessageIds(GmailConnection connection, String query) {
         try {
-            // Decrypt and create Gmail service
-            String refreshToken = connection.getEncryptedRefreshToken();
-            if (refreshToken == null || refreshToken.isEmpty()) {
-                throw new GmailEngineException(GmailError.INVALID_STATE, "No refresh token available");
-            }
-
-            Gmail service = gmailApiClient.createGmailService(refreshToken);
-
-            // Get current sync state
-            GmailSyncState currentState = syncStateService.getSyncState(connection.getId());
-
-            // Fetch messages
-            List<GmailMessage> messages = fetchMessages(service, request, currentState);
-
-            // Update sync state
-            String newHistoryId = extractHistoryId(service, currentState);
-            Instant lastSyncedAt = Instant.now();
-
-            GmailSyncState nextState = new GmailSyncState(newHistoryId, lastSyncedAt);
-
-            return new GmailFetchResult(messages, nextState);
-
-        } catch (IOException e) {
-            // Check for specific error types
-            String errorMsg = e.getMessage();
-            if (errorMsg != null) {
-                if (errorMsg.contains("401") || errorMsg.contains("403")) {
-                    throw new GmailEngineException(GmailError.AUTH_ERROR, "Authentication failed", e);
-                }
-                if (errorMsg.contains("429") || errorMsg.contains("rate limit")) {
-                    throw new GmailEngineException(GmailError.RATE_LIMIT, "Rate limit exceeded", e);
-                }
-            }
-            throw new GmailEngineException(GmailError.NETWORK_ERROR, "Network error during fetch", e);
-        }
-    }
-
-    /**
-     * Fetch messages based on request mode.
-     */
-    private List<GmailMessage> fetchMessages(Gmail service, GmailFetchRequest request, GmailSyncState currentState) throws IOException {
-        List<GmailMessage> messages;
-
-        if (currentState != null && request.mode() == FetchMode.PERIODIC) {
-            // Incremental sync using historyId
-            messages = fetchIncremental(service, currentState.historyId(), request.maxMessages());
-        } else {
-            // Full sync or manual fetch
-            messages = fetchFull(service, request, request.maxMessages());
-        }
-
-        return messages;
-    }
-
-    /**
-     * Fetch messages incrementally using history.
-     */
-    private List<GmailMessage> fetchIncremental(Gmail service, String startHistoryId, Integer maxMessages) throws IOException {
-        List<GmailMessage> messages = new ArrayList<>();
-        String pageToken = null;
-        int fetched = 0;
-
-        BigInteger historyIdBigInt = new BigInteger(startHistoryId);
-        long maxResultsLong = maxMessages != null ? Math.min(maxMessages - fetched, 100L) : 100L;
-
-        do {
-            ListHistoryResponse historyResponse = gmailApiClient.getHistory(
-                    service,
-                    historyIdBigInt,
-                    pageToken,
-                    maxResultsLong
-            );
-
-            List<History> historyList = historyResponse.getHistory();
-            if (historyList == null) {
-                break;
-            }
-
-            for (History history : historyList) {
-                List<HistoryMessageAdded> addedMessages = history.getMessagesAdded();
-                if (addedMessages != null) {
-                    for (HistoryMessageAdded added : addedMessages) {
-                        if (maxMessages != null && fetched >= maxMessages) {
-                            break;
-                        }
-                        Message msg = added.getMessage();
-                        if (msg != null && msg.getId() != null) {
-                            GmailMessage gmailMessage = fetchMessageDetails(service, msg.getId());
-                            if (gmailMessage != null) {
-                                messages.add(gmailMessage);
-                                fetched++;
-                            }
+            Gmail service = createService(connection);
+            List<String> messageIds = new ArrayList<>();
+            String pageToken = null;
+            do {
+                ListMessagesResponse listResponse = gmailApiClient.listMessages(
+                        service,
+                        query,
+                        pageToken,
+                        100L
+                );
+                List<Message> messageList = listResponse.getMessages();
+                if (messageList != null) {
+                    for (Message msg : messageList) {
+                        if (msg.getId() != null) {
+                            messageIds.add(msg.getId());
                         }
                     }
                 }
+                pageToken = listResponse.getNextPageToken();
+            } while (pageToken != null);
+
+            return messageIds;
+        } catch (GoogleJsonResponseException e) {
+            if (e.getStatusCode() == 401 || e.getStatusCode() == 403) {
+                throw new GmailEngineException(GmailError.AUTH_ERROR, "Authentication failed", e);
             }
-
-            pageToken = historyResponse.getNextPageToken();
-            maxResultsLong = maxMessages != null ? Math.min(maxMessages - fetched, 100L) : 100L;
-        } while (pageToken != null && (maxMessages == null || fetched < maxMessages));
-
-        return messages;
+            if (e.getStatusCode() == 429) {
+                throw new GmailEngineException(GmailError.RATE_LIMIT, "Rate limit exceeded", e);
+            }
+            throw new GmailEngineException(GmailError.NETWORK_ERROR, "Google API error: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw handleIOException(e);
+        }
     }
 
     /**
-     * Fetch messages with time filter.
+     * Fetch full message details including attachments. Map 404 to MessageGoneException.
      */
-    private List<GmailMessage> fetchFull(Gmail service, GmailFetchRequest request, Integer maxMessages) throws IOException {
-        List<GmailMessage> messages = new ArrayList<>();
-        String query = buildQuery(request);
-        String pageToken = null;
-        int fetched = 0;
+    public GmailMessage fetchMessageDetails(GmailConnection connection, String messageId) {
+        try {
+            Gmail service = createService(connection);
+            return fetchMessageDetails(service, messageId);
+        } catch (IOException e) {
+            throw handleIOException(e);
+        }
+    }
 
-        do {
-            long maxResultsLong = maxMessages != null ? Math.min(maxMessages - fetched, 100L) : 100L;
-            ListMessagesResponse listResponse = gmailApiClient.listMessages(
-                    service,
-                    query,
-                    pageToken,
-                    maxResultsLong
+    /**
+     * Fetch full message details using an existing Gmail service instance.
+     */
+    public GmailMessage fetchMessageDetails(Gmail service, String messageId) {
+        try {
+            Message message;
+            try {
+                message = gmailApiClient.getMessage(service, messageId);
+            } catch (GoogleJsonResponseException e) {
+                if (e.getStatusCode() == 404) {
+                    throw new MessageGoneException(messageId);
+                }
+                throw e;
+            }
+
+            if (message == null) {
+                throw new MessageGoneException(messageId);
+            }
+
+            String from = extractHeader(message, "From");
+            String subject = extractHeader(message, "Subject");
+            Long internalDate = message.getInternalDate();
+            Instant date = internalDate != null ? Instant.ofEpochMilli(internalDate) : Instant.now();
+
+            String snippet = message.getSnippet();
+
+            StringBuilder textBuilder = new StringBuilder();
+            StringBuilder htmlBuilder = new StringBuilder();
+            MessagePart payload = message.getPayload();
+            if (payload != null) {
+                extractBodyPartsRecursive(payload, textBuilder, htmlBuilder);
+            }
+
+            List<GmailAttachment> attachments = extractAttachments(message);
+
+            return new GmailMessage(
+                    messageId,
+                    date,
+                    from != null ? from : "",
+                    subject != null ? subject : "",
+                    snippet != null ? snippet : "",
+                    textBuilder.toString(),
+                    htmlBuilder.toString(),
+                    attachments != null ? attachments : List.of()
             );
 
-            List<Message> messageList = listResponse.getMessages();
-            if (messageList == null) {
-                break;
+        } catch (MessageGoneException e) {
+            throw e;
+        } catch (GoogleJsonResponseException e) {
+            if (e.getStatusCode() == 404) {
+                throw new MessageGoneException(messageId);
             }
-
-            for (Message msg : messageList) {
-                if (maxMessages != null && fetched >= maxMessages) {
-                    break;
-                }
-                GmailMessage gmailMessage = fetchMessageDetails(service, msg.getId());
-                if (gmailMessage != null) {
-                    messages.add(gmailMessage);
-                    fetched++;
-                }
+            if (e.getStatusCode() == 401 || e.getStatusCode() == 403) {
+                throw new GmailEngineException(GmailError.AUTH_ERROR, "Authentication failed", e);
             }
-
-            pageToken = listResponse.getNextPageToken();
-        } while (pageToken != null && (maxMessages == null || fetched < maxMessages));
-
-        return messages;
+            if (e.getStatusCode() == 429) {
+                throw new GmailEngineException(GmailError.RATE_LIMIT, "Rate limit exceeded", e);
+            }
+            throw new GmailEngineException(GmailError.NETWORK_ERROR, "Google API error: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw handleIOException(e);
+        }
     }
 
     /**
-     * Fetch full message details including attachments.
+     * Fetch attachment content lazily.
      */
-    private GmailMessage fetchMessageDetails(Gmail service, String messageId) throws IOException {
-        Message message = gmailApiClient.getMessage(service, messageId);
-        if (message == null) {
-            return null;
+    public byte[] fetchAttachmentContent(GmailConnection connection, String messageId, String attachmentId) {
+        try {
+            Gmail service = createService(connection);
+            return gmailApiClient.getAttachment(service, messageId, attachmentId);
+        } catch (GoogleJsonResponseException e) {
+            if (e.getStatusCode() == 404) {
+                throw new MessageGoneException(messageId);
+            }
+            throw handleIOException(e);
+        } catch (IOException e) {
+            throw handleIOException(e);
         }
-
-        // Extract headers
-        String from = extractHeader(message, "From");
-        String subject = extractHeader(message, "Subject");
-        Long internalDate = message.getInternalDate();
-        Instant date = internalDate != null ? Instant.ofEpochMilli(internalDate) : Instant.now();
-
-        // Extract snippet
-        String snippet = message.getSnippet();
-
-        // Extract body text and HTML
-        StringBuilder textBuilder = new StringBuilder();
-        StringBuilder htmlBuilder = new StringBuilder();
-        MessagePart payload = message.getPayload();
-        if (payload != null) {
-            extractBodyPartsRecursive(payload, textBuilder, htmlBuilder);
-        }
-
-        // Extract attachments
-        List<GmailAttachment> attachments = extractAttachments(message);
-
-        return new GmailMessage(
-                messageId,
-                date,
-                from != null ? from : "",
-                subject != null ? subject : "",
-                snippet != null ? snippet : "",
-                textBuilder.toString(),
-                htmlBuilder.toString(),
-                attachments != null ? attachments : List.of()
-        );
     }
 
-    /**
-     * Decode a base64url-encoded string.
-     */
+    private GmailEngineException handleIOException(IOException e) {
+        String errorMsg = e.getMessage();
+        if (errorMsg != null) {
+            if (errorMsg.contains("401") || errorMsg.contains("403")) {
+                return new GmailEngineException(GmailError.AUTH_ERROR, "Authentication failed", e);
+            }
+            if (errorMsg.contains("429") || errorMsg.contains("rate limit")) {
+                return new GmailEngineException(GmailError.RATE_LIMIT, "Rate limit exceeded", e);
+            }
+        }
+        return new GmailEngineException(GmailError.NETWORK_ERROR, "Network error during fetch", e);
+    }
+
     private String decodeBase64Url(String base64UrlStr) {
         if (base64UrlStr == null || base64UrlStr.isEmpty()) {
             return "";
@@ -241,9 +194,6 @@ public class GmailEngine {
         }
     }
 
-    /**
-     * Recursively walk the MIME tree to extract body text and html.
-     */
     private void extractBodyPartsRecursive(MessagePart part, StringBuilder textBuilder, StringBuilder htmlBuilder) {
         String mimeType = part.getMimeType();
         MessagePartBody body = part.getBody();
@@ -265,25 +215,6 @@ public class GmailEngine {
         }
     }
 
-    /**
-     * Fetch attachment content lazily.
-     */
-    public byte[] fetchAttachmentContent(GmailConnection connection, String messageId, String attachmentId) {
-        try {
-            String refreshToken = connection.getEncryptedRefreshToken();
-            if (refreshToken == null || refreshToken.isEmpty()) {
-                throw new GmailEngineException(GmailError.INVALID_STATE, "No refresh token available");
-            }
-            Gmail service = gmailApiClient.createGmailService(refreshToken);
-            return gmailApiClient.getAttachment(service, messageId, attachmentId);
-        } catch (IOException e) {
-            throw new GmailEngineException(GmailError.NETWORK_ERROR, "Failed to fetch attachment content", e);
-        }
-    }
-
-    /**
-     * Extract attachments from message.
-     */
     private List<GmailAttachment> extractAttachments(Message message) {
         List<GmailAttachment> attachments = new ArrayList<>();
         MessagePart payload = message.getPayload();
@@ -295,9 +226,6 @@ public class GmailEngine {
         return attachments;
     }
 
-    /**
-     * Recursively extract attachments from message parts.
-     */
     private void extractAttachmentsRecursive(MessagePart part, List<GmailAttachment> attachments) {
         if (part.getFilename() != null && !part.getFilename().isEmpty() && part.getBody() != null && part.getBody().getAttachmentId() != null) {
             attachments.add(new GmailAttachment(
@@ -316,9 +244,6 @@ public class GmailEngine {
         }
     }
 
-    /**
-     * Extract header value from message.
-     */
     private String extractHeader(Message message, String name) {
         List<MessagePartHeader> headers = message.getPayload() != null ? message.getPayload().getHeaders() : null;
         if (headers == null) {
@@ -329,40 +254,5 @@ public class GmailEngine {
                 .map(MessagePartHeader::getValue)
                 .findFirst()
                 .orElse(null);
-    }
-
-    /**
-     * Build Gmail query string.
-     */
-    private String buildQuery(GmailFetchRequest request) {
-        if (request.q() != null && !request.q().isEmpty()) {
-            return request.q();
-        }
-        Instant fromTime = request.fromTime();
-        if (fromTime == null) {
-            return "";
-        }
-        // Gmail query: after:YYYY/MM/DD
-        return String.format("after:%d/%02d/%02d",
-                fromTime.atZone(java.time.ZoneId.of("UTC")).getYear(),
-                fromTime.atZone(java.time.ZoneId.of("UTC")).getMonthValue(),
-                fromTime.atZone(java.time.ZoneId.of("UTC")).getDayOfMonth());
-    }
-
-    /**
-     * Extract or generate historyId.
-     */
-    private String extractHistoryId(Gmail service, GmailSyncState currentState) throws IOException {
-        // Get current historyId from profile (always use latest)
-        Profile profile = gmailApiClient.getProfile(service);
-        BigInteger historyIdBigInt = profile.getHistoryId();
-        if (historyIdBigInt == null) {
-            // Fallback to current state if profile doesn't have historyId
-            if (currentState != null && currentState.historyId() != null) {
-                return currentState.historyId();
-            }
-            throw new GmailEngineException(GmailError.INVALID_STATE, "Unable to determine historyId");
-        }
-        return historyIdBigInt.toString();
     }
 }

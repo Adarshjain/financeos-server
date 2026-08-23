@@ -177,10 +177,10 @@ public class TransactionCategorizer {
         }
         promptBuilder.append("\nReturn a JSON object with a 'results' array where each item contains:\n");
         promptBuilder.append("- index: the index of the transaction\n");
-        promptBuilder.append("- merchantKey: the main merchant identifier string as it appears in the description (e.g. SWIGGY, AMAZON)\n");
-        promptBuilder.append("- displayName: a clean human-readable name for the merchant (e.g. Swiggy, Amazon)\n");
+        promptBuilder.append("- merchantKey: the merchant/payee identifier substring as it appears in the description (e.g. SWIGGY, AMAZON). This seeds a rule that auto-matches future transactions containing it, so it must be the stable part only - never include transaction-specific parts like reference/order numbers, dates, amounts, or UPI handles' numeric prefixes. For person-to-person transfers use the person's name.\n");
+        promptBuilder.append("- displayName: a clean human-readable name for the merchant or payee (e.g. Swiggy, Amazon)\n");
         promptBuilder.append("- categoryNames: array of category names (existing, or newly proposed broad categories of at most two words) that genuinely apply. Never filler.\n");
-        promptBuilder.append("- noFit: boolean, set to true if the transaction description is unintelligible or cannot be classified at all.\n");
+        promptBuilder.append("- noFit: boolean, set to true if the transaction description is unintelligible or cannot be classified at all. When unsure, prefer noFit over guessing a category.\n");
 
         String prompt = promptBuilder.toString();
 
