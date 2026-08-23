@@ -44,6 +44,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
 
     boolean existsBySourceMessageId(String sourceMessageId);
 
+    boolean existsByUserIdAndSourceMessageId(UUID userId, String sourceMessageId);
+
     @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.source = :source AND t.reviewType = :reviewType")
     List<Transaction> findByAccountIdAndSourceAndReviewType(
             @Param("accountId") UUID accountId,
@@ -118,4 +120,10 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("maxAmount") java.math.BigDecimal maxAmount,
             @Param("minDate") LocalDate minDate,
             @Param("maxDate") LocalDate maxDate);
+
+    @Query("SELECT t FROM Transaction t JOIN t.reviewReasons r WHERE t.account.id = :accountId AND t.user.id = :userId AND t.source = com.financeos.domain.transaction.TransactionSource.gmail_transaction_alert AND t.date < :beforeDate AND r = com.financeos.domain.transaction.ReviewReason.UNRECONCILED")
+    List<Transaction> findUnreconciledAlertsBeforeDate(
+            @Param("accountId") UUID accountId,
+            @Param("userId") UUID userId,
+            @Param("beforeDate") LocalDate beforeDate);
 }

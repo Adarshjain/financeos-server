@@ -31,9 +31,9 @@ public class EmailClassifier {
             StringBuilder promptBuilder = new StringBuilder();
             promptBuilder.append("Classify this bank email content and attachments metadata.\n")
                     .append("Classify it into one of these types:\n")
-                    .append("- TRANSACTION_ALERT: A notification for a single financial transaction (e.g. debit/credit alert, payment confirmation, transfer notification, POS purchase alert).\n")
-                    .append("- STATEMENT: A periodic account statement or summary listing multiple transactions (often containing PDF or Excel attachments, but could be inline summary details).\n")
-                    .append("- OTHER: Any non-transactional/non-statement email (e.g. promotional emails, login alerts, password resets, OTPs, marketing, generic newsletters).\n\n")
+                    .append("- TRANSACTION_ALERT: A notification that a single financial transaction was completed (e.g. debit/credit alert, payment confirmation, transfer notification, POS purchase alert, refund or reversal confirmation).\n")
+                    .append("- STATEMENT: A periodic account or card statement listing/summarizing multiple transactions (often with a PDF or Excel attachment, but inline summary details also count).\n")
+                    .append("- OTHER: Everything else — promotional emails, login alerts, password resets, OTPs, marketing, newsletters, payment requests awaiting approval, FAILED or DECLINED transaction notices, balance-only updates, bill-due or autopay reminders.\n\n")
                     .append("Email Subject: ").append(message.subject()).append("\n")
                     .append("Email Body:\n").append(message.getStrippedText()).append("\n");
 
@@ -54,8 +54,10 @@ public class EmailClassifier {
             emailType.put("type", "string");
             emailType.putArray("enum").add("TRANSACTION_ALERT").add("STATEMENT").add("OTHER");
 
-            properties.putObject("confidence").put("type", "number");
-            properties.putObject("reasoning").put("type", "string");
+            properties.putObject("confidence").put("type", "number")
+                    .put("description", "Confidence in the classification, 0 to 1");
+            properties.putObject("reasoning").put("type", "string")
+                    .put("description", "One short sentence explaining the classification");
 
             schema.putArray("required").add("emailType");
 

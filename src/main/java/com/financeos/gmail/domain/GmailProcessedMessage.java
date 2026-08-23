@@ -47,7 +47,7 @@ public class GmailProcessedMessage {
     // SKIPPED_BEFORE_WATERMARK); rows die with the account via ON DELETE CASCADE so a
     // re-added account can re-ingest its emails. Non-account outcomes are not persisted.
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", nullable = false)
+    @JoinColumn(name = "account_id")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private Account account;
 
@@ -60,16 +60,37 @@ public class GmailProcessedMessage {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private Transaction transaction;
 
+    @Column(name = "internal_date")
+    private Instant internalDate;
+
+    @Column(name = "sender_address", length = 320)
+    private String senderAddress;
+
+    @Column(name = "subject", length = 500)
+    private String subject;
+
+    @Column(name = "extracted_last4", length = 4)
+    private String extractedLast4;
+
+    @Column(name = "attempt_count", nullable = false)
+    private int attemptCount = 0;
+
+    @Column(name = "next_retry_at")
+    private Instant nextRetryAt;
+
+    @Column(name = "discovered_at")
+    private Instant discoveredAt;
+
     @Column(length = 2000)
     private String error;
 
-    @Column(name = "processed_at", nullable = false)
+    @Column(name = "processed_at")
     private Instant processedAt;
 
     @PrePersist
     protected void onCreate() {
-        if (processedAt == null) {
-            processedAt = Instant.now();
+        if (discoveredAt == null) {
+            discoveredAt = Instant.now();
         }
     }
 }

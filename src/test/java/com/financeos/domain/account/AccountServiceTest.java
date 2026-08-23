@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.financeos.api.account.dto.CardCycleSummaryResponse;
+import com.financeos.api.account.dto.CreateAccountRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
@@ -31,6 +32,8 @@ class AccountServiceTest {
     private UserRepository userRepository;
     private StatementRepository statementRepository;
     private TransactionRepository transactionRepository;
+    private com.financeos.gmail.domain.GmailBackfillDemandRepository backfillDemandRepository;
+    private org.springframework.context.ApplicationEventPublisher eventPublisher;
     private AccountService accountService;
 
     @BeforeEach
@@ -40,7 +43,9 @@ class AccountServiceTest {
         statementRepository = mock(StatementRepository.class);
         transactionRepository = mock(TransactionRepository.class);
         HoldingValuationService holdingValuationService = mock(HoldingValuationService.class);
-        accountService = new AccountService(accountRepository, userRepository, statementRepository, transactionRepository, holdingValuationService);
+        backfillDemandRepository = mock(com.financeos.gmail.domain.GmailBackfillDemandRepository.class);
+        eventPublisher = mock(org.springframework.context.ApplicationEventPublisher.class);
+        accountService = new AccountService(accountRepository, userRepository, statementRepository, transactionRepository, holdingValuationService, backfillDemandRepository, eventPublisher);
         UserContext.clear();
     }
 
@@ -232,5 +237,137 @@ class AccountServiceTest {
         assertEquals(new BigDecimal("15.00"), summary.utilizationPct());
         assertEquals(10L, summary.daysUntilDue());
         assertEquals(1, summary.history().size());
+    }
+
+    @Test
+    void testRatchetMatrix_NewlySet_CreatesDemandRow() {
+        UUID userId = UUID.randomUUID();
+        UserContext.setCurrentUserId(userId);
+        User user = new User();
+        user.setId(userId);
+        when(userRepository.getReferenceById(userId)).thenReturn(user);
+
+        when(accountRepository.save(any())).thenAnswer(inv -> {
+            Account a = inv.getArgument(0);
+            a.setId(UUID.randomUUID());
+            return a;
+        });
+        when(backfillDemandRepository.findById(userId)).thenReturn(Optional.empty());
+
+        CreateAccountRequest req = new CreateAccountRequest.GenericAccountRequest(
+                "Cash", AccountType.generic, false, FinancialPosition.asset, "desc", LocalDate.of(2026, 1, 1)
+        );
+
+        Account saved = accountService.createAccount(req);
+
+        assertNotNull(saved);
+        verify(backfillDemandRepository).save(argThat(d -> d.getFloorDate().equals(LocalDate.of(2026, 1, 1))));
+    }
+
+    @Test
+    void testRatchetMatrix_DateLowered_LowersFloor() {
+        UUID userId = UUID.randomUUID();
+        UUID accountId = UUID.randomUUID();
+        UserContext.setCurrentUserId(userId);
+        User user = new User();
+        user.setId(userId);
+
+        Account account = new Account("Bank", AccountType.bank_account);
+        account.setId(accountId);
+        account.setUser(user);
+        account.setIngestFromDate(LocalDate.of(2026, 6, 1));
+
+        when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
+        when(accountRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        com.financeos.gmail.domain.GmailBackfillDemand demand = new com.financeos.gmail.domain.GmailBackfillDemand(user, LocalDate.of(2026, 6, 1));
+        when(backfillDemandRepository.findById(userId)).thenReturn(Optional.of(demand));
+
+        CreateAccountRequest req = new CreateAccountRequest.BankAccountRequest(
+                "Bank", AccountType.bank_account, false, FinancialPosition.asset, "desc",
+                new BigDecimal("100"), "1234", null, LocalDate.of(2026, 1, 1)
+        );
+
+        accountService.updateAccount(accountId, req);
+
+        verify(backfillDemandRepository).save(argThat(d -> d.getFloorDate().equals(LocalDate.of(2026, 1, 1))));
+    }
+
+    @Test
+    void testRatchetMatrix_DateRaised_FloorUnchanged() {
+        UUID userId = UUID.randomUUID();
+        UUID accountId = UUID.randomUUID();
+        UserContext.setCurrentUserId(userId);
+        User user = new User();
+        user.setId(userId);
+
+        Account account = new Account("Bank", AccountType.bank_account);
+        account.setId(accountId);
+        account.setUser(user);
+        account.setIngestFromDate(LocalDate.of(2026, 1, 1));
+
+        when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
+        when(accountRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        CreateAccountRequest req = new CreateAccountRequest.BankAccountRequest(
+                "Bank", AccountType.bank_account, false, FinancialPosition.asset, "desc",
+                new BigDecimal("100"), "1234", null, LocalDate.of(2026, 6, 1)
+        );
+
+        accountService.updateAccount(accountId, req);
+
+        verify(backfillDemandRepository, never()).save(any());
+    }
+
+    @Test
+    void testRatchetMatrix_UnrelatedEdit_NoDemandWrite() {
+        UUID userId = UUID.randomUUID();
+        UUID accountId = UUID.randomUUID();
+        UserContext.setCurrentUserId(userId);
+        User user = new User();
+        user.setId(userId);
+
+        Account account = new Account("Bank", AccountType.bank_account);
+        account.setId(accountId);
+        account.setUser(user);
+        account.setIngestFromDate(LocalDate.of(2026, 1, 1));
+
+        when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
+        when(accountRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        CreateAccountRequest req = new CreateAccountRequest.BankAccountRequest(
+                "Bank New Name", AccountType.bank_account, false, FinancialPosition.asset, "desc",
+                new BigDecimal("100"), "1234", null, LocalDate.of(2026, 1, 1)
+        );
+
+        accountService.updateAccount(accountId, req);
+
+        verify(backfillDemandRepository, never()).save(any());
+    }
+
+    @Test
+    void testRatchetMatrix_DateCleared_NoDemandWrite() {
+        UUID userId = UUID.randomUUID();
+        UUID accountId = UUID.randomUUID();
+        UserContext.setCurrentUserId(userId);
+        User user = new User();
+        user.setId(userId);
+
+        Account account = new Account("Bank", AccountType.bank_account);
+        account.setId(accountId);
+        account.setUser(user);
+        account.setIngestFromDate(LocalDate.of(2026, 1, 1));
+
+        when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
+        when(accountRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        CreateAccountRequest req = new CreateAccountRequest.BankAccountRequest(
+                "Bank", AccountType.bank_account, false, FinancialPosition.asset, "desc",
+                new BigDecimal("100"), "1234", null, null
+        );
+
+        accountService.updateAccount(accountId, req);
+
+        verify(backfillDemandRepository, never()).save(any());
     }
 }
