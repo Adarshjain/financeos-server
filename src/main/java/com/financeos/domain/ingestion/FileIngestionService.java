@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.HashMap;
 import java.util.List;
@@ -69,7 +70,7 @@ public class FileIngestionService {
         this.statementPersistenceService = statementPersistenceService;
     }
 
-    private record PendingLink(Transaction txn, UUID statementId, int lineIndex, BigDecimal balanceAfter, Boolean chainValid) {}
+    private record PendingLink(Transaction txn, UUID statementId, int lineIndex, BigDecimal balanceAfter, Boolean chainValid, int fileIndex) {}
 
     public FileIngestionResult ingest(UUID accountId, List<UploadedFile> files) {
         return ingest(accountId, files, null);
@@ -154,7 +155,7 @@ public class FileIngestionService {
                     continue;
                 }
 
-                String fileMessage = null;
+                String warningMessage = null;
                 String fragment = account.getBankDetails() != null ? account.getBankDetails().getLast4()
                         : account.getCreditCardDetails() != null ? account.getCreditCardDetails().getLast4() : null;
                 if (parseResult.accountNumber() != null && fragment != null) {
@@ -163,7 +164,7 @@ public class FileIngestionService {
                     if (!normalizedNumber.contains(normalizedFragment)) {
                         log.warn("Statement account number '{}' does not match account {} (file {})",
                                 parseResult.accountNumber(), account.getId(), filename);
-                        fileMessage = "Warning: statement account number does not match this account";
+                        warningMessage = "Warning: statement account number does not match this account";
                     }
                 }
 
@@ -181,6 +182,7 @@ public class FileIngestionService {
                     }
                 }
 
+                int currentFileIndex = fileDetails.size();
                 UUID statementId = stmt.get().getId();
                 for (int j = 0; j < lines.size(); j++) {
                     ParsedStatementLine line = lines.get(j);
@@ -197,10 +199,10 @@ public class FileIngestionService {
                     txn.setTransactionExcluded(false);
 
                     newTransactionsToInsert.add(txn);
-                    pendingLinks.add(new PendingLink(txn, statementId, i, line.balance(), line.chainValid()));
+                    pendingLinks.add(new PendingLink(txn, statementId, j, line.balance(), line.chainValid(), currentFileIndex));
                 }
 
-                fileDetails.add(new FileIngestionResult.FileSummary(filename, "SUCCESS", lines.size(), fileMessage));
+                fileDetails.add(new FileIngestionResult.FileSummary(filename, "SUCCESS", lines.size(), null, warningMessage, 0, 0));
                 filesProcessed++;
 
             } catch (Exception e) {
@@ -211,6 +213,9 @@ public class FileIngestionService {
 
         // Perform duplicate checking and save transactions in a short, dedicated database transaction
         int totalDuplicatesFound = 0;
+        List<FileIngestionResult.DuplicateDetail> duplicateDetails = new ArrayList<>();
+        int duplicatesTruncated = 0;
+
         if (!newTransactionsToInsert.isEmpty()) {
             LocalDate minDate = newTransactionsToInsert.stream().map(Transaction::getDate).min(LocalDate::compareTo).get();
             LocalDate maxDate = newTransactionsToInsert.stream().map(Transaction::getDate).max(LocalDate::compareTo).get();
@@ -219,6 +224,7 @@ public class FileIngestionService {
             List<Transaction> dbTxns = dbHandler.findExistingTransactions(account.getId(), minDate, maxDate);
             Set<Transaction> dbTxnsToUpdate = new HashSet<>();
             Set<Transaction> duplicateNewTxns = new HashSet<>();
+            Map<Transaction, UUID> matchedDbTxnIds = new HashMap<>();
 
             int dateWindow = 0; // Same day only as requested
 
@@ -231,6 +237,7 @@ public class FileIngestionService {
                         duplicateNewTxns.add(newTx);
                         reviewStatusManager.addReason(dbTx, ReviewReason.DUPLICATE_SUSPECT);
                         dbTxnsToUpdate.add(dbTx);
+                        matchedDbTxnIds.putIfAbsent(newTx, dbTx.getId());
                     }
                 }
 
@@ -266,6 +273,61 @@ public class FileIngestionService {
             for (Map.Entry<UUID, List<StatementPersistenceService.TxnLink>> entry : linksByStatement.entrySet()) {
                 statementPersistenceService.linkTransactions(entry.getKey(), entry.getValue());
             }
+
+            // Rebuild fileDetails for SUCCESS entries with created & duplicates counts
+            Map<Transaction, PendingLink> txnLinkMap = new HashMap<>();
+            Map<Integer, List<PendingLink>> linksByFileIndex = new HashMap<>();
+            for (PendingLink pl : pendingLinks) {
+                txnLinkMap.put(pl.txn(), pl);
+                linksByFileIndex.computeIfAbsent(pl.fileIndex(), k -> new ArrayList<>()).add(pl);
+            }
+
+            for (int k = 0; k < fileDetails.size(); k++) {
+                FileIngestionResult.FileSummary summary = fileDetails.get(k);
+                if ("SUCCESS".equals(summary.status())) {
+                    List<PendingLink> fileLinks = linksByFileIndex.getOrDefault(k, List.of());
+                    int createdForFile = fileLinks.size();
+                    int dupsForFile = 0;
+                    for (PendingLink pl : fileLinks) {
+                        if (duplicateNewTxns.contains(pl.txn())) {
+                            dupsForFile++;
+                        }
+                    }
+                    fileDetails.set(k, new FileIngestionResult.FileSummary(
+                            summary.filename(),
+                            summary.status(),
+                            summary.linesParsed(),
+                            summary.errorMessage(),
+                            summary.warning(),
+                            createdForFile,
+                            dupsForFile
+                    ));
+                }
+            }
+
+            // Build duplicateDetails capped at 50
+            List<Transaction> sortedDupTxns = new ArrayList<>(duplicateNewTxns);
+            sortedDupTxns.sort(Comparator.comparing(Transaction::getDate, Comparator.nullsLast(LocalDate::compareTo))
+                    .thenComparing(Transaction::getAmount, Comparator.nullsLast(BigDecimal::compareTo)));
+
+            int limit = Math.min(sortedDupTxns.size(), 50);
+            for (int k = 0; k < limit; k++) {
+                Transaction dupTx = sortedDupTxns.get(k);
+                PendingLink pl = txnLinkMap.get(dupTx);
+                String filename = (pl != null && pl.fileIndex() < fileDetails.size())
+                        ? fileDetails.get(pl.fileIndex()).filename() : "unknown_file";
+                UUID matchedTxId = matchedDbTxnIds.get(dupTx);
+
+                duplicateDetails.add(new FileIngestionResult.DuplicateDetail(
+                        dupTx.getDate() != null ? dupTx.getDate().toString() : null,
+                        dupTx.getAmount(),
+                        dupTx.getSourcedDescription(),
+                        filename,
+                        dupTx.getId(),
+                        matchedTxId
+                ));
+            }
+            duplicatesTruncated = Math.max(0, duplicateNewTxns.size() - 50);
         }
 
         if (maxEffectiveEnd != null) {
@@ -284,7 +346,10 @@ public class FileIngestionService {
                 filesProcessed,
                 newTransactionsToInsert.size(),
                 totalDuplicatesFound,
-                fileDetails
+                fileDetails,
+                duplicateDetails,
+                duplicatesTruncated
         );
     }
 }
+

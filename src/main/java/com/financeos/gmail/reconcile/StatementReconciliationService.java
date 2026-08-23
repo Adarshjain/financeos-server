@@ -16,6 +16,7 @@ import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.gmail.domain.GmailProcessedStatus;
 import com.financeos.gmail.engine.GmailEngine;
 import com.financeos.gmail.ingest.GmailIngestProperties;
+import com.financeos.gmail.ingest.SyncSummary;
 import com.financeos.gmail.internal.GmailAttachment;
 import com.financeos.gmail.internal.GmailMessage;
 import org.apache.pdfbox.Loader;
@@ -89,7 +90,7 @@ public class StatementReconciliationService {
         if (chosen == null) {
             log.warn("No statement attachment found in email: {}", message.messageId());
             recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED, "No statement attachment found");
-            return new ReconSummary(0, 0, 1);
+            return new ReconSummary(0, 0, 1, List.of(), SyncSummary.Outcome.NO_ATTACHMENT, "No statement attachment found", null, null, false);
         }
 
         GmailAttachment chosenAttachment = chosen.attachment();
@@ -140,7 +141,7 @@ public class StatementReconciliationService {
                 log.error("Encrypted statement could not be decrypted with any stored password. File: {}", chosenAttachment.filename());
                 recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED,
                         "Encrypted statement could not be decrypted with any stored password.");
-                return new ReconSummary(0, 0, 1);
+                return new ReconSummary(0, 0, 1, List.of(), SyncSummary.Outcome.DECRYPT_FAILED, "Encrypted statement could not be decrypted with any stored password", chosenAttachment.filename(), null, false);
             }
         }
 
@@ -151,7 +152,7 @@ public class StatementReconciliationService {
             // Deliberately not attributed to candidateAccount: persisted entries are terminal
             // (presence = skip), and a parse failure must stay retryable on a future fetch.
             recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED, "Statement parse failed: " + result.failureReason());
-            return new ReconSummary(0, 0, 1);
+            return new ReconSummary(0, 0, 1, List.of(), SyncSummary.Outcome.PARSE_FAILED, "Statement parse failed: " + result.failureReason(), chosenAttachment.filename(), null, false);
         }
 
         List<ParsedStatementLine> allLines = result.lines();
@@ -159,7 +160,7 @@ public class StatementReconciliationService {
             log.info("No transaction lines parsed from statement: {}. Skipping as non-statement.", message.messageId());
             recordLedger(connection, message.messageId(), candidateAccount, GmailProcessedStatus.SKIPPED_NOT_TRANSACTION,
                     "No transaction lines parsed from statement; skipped as non-statement");
-            return new ReconSummary(0, 0, 0);
+            return new ReconSummary(0, 0, 0, List.of(), null, null, chosenAttachment.filename(), null, true);
         }
 
         // 4. Confirm/resolve account
@@ -191,8 +192,12 @@ public class StatementReconciliationService {
             log.error("Could not resolve account for statement (accountNumber: {}). Ingestion failed.", statementAccountNumber);
             recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED,
                     "Failed to resolve account for statement accountNumber: " + statementAccountNumber);
-            return new ReconSummary(0, 0, 1);
+            String last4 = (statementAccountNumber != null && statementAccountNumber.length() >= 4)
+                    ? statementAccountNumber.substring(statementAccountNumber.length() - 4) : statementAccountNumber;
+            return new ReconSummary(0, 0, 1, List.of(), SyncSummary.Outcome.ACCOUNT_UNRESOLVED,
+                    "No single account matches statement number " + statementAccountNumber, chosenAttachment.filename(), last4, false);
         }
+
 
         // 5. Create statement record if not a duplicate (before watermark filtering / matching)
         Optional<Statement> stmt = statementPersistenceService.createIfNew(connection.getUser(), resolvedAccount,
