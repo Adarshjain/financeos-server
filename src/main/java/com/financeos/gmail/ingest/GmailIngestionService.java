@@ -117,6 +117,10 @@ public class GmailIngestionService {
         int skipped = 0;
         int failed = 0;
         int reconciled = 0;
+        int alreadyProcessed = 0;
+        int nonTransaction = 0;
+        int attentionTruncated = 0;
+        List<SyncSummary.MessageOutcome> attention = new ArrayList<>();
         List<Transaction> createdTxns = new ArrayList<>();
 
         // 4. Process each message
@@ -128,6 +132,7 @@ public class GmailIngestionService {
                         connection.getId(), message.messageId());
                 if (processedOpt.isPresent()) {
                     skipped++;
+                    alreadyProcessed++;
                     continue;
                 }
 
@@ -150,6 +155,16 @@ public class GmailIngestionService {
                     failed += recon.failed();
                     // Categorized after the loop alongside alert transactions, outside reconcile's tx
                     createdTxns.addAll(recon.createdTransactions());
+                    if (recon.failed() > 0 && recon.failureOutcome() != null) {
+                        if (attention.size() < 50) {
+                            addOutcome(attention, message, recon.attachmentFilename(), recon.failureOutcome(), recon.failureReason(), recon.accountLast4());
+                        } else {
+                            attentionTruncated++;
+                        }
+                    }
+                    if (recon.emptyStatement()) {
+                        nonTransaction++;
+                    }
                     continue;
                 }
 
@@ -158,12 +173,18 @@ public class GmailIngestionService {
                 if (!extractionResult.isSuccess()) {
                     log.warn("Extraction failed for message {}: {}", message.messageId(), extractionResult.failureReason());
                     failed++;
+                    if (attention.size() < 50) {
+                        addOutcome(attention, message, null, SyncSummary.Outcome.EXTRACTION_FAILED, extractionResult.failureReason(), null);
+                    } else {
+                        attentionTruncated++;
+                    }
                     continue;
                 }
 
                 if (!extractionResult.isTransaction()) {
                     log.debug("Skipping message {}: Gemini classified as non-transaction", message.messageId());
                     skipped++;
+                    nonTransaction++;
                     continue;
                 }
 
@@ -174,6 +195,12 @@ public class GmailIngestionService {
                     log.warn("Could not resolve account for transaction (last4: {}, sender: {}). Ingestion failed.",
                             extractionResult.accountLast4(), sender.getSenderAddress());
                     failed++;
+                    String reason = "No single account matches card/account ending " + extractionResult.accountLast4();
+                    if (attention.size() < 50) {
+                        addOutcome(attention, message, null, SyncSummary.Outcome.ACCOUNT_UNRESOLVED, reason, extractionResult.accountLast4());
+                    } else {
+                        attentionTruncated++;
+                    }
                     continue;
                 }
 
@@ -181,7 +208,7 @@ public class GmailIngestionService {
                 // Write transaction (includes watermark check)
                 GmailProcessedMessage processed = gmailTransactionWriter.writeTransaction(
                         connection, message.messageId(), extractionResult, account);
-                
+
                 if (processed.getStatus() == GmailProcessedStatus.CREATED) {
                     created++;
                     if (processed.getTransaction() != null) {
@@ -191,11 +218,22 @@ public class GmailIngestionService {
                     skipped++;
                 } else {
                     failed++;
+                    if (attention.size() < 50) {
+                        addOutcome(attention, message, null, SyncSummary.Outcome.ERROR, "Transaction write failed", null);
+                    } else {
+                        attentionTruncated++;
+                    }
                 }
 
             } catch (Exception e) {
                 log.warn("Failed to process message: " + message.messageId(), e);
                 failed++;
+                String reason = e.getMessage() != null ? e.getMessage() : e.toString();
+                if (attention.size() < 50) {
+                    addOutcome(attention, message, null, SyncSummary.Outcome.ERROR, reason, null);
+                } else {
+                    attentionTruncated++;
+                }
             }
         }
 
@@ -206,8 +244,28 @@ public class GmailIngestionService {
         // 5. Advance watermark only after successful batch processing (durable cursor)
         syncStateService.saveSyncState(connection, fetchResult.nextState().historyId(), fetchResult.nextState().lastSyncedAt());
 
-        return new SyncSummary(fetched, created, skipped, failed, reconciled);
+        return new SyncSummary(fetched, created, skipped, failed, reconciled, alreadyProcessed, nonTransaction, attention, attentionTruncated);
     }
+
+    private void addOutcome(List<SyncSummary.MessageOutcome> attention, GmailMessage message, String attachmentFilename,
+                            SyncSummary.Outcome outcome, String reason, String accountLast4) {
+        String truncatedReason = reason;
+        if (truncatedReason != null && truncatedReason.length() > 500) {
+            truncatedReason = truncatedReason.substring(0, 500);
+        }
+        String receivedAt = message.internalDate() != null ? message.internalDate().toString() : null;
+        attention.add(new SyncSummary.MessageOutcome(
+                message.messageId(),
+                message.from(),
+                message.subject(),
+                receivedAt,
+                attachmentFilename,
+                outcome,
+                truncatedReason,
+                accountLast4
+        ));
+    }
+
 
     private static final Set<String> STATEMENT_ATTACHMENT_EXTENSIONS = Set.of(".pdf", ".xlsx", ".xls");
 
