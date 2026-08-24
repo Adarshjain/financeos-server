@@ -70,15 +70,24 @@ public class ChatController {
 
         SseEmitter emitter = new SseEmitter(120_000L); // 120s timeout
 
+        // A disconnected client must not keep a worker (and a concurrency permit) alive:
+        // interrupt the worker on timeout/error, and when a heartbeat fails to send.
+        final java.util.concurrent.atomic.AtomicReference<Future<?>> taskRef =
+                new java.util.concurrent.atomic.AtomicReference<>();
+
         ScheduledFuture<?> heartbeatTask = heartbeatScheduler.scheduleAtFixedRate(() -> {
             try {
                 emitter.send(SseEmitter.event().comment("heartbeat"));
             } catch (Exception e) {
-                log.debug("Heartbeat send failed: {}", e.getMessage());
+                log.debug("Heartbeat send failed (client likely gone), cancelling worker: {}", e.getMessage());
+                Future<?> task = taskRef.get();
+                if (task != null) {
+                    task.cancel(true);
+                }
             }
         }, 15, 15, TimeUnit.SECONDS);
 
-        executorService.submit(() -> {
+        Future<?> workerTask = executorService.submit(() -> {
             long startTime = System.currentTimeMillis();
             int msgLength = (request.messages() != null && !request.messages().isEmpty())
                     ? request.messages().get(request.messages().size() - 1).content().length()
@@ -142,6 +151,9 @@ public class ChatController {
                 UserContext.clear();
             }
         });
+        taskRef.set(workerTask);
+        emitter.onTimeout(() -> workerTask.cancel(true));
+        emitter.onError((t) -> workerTask.cancel(true));
 
         return ResponseEntity.ok(emitter);
     }
