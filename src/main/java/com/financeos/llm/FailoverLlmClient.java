@@ -2,16 +2,18 @@ package com.financeos.llm;
 
 import com.financeos.core.observability.Events;
 import com.financeos.core.observability.ObservabilityMetrics;
+import com.financeos.core.security.UserContext;
+import com.financeos.domain.llm.LlmKey;
+import com.financeos.domain.llm.LlmKeyRepository;
+import com.financeos.domain.llm.LlmKeyStatus;
 import com.financeos.llm.provider.LlmHttpSupport;
+import com.financeos.llm.security.LlmKeyEncryptionService;
 import net.logstash.logback.argument.StructuredArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class FailoverLlmClient implements LlmClient {
 
@@ -19,23 +21,43 @@ public class FailoverLlmClient implements LlmClient {
 
     private final LlmProperties properties;
     private final Map<String, LlmProvider> providers;
+    private final LlmKeyRepository keyRepository;
+    private final LlmKeyEncryptionService encryptionService;
     private final ObservabilityMetrics metrics;
-    private final ConcurrentHashMap<String, CircuitState> circuitStates = new ConcurrentHashMap<>();
+    private final BucketStateRegistry bucketStateRegistry;
 
-    private static class CircuitState {
-        final AtomicInteger consecutiveFailures = new AtomicInteger(0);
-        final AtomicLong lastFailureTimestamp = new AtomicLong(0);
+    public record BucketTarget(
+            LlmKey key,
+            String providerId,
+            String model,
+            String bucketKey
+    ) {}
+
+    public FailoverLlmClient(LlmProperties properties,
+                              Map<String, LlmProvider> providers,
+                              LlmKeyRepository keyRepository,
+                              LlmKeyEncryptionService encryptionService,
+                              ObservabilityMetrics metrics) {
+        this(properties, providers, keyRepository, encryptionService, metrics, new BucketStateRegistry());
+    }
+
+    public FailoverLlmClient(LlmProperties properties,
+                              Map<String, LlmProvider> providers,
+                              LlmKeyRepository keyRepository,
+                              LlmKeyEncryptionService encryptionService,
+                              ObservabilityMetrics metrics,
+                              BucketStateRegistry bucketStateRegistry) {
+        this.properties = properties;
+        this.providers = providers != null ? providers : new HashMap<>();
+        this.keyRepository = keyRepository;
+        this.encryptionService = encryptionService;
+        this.metrics = metrics;
+        this.bucketStateRegistry = bucketStateRegistry != null ? bucketStateRegistry : new BucketStateRegistry();
+        validateChainsAtStartup();
     }
 
     public FailoverLlmClient(LlmProperties properties, Map<String, LlmProvider> providers) {
-        this(properties, providers, null);
-    }
-
-    public FailoverLlmClient(LlmProperties properties, Map<String, LlmProvider> providers, ObservabilityMetrics metrics) {
-        this.properties = properties;
-        this.providers = providers != null ? providers : new HashMap<>();
-        this.metrics = metrics;
-        validateChainsAtStartup();
+        this(properties, providers, null, null, null, new BucketStateRegistry());
     }
 
     private void validateChainsAtStartup() {
@@ -71,32 +93,35 @@ public class FailoverLlmClient implements LlmClient {
             throw new IllegalArgumentException("LlmRequest cannot be null");
         }
         String task = request.task() != null ? request.task() : "";
+        UUID userId = request.userId() != null ? request.userId() : UserContext.getCurrentUserId();
 
         List<String> rawChain = resolveChain(task);
         if (rawChain.isEmpty()) {
             throw new LlmException(LlmException.Kind.FATAL, "none", null, null, "No LLM chain configured for task: " + task);
         }
 
-        List<String> eligibleChain = buildEligibleChain(rawChain);
+        List<BucketTarget> buckets = buildBucketList(userId, rawChain);
 
-        if (eligibleChain.isEmpty()) {
-            throw new LlmException(LlmException.Kind.FATAL, "none", null, null, "All providers in chain are skipped or have no API key for task: " + task);
+        if (buckets.isEmpty()) {
+            throw new LlmException(LlmException.Kind.NO_KEYS, "none", null, null, "No active LLM API keys configured. Add an API key in Settings.");
         }
 
-        boolean allOpen = eligibleChain.stream().allMatch(this::isCircuitOpen);
-        boolean ignoreBreaker = allOpen;
-
         List<String> failureMessages = new ArrayList<>();
-
-        int attemptsPerProvider = properties.getRetry().getAttemptsPerProvider();
-        long baseDelay = properties.getRetry().getBaseDelayMs();
-        long maxDelay = properties.getRetry().getMaxDelayMs();
+        int attemptsPerProvider = properties != null && properties.getRetry() != null ? properties.getRetry().getAttemptsPerProvider() : 2;
+        long baseDelay = properties != null && properties.getRetry() != null ? properties.getRetry().getBaseDelayMs() : 1000L;
+        long maxDelay = properties != null && properties.getRetry() != null ? properties.getRetry().getMaxDelayMs() : 8000L;
 
         long chainStartTime = System.currentTimeMillis();
-        for (String providerId : eligibleChain) {
-            if (!ignoreBreaker && isCircuitOpen(providerId)) {
-                log.info("Skipping provider {} for task {} because circuit breaker is open", providerId, task);
-                failureMessages.add(providerId + ": circuit breaker open");
+
+        for (BucketTarget target : buckets) {
+            String providerId = target.providerId();
+            String model = target.model();
+            String bucketKey = target.bucketKey();
+            LlmKey keyEntity = target.key();
+
+            if (bucketStateRegistry.isCooldown(bucketKey)) {
+                log.info("Skipping bucket {} for task {} (cooldown/circuit active)", bucketKey, task);
+                failureMessages.add(bucketKey + ": cooldown active");
                 continue;
             }
 
@@ -106,91 +131,106 @@ public class FailoverLlmClient implements LlmClient {
                 continue;
             }
 
-            String model = getModel(providerId);
+            String apiKey = null;
+            if (keyEntity != null && encryptionService != null) {
+                try {
+                    apiKey = encryptionService.decrypt(keyEntity.getKeyCiphertext());
+                } catch (Exception e) {
+                    log.error("Failed to decrypt key ID {} for provider {}", keyEntity.getId(), providerId, e);
+                    failureMessages.add(bucketKey + ": key decryption failed");
+                    continue;
+                }
+            }
+
             int promptChars = request.prompt() != null ? request.prompt().length() : 0;
             int batchSize = batchSizeOf(providerId);
 
             for (int attempt = 1; attempt <= attemptsPerProvider; attempt++) {
                 long startTime = System.currentTimeMillis();
                 try {
-                    LlmResponse response = provider.complete(request);
+                    LlmResponse response = provider.complete(request, apiKey, model);
                     long latencyMs = System.currentTimeMillis() - startTime;
                     int responseChars = response != null && response.jsonText() != null ? response.jsonText().length() : 0;
 
-                    log.info("LLM attempt task={}, provider={}, model={}, attempt={}, outcome=success, latency={}ms",
-                            task, providerId, model, attempt, latencyMs,
+                    log.info("LLM attempt task={}, provider={}, model={}, keyId={}, attempt={}, outcome=success, latency={}ms",
+                            task, providerId, model, keyEntity != null ? keyEntity.getId() : "env", attempt, latencyMs,
                             StructuredArguments.keyValue("event", Events.LLM_ATTEMPT),
                             StructuredArguments.keyValue("task", task),
                             StructuredArguments.keyValue("provider", providerId),
                             StructuredArguments.keyValue("model", model),
+                            StructuredArguments.keyValue("keyId", keyEntity != null ? keyEntity.getId().toString() : "env"),
                             StructuredArguments.keyValue("attempt", attempt),
                             StructuredArguments.keyValue("outcome", "success"),
                             StructuredArguments.keyValue("latencyMs", latencyMs),
                             StructuredArguments.keyValue("promptChars", promptChars),
                             StructuredArguments.keyValue("responseChars", responseChars),
-                            StructuredArguments.keyValue("batchSize", batchSize),
-                            StructuredArguments.keyValue("errorClass", ""),
-                            StructuredArguments.keyValue("errorBody", ""));
+                            StructuredArguments.keyValue("batchSize", batchSize));
 
-                    recordSuccess(providerId);
+                    bucketStateRegistry.recordSuccess(bucketKey, providerId);
+                    if (keyEntity != null && keyRepository != null) {
+                        try {
+                            keyEntity.setLastUsedAt(Instant.now());
+                            keyRepository.save(keyEntity);
+                        } catch (Exception e) {
+                            log.warn("Failed to update last_used_at for key {}", keyEntity.getId(), e);
+                        }
+                    }
+
                     if (metrics != null) {
                         metrics.recordLlmAttempt(providerId, "success");
                     }
                     return response;
+
                 } catch (LlmException e) {
                     long latencyMs = System.currentTimeMillis() - startTime;
-                    String outcome = e.getStatusCode() != null ? String.valueOf(e.getStatusCode()) : e.getKind().name().toLowerCase();
-                    Integer httpStatus = e.getStatusCode();
+                    Integer statusCode = e.getStatusCode();
+                    String outcome = statusCode != null ? String.valueOf(statusCode) : e.getKind().name().toLowerCase();
                     String errorClass = e.getClass().getName();
                     String errorBody = e.getMessage() != null ? LlmHttpSupport.truncate(e.getMessage(), 300) : "";
-                    long retryAfterMs = e.getRetryAfterSeconds() != null ? e.getRetryAfterSeconds() * 1000L : 0;
 
-                    if (httpStatus != null) {
-                        log.info("LLM attempt task={}, provider={}, model={}, attempt={}, outcome={}, latency={}ms",
-                                task, providerId, model, attempt, outcome, latencyMs,
-                                StructuredArguments.keyValue("event", Events.LLM_ATTEMPT),
-                                StructuredArguments.keyValue("task", task),
-                                StructuredArguments.keyValue("provider", providerId),
-                                StructuredArguments.keyValue("model", model),
-                                StructuredArguments.keyValue("attempt", attempt),
-                                StructuredArguments.keyValue("outcome", outcome),
-                                StructuredArguments.keyValue("latencyMs", latencyMs),
-                                StructuredArguments.keyValue("httpStatus", httpStatus),
-                                StructuredArguments.keyValue("promptChars", promptChars),
-                                StructuredArguments.keyValue("responseChars", 0),
-                                StructuredArguments.keyValue("batchSize", batchSize),
-                                StructuredArguments.keyValue("retryAfterMs", retryAfterMs),
-                                StructuredArguments.keyValue("errorClass", errorClass),
-                                StructuredArguments.keyValue("errorBody", errorBody));
-                    } else {
-                        log.info("LLM attempt task={}, provider={}, model={}, attempt={}, outcome={}, latency={}ms",
-                                task, providerId, model, attempt, outcome, latencyMs,
-                                StructuredArguments.keyValue("event", Events.LLM_ATTEMPT),
-                                StructuredArguments.keyValue("task", task),
-                                StructuredArguments.keyValue("provider", providerId),
-                                StructuredArguments.keyValue("model", model),
-                                StructuredArguments.keyValue("attempt", attempt),
-                                StructuredArguments.keyValue("outcome", outcome),
-                                StructuredArguments.keyValue("latencyMs", latencyMs),
-                                StructuredArguments.keyValue("promptChars", promptChars),
-                                StructuredArguments.keyValue("responseChars", 0),
-                                StructuredArguments.keyValue("batchSize", batchSize),
-                                StructuredArguments.keyValue("retryAfterMs", retryAfterMs),
-                                StructuredArguments.keyValue("errorClass", errorClass),
-                                StructuredArguments.keyValue("errorBody", errorBody));
+                    log.info("LLM attempt task={}, provider={}, model={}, keyId={}, attempt={}, outcome={}, latency={}ms",
+                            task, providerId, model, keyEntity != null ? keyEntity.getId() : "env", attempt, outcome, latencyMs,
+                            StructuredArguments.keyValue("event", Events.LLM_ATTEMPT),
+                            StructuredArguments.keyValue("task", task),
+                            StructuredArguments.keyValue("provider", providerId),
+                            StructuredArguments.keyValue("model", model),
+                            StructuredArguments.keyValue("keyId", keyEntity != null ? keyEntity.getId().toString() : "env"),
+                            StructuredArguments.keyValue("attempt", attempt),
+                            StructuredArguments.keyValue("outcome", outcome),
+                            StructuredArguments.keyValue("latencyMs", latencyMs),
+                            StructuredArguments.keyValue("httpStatus", statusCode != null ? statusCode : 0),
+                            StructuredArguments.keyValue("errorClass", errorClass),
+                            StructuredArguments.keyValue("errorBody", errorBody));
+
+                    if (statusCode != null && (statusCode == 401 || statusCode == 403)) {
+                        // Invalidate Key in DB
+                        log.warn("Marking key {} INVALID due to HTTP {}", keyEntity != null ? keyEntity.getId() : "unknown", statusCode);
+                        if (keyEntity != null && keyRepository != null) {
+                            try {
+                                keyEntity.setStatus(LlmKeyStatus.INVALID);
+                                keyRepository.save(keyEntity);
+                            } catch (Exception ex) {
+                                log.error("Failed to mark key {} invalid", keyEntity.getId(), ex);
+                            }
+                        }
+                        failureMessages.add(bucketKey + ": invalid key (HTTP " + statusCode + ")");
+                        break; // Advance to next bucket immediately
                     }
 
-                    if (metrics != null) {
-                        metrics.recordLlmAttempt(providerId, outcome);
+                    if (statusCode != null && statusCode == 429) {
+                        // Rate limit -> handle cooldown & advance immediately without same-bucket retry
+                        bucketStateRegistry.handle429(bucketKey, providerId, model, e.getMessage(), e.getRetryAfterSeconds(), metrics);
+                        failureMessages.add(bucketKey + ": rate limited (429)");
+                        break; // Advance to next bucket immediately
                     }
 
                     if (e.getKind() == LlmException.Kind.FATAL || e.getKind() == LlmException.Kind.BAD_OUTPUT) {
-                        recordFailure(providerId);
-                        failureMessages.add(providerId + ": " + (e.getMessage() != null ? e.getMessage() : e.getKind().name()));
+                        bucketStateRegistry.recordFailure(bucketKey, providerId, metrics);
+                        failureMessages.add(bucketKey + ": " + (e.getMessage() != null ? e.getMessage() : e.getKind().name()));
                         break;
                     }
 
-                    // RETRYABLE
+                    // RETRYABLE (e.g. 5xx/IO error)
                     if (attempt < attemptsPerProvider) {
                         long delay = calculateBackoff(attempt - 1, baseDelay, maxDelay, e.getRetryAfterSeconds());
                         try {
@@ -200,72 +240,55 @@ public class FailoverLlmClient implements LlmClient {
                             throw new LlmException(LlmException.Kind.FATAL, providerId, null, null, "Interrupted during retry backoff", ie);
                         }
                     } else {
-                        recordFailure(providerId);
-                        failureMessages.add(providerId + ": " + (e.getMessage() != null ? e.getMessage() : e.getKind().name()));
+                        bucketStateRegistry.recordFailure(bucketKey, providerId, metrics);
+                        failureMessages.add(bucketKey + ": " + (e.getMessage() != null ? e.getMessage() : e.getKind().name()));
                     }
+
                 } catch (Exception e) {
                     long latencyMs = System.currentTimeMillis() - startTime;
-                    String errorClass = e.getClass().getName();
-                    String errorBody = e.getMessage() != null ? LlmHttpSupport.truncate(e.getMessage(), 300) : "";
+                    log.info("LLM attempt error: task={}, provider={}, model={}, keyId={}, error={}",
+                            task, providerId, model, keyEntity != null ? keyEntity.getId() : "env", e.getMessage());
 
-                    log.info("LLM attempt task={}, provider={}, model={}, attempt={}, outcome=error, latency={}ms",
-                            task, providerId, model, attempt, latencyMs,
-                            StructuredArguments.keyValue("event", Events.LLM_ATTEMPT),
-                            StructuredArguments.keyValue("task", task),
-                            StructuredArguments.keyValue("provider", providerId),
-                            StructuredArguments.keyValue("model", model),
-                            StructuredArguments.keyValue("attempt", attempt),
-                            StructuredArguments.keyValue("outcome", "error"),
-                            StructuredArguments.keyValue("latencyMs", latencyMs),
-                            StructuredArguments.keyValue("promptChars", promptChars),
-                            StructuredArguments.keyValue("responseChars", 0),
-                            StructuredArguments.keyValue("batchSize", batchSize),
-                            StructuredArguments.keyValue("errorClass", errorClass),
-                            StructuredArguments.keyValue("errorBody", errorBody));
-
-                    recordFailure(providerId);
-                    if (metrics != null) {
-                        metrics.recordLlmAttempt(providerId, "error");
-                    }
-                    failureMessages.add(providerId + ": " + e.getMessage());
+                    bucketStateRegistry.recordFailure(bucketKey, providerId, metrics);
+                    failureMessages.add(bucketKey + ": " + e.getMessage());
                     break;
                 }
             }
         }
 
         long totalChainLatency = System.currentTimeMillis() - chainStartTime;
-        log.error("LLM chain exhausted: task={}, providersTried={}, totalLatencyMs={}",
-                task, eligibleChain, totalChainLatency,
+        List<String> allBucketKeys = buckets.stream().map(BucketTarget::bucketKey).toList();
+        Instant soonestExpiry = bucketStateRegistry.getSoonestCooldownExpiry(allBucketKeys);
+        String expiryMsg = soonestExpiry != null ? " (soonest capacity returns at " + soonestExpiry + ")" : "";
+
+        log.error("LLM chain exhausted: task={}, bucketsTried={}, totalLatencyMs={}",
+                task, buckets.size(), totalChainLatency,
                 StructuredArguments.keyValue("event", Events.LLM_CHAIN_EXHAUSTED),
                 StructuredArguments.keyValue("task", task),
-                StructuredArguments.keyValue("providersTried", String.join(",", eligibleChain)),
                 StructuredArguments.keyValue("totalLatencyMs", totalChainLatency),
                 StructuredArguments.keyValue("failureMessages", String.join("; ", failureMessages)));
 
-        String chainMessage = "All providers failed for task '" + task + "': " + String.join("; ", failureMessages);
-        throw new LlmException(LlmException.Kind.FATAL, "chain", null, null,
-                LlmHttpSupport.truncate(chainMessage, 1500));
+        String chainMessage = "All providers failed for task '" + task + "': " + String.join("; ", failureMessages) + expiryMsg;
+        throw new LlmException(LlmException.Kind.FATAL, "chain", null, null, LlmHttpSupport.truncate(chainMessage, 1500));
+    }
+
+    @Override
+    public int recommendedBatchSize(UUID userId, String task) {
+        String t = task != null ? task : "";
+        List<String> rawChain = resolveChain(t);
+        List<BucketTarget> buckets = buildBucketList(userId, rawChain);
+
+        for (BucketTarget target : buckets) {
+            if (!bucketStateRegistry.isCooldown(target.bucketKey())) {
+                return batchSizeOf(target.providerId());
+            }
+        }
+        return 50;
     }
 
     @Override
     public int recommendedBatchSize(String task) {
-        String t = task != null ? task : "";
-        List<String> eligibleChain = buildEligibleChain(resolveChain(t));
-        if (eligibleChain.isEmpty()) {
-            return 50;
-        }
-
-        boolean allOpen = eligibleChain.stream().allMatch(this::isCircuitOpen);
-        for (String providerId : eligibleChain) {
-            if (!allOpen && isCircuitOpen(providerId)) {
-                continue;
-            }
-            if (providers.get(providerId) == null) {
-                continue;
-            }
-            return batchSizeOf(providerId);
-        }
-        return 50;
+        return recommendedBatchSize(UserContext.getCurrentUserId(), task);
     }
 
     @Override
@@ -279,15 +302,71 @@ public class FailoverLlmClient implements LlmClient {
         return 50;
     }
 
-    private List<String> buildEligibleChain(List<String> rawChain) {
-        List<String> eligibleChain = new ArrayList<>();
-        for (String id : rawChain) {
-            String trimmed = id.trim();
-            if (!trimmed.isEmpty() && isEligible(trimmed)) {
-                eligibleChain.add(trimmed);
+    private List<BucketTarget> buildBucketList(UUID userId, List<String> rawChain) {
+        List<BucketTarget> targets = new ArrayList<>();
+        if (rawChain == null || rawChain.isEmpty()) {
+            return targets;
+        }
+
+        Map<String, List<LlmKey>> userKeysByProvider = new HashMap<>();
+        if (userId != null && keyRepository != null) {
+            List<LlmKey> activeKeys = keyRepository.findByUserIdAndStatusOrderByPositionAsc(userId, LlmKeyStatus.ACTIVE);
+            for (LlmKey k : activeKeys) {
+                userKeysByProvider.computeIfAbsent(k.getProvider().toLowerCase(), p -> new ArrayList<>()).add(k);
             }
         }
-        return eligibleChain;
+
+        for (String pId : rawChain) {
+            String providerId = pId.trim();
+            if (providerId.isEmpty() || !providers.containsKey(providerId)) {
+                continue;
+            }
+
+            LlmProperties.ProviderProperties providerProps = properties != null && properties.getProviders() != null ? properties.getProviders().get(providerId) : null;
+            List<LlmKey> keys = userKeysByProvider.getOrDefault(providerId.toLowerCase(), Collections.emptyList());
+
+            if (keys.isEmpty()) {
+                if (keyRepository == null || (providerProps != null && providerProps.isAllowNoKey())) {
+                    String model = getModel(providerId);
+                    targets.add(new BucketTarget(null, providerId, model, providerId + ":default:" + model));
+                }
+                continue;
+            }
+
+            if ("gemini".equalsIgnoreCase(providerId)) {
+                // Model-major iteration: best model across ALL keys, then next model across all keys
+                List<String> models = getGeminiModels(providerProps);
+                for (String model : models) {
+                    for (LlmKey key : keys) {
+                        String bucketKey = key.getId() + ":" + model;
+                        targets.add(new BucketTarget(key, providerId, model, bucketKey));
+                    }
+                }
+            } else {
+                // OpenAI-compatible rotation
+                String model = getModel(providerId);
+                for (LlmKey key : keys) {
+                    String bucketKey = key.getId().toString();
+                    targets.add(new BucketTarget(key, providerId, model, bucketKey));
+                }
+            }
+        }
+        return targets;
+    }
+
+    private List<String> getGeminiModels(LlmProperties.ProviderProperties providerProps) {
+        if (providerProps != null && providerProps.getModels() != null && !providerProps.getModels().isEmpty()) {
+            return providerProps.getModels();
+        }
+        return List.of(
+                "gemini-3.7-flash",
+                "gemini-3.6-flash",
+                "gemini-3.5-flash",
+                "gemini-3.5-flash-lite",
+                "gemini-3.1-flash-lite",
+                "gemini-2.5-flash",
+                "gemini-2.5-flash-lite"
+        );
     }
 
     private List<String> resolveChain(String task) {
@@ -303,72 +382,20 @@ public class FailoverLlmClient implements LlmClient {
         return Collections.emptyList();
     }
 
-    private boolean isEligible(String providerId) {
-        if (properties != null && properties.getProviders() != null && properties.getProviders().containsKey(providerId)) {
-            LlmProperties.ProviderProperties prop = properties.getProviders().get(providerId);
-            if (prop != null) {
-                boolean hasKey = prop.getApiKey() != null && !prop.getApiKey().trim().isEmpty();
-                return hasKey || prop.isAllowNoKey();
-            }
-        }
-        return true;
-    }
-
     private String getModel(String providerId) {
         if (properties != null && properties.getProviders() != null && properties.getProviders().containsKey(providerId)) {
             LlmProperties.ProviderProperties prop = properties.getProviders().get(providerId);
-            if (prop != null && prop.getModel() != null) {
+            if (prop != null && prop.getModel() != null && !prop.getModel().isBlank()) {
                 return prop.getModel();
             }
         }
         return "unknown";
     }
 
-    private boolean isCircuitOpen(String providerId) {
-        CircuitState state = circuitStates.get(providerId);
-        if (state == null) {
-            return false;
-        }
-        long cooldownMs = properties.getRetry().getCooldownMs();
-        if (state.consecutiveFailures.get() >= 3) {
-            long elapsed = System.currentTimeMillis() - state.lastFailureTimestamp.get();
-            return elapsed < cooldownMs;
-        }
-        return false;
-    }
-
-    private void recordSuccess(String providerId) {
-        CircuitState state = circuitStates.computeIfAbsent(providerId, k -> new CircuitState());
-        int previousFailures = state.consecutiveFailures.getAndSet(0);
-        state.lastFailureTimestamp.set(0);
-        if (previousFailures >= 3) {
-            long cooldownMs = properties != null && properties.getRetry() != null ? properties.getRetry().getCooldownMs() : 60000;
-            log.info("LLM circuit closed: provider={}", providerId,
-                    StructuredArguments.keyValue("event", Events.LLM_CIRCUIT_CLOSED),
-                    StructuredArguments.keyValue("provider", providerId),
-                    StructuredArguments.keyValue("cooldownMs", cooldownMs),
-                    StructuredArguments.keyValue("consecutiveFailures", 0));
-        }
-    }
-
-    private void recordFailure(String providerId) {
-        CircuitState state = circuitStates.computeIfAbsent(providerId, k -> new CircuitState());
-        int failures = state.consecutiveFailures.incrementAndGet();
-        state.lastFailureTimestamp.set(System.currentTimeMillis());
-        if (failures == 3) {
-            long cooldownMs = properties != null && properties.getRetry() != null ? properties.getRetry().getCooldownMs() : 60000;
-            log.warn("LLM circuit opened: provider={}", providerId,
-                    StructuredArguments.keyValue("event", Events.LLM_CIRCUIT_OPENED),
-                    StructuredArguments.keyValue("provider", providerId),
-                    StructuredArguments.keyValue("cooldownMs", cooldownMs),
-                    StructuredArguments.keyValue("consecutiveFailures", failures));
-        }
-    }
-
     private long calculateBackoff(int retryIndex, long baseDelay, long maxDelay, Long retryAfterSeconds) {
         long exponentialDelay = baseDelay * (1L << Math.min(retryIndex, 30));
         long cappedDelay = Math.min(maxDelay, exponentialDelay);
-        long jitteredDelay = ThreadLocalRandom.current().nextLong(0, cappedDelay + 1);
+        long jitteredDelay = java.util.concurrent.ThreadLocalRandom.current().nextLong(0, cappedDelay + 1);
         if (retryAfterSeconds != null && retryAfterSeconds > 0) {
             long retryAfterMs = Math.min(retryAfterSeconds * 1000L, maxDelay);
             if (retryAfterMs > jitteredDelay) {

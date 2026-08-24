@@ -43,15 +43,17 @@ public class OpenAiCompatProvider implements LlmProvider {
     }
 
     @Override
-    public LlmResponse complete(LlmRequest request) {
-        String apiKey = properties.getApiKey();
-        if ((apiKey == null || apiKey.trim().isEmpty()) && !properties.isAllowNoKey()) {
+    public LlmResponse complete(LlmRequest request, String apiKey, String model) {
+        String keyToUse = apiKey != null ? apiKey.trim() : "";
+        if (keyToUse.isEmpty() && !properties.isAllowNoKey()) {
             throw new LlmException(LlmException.Kind.FATAL, id, null, null, "API key is not configured for OpenAI provider: " + id);
         }
 
+        String modelToUse = model != null && !model.isBlank() ? model.trim() : (properties.getModel() != null ? properties.getModel() : "unknown");
+
         String requestBody;
         try {
-            requestBody = buildRequestBody(request, properties, objectMapper);
+            requestBody = buildRequestBody(request, properties, modelToUse, objectMapper);
         } catch (Exception e) {
             throw new LlmException(LlmException.Kind.FATAL, id, null, null, "Failed to build request body: " + e.getMessage(), e);
         }
@@ -69,8 +71,8 @@ public class OpenAiCompatProvider implements LlmProvider {
                 .timeout(Duration.ofMillis(timeoutMs))
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody));
 
-        if (apiKey != null && !apiKey.trim().isEmpty()) {
-            requestBuilder.header("Authorization", "Bearer " + apiKey.trim());
+        if (!keyToUse.isEmpty()) {
+            requestBuilder.header("Authorization", "Bearer " + keyToUse);
         }
         if (properties.getHeaders() != null) {
             properties.getHeaders().forEach((k, v) -> {
@@ -80,16 +82,21 @@ public class OpenAiCompatProvider implements LlmProvider {
             });
         }
 
-        String modelName = properties.getModel() != null ? properties.getModel() : "unknown";
-        log.info("Making API call to provider [{}], model [{}], task [{}]", id, modelName, request.task());
+        log.info("Making API call to provider [{}], model [{}], task [{}]", id, modelToUse, request.task());
         HttpResponse<String> response = LlmHttpSupport.executeAndHandleExceptions(
                 () -> httpClient.send(requestBuilder.build(), HttpResponse.BodyHandlers.ofString()), id);
-        return parseResponseBody(response.body(), response.statusCode(), LlmHttpSupport.parseRetryAfter(response), id, properties.getModel(), objectMapper);
+        return parseResponseBody(response.body(), response.statusCode(), LlmHttpSupport.parseRetryAfter(response), id, modelToUse, objectMapper);
     }
 
     public static String buildRequestBody(LlmRequest request, LlmProperties.ProviderProperties properties, ObjectMapper objectMapper) throws Exception {
+        return buildRequestBody(request, properties, properties.getModel(), objectMapper);
+    }
+
+    public static String buildRequestBody(LlmRequest request, LlmProperties.ProviderProperties properties, String model, ObjectMapper objectMapper) throws Exception {
         ObjectNode body = objectMapper.createObjectNode();
-        if (properties.getModel() != null) {
+        if (model != null && !model.isBlank()) {
+            body.put("model", model);
+        } else if (properties.getModel() != null) {
             body.put("model", properties.getModel());
         }
         body.put("temperature", request.temperature());

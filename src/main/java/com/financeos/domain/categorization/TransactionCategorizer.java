@@ -79,7 +79,8 @@ public class TransactionCategorizer {
         }
 
         List<CategorizeItemResponse> fanOutResults = new ArrayList<>();
-        int size = llmClient.recommendedBatchSize("categorize");
+        java.util.UUID currentUserId = com.financeos.core.security.UserContext.getCurrentUserId();
+        int size = llmClient.recommendedBatchSize(currentUserId, "categorize");
         int i = 0;
         while (i < representatives.size()) {
             int chunkSize = Math.min(size, representatives.size() - i);
@@ -214,7 +215,8 @@ public class TransactionCategorizer {
 
         schema.putArray("required").add("results");
 
-        LlmRequest request = new LlmRequest("categorize", prompt, schema, 0.0);
+        java.util.UUID currentUserId = com.financeos.core.security.UserContext.getCurrentUserId();
+        LlmRequest request = new LlmRequest(currentUserId, "categorize", prompt, schema, 0.0);
 
         log.info("Calling LLM to categorize batch of {} items", items.size());
         LlmResponse response = llmClient.complete(request);

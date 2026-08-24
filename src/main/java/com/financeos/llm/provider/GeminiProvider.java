@@ -39,9 +39,9 @@ public class GeminiProvider implements LlmProvider {
     }
 
     @Override
-    public LlmResponse complete(LlmRequest request) {
-        String apiKey = properties.getApiKey();
-        if ((apiKey == null || apiKey.trim().isEmpty()) && !properties.isAllowNoKey()) {
+    public LlmResponse complete(LlmRequest request, String apiKey, String model) {
+        String keyToUse = apiKey != null ? apiKey.trim() : "";
+        if (keyToUse.isEmpty() && !properties.isAllowNoKey()) {
             throw new LlmException(LlmException.Kind.FATAL, id, null, null, "API key is not configured for Gemini provider: " + id);
         }
 
@@ -52,25 +52,26 @@ public class GeminiProvider implements LlmProvider {
             throw new LlmException(LlmException.Kind.FATAL, id, null, null, "Failed to build request body: " + e.getMessage(), e);
         }
 
-        String url = String.format(
-                "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent?key=%s",
-                properties.getModel() != null ? properties.getModel() : "gemini-2.5-flash-lite",
-                apiKey != null ? apiKey.trim() : ""
-        );
+        String modelToUse = model != null && !model.isBlank() ? model.trim() : (properties.getModel() != null ? properties.getModel() : "gemini-3.5-flash-lite");
+        String url = String.format("https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent", modelToUse);
 
         long timeoutMs = properties.getTimeoutMs();
-        HttpRequest httpRequest = HttpRequest.newBuilder()
+        HttpRequest.Builder builder = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
                 .timeout(Duration.ofMillis(timeoutMs))
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                .build();
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody));
 
-        String modelName = properties.getModel() != null ? properties.getModel() : "gemini-2.5-flash-lite";
-        log.info("Making API call to provider [{}], model [{}], task [{}]", id, modelName, request.task());
+        if (!keyToUse.isEmpty()) {
+            builder.header("x-goog-api-key", keyToUse);
+        }
+
+        HttpRequest httpRequest = builder.build();
+
+        log.info("Making API call to provider [{}], model [{}], task [{}]", id, modelToUse, request.task());
         HttpResponse<String> response = LlmHttpSupport.executeAndHandleExceptions(
                 () -> httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString()), id);
-        return parseResponseBody(response.body(), response.statusCode(), LlmHttpSupport.parseRetryAfter(response), id, properties.getModel(), objectMapper);
+        return parseResponseBody(response.body(), response.statusCode(), LlmHttpSupport.parseRetryAfter(response), id, modelToUse, objectMapper);
     }
 
     public static String buildRequestBody(LlmRequest request, ObjectMapper objectMapper) throws Exception {

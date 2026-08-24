@@ -25,6 +25,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ChatOrchestrator {
@@ -92,10 +93,18 @@ public class ChatOrchestrator {
             eventSink.onStatus(iteration == 1 ? "Thinking…" : "Analyzing results…");
             String prompt = buildPrompt(transcript, stepResults, isLastIteration);
 
-            LlmRequest request = new LlmRequest("data-chat", prompt, currentSchema, 0.0);
+            UUID currentUserId = com.financeos.core.security.UserContext.getCurrentUserId();
+            LlmRequest request = new LlmRequest(currentUserId, "data-chat", prompt, currentSchema, 0.0);
             LlmResponse response;
             try {
                 response = llmClient.complete(request);
+            } catch (com.financeos.llm.LlmException e) {
+                if (e.getKind() == com.financeos.llm.LlmException.Kind.NO_KEYS) {
+                    log.warn("Chat failed: no active LLM keys for user");
+                    return ChatAnswer.answer("No AI API keys configured. Please add an API key in Settings > AI API Keys to use chat.", traces);
+                }
+                log.error("LLM completion failed at iteration {}: {}", iteration, e.getMessage(), e);
+                return ChatAnswer.answer("I encountered an error connecting to the AI model. Please try again.", traces);
             } catch (Exception e) {
                 log.error("LLM completion failed at iteration {}: {}", iteration, e.getMessage(), e);
                 return ChatAnswer.answer("I encountered an error connecting to the AI model. Please try again.", traces);

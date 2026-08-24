@@ -1,8 +1,11 @@
 package com.financeos.llm;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.financeos.core.observability.ObservabilityMetrics;
+import com.financeos.domain.llm.LlmKeyRepository;
 import com.financeos.llm.provider.GeminiProvider;
 import com.financeos.llm.provider.OpenAiCompatProvider;
+import com.financeos.llm.security.LlmKeyEncryptionService;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,14 +13,16 @@ import org.springframework.context.annotation.Configuration;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.financeos.core.observability.ObservabilityMetrics;
-
 @Configuration
 @EnableConfigurationProperties(LlmProperties.class)
 public class LlmConfiguration {
 
     @Bean
-    public FailoverLlmClient llmClient(LlmProperties properties, ObjectMapper objectMapper, ObservabilityMetrics metrics) {
+    public FailoverLlmClient llmClient(LlmProperties properties,
+                                        ObjectMapper objectMapper,
+                                        LlmKeyRepository keyRepository,
+                                        LlmKeyEncryptionService encryptionService,
+                                        ObservabilityMetrics metrics) {
         Map<String, LlmProvider> providers = new HashMap<>();
         if (properties.getProviders() != null) {
             for (Map.Entry<String, LlmProperties.ProviderProperties> entry : properties.getProviders().entrySet()) {
@@ -33,6 +38,6 @@ public class LlmConfiguration {
                 }
             }
         }
-        return new FailoverLlmClient(properties, providers, metrics);
+        return new FailoverLlmClient(properties, providers, keyRepository, encryptionService, metrics);
     }
 }

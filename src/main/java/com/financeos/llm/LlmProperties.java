@@ -35,6 +35,7 @@ public class LlmProperties {
         private String apiKey;
         private String baseUrl;
         private String model;
+        private List<String> models = new ArrayList<>();
         private long timeoutMs = 30000L;
         private String structuredOutput = "json-schema";
         private boolean allowNoKey = false;

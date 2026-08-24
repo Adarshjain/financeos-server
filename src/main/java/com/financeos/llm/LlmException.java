@@ -1,7 +1,7 @@
 package com.financeos.llm;
 
 public class LlmException extends RuntimeException {
-    public enum Kind { RETRYABLE, FATAL, BAD_OUTPUT }
+    public enum Kind { RETRYABLE, FATAL, BAD_OUTPUT, NO_KEYS }
 
     private final Kind kind;
     private final String providerId;

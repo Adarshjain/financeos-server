@@ -74,7 +74,8 @@ public class GeminiExtractor {
 
             schema.putArray("required").add("isTransaction");
 
-            LlmRequest request = new LlmRequest("email-extract", prompt, schema, 0.0);
+            java.util.UUID currentUserId = com.financeos.core.security.UserContext.getCurrentUserId();
+            LlmRequest request = new LlmRequest(currentUserId, "email-extract", prompt, schema, 0.0);
 
             log.info("Calling Gemini API for message ID: {}", message.messageId());
             LlmResponse response = llmClient.complete(request);

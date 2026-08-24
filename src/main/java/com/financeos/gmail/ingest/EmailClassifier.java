@@ -61,7 +61,8 @@ public class EmailClassifier {
 
             schema.putArray("required").add("emailType");
 
-            LlmRequest request = new LlmRequest("email-classify", prompt, schema, 0.0);
+            java.util.UUID currentUserId = com.financeos.core.security.UserContext.getCurrentUserId();
+            LlmRequest request = new LlmRequest(currentUserId, "email-classify", prompt, schema, 0.0);
 
             log.info("Calling Gemini API to classify message ID: {}", message.messageId());
             LlmResponse response = llmClient.complete(request);
