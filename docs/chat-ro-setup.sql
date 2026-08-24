@@ -13,6 +13,9 @@
 --
 -- Steps:
 --   1. Replace the password below with a strong generated one.
+--      ADB's mandatory profile requires: 12-30 chars, at least 1 uppercase,
+--      1 lowercase, and 1 digit; must not contain the username or "admin".
+--      Keep it double-quoted; plain letters+digits avoids shell/JDBC escaping pain.
 --   2. Run this script as ADMIN.
 --   3. Put the credentials in server/.env and the OCI environment:
 --        CHAT_RO_USERNAME=CHAT_RO

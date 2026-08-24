@@ -82,9 +82,14 @@ public class ChatOrchestrator {
         ObjectNode finalOnlySchema = buildSchema(true);
 
         for (int iteration = 1; iteration <= maxIterations; iteration++) {
+            if (Thread.currentThread().isInterrupted()) {
+                log.info("Chat loop cancelled at iteration {} (client disconnected)", iteration);
+                return ChatAnswer.answer("Cancelled.", traces);
+            }
             boolean isLastIteration = (iteration == maxIterations);
             ObjectNode currentSchema = isLastIteration ? finalOnlySchema : standardSchema;
 
+            eventSink.onStatus(iteration == 1 ? "Thinking…" : "Analyzing results…");
             String prompt = buildPrompt(transcript, stepResults, isLastIteration);
 
             LlmRequest request = new LlmRequest("data-chat", prompt, currentSchema, 0.0);
