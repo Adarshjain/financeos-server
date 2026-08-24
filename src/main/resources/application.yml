@@ -116,6 +116,8 @@ gmail:
 # LLM Provider Layer configuration
 llm:
   chain: ${LLM_CHAIN:gemini,cerebras,groq,openrouter}
+  keys:
+    master-key: ${LLM_KEYS_MASTER_KEY:}
   retry:
     attempts-per-provider: ${LLM_ATTEMPTS_PER_PROVIDER:2}
     base-delay-ms: 1000
@@ -124,28 +126,25 @@ llm:
   providers:
     gemini:
       type: gemini
-      api-key: ${GEMINI_API_KEY:}
-      model: ${GEMINI_MODEL:gemini-2.5-flash-lite}
+      models: ${GEMINI_MODELS:gemini-3.7-flash,gemini-3.6-flash,gemini-3.5-flash,gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-2.5-flash,gemini-2.5-flash-lite}
+      model: ${GEMINI_MODEL:gemini-3.5-flash-lite}
       timeout-ms: ${GEMINI_TIMEOUT_MS:30000}
       batch-size: ${GEMINI_BATCH_SIZE:200}
     cerebras:
       type: openai
       base-url: https://api.cerebras.ai/v1
-      api-key: ${CEREBRAS_API_KEY:}
       model: ${CEREBRAS_MODEL:gpt-oss-120b}
       timeout-ms: 30000
       batch-size: ${CEREBRAS_BATCH_SIZE:100}
     groq:
       type: openai
       base-url: https://api.groq.com/openai/v1
-      api-key: ${GROQ_API_KEY:}
       model: ${GROQ_MODEL:openai/gpt-oss-120b}
       timeout-ms: 30000
       batch-size: ${GROQ_BATCH_SIZE:100}
     openrouter:
       type: openai
       base-url: https://openrouter.ai/api/v1
-      api-key: ${OPENROUTER_API_KEY:}
       model: ${OPENROUTER_MODEL:openrouter/free}
       structured-output: json-object     # :free routes vary; don't assume json_schema support
       timeout-ms: 45000

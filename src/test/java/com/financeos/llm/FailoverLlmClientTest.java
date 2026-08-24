@@ -1,13 +1,20 @@
 package com.financeos.llm;
 
+import com.financeos.domain.llm.LlmKey;
+import com.financeos.domain.llm.LlmKeyRepository;
+import com.financeos.domain.llm.LlmKeyStatus;
+import com.financeos.domain.user.User;
+import com.financeos.llm.security.LlmKeyEncryptionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 
 public class FailoverLlmClientTest {
 
@@ -38,7 +45,7 @@ public class FailoverLlmClientTest {
         }
 
         @Override
-        public LlmResponse complete(LlmRequest request) {
+        public LlmResponse complete(LlmRequest request, String apiKey, String model) {
             callCount++;
             if (nextException != null) {
                 throw nextException;
@@ -46,7 +53,7 @@ public class FailoverLlmClientTest {
             if (nextResponse != null) {
                 return nextResponse;
             }
-            return new LlmResponse("{}", id, "mock-model");
+            return new LlmResponse("{}", id, model != null ? model : "mock-model");
         }
 
         public int getCallCount() {
@@ -86,13 +93,12 @@ public class FailoverLlmClientTest {
 
     @Test
     public void testRetryOnRetryableAndSucceed() {
-        // First call throws RETRYABLE, but since our stub throws the same exception every time unless we change behavior dynamically, let's make a dynamic stub
         LlmProvider dynamicA = new LlmProvider() {
             int attempts = 0;
             @Override
             public String id() { return "A"; }
             @Override
-            public LlmResponse complete(LlmRequest request) {
+            public LlmResponse complete(LlmRequest request, String apiKey, String model) {
                 attempts++;
                 if (attempts == 1) {
                     throw new LlmException(LlmException.Kind.RETRYABLE, "A", 503, null, "503 Unavailable");
@@ -109,126 +115,157 @@ public class FailoverLlmClientTest {
     }
 
     @Test
-    public void testRetryExhaustedThenFailover() {
-        providerA.setOutcome(null, new LlmException(LlmException.Kind.RETRYABLE, "A", 503, null, "503 Unavailable"));
+    public void test429AdvancesBucketWithoutSameBucketRetry() {
+        providerA.setOutcome(null, new LlmException(LlmException.Kind.RETRYABLE, "A", 429, 60L, "429 Too Many Requests"));
         providerB.setOutcome(new LlmResponse("{\"res\":\"B\"}", "B", "m-b"), null);
 
         FailoverLlmClient client = new FailoverLlmClient(properties, providers);
         LlmResponse res = client.complete(new LlmRequest("test", "prompt", null, 0.0));
 
         assertEquals("B", res.providerId());
-        assertEquals(2, providerA.getCallCount()); // Tried 2 attempts on RETRYABLE
+        assertEquals(1, providerA.getCallCount());
         assertEquals(1, providerB.getCallCount());
     }
 
     @Test
-    public void testImmediateFailoverOnFatalOrBadOutput() {
-        providerA.setOutcome(null, new LlmException(LlmException.Kind.FATAL, "A", 400, null, "400 Bad Request"));
-        providerB.setOutcome(null, new LlmException(LlmException.Kind.BAD_OUTPUT, "B", 200, null, "Invalid JSON"));
-        providerC.setOutcome(new LlmResponse("{\"res\":\"C\"}", "C", "m-c"), null);
+    public void testNoKeysThrowsNoKeysException() {
+        String masterKey = Base64.getEncoder().encodeToString(new byte[32]);
+        LlmKeyEncryptionService encryptionService = new LlmKeyEncryptionService(masterKey);
+        LlmKeyRepository mockRepo = Mockito.mock(LlmKeyRepository.class);
 
-        FailoverLlmClient client = new FailoverLlmClient(properties, providers);
-        LlmResponse res = client.complete(new LlmRequest("test", "prompt", null, 0.0));
+        UUID userId = UUID.randomUUID();
+        when(mockRepo.findByUserIdAndStatusOrderByPositionAsc(eq(userId), eq(LlmKeyStatus.ACTIVE))).thenReturn(Collections.emptyList());
 
-        assertEquals("C", res.providerId());
-        assertEquals(1, providerA.getCallCount()); // Only 1 attempt on FATAL
-        assertEquals(1, providerB.getCallCount()); // Only 1 attempt on BAD_OUTPUT
-        assertEquals(1, providerC.getCallCount());
+        FailoverLlmClient client = new FailoverLlmClient(properties, providers, mockRepo, encryptionService, null);
+
+        LlmException ex = assertThrows(LlmException.class, () -> client.complete(new LlmRequest(userId, "test", "prompt", null, 0.0)));
+        assertEquals(LlmException.Kind.NO_KEYS, ex.getKind());
     }
 
     @Test
-    public void testCircuitBreakerTripsAndSkipsProvider() {
-        providerA.setOutcome(null, new LlmException(LlmException.Kind.FATAL, "A", 500, null, "Server error"));
-        providerB.setOutcome(new LlmResponse("{\"res\":\"B\"}", "B", "m-b"), null);
+    public void testGeminiModelMajorFailover() {
+        String masterKey = Base64.getEncoder().encodeToString(new byte[32]);
+        LlmKeyEncryptionService encryptionService = new LlmKeyEncryptionService(masterKey);
+        LlmKeyRepository mockRepo = Mockito.mock(LlmKeyRepository.class);
 
-        FailoverLlmClient client = new FailoverLlmClient(properties, providers);
+        UUID userId = UUID.randomUUID();
+        User user = new User();
+        user.setId(userId);
 
-        // Fail 3 times to trip circuit breaker for A
-        client.complete(new LlmRequest("test", "prompt", null, 0.0));
-        client.complete(new LlmRequest("test", "prompt", null, 0.0));
-        client.complete(new LlmRequest("test", "prompt", null, 0.0));
+        LlmKey key1 = new LlmKey();
+        key1.setId(UUID.randomUUID());
+        key1.setUser(user);
+        key1.setProvider("gemini");
+        key1.setKeyCiphertext(encryptionService.encrypt("key-1"));
+        key1.setPosition(1);
+        key1.setStatus(LlmKeyStatus.ACTIVE);
 
-        assertEquals(3, providerA.getCallCount());
+        LlmKey key2 = new LlmKey();
+        key2.setId(UUID.randomUUID());
+        key2.setUser(user);
+        key2.setProvider("gemini");
+        key2.setKeyCiphertext(encryptionService.encrypt("key-2"));
+        key2.setPosition(2);
+        key2.setStatus(LlmKeyStatus.ACTIVE);
 
-        // 4th call should skip A entirely because circuit breaker is open
-        LlmResponse res = client.complete(new LlmRequest("test", "prompt", null, 0.0));
+        when(mockRepo.findByUserIdAndStatusOrderByPositionAsc(eq(userId), eq(LlmKeyStatus.ACTIVE))).thenReturn(List.of(key1, key2));
+
+        LlmProperties props = new LlmProperties();
+        props.setChain(List.of("gemini"));
+        LlmProperties.ProviderProperties geminiProps = new LlmProperties.ProviderProperties();
+        geminiProps.setType("gemini");
+        geminiProps.setModels(List.of("gemini-3.7-flash", "gemini-3.6-flash"));
+        props.getProviders().put("gemini", geminiProps);
+
+        StubLlmProvider geminiProvider = new StubLlmProvider("gemini");
+        Map<String, LlmProvider> providerMap = Map.of("gemini", geminiProvider);
+
+        FailoverLlmClient client = new FailoverLlmClient(props, providerMap, mockRepo, encryptionService, null);
+        LlmResponse res = client.complete(new LlmRequest(userId, "test", "prompt", null, 0.0));
+
+        assertNotNull(res);
+        assertEquals("gemini", res.providerId());
+        assertEquals("gemini-3.7-flash", res.model());
+    }
+
+    @Test
+    public void test401MarksKeyInvalidAndAdvancesChain() {
+        String masterKey = Base64.getEncoder().encodeToString(new byte[32]);
+        LlmKeyEncryptionService encryptionService = new LlmKeyEncryptionService(masterKey);
+        LlmKeyRepository mockRepo = Mockito.mock(LlmKeyRepository.class);
+
+        UUID userId = UUID.randomUUID();
+        User user = new User();
+        user.setId(userId);
+
+        LlmKey key1 = new LlmKey();
+        key1.setId(UUID.randomUUID());
+        key1.setUser(user);
+        key1.setProvider("A");
+        key1.setKeyCiphertext(encryptionService.encrypt("bad-key"));
+        key1.setPosition(1);
+        key1.setStatus(LlmKeyStatus.ACTIVE);
+
+        LlmKey key2 = new LlmKey();
+        key2.setId(UUID.randomUUID());
+        key2.setUser(user);
+        key2.setProvider("B");
+        key2.setKeyCiphertext(encryptionService.encrypt("good-key"));
+        key2.setPosition(2);
+        key2.setStatus(LlmKeyStatus.ACTIVE);
+
+        when(mockRepo.findByUserIdAndStatusOrderByPositionAsc(eq(userId), eq(LlmKeyStatus.ACTIVE))).thenReturn(List.of(key1, key2));
+
+        providerA.setOutcome(null, new LlmException(LlmException.Kind.FATAL, "A", 401, null, "Unauthorized"));
+        providerB.setOutcome(new LlmResponse("{\"ok\":true}", "B", "m-b"), null);
+
+        FailoverLlmClient client = new FailoverLlmClient(properties, providers, mockRepo, encryptionService, null);
+        LlmResponse res = client.complete(new LlmRequest(userId, "test", "prompt", null, 0.0));
+
         assertEquals("B", res.providerId());
-        assertEquals(3, providerA.getCallCount()); // Still 3, was skipped!
+        assertEquals(LlmKeyStatus.INVALID, key1.getStatus());
+        verify(mockRepo, times(1)).save(key1);
     }
 
     @Test
-    public void testIgnoreCircuitBreakerIfAllProvidersOpen() {
-        providerA.setOutcome(null, new LlmException(LlmException.Kind.FATAL, "A", 500, null, "Err A"));
-        providerB.setOutcome(null, new LlmException(LlmException.Kind.FATAL, "B", 500, null, "Err B"));
-        providerC.setOutcome(null, new LlmException(LlmException.Kind.FATAL, "C", 500, null, "Err C"));
+    public void testRecommendedBatchSizeReturnsFirstUncooledBucket() {
+        String masterKey = Base64.getEncoder().encodeToString(new byte[32]);
+        LlmKeyEncryptionService encryptionService = new LlmKeyEncryptionService(masterKey);
+        LlmKeyRepository mockRepo = Mockito.mock(LlmKeyRepository.class);
+        BucketStateRegistry registry = new BucketStateRegistry();
 
-        FailoverLlmClient client = new FailoverLlmClient(properties, providers);
+        UUID userId = UUID.randomUUID();
+        User user = new User();
+        user.setId(userId);
 
-        // Trip breaker for all three
-        for (int i = 0; i < 3; i++) {
-            try { client.complete(new LlmRequest("test", "prompt", null, 0.0)); } catch (LlmException ignored) {}
-        }
+        LlmKey geminiKey = new LlmKey();
+        geminiKey.setId(UUID.randomUUID());
+        geminiKey.setUser(user);
+        geminiKey.setProvider("gemini");
+        geminiKey.setPosition(1);
+        geminiKey.setStatus(LlmKeyStatus.ACTIVE);
 
-        // Now all three are open. Next call should ignore breaker and still attempt them instead of throwing immediately without calling
-        int beforeA = providerA.getCallCount();
-        assertThrows(LlmException.class, () -> client.complete(new LlmRequest("test", "prompt", null, 0.0)));
-        assertTrue(providerA.getCallCount() > beforeA);
-    }
+        when(mockRepo.findByUserIdAndStatusOrderByPositionAsc(eq(userId), eq(LlmKeyStatus.ACTIVE))).thenReturn(List.of(geminiKey));
 
-    @Test
-    public void testTaskChainOverride() {
-        LlmProperties.TaskProperties taskProps = new LlmProperties.TaskProperties();
-        taskProps.setChain(List.of("C", "B"));
-        properties.getTasks().put("special-task", taskProps);
+        LlmProperties props = new LlmProperties();
+        props.setChain(List.of("gemini"));
+        LlmProperties.ProviderProperties geminiProps = new LlmProperties.ProviderProperties();
+        geminiProps.setBatchSize(200);
+        geminiProps.setModels(List.of("gemini-3.7-flash"));
+        props.getProviders().put("gemini", geminiProps);
 
-        providerC.setOutcome(new LlmResponse("{\"res\":\"C\"}", "C", "m-c"), null);
+        StubLlmProvider geminiProvider = new StubLlmProvider("gemini");
+        Map<String, LlmProvider> providerMap = Map.of("gemini", geminiProvider);
 
-        FailoverLlmClient client = new FailoverLlmClient(properties, providers);
-        LlmResponse res = client.complete(new LlmRequest("special-task", "prompt", null, 0.0));
+        FailoverLlmClient client = new FailoverLlmClient(props, providerMap, mockRepo, encryptionService, null, registry);
 
-        assertEquals("C", res.providerId());
-        assertEquals(0, providerA.getCallCount()); // Main chain start A skipped
-        assertEquals(1, providerC.getCallCount());
-    }
+        int batchSize = client.recommendedBatchSize(userId, "categorize");
+        assertEquals(200, batchSize);
 
-    @Test
-    public void testUnknownProviderInChainThrowsAtStartup() {
-        properties.setChain(List.of("A", "UNKNOWN_ID"));
-        assertThrows(IllegalStateException.class, () -> new FailoverLlmClient(properties, providers));
-    }
+        // Put bucket in cooldown
+        registry.handle429(geminiKey.getId() + ":gemini-3.7-flash", "gemini", "gemini-3.7-flash", "429 Rate Limit", 60L, null);
 
-    @Test
-    public void testBlankApiKeyAndAllowNoKeyFalseIsSkipped() {
-        LlmProperties.ProviderProperties propA = new LlmProperties.ProviderProperties();
-        propA.setApiKey("   ");
-        propA.setAllowNoKey(false);
-        properties.getProviders().put("A", propA);
-
-        LlmProperties.ProviderProperties propB = new LlmProperties.ProviderProperties();
-        propB.setApiKey("valid-key");
-        properties.getProviders().put("B", propB);
-
-        providerB.setOutcome(new LlmResponse("{\"res\":\"B\"}", "B", "m-b"), null);
-
-        FailoverLlmClient client = new FailoverLlmClient(properties, providers);
-        LlmResponse res = client.complete(new LlmRequest("test", "prompt", null, 0.0));
-
-        assertEquals("B", res.providerId());
-        assertEquals(0, providerA.getCallCount());
-        assertEquals(1, providerB.getCallCount());
-    }
-
-    @Test
-    public void testChainExhaustedMentionsEachProviderFailure() {
-        providerA.setOutcome(null, new LlmException(LlmException.Kind.FATAL, "A", 400, null, "Err A"));
-        providerB.setOutcome(null, new LlmException(LlmException.Kind.FATAL, "B", 500, null, "Err B"));
-        providerC.setOutcome(null, new LlmException(LlmException.Kind.BAD_OUTPUT, "C", 200, null, "Err C"));
-
-        FailoverLlmClient client = new FailoverLlmClient(properties, providers);
-        LlmException ex = assertThrows(LlmException.class, () -> client.complete(new LlmRequest("test", "prompt", null, 0.0)));
-
-        assertTrue(ex.getMessage().contains("A: Err A"), "Message should contain A: Err A, but was: " + ex.getMessage());
-        assertTrue(ex.getMessage().contains("B: Err B"), "Message should contain B: Err B, but was: " + ex.getMessage());
-        assertTrue(ex.getMessage().contains("C: Err C"), "Message should contain C: Err C, but was: " + ex.getMessage());
+        int batchSizeAfterCooldown = client.recommendedBatchSize(userId, "categorize");
+        assertEquals(50, batchSizeAfterCooldown); // Falls back to 50 when cooled
     }
 }

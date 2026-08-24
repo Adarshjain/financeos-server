@@ -49,6 +49,7 @@ public final class Events {
     public static final String LLM_CIRCUIT_OPENED = "llm.circuit.opened";
     public static final String LLM_CIRCUIT_CLOSED = "llm.circuit.closed";
     public static final String LLM_CHAIN_EXHAUSTED = "llm.chain.exhausted";
+    public static final String LLM_BUCKET_COOLDOWN = "llm.bucket.cooldown";
 
     // Job Events
     public static final String JOB_STARTED = "job.started";

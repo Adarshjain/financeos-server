@@ -399,7 +399,13 @@ public class GmailIngestionService {
                 log.warn("Failed processing message {}: {}", gpm.getGmailMessageId(), e.getMessage());
                 int attempts = gpm.getAttemptCount() + 1;
                 gpm.setAttemptCount(attempts);
-                gpm.setError(truncate(e.getMessage() != null ? e.getMessage() : e.toString(), 2000));
+                boolean isNoKeys = (e instanceof com.financeos.llm.LlmException le && le.getKind() == com.financeos.llm.LlmException.Kind.NO_KEYS)
+                        || (e.getMessage() != null && e.getMessage().contains("No API keys configured"));
+                if (isNoKeys) {
+                    gpm.setError("needs attention: add an API key in Settings");
+                } else {
+                    gpm.setError(truncate(e.getMessage() != null ? e.getMessage() : e.toString(), 2000));
+                }
 
                 if (attempts < ingestProperties.getRetryMaxAttempts()) {
                     gpm.setStatus(GmailProcessedStatus.FAILED_RETRYABLE);
