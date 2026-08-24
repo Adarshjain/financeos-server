@@ -200,5 +200,22 @@ jobs:
     cron: ${JOBS_RETENTION_CRON:0 30 3 * * *}
     zone: ${JOBS_RETENTION_ZONE:Asia/Kolkata}
 
+# Chat with Your Data configuration
+chat:
+  enabled: ${CHAT_ENABLED:true}
+  datasource:
+    username: ${CHAT_RO_USERNAME:}
+    password: ${CHAT_RO_PASSWORD:}
+  app-schema: ${DB_USERNAME:ADMIN}
+  quota:
+    messages-per-day: 30
+    max-concurrent: 2
+  loop:
+    max-iterations: 6
+    sql-row-cap: 200
+    sql-timeout-seconds: 5
+    result-char-cap: 16000
+
+
 
 
