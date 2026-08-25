@@ -68,7 +68,7 @@ public class ChatController {
                     .build();
         }
 
-        SseEmitter emitter = new SseEmitter(120_000L); // 120s timeout
+        SseEmitter emitter = new SseEmitter(180_000L); // 180s timeout
 
         // A disconnected client must not keep a worker (and a concurrency permit) alive:
         // interrupt the worker on timeout/error, and when a heartbeat fails to send.

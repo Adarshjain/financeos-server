@@ -214,6 +214,7 @@ chat:
     max-concurrent: 2
   loop:
     max-iterations: 6
+    max-wall-clock-seconds: ${CHAT_MAX_WALL_CLOCK_SECONDS:90}
     sql-row-cap: 200
     sql-timeout-seconds: 5
     result-char-cap: 16000
