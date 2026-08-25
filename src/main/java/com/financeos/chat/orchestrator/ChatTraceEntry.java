@@ -6,5 +6,10 @@ public record ChatTraceEntry(
         String summary,
         String detail,
         Integer rowCount,
-        Long durationMs
+        Long durationMs,
+        boolean success,
+        String error,
+        String resultPreview
 ) {}
+
+

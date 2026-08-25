@@ -75,6 +75,8 @@ public class ChatOrchestrator {
         ChatEventSink eventSink = sink != null ? sink : ChatEventSink.NOOP;
         transcript = trimTranscript(transcript);
         int maxIterations = chatProperties.getLoop().getMaxIterations();
+        long maxWallClockMs = chatProperties.getLoop().getMaxWallClockSeconds() * 1000L;
+        long loopStartTimeMs = System.currentTimeMillis();
 
         List<ChatTraceEntry> traces = new ArrayList<>();
         List<String> stepResults = new ArrayList<>();
@@ -82,15 +84,29 @@ public class ChatOrchestrator {
         ObjectNode standardSchema = buildSchema(false);
         ObjectNode finalOnlySchema = buildSchema(true);
 
+        String lastFailureSignature = null;
+        int failureSignatureCount = 0;
+        boolean forceFinalSchema = false;
+
         for (int iteration = 1; iteration <= maxIterations; iteration++) {
             if (Thread.currentThread().isInterrupted()) {
                 log.info("Chat loop cancelled at iteration {} (client disconnected)", iteration);
                 return ChatAnswer.answer("Cancelled.", traces);
             }
-            boolean isLastIteration = (iteration == maxIterations);
+
+            boolean isBudgetTriggered = iteration > 1 && (System.currentTimeMillis() - loopStartTimeMs) >= maxWallClockMs;
+            if (isBudgetTriggered) {
+                if (!forceFinalSchema) {
+                    eventSink.onStatus("Wrapping up…");
+                    forceFinalSchema = true;
+                }
+            } else {
+                eventSink.onStatus(iteration == 1 ? "Thinking…" : "Analyzing results…");
+            }
+
+            boolean isLastIteration = (iteration == maxIterations) || forceFinalSchema;
             ObjectNode currentSchema = isLastIteration ? finalOnlySchema : standardSchema;
 
-            eventSink.onStatus(iteration == 1 ? "Thinking…" : "Analyzing results…");
             String prompt = buildPrompt(transcript, stepResults, isLastIteration);
 
             UUID currentUserId = com.financeos.core.security.UserContext.getCurrentUserId();
@@ -148,73 +164,206 @@ public class ChatOrchestrator {
 
                 String resultJson;
                 Integer rowCount = null;
+                boolean stepSuccess = true;
+                String stepError = null;
+
                 try {
                     resultJson = sqlExecutor.execute(sql);
                     JsonNode node = objectMapper.readTree(resultJson);
                     rowCount = node.path("rowCount").asInt();
                 } catch (ChatSqlRejectedException e) {
-                    resultJson = errorJson("SQL Rejected: " + e.getMessage());
+                    stepSuccess = false;
+                    stepError = "SQL Rejected: " + e.getMessage();
+                    resultJson = errorJson(stepError);
                 } catch (ChatSqlFailedException e) {
-                    resultJson = errorJson(e.getMessage());
+                    stepSuccess = false;
+                    stepError = e.getMessage();
+                    resultJson = errorJson(stepError);
                 } catch (Exception e) {
                     log.warn("Unexpected chat SQL step failure", e);
-                    resultJson = errorJson("Query execution error: internal error");
+                    stepSuccess = false;
+                    stepError = "Query execution error: internal error";
+                    resultJson = errorJson(stepError);
                 }
 
                 long durationMs = System.currentTimeMillis() - startMs;
+                String resultPreview = stepSuccess ? truncatePreview(resultJson) : null;
                 ChatTraceEntry trace = new ChatTraceEntry(
-                        iteration, "run_sql", "Executed SQL query", sql, rowCount, durationMs
+                        iteration, "run_sql", "Executed SQL query", sql, rowCount, durationMs, stepSuccess, stepError, resultPreview
                 );
                 traces.add(trace);
                 eventSink.onTrace(trace);
 
-                stepResults.add("Step " + iteration + " [SQL: " + sql + "]\nResult:\n" + resultJson);
+                StringBuilder stepRes = new StringBuilder("Step " + iteration + " [SQL: " + sql + "]\nResult:\n" + resultJson);
+
+                if (stepSuccess) {
+                    lastFailureSignature = null;
+                    failureSignatureCount = 0;
+                } else {
+                    String signature = "run_sql|" + sql + "|" + stepError;
+                    if (signature.equals(lastFailureSignature)) {
+                        failureSignatureCount++;
+                    } else {
+                        lastFailureSignature = signature;
+                        failureSignatureCount = 1;
+                    }
+
+                    if (failureSignatureCount == 2) {
+                        stepRes.append("\n\nREPEATED FAILURE: this exact call has now failed twice with the same error. Do NOT retry it again. Change your approach (different arguments, a different tool, or SQL) or respond with final_answer using what you already have.");
+                    } else if (failureSignatureCount >= 3) {
+                        forceFinalSchema = true;
+                    }
+                }
+
+                stepResults.add(stepRes.toString());
                 continue;
             }
 
             if ("call_tool".equals(action) || "calc".equals(action)) {
                 String toolName = "calc".equals(action) ? "calc" : responseJson.path("tool").asText();
-                JsonNode argsNode = responseJson.path("args");
+                JsonNode rawArgsNode = responseJson.path("args");
+                ObjectNode argsNode = null;
+                String parseError = null;
+
+                if (rawArgsNode.isObject()) {
+                    argsNode = (ObjectNode) rawArgsNode;
+                } else if (rawArgsNode.isTextual()) {
+                    String argsText = rawArgsNode.asText().trim();
+                    if (argsText.isEmpty()) {
+                        argsNode = objectMapper.createObjectNode();
+                    } else {
+                        try {
+                            JsonNode parsed = objectMapper.readTree(argsText);
+                            if (parsed instanceof ObjectNode objNode) {
+                                argsNode = objNode;
+                            } else {
+                                parseError = "args was not a JSON object. Re-send the tool call with args as a JSON object string.";
+                            }
+                        } catch (Exception e) {
+                            parseError = "args was not valid JSON: " + e.getMessage() + ". Re-send the tool call with args as a JSON object string.";
+                        }
+                    }
+                } else if (rawArgsNode.isMissingNode() || rawArgsNode.isNull()) {
+                    argsNode = objectMapper.createObjectNode();
+                } else {
+                    parseError = "args was not valid JSON: expected JSON object string. Re-send the tool call with args as a JSON object string.";
+                }
+
+                if (parseError != null) {
+                    long durationMs = 0L;
+                    ChatTraceEntry trace = new ChatTraceEntry(
+                            iteration, "call_tool", "Called compute tool: " + toolName,
+                            "{}", null, durationMs, false, parseError, null
+                    );
+                    traces.add(trace);
+                    eventSink.onTrace(trace);
+
+                    StringBuilder stepRes = new StringBuilder("Step " + iteration + " [Tool: " + toolName + " Args: {}]\nResult:\n" + errorJson(parseError));
+
+                    String signature = "call_tool|" + toolName + "|" + parseError;
+                    if (signature.equals(lastFailureSignature)) {
+                        failureSignatureCount++;
+                    } else {
+                        lastFailureSignature = signature;
+                        failureSignatureCount = 1;
+                    }
+
+                    if (failureSignatureCount == 2) {
+                        stepRes.append("\n\nREPEATED FAILURE: this exact call has now failed twice with the same error. Do NOT retry it again. Change your approach (different arguments, a different tool, or SQL) or respond with final_answer using what you already have.");
+                    } else if (failureSignatureCount >= 3) {
+                        forceFinalSchema = true;
+                    }
+
+                    stepResults.add(stepRes.toString());
+                    continue;
+                }
 
                 // Security: Strip any user-identifying parameters passed in args
-                if (argsNode instanceof ObjectNode objNode) {
-                    objNode.remove("userId");
-                    objNode.remove("user_id");
-                }
+                argsNode.remove("userId");
+                argsNode.remove("user_id");
 
                 eventSink.onStatus("Computing " + toolName + "…");
                 long startMs = System.currentTimeMillis();
 
                 Optional<ChatTool> toolOpt = toolRegistry.getTool(toolName);
                 String resultText;
+                boolean stepSuccess;
+                String stepError = null;
+                ChatToolResult toolResult = null;
+
                 if (toolOpt.isEmpty()) {
                     String available = toolRegistry.getAllTools().stream()
                             .map(ChatTool::name).sorted().reduce((a, b) -> a + ", " + b).orElse("");
-                    resultText = errorJson("Tool not found: '" + toolName
-                            + "'. Set the 'tool' field to one of: " + available);
+                    stepError = "Tool not found: '" + toolName + "'. Set the 'tool' field to one of: " + available;
+                    resultText = errorJson(stepError);
+                    stepSuccess = false;
                 } else {
-                    ChatToolResult toolResult = toolOpt.get().execute(argsNode);
+                    toolResult = toolOpt.get().execute(argsNode);
                     if (toolResult.success()) {
                         resultText = toolResult.result().toString();
+                        stepSuccess = true;
                     } else {
-                        resultText = errorJson(toolResult.error());
+                        stepError = toolResult.error();
+                        resultText = errorJson(stepError);
+                        stepSuccess = false;
                     }
                 }
 
                 long durationMs = System.currentTimeMillis() - startMs;
+                String resultPreview = stepSuccess ? truncatePreview(resultText) : null;
+                Integer toolRowCount = null;
+                if (stepSuccess && toolResult != null && toolResult.result() != null) {
+                    try {
+                        if (toolResult.result().isArray()) {
+                            toolRowCount = toolResult.result().size();
+                        }
+                    } catch (Exception ignored) {}
+                }
+
                 ChatTraceEntry trace = new ChatTraceEntry(
                         iteration, "call_tool", "Called compute tool: " + toolName,
-                        argsNode.toString(), null, durationMs
+                        argsNode.toString(), toolRowCount, durationMs, stepSuccess, stepError, resultPreview
                 );
                 traces.add(trace);
                 eventSink.onTrace(trace);
 
-                stepResults.add("Step " + iteration + " [Tool: " + toolName + " Args: " + argsNode + "]\nResult:\n" + resultText);
+                StringBuilder stepRes = new StringBuilder("Step " + iteration + " [Tool: " + toolName + " Args: " + argsNode + "]\nResult:\n" + resultText);
+
+                if (stepSuccess) {
+                    lastFailureSignature = null;
+                    failureSignatureCount = 0;
+                } else {
+                    String signature = "call_tool|" + toolName + "|" + stepError;
+                    if (signature.equals(lastFailureSignature)) {
+                        failureSignatureCount++;
+                    } else {
+                        lastFailureSignature = signature;
+                        failureSignatureCount = 1;
+                    }
+
+                    if (failureSignatureCount == 2) {
+                        stepRes.append("\n\nREPEATED FAILURE: this exact call has now failed twice with the same error. Do NOT retry it again. Change your approach (different arguments, a different tool, or SQL) or respond with final_answer using what you already have.");
+                    } else if (failureSignatureCount >= 3) {
+                        forceFinalSchema = true;
+                    }
+                }
+
+                stepResults.add(stepRes.toString());
                 continue;
             }
         }
 
         return ChatAnswer.answer("Reached maximum analysis iterations. Please ask a more specific question.", traces);
+    }
+
+    private String truncatePreview(String text) {
+        if (text == null) {
+            return null;
+        }
+        if (text.length() <= 400) {
+            return text;
+        }
+        return text.substring(0, 400) + "…";
     }
 
     private String errorJson(String message) {
@@ -255,9 +404,14 @@ public class ChatOrchestrator {
         sb.append("7. Use 'calc' tool for any arithmetic. The LLM must not do mental math.\n");
         sb.append("8. SQL dialect is ORACLE (see dictionary). If a SQL or tool step returns an error, correct the mistake and try again — do NOT ask the user to clarify because of an error.\n");
         sb.append("9. When action=final_answer, the 'answer' field is REQUIRED and must contain the complete answer in Markdown — never leave it empty or put the answer in 'reasoning'.\n");
+        sb.append("10. When calling tools (action=call_tool or action=calc), the 'args' field must be a JSON object encoded as a string (e.g. \"{\\\"key\\\": \\\"value\\\"}\"). Pass \"{}\" when there are no arguments.\n");
+        sb.append("11. Resolve accounts, cards, and categories from the CURRENT CONTEXT GROUNDING block or by querying v_chat_accounts — NEVER ask the user which account they mean when it is discoverable; when the user says \"all\", iterate over all of them.\n");
+        sb.append("12. NEVER include raw UUIDs in a final answer — always refer to accounts, cards, categories, and instruments by name.\n");
+        sb.append("13. NEVER mention internal machinery in a final answer (tools, iterations, SQL, schemas, budgets). If something could not be fetched, say what is missing in plain terms and offer what WAS found.\n");
+        sb.append("14. Use the FY dates exactly as given in the grounding block when the user says \"this financial year\".\n");
 
         if (isLastIteration) {
-            sb.append("ATTENTION: This is the final step iteration cap. You MUST choose action 'final_answer' and synthesize the best possible answer from the current step results.\n");
+            sb.append("ATTENTION: This is the final step. You MUST choose action 'final_answer' and synthesize the best possible answer from the current step results. If step results contain usable data, answer using what was found. If nothing usable was gathered or a step failed, explain briefly in plain terms what could not be answered (without mentioning internal tools, iterations, SQL, schemas, or budgets).\n");
         }
 
         sb.append("\n=== DATA DICTIONARY & SCHEMA REFERENCE ===\n");
@@ -307,7 +461,7 @@ public class ChatOrchestrator {
         toolNode.put("description", "REQUIRED when action=call_tool");
         ArrayNode toolEnum = toolNode.putArray("enum");
         toolRegistry.getAllTools().stream().map(ChatTool::name).sorted().forEach(toolEnum::add);
-        props.putObject("args").put("type", "object");
+        props.putObject("args").put("type", "string").put("description", "JSON-encoded object of tool arguments, e.g. \"{\\\"accountIds\\\": [\\\"...\\\"], \\\"fromDate\\\": \\\"2026-04-01\\\"}\". Pass \"{}\" when the tool takes no arguments.");
         props.putObject("question").put("type", "string");
         props.putObject("answer").put("type", "string").put("description", "Final Markdown answer text");
 

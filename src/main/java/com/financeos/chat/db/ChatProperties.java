@@ -97,6 +97,7 @@ public class ChatProperties {
 
     public static class Loop {
         private int maxIterations = 6;
+        private int maxWallClockSeconds = 90;
         private int sqlRowCap = 200;
         private int sqlTimeoutSeconds = 5;
         private int resultCharCap = 16000;
@@ -107,6 +108,14 @@ public class ChatProperties {
 
         public void setMaxIterations(int maxIterations) {
             this.maxIterations = maxIterations;
+        }
+
+        public int getMaxWallClockSeconds() {
+            return maxWallClockSeconds;
+        }
+
+        public void setMaxWallClockSeconds(int maxWallClockSeconds) {
+            this.maxWallClockSeconds = maxWallClockSeconds;
         }
 
         public int getSqlRowCap() {

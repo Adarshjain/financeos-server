@@ -128,6 +128,6 @@ Global reference instruments and latest price history points.
 - `get_portfolio_value(brokerAccountIds?)`: Get corporate-action aware total portfolio market value.
 - `get_realized_lots(fromDate?, toDate?, instrumentIds?)`: Get realized FIFO gain/loss lots for tax analysis.
 - `compute_xirr()`: Get the PORTFOLIO-LEVEL investment summary including overall XIRR (no arguments; per-holding returns come from `get_positions`).
-- `get_reward_summary(accountId, fromDate, toDate)`: Get credit card reward points earned, cap status, and milestone progress.
+- `get_reward_summary(accountIds?, fromDate?, toDate?)`: Get credit card reward points earned, cap status, and milestone progress across accounts. Defaults to all credit cards and the current Indian FY.
 - `recommend_card(amount, merchantText?, mcc?, channel?, isEmi?, isIntl?)`: Recommend best credit card for a purchase.
 - `calc(expression, values)`: Perform precise arithmetic evaluation.
