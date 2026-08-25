@@ -128,6 +128,9 @@ public class ChatController {
                 if (answer.clarify() != null) {
                     finalNode.put("clarify", answer.clarify());
                 }
+                if (answer.blocks() != null) {
+                    finalNode.set("blocks", answer.blocks());
+                }
 
                 emitter.send(SseEmitter.event().name("final").data(finalNode.toString()));
                 emitter.complete();
@@ -190,7 +193,7 @@ public class ChatController {
             };
 
             ChatAnswer answer = orchestrator.run(request.messages(), sink);
-            ChatResponseDto dto = new ChatResponseDto(answer.answer(), answer.clarify(), answer.traces());
+            ChatResponseDto dto = new ChatResponseDto(answer.answer(), answer.clarify(), answer.blocks(), answer.traces());
             return ResponseEntity.ok(dto);
 
         } finally {
