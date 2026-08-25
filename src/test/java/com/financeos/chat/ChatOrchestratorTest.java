@@ -540,4 +540,82 @@ class ChatOrchestratorTest {
         assertEquals(3, trace.rowCount());
         assertNotNull(trace.resultPreview());
     }
+
+    @Test
+    @DisplayName("Final answer with valid blocks string parses and returns blocks in ChatAnswer")
+    void finalAnswerWithValidBlocks() {
+        String blocksJson = "{\\\"stats\\\":[{\\\"label\\\":\\\"Total\\\",\\\"value\\\":\\\"₹100\\\"}],\\\"followUps\\\":[\\\"Next question?\\\"]}";
+        LlmResponse finalResp = new LlmResponse(
+                "{\"action\":\"final_answer\",\"answer\":\"Here is your spend.\",\"blocks\":\"" + blocksJson + "\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+
+        when(mockLlmClient.complete(any(LlmRequest.class))).thenReturn(finalResp);
+
+        ChatAnswer answer = orchestrator.run(List.of(new ChatMessage("user", "Spend")), ChatEventSink.NOOP);
+
+        assertEquals("Here is your spend.", answer.answer());
+        assertNotNull(answer.blocks());
+        assertEquals("Total", answer.blocks().path("stats").get(0).path("label").asText());
+        assertEquals("₹100", answer.blocks().path("stats").get(0).path("value").asText());
+        assertEquals("Next question?", answer.blocks().path("followUps").get(0).asText());
+    }
+
+    @Test
+    @DisplayName("Final answer with invalid blocks string still returns answer and null blocks")
+    void finalAnswerWithInvalidBlocksKeepsAnswerAndNullBlocks() {
+        LlmResponse finalResp = new LlmResponse(
+                "{\"action\":\"final_answer\",\"answer\":\"Here is your spend.\",\"blocks\":\"invalid_json_garbage\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+
+        when(mockLlmClient.complete(any(LlmRequest.class))).thenReturn(finalResp);
+
+        ChatAnswer answer = orchestrator.run(List.of(new ChatMessage("user", "Spend")), ChatEventSink.NOOP);
+
+        assertEquals("Here is your spend.", answer.answer());
+        assertNull(answer.blocks());
+    }
+
+    @Test
+    @DisplayName("Schema test: standard and final-only schemas both have optional blocks of type string")
+    void schemaDeclaresOptionalBlocksString() {
+        LlmResponse loopResp = new LlmResponse(
+                "{\"action\":\"run_sql\",\"sql\":\"SELECT 1\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+        LlmResponse finalResp = new LlmResponse(
+                "{\"action\":\"final_answer\",\"answer\":\"Done\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+
+        when(mockLlmClient.complete(any(LlmRequest.class)))
+                .thenReturn(loopResp)
+                .thenReturn(loopResp)
+                .thenReturn(loopResp)
+                .thenReturn(loopResp)
+                .thenReturn(loopResp)
+                .thenReturn(finalResp);
+
+        when(mockSqlExecutor.execute(anyString())).thenReturn("{\"rowCount\":0}");
+
+        orchestrator.run(List.of(new ChatMessage("user", "test")), ChatEventSink.NOOP);
+
+        ArgumentCaptor<LlmRequest> reqCaptor = ArgumentCaptor.forClass(LlmRequest.class);
+        verify(mockLlmClient, times(6)).complete(reqCaptor.capture());
+
+        // Standard schema
+        JsonNode standardSchema = reqCaptor.getAllValues().get(0).responseSchema();
+        JsonNode stdBlocks = standardSchema.path("properties").path("blocks");
+        assertEquals("string", stdBlocks.path("type").asText());
+        assertTrue(stdBlocks.path("description").asText().contains("OPTIONAL JSON-encoded"));
+        assertEquals(1, standardSchema.path("required").size()); // ["action"]
+
+        // Final-only schema
+        JsonNode finalSchema = reqCaptor.getAllValues().get(5).responseSchema();
+        JsonNode finalBlocks = finalSchema.path("properties").path("blocks");
+        assertEquals("string", finalBlocks.path("type").asText());
+        assertTrue(finalBlocks.path("description").asText().contains("OPTIONAL JSON-encoded"));
+        assertEquals(2, finalSchema.path("required").size()); // ["action", "answer"]
+    }
 }

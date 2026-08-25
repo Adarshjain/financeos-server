@@ -145,7 +145,14 @@ public class ChatOrchestrator {
             if ("final_answer".equals(action)) {
                 String answer = responseJson.path("answer").asText("").trim();
                 if (!answer.isEmpty()) {
-                    return ChatAnswer.answer(answer, traces);
+                    JsonNode blocks = null;
+                    JsonNode rawBlocks = responseJson.path("blocks");
+                    if (rawBlocks.isTextual()) {
+                        blocks = ChatBlocksParser.parse(rawBlocks.asText(), objectMapper);
+                    } else if (rawBlocks.isObject()) {
+                        blocks = ChatBlocksParser.parse(rawBlocks.toString(), objectMapper);
+                    }
+                    return ChatAnswer.answer(answer, blocks, traces);
                 }
                 if (!reasoning.isBlank() && isLastIteration) {
                     return ChatAnswer.answer(reasoning.trim(), traces);
@@ -409,6 +416,8 @@ public class ChatOrchestrator {
         sb.append("12. NEVER include raw UUIDs in a final answer — always refer to accounts, cards, categories, and instruments by name.\n");
         sb.append("13. NEVER mention internal machinery in a final answer (tools, iterations, SQL, schemas, budgets). If something could not be fetched, say what is missing in plain terms and offer what WAS found.\n");
         sb.append("14. Use the FY dates exactly as given in the grounding block when the user says \"this financial year\".\n");
+        sb.append("15. PRESENTATION BLOCKS: with action=final_answer you SHOULD also fill the 'blocks' field (JSON-encoded string) whenever the answer contains numbers: put headline totals in 'stats' (max 4); a category/time breakdown in 'charts' (bar|stackedBar|line|area|pie|donut, max 2); row listings in 'tables' (max 2) INSTEAD of Markdown pipe tables; and 2–3 short suggested next questions in 'followUps'. Every number in blocks must come verbatim from step results — never invented, never recomputed mentally.\n");
+        sb.append("16. When data lives in a blocks chart or table, keep the Markdown 'answer' a SHORT narrative (the headline figure and 1–2 insights) — do not duplicate the full table in Markdown. The answer must still make sense on its own if blocks were absent.\n");
 
         if (isLastIteration) {
             sb.append("ATTENTION: This is the final step. You MUST choose action 'final_answer' and synthesize the best possible answer from the current step results. If step results contain usable data, answer using what was found. If nothing usable was gathered or a step failed, explain briefly in plain terms what could not be answered (without mentioning internal tools, iterations, SQL, schemas, or budgets).\n");
@@ -464,6 +473,7 @@ public class ChatOrchestrator {
         props.putObject("args").put("type", "string").put("description", "JSON-encoded object of tool arguments, e.g. \"{\\\"accountIds\\\": [\\\"...\\\"], \\\"fromDate\\\": \\\"2026-04-01\\\"}\". Pass \"{}\" when the tool takes no arguments.");
         props.putObject("question").put("type", "string");
         props.putObject("answer").put("type", "string").put("description", "Final Markdown answer text");
+        props.putObject("blocks").put("type", "string").put("description", "OPTIONAL JSON-encoded presentation object: {\"stats\":[{label,value,delta?,sentiment?}], \"charts\":[{chartType,title?,categories,series:[{name,data}]}], \"tables\":[{title?,columns:[{key,label,align?,format?}],rows:[{...}]}], \"followUps\":[...]}. Only with action=final_answer.");
 
         ArrayNode req = schema.putArray("required");
         req.add("action");
