@@ -9,6 +9,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -267,5 +271,48 @@ public class FailoverLlmClientTest {
 
         int batchSizeAfterCooldown = client.recommendedBatchSize(userId, "categorize");
         assertEquals(50, batchSizeAfterCooldown); // Falls back to 50 when cooled
+    }
+
+    @Test
+    public void test429BodyWithQuotaIdBeyond200CharsSetsMidnightPtCooldown() {
+        String masterKey = Base64.getEncoder().encodeToString(new byte[32]);
+        LlmKeyEncryptionService encryptionService = new LlmKeyEncryptionService(masterKey);
+        LlmKeyRepository mockRepo = Mockito.mock(LlmKeyRepository.class);
+
+        Instant fixedInstant = Instant.parse("2026-08-25T10:00:00Z");
+        Clock fixedClock = Clock.fixed(fixedInstant, ZoneId.of("UTC"));
+        BucketStateRegistry registry = new BucketStateRegistry(fixedClock);
+
+        UUID userId = UUID.randomUUID();
+        User user = new User();
+        user.setId(userId);
+
+        LlmKey key1 = new LlmKey();
+        key1.setId(UUID.randomUUID());
+        key1.setUser(user);
+        key1.setProvider("A");
+        key1.setKeyCiphertext(encryptionService.encrypt("key-1"));
+        key1.setPosition(1);
+        key1.setStatus(LlmKeyStatus.ACTIVE);
+
+        when(mockRepo.findByUserIdAndStatusOrderByPositionAsc(eq(userId), eq(LlmKeyStatus.ACTIVE))).thenReturn(List.of(key1));
+
+        String padding = "x".repeat(300);
+        String deepQuotaBody = "{\"error\":{\"code\":429,\"message\":\"Quota exceeded " + padding + "\",\"details\":[{\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"reason\":\"PerDay\"}]}}";
+
+        providerA.setOutcome(null, new LlmException(LlmException.Kind.RETRYABLE, "A", 429, null, "HTTP 429: Rate limit", deepQuotaBody));
+
+        FailoverLlmClient client = new FailoverLlmClient(properties, providers, mockRepo, encryptionService, null, registry);
+
+        assertThrows(LlmException.class, () -> client.complete(new LlmRequest(userId, "test", "prompt", null, 0.0)));
+
+        String bucketKey = key1.getId().toString();
+        Instant expiry = registry.getSoonestCooldownExpiry(List.of(bucketKey));
+        assertNotNull(expiry);
+
+        ZonedDateTime expiryPt = ZonedDateTime.ofInstant(expiry, ZoneId.of("America/Los_Angeles"));
+        assertEquals(0, expiryPt.getHour());
+        assertEquals(0, expiryPt.getMinute());
+        assertEquals(26, expiryPt.getDayOfMonth());
     }
 }

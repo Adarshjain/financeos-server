@@ -219,7 +219,8 @@ public class FailoverLlmClient implements LlmClient {
 
                     if (statusCode != null && statusCode == 429) {
                         // Rate limit -> handle cooldown & advance immediately without same-bucket retry
-                        bucketStateRegistry.handle429(bucketKey, providerId, model, e.getMessage(), e.getRetryAfterSeconds(), metrics);
+                        String bodyToPass = e.getResponseBody() != null ? e.getResponseBody() : e.getMessage();
+                        bucketStateRegistry.handle429(bucketKey, providerId, model, bodyToPass, e.getRetryAfterSeconds(), metrics);
                         failureMessages.add(bucketKey + ": rate limited (429)");
                         break; // Advance to next bucket immediately
                     }
