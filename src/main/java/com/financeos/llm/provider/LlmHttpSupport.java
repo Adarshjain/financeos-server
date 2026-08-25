@@ -18,12 +18,13 @@ public class LlmHttpSupport {
     public static void classifyStatus(int statusCode, String body, Long retryAfter, String providerId) {
         if (statusCode != 200) {
             String truncatedBody = truncate(body, 200);
+            String fullCappedBody = truncate(body, 4000);
             if (statusCode == 429 || statusCode >= 500) {
                 log.error("Provider {} returned retryable HTTP {}: {}", providerId, statusCode, body);
-                throw new LlmException(LlmException.Kind.RETRYABLE, providerId, statusCode, retryAfter, "HTTP " + statusCode + ": " + truncatedBody);
+                throw new LlmException(LlmException.Kind.RETRYABLE, providerId, statusCode, retryAfter, "HTTP " + statusCode + ": " + truncatedBody, fullCappedBody);
             } else {
                 log.error("Provider {} returned fatal HTTP {}: {}", providerId, statusCode, body);
-                throw new LlmException(LlmException.Kind.FATAL, providerId, statusCode, retryAfter, "HTTP " + statusCode + ": " + truncatedBody);
+                throw new LlmException(LlmException.Kind.FATAL, providerId, statusCode, retryAfter, "HTTP " + statusCode + ": " + truncatedBody, fullCappedBody);
             }
         }
     }

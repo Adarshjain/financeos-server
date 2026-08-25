@@ -123,6 +123,9 @@ llm:
     base-delay-ms: 1000
     max-delay-ms: 8000
     cooldown-ms: 60000
+  tasks:
+    data-chat:
+      chain: ${LLM_CHAT_CHAIN:gemini,openrouter}
   providers:
     gemini:
       type: gemini

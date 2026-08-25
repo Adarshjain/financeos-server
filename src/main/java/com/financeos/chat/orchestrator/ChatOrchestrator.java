@@ -127,8 +127,18 @@ public class ChatOrchestrator {
             }
 
             if ("final_answer".equals(action)) {
-                String answer = responseJson.path("answer").asText("No answer provided.");
-                return ChatAnswer.answer(answer, traces);
+                String answer = responseJson.path("answer").asText("").trim();
+                if (!answer.isEmpty()) {
+                    return ChatAnswer.answer(answer, traces);
+                }
+                if (!reasoning.isBlank() && isLastIteration) {
+                    return ChatAnswer.answer(reasoning.trim(), traces);
+                }
+                if (!isLastIteration) {
+                    stepResults.add("Step " + iteration + " [final_answer rejected]: your final_answer was missing the required 'answer' field. Respond again with action=final_answer and the complete Markdown answer in the 'answer' field.");
+                    continue;
+                }
+                return ChatAnswer.answer("I couldn't produce an answer for that — please try rephrasing.", traces);
             }
 
             if ("run_sql".equals(action)) {
@@ -244,6 +254,7 @@ public class ChatOrchestrator {
         sb.append("6. Prefer aggregating in SQL over selecting hundreds of raw rows.\n");
         sb.append("7. Use 'calc' tool for any arithmetic. The LLM must not do mental math.\n");
         sb.append("8. SQL dialect is ORACLE (see dictionary). If a SQL or tool step returns an error, correct the mistake and try again — do NOT ask the user to clarify because of an error.\n");
+        sb.append("9. When action=final_answer, the 'answer' field is REQUIRED and must contain the complete answer in Markdown — never leave it empty or put the answer in 'reasoning'.\n");
 
         if (isLastIteration) {
             sb.append("ATTENTION: This is the final step iteration cap. You MUST choose action 'final_answer' and synthesize the best possible answer from the current step results.\n");
@@ -300,7 +311,11 @@ public class ChatOrchestrator {
         props.putObject("question").put("type", "string");
         props.putObject("answer").put("type", "string").put("description", "Final Markdown answer text");
 
-        schema.putArray("required").add("action");
+        ArrayNode req = schema.putArray("required");
+        req.add("action");
+        if (finalOnly) {
+            req.add("answer");
+        }
         return schema;
     }
 }
