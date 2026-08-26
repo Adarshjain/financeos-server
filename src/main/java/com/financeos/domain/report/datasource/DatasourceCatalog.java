@@ -111,7 +111,14 @@ public class DatasourceCatalog {
             new FieldDef("isTransferLeg", "Is transfer leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isRefundLeg", "Is refund leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("linkType", "Link type", FieldType.ENUM, FieldRole.DIMENSION, null,
-                    List.of("TRANSFER", "CC_PAYMENT", "REFUND", "REVERSAL", "FEE", "EMI"), null, CHART_TABLE));
+                    List.of("TRANSFER", "CC_PAYMENT", "REFUND", "REVERSAL", "FEE", "EMI"), null, CHART_TABLE),
+            new FieldDef("mcc", "MCC", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
+            new FieldDef("channel", "Channel", FieldType.ENUM, FieldRole.DIMENSION, null,
+                    List.of("ONLINE", "POS", "UPI", "CONTACTLESS", "OTHER"), null, CHART_TABLE),
+            new FieldDef("isEmi", "Is EMI", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+            new FieldDef("isInternational", "Is international", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+            new FieldDef("instantDiscount", "Instant discount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
+            new FieldDef("convenienceFee", "Convenience fee", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"));
 
     private static final Map<String, FieldDef> BY_NAME = FIELDS.stream()
             .collect(Collectors.toMap(FieldDef::name, f -> f, (a, b) -> a, LinkedHashMap::new));

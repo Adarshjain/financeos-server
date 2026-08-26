@@ -131,3 +131,114 @@ Global reference instruments and latest price history points.
 - `get_reward_summary(accountIds?, fromDate?, toDate?)`: Get credit card reward points earned, cap status, and milestone progress across accounts. Defaults to all credit cards and the current Indian FY.
 - `recommend_card(amount, merchantText?, mcc?, channel?, isEmi?, isIntl?)`: Recommend best credit card for a purchase.
 - `calc(expression, values)`: Perform precise arithmetic evaluation.
+
+---
+
+## SAVED REPORTS
+
+Saved reports are user-defined KPI, CHART, and TABLE reports built over report datasources (visible in the app at `/reports`). Users can create new reports, update existing reports, or delete reports via chat. The chat engine operates strictly in a read-only draft-card flow: the LLM inspects the catalog, drafts the report definition, validates it using `validate_report_draft`, and emits a `reportDraft` presentation block. The user confirms the creation, update, or deletion by clicking an action button on the interactive card in the UI.
+
+### Report Tools & Workflow
+- `get_report_catalog()`: Fetch the complete catalog of datasources, fields, aggregations, and filter operators. Always call this before drafting a report definition.
+- `validate_report_draft(type, datasource, definition)`: Validate and test-run a draft report definition. Always call this before emitting a `reportDraft` block. If validation fails, correct the definition and re-validate.
+- `list_reports()`: List the user's saved reports (`id`, `name`, `type`, `datasource`, `description`, `updatedAt`). Call ONLY when the user asks about existing reports or wants to update/delete one — never before creating a new report.
+- `get_report(reportId)`: Fetch the full definition of a saved report. Call before proposing an update.
+
+### Important Rules for Report Generation
+- **Schema Separation**: Report datasources and fields come from `get_report_catalog`, NOT from the `v_chat_*` SQL database views. Never mix SQL view column names with report datasource field names.
+- **Confirmation Contract**: Never tell the user a report was already created, updated, or deleted. Always state that the draft is ready for confirmation below.
+- **Immutability on Update**: A saved report's `datasource` and `type` cannot be changed on update. If the user wants a different datasource or type, create a new report (`mode="create"`).
+- **Report IDs**: For `update` and `delete`, the `reportId` must be a valid UUID retrieved from `list_reports` or `get_report` during this turn.
+- **No Silent Drops**: Never propose a draft missing a requested constraint without explicitly saying so in the answer; explain unsupported constraints plainly.
+
+### Report Definition JSON Shapes
+
+#### 1. KPI Report
+A single aggregated metric, optionally with period-over-period comparison.
+```json
+{
+  "measure": "amount",
+  "aggregation": "sum",
+  "filters": [
+    { "field": "date", "operator": "this_month" }
+  ],
+  "comparison": {
+    "enabled": true,
+    "period": "previous_period",
+    "higherIsBetter": false
+  }
+}
+```
+*(Note: `comparison` is nullable or can have `enabled: false`)*
+
+#### 2. CHART Report
+One measure over a primary dimension, optionally grouped into a series dimension.
+- `granularity` is **REQUIRED** when the dimension field is a date (`day`, `week`, `month`, `quarter`, `year`, `fy`); null otherwise.
+- `chartType`: `line`, `bar`, `stackedBar`, `area`, `pie`, `donut`.
+- `series`: optional/nullable dimension object.
+```json
+{
+  "chartType": "bar",
+  "dimension": { "field": "date", "granularity": "month" },
+  "series": { "field": "category" },
+  "measure": { "field": "amount", "aggregation": "sum" },
+  "filters": [
+    { "field": "date", "operator": "last_x_months", "value": { "amount": 6 } }
+  ]
+}
+```
+
+#### 3. TABLE Report (Raw Mode)
+Per-transaction row listing with selected columns.
+- Sort key: field name.
+```json
+{
+  "mode": "raw",
+  "columns": ["date", "description", "amount"],
+  "filters": [
+    { "field": "date", "operator": "current_fy" }
+  ],
+  "sort": [
+    { "key": "date", "direction": "desc" }
+  ]
+}
+```
+
+#### 4. TABLE Report (Aggregated / Pivot Mode)
+Matrix pivot table with row dimensions, optional column dimensions, and measures.
+- Sort key: field name for row dimension columns, or `{field}_{aggregation}` for measures (e.g. `amount_sum`). Measure sort is valid only when `columns` is empty.
+```json
+{
+  "mode": "aggregated",
+  "rows": [{ "field": "category" }],
+  "columns": [],
+  "measures": [{ "field": "amount", "aggregation": "sum" }],
+  "filters": [
+    { "field": "date", "operator": "this_month" }
+  ],
+  "sort": [
+    { "key": "amount_sum", "direction": "desc" }
+  ]
+}
+```
+
+### FilterClause Value Shapes
+Filters in an array are combined with logical `AND`. Operators are per FIELD TYPE — use exactly these names:
+
+| Field Type | Operators | Value Format | Example |
+| :--- | :--- | :--- | :--- |
+| **Date (absolute)** | `is`, `after`, `before` | `"YYYY-MM-DD"` scalar | `{"field": "date", "operator": "after", "value": "2026-04-01"}` |
+| **Date (range)** | `between` | `{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}` | `{"field": "date", "operator": "between", "value": {"from": "2026-04-01", "to": "2026-06-30"}}` |
+| **Date (relative, param)** | `last_x_days`, `last_x_months`, `last_x_years` | `{"amount": N}` | `{"field": "date", "operator": "last_x_days", "value": {"amount": 30}}` |
+| **Date (relative, valueless)** | `today`, `yesterday`, `this_week`, `this_month`, `this_year`, `previous_week`, `previous_month`, `previous_year`, `current_fy`, `prev_fy`, `all_time` | *Omit `value` property* | `{"field": "date", "operator": "this_month"}` |
+| **String** | `exact`, `starts_with`, `ends_with`, `contains`, `in` | Scalar string (`in`: array) | `{"field": "description", "operator": "contains", "value": "uber"}` |
+| **Number** | `equals`, `greater_than`, `less_than`, `between` | Scalar number (`between`: `{"from": N, "to": N}`) | `{"field": "amount", "operator": "greater_than", "value": 1000}` |
+| **Enum** | `is`, `is_not`, `in`, `not_in` | Scalar string (`in`/`not_in`: array) | `{"field": "category", "operator": "in", "value": ["Dining", "Groceries"]}` |
+| **Boolean** | `is` | `true` / `false` | `{"field": "isExcluded", "operator": "is", "value": false}` |
+
+There is no `not_equals`, `last_month`, `this_quarter`, or `previous_fy` operator — use `is_not`, `previous_month`, and `prev_fy`.
+
+### Common Aggregations & Sort Directions
+- Aggregations: `sum`, `avg`, `count`, `min`, `max`
+- Sort directions: `asc`, `desc`
+

@@ -111,5 +111,34 @@ class DatasourceRegistryTest {
                 .filter(f -> "quantity".equals(f.name()))
                 .findFirst().orElseThrow();
         assertEquals("number", quantityField.format());
+
+        // Check new transaction fields: mcc, channel, isEmi, isInternational, instantDiscount, convenienceFee
+        SingleDatasourceView txView = dsViews.get(0);
+        FieldDef mccField = txView.fields().stream().filter(f -> "mcc".equals(f.name())).findFirst().orElseThrow();
+        assertEquals(FieldType.STRING, mccField.type());
+        assertEquals(FieldRole.DIMENSION, mccField.role());
+
+        FieldDef channelField = txView.fields().stream().filter(f -> "channel".equals(f.name())).findFirst().orElseThrow();
+        assertEquals(FieldType.ENUM, channelField.type());
+        assertEquals(FieldRole.DIMENSION, channelField.role());
+        assertEquals(List.of("ONLINE", "POS", "UPI", "CONTACTLESS", "OTHER"), channelField.values());
+
+        FieldDef isEmiField = txView.fields().stream().filter(f -> "isEmi".equals(f.name())).findFirst().orElseThrow();
+        assertEquals(FieldType.BOOLEAN, isEmiField.type());
+        assertEquals(FieldRole.FILTER, isEmiField.role());
+
+        FieldDef isInternationalField = txView.fields().stream().filter(f -> "isInternational".equals(f.name())).findFirst().orElseThrow();
+        assertEquals(FieldType.BOOLEAN, isInternationalField.type());
+        assertEquals(FieldRole.FILTER, isInternationalField.role());
+
+        FieldDef instantDiscountField = txView.fields().stream().filter(f -> "instantDiscount".equals(f.name())).findFirst().orElseThrow();
+        assertEquals(FieldType.NUMBER, instantDiscountField.type());
+        assertEquals(FieldRole.MEASURE, instantDiscountField.role());
+        assertEquals("currency", instantDiscountField.format());
+
+        FieldDef convenienceFeeField = txView.fields().stream().filter(f -> "convenienceFee".equals(f.name())).findFirst().orElseThrow();
+        assertEquals(FieldType.NUMBER, convenienceFeeField.type());
+        assertEquals(FieldRole.MEASURE, convenienceFeeField.role());
+        assertEquals("currency", convenienceFeeField.format());
     }
 }

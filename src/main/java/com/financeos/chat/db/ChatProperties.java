@@ -12,6 +12,7 @@ public class ChatProperties {
     private String appSchema = "ADMIN";
     private Quota quota = new Quota();
     private Loop loop = new Loop();
+    private Stream stream = new Stream();
 
     public boolean isEnabled() {
         return enabled;
@@ -51,6 +52,14 @@ public class ChatProperties {
 
     public void setLoop(Loop loop) {
         this.loop = loop;
+    }
+
+    public Stream getStream() {
+        return stream;
+    }
+
+    public void setStream(Stream stream) {
+        this.stream = stream;
     }
 
     public static class Datasource {
@@ -140,6 +149,18 @@ public class ChatProperties {
 
         public void setResultCharCap(int resultCharCap) {
             this.resultCharCap = resultCharCap;
+        }
+    }
+
+    public static class Stream {
+        private int emitterTimeoutSeconds = 290;
+
+        public int getEmitterTimeoutSeconds() {
+            return emitterTimeoutSeconds;
+        }
+
+        public void setEmitterTimeoutSeconds(int emitterTimeoutSeconds) {
+            this.emitterTimeoutSeconds = emitterTimeoutSeconds;
         }
     }
 }

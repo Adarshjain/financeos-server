@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public final class ChatBlocksParser {
 
@@ -20,7 +21,11 @@ public final class ChatBlocksParser {
     private static final int MAX_CHARTS = 2;
     private static final int MAX_TABLES = 2;
     private static final int MAX_FOLLOW_UPS = 3;
+    private static final int MAX_DEFINITION_CHARS = 8_000;
 
+    private static final Pattern UUID_PATTERN = Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
+    private static final Set<String> ALLOWED_MODES = Set.of("create", "update", "delete");
+    private static final Set<String> ALLOWED_REPORT_TYPES = Set.of("KPI", "CHART", "TABLE");
     private static final Set<String> ALLOWED_SENTIMENTS = Set.of("good", "bad", "neutral");
     private static final Set<String> ALLOWED_CHART_TYPES = Set.of("bar", "stackedBar", "line", "area", "pie", "donut");
     private static final Set<String> ALLOWED_ALIGNMENTS = Set.of("left", "right");
@@ -76,6 +81,13 @@ public final class ChatBlocksParser {
             ArrayNode followUpsArray = parseFollowUps(rootNode.path("followUps"), om);
             if (followUpsArray != null && !followUpsArray.isEmpty()) {
                 sanitizedRoot.set("followUps", followUpsArray);
+                hasAnyContent = true;
+            }
+
+            // 5. Report draft
+            ObjectNode reportDraftObj = parseReportDraft(rootNode.path("reportDraft"), om);
+            if (reportDraftObj != null) {
+                sanitizedRoot.set("reportDraft", reportDraftObj);
                 hasAnyContent = true;
             }
 
@@ -363,6 +375,97 @@ public final class ChatBlocksParser {
                 result.add(truncate(text, 120));
             }
         }
+        return result;
+    }
+
+    private static ObjectNode parseReportDraft(JsonNode draftNode, ObjectMapper om) {
+        if (!draftNode.isObject()) {
+            return null;
+        }
+
+        String mode = draftNode.path("mode").asText("").trim().toLowerCase();
+        if (!ALLOWED_MODES.contains(mode)) {
+            return null;
+        }
+
+        ObjectNode result = om.createObjectNode();
+        result.put("mode", mode);
+
+        if ("create".equals(mode) || "update".equals(mode)) {
+            // reportId for update
+            if ("update".equals(mode)) {
+                String reportId = draftNode.path("reportId").asText("").trim();
+                if (!UUID_PATTERN.matcher(reportId).matches()) {
+                    return null;
+                }
+                result.put("reportId", reportId);
+            }
+
+            // name: required non-blank <= 100
+            String name = draftNode.path("name").asText("").trim();
+            if (name.isEmpty()) {
+                return null;
+            }
+            result.put("name", truncate(name, 100));
+
+            // description: optional <= 300
+            if (draftNode.hasNonNull("description")) {
+                String desc = draftNode.path("description").asText("").trim();
+                if (!desc.isEmpty()) {
+                    result.put("description", truncate(desc, 300));
+                }
+            }
+
+            // type: required in {KPI, CHART, TABLE}
+            String type = draftNode.path("type").asText("").trim().toUpperCase();
+            if (!ALLOWED_REPORT_TYPES.contains(type)) {
+                return null;
+            }
+            result.put("type", type);
+
+            // datasource: required non-blank <= 50
+            String datasource = draftNode.path("datasource").asText("").trim();
+            if (datasource.isEmpty() || datasource.length() > 50) {
+                return null;
+            }
+            result.put("datasource", datasource);
+
+            // definition: required JSON object <= 8000 chars serialized
+            JsonNode defNode = draftNode.get("definition");
+            if (defNode == null || !defNode.isObject()) {
+                return null;
+            }
+            String defString = defNode.toString();
+            if (defString.length() > MAX_DEFINITION_CHARS) {
+                return null;
+            }
+            result.set("definition", defNode.deepCopy());
+
+        } else if ("delete".equals(mode)) {
+            // reportId: required UUID
+            String reportId = draftNode.path("reportId").asText("").trim();
+            if (!UUID_PATTERN.matcher(reportId).matches()) {
+                return null;
+            }
+            result.put("reportId", reportId);
+
+            // name: optional display only <= 100
+            if (draftNode.hasNonNull("name")) {
+                String name = draftNode.path("name").asText("").trim();
+                if (!name.isEmpty()) {
+                    result.put("name", truncate(name, 100));
+                }
+            }
+
+            // description: optional <= 300
+            if (draftNode.hasNonNull("description")) {
+                String desc = draftNode.path("description").asText("").trim();
+                if (!desc.isEmpty()) {
+                    result.put("description", truncate(desc, 300));
+                }
+            }
+        }
+
         return result;
     }
 

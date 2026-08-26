@@ -162,4 +162,33 @@ class ReportDefinitionValidatorTest {
                 List.of("price"), List.of(), null);
         assertDoesNotThrow(() -> validator.validate("investment_trades", avgPriceTable));
     }
+
+    @Test
+    void kpiWithMccInFilterValidates() {
+        com.fasterxml.jackson.databind.node.ArrayNode mccArray = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.arrayNode();
+        mccArray.add("5411");
+        mccArray.add("5256");
+        KpiDefinition def = new KpiDefinition("amount", Aggregation.SUM, List.of(
+                new FilterClause("mcc", "in", mccArray)
+        ), null);
+        assertDoesNotThrow(() -> validator.validate("transactions", def));
+    }
+
+    @Test
+    void chartGroupedByChannelWithIsFilterValidates() {
+        ChartDefinition def = new ChartDefinition(
+                ChartType.BAR,
+                new DimensionRef("channel", null),
+                null,
+                new MeasureRef("amount", Aggregation.SUM),
+                List.of(new FilterClause("channel", "is", TextNode.valueOf("ONLINE")))
+        );
+        assertDoesNotThrow(() -> validator.validate("transactions", def));
+    }
+
+    @Test
+    void kpiOnConvenienceFeeSumValidates() {
+        KpiDefinition def = new KpiDefinition("convenienceFee", Aggregation.SUM, List.of(), null);
+        assertDoesNotThrow(() -> validator.validate("transactions", def));
+    }
 }

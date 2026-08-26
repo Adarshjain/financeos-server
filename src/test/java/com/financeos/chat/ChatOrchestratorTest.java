@@ -618,4 +618,69 @@ class ChatOrchestratorTest {
         assertTrue(finalBlocks.path("description").asText().contains("OPTIONAL JSON-encoded"));
         assertEquals(2, finalSchema.path("required").size()); // ["action", "answer"]
     }
+
+    @Test
+    @DisplayName("Final answer with reportDraft block parses and attaches reportDraft to ChatAnswer")
+    void finalAnswerWithReportDraft() {
+        String blocksJson = "{\\\"reportDraft\\\":{\\\"mode\\\":\\\"create\\\",\\\"name\\\":\\\"Draft 1\\\",\\\"type\\\":\\\"KPI\\\",\\\"datasource\\\":\\\"transactions\\\",\\\"definition\\\":{\\\"measure\\\":\\\"amount\\\"}}}";
+        LlmResponse finalResp = new LlmResponse(
+                "{\"action\":\"final_answer\",\"answer\":\"Your report draft is ready below.\",\"blocks\":\"" + blocksJson + "\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+
+        when(mockLlmClient.complete(any(LlmRequest.class))).thenReturn(finalResp);
+
+        ChatAnswer answer = orchestrator.run(List.of(new ChatMessage("user", "Create a report")), ChatEventSink.NOOP);
+
+        assertEquals("Your report draft is ready below.", answer.answer());
+        assertNotNull(answer.blocks());
+        assertTrue(answer.blocks().has("reportDraft"));
+        assertEquals("create", answer.blocks().path("reportDraft").path("mode").asText());
+        assertEquals("Draft 1", answer.blocks().path("reportDraft").path("name").asText());
+        assertEquals("KPI", answer.blocks().path("reportDraft").path("type").asText());
+    }
+
+    @Test
+    @DisplayName("computeForceFinalAtMs and computeHardDeadlineMs calculation and floor constraints")
+    void deadlineAndForceFinalCalculations() {
+        // Standard config: wallClock=90s, emitter=290s
+        long forceFinal1 = ChatOrchestrator.computeForceFinalAtMs(90_000L, 290_000L);
+        assertEquals(90_000L, forceFinal1); // min(90_000, 200_000) = 90_000
+
+        long hardDeadline1 = ChatOrchestrator.computeHardDeadlineMs(290_000L);
+        assertEquals(270_000L, hardDeadline1); // 290_000 - 20_000 = 270_000
+
+        // Large wall clock, small emitter: wallClock=300s, emitter=120s
+        long forceFinal2 = ChatOrchestrator.computeForceFinalAtMs(300_000L, 120_000L);
+        assertEquals(30_000L, forceFinal2); // min(300_000, 120_000 - 90_000) = 30_000
+
+        long hardDeadline2 = ChatOrchestrator.computeHardDeadlineMs(120_000L);
+        assertEquals(100_000L, hardDeadline2); // 120_000 - 20_000 = 100_000
+
+        // Floors applied for tiny emitter timeouts
+        long forceFinalFloored = ChatOrchestrator.computeForceFinalAtMs(90_000L, 50_000L);
+        assertEquals(30_000L, forceFinalFloored); // 50_000 - 90_000 is negative -> floored at 30_000
+
+        long hardDeadlineFloored = ChatOrchestrator.computeHardDeadlineMs(15_000L);
+        assertEquals(10_000L, hardDeadlineFloored); // 15_000 - 20_000 is negative -> floored at 10_000
+    }
+
+    @Test
+    @DisplayName("Prompt includes Rule 21 prohibiting silent constraint drops")
+    void promptIncludesRule21NoSilentDrops() {
+        LlmResponse finalResp = new LlmResponse(
+                "{\"action\":\"final_answer\",\"answer\":\"Here is your answer.\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+        when(mockLlmClient.complete(any(LlmRequest.class))).thenReturn(finalResp);
+
+        orchestrator.run(List.of(new ChatMessage("user", "Show me my expenses")), ChatEventSink.NOOP);
+
+        ArgumentCaptor<LlmRequest> reqCaptor = ArgumentCaptor.forClass(LlmRequest.class);
+        verify(mockLlmClient).complete(reqCaptor.capture());
+
+        String prompt = reqCaptor.getValue().prompt();
+        assertTrue(prompt.contains("21. NEVER emit a reportDraft that silently drops any filter, dimension, or constraint"));
+        assertTrue(prompt.contains("the final answer MUST clearly state what could not be done and why, in plain terms"));
+    }
 }
