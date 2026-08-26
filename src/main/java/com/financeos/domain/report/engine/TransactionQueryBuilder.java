@@ -44,7 +44,13 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             Map.entry("isExcluded", new Mapping("t.is_excluded", null)),
             Map.entry("isTransferLeg", new Mapping(IS_TRANSFER_LEG, null)),
             Map.entry("isRefundLeg", new Mapping(IS_REFUND_LEG, null)),
-            Map.entry("linkType", new Mapping(LINK_TYPE, null)));
+            Map.entry("linkType", new Mapping(LINK_TYPE, null)),
+            Map.entry("mcc", new Mapping("t.mcc", null)),
+            Map.entry("channel", new Mapping("t.channel", null)),
+            Map.entry("isEmi", new Mapping("NVL(t.is_emi, 0)", null)),
+            Map.entry("isInternational", new Mapping("NVL(t.is_international, 0)", null)),
+            Map.entry("instantDiscount", new Mapping("t.instant_discount", null)),
+            Map.entry("convenienceFee", new Mapping("t.convenience_fee", null)));
 
     public TransactionQueryBuilder(Map<String, FieldDef> fieldsMap, DateRangeResolver dateRangeResolver, SqlPredicates sqlPredicates) {
         super(MAPPINGS, fieldsMap, sqlPredicates, dateRangeResolver);

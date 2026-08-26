@@ -71,11 +71,23 @@ public class ChatOrchestrator {
     private static final int MAX_TRANSCRIPT_MESSAGES = 10;
     private static final int MAX_MESSAGE_CHARS = 2000;
 
+    public static long computeForceFinalAtMs(long maxWallClockMs, long emitterMs) {
+        long reserveMs = Math.max(30_000L, emitterMs - 90_000L);
+        return Math.min(maxWallClockMs, reserveMs);
+    }
+
+    public static long computeHardDeadlineMs(long emitterMs) {
+        return Math.max(10_000L, emitterMs - 20_000L);
+    }
+
     public ChatAnswer run(List<ChatMessage> transcript, ChatEventSink sink) {
         ChatEventSink eventSink = sink != null ? sink : ChatEventSink.NOOP;
         transcript = trimTranscript(transcript);
         int maxIterations = chatProperties.getLoop().getMaxIterations();
         long maxWallClockMs = chatProperties.getLoop().getMaxWallClockSeconds() * 1000L;
+        long emitterMs = chatProperties.getStream().getEmitterTimeoutSeconds() * 1000L;
+        long forceFinalAtMs = computeForceFinalAtMs(maxWallClockMs, emitterMs);
+        long hardDeadlineMs = computeHardDeadlineMs(emitterMs);
         long loopStartTimeMs = System.currentTimeMillis();
 
         List<ChatTraceEntry> traces = new ArrayList<>();
@@ -94,7 +106,13 @@ public class ChatOrchestrator {
                 return ChatAnswer.answer("Cancelled.", traces);
             }
 
-            boolean isBudgetTriggered = iteration > 1 && (System.currentTimeMillis() - loopStartTimeMs) >= maxWallClockMs;
+            long elapsedMs = System.currentTimeMillis() - loopStartTimeMs;
+            if (elapsedMs >= hardDeadlineMs) {
+                log.warn("Chat loop reached hard deadline (elapsed: {}ms >= deadline: {}ms) before iteration {}", elapsedMs, hardDeadlineMs, iteration);
+                return ChatAnswer.answer("This request took longer than expected and I had to stop before finishing. The steps that did complete are shown above — please try again, or ask a narrower question.", traces);
+            }
+
+            boolean isBudgetTriggered = iteration > 1 && elapsedMs >= forceFinalAtMs;
             if (isBudgetTriggered) {
                 if (!forceFinalSchema) {
                     eventSink.onStatus("Wrapping up…");
@@ -418,6 +436,11 @@ public class ChatOrchestrator {
         sb.append("14. Use the FY dates exactly as given in the grounding block when the user says \"this financial year\".\n");
         sb.append("15. PRESENTATION BLOCKS: with action=final_answer you SHOULD also fill the 'blocks' field (JSON-encoded string) whenever the answer contains numbers: put headline totals in 'stats' (max 4); a category/time breakdown in 'charts' (bar|stackedBar|line|area|pie|donut, max 2); row listings in 'tables' (max 2) INSTEAD of Markdown pipe tables; and 2–3 short suggested next questions in 'followUps'. Every number in blocks must come verbatim from step results — never invented, never recomputed mentally.\n");
         sb.append("16. When data lives in a blocks chart or table, keep the Markdown 'answer' a SHORT narrative (the headline figure and 1–2 insights) — do not duplicate the full table in Markdown. The answer must still make sense on its own if blocks were absent.\n");
+        sb.append("17. REPORT DRAFTS: to create/update/delete a saved report, call get_report_catalog first (for create/update), draft the definition, and ALWAYS validate it with validate_report_draft before emitting it. Emit at most ONE reportDraft block per answer, only after validation passed. On a validation error, fix the definition and re-validate — never ask the user to clarify a validator error.\n");
+        sb.append("18. NEVER claim a report was created, updated, or deleted — the draft card requires the user's confirmation click. Say the report is ready to save/update/delete below.\n");
+        sb.append("19. A report's datasource and type are IMMUTABLE on update. If the user wants a different datasource or report type, propose a NEW report (mode=create) and tell them they can delete the old one afterwards.\n");
+        sb.append("20. Call list_reports/get_report ONLY when the user's request concerns existing reports (update/delete/list). Do NOT call them before creating a new report. For update/delete, the reportId MUST come from list_reports or get_report output this turn — never invented.\n");
+        sb.append("21. NEVER emit a reportDraft that silently drops any filter, dimension, or constraint the user asked for. If the report catalog cannot express a requested constraint, say so plainly in the answer, then offer the closest supported draft — explicitly naming what it omits — and/or answer the underlying question directly from data. More generally: whenever any part of the user's request could not be fulfilled (unsupported field, failed step, missing data), the final answer MUST clearly state what could not be done and why, in plain terms.\n");
 
         if (isLastIteration) {
             sb.append("ATTENTION: This is the final step. You MUST choose action 'final_answer' and synthesize the best possible answer from the current step results. If step results contain usable data, answer using what was found. If nothing usable was gathered or a step failed, explain briefly in plain terms what could not be answered (without mentioning internal tools, iterations, SQL, schemas, or budgets).\n");
@@ -473,7 +496,7 @@ public class ChatOrchestrator {
         props.putObject("args").put("type", "string").put("description", "JSON-encoded object of tool arguments, e.g. \"{\\\"accountIds\\\": [\\\"...\\\"], \\\"fromDate\\\": \\\"2026-04-01\\\"}\". Pass \"{}\" when the tool takes no arguments.");
         props.putObject("question").put("type", "string");
         props.putObject("answer").put("type", "string").put("description", "Final Markdown answer text");
-        props.putObject("blocks").put("type", "string").put("description", "OPTIONAL JSON-encoded presentation object: {\"stats\":[{label,value,delta?,sentiment?}], \"charts\":[{chartType,title?,categories,series:[{name,data}]}], \"tables\":[{title?,columns:[{key,label,align?,format?}],rows:[{...}]}], \"followUps\":[...]}. Only with action=final_answer.");
+        props.putObject("blocks").put("type", "string").put("description", "OPTIONAL JSON-encoded presentation object: {\"stats\":[{label,value,delta?,sentiment?}], \"charts\":[{chartType,title?,categories,series:[{name,data}]}], \"tables\":[{title?,columns:[{key,label,align?,format?}],rows:[{...}]}], \"followUps\":[...], \"reportDraft\":{mode,name,description?,type,datasource,definition,reportId?}}. Only with action=final_answer.");
 
         ArrayNode req = schema.putArray("required");
         req.add("action");

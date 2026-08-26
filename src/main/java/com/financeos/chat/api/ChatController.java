@@ -29,6 +29,7 @@ public class ChatController {
     private final ChatQuotaService quotaService;
     private final ChatOrchestrator orchestrator;
     private final ObjectMapper objectMapper;
+    private final com.financeos.chat.db.ChatProperties chatProperties;
 
     private final ExecutorService executorService = Executors.newFixedThreadPool(4);
     private final ScheduledExecutorService heartbeatScheduler = Executors.newSingleThreadScheduledExecutor();
@@ -36,11 +37,13 @@ public class ChatController {
     public ChatController(ChatFeatureState featureState,
                           ChatQuotaService quotaService,
                           ChatOrchestrator orchestrator,
-                          ObjectMapper objectMapper) {
+                          ObjectMapper objectMapper,
+                          com.financeos.chat.db.ChatProperties chatProperties) {
         this.featureState = featureState;
         this.quotaService = quotaService;
         this.orchestrator = orchestrator;
         this.objectMapper = objectMapper;
+        this.chatProperties = chatProperties;
     }
 
     @PostMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
@@ -68,7 +71,7 @@ public class ChatController {
                     .build();
         }
 
-        SseEmitter emitter = new SseEmitter(180_000L); // 180s timeout
+        SseEmitter emitter = new SseEmitter(chatProperties.getStream().getEmitterTimeoutSeconds() * 1000L);
 
         // A disconnected client must not keep a worker (and a concurrency permit) alive:
         // interrupt the worker on timeout/error, and when a heartbeat fails to send.

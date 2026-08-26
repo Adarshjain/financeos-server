@@ -218,6 +218,8 @@ chat:
     sql-row-cap: 200
     sql-timeout-seconds: 5
     result-char-cap: 16000
+  stream:
+    emitter-timeout-seconds: ${CHAT_EMITTER_TIMEOUT_SECONDS:290}
 
 
 

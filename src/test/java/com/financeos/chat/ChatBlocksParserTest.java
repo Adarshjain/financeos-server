@@ -309,4 +309,132 @@ class ChatBlocksParserTest {
         assertEquals("Question 2", followUps.get(1).asText());
         assertEquals(120, followUps.get(2).asText().length());
     }
+
+    @Test
+    @DisplayName("ReportDraft create: valid draft survives with opaque definition and sets hasAnyContent")
+    void reportDraftCreateHappyPath() {
+        String json = """
+        {
+          "reportDraft": {
+            "mode": "create",
+            "name": "Monthly Spend",
+            "description": "Spend by category",
+            "type": "CHART",
+            "datasource": "transactions",
+            "definition": {
+              "chartType": "bar",
+              "customOpaqueProperty": 123,
+              "nested": { "deepField": true }
+            }
+          }
+        }
+        """;
+
+        JsonNode result = ChatBlocksParser.parse(json, objectMapper);
+        assertNotNull(result);
+        assertTrue(result.has("reportDraft"));
+
+        JsonNode draft = result.path("reportDraft");
+        assertEquals("create", draft.path("mode").asText());
+        assertEquals("Monthly Spend", draft.path("name").asText());
+        assertEquals("Spend by category", draft.path("description").asText());
+        assertEquals("CHART", draft.path("type").asText());
+        assertEquals("transactions", draft.path("datasource").asText());
+
+        // definition passed opaquely with deep fields preserved
+        assertTrue(draft.has("definition"));
+        assertEquals(123, draft.path("definition").path("customOpaqueProperty").asInt());
+        assertTrue(draft.path("definition").path("nested").path("deepField").asBoolean());
+        assertFalse(draft.has("reportId"));
+    }
+
+    @Test
+    @DisplayName("ReportDraft update: requires valid UUID, bad UUID drops draft while other blocks survive")
+    void reportDraftUpdateUuidValidation() {
+        // Bad UUID
+        String badUuidJson = """
+        {
+          "stats": [{ "label": "Spend", "value": "100" }],
+          "reportDraft": {
+            "mode": "update",
+            "reportId": "invalid-uuid",
+            "name": "Updated Report",
+            "type": "KPI",
+            "datasource": "transactions",
+            "definition": { "measure": "amount" }
+          }
+        }
+        """;
+
+        JsonNode badResult = ChatBlocksParser.parse(badUuidJson, objectMapper);
+        assertNotNull(badResult);
+        assertTrue(badResult.has("stats"));
+        assertFalse(badResult.has("reportDraft"));
+
+        // Good UUID
+        String goodUuid = "12345678-1234-1234-1234-123456789abc";
+        String goodUuidJson = """
+        {
+          "reportDraft": {
+            "mode": "update",
+            "reportId": "%s",
+            "name": "Updated Report",
+            "type": "KPI",
+            "datasource": "transactions",
+            "definition": { "measure": "amount" }
+          }
+        }
+        """.formatted(goodUuid);
+
+        JsonNode goodResult = ChatBlocksParser.parse(goodUuidJson, objectMapper);
+        assertNotNull(goodResult);
+        assertTrue(goodResult.has("reportDraft"));
+        assertEquals(goodUuid, goodResult.path("reportDraft").path("reportId").asText());
+    }
+
+    @Test
+    @DisplayName("ReportDraft delete: requires valid UUID, needs no definition or type")
+    void reportDraftDeleteValidation() {
+        String uuid = "12345678-1234-1234-1234-123456789abc";
+        String json = """
+        {
+          "reportDraft": {
+            "mode": "delete",
+            "reportId": "%s",
+            "name": "Report to Delete"
+          }
+        }
+        """.formatted(uuid);
+
+        JsonNode result = ChatBlocksParser.parse(json, objectMapper);
+        assertNotNull(result);
+        assertTrue(result.has("reportDraft"));
+        JsonNode draft = result.path("reportDraft");
+        assertEquals("delete", draft.path("mode").asText());
+        assertEquals(uuid, draft.path("reportId").asText());
+        assertEquals("Report to Delete", draft.path("name").asText());
+        assertFalse(draft.has("definition"));
+        assertFalse(draft.has("type"));
+        assertFalse(draft.has("datasource"));
+    }
+
+    @Test
+    @DisplayName("ReportDraft oversized definition (>8,000 chars) drops the draft")
+    void reportDraftOversizedDefinitionDropped() {
+        String hugeString = "x".repeat(8100);
+        String json = """
+        {
+          "reportDraft": {
+            "mode": "create",
+            "name": "Huge Report",
+            "type": "KPI",
+            "datasource": "transactions",
+            "definition": { "large": "%s" }
+          }
+        }
+        """.formatted(hugeString);
+
+        JsonNode result = ChatBlocksParser.parse(json, objectMapper);
+        assertNull(result); // With only an invalid reportDraft, returns null
+    }
 }
