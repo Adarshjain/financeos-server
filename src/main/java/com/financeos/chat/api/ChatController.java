@@ -131,6 +131,9 @@ public class ChatController {
                 if (answer.clarify() != null) {
                     finalNode.put("clarify", answer.clarify());
                 }
+                if (answer.clarifyOptions() != null && !answer.clarifyOptions().isEmpty()) {
+                    finalNode.set("clarifyOptions", objectMapper.valueToTree(answer.clarifyOptions()));
+                }
                 if (answer.blocks() != null) {
                     finalNode.set("blocks", answer.blocks());
                 }
@@ -196,7 +199,7 @@ public class ChatController {
             };
 
             ChatAnswer answer = orchestrator.run(request.messages(), sink);
-            ChatResponseDto dto = new ChatResponseDto(answer.answer(), answer.clarify(), answer.blocks(), answer.traces());
+            ChatResponseDto dto = new ChatResponseDto(answer.answer(), answer.clarify(), answer.clarifyOptions(), answer.blocks(), answer.traces());
             return ResponseEntity.ok(dto);
 
         } finally {

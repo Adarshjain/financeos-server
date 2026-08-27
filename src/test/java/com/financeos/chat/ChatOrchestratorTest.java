@@ -683,4 +683,170 @@ class ChatOrchestratorTest {
         assertTrue(prompt.contains("21. NEVER emit a reportDraft that silently drops any filter, dimension, or constraint"));
         assertTrue(prompt.contains("the final answer MUST clearly state what could not be done and why, in plain terms"));
     }
+
+    @Test
+    @DisplayName("Clarify with options round trip: parses question and options, stops after 1 iteration")
+    void clarifyWithOptionsRoundTrip() {
+        LlmResponse resp1 = new LlmResponse(
+                "{\"action\":\"clarify\",\"question\":\"Which card?\",\"options\":\"[\\\"HDFC Infinia\\\",\\\"Axis Atlas\\\"]\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+        when(mockLlmClient.complete(any(LlmRequest.class))).thenReturn(resp1);
+
+        ChatAnswer answer = orchestrator.run(List.of(new ChatMessage("user", "Show points")), ChatEventSink.NOOP);
+
+        assertNull(answer.answer());
+        assertEquals("Which card?", answer.clarify());
+        assertNotNull(answer.clarifyOptions());
+        assertEquals(List.of("HDFC Infinia", "Axis Atlas"), answer.clarifyOptions());
+        assertTrue(answer.traces().isEmpty());
+        verify(mockLlmClient, times(1)).complete(any(LlmRequest.class));
+    }
+
+    @Test
+    @DisplayName("Clarify with missing question is rejected and retried, not returned as fallback")
+    void clarifyMissingQuestionRetries() {
+        LlmResponse respMissing = new LlmResponse(
+                "{\"action\":\"clarify\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+        LlmResponse respComplete = new LlmResponse(
+                "{\"action\":\"clarify\",\"question\":\"Savings vs which period?\",\"options\":\"[\\\"This month\\\",\\\"This financial year\\\"]\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+        when(mockLlmClient.complete(any(LlmRequest.class))).thenReturn(respMissing, respComplete);
+
+        ChatAnswer answer = orchestrator.run(List.of(new ChatMessage("user", "How much did I save?")), ChatEventSink.NOOP);
+
+        assertEquals("Savings vs which period?", answer.clarify());
+        assertEquals(List.of("This month", "This financial year"), answer.clarifyOptions());
+        verify(mockLlmClient, times(2)).complete(any(LlmRequest.class));
+
+        // The retry prompt must carry the rejection feedback
+        ArgumentCaptor<LlmRequest> reqCaptor = ArgumentCaptor.forClass(LlmRequest.class);
+        verify(mockLlmClient, times(2)).complete(reqCaptor.capture());
+        String secondPrompt = reqCaptor.getAllValues().get(1).prompt();
+        assertTrue(secondPrompt.contains("[clarify rejected]"));
+    }
+
+    @Test
+    @DisplayName("Clarify with blank question at final iteration falls back instead of looping")
+    void clarifyBlankQuestionExhaustsIterationsGracefully() {
+        LlmResponse respMissing = new LlmResponse(
+                "{\"action\":\"clarify\",\"question\":\"   \"}",
+                "gemini", "gemini-2.5-flash"
+        );
+        // A model that persistently omits the question gets retry feedback until the final
+        // iteration, where the loop must terminate with the fallback question — not spin.
+        when(mockLlmClient.complete(any(LlmRequest.class))).thenReturn(respMissing);
+
+        ChatAnswer answer = orchestrator.run(List.of(new ChatMessage("user", "Help")), ChatEventSink.NOOP);
+
+        assertNull(answer.answer());
+        assertEquals("Could you please clarify your request?", answer.clarify());
+        verify(mockLlmClient, times(6)).complete(any(LlmRequest.class));
+    }
+
+    @Test
+    @DisplayName("Clarify with invalid options still clarifies with null clarifyOptions")
+    void clarifyWithInvalidOptionsStillClarifies() {
+        LlmResponse resp1 = new LlmResponse(
+                "{\"action\":\"clarify\",\"question\":\"Which card?\",\"options\":\"not json\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+        when(mockLlmClient.complete(any(LlmRequest.class))).thenReturn(resp1);
+
+        ChatAnswer answer = orchestrator.run(List.of(new ChatMessage("user", "Show points")), ChatEventSink.NOOP);
+
+        assertNull(answer.answer());
+        assertEquals("Which card?", answer.clarify());
+        assertNull(answer.clarifyOptions());
+        assertTrue(answer.traces().isEmpty());
+    }
+
+    @Test
+    @DisplayName("Clarify with native JSON array options parses correctly")
+    void clarifyWithNativeArrayOptions() {
+        LlmResponse resp1 = new LlmResponse(
+                "{\"action\":\"clarify\",\"question\":\"Which account?\",\"options\":[\"Account A\",\"Account B\"]}",
+                "gemini", "gemini-2.5-flash"
+        );
+        when(mockLlmClient.complete(any(LlmRequest.class))).thenReturn(resp1);
+
+        ChatAnswer answer = orchestrator.run(List.of(new ChatMessage("user", "Show balance")), ChatEventSink.NOOP);
+
+        assertNull(answer.answer());
+        assertEquals("Which account?", answer.clarify());
+        assertNotNull(answer.clarifyOptions());
+        assertEquals(List.of("Account A", "Account B"), answer.clarifyOptions());
+    }
+
+    @Test
+    @DisplayName("Clarify question truncated at 300 characters")
+    void clarifyQuestionTruncatedAt300() {
+        String longQuestion = "Q".repeat(400);
+        LlmResponse resp1 = new LlmResponse(
+                "{\"action\":\"clarify\",\"question\":\"" + longQuestion + "\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+        when(mockLlmClient.complete(any(LlmRequest.class))).thenReturn(resp1);
+
+        ChatAnswer answer = orchestrator.run(List.of(new ChatMessage("user", "Help")), ChatEventSink.NOOP);
+
+        assertNotNull(answer.clarify());
+        assertEquals(300, answer.clarify().length());
+        assertEquals("Q".repeat(300), answer.clarify());
+    }
+
+    @Test
+    @DisplayName("Schema declares question description and optional options property")
+    void schemaDeclaresClarifyOptions() {
+        LlmResponse finalResp = new LlmResponse(
+                "{\"action\":\"final_answer\",\"answer\":\"Done.\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+        when(mockLlmClient.complete(any(LlmRequest.class))).thenReturn(finalResp);
+
+        orchestrator.run(List.of(new ChatMessage("user", "test")), ChatEventSink.NOOP);
+
+        ArgumentCaptor<LlmRequest> reqCaptor = ArgumentCaptor.forClass(LlmRequest.class);
+        verify(mockLlmClient).complete(reqCaptor.capture());
+
+        JsonNode standardSchema = reqCaptor.getValue().responseSchema();
+        JsonNode questionNode = standardSchema.path("properties").path("question");
+        assertEquals("string", questionNode.path("type").asText());
+        assertTrue(questionNode.path("description").asText().contains("REQUIRED when action=clarify"));
+
+        JsonNode optionsNode = standardSchema.path("properties").path("options");
+        assertEquals("string", optionsNode.path("type").asText());
+        assertTrue(optionsNode.path("description").asText().contains("OPTIONAL with action=clarify"));
+
+        boolean optionsRequired = false;
+        for (JsonNode req : standardSchema.path("required")) {
+            if ("options".equals(req.asText())) {
+                optionsRequired = true;
+                break;
+            }
+        }
+        assertFalse(optionsRequired);
+    }
+
+    @Test
+    @DisplayName("Prompt includes Rule 22 for clarify round trip")
+    void promptIncludesClarifyRoundTripRule() {
+        LlmResponse finalResp = new LlmResponse(
+                "{\"action\":\"final_answer\",\"answer\":\"Here is your answer.\"}",
+                "gemini", "gemini-2.5-flash"
+        );
+        when(mockLlmClient.complete(any(LlmRequest.class))).thenReturn(finalResp);
+
+        orchestrator.run(List.of(new ChatMessage("user", "Show expenses")), ChatEventSink.NOOP);
+
+        ArgumentCaptor<LlmRequest> reqCaptor = ArgumentCaptor.forClass(LlmRequest.class);
+        verify(mockLlmClient).complete(reqCaptor.capture());
+
+        String prompt = reqCaptor.getValue().prompt();
+        assertTrue(prompt.contains("[You asked the user to clarify]:"));
+        assertTrue(prompt.contains("do NOT ask to clarify again for the same question"));
+    }
 }
