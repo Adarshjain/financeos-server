@@ -10,9 +10,13 @@ import com.financeos.domain.report.datasource.DatasourceCatalog.SingleDatasource
 import com.financeos.domain.report.datasource.impl.DividendsDatasource;
 import com.financeos.domain.report.datasource.impl.FnoTradesDatasource;
 import com.financeos.domain.report.datasource.impl.InvestmentTradesDatasource;
+import com.financeos.domain.report.datasource.impl.LendingsDatasource;
+import com.financeos.domain.report.datasource.impl.LoanPaymentsDatasource;
+import com.financeos.domain.report.datasource.impl.LoanTaxSummaryDatasource;
 import com.financeos.domain.report.datasource.impl.PortfolioValueDatasource;
 import com.financeos.domain.report.datasource.impl.PositionsDatasource;
 import com.financeos.domain.report.datasource.impl.RealizedLotsDatasource;
+import com.financeos.domain.report.datasource.impl.RewardEarningsDatasource;
 import com.financeos.domain.report.datasource.impl.TransactionsDatasource;
 import com.financeos.domain.report.engine.DateRangeResolver;
 import com.financeos.domain.report.engine.SqlPredicates;
@@ -46,6 +50,26 @@ class DatasourceRegistryTest {
         when(portfolioValDs.label()).thenReturn("Portfolio Value");
         when(portfolioValDs.fields()).thenReturn(List.of());
 
+        LoanPaymentsDatasource loanPaymentsDs = mock(LoanPaymentsDatasource.class);
+        when(loanPaymentsDs.name()).thenReturn("loan_payments");
+        when(loanPaymentsDs.label()).thenReturn("Loan Payments");
+        when(loanPaymentsDs.fields()).thenReturn(List.of());
+
+        LoanTaxSummaryDatasource loanTaxSummaryDs = mock(LoanTaxSummaryDatasource.class);
+        when(loanTaxSummaryDs.name()).thenReturn("loan_tax_summary");
+        when(loanTaxSummaryDs.label()).thenReturn("Loan Tax Summary");
+        when(loanTaxSummaryDs.fields()).thenReturn(List.of());
+
+        LendingsDatasource lendingsDs = mock(LendingsDatasource.class);
+        when(lendingsDs.name()).thenReturn("lendings");
+        when(lendingsDs.label()).thenReturn("Lendings");
+        when(lendingsDs.fields()).thenReturn(List.of());
+
+        RewardEarningsDatasource rewardEarningsDs = mock(RewardEarningsDatasource.class);
+        when(rewardEarningsDs.name()).thenReturn("reward_earnings");
+        when(rewardEarningsDs.label()).thenReturn("Reward Earnings");
+        when(rewardEarningsDs.fields()).thenReturn(List.of());
+
         List<ReportDatasource> datasources = List.of(
                 new TransactionsDatasource(sqlPredicates, dateRangeResolver),
                 new InvestmentTradesDatasource(sqlPredicates, dateRangeResolver),
@@ -53,14 +77,18 @@ class DatasourceRegistryTest {
                 new FnoTradesDatasource(sqlPredicates, dateRangeResolver),
                 positionsDs,
                 realizedLotsDs,
-                portfolioValDs
+                portfolioValDs,
+                loanPaymentsDs,
+                loanTaxSummaryDs,
+                lendingsDs,
+                rewardEarningsDs
         );
 
         registry = new DatasourceRegistry(datasources, catalog);
     }
 
     @Test
-    void allSevenDatasourcesRegistered() {
+    void allElevenDatasourcesRegistered() {
         assertTrue(registry.isKnown("transactions"));
         assertTrue(registry.isKnown("investment_trades"));
         assertTrue(registry.isKnown("dividends"));
@@ -68,6 +96,10 @@ class DatasourceRegistryTest {
         assertTrue(registry.isKnown("positions"));
         assertTrue(registry.isKnown("realized_lots"));
         assertTrue(registry.isKnown("portfolio_value"));
+        assertTrue(registry.isKnown("loan_payments"));
+        assertTrue(registry.isKnown("loan_tax_summary"));
+        assertTrue(registry.isKnown("lendings"));
+        assertTrue(registry.isKnown("reward_earnings"));
 
         assertNotNull(registry.byName("transactions"));
         assertNotNull(registry.byName("investment_trades"));
@@ -76,6 +108,10 @@ class DatasourceRegistryTest {
         assertNotNull(registry.byName("positions"));
         assertNotNull(registry.byName("realized_lots"));
         assertNotNull(registry.byName("portfolio_value"));
+        assertNotNull(registry.byName("loan_payments"));
+        assertNotNull(registry.byName("loan_tax_summary"));
+        assertNotNull(registry.byName("lendings"));
+        assertNotNull(registry.byName("reward_earnings"));
     }
 
     @Test
@@ -91,7 +127,7 @@ class DatasourceRegistryTest {
         assertNotNull(view.operators());
 
         List<SingleDatasourceView> dsViews = view.datasources();
-        assertEquals(7, dsViews.size());
+        assertEquals(11, dsViews.size());
         assertEquals("transactions", dsViews.get(0).name());
         assertEquals("investment_trades", dsViews.get(1).name());
         assertEquals("dividends", dsViews.get(2).name());
@@ -99,6 +135,10 @@ class DatasourceRegistryTest {
         assertEquals("positions", dsViews.get(4).name());
         assertEquals("realized_lots", dsViews.get(5).name());
         assertEquals("portfolio_value", dsViews.get(6).name());
+        assertEquals("loan_payments", dsViews.get(7).name());
+        assertEquals("loan_tax_summary", dsViews.get(8).name());
+        assertEquals("lendings", dsViews.get(9).name());
+        assertEquals("reward_earnings", dsViews.get(10).name());
 
         // Check format hints present on money fields
         SingleDatasourceView tradesView = dsViews.get(1);

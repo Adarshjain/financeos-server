@@ -45,6 +45,8 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             Map.entry("isTransferLeg", new Mapping(IS_TRANSFER_LEG, null)),
             Map.entry("isRefundLeg", new Mapping(IS_REFUND_LEG, null)),
             Map.entry("linkType", new Mapping(LINK_TYPE, null)),
+            Map.entry("settlementDate", new Mapping("t.settlement_date", null)),
+            Map.entry("reviewType", new Mapping("t.review_type", null)),
             Map.entry("mcc", new Mapping("t.mcc", null)),
             Map.entry("channel", new Mapping("t.channel", null)),
             Map.entry("isEmi", new Mapping("NVL(t.is_emi, 0)", null)),

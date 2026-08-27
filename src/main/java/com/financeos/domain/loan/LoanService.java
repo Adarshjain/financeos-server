@@ -707,4 +707,18 @@ public class LoanService {
         }
         return loan;
     }
+
+    public record LoanWithSchedule(Loan loan, ScheduleResult schedule) {}
+
+    @Transactional(readOnly = true)
+    public List<LoanWithSchedule> getAllLoansWithSchedule() {
+        List<Loan> loans = loanRepository.findAll();
+        return loans.stream().map(loan -> {
+            List<LoanEvent> events = loanEventRepository.findByLoan_IdOrderByEffectiveDateAscCreatedAtAsc(loan.getId());
+            List<LoanPayment> payments = loanPaymentRepository.findByLoan_IdOrderByInstallmentSeqAsc(loan.getId());
+            List<LoanCharge> charges = loanChargeRepository.findByLoan_IdOrderByChargeDateAscCreatedAtAsc(loan.getId());
+            ScheduleResult schedule = scheduleService.compute(loan, events, payments, charges);
+            return new LoanWithSchedule(loan, schedule);
+        }).toList();
+    }
 }

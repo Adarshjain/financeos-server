@@ -22,7 +22,11 @@ public class DatasourceRegistry {
             "fno_trades",
             "positions",
             "realized_lots",
-            "portfolio_value"
+            "portfolio_value",
+            "loan_payments",
+            "loan_tax_summary",
+            "lendings",
+            "reward_earnings"
     );
 
     private final Map<String, ReportDatasource> byNameMap;

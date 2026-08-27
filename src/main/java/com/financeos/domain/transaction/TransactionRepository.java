@@ -126,4 +126,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("accountId") UUID accountId,
             @Param("userId") UUID userId,
             @Param("beforeDate") LocalDate beforeDate);
+
+    @Query("SELECT MIN(t.date) FROM Transaction t WHERE t.account.id = :accountId")
+    LocalDate findMinDateByAccountId(@Param("accountId") UUID accountId);
 }

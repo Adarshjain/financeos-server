@@ -296,4 +296,9 @@ public class LendingService {
         }
         return lending;
     }
+
+    @Transactional(readOnly = true)
+    public List<Lending> getAllLendings() {
+        return lendingRepository.findAll();
+    }
 }

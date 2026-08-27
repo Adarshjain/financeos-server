@@ -21,5 +21,8 @@ public interface RewardRuleRepository extends JpaRepository<RewardRule, UUID> {
     long countByCapBucketId(UUID capBucketId);
 
     long countByAccountId(UUID accountId);
+
+    @Query("SELECT DISTINCT r.account.id FROM RewardRule r WHERE r.user.id = :userId")
+    List<UUID> findDistinctAccountIdsByUserId(@Param("userId") UUID userId);
 }
 

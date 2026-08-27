@@ -208,8 +208,13 @@ class ReportChatToolsTest {
         assertFalse(res1.success());
         assertTrue(res1.error().contains("Must be one of: KPI, CHART, TABLE"));
 
-        // 2. Unknown datasource
+        // 2. Unknown datasource — the error lists valid names derived live from the registry
         when(mockRegistry.isKnown("unknown_ds")).thenReturn(false);
+        when(mockRegistry.view()).thenReturn(new DatasourceCatalog.ReportCatalogView(
+                List.of(
+                        new DatasourceCatalog.SingleDatasourceView("transactions", "Transactions", List.of()),
+                        new DatasourceCatalog.SingleDatasourceView("positions", "Positions", List.of())),
+                DatasourceCatalog.OPERATORS));
         ObjectNode args2 = objectMapper.createObjectNode();
         args2.put("type", "KPI");
         args2.put("datasource", "unknown_ds");
@@ -217,6 +222,7 @@ class ReportChatToolsTest {
         ChatToolResult res2 = tool.execute(args2);
         assertFalse(res2.success());
         assertTrue(res2.error().contains("Unknown report datasource"));
+        assertTrue(res2.error().contains("transactions, positions"));
 
         // 3. Validator failure
         when(mockRegistry.isKnown("transactions")).thenReturn(true);
