@@ -7,7 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 class TransactionQueryBuilderTest {
 
@@ -25,6 +27,12 @@ class TransactionQueryBuilderTest {
     void newFieldMappingsAndExpressions() {
         Set<String> joins = new HashSet<>();
 
+        assertEquals("t.settlement_date", queryBuilder.expression("settlementDate", joins));
+        assertTrue(joins.isEmpty());
+
+        assertEquals("t.review_type", queryBuilder.expression("reviewType", joins));
+        assertTrue(joins.isEmpty());
+
         assertEquals("t.mcc", queryBuilder.expression("mcc", joins));
         assertTrue(joins.isEmpty());
 
@@ -41,6 +49,29 @@ class TransactionQueryBuilderTest {
         assertTrue(joins.isEmpty());
 
         assertEquals("t.convenience_fee", queryBuilder.expression("convenienceFee", joins));
+        assertTrue(joins.isEmpty());
+    }
+
+    @Test
+    void filterOnReviewTypeAndSettlementDate() {
+        UUID userId = UUID.randomUUID();
+        java.util.Map<String, Object> params = new java.util.HashMap<>();
+        Set<String> joins = new HashSet<>();
+        List<com.financeos.domain.report.definition.FilterClause> filters = List.of(
+                new com.financeos.domain.report.definition.FilterClause(
+                        "reviewType", "is", com.fasterxml.jackson.databind.node.TextNode.valueOf("MANUALLY_REVIEWED")),
+                new com.financeos.domain.report.definition.FilterClause(
+                        "settlementDate", "is", com.fasterxml.jackson.databind.node.TextNode.valueOf("2026-08-15"))
+        );
+
+        String where = queryBuilder.buildWhere(filters, userId, params, joins);
+
+        assertTrue(where.startsWith(" WHERE t.user_id = :userId"));
+        assertTrue(where.contains("t.review_type = :f0"));
+        assertTrue(where.contains("t.settlement_date = :f1"));
+        assertEquals(userId.toString(), params.get("userId"));
+        assertEquals("MANUALLY_REVIEWED", params.get("f0"));
+        assertEquals(java.time.LocalDate.of(2026, 8, 15), params.get("f1"));
         assertTrue(joins.isEmpty());
     }
 

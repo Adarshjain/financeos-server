@@ -3,8 +3,10 @@ package com.financeos.domain.report.datasource;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.financeos.domain.report.ReportType;
+import com.financeos.domain.transaction.ReviewType;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -112,6 +114,9 @@ public class DatasourceCatalog {
             new FieldDef("isRefundLeg", "Is refund leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("linkType", "Link type", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("TRANSFER", "CC_PAYMENT", "REFUND", "REVERSAL", "FEE", "EMI"), null, CHART_TABLE),
+            new FieldDef("settlementDate", "Settlement date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
+            new FieldDef("reviewType", "Review status", FieldType.ENUM, FieldRole.DIMENSION, null,
+                    Arrays.stream(ReviewType.values()).map(Enum::name).toList(), null, CHART_TABLE),
             new FieldDef("mcc", "MCC", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
             new FieldDef("channel", "Channel", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("ONLINE", "POS", "UPI", "CONTACTLESS", "OTHER"), null, CHART_TABLE),

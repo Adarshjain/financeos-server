@@ -85,4 +85,40 @@ class InvestmentTradesQueryBuilderTest {
         assertEquals("Zerodha", params.get("f0"));
         assertTrue(joins.contains(InvestmentTradesQueryBuilder.JOIN_ACCOUNTS));
     }
+
+    @Test
+    void itemisedChargeMeasuresAndMappings() {
+        Set<String> joins = new HashSet<>();
+
+        assertEquals("NVL(it.brokerage, 0)", queryBuilder.expression("brokerage", joins));
+        assertEquals("NVL(it.stt, 0)", queryBuilder.expression("stt", joins));
+        assertEquals("NVL(it.exchange_txn_charges, 0)", queryBuilder.expression("exchangeTxnCharges", joins));
+        assertEquals("NVL(it.sebi_charges, 0)", queryBuilder.expression("sebiCharges", joins));
+        assertEquals("NVL(it.stamp_duty, 0)", queryBuilder.expression("stampDuty", joins));
+        assertEquals("NVL(it.gst, 0)", queryBuilder.expression("gst", joins));
+        assertEquals("NVL(it.dp_charges, 0)", queryBuilder.expression("dpCharges", joins));
+        assertEquals("NVL(it.other_charges, 0)", queryBuilder.expression("otherCharges", joins));
+        assertTrue(joins.isEmpty());
+
+        DateRangeResolver dateRangeResolver = new DateRangeResolver(4);
+        SqlPredicates sqlPredicates = new SqlPredicates(dateRangeResolver);
+        InvestmentTradesDatasource ds = new InvestmentTradesDatasource(sqlPredicates, dateRangeResolver);
+
+        List<String> chargeFieldNames = List.of(
+                "brokerage", "stt", "exchangeTxnCharges", "sebiCharges",
+                "stampDuty", "gst", "dpCharges", "otherCharges"
+        );
+
+        for (String fieldName : chargeFieldNames) {
+            DatasourceCatalog.FieldDef field = ds.fields().stream()
+                    .filter(f -> fieldName.equals(f.name()))
+                    .findFirst()
+                    .orElseThrow(() -> new AssertionError("Field missing: " + fieldName));
+
+            assertEquals(com.financeos.domain.report.datasource.FieldType.NUMBER, field.type());
+            assertEquals(com.financeos.domain.report.datasource.FieldRole.MEASURE, field.role());
+            assertEquals("currency", field.format());
+            assertEquals(List.of(com.financeos.domain.report.ReportType.KPI, com.financeos.domain.report.ReportType.TABLE), field.allowedInReports());
+        }
+    }
 }

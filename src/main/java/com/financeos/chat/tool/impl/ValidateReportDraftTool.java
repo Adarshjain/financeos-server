@@ -97,7 +97,10 @@ public class ValidateReportDraftTool implements ChatTool {
 
             String datasource = args.get("datasource").asText().trim();
             if (!datasourceRegistry.isKnown(datasource)) {
-                return ChatToolResult.failure(name(), "Unknown report datasource: '" + datasource + "'. Valid datasources are: transactions, investment_trades, dividends, fno_trades, positions, realized_lots, portfolio_value");
+                String validNames = datasourceRegistry.view().datasources().stream()
+                        .map(ds -> ds.name())
+                        .collect(java.util.stream.Collectors.joining(", "));
+                return ChatToolResult.failure(name(), "Unknown report datasource: '" + datasource + "'. Valid datasources are: " + validNames);
             }
 
             JsonNode definitionNode = args.get("definition");

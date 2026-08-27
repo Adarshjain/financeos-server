@@ -35,6 +35,7 @@ public class InvestmentTradesDatasource implements ReportDatasource {
     private static final List<ReportType> ALL = List.of(ReportType.KPI, ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> CHART_TABLE = List.of(ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> TABLE_ONLY = List.of(ReportType.TABLE);
+    private static final List<ReportType> KPI_TABLE = List.of(ReportType.KPI, ReportType.TABLE);
 
     private static final List<String> TYPE_VALUES = Arrays.stream(InvestmentTransactionType.values())
             .map(Enum::name)
@@ -57,6 +58,14 @@ public class InvestmentTradesDatasource implements ReportDatasource {
             new FieldDef("quantity", "Quantity", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "number"),
             new FieldDef("price", "Price", FieldType.NUMBER, FieldRole.MEASURE, NON_SUM_AGGS, null, null, TABLE_ONLY, "currency"),
             new FieldDef("totalCharges", "Charges", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
+            new FieldDef("brokerage", "Brokerage", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_TABLE, "currency"),
+            new FieldDef("stt", "STT", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_TABLE, "currency"),
+            new FieldDef("exchangeTxnCharges", "Exchange charges", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_TABLE, "currency"),
+            new FieldDef("sebiCharges", "SEBI charges", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_TABLE, "currency"),
+            new FieldDef("stampDuty", "Stamp duty", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_TABLE, "currency"),
+            new FieldDef("gst", "GST", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_TABLE, "currency"),
+            new FieldDef("dpCharges", "DP charges", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_TABLE, "currency"),
+            new FieldDef("otherCharges", "Other charges", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_TABLE, "currency"),
             new FieldDef("tradeDate", "Trade date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
             new FieldDef("type", "Type", FieldType.ENUM, FieldRole.DIMENSION, null, TYPE_VALUES, null, CHART_TABLE),
             new FieldDef("settlementType", "Settlement", FieldType.ENUM, FieldRole.DIMENSION, null, SETTLEMENT_VALUES, null, CHART_TABLE),
@@ -78,6 +87,14 @@ public class InvestmentTradesDatasource implements ReportDatasource {
                 Map.entry("quantity", new Mapping("it.quantity", null)),
                 Map.entry("price", new Mapping("it.price", null)),
                 Map.entry("totalCharges", new Mapping("NVL(it.total_charges, 0)", null)),
+                Map.entry("brokerage", new Mapping("NVL(it.brokerage, 0)", null)),
+                Map.entry("stt", new Mapping("NVL(it.stt, 0)", null)),
+                Map.entry("exchangeTxnCharges", new Mapping("NVL(it.exchange_txn_charges, 0)", null)),
+                Map.entry("sebiCharges", new Mapping("NVL(it.sebi_charges, 0)", null)),
+                Map.entry("stampDuty", new Mapping("NVL(it.stamp_duty, 0)", null)),
+                Map.entry("gst", new Mapping("NVL(it.gst, 0)", null)),
+                Map.entry("dpCharges", new Mapping("NVL(it.dp_charges, 0)", null)),
+                Map.entry("otherCharges", new Mapping("NVL(it.other_charges, 0)", null)),
                 Map.entry("tradeDate", new Mapping("it.trade_date", null)),
                 Map.entry("type", new Mapping("it.type", null)),
                 Map.entry("settlementType", new Mapping("it.settlement_type", null)),
