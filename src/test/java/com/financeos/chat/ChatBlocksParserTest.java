@@ -437,4 +437,52 @@ class ChatBlocksParserTest {
         JsonNode result = ChatBlocksParser.parse(json, objectMapper);
         assertNull(result); // With only an invalid reportDraft, returns null
     }
+
+    @Test
+    @DisplayName("Clarify options happy path: parses JSON array of strings and preserves order")
+    void parseClarifyOptionsHappyPath() {
+        String json = "[\"HDFC Infinia\", \"Axis Atlas\", \"ICICI Amazon Pay\"]";
+        java.util.List<String> result = ChatBlocksParser.parseClarifyOptions(json, objectMapper);
+        assertNotNull(result);
+        assertEquals(3, result.size());
+        assertEquals("HDFC Infinia", result.get(0));
+        assertEquals("Axis Atlas", result.get(1));
+        assertEquals("ICICI Amazon Pay", result.get(2));
+    }
+
+    @Test
+    @DisplayName("Clarify options dedup and truncation: case-insensitive dedup and max 80 chars per option")
+    void parseClarifyOptionsDedupAndTruncation() {
+        String longOption = "Option Long ".repeat(10); // > 80 chars
+        String json = "[\"HDFC Infinia\", \"hdfc infinia\", \"" + longOption + "\", \"Axis Atlas\"]";
+        java.util.List<String> result = ChatBlocksParser.parseClarifyOptions(json, objectMapper);
+        assertNotNull(result);
+        assertEquals(3, result.size());
+        assertEquals("HDFC Infinia", result.get(0));
+        assertEquals(80, result.get(1).length());
+        assertEquals(longOption.substring(0, 80), result.get(1));
+        assertEquals("Axis Atlas", result.get(2));
+    }
+
+    @Test
+    @DisplayName("Clarify options cap: max 4 options survive")
+    void parseClarifyOptionsCapsAtFour() {
+        String json = "[\"Opt1\", \"Opt2\", \"Opt3\", \"Opt4\", \"Opt5\", \"Opt6\"]";
+        java.util.List<String> result = ChatBlocksParser.parseClarifyOptions(json, objectMapper);
+        assertNotNull(result);
+        assertEquals(4, result.size());
+        assertEquals(java.util.List.of("Opt1", "Opt2", "Opt3", "Opt4"), result);
+    }
+
+    @Test
+    @DisplayName("Clarify options rejects: invalid, non-array, fewer than 2 items, or blank items return null")
+    void parseClarifyOptionsRejects() {
+        assertNull(ChatBlocksParser.parseClarifyOptions(null, objectMapper));
+        assertNull(ChatBlocksParser.parseClarifyOptions("", objectMapper));
+        assertNull(ChatBlocksParser.parseClarifyOptions("   ", objectMapper));
+        assertNull(ChatBlocksParser.parseClarifyOptions("not json", objectMapper));
+        assertNull(ChatBlocksParser.parseClarifyOptions("{}", objectMapper));
+        assertNull(ChatBlocksParser.parseClarifyOptions("[\"only one\"]", objectMapper));
+        assertNull(ChatBlocksParser.parseClarifyOptions("[\"\", \"  \"]", objectMapper));
+    }
 }

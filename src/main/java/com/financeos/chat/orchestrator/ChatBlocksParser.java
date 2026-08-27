@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -95,6 +96,50 @@ public final class ChatBlocksParser {
 
         } catch (Exception e) {
             log.debug("Failed to parse chat blocks JSON: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Parses a JSON-encoded array of clarify option strings. Returns null unless the
+     * result has at least 2 distinct non-blank options. Max 4 options, each <= 80 chars.
+     */
+    public static List<String> parseClarifyOptions(String optionsJson, ObjectMapper om) {
+        if (optionsJson == null || om == null) {
+            return null;
+        }
+        String trimmed = optionsJson.trim();
+        if (trimmed.isEmpty() || trimmed.length() > 2_000) {
+            return null;
+        }
+
+        try {
+            JsonNode rootNode = om.readTree(trimmed);
+            if (!rootNode.isArray()) {
+                return null;
+            }
+
+            List<String> result = new ArrayList<>();
+            Set<String> seenLower = new HashSet<>();
+
+            for (JsonNode item : rootNode) {
+                if (result.size() >= 4) {
+                    break;
+                }
+                String text = item.asText("").trim();
+                if (text.isEmpty()) {
+                    continue;
+                }
+                String truncated = truncate(text, 80);
+                if (seenLower.add(truncated.toLowerCase())) {
+                    result.add(truncated);
+                }
+            }
+
+            return result.size() >= 2 ? result : null;
+
+        } catch (Exception e) {
+            log.debug("Failed to parse clarify options JSON: {}", e.getMessage());
             return null;
         }
     }
