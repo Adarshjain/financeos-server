@@ -51,6 +51,7 @@ public class FileIngestionService {
     private final ReviewStatusManager reviewStatusManager;
     private final CategorizationService categorizationService;
     private final StatementPersistenceService statementPersistenceService;
+    private final com.financeos.domain.account.AccountService accountService;
 
     public FileIngestionService(AccountRepository accountRepository,
                                 UserRepository userRepository,
@@ -59,7 +60,8 @@ public class FileIngestionService {
                                 TransactionMatcher transactionMatcher,
                                 ReviewStatusManager reviewStatusManager,
                                 CategorizationService categorizationService,
-                                StatementPersistenceService statementPersistenceService) {
+                                StatementPersistenceService statementPersistenceService,
+                                com.financeos.domain.account.AccountService accountService) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.statementParser = statementParser;
@@ -68,6 +70,7 @@ public class FileIngestionService {
         this.reviewStatusManager = reviewStatusManager;
         this.categorizationService = categorizationService;
         this.statementPersistenceService = statementPersistenceService;
+        this.accountService = accountService;
     }
 
     private record PendingLink(Transaction txn, UUID statementId, int lineIndex, BigDecimal balanceAfter, Boolean chainValid, int fileIndex) {}
@@ -156,8 +159,7 @@ public class FileIngestionService {
                 }
 
                 String warningMessage = null;
-                String fragment = account.getBankDetails() != null ? account.getBankDetails().getLast4()
-                        : account.getCreditCardDetails() != null ? account.getCreditCardDetails().getLast4() : null;
+                String fragment = accountService.extractLast4(account);
                 if (parseResult.accountNumber() != null && fragment != null) {
                     String normalizedNumber = parseResult.accountNumber().replaceAll("\\s+", "").toLowerCase();
                     String normalizedFragment = fragment.replaceAll("\\s+", "").toLowerCase();

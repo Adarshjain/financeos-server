@@ -45,6 +45,11 @@ public class Transaction {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private Account account;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "card_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private com.financeos.domain.account.card.AccountCard card;
+
     @Column(name = "transaction_date", nullable = false)
     private LocalDate date;
 

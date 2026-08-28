@@ -142,14 +142,14 @@ class GmailIngestionServiceTest {
 
         Account account = new Account("HDFC", com.financeos.domain.account.AccountType.credit_card);
         account.setIngestFromDate(LocalDate.now().minusDays(10));
-        when(accountResolver.resolve("1234")).thenReturn(Optional.of(account));
+        when(accountResolver.resolve("1234")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
 
         GmailProcessedMessage createdResult = new GmailProcessedMessage();
         createdResult.setStatus(GmailProcessedStatus.CREATED);
         Transaction txn = new Transaction();
         txn.setId(UUID.randomUUID());
         createdResult.setTransaction(txn);
-        when(gmailTransactionWriter.writeTransaction(connection, "msg-1", extSuccess, account)).thenReturn(createdResult);
+        when(gmailTransactionWriter.writeTransaction(connection, "msg-1", extSuccess, account, null)).thenReturn(createdResult);
 
         SyncSummary summary = gmailIngestionService.syncConnection(connection);
 
@@ -184,7 +184,7 @@ class GmailIngestionServiceTest {
 
         Account unOptedAccount = new Account("SBI", com.financeos.domain.account.AccountType.bank_account);
         unOptedAccount.setIngestFromDate(null); // Not opted in
-        when(accountResolver.resolve("4321")).thenReturn(Optional.of(unOptedAccount));
+        when(accountResolver.resolve("4321")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(unOptedAccount, null)));
 
         SyncSummary summary = gmailIngestionService.syncConnection(connection);
 
@@ -303,11 +303,11 @@ class GmailIngestionServiceTest {
 
         Account account = new Account("Card", com.financeos.domain.account.AccountType.credit_card);
         account.setIngestFromDate(LocalDate.now().minusDays(10));
-        when(accountResolver.resolve("XX1234")).thenReturn(Optional.of(account));
+        when(accountResolver.resolve("XX1234")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
 
         GmailProcessedMessage createdResult = new GmailProcessedMessage();
         createdResult.setStatus(GmailProcessedStatus.CREATED);
-        when(gmailTransactionWriter.writeTransaction(connection, "msg-last4", extSuccess, account)).thenReturn(createdResult);
+        when(gmailTransactionWriter.writeTransaction(connection, "msg-last4", extSuccess, account, null)).thenReturn(createdResult);
 
         gmailIngestionService.syncConnection(connection);
 

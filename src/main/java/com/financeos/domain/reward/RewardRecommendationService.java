@@ -132,7 +132,8 @@ public class RewardRecommendationService {
                     request.merchantText(),
                     request.merchantText(),
                     isEmi,
-                    isIntl
+                    isIntl,
+                    request.cardId()
             );
 
             // Single-txn resolution against evaluated state

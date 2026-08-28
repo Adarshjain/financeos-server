@@ -38,13 +38,28 @@ public class TransactionMatcher {
             List<Transaction> candidates,
             int dateWindow,
             Set<UUID> consumedTxnIds) {
+        return findBestMatch(line, null, candidates, dateWindow, consumedTxnIds);
+    }
+
+    public Transaction findBestMatch(
+            ParsedStatementLine line,
+            UUID lineCardId,
+            List<Transaction> candidates,
+            int dateWindow,
+            Set<UUID> consumedTxnIds) {
 
         Transaction bestMatch = null;
+        boolean bestIsSameCard = false;
         long bestDateDiff = Long.MAX_VALUE;
         double bestSimilarity = -1.0;
 
         for (Transaction candidate : candidates) {
             if (consumedTxnIds.contains(candidate.getId())) {
+                continue;
+            }
+
+            // Skip candidates on a different known card (they are different transactions)
+            if (lineCardId != null && candidate.getCard() != null && !lineCardId.equals(candidate.getCard().getId())) {
                 continue;
             }
 
@@ -63,16 +78,29 @@ public class TransactionMatcher {
                 continue;
             }
 
-            // Find best using greedy metric (closest date, then description similarity)
-            if (dateDiff < bestDateDiff) {
+            boolean isSameCard = lineCardId != null && candidate.getCard() != null && lineCardId.equals(candidate.getCard().getId());
+            double similarity = calculateSimilarity(line.description(), effectiveDescription(candidate));
+
+            if (bestMatch == null) {
                 bestMatch = candidate;
+                bestIsSameCard = isSameCard;
                 bestDateDiff = dateDiff;
-                bestSimilarity = calculateSimilarity(line.description(), effectiveDescription(candidate));
-            } else if (dateDiff == bestDateDiff) {
-                double similarity = calculateSimilarity(line.description(), effectiveDescription(candidate));
-                if (similarity > bestSimilarity) {
+                bestSimilarity = similarity;
+            } else {
+                if (isSameCard && !bestIsSameCard) {
                     bestMatch = candidate;
+                    bestIsSameCard = true;
+                    bestDateDiff = dateDiff;
                     bestSimilarity = similarity;
+                } else if (isSameCard == bestIsSameCard) {
+                    if (dateDiff < bestDateDiff) {
+                        bestMatch = candidate;
+                        bestDateDiff = dateDiff;
+                        bestSimilarity = similarity;
+                    } else if (dateDiff == bestDateDiff && similarity > bestSimilarity) {
+                        bestMatch = candidate;
+                        bestSimilarity = similarity;
+                    }
                 }
             }
         }

@@ -37,9 +37,6 @@ public class AccountCreditCardDetails {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private Account account;
 
-    @Column(name = "last4", nullable = false)
-    private String last4;
-
     @Column(name = "credit_limit", nullable = false, precision = 19, scale = 4)
     private BigDecimal creditLimit;
 
@@ -53,11 +50,10 @@ public class AccountCreditCardDetails {
     @Column(name = "statement_password")
     private String statementPassword;
 
-    public AccountCreditCardDetails(Account account, String last4, BigDecimal creditLimit,
+    public AccountCreditCardDetails(Account account, BigDecimal creditLimit,
             Integer paymentDueDay, Integer gracePeriodDays, String statementPassword) {
         this.account = account;
         this.accountId = account.getId();
-        this.last4 = last4;
         this.creditLimit = creditLimit;
         this.paymentDueDay = paymentDueDay;
         this.gracePeriodDays = gracePeriodDays;

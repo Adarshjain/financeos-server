@@ -15,6 +15,8 @@ import java.util.UUID;
  */
 public record RewardRuleRequest(
         UUID accountId,
+        UUID cardId,
+        String counterScope,
 
         @NotBlank(message = "Rule name is required") String name,
 

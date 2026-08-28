@@ -22,7 +22,18 @@ public record RewardReportResponse(
         List<RuleBreakdown> rules,
         List<MilestoneStatus> milestones,
         boolean cycleFallback,
-        boolean anniversaryFallback) {
+        boolean anniversaryFallback,
+        List<CardBreakdown> byCard,
+        int perCardAttributionIncomplete) {
+
+    public RewardReportResponse(
+            Summary summary,
+            List<RuleBreakdown> rules,
+            List<MilestoneStatus> milestones,
+            boolean cycleFallback,
+            boolean anniversaryFallback) {
+        this(summary, rules, milestones, cycleFallback, anniversaryFallback, List.of(), 0);
+    }
 
     /**
      * Monetary fields in rupees; points stay points (no cash valuation of points yet).
@@ -86,6 +97,22 @@ public record RewardReportResponse(
             CapStatus capStatus) {
     }
 
+    public record PerCardCapUsage(
+            UUID cardId,
+            String cardLabel,
+            BigDecimal used) {
+    }
+
+    public record CardBreakdown(
+            UUID cardId,
+            String cardLabel,
+            boolean unattributed,
+            BigDecimal basisSpend,
+            BigDecimal cashbackInr,
+            BigDecimal points,
+            int txnCount) {
+    }
+
     /**
      * Usage of the rule's period cap in the window containing the range end.
      * sharedBucket is non-null when the cap is a bucket drained by several rules.
@@ -97,6 +124,20 @@ public record RewardReportResponse(
             LocalDate windowStart,
             LocalDate windowEnd,
             boolean cycleFallback,
-            String sharedBucket) {
+            String sharedBucket,
+            com.financeos.domain.reward.CounterScope counterScope,
+            List<PerCardCapUsage> perCard) {
+
+        public CapStatus(
+                CapWindow window,
+                BigDecimal cap,
+                BigDecimal used,
+                LocalDate windowStart,
+                LocalDate windowEnd,
+                boolean cycleFallback,
+                String sharedBucket) {
+            this(window, cap, used, windowStart, windowEnd, cycleFallback, sharedBucket,
+                    com.financeos.domain.reward.CounterScope.ACCOUNT, List.of());
+        }
     }
 }

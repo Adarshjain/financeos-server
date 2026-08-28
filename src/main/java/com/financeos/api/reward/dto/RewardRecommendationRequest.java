@@ -22,6 +22,19 @@ public record RewardRecommendationRequest(
         TransactionChannel channel,
         Boolean isEmi,
         Boolean isIntl,
-        List<UUID> accountIds
+        List<UUID> accountIds,
+        UUID cardId
 ) {
+    public RewardRecommendationRequest(
+            BigDecimal amount,
+            LocalDate date,
+            Set<UUID> categoryIds,
+            String mcc,
+            String merchantText,
+            TransactionChannel channel,
+            Boolean isEmi,
+            Boolean isIntl,
+            List<UUID> accountIds) {
+        this(amount, date, categoryIds, mcc, merchantText, channel, isEmi, isIntl, accountIds, null);
+    }
 }

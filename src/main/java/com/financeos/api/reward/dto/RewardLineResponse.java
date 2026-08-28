@@ -25,5 +25,28 @@ public record RewardLineResponse(
         AccrualType accrualType,
         BigDecimal earned,
         String earnedUnit,
-        RewardLineReason reason) {
+        RewardLineReason reason,
+        UUID cardId,
+        String cardLabel) {
+
+    public RewardLineResponse(
+            UUID transactionId,
+            LocalDate transactionDate,
+            LocalDate effectiveDate,
+            String description,
+            String sourcedDescription,
+            String mcc,
+            com.financeos.domain.transaction.TransactionChannel channel,
+            BigDecimal amount,
+            BigDecimal basis,
+            UUID ruleId,
+            String ruleName,
+            RuleStacking stacking,
+            AccrualType accrualType,
+            BigDecimal earned,
+            String earnedUnit,
+            RewardLineReason reason) {
+        this(transactionId, transactionDate, effectiveDate, description, sourcedDescription, mcc, channel,
+                amount, basis, ruleId, ruleName, stacking, accrualType, earned, earnedUnit, reason, null, null);
+    }
 }

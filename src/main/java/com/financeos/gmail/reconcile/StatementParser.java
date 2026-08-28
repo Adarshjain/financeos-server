@@ -60,7 +60,8 @@ public class StatementParser {
                     r.amount > 0 ? "CREDIT" : "DEBIT",
                     r.description,
                     r.balance != null ? BigDecimal.valueOf(r.balance) : null,
-                    r.chainValid
+                    r.chainValid,
+                    r.cardLast4
             ));
         }
 

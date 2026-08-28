@@ -13,6 +13,8 @@ import java.util.UUID;
 public record TransactionResponse(
                 UUID id,
                 UUID accountId,
+                UUID cardId,
+                String cardLabel,
                 LocalDate date,
                 BigDecimal amount,
                 String description,
@@ -68,9 +70,14 @@ public record TransactionResponse(
                                                 ? linkMap.get(transaction.getId())
                                                 : java.util.Collections.emptyList();
 
+                UUID cardId = transaction.getCard() != null ? transaction.getCard().getId() : null;
+                String cardLabel = transaction.getCard() != null ? transaction.getCard().getLabel() : null;
+
                 return new TransactionResponse(
                                 transaction.getId(),
                                 transaction.getAccount().getId(),
+                                cardId,
+                                cardLabel,
                                 transaction.getDate(),
                                 signedAmount, // Return signed amount
                                 transaction.getDescription(),

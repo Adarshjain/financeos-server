@@ -20,7 +20,8 @@ import java.util.*;
 public class TransactionListQueryBuilder {
 
     public enum Join {
-        ACCOUNTS
+        ACCOUNTS,
+        CARDS
     }
 
     private record FieldMetadata(
@@ -40,6 +41,8 @@ public class TransactionListQueryBuilder {
             Map.entry("accountId", new FieldMetadata("accountId", FieldType.ENUM, "sub.account_id", null, null)),
             Map.entry("account", new FieldMetadata("account", FieldType.ENUM, "a.name", Join.ACCOUNTS, null)),
             Map.entry("accountType", new FieldMetadata("accountType", FieldType.ENUM, "a.type", Join.ACCOUNTS, Set.of("bank_account", "credit_card", "broker", "generic"))),
+            Map.entry("cardId", new FieldMetadata("cardId", FieldType.ENUM, "sub.card_id", null, null)),
+            Map.entry("card", new FieldMetadata("card", FieldType.ENUM, "ac.label", Join.CARDS, null)),
             Map.entry("category", new FieldMetadata("category", FieldType.ENUM, null, null, null)),
             Map.entry("reviewType", new FieldMetadata("reviewType", FieldType.ENUM, "sub.review_type", null, Set.of("NEEDS_REVIEW", "AUTO_REVIEWED", "MANUALLY_REVIEWED", "NA"))),
             Map.entry("reviewReason", new FieldMetadata("reviewReason", FieldType.ENUM, null, null, Set.of("UNRECONCILED", "CATEGORY_UNVERIFIED", "DUPLICATE_SUSPECT"))),
@@ -76,7 +79,7 @@ public class TransactionListQueryBuilder {
         String whereClause = buildWhereClause(criteria, params, joins);
 
         String innerSql = """
-            SELECT t.id, t.account_id, t.transaction_date, t.created_at, t.type, t.source,
+            SELECT t.id, t.account_id, t.card_id, t.transaction_date, t.created_at, t.type, t.source,
                    t.amount, t.description, t.sourced_description,
                    t.is_under_monitoring, t.is_excluded, t.review_type,
                    (CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END) AS signed_amount,
@@ -95,6 +98,9 @@ public class TransactionListQueryBuilder {
 
         if (joins.contains(Join.ACCOUNTS)) {
             sql.append(" LEFT JOIN accounts a ON a.id = sub.account_id");
+        }
+        if (joins.contains(Join.CARDS)) {
+            sql.append(" LEFT JOIN account_cards ac ON ac.id = sub.card_id");
         }
 
         sql.append(whereClause);
@@ -143,7 +149,7 @@ public class TransactionListQueryBuilder {
         String whereClause = buildWhereClause(criteria, params, joins);
 
         String innerSql = """
-            SELECT t.id, t.account_id, t.transaction_date, t.type, t.source,
+            SELECT t.id, t.account_id, t.card_id, t.transaction_date, t.type, t.source,
                    t.description, t.sourced_description,
                    t.is_under_monitoring, t.is_excluded, t.review_type,
                    (CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END) AS signed_amount
@@ -157,6 +163,9 @@ public class TransactionListQueryBuilder {
 
         if (joins.contains(Join.ACCOUNTS)) {
             sql.append(" LEFT JOIN accounts a ON a.id = sub.account_id");
+        }
+        if (joins.contains(Join.CARDS)) {
+            sql.append(" LEFT JOIN account_cards ac ON ac.id = sub.card_id");
         }
 
         sql.append(whereClause);

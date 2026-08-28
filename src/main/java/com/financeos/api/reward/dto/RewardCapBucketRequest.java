@@ -1,5 +1,6 @@
 package com.financeos.api.reward.dto;
 
+import com.financeos.domain.reward.CounterScope;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -13,5 +14,6 @@ public record RewardCapBucketRequest(
         @NotNull(message = "Cap is required") BigDecimal cap,
         /** Unit of the cap: CASH (₹) or POINTS; unset = CASH. */
         String rewardType,
-        @NotBlank(message = "Window is required") String windowType) {
+        @NotBlank(message = "Window is required") String windowType,
+        CounterScope counterScope) {
 }

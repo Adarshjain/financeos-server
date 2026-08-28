@@ -46,6 +46,11 @@ public class RewardMilestone {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private Account account;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "card_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private com.financeos.domain.account.card.AccountCard card;
+
     @Column(nullable = false, length = 200)
     private String name;
 

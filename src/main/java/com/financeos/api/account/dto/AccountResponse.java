@@ -3,10 +3,12 @@ package com.financeos.api.account.dto;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.financeos.domain.account.*;
+import com.financeos.domain.account.card.AccountCard;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type", visible = true)
@@ -44,6 +46,10 @@ public sealed interface AccountResponse {
     LocalDate anchorDate();
 
     static AccountResponse from(Account account) {
+        return from(account, null, null);
+    }
+
+    static AccountResponse from(Account account, String derivedLast4, List<AccountCardResponse> cardResponses) {
         BigDecimal bal = account.getCalculatedBalance();
         Boolean anchored = account.getBalanceAnchored() != null ? account.getBalanceAnchored() : false;
         BigDecimal gap = account.getReconciliationGap();
@@ -75,6 +81,24 @@ public sealed interface AccountResponse {
             }
             case credit_card -> {
                 AccountCreditCardDetails details = account.getCreditCardDetails();
+                String last4 = derivedLast4;
+                if (last4 == null && account.getCards() != null && !account.getCards().isEmpty()) {
+                    last4 = account.getCards().stream()
+                            .filter(c -> c.isPrimary() && c.getClosedOn() == null)
+                            .map(AccountCard::getLast4)
+                            .findFirst()
+                            .orElseGet(() -> account.getCards().stream()
+                                    .filter(c -> c.getClosedOn() == null)
+                                    .map(AccountCard::getLast4)
+                                    .findFirst()
+                                    .orElseGet(() -> account.getCards().get(0).getLast4()));
+                }
+                // The account list does not count transactions per card; emitting 0 would read as
+                // "no transactions, safe to delete". CardsDialog fetches real counts separately.
+                List<AccountCardResponse> cards = cardResponses != null ? cardResponses :
+                        (account.getCards() != null ? account.getCards().stream()
+                                .map(AccountCardResponse::withoutCount)
+                                .toList() : List.of());
                 yield new CreditCardAccountResponse(
                         account.getId(),
                         account.getName(),
@@ -85,7 +109,7 @@ public sealed interface AccountResponse {
                         account.getCreatedAt(),
                         account.getUpdatedAt(),
                         account.getIngestFromDate(),
-                        details != null ? details.getLast4() : null,
+                        last4,
                         details != null ? details.getCreditLimit() : null,
                         details != null ? details.getPaymentDueDay() : null,
                         details != null ? details.getGracePeriodDays() : null,
@@ -94,7 +118,8 @@ public sealed interface AccountResponse {
                         bal,
                         anchored,
                         gap,
-                        anchorDate);
+                        anchorDate,
+                        cards);
             }
             case broker -> {
                 AccountBrokerDetails details = account.getBrokerDetails();
@@ -171,7 +196,8 @@ public sealed interface AccountResponse {
             BigDecimal balance,
             Boolean balanceAnchored,
             BigDecimal reconciliationGap,
-            LocalDate anchorDate) implements AccountResponse {
+            LocalDate anchorDate,
+            List<AccountCardResponse> cards) implements AccountResponse {
     }
 
     record BrokerAccountResponse(

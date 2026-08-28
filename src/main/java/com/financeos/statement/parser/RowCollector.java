@@ -240,25 +240,65 @@ final class RowCollector {
             }
         }
 
+        // Seed currentCardLast4 from statement header (document-stated number)
+        String currentCardLast4 = null;
+        for (int i = 0; i < first; i++) {
+            String text = lines.get(i).text();
+            java.util.regex.Matcher am = Tokens.ACCOUNT_LABEL.matcher(text);
+            if (am.find()) {
+                String last4 = extractTrailingLast4(am.group(1));
+                if (last4 != null) {
+                    currentCardLast4 = last4;
+                    break;
+                }
+            }
+            java.util.regex.Matcher cm = Tokens.CARD_MASK.matcher(text);
+            if (cm.find()) {
+                String token = cm.group(1);
+                if (token.indexOf('X') >= 0 || token.indexOf('x') >= 0 || token.indexOf('*') >= 0
+                        || lines.get(i).words().size() <= 6) {
+                    String last4 = extractTrailingLast4(token);
+                    if (last4 != null) {
+                        currentCardLast4 = last4;
+                        break;
+                    }
+                }
+            }
+        }
+
         List<RawRow> raw = new ArrayList<>();
         for (int i = first; i <= last; i++) {
             Line ln = lines.get(i);
             if (txnSet.contains(i)) {
-                raw.add(new RawRow(ln, true, anchors[i]));
+                raw.add(new RawRow(ln, true, anchors[i], currentCardLast4));
             } else if (!raw.isEmpty()) {
                 // Dateless line inside the table: continuation of previous row -
                 // unless it's a summary/furniture line (contains balance keywords).
                 String text = ln.text().toLowerCase(Locale.ROOT);
-                if (Tokens.OPENING_BAL.matcher(text).find() || Tokens.CLOSING_BAL.matcher(text).find()) {
-                    raw.add(new RawRow(ln, null, null)); // marker row, keep for opening balance
+                java.util.regex.Matcher cardMatcher = Tokens.CARD_MASK.matcher(ln.text());
+                boolean hasCardMask = cardMatcher.find();
+                String cardToken = hasCardMask ? cardMatcher.group(1) : null;
+                boolean isCardSectionHeader = hasCardMask && (
+                        (cardToken.indexOf('X') >= 0 || cardToken.indexOf('x') >= 0 || cardToken.indexOf('*') >= 0)
+                        || ln.words().size() <= 6
+                );
+
+                if (isCardSectionHeader) {
+                    String extracted = extractTrailingLast4(cardToken);
+                    if (extracted != null) {
+                        currentCardLast4 = extracted;
+                    }
+                    // skip section subheader itself
+                } else if (Tokens.OPENING_BAL.matcher(text).find() || Tokens.CLOSING_BAL.matcher(text).find()) {
+                    raw.add(new RawRow(ln, null, null, currentCardLast4)); // marker row, keep for opening balance
                 } else if (text.contains("page ") || text.contains("statement") || text.contains("generated on")
                         || Tokens.isSummaryLine(text) // totals/section boxes
-                        || Tokens.CARD_MASK.matcher(text).find() // per-card section subheaders
+                        || hasCardMask // other card mask lines
                         || PERCENT_NOTE.matcher(text).find() // interest-rate notes
                         || GSTIN_HSN.matcher(text).find()) { // invoice furniture
                     // skip
                 } else {
-                    raw.add(new RawRow(ln, false, null));
+                    raw.add(new RawRow(ln, false, null, currentCardLast4));
                 }
             }
         }
@@ -270,5 +310,16 @@ final class RowCollector {
 
         Line headerWords = headerIdx >= 0 ? lines.get(headerIdx) : null;
         return new CollectedRows(metaZone, raw, headerWords, dateFmt, dateFmt2, maxTxnPage);
+    }
+
+    private static String extractTrailingLast4(String raw) {
+        if (raw == null) {
+            return null;
+        }
+        String digitsOnly = raw.replaceAll("[^0-9]", "");
+        if (digitsOnly.length() >= 4) {
+            return digitsOnly.substring(digitsOnly.length() - 4);
+        }
+        return null;
     }
 }

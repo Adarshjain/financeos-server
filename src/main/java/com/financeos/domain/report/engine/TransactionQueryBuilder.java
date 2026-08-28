@@ -30,6 +30,11 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
 
     public static final String JOIN_ACCOUNTS = "ACCOUNTS";
     public static final String JOIN_CATEGORIES = "CATEGORIES";
+    public static final String JOIN_CARDS = "CARDS";
+
+    public static final String CARD_DIM = "NVL(ac.label, NVL(a.name || ' •••• ' || ac.last4, 'Unattributed'))";
+    public static final String CARDHOLDER_DIM = "NVL(ac.holder_name, 'Unattributed')";
+    public static final String CARD_RELATIONSHIP_DIM = "NVL(ac.relationship, 'Unattributed')";
 
     private static final Map<String, Mapping> MAPPINGS = Map.ofEntries(
             Map.entry("amount", new Mapping(SIGNED_AMOUNT, null)),
@@ -52,7 +57,10 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             Map.entry("isEmi", new Mapping("NVL(t.is_emi, 0)", null)),
             Map.entry("isInternational", new Mapping("NVL(t.is_international, 0)", null)),
             Map.entry("instantDiscount", new Mapping("t.instant_discount", null)),
-            Map.entry("convenienceFee", new Mapping("t.convenience_fee", null)));
+            Map.entry("convenienceFee", new Mapping("t.convenience_fee", null)),
+            Map.entry("card", new Mapping(CARD_DIM, JOIN_CARDS)),
+            Map.entry("cardholder", new Mapping(CARDHOLDER_DIM, JOIN_CARDS)),
+            Map.entry("cardRelationship", new Mapping(CARD_RELATIONSHIP_DIM, JOIN_CARDS)));
 
     public TransactionQueryBuilder(Map<String, FieldDef> fieldsMap, DateRangeResolver dateRangeResolver, SqlPredicates sqlPredicates) {
         super(MAPPINGS, fieldsMap, sqlPredicates, dateRangeResolver);
@@ -72,8 +80,11 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     @Override
     public String fromClause(Set<String> joins) {
         StringBuilder sb = new StringBuilder(" FROM transactions t");
-        if (joins.contains(JOIN_ACCOUNTS)) {
+        if (joins.contains(JOIN_ACCOUNTS) || joins.contains(JOIN_CARDS)) {
             sb.append(" LEFT JOIN accounts a ON a.id = t.account_id");
+        }
+        if (joins.contains(JOIN_CARDS)) {
+            sb.append(" LEFT JOIN account_cards ac ON ac.id = t.card_id");
         }
         if (joins.contains(JOIN_CATEGORIES)) {
             sb.append(" LEFT JOIN transaction_categories tc ON tc.transaction_id = t.id")

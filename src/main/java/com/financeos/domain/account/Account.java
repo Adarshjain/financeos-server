@@ -85,6 +85,9 @@ public class Account {
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private AccountBrokerDetails brokerDetails;
 
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<com.financeos.domain.account.card.AccountCard> cards = new java.util.ArrayList<>();
+
     @Transient
     private java.math.BigDecimal calculatedBalance;
 

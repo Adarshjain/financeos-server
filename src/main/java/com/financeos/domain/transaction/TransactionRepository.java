@@ -26,10 +26,10 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     Page<Transaction> findAll(Pageable pageable);
 
 
-    @EntityGraph(attributePaths = { "categories.category", "account", "reviewReasons" })
+    @EntityGraph(attributePaths = { "categories.category", "account", "card", "reviewReasons" })
     List<Transaction> findAllByIdIn(List<UUID> ids);
 
-    @EntityGraph(attributePaths = { "categories.category", "account", "reviewReasons" })
+    @EntityGraph(attributePaths = { "categories.category", "account", "card", "reviewReasons" })
     List<Transaction> findAllByIdInAndUserId(List<UUID> ids, UUID userId);
 
     @EntityGraph(attributePaths = { "categories.category", "account" })
@@ -129,4 +129,15 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
 
     @Query("SELECT MIN(t.date) FROM Transaction t WHERE t.account.id = :accountId")
     LocalDate findMinDateByAccountId(@Param("accountId") UUID accountId);
+
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.account.id = :accountId " +
+           "AND (:from IS NULL OR t.date >= :from) " +
+           "AND (:to IS NULL OR t.date <= :to) " +
+           "AND (:currentCardId IS NULL OR (t.card IS NOT NULL AND t.card.id = :currentCardId))")
+    List<Transaction> findForBulkReattribute(
+            @Param("userId") UUID userId,
+            @Param("accountId") UUID accountId,
+            @Param("from") LocalDate from,
+            @Param("to") LocalDate to,
+            @Param("currentCardId") UUID currentCardId);
 }
