@@ -59,6 +59,10 @@ public class RewardCapBucket {
     @Column(name = "window_type", nullable = false, length = 20)
     private CapWindow windowType;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "counter_scope", nullable = false, length = 20)
+    private CounterScope counterScope = CounterScope.ACCOUNT;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

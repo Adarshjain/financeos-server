@@ -5,6 +5,7 @@ import com.financeos.domain.reward.AccrualType;
 import com.financeos.domain.reward.CapExhaustedBehavior;
 import com.financeos.domain.reward.CapWindow;
 import com.financeos.domain.reward.CashbackRounding;
+import com.financeos.domain.reward.CounterScope;
 import com.financeos.domain.reward.EmiTreatment;
 import com.financeos.domain.reward.FeeTreatment;
 import com.financeos.domain.reward.IntlTreatment;
@@ -25,6 +26,8 @@ import java.util.UUID;
 public record RewardRuleResponse(
         UUID id,
         UUID accountId,
+        UUID cardId,
+        CounterScope counterScope,
         String name,
         int priority,
         RuleStacking stacking,
@@ -65,9 +68,13 @@ public record RewardRuleResponse(
                 .map(CategoryResponse::from)
                 .toList();
 
+        UUID cardId = rule.getCard() != null ? rule.getCard().getId() : null;
+
         return new RewardRuleResponse(
                 rule.getId(),
                 rule.getAccount().getId(),
+                cardId,
+                rule.getCounterScope(),
                 rule.getName(),
                 rule.getPriority(),
                 rule.getStacking(),

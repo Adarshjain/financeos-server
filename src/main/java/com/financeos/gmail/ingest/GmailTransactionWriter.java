@@ -1,6 +1,7 @@
 package com.financeos.gmail.ingest;
 
 import com.financeos.domain.account.Account;
+import com.financeos.domain.account.card.AccountCard;
 import com.financeos.domain.transaction.*;
 import com.financeos.domain.user.User;
 import com.financeos.gmail.domain.*;
@@ -32,6 +33,16 @@ public class GmailTransactionWriter {
             String gmailMessageId,
             GeminiExtractionResult extractionResult,
             Account resolvedAccount) {
+        return writeTransaction(connection, gmailMessageId, extractionResult, resolvedAccount, null);
+    }
+
+    @Transactional
+    public GmailProcessedMessage writeTransaction(
+            GmailConnection connection,
+            String gmailMessageId,
+            GeminiExtractionResult extractionResult,
+            Account resolvedAccount,
+            AccountCard resolvedCard) {
 
         User user = connection.getUser();
 
@@ -54,6 +65,7 @@ public class GmailTransactionWriter {
         Transaction txn = new Transaction();
         txn.setUser(user);
         txn.setAccount(resolvedAccount);
+        txn.setCard(resolvedCard);
         txn.setDate(txDate);
         txn.setAmount(extractionResult.amount().abs()); // Store unsigned magnitude
         txn.setSourcedDescription(extractionResult.description());

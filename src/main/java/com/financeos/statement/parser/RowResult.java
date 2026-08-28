@@ -9,6 +9,7 @@ public class RowResult {
     public Double balance;
     public boolean chainValid;
     public String signSource;
+    public String cardLast4;
 
     RowResult(LocalDate date, String description, Double amount, Double balance, boolean chainValid) {
         this.date = date;
@@ -21,6 +22,7 @@ public class RowResult {
     public RowResult copy() {
         RowResult r = new RowResult(date, description, amount, balance, chainValid);
         r.signSource = signSource;
+        r.cardLast4 = cardLast4;
         return r;
     }
 }

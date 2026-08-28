@@ -123,7 +123,11 @@ public class DatasourceCatalog {
             new FieldDef("isEmi", "Is EMI", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isInternational", "Is international", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("instantDiscount", "Instant discount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
-            new FieldDef("convenienceFee", "Convenience fee", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"));
+            new FieldDef("convenienceFee", "Convenience fee", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
+            new FieldDef("card", "Card", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
+            new FieldDef("cardholder", "Cardholder", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
+            new FieldDef("cardRelationship", "Card Relationship", FieldType.ENUM, FieldRole.DIMENSION, null,
+                    List.of("SELF", "SPOUSE", "PARENT", "CHILD", "SIBLING", "OTHER"), null, CHART_TABLE));
 
     private static final Map<String, FieldDef> BY_NAME = FIELDS.stream()
             .collect(Collectors.toMap(FieldDef::name, f -> f, (a, b) -> a, LinkedHashMap::new));

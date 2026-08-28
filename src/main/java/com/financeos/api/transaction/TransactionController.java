@@ -96,5 +96,12 @@ public class TransactionController {
                 request.keepId(), request.deleteId());
         return ResponseEntity.ok(response);
     }
+
+    @PatchMapping("/card")
+    public ResponseEntity<BulkReattributeResponse> bulkReattributeCard(
+            @Valid @RequestBody BulkReattributeCardRequest request) {
+        BulkReattributeResponse response = transactionService.bulkReattributeCard(request);
+        return ResponseEntity.ok(response);
+    }
 }
 

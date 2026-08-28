@@ -1,6 +1,7 @@
 package com.financeos.api.reward.dto;
 
 import com.financeos.domain.reward.CapWindow;
+import com.financeos.domain.reward.CounterScope;
 import com.financeos.domain.reward.RewardCapBucket;
 import com.financeos.domain.reward.RewardType;
 
@@ -15,6 +16,7 @@ public record RewardCapBucketResponse(
         BigDecimal cap,
         RewardType rewardType,
         CapWindow windowType,
+        CounterScope counterScope,
         int ruleCount,
         Instant createdAt,
         Instant updatedAt) {
@@ -27,6 +29,7 @@ public record RewardCapBucketResponse(
                 bucket.getCap(),
                 bucket.getRewardType(),
                 bucket.getWindowType(),
+                bucket.getCounterScope() != null ? bucket.getCounterScope() : CounterScope.ACCOUNT,
                 ruleCount,
                 bucket.getCreatedAt(),
                 bucket.getUpdatedAt());

@@ -11,6 +11,7 @@ import java.util.UUID;
 /** Full milestone definition — POST creates, PUT overwrites (accountId ignored on PUT). */
 public record RewardMilestoneRequest(
         UUID accountId,
+        UUID cardId,
         @NotBlank(message = "Milestone name is required") String name,
         @NotBlank(message = "Window is required") String windowType,
         @NotBlank(message = "Basis is required") String basis,

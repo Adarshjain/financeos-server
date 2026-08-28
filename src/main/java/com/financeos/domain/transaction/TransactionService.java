@@ -52,6 +52,7 @@ public class TransactionService {
     private final TransactionLinkRepository transactionLinkRepository;
     private final StatementTransactionRepository statementTransactionRepository;
     private final com.financeos.core.observability.AuditLogger auditLogger;
+    private final com.financeos.domain.account.card.AccountCardRepository cardRepository;
     private final TransactionService self;
 
     @org.springframework.beans.factory.annotation.Autowired
@@ -65,6 +66,7 @@ public class TransactionService {
             @org.springframework.context.annotation.Lazy TransactionLinkRepository transactionLinkRepository,
             @org.springframework.context.annotation.Lazy StatementTransactionRepository statementTransactionRepository,
             com.financeos.core.observability.AuditLogger auditLogger,
+            com.financeos.domain.account.card.AccountCardRepository cardRepository,
             @org.springframework.context.annotation.Lazy TransactionService self) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
@@ -76,6 +78,7 @@ public class TransactionService {
         this.transactionLinkRepository = transactionLinkRepository;
         this.statementTransactionRepository = statementTransactionRepository;
         this.auditLogger = auditLogger;
+        this.cardRepository = cardRepository;
         this.self = self != null ? self : this;
     }
 
@@ -86,7 +89,21 @@ public class TransactionService {
             ReviewStatusManager reviewStatusManager,
             CategorizationService categorizationService,
             TransactionService self) {
-        this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, null, null, null, null, self);
+        this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, null, null, null, null, null, self);
+    }
+
+    public TransactionService(TransactionRepository transactionRepository,
+            AccountRepository accountRepository,
+            CategoryRepository categoryRepository,
+            UserRepository userRepository,
+            ReviewStatusManager reviewStatusManager,
+            CategorizationService categorizationService,
+            com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService,
+            TransactionLinkRepository transactionLinkRepository,
+            StatementTransactionRepository statementTransactionRepository,
+            com.financeos.core.observability.AuditLogger auditLogger,
+            TransactionService self) {
+        this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, transactionLinkService, transactionLinkRepository, statementTransactionRepository, auditLogger, null, self);
     }
 
 
@@ -139,6 +156,15 @@ public class TransactionService {
         }
         transaction.setMcc(request.mcc());
         applyRewardDetails(transaction, request.rewardDetails());
+
+        if (request.cardId() != null) {
+            com.financeos.domain.account.card.AccountCard card = cardRepository.findById(request.cardId())
+                    .orElseThrow(() -> new ResourceNotFoundException("AccountCard", request.cardId()));
+            if (!card.getAccount().getId().equals(account.getId())) {
+                throw new ValidationException("Card does not belong to the transaction's account");
+            }
+            transaction.setCard(card);
+        }
 
         // SECURITY: Enforce session-based identity.
         // We do NOT trust the account owner alone; we use the current session user.
@@ -245,6 +271,29 @@ public class TransactionService {
         }
 
         BigDecimal amountBefore = transaction.getAmount();
+
+        if (request.accountId() != null && !request.accountId().equals(transaction.getAccount().getId())) {
+            Account newAccount = accountRepository.findById(request.accountId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Account", request.accountId()));
+            if (!newAccount.getUser().getId().equals(currentSessionUserId)) {
+                throw new ValidationException("You do not have permission to move transaction to this account.");
+            }
+            transaction.setAccount(newAccount);
+            if (transaction.getCard() != null && !transaction.getCard().getAccount().getId().equals(newAccount.getId())) {
+                transaction.setCard(null);
+            }
+        }
+
+        if (request.cardId() != null) {
+            com.financeos.domain.account.card.AccountCard card = cardRepository.findById(request.cardId())
+                    .orElseThrow(() -> new ResourceNotFoundException("AccountCard", request.cardId()));
+            if (!card.getAccount().getId().equals(transaction.getAccount().getId())) {
+                throw new ValidationException("Card does not belong to the transaction's account");
+            }
+            transaction.setCard(card);
+        } else {
+            transaction.setCard(null);
+        }
 
         // Update fields
         transaction.setDate(request.date());
@@ -535,6 +584,9 @@ public class TransactionService {
         if (kept.getMcc() == null && deleted.getMcc() != null) {
             kept.setMcc(deleted.getMcc());
         }
+        if (kept.getCard() == null && deleted.getCard() != null) {
+            kept.setCard(deleted.getCard());
+        }
 
         // --- TRANSACTION LINKS RE-POINTING ---
         if (transactionLinkRepository != null) {
@@ -629,6 +681,50 @@ public class TransactionService {
         } else {
             transactionLinkRepository.save(link);
         }
+    }
+
+    @Transactional
+    public com.financeos.api.transaction.dto.BulkReattributeResponse bulkReattributeCard(
+            com.financeos.api.transaction.dto.BulkReattributeCardRequest request) {
+        UUID currentSessionUserId = com.financeos.core.security.UserContext.getCurrentUserId();
+        Account account = accountRepository.findById(request.accountId())
+                .orElseThrow(() -> new ResourceNotFoundException("Account", request.accountId()));
+
+        if (!account.getUser().getId().equals(currentSessionUserId)) {
+            throw new ValidationException("You do not have permission to modify this account's transactions.");
+        }
+
+        com.financeos.domain.account.card.AccountCard targetCard = null;
+        if (request.cardId() != null) {
+            targetCard = cardRepository.findById(request.cardId())
+                    .orElseThrow(() -> new ResourceNotFoundException("AccountCard", request.cardId()));
+            if (!targetCard.getAccount().getId().equals(account.getId())) {
+                throw new ValidationException("Target card does not belong to the specified account.");
+            }
+        }
+
+        if (request.currentCardId() != null) {
+            com.financeos.domain.account.card.AccountCard currentCard = cardRepository.findById(request.currentCardId())
+                    .orElseThrow(() -> new ResourceNotFoundException("AccountCard", request.currentCardId()));
+            if (!currentCard.getAccount().getId().equals(account.getId())) {
+                throw new ValidationException("Current card filter does not belong to the specified account.");
+            }
+        }
+
+        List<Transaction> txns = transactionRepository.findForBulkReattribute(
+                currentSessionUserId,
+                account.getId(),
+                request.from(),
+                request.to(),
+                request.currentCardId()
+        );
+
+        for (Transaction txn : txns) {
+            txn.setCard(targetCard);
+        }
+        transactionRepository.saveAll(txns);
+
+        return new com.financeos.api.transaction.dto.BulkReattributeResponse(txns.size());
     }
 }
 

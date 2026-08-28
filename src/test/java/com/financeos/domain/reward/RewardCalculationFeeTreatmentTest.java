@@ -77,7 +77,8 @@ class RewardCalculationFeeTreatmentTest {
 
         service = new RewardCalculationService(
                 rewardRuleRepository, rewardRuleService, rewardMilestoneRepository, rewardMilestoneService,
-                transactionRepository, transactionLinkRepository, statementRepository, accountRepository);
+                transactionRepository, transactionLinkRepository, statementRepository, accountRepository,
+                mock(com.financeos.domain.account.card.AccountCardRepository.class));
     }
 
     @AfterEach

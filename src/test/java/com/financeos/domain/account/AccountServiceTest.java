@@ -29,6 +29,7 @@ import java.util.UUID;
 class AccountServiceTest {
 
     private AccountRepository accountRepository;
+    private com.financeos.domain.account.card.AccountCardRepository cardRepository;
     private UserRepository userRepository;
     private StatementRepository statementRepository;
     private TransactionRepository transactionRepository;
@@ -39,13 +40,14 @@ class AccountServiceTest {
     @BeforeEach
     void setUp() {
         accountRepository = mock(AccountRepository.class);
+        cardRepository = mock(com.financeos.domain.account.card.AccountCardRepository.class);
         userRepository = mock(UserRepository.class);
         statementRepository = mock(StatementRepository.class);
         transactionRepository = mock(TransactionRepository.class);
         HoldingValuationService holdingValuationService = mock(HoldingValuationService.class);
         backfillDemandRepository = mock(com.financeos.gmail.domain.GmailBackfillDemandRepository.class);
         eventPublisher = mock(org.springframework.context.ApplicationEventPublisher.class);
-        accountService = new AccountService(accountRepository, userRepository, statementRepository, transactionRepository, holdingValuationService, backfillDemandRepository, eventPublisher);
+        accountService = new AccountService(accountRepository, cardRepository, userRepository, statementRepository, transactionRepository, holdingValuationService, backfillDemandRepository, eventPublisher);
         UserContext.clear();
     }
 

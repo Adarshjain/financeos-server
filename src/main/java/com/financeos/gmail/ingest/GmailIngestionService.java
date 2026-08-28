@@ -364,7 +364,9 @@ public class GmailIngestionService {
                 }
 
                 gpm.setExtractedLast4(normalizeLast4(extractionResult.accountLast4()));
-                Account account = accountResolver.resolve(extractionResult.accountLast4()).orElse(null);
+                AccountResolver.ResolvedCard resolved = accountResolver.resolve(extractionResult.accountLast4()).orElse(null);
+                Account account = resolved != null ? resolved.account() : null;
+                com.financeos.domain.account.card.AccountCard card = resolved != null ? resolved.card() : null;
 
                 if (account == null) {
                     gpm.setStatus(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
@@ -384,7 +386,7 @@ public class GmailIngestionService {
 
                 // Write transaction (checks ingestFromDate watermark inside writer)
                 GmailProcessedMessage result = gmailTransactionWriter.writeTransaction(
-                        connection, message.messageId(), extractionResult, account);
+                        connection, message.messageId(), extractionResult, account, card);
                 gpm.setStatus(result.getStatus());
                 gpm.setTransaction(result.getTransaction());
                 gpm.setError(result.getError());

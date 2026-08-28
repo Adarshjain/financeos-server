@@ -25,15 +25,18 @@ public class RewardCapBucketService {
     private final RewardRuleRepository rewardRuleRepository;
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
+    private final com.financeos.domain.account.card.AccountCardRepository cardRepository;
 
     public RewardCapBucketService(RewardCapBucketRepository rewardCapBucketRepository,
                                   RewardRuleRepository rewardRuleRepository,
                                   AccountRepository accountRepository,
-                                  UserRepository userRepository) {
+                                  UserRepository userRepository,
+                                  com.financeos.domain.account.card.AccountCardRepository cardRepository) {
         this.rewardCapBucketRepository = rewardCapBucketRepository;
         this.rewardRuleRepository = rewardRuleRepository;
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
+        this.cardRepository = cardRepository;
     }
 
     @Transactional(readOnly = true)
@@ -115,5 +118,10 @@ public class RewardCapBucketService {
         } catch (IllegalArgumentException e) {
             throw new ValidationException("Unknown CapWindow: " + request.windowType());
         }
+        CounterScope counterScope = request.counterScope() != null ? request.counterScope() : CounterScope.ACCOUNT;
+        if (counterScope == CounterScope.PER_CARD && cardRepository.findOpenByAccountId(bucket.getAccount().getId()).size() < 2) {
+            throw new ValidationException("Per-card counter scope requires an account with at least two open cards (primary and add-on).");
+        }
+        bucket.setCounterScope(counterScope);
     }
 }

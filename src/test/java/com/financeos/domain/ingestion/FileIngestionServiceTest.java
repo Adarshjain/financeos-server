@@ -68,6 +68,13 @@ class FileIngestionServiceTest {
         categorizationService = mock(CategorizationService.class);
         statementPersistenceService = mock(StatementPersistenceService.class);
 
+        com.financeos.domain.account.AccountService accountService = mock(com.financeos.domain.account.AccountService.class);
+        when(accountService.extractLast4(any())).thenAnswer(inv -> {
+            Account acc = inv.getArgument(0);
+            if (acc.getBankDetails() != null) return acc.getBankDetails().getLast4();
+            return "1234";
+        });
+
         ingestionService = new FileIngestionService(
                 accountRepository,
                 userRepository,
@@ -76,7 +83,8 @@ class FileIngestionServiceTest {
                 transactionMatcher,
                 reviewStatusManager,
                 categorizationService,
-                statementPersistenceService
+                statementPersistenceService,
+                accountService
         );
 
         userId = UUID.randomUUID();

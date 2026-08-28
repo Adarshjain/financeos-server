@@ -51,6 +51,7 @@ public class RecommendCardTool implements ChatTool {
         props.putObject("isEmi").put("type", "boolean").put("description", "Whether transaction is an EMI");
         props.putObject("isIntl").put("type", "boolean").put("description", "Whether transaction is international");
         props.putObject("date").put("type", "string").put("description", "Transaction date YYYY-MM-DD");
+        props.putObject("cardId").put("type", "string").put("description", "Optional account card ID");
         schema.putArray("required").add("amount");
         return schema;
     }
@@ -85,9 +86,10 @@ public class RecommendCardTool implements ChatTool {
             }
 
             Set<UUID> categorySet = categoryIds.isEmpty() ? null : new java.util.HashSet<>(categoryIds);
+            UUID cardId = args.has("cardId") && !args.get("cardId").isNull() ? UUID.fromString(args.get("cardId").asText()) : null;
 
             RewardRecommendationRequest request = new RewardRecommendationRequest(
-                    amount, date, categorySet, mcc, merchantText, channel, isEmi, isIntl, null
+                    amount, date, categorySet, mcc, merchantText, channel, isEmi, isIntl, null, cardId
             );
 
             RewardRecommendationResponse response = recommendationService.recommend(request);

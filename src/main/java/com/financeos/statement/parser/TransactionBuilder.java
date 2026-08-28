@@ -46,7 +46,7 @@ final class TransactionBuilder {
                     }
                     mj++;
                 }
-                merged.add(new RawRow(new Line(block), true, r.anchor()));
+                merged.add(new RawRow(new Line(block), true, r.anchor(), r.cardLast4()));
                 mi = mj;
             } else {
                 merged.add(r);
@@ -153,7 +153,7 @@ final class TransactionBuilder {
                 }
                 ci++;
             }
-            txns.add(new TxnDraft(date, desc, amounts, pos, ln.page(), ln.top(), descX));
+            txns.add(new TxnDraft(date, desc, amounts, pos, ln.page(), ln.top(), descX, rr.cardLast4()));
         }
 
         // Description column x-extent per page (tables can shift between pages).

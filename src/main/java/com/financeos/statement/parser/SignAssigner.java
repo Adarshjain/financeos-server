@@ -186,7 +186,9 @@ final class SignAssigner {
                     chainBreaks++;
                 }
             }
-            results.add(new RowResult(t.date, String.join(" ", t.desc), amount, bal, valid));
+            RowResult row = new RowResult(t.date, String.join(" ", t.desc), amount, bal, valid);
+            row.cardLast4 = t.cardLast4;
+            results.add(row);
             if (bal != null) {
                 prev = bal;
             }
@@ -306,6 +308,7 @@ final class SignAssigner {
             }
             RowResult rr = new RowResult(t.date, String.join(" ", t.desc), amount, null, false);
             rr.signSource = source;
+            rr.cardLast4 = t.cardLast4;
             results.add(rr);
         }
         return results;

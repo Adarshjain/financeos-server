@@ -39,6 +39,7 @@ Individual financial transactions (bank debits/credits, credit card swipes, manu
 - `convenience_fee`: Labeled surcharge/fee included inside `amount`.
 - `category_names`: Comma-separated names of ALL categories on this transaction (nullable). This view has EXACTLY ONE row per transaction, so SUM(amount) here is always safe.
 - `account_id` / `account_name` / `account_type`: Associated account details.
+- `card_id` / `card_label` / `card_last4` / `card_holder` / `card_relationship`: Associated add-on / primary card details (nullable when unattributed).
 
 ### 1b. `v_chat_transaction_categories`
 Transaction↔category mapping (a transaction can have multiple categories).
@@ -52,9 +53,20 @@ User accounts (bank accounts, credit cards, investment broker accounts).
 - `type`: Account type: `'bank_account'`, `'credit_card'`, `'broker'`, `'stock'`, `'mutual_fund'`, `'generic'`.
 - `exclude_from_net_asset`: 1 if excluded from net asset calculations, 0 otherwise.
 - `financial_position`: `'asset'` (bank/broker) or `'liability'` (credit card/loan).
-- `cc_last4`, `cc_credit_limit`, `cc_payment_due_day`, `bank_last4`: Card & bank metadata.
+- `cc_last4`, `cc_credit_limit`, `cc_payment_due_day`, `bank_last4`: Card & bank metadata (`cc_last4` comes from the open primary card).
 - `bank_opening_balance`: The bank account's opening balance when it was added (current balance = opening balance + CREDITs − DEBITs from `v_chat_transactions` since then).
 - `broker_cash_balance`: Idle cash sitting in a broker account (NOT invested holdings — use `get_portfolio_value` for those).
+
+### 2b. `v_chat_account_cards`
+Add-on and primary cards linked to credit card accounts.
+- `id`: Card UUID.
+- `account_id`: Associated credit card account UUID.
+- `label`: Optional card label / nickname.
+- `holder_name`: Name printed on card (e.g. spouse/parent/child).
+- `relationship`: `'SELF'`, `'SPOUSE'`, `'PARENT'`, `'CHILD'`, `'SIBLING'`, `'OTHER'`.
+- `last4`: 4-digit card number suffix.
+- `is_primary`: 1 for the primary account card, 0 for add-on / supplementary cards.
+- `issued_on` / `closed_on`: Validity dates.
 
 ### 3. `v_chat_categories`
 User transaction categories.

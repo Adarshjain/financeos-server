@@ -54,6 +54,7 @@ public class StatementReconciliationService {
     private final TransactionMatcher transactionMatcher;
     private final ReviewStatusManager reviewStatusManager;
     private final StatementPersistenceService statementPersistenceService;
+    private final com.financeos.domain.account.card.AccountCardRepository cardRepository;
 
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
@@ -64,7 +65,8 @@ public class StatementReconciliationService {
                                           com.financeos.gmail.ingest.AccountResolver accountResolver,
                                           TransactionMatcher transactionMatcher,
                                           ReviewStatusManager reviewStatusManager,
-                                          StatementPersistenceService statementPersistenceService) {
+                                          StatementPersistenceService statementPersistenceService,
+                                          com.financeos.domain.account.card.AccountCardRepository cardRepository) {
         this.gmailEngine = gmailEngine;
         this.statementParser = statementParser;
         this.transactionRepository = transactionRepository;
@@ -75,6 +77,7 @@ public class StatementReconciliationService {
         this.transactionMatcher = transactionMatcher;
         this.reviewStatusManager = reviewStatusManager;
         this.statementPersistenceService = statementPersistenceService;
+        this.cardRepository = cardRepository;
     }
 
 
@@ -163,21 +166,24 @@ public class StatementReconciliationService {
 
         // 4. Confirm/resolve account
         Account resolvedAccount = null;
+        com.financeos.domain.account.card.AccountCard statementCard = null;
         String statementAccountNumber = result.accountNumber();
 
         // Resolve by statement's account number using exactly-one rule (via AccountResolver)
-        Account last4ResolvedAccount = accountResolver.resolve(statementAccountNumber).orElse(null);
-
+        com.financeos.gmail.ingest.AccountResolver.ResolvedCard last4Resolved = accountResolver.resolve(statementAccountNumber).orElse(null);
+        Account last4ResolvedAccount = last4Resolved != null ? last4Resolved.account() : null;
+        if (last4Resolved != null && last4Resolved.card() != null && !last4Resolved.card().isPrimary()) {
+            statementCard = last4Resolved.card();
+        }
 
         if (candidateAccount != null) {
-            String candidateLast4 = null;
-            if (candidateAccount.getBankDetails() != null) {
-                candidateLast4 = candidateAccount.getBankDetails().getLast4();
-            } else if (candidateAccount.getCreditCardDetails() != null) {
-                candidateLast4 = candidateAccount.getCreditCardDetails().getLast4();
-            }
-
-            if (statementNumberMatches(statementAccountNumber, candidateLast4)) {
+            com.financeos.domain.account.card.AccountCard matchedCandidateCard = findMatchingCardOnAccount(candidateAccount, statementAccountNumber);
+            if (matchedCandidateCard != null) {
+                resolvedAccount = candidateAccount;
+                if (!matchedCandidateCard.isPrimary()) {
+                    statementCard = matchedCandidateCard;
+                }
+            } else if (candidateAccount.getBankDetails() != null && statementNumberMatches(statementAccountNumber, candidateAccount.getBankDetails().getLast4())) {
                 resolvedAccount = candidateAccount;
             } else {
                 resolvedAccount = last4ResolvedAccount;
@@ -205,7 +211,7 @@ public class StatementReconciliationService {
         }
 
         // 5. Create statement record if not a duplicate (before watermark filtering / matching)
-        Optional<Statement> stmt = statementPersistenceService.createIfNew(connection.getUser(), resolvedAccount,
+        Optional<Statement> stmt = statementPersistenceService.createIfNew(connection.getUser(), resolvedAccount, statementCard,
                 StatementSource.gmail, message.messageId(), StatementPersistenceService.sha256Hex(chosenBytes), result.draft());
         if (stmt.isEmpty()) {
             log.info("Statement already ingested for account {} (message {})", resolvedAccount.getId(), message.messageId());
@@ -260,9 +266,11 @@ public class StatementReconciliationService {
         // Loop over candidate statement lines and match/reconcile
         for (int i = 0; i < candidateLines.size(); i++) {
             ParsedStatementLine line = candidateLines.get(i);
+            com.financeos.domain.account.card.AccountCard lineCard = resolveCard(resolvedAccount, line.cardLast4());
+            UUID lineCardId = lineCard != null ? lineCard.getId() : null;
 
             // Check if there is already a transaction matching this line (safety against seams)
-            Transaction seamMatch = transactionMatcher.findBestMatch(line, alreadyMatchedTxns, dateWindow, consumedTxnIds);
+            Transaction seamMatch = transactionMatcher.findBestMatch(line, lineCardId, alreadyMatchedTxns, dateWindow, consumedTxnIds);
             if (seamMatch != null) {
                 consumedTxnIds.add(seamMatch.getId());
                 links.add(new StatementPersistenceService.TxnLink(seamMatch.getId(), i, line.balance(), line.chainValid()));
@@ -270,7 +278,7 @@ public class StatementReconciliationService {
             }
 
             // Try to match against NEEDS_REVIEW alerts to promote
-            Transaction alertMatch = transactionMatcher.findBestMatch(line, alertsToPromote, dateWindow, consumedTxnIds);
+            Transaction alertMatch = transactionMatcher.findBestMatch(line, lineCardId, alertsToPromote, dateWindow, consumedTxnIds);
             if (alertMatch != null) {
                 consumedTxnIds.add(alertMatch.getId());
                 reviewStatusManager.clearReason(alertMatch, ReviewReason.UNRECONCILED, ReviewType.AUTO_REVIEWED);
@@ -285,6 +293,7 @@ public class StatementReconciliationService {
                     Transaction statementTxn = new Transaction();
                     statementTxn.setUser(connection.getUser());
                     statementTxn.setAccount(resolvedAccount);
+                    statementTxn.setCard(lineCard);
                     statementTxn.setDate(line.date());
                     statementTxn.setAmount(line.amount().abs());
                     statementTxn.setSourcedDescription(line.description());
@@ -377,6 +386,45 @@ public class StatementReconciliationService {
     }
 
 
+
+    private com.financeos.domain.account.card.AccountCard findMatchingCardOnAccount(Account account, String statementNumber) {
+        if (account == null || account.getType() != com.financeos.domain.account.AccountType.credit_card || statementNumber == null) {
+            return null;
+        }
+        List<com.financeos.domain.account.card.AccountCard> cards = account.getCards();
+        if (cards == null || cards.isEmpty()) {
+            cards = cardRepository.findByAccountIdOrderByIsPrimaryDescCreatedAtAsc(account.getId());
+        }
+        for (com.financeos.domain.account.card.AccountCard card : cards) {
+            if (card.getClosedOn() == null && statementNumberMatches(statementNumber, card.getLast4())) {
+                return card;
+            }
+        }
+        return null;
+    }
+
+    private com.financeos.domain.account.card.AccountCard resolveCard(Account account, String cardLast4) {
+        if (account == null || account.getType() != com.financeos.domain.account.AccountType.credit_card || cardLast4 == null) {
+            return null;
+        }
+        String cleanLast4 = cardLast4.trim().replaceAll("\\s+", "");
+        if (cleanLast4.length() < 4) {
+            return null;
+        }
+        if (cleanLast4.length() > 4) {
+            cleanLast4 = cleanLast4.substring(cleanLast4.length() - 4);
+        }
+        List<com.financeos.domain.account.card.AccountCard> cards = account.getCards();
+        if (cards == null || cards.isEmpty()) {
+            cards = cardRepository.findByAccountIdOrderByIsPrimaryDescCreatedAtAsc(account.getId());
+        }
+        for (com.financeos.domain.account.card.AccountCard c : cards) {
+            if (cleanLast4.equalsIgnoreCase(c.getLast4())) {
+                return c;
+            }
+        }
+        return null;
+    }
 
     private boolean statementNumberMatches(String parsedNumber, String fragment) {
         if (parsedNumber == null || fragment == null) {
