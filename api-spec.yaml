@@ -2400,23 +2400,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  /api/v1/jobs/active:
-    get:
-      tags: [Jobs]
-      summary: List the current user's PENDING and RUNNING jobs
-      operationId: listActiveJobs
-      security:
-        - sessionAuth: []
-      responses:
-        '200':
-          description: Active jobs (lightweight list for the client indicator)
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/JobResponse'
-
   /api/v1/jobs/{id}:
     get:
       tags: [Jobs]
