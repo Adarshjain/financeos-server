@@ -3,6 +3,7 @@ package com.financeos.llm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.core.observability.ObservabilityMetrics;
 import com.financeos.domain.llm.LlmKeyRepository;
+import com.financeos.domain.llm.LlmTaskPrefRepository;
 import com.financeos.llm.provider.GeminiProvider;
 import com.financeos.llm.provider.OpenAiCompatProvider;
 import com.financeos.llm.security.LlmKeyEncryptionService;
@@ -18,11 +19,7 @@ import java.util.Map;
 public class LlmConfiguration {
 
     @Bean
-    public FailoverLlmClient llmClient(LlmProperties properties,
-                                        ObjectMapper objectMapper,
-                                        LlmKeyRepository keyRepository,
-                                        LlmKeyEncryptionService encryptionService,
-                                        ObservabilityMetrics metrics) {
+    public Map<String, LlmProvider> llmProviders(LlmProperties properties, ObjectMapper objectMapper) {
         Map<String, LlmProvider> providers = new HashMap<>();
         if (properties.getProviders() != null) {
             for (Map.Entry<String, LlmProperties.ProviderProperties> entry : properties.getProviders().entrySet()) {
@@ -38,6 +35,16 @@ public class LlmConfiguration {
                 }
             }
         }
-        return new FailoverLlmClient(properties, providers, keyRepository, encryptionService, metrics);
+        return providers;
+    }
+
+    @Bean
+    public FailoverLlmClient llmClient(LlmProperties properties,
+                                        Map<String, LlmProvider> llmProviders,
+                                        LlmKeyRepository keyRepository,
+                                        LlmTaskPrefRepository taskPrefRepository,
+                                        LlmKeyEncryptionService encryptionService,
+                                        ObservabilityMetrics metrics) {
+        return new FailoverLlmClient(properties, llmProviders, keyRepository, taskPrefRepository, encryptionService, metrics);
     }
 }

@@ -2,6 +2,8 @@ package com.financeos.api.llm;
 
 import com.financeos.api.llm.dto.CreateLlmKeyRequest;
 import com.financeos.api.llm.dto.LlmKeyDto;
+import com.financeos.api.llm.dto.TestKeyRequest;
+import com.financeos.api.llm.dto.TestKeyResponse;
 import com.financeos.api.llm.dto.UpdateLlmKeyPositionRequest;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.llm.LlmKeyService;
@@ -72,6 +74,20 @@ public class LlmKeyController {
             return ResponseEntity.ok(updated);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @PostMapping("/{id}/test")
+    public ResponseEntity<TestKeyResponse> testKey(
+            @PathVariable UUID id,
+            @RequestBody(required = false) TestKeyRequest request) {
+        UUID userId = requireCurrentUserId();
+        String model = request != null ? request.model() : null;
+        try {
+            TestKeyResponse response = keyService.testKey(userId, id, model);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 }

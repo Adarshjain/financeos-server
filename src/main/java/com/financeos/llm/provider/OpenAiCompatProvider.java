@@ -102,12 +102,34 @@ public class OpenAiCompatProvider implements LlmProvider {
         body.put("temperature", request.temperature());
 
         String promptText = request.prompt() != null ? request.prompt() : "";
-        String structuredMode = properties.getStructuredOutput() != null ? properties.getStructuredOutput() : "json-schema";
+        String structuredMode = null;
+        if (properties != null) {
+            if (model != null && properties.getModelCatalog() != null) {
+                for (LlmProperties.ModelEntry me : properties.getModelCatalog()) {
+                    if (model.equalsIgnoreCase(me.getId()) && me.getStructuredOutput() != null && !me.getStructuredOutput().isBlank()) {
+                        structuredMode = me.getStructuredOutput();
+                        break;
+                    }
+                }
+            }
+            if (structuredMode == null || structuredMode.isBlank()) {
+                structuredMode = properties.getStructuredOutput();
+            }
+        }
+        if (structuredMode == null || structuredMode.isBlank()) {
+            structuredMode = "json-schema";
+        }
 
         if ("json-object".equalsIgnoreCase(structuredMode)) {
             if (request.responseSchema() != null && !request.responseSchema().isMissingNode() && !request.responseSchema().isNull()) {
                 promptText += "\n\nRespond ONLY with a JSON object matching this JSON Schema:\n" + objectMapper.writeValueAsString(request.responseSchema());
             }
+            ObjectNode format = objectMapper.createObjectNode();
+            format.put("type", "json_object");
+            body.set("response_format", format);
+        } else if (request.responseSchema() == null || request.responseSchema().isMissingNode() || request.responseSchema().isNull()) {
+            // json_schema without a schema is a malformed request — Groq rejects it outright with
+            // "json schema is required". The caller still wants JSON, so ask for it the portable way.
             ObjectNode format = objectMapper.createObjectNode();
             format.put("type", "json_object");
             body.set("response_format", format);
@@ -118,10 +140,7 @@ public class OpenAiCompatProvider implements LlmProvider {
             String taskName = request.task() != null && !request.task().isBlank() ? request.task() : "response";
             jsonSchemaObj.put("name", taskName);
             jsonSchemaObj.put("strict", true);
-            if (request.responseSchema() != null && !request.responseSchema().isMissingNode() && !request.responseSchema().isNull()) {
-                JsonNode strictSchema = convertSchemaForOpenAi(request.responseSchema());
-                jsonSchemaObj.set("schema", strictSchema);
-            }
+            jsonSchemaObj.set("schema", convertSchemaForOpenAi(request.responseSchema()));
             body.set("response_format", format);
         }
 
