@@ -25,8 +25,6 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
 
     Page<Job> findByUserIdAndTypeInAndStatusIn(UUID userId, Collection<JobType> types, Collection<JobStatus> statuses, Pageable pageable);
 
-    List<Job> findByUserIdAndStatusIn(UUID userId, Collection<JobStatus> statuses);
-
     Optional<Job> findByIdAndUserId(UUID id, UUID userId);
 
     @Query("select j from Job j where (:userId is null and j.userId is null or j.userId = :userId) and j.type = :type and j.dedupKey = :dedupKey and j.status in :statuses")

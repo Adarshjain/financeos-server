@@ -91,16 +91,6 @@ public class JobController {
         return ResponseEntity.ok(jobs.map(job -> JobResponse.from(job, objectMapper)));
     }
 
-    @GetMapping("/active")
-    public ResponseEntity<List<JobResponse>> getActiveJobs() {
-        UUID userId = UserContext.getCurrentUserId();
-        List<Job> activeJobs = jobRepository.findByUserIdAndStatusIn(userId, List.of(JobStatus.PENDING, JobStatus.RUNNING));
-        List<JobResponse> response = activeJobs.stream()
-                .map(job -> JobResponse.from(job, objectMapper))
-                .toList();
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<JobResponse> getJobById(@PathVariable UUID id) {
         UUID userId = UserContext.getCurrentUserId();

@@ -1,25 +1,19 @@
 package com.financeos.api.job;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.financeos.api.job.dto.JobResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
-import com.financeos.domain.job.Job;
 import com.financeos.domain.job.JobRepository;
 import com.financeos.domain.job.JobService;
-import com.financeos.domain.job.JobStatus;
-import com.financeos.domain.job.JobTrigger;
 import com.financeos.domain.job.JobType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -37,24 +31,6 @@ class JobControllerTest {
         jobService = mock(JobService.class);
         objectMapper = new ObjectMapper();
         jobController = new JobController(jobRepository, jobService, objectMapper);
-    }
-
-    @Test
-    void getActiveJobs_returnsListOfJobResponses() {
-        UUID userId = UUID.randomUUID();
-        UserContext.setCurrentUserId(userId);
-
-        Job job = new Job();
-        job.setType(JobType.PRICE_REFRESH);
-        job.setStatus(JobStatus.RUNNING);
-        job.setTriggerSource(JobTrigger.USER);
-
-        when(jobRepository.findByUserIdAndStatusIn(eq(userId), any())).thenReturn(List.of(job));
-
-        ResponseEntity<List<JobResponse>> response = jobController.getActiveJobs();
-        assertThat(response.getBody()).hasSize(1);
-        assertThat(response.getBody().get(0).type()).isEqualTo(JobType.PRICE_REFRESH);
-        UserContext.clear();
     }
 
     @Test
