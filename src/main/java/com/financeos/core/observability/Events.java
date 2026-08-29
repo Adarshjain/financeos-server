@@ -86,4 +86,9 @@ public final class Events {
 
     // Database Events (Phase 5B/6)
     public static final String DB_SLOW_QUERY = "db.slow_query";
+
+    // User Account Deletion Events
+    public static final String ACCOUNT_DELETED = "account.deleted";
+    public static final String ACCOUNT_DELETE_REJECTED = "account.delete.rejected";
+    public static final String OAUTH_GOOGLE_REVOKE_FAILED = "oauth.google.revoke.failed";
 }

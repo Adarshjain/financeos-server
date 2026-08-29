@@ -190,6 +190,64 @@ paths:
         '401':
           description: Not authenticated
 
+  /api/v1/auth/me/deletion-summary:
+    get:
+      tags: [Auth]
+      summary: Get account deletion summary counts
+      operationId: getDeletionSummary
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Deletion summary counts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletionSummaryResponse'
+        '401':
+          description: Not authenticated
+
+  /api/v1/auth/me/delete:
+    post:
+      tags: [Auth]
+      summary: Delete current user account and all associated data
+      operationId: deleteAccount
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteAccountRequest'
+      responses:
+        '204':
+          description: Account deleted successfully
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Confirmation credentials invalid (code `ACCOUNT_DELETE_FORBIDDEN`)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: A background job is still draining; retry shortly (code `ACCOUNT_DELETE_BUSY`)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too many failed attempts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /api/v1/accounts:
     post:
       tags: [Accounts]
@@ -2555,9 +2613,31 @@ components:
           type: string
         pictureUrl:
           type: string
+        hasPassword:
+          type: boolean
         createdAt:
           type: string
           format: date-time
+
+    DeleteAccountRequest:
+      type: object
+      properties:
+        password:
+          type: string
+        confirmEmail:
+          type: string
+
+    DeletionSummaryResponse:
+      type: object
+      properties:
+        counts:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        total:
+          type: integer
+          format: int64
 
     GoogleAuthStartResponse:
       type: object
