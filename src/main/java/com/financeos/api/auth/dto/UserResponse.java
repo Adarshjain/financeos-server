@@ -10,6 +10,7 @@ public record UserResponse(
         String email,
         String displayName,
         String pictureUrl,
+        boolean hasPassword,
         Instant createdAt) {
     public static UserResponse from(User user) {
         return new UserResponse(
@@ -17,6 +18,7 @@ public record UserResponse(
                 user.getEmail(),
                 user.getDisplayName(),
                 user.getPictureUrl(),
+                user.getPasswordHash() != null && !user.getPasswordHash().isBlank(),
                 user.getCreatedAt());
     }
 }

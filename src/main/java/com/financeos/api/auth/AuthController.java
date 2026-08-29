@@ -1,10 +1,13 @@
 package com.financeos.api.auth;
 
+import com.financeos.api.auth.dto.DeleteAccountRequest;
+import com.financeos.api.auth.dto.DeletionSummaryResponse;
+import com.financeos.api.auth.dto.GoogleAuthStartResponse;
 import com.financeos.api.auth.dto.LoginRequest;
 import com.financeos.api.auth.dto.SignupRequest;
 import com.financeos.api.auth.dto.UserResponse;
-import com.financeos.api.auth.dto.GoogleAuthStartResponse;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.domain.user.AccountDeletionService;
 import com.financeos.domain.user.AuthService;
 import com.financeos.domain.user.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,9 +22,11 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final AccountDeletionService accountDeletionService;
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, AccountDeletionService accountDeletionService) {
         this.authService = authService;
+        this.accountDeletionService = accountDeletionService;
     }
 
     @PostMapping("/signup")
@@ -88,5 +93,20 @@ public class AuthController {
 
         User user = authService.handleGoogleLogin(code, state, request, response);
         return ResponseEntity.ok(UserResponse.from(user));
+    }
+
+    @GetMapping("/me/deletion-summary")
+    public ResponseEntity<DeletionSummaryResponse> getDeletionSummary() {
+        User user = authService.getCurrentUser();
+        DeletionSummaryResponse summary = accountDeletionService.getDeletionSummary(user.getId());
+        return ResponseEntity.ok(summary);
+    }
+
+    @PostMapping("/me/delete")
+    public ResponseEntity<Void> deleteAccount(
+            @RequestBody(required = false) DeleteAccountRequest request,
+            HttpServletRequest httpRequest) {
+        accountDeletionService.deleteCurrentUser(request, httpRequest);
+        return ResponseEntity.noContent().build();
     }
 }

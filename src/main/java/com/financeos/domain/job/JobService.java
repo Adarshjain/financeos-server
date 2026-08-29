@@ -257,4 +257,17 @@ public class JobService {
 
         return savedJob;
     }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void requestCancelAllUserJobs(UUID userId) {
+        if (userId != null) {
+            jobRepository.requestCancelForUserJobs(userId, List.of(JobStatus.PENDING, JobStatus.RUNNING), Instant.now());
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public long countRunningJobs(UUID userId) {
+        if (userId == null) return 0;
+        return jobRepository.countByUserIdAndStatus(userId, JobStatus.RUNNING);
+    }
 }

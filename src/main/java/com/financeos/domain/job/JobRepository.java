@@ -27,6 +27,12 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
 
     Optional<Job> findByIdAndUserId(UUID id, UUID userId);
 
+    long countByUserIdAndStatus(UUID userId, JobStatus status);
+
+    @Modifying
+    @Query("update Job j set j.cancelRequested = true, j.updatedAt = :now where j.userId = :userId and j.status in :statuses")
+    int requestCancelForUserJobs(@Param("userId") UUID userId, @Param("statuses") Collection<JobStatus> statuses, @Param("now") Instant now);
+
     @Query("select j from Job j where (:userId is null and j.userId is null or j.userId = :userId) and j.type = :type and j.dedupKey = :dedupKey and j.status in :statuses")
     Optional<Job> findActiveDuplicate(@Param("userId") UUID userId, @Param("type") JobType type, @Param("dedupKey") String dedupKey, @Param("statuses") Collection<JobStatus> statuses);
 

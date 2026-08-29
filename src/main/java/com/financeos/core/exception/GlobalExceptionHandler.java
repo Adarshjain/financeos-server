@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.HandlerMapping;
 
 import java.security.SecureRandom;
@@ -88,6 +89,39 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.TOO_MANY_REQUESTS)
                 .header("Retry-After", String.valueOf(ex.getRetryAfterSeconds()))
                 .body(new ErrorResponse("RATE_LIMITED", "Too many attempts. Try again later."));
+    }
+
+    @ExceptionHandler(ApiStatusException.class)
+    public ResponseEntity<ErrorResponse> handleApiStatus(ApiStatusException ex, HttpServletRequest request) {
+        log4xx(ex.getCode(), ex.getMessage(), null, request);
+        return ResponseEntity
+                .status(ex.getStatus())
+                .body(new ErrorResponse(ex.getCode(), ex.getMessage()));
+    }
+
+    /**
+     * Safety net for {@link ResponseStatusException}, which several controllers throw.
+     *
+     * Without this, {@code handleGenericException} claims it — {@code Exception} is
+     * assignable from it and it is the only match — so every intended 401/403/404/409
+     * left here as a 500 with a stack trace in the logs. That also covers Spring's own
+     * {@code NoResourceFoundException}, which extends this type.
+     */
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ErrorResponse> handleResponseStatus(ResponseStatusException ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.resolve(ex.getStatusCode().value());
+        if (status == null) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        String message = ex.getReason() != null ? ex.getReason() : status.getReasonPhrase();
+        String code = status.name();
+        if (status.is5xxServerError()) {
+            return handleGenericException(ex, request);
+        }
+        log4xx(code, message, null, request);
+        return ResponseEntity
+                .status(status)
+                .body(new ErrorResponse(code, message));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

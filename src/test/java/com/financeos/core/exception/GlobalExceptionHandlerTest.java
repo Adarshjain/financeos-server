@@ -16,8 +16,10 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 
+import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.server.ResponseStatusException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -146,5 +148,53 @@ class GlobalExceptionHandlerTest {
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
         assertEquals("CONFLICT", response.getBody().code());
+    }
+
+    @Test
+    void testApiStatusExceptionCarriesItsOwnStatusAndCode() {
+        ApiStatusException ex = new ApiStatusException(HttpStatus.CONFLICT, "ACCOUNT_DELETE_BUSY", "Still finishing.");
+        ResponseEntity<GlobalExceptionHandler.ErrorResponse> response = handler.handleApiStatus(ex, request);
+
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+        assertEquals("ACCOUNT_DELETE_BUSY", response.getBody().code());
+        assertEquals("Still finishing.", response.getBody().message());
+    }
+
+    @Test
+    void testResponseStatusExceptionKeepsItsStatusInsteadOfBecoming500() {
+        ResponseStatusException ex = new ResponseStatusException(HttpStatus.FORBIDDEN, "Not your resource");
+        ResponseEntity<GlobalExceptionHandler.ErrorResponse> response = handler.handleResponseStatus(ex, request);
+
+        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+        assertEquals("FORBIDDEN", response.getBody().code());
+        assertEquals("Not your resource", response.getBody().message());
+    }
+
+    @Test
+    void testResponseStatusExceptionWith5xxStillGetsAnErrorId() {
+        ResponseStatusException ex = new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "upstream down");
+        ResponseEntity<GlobalExceptionHandler.ErrorResponse> response = handler.handleResponseStatus(ex, request);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertNotNull(response.getBody().errorId());
+    }
+
+    /**
+     * The handlers above are called directly, which proves nothing about which one Spring
+     * would actually pick. It used to pick {@code handleGenericException} for every
+     * {@link ResponseStatusException} — {@code Exception} is assignable from it and was the
+     * only match — so intended 401/403/404/409 responses all left as 500s. This asserts the
+     * dispatch itself.
+     */
+    @Test
+    void testDispatchPicksTheDedicatedHandlerNotTheGeneric5xxOne() {
+        ExceptionHandlerMethodResolver resolver = new ExceptionHandlerMethodResolver(GlobalExceptionHandler.class);
+
+        assertEquals("handleResponseStatus",
+                resolver.resolveMethod(new ResponseStatusException(HttpStatus.FORBIDDEN, "nope")).getName());
+        assertEquals("handleApiStatus",
+                resolver.resolveMethod(new ApiStatusException(HttpStatus.CONFLICT, "BUSY", "busy")).getName());
+        assertEquals("handleGenericException",
+                resolver.resolveMethod(new RuntimeException("boom")).getName());
     }
 }
