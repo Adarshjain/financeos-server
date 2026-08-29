@@ -245,8 +245,8 @@ llm:
       type: openai
       base-url: https://openrouter.ai/api/v1
       model: ${OPENROUTER_MODEL:z-ai/glm-5.3-flash}
-      # Paid z-ai/glm-5.3-flash supports full json_schema; 3 of 4 tasks pass a schema
-      structured-output: json-schema
+      # Provider-level default; individual models override it (see model-catalog below).
+      structured-output: json-object
       # 45s was too tight for 40-item categorize batch (~1800 out tok @ ~50 tok/s = 36s); 90s prevents sub-chunk retries
       timeout-ms: 90000
       batch-size: ${OPENROUTER_BATCH_SIZE:40}
@@ -255,7 +255,12 @@ llm:
           label: "GLM-5.3-Flash"
           free: false
           trains-on-data: "no"
-          structured-output: json-schema
+          # NOT json-schema. OpenRouter fans this model out across ~21 upstream endpoints and only
+          # ~14 enforce a JSON schema; the rest accept response_format but ignore the schema. A
+          # json_schema request would therefore succeed or silently degrade depending on which
+          # provider it landed on. json-object embeds the schema in the prompt instead, which every
+          # endpoint honours consistently.
+          structured-output: json-object
           notes: "Cost-effective, high quality reasoning"
         - id: openrouter/free
           label: "OpenRouter Free"
