@@ -64,7 +64,7 @@ public class ObservabilityMetrics {
 
     /**
      * Increments total LLM call attempt count.
-     * @param provider LLM provider name (e.g. "gemini", "cerebras", "groq", "openrouter")
+     * @param provider LLM provider name (e.g. "gemini", "groq", "openrouter")
      * @param outcome attempt outcome (e.g. "success", "rate_limit", "error", "timeout")
      */
     public void recordLlmAttempt(String provider, String outcome) {

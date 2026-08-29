@@ -6,6 +6,8 @@ import com.financeos.core.security.UserContext;
 import com.financeos.domain.llm.LlmKey;
 import com.financeos.domain.llm.LlmKeyRepository;
 import com.financeos.domain.llm.LlmKeyStatus;
+import com.financeos.domain.llm.LlmTaskPref;
+import com.financeos.domain.llm.LlmTaskPrefRepository;
 import com.financeos.llm.provider.LlmHttpSupport;
 import com.financeos.llm.security.LlmKeyEncryptionService;
 import net.logstash.logback.argument.StructuredArguments;
@@ -22,9 +24,12 @@ public class FailoverLlmClient implements LlmClient {
     private final LlmProperties properties;
     private final Map<String, LlmProvider> providers;
     private final LlmKeyRepository keyRepository;
+    private final LlmTaskPrefRepository taskPrefRepository;
     private final LlmKeyEncryptionService encryptionService;
     private final ObservabilityMetrics metrics;
     private final BucketStateRegistry bucketStateRegistry;
+
+    public record ChainEntry(String providerId, String model) {}
 
     public record BucketTarget(
             LlmKey key,
@@ -36,9 +41,35 @@ public class FailoverLlmClient implements LlmClient {
     public FailoverLlmClient(LlmProperties properties,
                               Map<String, LlmProvider> providers,
                               LlmKeyRepository keyRepository,
+                              LlmTaskPrefRepository taskPrefRepository,
                               LlmKeyEncryptionService encryptionService,
                               ObservabilityMetrics metrics) {
-        this(properties, providers, keyRepository, encryptionService, metrics, new BucketStateRegistry());
+        this(properties, providers, keyRepository, taskPrefRepository, encryptionService, metrics, new BucketStateRegistry());
+    }
+
+    public FailoverLlmClient(LlmProperties properties,
+                              Map<String, LlmProvider> providers,
+                              LlmKeyRepository keyRepository,
+                              LlmTaskPrefRepository taskPrefRepository,
+                              LlmKeyEncryptionService encryptionService,
+                              ObservabilityMetrics metrics,
+                              BucketStateRegistry bucketStateRegistry) {
+        this.properties = properties;
+        this.providers = providers != null ? providers : new HashMap<>();
+        this.keyRepository = keyRepository;
+        this.taskPrefRepository = taskPrefRepository;
+        this.encryptionService = encryptionService;
+        this.metrics = metrics;
+        this.bucketStateRegistry = bucketStateRegistry != null ? bucketStateRegistry : new BucketStateRegistry();
+        validateChainsAtStartup();
+    }
+
+    public FailoverLlmClient(LlmProperties properties,
+                              Map<String, LlmProvider> providers,
+                              LlmKeyRepository keyRepository,
+                              LlmKeyEncryptionService encryptionService,
+                              ObservabilityMetrics metrics) {
+        this(properties, providers, keyRepository, null, encryptionService, metrics, new BucketStateRegistry());
     }
 
     public FailoverLlmClient(LlmProperties properties,
@@ -47,17 +78,15 @@ public class FailoverLlmClient implements LlmClient {
                               LlmKeyEncryptionService encryptionService,
                               ObservabilityMetrics metrics,
                               BucketStateRegistry bucketStateRegistry) {
-        this.properties = properties;
-        this.providers = providers != null ? providers : new HashMap<>();
-        this.keyRepository = keyRepository;
-        this.encryptionService = encryptionService;
-        this.metrics = metrics;
-        this.bucketStateRegistry = bucketStateRegistry != null ? bucketStateRegistry : new BucketStateRegistry();
-        validateChainsAtStartup();
+        this(properties, providers, keyRepository, null, encryptionService, metrics, bucketStateRegistry);
     }
 
     public FailoverLlmClient(LlmProperties properties, Map<String, LlmProvider> providers) {
-        this(properties, providers, null, null, null, new BucketStateRegistry());
+        this(properties, providers, null, null, null, null, new BucketStateRegistry());
+    }
+
+    public BucketStateRegistry getBucketStateRegistry() {
+        return bucketStateRegistry;
     }
 
     private void validateChainsAtStartup() {
@@ -84,6 +113,63 @@ public class FailoverLlmClient implements LlmClient {
                     }
                 }
             }
+            if (providers.containsKey("gemini")) {
+                LlmProperties.ProviderProperties geminiProps = properties.getProviders() != null ? properties.getProviders().get("gemini") : null;
+                if (geminiProps != null) {
+                    getGeminiModels(geminiProps);
+                }
+            }
+            validateRoutingConfigAtStartup();
+        }
+    }
+
+    /**
+     * A bad option id in {@code default-routing} would expand to nothing and silently fall through
+     * to the legacy provider chain — a routing change nobody asked for, visible only as odd model
+     * choices in production. Fail the boot instead.
+     */
+    private void validateRoutingConfigAtStartup() {
+        Set<String> optionIds = new HashSet<>();
+        if (properties.getRoutingOptions() != null) {
+            for (LlmProperties.RoutingOption option : properties.getRoutingOptions()) {
+                if (option.getId() == null || option.getId().isBlank()) {
+                    throw new IllegalStateException("A routing option is missing its id");
+                }
+                if (!optionIds.add(option.getId().toLowerCase())) {
+                    throw new IllegalStateException("Duplicate routing option id: " + option.getId());
+                }
+                String provider = option.getProvider() != null ? option.getProvider().trim() : "";
+                if (properties.getProviders() == null || !properties.getProviders().containsKey(provider)) {
+                    throw new IllegalStateException("Routing option '" + option.getId()
+                            + "' names an unconfigured provider: " + option.getProvider());
+                }
+                if (option.getModels() != null && !option.getModels().isEmpty()
+                        && option.getModel() != null && !option.getModel().isBlank()) {
+                    throw new IllegalStateException("Routing option '" + option.getId()
+                            + "' sets both 'model' and 'models'; a chain and a pinned model are mutually exclusive");
+                }
+            }
+        }
+
+        if (properties.getDefaultRouting() != null) {
+            Set<String> groupCodes = Arrays.stream(LlmTaskGroup.values())
+                    .map(LlmTaskGroup::getCode)
+                    .collect(java.util.stream.Collectors.toSet());
+            for (Map.Entry<String, List<String>> entry : properties.getDefaultRouting().entrySet()) {
+                if (!groupCodes.contains(entry.getKey())) {
+                    throw new IllegalStateException("Unknown task group '" + entry.getKey()
+                            + "' in llm.default-routing; expected one of " + groupCodes);
+                }
+                if (entry.getValue() == null) {
+                    continue;
+                }
+                for (String optionId : entry.getValue()) {
+                    if (optionId == null || !optionIds.contains(optionId.trim().toLowerCase())) {
+                        throw new IllegalStateException("Unknown routing option '" + optionId
+                                + "' in llm.default-routing." + entry.getKey());
+                    }
+                }
+            }
         }
     }
 
@@ -95,7 +181,7 @@ public class FailoverLlmClient implements LlmClient {
         String task = request.task() != null ? request.task() : "";
         UUID userId = request.userId() != null ? request.userId() : UserContext.getCurrentUserId();
 
-        List<String> rawChain = resolveChain(task);
+        List<ChainEntry> rawChain = resolveChain(userId, task);
         if (rawChain.isEmpty()) {
             throw new LlmException(LlmException.Kind.FATAL, "none", null, null, "No LLM chain configured for task: " + task);
         }
@@ -276,7 +362,7 @@ public class FailoverLlmClient implements LlmClient {
     @Override
     public int recommendedBatchSize(UUID userId, String task) {
         String t = task != null ? task : "";
-        List<String> rawChain = resolveChain(t);
+        List<ChainEntry> rawChain = resolveChain(userId, t);
         List<BucketTarget> buckets = buildBucketList(userId, rawChain);
 
         for (BucketTarget target : buckets) {
@@ -303,7 +389,12 @@ public class FailoverLlmClient implements LlmClient {
         return 50;
     }
 
-    private List<BucketTarget> buildBucketList(UUID userId, List<String> rawChain) {
+    /** Visible for tests: the resolved, deduped bucket order a request will actually walk. */
+    public List<BucketTarget> buildBucketListForTest(UUID userId, List<ChainEntry> rawChain) {
+        return buildBucketList(userId, rawChain);
+    }
+
+    private List<BucketTarget> buildBucketList(UUID userId, List<ChainEntry> rawChain) {
         List<BucketTarget> targets = new ArrayList<>();
         if (rawChain == null || rawChain.isEmpty()) {
             return targets;
@@ -317,8 +408,8 @@ public class FailoverLlmClient implements LlmClient {
             }
         }
 
-        for (String pId : rawChain) {
-            String providerId = pId.trim();
+        for (ChainEntry entry : rawChain) {
+            String providerId = entry.providerId() != null ? entry.providerId().trim() : "";
             if (providerId.isEmpty() || !providers.containsKey(providerId)) {
                 continue;
             }
@@ -328,59 +419,160 @@ public class FailoverLlmClient implements LlmClient {
 
             if (keys.isEmpty()) {
                 if (keyRepository == null || (providerProps != null && providerProps.isAllowNoKey())) {
-                    String model = getModel(providerId);
+                    String model = entry.model() != null && !entry.model().isBlank() ? entry.model().trim() : getModel(providerId);
                     targets.add(new BucketTarget(null, providerId, model, providerId + ":default:" + model));
                 }
                 continue;
             }
 
-            if ("gemini".equalsIgnoreCase(providerId)) {
+            if (entry.model() != null && !entry.model().isBlank()) {
+                // Explicit user-specified model collapses Gemini model-major iteration
+                String model = entry.model().trim();
+                for (LlmKey key : keys) {
+                    targets.add(new BucketTarget(key, providerId, model, bucketKeyFor(key.getId(), model)));
+                }
+            } else if ("gemini".equalsIgnoreCase(providerId)) {
                 // Model-major iteration: best model across ALL keys, then next model across all keys
                 List<String> models = getGeminiModels(providerProps);
                 for (String model : models) {
                     for (LlmKey key : keys) {
-                        String bucketKey = key.getId() + ":" + model;
-                        targets.add(new BucketTarget(key, providerId, model, bucketKey));
+                        targets.add(new BucketTarget(key, providerId, model, bucketKeyFor(key.getId(), model)));
                     }
                 }
             } else {
                 // OpenAI-compatible rotation
                 String model = getModel(providerId);
                 for (LlmKey key : keys) {
-                    String bucketKey = key.getId().toString();
-                    targets.add(new BucketTarget(key, providerId, model, bucketKey));
+                    targets.add(new BucketTarget(key, providerId, model, bucketKeyFor(key.getId(), model)));
                 }
             }
         }
-        return targets;
-    }
-
-    private List<String> getGeminiModels(LlmProperties.ProviderProperties providerProps) {
-        if (providerProps != null && providerProps.getModels() != null && !providerProps.getModels().isEmpty()) {
-            return providerProps.getModels();
+        // Overlapping options (the Flash chain is a subset of the full chain) would otherwise queue
+        // the same bucket twice — a wasted attempt, and a second cooldown hit on the same credential.
+        Map<String, BucketTarget> deduped = new LinkedHashMap<>();
+        for (BucketTarget t : targets) {
+            deduped.putIfAbsent(t.bucketKey(), t);
         }
-        return List.of(
-                "gemini-3.7-flash",
-                "gemini-3.6-flash",
-                "gemini-3.5-flash",
-                "gemini-3.5-flash-lite",
-                "gemini-3.1-flash-lite",
-                "gemini-2.5-flash",
-                "gemini-2.5-flash-lite"
-        );
+        return new ArrayList<>(deduped.values());
     }
 
-    private List<String> resolveChain(String task) {
+    /**
+     * The one place a cooldown bucket is named. Every caller — the failover loop and the routing
+     * health endpoint alike — must go through this, or health silently reports on buckets that
+     * never existed. The model is always part of the key so that the same (key, model) pair shares
+     * cooldown state whether it was reached via a config chain or a user's explicit routing choice.
+     */
+    public static String bucketKeyFor(UUID keyId, String model) {
+        return keyId + ":" + (model != null ? model : "");
+    }
+
+    /**
+     * Chain order for the gemini-chain routing option. {@code models} is authoritative so the
+     * GEMINI_MODELS env override keeps working; {@code model-catalog} is display metadata and is
+     * only consulted when {@code models} is unset.
+     */
+    private List<String> getGeminiModels(LlmProperties.ProviderProperties providerProps) {
+        if (providerProps != null) {
+            if (providerProps.getModels() != null && !providerProps.getModels().isEmpty()) {
+                return providerProps.getModels();
+            }
+            if (providerProps.getModelCatalog() != null && !providerProps.getModelCatalog().isEmpty()) {
+                return providerProps.getModelCatalog().stream().map(LlmProperties.ModelEntry::getId).toList();
+            }
+        }
+        throw new IllegalStateException("No models configured for Gemini provider");
+    }
+
+    public List<ChainEntry> resolveChain(UUID userId, String task) {
+        LlmTaskGroup group = LlmTasks.groupOf(task);
+
+        if (userId != null && taskPrefRepository != null) {
+            List<LlmTaskPref> groupPrefs = taskPrefRepository.findByUserIdAndTaskGroupOrderByPositionAsc(userId, group);
+            if (!groupPrefs.isEmpty()) {
+                List<ChainEntry> entries = new ArrayList<>();
+                for (LlmTaskPref pref : groupPrefs) {
+                    entries.addAll(expandOption(pref.getOptionId()));
+                }
+                if (!entries.isEmpty()) {
+                    return entries;
+                }
+            }
+            // Deliberately NO cross-group inheritance. A user who reorders only "Everything else"
+            // must not have Chat silently switched to a slow bulk model — Chat falls through to the
+            // shipped default order, which leads with the Flash chain for latency.
+        }
+
+        List<String> defaultOptionIds = properties != null && properties.getDefaultRouting() != null
+                ? properties.getDefaultRouting().get(group.getCode())
+                : null;
+        if (defaultOptionIds != null && !defaultOptionIds.isEmpty()) {
+            List<ChainEntry> entries = new ArrayList<>();
+            for (String optionId : defaultOptionIds) {
+                entries.addAll(expandOption(optionId));
+            }
+            if (!entries.isEmpty()) {
+                return entries;
+            }
+        }
+
+        // Last resort for deployments that configure only the legacy provider chains.
         if (properties != null && properties.getTasks() != null && properties.getTasks().containsKey(task)) {
             LlmProperties.TaskProperties taskProps = properties.getTasks().get(task);
             if (taskProps != null && taskProps.getChain() != null && !taskProps.getChain().isEmpty()) {
-                return taskProps.getChain();
+                return taskProps.getChain().stream().map(p -> new ChainEntry(p.trim(), null)).toList();
             }
         }
         if (properties != null && properties.getChain() != null) {
-            return properties.getChain();
+            return properties.getChain().stream().map(p -> new ChainEntry(p.trim(), null)).toList();
         }
         return Collections.emptyList();
+    }
+
+    /**
+     * A routing option becomes one chain entry per model, in order. Expanding here — rather than
+     * teaching {@code buildBucketList} about option shapes — is what keeps model-major ordering
+     * correct: entry order is model order, and each entry then fans out across the user's keys.
+     */
+    private List<ChainEntry> expandOption(String optionId) {
+        LlmProperties.RoutingOption option = findRoutingOption(optionId);
+        if (option == null || option.getProvider() == null || option.getProvider().isBlank()) {
+            return List.of();
+        }
+        String provider = option.getProvider().trim();
+
+        if (option.getModels() != null && !option.getModels().isEmpty()) {
+            return option.getModels().stream().map(m -> new ChainEntry(provider, m)).toList();
+        }
+        if (option.getModel() != null && !option.getModel().isBlank()) {
+            return List.of(new ChainEntry(provider, option.getModel().trim()));
+        }
+        // No models pinned: the provider's own list, which is the full-chain option.
+        LlmProperties.ProviderProperties props = properties != null && properties.getProviders() != null
+                ? properties.getProviders().get(provider)
+                : null;
+        if (props != null && props.getModels() != null && !props.getModels().isEmpty()) {
+            return props.getModels().stream().map(m -> new ChainEntry(provider, m)).toList();
+        }
+        return List.of(new ChainEntry(provider, null));
+    }
+
+    public LlmProperties.RoutingOption findRoutingOption(String optionId) {
+        if (optionId == null || properties == null || properties.getRoutingOptions() == null) {
+            return null;
+        }
+        return properties.getRoutingOptions().stream()
+                .filter(o -> optionId.trim().equalsIgnoreCase(o.getId()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public List<ChainEntry> resolveChain(String task) {
+        return resolveChain(UserContext.getCurrentUserId(), task);
+    }
+
+    /** Visible for tests: the model a provider resolves to when no routing option pins one. */
+    String getModelForTest(String providerId) {
+        return getModel(providerId);
     }
 
     private String getModel(String providerId) {

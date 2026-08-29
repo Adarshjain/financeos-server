@@ -74,11 +74,10 @@ public class StartupFingerprintLogger {
             flywayVersion = flyway.info().current().getVersion().getVersion();
         }
 
-        String llmChain = environment.getProperty("llm.chain", "gemini,openai,groq,cerebras");
+        String llmChain = environment.getProperty("llm.chain", "openrouter,gemini");
         boolean hasGeminiKey = isNotEmpty(environment.getProperty("gemini.api-key")) || isNotEmpty(environment.getProperty("GEMINI_API_KEY"));
         boolean hasOpenAiKey = isNotEmpty(environment.getProperty("openai.api-key")) || isNotEmpty(environment.getProperty("OPENAI_API_KEY"));
         boolean hasGroqKey = isNotEmpty(environment.getProperty("groq.api-key")) || isNotEmpty(environment.getProperty("GROQ_API_KEY"));
-        boolean hasCerebrasKey = isNotEmpty(environment.getProperty("cerebras.api-key")) || isNotEmpty(environment.getProperty("CEREBRAS_API_KEY"));
 
         String gmailCron = environment.getProperty("gmail.ingest.cron", "0 0 10-22/2 * * *");
         String priceCron = environment.getProperty("price.refresh-cron", "0 0 19 * * *");
@@ -107,7 +106,6 @@ public class StartupFingerprintLogger {
                 StructuredArguments.keyValue("hasGeminiKey", hasGeminiKey),
                 StructuredArguments.keyValue("hasOpenAiKey", hasOpenAiKey),
                 StructuredArguments.keyValue("hasGroqKey", hasGroqKey),
-                StructuredArguments.keyValue("hasCerebrasKey", hasCerebrasKey),
                 StructuredArguments.keyValue("gmailIngestCron", gmailCron),
                 StructuredArguments.keyValue("priceRefreshCron", priceCron),
                 StructuredArguments.keyValue("cookieSecure", cookieSecure),
@@ -128,7 +126,6 @@ public class StartupFingerprintLogger {
         boolean hasGeminiKey = isNotEmpty(environment.getProperty("gemini.api-key")) || isNotEmpty(environment.getProperty("GEMINI_API_KEY"));
         boolean hasOpenAiKey = isNotEmpty(environment.getProperty("openai.api-key")) || isNotEmpty(environment.getProperty("OPENAI_API_KEY"));
         boolean hasGroqKey = isNotEmpty(environment.getProperty("groq.api-key")) || isNotEmpty(environment.getProperty("GROQ_API_KEY"));
-        boolean hasCerebrasKey = isNotEmpty(environment.getProperty("cerebras.api-key")) || isNotEmpty(environment.getProperty("CEREBRAS_API_KEY"));
 
         // Check 1: COOKIE_SECURE=false while any CORS origin starts with https://
         if (!cookieSecure && Arrays.stream(corsAllowedOrigins.split(",")).map(String::trim).anyMatch(o -> o.startsWith("https://"))) {
@@ -148,7 +145,7 @@ public class StartupFingerprintLogger {
         }
 
         // Check 3: zero LLM providers have a non-empty key
-        if (!hasGeminiKey && !hasOpenAiKey && !hasGroqKey && !hasCerebrasKey) {
+        if (!hasGeminiKey && !hasOpenAiKey && !hasGroqKey) {
             log.warn("Suspect configuration: zero LLM providers have non-empty API keys configured",
                     StructuredArguments.keyValue("event", Events.APP_CONFIG_SUSPECT),
                     StructuredArguments.keyValue("reason", "no-llm-keys-configured")

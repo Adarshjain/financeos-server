@@ -306,7 +306,9 @@ public class FailoverLlmClientTest {
 
         assertThrows(LlmException.class, () -> client.complete(new LlmRequest(userId, "test", "prompt", null, 0.0)));
 
-        String bucketKey = key1.getId().toString();
+        // Bucket names always include the model — go through the shared helper rather than
+        // rebuilding the key here, so this cannot drift from the failover loop again.
+        String bucketKey = FailoverLlmClient.bucketKeyFor(key1.getId(), client.getModelForTest("A"));
         Instant expiry = registry.getSoonestCooldownExpiry(List.of(bucketKey));
         assertNotNull(expiry);
 

@@ -38,6 +38,28 @@ public class BucketStateRegistry {
         this(Clock.systemUTC());
     }
 
+    public record BucketCooldownInfo(boolean inCooldown, Instant cooldownUntil, int consecutiveFailures) {}
+
+    public BucketCooldownInfo getBucketStatus(String bucketKey) {
+        BucketState state = states.get(bucketKey);
+        if (state == null) {
+            return new BucketCooldownInfo(false, null, 0);
+        }
+        long now = clock.millis();
+        long cooldownUntil = state.cooldownUntil.get();
+        int failures = state.consecutiveFailures.get();
+        if (cooldownUntil > 0 && now < cooldownUntil) {
+            return new BucketCooldownInfo(true, Instant.ofEpochMilli(cooldownUntil), failures);
+        }
+        if (failures >= 3) {
+            long elapsed = now - state.lastFailureTimestamp.get();
+            if (elapsed < 60000L) {
+                return new BucketCooldownInfo(true, Instant.ofEpochMilli(state.lastFailureTimestamp.get() + 60000L), failures);
+            }
+        }
+        return new BucketCooldownInfo(false, null, failures);
+    }
+
     public boolean isCooldown(String bucketKey) {
         BucketState state = states.get(bucketKey);
         if (state == null) {

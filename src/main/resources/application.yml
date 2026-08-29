@@ -115,7 +115,7 @@ gmail:
 
 # LLM Provider Layer configuration
 llm:
-  chain: ${LLM_CHAIN:gemini,cerebras,groq,openrouter}
+  chain: ${LLM_CHAIN:openrouter,gemini}
   keys:
     master-key: ${LLM_KEYS_MASTER_KEY:}
   retry:
@@ -126,32 +126,143 @@ llm:
   tasks:
     data-chat:
       chain: ${LLM_CHAT_CHAIN:gemini,openrouter}
+  # The user-pickable routing menu. Settings shows ALL of these, always, in the user's order;
+  # options whose provider has no key are simply skipped at runtime, so an unconfigured option
+  # costs nothing but a place in the list.
+  #
+  # `models` = a chain: tried model-major (this model across every key, then the next model).
+  # That is what makes one free-tier key usable — each model carries its own daily quota.
+  routing-options:
+    - id: gemini-chain
+      label: "Gemini (full chain)"
+      provider: gemini
+      notes: "Every Gemini model in turn, newest first. Widest free-tier headroom."
+    - id: gemini-flash-chain
+      label: "Gemini (Flash chain)"
+      provider: gemini
+      models:
+        - gemini-3.7-flash
+        - gemini-3.6-flash
+        - gemini-3.5-flash
+        - gemini-3.5-flash-lite
+        - gemini-3.1-flash-lite
+      notes: "Current-generation Flash models only. Fastest first response — the best lead for Chat."
+    - id: groq
+      label: "Groq (GPT-OSS 120B)"
+      provider: groq
+      model: openai/gpt-oss-120b
+    - id: openrouter-free
+      label: "OpenRouter (free pool)"
+      provider: openrouter
+      model: openrouter/free
+      notes: "Free routing pool. Rate-limited, and its training policy varies by upstream provider."
+    - id: openrouter-glm
+      label: "OpenRouter (GLM-5.3-Flash)"
+      provider: openrouter
+      model: z-ai/glm-5.3-flash
+      notes: "Best quality per rupee. Slower to generate — better suited to background work than Chat."
+
+  # Shipped order per task group, used until a user saves their own.
+  # Chat leads with the Flash chain because ChatOrchestrator is wall-clock bound; background work
+  # leads with the full chain and keeps the Flash chain in reserve at the end.
+  default-routing:
+    chat:
+      - gemini-flash-chain
+      - gemini-chain
+      - groq
+      - openrouter-free
+      - openrouter-glm
+    default:
+      - gemini-chain
+      - groq
+      - openrouter-free
+      - openrouter-glm
+      - gemini-flash-chain
+
   providers:
     gemini:
+      label: "Google Gemini"
       type: gemini
+      # Authoritative order for the gemini-chain routing option. model-catalog below is
+      # display metadata only (labels / free / trains-on-data) and never sets chain order.
       models: ${GEMINI_MODELS:gemini-3.7-flash,gemini-3.6-flash,gemini-3.5-flash,gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-2.5-flash,gemini-2.5-flash-lite}
       model: ${GEMINI_MODEL:gemini-3.5-flash-lite}
       timeout-ms: ${GEMINI_TIMEOUT_MS:30000}
       batch-size: ${GEMINI_BATCH_SIZE:200}
-    cerebras:
-      type: openai
-      base-url: https://api.cerebras.ai/v1
-      model: ${CEREBRAS_MODEL:gpt-oss-120b}
-      timeout-ms: 30000
-      batch-size: ${CEREBRAS_BATCH_SIZE:100}
+      model-catalog:
+        - id: gemini-3.7-flash
+          label: "Gemini 3.7 Flash"
+          free: true
+          trains-on-data: "yes"
+          structured-output: json-schema
+          notes: "Fastest flagship reasoning model"
+        - id: gemini-3.6-flash
+          label: "Gemini 3.6 Flash"
+          free: true
+          trains-on-data: "yes"
+          structured-output: json-schema
+        - id: gemini-3.5-flash
+          label: "Gemini 3.5 Flash"
+          free: true
+          trains-on-data: "yes"
+          structured-output: json-schema
+        - id: gemini-3.5-flash-lite
+          label: "Gemini 3.5 Flash Lite"
+          free: true
+          trains-on-data: "yes"
+          structured-output: json-schema
+        - id: gemini-3.1-flash-lite
+          label: "Gemini 3.1 Flash Lite"
+          free: true
+          trains-on-data: "yes"
+          structured-output: json-schema
+        - id: gemini-2.5-flash
+          label: "Gemini 2.5 Flash"
+          free: true
+          trains-on-data: "yes"
+          structured-output: json-schema
+        - id: gemini-2.5-flash-lite
+          label: "Gemini 2.5 Flash Lite"
+          free: true
+          trains-on-data: "yes"
+          structured-output: json-schema
     groq:
+      label: "Groq"
       type: openai
       base-url: https://api.groq.com/openai/v1
       model: ${GROQ_MODEL:openai/gpt-oss-120b}
       timeout-ms: 30000
       batch-size: ${GROQ_BATCH_SIZE:100}
+      model-catalog:
+        - id: openai/gpt-oss-120b
+          label: "GPT-OSS 120B"
+          free: true
+          trains-on-data: "no"
+          structured-output: json-schema
+          notes: "Fast LPU inference"
     openrouter:
+      label: "OpenRouter"
       type: openai
       base-url: https://openrouter.ai/api/v1
-      model: ${OPENROUTER_MODEL:openrouter/free}
-      structured-output: json-object     # :free routes vary; don't assume json_schema support
-      timeout-ms: 45000
+      model: ${OPENROUTER_MODEL:z-ai/glm-5.3-flash}
+      # Paid z-ai/glm-5.3-flash supports full json_schema; 3 of 4 tasks pass a schema
+      structured-output: json-schema
+      # 45s was too tight for 40-item categorize batch (~1800 out tok @ ~50 tok/s = 36s); 90s prevents sub-chunk retries
+      timeout-ms: 90000
       batch-size: ${OPENROUTER_BATCH_SIZE:40}
+      model-catalog:
+        - id: z-ai/glm-5.3-flash
+          label: "GLM-5.3-Flash"
+          free: false
+          trains-on-data: "no"
+          structured-output: json-schema
+          notes: "Cost-effective, high quality reasoning"
+        - id: openrouter/free
+          label: "OpenRouter Free"
+          free: true
+          trains-on-data: "unknown"
+          structured-output: json-object
+          notes: "Free routing pool; latency and training policies vary"
     # Self-hosted (future) — config only, no code change:
     # ampere:
     #   type: openai
@@ -214,7 +325,8 @@ chat:
     max-concurrent: 2
   loop:
     max-iterations: 6
-    max-wall-clock-seconds: ${CHAT_MAX_WALL_CLOCK_SECONDS:90}
+    # 180s safe: computeHardDeadlineMs yields 270s and SSE emitter is 290s
+    max-wall-clock-seconds: ${CHAT_MAX_WALL_CLOCK_SECONDS:180}
     sql-row-cap: 200
     sql-timeout-seconds: 5
     result-char-cap: 16000

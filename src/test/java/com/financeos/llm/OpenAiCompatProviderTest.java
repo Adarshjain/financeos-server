@@ -170,4 +170,20 @@ public class OpenAiCompatProviderTest {
         assertEquals(3, optEnumArray.size());
         assertTrue(optEnumArray.get(2).isNull());
     }
+
+    @Test
+    public void testNullSchemaFallsBackToJsonObjectInsteadOfMalformedJsonSchema() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        LlmProperties.ProviderProperties props = new LlmProperties.ProviderProperties();
+        props.setStructuredOutput("json-schema");
+        props.setModel("openai/gpt-oss-120b");
+
+        // A json_schema response_format with no "schema" is rejected outright by Groq
+        // ("json schema is required"), so a schema-less request must degrade, not emit that.
+        LlmRequest request = new LlmRequest("test", "Ping", null, 0.0);
+        String body = OpenAiCompatProvider.buildRequestBody(request, props, "openai/gpt-oss-120b", mapper);
+
+        assertTrue(body.contains("\"type\":\"json_object\""), body);
+        assertFalse(body.contains("json_schema"), body);
+    }
 }
