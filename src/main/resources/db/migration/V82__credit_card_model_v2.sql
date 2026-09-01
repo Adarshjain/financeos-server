@@ -1,5 +1,10 @@
 -- Flyway Migration V82: Credit Card Model v2 (accounts -> cardholders -> cards)
 
+-- ADB's HIGH consumer group enables parallel DML by default; the seed INSERTs below
+-- then trip ORA-12839 when a later statement touches the same table in the one
+-- uncommitted transaction. Force serial DML for this migration's session.
+ALTER SESSION DISABLE PARALLEL DML;
+
 -- 1. Create cardholders table
 CREATE TABLE cardholders (
     id            VARCHAR2(36) PRIMARY KEY,
