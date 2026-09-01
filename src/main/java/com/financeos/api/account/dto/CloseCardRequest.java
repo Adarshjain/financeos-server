@@ -4,5 +4,4 @@ import java.time.LocalDate;
 
 public record CloseCardRequest(
         LocalDate closedOn
-) {
-}
+) {}

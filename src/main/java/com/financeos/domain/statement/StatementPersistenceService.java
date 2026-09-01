@@ -1,7 +1,6 @@
 package com.financeos.domain.statement;
 
 import com.financeos.domain.account.Account;
-import com.financeos.domain.account.card.AccountCard;
 import com.financeos.domain.user.User;
 
 import org.springframework.stereotype.Service;
@@ -45,16 +44,9 @@ public class StatementPersistenceService {
     @Transactional
     public Optional<Statement> createIfNew(User user, Account account, StatementSource source, String sourceRef,
             String fileSha256, StatementDraft draft) {
-        return createIfNew(user, account, null, source, sourceRef, fileSha256, draft);
-    }
-
-    @Transactional
-    public Optional<Statement> createIfNew(User user, Account account, AccountCard card, StatementSource source,
-            String sourceRef, String fileSha256, StatementDraft draft) {
-        UUID cardId = card != null ? card.getId() : null;
         if (draft.periodStart() != null && draft.periodEnd() != null
-                && statementRepository.existsByAccountIdAndCardIdAndPeriodStartAndPeriodEnd(account.getId(),
-                        cardId, draft.periodStart(), draft.periodEnd())) {
+                && statementRepository.existsByAccountIdAndPeriodStartAndPeriodEnd(account.getId(),
+                        draft.periodStart(), draft.periodEnd())) {
             return Optional.empty();
         }
         if (fileSha256 != null && statementRepository.existsByAccountIdAndFileSha256(account.getId(), fileSha256)) {
@@ -64,7 +56,6 @@ public class StatementPersistenceService {
         Statement statement = new Statement();
         statement.setUser(user);
         statement.setAccount(account);
-        statement.setCard(card);
         statement.setSource(source);
         statement.setSourceRef(sourceRef);
         statement.setFileSha256(fileSha256);

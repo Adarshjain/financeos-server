@@ -1,7 +1,7 @@
 package com.financeos.gmail.ingest;
 
 import com.financeos.domain.account.Account;
-import com.financeos.domain.account.card.AccountCard;
+import com.financeos.domain.account.card.Card;
 import com.financeos.domain.transaction.*;
 import com.financeos.domain.user.User;
 import com.financeos.gmail.domain.*;
@@ -42,7 +42,7 @@ public class GmailTransactionWriter {
             String gmailMessageId,
             GeminiExtractionResult extractionResult,
             Account resolvedAccount,
-            AccountCard resolvedCard) {
+            Card resolvedCard) {
 
         User user = connection.getUser();
 

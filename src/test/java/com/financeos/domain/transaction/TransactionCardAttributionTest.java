@@ -14,8 +14,8 @@ import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
-import com.financeos.domain.account.card.AccountCard;
-import com.financeos.domain.account.card.AccountCardRepository;
+import com.financeos.domain.account.card.Card;
+import com.financeos.domain.account.card.CardRepository;
 import com.financeos.domain.categorization.CategorizationService;
 import com.financeos.domain.category.CategoryRepository;
 import com.financeos.domain.statement.StatementTransactionRepository;
@@ -43,7 +43,7 @@ class TransactionCardAttributionTest {
     @Mock
     private AccountRepository accountRepository;
     @Mock
-    private AccountCardRepository cardRepository;
+    private CardRepository cardRepository;
     @Mock
     private CategoryRepository categoryRepository;
     @Mock
@@ -62,8 +62,8 @@ class TransactionCardAttributionTest {
     private User user;
     private Account account;
     private Account otherAccount;
-    private AccountCard validCard;
-    private AccountCard invalidCard;
+    private Card validCard;
+    private Card invalidCard;
 
     @BeforeEach
     void setUp() {
@@ -95,12 +95,12 @@ class TransactionCardAttributionTest {
         otherAccount.setId(UUID.randomUUID());
         otherAccount.setUser(user);
 
-        validCard = new AccountCard();
+        validCard = new Card();
         validCard.setId(UUID.randomUUID());
         validCard.setAccount(account);
         validCard.setLast4("1234");
 
-        invalidCard = new AccountCard();
+        invalidCard = new Card();
         invalidCard.setId(UUID.randomUUID());
         invalidCard.setAccount(otherAccount);
         invalidCard.setLast4("9999");

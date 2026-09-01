@@ -52,9 +52,9 @@ public class RewardRule {
     private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "card_id")
+    @JoinColumn(name = "cardholder_id")
     @JdbcTypeCode(SqlTypes.VARCHAR)
-    private com.financeos.domain.account.card.AccountCard card;
+    private com.financeos.domain.account.card.Cardholder cardholder;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "counter_scope", nullable = false, length = 20)

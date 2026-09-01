@@ -3,7 +3,7 @@ package com.financeos.api.account.dto;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.financeos.domain.account.*;
-import com.financeos.domain.account.card.AccountCard;
+import com.financeos.domain.account.card.Cardholder;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -31,6 +31,10 @@ public sealed interface AccountResponse {
 
     String description();
 
+    LocalDate closedOn();
+
+    UUID replacesAccountId();
+
     Instant createdAt();
 
     Instant updatedAt();
@@ -45,15 +49,23 @@ public sealed interface AccountResponse {
 
     LocalDate anchorDate();
 
+    List<String> warnings();
+
     static AccountResponse from(Account account) {
-        return from(account, null, null);
+        return from(account, null, null, null);
     }
 
-    static AccountResponse from(Account account, String derivedLast4, List<AccountCardResponse> cardResponses) {
+    static AccountResponse from(Account account, String derivedLast4, List<CardholderResponse> cardholderResponses) {
+        return from(account, derivedLast4, cardholderResponses, null);
+    }
+
+    static AccountResponse from(Account account, String derivedLast4, List<CardholderResponse> cardholderResponses, List<String> warnings) {
         BigDecimal bal = account.getCalculatedBalance();
         Boolean anchored = account.getBalanceAnchored() != null ? account.getBalanceAnchored() : false;
         BigDecimal gap = account.getReconciliationGap();
         LocalDate anchorDate = account.getAnchorDate();
+        List<String> warnList = warnings != null ? warnings : List.of();
+        UUID replacesAccId = account.getReplacesAccount() != null ? account.getReplacesAccount().getId() : null;
 
         return switch (account.getType()) {
             case bank_account -> {
@@ -68,6 +80,8 @@ public sealed interface AccountResponse {
                         account.getExcludeFromNetAsset(),
                         account.getFinancialPosition(),
                         account.getDescription(),
+                        account.getClosedOn(),
+                        replacesAccId,
                         account.getCreatedAt(),
                         account.getUpdatedAt(),
                         account.getIngestFromDate(),
@@ -77,27 +91,15 @@ public sealed interface AccountResponse {
                         bal,
                         anchored,
                         gap,
-                        anchorDate);
+                        anchorDate,
+                        warnList);
             }
             case credit_card -> {
                 AccountCreditCardDetails details = account.getCreditCardDetails();
-                String last4 = derivedLast4;
-                if (last4 == null && account.getCards() != null && !account.getCards().isEmpty()) {
-                    last4 = account.getCards().stream()
-                            .filter(c -> c.isPrimary() && c.getClosedOn() == null)
-                            .map(AccountCard::getLast4)
-                            .findFirst()
-                            .orElseGet(() -> account.getCards().stream()
-                                    .filter(c -> c.getClosedOn() == null)
-                                    .map(AccountCard::getLast4)
-                                    .findFirst()
-                                    .orElseGet(() -> account.getCards().get(0).getLast4()));
-                }
-                // The account list does not count transactions per card; emitting 0 would read as
-                // "no transactions, safe to delete". CardsDialog fetches real counts separately.
-                List<AccountCardResponse> cards = cardResponses != null ? cardResponses :
-                        (account.getCards() != null ? account.getCards().stream()
-                                .map(AccountCardResponse::withoutCount)
+                String last4 = derivedLast4 != null ? derivedLast4 : account.primaryLast4();
+                List<CardholderResponse> cardholders = cardholderResponses != null ? cardholderResponses :
+                        (account.getCardholders() != null ? account.getCardholders().stream()
+                                .map(CardholderResponse::from)
                                 .toList() : List.of());
                 yield new CreditCardAccountResponse(
                         account.getId(),
@@ -106,6 +108,8 @@ public sealed interface AccountResponse {
                         account.getExcludeFromNetAsset(),
                         account.getFinancialPosition(),
                         account.getDescription(),
+                        account.getClosedOn(),
+                        replacesAccId,
                         account.getCreatedAt(),
                         account.getUpdatedAt(),
                         account.getIngestFromDate(),
@@ -113,13 +117,16 @@ public sealed interface AccountResponse {
                         details != null ? details.getCreditLimit() : null,
                         details != null ? details.getPaymentDueDay() : null,
                         details != null ? details.getGracePeriodDays() : null,
+                        details != null ? details.getIssuer() : null,
+                        details != null ? details.getProductName() : null,
                         account.getRewardAnniversaryDate(),
                         account.getLastStatementDate(),
                         bal,
                         anchored,
                         gap,
                         anchorDate,
-                        cards);
+                        cardholders,
+                        warnList);
             }
             case broker -> {
                 AccountBrokerDetails details = account.getBrokerDetails();
@@ -130,6 +137,8 @@ public sealed interface AccountResponse {
                         account.getExcludeFromNetAsset(),
                         account.getFinancialPosition(),
                         account.getDescription(),
+                        account.getClosedOn(),
+                        replacesAccId,
                         account.getCreatedAt(),
                         account.getUpdatedAt(),
                         account.getIngestFromDate(),
@@ -139,7 +148,8 @@ public sealed interface AccountResponse {
                         bal,
                         anchored,
                         gap,
-                        anchorDate);
+                        anchorDate,
+                        warnList);
             }
             default -> new GenericAccountResponse(
                     account.getId(),
@@ -148,13 +158,16 @@ public sealed interface AccountResponse {
                     account.getExcludeFromNetAsset(),
                     account.getFinancialPosition(),
                     account.getDescription(),
+                    account.getClosedOn(),
+                    replacesAccId,
                     account.getCreatedAt(),
                     account.getUpdatedAt(),
                     account.getIngestFromDate(),
                     bal,
                     anchored,
                     gap,
-                    anchorDate);
+                    anchorDate,
+                    warnList);
         };
     }
 
@@ -165,6 +178,8 @@ public sealed interface AccountResponse {
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
+            LocalDate closedOn,
+            UUID replacesAccountId,
             Instant createdAt,
             Instant updatedAt,
             LocalDate ingestFromDate,
@@ -174,7 +189,8 @@ public sealed interface AccountResponse {
             BigDecimal balance,
             Boolean balanceAnchored,
             BigDecimal reconciliationGap,
-            LocalDate anchorDate) implements AccountResponse {
+            LocalDate anchorDate,
+            List<String> warnings) implements AccountResponse {
     }
 
     record CreditCardAccountResponse(
@@ -184,6 +200,8 @@ public sealed interface AccountResponse {
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
+            LocalDate closedOn,
+            UUID replacesAccountId,
             Instant createdAt,
             Instant updatedAt,
             LocalDate ingestFromDate,
@@ -191,13 +209,16 @@ public sealed interface AccountResponse {
             BigDecimal creditLimit,
             Integer paymentDueDay,
             Integer gracePeriodDays,
+            String issuer,
+            String productName,
             LocalDate anniversaryDate,
             LocalDate lastStatementDate,
             BigDecimal balance,
             Boolean balanceAnchored,
             BigDecimal reconciliationGap,
             LocalDate anchorDate,
-            List<AccountCardResponse> cards) implements AccountResponse {
+            List<CardholderResponse> cardholders,
+            List<String> warnings) implements AccountResponse {
     }
 
     record BrokerAccountResponse(
@@ -207,6 +228,8 @@ public sealed interface AccountResponse {
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
+            LocalDate closedOn,
+            UUID replacesAccountId,
             Instant createdAt,
             Instant updatedAt,
             LocalDate ingestFromDate,
@@ -216,7 +239,8 @@ public sealed interface AccountResponse {
             BigDecimal balance,
             Boolean balanceAnchored,
             BigDecimal reconciliationGap,
-            LocalDate anchorDate) implements AccountResponse {
+            LocalDate anchorDate,
+            List<String> warnings) implements AccountResponse {
     }
 
     record GenericAccountResponse(
@@ -226,12 +250,15 @@ public sealed interface AccountResponse {
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
             String description,
+            LocalDate closedOn,
+            UUID replacesAccountId,
             Instant createdAt,
             Instant updatedAt,
             LocalDate ingestFromDate,
             BigDecimal balance,
             Boolean balanceAnchored,
             BigDecimal reconciliationGap,
-            LocalDate anchorDate) implements AccountResponse {
+            LocalDate anchorDate,
+            List<String> warnings) implements AccountResponse {
     }
 }

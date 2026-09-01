@@ -1,12 +1,13 @@
 package com.financeos.domain.account;
 
-import com.financeos.api.account.dto.*;
+import com.financeos.api.account.dto.AccountResponse;
+import com.financeos.api.account.dto.CardCycleHistoryItemResponse;
+import com.financeos.api.account.dto.CardCycleSummaryResponse;
+import com.financeos.api.account.dto.CreateAccountRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
-import com.financeos.domain.account.card.AccountCard;
-import com.financeos.domain.account.card.AccountCardRepository;
-import com.financeos.domain.account.card.CardRelationship;
+import com.financeos.domain.account.card.*;
 import com.financeos.domain.holding.HoldingValuationService;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementCreditCardDetails;
@@ -14,6 +15,10 @@ import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
+import com.financeos.gmail.domain.GmailBackfillDemand;
+import com.financeos.gmail.domain.GmailBackfillDemandRepository;
+import com.financeos.gmail.ingest.event.AccountIngestChangedEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +26,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import com.financeos.gmail.domain.GmailBackfillDemand;
-import com.financeos.gmail.domain.GmailBackfillDemandRepository;
-import com.financeos.gmail.ingest.event.AccountIngestChangedEvent;
-import org.springframework.context.ApplicationEventPublisher;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -33,7 +35,8 @@ import java.util.UUID;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private final AccountCardRepository cardRepository;
+    private final CardholderRepository cardholderRepository;
+    private final CardRepository cardRepository;
     private final UserRepository userRepository;
     private final StatementRepository statementRepository;
     private final TransactionRepository transactionRepository;
@@ -42,7 +45,8 @@ public class AccountService {
     private final ApplicationEventPublisher eventPublisher;
 
     public AccountService(AccountRepository accountRepository,
-            AccountCardRepository cardRepository,
+            CardholderRepository cardholderRepository,
+            CardRepository cardRepository,
             UserRepository userRepository,
             StatementRepository statementRepository,
             TransactionRepository transactionRepository,
@@ -50,6 +54,7 @@ public class AccountService {
             GmailBackfillDemandRepository backfillDemandRepository,
             ApplicationEventPublisher eventPublisher) {
         this.accountRepository = accountRepository;
+        this.cardholderRepository = cardholderRepository;
         this.cardRepository = cardRepository;
         this.userRepository = userRepository;
         this.statementRepository = statementRepository;
@@ -102,10 +107,14 @@ public class AccountService {
         if (saved.getIngestFromDate() != null) {
             ratchetDemand(user, saved.getIngestFromDate());
         }
-        if (saved.getType() == AccountType.credit_card && saved.getCards() != null) {
-            for (AccountCard c : saved.getCards()) {
-                if (c.getLast4() != null) {
-                    eventPublisher.publishEvent(new AccountIngestChangedEvent(userId, c.getLast4(), saved.getIngestFromDate()));
+        if (saved.getType() == AccountType.credit_card && saved.getCardholders() != null) {
+            for (Cardholder ch : saved.getCardholders()) {
+                if (ch.getCards() != null) {
+                    for (Card c : ch.getCards()) {
+                        if (c.getLast4() != null) {
+                            eventPublisher.publishEvent(new AccountIngestChangedEvent(userId, c.getLast4(), saved.getIngestFromDate()));
+                        }
+                    }
                 }
             }
         } else {
@@ -119,17 +128,16 @@ public class AccountService {
     }
 
     /**
-     * Initialises the LAZY {@code cards} collection while the service transaction is still open.
-     * <p>
-     * {@code AccountResponse.from()} reads {@code account.getCards()} to derive {@code last4} and
-     * build the card list, but the controller maps entities to DTOs <em>after</em> this transaction
-     * commits, and {@code spring.jpa.open-in-view} is false. Without this the accounts page 500s
-     * with a LazyInitializationException. The create/update paths already touch the collection while
-     * upserting the primary card, so only the read paths need it.
+     * Initialises the LAZY {@code cardholders} and their {@code cards} collections while the service transaction is open.
      */
-    private void initCards(Account account) {
-        if (account.getType() == AccountType.credit_card && account.getCards() != null) {
-            account.getCards().size();
+    private void initCardholders(Account account) {
+        if (account.getType() == AccountType.credit_card && account.getCardholders() != null) {
+            account.getCardholders().size();
+            for (Cardholder ch : account.getCardholders()) {
+                if (ch.getCards() != null) {
+                    ch.getCards().size();
+                }
+            }
         }
     }
 
@@ -138,7 +146,7 @@ public class AccountService {
         List<Account> accounts = accountRepository.findAll();
         accounts.forEach(account -> {
             populateBalanceInfo(account);
-            initCards(account);
+            initCardholders(account);
         });
         return accounts;
     }
@@ -152,7 +160,7 @@ public class AccountService {
             throw new ValidationException("You do not have permission to access this account.");
         }
         populateBalanceInfo(account);
-        initCards(account);
+        initCardholders(account);
         return account;
     }
 
@@ -174,7 +182,22 @@ public class AccountService {
         account.setIngestFromDate(newDate);
 
         switch (request) {
-            case CreateAccountRequest.BankAccountRequest bankReq -> account = addBankDetails(account, bankReq);
+            case CreateAccountRequest.BankAccountRequest bankReq -> {
+                if (account.getBankDetails() != null) {
+                    AccountBankDetails details = account.getBankDetails();
+                    details.setOpeningBalance(bankReq.openingBalance());
+                    details.setLast4(bankReq.last4());
+                    details.setStatementPassword(bankReq.statementPassword());
+                } else {
+                    AccountBankDetails details = new AccountBankDetails(
+                            account,
+                            bankReq.openingBalance(),
+                            bankReq.last4(),
+                            bankReq.statementPassword());
+                    details.setUser(account.getUser());
+                    account.setBankDetails(details);
+                }
+            }
             case CreateAccountRequest.CreditCardRequest ccReq -> account = addCreditCardDetails(account, ccReq);
             case CreateAccountRequest.BrokerRequest brokerReq -> account = addBrokerDetails(account, brokerReq);
             case CreateAccountRequest.GenericAccountRequest genericReq -> {
@@ -185,27 +208,77 @@ public class AccountService {
         Account saved = accountRepository.save(account);
         populateBalanceInfo(saved);
 
-        if (newDate != null && (oldDate == null || newDate.isBefore(oldDate))) {
+        boolean dateAdvanced = newDate != null && (oldDate == null || newDate.isBefore(oldDate));
+        if (dateAdvanced) {
             ratchetDemand(saved.getUser(), newDate);
         }
 
         String newLast4 = extractLast4(saved);
-        boolean dateChanged = !Objects.equals(oldDate, newDate);
         boolean last4Changed = !Objects.equals(oldLast4, newLast4);
-
-        if (dateChanged || last4Changed) {
-            if (saved.getType() == AccountType.credit_card && saved.getCards() != null && !saved.getCards().isEmpty()) {
-                for (AccountCard c : saved.getCards()) {
-                    if (c.getLast4() != null) {
-                        eventPublisher.publishEvent(new AccountIngestChangedEvent(saved.getUser().getId(), c.getLast4(), newDate));
-                    }
-                }
-            } else {
-                eventPublisher.publishEvent(new AccountIngestChangedEvent(saved.getUser().getId(), newLast4, newDate));
-            }
+        if ((dateAdvanced || last4Changed) && newLast4 != null) {
+            eventPublisher.publishEvent(new AccountIngestChangedEvent(
+                    saved.getUser().getId(),
+                    newLast4,
+                    saved.getIngestFromDate()
+            ));
         }
 
         return saved;
+    }
+
+    public void deleteAccount(UUID id) {
+        Account account = getAccountById(id);
+        accountRepository.delete(account);
+    }
+
+    public AccountResponse closeAccount(UUID id, LocalDate closedOn) {
+        Account account = getAccountById(id);
+        LocalDate targetClosedOn = closedOn != null ? closedOn : LocalDate.now();
+
+        // Validate close date is not before earliest transaction date
+        LocalDate minTxnDate = transactionRepository.findMinDateByAccountId(id);
+        if (minTxnDate != null && targetClosedOn.isBefore(minTxnDate)) {
+            throw new ValidationException("Cannot close account on " + targetClosedOn + ": account has transactions dating back to " + minTxnDate);
+        }
+
+        account.setClosedOn(targetClosedOn);
+        Account saved = accountRepository.save(account);
+        populateBalanceInfo(saved);
+        initCardholders(saved);
+
+        List<String> warnings = new ArrayList<>();
+        BigDecimal currentBalance = saved.getCalculatedBalance();
+        if (currentBalance != null && currentBalance.compareTo(BigDecimal.ZERO) != 0) {
+            warnings.add("Account closed with non-zero balance: " + currentBalance + ". Consider zeroing the balance before final reconciliation.");
+        }
+
+        String last4 = extractLast4(saved);
+        return AccountResponse.from(saved, last4, null, warnings);
+    }
+
+    public AccountResponse reopenAccount(UUID id) {
+        Account account = getAccountById(id);
+        // On reopen: clear closedOn, then re-check open-card last4 uniqueness
+        account.setClosedOn(null);
+        if (account.getType() == AccountType.credit_card && account.getCardholders() != null) {
+            for (Cardholder ch : account.getCardholders()) {
+                if (ch.getClosedOn() == null) {
+                    Card openCard = ch.openCard().orElse(null);
+                    if (openCard != null) {
+                        Optional<Card> collision = cardRepository.findOpenByAccountIdAndLast4(account.getId(), openCard.getLast4());
+                        if (collision.isPresent() && !collision.get().getId().equals(openCard.getId())) {
+                            throw new ValidationException("Cannot reopen account: card with last 4 digits " + openCard.getLast4() + " collides with an open card on this account");
+                        }
+                    }
+                }
+            }
+        }
+
+        Account saved = accountRepository.save(account);
+        populateBalanceInfo(saved);
+        initCardholders(saved);
+        String last4 = extractLast4(saved);
+        return AccountResponse.from(saved, last4, null);
     }
 
     private void ratchetDemand(User user, LocalDate newDate) {
@@ -230,126 +303,9 @@ public class AccountService {
             return account.getBankDetails().getLast4();
         }
         if (account.getType() == AccountType.credit_card) {
-            List<AccountCard> cards = account.getCards();
-            if ((cards == null || cards.isEmpty()) && account.getId() != null) {
-                cards = cardRepository.findByAccountIdOrderByIsPrimaryDescCreatedAtAsc(account.getId());
-            }
-            if (cards != null && !cards.isEmpty()) {
-                // 1. open primary
-                for (AccountCard c : cards) {
-                    if (c.isPrimary() && c.getClosedOn() == null && c.getLast4() != null) {
-                        return c.getLast4();
-                    }
-                }
-                // 2. most recent open card
-                AccountCard mostRecentOpen = null;
-                for (AccountCard c : cards) {
-                    if (c.getClosedOn() == null && c.getLast4() != null) {
-                        if (mostRecentOpen == null || (c.getCreatedAt() != null && mostRecentOpen.getCreatedAt() != null && c.getCreatedAt().isAfter(mostRecentOpen.getCreatedAt()))) {
-                            mostRecentOpen = c;
-                        }
-                    }
-                }
-                if (mostRecentOpen != null) {
-                    return mostRecentOpen.getLast4();
-                }
-                // 3. most recent card
-                AccountCard mostRecent = null;
-                for (AccountCard c : cards) {
-                    if (c.getLast4() != null) {
-                        if (mostRecent == null || (c.getCreatedAt() != null && mostRecent.getCreatedAt() != null && c.getCreatedAt().isAfter(mostRecent.getCreatedAt()))) {
-                            mostRecent = c;
-                        }
-                    }
-                }
-                if (mostRecent != null) {
-                    return mostRecent.getLast4();
-                }
-            }
+            return account.primaryLast4();
         }
         return null;
-    }
-
-    public Account addBankDetails(Account account, CreateAccountRequest.BankAccountRequest request) {
-        if (account.getType() != AccountType.bank_account) {
-            throw new ValidationException("Bank details can only be added to bank accounts");
-        }
-
-        if (account.getBankDetails() != null) {
-            // Update existing
-            account.getBankDetails().setOpeningBalance(request.openingBalance());
-            account.getBankDetails().setLast4(request.last4());
-            account.getBankDetails().setStatementPassword(request.statementPassword());
-        } else {
-            AccountBankDetails details = new AccountBankDetails(account, request.openingBalance(), request.last4(), request.statementPassword());
-            details.setUser(account.getUser());
-            account.setBankDetails(details);
-        }
-
-        return accountRepository.save(account);
-    }
-
-    public Account addCreditCardDetails(Account account, CreateAccountRequest.CreditCardRequest request) {
-        if (account.getType() != AccountType.credit_card) {
-            throw new ValidationException("Credit card details can only be added to credit card accounts");
-        }
-
-        // Membership anniversary is part of the card, not the rewards config — the
-        // rewards engine reads it from here for ANNIVERSARY_YEAR windows.
-        account.setRewardAnniversaryDate(request.anniversaryDate());
-
-        if (account.getCreditCardDetails() != null) {
-            // Update existing
-            AccountCreditCardDetails details = account.getCreditCardDetails();
-            details.setCreditLimit(request.creditLimit());
-            details.setPaymentDueDay(request.paymentDueDay());
-            details.setGracePeriodDays(request.gracePeriodDays());
-            details.setStatementPassword(request.statementPassword());
-        } else {
-            AccountCreditCardDetails details = new AccountCreditCardDetails(
-                    account,
-                    request.creditLimit(),
-                    request.paymentDueDay(),
-                    request.gracePeriodDays(),
-                    request.statementPassword());
-            details.setUser(account.getUser());
-            account.setCreditCardDetails(details);
-        }
-
-        // Upsert primary card row in account_cards
-        AccountCard primaryCard = null;
-        if (account.getCards() != null) {
-            for (AccountCard c : account.getCards()) {
-                if (c.isPrimary()) {
-                    primaryCard = c;
-                    break;
-                }
-            }
-        }
-        if (primaryCard == null && account.getId() != null) {
-            primaryCard = cardRepository.findPrimaryByAccountId(account.getId()).orElse(null);
-        }
-        if (primaryCard != null) {
-            primaryCard.setLast4(request.last4());
-            if (primaryCard.getIssuedOn() == null && request.anniversaryDate() != null) {
-                primaryCard.setIssuedOn(request.anniversaryDate());
-            }
-        } else {
-            primaryCard = new AccountCard();
-            primaryCard.setUser(account.getUser());
-            primaryCard.setAccount(account);
-            primaryCard.setLabel("Primary");
-            primaryCard.setRelationship(CardRelationship.SELF);
-            primaryCard.setLast4(request.last4());
-            primaryCard.setPrimary(true);
-            primaryCard.setIssuedOn(request.anniversaryDate());
-            if (account.getCards() == null) {
-                account.setCards(new ArrayList<>());
-            }
-            account.getCards().add(primaryCard);
-        }
-
-        return accountRepository.save(account);
     }
 
     public Account addBrokerDetails(Account account, CreateAccountRequest.BrokerRequest request) {
@@ -361,7 +317,9 @@ public class AccountService {
             AccountBrokerDetails details = account.getBrokerDetails();
             details.setProvider(request.provider());
             details.setClientId(request.clientId());
-            details.setCashBalance(request.cashBalance() != null ? request.cashBalance() : BigDecimal.ZERO);
+            if (request.cashBalance() != null) {
+                details.setCashBalance(request.cashBalance());
+            }
         } else {
             AccountBrokerDetails details = new AccountBrokerDetails(
                     account,
@@ -375,21 +333,100 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public void deleteAccount(UUID id) {
-        Account account = getAccountById(id); // Performs ownership check
-        accountRepository.delete(account);
+    public Account addCreditCardDetails(Account account, CreateAccountRequest.CreditCardRequest request) {
+        if (account.getType() != AccountType.credit_card) {
+            throw new ValidationException("Credit card details can only be added to credit card accounts");
+        }
+
+        account.setRewardAnniversaryDate(request.anniversaryDate());
+
+        if (request.replacesAccountId() != null) {
+            Account replacesAccount = accountRepository.findById(request.replacesAccountId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Account", request.replacesAccountId()));
+            account.setReplacesAccount(replacesAccount);
+        }
+
+        if (account.getCreditCardDetails() != null) {
+            AccountCreditCardDetails details = account.getCreditCardDetails();
+            details.setCreditLimit(request.creditLimit());
+            details.setPaymentDueDay(request.paymentDueDay());
+            details.setGracePeriodDays(request.gracePeriodDays());
+            details.setStatementPassword(request.statementPassword());
+            details.setIssuer(request.issuer());
+            details.setProductName(request.productName());
+        } else {
+            AccountCreditCardDetails details = new AccountCreditCardDetails(
+                    account,
+                    request.creditLimit(),
+                    request.paymentDueDay(),
+                    request.gracePeriodDays(),
+                    request.statementPassword(),
+                    request.issuer(),
+                    request.productName());
+            details.setUser(account.getUser());
+            account.setCreditCardDetails(details);
+        }
+
+        // Upsert primary cardholder and primary card
+        Cardholder primaryCh = null;
+        if (account.getCardholders() != null) {
+            for (Cardholder ch : account.getCardholders()) {
+                if (ch.isPrimary()) {
+                    primaryCh = ch;
+                    break;
+                }
+            }
+        }
+        if (primaryCh == null && account.getId() != null) {
+            primaryCh = cardholderRepository.findPrimaryByAccountId(account.getId()).orElse(null);
+        }
+        if (primaryCh == null) {
+            primaryCh = new Cardholder();
+            primaryCh.setUser(account.getUser());
+            primaryCh.setAccount(account);
+            primaryCh.setRole(CardholderRole.PRIMARY);
+            primaryCh.setRelationship(CardholderRelationship.SELF);
+            primaryCh.setOpenedOn(request.anniversaryDate());
+            account.getCardholders().add(primaryCh);
+            cardholderRepository.save(primaryCh);
+        } else if (primaryCh.getOpenedOn() == null && request.anniversaryDate() != null) {
+            primaryCh.setOpenedOn(request.anniversaryDate());
+        }
+
+        if (request.last4() != null && !request.last4().isBlank()) {
+            Card openCard = primaryCh.openCard().orElse(null);
+            if (openCard != null) {
+                openCard.setLast4(request.last4());
+                if (openCard.getIssuedOn() == null && request.anniversaryDate() != null) {
+                    openCard.setIssuedOn(request.anniversaryDate());
+                }
+            } else {
+                Card card = new Card();
+                card.setUser(account.getUser());
+                card.setAccount(account);
+                card.setCardholder(primaryCh);
+                card.setLast4(request.last4());
+                card.setIssuedOn(request.anniversaryDate());
+                primaryCh.getCards().add(card);
+                cardRepository.save(card);
+            }
+        }
+
+        return accountRepository.save(account);
     }
+
+
 
     @Transactional(readOnly = true)
     public CardCycleSummaryResponse getCardCycleSummary(UUID accountId) {
-        Account account = getAccountById(accountId); // Performs ownership check & 404/400 convention
+        Account account = getAccountById(accountId);
         if (account.getType() != AccountType.credit_card) {
-            throw new ValidationException("Card cycle summary is only available for credit card accounts.");
+            throw new ValidationException("Cycle summary is only supported for credit card accounts");
         }
 
-        List<Statement> statements = statementRepository.findQualifyingCreditCardStatements(accountId);
+        List<Statement> statements = statementRepository.findByAccountIdOrderByPeriodEndAsc(accountId);
         if (statements.isEmpty()) {
-            return CardCycleSummaryResponse.empty();
+            return null;
         }
 
         List<CardCycleHistoryItemResponse> history = statements.stream()

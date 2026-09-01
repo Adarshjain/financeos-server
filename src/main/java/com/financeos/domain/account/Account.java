@@ -57,6 +57,9 @@ public class Account {
     @Column(name = "last_statement_date")
     private LocalDate lastStatementDate;
 
+    @Column(name = "closed_on")
+    private LocalDate closedOn;
+
     /** Anchor for ANNIVERSARY_YEAR reward windows (card membership anniversary). */
     @Column(name = "reward_anniversary_date")
     private LocalDate rewardAnniversaryDate;
@@ -76,6 +79,11 @@ public class Account {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "replaces_account_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private Account replacesAccount;
+
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private AccountBankDetails bankDetails;
 
@@ -86,7 +94,21 @@ public class Account {
     private AccountBrokerDetails brokerDetails;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private java.util.List<com.financeos.domain.account.card.AccountCard> cards = new java.util.ArrayList<>();
+    @OrderBy("role ASC, createdAt ASC")
+    private java.util.List<com.financeos.domain.account.card.Cardholder> cardholders = new java.util.ArrayList<>();
+
+    public java.util.Optional<com.financeos.domain.account.card.Cardholder> primaryCardholder() {
+        if (cardholders == null) return java.util.Optional.empty();
+        return cardholders.stream().filter(com.financeos.domain.account.card.Cardholder::isPrimary).findFirst();
+    }
+
+    public java.util.Optional<com.financeos.domain.account.card.Card> primaryCard() {
+        return primaryCardholder().flatMap(com.financeos.domain.account.card.Cardholder::openCard);
+    }
+
+    public String primaryLast4() {
+        return primaryCard().map(com.financeos.domain.account.card.Card::getLast4).orElse(null);
+    }
 
     @Transient
     private java.math.BigDecimal calculatedBalance;
@@ -99,6 +121,33 @@ public class Account {
 
     @Transient
     private LocalDate anchorDate;
+
+    public boolean isClosed() {
+        return isClosed(LocalDate.now());
+    }
+
+    public boolean isClosed(LocalDate asOf) {
+        return closedOn != null && !asOf.isBefore(closedOn);
+    }
+
+    public boolean isClosing() {
+        return isClosing(LocalDate.now());
+    }
+
+    public boolean isClosing(LocalDate asOf) {
+        return closedOn != null && closedOn.isAfter(asOf);
+    }
+
+    public AccountStatus getStatus() {
+        return getStatus(LocalDate.now());
+    }
+
+    public AccountStatus getStatus(LocalDate asOf) {
+        if (closedOn == null) {
+            return AccountStatus.ACTIVE;
+        }
+        return closedOn.isAfter(asOf) ? AccountStatus.CLOSING : AccountStatus.CLOSED;
+    }
 
     @PrePersist
     protected void onCreate() {

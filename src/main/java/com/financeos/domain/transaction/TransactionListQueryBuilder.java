@@ -42,7 +42,7 @@ public class TransactionListQueryBuilder {
             Map.entry("account", new FieldMetadata("account", FieldType.ENUM, "a.name", Join.ACCOUNTS, null)),
             Map.entry("accountType", new FieldMetadata("accountType", FieldType.ENUM, "a.type", Join.ACCOUNTS, Set.of("bank_account", "credit_card", "broker", "generic"))),
             Map.entry("cardId", new FieldMetadata("cardId", FieldType.ENUM, "sub.card_id", null, null)),
-            Map.entry("card", new FieldMetadata("card", FieldType.ENUM, "ac.label", Join.CARDS, null)),
+            Map.entry("card", new FieldMetadata("card", FieldType.ENUM, "ch.person_name", Join.CARDS, null)),
             Map.entry("category", new FieldMetadata("category", FieldType.ENUM, null, null, null)),
             Map.entry("reviewType", new FieldMetadata("reviewType", FieldType.ENUM, "sub.review_type", null, Set.of("NEEDS_REVIEW", "AUTO_REVIEWED", "MANUALLY_REVIEWED", "NA"))),
             Map.entry("reviewReason", new FieldMetadata("reviewReason", FieldType.ENUM, null, null, Set.of("UNRECONCILED", "CATEGORY_UNVERIFIED", "DUPLICATE_SUSPECT"))),
@@ -100,7 +100,7 @@ public class TransactionListQueryBuilder {
             sql.append(" LEFT JOIN accounts a ON a.id = sub.account_id");
         }
         if (joins.contains(Join.CARDS)) {
-            sql.append(" LEFT JOIN account_cards ac ON ac.id = sub.card_id");
+            sql.append(" LEFT JOIN cards c ON c.id = sub.card_id LEFT JOIN cardholders ch ON ch.id = c.cardholder_id");
         }
 
         sql.append(whereClause);
@@ -165,7 +165,7 @@ public class TransactionListQueryBuilder {
             sql.append(" LEFT JOIN accounts a ON a.id = sub.account_id");
         }
         if (joins.contains(Join.CARDS)) {
-            sql.append(" LEFT JOIN account_cards ac ON ac.id = sub.card_id");
+            sql.append(" LEFT JOIN cards c ON c.id = sub.card_id LEFT JOIN cardholders ch ON ch.id = c.cardholder_id");
         }
 
         sql.append(whereClause);

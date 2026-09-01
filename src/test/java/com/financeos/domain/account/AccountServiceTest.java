@@ -29,7 +29,8 @@ import java.util.UUID;
 class AccountServiceTest {
 
     private AccountRepository accountRepository;
-    private com.financeos.domain.account.card.AccountCardRepository cardRepository;
+    private com.financeos.domain.account.card.CardholderRepository cardholderRepository;
+    private com.financeos.domain.account.card.CardRepository cardRepository;
     private UserRepository userRepository;
     private StatementRepository statementRepository;
     private TransactionRepository transactionRepository;
@@ -40,14 +41,15 @@ class AccountServiceTest {
     @BeforeEach
     void setUp() {
         accountRepository = mock(AccountRepository.class);
-        cardRepository = mock(com.financeos.domain.account.card.AccountCardRepository.class);
+        cardholderRepository = mock(com.financeos.domain.account.card.CardholderRepository.class);
+        cardRepository = mock(com.financeos.domain.account.card.CardRepository.class);
         userRepository = mock(UserRepository.class);
         statementRepository = mock(StatementRepository.class);
         transactionRepository = mock(TransactionRepository.class);
         HoldingValuationService holdingValuationService = mock(HoldingValuationService.class);
         backfillDemandRepository = mock(com.financeos.gmail.domain.GmailBackfillDemandRepository.class);
         eventPublisher = mock(org.springframework.context.ApplicationEventPublisher.class);
-        accountService = new AccountService(accountRepository, cardRepository, userRepository, statementRepository, transactionRepository, holdingValuationService, backfillDemandRepository, eventPublisher);
+        accountService = new AccountService(accountRepository, cardholderRepository, cardRepository, userRepository, statementRepository, transactionRepository, holdingValuationService, backfillDemandRepository, eventPublisher);
         UserContext.clear();
     }
 
@@ -230,7 +232,7 @@ class AccountServiceTest {
         details.setPaymentDueDate(LocalDate.now().plusDays(10));
         stmt.setCreditCardDetails(details);
 
-        when(statementRepository.findQualifyingCreditCardStatements(accountId)).thenReturn(List.of(stmt));
+        when(statementRepository.findByAccountIdOrderByPeriodEndAsc(accountId)).thenReturn(List.of(stmt));
 
         CardCycleSummaryResponse summary = accountService.getCardCycleSummary(accountId);
 
@@ -371,5 +373,53 @@ class AccountServiceTest {
         accountService.updateAccount(accountId, req);
 
         verify(backfillDemandRepository, never()).save(any());
+    }
+
+    @Test
+    void closeAccount_success_andReopenRestoresState() {
+        UUID userId = UUID.randomUUID();
+        UUID accountId = UUID.randomUUID();
+        UserContext.setCurrentUserId(userId);
+        User user = new User();
+        user.setId(userId);
+
+        Account account = new Account("HDFC Card", AccountType.credit_card);
+        account.setId(accountId);
+        account.setUser(user);
+
+        when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
+        when(accountRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(transactionRepository.findMinDateByAccountId(accountId)).thenReturn(LocalDate.of(2025, 1, 1));
+
+        LocalDate closeDate = LocalDate.of(2026, 8, 1);
+        var closeRes = accountService.closeAccount(accountId, closeDate);
+
+        assertNotNull(closeRes);
+        assertEquals(closeDate, account.getClosedOn());
+
+        var reopenRes = accountService.reopenAccount(accountId);
+        assertNotNull(reopenRes);
+        assertNull(account.getClosedOn());
+    }
+
+    @Test
+    void closeAccount_beforeEarliestTxn_throwsValidationException() {
+        UUID userId = UUID.randomUUID();
+        UUID accountId = UUID.randomUUID();
+        UserContext.setCurrentUserId(userId);
+        User user = new User();
+        user.setId(userId);
+
+        Account account = new Account("HDFC Card", AccountType.credit_card);
+        account.setId(accountId);
+        account.setUser(user);
+
+        when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
+        when(transactionRepository.findMinDateByAccountId(accountId)).thenReturn(LocalDate.of(2025, 1, 1));
+
+        LocalDate closeDate = LocalDate.of(2024, 12, 31);
+        assertThrows(ValidationException.class, () ->
+                accountService.closeAccount(accountId, closeDate)
+        );
     }
 }

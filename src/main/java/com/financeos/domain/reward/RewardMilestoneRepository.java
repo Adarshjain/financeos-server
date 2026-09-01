@@ -11,4 +11,6 @@ public interface RewardMilestoneRepository extends JpaRepository<RewardMilestone
 
     @Query("SELECT m FROM RewardMilestone m WHERE m.account.id = :accountId ORDER BY m.createdAt ASC")
     List<RewardMilestone> findByAccountIdOrderByCreatedAtAsc(@Param("accountId") UUID accountId);
+
+    long countByCardholderId(UUID cardholderId);
 }

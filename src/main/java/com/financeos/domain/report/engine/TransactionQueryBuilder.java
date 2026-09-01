@@ -32,9 +32,10 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     public static final String JOIN_CATEGORIES = "CATEGORIES";
     public static final String JOIN_CARDS = "CARDS";
 
-    public static final String CARD_DIM = "NVL(ac.label, NVL(a.name || ' •••• ' || ac.last4, 'Unattributed'))";
-    public static final String CARDHOLDER_DIM = "NVL(ac.holder_name, 'Unattributed')";
-    public static final String CARD_RELATIONSHIP_DIM = "NVL(ac.relationship, 'Unattributed')";
+    public static final String CARD_DIM =
+            "NVL(a.name || ' •••• ' || c.last4, 'Unattributed')";
+    public static final String CARDHOLDER_DIM = "NVL(ch.person_name, 'Unattributed')";
+    public static final String CARD_RELATIONSHIP_DIM = "NVL(ch.relationship, 'Unattributed')";
 
     private static final Map<String, Mapping> MAPPINGS = Map.ofEntries(
             Map.entry("amount", new Mapping(SIGNED_AMOUNT, null)),
@@ -84,20 +85,12 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             sb.append(" LEFT JOIN accounts a ON a.id = t.account_id");
         }
         if (joins.contains(JOIN_CARDS)) {
-            sb.append(" LEFT JOIN account_cards ac ON ac.id = t.card_id");
+            sb.append(" LEFT JOIN cards c ON c.id = t.card_id LEFT JOIN cardholders ch ON ch.id = c.cardholder_id");
         }
         if (joins.contains(JOIN_CATEGORIES)) {
             sb.append(" LEFT JOIN transaction_categories tc ON tc.transaction_id = t.id")
               .append(" LEFT JOIN categories c ON c.id = tc.category_id");
         }
         return sb.toString();
-    }
-
-    @Override
-    protected String specialPredicate(FilterClause filter, Map<String, Object> params, Set<String> joins, int idx) {
-        if ("category".equals(filter.field())) {
-            return sqlPredicates.category(filter.operator(), filter.value(), params, "f" + idx, "t.id");
-        }
-        return null;
     }
 }

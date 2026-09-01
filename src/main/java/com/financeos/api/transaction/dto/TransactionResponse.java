@@ -15,6 +15,8 @@ public record TransactionResponse(
                 UUID accountId,
                 UUID cardId,
                 String cardLabel,
+                /** The plastic the spend happened on — the user-facing requirement is "account name + last 4". */
+                String cardLast4,
                 LocalDate date,
                 BigDecimal amount,
                 String description,
@@ -71,13 +73,17 @@ public record TransactionResponse(
                                                 : java.util.Collections.emptyList();
 
                 UUID cardId = transaction.getCard() != null ? transaction.getCard().getId() : null;
-                String cardLabel = transaction.getCard() != null ? transaction.getCard().getLabel() : null;
+                String cardLabel = transaction.getCard() != null && transaction.getCard().getCardholder() != null
+                                ? transaction.getCard().getCardholder().getDisplayName()
+                                : null;
+                String cardLast4 = transaction.getCard() != null ? transaction.getCard().getLast4() : null;
 
                 return new TransactionResponse(
                                 transaction.getId(),
                                 transaction.getAccount().getId(),
                                 cardId,
                                 cardLabel,
+                                cardLast4,
                                 transaction.getDate(),
                                 signedAmount, // Return signed amount
                                 transaction.getDescription(),

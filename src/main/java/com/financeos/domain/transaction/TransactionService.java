@@ -52,7 +52,7 @@ public class TransactionService {
     private final TransactionLinkRepository transactionLinkRepository;
     private final StatementTransactionRepository statementTransactionRepository;
     private final com.financeos.core.observability.AuditLogger auditLogger;
-    private final com.financeos.domain.account.card.AccountCardRepository cardRepository;
+    private final com.financeos.domain.account.card.CardRepository cardRepository;
     private final TransactionService self;
 
     @org.springframework.beans.factory.annotation.Autowired
@@ -66,7 +66,7 @@ public class TransactionService {
             @org.springframework.context.annotation.Lazy TransactionLinkRepository transactionLinkRepository,
             @org.springframework.context.annotation.Lazy StatementTransactionRepository statementTransactionRepository,
             com.financeos.core.observability.AuditLogger auditLogger,
-            com.financeos.domain.account.card.AccountCardRepository cardRepository,
+            com.financeos.domain.account.card.CardRepository cardRepository,
             @org.springframework.context.annotation.Lazy TransactionService self) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
@@ -158,8 +158,8 @@ public class TransactionService {
         applyRewardDetails(transaction, request.rewardDetails());
 
         if (request.cardId() != null) {
-            com.financeos.domain.account.card.AccountCard card = cardRepository.findById(request.cardId())
-                    .orElseThrow(() -> new ResourceNotFoundException("AccountCard", request.cardId()));
+            com.financeos.domain.account.card.Card card = cardRepository.findById(request.cardId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Card", request.cardId()));
             if (!card.getAccount().getId().equals(account.getId())) {
                 throw new ValidationException("Card does not belong to the transaction's account");
             }
@@ -285,8 +285,8 @@ public class TransactionService {
         }
 
         if (request.cardId() != null) {
-            com.financeos.domain.account.card.AccountCard card = cardRepository.findById(request.cardId())
-                    .orElseThrow(() -> new ResourceNotFoundException("AccountCard", request.cardId()));
+            com.financeos.domain.account.card.Card card = cardRepository.findById(request.cardId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Card", request.cardId()));
             if (!card.getAccount().getId().equals(transaction.getAccount().getId())) {
                 throw new ValidationException("Card does not belong to the transaction's account");
             }
@@ -694,18 +694,18 @@ public class TransactionService {
             throw new ValidationException("You do not have permission to modify this account's transactions.");
         }
 
-        com.financeos.domain.account.card.AccountCard targetCard = null;
+        com.financeos.domain.account.card.Card targetCard = null;
         if (request.cardId() != null) {
             targetCard = cardRepository.findById(request.cardId())
-                    .orElseThrow(() -> new ResourceNotFoundException("AccountCard", request.cardId()));
+                    .orElseThrow(() -> new ResourceNotFoundException("Card", request.cardId()));
             if (!targetCard.getAccount().getId().equals(account.getId())) {
                 throw new ValidationException("Target card does not belong to the specified account.");
             }
         }
 
         if (request.currentCardId() != null) {
-            com.financeos.domain.account.card.AccountCard currentCard = cardRepository.findById(request.currentCardId())
-                    .orElseThrow(() -> new ResourceNotFoundException("AccountCard", request.currentCardId()));
+            com.financeos.domain.account.card.Card currentCard = cardRepository.findById(request.currentCardId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Card", request.currentCardId()));
             if (!currentCard.getAccount().getId().equals(account.getId())) {
                 throw new ValidationException("Current card filter does not belong to the specified account.");
             }
