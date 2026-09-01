@@ -12,15 +12,6 @@ public record CreditCardDetailsRequest(
         @DecimalMin(value = "0", message = "Credit limit must be non-negative")
         BigDecimal creditLimit,
 
-        @NotNull(message = "Payment due day is required")
-        @Min(value = 1, message = "Payment due day must be between 1 and 31")
-        @Max(value = 31, message = "Payment due day must be between 1 and 31")
-        Integer paymentDueDay,
-
-        @NotNull(message = "Grace period days is required")
-        @Min(value = 0, message = "Grace period must be non-negative")
-        Integer gracePeriodDays,
-
         String statementPassword
 ) {}
 

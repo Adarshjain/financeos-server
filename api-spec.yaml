@@ -2741,7 +2741,7 @@ components:
 
     CreditCardDetailsRequest:
       type: object
-      required: [last4, creditLimit, paymentDueDay, gracePeriodDays]
+      required: [last4, creditLimit]
       properties:
         last4:
           type: string
@@ -2750,15 +2750,6 @@ components:
           type: number
           format: decimal
           example: 200000.00
-        paymentDueDay:
-          type: integer
-          minimum: 1
-          maximum: 31
-          example: 15
-        gracePeriodDays:
-          type: integer
-          minimum: 0
-          example: 20
         statementPassword:
           type: string
           description: Encrypted at rest with AES-256-GCM
@@ -2770,10 +2761,6 @@ components:
           type: string
         creditLimit:
           type: number
-        paymentDueDay:
-          type: integer
-        gracePeriodDays:
-          type: integer
 
     StockDetailsRequest:
       type: object

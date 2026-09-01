@@ -53,8 +53,6 @@ public sealed interface CreateAccountRequest {
             String description,
             @NotBlank(message = "Last 4 digits are required") String last4,
             @NotNull(message = "Credit limit is required") BigDecimal creditLimit,
-            @NotNull(message = "Payment due day is required") Integer paymentDueDay,
-            @NotNull(message = "Grace period days is required") Integer gracePeriodDays,
             /** Card membership anniversary — anchors ANNIVERSARY_YEAR reward windows. */
             @NotNull(message = "Card anniversary date is required") LocalDate anniversaryDate,
             String statementPassword,
