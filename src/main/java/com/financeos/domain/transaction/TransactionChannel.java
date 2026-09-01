@@ -6,5 +6,6 @@ public enum TransactionChannel {
     POS,
     UPI,
     CONTACTLESS,
+    ATM,
     OTHER
 }

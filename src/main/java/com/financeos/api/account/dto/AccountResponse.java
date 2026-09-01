@@ -73,6 +73,10 @@ public sealed interface AccountResponse {
                 if (bal == null && details != null) {
                     bal = details.getOpeningBalance();
                 }
+                List<CardholderResponse> bankCardholders = cardholderResponses != null ? cardholderResponses :
+                        (account.getCardholders() != null ? account.getCardholders().stream()
+                                .map(CardholderResponse::from)
+                                .toList() : List.of());
                 yield new BankAccountResponse(
                         account.getId(),
                         account.getName(),
@@ -92,6 +96,7 @@ public sealed interface AccountResponse {
                         anchored,
                         gap,
                         anchorDate,
+                        bankCardholders,
                         warnList);
             }
             case credit_card -> {
@@ -188,6 +193,7 @@ public sealed interface AccountResponse {
             Boolean balanceAnchored,
             BigDecimal reconciliationGap,
             LocalDate anchorDate,
+            List<CardholderResponse> cardholders,
             List<String> warnings) implements AccountResponse {
     }
 

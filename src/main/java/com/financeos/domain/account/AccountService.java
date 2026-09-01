@@ -107,7 +107,7 @@ public class AccountService {
         if (saved.getIngestFromDate() != null) {
             ratchetDemand(user, saved.getIngestFromDate());
         }
-        if (saved.getType() == AccountType.credit_card && saved.getCardholders() != null) {
+        if (saved.getCardholders() != null && !saved.getCardholders().isEmpty()) {
             for (Cardholder ch : saved.getCardholders()) {
                 if (ch.getCards() != null) {
                     for (Card c : ch.getCards()) {
@@ -117,11 +117,10 @@ public class AccountService {
                     }
                 }
             }
-        } else {
-            String last4 = extractLast4(saved);
-            if (last4 != null) {
-                eventPublisher.publishEvent(new AccountIngestChangedEvent(userId, last4, saved.getIngestFromDate()));
-            }
+        }
+        String last4 = extractLast4(saved);
+        if (last4 != null) {
+            eventPublisher.publishEvent(new AccountIngestChangedEvent(userId, last4, saved.getIngestFromDate()));
         }
 
         return saved;
@@ -131,7 +130,7 @@ public class AccountService {
      * Initialises the LAZY {@code cardholders} and their {@code cards} collections while the service transaction is open.
      */
     private void initCardholders(Account account) {
-        if (account.getType() == AccountType.credit_card && account.getCardholders() != null) {
+        if (account.getCardholders() != null) {
             account.getCardholders().size();
             for (Cardholder ch : account.getCardholders()) {
                 if (ch.getCards() != null) {
@@ -260,7 +259,7 @@ public class AccountService {
         Account account = getAccountById(id);
         // On reopen: clear closedOn, then re-check open-card last4 uniqueness
         account.setClosedOn(null);
-        if (account.getType() == AccountType.credit_card && account.getCardholders() != null) {
+        if (account.getCardholders() != null) {
             for (Cardholder ch : account.getCardholders()) {
                 if (ch.getClosedOn() == null) {
                     Card openCard = ch.openCard().orElse(null);

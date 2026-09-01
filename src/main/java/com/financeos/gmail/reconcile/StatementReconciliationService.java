@@ -381,7 +381,7 @@ public class StatementReconciliationService {
 
 
     private com.financeos.domain.account.card.Card findMatchingCardOnAccount(Account account, String statementNumber) {
-        if (account == null || account.getType() != com.financeos.domain.account.AccountType.credit_card || statementNumber == null) {
+        if (account == null || statementNumber == null) {
             return null;
         }
         List<com.financeos.domain.account.card.Card> cards = cardRepository.findByAccountId(account.getId());
@@ -394,7 +394,7 @@ public class StatementReconciliationService {
     }
 
     private com.financeos.domain.account.card.Card resolveCard(Account account, String cardLast4) {
-        if (account == null || account.getType() != com.financeos.domain.account.AccountType.credit_card || cardLast4 == null) {
+        if (account == null || cardLast4 == null) {
             return null;
         }
         String cleanLast4 = cardLast4.trim().replaceAll("\\s+", "");

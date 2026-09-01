@@ -32,6 +32,14 @@ public class CardholderController {
         return cardholderService.addAddon(accountId, request);
     }
 
+    @PostMapping("/primary")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CardholderResponse addPrimary(
+            @PathVariable UUID accountId,
+            @Valid @RequestBody CreateCardRequest request) {
+        return cardholderService.addPrimaryWithCard(accountId, request);
+    }
+
     @PutMapping("/{cardholderId}")
     public CardholderResponse updateCardholder(
             @PathVariable UUID accountId,
