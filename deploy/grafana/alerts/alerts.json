@@ -15,8 +15,8 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "High rate of ERROR log events detected in last 15 minutes.",
-            "description": "Check Grafana Service Health dashboard ERROR logs panel to identify the active errorId, route, and exception trace."
+            "summary": "The FinanceOS server is logging a lot of errors — more than 5 in the last 15 minutes. Something is failing repeatedly.",
+            "description": "Open Grafana → Service Health dashboard → ERROR logs panel to see which feature is breaking and grab the errorId."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -47,8 +47,8 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "All LLM failover providers were exhausted during a request.",
-            "description": "Inspect LLM Providers dashboard to check provider status, HTTP rate limits (429), or API key invalidation (401)."
+            "summary": "AI features are failing — a request tried every AI provider in the failover chain and all of them errored.",
+            "description": "Usually a rate limit (429) or a bad/expired API key (401). Open Grafana → LLM Providers dashboard to see which provider failed and why."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -79,8 +79,8 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "Scheduled job {{ $labels.jobName }} failed during execution.",
-            "description": "Check Pipelines dashboard job outcome panel and inspect logs for error details."
+            "summary": "The background job \"{{ $labels.jobName }}\" crashed, so its work (syncing or refreshing data) did not complete.",
+            "description": "Open Grafana → Pipelines dashboard → job outcomes, and check the server logs around this time for the error."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -111,8 +111,8 @@
             "severity": "critical"
           },
           "annotations": {
-            "summary": "JVM Heap memory usage > 90% for >10 minutes.",
-            "description": "High risk of OutOfMemoryError. Check heap dump settings and inspect heap allocation patterns in Grafana."
+            "summary": "The FinanceOS server app is almost out of memory (above 90% for 10+ minutes) and could crash soon.",
+            "description": "If it crashes it will restart and drop whatever it was doing. Check Grafana memory panels for what is eating memory; a restart at a quiet moment clears it short-term."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -144,8 +144,8 @@
             "severity": "critical"
           },
           "annotations": {
-            "summary": "Host available memory below 80MB.",
-            "description": "Kernel OOM killer risk. Run deploy/add-swap.sh if swap is missing or check running processes on the VM."
+            "summary": "The server VM itself is nearly out of RAM (under 80MB free) — Linux may start killing processes, including the app.",
+            "description": "SSH into the OCI VM and check what is using memory (`free -m`, `top`). If there is no swap, run deploy/add-swap.sh."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -177,8 +177,8 @@
             "severity": "critical"
           },
           "annotations": {
-            "summary": "Available disk space below 15%.",
-            "description": "Clean up VM log files or increase disk allocation before database or log buffer corruption occurs."
+            "summary": "The server's disk is almost full — less than 15% space left. If it fills up completely, the app and logging stop working.",
+            "description": "SSH into the VM and free space: `df -h` to confirm, then clean old logs/files (e.g. `du -sh /var/log/*`)."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -210,8 +210,8 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "HikariCP pending connection requests > 0 for >5 minutes.",
-            "description": "Database connection pool is starved. Check slow queries in Pipelines dashboard or increase maximum pool size."
+            "summary": "Requests have been stuck waiting for a database connection for 5+ minutes — the app will feel slow or frozen.",
+            "description": "Usually a slow query hogging connections. Check Grafana → Pipelines dashboard for slow SQL; restart the app if it does not clear."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -243,8 +243,8 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "Gmail ingestion job has not succeeded in >15 hours.",
-            "description": "Check Pipelines dashboard job outcome panel and inspect OAuth tokens or Gmail API quota."
+            "summary": "Gmail sync hasn't succeeded in over 15 hours — new transactions from email are NOT coming in.",
+            "description": "Check Grafana → Pipelines dashboard. Most common causes: the Gmail connection needs re-authorizing, or Gmail API quota ran out."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -276,8 +276,8 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "Price refresh job has not succeeded in >26 hours.",
-            "description": "Check Pipelines dashboard job outcome panel and verify external market data provider connectivity."
+            "summary": "Investment prices haven't refreshed in over 26 hours — portfolio values shown in the app are stale.",
+            "description": "Check Grafana → Pipelines dashboard, and whether the price sources (Yahoo/AMFI) are reachable from the server."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -309,8 +309,8 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "HTTP 5xx error burst detected (>3 in 15 minutes).",
-            "description": "Inspect Service Health dashboard and check GlobalExceptionHandler logs in Grafana."
+            "summary": "Users are hitting server errors — more than 3 requests returned a 500-type error in the last 15 minutes.",
+            "description": "Open Grafana → Service Health dashboard and the ERROR logs panel to see which endpoint is failing and why."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -342,8 +342,8 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "HTTP p95 latency exceeds 2.0 seconds for >15 minutes with active traffic.",
-            "description": "Check DB pool metrics, slow SQL queries, and external API latency in Grafana."
+            "summary": "The app is responding slowly — slower requests are now taking over 2 seconds, and it has stayed that way for 15+ minutes.",
+            "description": "Check Grafana for slow SQL queries, database pool pressure, and slow external APIs (Gmail, price feeds)."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -375,8 +375,8 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": ">3 OAuth callback failures detected in last 10 minutes.",
-            "description": "Check Google/Gmail OAuth consent screen settings, redirect URIs, and app.config.suspect boot logs."
+            "summary": "People can't sign in with Google or connect Gmail — more than 3 login/connect attempts failed in the last 10 minutes.",
+            "description": "Check the Google OAuth settings (redirect URIs, consent screen) and look for an app.config.suspect line in the server startup logs."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -407,8 +407,8 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "Application booted with a suspicious or misconfigured environment configuration.",
-            "description": "Check startup logs for app.config.suspect event and verify OAuth redirect URIs and cookie origins."
+            "summary": "The server started up with a configuration that looks wrong (e.g. a bad OAuth redirect URL or cookie origin) — sign-in or Gmail connect may be broken.",
+            "description": "Check the server startup logs for the app.config.suspect line; it names the exact setting that looks off."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -439,8 +439,8 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "High rate of client action failures (code errors / backend rejections).",
-            "description": "Inspect Client Health dashboard relayed errorIds and error logs panel."
+            "summary": "Actions in the web app are failing for users — more than 5 saves/clicks errored in the last 10 minutes.",
+            "description": "Open Grafana → Client Health dashboard to see which action is failing and its errorId."
           },
           "notification_settings": {
             "receiver": "slack-financeos"

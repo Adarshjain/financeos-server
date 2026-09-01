@@ -3,6 +3,8 @@
   "name": "slack-financeos",
   "type": "slack",
   "settings": {
-    "url": "${SLACK_WEBHOOK_URL}"
+    "url": "${SLACK_WEBHOOK_URL}",
+    "title": "{{ if gt (len .Alerts.Firing) 0 }}🚨 FinanceOS needs attention{{ else }}✅ FinanceOS — back to normal{{ end }}",
+    "text": "{{ range .Alerts.Firing }}{{ if eq .Labels.severity \"critical\" }}🔴{{ else }}⚠️{{ end }} *{{ .Annotations.summary }}*\n_What to do:_ {{ .Annotations.description }}\n\n{{ end }}{{ range .Alerts.Resolved }}✅ *Resolved:* {{ .Annotations.summary }}\n{{ end }}"
   }
 }
