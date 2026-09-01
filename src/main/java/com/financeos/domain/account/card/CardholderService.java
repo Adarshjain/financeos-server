@@ -58,10 +58,55 @@ public class CardholderService {
         if (currentUserId != null && !account.getUser().getId().equals(currentUserId)) {
             throw new ValidationException("You do not have permission to access this account.");
         }
-        if (account.getType() != AccountType.credit_card) {
-            throw new ValidationException("Card operations are only supported on credit card accounts.");
+        if (account.getType() != AccountType.credit_card && account.getType() != AccountType.bank_account) {
+            throw new ValidationException("Card operations are only supported on credit card and bank accounts.");
         }
         return account;
+    }
+
+    public CardholderResponse addPrimaryWithCard(UUID accountId, CreateCardRequest request) {
+        Account account = getAccountAndValidateAccess(accountId);
+        if (account.isClosed()) {
+            throw new ValidationException("Cannot add cardholder to a closed account. Reopen the account first.");
+        }
+
+        List<Cardholder> existingCardholders = cardholderRepository.findByAccountId(accountId);
+        if (existingCardholders.stream().anyMatch(Cardholder::isPrimary)) {
+            throw new ValidationException("This account already has a primary cardholder. Issue a card to it instead.");
+        }
+
+        Optional<Card> existing = cardRepository.findOpenByAccountIdAndLast4(accountId, request.last4());
+        if (existing.isPresent()) {
+            throw new ValidationException("A card with last 4 digits " + request.last4() + " is already active on this account.");
+        }
+
+        UUID userId = UserContext.getCurrentUserId();
+        User user = userRepository.getReferenceById(userId);
+
+        Cardholder cardholder = new Cardholder();
+        cardholder.setUser(user);
+        cardholder.setAccount(account);
+        cardholder.setRole(CardholderRole.PRIMARY);
+        cardholder.setPersonName(null);
+        cardholder.setRelationship(CardholderRelationship.SELF);
+        cardholder.setSpendLimit(null);
+        LocalDate openedOn = request.issuedOn() != null ? request.issuedOn() : LocalDate.now();
+        cardholder.setOpenedOn(openedOn);
+
+        Cardholder savedCh = cardholderRepository.save(cardholder);
+
+        Card card = new Card();
+        card.setUser(user);
+        card.setAccount(account);
+        card.setCardholder(savedCh);
+        card.setLast4(request.last4());
+        card.setIssuedOn(request.issuedOn() != null ? request.issuedOn() : openedOn);
+        cardRepository.save(card);
+        savedCh.getCards().add(card);
+
+        eventPublisher.publishEvent(new AccountIngestChangedEvent(userId, card.getLast4(), account.getIngestFromDate()));
+
+        return CardholderResponse.from(savedCh, 0L);
     }
 
     private Cardholder getCardholderAndValidateAccess(UUID accountId, UUID cardholderId) {

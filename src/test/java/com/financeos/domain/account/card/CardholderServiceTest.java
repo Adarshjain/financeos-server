@@ -212,4 +212,133 @@ class CardholderServiceTest {
         assertThat(res.cards()).hasSize(2);
         verify(cardRepository).saveAndFlush(oldCard);
     }
+
+    @Test
+    void cardOperations_succeedOnBankAccount() {
+        Account bankAccount = new Account("HDFC Savings", AccountType.bank_account);
+        bankAccount.setId(UUID.randomUUID());
+        bankAccount.setUser(user);
+
+        when(accountRepository.findById(bankAccount.getId())).thenReturn(Optional.of(bankAccount));
+        when(userRepository.getReferenceById(userId)).thenReturn(user);
+        when(cardRepository.findOpenByAccountIdAndLast4(bankAccount.getId(), "4321")).thenReturn(Optional.empty());
+        when(cardholderRepository.save(any(Cardholder.class))).thenAnswer(i -> {
+            Cardholder ch = i.getArgument(0);
+            ch.setId(UUID.randomUUID());
+            return ch;
+        });
+
+        CreateCardholderRequest req = new CreateCardholderRequest(
+                "Joint User", CardholderRelationship.SPOUSE, null, "4321", LocalDate.now(), LocalDate.now()
+        );
+
+        CardholderResponse response = service.addAddon(bankAccount.getId(), req);
+        assertThat(response).isNotNull();
+        assertThat(response.personName()).isEqualTo("Joint User");
+        assertThat(response.role()).isEqualTo(CardholderRole.ADDON);
+        assertThat(response.currentLast4()).isEqualTo("4321");
+    }
+
+    @Test
+    void cardOperations_rejectedOnBrokerAndGenericAccounts() {
+        Account brokerAccount = new Account("Zerodha", AccountType.broker);
+        brokerAccount.setId(UUID.randomUUID());
+        brokerAccount.setUser(user);
+
+        Account genericAccount = new Account("Wallet", AccountType.generic);
+        genericAccount.setId(UUID.randomUUID());
+        genericAccount.setUser(user);
+
+        when(accountRepository.findById(brokerAccount.getId())).thenReturn(Optional.of(brokerAccount));
+        when(accountRepository.findById(genericAccount.getId())).thenReturn(Optional.of(genericAccount));
+
+        CreateCardholderRequest req = new CreateCardholderRequest(
+                "User", CardholderRelationship.SELF, null, "1234", LocalDate.now(), LocalDate.now()
+        );
+
+        assertThatThrownBy(() -> service.addAddon(brokerAccount.getId(), req))
+                .isInstanceOf(ValidationException.class)
+                .hasMessage("Card operations are only supported on credit card and bank accounts.");
+
+        assertThatThrownBy(() -> service.addAddon(genericAccount.getId(), req))
+                .isInstanceOf(ValidationException.class)
+                .hasMessage("Card operations are only supported on credit card and bank accounts.");
+    }
+
+    @Test
+    void addPrimaryWithCard_happyPath() {
+        Account bankAccount = new Account("ICICI Savings", AccountType.bank_account);
+        bankAccount.setId(UUID.randomUUID());
+        bankAccount.setUser(user);
+
+        when(accountRepository.findById(bankAccount.getId())).thenReturn(Optional.of(bankAccount));
+        when(cardholderRepository.findByAccountId(bankAccount.getId())).thenReturn(List.of());
+        when(cardRepository.findOpenByAccountIdAndLast4(bankAccount.getId(), "9876")).thenReturn(Optional.empty());
+        when(userRepository.getReferenceById(userId)).thenReturn(user);
+        when(cardholderRepository.save(any(Cardholder.class))).thenAnswer(i -> {
+            Cardholder ch = i.getArgument(0);
+            ch.setId(UUID.randomUUID());
+            return ch;
+        });
+
+        CreateCardRequest req = new CreateCardRequest("9876", LocalDate.of(2026, 3, 1));
+        CardholderResponse response = service.addPrimaryWithCard(bankAccount.getId(), req);
+
+        assertThat(response).isNotNull();
+        assertThat(response.role()).isEqualTo(CardholderRole.PRIMARY);
+        assertThat(response.relationship()).isEqualTo(CardholderRelationship.SELF);
+        assertThat(response.personName()).isNull();
+        assertThat(response.currentLast4()).isEqualTo("9876");
+        assertThat(response.cards()).hasSize(1);
+        verify(eventPublisher).publishEvent(any(com.financeos.gmail.ingest.event.AccountIngestChangedEvent.class));
+    }
+
+    @Test
+    void addPrimaryWithCard_rejectsWhenPrimaryExists() {
+        Account bankAccount = new Account("ICICI Savings", AccountType.bank_account);
+        bankAccount.setId(UUID.randomUUID());
+        bankAccount.setUser(user);
+
+        Cardholder existingPrimary = new Cardholder();
+        existingPrimary.setRole(CardholderRole.PRIMARY);
+
+        when(accountRepository.findById(bankAccount.getId())).thenReturn(Optional.of(bankAccount));
+        when(cardholderRepository.findByAccountId(bankAccount.getId())).thenReturn(List.of(existingPrimary));
+
+        CreateCardRequest req = new CreateCardRequest("9876", LocalDate.now());
+        assertThatThrownBy(() -> service.addPrimaryWithCard(bankAccount.getId(), req))
+                .isInstanceOf(ValidationException.class)
+                .hasMessage("This account already has a primary cardholder. Issue a card to it instead.");
+    }
+
+    @Test
+    void addPrimaryWithCard_rejectsLast4Collision() {
+        Account bankAccount = new Account("ICICI Savings", AccountType.bank_account);
+        bankAccount.setId(UUID.randomUUID());
+        bankAccount.setUser(user);
+
+        when(accountRepository.findById(bankAccount.getId())).thenReturn(Optional.of(bankAccount));
+        when(cardholderRepository.findByAccountId(bankAccount.getId())).thenReturn(List.of());
+        when(cardRepository.findOpenByAccountIdAndLast4(bankAccount.getId(), "9876")).thenReturn(Optional.of(new Card()));
+
+        CreateCardRequest req = new CreateCardRequest("9876", LocalDate.now());
+        assertThatThrownBy(() -> service.addPrimaryWithCard(bankAccount.getId(), req))
+                .isInstanceOf(ValidationException.class)
+                .hasMessage("A card with last 4 digits 9876 is already active on this account.");
+    }
+
+    @Test
+    void addPrimaryWithCard_rejectsClosedAccount() {
+        Account closedBank = new Account("Closed Bank", AccountType.bank_account);
+        closedBank.setId(UUID.randomUUID());
+        closedBank.setUser(user);
+        closedBank.setClosedOn(LocalDate.of(2026, 1, 1));
+
+        when(accountRepository.findById(closedBank.getId())).thenReturn(Optional.of(closedBank));
+
+        CreateCardRequest req = new CreateCardRequest("9876", LocalDate.now());
+        assertThatThrownBy(() -> service.addPrimaryWithCard(closedBank.getId(), req))
+                .isInstanceOf(ValidationException.class)
+                .hasMessage("Cannot add cardholder to a closed account. Reopen the account first.");
+    }
 }
