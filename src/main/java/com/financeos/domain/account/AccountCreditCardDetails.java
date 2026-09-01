@@ -46,6 +46,12 @@ public class AccountCreditCardDetails {
     @Column(name = "grace_period_days", nullable = false)
     private Integer gracePeriodDays;
 
+    @Column(name = "issuer", length = 100)
+    private String issuer;
+
+    @Column(name = "product_name", length = 150)
+    private String productName;
+
     @Convert(converter = EncryptedStringConverter.class)
     @Column(name = "statement_password")
     private String statementPassword;
@@ -58,5 +64,13 @@ public class AccountCreditCardDetails {
         this.paymentDueDay = paymentDueDay;
         this.gracePeriodDays = gracePeriodDays;
         this.statementPassword = statementPassword;
+    }
+
+    public AccountCreditCardDetails(Account account, BigDecimal creditLimit,
+            Integer paymentDueDay, Integer gracePeriodDays, String statementPassword,
+            String issuer, String productName) {
+        this(account, creditLimit, paymentDueDay, gracePeriodDays, statementPassword);
+        this.issuer = issuer;
+        this.productName = productName;
     }
 }

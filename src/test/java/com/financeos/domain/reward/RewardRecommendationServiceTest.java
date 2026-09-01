@@ -70,7 +70,7 @@ class RewardRecommendationServiceTest {
         rewardCalculationService = new RewardCalculationService(
                 rewardRuleRepository, rewardRuleService, rewardMilestoneRepository, rewardMilestoneService,
                 transactionRepository, transactionLinkRepository, statementRepository, accountRepository,
-                mock(com.financeos.domain.account.card.AccountCardRepository.class));
+                mock(com.financeos.domain.account.card.CardholderRepository.class));
 
         recommendationService = new RewardRecommendationService(
                 accountRepository, categoryRepository, rewardRuleRepository, rewardCalculationService);

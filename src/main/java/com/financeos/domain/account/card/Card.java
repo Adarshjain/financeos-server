@@ -10,18 +10,17 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "account_cards")
+@Table(name = "cards")
 @Getter
 @Setter
 @NoArgsConstructor
 @Filter(name = "userFilter", condition = "user_id = :userId")
-public class AccountCard {
+public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -39,21 +38,13 @@ public class AccountCard {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private Account account;
 
-    @Column(length = 100)
-    private String label;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cardholder_id", nullable = false)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private Cardholder cardholder;
 
-    @Column(name = "holder_name", length = 200)
-    private String holderName;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private CardRelationship relationship = CardRelationship.SELF;
-
-    @Column(nullable = false, length = 4)
+    @Column(name = "last4", nullable = false, length = 4)
     private String last4;
-
-    @Column(name = "is_primary", nullable = false)
-    private boolean isPrimary;
 
     @Column(name = "issued_on")
     private LocalDate issuedOn;
@@ -61,30 +52,43 @@ public class AccountCard {
     @Column(name = "closed_on")
     private LocalDate closedOn;
 
-    @Column(name = "spend_limit", precision = 19, scale = 4)
-    private BigDecimal spendLimit;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt = Instant.now();
 
-    @Column(length = 500)
-    private String note;
-
-    @Column(name = "created_at")
-    private Instant createdAt;
-
-    @Column(name = "updated_at")
-    private Instant updatedAt;
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt = Instant.now();
 
     @PrePersist
     protected void onCreate() {
-        if (createdAt == null) {
-            createdAt = Instant.now();
-        }
-        if (updatedAt == null) {
-            updatedAt = Instant.now();
-        }
+        if (createdAt == null) createdAt = Instant.now();
+        if (updatedAt == null) updatedAt = Instant.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
         updatedAt = Instant.now();
+    }
+
+    public boolean isOpen() {
+        return closedOn == null;
+    }
+
+    public boolean isClosed() {
+        return closedOn != null;
+    }
+
+    public boolean isOpen(LocalDate date) {
+        if (date == null) return isOpen();
+        boolean afterOrOnIssued = (issuedOn == null || !date.isBefore(issuedOn));
+        boolean beforeClosed = (closedOn == null || date.isBefore(closedOn));
+        return afterOrOnIssued && beforeClosed;
+    }
+
+    public boolean isClosed(LocalDate date) {
+        return !isOpen(date);
+    }
+
+    public void close(LocalDate on) {
+        this.closedOn = on != null ? on : LocalDate.now();
     }
 }

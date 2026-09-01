@@ -58,7 +58,10 @@ public sealed interface CreateAccountRequest {
             /** Card membership anniversary — anchors ANNIVERSARY_YEAR reward windows. */
             @NotNull(message = "Card anniversary date is required") LocalDate anniversaryDate,
             String statementPassword,
-            LocalDate ingestFromDate
+            LocalDate ingestFromDate,
+            java.util.UUID replacesAccountId,
+            String issuer,
+            String productName
     ) implements CreateAccountRequest {
     }
 

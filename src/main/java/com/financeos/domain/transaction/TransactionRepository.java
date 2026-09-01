@@ -140,4 +140,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("from") LocalDate from,
             @Param("to") LocalDate to,
             @Param("currentCardId") UUID currentCardId);
+
+    long countByCardId(UUID cardId);
 }

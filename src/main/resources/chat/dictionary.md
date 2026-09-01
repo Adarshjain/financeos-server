@@ -39,7 +39,7 @@ Individual financial transactions (bank debits/credits, credit card swipes, manu
 - `convenience_fee`: Labeled surcharge/fee included inside `amount`.
 - `category_names`: Comma-separated names of ALL categories on this transaction (nullable). This view has EXACTLY ONE row per transaction, so SUM(amount) here is always safe.
 - `account_id` / `account_name` / `account_type`: Associated account details.
-- `card_id` / `card_label` / `card_last4` / `card_holder` / `card_relationship`: Associated add-on / primary card details (nullable when unattributed).
+- `card_id` / `card_last4` / `card_holder` / `card_relationship`: the plastic and its cardholder (nullable when unattributed). There is no `card_label` column.
 
 ### 1b. `v_chat_transaction_categories`
 Transaction↔category mapping (a transaction can have multiple categories).
@@ -57,16 +57,27 @@ User accounts (bank accounts, credit cards, investment broker accounts).
 - `bank_opening_balance`: The bank account's opening balance when it was added (current balance = opening balance + CREDITs − DEBITs from `v_chat_transactions` since then).
 - `broker_cash_balance`: Idle cash sitting in a broker account (NOT invested holdings — use `get_portfolio_value` for those).
 
-### 2b. `v_chat_account_cards`
-Add-on and primary cards linked to credit card accounts.
-- `id`: Card UUID.
+### 2b. `v_chat_cardholders`
+**Cardholders** — one per person holding a card on a credit card account (primary or add-on).
+- `id`: Cardholder UUID. This is what reward rules and milestones point at (`cardholder_id`).
 - `account_id`: Associated credit card account UUID.
-- `label`: Optional card label / nickname.
-- `holder_name`: Name printed on card (e.g. spouse/parent/child).
+- `role`: `'PRIMARY'` or `'ADDON'`. Exactly 1 PRIMARY per account.
+- `person_name`: Name printed on card / cardholder name.
 - `relationship`: `'SELF'`, `'SPOUSE'`, `'PARENT'`, `'CHILD'`, `'SIBLING'`, `'OTHER'`.
+- `spend_limit`: Optional add-on spend limit in INR.
+- `opened_on`: When this person became a cardholder on the account.
+- `closed_on`: When the cardholder was closed. A cardholder also counts as closed when its account is closed (`effective_closed_on`).
+
+### 2c. `v_chat_cards`
+**Physical Plastics** — the actual cards issued to cardholders.
+- `id`: Card UUID. This is what `v_chat_transactions.card_id` points at.
+- `account_id`: Associated credit card account UUID.
+- `cardholder_id`: The cardholder holding this plastic (`v_chat_cardholders.id`).
 - `last4`: 4-digit card number suffix.
-- `is_primary`: 1 for the primary account card, 0 for add-on / supplementary cards.
-- `issued_on` / `closed_on`: Validity dates.
+- `issued_on` / `closed_on`: When this particular plastic was issued and closed.
+- `is_open`: 1 if currently open (`closed_on IS NULL`), 0 if closed.
+
+**Rule:** to report on spend per person, group by `cardholder_id`. When a card is replaced (lost/expired), `cardholder_id` stays invariant.
 
 ### 3. `v_chat_categories`
 User transaction categories.

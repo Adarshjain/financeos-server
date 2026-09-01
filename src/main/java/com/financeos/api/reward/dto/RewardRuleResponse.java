@@ -26,7 +26,7 @@ import java.util.UUID;
 public record RewardRuleResponse(
         UUID id,
         UUID accountId,
-        UUID cardId,
+        UUID cardholderId,
         CounterScope counterScope,
         String name,
         int priority,
@@ -68,12 +68,12 @@ public record RewardRuleResponse(
                 .map(CategoryResponse::from)
                 .toList();
 
-        UUID cardId = rule.getCard() != null ? rule.getCard().getId() : null;
+        UUID cardholderId = rule.getCardholder() != null ? rule.getCardholder().getId() : null;
 
         return new RewardRuleResponse(
                 rule.getId(),
                 rule.getAccount().getId(),
-                cardId,
+                cardholderId,
                 rule.getCounterScope(),
                 rule.getName(),
                 rule.getPriority(),

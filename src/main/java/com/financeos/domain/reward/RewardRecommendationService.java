@@ -72,6 +72,8 @@ public class RewardRecommendationService {
             }
         }
 
+        LocalDate evalDate = request.date() != null ? request.date() : LocalDate.now();
+
         // 2. Candidate accounts resolution and ownership validation
         List<Account> candidateAccounts = new ArrayList<>();
         if (request.accountIds() != null && !request.accountIds().isEmpty()) {
@@ -86,13 +88,11 @@ public class RewardRecommendationService {
         } else {
             List<Account> userAccounts = accountRepository.findByUserId(currentUserId);
             for (Account acct : userAccounts) {
-                if (acct.getType() == AccountType.credit_card || rewardRuleRepository.countByAccountId(acct.getId()) > 0) {
+                if (!acct.isClosed(evalDate) && (acct.getType() == AccountType.credit_card || rewardRuleRepository.countByAccountId(acct.getId()) > 0)) {
                     candidateAccounts.add(acct);
                 }
             }
         }
-
-        LocalDate evalDate = request.date() != null ? request.date() : LocalDate.now();
         boolean isEmi = Boolean.TRUE.equals(request.isEmi());
         boolean isIntl = Boolean.TRUE.equals(request.isIntl());
         Set<UUID> categoryIds = request.categoryIds() != null ? request.categoryIds() : Set.of();
@@ -133,7 +133,7 @@ public class RewardRecommendationService {
                     request.merchantText(),
                     isEmi,
                     isIntl,
-                    request.cardId()
+                    request.cardholderId()
             );
 
             // Single-txn resolution against evaluated state

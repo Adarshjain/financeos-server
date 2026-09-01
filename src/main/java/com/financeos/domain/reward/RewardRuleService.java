@@ -48,7 +48,7 @@ public class RewardRuleService {
     private final UserRepository userRepository;
     private final ObjectMapper objectMapper;
 
-    private final com.financeos.domain.account.card.AccountCardRepository cardRepository;
+    private final com.financeos.domain.account.card.CardholderRepository cardholderRepository;
 
     public RewardRuleService(RewardRuleRepository rewardRuleRepository,
                              RewardCapBucketRepository rewardCapBucketRepository,
@@ -56,14 +56,14 @@ public class RewardRuleService {
                              CategoryRepository categoryRepository,
                              UserRepository userRepository,
                              ObjectMapper objectMapper,
-                             com.financeos.domain.account.card.AccountCardRepository cardRepository) {
+                             com.financeos.domain.account.card.CardholderRepository cardholderRepository) {
         this.rewardRuleRepository = rewardRuleRepository;
         this.rewardCapBucketRepository = rewardCapBucketRepository;
         this.categoryRepository = categoryRepository;
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.objectMapper = objectMapper;
-        this.cardRepository = cardRepository;
+        this.cardholderRepository = cardholderRepository;
     }
 
     @Transactional(readOnly = true)
@@ -178,22 +178,22 @@ public class RewardRuleService {
         rule.setActiveTo(request.activeTo());
 
         CounterScope counterScope = parseEnum(CounterScope.class, request.counterScope(), CounterScope.ACCOUNT);
-        if (counterScope == CounterScope.PER_CARD && cardRepository.findOpenByAccountId(rule.getAccount().getId()).size() < 2) {
-            throw new ValidationException("Per-card counter scope requires an account with at least two open cards (primary and add-on).");
+        if (counterScope == CounterScope.PER_CARDHOLDER && cardholderRepository.findOpenByAccountId(rule.getAccount().getId()).size() < 2) {
+            throw new ValidationException("Per-cardholder counter scope requires an account with at least two open cardholders (primary and add-on).");
         }
         rule.setCounterScope(counterScope);
-        if (request.cardId() != null) {
-            com.financeos.domain.account.card.AccountCard card = cardRepository.findById(request.cardId())
-                    .orElseThrow(() -> new ResourceNotFoundException("AccountCard", request.cardId()));
-            if (!card.getAccount().getId().equals(rule.getAccount().getId())) {
-                throw new ValidationException("Card does not belong to the rule's account.");
+        if (request.cardholderId() != null) {
+            com.financeos.domain.account.card.Cardholder cardholder = cardholderRepository.findById(request.cardholderId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Cardholder", request.cardholderId()));
+            if (!cardholder.getAccount().getId().equals(rule.getAccount().getId())) {
+                throw new ValidationException("Cardholder does not belong to the rule's account.");
             }
-            if (!card.getUser().getId().equals(currentSessionUserId)) {
-                throw new ValidationException("You do not have permission to use this card.");
+            if (!cardholder.getUser().getId().equals(currentSessionUserId)) {
+                throw new ValidationException("You do not have permission to use this cardholder.");
             }
-            rule.setCard(card);
+            rule.setCardholder(cardholder);
         } else {
-            rule.setCard(null);
+            rule.setCardholder(null);
         }
 
         applyPredicates(rule, request, currentSessionUserId);

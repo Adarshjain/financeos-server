@@ -25,18 +25,18 @@ public class RewardCapBucketService {
     private final RewardRuleRepository rewardRuleRepository;
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
-    private final com.financeos.domain.account.card.AccountCardRepository cardRepository;
+    private final com.financeos.domain.account.card.CardholderRepository cardholderRepository;
 
     public RewardCapBucketService(RewardCapBucketRepository rewardCapBucketRepository,
                                   RewardRuleRepository rewardRuleRepository,
                                   AccountRepository accountRepository,
                                   UserRepository userRepository,
-                                  com.financeos.domain.account.card.AccountCardRepository cardRepository) {
+                                  com.financeos.domain.account.card.CardholderRepository cardholderRepository) {
         this.rewardCapBucketRepository = rewardCapBucketRepository;
         this.rewardRuleRepository = rewardRuleRepository;
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
-        this.cardRepository = cardRepository;
+        this.cardholderRepository = cardholderRepository;
     }
 
     @Transactional(readOnly = true)
@@ -119,8 +119,8 @@ public class RewardCapBucketService {
             throw new ValidationException("Unknown CapWindow: " + request.windowType());
         }
         CounterScope counterScope = request.counterScope() != null ? request.counterScope() : CounterScope.ACCOUNT;
-        if (counterScope == CounterScope.PER_CARD && cardRepository.findOpenByAccountId(bucket.getAccount().getId()).size() < 2) {
-            throw new ValidationException("Per-card counter scope requires an account with at least two open cards (primary and add-on).");
+        if (counterScope == CounterScope.PER_CARDHOLDER && cardholderRepository.findOpenByAccountId(bucket.getAccount().getId()).size() < 2) {
+            throw new ValidationException("Per-cardholder counter scope requires an account with at least two open cardholders (primary and add-on).");
         }
         bucket.setCounterScope(counterScope);
     }

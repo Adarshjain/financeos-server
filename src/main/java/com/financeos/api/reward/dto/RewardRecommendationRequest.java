@@ -23,7 +23,7 @@ public record RewardRecommendationRequest(
         Boolean isEmi,
         Boolean isIntl,
         List<UUID> accountIds,
-        UUID cardId
+        UUID cardholderId
 ) {
     public RewardRecommendationRequest(
             BigDecimal amount,

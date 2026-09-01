@@ -32,18 +32,18 @@ public class RewardMilestoneService {
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
     private final ObjectMapper objectMapper;
-    private final com.financeos.domain.account.card.AccountCardRepository cardRepository;
+    private final com.financeos.domain.account.card.CardholderRepository cardholderRepository;
 
     public RewardMilestoneService(RewardMilestoneRepository rewardMilestoneRepository,
                                   AccountRepository accountRepository,
                                   UserRepository userRepository,
                                   ObjectMapper objectMapper,
-                                  com.financeos.domain.account.card.AccountCardRepository cardRepository) {
+                                  com.financeos.domain.account.card.CardholderRepository cardholderRepository) {
         this.rewardMilestoneRepository = rewardMilestoneRepository;
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.objectMapper = objectMapper;
-        this.cardRepository = cardRepository;
+        this.cardholderRepository = cardholderRepository;
     }
 
     @Transactional(readOnly = true)
@@ -99,18 +99,18 @@ public class RewardMilestoneService {
     private void applyDefinition(RewardMilestone milestone, RewardMilestoneRequest request, UUID currentSessionUserId) {
         milestone.setName(request.name().trim());
 
-        if (request.cardId() != null) {
-            com.financeos.domain.account.card.AccountCard card = cardRepository.findById(request.cardId())
-                    .orElseThrow(() -> new ResourceNotFoundException("AccountCard", request.cardId()));
-            if (!card.getAccount().getId().equals(milestone.getAccount().getId())) {
-                throw new ValidationException("Card does not belong to the milestone's account.");
+        if (request.cardholderId() != null) {
+            com.financeos.domain.account.card.Cardholder cardholder = cardholderRepository.findById(request.cardholderId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Cardholder", request.cardholderId()));
+            if (!cardholder.getAccount().getId().equals(milestone.getAccount().getId())) {
+                throw new ValidationException("Cardholder does not belong to the milestone's account.");
             }
-            if (!card.getUser().getId().equals(currentSessionUserId)) {
-                throw new ValidationException("You do not have permission to use this card.");
+            if (!cardholder.getUser().getId().equals(currentSessionUserId)) {
+                throw new ValidationException("You do not have permission to use this cardholder.");
             }
-            milestone.setCard(card);
+            milestone.setCardholder(cardholder);
         } else {
-            milestone.setCard(null);
+            milestone.setCardholder(null);
         }
 
         MilestoneWindow window = parseEnum(MilestoneWindow.class, request.windowType());

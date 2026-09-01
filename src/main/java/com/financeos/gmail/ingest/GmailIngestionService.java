@@ -366,7 +366,7 @@ public class GmailIngestionService {
                 gpm.setExtractedLast4(normalizeLast4(extractionResult.accountLast4()));
                 AccountResolver.ResolvedCard resolved = accountResolver.resolve(extractionResult.accountLast4()).orElse(null);
                 Account account = resolved != null ? resolved.account() : null;
-                com.financeos.domain.account.card.AccountCard card = resolved != null ? resolved.card() : null;
+                com.financeos.domain.account.card.Card card = resolved != null ? resolved.card() : null;
 
                 if (account == null) {
                     gpm.setStatus(GmailProcessedStatus.UNRESOLVED_ACCOUNT);

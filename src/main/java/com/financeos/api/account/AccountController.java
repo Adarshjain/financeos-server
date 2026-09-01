@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,6 +54,19 @@ public class AccountController {
             @Valid @RequestBody CreateAccountRequest request) {
         Account account = accountService.updateAccount(id, request);
         return ResponseEntity.ok(AccountResponse.from(account));
+    }
+
+    @PostMapping("/{id}/close")
+    public ResponseEntity<AccountResponse> closeAccount(
+            @PathVariable UUID id,
+            @RequestBody(required = false) CloseAccountRequest request) {
+        LocalDate closedOn = request != null ? request.closedOn() : null;
+        return ResponseEntity.ok(accountService.closeAccount(id, closedOn));
+    }
+
+    @PostMapping("/{id}/reopen")
+    public ResponseEntity<AccountResponse> reopenAccount(@PathVariable UUID id) {
+        return ResponseEntity.ok(accountService.reopenAccount(id));
     }
 
     @DeleteMapping("/{id}")

@@ -7,7 +7,8 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.account.card.AccountCard;
+import com.financeos.domain.account.card.Cardholder;
+import com.financeos.domain.account.card.CardholderRepository;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.statement.StatementVerdict;
@@ -70,7 +71,7 @@ public class RewardCalculationService {
     private final TransactionLinkRepository transactionLinkRepository;
     private final StatementRepository statementRepository;
     private final AccountRepository accountRepository;
-    private final com.financeos.domain.account.card.AccountCardRepository cardRepository;
+    private final CardholderRepository cardholderRepository;
 
     public RewardCalculationService(RewardRuleRepository rewardRuleRepository,
                                     RewardRuleService rewardRuleService,
@@ -80,7 +81,7 @@ public class RewardCalculationService {
                                     TransactionLinkRepository transactionLinkRepository,
                                     StatementRepository statementRepository,
                                     AccountRepository accountRepository,
-                                    com.financeos.domain.account.card.AccountCardRepository cardRepository) {
+                                    CardholderRepository cardholderRepository) {
         this.rewardRuleRepository = rewardRuleRepository;
         this.rewardRuleService = rewardRuleService;
         this.rewardMilestoneRepository = rewardMilestoneRepository;
@@ -89,7 +90,7 @@ public class RewardCalculationService {
         this.transactionLinkRepository = transactionLinkRepository;
         this.statementRepository = statementRepository;
         this.accountRepository = accountRepository;
-        this.cardRepository = cardRepository;
+        this.cardholderRepository = cardholderRepository;
     }
 
     // ---------- public API ----------
@@ -130,7 +131,7 @@ public class RewardCalculationService {
     record Window(LocalDate start, LocalDate end, boolean cycleFallback) {
     }
 
-    record CounterKey(String owner, UUID cardId, LocalDate windowStart) {
+    record CounterKey(String owner, UUID cardholderId, LocalDate windowStart) {
     }
 
     record MilestoneWithEligibility(RewardMilestone milestone, MilestoneEligibility eligibility) {
@@ -140,29 +141,22 @@ public class RewardCalculationService {
         final List<RewardRule> rules;
         final List<MilestoneWithEligibility> milestones;
         final List<RewardLineResponse> lines = new ArrayList<>();
-        /** capKey (owner, cardId, windowStart) -> used amount in the rule's output unit. */
+        /** capKey (owner, cardholderId, windowStart) -> used amount in the rule's output unit. */
         final Map<CounterKey, BigDecimal> capUsed = new HashMap<>();
-        /** tiered rules: (ruleId, cardId, tierWindowStart) -> running matched basis in the window. */
+        /** tiered rules: (ruleId, cardholderId, tierWindowStart) -> running matched basis in the window. */
         final Map<CounterKey, BigDecimal> tierProgress = new HashMap<>();
         /** parsed tier schedules per tiered rule. */
         final Map<UUID, List<RewardTier>> tierSchedules = new HashMap<>();
         /** eligible debit txn id -> netted basis, display-range membership decided later. */
         final List<EligibleTxn> eligible = new ArrayList<>();
-        final Map<UUID, String> cardLabels = new HashMap<>();
+        final Map<UUID, String> cardholderLabels = new HashMap<>();
         /**
-         * Every card on the account, open AND closed. byCard must iterate this: a transaction
-         * on a closed card carries that card's id, so iterating only open cards would drop it
-         * from the breakdown without putting it in Unattributed either — silently breaking the
-         * partition invariant (Σ byCard == summary).
+         * Every cardholder on the account, open AND closed.
          */
-        List<AccountCard> allCards = List.of();
-        int cardCount = 0;
+        List<Cardholder> allCardholders = List.of();
+        int cardholderCount = 0;
         /**
-         * Distinct transactions whose missing attribution affected a card-scoped decision.
-         * A Set, not a counter: capKey runs in both clamp() and consumeCap(), tierKey in both
-         * recordTierProgress() and accrueTiered(), and matches() runs once per rule — so a
-         * plain ++ would report six-plus "transactions" for a single one, and the UI renders
-         * this number as a transaction count.
+         * Distinct transactions whose missing attribution affected a cardholder-scoped decision.
          */
         final Set<UUID> perCardAttributionIncompleteTxnIds = new HashSet<>();
         /** Scratch flag for the transaction currently being evaluated; collected by evaluateTransaction. */
@@ -171,8 +165,8 @@ public class RewardCalculationService {
         boolean anniversaryFallback = false;
         List<Statement> statements = List.of();
         LocalDate anniversaryDate;
-        UUID primaryCardId;
-        UUID soleCardId;
+        UUID primaryCardholderId;
+        UUID soleCardholderId;
 
         Evaluation(List<RewardRule> rules, List<MilestoneWithEligibility> milestones) {
             this.rules = rules;
@@ -183,7 +177,7 @@ public class RewardCalculationService {
     private record EligibleTxn(UUID id, LocalDate effectiveDate, BigDecimal basis,
                                BigDecimal instantDiscount, BigDecimal convenienceFee,
                                BigDecimal amount, String mcc, Set<UUID> categoryIds,
-                               UUID cardId) {
+                               UUID cardholderId) {
     }
 
     // ---------- predicate input abstraction ----------
@@ -202,13 +196,15 @@ public class RewardCalculationService {
             String sourcedDescription,
             boolean isEmi,
             boolean isIntl,
-            UUID cardId) {
+            UUID cardholderId) {
 
         static TxnFacts from(Transaction txn, BigDecimal basis, LocalDate effectiveDate) {
             Set<UUID> catIds = txn.getCategories() != null ? txn.getCategories().stream()
                     .map(tc -> tc.getCategory().getId())
-                    .collect(java.util.stream.Collectors.toSet()) : Set.of();
-            UUID cardId = txn.getCard() != null ? txn.getCard().getId() : null;
+                    .collect(Collectors.toSet()) : Set.of();
+            UUID cardholderId = (txn.getCard() != null && txn.getCard().getCardholder() != null)
+                    ? txn.getCard().getCardholder().getId()
+                    : null;
             return new TxnFacts(
                     txn.getDate(),
                     effectiveDate,
@@ -222,7 +218,7 @@ public class RewardCalculationService {
                     txn.getSourcedDescription(),
                     Boolean.TRUE.equals(txn.getIsEmi()),
                     Boolean.TRUE.equals(txn.getIsInternational()),
-                    cardId);
+                    cardholderId);
         }
     }
 
@@ -257,20 +253,16 @@ public class RewardCalculationService {
                                 && (m.getActiveTo() == null || m.getActiveTo().isAfter(from)))
                         .map(m -> new MilestoneWithEligibility(m, rewardMilestoneService.parseEligibility(m)))
                         .toList();
-        // Tiered rules with a broken configuration (unparseable tiers JSON or a null
-        // tier window) are excluded from evaluation entirely: earning zero while still
-        // terminating the exclusive chain would silently suppress lower-priority rules.
         List<RewardRule> usableRules = new ArrayList<>();
         Map<UUID, List<RewardTier>> schedules = new HashMap<>();
         for (RewardRule rule : rules) {
             if (rule.isTiered()) {
                 List<RewardTier> tiers = rewardRuleService.parseTiers(rule);
                 if (tiers.isEmpty() || rule.getTierWindow() == null) {
-                    log.warn("Reward rule {} has a broken tier configuration; skipping it in evaluation", rule.getId());
-                    log.debug("Reward rule skipped: ruleId={}, reason=broken-tier-config", rule.getId(),
+                    log.warn("Reward rule {} has a broken tier configuration; skipping it in evaluation",
+                            rule.getId(),
                             StructuredArguments.keyValue("event", Events.REWARD_RULE_SKIPPED),
-                            StructuredArguments.keyValue("ruleId", rule.getId().toString()),
-                            StructuredArguments.keyValue("reason", "broken-tier-config"));
+                            StructuredArguments.keyValue("ruleId", rule.getId()));
                     continue;
                 }
                 schedules.put(rule.getId(), tiers);
@@ -280,41 +272,29 @@ public class RewardCalculationService {
         Evaluation eval = new Evaluation(usableRules, milestones);
         eval.tierSchedules.putAll(schedules);
         eval.anniversaryDate = account.getRewardAnniversaryDate();
-        // ALL cards, not just open ones: a card closed mid-period still owns the transactions
-        // made on it, and both the byCard breakdown and the "is this a multi-card account?"
-        // question must account for it (a closed add-on must not make the section vanish).
-        List<AccountCard> allCards = cardRepository != null
-                ? cardRepository.findByAccountIdOrderByIsPrimaryDescCreatedAtAsc(accountId)
+
+        List<Cardholder> allCardholders = cardholderRepository != null
+                ? cardholderRepository.findByAccountId(accountId)
                 : List.of();
-        eval.allCards = allCards;
-        eval.cardCount = allCards.size();
-        // Headroom folds into the OPEN primary; a closed primary is only a last resort.
-        AccountCard primaryCard = allCards.stream()
-                .filter(c -> c.isPrimary() && c.getClosedOn() == null)
+        eval.allCardholders = allCardholders;
+        eval.cardholderCount = allCardholders.size();
+
+        Cardholder primaryCardholder = allCardholders.stream()
+                .filter(Cardholder::isPrimary)
                 .findFirst()
-                .orElseGet(() -> allCards.stream().filter(AccountCard::isPrimary).findFirst().orElse(null));
-        eval.primaryCardId = primaryCard != null ? primaryCard.getId() : null;
-        // "Exactly one card" means one card total — with a closed card in the picture an
-        // unattributed transaction could have been made on either, so it stays unattributed.
-        eval.soleCardId = allCards.size() == 1 ? allCards.get(0).getId() : null;
-        for (AccountCard c : allCards) {
-            String lbl = c.getLabel() != null && !c.getLabel().isBlank()
-                    ? c.getLabel()
-                    : (c.getHolderName() != null && !c.getHolderName().isBlank()
-                            ? c.getHolderName()
-                            : ("•••• " + c.getLast4()));
-            eval.cardLabels.put(c.getId(), lbl);
+                .orElse(null);
+        eval.primaryCardholderId = primaryCardholder != null ? primaryCardholder.getId() : null;
+        eval.soleCardholderId = allCardholders.size() == 1 ? allCardholders.get(0).getId() : null;
+
+        for (Cardholder ch : allCardholders) {
+            eval.cardholderLabels.put(ch.getId(), ch.getDisplayName());
         }
         rules = usableRules;
         eval.statements = statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId).stream()
-                .filter(s -> s.getCard() == null || s.getCard().isPrimary())
                 .filter(s -> s.getVerdict() != StatementVerdict.REJECTED)
                 .filter(s -> s.getPeriodStart() != null && s.getPeriodEnd() != null)
                 .toList();
 
-        // Expand to full cap windows so headroom at the range edges is correct.
-        // Expansion probes must not set the report's fallback flag (markFallback=false):
-        // only windows actually used by reward lines count as real fallbacks.
         LocalDate expandedFrom = from;
         LocalDate expandedTo = to;
         List<CapWindow> windowTypes = new ArrayList<>();
@@ -322,7 +302,6 @@ public class RewardCalculationService {
             if (rule.hasPeriodCap()) {
                 windowTypes.add(effectiveCapWindow(rule));
             }
-            // Tiered rules need full-window running totals just like caps do.
             if (rule.isTiered() && rule.getTierWindow() != null) {
                 windowTypes.add(rule.getTierWindow());
             }
@@ -333,8 +312,6 @@ public class RewardCalculationService {
                 windowTypes.add(milestoneWindow.asCapWindow());
             }
         }
-        // A one-time milestone's single window IS its active range — cover it fully so
-        // progress reflects the whole offer period, not just the display slice.
         for (MilestoneWithEligibility entry : milestones) {
             RewardMilestone milestone = entry.milestone();
             if (milestone.getWindowType() == MilestoneWindow.ONE_TIME) {
@@ -356,9 +333,6 @@ public class RewardCalculationService {
             if (last.end().isAfter(expandedTo)) {
                 expandedTo = last.end();
             }
-            // A statement gap mid-range falls back to a calendar-month window that can
-            // start before the statement-based expansion — cover those months too, so
-            // cap/milestone consumption in the uncovered days is never missed.
             if (windowType == CapWindow.STATEMENT_CYCLE) {
                 Window monthFirst = windowContaining(CapWindow.CALENDAR_MONTH, from, eval, false);
                 Window monthLast = windowContaining(CapWindow.CALENDAR_MONTH, to, eval, false);
@@ -380,8 +354,6 @@ public class RewardCalculationService {
         Map<UUID, BigDecimal> refundTotals = new HashMap<>();
         Set<UUID> neverEarnIds = new HashSet<>();
         if (!ids.isEmpty()) {
-            // Two-step load: refund members can sit outside the evaluated window, and the
-            // fetch-join variant would silently drop them from the members collection.
             List<UUID> linkIds = transactionLinkRepository.findLinkIdsByMemberTransactionIds(ids);
             List<TransactionLink> links = linkIds.isEmpty()
                     ? List.of()
@@ -446,14 +418,17 @@ public class RewardCalculationService {
             eval.lines.add(zeroLine(txn, effectiveDate, BigDecimal.ZERO, RewardLineReason.FULLY_REFUNDED, eval));
             return;
         }
-        Set<UUID> categoryIds = txn.getCategories().stream()
+        Set<UUID> categoryIds = txn.getCategories() != null ? txn.getCategories().stream()
                 .map(tc -> tc.getCategory().getId())
-                .collect(java.util.stream.Collectors.toSet());
-        UUID matchedCardId = matchCardId(txn.getCard() != null ? txn.getCard().getId() : null, eval);
+                .collect(Collectors.toSet()) : Set.of();
+        UUID txnCardholderId = (txn.getCard() != null && txn.getCard().getCardholder() != null)
+                ? txn.getCard().getCardholder().getId()
+                : null;
+        UUID matchedCardholderId = matchCardholderId(txnCardholderId, eval);
         eval.eligible.add(new EligibleTxn(txn.getId(), effectiveDate, basis,
                 txn.getInstantDiscount(), txn.getConvenienceFee(),
                 txn.getAmount(), txn.getMcc(), categoryIds,
-                matchedCardId));
+                matchedCardholderId));
 
         TxnFacts facts = TxnFacts.from(txn, basis, effectiveDate);
         eval.currentTxnAttributionIncomplete = false;
@@ -488,26 +463,26 @@ public class RewardCalculationService {
         RewardRule lastCapExhausted = null;
         for (RewardRule rule : exclusives) {
             BigDecimal ruleBasis = basisFor(rule, facts);
-            BigDecimal raw = accrue(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardId());
+            BigDecimal raw = accrue(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardholderId());
             if (raw.signum() == 0) {
                 results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, zeroAccrualReason(rule, ruleBasis), ruleBasis));
-                recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardId());
+                recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardholderId());
                 emitted = true;
                 break;
             }
-            BigDecimal award = clamp(rule, raw, facts.effectiveDate(), eval, facts.cardId());
+            BigDecimal award = clamp(rule, raw, facts.effectiveDate(), eval, facts.cardholderId());
             if (award.signum() > 0) {
-                consumeCap(rule, award, facts.effectiveDate(), eval, facts.cardId());
+                consumeCap(rule, award, facts.effectiveDate(), eval, facts.cardholderId());
                 RewardLineReason reason = award.compareTo(raw) < 0 ? RewardLineReason.PARTIAL_CAP : RewardLineReason.MATCHED;
                 results.add(new TxnRuleResolution(rule, award, reason, ruleBasis));
-                recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardId());
+                recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardholderId());
                 emitted = true;
                 break;
             }
             lastCapExhausted = rule;
             if (rule.getOnCapExhausted() == CapExhaustedBehavior.STOP) {
                 results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED, ruleBasis));
-                recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardId());
+                recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardholderId());
                 emitted = true;
                 break;
             }
@@ -517,9 +492,8 @@ public class RewardCalculationService {
             if (lastCapExhausted != null) {
                 BigDecimal ruleBasis = basisFor(lastCapExhausted, facts);
                 results.add(new TxnRuleResolution(lastCapExhausted, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED, ruleBasis));
-                recordTierProgress(lastCapExhausted, ruleBasis, facts.effectiveDate(), eval, facts.cardId());
+                recordTierProgress(lastCapExhausted, ruleBasis, facts.effectiveDate(), eval, facts.cardholderId());
             } else if (exclusives.isEmpty()) {
-                // Only additive rules matched; note the absence of a base rule explicitly.
                 results.add(new TxnRuleResolution(null, BigDecimal.ZERO, RewardLineReason.NO_RULE, facts.basis()));
             }
         }
@@ -530,89 +504,48 @@ public class RewardCalculationService {
                 continue;
             }
             BigDecimal ruleBasis = basisFor(rule, facts);
-            BigDecimal raw = accrue(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardId());
-            // Matched spend always advances the tier threshold, even when it earns 0.
-            recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardId());
+            BigDecimal raw = accrue(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardholderId());
             if (raw.signum() == 0) {
+                results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, zeroAccrualReason(rule, ruleBasis), ruleBasis));
+                recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardholderId());
                 continue;
             }
-            BigDecimal award = clamp(rule, raw, facts.effectiveDate(), eval, facts.cardId());
+            BigDecimal award = clamp(rule, raw, facts.effectiveDate(), eval, facts.cardholderId());
             if (award.signum() > 0) {
-                consumeCap(rule, award, facts.effectiveDate(), eval, facts.cardId());
+                consumeCap(rule, award, facts.effectiveDate(), eval, facts.cardholderId());
                 RewardLineReason reason = award.compareTo(raw) < 0 ? RewardLineReason.PARTIAL_CAP : RewardLineReason.MATCHED;
                 results.add(new TxnRuleResolution(rule, award, reason, ruleBasis));
             } else {
                 results.add(new TxnRuleResolution(rule, BigDecimal.ZERO, RewardLineReason.CAP_EXHAUSTED, ruleBasis));
             }
+            recordTierProgress(rule, ruleBasis, facts.effectiveDate(), eval, facts.cardholderId());
         }
 
         return results;
     }
 
-    /**
-     * Effective card for rule matching and milestone aggregation (Axis 1 & Axis 3).
-     * <p>
-     * On a single-card account, unattributed transactions cleanly attribute to the sole card.
-     * On a multi-card account, unattributed transactions stay null so they never match card-scoped rules.
-     * <p>
-     * "Ambiguity never creates money. It may consume headroom."
-     */
-    UUID matchCardId(UUID txnCardId, Evaluation eval) {
-        return txnCardId != null ? txnCardId : eval.soleCardId;
-    }
-
-    /**
-     * Effective card for cap and tier headroom consumption (Axis 2).
-     * <p>
-     * Under PER_CARD counter scope, unattributed transactions fold into the primary card counter
-     * (or sole card counter on single-card accounts) so they do not invent headroom.
-     * <p>
-     * "Ambiguity never creates money. It may consume headroom."
-     */
-    UUID counterCardId(UUID txnCardId, Evaluation eval) {
-        if (txnCardId != null) {
-            return txnCardId;
+    BigDecimal basisFor(RewardRule rule, TxnFacts facts) {
+        if (rule.getFeeTreatment() == FeeTreatment.EXCLUDE_FEE && facts.convenienceFee() != null) {
+            return facts.basis().subtract(facts.convenienceFee()).max(BigDecimal.ZERO);
         }
-        return eval.soleCardId != null ? eval.soleCardId : eval.primaryCardId;
+        return facts.basis();
     }
 
-    /**
-     * Per-rule earning basis: the transaction's netted basis, less the labeled surcharge
-     * when this rule excludes fees. Floored at zero — a fee larger than what survives a
-     * partial refund nets to nothing rather than going negative, and tier progress is
-     * recorded on this same reduced number so a non-earning fee never advances a threshold.
-     */
-    private BigDecimal basisFor(RewardRule rule, TxnFacts facts) {
-        if (rule.getFeeTreatment() != FeeTreatment.EXCLUDE_FEE || facts.convenienceFee() == null) {
-            return facts.basis();
-        }
-        return facts.basis().subtract(facts.convenienceFee()).max(BigDecimal.ZERO);
-    }
-
-    /**
-     * Tier semantics: the running total is the basis of transactions this rule was
-     * RESOLVED for (exclusive winner or matching additive) within its tier window —
-     * rule predicates define what counts toward the threshold.
-     */
-    private void recordTierProgress(RewardRule rule, BigDecimal basis, LocalDate effectiveDate, Evaluation eval, UUID txnCardId) {
-        if (!rule.isTiered() || rule.getTierWindow() == null) {
+    private void recordTierProgress(RewardRule rule, BigDecimal basis, LocalDate effectiveDate, Evaluation eval, UUID txnCardholderId) {
+        if (!rule.isTiered() || rule.getTierWindow() == null || basis.signum() <= 0) {
             return;
         }
-        eval.tierProgress.merge(tierKey(rule, effectiveDate, eval, txnCardId), basis, BigDecimal::add);
+        eval.tierProgress.merge(tierKey(rule, effectiveDate, eval, txnCardholderId), basis, BigDecimal::add);
     }
 
-    /**
-     * Same (owner, cardId, windowStart) shape as capKey — reads and writes must share it.
-     * Note: tierKey keeps using the rule's own counterScope — tiers have no bucket, and conflating them would be a bug.
-     */
-    private CounterKey tierKey(RewardRule rule, LocalDate effectiveDate, Evaluation eval, UUID txnCardId) {
-        Window window = windowContaining(rule.getTierWindow(), effectiveDate, eval, rule.getCard(), true);
-        if (rule.getCounterScope() == CounterScope.PER_CARD) {
-            UUID effectiveCardId = counterCardId(txnCardId, eval);
-            if (txnCardId == null && eval.cardCount >= 2) {
+    private CounterKey tierKey(RewardRule rule, LocalDate effectiveDate, Evaluation eval, UUID txnCardholderId) {
+        Window window = windowContaining(rule.getTierWindow(), effectiveDate, eval, true);
+        if (rule.getCounterScope() == CounterScope.PER_CARDHOLDER) {
+            UUID effectiveCardholderId = counterCardholderId(txnCardholderId, eval);
+            if (txnCardholderId == null && eval.cardholderCount >= 2) {
                 eval.currentTxnAttributionIncomplete = true;
             }
-            return new CounterKey(rule.getId().toString(), effectiveCardId, window.start());
+            return new CounterKey(rule.getId().toString(), effectiveCardholderId, window.start());
         }
         return new CounterKey(rule.getId().toString(), null, window.start());
     }
@@ -620,21 +553,20 @@ public class RewardCalculationService {
     // ---------- predicates ----------
 
     private boolean matches(RewardRule rule, TxnFacts facts, Map<UUID, Pattern> regexCache, Evaluation eval) {
-        // Axis 1: Rule-level card scoping
-        if (rule.getCard() != null) {
-            UUID effectiveCardId = matchCardId(facts.cardId(), eval);
-            if (effectiveCardId == null) {
-                if (eval.cardCount >= 2) {
+        // Axis 1: Rule-level cardholder scoping
+        if (rule.getCardholder() != null) {
+            UUID effectiveCardholderId = matchCardholderId(facts.cardholderId(), eval);
+            if (effectiveCardholderId == null) {
+                if (eval.cardholderCount >= 2) {
                     eval.currentTxnAttributionIncomplete = true;
                 }
                 return false;
             }
-            if (!rule.getCard().getId().equals(effectiveCardId)) {
+            if (!rule.getCardholder().getId().equals(effectiveCardholderId)) {
                 return false;
             }
         }
 
-        // (categories OR mccs) — union, because MCC is often missing.
         boolean hasCategoryPredicate = !rule.getCategories().isEmpty();
         boolean hasMccPredicate = !rule.getMccs().isEmpty();
         if (hasCategoryPredicate || hasMccPredicate) {
@@ -656,12 +588,10 @@ public class RewardCalculationService {
             return false;
         }
 
-        // Day-of-week is a purchase-day concept — always the transaction date, not settlement.
         if (!rule.getDaysOfWeek().isEmpty() && !rule.getDaysOfWeek().contains(facts.date().getDayOfWeek())) {
             return false;
         }
 
-        // Amount band applies to the gross charged amount (bank behavior), not the netted basis.
         if (rule.getMinAmount() != null && facts.amount().compareTo(rule.getMinAmount()) < 0) {
             return false;
         }
@@ -714,33 +644,26 @@ public class RewardCalculationService {
 
     // ---------- accrual + caps ----------
 
-    private BigDecimal accrue(RewardRule rule, BigDecimal basis, LocalDate effectiveDate, Evaluation eval, UUID txnCardId) {
+    private BigDecimal accrue(RewardRule rule, BigDecimal basis, LocalDate effectiveDate, Evaluation eval, UUID txnCardholderId) {
         if (rule.isTiered()) {
-            return accrueTiered(rule, basis, effectiveDate, eval, txnCardId);
+            return accrueTiered(rule, basis, effectiveDate, eval, txnCardholderId);
         }
         if (rule.getAccrualType() == AccrualType.PERCENT) {
             BigDecimal raw = basis.multiply(rule.getPercentRate())
                     .divide(BigDecimal.valueOf(100), 6, RoundingMode.HALF_UP);
             return roundCashback(rule, raw);
         }
-        // SLAB: floor(basis / slabSize) whole slabs, then points at the configured precision.
         BigDecimal slabs = basis.divide(rule.getSlabSize(), 0, RoundingMode.FLOOR);
         BigDecimal points = slabs.multiply(rule.getPointsPerSlab());
         return floorPoints(rule, points);
     }
 
-    /**
-     * Marginal (tranche-by-tranche) tiered accrual over the rule's running matched
-     * basis in the tier window. A transaction crossing a breakpoint is split: each
-     * tranche earns at its own tier's rate (SLAB tranches floor independently —
-     * the documented crossing convention).
-     */
-    private BigDecimal accrueTiered(RewardRule rule, BigDecimal basis, LocalDate effectiveDate, Evaluation eval, UUID txnCardId) {
+    private BigDecimal accrueTiered(RewardRule rule, BigDecimal basis, LocalDate effectiveDate, Evaluation eval, UUID txnCardholderId) {
         List<RewardTier> tiers = eval.tierSchedules.getOrDefault(rule.getId(), List.of());
         if (tiers.isEmpty() || rule.getTierWindow() == null) {
-            return BigDecimal.ZERO; // unreachable for evaluated rules (broken configs are skipped), belt only
+            return BigDecimal.ZERO;
         }
-        BigDecimal position = eval.tierProgress.getOrDefault(tierKey(rule, effectiveDate, eval, txnCardId), BigDecimal.ZERO);
+        BigDecimal position = eval.tierProgress.getOrDefault(tierKey(rule, effectiveDate, eval, txnCardholderId), BigDecimal.ZERO);
         BigDecimal remaining = basis;
         BigDecimal total = BigDecimal.ZERO;
         for (RewardTier tier : tiers) {
@@ -770,7 +693,6 @@ public class RewardCalculationService {
         return rule.getAccrualType() == AccrualType.PERCENT ? roundCashback(rule, total) : floorPoints(rule, total);
     }
 
-    /** Unit-agnostic: FLOOR/NEAREST round to a whole rupee for CASH rules, a whole point for POINTS rules. */
     private BigDecimal roundCashback(RewardRule rule, BigDecimal raw) {
         CashbackRounding rounding = rule.getRounding() != null ? rule.getRounding() : CashbackRounding.NONE;
         return switch (rounding) {
@@ -780,24 +702,18 @@ public class RewardCalculationService {
         };
     }
 
-    private BigDecimal floorPoints(RewardRule rule, BigDecimal points) {
+    private BigDecimal floorPoints(RewardRule rule, BigDecimal raw) {
         int precision = rule.getPointPrecision() != null ? rule.getPointPrecision() : 0;
-        return points.setScale(precision, RoundingMode.FLOOR);
+        return raw.setScale(precision, RoundingMode.FLOOR);
     }
 
-    private boolean isZeroRate(RewardRule rule) {
-        if (rule.isTiered()) {
-            return false; // tiered zero-earn is a below-slab/rounding outcome, not an exclusion
-        }
-        if (rule.getAccrualType() == AccrualType.PERCENT) {
-            return rule.getPercentRate().signum() == 0;
-        }
-        return rule.getPointsPerSlab().signum() == 0;
+    private static boolean isZeroRate(RewardRule rule) {
+        return rule.getAccrualType() == AccrualType.PERCENT
+                ? rule.getPercentRate() == null || rule.getPercentRate().signum() == 0
+                : rule.getPointsPerSlab() == null || rule.getPointsPerSlab().signum() == 0;
     }
 
-    /** Why a matched rule accrued zero: explicit exclusion, tier level, sub-slab basis, or rounding. */
     private RewardLineReason zeroAccrualReason(RewardRule rule, BigDecimal ruleBasis) {
-        // Distinguish "the surcharge was the whole charge" from a rounding/slab zero.
         if (rule.getFeeTreatment() == FeeTreatment.EXCLUDE_FEE && ruleBasis.signum() <= 0) {
             return RewardLineReason.FEE_ONLY;
         }
@@ -812,7 +728,6 @@ public class RewardCalculationService {
                 : RewardLineReason.ROUNDED_TO_ZERO;
     }
 
-    /** Effective period-cap limit: the shared bucket's cap when set, else the rule's own. */
     BigDecimal effectiveCap(RewardRule rule) {
         return rule.getCapBucket() != null ? rule.getCapBucket().getCap() : rule.getPeriodCap();
     }
@@ -821,18 +736,17 @@ public class RewardCalculationService {
         return rule.getCapBucket() != null ? rule.getCapBucket().getWindowType() : rule.getCapWindow();
     }
 
-    /** Bucket-backed rules take the BUCKET's scope, so members can never split a shared ceiling. */
     CounterScope effectiveCounterScope(RewardRule rule) {
         return rule.getCapBucket() != null ? rule.getCapBucket().getCounterScope() : rule.getCounterScope();
     }
 
-    private BigDecimal clamp(RewardRule rule, BigDecimal raw, LocalDate effectiveDate, Evaluation eval, UUID txnCardId) {
+    private BigDecimal clamp(RewardRule rule, BigDecimal raw, LocalDate effectiveDate, Evaluation eval, UUID txnCardholderId) {
         BigDecimal award = raw;
         if (rule.getPerTxnCap() != null && award.compareTo(rule.getPerTxnCap()) > 0) {
             award = rule.getPerTxnCap();
         }
         if (rule.hasPeriodCap()) {
-            BigDecimal used = eval.capUsed.getOrDefault(capKey(rule, effectiveDate, eval, txnCardId), BigDecimal.ZERO);
+            BigDecimal used = eval.capUsed.getOrDefault(capKey(rule, effectiveDate, eval, txnCardholderId), BigDecimal.ZERO);
             BigDecimal remaining = effectiveCap(rule).subtract(used);
             if (remaining.signum() <= 0) {
                 return BigDecimal.ZERO;
@@ -844,39 +758,31 @@ public class RewardCalculationService {
         return award;
     }
 
-    private void consumeCap(RewardRule rule, BigDecimal award, LocalDate effectiveDate, Evaluation eval, UUID txnCardId) {
+    private void consumeCap(RewardRule rule, BigDecimal award, LocalDate effectiveDate, Evaluation eval, UUID txnCardholderId) {
         if (rule.hasPeriodCap()) {
-            eval.capUsed.merge(capKey(rule, effectiveDate, eval, txnCardId), award, BigDecimal::add);
+            eval.capUsed.merge(capKey(rule, effectiveDate, eval, txnCardholderId), award, BigDecimal::add);
         }
     }
 
-    /** Bucket-backed rules share the bucket's key so they drain one ceiling together. */
-    private CounterKey capKey(RewardRule rule, LocalDate effectiveDate, Evaluation eval, UUID txnCardId) {
-        Window window = windowContaining(effectiveCapWindow(rule), effectiveDate, eval, rule.getCard(), true);
-        if (effectiveCounterScope(rule) == CounterScope.PER_CARD) {
-            UUID effectiveCardId = counterCardId(txnCardId, eval);
-            if (txnCardId == null && eval.cardCount >= 2) {
+    private CounterKey capKey(RewardRule rule, LocalDate effectiveDate, Evaluation eval, UUID txnCardholderId) {
+        Window window = windowContaining(effectiveCapWindow(rule), effectiveDate, eval, true);
+        if (effectiveCounterScope(rule) == CounterScope.PER_CARDHOLDER) {
+            UUID effectiveCardholderId = counterCardholderId(txnCardholderId, eval);
+            if (txnCardholderId == null && eval.cardholderCount >= 2) {
                 eval.currentTxnAttributionIncomplete = true;
             }
-            return new CounterKey(capOwner(rule), effectiveCardId, window.start());
+            return new CounterKey(capOwner(rule), effectiveCardholderId, window.start());
         }
         return new CounterKey(capOwner(rule), null, window.start());
     }
 
-    /** Cap-counter owner: the shared bucket if any, else the rule itself. */
     static String capOwner(RewardRule rule) {
         return rule.getCapBucket() != null ? "bucket|" + rule.getCapBucket().getId() : rule.getId().toString();
     }
 
     // ---------- windows ----------
 
-    /** markFallback: only real per-transaction cap lookups may raise the report's fallback flag. */
     Window windowContaining(CapWindow capWindow, LocalDate date, Evaluation eval, boolean markFallback) {
-        return windowContaining(capWindow, date, eval, null, markFallback);
-    }
-
-    /** Overload accepting an optional rule-scoped card to anchor ANNIVERSARY_YEAR correctly. */
-    Window windowContaining(CapWindow capWindow, LocalDate date, Evaluation eval, AccountCard ruleCard, boolean markFallback) {
         return switch (capWindow) {
             case DAY -> new Window(date, date, false);
             case CALENDAR_MONTH -> new Window(date.withDayOfMonth(1), date.withDayOfMonth(date.lengthOfMonth()), false);
@@ -889,9 +795,7 @@ public class RewardCalculationService {
             }
             case CALENDAR_YEAR -> new Window(LocalDate.of(date.getYear(), 1, 1), LocalDate.of(date.getYear(), 12, 31), false);
             case ANNIVERSARY_YEAR -> {
-                LocalDate anniversary = (ruleCard != null && ruleCard.getIssuedOn() != null)
-                        ? ruleCard.getIssuedOn()
-                        : eval.anniversaryDate;
+                LocalDate anniversary = eval.anniversaryDate;
                 if (anniversary == null) {
                     if (markFallback) {
                         eval.anniversaryFallback = true;
@@ -911,8 +815,6 @@ public class RewardCalculationService {
                         yield new Window(statement.getPeriodStart(), statement.getPeriodEnd(), false);
                     }
                 }
-                // No statement covers this date — calendar-month fallback, flagged on the report
-                // only when an actual reward line lands in this window.
                 if (markFallback) {
                     eval.cycleFallback = true;
                 }
@@ -921,7 +823,6 @@ public class RewardCalculationService {
         };
     }
 
-    /** The anniversary's month/day placed in the given year, clamping Feb 29 to the month's length. */
     private static LocalDate anniversaryOnYear(LocalDate anniversary, int year) {
         int day = Math.min(anniversary.getDayOfMonth(),
                 java.time.YearMonth.of(year, anniversary.getMonth()).lengthOfMonth());
@@ -935,28 +836,35 @@ public class RewardCalculationService {
     }
 
     private RewardLineResponse zeroLine(Transaction txn, LocalDate effectiveDate, BigDecimal basis, RewardLineReason reason, Evaluation eval) {
-        UUID effectiveCardId = matchCardId(txn.getCard() != null ? txn.getCard().getId() : null, eval);
-        String label = effectiveCardId != null ? eval.cardLabels.getOrDefault(effectiveCardId, "Card") : (txn.getCard() != null ? txn.getCard().getLabel() : null);
+        UUID txnCardholderId = (txn.getCard() != null && txn.getCard().getCardholder() != null)
+                ? txn.getCard().getCardholder().getId()
+                : null;
+        UUID effectiveCardholderId = matchCardholderId(txnCardholderId, eval);
+        String label = effectiveCardholderId != null ? eval.cardholderLabels.getOrDefault(effectiveCardholderId, "Cardholder")
+                : (txn.getCard() != null && txn.getCard().getCardholder() != null ? txn.getCard().getCardholder().getDisplayName() : null);
         return new RewardLineResponse(txn.getId(), txn.getDate(), effectiveDate,
                 txn.getDescription(), txn.getSourcedDescription(), txn.getMcc(), txn.getChannel(),
                 txn.getAmount(), basis,
                 null, null, null, null,
-                BigDecimal.ZERO, "RUPEES", reason, effectiveCardId, label);
+                BigDecimal.ZERO, "RUPEES", reason, effectiveCardholderId, label);
     }
 
     private RewardLineResponse line(Transaction txn, LocalDate effectiveDate, BigDecimal basis,
                                     RewardRule rule, BigDecimal earned, RewardLineReason reason, Evaluation eval) {
         String unit = unitOf(rule);
-        UUID effectiveCardId = matchCardId(txn.getCard() != null ? txn.getCard().getId() : null, eval);
-        String label = effectiveCardId != null ? eval.cardLabels.getOrDefault(effectiveCardId, "Card") : (txn.getCard() != null ? txn.getCard().getLabel() : null);
+        UUID txnCardholderId = (txn.getCard() != null && txn.getCard().getCardholder() != null)
+                ? txn.getCard().getCardholder().getId()
+                : null;
+        UUID effectiveCardholderId = matchCardholderId(txnCardholderId, eval);
+        String label = effectiveCardholderId != null ? eval.cardholderLabels.getOrDefault(effectiveCardholderId, "Cardholder")
+                : (txn.getCard() != null && txn.getCard().getCardholder() != null ? txn.getCard().getCardholder().getDisplayName() : null);
         return new RewardLineResponse(txn.getId(), txn.getDate(), effectiveDate,
                 txn.getDescription(), txn.getSourcedDescription(), txn.getMcc(), txn.getChannel(),
                 txn.getAmount(), basis,
                 rule.getId(), rule.getName(), rule.getStacking(), rule.getAccrualType(),
-                earned, unit, reason, effectiveCardId, label);
+                earned, unit, reason, effectiveCardholderId, label);
     }
 
-    /** The line/breakdown unit is the rule's reward currency, independent of accrual math. */
     static String unitOf(RewardRule rule) {
         return rule.getRewardType() == RewardType.POINTS ? UNIT_POINTS : UNIT_RUPEES;
     }
@@ -972,9 +880,9 @@ public class RewardCalculationService {
         BigDecimal basisSpend = displayEligible.stream().map(EligibleTxn::basis)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         BigDecimal discounts = displayEligible.stream().map(EligibleTxn::instantDiscount)
-                .filter(java.util.Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add);
+                .filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add);
         BigDecimal fees = displayEligible.stream().map(EligibleTxn::convenienceFee)
-                .filter(java.util.Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add);
+                .filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add);
 
         BigDecimal cashbackInr = BigDecimal.ZERO;
         BigDecimal points = BigDecimal.ZERO;
@@ -1004,8 +912,6 @@ public class RewardCalculationService {
             }
         }
 
-        // Points are not valued in rupees (no conversion tracking yet) — the ₹ totals
-        // and percentage rates cover the cash side only.
         BigDecimal grossValueInr = cashbackInr.add(milestonesInr);
         BigDecimal effectiveValueInr = grossValueInr.add(discounts).subtract(fees);
 
@@ -1040,21 +946,21 @@ public class RewardCalculationService {
 
             RewardReportResponse.CapStatus capStatus = null;
             if (rule.hasPeriodCap()) {
-                Window window = windowContaining(effectiveCapWindow(rule), to, eval, rule.getCard(), false);
+                Window window = windowContaining(effectiveCapWindow(rule), to, eval, false);
                 CounterScope scope = effectiveCounterScope(rule);
                 BigDecimal used = null;
                 List<RewardReportResponse.PerCardCapUsage> perCard = new ArrayList<>();
-                if (scope == CounterScope.PER_CARD) {
+                if (scope == CounterScope.PER_CARDHOLDER) {
                     List<Map.Entry<CounterKey, BigDecimal>> entries = eval.capUsed.entrySet().stream()
                             .filter(e -> Objects.equals(e.getKey().owner(), capOwner(rule))
                                     && Objects.equals(e.getKey().windowStart(), window.start()))
                             .toList();
                     for (Map.Entry<CounterKey, BigDecimal> entry : entries) {
-                        UUID cid = entry.getKey().cardId();
-                        String label = cid != null ? eval.cardLabels.getOrDefault(cid, "Card") : "Unattributed";
+                        UUID cid = entry.getKey().cardholderId();
+                        String label = cid != null ? eval.cardholderLabels.getOrDefault(cid, "Cardholder") : "Unattributed";
                         perCard.add(new RewardReportResponse.PerCardCapUsage(cid, label, entry.getValue()));
                     }
-                    used = null; // null forces client to render perCard breakdown
+                    used = null;
                 } else {
                     used = eval.capUsed.getOrDefault(new CounterKey(capOwner(rule), null, window.start()), BigDecimal.ZERO);
                 }
@@ -1074,23 +980,20 @@ public class RewardCalculationService {
         }
 
         List<RewardReportResponse.CardBreakdown> byCard = new ArrayList<>();
-        if (eval.cardCount >= 2) {
+        if (eval.cardholderCount >= 2) {
             UUID NULL_KEY = new UUID(0L, 0L);
             Map<UUID, List<EligibleTxn>> txnsByCard = displayEligible.stream()
-                    .collect(Collectors.groupingBy(e -> e.cardId() != null ? e.cardId() : NULL_KEY));
+                    .collect(Collectors.groupingBy(e -> e.cardholderId() != null ? e.cardholderId() : NULL_KEY));
 
             Map<UUID, List<RewardLineResponse>> linesByCard = displayLines.stream()
                     .filter(l -> l.earned() != null && l.earned().signum() > 0)
                     .collect(Collectors.groupingBy(l -> l.cardId() != null ? l.cardId() : NULL_KEY));
 
-            for (AccountCard card : eval.allCards) {
-                List<EligibleTxn> cardTxns = txnsByCard.getOrDefault(card.getId(), List.of());
-                List<RewardLineResponse> cardLines = linesByCard.getOrDefault(card.getId(), List.of());
+            for (Cardholder cardholder : eval.allCardholders) {
+                List<EligibleTxn> cardTxns = txnsByCard.getOrDefault(cardholder.getId(), List.of());
+                List<RewardLineResponse> cardLines = linesByCard.getOrDefault(cardholder.getId(), List.of());
 
-                // Open cards always get a row (an idle card is worth seeing). A CLOSED card
-                // appears only when it actually has activity in the range — otherwise every
-                // historical reissue would clutter the breakdown forever.
-                if (card.getClosedOn() != null && cardTxns.isEmpty() && cardLines.isEmpty()) {
+                if (cardholder.isEffectivelyClosed() && cardTxns.isEmpty() && cardLines.isEmpty()) {
                     continue;
                 }
 
@@ -1104,9 +1007,9 @@ public class RewardCalculationService {
                         cb = cb.add(l.earned());
                     }
                 }
-                String label = eval.cardLabels.getOrDefault(card.getId(), card.getLabel() != null ? card.getLabel() : "Card");
+                String label = eval.cardholderLabels.getOrDefault(cardholder.getId(), cardholder.getDisplayName());
                 byCard.add(new RewardReportResponse.CardBreakdown(
-                        card.getId(), label, false, basis, cb, pts, cardTxns.size()));
+                        cardholder.getId(), label, false, basis, cb, pts, cardTxns.size()));
             }
 
             List<EligibleTxn> unattributedTxns = txnsByCard.getOrDefault(NULL_KEY, List.of());
@@ -1132,19 +1035,12 @@ public class RewardCalculationService {
                 eval.perCardAttributionIncompleteTxnIds.size());
     }
 
-    /**
-     * One status per milestone per window instance intersecting [from, to]. Progress is
-     * computed over the FULL window (the fetch range was expanded to cover it), so a
-     * mid-month filter still shows the true month-to-date position.
-     */
     List<RewardReportResponse.MilestoneStatus> evaluateMilestones(Evaluation eval, LocalDate from, LocalDate to) {
         List<RewardReportResponse.MilestoneStatus> statuses = new ArrayList<>();
         for (MilestoneWithEligibility entry : eval.milestones) {
             RewardMilestone milestone = entry.milestone();
             MilestoneEligibility eligibility = entry.eligibility();
             if (milestone.getWindowType() == MilestoneWindow.ONE_TIME) {
-                // The single window is the active range (both edges validated non-null;
-                // activeTo is exclusive). Progress always covers the whole offer period.
                 statuses.add(milestoneStatus(milestone, eligibility,
                         milestone.getActiveFrom(), milestone.getActiveTo().minusDays(1), eval, from, to));
                 continue;
@@ -1154,20 +1050,12 @@ public class RewardCalculationService {
             int guard = 0;
             while (!cursor.isAfter(to)) {
                 if (guard++ >= 500) {
-                    // Never truncate silently — a partial milestone sum would misreport totals.
                     throw new ValidationException(
                             "Date range too large for milestone evaluation — please narrow the range.");
                 }
-                // Real usage: a statement gap here must raise the report's fallback banner.
-                Window window = windowContaining(milestone.getWindowType().asCapWindow(), cursor, eval, milestone.getCard(), true);
-                // Statement gaps can interleave fallback months with statement windows whose
-                // starts precede the cursor; clamping LATER windows to the cursor keeps
-                // counted ranges disjoint so nothing is counted twice. The FIRST window is
-                // never clamped: a range starting mid-window must still see full-window
-                // progress (the fetch range was expanded for exactly this).
+                Window window = windowContaining(milestone.getWindowType().asCapWindow(), cursor, eval, true);
                 LocalDate countStart = !firstWindow && window.start().isBefore(cursor) ? cursor : window.start();
                 firstWindow = false;
-                // Clamp to the milestone's own active range (activeTo is exclusive).
                 if (milestone.getActiveFrom() != null && milestone.getActiveFrom().isAfter(countStart)) {
                     countStart = milestone.getActiveFrom();
                 }
@@ -1184,13 +1072,6 @@ public class RewardCalculationService {
         return statuses;
     }
 
-    /**
-     * Progress over [countStart, countEnd] plus the payout attribution. The payout
-     * lands on exactly one date — the counted range's end, or the threshold-crossing
-     * date for ON_ACHIEVEMENT milestones (eligible transactions are walked in
-     * chronological order, so the crossing date is well-defined) — and is counted
-     * into the summary only when that date is inside the display range.
-     */
     private RewardReportResponse.MilestoneStatus milestoneStatus(
             RewardMilestone milestone, MilestoneEligibility eligibility,
             LocalDate countStart, LocalDate countEnd, Evaluation eval, LocalDate from, LocalDate to) {
@@ -1200,17 +1081,15 @@ public class RewardCalculationService {
             if (txn.effectiveDate().isBefore(countStart) || txn.effectiveDate().isAfter(countEnd)) {
                 continue;
             }
-            if (milestone.getCard() != null) {
-                UUID effectiveCardId = matchCardId(txn.cardId(), eval);
-                if (effectiveCardId == null) {
-                    if (eval.cardCount >= 2) {
-                        // The id is in hand here, so record it directly; a milestone is
-                        // re-evaluated per window instance and must not count twice.
+            if (milestone.getCardholder() != null) {
+                UUID effectiveCardholderId = matchCardholderId(txn.cardholderId(), eval);
+                if (effectiveCardholderId == null) {
+                    if (eval.cardholderCount >= 2) {
                         eval.perCardAttributionIncompleteTxnIds.add(txn.id());
                     }
                     continue;
                 }
-                if (!milestone.getCard().getId().equals(effectiveCardId)) {
+                if (!milestone.getCardholder().getId().equals(effectiveCardholderId)) {
                     continue;
                 }
             }
@@ -1252,7 +1131,6 @@ public class RewardCalculationService {
         return milestoneEligible(eligibility, txn.mcc(), txn.categoryIds());
     }
 
-    /** Single source of truth for eligibility — real transactions and simulated spends share it. */
     private boolean milestoneEligible(MilestoneEligibility eligibility, String mcc, Set<UUID> categoryIds) {
         if (!eligibility.excludeMccs().isEmpty() && mcc != null
                 && eligibility.excludeMccs().contains(mcc)) {
@@ -1271,6 +1149,29 @@ public class RewardCalculationService {
             return categoryHit || mccHit;
         }
         return true;
+    }
+
+    UUID matchCardholderId(UUID txnCardholderId, Evaluation eval) {
+        if (txnCardholderId != null) {
+            return txnCardholderId;
+        }
+        if (eval.soleCardholderId != null) {
+            return eval.soleCardholderId;
+        }
+        return null;
+    }
+
+    UUID counterCardholderId(UUID txnCardholderId, Evaluation eval) {
+        if (txnCardholderId != null) {
+            return txnCardholderId;
+        }
+        if (eval.primaryCardholderId != null) {
+            return eval.primaryCardholderId;
+        }
+        if (eval.soleCardholderId != null) {
+            return eval.soleCardholderId;
+        }
+        return null;
     }
 
     private static BigDecimal pct(BigDecimal value, BigDecimal basis) {

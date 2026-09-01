@@ -17,7 +17,7 @@ import java.util.UUID;
 public record RewardMilestoneResponse(
         UUID id,
         UUID accountId,
-        UUID cardId,
+        UUID cardholderId,
         String name,
         MilestoneWindow windowType,
         MilestoneBasis basis,
@@ -38,11 +38,11 @@ public record RewardMilestoneResponse(
 
     public static RewardMilestoneResponse from(RewardMilestone milestone, MilestoneEligibility eligibility) {
         MilestoneEligibility e = eligibility != null ? eligibility : MilestoneEligibility.EMPTY;
-        UUID cardId = milestone.getCard() != null ? milestone.getCard().getId() : null;
+        UUID cardholderId = milestone.getCardholder() != null ? milestone.getCardholder().getId() : null;
         return new RewardMilestoneResponse(
                 milestone.getId(),
                 milestone.getAccount().getId(),
-                cardId,
+                cardholderId,
                 milestone.getName(),
                 milestone.getWindowType(),
                 milestone.getBasis(),

@@ -2,8 +2,8 @@ package com.financeos.gmail.ingest;
 
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.account.card.AccountCard;
-import com.financeos.domain.account.card.AccountCardRepository;
+import com.financeos.domain.account.card.Card;
+import com.financeos.domain.account.card.CardRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,12 +14,12 @@ import java.util.Optional;
 @Component
 public class AccountResolver {
 
-    public record ResolvedCard(Account account, AccountCard card) {}
+    public record ResolvedCard(Account account, Card card) {}
 
     private final AccountRepository accountRepository;
-    private final AccountCardRepository cardRepository;
+    private final CardRepository cardRepository;
 
-    public AccountResolver(AccountRepository accountRepository, AccountCardRepository cardRepository) {
+    public AccountResolver(AccountRepository accountRepository, CardRepository cardRepository) {
         this.accountRepository = accountRepository;
         this.cardRepository = cardRepository;
     }
@@ -66,18 +66,20 @@ public class AccountResolver {
         }
 
         List<Account> allAccounts = accountRepository.findAll();
-        List<AccountCard> allCards = cardRepository.findAll();
+        List<Card> allCards = cardRepository.findAll();
 
-        // Pass 1: Exact equality on last 4 digits vs every open account_cards.last4 and every account_bank_details.last4
+        // Pass 1: Exact equality on last 4 digits vs every open card and every account_bank_details.last4
         List<ResolvedCard> pass1Matches = new ArrayList<>();
         for (Account acc : allAccounts) {
             if (acc.getBankDetails() != null && isExact(accountLast4, acc.getBankDetails().getLast4())) {
                 pass1Matches.add(new ResolvedCard(acc, null));
             }
         }
-        for (AccountCard card : allCards) {
-            if (card.getClosedOn() == null && isExact(accountLast4, card.getLast4())) {
-                pass1Matches.add(new ResolvedCard(card.getAccount(), card));
+        for (Card card : allCards) {
+            if (card.isOpen() && (card.getCardholder() == null || !card.getCardholder().isEffectivelyClosed())) {
+                if (isExact(accountLast4, card.getLast4())) {
+                    pass1Matches.add(new ResolvedCard(card.getAccount(), card));
+                }
             }
         }
         if (pass1Matches.size() == 1) {
@@ -87,16 +89,18 @@ public class AccountResolver {
             return Optional.empty(); // Ambiguity -> UNRESOLVED_ACCOUNT
         }
 
-        // Pass 2: Existing isMatch fuzzy logic over open cards and bank accounts
+        // Pass 2: Fuzzy isMatch over open cards and bank accounts
         List<ResolvedCard> pass2Matches = new ArrayList<>();
         for (Account acc : allAccounts) {
             if (acc.getBankDetails() != null && isMatch(accountLast4, acc.getBankDetails().getLast4())) {
                 pass2Matches.add(new ResolvedCard(acc, null));
             }
         }
-        for (AccountCard card : allCards) {
-            if (card.getClosedOn() == null && isMatch(accountLast4, card.getLast4())) {
-                pass2Matches.add(new ResolvedCard(card.getAccount(), card));
+        for (Card card : allCards) {
+            if (card.isOpen() && (card.getCardholder() == null || !card.getCardholder().isEffectivelyClosed())) {
+                if (isMatch(accountLast4, card.getLast4())) {
+                    pass2Matches.add(new ResolvedCard(card.getAccount(), card));
+                }
             }
         }
         if (pass2Matches.size() == 1) {
@@ -106,11 +110,13 @@ public class AccountResolver {
             return Optional.empty(); // Ambiguity -> UNRESOLVED_ACCOUNT
         }
 
-        // Pass 3: Exact match against closed cards
+        // Pass 3: Exact match against closed cards or cards of closed cardholders
         List<ResolvedCard> pass3Matches = new ArrayList<>();
-        for (AccountCard card : allCards) {
-            if (card.getClosedOn() != null && isExact(accountLast4, card.getLast4())) {
-                pass3Matches.add(new ResolvedCard(card.getAccount(), card));
+        for (Card card : allCards) {
+            if (card.isClosed() || (card.getCardholder() != null && card.getCardholder().isEffectivelyClosed())) {
+                if (isExact(accountLast4, card.getLast4())) {
+                    pass3Matches.add(new ResolvedCard(card.getAccount(), card));
+                }
             }
         }
         if (pass3Matches.size() == 1) {

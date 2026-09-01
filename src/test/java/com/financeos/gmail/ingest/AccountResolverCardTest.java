@@ -5,11 +5,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.financeos.domain.account.Account;
-import com.financeos.domain.account.AccountBankDetails;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
-import com.financeos.domain.account.card.AccountCard;
-import com.financeos.domain.account.card.AccountCardRepository;
+import com.financeos.domain.account.card.Card;
+import com.financeos.domain.account.card.CardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,13 +20,13 @@ import java.util.UUID;
 class AccountResolverCardTest {
 
     private AccountRepository accountRepository;
-    private AccountCardRepository cardRepository;
+    private CardRepository cardRepository;
     private AccountResolver resolver;
 
     @BeforeEach
     void setUp() {
         accountRepository = mock(AccountRepository.class);
-        cardRepository = mock(AccountCardRepository.class);
+        cardRepository = mock(CardRepository.class);
         resolver = new AccountResolver(accountRepository, cardRepository);
     }
 
@@ -35,7 +34,7 @@ class AccountResolverCardTest {
     void pass1_exactMatch_resolvesAccountAndCard() {
         Account account = new Account("Infinia", AccountType.credit_card);
         account.setId(UUID.randomUUID());
-        AccountCard addonCard = new AccountCard();
+        Card addonCard = new Card();
         addonCard.setId(UUID.randomUUID());
         addonCard.setAccount(account);
         addonCard.setLast4("5678");
@@ -54,14 +53,14 @@ class AccountResolverCardTest {
     void pass1_ambiguousAcrossMultipleAccounts_returnsEmpty() {
         Account acc1 = new Account("Infinia", AccountType.credit_card);
         acc1.setId(UUID.randomUUID());
-        AccountCard card1 = new AccountCard();
+        Card card1 = new Card();
         card1.setId(UUID.randomUUID());
         card1.setAccount(acc1);
         card1.setLast4("1111");
 
         Account acc2 = new Account("Regalia", AccountType.credit_card);
         acc2.setId(UUID.randomUUID());
-        AccountCard card2 = new AccountCard();
+        Card card2 = new Card();
         card2.setId(UUID.randomUUID());
         card2.setAccount(acc2);
         card2.setLast4("1111");
@@ -78,7 +77,7 @@ class AccountResolverCardTest {
     void pass2_fallbackToTrailingDigits() {
         Account account = new Account("Infinia", AccountType.credit_card);
         account.setId(UUID.randomUUID());
-        AccountCard card = new AccountCard();
+        Card card = new Card();
         card.setId(UUID.randomUUID());
         card.setAccount(account);
         card.setLast4("3456");
@@ -97,7 +96,7 @@ class AccountResolverCardTest {
     void pass3_closedCardMatchesWhenNoOpenMatches() {
         Account account = new Account("Infinia", AccountType.credit_card);
         account.setId(UUID.randomUUID());
-        AccountCard closedCard = new AccountCard();
+        Card closedCard = new Card();
         closedCard.setId(UUID.randomUUID());
         closedCard.setAccount(account);
         closedCard.setLast4("9999");
