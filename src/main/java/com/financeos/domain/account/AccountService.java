@@ -349,8 +349,6 @@ public class AccountService {
         if (account.getCreditCardDetails() != null) {
             AccountCreditCardDetails details = account.getCreditCardDetails();
             details.setCreditLimit(request.creditLimit());
-            details.setPaymentDueDay(request.paymentDueDay());
-            details.setGracePeriodDays(request.gracePeriodDays());
             details.setStatementPassword(request.statementPassword());
             details.setIssuer(request.issuer());
             details.setProductName(request.productName());
@@ -358,8 +356,6 @@ public class AccountService {
             AccountCreditCardDetails details = new AccountCreditCardDetails(
                     account,
                     request.creditLimit(),
-                    request.paymentDueDay(),
-                    request.gracePeriodDays(),
                     request.statementPassword(),
                     request.issuer(),
                     request.productName());

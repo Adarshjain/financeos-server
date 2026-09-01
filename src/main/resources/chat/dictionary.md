@@ -53,7 +53,7 @@ User accounts (bank accounts, credit cards, investment broker accounts).
 - `type`: Account type: `'bank_account'`, `'credit_card'`, `'broker'`, `'stock'`, `'mutual_fund'`, `'generic'`.
 - `exclude_from_net_asset`: 1 if excluded from net asset calculations, 0 otherwise.
 - `financial_position`: `'asset'` (bank/broker) or `'liability'` (credit card/loan).
-- `cc_last4`, `cc_credit_limit`, `cc_payment_due_day`, `bank_last4`: Card & bank metadata (`cc_last4` comes from the open primary card).
+- `cc_last4`, `cc_credit_limit`, `bank_last4`: Card & bank metadata (`cc_last4` comes from the open primary card).
 - `bank_opening_balance`: The bank account's opening balance when it was added (current balance = opening balance + CREDITs − DEBITs from `v_chat_transactions` since then).
 - `broker_cash_balance`: Idle cash sitting in a broker account (NOT invested holdings — use `get_portfolio_value` for those).
 

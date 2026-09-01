@@ -40,12 +40,6 @@ public class AccountCreditCardDetails {
     @Column(name = "credit_limit", nullable = false, precision = 19, scale = 4)
     private BigDecimal creditLimit;
 
-    @Column(name = "payment_due_day", nullable = false)
-    private Integer paymentDueDay;
-
-    @Column(name = "grace_period_days", nullable = false)
-    private Integer gracePeriodDays;
-
     @Column(name = "issuer", length = 100)
     private String issuer;
 
@@ -56,20 +50,16 @@ public class AccountCreditCardDetails {
     @Column(name = "statement_password")
     private String statementPassword;
 
-    public AccountCreditCardDetails(Account account, BigDecimal creditLimit,
-            Integer paymentDueDay, Integer gracePeriodDays, String statementPassword) {
+    public AccountCreditCardDetails(Account account, BigDecimal creditLimit, String statementPassword) {
         this.account = account;
         this.accountId = account.getId();
         this.creditLimit = creditLimit;
-        this.paymentDueDay = paymentDueDay;
-        this.gracePeriodDays = gracePeriodDays;
         this.statementPassword = statementPassword;
     }
 
-    public AccountCreditCardDetails(Account account, BigDecimal creditLimit,
-            Integer paymentDueDay, Integer gracePeriodDays, String statementPassword,
+    public AccountCreditCardDetails(Account account, BigDecimal creditLimit, String statementPassword,
             String issuer, String productName) {
-        this(account, creditLimit, paymentDueDay, gracePeriodDays, statementPassword);
+        this(account, creditLimit, statementPassword);
         this.issuer = issuer;
         this.productName = productName;
     }
