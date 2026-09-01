@@ -1,5 +1,6 @@
 package com.financeos.domain.account.card;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,6 +14,14 @@ import java.util.UUID;
 public interface CardRepository extends JpaRepository<Card, UUID> {
 
     List<Card> findByCardholderId(UUID cardholderId);
+
+    /**
+     * Card with its cardholder initialized — for entities handed to response mapping
+     * outside the persistence session (cardholder is LAZY on Card).
+     */
+    @EntityGraph(attributePaths = { "cardholder" })
+    @Query("SELECT c FROM Card c WHERE c.id = :id")
+    Optional<Card> findWithCardholderById(@Param("id") UUID id);
 
     List<Card> findByAccountId(UUID accountId);
 

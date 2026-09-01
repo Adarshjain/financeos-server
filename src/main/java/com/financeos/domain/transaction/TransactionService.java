@@ -158,7 +158,7 @@ public class TransactionService {
         applyRewardDetails(transaction, request.rewardDetails());
 
         if (request.cardId() != null) {
-            com.financeos.domain.account.card.Card card = cardRepository.findById(request.cardId())
+            com.financeos.domain.account.card.Card card = cardRepository.findWithCardholderById(request.cardId())
                     .orElseThrow(() -> new ResourceNotFoundException("Card", request.cardId()));
             if (!card.getAccount().getId().equals(account.getId())) {
                 throw new ValidationException("Card does not belong to the transaction's account");
@@ -285,7 +285,7 @@ public class TransactionService {
         }
 
         if (request.cardId() != null) {
-            com.financeos.domain.account.card.Card card = cardRepository.findById(request.cardId())
+            com.financeos.domain.account.card.Card card = cardRepository.findWithCardholderById(request.cardId())
                     .orElseThrow(() -> new ResourceNotFoundException("Card", request.cardId()));
             if (!card.getAccount().getId().equals(transaction.getAccount().getId())) {
                 throw new ValidationException("Card does not belong to the transaction's account");

@@ -114,7 +114,7 @@ class TransactionCardAttributionTest {
     @Test
     void createTransaction_withCardFromAnotherAccount_throwsValidationException() {
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        when(cardRepository.findById(invalidCard.getId())).thenReturn(Optional.of(invalidCard));
+        when(cardRepository.findWithCardholderById(invalidCard.getId())).thenReturn(Optional.of(invalidCard));
 
         CreateTransactionRequest req = new CreateTransactionRequest(
                 account.getId(),
@@ -146,7 +146,7 @@ class TransactionCardAttributionTest {
         txn.setType(TransactionType.DEBIT);
 
         when(transactionRepository.findById(txn.getId())).thenReturn(Optional.of(txn));
-        when(cardRepository.findById(validCard.getId())).thenReturn(Optional.of(validCard));
+        when(cardRepository.findWithCardholderById(validCard.getId())).thenReturn(Optional.of(validCard));
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(i -> i.getArgument(0));
 
         UpdateTransactionRequest req = new UpdateTransactionRequest(
