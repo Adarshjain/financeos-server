@@ -48,7 +48,7 @@ spring:
     store-type: jdbc
     jdbc:
       initialize-schema: always
-    timeout: 24h
+    timeout: 365d
 
   jackson:
     serialization:
@@ -72,7 +72,8 @@ server:
         http-only: true
         secure: ${COOKIE_SECURE:false}
         same-site: lax
-        max-age: 86400
+        # 1 year (365d) — keep in sync with setSessionCookie in financeos-client/src/lib/auth.ts
+        max-age: 31536000
         name: FINANCEOS_SESSION
 
 # Actuator: health only, no details — the endpoint is unauthenticated (see SecurityConfig)
