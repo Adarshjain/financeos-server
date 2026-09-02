@@ -132,24 +132,44 @@ lands back on `/login`. See `AuthController#handleGoogleCallback`.
 
 ## Known risks on the running box
 
-Fix the first three with `ssh -i ~/.ssh/oracle-oci ubuntu@129.159.22.124 'bash -s' < deploy/harden-vm.sh`
-(restarts the app):
+Status re-checked live on 2026-09-02:
 
-1. **`-Xmx1024m` on a 952 MiB box with no swap.** The max heap exceeds physical RAM, so a load
-   spike gets the JVM OOM-killed rather than GC'd. → `-Xmx512m` + 2 GB swap.
-2. **No swap at all.** Only ~214 MiB was available at inspection time.
-3. **Apache2 running for nothing** — ~30 MB held on a 1 GB box.
+1. ~~`-Xmx1024m` with no swap~~ **RESOLVED** — unit runs `-Xmx512m -XX:+ExitOnOutOfMemoryError`, 2 GB swapfile active.
+2. ~~No swap~~ **RESOLVED** (but 250–364 MB of swap is in use; see runbook below — the JVM heap gets paged out
+   and Full GCs then take 2–12 s).
+3. Apache2 + rpcbind idle → disabled by `tune-jvm-and-db.sh` (apache held :80, which Caddy needs).
+4. **No TLS** → **IN PROGRESS**, see the runbook below. ufw already allows 80/443 (2026-09-02); the OCI
+   subnet security list still blocks them (verified from outside: 443 times out).
+5. Deployed JAR staleness — superseded by CI deploys.
+6. `--spring.profiles.active=prod` still inert (no `application-prod.yml`).
+7. **Spring Boot 3.2.1** (Dec 2023) — out of OSS support since Nov 2024; embedded Tomcat 10.1.17 has
+   published CVEs since. Upgrade tracked in `plans/frontend-data-path-modernization-prompt.md` (server part).
+8. **Ubuntu 20.04** — on ESM (esm-infra active), so patched, but plan a 24.04 rebuild when the A1 lands.
+9. DB alias was `financeosdb_high` (3 concurrent statements, parallel DML → the V82 ORA-12839) → `_tp` via
+   `tune-jvm-and-db.sh`.
 
-Not covered by that script, decide separately:
+---
 
-4. **No TLS.** The API is served as plaintext HTTP on `:8080` on a public IP, so session cookies
-   and login passwords cross the internet in the clear. Fix by putting a reverse proxy in front
-   (Caddy gives automatic Let's Encrypt certs), opening 80/443 in ufw and in the OCI subnet
-   security list, closing 8080, and setting `COOKIE_SECURE=true`.
-5. **Deployed JAR was ~6 months stale** (built Feb 6, 67 MB vs. 88 MB from `main` today). The first
-   CI run ships six months of accumulated migrations at once — take a DB backup before pushing.
-6. **`--spring.profiles.active=prod`** is passed but no `application-prod.yml` exists anywhere.
-   It is inert today; either add the file or drop the flag so it doesn't mislead.
+## TLS + host tuning runbook (2026-09-02)
+
+Three idempotent scripts, run from your Mac in this order. Each prints what it changed and how to roll back.
+
+| Step | Command | Downtime | Depends on |
+|---|---|---|---|
+| 1 | `ssh -i ~/.ssh/oracle-oci ubuntu@129.159.22.124 'bash -s' < deploy/tune-jvm-and-db.sh` | ~1 min | nothing |
+| 2 | `ssh -i ~/.ssh/oracle-oci ubuntu@129.159.22.124 'bash -s' < deploy/install-caddy.sh` | none (:8080 untouched) | nothing — cert is obtained via DuckDNS DNS-01 |
+| 3 | OCI console → VCN → subnet security list: add ingress TCP 80 and 443 from 0.0.0.0/0 | none | — |
+| 4 | Verify from outside: `curl -I https://financeos.duckdns.org/api/v1/auth/me` → `HTTP/2 401` | — | 2, 3 |
+| 5 | Vercel → project env → `API_BASE_URL=https://financeos.duckdns.org` → redeploy; check `/var/log/caddy/access.log` fills | none | 4 |
+| 6 | `ssh -i ~/.ssh/oracle-oci ubuntu@129.159.22.124 'CONFIRM=yes bash -s' < deploy/cutover-close-8080.sh` | ~1 min | 5 |
+| 7 | OCI security list: remove the 8080 ingress rule. Google Cloud console: Gmail OAuth redirect URI → `https://financeos.duckdns.org/api/v1/gmail/oauth/callback` | none | 6 |
+
+Notes:
+- `deploy.yml` health-polls `localhost:8081` on the box, and Fluent Bit scrapes `127.0.0.1:8081`, so neither
+  is affected by binding Tomcat to loopback.
+- `financeos.duckdns.org` resolves to the reserved public IP; no DuckDNS cron is needed while the IP is static.
+- Later, with a bought domain: change the site name in `/etc/caddy/Caddyfile`, `CORS_ORIGINS`, `UI_PATH`,
+  and the Vercel custom domain. Nothing else moves.
 
 ---
 
