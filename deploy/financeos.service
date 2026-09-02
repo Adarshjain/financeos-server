@@ -3,6 +3,10 @@
 # - Capped heap to -Xmx512m for 952 MiB RAM boundary.
 # - Added -XX:+ExitOnOutOfMemoryError so systemd cleanly restarts wedged JVM on OOM.
 # - Added -Xlog:gc* GC logging for pause/heap monitoring.
+# - 2026-09-02: explicit Serial GC, C1-only JIT, 128m code cache + metaspace HWM, 512k stacks —
+#   gc.log showed 2.1 s Full GCs (CodeCache/Metadata GC Threshold) on a 102 MB heap on this swapping box.
+#   Env additions live in .env: SERVER_TOMCAT_THREADS_MAX=25, SERVER_FORWARD_HEADERS_STRATEGY=native,
+#   DB alias financeosdb_tp, and SERVER_ADDRESS=127.0.0.1 after the TLS cutover.
 #
 # To apply:
 #   sudo cp financeos.service /etc/systemd/system/financeos.service
@@ -21,7 +25,7 @@ EnvironmentFile=/home/ubuntu/financeos-server/.env
 
 # Oracle wallet configuration
 Environment="TNS_ADMIN=/home/ubuntu/financeos-server/wallet"
-ExecStart=/usr/bin/java -Xmx512m \
+ExecStart=/usr/bin/java -Xmx512m -XX:+UseSerialGC -XX:TieredStopAtLevel=1 -XX:ReservedCodeCacheSize=128m -XX:MetaspaceSize=128m -Xss512k \
   -XX:+ExitOnOutOfMemoryError \
   -Xlog:gc*:file=/home/ubuntu/financeos-server/logs/gc.log:time,uptime:filecount=3,filesize=5M \
   -Djava.net.preferIPv4Stack=true \

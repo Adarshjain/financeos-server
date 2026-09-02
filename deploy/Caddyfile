@@ -1,0 +1,17 @@
+# FinanceOS API edge (installed to /etc/caddy/Caddyfile by deploy/install-caddy.sh).
+# TLS via Let's Encrypt DNS-01 (DuckDNS), so issuance does not depend on :80 being reachable.
+financeos.duckdns.org {
+	encode zstd gzip
+	tls {
+		dns duckdns {env.DUCKDNS_TOKEN}
+	}
+	# Spring listens on :8080 (0.0.0.0 until cutover, 127.0.0.1 after). Caddy sets X-Forwarded-For/Proto.
+	reverse_proxy 127.0.0.1:8080
+	log {
+		output file /var/log/caddy/access.log {
+			roll_size 10MiB
+			roll_keep 3
+		}
+		format json
+	}
+}
