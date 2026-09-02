@@ -382,8 +382,9 @@ public class AccountService {
             primaryCh.setRole(CardholderRole.PRIMARY);
             primaryCh.setRelationship(CardholderRelationship.SELF);
             primaryCh.setOpenedOn(request.anniversaryDate());
+            // Persisted via Account.cardholders cascade — an explicit save here fails on the
+            // create path, where the account itself is still transient.
             account.getCardholders().add(primaryCh);
-            cardholderRepository.save(primaryCh);
         } else if (primaryCh.getOpenedOn() == null && request.anniversaryDate() != null) {
             primaryCh.setOpenedOn(request.anniversaryDate());
         }
@@ -403,7 +404,6 @@ public class AccountService {
                 card.setLast4(request.last4());
                 card.setIssuedOn(request.anniversaryDate());
                 primaryCh.getCards().add(card);
-                cardRepository.save(card);
             }
         }
 
