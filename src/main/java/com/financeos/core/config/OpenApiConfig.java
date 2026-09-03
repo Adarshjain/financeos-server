@@ -61,8 +61,12 @@ public class OpenApiConfig {
     private final Map<String, Set<String>> explicitRequiredRefProps = new ConcurrentHashMap<>();
     private final Map<String, Set<String>> nullableRefProps = new ConcurrentHashMap<>();
 
-    @Value("${app.version:1.0.0}")
-    private String appVersion;
+    /**
+     * The spec is committed and diffed in CI, so its version must not carry the per-build git SHA that
+     * {@code app.version} gets from the deploy workflow ({@code -DgitSha=...}); use the plain project version.
+     */
+    @Value("${app.spec-version:1.0.0}")
+    private String specVersion;
 
     @Bean
     public OpenAPI financeosOpenAPI() {
@@ -70,7 +74,7 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("FinanceOS API")
                         .description("Production-grade personal finance backend API")
-                        .version(appVersion))
+                        .version(specVersion))
                 .servers(List.of(new Server().url("/").description("Relative Server")));
     }
 

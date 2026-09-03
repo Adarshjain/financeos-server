@@ -3,7 +3,7 @@ openapi: 3.0.1
 info:
   description: Production-grade personal finance backend API
   title: FinanceOS API
-  version: 1.0.0-local
+  version: 1.0.0
 servers:
 - description: Relative Server
   url: /
