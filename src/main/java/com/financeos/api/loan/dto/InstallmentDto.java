@@ -1,5 +1,7 @@
 package com.financeos.api.loan.dto;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -13,12 +15,12 @@ public record InstallmentDto(
         BigDecimal principal,
         BigDecimal closingBalance,
         String status, // settled | overdue | upcoming
-        PaymentInfo payment
+        @Nullable PaymentInfo payment
 ) {
     public record PaymentInfo(
             UUID id,
             LocalDate paymentDate,
             BigDecimal amount,
-            UUID transactionId
+            @Nullable UUID transactionId
     ) {}
 }

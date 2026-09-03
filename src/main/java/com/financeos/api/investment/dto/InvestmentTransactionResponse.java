@@ -6,6 +6,8 @@ import com.financeos.domain.investment.InvestmentTransaction;
 import com.financeos.domain.investment.InvestmentTransactionType;
 import com.financeos.domain.investment.SettlementType;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -15,7 +17,7 @@ public record InvestmentTransactionResponse(
         UUID id,
         UUID brokerAccountId,
         String brokerName,
-        String provider,
+        @Nullable String provider,
         UUID instrumentId,
         InstrumentInfoDto instrument,
         InvestmentTransactionType type,
@@ -23,25 +25,25 @@ public record InvestmentTransactionResponse(
         BigDecimal quantity,
         BigDecimal price,
         LocalDate tradeDate,
-        BigDecimal brokerage,
-        BigDecimal stt,
-        BigDecimal exchangeTxnCharges,
-        BigDecimal sebiCharges,
-        BigDecimal stampDuty,
-        BigDecimal gst,
-        BigDecimal dpCharges,
-        BigDecimal otherCharges,
+        @Nullable BigDecimal brokerage,
+        @Nullable BigDecimal stt,
+        @Nullable BigDecimal exchangeTxnCharges,
+        @Nullable BigDecimal sebiCharges,
+        @Nullable BigDecimal stampDuty,
+        @Nullable BigDecimal gst,
+        @Nullable BigDecimal dpCharges,
+        @Nullable BigDecimal otherCharges,
         BigDecimal totalCharges,
-        String source,
-        String externalRef,
-        String notes,
+        @Nullable String source,
+        @Nullable String externalRef,
+        @Nullable String notes,
         Instant createdAt
 ) {
     public record InstrumentInfoDto(
             UUID id,
             InstrumentType type,
             String name,
-            String symbol
+            @Nullable String symbol
     ) {}
 
     public static InvestmentTransactionResponse from(InvestmentTransaction txn) {

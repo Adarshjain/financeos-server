@@ -11,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
@@ -40,10 +41,10 @@ public class GlobalExceptionHandler {
 
     public record ErrorResponse(
             String code,
-            String message,
-            Map<String, String> details,
+            @Nullable String message,
+            @Nullable Map<String, String> details,
             Instant timestamp,
-            String errorId) {
+            @Nullable String errorId) {
 
         public ErrorResponse(String code, String message) {
             this(code, message, null, Instant.now(), null);

@@ -4,6 +4,8 @@ import com.financeos.domain.holding.Holding;
 import com.financeos.domain.investment.dividend.Dividend;
 import com.financeos.domain.investment.dividend.DividendType;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -19,12 +21,12 @@ public record DividendResponse(
         String symbol,
         DividendType type,
         BigDecimal amount,
-        BigDecimal perUnit,
-        BigDecimal tds,
-        LocalDate exDate,
+        @Nullable BigDecimal perUnit,
+        @Nullable BigDecimal tds,
+        @Nullable LocalDate exDate,
         LocalDate payDate,
         String source,
-        String notes,
+        @Nullable String notes,
         Instant createdAt
 ) {
     public static DividendResponse from(Dividend dividend) {

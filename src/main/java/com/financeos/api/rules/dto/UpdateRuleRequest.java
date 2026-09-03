@@ -1,6 +1,7 @@
 package com.financeos.api.rules.dto;
 
 import com.financeos.core.validation.MccCode;
+import org.springframework.lang.Nullable;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,5 +10,5 @@ public record UpdateRuleRequest(
         String matchType,
         String displayName,
         List<UUID> categoryIds,
-        @MccCode String mcc
+        @Nullable @MccCode String mcc
 ) {}

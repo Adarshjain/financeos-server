@@ -38,6 +38,10 @@ jobs:
       - name: Build and test
         run: ./mvnw -B verify -DgitSha=${GITHUB_SHA::12}
 
+      # OpenApiExportTest regenerates api-spec.yaml during `verify` above, so a stale committed spec fails the build here.
+      - name: Spec drift
+        run: git diff --exit-code -- api-spec.yaml
+
       - name: Set up SSH
         env:
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}

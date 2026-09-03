@@ -1,5 +1,7 @@
 package com.financeos.api.reward;
 
+import org.springdoc.core.annotations.ParameterObject;
+
 import com.financeos.api.reward.dto.RewardLineResponse;
 import com.financeos.api.reward.dto.RewardReportResponse;
 import com.financeos.domain.reward.RewardCalculationService;
@@ -47,7 +49,7 @@ public class RewardReportController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
             @RequestParam(required = false) UUID ruleId,
-            @PageableDefault(size = 50) Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 50) Pageable pageable) {
         List<RewardLineResponse> lines = rewardCalculationService.lines(accountId, from, to, ruleId);
         int start = (int) Math.min(pageable.getOffset(), lines.size());
         int end = Math.min(start + pageable.getPageSize(), lines.size());

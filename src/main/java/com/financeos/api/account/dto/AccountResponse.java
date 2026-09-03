@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.lang.Nullable;
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type", visible = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = AccountResponse.BankAccountResponse.class, name = "bank_account"),
@@ -27,26 +29,33 @@ public sealed interface AccountResponse {
 
     Boolean excludeFromNetAsset();
 
+    @Nullable
     FinancialPosition financialPosition();
 
+    @Nullable
     String description();
 
+    @Nullable
     LocalDate closedOn();
 
+    @Nullable
     UUID replacesAccountId();
 
     Instant createdAt();
 
     Instant updatedAt();
 
+    @Nullable
     LocalDate ingestFromDate();
 
     BigDecimal balance();
 
     Boolean balanceAnchored();
 
+    @Nullable
     BigDecimal reconciliationGap();
 
+    @Nullable
     LocalDate anchorDate();
 
     List<String> warnings();
@@ -179,20 +188,20 @@ public sealed interface AccountResponse {
             String name,
             AccountType type,
             Boolean excludeFromNetAsset,
-            FinancialPosition financialPosition,
-            String description,
-            LocalDate closedOn,
-            UUID replacesAccountId,
+            @Nullable FinancialPosition financialPosition,
+            @Nullable String description,
+            @Nullable LocalDate closedOn,
+            @Nullable UUID replacesAccountId,
             Instant createdAt,
             Instant updatedAt,
-            LocalDate ingestFromDate,
-            BigDecimal openingBalance,
-            String last4,
-            LocalDate lastStatementDate,
+            @Nullable LocalDate ingestFromDate,
+            @Nullable BigDecimal openingBalance,
+            @Nullable String last4,
+            @Nullable LocalDate lastStatementDate,
             BigDecimal balance,
             Boolean balanceAnchored,
-            BigDecimal reconciliationGap,
-            LocalDate anchorDate,
+            @Nullable BigDecimal reconciliationGap,
+            @Nullable LocalDate anchorDate,
             List<CardholderResponse> cardholders,
             List<String> warnings) implements AccountResponse {
     }
@@ -202,23 +211,23 @@ public sealed interface AccountResponse {
             String name,
             AccountType type,
             Boolean excludeFromNetAsset,
-            FinancialPosition financialPosition,
-            String description,
-            LocalDate closedOn,
-            UUID replacesAccountId,
+            @Nullable FinancialPosition financialPosition,
+            @Nullable String description,
+            @Nullable LocalDate closedOn,
+            @Nullable UUID replacesAccountId,
             Instant createdAt,
             Instant updatedAt,
-            LocalDate ingestFromDate,
-            String last4,
-            BigDecimal creditLimit,
-            String issuer,
-            String productName,
-            LocalDate anniversaryDate,
-            LocalDate lastStatementDate,
+            @Nullable LocalDate ingestFromDate,
+            @Nullable String last4,
+            @Nullable BigDecimal creditLimit,
+            @Nullable String issuer,
+            @Nullable String productName,
+            @Nullable LocalDate anniversaryDate,
+            @Nullable LocalDate lastStatementDate,
             BigDecimal balance,
             Boolean balanceAnchored,
-            BigDecimal reconciliationGap,
-            LocalDate anchorDate,
+            @Nullable BigDecimal reconciliationGap,
+            @Nullable LocalDate anchorDate,
             List<CardholderResponse> cardholders,
             List<String> warnings) implements AccountResponse {
     }
@@ -228,20 +237,20 @@ public sealed interface AccountResponse {
             String name,
             AccountType type,
             Boolean excludeFromNetAsset,
-            FinancialPosition financialPosition,
-            String description,
-            LocalDate closedOn,
-            UUID replacesAccountId,
+            @Nullable FinancialPosition financialPosition,
+            @Nullable String description,
+            @Nullable LocalDate closedOn,
+            @Nullable UUID replacesAccountId,
             Instant createdAt,
             Instant updatedAt,
-            LocalDate ingestFromDate,
-            String provider,
-            String clientId,
-            BigDecimal cashBalance,
+            @Nullable LocalDate ingestFromDate,
+            @Nullable String provider,
+            @Nullable String clientId,
+            @Nullable BigDecimal cashBalance,
             BigDecimal balance,
             Boolean balanceAnchored,
-            BigDecimal reconciliationGap,
-            LocalDate anchorDate,
+            @Nullable BigDecimal reconciliationGap,
+            @Nullable LocalDate anchorDate,
             List<String> warnings) implements AccountResponse {
     }
 
@@ -250,17 +259,18 @@ public sealed interface AccountResponse {
             String name,
             AccountType type,
             Boolean excludeFromNetAsset,
-            FinancialPosition financialPosition,
-            String description,
-            LocalDate closedOn,
-            UUID replacesAccountId,
+            @Nullable FinancialPosition financialPosition,
+            @Nullable String description,
+            @Nullable LocalDate closedOn,
+            @Nullable UUID replacesAccountId,
             Instant createdAt,
             Instant updatedAt,
-            LocalDate ingestFromDate,
+            @Nullable LocalDate ingestFromDate,
             BigDecimal balance,
             Boolean balanceAnchored,
-            BigDecimal reconciliationGap,
-            LocalDate anchorDate,
+            @Nullable BigDecimal reconciliationGap,
+            @Nullable LocalDate anchorDate,
             List<String> warnings) implements AccountResponse {
     }
 }
+

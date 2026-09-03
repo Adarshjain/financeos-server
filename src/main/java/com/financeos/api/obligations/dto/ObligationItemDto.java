@@ -2,6 +2,8 @@ package com.financeos.api.obligations.dto;
 
 import com.financeos.domain.lending.LendingDirection;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -11,11 +13,11 @@ public record ObligationItemDto(
         LocalDate date,
         BigDecimal amount,
         String status, // "upcoming" | "overdue"
-        UUID loanId,
-        String loanName,
-        Integer installmentSeq,
-        UUID lendingId,
-        UUID counterpartyId,
-        String counterpartyName,
-        LendingDirection direction
+        @Nullable UUID loanId,
+        @Nullable String loanName,
+        @Nullable Integer installmentSeq,
+        @Nullable UUID lendingId,
+        @Nullable UUID counterpartyId,
+        @Nullable String counterpartyName,
+        @Nullable LendingDirection direction
 ) {}

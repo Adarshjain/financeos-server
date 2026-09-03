@@ -3,18 +3,20 @@ package com.financeos.api.llm.dto;
 import com.financeos.domain.llm.LlmKey;
 import com.financeos.domain.llm.LlmKeyStatus;
 
+import org.springframework.lang.Nullable;
+
 import java.time.Instant;
 import java.util.UUID;
 
 public record LlmKeyDto(
         UUID id,
         String provider,
-        String label,
+        @Nullable String label,
         String keyLast4,
         LlmKeyStatus status,
         Integer position,
         Instant createdAt,
-        Instant lastUsedAt
+        @Nullable Instant lastUsedAt
 ) {
     public static LlmKeyDto fromEntity(LlmKey entity) {
         return new LlmKeyDto(

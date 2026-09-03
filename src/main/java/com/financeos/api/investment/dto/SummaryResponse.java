@@ -2,6 +2,8 @@ package com.financeos.api.investment.dto;
 
 import com.financeos.domain.instrument.InstrumentType;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -16,7 +18,7 @@ public record SummaryResponse(
         BigDecimal totalCharges,
         BigDecimal totalDividends,
         BigDecimal totalPnl,
-        Double xirr,
+        @Nullable Double xirr,
         BigDecimal absoluteReturnPercent,
         List<BrokerSummaryDto> byBroker,
         List<InstrumentTypeSummaryDto> byInstrumentType,
@@ -32,7 +34,7 @@ public record SummaryResponse(
             BigDecimal totalCharges,
             BigDecimal totalDividends,
             BigDecimal totalPnl,
-            Double xirr,
+            @Nullable Double xirr,
             BigDecimal absoluteReturnPercent,
             List<BrokerSummaryDto> byBroker,
             List<InstrumentTypeSummaryDto> byInstrumentType
@@ -43,7 +45,7 @@ public record SummaryResponse(
     public record BrokerSummaryDto(
             UUID brokerAccountId,
             String brokerName,
-            String provider,
+            @Nullable String provider,
             BigDecimal cashBalance,
             BigDecimal invested,
             BigDecimal currentValue,

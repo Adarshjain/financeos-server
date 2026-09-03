@@ -3,6 +3,8 @@ package com.financeos.gmail.reconcile;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.gmail.domain.GmailProcessedStatus;
 
+import org.springframework.lang.Nullable;
+
 import java.util.List;
 
 public record ReconSummary(
@@ -10,10 +12,10 @@ public record ReconSummary(
     int matched,
     int failed,
     List<Transaction> createdTransactions,
-    GmailProcessedStatus failureOutcome,  // nullable — set when failed > 0
-    String failureReason,                // nullable
-    String attachmentFilename,           // nullable — the chosen attachment, when known
-    String accountLast4,                 // nullable — parsed statement account number tail for ACCOUNT_UNRESOLVED
+    @Nullable GmailProcessedStatus failureOutcome,  // set when failed > 0
+    @Nullable String failureReason,
+    @Nullable String attachmentFilename,           // the chosen attachment, when known
+    @Nullable String accountLast4,                 // parsed statement account number tail for ACCOUNT_UNRESOLVED
     boolean emptyStatement               // true for "no lines parsed, skipped as non-statement" outcome
 ) {
     public ReconSummary(int created, int matched, int failed) {

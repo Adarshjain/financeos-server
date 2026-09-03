@@ -2,6 +2,8 @@ package com.financeos.api.reward.dto;
 
 import jakarta.validation.constraints.NotNull;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -14,8 +16,8 @@ import java.util.UUID;
 public record RewardAccountConfigRequest(
         @NotNull(message = "Account ID is required") UUID accountId,
         /** CASH or POINTS; unset keeps the current default. */
-        String defaultRewardType,
+        @Nullable String defaultRewardType,
         /** Point valuation in INR (must be > 0 when set; null clears back to default fallback). */
-        BigDecimal pointValueInr) {
+        @Nullable BigDecimal pointValueInr) {
 }
 

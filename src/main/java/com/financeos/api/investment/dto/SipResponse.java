@@ -3,6 +3,8 @@ package com.financeos.api.investment.dto;
 import com.financeos.domain.investment.sip.Sip;
 import com.financeos.domain.investment.sip.SipFrequency;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -14,14 +16,14 @@ public record SipResponse(
         String brokerName,
         UUID instrumentId,
         String instrumentName,
-        String symbol,
+        @Nullable String symbol,
         BigDecimal amount,
         SipFrequency frequency,
-        Integer dayOfMonth,
+        @Nullable Integer dayOfMonth,
         LocalDate startDate,
-        LocalDate endDate,
+        @Nullable LocalDate endDate,
         boolean active,
-        String notes,
+        @Nullable String notes,
         SipProgressDto progress,
         Instant createdAt
 ) {

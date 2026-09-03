@@ -3,6 +3,8 @@ package com.financeos.api.reward.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -19,14 +21,14 @@ public record RewardMilestoneRequest(
         BigDecimal minTxnAmount,
         @NotBlank(message = "Payout type is required") String payoutType,
         /** CASH or POINTS; unset = the account's default reward type. */
-        String rewardType,
+        @Nullable String rewardType,
         BigDecimal payoutValue,
         /** WINDOW_END (default) or ON_ACHIEVEMENT. */
-        String payoutTiming,
+        @Nullable String payoutTiming,
         List<UUID> includeCategoryIds,
         List<String> includeMccs,
         List<UUID> excludeCategoryIds,
         List<String> excludeMccs,
-        LocalDate activeFrom,
-        LocalDate activeTo) {
+        @Nullable LocalDate activeFrom,
+        @Nullable LocalDate activeTo) {
 }

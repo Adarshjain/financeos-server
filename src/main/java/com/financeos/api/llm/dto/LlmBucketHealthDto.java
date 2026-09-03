@@ -1,5 +1,7 @@
 package com.financeos.api.llm.dto;
 
+import org.springframework.lang.Nullable;
+
 import java.time.Instant;
 
 public record LlmBucketHealthDto(
@@ -8,8 +10,8 @@ public record LlmBucketHealthDto(
         String model,
         String modelLabel,
         String keyLast4,
-        String keyLabel,
+        @Nullable String keyLabel,
         boolean inCooldown,
-        Instant cooldownUntil,
+        @Nullable Instant cooldownUntil,
         int consecutiveFailures
 ) {}

@@ -2,6 +2,8 @@ package com.financeos.api.rules.dto;
 
 import com.financeos.api.category.dto.CategoryResponse;
 import com.financeos.domain.categorization.CategoryRule;
+import org.springframework.lang.Nullable;
+
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -10,14 +12,14 @@ public record RuleResponse(
         UUID id,
         String merchantKey,
         String matchType,
-        String displayName,
+        @Nullable String displayName,
         List<CategoryResponse> categories,
         boolean verified,
         String source,
         int appliedCount,
-        Instant lastAppliedAt,
+        @Nullable Instant lastAppliedAt,
         Instant createdAt,
-        String mcc
+        @Nullable String mcc
 ) {
     public static RuleResponse from(CategoryRule rule) {
         List<CategoryResponse> categoryResponses = rule.getCategories().stream()

@@ -1,11 +1,14 @@
 package com.financeos.api.gmail.dto;
 
 import com.financeos.gmail.ingest.GmailSender;
+
+import org.springframework.lang.Nullable;
+
 import java.util.UUID;
 
 public record GmailSenderResponse(
     UUID id,
-    String name,
+    @Nullable String name,
     String senderAddress,
     boolean enabled
 ) {

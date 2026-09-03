@@ -1,5 +1,7 @@
 package com.financeos.api.lending;
 
+import org.springdoc.core.annotations.ParameterObject;
+
 import com.financeos.api.lending.dto.*;
 import com.financeos.domain.lending.LendingService;
 import jakarta.validation.Valid;
@@ -30,7 +32,7 @@ public class LendingController {
     @GetMapping
     public Page<LendingResponse> getLendings(
             @RequestParam(required = false) UUID counterpartyId,
-            @PageableDefault(size = 50, sort = "entryDate", direction = Sort.Direction.DESC) Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 50, sort = "entryDate", direction = Sort.Direction.DESC) Pageable pageable) {
         return lendingService.getLendings(counterpartyId, pageable);
     }
 

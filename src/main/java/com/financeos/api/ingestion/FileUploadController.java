@@ -14,6 +14,7 @@ import com.financeos.domain.job.StagedFile;
 import com.financeos.domain.job.handlers.StatementIngestPayload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,10 +38,10 @@ public class FileUploadController {
         this.jobService = jobService;
     }
 
-    @PostMapping("/{accountId}/ingest")
+    @PostMapping(value = "/{accountId}/ingest", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<EnqueueResponse> ingestFiles(
             @PathVariable UUID accountId,
-            @RequestParam("files") MultipartFile[] files) {
+            @RequestPart("files") MultipartFile[] files) {
 
         UUID currentUserId = UserContext.getCurrentUserId();
         Account account = accountRepository.findById(accountId)

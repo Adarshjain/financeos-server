@@ -5,13 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.domain.report.Report;
 import com.financeos.domain.report.ReportType;
 
+import org.springframework.lang.Nullable;
+
 import java.time.Instant;
 import java.util.UUID;
 
 public record ReportResponse(
         UUID id,
         String name,
-        String description,
+        @Nullable String description,
         ReportType type,
         String datasource,
         JsonNode definition,

@@ -2,6 +2,8 @@ package com.financeos.api.reward.dto;
 
 import com.financeos.domain.reward.MilestonePayoutType;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -14,7 +16,7 @@ public record SimulatedMilestoneResponse(
         BigDecimal threshold,
         BigDecimal remainingToThreshold,
         boolean crosses,
-        BigDecimal payoutInr,
+        @Nullable BigDecimal payoutInr,
         BigDecimal scoredValueInr,
         MilestonePayoutType payoutType
 ) {

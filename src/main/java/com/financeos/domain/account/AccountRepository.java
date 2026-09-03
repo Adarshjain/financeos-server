@@ -2,13 +2,16 @@ package com.financeos.domain.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account, UUID> {
+public interface AccountRepository extends JpaRepository<Account, UUID>, AccountRepositoryCustom {
 
     List<Account> findByType(AccountType type);
 
@@ -19,7 +22,6 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
 
     @Query("SELECT a FROM Account a WHERE a.type = 'broker'")
     List<Account> findInvestmentAccounts();
-
 
     @Query("SELECT a FROM Account a LEFT JOIN a.bankDetails b LEFT JOIN a.creditCardDetails c WHERE a.user.id = :userId AND (b.statementPassword IS NOT NULL OR c.statementPassword IS NOT NULL)")
     List<Account> findByUserIdAndHasStatementPassword(UUID userId);

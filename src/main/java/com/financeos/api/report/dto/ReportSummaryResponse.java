@@ -3,13 +3,15 @@ package com.financeos.api.report.dto;
 import com.financeos.domain.report.Report;
 import com.financeos.domain.report.ReportType;
 
+import org.springframework.lang.Nullable;
+
 import java.time.Instant;
 import java.util.UUID;
 
 public record ReportSummaryResponse(
         UUID id,
         String name,
-        String description,
+        @Nullable String description,
         ReportType type,
         String datasource,
         Instant createdAt,

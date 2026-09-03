@@ -1,5 +1,7 @@
 package com.financeos.api.investment;
 
+import org.springdoc.core.annotations.ParameterObject;
+
 import com.financeos.api.investment.dto.*;
 import com.financeos.domain.instrument.price.PriceRefreshResult;
 import com.financeos.domain.instrument.price.PriceRefreshService;
@@ -56,7 +58,7 @@ public class InvestmentController {
             @RequestParam(required = false) UUID instrumentId,
             @RequestParam(required = false) UUID holdingId,
             @RequestParam(required = false) String search,
-            @PageableDefault(size = 50, sort = "tradeDate") Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 50, sort = "tradeDate") Pageable pageable) {
         return investmentService.getTransactions(brokerAccountId, instrumentId, holdingId, search, pageable);
     }
 

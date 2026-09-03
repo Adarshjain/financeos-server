@@ -2,13 +2,15 @@ package com.financeos.api.lending.dto;
 
 import com.financeos.domain.lending.Counterparty;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
 public record CounterpartyResponse(
         UUID id,
         String name,
-        String notes,
+        @Nullable String notes,
         BigDecimal totalLent,
         BigDecimal totalBorrowed,
         BigDecimal netPosition,

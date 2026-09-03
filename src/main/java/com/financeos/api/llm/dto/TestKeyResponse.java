@@ -1,9 +1,11 @@
 package com.financeos.api.llm.dto;
 
+import org.springframework.lang.Nullable;
+
 public record TestKeyResponse(
         boolean ok,
-        String message,
-        String error
+        @Nullable String message,
+        @Nullable String error
 ) {
     public static TestKeyResponse success(String message) {
         return new TestKeyResponse(true, message, null);

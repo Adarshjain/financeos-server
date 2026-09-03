@@ -3,20 +3,22 @@ package com.financeos.api.gmail.dto;
 import com.financeos.gmail.domain.GmailProcessedMessage;
 import com.financeos.gmail.domain.GmailProcessedStatus;
 
+import org.springframework.lang.Nullable;
+
 import java.time.Instant;
 import java.util.UUID;
 
 public record GmailAttentionItemResponse(
     UUID id,
     String gmailMessageId,
-    Instant internalDate,
-    String senderAddress,
-    String subject,
+    @Nullable Instant internalDate,
+    @Nullable String senderAddress,
+    @Nullable String subject,
     GmailProcessedStatus status,
-    String extractedLast4,
-    String error,
+    @Nullable String extractedLast4,
+    @Nullable String error,
     int attemptCount,
-    Instant nextRetryAt,
+    @Nullable Instant nextRetryAt,
     Instant discoveredAt
 ) {
     public static GmailAttentionItemResponse from(GmailProcessedMessage gpm) {

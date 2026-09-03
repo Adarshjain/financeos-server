@@ -3,6 +3,8 @@ package com.financeos.api.lending.dto;
 import com.financeos.domain.lending.Lending;
 import com.financeos.domain.lending.LendingDirection;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -15,9 +17,9 @@ public record LendingResponse(
         LendingDirection direction,
         BigDecimal amount,
         LocalDate entryDate,
-        LocalDate expectedReturnDate,
-        UUID transactionId,
-        String notes,
+        @Nullable LocalDate expectedReturnDate,
+        @Nullable UUID transactionId,
+        @Nullable String notes,
         Instant createdAt
 ) {
     public static LendingResponse from(Lending lending) {

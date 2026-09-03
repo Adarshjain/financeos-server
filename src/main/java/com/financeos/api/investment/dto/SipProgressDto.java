@@ -1,5 +1,7 @@
 package com.financeos.api.investment.dto;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -10,6 +12,6 @@ public record SipProgressDto(
         BigDecimal investedSoFar,
         BigDecimal unitsAccumulated,
         BigDecimal avgCost,
-        LocalDate nextDueDate
+        @Nullable LocalDate nextDueDate
 ) {
 }

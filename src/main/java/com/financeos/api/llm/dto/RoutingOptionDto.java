@@ -1,5 +1,7 @@
 package com.financeos.api.llm.dto;
 
+import org.springframework.lang.Nullable;
+
 /**
  * One entry of the fixed, user-pickable routing menu (see {@code llm.routing-options}).
  * {@code available} is false when the user holds no active key for this option's provider —
@@ -10,8 +12,8 @@ public record RoutingOptionDto(
         String label,
         String provider,
         String providerName,
-        String model,
-        String notes,
+        @Nullable String model,
+        @Nullable String notes,
         boolean free,
         String trainsOnData,
         boolean available

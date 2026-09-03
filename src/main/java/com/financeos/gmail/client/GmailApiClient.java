@@ -12,6 +12,7 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -166,6 +167,6 @@ public class GmailApiClient {
         return credential;
     }
 
-    public record TokenResponse(String accessToken, String refreshToken, Long expiresInSeconds) {
+    public record TokenResponse(String accessToken, @Nullable String refreshToken, Long expiresInSeconds) {
     }
 }

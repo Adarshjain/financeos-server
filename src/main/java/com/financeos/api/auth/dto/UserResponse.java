@@ -2,14 +2,16 @@ package com.financeos.api.auth.dto;
 
 import com.financeos.domain.user.User;
 
+import org.springframework.lang.Nullable;
+
 import java.time.Instant;
 import java.util.UUID;
 
 public record UserResponse(
         UUID id,
         String email,
-        String displayName,
-        String pictureUrl,
+        @Nullable String displayName,
+        @Nullable String pictureUrl,
         boolean hasPassword,
         Instant createdAt) {
     public static UserResponse from(User user) {

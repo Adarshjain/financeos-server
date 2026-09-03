@@ -1,5 +1,7 @@
 package com.financeos.domain.ingestion;
 
+import org.springframework.lang.Nullable;
+
 import java.util.List;
 import java.util.UUID;
 import java.math.BigDecimal;
@@ -20,8 +22,8 @@ public record FileIngestionResult(
         String filename,
         String status, // "SUCCESS", "FAILED", "SKIPPED"
         int linesParsed,
-        String errorMessage, // FAILED reason or SKIPPED reason ONLY
-        String warning,      // e.g. account-number-mismatch warning on a SUCCESS file
+        @Nullable String errorMessage, // FAILED reason or SKIPPED reason ONLY
+        @Nullable String warning,      // e.g. account-number-mismatch warning on a SUCCESS file
         int created,         // txns inserted from this file
         int duplicates       // of those, how many were flagged DUPLICATE_SUSPECT
     ) {
