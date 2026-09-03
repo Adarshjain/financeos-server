@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Build and test
+        run: ./mvnw -B verify "-DgitSha=${GITHUB_SHA::12}"
+
+      # OpenApiExportTest regenerates api-spec.yaml during `verify` above, so a stale committed spec fails the build here.
+      - name: Spec drift
+        run: git diff --exit-code -- api-spec.yaml
+
+  refs:
+    runs-on: ubuntu-latest
+    outputs:
+      client_ref: ${{ steps.extract.outputs.client_ref }}
+    steps:
+      - id: extract
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          ref=$(echo "$PR_BODY" | grep -oE '^e2e-client-ref:[[:space:]]*[A-Za-z0-9._/-]+' | head -1 | sed -E 's/^e2e-client-ref:[[:space:]]*//' || true)
+          echo "client_ref=${ref:-main}" >> "$GITHUB_OUTPUT"
+
+  e2e:
+    needs: [refs]
+    uses: Adarshjain/financeos-client/.github/workflows/e2e.yml@main
+    with:
+      server_ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      client_ref: ${{ needs.refs.outputs.client_ref }}
