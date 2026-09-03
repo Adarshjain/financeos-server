@@ -1,0 +1,33 @@
+price:
+  refresh-cron: "-"
+gmail:
+  ingest:
+    cron: "-"
+jobs:
+  worker:
+    poll-delay-ms: 200
+  retention:
+    cron: "-"
+chat:
+  quota:
+    messages-per-day: 3
+  loop:
+    max-wall-clock-seconds: 20
+  stream:
+    emitter-timeout-seconds: 40
+llm:
+  retry:
+    attempts-per-provider: 1
+    base-delay-ms: 0
+springdoc:
+  api-docs:
+    enabled: true
+spring:
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+logging:
+  level:
+    com.financeos.e2e: DEBUG

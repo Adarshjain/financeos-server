@@ -110,6 +110,11 @@ cp -f backend-1.0.0.jar.prev backend-1.0.0.jar
 sudo systemctl restart financeos
 ```
 
+## E2E Testing & Cross-Repo PR Choreography
+
+- **Server PR against a client branch**: Add `e2e-client-ref: <ref>` on its own line in the PR description to run E2E against that branch (defaults to `main`).
+- **Client PR against a server branch**: Add `e2e-server-ref: <ref>` on its own line in the PR description to run E2E against that branch (defaults to `main`).
+
 ---
 
 ## Env vars that must track the client's origin

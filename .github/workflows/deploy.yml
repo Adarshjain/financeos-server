@@ -18,16 +18,20 @@ env:
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+    outputs:
+      start_ts: ${{ steps.notify-start.outputs.start_ts }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Notify Slack — started
+        id: notify-start
         continue-on-error: true
         run: |
-          echo "DEPLOY_START_TS=$(date +%s)" >> "$GITHUB_ENV"
-          .github/scripts/slack-notify.sh started
+          start_ts=$(date +%s)
+          echo "start_ts=$start_ts" >> "$GITHUB_OUTPUT"
+          DEPLOY_START_TS="$start_ts" .github/scripts/slack-notify.sh started
 
       - uses: actions/setup-java@v4
         with:
@@ -36,11 +40,49 @@ jobs:
           cache: maven
 
       - name: Build and test
-        run: ./mvnw -B verify -DgitSha=${GITHUB_SHA::12}
+        run: ./mvnw -B verify "-DgitSha=${GITHUB_SHA::12}"
 
       # OpenApiExportTest regenerates api-spec.yaml during `verify` above, so a stale committed spec fails the build here.
       - name: Spec drift
         run: git diff --exit-code -- api-spec.yaml
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jar
+          path: target/backend-1.0.0.jar
+          retention-days: 1
+
+  e2e:
+    needs: [build]
+    uses: Adarshjain/financeos-client/.github/workflows/e2e.yml@main
+    with:
+      server_ref: ${{ github.sha }}
+      client_ref: main
+
+  deploy:
+    needs: [build, e2e]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check upstream build and E2E status
+        run: |
+          if [ "${{ needs.build.result }}" = "cancelled" ] || [ "${{ needs.e2e.result }}" = "cancelled" ]; then
+            echo "Upstream job was cancelled. Skipping deployment."
+            exit 1
+          fi
+          if [ "${{ needs.build.result }}" != "success" ] || [ "${{ needs.e2e.result }}" != "success" ]; then
+            echo "Upstream job failed: build=${{ needs.build.result }}, e2e=${{ needs.e2e.result }}. Skipping deployment."
+            exit 1
+          fi
+
+      - name: Download JAR artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: jar
+          path: target
 
       - name: Set up SSH
         env:
@@ -63,9 +105,9 @@ jobs:
           HOST: ${{ secrets.DEPLOY_HOST }}
           USER: ${{ secrets.DEPLOY_USER }}
         run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new "$USER@$HOST" bash -se <<EOF
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new "$USER@$HOST" bash -se <<'EOF'
             set -euo pipefail
-            cd $APP_DIR/target
+            cd /home/ubuntu/financeos-server/target
             # Keep the outgoing JAR so a bad deploy can be rolled back by hand.
             [ -f backend-1.0.0.jar ] && cp -f backend-1.0.0.jar backend-1.0.0.jar.prev
             mv -f backend-1.0.0.jar.new backend-1.0.0.jar
@@ -92,4 +134,11 @@ jobs:
       - name: Notify Slack — result
         if: always()
         continue-on-error: true
-        run: .github/scripts/slack-notify.sh "${{ job.status }}"
+        env:
+          DEPLOY_START_TS: ${{ needs.build.outputs.start_ts }}
+        run: |
+          status="${{ job.status }}"
+          if [ "${{ needs.build.result }}" = "cancelled" ] || [ "${{ needs.e2e.result }}" = "cancelled" ]; then
+            status="cancelled"
+          fi
+          .github/scripts/slack-notify.sh "$status"
