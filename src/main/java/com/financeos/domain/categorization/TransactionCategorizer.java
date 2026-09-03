@@ -7,6 +7,7 @@ import com.financeos.llm.LlmClient;
 import com.financeos.llm.LlmRequest;
 import com.financeos.llm.LlmResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -31,11 +32,11 @@ public class TransactionCategorizer {
     public record CategorizeItemRequest(int index, String description) {}
 
     public record CategorizeItemResponse(
-            Integer index,
-            String merchantKey,
-            String displayName,
-            List<String> categoryNames,
-            Boolean noFit
+            @Nullable Integer index,
+            @Nullable String merchantKey,
+            @Nullable String displayName,
+            @Nullable List<String> categoryNames,
+            @Nullable Boolean noFit
     ) {}
 
     private record ChunkResult(List<CategorizeItemResponse> responses, String providerId) {}

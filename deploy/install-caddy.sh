@@ -56,15 +56,22 @@ ${DOMAIN} {
 	}
 }
 CADDY
-sudo mkdir -p /var/log/caddy && sudo chown caddy:caddy /var/log/caddy
-caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
+sudo mkdir -p /var/log/caddy
+# validate as root (it opens the access-log writer), then give the log dir back to the caddy service user
+sudo caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
+sudo chown -R caddy:caddy /var/log/caddy
 
 echo "== 4. free :80 and start"
 sudo systemctl disable --now apache2 2>/dev/null || true
 sudo systemctl daemon-reload
 sudo systemctl enable --now caddy
-sleep 25
-sudo journalctl -u caddy --since "-3 min" --no-pager | grep -iE 'certificate obtained|obtaining|error|failed' | tail -6 | cut -c1-240 || true
+echo "   waiting for the Let's Encrypt certificate (DNS-01 via DuckDNS, usually 20-90 s)..."
+for _ in $(seq 1 30); do
+  if sudo journalctl -u caddy --since "-5 min" --no-pager | grep -q 'certificate obtained successfully'; then break; fi
+  sleep 5
+done
+sudo journalctl -u caddy --since "-5 min" --no-pager | grep -iE 'certificate obtained|obtaining|error|failed' | tail -6 | cut -c1-240 || true
+systemctl is-active caddy
 
 echo "== 5. local TLS check (works while the OCI security list still blocks 443; 401 = proxy path OK)"
 curl -sk --resolve "${DOMAIN}:443:127.0.0.1" "https://${DOMAIN}/api/v1/auth/me" -o /dev/null -w 'local https -> HTTP %{http_code}\n' || true

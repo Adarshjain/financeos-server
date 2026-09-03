@@ -8,6 +8,8 @@ import com.financeos.domain.reward.MilestoneWindow;
 import com.financeos.domain.reward.RewardType;
 import com.financeos.domain.reward.RuleStacking;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -54,8 +56,8 @@ public record RewardReportResponse(
             BigDecimal discounts,
             BigDecimal fees,
             BigDecimal effectiveValueInr,
-            BigDecimal grossPct,
-            BigDecimal effectivePct) {
+            @Nullable BigDecimal grossPct,
+            @Nullable BigDecimal effectivePct) {
     }
 
     /**
@@ -78,8 +80,8 @@ public record RewardReportResponse(
             boolean achieved,
             MilestonePayoutType payoutType,
             RewardType rewardType,
-            BigDecimal payoutValue,
-            LocalDate payoutDate,
+            @Nullable BigDecimal payoutValue,
+            @Nullable LocalDate payoutDate,
             boolean countedInSummary) {
     }
 
@@ -94,17 +96,17 @@ public record RewardReportResponse(
             BigDecimal basisMatched,
             BigDecimal earned,
             String earnedUnit,
-            CapStatus capStatus) {
+            @Nullable CapStatus capStatus) {
     }
 
     public record PerCardCapUsage(
-            UUID cardId,
+            @Nullable UUID cardId,
             String cardLabel,
             BigDecimal used) {
     }
 
     public record CardBreakdown(
-            UUID cardId,
+            @Nullable UUID cardId,
             String cardLabel,
             boolean unattributed,
             BigDecimal basisSpend,
@@ -120,11 +122,11 @@ public record RewardReportResponse(
     public record CapStatus(
             CapWindow window,
             BigDecimal cap,
-            BigDecimal used,
+            @Nullable BigDecimal used,
             LocalDate windowStart,
             LocalDate windowEnd,
             boolean cycleFallback,
-            String sharedBucket,
+            @Nullable String sharedBucket,
             com.financeos.domain.reward.CounterScope counterScope,
             List<PerCardCapUsage> perCard) {
 

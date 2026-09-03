@@ -143,10 +143,54 @@ public class AccountService {
     @Transactional(readOnly = true)
     public List<Account> getAllAccounts() {
         List<Account> accounts = accountRepository.findAll();
+        if (accounts.isEmpty()) {
+            return accounts;
+        }
+
+        List<UUID> accountIds = accounts.stream().map(Account::getId).toList();
+
+        // 1. Batch load cardholders with cards in 1 query for all accounts
+        List<Cardholder> allCardholders = cardholderRepository.findByAccountIdInWithCards(accountIds);
+        java.util.Map<UUID, List<Cardholder>> cardholdersByAccount = allCardholders.stream()
+                .collect(java.util.stream.Collectors.groupingBy(ch -> ch.getAccount().getId()));
+
         accounts.forEach(account -> {
-            populateBalanceInfo(account);
-            initCardholders(account);
+            List<Cardholder> chList = cardholdersByAccount.getOrDefault(account.getId(), List.of());
+            account.setCardholders(new ArrayList<>(chList));
         });
+
+        // 2. Batch compute balances in 1 query for all non-broker accounts
+        List<UUID> nonBrokerIds = accounts.stream()
+                .filter(a -> a.getType() != AccountType.broker)
+                .map(Account::getId)
+                .toList();
+
+        java.util.Map<UUID, AccountRepositoryCustom.AccountBalanceBatch> balanceBatches = nonBrokerIds.isEmpty()
+                ? java.util.Map.of()
+                : accountRepository.findAccountBalanceBatches(nonBrokerIds);
+
+        for (Account account : accounts) {
+            if (account.getType() == AccountType.broker) {
+                BigDecimal cash = account.getBrokerDetails() != null && account.getBrokerDetails().getCashBalance() != null
+                        ? account.getBrokerDetails().getCashBalance()
+                        : BigDecimal.ZERO;
+                BigDecimal marketValue = holdingValuationService.getBrokerMarketValue(account.getId());
+                account.setCalculatedBalance(marketValue.add(cash));
+                account.setBalanceAnchored(false);
+                account.setAnchorDate(null);
+                account.setReconciliationGap(null);
+            } else {
+                var batch = balanceBatches.get(account.getId());
+                BalanceMath.apply(
+                        account,
+                        batch != null ? batch.anchorDate() : null,
+                        batch != null ? batch.anchorClosingBalance() : null,
+                        batch != null ? batch.totalSum() : null,
+                        batch != null ? batch.postAnchorSum() : null
+                );
+            }
+        }
+
         return accounts;
     }
 
@@ -494,45 +538,13 @@ public class AccountService {
             LocalDate anchorDate = anchor.getPeriodEnd();
 
             TransactionRepository.BalanceAggregatesProjection aggregates = transactionRepository.findBalanceAggregatesByAccountId(account.getId(), anchorDate);
-            BigDecimal postAnchorSum = aggregates != null && aggregates.getPostAnchorSum() != null ? aggregates.getPostAnchorSum() : BigDecimal.ZERO;
+            BigDecimal totalSum = aggregates != null ? aggregates.getTotalSum() : null;
+            BigDecimal postAnchorSum = aggregates != null ? aggregates.getPostAnchorSum() : null;
 
-            BigDecimal anchoredBalance;
-            if (account.getType() == AccountType.credit_card) {
-                BigDecimal base = anchorClosingBalance.compareTo(BigDecimal.ZERO) > 0
-                        ? anchorClosingBalance.negate()
-                        : anchorClosingBalance.abs();
-                anchoredBalance = base.add(postAnchorSum);
-            } else {
-                anchoredBalance = anchorClosingBalance.add(postAnchorSum);
-            }
-
-            account.setCalculatedBalance(anchoredBalance);
-            account.setBalanceAnchored(true);
-            account.setAnchorDate(anchorDate);
-
-            if (account.getType() == AccountType.bank_account && account.getBankDetails() != null && account.getBankDetails().getOpeningBalance() != null) {
-                BigDecimal totalSum = aggregates != null && aggregates.getTotalSum() != null ? aggregates.getTotalSum() : BigDecimal.ZERO;
-                BigDecimal pureTxBalance = account.getBankDetails().getOpeningBalance().add(totalSum);
-                BigDecimal gap = pureTxBalance.subtract(anchoredBalance);
-                if (gap.abs().compareTo(new BigDecimal("0.01")) >= 0) {
-                    account.setReconciliationGap(gap);
-                } else {
-                    account.setReconciliationGap(null);
-                }
-            } else {
-                account.setReconciliationGap(null);
-            }
+            BalanceMath.apply(account, anchorDate, anchorClosingBalance, totalSum, postAnchorSum);
         } else {
-            account.setBalanceAnchored(false);
-            account.setAnchorDate(null);
-            account.setReconciliationGap(null);
             BigDecimal totalSum = transactionRepository.findTotalTransactionSumByAccountId(account.getId());
-            if (totalSum == null) totalSum = BigDecimal.ZERO;
-            if (account.getType() == AccountType.bank_account && account.getBankDetails() != null && account.getBankDetails().getOpeningBalance() != null) {
-                account.setCalculatedBalance(account.getBankDetails().getOpeningBalance().add(totalSum));
-            } else {
-                account.setCalculatedBalance(totalSum);
-            }
+            BalanceMath.apply(account, null, null, totalSum, null);
         }
     }
 }

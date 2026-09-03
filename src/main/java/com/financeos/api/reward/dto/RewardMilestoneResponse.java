@@ -8,6 +8,8 @@ import com.financeos.domain.reward.MilestoneWindow;
 import com.financeos.domain.reward.RewardMilestone;
 import com.financeos.domain.reward.RewardType;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -17,22 +19,22 @@ import java.util.UUID;
 public record RewardMilestoneResponse(
         UUID id,
         UUID accountId,
-        UUID cardholderId,
+        @Nullable UUID cardholderId,
         String name,
         MilestoneWindow windowType,
         MilestoneBasis basis,
         BigDecimal threshold,
-        BigDecimal minTxnAmount,
+        @Nullable BigDecimal minTxnAmount,
         MilestonePayoutType payoutType,
         RewardType rewardType,
-        BigDecimal payoutValue,
+        @Nullable BigDecimal payoutValue,
         MilestonePayoutTiming payoutTiming,
         List<UUID> includeCategoryIds,
         List<String> includeMccs,
         List<UUID> excludeCategoryIds,
         List<String> excludeMccs,
-        LocalDate activeFrom,
-        LocalDate activeTo,
+        @Nullable LocalDate activeFrom,
+        @Nullable LocalDate activeTo,
         Instant createdAt,
         Instant updatedAt) {
 

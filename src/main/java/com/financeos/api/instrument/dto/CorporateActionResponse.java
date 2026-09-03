@@ -3,6 +3,8 @@ package com.financeos.api.instrument.dto;
 import com.financeos.domain.instrument.corporateaction.CorporateAction;
 import com.financeos.domain.instrument.corporateaction.CorporateActionType;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -17,12 +19,12 @@ public record CorporateActionResponse(
         Integer ratioFrom,
         Integer ratioTo,
         LocalDate exDate,
-        String notes,
-        UUID targetInstrumentId,
-        String targetInstrumentName,
-        String targetInstrumentSymbol,
-        BigDecimal costAllocationPct,
-        BigDecimal fractionalCashInLieu,
+        @Nullable String notes,
+        @Nullable UUID targetInstrumentId,
+        @Nullable String targetInstrumentName,
+        @Nullable String targetInstrumentSymbol,
+        @Nullable BigDecimal costAllocationPct,
+        @Nullable BigDecimal fractionalCashInLieu,
         Instant createdAt
 ) {
     public static CorporateActionResponse from(CorporateAction ca) {

@@ -3,20 +3,22 @@ package com.financeos.api.statement.dto;
 import com.financeos.domain.transaction.ReviewType;
 import com.financeos.domain.transaction.TransactionType;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
 public record StatementLineResponse(
         UUID transactionId,
-        Integer lineIndex,
+        @Nullable Integer lineIndex,
         LocalDate date,
-        String description,
+        @Nullable String description,
         BigDecimal amount,
         TransactionType type,
-        ReviewType reviewType,
-        BigDecimal balanceAfter,
-        Boolean chainValid
+        @Nullable ReviewType reviewType,
+        @Nullable BigDecimal balanceAfter,
+        @Nullable Boolean chainValid
 ) {
     public static StatementLineResponse from(com.financeos.domain.statement.StatementLineProjection p) {
         if (p == null) return null;

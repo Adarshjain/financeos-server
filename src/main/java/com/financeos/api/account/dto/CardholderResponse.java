@@ -4,6 +4,8 @@ import com.financeos.domain.account.card.Cardholder;
 import com.financeos.domain.account.card.CardholderRelationship;
 import com.financeos.domain.account.card.CardholderRole;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,14 +15,14 @@ public record CardholderResponse(
         UUID id,
         UUID accountId,
         CardholderRole role,
-        String personName,
-        CardholderRelationship relationship,
-        BigDecimal spendLimit,
-        LocalDate openedOn,
-        LocalDate closedOn,
-        LocalDate effectiveClosedOn,
+        @Nullable String personName,
+        @Nullable CardholderRelationship relationship,
+        @Nullable BigDecimal spendLimit,
+        @Nullable LocalDate openedOn,
+        @Nullable LocalDate closedOn,
+        @Nullable LocalDate effectiveClosedOn,
         boolean isEffectivelyClosed,
-        String currentLast4,
+        @Nullable String currentLast4,
         List<CardResponse> cards,
         long transactionCount
 ) {

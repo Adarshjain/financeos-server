@@ -24,4 +24,7 @@ public interface CardholderRepository extends JpaRepository<Cardholder, UUID> {
 
     @Query("SELECT ch FROM Cardholder ch WHERE ch.account.id = :accountId AND ch.closedOn IS NULL AND (ch.account.closedOn IS NULL OR ch.account.closedOn > CURRENT_DATE)")
     List<Cardholder> findOpenByAccountId(@Param("accountId") UUID accountId);
+
+    @Query("SELECT DISTINCT ch FROM Cardholder ch LEFT JOIN FETCH ch.cards WHERE ch.account.id IN :accountIds ORDER BY ch.role ASC, ch.createdAt ASC")
+    List<Cardholder> findByAccountIdInWithCards(@Param("accountIds") List<UUID> accountIds);
 }

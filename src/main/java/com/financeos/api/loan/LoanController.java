@@ -5,6 +5,7 @@ import com.financeos.domain.lending.LendingService;
 import com.financeos.domain.loan.LoanService;
 import com.financeos.domain.loan.LoanStatus;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -37,7 +38,7 @@ public class LoanController {
     @GetMapping
     public Page<LoanResponse> getLoans(
             @RequestParam(required = false) LoanStatus status,
-            @PageableDefault(size = 50, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 50, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         return loanService.getLoans(status, pageable);
     }
 

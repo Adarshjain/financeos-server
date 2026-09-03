@@ -5,6 +5,8 @@ import com.financeos.domain.instrument.InstrumentPrice;
 import com.financeos.domain.instrument.InstrumentType;
 import com.financeos.domain.instrument.PriceSource;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -15,15 +17,15 @@ public record InstrumentResponse(
         UUID id,
         InstrumentType type,
         String name,
-        String symbol,
-        String exchange,
-        String isin,
-        String amfiCode,
-        String yahooSymbol,
+        @Nullable String symbol,
+        @Nullable String exchange,
+        @Nullable String isin,
+        @Nullable String amfiCode,
+        @Nullable String yahooSymbol,
         String currency,
-        BigDecimal lastPrice,
-        LocalDate lastPriceAsOf,
-        PriceSource lastPriceSource,
+        @Nullable BigDecimal lastPrice,
+        @Nullable LocalDate lastPriceAsOf,
+        @Nullable PriceSource lastPriceSource,
         Instant createdAt,
         Instant updatedAt
 ) {

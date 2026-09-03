@@ -3,6 +3,8 @@ package com.financeos.api.loan.dto;
 import com.financeos.domain.loan.LoanCharge;
 import com.financeos.domain.loan.LoanChargeType;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -14,8 +16,8 @@ public record LoanChargeResponse(
         LoanChargeType chargeType,
         BigDecimal amount,
         LocalDate chargeDate,
-        UUID transactionId,
-        String notes,
+        @Nullable UUID transactionId,
+        @Nullable String notes,
         Instant createdAt
 ) {
     public static LoanChargeResponse from(LoanCharge charge) {

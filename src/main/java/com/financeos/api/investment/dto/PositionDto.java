@@ -3,6 +3,8 @@ package com.financeos.api.investment.dto;
 import com.financeos.domain.instrument.InstrumentType;
 import com.financeos.domain.instrument.PriceSource;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -16,29 +18,29 @@ public record PositionDto(
         BigDecimal quantity,
         BigDecimal avgCost,
         BigDecimal invested,
-        BigDecimal lastPrice,
-        LocalDate lastPriceAsOf,
-        PriceSource lastPriceSource,
-        BigDecimal currentValue,
-        BigDecimal unrealizedGainLoss,
-        BigDecimal unrealizedGainLossPercent,
-        BigDecimal realizedGainLoss,
-        BigDecimal intradayRealized,
-        BigDecimal dividends,
-        Double xirr,
-        BigDecimal absoluteReturnPercent,
-        BigDecimal totalCharges,
-        String notes,
-        String mergedIntoName,
-        LocalDate mergedIntoDate,
-        BigDecimal buyQty,
-        BigDecimal buyValue,
-        BigDecimal avgBuy,
-        BigDecimal sellQty,
-        BigDecimal sellValue,
-        BigDecimal avgSell,
-        BigDecimal netQty,
-        Boolean unclosed
+        @Nullable BigDecimal lastPrice,
+        @Nullable LocalDate lastPriceAsOf,
+        @Nullable PriceSource lastPriceSource,
+        @Nullable BigDecimal currentValue,
+        @Nullable BigDecimal unrealizedGainLoss,
+        @Nullable BigDecimal unrealizedGainLossPercent,
+        @Nullable BigDecimal realizedGainLoss,
+        @Nullable BigDecimal intradayRealized,
+        @Nullable BigDecimal dividends,
+        @Nullable Double xirr,
+        @Nullable BigDecimal absoluteReturnPercent,
+        @Nullable BigDecimal totalCharges,
+        @Nullable String notes,
+        @Nullable String mergedIntoName,
+        @Nullable LocalDate mergedIntoDate,
+        @Nullable BigDecimal buyQty,
+        @Nullable BigDecimal buyValue,
+        @Nullable BigDecimal avgBuy,
+        @Nullable BigDecimal sellQty,
+        @Nullable BigDecimal sellValue,
+        @Nullable BigDecimal avgSell,
+        @Nullable BigDecimal netQty,
+        @Nullable Boolean unclosed
 ) {
     public PositionDto(
             UUID holdingId,
@@ -98,10 +100,10 @@ public record PositionDto(
             UUID id,
             InstrumentType type,
             String name,
-            String symbol,
-            String isin,
-            String amfiCode,
-            String yahooSymbol,
-            PriceSource lastPriceSource
+            @Nullable String symbol,
+            @Nullable String isin,
+            @Nullable String amfiCode,
+            @Nullable String yahooSymbol,
+            @Nullable PriceSource lastPriceSource
     ) {}
 }

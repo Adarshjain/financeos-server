@@ -1,5 +1,7 @@
 package com.financeos.api.lending;
 
+import org.springdoc.core.annotations.ParameterObject;
+
 import com.financeos.api.lending.dto.CounterpartyResponse;
 import com.financeos.api.lending.dto.CreateCounterpartyRequest;
 import com.financeos.api.lending.dto.UpdateCounterpartyRequest;
@@ -26,7 +28,7 @@ public class CounterpartyController {
 
     @GetMapping
     public Page<CounterpartyResponse> getCounterparties(
-            @PageableDefault(size = 50, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 50, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
         return lendingService.getCounterparties(pageable);
     }
 

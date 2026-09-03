@@ -5,6 +5,7 @@ import com.financeos.domain.investment.InvestmentTransactionType;
 import com.financeos.domain.investment.SettlementType;
 import com.financeos.domain.investment.reconcile.Broker;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,24 +21,24 @@ public record ReconcileCommitRequest(
 ) {
     public record CommitExecutionDto(
             int rowIndex,
-            LocalDate tradeDate,
+            @Nullable LocalDate tradeDate,
             InvestmentTransactionType type,
-            SettlementType settlementType,
-            String symbol,
-            String isin,
-            String exchange,
-            BigDecimal quantity,
-            BigDecimal price,
-            ItemizedChargesDto charges,
-            String externalRef,
-            UUID instrumentId,
-            CreateInstrumentDto newInstrument,
+            @Nullable SettlementType settlementType,
+            @Nullable String symbol,
+            @Nullable String isin,
+            @Nullable String exchange,
+            @Nullable BigDecimal quantity,
+            @Nullable BigDecimal price,
+            @Nullable ItemizedChargesDto charges,
+            @Nullable String externalRef,
+            @Nullable UUID instrumentId,
+            @Nullable CreateInstrumentDto newInstrument,
             boolean skip
     ) {}
 
     public record CommitClassificationDto(
-            String isin,
-            String symbol,
+            @Nullable String isin,
+            @Nullable String symbol,
             LocalDate tradeDate,
             BigDecimal intradayQty,
             BigDecimal intradayBuyValue,

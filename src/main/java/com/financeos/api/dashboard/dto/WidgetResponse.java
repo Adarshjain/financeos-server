@@ -1,6 +1,7 @@
 package com.financeos.api.dashboard.dto;
 
 import com.financeos.domain.dashboard.WidgetLayout;
+import org.springframework.lang.Nullable;
 
 import java.util.UUID;
 
@@ -8,7 +9,7 @@ import java.util.UUID;
 public record WidgetResponse(
         String id,
         UUID reportId,
-        String title,
+        @Nullable String title,
         WidgetLayout layout,
         ReportRef report) {
 }

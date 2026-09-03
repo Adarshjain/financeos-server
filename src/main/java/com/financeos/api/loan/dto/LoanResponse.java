@@ -6,6 +6,8 @@ import com.financeos.domain.loan.LoanType;
 import com.financeos.domain.loan.RateType;
 import com.financeos.domain.loan.schedule.ScheduleResult;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -15,9 +17,9 @@ public record LoanResponse(
         UUID id,
         String name,
         LoanType loanType,
-        String lender,
-        String loanAccountNumber,
-        UUID paymentAccountId,
+        @Nullable String lender,
+        @Nullable String loanAccountNumber,
+        @Nullable UUID paymentAccountId,
         BigDecimal principal,
         BigDecimal annualRatePct,
         RateType rateType,
@@ -26,7 +28,7 @@ public record LoanResponse(
         LocalDate firstEmiDate,
         BigDecimal emiAmount,
         LoanStatus status,
-        String notes,
+        @Nullable String notes,
         Instant createdAt,
         Instant updatedAt,
         BigDecimal currentAnnualRatePct,
@@ -34,11 +36,11 @@ public record LoanResponse(
         BigDecimal outstandingPrincipal,
         Integer totalInstallments,
         Integer settledInstallments,
-        LocalDate nextDueDate,
-        LocalDate projectedEndDate,
+        @Nullable LocalDate nextDueDate,
+        @Nullable LocalDate projectedEndDate,
         BigDecimal totalInterestPaid,
         BigDecimal totalInterestRemaining,
-        Double effectiveAprPct
+        @Nullable Double effectiveAprPct
 ) {
     public static LoanResponse from(Loan loan, ScheduleResult schedule) {
         return new LoanResponse(

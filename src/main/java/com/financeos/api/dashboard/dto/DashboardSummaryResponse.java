@@ -1,5 +1,7 @@
 package com.financeos.api.dashboard.dto;
 
+import org.springframework.lang.Nullable;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -7,7 +9,7 @@ import java.util.UUID;
 public record DashboardSummaryResponse(
         UUID id,
         String name,
-        String description,
+        @Nullable String description,
         boolean isDefault,
         int widgetCount,
         Instant createdAt,

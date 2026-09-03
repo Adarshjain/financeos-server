@@ -1,6 +1,7 @@
 package com.financeos.domain.report.definition;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.lang.Nullable;
 
 /**
  * A single filter predicate. Multiple clauses in a definition are AND-ed together.
@@ -11,5 +12,5 @@ import com.fasterxml.jackson.databind.JsonNode;
 public record FilterClause(
         String field,
         String operator,
-        JsonNode value
+        @Nullable JsonNode value
 ) {}

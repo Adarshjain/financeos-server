@@ -1,5 +1,7 @@
 package com.financeos.api.rules;
 
+import org.springdoc.core.annotations.ParameterObject;
+
 import com.financeos.api.rules.dto.ApplyRuleRequest;
 import com.financeos.api.rules.dto.ApplyRuleResponse;
 import com.financeos.api.rules.dto.CreateRuleRequest;
@@ -78,7 +80,7 @@ public class RulesController {
     public ResponseEntity<Page<RuleResponse>> getRules(
             @RequestParam(required = false) Boolean verified,
             @RequestParam(required = false) String search,
-            @PageableDefault(size = 20) Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
 
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 
@@ -219,7 +221,7 @@ public class RulesController {
     @PostMapping("/preview-matches")
     public ResponseEntity<Page<RuleMatchTransactionResponse>> previewMatches(
             @Valid @RequestBody PreviewMatchesRequest request,
-            @PageableDefault(size = 20) Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
 
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 

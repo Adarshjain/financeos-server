@@ -35,18 +35,24 @@ public class SecurityConfig {
 
     private final AppConfigProperties appConfig;
     private final UserContextFilter userContextFilter;
+    private final OriginValidationFilter originValidationFilter;
     private final LoggingAuthenticationEntryPoint authEntryPoint;
     private final LoggingAccessDeniedHandler accessDeniedHandler;
+    private final boolean openApiDocsEnabled;
 
     public SecurityConfig(
             AppConfigProperties appConfig,
             UserContextFilter userContextFilter,
+            OriginValidationFilter originValidationFilter,
             LoggingAuthenticationEntryPoint authEntryPoint,
-            LoggingAccessDeniedHandler accessDeniedHandler) {
+            LoggingAccessDeniedHandler accessDeniedHandler,
+            @Value("${springdoc.api-docs.enabled:false}") boolean openApiDocsEnabled) {
         this.appConfig = appConfig;
         this.userContextFilter = userContextFilter;
+        this.originValidationFilter = originValidationFilter;
         this.authEntryPoint = authEntryPoint;
         this.accessDeniedHandler = accessDeniedHandler;
+        this.openApiDocsEnabled = openApiDocsEnabled;
     }
 
     @Bean
@@ -66,16 +72,25 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                        .maximumSessions(1))
+                        .maximumSessions(5))
                 .securityContext(context -> context
                         .securityContextRepository(securityContextRepository()))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/auth/login"), AntPathRequestMatcher.antMatcher("/api/v1/auth/signup")).permitAll()
+                .authorizeHttpRequests(auth -> {
+                    if (openApiDocsEnabled) {
+                        auth.requestMatchers(
+                                AntPathRequestMatcher.antMatcher("/v3/api-docs"),
+                                AntPathRequestMatcher.antMatcher("/v3/api-docs/**"),
+                                AntPathRequestMatcher.antMatcher("/v3/api-docs.*")
+                        ).permitAll();
+                    }
+                    auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/auth/login"), AntPathRequestMatcher.antMatcher("/api/v1/auth/signup")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/auth/google/**")).permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().authenticated();
+                })
                 // Note: userContextFilter is registered here inside the security chain (order -100).
                 // OncePerRequestFilter's already-filtered guard turns the standalone @Order(0) bean copy
                 // into a pass-through. AccessLogFilter (@Order(10)) depends on userContextFilter running first.
+                .addFilterBefore(originValidationFilter, SecurityContextHolderFilter.class)
                 .addFilterAfter(userContextFilter, SecurityContextHolderFilter.class)
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(authEntryPoint)
@@ -135,5 +150,13 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
+    }
+
+    @Bean
+    public org.springframework.boot.web.servlet.FilterRegistrationBean<OriginValidationFilter> originValidationFilterRegistration(OriginValidationFilter filter) {
+        org.springframework.boot.web.servlet.FilterRegistrationBean<OriginValidationFilter> registration =
+                new org.springframework.boot.web.servlet.FilterRegistrationBean<>(filter);
+        registration.setEnabled(false);
+        return registration;
     }
 }

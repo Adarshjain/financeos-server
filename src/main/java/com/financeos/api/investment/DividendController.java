@@ -1,5 +1,7 @@
 package com.financeos.api.investment;
 
+import org.springdoc.core.annotations.ParameterObject;
+
 import com.financeos.api.investment.dto.*;
 import com.financeos.domain.investment.dividend.DividendService;
 import com.financeos.domain.investment.dividend.DividendType;
@@ -51,7 +53,7 @@ public class DividendController {
             @RequestParam(required = false) DividendType type,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
-            @PageableDefault(size = 25)
+            @ParameterObject @PageableDefault(size = 25)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "payDate", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)

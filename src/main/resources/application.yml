@@ -64,6 +64,14 @@ spring:
     livereload:
       enabled: true
 
+springdoc:
+  api-docs:
+    enabled: ${OPENAPI_DOCS_ENABLED:false}
+    path: /v3/api-docs
+  paths-to-match: /api/**
+  writer-with-order-by-keys: true
+  writer-with-default-pretty-printer: true
+
 server:
   port: ${SERVER_PORT:6969}
   servlet:

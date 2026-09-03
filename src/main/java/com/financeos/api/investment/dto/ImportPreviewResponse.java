@@ -3,6 +3,8 @@ package com.financeos.api.investment.dto;
 import com.financeos.domain.instrument.InstrumentType;
 import com.financeos.domain.investment.imports.ParsedRow;
 
+import org.springframework.lang.Nullable;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +15,7 @@ public record ImportPreviewResponse(
     public record ImportRowPreviewDto(
             int rowIndex,
             String matchStatus, // "matched" | "unmatched"
-            MatchedInstrumentDto matchedInstrument,
+            @Nullable MatchedInstrumentDto matchedInstrument,
             boolean duplicate,
             ParsedRow parsedRow
     ) {}
@@ -22,9 +24,9 @@ public record ImportPreviewResponse(
             UUID id,
             InstrumentType type,
             String name,
-            String symbol,
-            String exchange,
-            String isin
+            @Nullable String symbol,
+            @Nullable String exchange,
+            @Nullable String isin
     ) {}
 
     public record SummaryDto(
@@ -33,6 +35,6 @@ public record ImportPreviewResponse(
             int unmatched,
             int duplicates,
             int errors,
-            String note
+            @Nullable String note
     ) {}
 }

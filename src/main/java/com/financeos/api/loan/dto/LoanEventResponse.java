@@ -4,6 +4,8 @@ import com.financeos.domain.loan.AdjustmentMode;
 import com.financeos.domain.loan.LoanEvent;
 import com.financeos.domain.loan.LoanEventType;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -14,11 +16,11 @@ public record LoanEventResponse(
         UUID loanId,
         LoanEventType eventType,
         LocalDate effectiveDate,
-        BigDecimal newAnnualRatePct,
-        BigDecimal amount,
-        AdjustmentMode adjustmentMode,
-        BigDecimal newEmiOverride,
-        UUID transactionId,
+        @Nullable BigDecimal newAnnualRatePct,
+        @Nullable BigDecimal amount,
+        @Nullable AdjustmentMode adjustmentMode,
+        @Nullable BigDecimal newEmiOverride,
+        @Nullable UUID transactionId,
         Instant createdAt
 ) {
     public static LoanEventResponse from(LoanEvent event) {

@@ -4,6 +4,7 @@ import com.financeos.api.transaction.dto.*;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionService;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -35,7 +36,7 @@ public class TransactionController {
 
     @GetMapping
     public ResponseEntity<Page<TransactionResponse>> getAllTransactions(
-            @PageableDefault(size = 50, sort = { "date", "createdAt",
+            @ParameterObject @PageableDefault(size = 50, sort = { "date", "createdAt",
                     "id" }, direction = org.springframework.data.domain.Sort.Direction.DESC) Pageable pageable) {
         Page<Transaction> transactions = transactionService.getAllTransactions(pageable);
         java.util.List<UUID> ids = transactions.getContent().stream().map(Transaction::getId).toList();
@@ -48,7 +49,7 @@ public class TransactionController {
     @PostMapping("/search")
     public ResponseEntity<Page<TransactionResponse>> searchTransactions(
             @Valid @RequestBody TransactionSearchRequest request,
-            @PageableDefault(size = 50, sort = { "date", "createdAt",
+            @ParameterObject @PageableDefault(size = 50, sort = { "date", "createdAt",
                     "id" }, direction = org.springframework.data.domain.Sort.Direction.DESC) Pageable pageable) {
         Page<Transaction> transactions = transactionService.searchTransactions(request, pageable);
         java.util.List<UUID> ids = transactions.getContent().stream().map(Transaction::getId).toList();

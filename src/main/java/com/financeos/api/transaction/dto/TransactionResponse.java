@@ -5,6 +5,8 @@ import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -13,33 +15,33 @@ import java.util.UUID;
 public record TransactionResponse(
                 UUID id,
                 UUID accountId,
-                UUID cardId,
-                String cardLabel,
+                @Nullable UUID cardId,
+                @Nullable String cardLabel,
                 /** The plastic the spend happened on — the user-facing requirement is "account name + last 4". */
-                String cardLast4,
+                @Nullable String cardLast4,
                 LocalDate date,
                 BigDecimal amount,
-                String description,
-                String sourcedDescription,
+                @Nullable String description,
+                @Nullable String sourcedDescription,
                 java.util.List<com.financeos.api.category.dto.CategoryResponse> categories,
                 TransactionSource source,
                 boolean isTransactionUnderMonitoring,
-                String monitoringReason,
+                @Nullable String monitoringReason,
                 boolean isTransactionExcluded,
                 Instant createdAt,
                 Instant updatedAt,
-                Instant reviewedAt,
-                BigDecimal balance,
-                ReviewType reviewType,
+                @Nullable Instant reviewedAt,
+                @Nullable BigDecimal balance,
+                @Nullable ReviewType reviewType,
                 java.util.List<com.financeos.domain.transaction.ReviewReason> reviewReasons,
-                UUID appliedRuleId,
-                String mcc,
-                LocalDate settlementDate,
-                BigDecimal instantDiscount,
-                BigDecimal convenienceFee,
-                com.financeos.domain.transaction.TransactionChannel channel,
-                Boolean isEmi,
-                Boolean isInternational,
+                @Nullable UUID appliedRuleId,
+                @Nullable String mcc,
+                @Nullable LocalDate settlementDate,
+                @Nullable BigDecimal instantDiscount,
+                @Nullable BigDecimal convenienceFee,
+                @Nullable com.financeos.domain.transaction.TransactionChannel channel,
+                @Nullable Boolean isEmi,
+                @Nullable Boolean isInternational,
                 java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary> links) {
 
         public static TransactionResponse from(Transaction transaction) {

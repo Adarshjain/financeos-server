@@ -4,6 +4,7 @@ import com.financeos.domain.instrument.InstrumentType;
 import com.financeos.domain.investment.InvestmentTransactionType;
 import com.financeos.domain.investment.imports.ImportSource;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,19 +19,19 @@ public record ImportCommitRequest(
     public record CommitRowDto(
             int rowIndex,
             boolean skip,
-            UUID instrumentId,
-            CreateInstrumentDto newInstrument,
-            ParsedRowData row
+            @Nullable UUID instrumentId,
+            @Nullable CreateInstrumentDto newInstrument,
+            @Nullable ParsedRowData row
     ) {}
 
     public record CreateInstrumentDto(
-            InstrumentType type,
-            String name,
-            String symbol,
-            String exchange,
-            String isin,
-            String amfiCode,
-            String yahooSymbol
+            @Nullable InstrumentType type,
+            @Nullable String name,
+            @Nullable String symbol,
+            @Nullable String exchange,
+            @Nullable String isin,
+            @Nullable String amfiCode,
+            @Nullable String yahooSymbol
     ) {}
 
     public record ParsedRowData(

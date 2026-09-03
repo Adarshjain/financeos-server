@@ -4,6 +4,8 @@ import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementSource;
 import com.financeos.domain.statement.StatementVerdict;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -13,24 +15,24 @@ import java.util.UUID;
 public record StatementDetailResponse(
         UUID id,
         StatementSource source,
-        String sourceRef,
-        String statementType,
-        LocalDate periodStart,
-        LocalDate periodEnd,
-        BigDecimal openingBalance,
-        BigDecimal closingBalance,
-        BigDecimal totalDebits,
-        BigDecimal totalCredits,
-        Integer transactionCount,
-        Integer linesSkipped,
-        String parseMode,
-        BigDecimal chainValidationPct,
-        Boolean checksumOk,
-        StatementVerdict verdict,
-        String bankName,
-        String accountNumberMasked,
+        @Nullable String sourceRef,
+        @Nullable String statementType,
+        @Nullable LocalDate periodStart,
+        @Nullable LocalDate periodEnd,
+        @Nullable BigDecimal openingBalance,
+        @Nullable BigDecimal closingBalance,
+        @Nullable BigDecimal totalDebits,
+        @Nullable BigDecimal totalCredits,
+        @Nullable Integer transactionCount,
+        @Nullable Integer linesSkipped,
+        @Nullable String parseMode,
+        @Nullable BigDecimal chainValidationPct,
+        @Nullable Boolean checksumOk,
+        @Nullable StatementVerdict verdict,
+        @Nullable String bankName,
+        @Nullable String accountNumberMasked,
         Instant createdAt,
-        StatementCardDetailsResponse cardDetails,
+        @Nullable StatementCardDetailsResponse cardDetails,
         List<StatementLineResponse> lines
 ) {
     public static StatementDetailResponse from(Statement statement, StatementCardDetailsResponse cardDetails, List<StatementLineResponse> lines) {

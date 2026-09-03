@@ -6,6 +6,7 @@ import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.job.*;
 
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +36,7 @@ public class JobController {
     public ResponseEntity<Page<JobResponse>> getJobs(
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String type,
-            @PageableDefault(size = 20) Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
 
         UUID userId = UserContext.getCurrentUserId();
 

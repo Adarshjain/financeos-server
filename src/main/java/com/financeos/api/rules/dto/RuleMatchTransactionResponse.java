@@ -3,6 +3,8 @@ package com.financeos.api.rules.dto;
 import com.financeos.api.category.dto.CategoryResponse;
 import com.financeos.domain.categorization.RuleMatchService;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -16,8 +18,8 @@ public record RuleMatchTransactionResponse(
         String type,
         String sourcedDescription,
         List<CategoryResponse> categories,
-        String reviewType,
-        UUID appliedRuleId
+        @Nullable String reviewType,
+        @Nullable UUID appliedRuleId
 ) {
     public static RuleMatchTransactionResponse from(RuleMatchService.MatchedTransaction match) {
         List<CategoryResponse> categories = match.categories().stream()
