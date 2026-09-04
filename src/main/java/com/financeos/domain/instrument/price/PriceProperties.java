@@ -25,7 +25,10 @@ public class PriceProperties {
         private boolean enabled = true;
         private boolean batchEnabled = true;
         private int batchSize = 50;
-        private String baseUrl;
+        private String baseUrl = "https://query2.finance.yahoo.com";
+        private String crumbBaseUrl = "https://fc.yahoo.com";
+        private String crumbFallbackUrl = "https://finance.yahoo.com";
+        private boolean fallbackEnabled = true;
         private long timeoutMs = 30000L;
         private String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36";
     }

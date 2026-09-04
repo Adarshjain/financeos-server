@@ -305,11 +305,16 @@ price:
     amfi:
       enabled: true
       base-url: ${AMFI_BASE_URL:https://www.amfiindia.com}
-      timeout-ms: 30000
+      timeout-ms: ${AMFI_TIMEOUT_MS:30000}
     yahoo:
       enabled: true
       base-url: ${YAHOO_BASE_URL:https://query2.finance.yahoo.com}
-      timeout-ms: 30000
+      crumb-base-url: ${YAHOO_CRUMB_BASE_URL:https://fc.yahoo.com}
+      crumb-fallback-url: ${YAHOO_CRUMB_FALLBACK_URL:https://finance.yahoo.com}
+      fallback-enabled: ${YAHOO_FALLBACK_ENABLED:true}
+      timeout-ms: ${YAHOO_TIMEOUT_MS:30000}
+      batch-enabled: ${YAHOO_BATCH_ENABLED:true}
+      batch-size: ${YAHOO_BATCH_SIZE:50}
       user-agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
 
 # Background Jobs configuration
