@@ -3,6 +3,7 @@ package com.financeos.e2e;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.financeos.core.security.UserContext;
 import com.financeos.llm.LlmException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
@@ -88,7 +89,7 @@ public class E2eControlController {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                             "Invalid error kind '" + err.kind() + "'. Valid: RETRYABLE, FATAL, BAD_OUTPUT, NO_KEYS");
                 }
-                scriptedLlmClient.enqueueScript(request.task(),
+                scriptedLlmClient.enqueueScript(UserContext.getCurrentUserId(), request.task(),
                         ScriptedLlmClient.Scripted.ofError(kind, err.message(), delay));
             } else {
                 // json may be object or string
@@ -102,12 +103,12 @@ public class E2eControlController {
                         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to serialize json: " + e.getMessage());
                     }
                 }
-                scriptedLlmClient.enqueueScript(request.task(),
+                scriptedLlmClient.enqueueScript(UserContext.getCurrentUserId(), request.task(),
                         ScriptedLlmClient.Scripted.ofJson(jsonText, delay));
             }
         }
 
-        return ResponseEntity.ok(new ScriptResult(scriptedLlmClient.getQueueSizes()));
+        return ResponseEntity.ok(new ScriptResult(scriptedLlmClient.getQueueSizes(UserContext.getCurrentUserId())));
     }
 
     @PutMapping("/llm/mode")
@@ -122,13 +123,13 @@ public class E2eControlController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "Invalid mode '" + request.mode() + "'. Valid: STRICT, SCHEMA_DEFAULT");
         }
-        scriptedLlmClient.setMode(mode);
+        scriptedLlmClient.setMode(UserContext.getCurrentUserId(), mode);
         return ResponseEntity.ok(new ModeResponse(mode.name()));
     }
 
     @GetMapping("/llm/calls")
     public ResponseEntity<CallsResponse> getCalls(@RequestParam(required = false) String task) {
-        List<ScriptedLlmClient.RecordedCall> calls = scriptedLlmClient.getRecordedCalls(task);
+        List<ScriptedLlmClient.RecordedCall> calls = scriptedLlmClient.getRecordedCalls(task, UserContext.getCurrentUserId());
         List<CallEntry> entries = calls.stream()
                 .map(c -> new CallEntry(c.task(), c.userId(), c.prompt(), c.schemaPresent(), c.timestamp()))
                 .toList();
@@ -138,7 +139,7 @@ public class E2eControlController {
     @DeleteMapping("/llm")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void resetLlm() {
-        scriptedLlmClient.reset();
+        scriptedLlmClient.reset(UserContext.getCurrentUserId());
     }
 
     // --- Coverage Endpoints ---
