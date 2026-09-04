@@ -343,7 +343,7 @@ public class GmailController {
             Optional<GmailProcessedMessage> gpmOpt = processedMessageRepository.findByTransactionId(txn.getId());
             if (gpmOpt.isPresent()) {
                 GmailProcessedMessage gpm = gpmOpt.get();
-                gpm.setStatus(GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK);
+                gpm.setStatus(GmailProcessedStatus.CLEANED_UP);
                 gpm.setTransaction(null);
                 processedMessageRepository.save(gpm);
             }
