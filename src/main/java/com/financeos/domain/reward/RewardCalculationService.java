@@ -764,7 +764,7 @@ public class RewardCalculationService {
         }
     }
 
-    private CounterKey capKey(RewardRule rule, LocalDate effectiveDate, Evaluation eval, UUID txnCardholderId) {
+    CounterKey capKey(RewardRule rule, LocalDate effectiveDate, Evaluation eval, UUID txnCardholderId) {
         Window window = windowContaining(effectiveCapWindow(rule), effectiveDate, eval, true);
         if (effectiveCounterScope(rule) == CounterScope.PER_CARDHOLDER) {
             UUID effectiveCardholderId = counterCardholderId(txnCardholderId, eval);

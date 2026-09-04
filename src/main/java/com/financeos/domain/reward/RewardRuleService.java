@@ -282,6 +282,9 @@ public class RewardRuleService {
     }
 
     private void applyAccrual(RewardRule rule, RewardRuleRequest request) {
+        RewardType rewardType = parseEnum(RewardType.class, request.rewardType(), RewardType.CASH);
+        rule.setRewardType(rewardType);
+
         AccrualType accrualType = parseEnum(AccrualType.class, request.accrualType(), null);
         rule.setAccrualType(accrualType);
 
