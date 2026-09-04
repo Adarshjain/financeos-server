@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.springframework.data.domain.Persistable;
 
 import java.time.LocalDate;
 import java.time.Instant;
@@ -17,7 +18,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GmailBackfillDemand {
+public class GmailBackfillDemand implements Persistable<UUID> {
 
     @Id
     @Column(name = "user_id", length = 36)
@@ -35,11 +36,30 @@ public class GmailBackfillDemand {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
+    @jakarta.persistence.Transient
+    private boolean isNew = true;
+
     public GmailBackfillDemand(User user, LocalDate floorDate) {
         this.user = user;
         this.userId = user.getId();
         this.floorDate = floorDate;
         this.updatedAt = Instant.now();
+    }
+
+    @Override
+    public UUID getId() {
+        return userId;
+    }
+
+    @Override
+    public boolean isNew() {
+        return isNew;
+    }
+
+    @PostLoad
+    @PostPersist
+    void markNotNew() {
+        this.isNew = false;
     }
 
     @PrePersist

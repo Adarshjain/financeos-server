@@ -7958,6 +7958,7 @@ components:
           - ACCOUNT_NOT_OPTED_IN
           - FAILED_RETRYABLE
           - FAILED_PERMANENT
+          - CLEANED_UP
         subject:
           type: string
           nullable: true
