@@ -80,17 +80,9 @@ public class FileIngestionService {
     }
 
     public FileIngestionResult ingest(UUID accountId, List<UploadedFile> files, com.financeos.domain.job.JobExecutionContext execCtx) {
-        // Read account (this does not need a long-lived transaction)
-        Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new ResourceNotFoundException("Account", accountId));
-
-        // SECURITY: Verify that the account belongs to the session user.
+        // Read account (retrieves account, checks permissions, initializes cardholders)
+        Account account = accountService.getAccountById(accountId);
         UUID currentSessionUserId = com.financeos.core.security.UserContext.getCurrentUserId();
-        if (!account.getUser().getId().equals(currentSessionUserId)) {
-            log.error("Security Breach Attempt: User {} tried to ingest files to Account {} owned by User {}",
-                    currentSessionUserId, account.getId(), account.getUser().getId());
-            throw new ValidationException("You do not have permission to ingest files to this account.");
-        }
 
         User user = userRepository.getReferenceById(currentSessionUserId);
 

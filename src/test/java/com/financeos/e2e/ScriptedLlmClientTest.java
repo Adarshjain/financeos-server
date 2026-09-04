@@ -191,6 +191,34 @@ class ScriptedLlmClientTest {
     }
 
     @Test
+    void scriptedDelaySleepsBeforeReturning() {
+        long delayMs = 150L;
+        client.enqueueScript("delayed", ScriptedLlmClient.Scripted.ofJson("{\"delayed\": true}", delayMs));
+
+        long start = System.currentTimeMillis();
+        LlmResponse r = client.complete(new LlmRequest("delayed", "p", null, 0.0));
+        long duration = System.currentTimeMillis() - start;
+
+        assertEquals("{\"delayed\": true}", r.jsonText());
+        assertTrue(duration >= 100, "Should have slept for at least 100ms, took " + duration + "ms");
+    }
+
+    @Test
+    void scriptedDelaySleepsBeforeThrowingError() {
+        long delayMs = 150L;
+        client.enqueueScript("delayed-err", ScriptedLlmClient.Scripted.ofError(LlmException.Kind.RETRYABLE, "slow error", delayMs));
+
+        long start = System.currentTimeMillis();
+        LlmException ex = assertThrows(LlmException.class,
+                () -> client.complete(new LlmRequest("delayed-err", "p", null, 0.0)));
+        long duration = System.currentTimeMillis() - start;
+
+        assertEquals(LlmException.Kind.RETRYABLE, ex.getKind());
+        assertEquals("slow error", ex.getMessage());
+        assertTrue(duration >= 100, "Should have slept for at least 100ms, took " + duration + "ms");
+    }
+
+    @Test
     void resetClearsEverything() {
         client.enqueueScript("test", ScriptedLlmClient.Scripted.ofJson("{}"));
         client.complete(new LlmRequest("other", "p", null, 0.0));

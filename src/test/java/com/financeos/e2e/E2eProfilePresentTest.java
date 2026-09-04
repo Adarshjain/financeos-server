@@ -14,6 +14,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -67,6 +68,24 @@ class E2eProfilePresentTest {
         // /api/e2e/** endpoints should NOT appear (excluded)
         assertTrue(body.contains("/api/v1/auth/me"), "Coverage should include /api/v1/auth/me");
         assertFalse(body.contains("/api/e2e/"), "Coverage should exclude /api/e2e/** endpoints");
+    }
+
+    @Test
+    void scriptEndpointAcceptsDelayMs() throws Exception {
+        Cookie[] sessionCookies = signUpAndLogin("e2e-delay-test@example.com");
+
+        mockMvc.perform(post("/api/e2e/llm/script")
+                        .cookie(sessionCookies)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(Map.of(
+                                "task", "delay-endpoint-test",
+                                "responses", List.of(Map.of(
+                                        "json", Map.of("key", "val"),
+                                        "delayMs", 50
+                                ))
+                        ))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.queued.delay-endpoint-test").value(1));
     }
 
     private Cookie[] signUpAndLogin(String email) throws Exception {
