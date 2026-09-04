@@ -85,8 +85,53 @@ class GmailIngestEventListenerTest {
         assertThat(parkedRow.getNextRetryAt()).isNull();
         assertThat(parkedRow.getError()).isNull();
 
+        @SuppressWarnings("unchecked")
+        ArgumentCaptor<List<GmailProcessedStatus>> statusCaptor = ArgumentCaptor.forClass(List.class);
+        verify(processedMessageRepository).findParkedForReactivation(eq(userId), eq("1234"), statusCaptor.capture(), any());
+        assertThat(statusCaptor.getValue()).containsExactlyInAnyOrder(
+                GmailProcessedStatus.UNRESOLVED_ACCOUNT,
+                GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN,
+                GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK
+        );
+
         verify(processedMessageRepository).saveAll(List.of(parkedRow));
         verify(jobService).enqueue(eq(userId), any(), any(), any(), any(), eq(conn.getId().toString()));
+    }
+
+    @Test
+    void testAccountIngestChanged_ReactivatesWatermarkSkippedRows() {
+        LocalDate ingestFromDate = LocalDate.of(2026, 8, 10);
+        AccountIngestChangedEvent event = new AccountIngestChangedEvent(userId, "1234", ingestFromDate);
+
+        GmailProcessedMessage skippedRow = new GmailProcessedMessage();
+        skippedRow.setId(UUID.randomUUID());
+        skippedRow.setStatus(GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK);
+        skippedRow.setExtractedLast4("1234");
+        skippedRow.setAttemptCount(1);
+        skippedRow.setNextRetryAt(Instant.now());
+        skippedRow.setError("Before watermark");
+        skippedRow.setInternalDate(LocalDate.of(2026, 8, 8).atStartOfDay(ZoneOffset.UTC).toInstant());
+
+        when(processedMessageRepository.findParkedForReactivation(eq(userId), eq("1234"), any(), any()))
+                .thenReturn(List.of(skippedRow));
+
+        GmailConnection conn = new GmailConnection();
+        conn.setId(UUID.randomUUID());
+        conn.setIsConnected(true);
+        User user = new User();
+        user.setId(userId);
+        conn.setUser(user);
+
+        when(connectionRepository.findByUserId(userId)).thenReturn(List.of(conn));
+
+        listener.handleAccountIngestChanged(event);
+
+        assertThat(skippedRow.getStatus()).isEqualTo(GmailProcessedStatus.DISCOVERED);
+        assertThat(skippedRow.getAttemptCount()).isEqualTo(0);
+        assertThat(skippedRow.getNextRetryAt()).isNull();
+        assertThat(skippedRow.getError()).isNull();
+
+        verify(processedMessageRepository).saveAll(List.of(skippedRow));
     }
 
     @Test
