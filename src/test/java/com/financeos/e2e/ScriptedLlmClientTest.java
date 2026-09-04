@@ -230,4 +230,37 @@ class ScriptedLlmClientTest {
         assertTrue(client.getRecordedCalls(null).isEmpty());
         assertTrue(client.getQueueSizes().isEmpty());
     }
+
+    @Test
+    void perUserScriptsAreIsolated() {
+        java.util.UUID a = java.util.UUID.randomUUID();
+        java.util.UUID b = java.util.UUID.randomUUID();
+        client.enqueueScript(a, "categorize", ScriptedLlmClient.Scripted.ofJson("{\"for\":\"a\"}"));
+        // B has no script -> schema default ({} for null schema); A's script must remain queued.
+        LlmResponse rb = client.complete(new LlmRequest(b, "categorize", "p", null, 0.0));
+        assertEquals("{}", rb.jsonText());
+        LlmResponse ra = client.complete(new LlmRequest(a, "categorize", "p", null, 0.0));
+        assertEquals("{\"for\":\"a\"}", ra.jsonText());
+        // Calls are attributable per user.
+        assertEquals(1, client.getRecordedCalls("categorize", a).size());
+        assertEquals(1, client.getRecordedCalls("categorize", b).size());
+        assertEquals(2, client.getRecordedCalls("categorize").size());
+    }
+
+    @Test
+    void perUserModeAndResetDoNotLeak() {
+        java.util.UUID a = java.util.UUID.randomUUID();
+        java.util.UUID b = java.util.UUID.randomUUID();
+        client.setMode(a, ScriptedLlmClient.Mode.STRICT);
+        assertThrows(LlmException.class, () -> client.complete(new LlmRequest(a, "t", "p", null, 0.0)));
+        assertEquals("{}", client.complete(new LlmRequest(b, "t", "p", null, 0.0)).jsonText());
+        client.enqueueScript(b, "t", ScriptedLlmClient.Scripted.ofJson("{\"b\":1}"));
+        client.reset(a);
+        assertEquals(ScriptedLlmClient.Mode.SCHEMA_DEFAULT, client.getMode(a));
+        assertEquals(0, client.getRecordedCalls(null, a).size());
+        assertEquals(1, client.getQueueSizes(b).get("t"));
+        // Global scripts still serve users with nothing of their own.
+        client.enqueueScript("t", ScriptedLlmClient.Scripted.ofJson("{\"g\":1}"));
+        assertEquals("{\"g\":1}", client.complete(new LlmRequest(a, "t", "p", null, 0.0)).jsonText());
+    }
 }

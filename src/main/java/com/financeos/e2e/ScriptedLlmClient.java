@@ -54,9 +54,18 @@ public class ScriptedLlmClient implements LlmClient, ApplicationRunner {
 
     public record RecordedCall(String task, UUID userId, String prompt, boolean schemaPresent, Instant timestamp) {}
 
-    private final ConcurrentHashMap<String, ConcurrentLinkedQueue<Scripted>> scriptQueues = new ConcurrentHashMap<>();
+    /**
+     * Scripts, mode and recorded calls are scoped per user (the E2E suite runs one user per worker),
+     * with a global scope as fallback for callers that have no user (unit tests, LlmKeyService "test").
+     */
+    static final String GLOBAL_SCOPE = "__global__";
+    private final ConcurrentHashMap<String, ConcurrentHashMap<String, ConcurrentLinkedQueue<Scripted>>> scriptQueues = new ConcurrentHashMap<>();
     private final CopyOnWriteArrayList<RecordedCall> recordedCalls = new CopyOnWriteArrayList<>();
-    private volatile Mode mode = Mode.SCHEMA_DEFAULT;
+    private final ConcurrentHashMap<String, Mode> modes = new ConcurrentHashMap<>();
+
+    private static String scope(UUID userId) {
+        return userId == null ? GLOBAL_SCOPE : userId.toString();
+    }
 
     @Override
     public LlmResponse complete(LlmRequest request) {
@@ -80,7 +89,7 @@ public class ScriptedLlmClient implements LlmClient, ApplicationRunner {
 
         // 2. Check scripted response
         String task = request.task() != null ? request.task() : "";
-        Scripted scripted = pollScript(task);
+        Scripted scripted = pollScript(request.userId(), task);
         if (scripted != null) {
             if (scripted.delayMs() > 0) {
                 try {
@@ -98,7 +107,7 @@ public class ScriptedLlmClient implements LlmClient, ApplicationRunner {
         }
 
         // 3. No script — depends on mode
-        if (mode == Mode.STRICT) {
+        if (getMode(request.userId()) == Mode.STRICT) {
             throw new LlmException(LlmException.Kind.FATAL, "scripted", null, null,
                     "No scripted LLM response for task '" + task + "'");
         }
@@ -108,19 +117,26 @@ public class ScriptedLlmClient implements LlmClient, ApplicationRunner {
         return new LlmResponse(jsonText, "scripted", "scripted-v1");
     }
 
-    private Scripted pollScript(String task) {
-        // Try task-specific queue first
-        ConcurrentLinkedQueue<Scripted> taskQueue = scriptQueues.get(task);
+    private Scripted pollScript(UUID userId, String task) {
+        Scripted s = pollFromScope(scope(userId), task);
+        if (s == null && userId != null) {
+            s = pollFromScope(GLOBAL_SCOPE, task);
+        }
+        return s;
+    }
+
+    private Scripted pollFromScope(String scopeKey, String task) {
+        ConcurrentHashMap<String, ConcurrentLinkedQueue<Scripted>> queues = scriptQueues.get(scopeKey);
+        if (queues == null) {
+            return null;
+        }
+        ConcurrentLinkedQueue<Scripted> taskQueue = queues.get(task);
         if (taskQueue != null) {
             Scripted s = taskQueue.poll();
             if (s != null) return s;
         }
-        // Fall back to wildcard
-        ConcurrentLinkedQueue<Scripted> wildcardQueue = scriptQueues.get("*");
-        if (wildcardQueue != null) {
-            return wildcardQueue.poll();
-        }
-        return null;
+        ConcurrentLinkedQueue<Scripted> wildcardQueue = queues.get("*");
+        return wildcardQueue != null ? wildcardQueue.poll() : null;
     }
 
     // --- Schema synthesis ---
@@ -193,39 +209,81 @@ public class ScriptedLlmClient implements LlmClient, ApplicationRunner {
         return mapper.getNodeFactory().textNode("");
     }
 
-    // --- Public API for control ---
+    // --- Public API for control (no-arg / null-user variants act on the global scope) ---
 
     public void enqueueScript(String task, Scripted scripted) {
-        scriptQueues.computeIfAbsent(task, k -> new ConcurrentLinkedQueue<>()).add(scripted);
+        enqueueScript(null, task, scripted);
+    }
+
+    public void enqueueScript(UUID userId, String task, Scripted scripted) {
+        scriptQueues.computeIfAbsent(scope(userId), k -> new ConcurrentHashMap<>())
+                .computeIfAbsent(task, k -> new ConcurrentLinkedQueue<>())
+                .add(scripted);
     }
 
     public Map<String, Integer> getQueueSizes() {
+        return getQueueSizes(null);
+    }
+
+    public Map<String, Integer> getQueueSizes(UUID userId) {
         Map<String, Integer> sizes = new LinkedHashMap<>();
-        scriptQueues.forEach((task, queue) -> sizes.put(task, queue.size()));
+        ConcurrentHashMap<String, ConcurrentLinkedQueue<Scripted>> queues = scriptQueues.get(scope(userId));
+        if (queues != null) {
+            queues.forEach((task, queue) -> sizes.put(task, queue.size()));
+        }
         return sizes;
     }
 
+    /** All recorded calls (any user), optionally filtered by task. */
     public List<RecordedCall> getRecordedCalls(String taskFilter) {
-        if (taskFilter == null || taskFilter.isBlank()) {
-            return List.copyOf(recordedCalls);
-        }
+        return getRecordedCalls(taskFilter, null);
+    }
+
+    /** Recorded calls for one user (null = any user), optionally filtered by task. */
+    public List<RecordedCall> getRecordedCalls(String taskFilter, UUID userId) {
         return recordedCalls.stream()
-                .filter(c -> taskFilter.equals(c.task()))
+                .filter(c -> userId == null || userId.equals(c.userId()))
+                .filter(c -> taskFilter == null || taskFilter.isBlank() || taskFilter.equals(c.task()))
                 .toList();
     }
 
     public void setMode(Mode mode) {
-        this.mode = mode;
+        setMode(null, mode);
+    }
+
+    public void setMode(UUID userId, Mode mode) {
+        modes.put(scope(userId), mode);
     }
 
     public Mode getMode() {
-        return mode;
+        return getMode(null);
     }
 
+    /** A user's mode, falling back to the global mode, then SCHEMA_DEFAULT. */
+    public Mode getMode(UUID userId) {
+        Mode m = modes.get(scope(userId));
+        if (m == null && userId != null) {
+            m = modes.get(GLOBAL_SCOPE);
+        }
+        return m != null ? m : Mode.SCHEMA_DEFAULT;
+    }
+
+    /** Clears everything, every scope. */
     public void reset() {
         scriptQueues.clear();
         recordedCalls.clear();
-        mode = Mode.SCHEMA_DEFAULT;
+        modes.clear();
+    }
+
+    /** Clears one user's scripts, mode and recorded calls only. */
+    public void reset(UUID userId) {
+        if (userId == null) {
+            reset();
+            return;
+        }
+        scriptQueues.remove(scope(userId));
+        modes.remove(scope(userId));
+        recordedCalls.removeIf(c -> userId.equals(c.userId()));
     }
 
     // --- ApplicationRunner ---
