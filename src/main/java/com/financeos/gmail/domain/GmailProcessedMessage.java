@@ -44,7 +44,7 @@ public class GmailProcessedMessage {
     private String gmailMessageId;
 
     // Every persisted ledger entry is an account-scoped fact (CREATED / RECONCILED /
-    // SKIPPED_BEFORE_WATERMARK); rows die with the account via ON DELETE CASCADE so a
+    // SKIPPED_BEFORE_WATERMARK / CLEANED_UP); rows die with the account via ON DELETE CASCADE so a
     // re-added account can re-ingest its emails. Non-account outcomes are not persisted.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")

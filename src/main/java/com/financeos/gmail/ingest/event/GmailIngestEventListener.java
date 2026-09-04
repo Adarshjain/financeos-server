@@ -57,7 +57,11 @@ public class GmailIngestEventListener {
             List<GmailProcessedMessage> parked = processedMessageRepository.findParkedForReactivation(
                     event.userId(),
                     event.last4(),
-                    List.of(GmailProcessedStatus.UNRESOLVED_ACCOUNT, GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN),
+                    List.of(
+                            GmailProcessedStatus.UNRESOLVED_ACCOUNT,
+                            GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN,
+                            GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK
+                    ),
                     minInstant
             );
 
