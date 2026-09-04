@@ -36,7 +36,7 @@ public class E2eControlController {
 
     public record ScriptRequest(String task, List<ScriptResponseEntry> responses) {}
 
-    public record ScriptResponseEntry(JsonNode json, ScriptErrorEntry error) {}
+    public record ScriptResponseEntry(JsonNode json, ScriptErrorEntry error, Long delayMs) {}
 
     public record ScriptErrorEntry(String kind, String message) {}
 
@@ -74,6 +74,7 @@ public class E2eControlController {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                         "Each response must have either 'json' or 'error'");
             }
+            long delay = entry.delayMs() != null && entry.delayMs() > 0 ? entry.delayMs() : 0L;
 
             if (entry.error() != null) {
                 ScriptErrorEntry err = entry.error();
@@ -88,7 +89,7 @@ public class E2eControlController {
                             "Invalid error kind '" + err.kind() + "'. Valid: RETRYABLE, FATAL, BAD_OUTPUT, NO_KEYS");
                 }
                 scriptedLlmClient.enqueueScript(request.task(),
-                        ScriptedLlmClient.Scripted.ofError(kind, err.message()));
+                        ScriptedLlmClient.Scripted.ofError(kind, err.message(), delay));
             } else {
                 // json may be object or string
                 String jsonText;
@@ -102,7 +103,7 @@ public class E2eControlController {
                     }
                 }
                 scriptedLlmClient.enqueueScript(request.task(),
-                        ScriptedLlmClient.Scripted.ofJson(jsonText));
+                        ScriptedLlmClient.Scripted.ofJson(jsonText, delay));
             }
         }
 

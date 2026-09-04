@@ -34,12 +34,18 @@ public class ScriptedLlmClient implements LlmClient, ApplicationRunner {
 
     public enum Mode { SCHEMA_DEFAULT, STRICT }
 
-    public record Scripted(String json, LlmException.Kind errorKind, String errorMessage) {
+    public record Scripted(String json, LlmException.Kind errorKind, String errorMessage, long delayMs) {
         public static Scripted ofJson(String json) {
-            return new Scripted(json, null, null);
+            return new Scripted(json, null, null, 0L);
+        }
+        public static Scripted ofJson(String json, long delayMs) {
+            return new Scripted(json, null, null, delayMs);
         }
         public static Scripted ofError(LlmException.Kind kind, String message) {
-            return new Scripted(null, kind, message);
+            return new Scripted(null, kind, message, 0L);
+        }
+        public static Scripted ofError(LlmException.Kind kind, String message, long delayMs) {
+            return new Scripted(null, kind, message, delayMs);
         }
         public boolean isError() {
             return errorKind != null;
@@ -76,6 +82,15 @@ public class ScriptedLlmClient implements LlmClient, ApplicationRunner {
         String task = request.task() != null ? request.task() : "";
         Scripted scripted = pollScript(task);
         if (scripted != null) {
+            if (scripted.delayMs() > 0) {
+                try {
+                    Thread.sleep(scripted.delayMs());
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new LlmException(LlmException.Kind.FATAL, "scripted", null, null,
+                            "Interrupted during scripted delay");
+                }
+            }
             if (scripted.isError()) {
                 throw new LlmException(scripted.errorKind(), "scripted", null, null, scripted.errorMessage());
             }
