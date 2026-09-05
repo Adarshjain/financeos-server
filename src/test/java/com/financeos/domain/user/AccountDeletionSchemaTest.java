@@ -68,6 +68,7 @@ class AccountDeletionSchemaTest {
         // Verify that every table with a user_id column is accounted for in the V1-V79 cascade design
         Set<String> expectedUserTables = Set.of(
                 "accounts", "account_bank_details", "account_credit_card_details", "account_broker_details",
+                "account_identifiers",
                 "cardholders", "cards", "transactions", "categories", "statements", "statement_credit_card_details",
                 "transaction_links", "holdings", "investment_transactions", "dividends", "sips",
                 "trade_settlement_classifications", "loans", "loan_events", "loan_payments", "loan_charges",

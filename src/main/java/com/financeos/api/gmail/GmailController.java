@@ -5,6 +5,7 @@ import com.financeos.api.job.dto.EnqueueResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.account.Account;
+import com.financeos.domain.account.AccountIdentifierService;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.job.Job;
 import com.financeos.domain.job.JobService;
@@ -57,6 +58,7 @@ public class GmailController {
     private final TransactionRepository transactionRepository;
     private final JobService jobService;
     private final GmailIngestProperties ingestProperties;
+    private final com.financeos.domain.account.AccountIdentifierService accountIdentifierService;
 
     @Value("${app.ui-path:http://localhost:3001}")
     private String uiPath;
@@ -72,7 +74,8 @@ public class GmailController {
                            AccountRepository accountRepository,
                            TransactionRepository transactionRepository,
                            JobService jobService,
-                           GmailIngestProperties ingestProperties) {
+                           GmailIngestProperties ingestProperties,
+                           com.financeos.domain.account.AccountIdentifierService accountIdentifierService) {
         this.oauthService = oauthService;
         this.authService = authService;
         this.gmailIngestionService = gmailIngestionService;
@@ -85,6 +88,7 @@ public class GmailController {
         this.transactionRepository = transactionRepository;
         this.jobService = jobService;
         this.ingestProperties = ingestProperties;
+        this.accountIdentifierService = accountIdentifierService;
     }
 
     @GetMapping("/api/v1/gmail/oauth/start")
@@ -273,6 +277,48 @@ public class GmailController {
         );
 
         return ResponseEntity.accepted().body(new EnqueueResponse(job.getId()));
+    }
+
+    @PostMapping("/api/v1/gmail/attention/{ledgerId}/assign")
+    @Transactional
+    public ResponseEntity<AssignAttentionResponse> assignAttentionItem(
+            @PathVariable UUID ledgerId,
+            @Valid @RequestBody AssignAttentionRequest request) {
+        User currentUser = authService.getCurrentUser();
+        GmailProcessedMessage gpm = processedMessageRepository.findById(ledgerId)
+                .orElseThrow(() -> new ResourceNotFoundException("GmailProcessedMessage", ledgerId));
+
+        if (!gpm.getUser().getId().equals(currentUser.getId())) {
+            throw new ValidationException("You do not have permission to access this item.");
+        }
+
+        if (gpm.getStatus() != GmailProcessedStatus.UNRESOLVED_ACCOUNT) {
+            throw new ValidationException("Only UNRESOLVED_ACCOUNT items can be assigned.");
+        }
+
+        if (gpm.getExtractedLast4() == null || gpm.getExtractedLast4().isBlank()) {
+            throw new ValidationException("Item has no extracted identifier.");
+        }
+
+        Account targetAccount = accountRepository.findById(request.accountId())
+                .orElseThrow(() -> new ResourceNotFoundException("Account", request.accountId()));
+
+        if (!targetAccount.getUser().getId().equals(currentUser.getId())) {
+            throw new ValidationException("You do not have permission to access this account.");
+        }
+
+        AccountIdentifierService.CreationResult result = accountIdentifierService.createOrUpdateIdentifier(
+                currentUser,
+                targetAccount,
+                gpm.getExtractedLast4(),
+                request.kind()
+        );
+
+        return ResponseEntity.ok(new AssignAttentionResponse(
+                result.identifier().getId(),
+                result.reactivatedCount(),
+                result.jobIds()
+        ));
     }
 
     @PostMapping("/api/v1/gmail/rescan")
