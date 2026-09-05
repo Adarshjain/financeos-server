@@ -1,8 +1,15 @@
 package com.financeos.api.account;
 
 import com.financeos.api.account.dto.*;
+import com.financeos.core.exception.ResourceNotFoundException;
+import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.account.Account;
+import com.financeos.domain.account.AccountIdentifier;
+import com.financeos.domain.account.AccountIdentifierService;
+import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountService;
+import com.financeos.domain.user.AuthService;
+import com.financeos.domain.user.User;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +24,18 @@ import java.util.UUID;
 public class AccountController {
 
     private final AccountService accountService;
+    private final AccountRepository accountRepository;
+    private final AuthService authService;
+    private final AccountIdentifierService accountIdentifierService;
 
-    public AccountController(AccountService accountService) {
+    public AccountController(AccountService accountService,
+                             AccountRepository accountRepository,
+                             AuthService authService,
+                             AccountIdentifierService accountIdentifierService) {
         this.accountService = accountService;
+        this.accountRepository = accountRepository;
+        this.authService = authService;
+        this.accountIdentifierService = accountIdentifierService;
     }
 
     @PostMapping
@@ -73,5 +89,47 @@ public class AccountController {
     public ResponseEntity<Void> deleteAccount(@PathVariable UUID id) {
         accountService.deleteAccount(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}/identifiers")
+    public ResponseEntity<List<AccountIdentifierResponse>> getAccountIdentifiers(@PathVariable UUID id) {
+        User currentUser = authService.getCurrentUser();
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Account", id));
+        if (!account.getUser().getId().equals(currentUser.getId())) {
+            throw new ValidationException("You do not have permission to access this account.");
+        }
+        List<AccountIdentifier> identifiers = accountIdentifierService.getIdentifiers(currentUser.getId(), id);
+        return ResponseEntity.ok(identifiers.stream().map(AccountIdentifierResponse::from).toList());
+    }
+
+    @PostMapping("/{id}/identifiers")
+    public ResponseEntity<AccountIdentifierResponse> createAccountIdentifier(
+            @PathVariable UUID id,
+            @Valid @RequestBody CreateAccountIdentifierRequest request) {
+        User currentUser = authService.getCurrentUser();
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Account", id));
+        if (!account.getUser().getId().equals(currentUser.getId())) {
+            throw new ValidationException("You do not have permission to access this account.");
+        }
+        AccountIdentifierService.CreationResult result = accountIdentifierService.createOrUpdateIdentifier(
+                currentUser, account, request.value(), request.kind()
+        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(AccountIdentifierResponse.from(result.identifier()));
+    }
+
+    @DeleteMapping("/{id}/identifiers/{identifierId}")
+    public ResponseEntity<Void> deleteAccountIdentifier(
+            @PathVariable UUID id,
+            @PathVariable UUID identifierId) {
+        User currentUser = authService.getCurrentUser();
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Account", id));
+        if (!account.getUser().getId().equals(currentUser.getId())) {
+            throw new ValidationException("You do not have permission to access this account.");
+        }
+        accountIdentifierService.deleteIdentifier(currentUser.getId(), id, identifierId);
+        return ResponseEntity.noContent().build();
     }
 }
