@@ -1,8 +1,14 @@
 package com.financeos.api.gmail;
 
+import com.financeos.api.gmail.dto.AssignAttentionRequest;
+import com.financeos.api.gmail.dto.AssignAttentionResponse;
 import com.financeos.api.gmail.dto.CleanupResultResponse;
+import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.account.Account;
+import com.financeos.domain.account.AccountIdentifier;
+import com.financeos.domain.account.AccountIdentifierKind;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.account.AccountType;
 import com.financeos.domain.job.JobService;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
@@ -17,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +46,7 @@ class GmailControllerTest {
     private TransactionRepository transactionRepository;
     private JobService jobService;
     private GmailIngestProperties ingestProperties;
+    private com.financeos.domain.account.AccountIdentifierService accountIdentifierService;
 
     private GmailController controller;
     private User currentUser;
@@ -57,6 +65,7 @@ class GmailControllerTest {
         transactionRepository = mock(TransactionRepository.class);
         jobService = mock(JobService.class);
         ingestProperties = mock(GmailIngestProperties.class);
+        accountIdentifierService = mock(com.financeos.domain.account.AccountIdentifierService.class);
 
         controller = new GmailController(
                 oauthService,
@@ -70,7 +79,8 @@ class GmailControllerTest {
                 accountRepository,
                 transactionRepository,
                 jobService,
-                ingestProperties
+                ingestProperties,
+                accountIdentifierService
         );
 
         currentUser = new User();
@@ -116,5 +126,107 @@ class GmailControllerTest {
 
         verify(processedMessageRepository).save(gpm);
         verify(transactionRepository).delete(txn);
+    }
+
+    @Test
+    void testAssignAttentionItem_happyPath_createsAliasAndReactivates() {
+        UUID ledgerId = UUID.randomUUID();
+        UUID accountId = UUID.randomUUID();
+        UUID identifierId = UUID.randomUUID();
+        UUID jobId = UUID.randomUUID();
+
+        Account account = new Account("HDFC Bank", AccountType.bank_account);
+        account.setId(accountId);
+        account.setUser(currentUser);
+
+        GmailProcessedMessage gpm = new GmailProcessedMessage();
+        gpm.setId(ledgerId);
+        gpm.setUser(currentUser);
+        gpm.setStatus(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
+        gpm.setExtractedLast4("1234");
+
+        when(processedMessageRepository.findById(ledgerId)).thenReturn(Optional.of(gpm));
+        when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
+
+        AccountIdentifier identifier = new AccountIdentifier(
+                identifierId, currentUser, account, "1234", AccountIdentifierKind.CUSTOMER_ID, Instant.now()
+        );
+        when(accountIdentifierService.createOrUpdateIdentifier(
+                eq(currentUser), eq(account), eq("1234"), eq(AccountIdentifierKind.CUSTOMER_ID)
+        )).thenReturn(new com.financeos.domain.account.AccountIdentifierService.CreationResult(
+                identifier, 2, List.of(jobId)
+        ));
+
+        AssignAttentionRequest request = new AssignAttentionRequest(accountId, AccountIdentifierKind.CUSTOMER_ID);
+        ResponseEntity<AssignAttentionResponse> response = controller.assignAttentionItem(ledgerId, request);
+
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().identifierId()).isEqualTo(identifierId);
+        assertThat(response.getBody().reactivatedCount()).isEqualTo(2);
+        assertThat(response.getBody().jobIds()).containsExactly(jobId);
+    }
+
+    @Test
+    void testAssignAttentionItem_wrongStatus_throwsValidationException() {
+        UUID ledgerId = UUID.randomUUID();
+        UUID accountId = UUID.randomUUID();
+
+        GmailProcessedMessage gpm = new GmailProcessedMessage();
+        gpm.setId(ledgerId);
+        gpm.setUser(currentUser);
+        gpm.setStatus(GmailProcessedStatus.FAILED_PERMANENT);
+        gpm.setExtractedLast4("1234");
+
+        when(processedMessageRepository.findById(ledgerId)).thenReturn(Optional.of(gpm));
+
+        AssignAttentionRequest request = new AssignAttentionRequest(accountId, AccountIdentifierKind.CUSTOMER_ID);
+        org.junit.jupiter.api.Assertions.assertThrows(
+                ValidationException.class,
+                () -> controller.assignAttentionItem(ledgerId, request)
+        );
+    }
+
+    @Test
+    void testAssignAttentionItem_nullExtractedLast4_throwsValidationException() {
+        UUID ledgerId = UUID.randomUUID();
+        UUID accountId = UUID.randomUUID();
+
+        GmailProcessedMessage gpm = new GmailProcessedMessage();
+        gpm.setId(ledgerId);
+        gpm.setUser(currentUser);
+        gpm.setStatus(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
+        gpm.setExtractedLast4(null);
+
+        when(processedMessageRepository.findById(ledgerId)).thenReturn(Optional.of(gpm));
+
+        AssignAttentionRequest request = new AssignAttentionRequest(accountId, AccountIdentifierKind.CUSTOMER_ID);
+        org.junit.jupiter.api.Assertions.assertThrows(
+                ValidationException.class,
+                () -> controller.assignAttentionItem(ledgerId, request)
+        );
+    }
+
+    @Test
+    void testAssignAttentionItem_otherUserMessage_throwsValidationException() {
+        UUID ledgerId = UUID.randomUUID();
+        UUID accountId = UUID.randomUUID();
+
+        User otherUser = new User();
+        otherUser.setId(UUID.randomUUID());
+
+        GmailProcessedMessage gpm = new GmailProcessedMessage();
+        gpm.setId(ledgerId);
+        gpm.setUser(otherUser);
+        gpm.setStatus(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
+        gpm.setExtractedLast4("1234");
+
+        when(processedMessageRepository.findById(ledgerId)).thenReturn(Optional.of(gpm));
+
+        AssignAttentionRequest request = new AssignAttentionRequest(accountId, AccountIdentifierKind.CUSTOMER_ID);
+        org.junit.jupiter.api.Assertions.assertThrows(
+                ValidationException.class,
+                () -> controller.assignAttentionItem(ledgerId, request)
+        );
     }
 }

@@ -676,6 +676,90 @@ paths:
           description: Error response
       tags:
       - gmail-controller
+  /api/v1/accounts/{id}/identifiers:
+    get:
+      operationId: getAccountIdentifiers
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AccountIdentifierResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-controller
+    post:
+      operationId: createAccountIdentifier
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAccountIdentifierRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AccountIdentifierResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-controller
+  /api/v1/accounts/{id}/identifiers/{identifierId}:
+    delete:
+      operationId: deleteAccountIdentifier
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: identifierId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-controller
   /api/v1/accounts/{id}/reopen:
     post:
       operationId: reopenAccount
@@ -1393,6 +1477,37 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/PageGmailAttentionItemResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-controller
+  /api/v1/gmail/attention/{ledgerId}/assign:
+    post:
+      operationId: assignAttentionItem
+      parameters:
+      - in: path
+        name: ledgerId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssignAttentionRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AssignAttentionResponse"
           description: OK
         default:
           content:
@@ -5359,6 +5474,29 @@ components:
       required:
       - created
       - skippedCount
+    AccountIdentifierResponse:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          enum:
+          - CUSTOMER_ID
+          - ACCOUNT_NUMBER
+          - CRN
+          - OTHER
+        value:
+          type: string
+      required:
+      - createdAt
+      - id
+      - kind
+      - value
     AccountResponse:
       discriminator:
         mapping:
@@ -5382,6 +5520,42 @@ components:
           items:
             type: string
             format: uuid
+    AssignAttentionRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          x-required: true
+        kind:
+          type: string
+          enum:
+          - CUSTOMER_ID
+          - ACCOUNT_NUMBER
+          - CRN
+          - OTHER
+          nullable: true
+          x-nullable: true
+      required:
+      - accountId
+    AssignAttentionResponse:
+      type: object
+      properties:
+        identifierId:
+          type: string
+          format: uuid
+        jobIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        reactivatedCount:
+          type: integer
+          format: int32
+      required:
+      - identifierId
+      - jobIds
+      - reactivatedCount
     BankAccountRequest:
       type: object
       properties:
@@ -6492,6 +6666,23 @@ components:
       - netPosition
       - totalBorrowed
       - totalLent
+    CreateAccountIdentifierRequest:
+      type: object
+      properties:
+        kind:
+          type: string
+          enum:
+          - CUSTOMER_ID
+          - ACCOUNT_NUMBER
+          - CRN
+          - OTHER
+          nullable: true
+          x-nullable: true
+        value:
+          type: string
+          x-required: true
+      required:
+      - value
     CreateAccountRequest:
       discriminator:
         mapping:
