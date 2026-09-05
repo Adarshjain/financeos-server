@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.financeos.domain.account.Account;
+import com.financeos.domain.account.AccountIdentifierRepository;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.card.Card;
@@ -21,13 +22,15 @@ class AccountResolverCardTest {
 
     private AccountRepository accountRepository;
     private CardRepository cardRepository;
+    private AccountIdentifierRepository accountIdentifierRepository;
     private AccountResolver resolver;
 
     @BeforeEach
     void setUp() {
         accountRepository = mock(AccountRepository.class);
         cardRepository = mock(CardRepository.class);
-        resolver = new AccountResolver(accountRepository, cardRepository);
+        accountIdentifierRepository = mock(AccountIdentifierRepository.class);
+        resolver = new AccountResolver(accountRepository, cardRepository, accountIdentifierRepository);
     }
 
     @Test
