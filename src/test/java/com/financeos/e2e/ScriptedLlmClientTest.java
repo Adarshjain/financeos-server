@@ -36,6 +36,33 @@ class ScriptedLlmClientTest {
     }
 
     @Test
+    void keyedEntriesAreServedByPromptContentRegardlessOfQueueOrder() {
+        client.enqueueScript("email-extract", ScriptedLlmClient.Scripted.ofJson("{\"otp\": true}").keyedBy("Subject: OTP"));
+        client.enqueueScript("email-extract", ScriptedLlmClient.Scripted.ofJson("{\"debit\": true}").keyedBy("Subject: Debit"));
+        client.enqueueScript("email-extract", ScriptedLlmClient.Scripted.ofJson("{\"fifo\": true}"));
+
+        // Drained in the opposite order to enqueueing: each prompt still gets its own answer.
+        LlmResponse debit = client.complete(new LlmRequest("email-extract", "Subject: Debit alert\nBody: ...", null, 0.0));
+        LlmResponse unkeyed = client.complete(new LlmRequest("email-extract", "Subject: Something else", null, 0.0));
+        LlmResponse otp = client.complete(new LlmRequest("email-extract", "Subject: OTP for login", null, 0.0));
+
+        assertEquals("{\"debit\": true}", debit.jsonText());
+        assertEquals("{\"fifo\": true}", unkeyed.jsonText());
+        assertEquals("{\"otp\": true}", otp.jsonText());
+        assertEquals(0, client.getQueueSizes().get("email-extract"));
+    }
+
+    @Test
+    void keyedEntryThatNeverMatchesStaysQueuedAndDoesNotBlockStrictMode() {
+        client.setMode(ScriptedLlmClient.Mode.STRICT);
+        client.enqueueScript("email-extract", ScriptedLlmClient.Scripted.ofJson("{\"otp\": true}").keyedBy("Subject: OTP"));
+
+        assertThrows(LlmException.class,
+                () -> client.complete(new LlmRequest("email-extract", "Subject: Debit alert", null, 0.0)));
+        assertEquals(1, client.getQueueSizes().get("email-extract"));
+    }
+
+    @Test
     void wildcardFallback() {
         client.enqueueScript("*", ScriptedLlmClient.Scripted.ofJson("{\"wildcard\": true}"));
 

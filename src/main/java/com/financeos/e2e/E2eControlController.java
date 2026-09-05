@@ -37,7 +37,8 @@ public class E2eControlController {
 
     public record ScriptRequest(String task, List<ScriptResponseEntry> responses) {}
 
-    public record ScriptResponseEntry(JsonNode json, ScriptErrorEntry error, Long delayMs) {}
+    /** {@code promptContains} keys the entry to prompts containing that text (see ScriptedLlmClient.Scripted). */
+    public record ScriptResponseEntry(JsonNode json, ScriptErrorEntry error, Long delayMs, String promptContains) {}
 
     public record ScriptErrorEntry(String kind, String message) {}
 
@@ -90,7 +91,7 @@ public class E2eControlController {
                             "Invalid error kind '" + err.kind() + "'. Valid: RETRYABLE, FATAL, BAD_OUTPUT, NO_KEYS");
                 }
                 scriptedLlmClient.enqueueScript(UserContext.getCurrentUserId(), request.task(),
-                        ScriptedLlmClient.Scripted.ofError(kind, err.message(), delay));
+                        ScriptedLlmClient.Scripted.ofError(kind, err.message(), delay).keyedBy(entry.promptContains()));
             } else {
                 // json may be object or string
                 String jsonText;
@@ -104,7 +105,7 @@ public class E2eControlController {
                     }
                 }
                 scriptedLlmClient.enqueueScript(UserContext.getCurrentUserId(), request.task(),
-                        ScriptedLlmClient.Scripted.ofJson(jsonText, delay));
+                        ScriptedLlmClient.Scripted.ofJson(jsonText, delay).keyedBy(entry.promptContains()));
             }
         }
 
