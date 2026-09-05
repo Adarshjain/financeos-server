@@ -34,7 +34,17 @@ public class ScriptedLlmClient implements LlmClient, ApplicationRunner {
 
     public enum Mode { SCHEMA_DEFAULT, STRICT }
 
-    public record Scripted(String json, LlmException.Kind errorKind, String errorMessage, long delayMs) {
+    /**
+     * One scripted answer. {@code promptContains}, when set, makes the entry keyed instead of FIFO:
+     * it is served to the first call whose prompt contains that substring, whatever its position in
+     * the queue. Keyed entries let a test script several parallel-order-independent answers (e.g. the
+     * Gmail sync drains discovered messages in an order the test cannot control).
+     */
+    public record Scripted(String json, LlmException.Kind errorKind, String errorMessage, long delayMs,
+                           String promptContains) {
+        public Scripted(String json, LlmException.Kind errorKind, String errorMessage, long delayMs) {
+            this(json, errorKind, errorMessage, delayMs, null);
+        }
         public static Scripted ofJson(String json) {
             return new Scripted(json, null, null, 0L);
         }
@@ -47,8 +57,14 @@ public class ScriptedLlmClient implements LlmClient, ApplicationRunner {
         public static Scripted ofError(LlmException.Kind kind, String message, long delayMs) {
             return new Scripted(null, kind, message, delayMs);
         }
+        public Scripted keyedBy(String promptSubstring) {
+            return new Scripted(json, errorKind, errorMessage, delayMs, promptSubstring);
+        }
         public boolean isError() {
             return errorKind != null;
+        }
+        public boolean isKeyed() {
+            return promptContains != null && !promptContains.isBlank();
         }
     }
 
@@ -89,7 +105,7 @@ public class ScriptedLlmClient implements LlmClient, ApplicationRunner {
 
         // 2. Check scripted response
         String task = request.task() != null ? request.task() : "";
-        Scripted scripted = pollScript(request.userId(), task);
+        Scripted scripted = pollScript(request.userId(), task, request.prompt());
         if (scripted != null) {
             if (scripted.delayMs() > 0) {
                 try {
@@ -117,26 +133,49 @@ public class ScriptedLlmClient implements LlmClient, ApplicationRunner {
         return new LlmResponse(jsonText, "scripted", "scripted-v1");
     }
 
-    private Scripted pollScript(UUID userId, String task) {
-        Scripted s = pollFromScope(scope(userId), task);
+    private Scripted pollScript(UUID userId, String task, String prompt) {
+        Scripted s = pollFromScope(scope(userId), task, prompt);
         if (s == null && userId != null) {
-            s = pollFromScope(GLOBAL_SCOPE, task);
+            s = pollFromScope(GLOBAL_SCOPE, task, prompt);
         }
         return s;
     }
 
-    private Scripted pollFromScope(String scopeKey, String task) {
+    private Scripted pollFromScope(String scopeKey, String task, String prompt) {
         ConcurrentHashMap<String, ConcurrentLinkedQueue<Scripted>> queues = scriptQueues.get(scopeKey);
         if (queues == null) {
             return null;
         }
         ConcurrentLinkedQueue<Scripted> taskQueue = queues.get(task);
         if (taskQueue != null) {
-            Scripted s = taskQueue.poll();
+            Scripted s = takeMatching(taskQueue, prompt);
             if (s != null) return s;
         }
         ConcurrentLinkedQueue<Scripted> wildcardQueue = queues.get("*");
-        return wildcardQueue != null ? wildcardQueue.poll() : null;
+        return wildcardQueue != null ? takeMatching(wildcardQueue, prompt) : null;
+    }
+
+    /**
+     * Keyed entries win when their substring occurs in the prompt; otherwise the oldest un-keyed
+     * entry is served. A keyed entry whose key never matches stays queued (visible in queue sizes).
+     */
+    private static Scripted takeMatching(ConcurrentLinkedQueue<Scripted> queue, String prompt) {
+        String haystack = prompt == null ? "" : prompt;
+        for (Scripted candidate : queue) {
+            if (candidate.isKeyed() && haystack.contains(candidate.promptContains())) {
+                if (queue.remove(candidate)) {
+                    return candidate;
+                }
+            }
+        }
+        for (Scripted candidate : queue) {
+            if (!candidate.isKeyed()) {
+                if (queue.remove(candidate)) {
+                    return candidate;
+                }
+            }
+        }
+        return null;
     }
 
     // --- Schema synthesis ---

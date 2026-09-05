@@ -29,21 +29,23 @@ public class GmailApiClient {
 
     private static final String APPLICATION_NAME = "FinanceOS";
     private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_READONLY);
-    private static final String TOKEN_SERVER_URL = "https://oauth2.googleapis.com/token";
     private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     private static final GsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
     private final String clientId;
     private final String clientSecret;
     private final String redirectUri;
+    private final GmailClientProperties endpoints;
 
     public GmailApiClient(
             @Value("${gmail.oauth.client-id:}") String clientId,
             @Value("${gmail.oauth.client-secret:}") String clientSecret,
-            @Value("${gmail.oauth.redirect-uri:}") String redirectUri) {
+            @Value("${gmail.oauth.redirect-uri:}") String redirectUri,
+            GmailClientProperties endpoints) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
+        this.endpoints = endpoints;
     }
 
     /**
@@ -79,6 +81,7 @@ public class GmailApiClient {
         Credential credential = createCredential(refreshToken);
         return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
+                .setRootUrl(endpoints.getApi().getRootUrl())
                 .build();
     }
 
@@ -151,6 +154,8 @@ public class GmailApiClient {
                 clientId,
                 clientSecret,
                 SCOPES)
+                .setAuthorizationServerEncodedUrl(endpoints.getOauth().getAuthorizationUrl())
+                .setTokenServerUrl(new GenericUrl(endpoints.getOauth().getTokenUrl()))
                 .setAccessType("offline")
                 .setApprovalPrompt("force")
                 .build();
@@ -160,7 +165,7 @@ public class GmailApiClient {
         Credential credential = new Credential.Builder(BearerToken.authorizationHeaderAccessMethod())
                 .setTransport(HTTP_TRANSPORT)
                 .setJsonFactory(JSON_FACTORY)
-                .setTokenServerUrl(new GenericUrl(TOKEN_SERVER_URL))
+                .setTokenServerUrl(new GenericUrl(endpoints.getOauth().getTokenUrl()))
                 .setClientAuthentication(new BasicAuthentication(clientId, clientSecret))
                 .build();
         credential.setRefreshToken(refreshToken);

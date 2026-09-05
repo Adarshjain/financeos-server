@@ -116,6 +116,11 @@ gmail:
     client-id: ${GMAIL_CLIENT_ID:}
     client-secret: ${GMAIL_CLIENT_SECRET:}
     redirect-uri: ${GMAIL_REDIRECT_URI:http://localhost:6969/api/v1/gmail/oauth/callback}
+    # Google endpoints; overridable so the e2e profile can point them at WireMock.
+    authorization-url: ${GMAIL_AUTH_URL:https://accounts.google.com/o/oauth2/v2/auth}
+    token-url: ${GMAIL_TOKEN_URL:https://oauth2.googleapis.com/token}
+  api:
+    root-url: ${GMAIL_API_ROOT_URL:https://gmail.googleapis.com/}
   ingest:
     enabled: ${GMAIL_INGEST_ENABLED:true}
     cron: ${GMAIL_INGEST_CRON:0 0 10-22/2 * * *}
@@ -298,6 +303,11 @@ google:
     # AuthController#handleGoogleCallback). Must also be registered verbatim as an
     # Authorized redirect URI in the Google Cloud console.
     redirect-uri: ${GOOGLE_OAUTH_REDIRECT_URI:https://localhost:6970/auth/google/callback}
+    # Google endpoints; overridable so the e2e profile can point them at WireMock.
+    authorization-url: ${GOOGLE_AUTH_URL:https://accounts.google.com/o/oauth2/v2/auth}
+    token-url: ${GOOGLE_TOKEN_URL:https://oauth2.googleapis.com/token}
+    user-info-url: ${GOOGLE_USERINFO_URL:https://www.googleapis.com/oauth2/v2/userinfo}
+    revoke-url: ${GOOGLE_REVOKE_URL:https://oauth2.googleapis.com/revoke}
 
 # Price Feed configuration
 price:
