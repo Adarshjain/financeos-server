@@ -99,4 +99,20 @@ public class GeminiProviderTest {
                 GeminiProvider.parseResponseBody(responseBody, 200, null, "gemini", "gemini-2.5-flash-lite", objectMapper));
         assertEquals(LlmException.Kind.BAD_OUTPUT, ex.getKind());
     }
+
+    @Test
+    public void testCustomBaseUrlConfiguration() {
+        LlmProperties.ProviderProperties props = new LlmProperties.ProviderProperties();
+        props.setBaseUrl("http://localhost:8089/llm/gemini/");
+        props.setValidateUrl("http://localhost:8089/llm/gemini/v1beta/models");
+        props.setKeyValidateUrl("http://localhost:8089/llm/openrouter/api/v1/key");
+        props.setModel("gemini-3.5-flash");
+
+        assertEquals("http://localhost:8089/llm/gemini/", props.getBaseUrl());
+        assertEquals("http://localhost:8089/llm/gemini/v1beta/models", props.getValidateUrl());
+        assertEquals("http://localhost:8089/llm/openrouter/api/v1/key", props.getKeyValidateUrl());
+
+        GeminiProvider provider = new GeminiProvider("gemini", props, objectMapper);
+        assertEquals("gemini", provider.id());
+    }
 }
