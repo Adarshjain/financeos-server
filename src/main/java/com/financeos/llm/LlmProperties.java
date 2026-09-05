@@ -69,6 +69,8 @@ public class LlmProperties {
         private String label;
         private String apiKey;
         private String baseUrl;
+        private String validateUrl;
+        private String keyValidateUrl;
         private String model;
         private List<String> models = new ArrayList<>();
         private List<ModelEntry> modelCatalog = new ArrayList<>();
