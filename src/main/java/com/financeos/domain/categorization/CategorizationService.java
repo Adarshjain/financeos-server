@@ -9,6 +9,7 @@ import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -275,71 +276,36 @@ public class CategorizationService {
                         String normalizedKey = DescriptionNormalizer.normalize(res.merchantKey());
                         String normalizedDesc = DescriptionNormalizer.normalize(effectiveDescription(txn));
                         boolean keyValid = normalizedKey.length() >= 3 && normalizedDesc.contains(normalizedKey);
+                        if (keyValid) {
+                            Optional<Set<Category>> resolvedOpt = resolveOrCreate(
+                                    userId, userCategories, res.categoryNames(), createdCategoriesByName);
 
-                        List<String> sanitizedNames = new ArrayList<>();
-                        boolean catsValid = true;
-                        for (String rawCatName : res.categoryNames()) {
-                            String sanitizedName = rawCatName == null ? "" : rawCatName.trim().replaceAll("\\s+", " ");
-                            if (sanitizedName.isBlank() || sanitizedName.length() > 60) {
-                                catsValid = false;
-                                break;
+                            if (resolvedOpt.isPresent()) {
+                                Set<Category> resolvedCategories = resolvedOpt.get();
+                                validResult = true;
+                                String catBefore = txn.getCategories() != null ? txn.getCategories().toString() : "";
+                                CategoryRule rule = getOrCreateRule(userId, normalizedKey, res.displayName(), resolvedCategories, batchCache);
+                                txn.setCategories(resolvedCategories);
+                                txn.setAppliedRule(rule);
+                                rule.setAppliedCount(rule.getAppliedCount() + 1);
+                                rule.setLastAppliedAt(Instant.now());
+                                categoryRuleRepository.save(rule);
+
+                                String catAfter = resolvedCategories.toString();
+                                boolean overridden = catBefore != null && !catBefore.isBlank() && !catBefore.equals("[]");
+                                log.info("Categorize decision: txnId={}, source=LLM, ruleId={}, categoryBefore={}, categoryAfter={}, overridden={}",
+                                        txn.getId(), rule.getId(), catBefore, catAfter, overridden,
+                                        StructuredArguments.keyValue("event", Events.CATEGORIZE_DECISION),
+                                        StructuredArguments.keyValue("txnId", txn.getId() != null ? txn.getId().toString() : ""),
+                                        StructuredArguments.keyValue("source", "LLM"),
+                                        StructuredArguments.keyValue("ruleId", rule.getId() != null ? rule.getId().toString() : ""),
+                                        StructuredArguments.keyValue("matchType", rule.getMatchType() != null ? rule.getMatchType().name() : "exact"),
+                                        StructuredArguments.keyValue("categoryBefore", catBefore),
+                                        StructuredArguments.keyValue("categoryAfter", catAfter),
+                                        StructuredArguments.keyValue("overridden", overridden));
+
+                                reviewStatusManager.addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
                             }
-                            // Word cap applies only to names that would be CREATED - the LLM may still
-                            // reference the user's own multi-word categories.
-                            boolean resolvable = userCategories.stream().anyMatch(c -> c.getName().equalsIgnoreCase(sanitizedName))
-                                    || createdCategoriesByName.containsKey(sanitizedName.toLowerCase());
-                            if (!resolvable && sanitizedName.split(" ").length > 2) {
-                                catsValid = false;
-                                break;
-                            }
-                            sanitizedNames.add(sanitizedName);
-                        }
-
-                        if (catsValid && keyValid) {
-                            Set<Category> resolvedCategories = new HashSet<>();
-                            for (String sanitizedName : sanitizedNames) {
-                                Category matchedCat = userCategories.stream()
-                                        .filter(c -> c.getName().equalsIgnoreCase(sanitizedName))
-                                        .findFirst()
-                                        .orElse(null);
-
-                                if (matchedCat == null) {
-                                    matchedCat = createdCategoriesByName.get(sanitizedName.toLowerCase());
-                                }
-
-                                if (matchedCat == null) {
-                                    User userRef = userRepository.getReferenceById(userId);
-                                    Category newCategory = new Category(sanitizedName, userRef);
-                                    matchedCat = categoryRepository.save(newCategory);
-                                    createdCategoriesByName.put(sanitizedName.toLowerCase(), matchedCat);
-                                }
-
-                                resolvedCategories.add(matchedCat);
-                            }
-
-                            validResult = true;
-                            String catBefore = txn.getCategories() != null ? txn.getCategories().toString() : "";
-                            CategoryRule rule = getOrCreateRule(userId, normalizedKey, res.displayName(), resolvedCategories, batchCache);
-                            txn.setCategories(resolvedCategories);
-                            txn.setAppliedRule(rule);
-                            rule.setAppliedCount(rule.getAppliedCount() + 1);
-                            rule.setLastAppliedAt(Instant.now());
-                            categoryRuleRepository.save(rule);
-
-                            String catAfter = resolvedCategories.toString();
-                            boolean overridden = catBefore != null && !catBefore.isBlank() && !catBefore.equals("[]");
-                            log.info("Categorize decision: txnId={}, source=LLM, ruleId={}, categoryBefore={}, categoryAfter={}, overridden={}",
-                                    txn.getId(), rule.getId(), catBefore, catAfter, overridden,
-                                    StructuredArguments.keyValue("event", Events.CATEGORIZE_DECISION),
-                                    StructuredArguments.keyValue("txnId", txn.getId() != null ? txn.getId().toString() : ""),
-                                    StructuredArguments.keyValue("source", "LLM"),
-                                    StructuredArguments.keyValue("ruleId", rule.getId() != null ? rule.getId().toString() : ""),
-                                    StructuredArguments.keyValue("matchType", rule.getMatchType() != null ? rule.getMatchType().name() : "exact"),
-                                    StructuredArguments.keyValue("categoryBefore", catBefore),
-                                    StructuredArguments.keyValue("categoryAfter", catAfter),
-                                    StructuredArguments.keyValue("overridden", overridden));
-
-                            reviewStatusManager.addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
                         }
                     }
                 }
@@ -354,9 +320,105 @@ public class CategorizationService {
     }
 
     /**
+     * Resolves raw category names suggested by the LLM against existing user categories (case-insensitively)
+     * or creates new Category entities for non-existent names.
+     * <p>
+     * Two-pass validation:
+     * 1. Sanitizes names (trim, collapse whitespace runs).
+     * 2. Rejects if blank, >60 characters, or if a newly created name exceeds 2 words.
+     * If any name fails validation, returns Optional.empty() and creates nothing.
+     */
+    Optional<Set<Category>> resolveOrCreate(UUID userId,
+                                            List<Category> userCategories,
+                                            List<String> rawNames,
+                                            Map<String, Category> createdCache) {
+        if (rawNames == null || rawNames.isEmpty()) {
+            return Optional.empty();
+        }
+
+        List<String> sanitizedNames = new ArrayList<>();
+        for (String rawCatName : rawNames) {
+            String sanitizedName = rawCatName == null ? "" : rawCatName.trim().replaceAll("\\s+", " ");
+            if (sanitizedName.isBlank() || sanitizedName.length() > 60) {
+                return Optional.empty();
+            }
+            // Word cap applies only to names that would be CREATED - the LLM may still
+            // reference the user's own multi-word categories.
+            boolean resolvable = userCategories.stream().anyMatch(c -> c.getName().equalsIgnoreCase(sanitizedName))
+                    || (createdCache != null && createdCache.containsKey(sanitizedName.toLowerCase()));
+            if (!resolvable && sanitizedName.split(" ").length > 2) {
+                return Optional.empty();
+            }
+            sanitizedNames.add(sanitizedName);
+        }
+
+        Set<Category> resolvedCategories = new HashSet<>();
+        for (String sanitizedName : sanitizedNames) {
+            Category matchedCat = userCategories.stream()
+                    .filter(c -> c.getName().equalsIgnoreCase(sanitizedName))
+                    .findFirst()
+                    .orElse(null);
+
+            if (matchedCat == null && createdCache != null) {
+                matchedCat = createdCache.get(sanitizedName.toLowerCase());
+            }
+
+            if (matchedCat == null) {
+                User userRef = userRepository.getReferenceById(userId);
+                Category newCategory = new Category(sanitizedName, userRef);
+                matchedCat = categoryRepository.save(newCategory);
+                if (createdCache != null) {
+                    createdCache.put(sanitizedName.toLowerCase(), matchedCat);
+                }
+            }
+
+            resolvedCategories.add(matchedCat);
+        }
+
+        return Optional.of(resolvedCategories);
+    }
+
+    private Optional<Set<Category>> resolveOnly(List<Category> userCategories, List<String> rawNames) {
+        if (rawNames == null || rawNames.isEmpty()) {
+            return Optional.empty();
+        }
+
+        List<String> sanitizedNames = new ArrayList<>();
+        for (String rawCatName : rawNames) {
+            String sanitizedName = rawCatName == null ? "" : rawCatName.trim().replaceAll("\\s+", " ");
+            if (sanitizedName.isBlank() || sanitizedName.length() > 60) {
+                return Optional.empty();
+            }
+            sanitizedNames.add(sanitizedName);
+        }
+
+        Set<Category> resolvedCategories = new HashSet<>();
+        for (String sanitizedName : sanitizedNames) {
+            Category matchedCat = userCategories.stream()
+                    .filter(c -> c.getName().equalsIgnoreCase(sanitizedName))
+                    .findFirst()
+                    .orElse(null);
+            if (matchedCat == null) {
+                return Optional.empty();
+            }
+            resolvedCategories.add(matchedCat);
+        }
+
+        return Optional.of(resolvedCategories);
+    }
+
+    @Transactional
+    public Optional<Set<Category>> resolveOrCreateTransactional(UUID userId,
+                                                                List<Category> userCategories,
+                                                                List<String> rawNames) {
+        return resolveOrCreate(userId, userCategories, rawNames, new HashMap<>());
+    }
+
+    /**
      * On-demand suggestion for a single free-text description, used by the /api/v1/categorize endpoint.
-     * Never mutates anything and never throws - any failure (no rule/category match, LLM error, no fit)
-     * simply resolves to an empty result.
+     * Checks matching rules first; if none match, falls through to the LLM (even with zero categories)
+     * and case-insensitively resolves or creates categories transactionally.
+     * Never throws - any failure (no rule match, LLM error, no fit, validation failure) resolves to an empty result.
      */
     public SuggestionResult suggestForDescription(UUID userId, String description) {
         if (description == null || description.isBlank()) {
@@ -370,10 +432,6 @@ public class CategorizationService {
             }
 
             List<Category> userCategories = categoryRepository.findByUserId(userId);
-            if (userCategories.isEmpty()) {
-                return new SuggestionResult(Set.of(), null, false);
-            }
-
             List<String> categoryNames = userCategories.stream().map(Category::getName).toList();
             List<TransactionCategorizer.CategorizeItemResponse> responses = transactionCategorizer.categorize(
                     List.of(new TransactionCategorizer.CategorizeItemRequest(0, description)), categoryNames);
@@ -383,21 +441,22 @@ public class CategorizationService {
                 return new SuggestionResult(Set.of(), null, false);
             }
 
-            Set<Category> resolved = new HashSet<>();
-            for (String catName : res.categoryNames()) {
-                userCategories.stream()
-                        .filter(c -> c.getName().equalsIgnoreCase(catName))
-                        .findFirst()
-                        .ifPresent(resolved::add);
+            Optional<Set<Category>> resolved;
+            try {
+                resolved = self.resolveOrCreateTransactional(userId, userCategories, res.categoryNames());
+            } catch (DataIntegrityViolationException e) {
+                // Concurrent creation race: reload categories and resolve read-only without creating
+                List<Category> reloadedCategories = categoryRepository.findByUserId(userId);
+                resolved = resolveOnly(reloadedCategories, res.categoryNames());
             }
 
-            if (resolved.isEmpty()) {
+            if (resolved.isEmpty() || resolved.get().isEmpty()) {
                 return new SuggestionResult(Set.of(), null, false);
             }
 
-            return new SuggestionResult(resolved, null, false);
+            return new SuggestionResult(resolved.get(), null, false);
         } catch (Exception e) {
-            log.warn("Failed to compute categorization suggestion: {}", e.getMessage());
+            log.warn("Failed to compute categorization suggestion: {}: {}", e.getClass().getSimpleName(), e.getMessage());
             return new SuggestionResult(Set.of(), null, false);
         }
     }
