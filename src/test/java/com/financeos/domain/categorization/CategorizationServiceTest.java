@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.time.Instant;
 import java.util.*;
@@ -716,5 +717,187 @@ public class CategorizationServiceTest {
 
         assertEquals("5411", txn.getMcc());
         assertEquals(rule, txn.getAppliedRule());
+    }
+
+    @Test
+    public void testSuggestZeroCategoriesCallsLlmAndCreatesCategory() {
+        // T1: zero categories, LLM returns ["Food"] -> LLM was called with empty list; save called once; result has 1 category, fromRule=false, ruleId=null, mcc=null
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+        when(categoryRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
+                0, "MCDONALDS", "McDonalds", List.of("Food"), false
+        );
+        when(transactionCategorizer.categorize(any(), eq(Collections.emptyList()))).thenReturn(List.of(response));
+
+        CategorizationService.SuggestionResult result = categorizationService.suggestForDescription(userId, "McDonalds");
+
+        assertFalse(result.fromRule());
+        assertNull(result.ruleId());
+        assertNull(result.mcc());
+        assertEquals(1, result.categories().size());
+        assertEquals("Food", result.categories().iterator().next().getName());
+        verify(transactionCategorizer, times(1)).categorize(any(), eq(Collections.emptyList()));
+        verify(categoryRepository, times(1)).save(any(Category.class));
+    }
+
+    @Test
+    public void testSuggestExistingCategoryReusedAndNewCreated() {
+        // T2: existing ["Food & Dining"], LLM returns ["food & dining", "Travel"] -> Food & Dining reused (no save), Travel created (one save); result size 2
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+        when(categoryRepository.findByUserId(userId)).thenReturn(List.of(foodCategory));
+
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
+                0, "AIRPORT DINING", "Airport Dining", List.of("food & dining", "Travel"), false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+
+        CategorizationService.SuggestionResult result = categorizationService.suggestForDescription(userId, "Airport Dining");
+
+        assertFalse(result.fromRule());
+        assertNull(result.ruleId());
+        assertNull(result.mcc());
+        assertEquals(2, result.categories().size());
+        assertTrue(result.categories().contains(foodCategory));
+        assertTrue(result.categories().stream().anyMatch(c -> c.getName().equals("Travel")));
+
+        ArgumentCaptor<Category> captor = ArgumentCaptor.forClass(Category.class);
+        verify(categoryRepository, times(1)).save(captor.capture());
+        assertEquals("Travel", captor.getValue().getName());
+    }
+
+    @Test
+    public void testSuggestNovelCategoryNameOverTwoWordsRejected() {
+        // T3: LLM returns ["Fast Food Restaurants"] (3 words, not existing) -> empty result, no save
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+        when(categoryRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
+                0, "MCDONALDS", "McDonalds", List.of("Fast Food Restaurants"), false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+
+        CategorizationService.SuggestionResult result = categorizationService.suggestForDescription(userId, "McDonalds");
+
+        assertTrue(result.categories().isEmpty());
+        assertFalse(result.fromRule());
+        assertNull(result.ruleId());
+        verify(categoryRepository, never()).save(any());
+    }
+
+    @Test
+    public void testSuggestSanitizationRejectsInvalidCategoryNames() {
+        // T4: LLM returns [""] and, separately, a 61-char name -> empty, no save
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+        when(categoryRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        TransactionCategorizer.CategorizeItemResponse blankResponse = new TransactionCategorizer.CategorizeItemResponse(
+                0, "STORE", "Store", List.of("   "), false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(blankResponse));
+
+        CategorizationService.SuggestionResult blankResult = categorizationService.suggestForDescription(userId, "Store");
+        assertTrue(blankResult.categories().isEmpty());
+        verify(categoryRepository, never()).save(any());
+
+        String longName = "A".repeat(61);
+        TransactionCategorizer.CategorizeItemResponse longResponse = new TransactionCategorizer.CategorizeItemResponse(
+                0, "STORE", "Store", List.of(longName), false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(longResponse));
+
+        CategorizationService.SuggestionResult longResult = categorizationService.suggestForDescription(userId, "Store");
+        assertTrue(longResult.categories().isEmpty());
+        verify(categoryRepository, never()).save(any());
+    }
+
+    @Test
+    public void testSuggestNoFitReturnsEmpty() {
+        // T5: noFit=true -> empty, no save
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+        when(categoryRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
+                0, "XYZ", "Xyz", Collections.emptyList(), true
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+
+        CategorizationService.SuggestionResult result = categorizationService.suggestForDescription(userId, "XYZ 123");
+
+        assertTrue(result.categories().isEmpty());
+        assertFalse(result.fromRule());
+        assertNull(result.ruleId());
+        verify(categoryRepository, never()).save(any());
+    }
+
+    @Test
+    public void testSuggestRuleMatchReturnsRuleWithoutCallingLlm() {
+        // T6: rule match -> fromRule=true, LLM never called
+        CategoryRule rule = new CategoryRule();
+        rule.setId(UUID.randomUUID());
+        rule.setMerchantKey("SWIGGY");
+        rule.setVerified(true);
+        rule.setMcc("5812");
+        rule.setCategories(Set.of(foodCategory));
+
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(List.of(rule));
+
+        CategorizationService.SuggestionResult result = categorizationService.suggestForDescription(userId, "SWIGGY FOOD DELIVERY");
+
+        assertTrue(result.fromRule());
+        assertEquals(rule.getId(), result.ruleId());
+        assertEquals("5812", result.mcc());
+        assertEquals(1, result.categories().size());
+        assertTrue(result.categories().contains(foodCategory));
+        verify(transactionCategorizer, never()).categorize(any(), any());
+        verify(categoryRepository, never()).save(any());
+    }
+
+    @Test
+    public void testSuggestLlmThrowsReturnsEmptyWithoutEscaping() {
+        // T7: LLM throws -> empty, no save, no exception escapes
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+        when(categoryRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+        when(transactionCategorizer.categorize(any(), any())).thenThrow(new RuntimeException("Gemini timeout"));
+
+        CategorizationService.SuggestionResult result = assertDoesNotThrow(
+                () -> categorizationService.suggestForDescription(userId, "McDonalds")
+        );
+
+        assertTrue(result.categories().isEmpty());
+        assertFalse(result.fromRule());
+        assertNull(result.ruleId());
+        verify(categoryRepository, never()).save(any());
+    }
+
+    @Test
+    public void testSuggestConcurrentCreationRaceRecoversViaReload() {
+        // T8: first save throws DataIntegrityViolationException; second findByUserId returns the now-existing Food -> result contains it, no exception, no second save
+        when(categoryRuleRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+
+        Category concurrentlyCreatedFood = new Category("Food", testUser);
+        concurrentlyCreatedFood.setId(UUID.randomUUID());
+
+        // First findByUserId returns empty, second returns the concurrently created Food
+        when(categoryRepository.findByUserId(userId))
+                .thenReturn(Collections.emptyList())
+                .thenReturn(List.of(concurrentlyCreatedFood));
+
+        when(categoryRepository.save(any(Category.class)))
+                .thenThrow(new org.springframework.dao.DataIntegrityViolationException("duplicate key"));
+
+        TransactionCategorizer.CategorizeItemResponse response = new TransactionCategorizer.CategorizeItemResponse(
+                0, "MCDONALDS", "McDonalds", List.of("Food"), false
+        );
+        when(transactionCategorizer.categorize(any(), any())).thenReturn(List.of(response));
+
+        CategorizationService.SuggestionResult result = categorizationService.suggestForDescription(userId, "McDonalds");
+
+        assertFalse(result.fromRule());
+        assertNull(result.ruleId());
+        assertEquals(1, result.categories().size());
+        assertTrue(result.categories().contains(concurrentlyCreatedFood));
+        verify(categoryRepository, times(1)).save(any());
+        verify(categoryRepository, times(2)).findByUserId(userId);
     }
 }
