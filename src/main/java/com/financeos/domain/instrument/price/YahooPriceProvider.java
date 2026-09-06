@@ -77,25 +77,24 @@ public class YahooPriceProvider implements PriceProvider {
             return result;
         }
 
-        String primaryBaseUrl = props != null && props.getBaseUrl() != null && !props.getBaseUrl().isBlank()
-                ? props.getBaseUrl()
-                : "https://query2.finance.yahoo.com";
+        List<String> baseUrls = YahooHosts.getCandidateHosts(props);
+        String crumbBaseUrl = props != null && props.getCrumbBaseUrl() != null && !props.getCrumbBaseUrl().isBlank()
+                ? props.getCrumbBaseUrl()
+                : "https://fc.yahoo.com";
+        String crumbFallbackUrl = props != null && props.getCrumbFallbackUrl() != null && !props.getCrumbFallbackUrl().isBlank()
+                ? props.getCrumbFallbackUrl()
+                : "https://finance.yahoo.com";
         String userAgent = props != null && props.getUserAgent() != null && !props.getUserAgent().isBlank()
                 ? props.getUserAgent()
                 : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36";
         long timeoutMs = props != null && props.getTimeoutMs() > 0 ? props.getTimeoutMs() : 30000L;
         ZoneId zoneId = ZoneId.of(priceProperties.getTimezone() != null ? priceProperties.getTimezone() : "Asia/Kolkata");
 
-        List<String> baseUrls = List.of(
-                primaryBaseUrl,
-                primaryBaseUrl.contains("query2") ? "https://query1.finance.yahoo.com" : "https://query2.finance.yahoo.com"
-        );
-
         boolean batchEnabled = props == null || props.isBatchEnabled();
         int batchSize = (props != null && props.getBatchSize() > 0) ? props.getBatchSize() : 50;
 
         if (batchEnabled) {
-            String crumb = getOrFetchCrumb(baseUrls, userAgent, timeoutMs, false);
+            String crumb = getOrFetchCrumb(baseUrls, userAgent, timeoutMs, crumbBaseUrl, crumbFallbackUrl, false);
             if (crumb != null) {
                 List<List<Instrument>> chunks = new ArrayList<>();
                 for (int i = 0; i < targetInstruments.size(); i += batchSize) {
@@ -126,7 +125,7 @@ public class YahooPriceProvider implements PriceProvider {
                         batchQuotes = fetchBatchChunk(joinedSymbols, crumb, baseUrls, userAgent, timeoutMs, zoneId);
                     } catch (CrumbExpiredException e) {
                         log.info("Yahoo crumb expired (401), refreshing crumb once...");
-                        crumb = getOrFetchCrumb(baseUrls, userAgent, timeoutMs, true);
+                        crumb = getOrFetchCrumb(baseUrls, userAgent, timeoutMs, crumbBaseUrl, crumbFallbackUrl, true);
                         if (crumb != null) {
                             try {
                                 batchQuotes = fetchBatchChunk(joinedSymbols, crumb, baseUrls, userAgent, timeoutMs, zoneId);
@@ -167,24 +166,24 @@ public class YahooPriceProvider implements PriceProvider {
         return result;
     }
 
-    private String getOrFetchCrumb(List<String> baseUrls, String userAgent, long timeoutMs, boolean forceRefresh) {
+    private String getOrFetchCrumb(List<String> baseUrls, String userAgent, long timeoutMs, String crumbBaseUrl, String crumbFallbackUrl, boolean forceRefresh) {
         synchronized (crumbLock) {
             if (!forceRefresh && cachedCrumb != null && crumbFetchedAt != null) {
                 if (Duration.between(crumbFetchedAt, Instant.now()).compareTo(CRUMB_TTL) < 0) {
                     return cachedCrumb;
                 }
             }
-            cachedCrumb = bootstrapCrumb(baseUrls, userAgent, timeoutMs);
+            cachedCrumb = bootstrapCrumb(baseUrls, userAgent, timeoutMs, crumbBaseUrl, crumbFallbackUrl);
             crumbFetchedAt = Instant.now();
             return cachedCrumb;
         }
     }
 
-    private String bootstrapCrumb(List<String> baseUrls, String userAgent, long timeoutMs) {
+    private String bootstrapCrumb(List<String> baseUrls, String userAgent, long timeoutMs, String crumbBaseUrl, String crumbFallbackUrl) {
         // 1. Priming GET to seed cookies
         try {
             HttpRequest primeReq = HttpRequest.newBuilder()
-                    .uri(URI.create("https://fc.yahoo.com"))
+                    .uri(URI.create(crumbBaseUrl))
                     .header("User-Agent", userAgent)
                     .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                     .header("Accept-Language", "en-US,en;q=0.9")
@@ -195,7 +194,7 @@ public class YahooPriceProvider implements PriceProvider {
         } catch (Exception e) {
             try {
                 HttpRequest primeReq2 = HttpRequest.newBuilder()
-                        .uri(URI.create("https://finance.yahoo.com"))
+                        .uri(URI.create(crumbFallbackUrl))
                         .header("User-Agent", userAgent)
                         .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                         .header("Accept-Language", "en-US,en;q=0.9")

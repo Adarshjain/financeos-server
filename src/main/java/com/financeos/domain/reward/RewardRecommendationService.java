@@ -110,8 +110,9 @@ public class RewardRecommendationService {
                     CapWindow windowType = rewardCalculationService.effectiveCapWindow(rule);
                     BigDecimal totalCap = rewardCalculationService.effectiveCap(rule);
                     RewardCalculationService.Window window = rewardCalculationService.windowContaining(windowType, evalDate, eval, false);
-                    String capOwnerKey = RewardCalculationService.capOwner(rule) + "|" + window.start();
-                    BigDecimal usedBefore = eval.capUsed.getOrDefault(capOwnerKey, BigDecimal.ZERO);
+                    RewardCalculationService.CounterKey capCounterKey =
+                            rewardCalculationService.capKey(rule, evalDate, eval, request.cardholderId());
+                    BigDecimal usedBefore = eval.capUsed.getOrDefault(capCounterKey, BigDecimal.ZERO);
                     BigDecimal capRemainingBefore = totalCap.subtract(usedBefore).max(BigDecimal.ZERO);
                     String bucketName = rule.getCapBucket() != null ? rule.getCapBucket().getName() : null;
                     ruleCapStatusBefore.put(rule.getId(), new SimulatedCapStatusResponse(

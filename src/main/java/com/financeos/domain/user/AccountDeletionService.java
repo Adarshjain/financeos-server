@@ -3,6 +3,7 @@ package com.financeos.domain.user;
 import com.financeos.api.auth.dto.DeleteAccountRequest;
 import com.financeos.api.auth.dto.DeletionSummaryResponse;
 import com.financeos.core.exception.ApiStatusException;
+import com.financeos.core.oauth.GoogleOAuthProperties;
 import com.financeos.core.observability.Events;
 import com.financeos.core.security.AccountDeletionLimiter;
 import com.financeos.domain.job.JobService;
@@ -50,6 +51,7 @@ public class AccountDeletionService {
     private final JobService jobService;
     private final GmailConnectionRepository gmailConnectionRepository;
     private final PasswordEncoder passwordEncoder;
+    private final GoogleOAuthProperties googleOAuthProperties;
     private final FindByIndexNameSessionRepository<? extends Session> sessionRepository;
 
     public AccountDeletionService(
@@ -59,6 +61,7 @@ public class AccountDeletionService {
             JobService jobService,
             GmailConnectionRepository gmailConnectionRepository,
             PasswordEncoder passwordEncoder,
+            GoogleOAuthProperties googleOAuthProperties,
             @Autowired(required = false) FindByIndexNameSessionRepository<? extends Session> sessionRepository) {
         this.authService = authService;
         this.accountDeletionLimiter = accountDeletionLimiter;
@@ -66,6 +69,7 @@ public class AccountDeletionService {
         this.jobService = jobService;
         this.gmailConnectionRepository = gmailConnectionRepository;
         this.passwordEncoder = passwordEncoder;
+        this.googleOAuthProperties = googleOAuthProperties;
         this.sessionRepository = sessionRepository;
     }
 
@@ -184,7 +188,7 @@ public class AccountDeletionService {
                     .build();
             String body = "token=" + URLEncoder.encode(token, StandardCharsets.UTF_8);
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://oauth2.googleapis.com/revoke"))
+                    .uri(URI.create(googleOAuthProperties.getRevokeUrl()))
                     .timeout(Duration.ofSeconds(3))
                     .header("Content-Type", "application/x-www-form-urlencoded")
                     .POST(HttpRequest.BodyPublishers.ofString(body))

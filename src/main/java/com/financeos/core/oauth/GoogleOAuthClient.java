@@ -23,10 +23,6 @@ import java.util.List;
 @Component
 public class GoogleOAuthClient {
 
-    private static final String AUTHORIZATION_URL = "https://accounts.google.com/o/oauth2/v2/auth";
-    private static final String TOKEN_URL = "https://oauth2.googleapis.com/token";
-    private static final String USER_INFO_URL = "https://www.googleapis.com/oauth2/v2/userinfo";
-
     // Combined scopes for SSO and Gmail access
     private static final List<String> SSO_SCOPES = List.of(
             "openid",
@@ -37,6 +33,7 @@ public class GoogleOAuthClient {
     private final String clientId;
     private final String clientSecret;
     private final String redirectUri;
+    private final GoogleOAuthProperties urls;
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
 
@@ -44,10 +41,12 @@ public class GoogleOAuthClient {
             @Value("${google.oauth.client-id}") String clientId,
             @Value("${google.oauth.client-secret}") String clientSecret,
             @Value("${google.oauth.redirect-uri}") String redirectUri,
+            GoogleOAuthProperties urls,
             ObjectMapper objectMapper) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
+        this.urls = urls;
         this.objectMapper = objectMapper;
         this.httpClient = HttpClient.newHttpClient();
     }
@@ -67,7 +66,7 @@ public class GoogleOAuthClient {
         String scope = String.join(" ", SSO_SCOPES);
         return String.format(
                 "%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s&access_type=offline&prompt=consent",
-                AUTHORIZATION_URL,
+                urls.getAuthorizationUrl(),
                 URLEncoder.encode(clientId, StandardCharsets.UTF_8),
                 URLEncoder.encode(redirectUri, StandardCharsets.UTF_8),
                 URLEncoder.encode(scope, StandardCharsets.UTF_8),
@@ -86,7 +85,7 @@ public class GoogleOAuthClient {
                 URLEncoder.encode(redirectUri, StandardCharsets.UTF_8));
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(TOKEN_URL))
+                .uri(URI.create(urls.getTokenUrl()))
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
@@ -107,7 +106,7 @@ public class GoogleOAuthClient {
      */
     public GoogleUserInfo getUserInfo(String accessToken) {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(USER_INFO_URL))
+                .uri(URI.create(urls.getUserInfoUrl()))
                 .header("Authorization", "Bearer " + accessToken)
                 .GET()
                 .build();

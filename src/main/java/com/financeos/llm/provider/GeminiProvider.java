@@ -52,8 +52,14 @@ public class GeminiProvider implements LlmProvider {
             throw new LlmException(LlmException.Kind.FATAL, id, null, null, "Failed to build request body: " + e.getMessage(), e);
         }
 
+        String baseUrl = properties != null && properties.getBaseUrl() != null && !properties.getBaseUrl().isBlank()
+                ? properties.getBaseUrl().trim()
+                : "https://generativelanguage.googleapis.com";
+        if (baseUrl.endsWith("/")) {
+            baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
+        }
         String modelToUse = model != null && !model.isBlank() ? model.trim() : (properties.getModel() != null ? properties.getModel() : "gemini-3.5-flash-lite");
-        String url = String.format("https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent", modelToUse);
+        String url = String.format("%s/v1beta/models/%s:generateContent", baseUrl, modelToUse);
 
         long timeoutMs = properties.getTimeoutMs();
         HttpRequest.Builder builder = HttpRequest.newBuilder()

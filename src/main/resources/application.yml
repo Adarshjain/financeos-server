@@ -116,6 +116,11 @@ gmail:
     client-id: ${GMAIL_CLIENT_ID:}
     client-secret: ${GMAIL_CLIENT_SECRET:}
     redirect-uri: ${GMAIL_REDIRECT_URI:http://localhost:6969/api/v1/gmail/oauth/callback}
+    # Google endpoints; overridable so the e2e profile can point them at WireMock.
+    authorization-url: ${GMAIL_AUTH_URL:https://accounts.google.com/o/oauth2/v2/auth}
+    token-url: ${GMAIL_TOKEN_URL:https://oauth2.googleapis.com/token}
+  api:
+    root-url: ${GMAIL_API_ROOT_URL:https://gmail.googleapis.com/}
   ingest:
     enabled: ${GMAIL_INGEST_ENABLED:true}
     cron: ${GMAIL_INGEST_CRON:0 0 10-22/2 * * *}
@@ -192,6 +197,8 @@ llm:
     gemini:
       label: "Google Gemini"
       type: gemini
+      base-url: ${GEMINI_BASE_URL:https://generativelanguage.googleapis.com}
+      validate-url: ${GEMINI_VALIDATE_URL:https://generativelanguage.googleapis.com/v1beta/models}
       # Authoritative order for the gemini-chain routing option. model-catalog below is
       # display metadata only (labels / free / trains-on-data) and never sets chain order.
       models: ${GEMINI_MODELS:gemini-3.7-flash,gemini-3.6-flash,gemini-3.5-flash,gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-2.5-flash,gemini-2.5-flash-lite}
@@ -238,7 +245,7 @@ llm:
     groq:
       label: "Groq"
       type: openai
-      base-url: https://api.groq.com/openai/v1
+      base-url: ${GROQ_BASE_URL:https://api.groq.com/openai/v1}
       model: ${GROQ_MODEL:openai/gpt-oss-120b}
       timeout-ms: 30000
       batch-size: ${GROQ_BATCH_SIZE:100}
@@ -252,7 +259,8 @@ llm:
     openrouter:
       label: "OpenRouter"
       type: openai
-      base-url: https://openrouter.ai/api/v1
+      base-url: ${OPENROUTER_BASE_URL:https://openrouter.ai/api/v1}
+      key-validate-url: ${OPENROUTER_KEY_VALIDATE_URL:https://openrouter.ai/api/v1/key}
       model: ${OPENROUTER_MODEL:z-ai/glm-5.3-flash}
       # Provider-level default; individual models override it (see model-catalog below).
       structured-output: json-object
@@ -295,6 +303,11 @@ google:
     # AuthController#handleGoogleCallback). Must also be registered verbatim as an
     # Authorized redirect URI in the Google Cloud console.
     redirect-uri: ${GOOGLE_OAUTH_REDIRECT_URI:https://localhost:6970/auth/google/callback}
+    # Google endpoints; overridable so the e2e profile can point them at WireMock.
+    authorization-url: ${GOOGLE_AUTH_URL:https://accounts.google.com/o/oauth2/v2/auth}
+    token-url: ${GOOGLE_TOKEN_URL:https://oauth2.googleapis.com/token}
+    user-info-url: ${GOOGLE_USERINFO_URL:https://www.googleapis.com/oauth2/v2/userinfo}
+    revoke-url: ${GOOGLE_REVOKE_URL:https://oauth2.googleapis.com/revoke}
 
 # Price Feed configuration
 price:
@@ -305,11 +318,16 @@ price:
     amfi:
       enabled: true
       base-url: ${AMFI_BASE_URL:https://www.amfiindia.com}
-      timeout-ms: 30000
+      timeout-ms: ${AMFI_TIMEOUT_MS:30000}
     yahoo:
       enabled: true
       base-url: ${YAHOO_BASE_URL:https://query2.finance.yahoo.com}
-      timeout-ms: 30000
+      crumb-base-url: ${YAHOO_CRUMB_BASE_URL:https://fc.yahoo.com}
+      crumb-fallback-url: ${YAHOO_CRUMB_FALLBACK_URL:https://finance.yahoo.com}
+      fallback-enabled: ${YAHOO_FALLBACK_ENABLED:true}
+      timeout-ms: ${YAHOO_TIMEOUT_MS:30000}
+      batch-enabled: ${YAHOO_BATCH_ENABLED:true}
+      batch-size: ${YAHOO_BATCH_SIZE:50}
       user-agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
 
 # Background Jobs configuration

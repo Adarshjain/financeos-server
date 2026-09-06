@@ -3,12 +3,16 @@ package com.financeos.domain.user;
 import com.financeos.api.auth.dto.DeleteAccountRequest;
 import com.financeos.api.auth.dto.DeletionSummaryResponse;
 import com.financeos.core.exception.ApiStatusException;
+import com.financeos.core.oauth.GoogleOAuthProperties;
 import com.financeos.core.security.AccountDeletionLimiter;
 import com.financeos.domain.job.JobService;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailConnectionRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import com.sun.net.httpserver.HttpServer;
 import jakarta.servlet.http.HttpSession;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,10 +24,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 
+import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -59,6 +66,27 @@ class AccountDeletionServiceTest {
     private HttpSession httpSession;
 
     private AccountDeletionService accountDeletionService;
+    private GoogleOAuthProperties googleOAuthProperties;
+
+    /** Stands in for Google's revoke endpoint so the best-effort revoke never leaves the JVM. */
+    private static HttpServer revokeServer;
+    private static final List<String> revokeBodies = new CopyOnWriteArrayList<>();
+
+    @BeforeAll
+    static void startRevokeServer() throws Exception {
+        revokeServer = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        revokeServer.createContext("/revoke", exchange -> {
+            revokeBodies.add(new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8));
+            exchange.sendResponseHeaders(200, -1);
+            exchange.close();
+        });
+        revokeServer.start();
+    }
+
+    @AfterAll
+    static void stopRevokeServer() {
+        revokeServer.stop(0);
+    }
 
     private User passwordUser;
     private User googleUser;
@@ -67,6 +95,10 @@ class AccountDeletionServiceTest {
 
     @BeforeEach
     void setUp() {
+        revokeBodies.clear();
+        googleOAuthProperties = new GoogleOAuthProperties();
+        googleOAuthProperties.setRevokeUrl(
+                "http://127.0.0.1:" + revokeServer.getAddress().getPort() + "/revoke");
         accountDeletionService = new AccountDeletionService(
                 authService,
                 accountDeletionLimiter,
@@ -74,6 +106,7 @@ class AccountDeletionServiceTest {
                 jobService,
                 gmailConnectionRepository,
                 passwordEncoder,
+                googleOAuthProperties,
                 sessionRepository
         );
 
@@ -217,6 +250,8 @@ class AccountDeletionServiceTest {
         InOrder order = inOrder(gmailConnectionRepository, executor);
         order.verify(gmailConnectionRepository).findByUserId(passwordUserId);
         order.verify(executor).deleteUserAndVerify(passwordUserId);
+        // The revoke went to the configured endpoint, once per connection, with the raw token.
+        assertEquals(List.of("token=token-value"), revokeBodies);
     }
 
     @Test
