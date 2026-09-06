@@ -179,10 +179,12 @@ public class LlmKeyService {
             HttpRequest.Builder reqBuilder = HttpRequest.newBuilder().timeout(Duration.ofSeconds(10));
 
             if ("gemini".equalsIgnoreCase(provider)) {
-                url = "https://generativelanguage.googleapis.com/v1beta/models";
+                String validateUrl = getValidateUrl(provider);
+                url = validateUrl != null ? validateUrl : "https://generativelanguage.googleapis.com/v1beta/models";
                 reqBuilder.uri(URI.create(url)).header("x-goog-api-key", rawKey).GET();
             } else if ("openrouter".equalsIgnoreCase(provider)) {
-                url = "https://openrouter.ai/api/v1/key";
+                String keyValidateUrl = getKeyValidateUrl(provider);
+                url = keyValidateUrl != null ? keyValidateUrl : "https://openrouter.ai/api/v1/key";
                 reqBuilder.uri(URI.create(url)).header("Authorization", "Bearer " + rawKey).GET();
             } else {
                 String baseUrl = getBaseUrl(provider);
@@ -289,6 +291,26 @@ public class LlmKeyService {
             }
         }
         return providerId;
+    }
+
+    private String getValidateUrl(String provider) {
+        if (llmProperties != null && llmProperties.getProviders() != null && llmProperties.getProviders().containsKey(provider)) {
+            LlmProperties.ProviderProperties props = llmProperties.getProviders().get(provider);
+            if (props != null && props.getValidateUrl() != null && !props.getValidateUrl().isBlank()) {
+                return props.getValidateUrl().trim();
+            }
+        }
+        return null;
+    }
+
+    private String getKeyValidateUrl(String provider) {
+        if (llmProperties != null && llmProperties.getProviders() != null && llmProperties.getProviders().containsKey(provider)) {
+            LlmProperties.ProviderProperties props = llmProperties.getProviders().get(provider);
+            if (props != null && props.getKeyValidateUrl() != null && !props.getKeyValidateUrl().isBlank()) {
+                return props.getKeyValidateUrl().trim();
+            }
+        }
+        return null;
     }
 
     private String getBaseUrl(String provider) {

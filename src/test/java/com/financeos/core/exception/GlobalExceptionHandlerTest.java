@@ -19,9 +19,21 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class GlobalExceptionHandlerTest {
 
@@ -187,6 +199,66 @@ class GlobalExceptionHandlerTest {
      * dispatch itself.
      */
     @Test
+    void testMissingServletRequestParameterException() {
+        MissingServletRequestParameterException ex = new MissingServletRequestParameterException("before", "String");
+        ResponseEntity<GlobalExceptionHandler.ErrorResponse> response = handler.handleMissingServletRequestParameter(ex, request);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals("VALIDATION_ERROR", response.getBody().code());
+        assertEquals("before", response.getBody().details().get("parameter"));
+        assertEquals("String", response.getBody().details().get("parameterType"));
+    }
+
+    @Test
+    void testMissingServletRequestPartException() {
+        MissingServletRequestPartException ex = new MissingServletRequestPartException("files");
+        ResponseEntity<GlobalExceptionHandler.ErrorResponse> response = handler.handleMissingServletRequestPart(ex, request);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals("VALIDATION_ERROR", response.getBody().code());
+        assertEquals("files", response.getBody().details().get("part"));
+    }
+
+    @RestController
+    static class DummyTestController {
+        @GetMapping("/test/param")
+        public String testParam(@RequestParam("before") String before) {
+            return before;
+        }
+
+        @PostMapping("/test/part")
+        public String testPart(@RequestPart("files") MultipartFile[] files) {
+            return "ok";
+        }
+    }
+
+    @Test
+    void testMockMvcMissingServletRequestParameterReturns400() throws Exception {
+        MockMvc mvc = MockMvcBuilders.standaloneSetup(new DummyTestController())
+                .setControllerAdvice(handler)
+                .build();
+
+        mvc.perform(get("/test/param"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("VALIDATION_ERROR"))
+                .andExpect(jsonPath("$.details.parameter").value("before"));
+    }
+
+    @Test
+    void testMockMvcMissingServletRequestPartReturns400() throws Exception {
+        MockMvc mvc = MockMvcBuilders.standaloneSetup(new DummyTestController())
+                .setControllerAdvice(handler)
+                .build();
+
+        mvc.perform(multipart("/test/part"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("VALIDATION_ERROR"))
+                .andExpect(jsonPath("$.details.part").value("files"));
+    }
+
+    @Test
     void testDispatchPicksTheDedicatedHandlerNotTheGeneric5xxOne() {
         ExceptionHandlerMethodResolver resolver = new ExceptionHandlerMethodResolver(GlobalExceptionHandler.class);
 
@@ -194,6 +266,10 @@ class GlobalExceptionHandlerTest {
                 resolver.resolveMethod(new ResponseStatusException(HttpStatus.FORBIDDEN, "nope")).getName());
         assertEquals("handleApiStatus",
                 resolver.resolveMethod(new ApiStatusException(HttpStatus.CONFLICT, "BUSY", "busy")).getName());
+        assertEquals("handleMissingServletRequestParameter",
+                resolver.resolveMethod(new MissingServletRequestParameterException("p", "String")).getName());
+        assertEquals("handleMissingServletRequestPart",
+                resolver.resolveMethod(new MissingServletRequestPartException("f")).getName());
         assertEquals("handleGenericException",
                 resolver.resolveMethod(new RuntimeException("boom")).getName());
     }

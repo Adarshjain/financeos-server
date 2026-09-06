@@ -1,6 +1,7 @@
 package com.financeos.gmail.ingest;
 
 import com.financeos.api.gmail.dto.GmailSenderRequest;
+import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.ingest.event.SenderIngestChangedEvent;
@@ -55,7 +56,7 @@ public class SenderAllowlistService {
                 .orElseThrow(() -> new IllegalArgumentException("Sender not found: " + senderId));
 
         if (!sender.getUser().getId().equals(userId)) {
-            throw new SecurityException("Unauthorized access to Gmail sender");
+            throw new ValidationException("You do not have permission to access this sender.");
         }
 
         boolean oldEnabled = Boolean.TRUE.equals(sender.getEnabled());
@@ -88,7 +89,7 @@ public class SenderAllowlistService {
                 .orElseThrow(() -> new IllegalArgumentException("Sender not found: " + senderId));
 
         if (!sender.getUser().getId().equals(userId)) {
-            throw new SecurityException("Unauthorized access to Gmail sender");
+            throw new ValidationException("You do not have permission to access this sender.");
         }
 
         gmailSenderRepository.delete(sender);

@@ -88,4 +88,28 @@ public class LlmKeyServiceTest {
         assertEquals(2, key1.getPosition());
         assertEquals(1, key2.getPosition());
     }
+
+    @Test
+    public void testProviderPropertiesUrlDefaultsAndOverrides() {
+        LlmProperties props = new LlmProperties();
+        LlmProperties.ProviderProperties geminiProps = new LlmProperties.ProviderProperties();
+        geminiProps.setBaseUrl("http://localhost:8089/llm/gemini");
+        geminiProps.setValidateUrl("http://localhost:8089/llm/gemini/v1beta/models");
+        props.getProviders().put("gemini", geminiProps);
+
+        LlmProperties.ProviderProperties openrouterProps = new LlmProperties.ProviderProperties();
+        openrouterProps.setBaseUrl("http://localhost:8089/llm/openrouter/api/v1");
+        openrouterProps.setKeyValidateUrl("http://localhost:8089/llm/openrouter/api/v1/key");
+        props.getProviders().put("openrouter", openrouterProps);
+
+        LlmProperties.ProviderProperties groqProps = new LlmProperties.ProviderProperties();
+        groqProps.setBaseUrl("http://localhost:8089/llm/groq/openai/v1");
+        props.getProviders().put("groq", groqProps);
+
+        assertEquals("http://localhost:8089/llm/gemini", props.getProviders().get("gemini").getBaseUrl());
+        assertEquals("http://localhost:8089/llm/gemini/v1beta/models", props.getProviders().get("gemini").getValidateUrl());
+        assertEquals("http://localhost:8089/llm/openrouter/api/v1", props.getProviders().get("openrouter").getBaseUrl());
+        assertEquals("http://localhost:8089/llm/openrouter/api/v1/key", props.getProviders().get("openrouter").getKeyValidateUrl());
+        assertEquals("http://localhost:8089/llm/groq/openai/v1", props.getProviders().get("groq").getBaseUrl());
+    }
 }

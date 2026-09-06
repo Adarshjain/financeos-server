@@ -102,7 +102,7 @@ class FileIngestionServiceTest {
         bankDetails.setLast4("1234");
         account.setBankDetails(bankDetails);
 
-        when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
+        when(accountService.getAccountById(accountId)).thenReturn(account);
         when(userRepository.getReferenceById(userId)).thenReturn(user);
 
         doAnswer(inv -> {

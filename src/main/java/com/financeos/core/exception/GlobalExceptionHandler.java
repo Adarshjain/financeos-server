@@ -20,6 +20,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.HandlerMapping;
@@ -180,6 +182,27 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse("BAD_REQUEST", "Type mismatch for parameter: " + ex.getName(), details));
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ErrorResponse> handleMissingServletRequestParameter(MissingServletRequestParameterException ex, HttpServletRequest request) {
+        Map<String, String> details = new HashMap<>();
+        details.put("parameter", ex.getParameterName());
+        details.put("parameterType", ex.getParameterType());
+        log4xx("VALIDATION_ERROR", ex.getMessage(), details, request);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("VALIDATION_ERROR", ex.getMessage(), details));
+    }
+
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    public ResponseEntity<ErrorResponse> handleMissingServletRequestPart(MissingServletRequestPartException ex, HttpServletRequest request) {
+        Map<String, String> details = new HashMap<>();
+        details.put("part", ex.getRequestPartName());
+        log4xx("VALIDATION_ERROR", ex.getMessage(), details, request);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("VALIDATION_ERROR", ex.getMessage(), details));
     }
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.api.instrument.dto.InstrumentCandidate;
 import com.financeos.domain.instrument.InstrumentType;
 import com.financeos.domain.instrument.price.PriceProperties;
+import com.financeos.domain.instrument.price.YahooHosts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -73,19 +74,12 @@ public class YahooInstrumentSearchProvider implements InstrumentSearchProvider {
             return List.of();
         }
 
-        String primaryBaseUrl = props != null && props.getBaseUrl() != null && !props.getBaseUrl().isBlank()
-                ? props.getBaseUrl()
-                : "https://query2.finance.yahoo.com";
+        List<String> baseUrls = YahooHosts.getCandidateHosts(props);
         String userAgent = props != null && props.getUserAgent() != null && !props.getUserAgent().isBlank()
                 ? props.getUserAgent()
                 : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36";
         long timeoutMs = props != null && props.getTimeoutMs() > 0 ? props.getTimeoutMs() : 30000L;
         ZoneId zoneId = ZoneId.of(priceProperties.getTimezone() != null ? priceProperties.getTimezone() : "Asia/Kolkata");
-
-        List<String> baseUrls = List.of(
-                primaryBaseUrl,
-                primaryBaseUrl.contains("query2") ? "https://query1.finance.yahoo.com" : "https://query2.finance.yahoo.com"
-        );
 
         String trimmedQuery = query.trim();
         String isinQuery = trimmedQuery.matches("(?i)^[A-Za-z]{2}[A-Za-z0-9]{9}[0-9]$") ? trimmedQuery.toUpperCase() : null;

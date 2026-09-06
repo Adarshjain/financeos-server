@@ -7,14 +7,18 @@ import static org.mockito.Mockito.*;
 import com.financeos.api.reward.dto.RewardCardRecommendationResponse;
 import com.financeos.api.reward.dto.RewardRecommendationRequest;
 import com.financeos.api.reward.dto.RewardRecommendationResponse;
+import com.financeos.api.reward.dto.SimulatedCapStatusResponse;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionChannel;
 import com.financeos.domain.transaction.TransactionRepository;
+import com.financeos.domain.transaction.TransactionSource;
+import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.transaction.link.TransactionLinkRepository;
 import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.user.User;
@@ -423,5 +427,47 @@ class RewardRecommendationServiceTest {
                 new BigDecimal("1000.00"), LocalDate.now(), null, null, null, null, false, false, List.of(foreignAccountId));
 
         assertThrows(ValidationException.class, () -> recommendationService.recommend(req));
+    }
+
+    @Test
+    void capStatus_reflectsRealUsageBeforeSimulation() {
+        Account cappedCard = createCardAccount("5% Capped Card", null);
+
+        when(accountRepository.findByUserId(userId)).thenReturn(List.of(cappedCard));
+        when(accountRepository.findById(cappedCard.getId())).thenReturn(Optional.of(cappedCard));
+
+        RewardRule rule5PctCapped = createPercentRule(cappedCard, "5% Capped", new BigDecimal("5.0"), RuleStacking.EXCLUSIVE, 10);
+        rule5PctCapped.setPeriodCap(new BigDecimal("10.00"));
+        rule5PctCapped.setCapWindow(CapWindow.CALENDAR_MONTH);
+
+        when(rewardRuleRepository.findByAccountIdOrderByPriorityDesc(cappedCard.getId())).thenReturn(List.of(rule5PctCapped));
+
+        LocalDate evalDate = LocalDate.of(2026, 3, 15);
+        Transaction priorTxn = new Transaction();
+        priorTxn.setId(UUID.randomUUID());
+        priorTxn.setUser(user);
+        priorTxn.setAccount(cappedCard);
+        priorTxn.setDate(LocalDate.of(2026, 3, 10));
+        priorTxn.setAmount(new BigDecimal("100.00")); // 5% of 100 = 5.00 earned
+        priorTxn.setType(TransactionType.DEBIT);
+        priorTxn.setSource(TransactionSource.manual);
+        priorTxn.setDescription("Prior spend");
+
+        when(transactionRepository.findForRewardEvaluation(eq(cappedCard.getId()), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(List.of(priorTxn));
+
+        RewardRecommendationRequest req = new RewardRecommendationRequest(
+                new BigDecimal("1000.00"), evalDate, null, null, null, null, false, false, null);
+
+        RewardRecommendationResponse resp = recommendationService.recommend(req);
+
+        assertEquals(1, resp.recommendations().size());
+        RewardCardRecommendationResponse rec = resp.recommendations().get(0);
+        assertEquals(1, rec.ruleLines().size());
+        SimulatedCapStatusResponse capStatus = rec.ruleLines().get(0).capStatus();
+        assertNotNull(capStatus);
+        assertEquals(new BigDecimal("10.00"), capStatus.totalCap());
+        assertEquals(new BigDecimal("5.00"), capStatus.usedBefore());
+        assertEquals(new BigDecimal("5.00"), capStatus.capRemainingBefore());
     }
 }
