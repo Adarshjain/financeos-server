@@ -23,6 +23,12 @@ import java.util.Arrays;
 @Component
 public class LoggingAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
+    private final com.fasterxml.jackson.databind.ObjectMapper objectMapper;
+
+    public LoggingAuthenticationEntryPoint(com.fasterxml.jackson.databind.ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
             throws IOException, ServletException {
@@ -41,6 +47,17 @@ public class LoggingAuthenticationEntryPoint implements AuthenticationEntryPoint
         );
 
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        com.financeos.core.exception.GlobalExceptionHandler.ErrorResponse errorBody =
+                new com.financeos.core.exception.GlobalExceptionHandler.ErrorResponse(
+                        "UNAUTHORIZED",
+                        "Authentication required",
+                        java.util.Map.of("reason", reason),
+                        java.time.Instant.now(),
+                        null,
+                        requestId);
+        objectMapper.writeValue(response.getWriter(), errorBody);
     }
 
     private String determineReason(HttpServletRequest request) {

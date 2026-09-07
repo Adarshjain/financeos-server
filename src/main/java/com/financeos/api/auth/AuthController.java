@@ -23,16 +23,21 @@ public class AuthController {
 
     private final AuthService authService;
     private final AccountDeletionService accountDeletionService;
+    private final com.financeos.core.security.AdminService adminService;
 
-    public AuthController(AuthService authService, AccountDeletionService accountDeletionService) {
+    public AuthController(
+            AuthService authService,
+            AccountDeletionService accountDeletionService,
+            com.financeos.core.security.AdminService adminService) {
         this.authService = authService;
         this.accountDeletionService = accountDeletionService;
+        this.adminService = adminService;
     }
 
     @PostMapping("/signup")
     public ResponseEntity<UserResponse> signup(@Valid @RequestBody SignupRequest request) {
         User user = authService.signup(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.from(user));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.from(user, adminService.isAdmin(user.getId())));
     }
 
     @PostMapping("/login")
@@ -41,7 +46,7 @@ public class AuthController {
             HttpServletRequest httpRequest,
             HttpServletResponse httpResponse) {
         User user = authService.login(request, httpRequest, httpResponse);
-        return ResponseEntity.ok(UserResponse.from(user));
+        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user.getId())));
     }
 
     @PostMapping("/logout")
@@ -53,7 +58,7 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUser() {
         User user = authService.getCurrentUser();
-        return ResponseEntity.ok(UserResponse.from(user));
+        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user.getId())));
     }
 
     @GetMapping("/google/start")
@@ -92,7 +97,7 @@ public class AuthController {
         }
 
         User user = authService.handleGoogleLogin(code, state, request, response);
-        return ResponseEntity.ok(UserResponse.from(user));
+        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user.getId())));
     }
 
     @GetMapping("/me/deletion-summary")
