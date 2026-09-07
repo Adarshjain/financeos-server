@@ -260,6 +260,7 @@ public class OpenApiConfig {
                             .addProperty("details", new Schema<>().type("object").nullable(true).additionalProperties(new Schema<>().type("string")))
                             .addProperty("timestamp", new Schema<>().type("string").format("date-time").nullable(true))
                             .addProperty("errorId", new Schema<>().type("string").nullable(true))
+                            .addProperty("requestId", new Schema<>().type("string").nullable(true))
                             .required(List.of("code", "message"));
                     openApi.getComponents().addSchemas("ErrorResponse", errorSchema);
                 }

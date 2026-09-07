@@ -10,6 +10,8 @@ public class AppConfigProperties {
     private Encryption encryption = new Encryption();
     private Cors cors = new Cors();
     private Invite invite = new Invite();
+    private Admin admin = new Admin();
+    private Diagnostics diagnostics = new Diagnostics();
 
     public Encryption getEncryption() {
         return encryption;
@@ -33,6 +35,103 @@ public class AppConfigProperties {
 
     public void setInvite(Invite invite) {
         this.invite = invite;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public Diagnostics getDiagnostics() {
+        return diagnostics;
+    }
+
+    public void setDiagnostics(Diagnostics diagnostics) {
+        this.diagnostics = diagnostics;
+    }
+
+    public static class Admin {
+        private java.util.List<String> emails = new java.util.ArrayList<>();
+
+        public java.util.List<String> getEmails() {
+            return emails;
+        }
+
+        public void setEmails(java.util.List<String> emails) {
+            this.emails = emails;
+        }
+    }
+
+    public static class Diagnostics {
+        private Loki loki = new Loki();
+
+        public Loki getLoki() {
+            return loki;
+        }
+
+        public void setLoki(Loki loki) {
+            this.loki = loki;
+        }
+
+        public static class Loki {
+            private String url;
+            private String user;
+            private String token;
+            private int lookbackDays = 14;
+            private int timeoutSeconds = 10;
+            private int maxLines = 500;
+
+            public String getUrl() {
+                return url;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
+            }
+
+            public String getUser() {
+                return user;
+            }
+
+            public void setUser(String user) {
+                this.user = user;
+            }
+
+            public String getToken() {
+                return token;
+            }
+
+            public void setToken(String token) {
+                this.token = token;
+            }
+
+            public int getLookbackDays() {
+                return lookbackDays;
+            }
+
+            public void setLookbackDays(int lookbackDays) {
+                this.lookbackDays = lookbackDays;
+            }
+
+            public int getTimeoutSeconds() {
+                return timeoutSeconds;
+            }
+
+            public void setTimeoutSeconds(int timeoutSeconds) {
+                this.timeoutSeconds = timeoutSeconds;
+            }
+
+            public int getMaxLines() {
+                return maxLines;
+            }
+
+            public void setMaxLines(int maxLines) {
+                this.maxLines = maxLines;
+            }
+        }
     }
 
     public static class Encryption {

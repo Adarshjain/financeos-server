@@ -24,31 +24,42 @@ public class RequestContextFilter extends OncePerRequestFilter {
 
     public static final String REQUEST_ID_HEADER = "X-Request-Id";
     public static final String MDC_REQUEST_ID_KEY = "requestId";
+    public static final String SESSION_ID_HEADER = "X-Session-Id";
+    public static final String MDC_SESSION_ID_KEY = "sessionId";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
         String requestId = request.getHeader(REQUEST_ID_HEADER);
-        if (!isValidRequestId(requestId)) {
+        if (!isValidId(requestId)) {
             requestId = generateRequestId();
         }
 
+        String sessionId = request.getHeader(SESSION_ID_HEADER);
+        boolean hasValidSessionId = isValidId(sessionId);
+
         MDC.put(MDC_REQUEST_ID_KEY, requestId);
+        if (hasValidSessionId) {
+            MDC.put(MDC_SESSION_ID_KEY, sessionId);
+        }
         response.setHeader(REQUEST_ID_HEADER, requestId);
 
         try {
             filterChain.doFilter(request, response);
         } finally {
             MDC.remove(MDC_REQUEST_ID_KEY);
+            if (hasValidSessionId) {
+                MDC.remove(MDC_SESSION_ID_KEY);
+            }
         }
     }
 
-    private boolean isValidRequestId(String requestId) {
-        if (requestId == null || requestId.isBlank() || requestId.length() > 64) {
+    private boolean isValidId(String id) {
+        if (id == null || id.isBlank() || id.length() > 64) {
             return false;
         }
-        return requestId.matches("^[A-Za-z0-9\\-_]+$");
+        return id.matches("^[A-Za-z0-9\\-_]+$");
     }
 
     private String generateRequestId() {
