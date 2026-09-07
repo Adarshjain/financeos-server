@@ -119,9 +119,11 @@ class DiagnosticsServiceTest {
         assertTrue(response.timeline().isEmpty());
         assertFalse(response.rawAvailable());
 
-        assertEquals(1, listAppender.list.size());
-        ILoggingEvent audit = listAppender.list.get(0);
-        assertTrue(audit.getFormattedMessage().contains("Admin diagnostics lookup"));
+        // Filter by message: async client/Faro queries from earlier tests may log late into this appender.
+        List<ILoggingEvent> audits = listAppender.list.stream()
+                .filter(e -> e.getFormattedMessage().contains("Admin diagnostics lookup")).toList();
+        assertEquals(1, audits.size());
+        ILoggingEvent audit = audits.get(0);
         boolean foundRef = Arrays.stream(audit.getArgumentArray())
                 .anyMatch(arg -> arg != null && arg.toString().contains("ref=E2ERR001"));
         assertTrue(foundRef);
@@ -377,8 +379,9 @@ class DiagnosticsServiceTest {
         assertEquals("server", rawEntries.get(0).source());
         assertEquals("prod", rawEntries.get(0).labels().get("env"));
 
-        assertEquals(1, listAppender.list.size());
-        ILoggingEvent audit = listAppender.list.get(0);
-        assertTrue(audit.getFormattedMessage().contains("Admin diagnostics raw lookup"));
+        // Filter by message: async client/Faro queries from earlier tests may log late into this appender.
+        List<ILoggingEvent> audits = listAppender.list.stream()
+                .filter(e -> e.getFormattedMessage().contains("Admin diagnostics raw lookup")).toList();
+        assertEquals(1, audits.size());
     }
 }
