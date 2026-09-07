@@ -18,7 +18,10 @@ public record LendingResponse(
         BigDecimal amount,
         LocalDate entryDate,
         @Nullable LocalDate expectedReturnDate,
+        /** Kept for compatibility; prefer {@link #transaction}. */
         @Nullable UUID transactionId,
+        /** The linked bank transaction, or null when the entry is unlinked. */
+        @Nullable LendingTransactionSummary transaction,
         @Nullable String notes,
         Instant createdAt
 ) {
@@ -32,6 +35,7 @@ public record LendingResponse(
                 lending.getEntryDate(),
                 lending.getExpectedReturnDate(),
                 lending.getTransaction() != null ? lending.getTransaction().getId() : null,
+                LendingTransactionSummary.from(lending.getTransaction()),
                 lending.getNotes(),
                 lending.getCreatedAt()
         );

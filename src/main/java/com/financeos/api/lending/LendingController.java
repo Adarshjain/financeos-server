@@ -51,4 +51,17 @@ public class LendingController {
     public void deleteLending(@PathVariable UUID id) {
         lendingService.deleteLending(id);
     }
+
+    /** Attach or replace the bank transaction behind this ledger entry. */
+    @PutMapping("/{id}/transaction")
+    public LendingResponse linkTransaction(@PathVariable UUID id, @Valid @RequestBody LinkLendingTransactionRequest req) {
+        return lendingService.linkTransaction(id, req.transactionId());
+    }
+
+    /** Detach the bank transaction from this ledger entry (idempotent). */
+    @DeleteMapping("/{id}/transaction")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void unlinkTransaction(@PathVariable UUID id) {
+        lendingService.unlinkTransaction(id);
+    }
 }

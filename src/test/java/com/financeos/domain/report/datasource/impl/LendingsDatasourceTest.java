@@ -1,9 +1,11 @@
 package com.financeos.domain.report.datasource.impl;
 
+import com.financeos.domain.account.Account;
 import com.financeos.domain.lending.Counterparty;
 import com.financeos.domain.lending.Lending;
 import com.financeos.domain.lending.LendingDirection;
 import com.financeos.domain.lending.LendingService;
+import com.financeos.domain.transaction.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,6 +39,9 @@ class LendingsDatasourceTest {
         assertTrue(datasource.fields().stream().anyMatch(f -> "signedAmount".equals(f.name())));
         assertTrue(datasource.fields().stream().anyMatch(f -> "counterpartyName".equals(f.name())));
         assertTrue(datasource.fields().stream().anyMatch(f -> "direction".equals(f.name())));
+        assertTrue(datasource.fields().stream().anyMatch(f -> "isLinked".equals(f.name())));
+        assertTrue(datasource.fields().stream().anyMatch(f -> "transactionId".equals(f.name())));
+        assertTrue(datasource.fields().stream().anyMatch(f -> "transactionAccount".equals(f.name())));
     }
 
     @Test
@@ -45,6 +50,13 @@ class LendingsDatasourceTest {
         Counterparty cp = new Counterparty();
         cp.setId(cpId);
         cp.setName("John Doe");
+
+        UUID txnId = UUID.randomUUID();
+        Account account = new Account();
+        account.setName("HDFC Savings");
+        Transaction txn = new Transaction();
+        txn.setId(txnId);
+        txn.setAccount(account);
 
         UUID l1Id = UUID.randomUUID();
         Lending l1 = new Lending();
@@ -55,6 +67,7 @@ class LendingsDatasourceTest {
         l1.setEntryDate(LocalDate.of(2025, 3, 1));
         l1.setExpectedReturnDate(LocalDate.of(2025, 6, 1));
         l1.setNotes("Lent for project");
+        l1.setTransaction(txn);
 
         UUID l2Id = UUID.randomUUID();
         Lending l2 = new Lending();
@@ -81,6 +94,9 @@ class LendingsDatasourceTest {
         assertEquals(LocalDate.of(2025, 3, 1), r1.get("entryDate"));
         assertEquals(LocalDate.of(2025, 6, 1), r1.get("expectedReturnDate"));
         assertEquals("Lent for project", r1.get("notes"));
+        assertEquals(true, r1.get("isLinked"));
+        assertEquals(txnId.toString(), r1.get("transactionId"));
+        assertEquals("HDFC Savings", r1.get("transactionAccount"));
 
         Map<String, Object> r2 = rows.get(1);
         assertEquals(l2Id.toString(), r2.get("id"));
@@ -92,5 +108,8 @@ class LendingsDatasourceTest {
         assertEquals(LocalDate.of(2025, 4, 1), r2.get("entryDate"));
         assertEquals(LocalDate.of(2025, 5, 1), r2.get("expectedReturnDate"));
         assertEquals("Borrowed for travel", r2.get("notes"));
+        assertEquals(false, r2.get("isLinked"));
+        assertNull(r2.get("transactionId"));
+        assertNull(r2.get("transactionAccount"));
     }
 }
