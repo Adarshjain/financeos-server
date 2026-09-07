@@ -1472,6 +1472,92 @@ paths:
           description: Error response
       tags:
       - dashboard-controller
+  /api/v1/diagnostics/lookup:
+    get:
+      operationId: lookup
+      parameters:
+      - in: query
+        name: ref
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+          default: auto
+      - in: query
+        name: since
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: until
+        required: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/DiagnosticsLookupResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - diagnostics-controller
+  /api/v1/diagnostics/lookup/raw:
+    get:
+      operationId: raw
+      parameters:
+      - in: query
+        name: ref
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+          default: auto
+      - in: query
+        name: since
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: until
+        required: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RawLogEntry"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - diagnostics-controller
   /api/v1/gmail/attention:
     get:
       operationId: getAttentionItems
@@ -7683,6 +7769,43 @@ components:
       - name
       - quantity
       - symbol
+    DiagnosticsLookupResponse:
+      type: object
+      properties:
+        errorId:
+          type: string
+          nullable: true
+          x-nullable: true
+        found:
+          type: boolean
+        rawAvailable:
+          type: boolean
+        ref:
+          type: string
+        refType:
+          type: string
+        request:
+          $ref: "#/components/schemas/RequestSummary"
+        requestId:
+          type: string
+          nullable: true
+          x-nullable: true
+        rootCause:
+          $ref: "#/components/schemas/RootCause"
+        timeline:
+          type: array
+          items:
+            $ref: "#/components/schemas/TimelineEntry"
+        truncated:
+          type: boolean
+      required:
+      - found
+      - rawAvailable
+      - ref
+      - refType
+      - rootCause
+      - timeline
+      - truncated
     DividendResponse:
       type: object
       properties:
@@ -7813,6 +7936,9 @@ components:
           nullable: true
         message:
           type: string
+        requestId:
+          type: string
+          nullable: true
         timestamp:
           type: string
           format: date-time
@@ -10553,6 +10679,25 @@ components:
       - models
       - name
       - type
+    RawLogEntry:
+      type: object
+      properties:
+        at:
+          type: string
+          format: date-time
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        line:
+          type: string
+        source:
+          type: string
+      required:
+      - at
+      - labels
+      - line
+      - source
     RealizedSummaryDto:
       type: object
       properties:
@@ -10853,6 +10998,47 @@ components:
       - name
       - type
       - updatedAt
+    RequestSummary:
+      type: object
+      properties:
+        at:
+          type: string
+          format: date-time
+        durationMs:
+          type: integer
+          format: int64
+        method:
+          type: string
+        route:
+          type: string
+        slow:
+          type: boolean
+        status:
+          type: integer
+          format: int32
+        userAgent:
+          type: string
+          nullable: true
+          x-nullable: true
+        userEmail:
+          type: string
+          nullable: true
+          x-nullable: true
+        userId:
+          type: string
+          nullable: true
+          x-nullable: true
+        version:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - at
+      - durationMs
+      - method
+      - route
+      - slow
+      - status
     RescanRequest:
       type: object
       properties:
@@ -11801,6 +11987,36 @@ components:
       required:
       - rate
       - upTo
+    RootCause:
+      type: object
+      properties:
+        detail:
+          type: string
+        exceptionClass:
+          type: string
+          nullable: true
+          x-nullable: true
+        headline:
+          type: string
+        hints:
+          type: array
+          items:
+            type: string
+        kind:
+          type: string
+        oraCode:
+          type: string
+          nullable: true
+          x-nullable: true
+        rootFrame:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - detail
+      - headline
+      - hints
+      - kind
     RoutingEntryDto:
       type: object
       properties:
@@ -12791,6 +13007,41 @@ components:
           type: number
         upTo:
           type: number
+    TimelineEntry:
+      type: object
+      properties:
+        at:
+          type: string
+          format: date-time
+        event:
+          type: string
+          nullable: true
+          x-nullable: true
+        fields:
+          type: object
+          additionalProperties:
+            type: object
+            x-any-json: true
+        level:
+          type: string
+        logger:
+          type: string
+          nullable: true
+          x-nullable: true
+        message:
+          type: string
+        source:
+          type: string
+        stackTrace:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - at
+      - fields
+      - level
+      - message
+      - source
     TradeSettlementClassificationDto:
       type: object
       properties:
@@ -13390,6 +13641,8 @@ components:
     UserResponse:
       type: object
       properties:
+        admin:
+          type: boolean
         createdAt:
           type: string
           format: date-time
@@ -13409,6 +13662,7 @@ components:
           nullable: true
           x-nullable: true
       required:
+      - admin
       - createdAt
       - email
       - hasPassword
