@@ -46,18 +46,19 @@ public class GlobalExceptionHandler {
             @Nullable String message,
             @Nullable Map<String, String> details,
             Instant timestamp,
-            @Nullable String errorId) {
+            @Nullable String errorId,
+            @Nullable String requestId) {
 
         public ErrorResponse(String code, String message) {
-            this(code, message, null, Instant.now(), null);
+            this(code, message, null, Instant.now(), null, MDC.get("requestId"));
         }
 
         public ErrorResponse(String code, String message, Map<String, String> details) {
-            this(code, message, details, Instant.now(), null);
+            this(code, message, details, Instant.now(), null, MDC.get("requestId"));
         }
 
         public ErrorResponse(String code, String message, Map<String, String> details, String errorId) {
-            this(code, message, details, Instant.now(), errorId);
+            this(code, message, details, Instant.now(), errorId, MDC.get("requestId"));
         }
     }
 

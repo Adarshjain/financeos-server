@@ -98,4 +98,7 @@ public final class Events {
     public static final String ACCOUNT_DELETED = "account.deleted";
     public static final String ACCOUNT_DELETE_REJECTED = "account.delete.rejected";
     public static final String OAUTH_GOOGLE_REVOKE_FAILED = "oauth.google.revoke.failed";
+
+    // Diagnostics & Observability Events
+    public static final String DIAGNOSTICS_LOOKUP = "diagnostics.lookup";
 }
