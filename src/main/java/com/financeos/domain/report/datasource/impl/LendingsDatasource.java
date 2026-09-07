@@ -27,6 +27,7 @@ public class LendingsDatasource implements ComputedReportDatasource {
     private static final List<ReportType> KPI_CHART_TABLE = List.of(ReportType.KPI, ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> CHART_TABLE = List.of(ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> TABLE_ONLY = List.of(ReportType.TABLE);
+    private static final List<ReportType> NONE = List.of();
 
     private final LendingService lendingService;
     private final List<FieldDef> fields;
@@ -77,6 +78,13 @@ public class LendingsDatasource implements ComputedReportDatasource {
             map.put("expectedReturnDate", lending.getExpectedReturnDate());
             map.put("notes", lending.getNotes());
 
+            boolean isLinked = lending.getTransaction() != null;
+            map.put("isLinked", isLinked);
+            map.put("transactionId", isLinked ? lending.getTransaction().getId().toString() : null);
+            map.put("transactionAccount", isLinked && lending.getTransaction().getAccount() != null
+                    ? lending.getTransaction().getAccount().getName()
+                    : null);
+
             rows.add(map);
         }
 
@@ -94,7 +102,10 @@ public class LendingsDatasource implements ComputedReportDatasource {
                 new FieldDef("direction", "Direction", FieldType.ENUM, FieldRole.DIMENSION, null, directionValues, null, CHART_TABLE),
                 new FieldDef("amount", "Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("signedAmount", "Signed Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
-                new FieldDef("notes", "Notes", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY)
+                new FieldDef("notes", "Notes", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
+                new FieldDef("isLinked", "Is Linked", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+                new FieldDef("transactionId", "Transaction ID", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
+                new FieldDef("transactionAccount", "Transaction Account", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE)
         );
     }
 }

@@ -112,6 +112,8 @@ public class DatasourceCatalog {
             new FieldDef("isExcluded", "Is Excluded", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isTransferLeg", "Is transfer leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isRefundLeg", "Is refund leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+            new FieldDef("isLendingLeg", "Is lending leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+            new FieldDef("isLoanLeg", "Is loan leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("linkType", "Link type", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("TRANSFER", "CC_PAYMENT", "REFUND", "REVERSAL", "FEE", "EMI"), null, CHART_TABLE),
             new FieldDef("settlementDate", "Settlement date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),

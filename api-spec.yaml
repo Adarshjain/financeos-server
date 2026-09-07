@@ -1293,6 +1293,31 @@ paths:
           description: Error response
       tags:
       - counterparty-controller
+  /api/v1/counterparties/{id}/match-suggestions:
+    get:
+      operationId: getCounterpartyMatchSuggestions
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LendingMatchSuggestionsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - counterparty-controller
   /api/v1/dashboard/summary:
     get:
       operationId: getSummary_2
@@ -3301,6 +3326,57 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/UpdateLendingRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LendingResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - lending-controller
+  /api/v1/lendings/{id}/transaction:
+    delete:
+      operationId: unlinkTransaction
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - lending-controller
+    put:
+      operationId: linkTransaction
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LinkLendingTransactionRequest"
         required: true
       responses:
         "200":
@@ -8770,6 +8846,50 @@ components:
       - status
       - triggerSource
       - type
+    LendingMatchSuggestion:
+      type: object
+      properties:
+        amount:
+          type: number
+        candidates:
+          type: array
+          items:
+            $ref: "#/components/schemas/TransactionResponse"
+        direction:
+          type: string
+          enum:
+          - lent
+          - borrowed
+        entryDate:
+          type: string
+          format: date
+        expectedReturnDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        lendingId:
+          type: string
+          format: uuid
+        notes:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - amount
+      - candidates
+      - direction
+      - entryDate
+      - lendingId
+    LendingMatchSuggestionsResponse:
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            $ref: "#/components/schemas/LendingMatchSuggestion"
+      required:
+      - suggestions
     LendingResponse:
       type: object
       properties:
@@ -8803,6 +8923,8 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        transaction:
+          $ref: "#/components/schemas/LendingTransactionSummary"
         transactionId:
           type: string
           format: uuid
@@ -8816,6 +8938,42 @@ components:
       - direction
       - entryDate
       - id
+    LendingTransactionSummary:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        accountName:
+          type: string
+          nullable: true
+          x-nullable: true
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        signedAmount:
+          type: number
+      required:
+      - accountId
+      - date
+      - id
+      - signedAmount
+    LinkLendingTransactionRequest:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          format: uuid
+          x-required: true
+      required:
+      - transactionId
     LlmBucketHealthDto:
       type: object
       properties:
@@ -9501,6 +9659,34 @@ components:
       - date
       - status
       - type
+    ObligationRef:
+      type: object
+      properties:
+        amount:
+          type: number
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          enum:
+          - LENDING
+          - LOAN_PAYMENT
+          - LOAN_EVENT
+          - LOAN_CHARGE
+        label:
+          type: string
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+      required:
+      - id
+      - kind
+      - label
     ObligationsResponse:
       type: object
       properties:
@@ -12783,6 +12969,10 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        obligationRefs:
+          type: array
+          items:
+            $ref: "#/components/schemas/ObligationRef"
         reviewReasons:
           type: array
           items:
@@ -12834,6 +13024,7 @@ components:
       - isTransactionExcluded
       - isTransactionUnderMonitoring
       - links
+      - obligationRefs
       - reviewReasons
       - source
       - updatedAt

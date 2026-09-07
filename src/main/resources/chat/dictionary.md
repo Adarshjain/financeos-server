@@ -120,7 +120,8 @@ Borrowings (home/car/personal loans) and their payments.
 
 ### 9. `v_chat_lendings`
 Two-way personal lend/borrow LEDGER per counterparty (each row is one ledger entry, not a loan with a status).
-- `counterparty_name`, `direction`, `amount`, `entry_date`, `expected_return_date`, `notes`.
+- `counterparty_name`, `direction`, `amount`, `entry_date`, `expected_return_date`, `transaction_id`, `notes`.
+- `transaction_id` (nullable) joins `v_chat_transactions.id` — the bank movement behind the entry. Several entries may share one transaction (split bills). Money lent/borrowed is NOT spending/income: when asked about spend, exclude transactions whose id appears in `v_chat_lendings.transaction_id`.
 - Net outstanding with a counterparty = sum of entries in one direction − sum in the other (group by `counterparty_name`, `direction`).
 
 ### 10. `v_chat_instruments` & `v_chat_instrument_prices`

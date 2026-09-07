@@ -4,8 +4,10 @@ import org.springdoc.core.annotations.ParameterObject;
 
 import com.financeos.api.lending.dto.CounterpartyResponse;
 import com.financeos.api.lending.dto.CreateCounterpartyRequest;
+import com.financeos.api.lending.dto.LendingMatchSuggestionsResponse;
 import com.financeos.api.lending.dto.UpdateCounterpartyRequest;
 import com.financeos.domain.lending.LendingService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,5 +48,11 @@ public class CounterpartyController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCounterparty(@PathVariable UUID id) {
         lendingService.deleteCounterparty(id);
+    }
+
+    @GetMapping("/{id}/match-suggestions")
+    @Operation(operationId = "getCounterpartyMatchSuggestions")
+    public LendingMatchSuggestionsResponse getMatchSuggestions(@PathVariable UUID id) {
+        return lendingService.getMatchSuggestions(id);
     }
 }

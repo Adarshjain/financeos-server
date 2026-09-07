@@ -28,6 +28,12 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     public static final String LINK_TYPE =
             "(SELECT l.type FROM transaction_link_members m JOIN transaction_links l ON l.id = m.link_id WHERE m.transaction_id = t.id AND ROWNUM = 1)";
 
+    public static final String IS_LENDING_LEG =
+            "(CASE WHEN EXISTS (SELECT 1 FROM lendings x WHERE x.transaction_id = t.id) THEN 1 ELSE 0 END)";
+
+    public static final String IS_LOAN_LEG =
+            "(CASE WHEN EXISTS (SELECT 1 FROM loan_payments x WHERE x.transaction_id = t.id) OR EXISTS (SELECT 1 FROM loan_events x WHERE x.transaction_id = t.id) OR EXISTS (SELECT 1 FROM loan_charges x WHERE x.transaction_id = t.id) THEN 1 ELSE 0 END)";
+
     public static final String JOIN_ACCOUNTS = "ACCOUNTS";
     public static final String JOIN_CATEGORIES = "CATEGORIES";
     public static final String JOIN_CARDS = "CARDS";
@@ -50,6 +56,8 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             Map.entry("isExcluded", new Mapping("t.is_excluded", null)),
             Map.entry("isTransferLeg", new Mapping(IS_TRANSFER_LEG, null)),
             Map.entry("isRefundLeg", new Mapping(IS_REFUND_LEG, null)),
+            Map.entry("isLendingLeg", new Mapping(IS_LENDING_LEG, null)),
+            Map.entry("isLoanLeg", new Mapping(IS_LOAN_LEG, null)),
             Map.entry("linkType", new Mapping(LINK_TYPE, null)),
             Map.entry("settlementDate", new Mapping("t.settlement_date", null)),
             Map.entry("reviewType", new Mapping("t.review_type", null)),
