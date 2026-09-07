@@ -495,7 +495,10 @@ public class LendingService {
     }
 
     private Lending getLendingAndVerifyOwnership(UUID lendingId) {
-        Lending lending = lendingRepository.findWithRefsById(lendingId)
+        // findById (EntityManager.find) bypasses the Hibernate userFilter on purpose: a foreign row must
+        // reach the ownership check below and answer 400 (the established "Security Breach" contract),
+        // not vanish into a 404. The linked transaction/account load lazily inside the transaction.
+        Lending lending = lendingRepository.findById(lendingId)
                 .orElseThrow(() -> new ResourceNotFoundException("Lending", lendingId));
         UUID userId = UserContext.getCurrentUserId();
         if (lending.getUser() == null || !lending.getUser().getId().equals(userId)) {
