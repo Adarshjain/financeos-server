@@ -169,7 +169,7 @@ class LendingServiceLinkTest {
         UUID id = UUID.randomUUID();
         Transaction txn = transaction(UUID.randomUUID(), TransactionType.DEBIT, new BigDecimal("500.00"), null);
         Lending existing = lending(id, LendingDirection.lent, txn);
-        when(lendingRepository.findWithRefsById(id)).thenReturn(Optional.of(existing));
+        when(lendingRepository.findById(id)).thenReturn(Optional.of(existing));
 
         UpdateLendingRequest req = new UpdateLendingRequest(LendingDirection.borrowed, null, null, null, null);
 
@@ -182,7 +182,7 @@ class LendingServiceLinkTest {
         UUID id = UUID.randomUUID();
         Transaction txn = transaction(UUID.randomUUID(), TransactionType.DEBIT, new BigDecimal("500.00"), null);
         Lending existing = lending(id, LendingDirection.lent, txn);
-        when(lendingRepository.findWithRefsById(id)).thenReturn(Optional.of(existing));
+        when(lendingRepository.findById(id)).thenReturn(Optional.of(existing));
 
         UpdateLendingRequest req = new UpdateLendingRequest(LendingDirection.lent, null, null, null, null);
 
@@ -195,7 +195,7 @@ class LendingServiceLinkTest {
     void updateLending_directionChangeWhileUnlinked_ok() {
         UUID id = UUID.randomUUID();
         Lending existing = lending(id, LendingDirection.lent, null);
-        when(lendingRepository.findWithRefsById(id)).thenReturn(Optional.of(existing));
+        when(lendingRepository.findById(id)).thenReturn(Optional.of(existing));
 
         UpdateLendingRequest req = new UpdateLendingRequest(LendingDirection.borrowed, null, null, null, null);
 
@@ -208,7 +208,7 @@ class LendingServiceLinkTest {
         UUID id = UUID.randomUUID();
         Transaction txn = transaction(UUID.randomUUID(), TransactionType.DEBIT, new BigDecimal("500.00"), null);
         Lending existing = lending(id, LendingDirection.lent, txn);
-        when(lendingRepository.findWithRefsById(id)).thenReturn(Optional.of(existing));
+        when(lendingRepository.findById(id)).thenReturn(Optional.of(existing));
 
         UpdateLendingRequest req = new UpdateLendingRequest(
                 null, new BigDecimal("999.00"), LocalDate.of(2026, 2, 1), null, "updated note");
@@ -233,7 +233,7 @@ class LendingServiceLinkTest {
     @Test
     void linkTransaction_unknownLending_throwsNotFound() {
         UUID lendingId = UUID.randomUUID();
-        when(lendingRepository.findWithRefsById(lendingId)).thenReturn(Optional.empty());
+        when(lendingRepository.findById(lendingId)).thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class,
                 () -> lendingService.linkTransaction(lendingId, UUID.randomUUID()));
@@ -246,7 +246,7 @@ class LendingServiceLinkTest {
         otherUser.setId(UUID.randomUUID());
         Lending foreign = lending(lendingId, LendingDirection.lent, null);
         foreign.setUser(otherUser);
-        when(lendingRepository.findWithRefsById(lendingId)).thenReturn(Optional.of(foreign));
+        when(lendingRepository.findById(lendingId)).thenReturn(Optional.of(foreign));
 
         assertThrows(ValidationException.class, () -> lendingService.linkTransaction(lendingId, UUID.randomUUID()));
     }
@@ -257,7 +257,7 @@ class LendingServiceLinkTest {
         UUID txnId = UUID.randomUUID();
         Transaction txn = transaction(txnId, TransactionType.DEBIT, new BigDecimal("500.00"), null);
         Lending existing = lending(lendingId, LendingDirection.lent, txn);
-        when(lendingRepository.findWithRefsById(lendingId)).thenReturn(Optional.of(existing));
+        when(lendingRepository.findById(lendingId)).thenReturn(Optional.of(existing));
 
         LendingResponse response = lendingService.linkTransaction(lendingId, txnId);
 
@@ -274,7 +274,7 @@ class LendingServiceLinkTest {
         Transaction oldTxn = transaction(oldTxnId, TransactionType.DEBIT, new BigDecimal("500.00"), null);
         Transaction newTxn = transaction(newTxnId, TransactionType.DEBIT, new BigDecimal("500.00"), null);
         Lending existing = lending(lendingId, LendingDirection.lent, oldTxn);
-        when(lendingRepository.findWithRefsById(lendingId)).thenReturn(Optional.of(existing));
+        when(lendingRepository.findById(lendingId)).thenReturn(Optional.of(existing));
         when(transactionValidator.validateForLending(newTxnId, LendingDirection.lent)).thenReturn(newTxn);
 
         LendingResponse response = lendingService.linkTransaction(lendingId, newTxnId);
@@ -289,7 +289,7 @@ class LendingServiceLinkTest {
         UUID lendingId = UUID.randomUUID();
         UUID txnId = UUID.randomUUID();
         Lending existing = lending(lendingId, LendingDirection.lent, null);
-        when(lendingRepository.findWithRefsById(lendingId)).thenReturn(Optional.of(existing));
+        when(lendingRepository.findById(lendingId)).thenReturn(Optional.of(existing));
         when(transactionValidator.validateForLending(txnId, LendingDirection.lent))
                 .thenThrow(new ValidationException("boom"));
 
@@ -304,7 +304,7 @@ class LendingServiceLinkTest {
         UUID lendingId = UUID.randomUUID();
         Transaction txn = transaction(UUID.randomUUID(), TransactionType.DEBIT, new BigDecimal("500.00"), null);
         Lending existing = lending(lendingId, LendingDirection.lent, txn);
-        when(lendingRepository.findWithRefsById(lendingId)).thenReturn(Optional.of(existing));
+        when(lendingRepository.findById(lendingId)).thenReturn(Optional.of(existing));
 
         lendingService.unlinkTransaction(lendingId);
 
@@ -316,7 +316,7 @@ class LendingServiceLinkTest {
     void unlinkTransaction_alreadyUnlinked_noSave() {
         UUID lendingId = UUID.randomUUID();
         Lending existing = lending(lendingId, LendingDirection.lent, null);
-        when(lendingRepository.findWithRefsById(lendingId)).thenReturn(Optional.of(existing));
+        when(lendingRepository.findById(lendingId)).thenReturn(Optional.of(existing));
 
         lendingService.unlinkTransaction(lendingId);
 
@@ -326,7 +326,7 @@ class LendingServiceLinkTest {
     @Test
     void unlinkTransaction_unknownLending_throwsNotFound() {
         UUID lendingId = UUID.randomUUID();
-        when(lendingRepository.findWithRefsById(lendingId)).thenReturn(Optional.empty());
+        when(lendingRepository.findById(lendingId)).thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class, () -> lendingService.unlinkTransaction(lendingId));
     }
@@ -358,14 +358,17 @@ class LendingServiceLinkTest {
     }
 
     @Test
-    void getLendingDetail_usesFindWithRefsById() {
+    void getLendingDetail_usesFindByIdSoForeignRowsReachTheOwnershipCheck() {
+        // findById (EntityManager.find) bypasses the Hibernate userFilter; a filtered JPQL lookup would
+        // turn the established 400 "security breach" answer for a foreign row into a 404.
         UUID lendingId = UUID.randomUUID();
         Lending existing = lending(lendingId, LendingDirection.lent, null);
-        when(lendingRepository.findWithRefsById(lendingId)).thenReturn(Optional.of(existing));
+        when(lendingRepository.findById(lendingId)).thenReturn(Optional.of(existing));
 
         lendingService.getLendingDetail(lendingId);
 
-        verify(lendingRepository).findWithRefsById(lendingId);
+        verify(lendingRepository).findById(lendingId);
+        verify(lendingRepository, never()).findWithRefsById(lendingId);
     }
 
     @Test
