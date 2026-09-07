@@ -109,6 +109,8 @@ app:
     code: ${INVITE_CODE:}
     max-failures: ${INVITE_MAX_FAILURES:10}
     lockout-minutes: ${INVITE_LOCKOUT_MINUTES:15}
+  # Admin (diagnostics lookup). Unset/blank => every signed-in user is an admin (open);
+  # set one or more comma-separated emails => only those users are admins.
   admin:
     emails: ${ADMIN_EMAILS:}
   diagnostics:
