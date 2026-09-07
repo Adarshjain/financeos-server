@@ -77,6 +77,13 @@ public final class Events {
     public static final String TXN_LINK_REMOVED = "txn.link.removed";
     public static final String LOAN_SCHEDULE_GENERATED = "loan.schedule.generated";
     public static final String LOAN_MATCH_ATTEMPTED = "loan.match.attempted";
+    public static final String LENDING_LINKED = "lending.linked";
+    public static final String LENDING_UNLINKED = "lending.unlinked";
+    public static final String LENDING_MATCH_ATTEMPTED = "lending.match.attempted";
+    /** A transaction referenced by a loan/lending row was deleted; the FK is ON DELETE SET NULL. */
+    public static final String OBLIGATION_REF_ORPHANED = "obligation.ref.orphaned";
+    /** Merge carried loan/lending references from the absorbed transaction onto the kept one. */
+    public static final String OBLIGATION_REF_REPOINTED = "obligation.ref.repointed";
     public static final String CA_CREATED = "ca.created";
     // ca.applied is intentionally omitted: corporate actions in FinanceOS are replayed dynamically
     // on read over lots rather than applied once as a discrete database state mutation.

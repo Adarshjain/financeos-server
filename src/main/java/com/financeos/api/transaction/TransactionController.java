@@ -20,11 +20,14 @@ public class TransactionController {
 
     private final TransactionService transactionService;
     private final com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService;
+    private final com.financeos.domain.obligation.ObligationRefService obligationRefService;
 
     public TransactionController(TransactionService transactionService,
-                                 com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService) {
+                                 com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService,
+                                 com.financeos.domain.obligation.ObligationRefService obligationRefService) {
         this.transactionService = transactionService;
         this.transactionLinkService = transactionLinkService;
+        this.obligationRefService = obligationRefService;
     }
 
     @PostMapping
@@ -42,7 +45,8 @@ public class TransactionController {
         java.util.List<UUID> ids = transactions.getContent().stream().map(Transaction::getId).toList();
         java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap =
                 transactionLinkService.linkSummariesFor(ids);
-        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap));
+        java.util.Map<UUID, java.util.List<ObligationRef>> refMap = obligationRefService.refsFor(ids);
+        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap, refMap));
         return ResponseEntity.ok(response);
     }
 
@@ -55,7 +59,8 @@ public class TransactionController {
         java.util.List<UUID> ids = transactions.getContent().stream().map(Transaction::getId).toList();
         java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap =
                 transactionLinkService.linkSummariesFor(ids);
-        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap));
+        java.util.Map<UUID, java.util.List<ObligationRef>> refMap = obligationRefService.refsFor(ids);
+        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap, refMap));
         return ResponseEntity.ok(response);
     }
 
@@ -66,7 +71,8 @@ public class TransactionController {
         Transaction transaction = transactionService.updateTransaction(id, request);
         java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap =
                 transactionLinkService.linkSummariesFor(java.util.List.of(id));
-        return ResponseEntity.ok(TransactionResponse.from(transaction, null, linkMap));
+        java.util.Map<UUID, java.util.List<ObligationRef>> refMap = obligationRefService.refsFor(java.util.List.of(id));
+        return ResponseEntity.ok(TransactionResponse.from(transaction, null, linkMap, refMap));
     }
 
     @DeleteMapping("/{id}")

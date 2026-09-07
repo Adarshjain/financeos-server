@@ -12,6 +12,7 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.lending.LendingRepository;
+import com.financeos.domain.obligation.MatchingConstants;
 import com.financeos.domain.loan.schedule.LoanScheduleService;
 import com.financeos.domain.loan.schedule.ScheduleResult;
 import com.financeos.domain.transaction.Transaction;
@@ -36,7 +37,6 @@ public class LoanService {
 
     private static final Logger log = LoggerFactory.getLogger(LoanService.class);
 
-    private static final BigDecimal MATCH_AMOUNT_TOLERANCE = new BigDecimal("20");
 
     private final LoanRepository loanRepository;
     private final LoanEventRepository loanEventRepository;
@@ -315,7 +315,7 @@ public class LoanService {
             throw new ValidationException("newEmiOverride is only valid when adjustmentMode is reduce_emi");
         }
 
-        Transaction transaction = transactionValidator.validateAndGetTransaction(req.transactionId());
+        Transaction transaction = transactionValidator.validateForLoan(req.transactionId());
 
         LoanEvent event = new LoanEvent();
         event.setUser(userRepository.getReferenceById(UserContext.getCurrentUserId()));
@@ -409,7 +409,7 @@ public class LoanService {
 
         Transaction transaction = null;
         if (req.transactionId() != null) {
-            transaction = transactionValidator.validateAndGetTransaction(req.transactionId());
+            transaction = transactionValidator.validateForLoan(req.transactionId());
             if (transaction.getType() != TransactionType.DEBIT) {
                 throw new ValidationException("Transaction " + req.transactionId() + " must be a DEBIT transaction");
             }
@@ -486,7 +486,7 @@ public class LoanService {
             Transaction transaction = null;
             if (item.transactionId() != null) {
                 try {
-                    transaction = transactionValidator.validateAndGetTransaction(item.transactionId());
+                    transaction = transactionValidator.validateForLoan(item.transactionId());
                     if (transaction.getType() != TransactionType.DEBIT) {
                         offendingDetails.add("Item " + i + ": Transaction " + item.transactionId() + " is not a DEBIT transaction");
                     }
@@ -531,7 +531,7 @@ public class LoanService {
             throw new ValidationException("Charge amount must be greater than zero");
         }
 
-        Transaction transaction = transactionValidator.validateAndGetTransaction(req.transactionId());
+        Transaction transaction = transactionValidator.validateForLoan(req.transactionId());
 
         LoanCharge charge = new LoanCharge();
         charge.setUser(userRepository.getReferenceById(UserContext.getCurrentUserId()));
@@ -580,7 +580,7 @@ public class LoanService {
                     StructuredArguments.keyValue("event", Events.LOAN_MATCH_ATTEMPTED),
                     StructuredArguments.keyValue("loanId", loanId != null ? loanId.toString() : ""),
                     StructuredArguments.keyValue("txnId", ""),
-                    StructuredArguments.keyValue("toleranceUsed", MATCH_AMOUNT_TOLERANCE.doubleValue()),
+                    StructuredArguments.keyValue("toleranceUsed", MatchingConstants.MATCH_AMOUNT_TOLERANCE.doubleValue()),
                     StructuredArguments.keyValue("candidateCount", 0),
                     StructuredArguments.keyValue("matched", false),
                     StructuredArguments.keyValue("rejectReason", "no-candidates"));
@@ -596,8 +596,8 @@ public class LoanService {
 
         for (InstallmentDto inst : targetInstallments) {
             BigDecimal expectedAmount = inst.emi().setScale(2, RoundingMode.HALF_UP);
-            BigDecimal minAmount = expectedAmount.subtract(MATCH_AMOUNT_TOLERANCE);
-            BigDecimal maxAmount = expectedAmount.add(MATCH_AMOUNT_TOLERANCE);
+            BigDecimal minAmount = expectedAmount.subtract(MatchingConstants.MATCH_AMOUNT_TOLERANCE);
+            BigDecimal maxAmount = expectedAmount.add(MatchingConstants.MATCH_AMOUNT_TOLERANCE);
             LocalDate minDate = inst.dueDate().minusDays(7);
             LocalDate maxDate = inst.dueDate().plusDays(7);
 
@@ -627,7 +627,7 @@ public class LoanService {
                             StructuredArguments.keyValue("event", Events.LOAN_MATCH_ATTEMPTED),
                             StructuredArguments.keyValue("loanId", loanId != null ? loanId.toString() : ""),
                             StructuredArguments.keyValue("txnId", t.getId().toString()),
-                            StructuredArguments.keyValue("toleranceUsed", MATCH_AMOUNT_TOLERANCE.doubleValue()),
+                            StructuredArguments.keyValue("toleranceUsed", MatchingConstants.MATCH_AMOUNT_TOLERANCE.doubleValue()),
                             StructuredArguments.keyValue("candidateCount", candidates.size()),
                             StructuredArguments.keyValue("matched", false),
                             StructuredArguments.keyValue("rejectReason", "already-matched"));
@@ -671,7 +671,7 @@ public class LoanService {
                     StructuredArguments.keyValue("event", Events.LOAN_MATCH_ATTEMPTED),
                     StructuredArguments.keyValue("loanId", loanId != null ? loanId.toString() : ""),
                     StructuredArguments.keyValue("txnId", entry.getKey().toString()),
-                    StructuredArguments.keyValue("toleranceUsed", MATCH_AMOUNT_TOLERANCE.doubleValue()),
+                    StructuredArguments.keyValue("toleranceUsed", MatchingConstants.MATCH_AMOUNT_TOLERANCE.doubleValue()),
                     StructuredArguments.keyValue("candidateCount", candidateMap.getOrDefault(entry.getValue(), Collections.emptyList()).size()),
                     StructuredArguments.keyValue("matched", true),
                     StructuredArguments.keyValue("rejectReason", ""));

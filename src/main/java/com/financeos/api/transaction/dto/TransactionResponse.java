@@ -42,7 +42,9 @@ public record TransactionResponse(
                 @Nullable com.financeos.domain.transaction.TransactionChannel channel,
                 @Nullable Boolean isEmi,
                 @Nullable Boolean isInternational,
-                java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary> links) {
+                java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary> links,
+                /** Loan/lending rows that reference this transaction via direct FK (empty when none). */
+                java.util.List<ObligationRef> obligationRefs) {
 
         public static TransactionResponse from(Transaction transaction) {
                 return from(transaction, null, java.util.Collections.emptyMap());
@@ -54,6 +56,12 @@ public record TransactionResponse(
 
         public static TransactionResponse from(Transaction transaction, BigDecimal balance,
                         java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap) {
+                return from(transaction, balance, linkMap, java.util.Collections.emptyMap());
+        }
+
+        public static TransactionResponse from(Transaction transaction, BigDecimal balance,
+                        java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap,
+                        java.util.Map<UUID, java.util.List<ObligationRef>> obligationRefMap) {
                 // Convert internal representation (unsigned + type) to API representation
                 // (signed)
                 BigDecimal signedAmount = transaction.getType() == TransactionType.DEBIT
@@ -72,6 +80,11 @@ public record TransactionResponse(
                 java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary> transactionLinks = linkMap != null
                                 && linkMap.containsKey(transaction.getId())
                                                 ? linkMap.get(transaction.getId())
+                                                : java.util.Collections.emptyList();
+
+                java.util.List<ObligationRef> refs = obligationRefMap != null
+                                && obligationRefMap.containsKey(transaction.getId())
+                                                ? obligationRefMap.get(transaction.getId())
                                                 : java.util.Collections.emptyList();
 
                 UUID cardId = transaction.getCard() != null ? transaction.getCard().getId() : null;
@@ -109,6 +122,7 @@ public record TransactionResponse(
                                 transaction.getChannel(),
                                 transaction.getIsEmi(),
                                 transaction.getIsInternational(),
-                                transactionLinks);
+                                transactionLinks,
+                                refs);
         }
 }

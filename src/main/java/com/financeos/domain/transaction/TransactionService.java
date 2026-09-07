@@ -53,6 +53,7 @@ public class TransactionService {
     private final StatementTransactionRepository statementTransactionRepository;
     private final com.financeos.core.observability.AuditLogger auditLogger;
     private final com.financeos.domain.account.card.CardRepository cardRepository;
+    private final com.financeos.domain.obligation.ObligationRefService obligationRefService;
     private final TransactionService self;
 
     @org.springframework.beans.factory.annotation.Autowired
@@ -67,6 +68,7 @@ public class TransactionService {
             @org.springframework.context.annotation.Lazy StatementTransactionRepository statementTransactionRepository,
             com.financeos.core.observability.AuditLogger auditLogger,
             com.financeos.domain.account.card.CardRepository cardRepository,
+            @org.springframework.context.annotation.Lazy com.financeos.domain.obligation.ObligationRefService obligationRefService,
             @org.springframework.context.annotation.Lazy TransactionService self) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
@@ -79,7 +81,24 @@ public class TransactionService {
         this.statementTransactionRepository = statementTransactionRepository;
         this.auditLogger = auditLogger;
         this.cardRepository = cardRepository;
+        this.obligationRefService = obligationRefService;
         this.self = self != null ? self : this;
+    }
+
+    /** Test convenience (12-arg form used by existing tests): no obligation-ref service. */
+    public TransactionService(TransactionRepository transactionRepository,
+            AccountRepository accountRepository,
+            CategoryRepository categoryRepository,
+            UserRepository userRepository,
+            ReviewStatusManager reviewStatusManager,
+            CategorizationService categorizationService,
+            com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService,
+            TransactionLinkRepository transactionLinkRepository,
+            StatementTransactionRepository statementTransactionRepository,
+            com.financeos.core.observability.AuditLogger auditLogger,
+            com.financeos.domain.account.card.CardRepository cardRepository,
+            TransactionService self) {
+        this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, transactionLinkService, transactionLinkRepository, statementTransactionRepository, auditLogger, cardRepository, null, self);
     }
 
     public TransactionService(TransactionRepository transactionRepository,
@@ -348,6 +367,10 @@ public class TransactionService {
         BigDecimal absoluteAmount = request.amount().abs();
         TransactionType type = request.amount().compareTo(BigDecimal.ZERO) >= 0 ? TransactionType.CREDIT
                 : TransactionType.DEBIT;
+        if (type != transaction.getType() && obligationRefService != null && obligationRefService.hasRefs(id)) {
+            throw new ValidationException(
+                    "This transaction is linked to a loan/lending record; unlink it before changing its direction.");
+        }
         transaction.setAmount(absoluteAmount);
         transaction.setType(type);
 
@@ -386,11 +409,31 @@ public class TransactionService {
         if (transactionLinkService != null) {
             transactionLinkService.autoDissolveLinksForDeletedTransactions(List.of(id));
         }
+        logOrphanedObligationRefs(List.of(id));
         if (auditLogger != null) {
             auditLogger.mutation("Transaction", id, "DELETE", "user:" + currentSessionUserId, "manual",
                     List.of("amount", "description"), transaction.getAmount(), null, "INR");
         }
         transactionRepository.delete(transaction);
+    }
+
+    /**
+     * Loan/lending FKs are ON DELETE SET NULL: the referencing row survives, unlinked. Deleting is
+     * allowed (a duplicate bank row is a legitimate delete) but must be observable.
+     */
+    private void logOrphanedObligationRefs(java.util.Collection<UUID> deletedIds) {
+        if (obligationRefService == null || deletedIds == null || deletedIds.isEmpty()) {
+            return;
+        }
+        var refMap = obligationRefService.refsFor(deletedIds);
+        refMap.forEach((txnId, refs) -> refs.forEach(ref -> log.info(
+                "Obligation ref orphaned by transaction delete: txnId={}, kind={}, refId={}", txnId, ref.kind(), ref.id(),
+                net.logstash.logback.argument.StructuredArguments.keyValue("event",
+                        com.financeos.core.observability.Events.OBLIGATION_REF_ORPHANED),
+                net.logstash.logback.argument.StructuredArguments.keyValue("txnId", String.valueOf(txnId)),
+                net.logstash.logback.argument.StructuredArguments.keyValue("kind", String.valueOf(ref.kind())),
+                net.logstash.logback.argument.StructuredArguments.keyValue("refId", String.valueOf(ref.id())),
+                net.logstash.logback.argument.StructuredArguments.keyValue("parentId", String.valueOf(ref.parentId())))));
     }
 
     @Transactional
@@ -504,6 +547,7 @@ public class TransactionService {
             if (transactionLinkService != null) {
                 transactionLinkService.autoDissolveLinksForDeletedTransactions(toDeleteIds);
             }
+            logOrphanedObligationRefs(toDeleteIds);
             transactionRepository.deleteAllByIdInBatch(toDeleteIds);
         }
 
@@ -534,6 +578,12 @@ public class TransactionService {
 
         if (!kept.getAccount().getId().equals(deleted.getAccount().getId())) {
             throw new ValidationException("Cannot merge transactions from different accounts.");
+        }
+        if (obligationRefService != null) {
+            String incompatible = obligationRefService.checkMergeCompatibility(kept, deleted);
+            if (incompatible != null) {
+                throw new ValidationException(incompatible);
+            }
         }
 
         // --- CARRY-OVER ---
@@ -635,6 +685,25 @@ public class TransactionService {
                     StatementTransaction newSt = new StatementTransaction(
                             stmtId, keepId, st.getLineIndex(), st.getBalanceAfter(), st.getChainValid());
                     statementTransactionRepository.save(newSt);
+                }
+            }
+        }
+
+        // --- LOAN / LENDING FK RE-POINTING ---
+        // Direct FKs (lendings, loan_payments, loan_events, loan_charges) are ON DELETE SET NULL, so
+        // they must be moved onto the kept transaction BEFORE the absorbed row is deleted.
+        if (obligationRefService != null) {
+            List<String> moved = obligationRefService.repoint(deleted, kept);
+            if (!moved.isEmpty()) {
+                log.info("Obligation refs re-pointed by merge: from={}, to={}, refs={}", deleteId, keepId, moved,
+                        net.logstash.logback.argument.StructuredArguments.keyValue("event",
+                                com.financeos.core.observability.Events.OBLIGATION_REF_REPOINTED),
+                        net.logstash.logback.argument.StructuredArguments.keyValue("fromTxnId", String.valueOf(deleteId)),
+                        net.logstash.logback.argument.StructuredArguments.keyValue("toTxnId", String.valueOf(keepId)),
+                        net.logstash.logback.argument.StructuredArguments.keyValue("count", moved.size()));
+                if (auditLogger != null) {
+                    auditLogger.mutation("Transaction", keepId, "OBLIGATION_REFS_REPOINTED", "user:" + currentSessionUserId,
+                            "manual", moved, null, null, "INR");
                 }
             }
         }
