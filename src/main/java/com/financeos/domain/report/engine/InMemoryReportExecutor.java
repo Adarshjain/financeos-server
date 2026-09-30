@@ -55,7 +55,8 @@ public class InMemoryReportExecutor {
         ComputedReportDatasource computedDs = (ComputedReportDatasource) datasource;
         FilterClause dateFilter = dateRangeResolver.findDateFilter(datasource, def.filters());
         DateRange effRange = dateRangeResolver.effectiveRange(dateFilter);
-        boolean compare = def.comparison() != null && def.comparison().enabled() && dateFilter != null && effRange.bounded();
+        boolean compare = def.comparison() != null && Boolean.TRUE.equals(def.comparison().enabled())
+                && dateFilter != null && effRange.bounded();
         DateRange prevRange = compare ? dateRangeResolver.previousPeriod(dateFilter.operator(), effRange) : DateRange.unbounded();
 
         // The comparison reads the previous period from the same rows, so the hint spans both.
@@ -640,17 +641,18 @@ public class InMemoryReportExecutor {
         };
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private int compareValues(Object a, Object b) {
         if (a == null && b == null) return 0;
         if (a == null) return -1;
         if (b == null) return 1;
-        BigDecimal bdA = ResultValues.toBigDecimal(a);
-        BigDecimal bdB = ResultValues.toBigDecimal(b);
-        if (bdA != null && bdB != null) {
-            return bdA.compareTo(bdB);
+        // Numbers compare numerically; anything else (dates, text) must never be parsed as a
+        // number — toBigDecimal throws on "2026-08-01" or "Dining".
+        if (a instanceof Number && b instanceof Number) {
+            return ResultValues.toBigDecimal(a).compareTo(ResultValues.toBigDecimal(b));
         }
-        if (a instanceof Comparable cA && b instanceof Comparable cB) {
-            return cA.compareTo(cB);
+        if (a instanceof Comparable cA && a.getClass().isInstance(b)) {
+            return cA.compareTo(b);
         }
         return String.valueOf(a).compareTo(String.valueOf(b));
     }

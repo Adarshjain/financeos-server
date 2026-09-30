@@ -4279,7 +4279,7 @@ paths:
       - report-datasource-controller
   /api/v1/report/datasource/{name}/values:
     get:
-      operationId: values
+      operationId: reportFieldValues
       parameters:
       - in: path
         name: name
