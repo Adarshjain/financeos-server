@@ -67,10 +67,11 @@ public class ReportFieldValuesService {
     }
 
     private Map<String, List<Option>> computedOptions(ComputedReportDatasource datasource, List<FieldDef> dynamic) {
-        // Keyed by filter value (id when the field has one) so each option appears once.
+        // Keyed by filter value (id when the field has one) so each option appears once;
+        // case-insensitive like the filters themselves, so "Dining" and "dining" are one option.
         Map<String, Map<String, String>> collected = new LinkedHashMap<>();
         for (FieldDef f : dynamic) {
-            collected.put(f.name(), new TreeMap<>());
+            collected.put(f.name(), new TreeMap<>(String.CASE_INSENSITIVE_ORDER));
         }
         List<Map<String, Object>> rows = datasource.rows();
         if (rows != null) {

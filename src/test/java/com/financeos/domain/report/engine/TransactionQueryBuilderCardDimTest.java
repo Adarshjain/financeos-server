@@ -22,8 +22,8 @@ class TransactionQueryBuilderCardDimTest {
 
     @Test
     void cardDimensionTestsTheCardRowNotTheConcatenation() {
-        // Oracle treats NULL as '' in ||, so a card-less transaction must be detected on c.last4.
-        String expected = "CASE WHEN c.last4 IS NULL THEN 'Unattributed' ELSE a.name || ' •••• ' || c.last4 END";
+        // Oracle treats NULL as '' in ||, so a card-less transaction must be detected on cd.last4.
+        String expected = "CASE WHEN cd.last4 IS NULL THEN 'Unattributed' ELSE a.name || ' •••• ' || cd.last4 END";
         assertEquals(expected, TransactionQueryBuilder.CARD_DIM);
 
         Set<String> joins = new HashSet<>();
