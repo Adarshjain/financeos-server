@@ -38,11 +38,11 @@ public record RewardReportResponse(
     }
 
     /**
-     * Monetary fields in rupees; points stay points (no cash valuation of points yet).
-     * basisSpend = eligible debit spend net of refunds. grossValueInr = cashbackInr +
-     * milestonesInr (cash only — points-paying milestones land in milestonesPts);
+     * Monetary fields in rupees; points are also reported as raw counts.
+     * basisSpend = eligible debit spend net of refunds. pointsValueInr = (points +
+     * milestonesPts) x the card's pointValueInr, null when the card has no point value.
+     * grossValueInr = cashbackInr + milestonesInr + pointsValueInr (unvalued points add 0);
      * effectiveValueInr adds instant discounts and subtracts convenience fees.
-     * The percentage rates therefore cover cash value only.
      */
     public record Summary(
             BigDecimal basisSpend,
@@ -57,7 +57,27 @@ public record RewardReportResponse(
             BigDecimal fees,
             BigDecimal effectiveValueInr,
             @Nullable BigDecimal grossPct,
-            @Nullable BigDecimal effectivePct) {
+            @Nullable BigDecimal effectivePct,
+            @Nullable BigDecimal pointsValueInr) {
+
+        public Summary(
+                BigDecimal basisSpend,
+                int transactionCount,
+                int matchedCount,
+                BigDecimal cashbackInr,
+                BigDecimal points,
+                BigDecimal milestonesInr,
+                BigDecimal milestonesPts,
+                BigDecimal grossValueInr,
+                BigDecimal discounts,
+                BigDecimal fees,
+                BigDecimal effectiveValueInr,
+                BigDecimal grossPct,
+                BigDecimal effectivePct) {
+            this(basisSpend, transactionCount, matchedCount, cashbackInr, points, milestonesInr,
+                    milestonesPts, grossValueInr, discounts, fees, effectiveValueInr, grossPct,
+                    effectivePct, null);
+        }
     }
 
     /**

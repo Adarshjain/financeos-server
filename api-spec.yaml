@@ -4277,6 +4277,30 @@ paths:
           description: Error response
       tags:
       - report-datasource-controller
+  /api/v1/report/datasource/{name}/values:
+    get:
+      operationId: values
+      parameters:
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ReportFieldValuesResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - report-datasource-controller
   /api/v1/reports:
     get:
       operationId: listReports
@@ -10911,6 +10935,17 @@ components:
     ReportData:
       type: object
       additionalProperties: true
+    ReportFieldValuesResponse:
+      type: object
+      properties:
+        values:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+      required:
+      - values
     ReportRef:
       type: object
       properties:
@@ -12853,6 +12888,10 @@ components:
           type: number
         points:
           type: number
+        pointsValueInr:
+          type: number
+          nullable: true
+          x-nullable: true
         transactionCount:
           type: integer
           format: int32

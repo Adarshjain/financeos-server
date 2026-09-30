@@ -123,9 +123,10 @@ public class SqlPredicates {
                 params.put(p, v.asText());
                 return expr + " = :" + p;
             }
+            // A missing value is never X, so NULL rows pass the negated operators.
             case "is_not" -> {
                 params.put(p, v.asText());
-                return expr + " <> :" + p;
+                return "(" + expr + " <> :" + p + " OR " + expr + " IS NULL)";
             }
             case "in" -> {
                 params.put(p, textList(v));
@@ -133,7 +134,7 @@ public class SqlPredicates {
             }
             case "not_in" -> {
                 params.put(p, textList(v));
-                return expr + " NOT IN (:" + p + ")";
+                return "(" + expr + " NOT IN (:" + p + ") OR " + expr + " IS NULL)";
             }
             default -> throw new IllegalArgumentException("Unsupported enum operator: " + op);
         }

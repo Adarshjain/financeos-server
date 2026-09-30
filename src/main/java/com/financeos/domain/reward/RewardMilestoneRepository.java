@@ -13,4 +13,7 @@ public interface RewardMilestoneRepository extends JpaRepository<RewardMilestone
     List<RewardMilestone> findByAccountIdOrderByCreatedAtAsc(@Param("accountId") UUID accountId);
 
     long countByCardholderId(UUID cardholderId);
+
+    @Query("SELECT DISTINCT m.account.id FROM RewardMilestone m WHERE m.user.id = :userId")
+    List<UUID> findDistinctAccountIdsByUserId(@Param("userId") UUID userId);
 }

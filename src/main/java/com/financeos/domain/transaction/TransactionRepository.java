@@ -59,7 +59,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("endDate") LocalDate endDate);
 
     /** Reward engine: fetch by effective date (settlement date when present, else transaction date). */
-    @EntityGraph(attributePaths = { "categories.category" })
+    @EntityGraph(attributePaths = { "categories.category", "card.cardholder" })
     @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId " +
             "AND COALESCE(t.settlementDate, t.date) BETWEEN :startDate AND :endDate")
     List<Transaction> findForRewardEvaluation(
@@ -129,6 +129,14 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
 
     @Query("SELECT MIN(t.date) FROM Transaction t WHERE t.account.id = :accountId")
     LocalDate findMinDateByAccountId(@Param("accountId") UUID accountId);
+
+    /** Reward reports: earliest effective date (settlement date when present, else transaction date). */
+    @Query("SELECT MIN(COALESCE(t.settlementDate, t.date)) FROM Transaction t WHERE t.account.id = :accountId")
+    LocalDate findMinEffectiveDateByAccountId(@Param("accountId") UUID accountId);
+
+    /** Reward reports: latest effective date, so future-dated settlements are still reported. */
+    @Query("SELECT MAX(COALESCE(t.settlementDate, t.date)) FROM Transaction t WHERE t.account.id = :accountId")
+    LocalDate findMaxEffectiveDateByAccountId(@Param("accountId") UUID accountId);
 
     @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.account.id = :accountId " +
            "AND (:from IS NULL OR t.date >= :from) " +
