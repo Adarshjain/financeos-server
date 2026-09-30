@@ -9,6 +9,7 @@ import com.financeos.domain.report.datasource.FieldType;
 import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.definition.AggregatedTableDefinition;
 import com.financeos.domain.report.definition.ChartDefinition;
+import com.financeos.domain.report.definition.ChartType;
 import com.financeos.domain.report.definition.DimensionRef;
 import com.financeos.domain.report.definition.FilterClause;
 import com.financeos.domain.report.definition.Granularity;
@@ -120,7 +121,9 @@ public class InMemoryReportExecutor {
         List<Map<String, Object>> filteredRows = filterRows(allRows, def.filters(), computedDs);
 
         DimensionRef dim = def.dimension();
-        DimensionRef seriesDim = def.series();
+        // Pie/Donut render one dimension as slices; ignore any series split (as the SQL path does).
+        boolean pie = def.chartType() == ChartType.PIE || def.chartType() == ChartType.DONUT;
+        DimensionRef seriesDim = pie ? null : def.series();
         MeasureRef measure = def.measure();
         FieldDef dimFieldDef = datasource.field(dim.field());
 
@@ -442,7 +445,18 @@ public class InMemoryReportExecutor {
         for (FilterClause f : filters) {
             FieldDef fieldDef = ds.field(f.field());
             Object rowVal = row.get(f.field());
-            if (!matchesFilter(rowVal, f, fieldDef)) {
+            boolean matches;
+            if (fieldDef != null && fieldDef.idField() != null) {
+                // Filters store the stable id; older saved filters hold the label. A positive
+                // operator matches either; a negated one must exclude both.
+                boolean byId = matchesFilter(row.get(fieldDef.idField()), f, fieldDef);
+                boolean byLabel = matchesFilter(rowVal, f, fieldDef);
+                boolean negated = "is_not".equals(f.operator()) || "not_in".equals(f.operator());
+                matches = negated ? byId && byLabel : byId || byLabel;
+            } else {
+                matches = matchesFilter(rowVal, f, fieldDef);
+            }
+            if (!matches) {
                 return false;
             }
         }

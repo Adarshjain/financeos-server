@@ -165,8 +165,10 @@ public class RewardEarningsDatasource implements ComputedReportDatasource {
         map.put("effectiveDate", line.effectiveDate());
         map.put("transactionDate", line.transactionDate());
         map.put("card", account.getName());
+        map.put("cardId", account.getId().toString());
         map.put("cardholder", line.cardLabel() != null ? line.cardLabel() : UNATTRIBUTED);
         map.put("rule", rule);
+        map.put("ruleId", line.ruleId() != null ? line.ruleId().toString() : null);
         map.put("category", reportLine.categories());
         map.put("reason", line.reason() != null ? line.reason().name() : null);
         map.put("earnedUnit", unit);
@@ -200,9 +202,9 @@ public class RewardEarningsDatasource implements ComputedReportDatasource {
         return List.of(
                 new FieldDef("effectiveDate", "Effective Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
                 new FieldDef("transactionDate", "Transaction Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
-                new FieldDef("card", "Card", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
+                new FieldDef("card", "Card", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE, null, "cardId"),
                 new FieldDef("cardholder", "Cardholder", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
-                new FieldDef("rule", "Rule", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
+                new FieldDef("rule", "Rule", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE, null, "ruleId"),
                 new FieldDef("category", "Category", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("reason", "Reason", FieldType.ENUM, FieldRole.DIMENSION, null, reasonValues, null, CHART_TABLE),
                 new FieldDef("earnedUnit", "Paid in", FieldType.ENUM, FieldRole.DIMENSION, null, unitValues, null, CHART_TABLE),

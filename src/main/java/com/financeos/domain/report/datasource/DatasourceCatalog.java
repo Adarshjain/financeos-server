@@ -34,12 +34,24 @@ public class DatasourceCatalog {
             List<String> values,            // static enums only; null otherwise
             Boolean dynamic,                // true for user-specific enums; null otherwise
             List<ReportType> allowedInReports,
-            String format) {                // "currency" | "number" | "percent"
+            String format,                  // "currency" | "number" | "percent"
+            /*
+             * Computed datasources only: the row key holding a stable id for this dynamic enum.
+             * Filters store that id (the dropdown shows the label), so renames and relabels never
+             * break a saved filter; a filter holding the label still matches.
+             */
+            String idField) {
+
+        public FieldDef(String name, String label, FieldType type, FieldRole role,
+                        List<Aggregation> aggregations, List<String> values,
+                        Boolean dynamic, List<ReportType> allowedInReports, String format) {
+            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, format, null);
+        }
 
         public FieldDef(String name, String label, FieldType type, FieldRole role,
                         List<Aggregation> aggregations, List<String> values,
                         Boolean dynamic, List<ReportType> allowedInReports) {
-            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, null);
+            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, null, null);
         }
     }
 
