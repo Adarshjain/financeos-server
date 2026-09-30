@@ -24,15 +24,16 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class InMemoryReportExecutor {
@@ -52,21 +53,30 @@ public class InMemoryReportExecutor {
 
     public KpiData execute(KpiDefinition def, ReportDatasource datasource, Map<String, Object> unusedParams) {
         ComputedReportDatasource computedDs = (ComputedReportDatasource) datasource;
-        List<Map<String, Object>> allRows = computedDs.rows() != null ? computedDs.rows() : List.of();
+        FilterClause dateFilter = dateRangeResolver.findDateFilter(datasource, def.filters());
+        DateRange effRange = dateRangeResolver.effectiveRange(dateFilter);
+        boolean compare = def.comparison() != null && def.comparison().enabled() && dateFilter != null && effRange.bounded();
+        DateRange prevRange = compare ? dateRangeResolver.previousPeriod(dateFilter.operator(), effRange) : DateRange.unbounded();
+
+        // The comparison reads the previous period from the same rows, so the hint spans both.
+        ComputedReportDatasource.DateHint hint = hint(dateFilter, effRange);
+        if (hint != null && prevRange.bounded()) {
+            hint = new ComputedReportDatasource.DateHint(hint.field(),
+                    prevRange.from().isBefore(hint.from()) ? prevRange.from() : hint.from(),
+                    prevRange.to().isAfter(hint.to()) ? prevRange.to() : hint.to());
+        }
+        List<Map<String, Object>> allRows = loadRows(computedDs, hint);
         List<Map<String, Object>> filteredRows = filterRows(allRows, def.filters(), computedDs);
 
         BigDecimal val = calculateAggregate(filteredRows, def.measure(), def.aggregation());
 
-        FilterClause dateFilter = dateRangeResolver.findDateFilter(datasource, def.filters());
-        DateRange effRange = dateRangeResolver.effectiveRange(dateFilter);
         KpiData.DateRangeView effRangeView = effRange.bounded()
                 ? new KpiData.DateRangeView(effRange.from(), effRange.to())
                 : null;
         KpiData.Meta meta = new KpiData.Meta(filteredRows.size(), effRangeView);
 
         KpiData.Comparison comparison = null;
-        if (def.comparison() != null && def.comparison().enabled() && dateFilter != null && effRange.bounded()) {
-            DateRange prevRange = dateRangeResolver.previousPeriod(dateFilter.operator(), effRange);
+        if (compare) {
             if (prevRange.bounded()) {
                 List<Map<String, Object>> prevRows = filterRowsForDateRange(allRows, dateFilter, prevRange, def.filters(), computedDs);
                 BigDecimal prevVal = calculateAggregate(prevRows, def.measure(), def.aggregation());
@@ -105,7 +115,7 @@ public class InMemoryReportExecutor {
 
     public ChartData execute(ChartDefinition def, ReportDatasource datasource, Map<String, Object> unusedParams) {
         ComputedReportDatasource computedDs = (ComputedReportDatasource) datasource;
-        List<Map<String, Object>> allRows = computedDs.rows() != null ? computedDs.rows() : List.of();
+        List<Map<String, Object>> allRows = loadRows(computedDs, def.filters());
         List<Map<String, Object>> filteredRows = filterRows(allRows, def.filters(), computedDs);
 
         DimensionRef dim = def.dimension();
@@ -114,20 +124,22 @@ public class InMemoryReportExecutor {
         FieldDef dimFieldDef = datasource.field(dim.field());
 
         Map<DimensionKey, List<Map<String, Object>>> groups = new LinkedHashMap<>();
-        Set<Object> rawSeriesKeys = new HashSet<>();
+        Set<Object> rawSeriesKeys = new LinkedHashSet<>();
 
+        // Null dimension values group as "(none)", mirroring the SQL chart and the pivot;
+        // a multi-valued field counts the row under each of its values.
         for (Map<String, Object> row : filteredRows) {
-            Object dimRaw = row.get(dim.field());
-            if (dimRaw == null) continue;
-
-            Object dimGroupVal = processDimensionValue(dimRaw, dimFieldDef, dim.granularity());
-            Object seriesGroupVal = seriesDim != null ? row.get(seriesDim.field()) : null;
-            if (seriesDim != null && seriesGroupVal != null) {
-                rawSeriesKeys.add(seriesGroupVal);
+            for (Object dimRaw : groupValues(row.get(dim.field()))) {
+                Object dimGroupVal = processDimensionValue(dimRaw, dimFieldDef, dim.granularity());
+                List<Object> seriesVals = seriesDim != null ? groupValues(row.get(seriesDim.field())) : nullList();
+                for (Object seriesGroupVal : seriesVals) {
+                    if (seriesDim != null) {
+                        rawSeriesKeys.add(seriesGroupVal);
+                    }
+                    DimensionKey key = new DimensionKey(dimGroupVal, seriesGroupVal);
+                    groups.computeIfAbsent(key, k -> new ArrayList<>()).add(row);
+                }
             }
-
-            DimensionKey key = new DimensionKey(dimGroupVal, seriesGroupVal);
-            groups.computeIfAbsent(key, k -> new ArrayList<>()).add(row);
         }
 
         List<Object> sortedDimVals = groups.keySet().stream()
@@ -137,7 +149,7 @@ public class InMemoryReportExecutor {
                 .toList();
 
         List<Object> sortedSeriesVals = rawSeriesKeys.stream()
-                .sorted()
+                .sorted(comparatorFor(null))
                 .toList();
 
         List<String> categories = sortedDimVals.stream()
@@ -161,7 +173,7 @@ public class InMemoryReportExecutor {
             seriesList.add(new ChartData.Series(measure.field(), data));
         } else {
             for (Object seriesVal : sortedSeriesVals) {
-                String seriesName = String.valueOf(seriesVal);
+                String seriesName = seriesVal == null ? "(none)" : String.valueOf(seriesVal);
                 List<BigDecimal> data = new ArrayList<>();
                 for (Object dimVal : sortedDimVals) {
                     List<Map<String, Object>> groupRows = groups.get(new DimensionKey(dimVal, seriesVal));
@@ -174,8 +186,7 @@ public class InMemoryReportExecutor {
             }
         }
 
-        FilterClause dateFilter = dateRangeResolver.findDateFilter(datasource, def.filters());
-        DateRange effRange = dateRangeResolver.effectiveRange(dateFilter);
+        DateRange effRange = dateRangeResolver.effectiveRange(dateRangeResolver.findDateFilter(datasource, def.filters()));
         ChartData.DateRangeView dateRangeView = effRange.bounded()
                 ? new ChartData.DateRangeView(effRange.from(), effRange.to())
                 : null;
@@ -213,7 +224,7 @@ public class InMemoryReportExecutor {
 
     private TableData executeRawTable(RawTableDefinition def, ReportDatasource datasource, Integer page, Integer size) {
         ComputedReportDatasource computedDs = (ComputedReportDatasource) datasource;
-        List<Map<String, Object>> allRows = computedDs.rows() != null ? computedDs.rows() : List.of();
+        List<Map<String, Object>> allRows = loadRows(computedDs, def.filters());
         List<Map<String, Object>> filteredRows = filterRows(allRows, def.filters(), computedDs);
 
         List<IndexedRow> indexedRows = new ArrayList<>();
@@ -227,8 +238,8 @@ public class InMemoryReportExecutor {
         if (!sort.isEmpty()) {
             indexedRows.sort((a, b) -> {
                 for (SortClause sc : sort) {
-                    Object valA = a.row.get(sc.key());
-                    Object valB = b.row.get(sc.key());
+                    Object valA = displayValue(a.row.get(sc.key()));
+                    Object valB = displayValue(b.row.get(sc.key()));
                     int cmp = compareValues(valA, valB);
                     if (cmp != 0) {
                         return sc.direction() == SortDirection.DESC ? -cmp : cmp;
@@ -262,7 +273,7 @@ public class InMemoryReportExecutor {
             Object idVal = ir.row.get("id");
             map.put("id", idVal != null ? String.valueOf(idVal) : String.valueOf(ir.index));
             for (String colName : def.columns()) {
-                map.put(colName, ir.row.get(colName));
+                map.put(colName, displayValue(ir.row.get(colName)));
             }
             data.add(map);
         }
@@ -273,7 +284,7 @@ public class InMemoryReportExecutor {
 
     private PivotTableData executeAggregatedTable(AggregatedTableDefinition def, ReportDatasource datasource, Integer page, Integer size) {
         ComputedReportDatasource computedDs = (ComputedReportDatasource) datasource;
-        List<Map<String, Object>> allRows = computedDs.rows() != null ? computedDs.rows() : List.of();
+        List<Map<String, Object>> allRows = loadRows(computedDs, def.filters());
         List<Map<String, Object>> filteredRows = filterRows(allRows, def.filters(), computedDs);
 
         List<DimensionRef> rowDims = def.rows() != null ? def.rows() : List.of();
@@ -285,24 +296,15 @@ public class InMemoryReportExecutor {
         Set<List<Object>> rawColKeys = new LinkedHashSet<>();
 
         for (Map<String, Object> row : filteredRows) {
-            List<Object> rKeys = new ArrayList<>();
-            for (DimensionRef rDim : rowDims) {
-                FieldDef f = datasource.field(rDim.field());
-                Object raw = row.get(rDim.field());
-                rKeys.add(processDimensionValue(raw, f, rDim.granularity()));
+            // A multi-valued dimension fans the row out: one key combination per value.
+            for (List<Object> rKeys : keyCombinations(row, rowDims, datasource)) {
+                rawRowKeys.add(rKeys);
+                for (List<Object> cKeys : keyCombinations(row, colDims, datasource)) {
+                    rawColKeys.add(cKeys);
+                    MultiDimensionKey key = new MultiDimensionKey(rKeys, cKeys);
+                    cellGroups.computeIfAbsent(key, k -> new ArrayList<>()).add(row);
+                }
             }
-            rawRowKeys.add(rKeys);
-
-            List<Object> cKeys = new ArrayList<>();
-            for (DimensionRef cDim : colDims) {
-                FieldDef f = datasource.field(cDim.field());
-                Object raw = row.get(cDim.field());
-                cKeys.add(processDimensionValue(raw, f, cDim.granularity()));
-            }
-            rawColKeys.add(cKeys);
-
-            MultiDimensionKey key = new MultiDimensionKey(rKeys, cKeys);
-            cellGroups.computeIfAbsent(key, k -> new ArrayList<>()).add(row);
         }
 
         List<List<Object>> sortedRowKeys = new ArrayList<>(rawRowKeys);
@@ -450,6 +452,18 @@ public class InMemoryReportExecutor {
         FieldType type = fieldDef != null ? fieldDef.type() : FieldType.STRING;
         String op = f.operator();
 
+        if (rowVal instanceof Collection<?> values) {
+            // Multi-valued: a positive operator matches when ANY value does; a negated one
+            // only when NO value hits the excluded set. An empty list behaves like null.
+            if (values.isEmpty()) {
+                return matchesFilter(null, f, fieldDef);
+            }
+            if (type == FieldType.ENUM && ("is_not".equals(op) || "not_in".equals(op))) {
+                return values.stream().allMatch(v -> matchesEnumFilter(v, op, f.value()));
+            }
+            return values.stream().anyMatch(v -> matchesFilter(v, f, fieldDef));
+        }
+
         return switch (type) {
             case STRING -> matchesStringFilter(rowVal, op, f.value());
             case ENUM -> matchesEnumFilter(rowVal, op, f.value());
@@ -476,7 +490,10 @@ public class InMemoryReportExecutor {
 
     private boolean matchesEnumFilter(Object val, String op, JsonNode node) {
         String s = val != null ? String.valueOf(val) : null;
-        if (s == null) return false;
+        if (s == null) {
+            // A missing value is never X, so it passes the negated operators.
+            return "is_not".equals(op) || "not_in".equals(op);
+        }
 
         return switch (op) {
             case "is" -> node != null && s.equalsIgnoreCase(node.asText());
@@ -659,6 +676,70 @@ public class InMemoryReportExecutor {
                 .findFirst()
                 .map(f -> List.of(new SortClause(f.name(), SortDirection.DESC)))
                 .orElse(List.of());
+    }
+
+    /** Rows for one run, letting the datasource skip work outside the run's date filter. */
+    private List<Map<String, Object>> loadRows(ComputedReportDatasource ds, List<FilterClause> filters) {
+        FilterClause dateFilter = dateRangeResolver.findDateFilter(ds, filters);
+        return loadRows(ds, hint(dateFilter, dateRangeResolver.effectiveRange(dateFilter)));
+    }
+
+    private List<Map<String, Object>> loadRows(ComputedReportDatasource ds, ComputedReportDatasource.DateHint hint) {
+        List<Map<String, Object>> rows = ds.rows(hint);
+        return rows != null ? rows : List.of();
+    }
+
+    private static ComputedReportDatasource.DateHint hint(FilterClause dateFilter, DateRange range) {
+        if (dateFilter == null || !range.bounded()) {
+            return null;
+        }
+        return new ComputedReportDatasource.DateHint(dateFilter.field(), range.from(), range.to());
+    }
+
+    /** The values a row groups under: each element of a multi-valued field, else the value (null included). */
+    private static List<Object> groupValues(Object raw) {
+        if (raw instanceof Collection<?> values) {
+            if (values.isEmpty()) {
+                return nullList();
+            }
+            return new ArrayList<>(new LinkedHashSet<>(values));
+        }
+        return raw == null ? nullList() : List.of(raw);
+    }
+
+    private static List<Object> nullList() {
+        List<Object> single = new ArrayList<>(1);
+        single.add(null);
+        return single;
+    }
+
+    /** Every key combination a row contributes for the given dimensions (fan-out on multi-valued ones). */
+    private List<List<Object>> keyCombinations(Map<String, Object> row, List<DimensionRef> dims, ReportDatasource datasource) {
+        List<List<Object>> combos = new ArrayList<>();
+        combos.add(new ArrayList<>());
+        for (DimensionRef dim : dims) {
+            FieldDef f = datasource.field(dim.field());
+            List<List<Object>> next = new ArrayList<>();
+            for (Object value : groupValues(row.get(dim.field()))) {
+                Object key = processDimensionValue(value, f, dim.granularity());
+                for (List<Object> combo : combos) {
+                    List<Object> extended = new ArrayList<>(combo);
+                    extended.add(key);
+                    next.add(extended);
+                }
+            }
+            combos = next;
+        }
+        return combos;
+    }
+
+    /** Multi-valued cells render and sort as a comma-joined string. */
+    private static Object displayValue(Object value) {
+        if (value instanceof Collection<?> values) {
+            return values.isEmpty() ? null
+                    : values.stream().map(String::valueOf).collect(Collectors.joining(", "));
+        }
+        return value;
     }
 
     private record IndexedRow(int index, Map<String, Object> row) {}

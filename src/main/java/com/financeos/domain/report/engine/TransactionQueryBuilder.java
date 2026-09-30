@@ -38,8 +38,10 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     public static final String JOIN_CATEGORIES = "CATEGORIES";
     public static final String JOIN_CARDS = "CARDS";
 
+    // Oracle treats NULL as '' in ||, so an NVL around the concatenation never fires for
+    // a transaction with no card; test the card row itself.
     public static final String CARD_DIM =
-            "NVL(a.name || ' •••• ' || c.last4, 'Unattributed')";
+            "CASE WHEN c.last4 IS NULL THEN 'Unattributed' ELSE a.name || ' •••• ' || c.last4 END";
     public static final String CARDHOLDER_DIM = "NVL(ch.person_name, 'Unattributed')";
     public static final String CARD_RELATIONSHIP_DIM = "NVL(ch.relationship, 'Unattributed')";
 
