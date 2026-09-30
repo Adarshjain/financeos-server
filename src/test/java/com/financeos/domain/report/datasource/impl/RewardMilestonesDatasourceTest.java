@@ -9,6 +9,7 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
+import com.financeos.domain.report.ReportType;
 import com.financeos.domain.reward.MilestoneBasis;
 import com.financeos.domain.reward.MilestonePayoutType;
 import com.financeos.domain.reward.MilestoneWindow;
@@ -92,8 +93,10 @@ class RewardMilestonesDatasourceTest {
         FieldDef card = fields.stream().filter(f -> f.name().equals("card")).findFirst().orElseThrow();
         assertTrue(card.dynamic());
         FieldDef achieved = fields.stream().filter(f -> f.name().equals("achieved")).findFirst().orElseThrow();
-        assertEquals(FieldType.BOOLEAN, achieved.type());
-        assertEquals(FieldRole.FILTER, achieved.role());
+        assertEquals(FieldType.ENUM, achieved.type());
+        assertEquals(FieldRole.DIMENSION, achieved.role());
+        assertEquals(List.of("Yes", "No"), achieved.values());
+        assertEquals(List.of(ReportType.CHART, ReportType.TABLE), achieved.allowedInReports());
         FieldDef inr = fields.stream().filter(f -> f.name().equals("payoutValueInr")).findFirst().orElseThrow();
         assertEquals("currency", inr.format());
         FieldDef pct = fields.stream().filter(f -> f.name().equals("progressPct")).findFirst().orElseThrow();
@@ -135,7 +138,7 @@ class RewardMilestonesDatasourceTest {
         assertEquals("SPEND", row.get("basis"));
         assertEquals("CASH_VALUE", row.get("payoutType"));
         assertEquals("CASH", row.get("rewardType"));
-        assertEquals(true, row.get("achieved"));
+        assertEquals("Yes", row.get("achieved"));
         assertEquals(new BigDecimal("100000"), row.get("threshold"));
         assertEquals(new BigDecimal("125000"), row.get("progress"));
         assertEquals(new BigDecimal("125.00"), row.get("progressPct"));
@@ -184,7 +187,7 @@ class RewardMilestonesDatasourceTest {
                 status(id, "Spend 1L", "100000", "25000", false, MilestonePayoutType.CASH_VALUE, RewardType.CASH, "1500")));
         Map<String, Object> row = datasource.rows().get(0);
         assertEquals(new BigDecimal("0.00"), row.get("payoutValueInr"));
-        assertEquals(false, row.get("achieved"));
+        assertEquals("No", row.get("achieved"));
         assertNull(row.get("payoutDate"));
         assertEquals(new BigDecimal("25.00"), row.get("progressPct"));
     }
@@ -248,5 +251,33 @@ class RewardMilestonesDatasourceTest {
                 assertTrue(row.containsKey(f.name()), f.name());
             }
         }
+    }
+
+    @Test
+    void rowsCarryStableCardAndMilestoneIds() {
+        Account card = account("Infinia", null);
+        UUID id = UUID.randomUUID();
+        stub(card, Map.of(id, "Spend 1L · Infinia"),
+                List.of(status(id, "Spend 1L", "100", "1", false, MilestonePayoutType.INFO_TRACKER, RewardType.CASH, null)));
+        Map<String, Object> row = datasource.rows().get(0);
+        assertEquals(card.getId().toString(), row.get("cardId"));
+        assertEquals(id.toString(), row.get("milestoneId"));
+    }
+
+    @Test
+    void milestoneIdIsNullWhenStatusHasNoId() {
+        Account card = account("Infinia", null);
+        stub(card, new java.util.HashMap<>(), List.of(
+                status(null, "Anon", "100", "1", false, MilestonePayoutType.INFO_TRACKER, RewardType.CASH, null)));
+        assertNull(datasource.rows().get(0).get("milestoneId"));
+    }
+
+    @Test
+    void catalogDeclaresIdFieldsForCardAndMilestoneOnly() {
+        Map<String, String> ids = new java.util.HashMap<>();
+        for (FieldDef f : datasource.fields()) {
+            if (f.idField() != null) ids.put(f.name(), f.idField());
+        }
+        assertEquals(Map.of("card", "cardId", "milestone", "milestoneId"), ids);
     }
 }

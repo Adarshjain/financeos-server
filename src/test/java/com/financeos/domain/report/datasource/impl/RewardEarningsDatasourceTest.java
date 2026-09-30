@@ -369,4 +369,31 @@ class RewardEarningsDatasourceTest {
         assertTrue(before.isEmpty());
         verify(rewardCalculationService, never()).reportLines(any(), any(), any());
     }
+
+    @Test
+    void rowsCarryCardIdAndRuleIdAndRuleLessLineHasNullRuleId() {
+        Account card = account("Card", null);
+        UUID ruleId = UUID.randomUUID();
+        UUID t = UUID.randomUUID();
+        stub(card, Map.of(ruleId, "Base · Card"), List.of(
+                reportLine(line(t, ruleId, "Base", "1", "RUPEES", RewardLineReason.MATCHED, null), true, true, "1", null, null, List.of()),
+                reportLine(line(t, null, null, "0", "RUPEES", RewardLineReason.NO_RULE, null), true, true, "1", null, null, List.of())));
+
+        List<Map<String, Object>> rows = datasource.rows();
+        assertEquals(card.getId().toString(), rows.get(0).get("cardId"));
+        assertEquals(ruleId.toString(), rows.get(0).get("ruleId"));
+        assertEquals(card.getId().toString(), rows.get(1).get("cardId"));
+        assertTrue(rows.get(1).containsKey("ruleId"));
+        assertNull(rows.get(1).get("ruleId"));
+        assertEquals("(none)", rows.get(1).get("rule"));
+    }
+
+    @Test
+    void catalogDeclaresIdFieldsForCardAndRuleOnly() {
+        Map<String, String> ids = new java.util.HashMap<>();
+        for (FieldDef f : datasource.fields()) {
+            if (f.idField() != null) ids.put(f.name(), f.idField());
+        }
+        assertEquals(Map.of("card", "cardId", "rule", "ruleId"), ids);
+    }
 }

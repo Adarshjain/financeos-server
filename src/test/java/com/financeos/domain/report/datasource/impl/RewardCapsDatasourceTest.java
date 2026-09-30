@@ -8,6 +8,7 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
+import com.financeos.domain.report.ReportType;
 import com.financeos.domain.reward.CapWindow;
 import com.financeos.domain.reward.RewardCalculationService;
 import com.financeos.domain.reward.RewardCalculationService.CapUsage;
@@ -56,7 +57,7 @@ class RewardCapsDatasourceTest {
     }
 
     private static CapUsage ruleCap(UUID ruleId, String ruleName, String unit, String cap, String used) {
-        return new CapUsage(ruleId, null, ruleName, CapWindow.CALENDAR_MONTH, WS, WE, false,
+        return new CapUsage(ruleId, null, null, ruleName, CapWindow.CALENDAR_MONTH, WS, WE, false,
                 null, null, unit, new BigDecimal(cap), new BigDecimal(used));
     }
 
@@ -91,8 +92,10 @@ class RewardCapsDatasourceTest {
         assertEquals(List.of("RUPEES", "POINTS"), unit.values());
         for (String flag : List.of("capHit", "cycleFallback")) {
             FieldDef f = fields.stream().filter(x -> x.name().equals(flag)).findFirst().orElseThrow();
-            assertEquals(FieldType.BOOLEAN, f.type());
-            assertEquals(FieldRole.FILTER, f.role());
+            assertEquals(FieldType.ENUM, f.type());
+            assertEquals(FieldRole.DIMENSION, f.role());
+            assertEquals(List.of("Yes", "No"), f.values());
+            assertEquals(List.of(ReportType.CHART, ReportType.TABLE), f.allowedInReports());
         }
         FieldDef pct = fields.stream().filter(f -> f.name().equals("utilizationPct")).findFirst().orElseThrow();
         assertEquals("percent", pct.format());
@@ -122,7 +125,7 @@ class RewardCapsDatasourceTest {
                 List.of(ruleCap(ruleId, "Dining 5%", "RUPEES", "500", "125")));
 
         Map<String, Object> row = datasource.rows().get(0);
-        assertEquals(card.getId() + "_" + ruleId + "_" + WS + "_null", row.get("id"));
+        assertEquals(card.getId() + "_rule:" + ruleId + "_" + WS + "_null", row.get("id"));
         assertEquals(WS, row.get("windowStart"));
         assertEquals(WE, row.get("windowEnd"));
         assertEquals("Infinia", row.get("card"));
@@ -131,8 +134,8 @@ class RewardCapsDatasourceTest {
         assertEquals("CALENDAR_MONTH", row.get("window"));
         assertEquals("All cardholders", row.get("cardholder"));
         assertEquals("RUPEES", row.get("unit"));
-        assertEquals(false, row.get("capHit"));
-        assertEquals(false, row.get("cycleFallback"));
+        assertEquals("No", row.get("capHit"));
+        assertEquals("No", row.get("cycleFallback"));
         assertEquals(new BigDecimal("500"), row.get("capLimit"));
         assertEquals(new BigDecimal("125"), row.get("used"));
         assertEquals(new BigDecimal("375"), row.get("remaining"));
@@ -151,7 +154,8 @@ class RewardCapsDatasourceTest {
     @Test
     void sharedBucketUsesBucketNameAndBucketIdKey() {
         Account card = account("Infinia", null);
-        CapUsage bucket = new CapUsage(null, "Shared 1000", "Dining 5%", CapWindow.STATEMENT_CYCLE, WS, WE, true,
+        UUID bucketId = UUID.randomUUID();
+        CapUsage bucket = new CapUsage(null, bucketId, "Shared 1000", "Dining 5%", CapWindow.STATEMENT_CYCLE, WS, WE, true,
                 null, null, "RUPEES", new BigDecimal("1000"), new BigDecimal("400"));
         stub(card, Map.of(), List.of(bucket));
 
@@ -159,15 +163,15 @@ class RewardCapsDatasourceTest {
         assertEquals("Shared 1000", row.get("cap"));
         assertEquals("SHARED_BUCKET", row.get("capType"));
         assertEquals("STATEMENT_CYCLE", row.get("window"));
-        assertEquals(true, row.get("cycleFallback"));
-        assertEquals(card.getId() + "_b:Shared 1000_" + WS + "_null", row.get("id"));
+        assertEquals("Yes", row.get("cycleFallback"));
+        assertEquals(card.getId() + "_bucket:" + bucketId + "_" + WS + "_null", row.get("id"));
     }
 
     @Test
     void perCardholderCapShowsCardholderLabelAndIdKey() {
         Account card = account("Infinia", null);
         UUID ruleId = UUID.randomUUID(), holder = UUID.randomUUID();
-        CapUsage usage = new CapUsage(ruleId, null, "Dining", CapWindow.CALENDAR_MONTH, WS, WE, false,
+        CapUsage usage = new CapUsage(ruleId, null, null, "Dining", CapWindow.CALENDAR_MONTH, WS, WE, false,
                 holder, "Wife", "RUPEES", new BigDecimal("500"), new BigDecimal("100"));
         stub(card, Map.of(), List.of(usage));
 
@@ -186,12 +190,12 @@ class RewardCapsDatasourceTest {
                 ruleCap(under, "Under", "RUPEES", "500", "499")));
 
         List<Map<String, Object>> rows = datasource.rows();
-        assertEquals(true, rows.get(0).get("capHit"));
+        assertEquals("Yes", rows.get(0).get("capHit"));
         assertEquals(new BigDecimal("0"), rows.get(0).get("remaining"));
-        assertEquals(true, rows.get(1).get("capHit"));
+        assertEquals("Yes", rows.get(1).get("capHit"));
         assertEquals(BigDecimal.ZERO, rows.get(1).get("remaining"));       // never negative
         assertEquals(new BigDecimal("130.00"), rows.get(1).get("utilizationPct"));
-        assertEquals(false, rows.get(2).get("capHit"));
+        assertEquals("No", rows.get(2).get("capHit"));
         assertEquals(new BigDecimal("1"), rows.get(2).get("remaining"));
     }
 
@@ -201,7 +205,7 @@ class RewardCapsDatasourceTest {
         stub(card, Map.of(), List.of(ruleCap(UUID.randomUUID(), "Zero", "RUPEES", "0", "0")));
         Map<String, Object> row = datasource.rows().get(0);
         assertNull(row.get("utilizationPct"));
-        assertEquals(true, row.get("capHit"));
+        assertEquals("Yes", row.get("capHit"));
     }
 
     @Test
@@ -242,7 +246,7 @@ class RewardCapsDatasourceTest {
         Account card = account("Infinia", "0.25");
         stub(card, Map.of(), List.of(
                 ruleCap(UUID.randomUUID(), "A", "RUPEES", "10", "1"),
-                new CapUsage(null, "B", "R", CapWindow.QUARTER, WS, WE, false, UUID.randomUUID(), "X", "POINTS",
+                new CapUsage(null, UUID.randomUUID(), "B", "R", CapWindow.QUARTER, WS, WE, false, UUID.randomUUID(), "X", "POINTS",
                         new BigDecimal("10"), new BigDecimal("2"))));
         Set<Object> ids = new HashSet<>();
         for (Map<String, Object> row : datasource.rows()) {
@@ -251,5 +255,55 @@ class RewardCapsDatasourceTest {
                 assertTrue(row.containsKey(f.name()), f.name());
             }
         }
+    }
+
+    @Test
+    void ruleCapRowCarriesCardIdAndRuleCapId() {
+        Account card = account("Infinia", null);
+        UUID ruleId = UUID.randomUUID();
+        stub(card, Map.of(), List.of(ruleCap(ruleId, "Dining", "RUPEES", "500", "1")));
+        Map<String, Object> row = datasource.rows().get(0);
+        assertEquals(card.getId().toString(), row.get("cardId"));
+        assertEquals("rule:" + ruleId, row.get("capId"));
+    }
+
+    @Test
+    void bucketCapRowCarriesBucketCapId() {
+        Account card = account("Infinia", null);
+        UUID bucketId = UUID.randomUUID();
+        CapUsage bucket = new CapUsage(null, bucketId, "Shared", "R", CapWindow.QUARTER, WS, WE, false,
+                null, null, "RUPEES", new BigDecimal("10"), new BigDecimal("1"));
+        stub(card, Map.of(), List.of(bucket));
+        assertEquals("bucket:" + bucketId, datasource.rows().get(0).get("capId"));
+    }
+
+    @Test
+    void twoBucketsWithSameNameGetDistinctRowIds() {
+        Account card = account("Infinia", null);
+        CapUsage a = new CapUsage(null, UUID.randomUUID(), "Same", "R", CapWindow.QUARTER, WS, WE, false,
+                null, null, "RUPEES", new BigDecimal("10"), new BigDecimal("1"));
+        CapUsage b = new CapUsage(null, UUID.randomUUID(), "Same", "R", CapWindow.QUARTER, WS, WE, false,
+                null, null, "RUPEES", new BigDecimal("10"), new BigDecimal("1"));
+        stub(card, Map.of(), List.of(a, b));
+        List<Map<String, Object>> rows = datasource.rows();
+        assertNotEquals(rows.get(0).get("id"), rows.get(1).get("id"));
+    }
+
+    @Test
+    void cycleFallbackFalseIsNoAndCapHitBelowCapIsNo() {
+        Account card = account("Infinia", null);
+        stub(card, Map.of(), List.of(ruleCap(UUID.randomUUID(), "R", "RUPEES", "10", "1")));
+        Map<String, Object> row = datasource.rows().get(0);
+        assertEquals("No", row.get("capHit"));
+        assertEquals("No", row.get("cycleFallback"));
+    }
+
+    @Test
+    void catalogDeclaresIdFieldsForCardAndCapOnly() {
+        Map<String, String> ids = new java.util.HashMap<>();
+        for (FieldDef f : datasource.fields()) {
+            if (f.idField() != null) ids.put(f.name(), f.idField());
+        }
+        assertEquals(Map.of("card", "cardId", "cap", "capId"), ids);
     }
 }
