@@ -7995,6 +7995,8 @@ components:
           type: boolean
         format:
           type: string
+        idField:
+          type: string
         label:
           type: string
         name:
@@ -8022,6 +8024,7 @@ components:
       - allowedInReports
       - dynamic
       - format
+      - idField
       - label
       - name
       - role
@@ -9873,6 +9876,16 @@ components:
       - enum
       - number
       - string
+    Option:
+      type: object
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+      required:
+      - label
+      - value
     PageCounterpartyResponse:
       type: object
       properties:
@@ -10938,6 +10951,12 @@ components:
     ReportFieldValuesResponse:
       type: object
       properties:
+        options:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: "#/components/schemas/Option"
         values:
           type: object
           additionalProperties:
@@ -10945,6 +10964,7 @@ components:
             items:
               type: string
       required:
+      - options
       - values
     ReportRef:
       type: object

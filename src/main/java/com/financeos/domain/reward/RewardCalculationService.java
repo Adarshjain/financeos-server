@@ -157,6 +157,7 @@ public class RewardCalculationService {
      */
     public record CapUsage(
             @Nullable UUID ruleId,
+            @Nullable UUID bucketId,
             @Nullable String bucketName,
             String ruleName,
             CapWindow window,
@@ -236,6 +237,7 @@ public class RewardCalculationService {
             boolean bucket = rule.getCapBucket() != null;
             out.add(new CapUsage(
                     bucket ? null : rule.getId(),
+                    bucket ? rule.getCapBucket().getId() : null,
                     bucket ? rule.getCapBucket().getName() : null,
                     rule.getName(),
                     effectiveCapWindow(rule), window.start(), window.end(), window.cycleFallback(),

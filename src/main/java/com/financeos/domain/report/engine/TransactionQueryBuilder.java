@@ -25,8 +25,9 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     public static final String IS_REFUND_LEG =
             "(CASE WHEN EXISTS (SELECT 1 FROM transaction_link_members m JOIN transaction_links l ON l.id = m.link_id WHERE m.transaction_id = t.id AND l.type = 'REFUND') THEN 1 ELSE 0 END)";
 
-    public static final String LINK_TYPE =
-            "(SELECT l.type FROM transaction_link_members m JOIN transaction_links l ON l.id = m.link_id WHERE m.transaction_id = t.id AND ROWNUM = 1)";
+    // A joined column, not a scalar subquery: Oracle rejects subqueries in GROUP BY
+    // (ORA-22818), so a chart or pivot grouped by link type needs a plain column.
+    public static final String LINK_TYPE = "lk.link_type";
 
     public static final String IS_LENDING_LEG =
             "(CASE WHEN EXISTS (SELECT 1 FROM lendings x WHERE x.transaction_id = t.id) THEN 1 ELSE 0 END)";
@@ -37,11 +38,12 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     public static final String JOIN_ACCOUNTS = "ACCOUNTS";
     public static final String JOIN_CATEGORIES = "CATEGORIES";
     public static final String JOIN_CARDS = "CARDS";
+    public static final String JOIN_LINKS = "LINKS";
 
     // Oracle treats NULL as '' in ||, so an NVL around the concatenation never fires for
     // a transaction with no card; test the card row itself.
     public static final String CARD_DIM =
-            "CASE WHEN c.last4 IS NULL THEN 'Unattributed' ELSE a.name || ' •••• ' || c.last4 END";
+            "CASE WHEN cd.last4 IS NULL THEN 'Unattributed' ELSE a.name || ' •••• ' || cd.last4 END";
     public static final String CARDHOLDER_DIM = "NVL(ch.person_name, 'Unattributed')";
     public static final String CARD_RELATIONSHIP_DIM = "NVL(ch.relationship, 'Unattributed')";
 
@@ -60,7 +62,7 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             Map.entry("isRefundLeg", new Mapping(IS_REFUND_LEG, null)),
             Map.entry("isLendingLeg", new Mapping(IS_LENDING_LEG, null)),
             Map.entry("isLoanLeg", new Mapping(IS_LOAN_LEG, null)),
-            Map.entry("linkType", new Mapping(LINK_TYPE, null)),
+            Map.entry("linkType", new Mapping(LINK_TYPE, JOIN_LINKS)),
             Map.entry("settlementDate", new Mapping("t.settlement_date", null)),
             Map.entry("reviewType", new Mapping("t.review_type", null)),
             Map.entry("mcc", new Mapping("t.mcc", null)),
@@ -95,11 +97,18 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             sb.append(" LEFT JOIN accounts a ON a.id = t.account_id");
         }
         if (joins.contains(JOIN_CARDS)) {
-            sb.append(" LEFT JOIN cards c ON c.id = t.card_id LEFT JOIN cardholders ch ON ch.id = c.cardholder_id");
+            // "cd", not "c": the categories join below also needs an alias and "c" is taken there.
+            sb.append(" LEFT JOIN cards cd ON cd.id = t.card_id LEFT JOIN cardholders ch ON ch.id = cd.cardholder_id");
         }
         if (joins.contains(JOIN_CATEGORIES)) {
             sb.append(" LEFT JOIN transaction_categories tc ON tc.transaction_id = t.id")
               .append(" LEFT JOIN categories c ON c.id = tc.category_id");
+        }
+        if (joins.contains(JOIN_LINKS)) {
+            // One link per transaction is the product rule; MIN keeps the join 1:1 regardless.
+            sb.append(" LEFT JOIN (SELECT m.transaction_id, MIN(l.type) AS link_type")
+              .append(" FROM transaction_link_members m JOIN transaction_links l ON l.id = m.link_id")
+              .append(" GROUP BY m.transaction_id) lk ON lk.transaction_id = t.id");
         }
         return sb.toString();
     }

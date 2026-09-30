@@ -40,7 +40,9 @@ public class RewardCapsDatasource implements ComputedReportDatasource {
 
     private static final List<ReportType> KPI_CHART_TABLE = List.of(ReportType.KPI, ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> CHART_TABLE = List.of(ReportType.CHART, ReportType.TABLE);
-    private static final List<ReportType> NONE = List.of();
+    static final String YES = "Yes";
+    static final String NO = "No";
+    private static final List<String> YES_NO = List.of(YES, NO);
 
     static final String ALL_CARDHOLDERS = "All cardholders";
     static final String RULE_CAP = "RULE";
@@ -109,18 +111,20 @@ public class RewardCapsDatasource implements ComputedReportDatasource {
                 : usage.used().multiply(BigDecimal.valueOf(100)).divide(usage.cap(), 2, RoundingMode.HALF_UP);
 
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put("id", account.getId() + "_" + (bucket ? "b:" + usage.bucketName() : usage.ruleId())
-                + "_" + usage.windowStart() + "_" + usage.cardholderId());
+        String capId = bucket ? "bucket:" + usage.bucketId() : "rule:" + usage.ruleId();
+        map.put("id", account.getId() + "_" + capId + "_" + usage.windowStart() + "_" + usage.cardholderId());
         map.put("windowStart", usage.windowStart());
         map.put("windowEnd", usage.windowEnd());
         map.put("card", account.getName());
+        map.put("cardId", account.getId().toString());
         map.put("cap", cap);
+        map.put("capId", capId);
         map.put("capType", bucket ? SHARED_BUCKET : RULE_CAP);
         map.put("window", usage.window().name());
         map.put("cardholder", usage.cardholderLabel() != null ? usage.cardholderLabel() : ALL_CARDHOLDERS);
         map.put("unit", usage.unit());
-        map.put("capHit", usage.used().compareTo(usage.cap()) >= 0);
-        map.put("cycleFallback", usage.cycleFallback());
+        map.put("capHit", usage.used().compareTo(usage.cap()) >= 0 ? YES : NO);
+        map.put("cycleFallback", usage.cycleFallback() ? YES : NO);
         map.put("capLimit", usage.cap());
         map.put("used", usage.used());
         map.put("remaining", remaining);
@@ -133,15 +137,15 @@ public class RewardCapsDatasource implements ComputedReportDatasource {
         return List.of(
                 new FieldDef("windowStart", "Window start", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
                 new FieldDef("windowEnd", "Window end", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
-                new FieldDef("card", "Card", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
-                new FieldDef("cap", "Cap", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
+                new FieldDef("card", "Card", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE, null, "cardId"),
+                new FieldDef("cap", "Cap", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE, null, "capId"),
                 new FieldDef("capType", "Cap type", FieldType.ENUM, FieldRole.DIMENSION, null, List.of(RULE_CAP, SHARED_BUCKET), null, CHART_TABLE),
                 new FieldDef("window", "Cap window", FieldType.ENUM, FieldRole.DIMENSION, null,
                         Arrays.stream(CapWindow.values()).map(Enum::name).toList(), null, CHART_TABLE),
                 new FieldDef("cardholder", "Cardholder", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("unit", "Unit", FieldType.ENUM, FieldRole.DIMENSION, null, List.of(UNIT_RUPEES, UNIT_POINTS), null, CHART_TABLE),
-                new FieldDef("capHit", "Cap reached", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
-                new FieldDef("cycleFallback", "Estimated cycle", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+                new FieldDef("capHit", "Cap reached", FieldType.ENUM, FieldRole.DIMENSION, null, YES_NO, null, CHART_TABLE),
+                new FieldDef("cycleFallback", "Estimated cycle", FieldType.ENUM, FieldRole.DIMENSION, null, YES_NO, null, CHART_TABLE),
                 new FieldDef("capLimit", "Cap limit", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
                 new FieldDef("used", "Used", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
                 new FieldDef("remaining", "Remaining", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),

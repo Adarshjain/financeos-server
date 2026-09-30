@@ -48,7 +48,9 @@ public class RewardMilestonesDatasource implements ComputedReportDatasource {
 
     private static final List<ReportType> KPI_CHART_TABLE = List.of(ReportType.KPI, ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> CHART_TABLE = List.of(ReportType.CHART, ReportType.TABLE);
-    private static final List<ReportType> NONE = List.of();
+    static final String YES = "Yes";
+    static final String NO = "No";
+    private static final List<String> YES_NO = List.of(YES, NO);
 
     private final RewardCalculationService rewardCalculationService;
     private final RewardReportSupport support;
@@ -120,12 +122,14 @@ public class RewardMilestonesDatasource implements ComputedReportDatasource {
         map.put("windowEnd", status.windowEnd());
         map.put("payoutDate", status.payoutDate());
         map.put("card", account.getName());
+        map.put("cardId", account.getId().toString());
         map.put("milestone", labels.getOrDefault(status.milestoneId(), status.name()));
+        map.put("milestoneId", status.milestoneId() != null ? status.milestoneId().toString() : null);
         map.put("windowType", status.windowType() != null ? status.windowType().name() : null);
         map.put("basis", status.basis() != null ? status.basis().name() : null);
         map.put("payoutType", status.payoutType() != null ? status.payoutType().name() : null);
         map.put("rewardType", status.rewardType() != null ? status.rewardType().name() : null);
-        map.put("achieved", status.achieved());
+        map.put("achieved", status.achieved() ? YES : NO);
         map.put("threshold", status.threshold());
         map.put("progress", status.progress());
         map.put("progressPct", progressPct);
@@ -139,13 +143,13 @@ public class RewardMilestonesDatasource implements ComputedReportDatasource {
                 new FieldDef("windowStart", "Window start", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
                 new FieldDef("windowEnd", "Window end", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
                 new FieldDef("payoutDate", "Payout date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
-                new FieldDef("card", "Card", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
-                new FieldDef("milestone", "Milestone", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
+                new FieldDef("card", "Card", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE, null, "cardId"),
+                new FieldDef("milestone", "Milestone", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE, null, "milestoneId"),
                 new FieldDef("windowType", "Window", FieldType.ENUM, FieldRole.DIMENSION, null, names(MilestoneWindow.values()), null, CHART_TABLE),
                 new FieldDef("basis", "Counts", FieldType.ENUM, FieldRole.DIMENSION, null, names(MilestoneBasis.values()), null, CHART_TABLE),
                 new FieldDef("payoutType", "Payout type", FieldType.ENUM, FieldRole.DIMENSION, null, names(MilestonePayoutType.values()), null, CHART_TABLE),
                 new FieldDef("rewardType", "Paid in", FieldType.ENUM, FieldRole.DIMENSION, null, names(RewardType.values()), null, CHART_TABLE),
-                new FieldDef("achieved", "Achieved", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+                new FieldDef("achieved", "Achieved", FieldType.ENUM, FieldRole.DIMENSION, null, YES_NO, null, CHART_TABLE),
                 new FieldDef("threshold", "Target", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
                 new FieldDef("progress", "Progress", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
                 new FieldDef("progressPct", "Progress (%)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "percent"),

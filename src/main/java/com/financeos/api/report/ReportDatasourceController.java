@@ -33,6 +33,6 @@ public class ReportDatasourceController {
     /** Values for the filter dropdowns of the datasource's dynamic enum fields. */
     @GetMapping("/datasource/{name}/values")
     public ResponseEntity<ReportFieldValuesResponse> reportFieldValues(@PathVariable String name) {
-        return ResponseEntity.ok(new ReportFieldValuesResponse(fieldValuesService.values(name)));
+        return ResponseEntity.ok(fieldValuesService.values(name));
     }
 }
