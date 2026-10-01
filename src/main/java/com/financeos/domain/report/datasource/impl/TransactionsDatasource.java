@@ -8,6 +8,7 @@ import com.financeos.domain.report.engine.DateRangeResolver;
 import com.financeos.domain.report.engine.ReportQueryBuilder;
 import com.financeos.domain.report.engine.SqlPredicates;
 import com.financeos.domain.report.engine.TransactionQueryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,6 +23,12 @@ public class TransactionsDatasource implements ReportDatasource {
 
     private final TransactionQueryBuilder queryBuilder;
 
+    /** Without billing cycles: cycle operators and the billing-cycle dimension are unavailable. */
+    public TransactionsDatasource(SqlPredicates sqlPredicates, DateRangeResolver dateRangeResolver) {
+        this(sqlPredicates, dateRangeResolver, null);
+    }
+
+    @Autowired
     public TransactionsDatasource(SqlPredicates sqlPredicates, DateRangeResolver dateRangeResolver,
                                   BillingCycleService billingCycleService) {
         Map<String, FieldDef> fieldsMap = FIELDS.stream().collect(Collectors.toMap(FieldDef::name, f -> f));
