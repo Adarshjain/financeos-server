@@ -1,5 +1,7 @@
 package com.financeos.domain.report;
 
+import com.financeos.domain.account.cycle.CycleOperators;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.report.datasource.Aggregation;
@@ -35,7 +37,8 @@ public class ReportDefinitionValidator {
     private static final Set<String> ARRAY_OPS = Set.of("in", "not_in");
     private static final Set<String> VALUELESS_DATE_OPS = Set.of(
             "this_month", "this_week", "this_year", "previous_month", "previous_week",
-            "previous_year", "today", "yesterday", "current_fy", "prev_fy", "all_time");
+            "previous_year", "today", "yesterday", "current_fy", "prev_fy", "all_time",
+            CycleOperators.THIS_CYCLE, CycleOperators.PREVIOUS_CYCLE);
     private static final Set<String> PARAM_DATE_OPS = Set.of("last_x_days", "last_x_months", "last_x_years");
 
     private final DatasourceRegistry registry;
@@ -254,7 +257,12 @@ public class ReportDefinitionValidator {
         if (operator == null) {
             throw new ValidationException("filter.operator is required for '" + filter.field() + "'");
         }
-        if (!registry.operatorsFor(field.type()).contains(operator)) {
+        boolean cycleOperator = CycleOperators.PUBLIC.contains(operator);
+        if (cycleOperator && !Boolean.TRUE.equals(field.billingCycle())) {
+            throw new ValidationException("Operator '" + operator + "' is only available on billing-cycle date fields; '"
+                    + filter.field() + "' is not one");
+        }
+        if (!cycleOperator && !registry.operatorsFor(field.type()).contains(operator)) {
             throw new ValidationException("Operator '" + operator + "' is not valid for field '"
                     + filter.field() + "' (" + field.type().json() + ")");
         }

@@ -1,8 +1,16 @@
 package com.financeos.domain.report.engine;
 
+import com.financeos.domain.account.cycle.BillingCycleService;
+import com.financeos.domain.account.cycle.BillingCycles.Cycle;
+import com.financeos.domain.account.cycle.CycleOperators;
+import com.financeos.domain.account.cycle.CycleWindows;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
+import com.financeos.domain.report.datasource.FieldType;
 import com.financeos.domain.report.definition.FilterClause;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -39,6 +47,11 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     public static final String JOIN_CATEGORIES = "CATEGORIES";
     public static final String JOIN_CARDS = "CARDS";
     public static final String JOIN_LINKS = "LINKS";
+    public static final String JOIN_BILLING_CYCLES = "BILLING_CYCLES";
+
+    /** "start → end" of the card cycle holding the transaction's effective date; null off cards. */
+    public static final String BILLING_CYCLE_DIM =
+            "CASE WHEN bc.cs IS NULL THEN NULL ELSE TO_CHAR(bc.cs, 'YYYY-MM-DD') || ' → ' || TO_CHAR(bc.ce, 'YYYY-MM-DD') END";
 
     // Oracle treats NULL as '' in ||, so an NVL around the concatenation never fires for
     // a transaction with no card; test the card row itself.
@@ -64,6 +77,7 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             Map.entry("isLoanLeg", new Mapping(IS_LOAN_LEG, null)),
             Map.entry("linkType", new Mapping(LINK_TYPE, JOIN_LINKS)),
             Map.entry("settlementDate", new Mapping("t.settlement_date", null)),
+            Map.entry("billingCycle", new Mapping(BILLING_CYCLE_DIM, JOIN_BILLING_CYCLES)),
             Map.entry("reviewType", new Mapping("t.review_type", null)),
             Map.entry("mcc", new Mapping("t.mcc", null)),
             Map.entry("channel", new Mapping("t.channel", null)),
@@ -75,8 +89,47 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             Map.entry("cardholder", new Mapping(CARDHOLDER_DIM, JOIN_CARDS)),
             Map.entry("cardRelationship", new Mapping(CARD_RELATIONSHIP_DIM, JOIN_CARDS)));
 
+    private final BillingCycleService billingCycleService;
+
     public TransactionQueryBuilder(Map<String, FieldDef> fieldsMap, DateRangeResolver dateRangeResolver, SqlPredicates sqlPredicates) {
+        this(fieldsMap, dateRangeResolver, sqlPredicates, null);
+    }
+
+    public TransactionQueryBuilder(Map<String, FieldDef> fieldsMap, DateRangeResolver dateRangeResolver,
+                                   SqlPredicates sqlPredicates, BillingCycleService billingCycleService) {
         super(MAPPINGS, fieldsMap, sqlPredicates, dateRangeResolver);
+        this.billingCycleService = billingCycleService;
+    }
+
+    /**
+     * Billing-cycle operators: each credit card keeps its own cycle window, other accounts are
+     * excluded. Bound as one (account AND date range) disjunct per card.
+     */
+    @Override
+    protected String specialPredicate(FilterClause filter, UUID userId, Map<String, Object> params, Set<String> joins, int idx) {
+        FieldDef field = catalogFields.get(filter.field());
+        if (field == null || field.type() != FieldType.DATE || !CycleOperators.isCycle(filter.operator())) {
+            return null;
+        }
+        CycleWindows windows = requireCycles().windows(userId, CycleOperators.cyclesAgo(filter), LocalDate.now());
+        String expr = expression(filter.field(), joins);
+        List<String> parts = new ArrayList<>();
+        int i = 0;
+        for (Map.Entry<UUID, Cycle> e : windows.byCard().entrySet()) {
+            String p = "f" + idx + "_c" + i++;
+            params.put(p + "a", e.getKey().toString());
+            params.put(p + "s", e.getValue().start());
+            params.put(p + "e", e.getValue().end());
+            parts.add("(t.account_id = :" + p + "a AND " + expr + " BETWEEN :" + p + "s AND :" + p + "e)");
+        }
+        return parts.isEmpty() ? "1 = 0" : "(" + String.join(" OR ", parts) + ")";
+    }
+
+    private BillingCycleService requireCycles() {
+        if (billingCycleService == null) {
+            throw new IllegalStateException("Billing cycles are not available on this query builder");
+        }
+        return billingCycleService;
     }
 
     @Override
@@ -92,6 +145,36 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
 
     @Override
     public String fromClause(Set<String> joins) {
+        if (joins.contains(JOIN_BILLING_CYCLES)) {
+            throw new IllegalStateException("The billing cycle join binds parameters; use fromClause(joins, params, userId)");
+        }
+        return baseFrom(joins);
+    }
+
+    /** Adds the user's card cycle table (bound rows) when the billing-cycle dimension is used. */
+    @Override
+    public String fromClause(Set<String> joins, Map<String, Object> params, UUID userId) {
+        String from = baseFrom(joins);
+        if (!joins.contains(JOIN_BILLING_CYCLES)) {
+            return from;
+        }
+        List<BillingCycleService.CardCycle> rows = requireCycles().cycleTable(userId, LocalDate.now());
+        List<String> selects = new ArrayList<>();
+        for (int i = 0; i < rows.size(); i++) {
+            BillingCycleService.CardCycle row = rows.get(i);
+            params.put("bc" + i + "a", row.accountId().toString());
+            params.put("bc" + i + "s", row.start());
+            params.put("bc" + i + "e", row.end());
+            selects.add("SELECT :bc" + i + "a AS account_id, :bc" + i + "s AS cs, :bc" + i + "e AS ce FROM dual");
+        }
+        String table = selects.isEmpty()
+                ? "SELECT CAST(NULL AS VARCHAR2(36)) AS account_id, CAST(NULL AS DATE) AS cs, CAST(NULL AS DATE) AS ce FROM dual WHERE 1 = 0"
+                : String.join(" UNION ALL ", selects);
+        return from + " LEFT JOIN (" + table + ") bc ON bc.account_id = t.account_id"
+                + " AND COALESCE(t.settlement_date, t.transaction_date) BETWEEN bc.cs AND bc.ce";
+    }
+
+    private String baseFrom(Set<String> joins) {
         StringBuilder sb = new StringBuilder(" FROM transactions t");
         if (joins.contains(JOIN_ACCOUNTS) || joins.contains(JOIN_CARDS)) {
             sb.append(" LEFT JOIN accounts a ON a.id = t.account_id");

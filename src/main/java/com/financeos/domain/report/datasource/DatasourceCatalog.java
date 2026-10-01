@@ -2,6 +2,7 @@ package com.financeos.domain.report.datasource;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.financeos.domain.account.cycle.CycleOperators;
 import com.financeos.domain.report.ReportType;
 import com.financeos.domain.transaction.ReviewType;
 import org.springframework.stereotype.Component;
@@ -40,22 +41,37 @@ public class DatasourceCatalog {
              * Filters store that id (the dropdown shows the label), so renames and relabels never
              * break a saved filter; a filter holding the label still matches.
              */
-            String idField) {
+            String idField,
+            /* DATE fields only: true when the billing-cycle operators apply (credit-card rows). */
+            Boolean billingCycle) {
+
+        public FieldDef(String name, String label, FieldType type, FieldRole role,
+                        List<Aggregation> aggregations, List<String> values,
+                        Boolean dynamic, List<ReportType> allowedInReports, String format, String idField) {
+            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, format, idField, null);
+        }
 
         public FieldDef(String name, String label, FieldType type, FieldRole role,
                         List<Aggregation> aggregations, List<String> values,
                         Boolean dynamic, List<ReportType> allowedInReports, String format) {
-            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, format, null);
+            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, format, null, null);
+        }
+
+        /** A DATE dimension that supports the billing-cycle operators. */
+        public static FieldDef cycleDate(String name, String label, List<ReportType> allowedInReports) {
+            return new FieldDef(name, label, FieldType.DATE, FieldRole.DIMENSION, null, null, null,
+                    allowedInReports, null, null, true);
         }
 
         public FieldDef(String name, String label, FieldType type, FieldRole role,
                         List<Aggregation> aggregations, List<String> values,
                         Boolean dynamic, List<ReportType> allowedInReports) {
-            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, null, null);
+            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, null, null, null);
         }
     }
 
-    public record DateOperators(List<String> absolute, List<String> relative) {
+    /** {@code cycle} operators apply only to DATE fields flagged {@code billingCycle}. */
+    public record DateOperators(List<String> absolute, List<String> relative, List<String> cycle) {
     }
 
     public record OperatorCatalog(
@@ -86,7 +102,8 @@ public class DatasourceCatalog {
             List.of("is", "after", "before", "between"),
             List.of("this_month", "this_week", "this_year", "previous_month",
                     "previous_week", "previous_year", "last_x_days", "last_x_months",
-                    "last_x_years", "today", "yesterday", "current_fy", "prev_fy", "all_time"));
+                    "last_x_years", "today", "yesterday", "current_fy", "prev_fy", "all_time"),
+            CycleOperators.PUBLIC);
 
     private static final List<String> STRING_OPERATORS =
             List.of("exact", "starts_with", "ends_with", "contains", "in");
@@ -110,7 +127,7 @@ public class DatasourceCatalog {
 
     private static final List<FieldDef> FIELDS = List.of(
             new FieldDef("amount", "Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
-            new FieldDef("date", "Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
+            FieldDef.cycleDate("date", "Date", CHART_TABLE),
             new FieldDef("type", "Type", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("DEBIT", "CREDIT"), null, CHART_TABLE),
             new FieldDef("category", "Category", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
@@ -128,7 +145,8 @@ public class DatasourceCatalog {
             new FieldDef("isLoanLeg", "Is loan leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("linkType", "Link type", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("TRANSFER", "CC_PAYMENT", "REFUND", "REVERSAL", "FEE", "EMI"), null, CHART_TABLE),
-            new FieldDef("settlementDate", "Settlement date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
+            FieldDef.cycleDate("settlementDate", "Settlement date", CHART_TABLE),
+            new FieldDef("billingCycle", "Billing cycle", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
             new FieldDef("reviewType", "Review status", FieldType.ENUM, FieldRole.DIMENSION, null,
                     Arrays.stream(ReviewType.values()).map(Enum::name).toList(), null, CHART_TABLE),
             new FieldDef("mcc", "MCC", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
@@ -172,6 +190,7 @@ public class DatasourceCatalog {
             case DATE -> {
                 Set<String> s = new HashSet<>(DATE_OPERATORS.absolute());
                 s.addAll(DATE_OPERATORS.relative());
+                // Billing-cycle operators are per field (billingCycle), validated separately.
                 yield s;
             }
             case STRING -> Set.copyOf(STRING_OPERATORS);

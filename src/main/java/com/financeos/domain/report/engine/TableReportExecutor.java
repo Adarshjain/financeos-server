@@ -74,13 +74,13 @@ public class TableReportExecutor {
             colTypes.add(field != null ? field.type() : FieldType.STRING);
         }
 
-        long total = count("SELECT COUNT(*)" + queryBuilder.fromClause(joins) + where, params);
+        long total = count("SELECT COUNT(*)" + queryBuilder.fromClause(joins, params, userId) + where, params);
 
         StringBuilder sql = new StringBuilder("SELECT " + queryBuilder.idExpression() + " AS row_id");
         for (int i = 0; i < selectExprs.size(); i++) {
             sql.append(", ").append(selectExprs.get(i)).append(" AS c").append(i);
         }
-        sql.append(queryBuilder.fromClause(joins)).append(where);
+        sql.append(queryBuilder.fromClause(joins, params, userId)).append(where);
         sql.append(rawOrderBy(def.sort(), datasource, queryBuilder, joins));
         sql.append(pagination(page, size));
 
@@ -171,7 +171,7 @@ public class TableReportExecutor {
         groupExprs.addAll(colExprs);
 
         StringBuilder sql = new StringBuilder("SELECT ").append(String.join(", ", selects));
-        sql.append(queryBuilder.fromClause(joins)).append(where);
+        sql.append(queryBuilder.fromClause(joins, params, userId)).append(where);
         sql.append(" GROUP BY ").append(String.join(", ", groupExprs));
         sql.append(aggregatedOrderBy(def.sort(), rowDims, rowExprs, colExprs, measureExprs, measureKeys,
                 colDims.isEmpty()));

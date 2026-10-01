@@ -150,6 +150,9 @@ public class DateRangeResolver {
             return DateRange.unbounded();
         }
         String op = dateFilter.operator();
+        if (com.financeos.domain.account.cycle.CycleOperators.isCycle(op)) {
+            return DateRange.unbounded(); // per card, no single window (see CycleWindows)
+        }
         return switch (op) {
             case "between" -> DateRange.of(
                     LocalDate.parse(dateFilter.value().get("from").asText()),

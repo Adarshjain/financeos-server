@@ -7737,12 +7737,17 @@ components:
           type: array
           items:
             type: string
+        cycle:
+          type: array
+          items:
+            type: string
         relative:
           type: array
           items:
             type: string
       required:
       - absolute
+      - cycle
       - relative
     DeleteAccountRequest:
       type: object
@@ -7991,6 +7996,8 @@ components:
             - KPI
             - CHART
             - TABLE
+        billingCycle:
+          type: boolean
         dynamic:
           type: boolean
         format:
@@ -8022,6 +8029,7 @@ components:
       required:
       - aggregations
       - allowedInReports
+      - billingCycle
       - dynamic
       - format
       - idField

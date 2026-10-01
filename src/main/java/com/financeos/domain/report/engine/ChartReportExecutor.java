@@ -54,7 +54,7 @@ public class ChartReportExecutor {
 
         // True contributing-row count (DISTINCT guards against dimension-join fan-out,
         // e.g. the transactions category many-to-many).
-        long rowCount = countRows(queryBuilder, joins, where, params);
+        long rowCount = countRows(queryBuilder, joins, where, params, userId);
 
         DimensionRef dimRef = def.dimension();
         String dimSql = dimensionSql(queryBuilder, dimRef, joins);
@@ -67,7 +67,7 @@ public class ChartReportExecutor {
             sql.append(", ").append(seriesSql).append(" AS series_key");
         }
         sql.append(", ").append(aggFn).append("(").append(measureExpr).append(") AS val");
-        sql.append(queryBuilder.fromClause(joins)).append(where);
+        sql.append(queryBuilder.fromClause(joins, params, userId)).append(where);
         sql.append(" GROUP BY ").append(dimSql);
         if (hasSeries) {
             sql.append(", ").append(seriesSql);
@@ -85,8 +85,8 @@ public class ChartReportExecutor {
         return pivot(def, datasource, dimRef, seriesRef, hasSeries, rows, rowCount, filters);
     }
 
-    private long countRows(ReportQueryBuilder queryBuilder, Set<String> whereJoins, String where, Map<String, Object> params) {
-        String sql = "SELECT COUNT(DISTINCT " + queryBuilder.idExpression() + ")" + queryBuilder.fromClause(whereJoins) + where;
+    private long countRows(ReportQueryBuilder queryBuilder, Set<String> whereJoins, String where, Map<String, Object> params, UUID userId) {
+        String sql = "SELECT COUNT(DISTINCT " + queryBuilder.idExpression() + ")" + queryBuilder.fromClause(whereJoins, params, userId) + where;
         Query query = em.createNativeQuery(sql);
         params.forEach(query::setParameter);
         return ((Number) query.getSingleResult()).longValue();

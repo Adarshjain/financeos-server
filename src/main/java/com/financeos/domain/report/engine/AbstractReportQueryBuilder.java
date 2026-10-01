@@ -67,7 +67,7 @@ public abstract class AbstractReportQueryBuilder implements ReportQueryBuilder {
         if (filters != null) {
             int idx = 0;
             for (FilterClause filter : filters) {
-                String predicate = predicate(filter, params, joins, idx++);
+                String predicate = predicate(filter, userId, params, joins, idx++);
                 if (predicate != null) {
                     predicates.add(predicate);
                 }
@@ -76,8 +76,8 @@ public abstract class AbstractReportQueryBuilder implements ReportQueryBuilder {
         return " WHERE " + String.join(" AND ", predicates);
     }
 
-    protected String predicate(FilterClause filter, Map<String, Object> params, Set<String> joins, int idx) {
-        String special = specialPredicate(filter, params, joins, idx);
+    protected String predicate(FilterClause filter, UUID userId, Map<String, Object> params, Set<String> joins, int idx) {
+        String special = specialPredicate(filter, userId, params, joins, idx);
         if (special != null) {
             return special;
         }
@@ -90,7 +90,7 @@ public abstract class AbstractReportQueryBuilder implements ReportQueryBuilder {
         return sqlPredicates.build(type, expr, filter.operator(), filter.value(), params, "f" + idx);
     }
 
-    protected String specialPredicate(FilterClause filter, Map<String, Object> params, Set<String> joins, int idx) {
+    protected String specialPredicate(FilterClause filter, UUID userId, Map<String, Object> params, Set<String> joins, int idx) {
         return null;
     }
 

@@ -95,6 +95,11 @@ public class RewardEarningsDatasource implements ComputedReportDatasource {
     }
 
     @Override
+    public String cycleAccountKey() {
+        return "cardId";
+    }
+
+    @Override
     public List<Map<String, Object>> rows() {
         return rows(null);
     }
@@ -200,8 +205,8 @@ public class RewardEarningsDatasource implements ComputedReportDatasource {
         List<String> unitValues = List.of(UNIT_RUPEES, UNIT_POINTS);
 
         return List.of(
-                new FieldDef("effectiveDate", "Effective Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
-                new FieldDef("transactionDate", "Transaction Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
+                FieldDef.cycleDate("effectiveDate", "Effective Date", CHART_TABLE),
+                FieldDef.cycleDate("transactionDate", "Transaction Date", TABLE_ONLY),
                 new FieldDef("card", "Card", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE, null, "cardId"),
                 new FieldDef("cardholder", "Cardholder", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("rule", "Rule", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE, null, "ruleId"),
@@ -212,7 +217,7 @@ public class RewardEarningsDatasource implements ComputedReportDatasource {
                 new FieldDef("accrualType", "Accrual type", FieldType.ENUM, FieldRole.DIMENSION, null, names(AccrualType.values()), null, CHART_TABLE),
                 new FieldDef("channel", "Channel", FieldType.ENUM, FieldRole.DIMENSION, null, channelValues, null, CHART_TABLE),
                 new FieldDef("mcc", "MCC", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
-                new FieldDef("cycle", "Statement cycle", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
+                new FieldDef("cycle", "Billing cycle", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
                 new FieldDef("rewardYear", "Reward year", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
                 new FieldDef("description", "Description", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
                 new FieldDef("valueInr", "Reward value (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
