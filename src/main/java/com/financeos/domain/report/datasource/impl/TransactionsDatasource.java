@@ -1,5 +1,6 @@
 package com.financeos.domain.report.datasource.impl;
 
+import com.financeos.domain.account.cycle.BillingCycleService;
 import com.financeos.domain.report.datasource.DatasourceCatalog;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.ReportDatasource;
@@ -21,9 +22,10 @@ public class TransactionsDatasource implements ReportDatasource {
 
     private final TransactionQueryBuilder queryBuilder;
 
-    public TransactionsDatasource(SqlPredicates sqlPredicates, DateRangeResolver dateRangeResolver) {
+    public TransactionsDatasource(SqlPredicates sqlPredicates, DateRangeResolver dateRangeResolver,
+                                  BillingCycleService billingCycleService) {
         Map<String, FieldDef> fieldsMap = FIELDS.stream().collect(Collectors.toMap(FieldDef::name, f -> f));
-        this.queryBuilder = new TransactionQueryBuilder(fieldsMap, dateRangeResolver, sqlPredicates);
+        this.queryBuilder = new TransactionQueryBuilder(fieldsMap, dateRangeResolver, sqlPredicates, billingCycleService);
     }
 
     @Override

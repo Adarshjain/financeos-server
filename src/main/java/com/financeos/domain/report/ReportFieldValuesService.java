@@ -107,7 +107,7 @@ public class ReportFieldValuesService {
             Map<String, Object> params = new HashMap<>();
             String expr = queryBuilder.expression(f.name(), joins);
             String where = queryBuilder.buildWhere(List.of(), userId, params, joins);
-            String sql = "SELECT DISTINCT " + expr + " AS v" + queryBuilder.fromClause(joins) + where
+            String sql = "SELECT DISTINCT " + expr + " AS v" + queryBuilder.fromClause(joins, params, userId) + where
                     + " ORDER BY 1 FETCH FIRST " + MAX_VALUES + " ROWS ONLY";
             Query query = em.createNativeQuery(sql);
             params.forEach(query::setParameter);

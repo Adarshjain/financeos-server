@@ -2,6 +2,9 @@ package com.financeos.domain.report.engine;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.financeos.domain.account.cycle.BillingCycleService;
+import com.financeos.domain.account.cycle.CycleOperators;
+import com.financeos.domain.account.cycle.CycleWindows;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.definition.Comparison;
@@ -15,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,9 +35,11 @@ public class KpiReportExecutor {
     private EntityManager em;
 
     private final DateRangeResolver dateRangeResolver;
+    private final BillingCycleService billingCycleService;
 
-    public KpiReportExecutor(DateRangeResolver dateRangeResolver) {
+    public KpiReportExecutor(DateRangeResolver dateRangeResolver, BillingCycleService billingCycleService) {
         this.dateRangeResolver = dateRangeResolver;
+        this.billingCycleService = billingCycleService;
     }
 
     @Transactional(readOnly = true)
@@ -44,6 +50,9 @@ public class KpiReportExecutor {
         Aggregate main = runAggregate(def, queryBuilder, filters, userId);
 
         FilterClause dateFilter = dateRangeResolver.findDateFilter(datasource, filters);
+        if (CycleOperators.isCycle(dateFilter)) {
+            return cycleKpi(def, datasource, queryBuilder, filters, dateFilter, main, userId);
+        }
         DateRange currentRange = dateRangeResolver.effectiveRange(dateFilter);
 
         KpiData.Comparison comparison = null;
@@ -71,6 +80,47 @@ public class KpiReportExecutor {
     private record Aggregate(BigDecimal value, long rowCount) {
     }
 
+    /**
+     * A billing-cycle date filter: each card has its own window, so the comparison is "the
+     * cycle before" per card (not a flat date shift). Meta and the previous range report the
+     * span covered by all cards' windows.
+     */
+    private KpiData cycleKpi(KpiDefinition def, ReportDatasource datasource, ReportQueryBuilder queryBuilder,
+                             List<FilterClause> filters, FilterClause dateFilter, Aggregate main, UUID userId) {
+        int cyclesAgo = CycleOperators.cyclesAgo(dateFilter);
+        LocalDate today = LocalDate.now();
+        CycleWindows current = billingCycleService.windows(userId, cyclesAgo, today);
+
+        KpiData.Comparison comparison = null;
+        if (comparisonEnabled(def.comparison()) && !current.byCard().isEmpty()) {
+            CycleWindows previous = billingCycleService.windows(userId, cyclesAgo + 1, today);
+            List<FilterClause> previousFilters = withCyclesAgo(filters, dateFilter, cyclesAgo + 1);
+            Aggregate prior = runAggregate(def, queryBuilder, previousFilters, userId);
+            Boolean higherIsBetter = def.comparison() == null ? null : def.comparison().higherIsBetter();
+            comparison = buildComparison(main.value(), prior.value(),
+                    DateRange.of(previous.earliestStart(), previous.latestEnd()), higherIsBetter);
+        }
+        KpiData.Meta meta = new KpiData.Meta(main.rowCount(), current.byCard().isEmpty() ? null
+                : new KpiData.DateRangeView(current.earliestStart(), current.latestEnd()));
+        var measureField = datasource.field(def.measure());
+        String format = measureField != null ? measureField.format() : null;
+        return new KpiData("KPI", main.value(), def.measure(), def.aggregation().json(), format, comparison, meta);
+    }
+
+    /** Replaces the cycle filter with the same field, {@code cyclesAgo} cycles back. */
+    static List<FilterClause> withCyclesAgo(List<FilterClause> filters, FilterClause dateFilter, int cyclesAgo) {
+        List<FilterClause> out = new ArrayList<>();
+        for (FilterClause filter : filters) {
+            if (filter != dateFilter) {
+                out.add(filter);
+            }
+        }
+        ObjectNode value = JsonNodeFactory.instance.objectNode();
+        value.put("amount", cyclesAgo);
+        out.add(new FilterClause(dateFilter.field(), CycleOperators.CYCLES_AGO, value));
+        return out;
+    }
+
     private Aggregate runAggregate(KpiDefinition def, ReportQueryBuilder queryBuilder, List<FilterClause> filters, UUID userId) {
         Set<String> joins = new HashSet<>();
         Map<String, Object> params = new HashMap<>();
@@ -80,7 +130,7 @@ public class KpiReportExecutor {
         String where = queryBuilder.buildWhere(filters, userId, params, joins);
 
         String sql = "SELECT " + aggFn + "(" + measureExpr + ") AS agg_value, COUNT(*) AS row_count"
-                + queryBuilder.fromClause(joins) + where;
+                + queryBuilder.fromClause(joins, params, userId) + where;
 
         Query query = em.createNativeQuery(sql);
         params.forEach(query::setParameter);

@@ -26,6 +26,14 @@ public interface ComputedReportDatasource extends ReportDatasource {
         return rows();
     }
 
+    /**
+     * The row key holding the credit-card account id, so billing-cycle date filters can keep
+     * each row to its own card's cycle. Null (the default) = billing-cycle filters match nothing.
+     */
+    default String cycleAccountKey() {
+        return null;
+    }
+
     /** The bounded window of a run's date filter (both ends inclusive). */
     record DateHint(String field, LocalDate from, LocalDate to) {
     }

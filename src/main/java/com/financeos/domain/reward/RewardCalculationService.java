@@ -9,9 +9,8 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.card.Cardholder;
 import com.financeos.domain.account.card.CardholderRepository;
-import com.financeos.domain.statement.Statement;
+import com.financeos.domain.account.cycle.BillingCycles;
 import com.financeos.domain.statement.StatementRepository;
-import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionChannel;
 import com.financeos.domain.transaction.TransactionRepository;
@@ -288,7 +287,8 @@ public class RewardCalculationService {
         boolean currentTxnAttributionIncomplete = false;
         boolean cycleFallback = false;
         boolean anniversaryFallback = false;
-        List<Statement> statements = List.of();
+        /** The card's billing cycles (statements, projected between and after them). */
+        BillingCycles cycles = BillingCycles.fromStatements(List.of());
         LocalDate anniversaryDate;
         /** Unit stamped on zero lines: the card's default reward type. */
         String zeroLineUnit = UNIT_RUPEES;
@@ -422,10 +422,7 @@ public class RewardCalculationService {
             eval.cardholderLabels.put(ch.getId(), ch.getDisplayName());
         }
         rules = usableRules;
-        eval.statements = statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId).stream()
-                .filter(s -> s.getVerdict() != StatementVerdict.REJECTED)
-                .filter(s -> s.getPeriodStart() != null && s.getPeriodEnd() != null)
-                .toList();
+        eval.cycles = BillingCycles.fromStatements(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId));
 
         LocalDate expandedFrom = from;
         LocalDate expandedTo = to;
@@ -941,15 +938,14 @@ public class RewardCalculationService {
                 yield new Window(start, end, false);
             }
             case STATEMENT_CYCLE -> {
-                for (Statement statement : eval.statements) {
-                    if (!date.isBefore(statement.getPeriodStart()) && !date.isAfter(statement.getPeriodEnd())) {
-                        yield new Window(statement.getPeriodStart(), statement.getPeriodEnd(), false);
-                    }
-                }
-                if (markFallback) {
+                // A statement's period, else a cycle projected from the nearest statement (the
+                // current cycle has no statement until it closes); the calendar month only when
+                // the card has no statements at all.
+                BillingCycles.Cycle cycle = eval.cycles.containing(date);
+                if (cycle.calendarFallback() && markFallback) {
                     eval.cycleFallback = true;
                 }
-                yield new Window(date.withDayOfMonth(1), date.withDayOfMonth(date.lengthOfMonth()), true);
+                yield new Window(cycle.start(), cycle.end(), cycle.calendarFallback());
             }
         };
     }
