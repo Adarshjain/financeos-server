@@ -12428,6 +12428,8 @@ components:
     SingleDatasourceView:
       type: object
       properties:
+        billingCycleAccountField:
+          type: string
         fields:
           type: array
           items:
@@ -12437,6 +12439,7 @@ components:
         name:
           type: string
       required:
+      - billingCycleAccountField
       - fields
       - label
       - name

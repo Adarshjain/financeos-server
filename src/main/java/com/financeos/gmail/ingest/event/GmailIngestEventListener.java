@@ -1,5 +1,6 @@
 package com.financeos.gmail.ingest.event;
 
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.job.JobService;
 import com.financeos.domain.job.JobTrigger;
 import com.financeos.domain.job.JobType;
@@ -20,7 +21,6 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import java.time.Instant;
-import java.time.ZoneOffset;
 import java.util.List;
 
 @Component
@@ -51,7 +51,7 @@ public class GmailIngestEventListener {
         if (event.last4() != null && !event.last4().isBlank() && event.ingestFromDate() != null) {
             Instant minInstant = event.ingestFromDate()
                     .minusDays(ingestProperties.getDateWindowDays())
-                    .atStartOfDay(ZoneOffset.UTC)
+                    .atStartOfDay(AppTime.zone())
                     .toInstant();
 
             List<GmailProcessedMessage> parked = processedMessageRepository.findParkedForReactivation(

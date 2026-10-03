@@ -1,5 +1,6 @@
 package com.financeos.domain.report.engine;
 
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.cycle.BillingCycleService;
 import com.financeos.domain.account.cycle.BillingCycles.Cycle;
 import com.financeos.domain.account.cycle.CycleOperators;
@@ -49,7 +50,14 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     public static final String JOIN_LINKS = "LINKS";
     public static final String JOIN_BILLING_CYCLES = "BILLING_CYCLES";
 
-    /** "start → end" of the card cycle holding the transaction's effective date; null off cards. */
+    /**
+     * The date a transaction counts on for billing cycles: the settlement (posting) date when
+     * present, else the transaction date — banks bill by posting date, and the rewards engine
+     * uses the same rule.
+     */
+    public static final String EFFECTIVE_DATE = "COALESCE(t.settlement_date, t.transaction_date)";
+
+    /** "start → end" of the account's cycle holding the transaction's effective date. */
     public static final String BILLING_CYCLE_DIM =
             "CASE WHEN bc.cs IS NULL THEN NULL ELSE TO_CHAR(bc.cs, 'YYYY-MM-DD') || ' → ' || TO_CHAR(bc.ce, 'YYYY-MM-DD') END";
 
@@ -102,8 +110,10 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     }
 
     /**
-     * Billing-cycle operators: each credit card keeps its own cycle window, other accounts are
-     * excluded. Bound as one (account AND date range) disjunct per card.
+     * Billing-cycle operators: each account keeps its own cycle window (a credit card's from its
+     * statements, any other account's calendar month), matched on {@link #EFFECTIVE_DATE}
+     * whichever date field carries the operator. Bound as one (account AND range) disjunct per
+     * account; the validator limits the report to one account.
      */
     @Override
     protected String specialPredicate(FilterClause filter, UUID userId, Map<String, Object> params, Set<String> joins, int idx) {
@@ -111,16 +121,15 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
         if (field == null || field.type() != FieldType.DATE || !CycleOperators.isCycle(filter.operator())) {
             return null;
         }
-        CycleWindows windows = requireCycles().windows(userId, CycleOperators.cyclesAgo(filter), LocalDate.now());
-        String expr = expression(filter.field(), joins);
+        CycleWindows windows = requireCycles().windows(userId, CycleOperators.cyclesAgo(filter), AppTime.today());
         List<String> parts = new ArrayList<>();
         int i = 0;
-        for (Map.Entry<UUID, Cycle> e : windows.byCard().entrySet()) {
+        for (Map.Entry<UUID, Cycle> e : windows.byAccount().entrySet()) {
             String p = "f" + idx + "_c" + i++;
             params.put(p + "a", e.getKey().toString());
             params.put(p + "s", e.getValue().start());
             params.put(p + "e", e.getValue().end());
-            parts.add("(t.account_id = :" + p + "a AND " + expr + " BETWEEN :" + p + "s AND :" + p + "e)");
+            parts.add("(t.account_id = :" + p + "a AND " + EFFECTIVE_DATE + " BETWEEN :" + p + "s AND :" + p + "e)");
         }
         return parts.isEmpty() ? "1 = 0" : "(" + String.join(" OR ", parts) + ")";
     }
@@ -158,10 +167,10 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
         if (!joins.contains(JOIN_BILLING_CYCLES)) {
             return from;
         }
-        List<BillingCycleService.CardCycle> rows = requireCycles().cycleTable(userId, LocalDate.now());
+        List<BillingCycleService.AccountCycle> rows = requireCycles().cycleTable(userId, AppTime.today());
         List<String> selects = new ArrayList<>();
         for (int i = 0; i < rows.size(); i++) {
-            BillingCycleService.CardCycle row = rows.get(i);
+            BillingCycleService.AccountCycle row = rows.get(i);
             params.put("bc" + i + "a", row.accountId().toString());
             params.put("bc" + i + "s", row.start());
             params.put("bc" + i + "e", row.end());
@@ -171,7 +180,7 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
                 ? "SELECT CAST(NULL AS VARCHAR2(36)) AS account_id, CAST(NULL AS DATE) AS cs, CAST(NULL AS DATE) AS ce FROM dual WHERE 1 = 0"
                 : String.join(" UNION ALL ", selects);
         return from + " LEFT JOIN (" + table + ") bc ON bc.account_id = t.account_id"
-                + " AND COALESCE(t.settlement_date, t.transaction_date) BETWEEN bc.cs AND bc.ce";
+                + " AND " + EFFECTIVE_DATE + " BETWEEN bc.cs AND bc.ce";
     }
 
     private String baseFrom(Set<String> joins) {

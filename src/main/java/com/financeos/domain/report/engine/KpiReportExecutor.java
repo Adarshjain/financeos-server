@@ -2,6 +2,7 @@ package com.financeos.domain.report.engine;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.cycle.BillingCycleService;
 import com.financeos.domain.account.cycle.CycleOperators;
 import com.financeos.domain.account.cycle.CycleWindows;
@@ -50,20 +51,31 @@ public class KpiReportExecutor {
         Aggregate main = runAggregate(def, queryBuilder, filters, userId);
 
         FilterClause dateFilter = dateRangeResolver.findDateFilter(datasource, filters);
+        DateRange currentRange;
+        DateRange previous = DateRange.unbounded();
+        List<FilterClause> previousFilters = null;
         if (CycleOperators.isCycle(dateFilter)) {
-            return cycleKpi(def, datasource, queryBuilder, filters, dateFilter, main, userId);
+            // Billing cycle: the report is limited to one account, whose cycle (and the one
+            // before it) gives the range; the comparison steps back one cycle, not a flat shift.
+            String accountRef = CycleOperators.singleAccountRef(datasource.billingCycleAccountField(), filters);
+            int cyclesAgo = CycleOperators.cyclesAgo(dateFilter);
+            LocalDate today = AppTime.today();
+            currentRange = span(billingCycleService.windows(userId, cyclesAgo, today, accountRef));
+            previous = span(billingCycleService.windows(userId, cyclesAgo + 1, today, accountRef));
+            previousFilters = withCyclesAgo(filters, dateFilter, cyclesAgo + 1);
+        } else {
+            currentRange = dateRangeResolver.effectiveRange(dateFilter);
+            if (dateFilter != null && currentRange.bounded()) {
+                previous = dateRangeResolver.previousPeriod(dateFilter.operator(), currentRange);
+                previousFilters = withDateRange(filters, dateFilter, previous);
+            }
         }
-        DateRange currentRange = dateRangeResolver.effectiveRange(dateFilter);
 
         KpiData.Comparison comparison = null;
-        if (comparisonEnabled(def.comparison()) && dateFilter != null && currentRange.bounded()) {
-            DateRange previous = dateRangeResolver.previousPeriod(dateFilter.operator(), currentRange);
-            if (previous.bounded()) {
-                List<FilterClause> previousFilters = withDateRange(filters, dateFilter, previous);
-                Aggregate prior = runAggregate(def, queryBuilder, previousFilters, userId);
-                Boolean higherIsBetter = def.comparison() == null ? null : def.comparison().higherIsBetter();
-                comparison = buildComparison(main.value(), prior.value(), previous, higherIsBetter);
-            }
+        if (comparisonEnabled(def.comparison()) && previousFilters != null && currentRange.bounded() && previous.bounded()) {
+            Aggregate prior = runAggregate(def, queryBuilder, previousFilters, userId);
+            Boolean higherIsBetter = def.comparison() == null ? null : def.comparison().higherIsBetter();
+            comparison = buildComparison(main.value(), prior.value(), previous, higherIsBetter);
         }
 
         KpiData.Meta meta = new KpiData.Meta(
@@ -80,31 +92,10 @@ public class KpiReportExecutor {
     private record Aggregate(BigDecimal value, long rowCount) {
     }
 
-    /**
-     * A billing-cycle date filter: each card has its own window, so the comparison is "the
-     * cycle before" per card (not a flat date shift). Meta and the previous range report the
-     * span covered by all cards' windows.
-     */
-    private KpiData cycleKpi(KpiDefinition def, ReportDatasource datasource, ReportQueryBuilder queryBuilder,
-                             List<FilterClause> filters, FilterClause dateFilter, Aggregate main, UUID userId) {
-        int cyclesAgo = CycleOperators.cyclesAgo(dateFilter);
-        LocalDate today = LocalDate.now();
-        CycleWindows current = billingCycleService.windows(userId, cyclesAgo, today);
-
-        KpiData.Comparison comparison = null;
-        if (comparisonEnabled(def.comparison()) && !current.byCard().isEmpty()) {
-            CycleWindows previous = billingCycleService.windows(userId, cyclesAgo + 1, today);
-            List<FilterClause> previousFilters = withCyclesAgo(filters, dateFilter, cyclesAgo + 1);
-            Aggregate prior = runAggregate(def, queryBuilder, previousFilters, userId);
-            Boolean higherIsBetter = def.comparison() == null ? null : def.comparison().higherIsBetter();
-            comparison = buildComparison(main.value(), prior.value(),
-                    DateRange.of(previous.earliestStart(), previous.latestEnd()), higherIsBetter);
-        }
-        KpiData.Meta meta = new KpiData.Meta(main.rowCount(), current.byCard().isEmpty() ? null
-                : new KpiData.DateRangeView(current.earliestStart(), current.latestEnd()));
-        var measureField = datasource.field(def.measure());
-        String format = measureField != null ? measureField.format() : null;
-        return new KpiData("KPI", main.value(), def.measure(), def.aggregation().json(), format, comparison, meta);
+    /** The range covered by cycle windows (one account's cycle in practice); unbounded when none. */
+    static DateRange span(CycleWindows windows) {
+        return windows.byAccount().isEmpty() ? DateRange.unbounded()
+                : DateRange.of(windows.earliestStart(), windows.latestEnd());
     }
 
     /** Replaces the cycle filter with the same field, {@code cyclesAgo} cycles back. */

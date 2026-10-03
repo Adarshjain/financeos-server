@@ -6,6 +6,7 @@ import com.financeos.api.instrument.dto.InstrumentResponse;
 import com.financeos.api.instrument.dto.UpsertPriceRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.instrument.price.PriceRefreshEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -126,7 +127,7 @@ public class InstrumentService {
         Instrument instrument = instrumentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Instrument", id));
 
-        LocalDate asOf = request.asOf() != null ? request.asOf() : LocalDate.now();
+        LocalDate asOf = request.asOf() != null ? request.asOf() : AppTime.today();
         Optional<InstrumentPrice> existingPrice = priceRepository.findByInstrumentIdAndAsOf(id, asOf);
 
         InstrumentPrice price;

@@ -4,6 +4,7 @@ import com.financeos.api.investment.dto.*;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.holding.Holding;
 import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.Instrument;
@@ -23,7 +24,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -208,7 +208,7 @@ public class DividendService {
             for (Holding h : symbolHoldings) {
                 List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(h.getId());
                 if (!txns.isEmpty()) {
-                    Instant txnDate = txns.get(0).getTradeDate().atStartOfDay(ZoneId.of("Asia/Kolkata")).toInstant();
+                    Instant txnDate = txns.get(0).getTradeDate().atStartOfDay(AppTime.zone()).toInstant();
                     if (period1 == null || txnDate.isBefore(period1)) {
                         period1 = txnDate;
                     }

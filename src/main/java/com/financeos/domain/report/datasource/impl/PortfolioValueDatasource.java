@@ -1,5 +1,6 @@
 package com.financeos.domain.report.datasource.impl;
 
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.holding.Holding;
 import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.InstrumentPrice;
@@ -128,7 +129,7 @@ public class PortfolioValueDatasource implements ComputedReportDatasource {
             return List.of();
         }
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = AppTime.today();
         List<LocalDate> valueDates = new ArrayList<>();
         LocalDate currentMonthEnd = earliestDate.withDayOfMonth(1).plusMonths(1).minusDays(1);
         while (currentMonthEnd.isBefore(today.withDayOfMonth(1))) {

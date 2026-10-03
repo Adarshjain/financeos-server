@@ -98,6 +98,9 @@ management:
 # Application-specific configuration
 app:
   version: "@project.version@-@gitSha@"
+  # The users' calendar zone. Every business date (transactions, statements, dues) is a
+  # date in this zone, so "today" is computed here, not in the server's zone (UTC).
+  zone: ${APP_ZONE:Asia/Kolkata}
   encryption:
     key: ${ENCRYPTION_KEY:your-32-byte-base64-encoded-key-here==}
   cors:

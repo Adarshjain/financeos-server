@@ -7,6 +7,7 @@ import com.financeos.api.reward.dto.RewardRecommendationRequest;
 import com.financeos.api.reward.dto.RewardRecommendationResponse;
 import com.financeos.chat.tool.ChatTool;
 import com.financeos.chat.tool.ChatToolResult;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.reward.RewardRecommendationService;
 import com.financeos.domain.transaction.TransactionChannel;
 import org.springframework.stereotype.Component;
@@ -76,7 +77,7 @@ public class RecommendCardTool implements ChatTool {
 
             Boolean isEmi = args.has("isEmi") ? args.get("isEmi").asBoolean() : null;
             Boolean isIntl = args.has("isIntl") ? args.get("isIntl").asBoolean() : null;
-            LocalDate date = args.has("date") ? LocalDate.parse(args.get("date").asText()) : LocalDate.now();
+            LocalDate date = args.has("date") ? LocalDate.parse(args.get("date").asText()) : AppTime.today();
 
             List<UUID> categoryIds = new ArrayList<>();
             if (args.has("categoryIds") && args.get("categoryIds").isArray()) {

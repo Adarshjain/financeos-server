@@ -8,6 +8,7 @@ import com.financeos.api.reward.dto.RewardReportResponse;
 import com.financeos.chat.tool.ChatTool;
 import com.financeos.chat.tool.ChatToolResult;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
@@ -114,7 +115,7 @@ public class GetRewardSummaryTool implements ChatTool {
                 return ChatToolResult.success(name(), emptyNode);
             }
 
-            LocalDate today = LocalDate.now();
+            LocalDate today = AppTime.today();
             LocalDate defaultFrom = today.getMonthValue() >= 4
                     ? LocalDate.of(today.getYear(), 4, 1)
                     : LocalDate.of(today.getYear() - 1, 4, 1);

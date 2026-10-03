@@ -1,5 +1,6 @@
 package com.financeos.domain.account.card;
 
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.user.User;
 import jakarta.persistence.*;
@@ -110,11 +111,11 @@ public class Cardholder {
 
     public boolean isEffectivelyClosed() {
         LocalDate eff = effectiveClosedOn();
-        return eff != null && !eff.isAfter(LocalDate.now());
+        return eff != null && !eff.isAfter(AppTime.today());
     }
 
     public boolean isEffectivelyClosed(LocalDate asOf) {
-        LocalDate ref = asOf != null ? asOf : LocalDate.now();
+        LocalDate ref = asOf != null ? asOf : AppTime.today();
         LocalDate eff = effectiveClosedOn();
         return eff != null && !eff.isAfter(ref);
     }

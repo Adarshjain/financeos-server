@@ -7,6 +7,7 @@ import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.observability.Events;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.loan.TransactionReferenceValidator;
 import com.financeos.domain.obligation.MatchingConstants;
 import com.financeos.domain.transaction.Transaction;
@@ -426,7 +427,7 @@ public class LendingService {
     public List<ObligationItemDto> getUpcomingLendingObligations(LocalDate startDate, LocalDate endDate) {
         List<Counterparty> counterparties = counterpartyRepository.findAll();
         List<ObligationItemDto> items = new ArrayList<>();
-        LocalDate today = LocalDate.now();
+        LocalDate today = AppTime.today();
 
         for (Counterparty cp : counterparties) {
             List<Lending> entries = lendingRepository.findByCounterparty_Id(cp.getId());

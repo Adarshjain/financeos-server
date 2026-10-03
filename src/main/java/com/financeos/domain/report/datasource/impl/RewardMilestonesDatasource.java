@@ -2,6 +2,7 @@ package com.financeos.domain.report.datasource.impl;
 
 import com.financeos.api.reward.dto.RewardReportResponse.MilestoneStatus;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
@@ -89,7 +90,7 @@ public class RewardMilestonesDatasource implements ComputedReportDatasource {
             return List.of();
         }
         Map<UUID, String> labels = support.milestoneLabels(accounts);
-        LocalDate today = LocalDate.now();
+        LocalDate today = AppTime.today();
 
         List<Map<String, Object>> rows = new ArrayList<>();
         for (Account account : accounts) {

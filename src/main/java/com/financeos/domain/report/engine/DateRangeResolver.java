@@ -1,6 +1,7 @@
 package com.financeos.domain.report.engine;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.report.definition.FilterClause;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -41,7 +42,7 @@ public class DateRangeResolver {
 
     /** Resolve a relative date operator against today's date. */
     public DateRange resolveRelative(String operator, JsonNode value) {
-        return resolveRelative(operator, value, LocalDate.now());
+        return resolveRelative(operator, value, AppTime.today());
     }
 
     /** Resolve a relative date operator against a supplied "today" (exposed for testing). */
@@ -151,7 +152,7 @@ public class DateRangeResolver {
         }
         String op = dateFilter.operator();
         if (com.financeos.domain.account.cycle.CycleOperators.isCycle(op)) {
-            return DateRange.unbounded(); // per card, no single window (see CycleWindows)
+            return DateRange.unbounded(); // per account, resolved by BillingCycleService (see KpiReportExecutor)
         }
         return switch (op) {
             case "between" -> DateRange.of(

@@ -74,13 +74,15 @@ public class TableReportExecutor {
             colTypes.add(field != null ? field.type() : FieldType.STRING);
         }
 
-        long total = count("SELECT COUNT(*)" + queryBuilder.fromClause(joins, params, userId) + where, params);
+        // Built once: the FROM may bind a per-user lookup (the billing-cycle table) into params.
+        String from = queryBuilder.fromClause(joins, params, userId);
+        long total = count("SELECT COUNT(*)" + from + where, params);
 
         StringBuilder sql = new StringBuilder("SELECT " + queryBuilder.idExpression() + " AS row_id");
         for (int i = 0; i < selectExprs.size(); i++) {
             sql.append(", ").append(selectExprs.get(i)).append(" AS c").append(i);
         }
-        sql.append(queryBuilder.fromClause(joins, params, userId)).append(where);
+        sql.append(from).append(where);
         sql.append(rawOrderBy(def.sort(), datasource, queryBuilder, joins));
         sql.append(pagination(page, size));
 

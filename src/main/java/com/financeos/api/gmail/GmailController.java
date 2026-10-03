@@ -4,6 +4,7 @@ import com.financeos.api.gmail.dto.*;
 import com.financeos.api.job.dto.EnqueueResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountIdentifierService;
 import com.financeos.domain.account.AccountRepository;
@@ -325,7 +326,7 @@ public class GmailController {
     @Transactional
     public ResponseEntity<EnqueueResponse> rescan(@Valid @RequestBody RescanRequest request) {
         User currentUser = authService.getCurrentUser();
-        LocalDate minAllowed = LocalDate.now().minusDays(ingestProperties.getMaxBackfillDays());
+        LocalDate minAllowed = AppTime.today().minusDays(ingestProperties.getMaxBackfillDays());
         if (request.fromDate().isBefore(minAllowed)) {
             throw new ValidationException("Rescan date cannot be earlier than " + minAllowed);
         }

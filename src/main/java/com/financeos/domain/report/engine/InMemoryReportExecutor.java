@@ -3,6 +3,7 @@ package com.financeos.domain.report.engine;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.cycle.BillingCycleService;
 import com.financeos.domain.account.cycle.CycleOperators;
 import com.financeos.domain.account.cycle.CycleWindows;
@@ -99,26 +100,7 @@ public class InMemoryReportExecutor {
             if (prevRange.bounded()) {
                 List<Map<String, Object>> prevRows = filterRowsForDateRange(allRows, dateFilter, prevRange, def.filters(), computedDs);
                 BigDecimal prevVal = calculateAggregate(prevRows, def.measure(), def.aggregation());
-                KpiData.DateRangeView prevRangeView = new KpiData.DateRangeView(prevRange.from(), prevRange.to());
-
-                if (prevVal != null) {
-                    BigDecimal change = val != null ? val.subtract(prevVal) : null;
-                    BigDecimal changePct = null;
-                    if (val != null && prevVal.compareTo(BigDecimal.ZERO) != 0) {
-                        changePct = change.divide(prevVal.abs(), 4, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
-                    }
-                    String direction = change == null || change.compareTo(BigDecimal.ZERO) == 0 ? "flat"
-                            : (change.compareTo(BigDecimal.ZERO) > 0 ? "up" : "down");
-
-                    String sentiment = "neutral";
-                    if (def.comparison().higherIsBetter() != null && !"flat".equals(direction)) {
-                        boolean isUp = "up".equals(direction);
-                        boolean higherIsBetter = def.comparison().higherIsBetter();
-                        sentiment = (isUp == higherIsBetter) ? "good" : "bad";
-                    }
-
-                    comparison = new KpiData.Comparison(prevVal, prevRangeView, change, changePct, direction, sentiment);
-                }
+                comparison = comparison(val, prevVal, new KpiData.DateRangeView(prevRange.from(), prevRange.to()), def);
             }
         }
 
@@ -129,15 +111,15 @@ public class InMemoryReportExecutor {
     }
 
     /**
-     * KPI over a billing-cycle date filter: every card keeps its own window, so the comparison
-     * is the cycle before per card rather than a flat date shift.
+     * KPI over a billing-cycle date filter (limited to one account): the comparison is the
+     * cycle before rather than a flat date shift.
      */
     private KpiData cycleKpi(KpiDefinition def, ComputedReportDatasource ds, FilterClause dateFilter) {
         int cyclesAgo = CycleOperators.cyclesAgo(dateFilter);
-        CycleWindows current = cycleWindows(cyclesAgo);
+        CycleWindows current = cycleWindows(cyclesAgo, ds, def.filters());
         boolean compare = def.comparison() != null && Boolean.TRUE.equals(def.comparison().enabled())
-                && !current.byCard().isEmpty();
-        CycleWindows previous = compare ? cycleWindows(cyclesAgo + 1) : null;
+                && !current.byAccount().isEmpty();
+        CycleWindows previous = compare ? cycleWindows(cyclesAgo + 1, ds, def.filters()) : null;
 
         ComputedReportDatasource.DateHint hint = spanHint(dateFilter.field(), current, previous);
         List<Map<String, Object>> allRows = loadRows(ds, hint);
@@ -151,7 +133,7 @@ public class InMemoryReportExecutor {
             KpiData.DateRangeView prevView = new KpiData.DateRangeView(previous.earliestStart(), previous.latestEnd());
             comparison = comparison(val, prevVal, prevView, def);
         }
-        KpiData.DateRangeView view = current.byCard().isEmpty() ? null
+        KpiData.DateRangeView view = current.byAccount().isEmpty() ? null
                 : new KpiData.DateRangeView(current.earliestStart(), current.latestEnd());
         FieldDef measureFieldDef = ds.field(def.measure());
         return new KpiData("KPI", val, def.measure(), def.aggregation().json(),
@@ -492,7 +474,7 @@ public class InMemoryReportExecutor {
         Map<FilterClause, CycleWindows> cycles = new HashMap<>();
         for (FilterClause f : filters) {
             if (CycleOperators.isCycle(f)) {
-                cycles.put(f, cycleWindows(CycleOperators.cyclesAgo(f)));
+                cycles.put(f, cycleWindows(CycleOperators.cyclesAgo(f), ds, filters));
             }
         }
         return rows.stream()
@@ -774,7 +756,7 @@ public class InMemoryReportExecutor {
     private List<Map<String, Object>> loadRows(ComputedReportDatasource ds, List<FilterClause> filters) {
         FilterClause dateFilter = dateRangeResolver.findDateFilter(ds, filters);
         if (CycleOperators.isCycle(dateFilter)) {
-            return loadRows(ds, spanHint(dateFilter.field(), cycleWindows(CycleOperators.cyclesAgo(dateFilter)), null));
+            return loadRows(ds, spanHint(dateFilter.field(), cycleWindows(CycleOperators.cyclesAgo(dateFilter), ds, filters), null));
         }
         return loadRows(ds, hint(dateFilter, dateRangeResolver.effectiveRange(dateFilter)));
     }
@@ -784,18 +766,23 @@ public class InMemoryReportExecutor {
         return rows != null ? rows : List.of();
     }
 
-    /** The current user's per-card windows {@code cyclesAgo} cycles back. */
-    private CycleWindows cycleWindows(int cyclesAgo) {
+    /** The current user's windows {@code cyclesAgo} cycles back, for the account the report is limited to. */
+    private CycleWindows cycleWindows(int cyclesAgo, ComputedReportDatasource ds, List<FilterClause> filters) {
         if (billingCycleService == null) {
             return new CycleWindows(Map.of());
         }
-        return billingCycleService.windows(UserContext.getCurrentUserId(), cyclesAgo, LocalDate.now());
+        String accountRef = CycleOperators.singleAccountRef(ds.billingCycleAccountField(), filters);
+        return billingCycleService.windows(UserContext.getCurrentUserId(), cyclesAgo, AppTime.today(), accountRef);
     }
 
-    /** The card a row belongs to, via the datasource's {@code cycleAccountKey}; null if none. */
+    /**
+     * The account a row belongs to: the id held by the datasource's billing-cycle account field
+     * (its {@code idField}); null if the datasource has none or the row lacks it.
+     */
     private static UUID accountOf(Map<String, Object> row, ComputedReportDatasource ds) {
-        String key = ds.cycleAccountKey();
-        Object id = key != null ? row.get(key) : null;
+        String accountField = ds.billingCycleAccountField();
+        FieldDef account = accountField != null ? ds.field(accountField) : null;
+        Object id = account != null && account.idField() != null ? row.get(account.idField()) : null;
         if (id == null) {
             return null;
         }
@@ -806,7 +793,7 @@ public class InMemoryReportExecutor {
         }
     }
 
-    /** A hint spanning every card window (of one or two cycle sets); null when there are none. */
+    /** A hint spanning the cycle windows (of one or two cycle sets); null when there are none. */
     private static ComputedReportDatasource.DateHint spanHint(String field, CycleWindows a, CycleWindows b) {
         LocalDate from = a.earliestStart();
         LocalDate to = a.latestEnd();

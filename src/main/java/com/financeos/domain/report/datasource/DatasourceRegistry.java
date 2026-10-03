@@ -69,13 +69,13 @@ public class DatasourceRegistry {
         for (String name : ORDERED_NAMES) {
             ReportDatasource ds = byNameMap.get(name);
             if (ds != null) {
-                views.add(new SingleDatasourceView(ds.name(), ds.label(), ds.fields()));
+                views.add(new SingleDatasourceView(ds.name(), ds.label(), ds.fields(), ds.billingCycleAccountField()));
             }
         }
         // Include any remaining registered datasources not in ORDERED_NAMES
         for (ReportDatasource ds : byNameMap.values()) {
             if (!ORDERED_NAMES.contains(ds.name())) {
-                views.add(new SingleDatasourceView(ds.name(), ds.label(), ds.fields()));
+                views.add(new SingleDatasourceView(ds.name(), ds.label(), ds.fields(), ds.billingCycleAccountField()));
             }
         }
         return new ReportCatalogView(views, DatasourceCatalog.OPERATORS);

@@ -1,6 +1,7 @@
 package com.financeos.chat.api;
 
 import com.financeos.chat.db.ChatProperties;
+import com.financeos.core.time.AppTime;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,7 +28,7 @@ public class ChatQuotaService {
             return false;
         }
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = AppTime.today();
         int maxPerDay = chatProperties.getQuota().getMessagesPerDay();
 
         boolean[] consumed = new boolean[1];

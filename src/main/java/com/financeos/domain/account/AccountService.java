@@ -7,6 +7,7 @@ import com.financeos.api.account.dto.CreateAccountRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.card.*;
 import com.financeos.domain.holding.HoldingValuationService;
 import com.financeos.domain.statement.Statement;
@@ -276,7 +277,7 @@ public class AccountService {
 
     public AccountResponse closeAccount(UUID id, LocalDate closedOn) {
         Account account = getAccountById(id);
-        LocalDate targetClosedOn = closedOn != null ? closedOn : LocalDate.now();
+        LocalDate targetClosedOn = closedOn != null ? closedOn : AppTime.today();
 
         // Validate close date is not before earliest transaction date
         LocalDate minTxnDate = transactionRepository.findMinDateByAccountId(id);
@@ -487,7 +488,7 @@ public class AccountService {
 
         Long daysUntilDue = null;
         if (d != null && d.getPaymentDueDate() != null) {
-            daysUntilDue = java.time.temporal.ChronoUnit.DAYS.between(LocalDate.now(), d.getPaymentDueDate());
+            daysUntilDue = java.time.temporal.ChronoUnit.DAYS.between(AppTime.today(), d.getPaymentDueDate());
         }
 
         BigDecimal creditLimit = d != null && d.getCreditLimit() != null

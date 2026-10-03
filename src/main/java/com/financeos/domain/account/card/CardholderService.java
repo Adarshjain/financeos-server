@@ -4,6 +4,7 @@ import com.financeos.api.account.dto.*;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
@@ -90,7 +91,7 @@ public class CardholderService {
         cardholder.setPersonName(null);
         cardholder.setRelationship(CardholderRelationship.SELF);
         cardholder.setSpendLimit(null);
-        LocalDate openedOn = request.issuedOn() != null ? request.issuedOn() : LocalDate.now();
+        LocalDate openedOn = request.issuedOn() != null ? request.issuedOn() : AppTime.today();
         cardholder.setOpenedOn(openedOn);
 
         Cardholder savedCh = cardholderRepository.save(cardholder);
@@ -151,7 +152,7 @@ public class CardholderService {
         cardholder.setPersonName(request.personName());
         cardholder.setRelationship(request.relationship() != null ? request.relationship() : CardholderRelationship.OTHER);
         cardholder.setSpendLimit(request.spendLimit());
-        LocalDate openedOn = request.openedOn() != null ? request.openedOn() : LocalDate.now();
+        LocalDate openedOn = request.openedOn() != null ? request.openedOn() : AppTime.today();
         cardholder.setOpenedOn(openedOn);
 
         Cardholder savedCh = cardholderRepository.save(cardholder);
@@ -208,7 +209,7 @@ public class CardholderService {
             throw new ValidationException("Primary cardholder cannot be closed. To retire this cardholder, close the account instead.");
         }
 
-        cardholder.setClosedOn(closedOn != null ? closedOn : LocalDate.now());
+        cardholder.setClosedOn(closedOn != null ? closedOn : AppTime.today());
         Cardholder saved = cardholderRepository.save(cardholder);
 
         long count = 0;
@@ -275,7 +276,7 @@ public class CardholderService {
         card.setAccount(account);
         card.setCardholder(cardholder);
         card.setLast4(request.last4());
-        card.setIssuedOn(request.issuedOn() != null ? request.issuedOn() : LocalDate.now());
+        card.setIssuedOn(request.issuedOn() != null ? request.issuedOn() : AppTime.today());
 
         cardRepository.save(card);
         cardholder.getCards().add(0, card);
@@ -308,7 +309,7 @@ public class CardholderService {
             throw new ValidationException("Card is already closed.");
         }
 
-        LocalDate issuedOn = request.issuedOn() != null ? request.issuedOn() : LocalDate.now();
+        LocalDate issuedOn = request.issuedOn() != null ? request.issuedOn() : AppTime.today();
         card.close(issuedOn);
         // LOAD-BEARING: saveAndFlush vacates uq_card_open and uq_card_open_last4 so issuer reissue with same last 4 succeeds
         cardRepository.saveAndFlush(card);
@@ -351,7 +352,7 @@ public class CardholderService {
             throw new ValidationException("Card is already closed.");
         }
 
-        card.close(closedOn != null ? closedOn : LocalDate.now());
+        card.close(closedOn != null ? closedOn : AppTime.today());
         cardRepository.save(card);
 
         long count = 0;
