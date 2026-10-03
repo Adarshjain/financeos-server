@@ -2,7 +2,7 @@ package com.financeos.domain.report.engine;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.financeos.domain.account.cycle.BillingCycleService;
-import com.financeos.domain.account.cycle.BillingCycleService.CardCycle;
+import com.financeos.domain.account.cycle.BillingCycleService.AccountCycle;
 import com.financeos.domain.account.cycle.BillingCycles.Cycle;
 import com.financeos.domain.account.cycle.BillingCycles.Source;
 import com.financeos.domain.account.cycle.CycleWindows;
@@ -71,7 +71,7 @@ class TransactionQueryBuilderCycleTest {
         Set<String> joins = new HashSet<>();
         String where = qb.buildWhere(List.of(op("date", "this_billing_cycle")), userId, params, joins);
 
-        String expr = qb.expression("date", new HashSet<>());
+        String expr = TransactionQueryBuilder.EFFECTIVE_DATE;
         assertEquals(" WHERE t.user_id = :userId AND "
                 + "((t.account_id = :f0_c0a AND " + expr + " BETWEEN :f0_c0s AND :f0_c0e) OR "
                 + "(t.account_id = :f0_c1a AND " + expr + " BETWEEN :f0_c1s AND :f0_c1e))", where);
@@ -106,11 +106,12 @@ class TransactionQueryBuilderCycleTest {
     }
 
     @Test
-    void settlementDateIsAlsoACycleField() {
+    void cyclePredicateUsesTheEffectiveDateWhicheverDateFieldCarriesTheOperator() {
         windows(0);
         Map<String, Object> params = new HashMap<>();
         String where = qb.buildWhere(List.of(op("settlementDate", "this_billing_cycle")), userId, params, new HashSet<>());
-        assertTrue(where.contains(qb.expression("settlementDate", new HashSet<>()) + " BETWEEN :f0_c0s"));
+        assertTrue(where.contains(TransactionQueryBuilder.EFFECTIVE_DATE + " BETWEEN :f0_c0s"));
+        assertFalse(where.contains(qb.expression("settlementDate", new HashSet<>()) + " BETWEEN"));
     }
 
     @Test
@@ -165,8 +166,8 @@ class TransactionQueryBuilderCycleTest {
     @Test
     void boundFromClauseBuildsUnionAllCycleTable() {
         when(cycles.cycleTable(eq(userId), any(LocalDate.class))).thenReturn(List.of(
-                new CardCycle(cardA, d(2026, 1, 5), d(2026, 2, 4)),
-                new CardCycle(cardA, d(2026, 2, 5), d(2026, 3, 4))));
+                new AccountCycle(cardA, d(2026, 1, 5), d(2026, 2, 4)),
+                new AccountCycle(cardA, d(2026, 2, 5), d(2026, 3, 4))));
         Map<String, Object> params = new HashMap<>();
         Set<String> joins = new HashSet<>(Set.of(TransactionQueryBuilder.JOIN_BILLING_CYCLES));
 

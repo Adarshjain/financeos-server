@@ -3,7 +3,7 @@ package com.financeos.domain.account.cycle;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
-import com.financeos.domain.account.cycle.BillingCycleService.CardCycle;
+import com.financeos.domain.account.cycle.BillingCycleService.AccountCycle;
 import com.financeos.domain.account.cycle.BillingCycles.Source;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementRepository;
@@ -40,6 +40,8 @@ class BillingCycleServiceTest {
     @BeforeEach
     void setUp() {
         service = new BillingCycleService(accountRepository, statementRepository, transactionRepository);
+        // effectiveDateSpan is a default method of the repository: run its real logic over the stubbed min/max
+        when(transactionRepository.effectiveDateSpan(any(), any())).thenCallRealMethod();
     }
 
     private static LocalDate d(int y, int m, int day) {
@@ -62,31 +64,32 @@ class BillingCycleServiceTest {
     }
 
     @Test
-    void cardCyclesIncludesOnlyCreditCardsOfTheUser() {
+    void accountCyclesCoversEveryAccountOfTheUser() {
         Account card = account(AccountType.credit_card);
         Account bank = account(AccountType.bank_account);
         when(accountRepository.findByUserId(userId)).thenReturn(List.of(bank, card));
         when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId())).thenReturn(List.of());
 
-        Map<UUID, BillingCycles> out = service.cardCycles(userId);
+        Map<UUID, BillingCycles> out = service.accountCycles(userId);
 
-        assertEquals(1, out.size());
+        assertEquals(2, out.size());
         assertTrue(out.containsKey(card.getId()));
+        assertTrue(out.containsKey(bank.getId()));
         verify(statementRepository, never()).findByAccountIdOrderByPeriodEndDescNullsLast(bank.getId());
     }
 
     @Test
-    void cardCyclesEmptyWhenNoCards() {
-        when(accountRepository.findByUserId(userId)).thenReturn(List.of(account(AccountType.bank_account)));
-        assertTrue(service.cardCycles(userId).isEmpty());
+    void accountCyclesEmptyWhenUserHasNoAccounts() {
+        when(accountRepository.findByUserId(userId)).thenReturn(List.of());
+        assertTrue(service.accountCycles(userId).isEmpty());
     }
 
     @Test
-    void cyclesForBuildsFromTheAccountsStatements() {
-        UUID id = UUID.randomUUID();
-        when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(id))
+    void cyclesForCreditCardBuildsFromItsStatements() {
+        Account card = account(AccountType.credit_card);
+        when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId()))
                 .thenReturn(List.of(stmt(d(2026, 1, 5), d(2026, 2, 4))));
-        assertTrue(service.cyclesFor(id).hasStatements());
+        assertTrue(service.cyclesFor(card).hasStatements());
     }
 
     @Test
@@ -132,7 +135,7 @@ class BillingCycleServiceTest {
         when(transactionRepository.findMinEffectiveDateByAccountId(card.getId())).thenReturn(d(2026, 1, 10));
         when(transactionRepository.findMaxEffectiveDateByAccountId(card.getId())).thenReturn(d(2026, 2, 1));
 
-        List<CardCycle> table = service.cycleTable(userId, d(2026, 3, 10));
+        List<AccountCycle> table = service.cycleTable(userId, d(2026, 3, 10));
 
         assertEquals(3, table.size());
         assertEquals(d(2026, 1, 5), table.get(0).start());
@@ -150,7 +153,7 @@ class BillingCycleServiceTest {
         when(transactionRepository.findMinEffectiveDateByAccountId(card.getId())).thenReturn(d(2026, 1, 10));
         when(transactionRepository.findMaxEffectiveDateByAccountId(card.getId())).thenReturn(d(2026, 5, 20));
 
-        List<CardCycle> table = service.cycleTable(userId, d(2026, 2, 10));
+        List<AccountCycle> table = service.cycleTable(userId, d(2026, 2, 10));
 
         // Jan 5-Feb 4, Feb 5-Mar 4, Mar 5-Apr 4, Apr 5-May 4, May 5-Jun 4
         assertEquals(5, table.size());
@@ -165,7 +168,7 @@ class BillingCycleServiceTest {
         when(transactionRepository.findMinEffectiveDateByAccountId(card.getId())).thenReturn(d(2026, 6, 10));
         when(transactionRepository.findMaxEffectiveDateByAccountId(card.getId())).thenReturn(d(2026, 6, 12));
 
-        List<CardCycle> table = service.cycleTable(userId, d(2026, 3, 1));
+        List<AccountCycle> table = service.cycleTable(userId, d(2026, 3, 1));
 
         assertEquals(1, table.size());
         assertEquals(d(2026, 6, 1), table.get(0).start());
@@ -190,8 +193,115 @@ class BillingCycleServiceTest {
         when(transactionRepository.findMinEffectiveDateByAccountId(card.getId())).thenReturn(d(2026, 2, 3));
         when(transactionRepository.findMaxEffectiveDateByAccountId(card.getId())).thenReturn(null);
 
-        List<CardCycle> table = service.cycleTable(userId, d(2026, 3, 10));
+        List<AccountCycle> table = service.cycleTable(userId, d(2026, 3, 10));
         assertEquals(2, table.size());
         assertEquals(Source.CALENDAR_MONTH, BillingCycles.fromStatements(List.of()).containing(d(2026, 2, 3)).source());
+    }
+
+    // ---- round 2: every account type, account-scoped windows ----
+
+    private Account named(AccountType type, String name) {
+        Account a = account(type);
+        a.setName(name);
+        return a;
+    }
+
+    @Test
+    void cyclesForNonCreditCardAccountsAreCalendarMonthsWithoutReadingStatements() {
+        for (AccountType type : List.of(AccountType.bank_account, AccountType.broker, AccountType.generic)) {
+            Account other = account(type);
+            BillingCycles c = service.cyclesFor(other);
+            assertFalse(c.hasStatements(), type.name());
+            assertEquals(Source.CALENDAR_MONTH, c.containing(d(2026, 2, 14)).source());
+        }
+        verifyNoInteractions(statementRepository);
+    }
+
+    @Test
+    void cycleTableIncludesNonCardAccountsAsCalendarMonths() {
+        Account bank = account(AccountType.bank_account);
+        when(accountRepository.findByUserId(userId)).thenReturn(List.of(bank));
+        when(transactionRepository.findMinEffectiveDateByAccountId(bank.getId())).thenReturn(d(2026, 1, 20));
+        when(transactionRepository.findMaxEffectiveDateByAccountId(bank.getId())).thenReturn(null);
+
+        List<AccountCycle> table = service.cycleTable(userId, d(2026, 3, 10));
+
+        assertEquals(3, table.size());
+        assertEquals(d(2026, 1, 1), table.get(0).start());
+        assertEquals(d(2026, 1, 31), table.get(0).end());
+        assertEquals(d(2026, 3, 31), table.get(2).end());
+        assertTrue(table.stream().allMatch(c -> c.accountId().equals(bank.getId())));
+    }
+
+    @Test
+    void windowsCoverNonCardAccountsToo() {
+        Account bank = account(AccountType.bank_account);
+        when(accountRepository.findByUserId(userId)).thenReturn(List.of(bank));
+
+        CycleWindows w = service.windows(userId, 1, d(2026, 3, 10));
+
+        assertTrue(w.contains(bank.getId(), d(2026, 2, 15)));
+        assertFalse(w.contains(bank.getId(), d(2026, 3, 1)));
+    }
+
+    private void twoAccounts(Account card, Account bank) {
+        when(accountRepository.findByUserId(userId)).thenReturn(List.of(card, bank));
+        when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId()))
+                .thenReturn(List.of(stmt(d(2026, 1, 5), d(2026, 2, 4))));
+    }
+
+    @Test
+    void windowsWithAnAccountRefAreLimitedToThatAccountById() {
+        Account card = named(AccountType.credit_card, "HDFC Regalia");
+        Account bank = named(AccountType.bank_account, "Savings");
+        twoAccounts(card, bank);
+
+        CycleWindows w = service.windows(userId, 0, d(2026, 2, 20), card.getId().toString());
+
+        assertEquals(java.util.Set.of(card.getId()), w.byAccount().keySet());
+        assertEquals(d(2026, 2, 5), w.earliestStart());
+    }
+
+    @Test
+    void windowsWithAnAccountRefMatchTheNameIgnoringCase() {
+        Account card = named(AccountType.credit_card, "HDFC Regalia");
+        Account bank = named(AccountType.bank_account, "Savings");
+        twoAccounts(card, bank);
+
+        CycleWindows w = service.windows(userId, 0, d(2026, 2, 20), "savings");
+
+        assertEquals(java.util.Set.of(bank.getId()), w.byAccount().keySet());
+        assertEquals(d(2026, 2, 1), w.earliestStart());
+        assertEquals(d(2026, 2, 28), w.latestEnd());
+    }
+
+    @Test
+    void windowsWithAnUnknownAccountRefAreEmpty() {
+        Account card = named(AccountType.credit_card, "HDFC Regalia");
+        Account bank = named(AccountType.bank_account, "Savings");
+        twoAccounts(card, bank);
+
+        CycleWindows w = service.windows(userId, 0, d(2026, 2, 20), "no such account");
+
+        assertTrue(w.byAccount().isEmpty());
+        assertNull(w.earliestStart());
+    }
+
+    @Test
+    void windowsWithANullAccountRefCoverAllAccounts() {
+        Account card = named(AccountType.credit_card, "HDFC Regalia");
+        Account bank = named(AccountType.bank_account, "Savings");
+        twoAccounts(card, bank);
+
+        assertEquals(2, service.windows(userId, 0, d(2026, 2, 20), null).byAccount().size());
+        assertEquals(2, service.windows(userId, 0, d(2026, 2, 20)).byAccount().size());
+    }
+
+    @Test
+    void anAccountWithoutANameDoesNotMatchANameRef() {
+        Account unnamed = account(AccountType.bank_account);
+        when(accountRepository.findByUserId(userId)).thenReturn(List.of(unnamed));
+
+        assertTrue(service.windows(userId, 0, d(2026, 2, 20), "anything").byAccount().isEmpty());
     }
 }

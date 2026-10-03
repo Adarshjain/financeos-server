@@ -41,20 +41,34 @@ class ReportDefinitionValidatorCycleTest {
         return new FilterClause(field, operator, null);
     }
 
+    private static FilterClause accountIs(String field) {
+        return new FilterClause(field, "is", TextNode.valueOf("acc-1"));
+    }
+
+    private static KpiDefinition scopedKpi(String measure, FilterClause cycle, String accountField) {
+        return new KpiDefinition(measure, Aggregation.SUM, List.of(cycle, accountIs(accountField)), null);
+    }
+
     @Test
-    void cycleOperatorsAcceptedOnTransactionDateFields() {
-        for (String field : List.of("date", "settlementDate")) {
-            for (String o : List.of("this_billing_cycle", "previous_billing_cycle")) {
-                assertDoesNotThrow(() -> validator.validate("transactions", kpi("amount", op(field, o))), field + " " + o);
-            }
+    void cycleOperatorsAcceptedOnTheTransactionDateFieldForOneAccount() {
+        // Forced by: cycle flag only on transactions.date, and the single-account rule.
+        for (String o : List.of("this_billing_cycle", "previous_billing_cycle")) {
+            assertDoesNotThrow(() -> validator.validate("transactions", scopedKpi("amount", op("date", o), "account")), o);
         }
     }
 
     @Test
-    void cycleOperatorsAcceptedOnRewardEarningsDateFields() {
-        for (String field : List.of("effectiveDate", "transactionDate")) {
-            assertDoesNotThrow(() -> validator.validate("reward_earnings", kpi("valueInr", op(field, "previous_billing_cycle"))), field);
-        }
+    void cycleOperatorsAcceptedOnRewardEarningsEffectiveDateForOneCard() {
+        assertDoesNotThrow(() -> validator.validate("reward_earnings",
+                scopedKpi("valueInr", op("effectiveDate", "previous_billing_cycle"), "card")));
+    }
+
+    @Test
+    void cycleOperatorsRejectedOnSettlementAndTransactionDates() {
+        assertThrows(ValidationException.class, () -> validator.validate("transactions",
+                scopedKpi("amount", op("settlementDate", "this_billing_cycle"), "account")));
+        assertThrows(ValidationException.class, () -> validator.validate("reward_earnings",
+                scopedKpi("valueInr", op("transactionDate", "this_billing_cycle"), "card")));
     }
 
     @Test
@@ -83,7 +97,8 @@ class ReportDefinitionValidatorCycleTest {
     @Test
     void jsonNullValueIsTreatedAsValueless() {
         FilterClause nullValue = new FilterClause("date", "previous_billing_cycle", JsonNodeFactory.instance.nullNode());
-        assertDoesNotThrow(() -> validator.validate("transactions", kpi("amount", nullValue)));
+        assertDoesNotThrow(() -> validator.validate("transactions",
+                new KpiDefinition("amount", Aggregation.SUM, List.of(nullValue, accountIs("account")), null)));
     }
 
     @Test

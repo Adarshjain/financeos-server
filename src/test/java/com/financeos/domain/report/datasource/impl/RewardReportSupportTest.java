@@ -1,8 +1,10 @@
 package com.financeos.domain.report.datasource.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.report.datasource.impl.RewardReportSupport.DateBounds;
@@ -34,6 +36,8 @@ class RewardReportSupportTest {
     void setUp() {
         accountRepository = mock(AccountRepository.class);
         transactionRepository = mock(TransactionRepository.class);
+        // bounds() delegates to the repository's default effectiveDateSpan: run it over the stubbed min/max
+        when(transactionRepository.effectiveDateSpan(any(), any())).thenCallRealMethod();
         ruleRepository = mock(RewardRuleRepository.class);
         milestoneRepository = mock(RewardMilestoneRepository.class);
         support = new RewardReportSupport(accountRepository, transactionRepository, ruleRepository, milestoneRepository);
@@ -172,26 +176,26 @@ class RewardReportSupportTest {
     @Test
     void bounds_pastTransactionsEndToday() {
         UUID id = UUID.randomUUID();
-        LocalDate min = LocalDate.now().minusDays(90);
+        LocalDate min = AppTime.today().minusDays(90);
         when(transactionRepository.findMinEffectiveDateByAccountId(id)).thenReturn(min);
-        when(transactionRepository.findMaxEffectiveDateByAccountId(id)).thenReturn(LocalDate.now().minusDays(3));
-        assertEquals(new DateBounds(min, LocalDate.now()), support.bounds(id));
+        when(transactionRepository.findMaxEffectiveDateByAccountId(id)).thenReturn(AppTime.today().minusDays(3));
+        assertEquals(new DateBounds(min, AppTime.today()), support.bounds(id));
     }
 
     @Test
     void bounds_nullMaxEndsToday() {
         UUID id = UUID.randomUUID();
-        LocalDate min = LocalDate.now().minusDays(10);
+        LocalDate min = AppTime.today().minusDays(10);
         when(transactionRepository.findMinEffectiveDateByAccountId(id)).thenReturn(min);
         when(transactionRepository.findMaxEffectiveDateByAccountId(id)).thenReturn(null);
-        assertEquals(new DateBounds(min, LocalDate.now()), support.bounds(id));
+        assertEquals(new DateBounds(min, AppTime.today()), support.bounds(id));
     }
 
     @Test
     void bounds_futureSettlementExtendsTo() {
         UUID id = UUID.randomUUID();
-        LocalDate min = LocalDate.now().minusDays(10);
-        LocalDate future = LocalDate.now().plusDays(20);
+        LocalDate min = AppTime.today().minusDays(10);
+        LocalDate future = AppTime.today().plusDays(20);
         when(transactionRepository.findMinEffectiveDateByAccountId(id)).thenReturn(min);
         when(transactionRepository.findMaxEffectiveDateByAccountId(id)).thenReturn(future);
         assertEquals(new DateBounds(min, future), support.bounds(id));
@@ -200,7 +204,7 @@ class RewardReportSupportTest {
     @Test
     void bounds_minAfterTodayIsClampedToTo() {
         UUID id = UUID.randomUUID();
-        LocalDate future = LocalDate.now().plusDays(5);
+        LocalDate future = AppTime.today().plusDays(5);
         when(transactionRepository.findMinEffectiveDateByAccountId(id)).thenReturn(future);
         when(transactionRepository.findMaxEffectiveDateByAccountId(id)).thenReturn(future);
         assertEquals(new DateBounds(future, future), support.bounds(id));
@@ -209,9 +213,9 @@ class RewardReportSupportTest {
     @Test
     void bounds_onlyFutureMinWithNullMaxClampsToToday() {
         UUID id = UUID.randomUUID();
-        when(transactionRepository.findMinEffectiveDateByAccountId(id)).thenReturn(LocalDate.now().plusDays(5));
+        when(transactionRepository.findMinEffectiveDateByAccountId(id)).thenReturn(AppTime.today().plusDays(5));
         when(transactionRepository.findMaxEffectiveDateByAccountId(id)).thenReturn(null);
-        assertEquals(new DateBounds(LocalDate.now(), LocalDate.now()), support.bounds(id));
+        assertEquals(new DateBounds(AppTime.today(), AppTime.today()), support.bounds(id));
     }
 
     // ---------- accounts ----------
