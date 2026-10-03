@@ -108,9 +108,10 @@ public class ReportDefinitionValidator {
         return filters == null ? List.of() : filters;
     }
 
+    /** One account: "is" (the generic filter check already requires its value) or "in" with one value. */
     private static boolean isSingleValue(FilterClause f) {
         if ("is".equals(f.operator())) {
-            return f.value() != null && !f.value().isNull() && !f.value().isArray();
+            return !f.value().isArray();
         }
         return "in".equals(f.operator()) && f.value() != null && f.value().isArray() && f.value().size() == 1;
     }

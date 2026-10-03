@@ -129,11 +129,9 @@ public final class BillingCycles {
         if (end.isBefore(date)) {
             end = onDay(date.plusMonths(1), closingDay);
         }
+        // The previous closing date is the earlier statement's end by construction (the closing
+        // day comes from it), so only the next statement can cut a projected cycle short.
         LocalDate start = onDay(end.minusMonths(1), closingDay).plusDays(1);
-        // A projected cycle never overlaps a real statement.
-        if (before >= 0 && !start.isAfter(periods.get(before).end())) {
-            start = periods.get(before).end().plusDays(1);
-        }
         if (after >= 0 && !end.isBefore(periods.get(after).start())) {
             end = periods.get(after).start().minusDays(1);
         }
