@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import com.financeos.api.reward.dto.RewardReportResponse.MilestoneStatus;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.FieldRole;
@@ -215,7 +216,7 @@ class RewardMilestonesDatasourceTest {
     @Test
     void cardWithNoTransactionsIsStillEvaluatedAtToday() {
         Account card = account("Fresh", null);
-        LocalDate today = LocalDate.now();
+        LocalDate today = AppTime.today();
         when(support.milestoneAccounts(userId)).thenReturn(List.of(card));
         when(support.milestoneLabels(List.of(card))).thenReturn(Map.of());
         when(support.bounds(card.getId())).thenReturn(null);

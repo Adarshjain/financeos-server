@@ -8,6 +8,7 @@ import com.financeos.api.account.dto.CreateAccountRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.holding.HoldingValuationService;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementCreditCardDetails;
@@ -229,7 +230,7 @@ class AccountServiceTest {
         details.setTotalAmountDue(new BigDecimal("15000.00"));
         details.setMinimumAmountDue(new BigDecimal("1500.00"));
         details.setCreditLimit(new BigDecimal("100000.00"));
-        details.setPaymentDueDate(LocalDate.now().plusDays(10));
+        details.setPaymentDueDate(AppTime.today().plusDays(10));
         stmt.setCreditCardDetails(details);
 
         when(statementRepository.findByAccountIdOrderByPeriodEndAsc(accountId)).thenReturn(List.of(stmt));

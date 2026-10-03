@@ -230,11 +230,13 @@ class BillingCyclesTest {
     }
 
     @Test
-    void backwardProjectionOpeningDay31Clamps() {
+    void backwardProjectionIsClampedBeforeTheStatement() {
+        // closing day 29 (from the statement end); the projected cycle ends on the 29th and may not
+        // reach the statement that starts Mar 31 (the old rule projected Feb 28 - Mar 30 here)
         BillingCycles c = of(st(d(2026, 3, 31), d(2026, 4, 29)));
         Cycle cy = c.containing(d(2026, 3, 1));
-        assertEquals(d(2026, 2, 28), cy.start());
-        assertEquals(d(2026, 3, 30), cy.end());
+        assertEquals(d(2026, 3, 1), cy.start());
+        assertEquals(d(2026, 3, 29), cy.end());
     }
 
     // ---- cyclesBefore ----

@@ -81,7 +81,13 @@ class KpiReportExecutorCycleTest {
     private void windows(int ago, UUID card, LocalDate s, LocalDate e) {
         Map<UUID, Cycle> m = new LinkedHashMap<>();
         m.put(card, new Cycle(s, e, Source.PROJECTED));
-        when(cycles.windows(eq(userId), eq(ago), any(LocalDate.class))).thenReturn(new CycleWindows(m));
+        stub(ago, new CycleWindows(m));
+    }
+
+    /** The executor reads the 4-arg (account-scoped) windows, the SQL builder the 3-arg ones. */
+    private void stub(int ago, CycleWindows w) {
+        when(cycles.windows(eq(userId), eq(ago), any(LocalDate.class))).thenReturn(w);
+        when(cycles.windows(eq(userId), eq(ago), any(LocalDate.class), any())).thenReturn(w);
     }
 
     private static KpiDefinition kpi(Comparison comparison, FilterClause... filters) {
@@ -107,7 +113,7 @@ class KpiReportExecutorCycleTest {
         // Comparison query: billing_cycles_ago amount 1 -> windows(1)
         assertEquals(d(2026, 1, 5), paramSets.get(1).get("f0_c0s"));
         assertEquals(d(2026, 2, 4), paramSets.get(1).get("f0_c0e"));
-        verify(cycles, atLeastOnce()).windows(eq(userId), eq(1), any(LocalDate.class));
+        verify(cycles, atLeastOnce()).windows(eq(userId), eq(1), any(LocalDate.class), any());
 
         assertNotNull(data.comparison());
         assertEquals(new BigDecimal("200"), data.comparison().previousValue());
@@ -139,8 +145,8 @@ class KpiReportExecutorCycleTest {
         Map<UUID, Cycle> prev = new LinkedHashMap<>();
         prev.put(cardA, new Cycle(d(2026, 1, 5), d(2026, 2, 4), Source.STATEMENT));
         prev.put(cardB, new Cycle(d(2026, 1, 20), d(2026, 2, 19), Source.STATEMENT));
-        when(cycles.windows(eq(userId), eq(0), any(LocalDate.class))).thenReturn(new CycleWindows(cur));
-        when(cycles.windows(eq(userId), eq(1), any(LocalDate.class))).thenReturn(new CycleWindows(prev));
+        stub(0, new CycleWindows(cur));
+        stub(1, new CycleWindows(prev));
 
         var data = executor.execute(kpi(null, cycleFilter("this_billing_cycle")), ds, userId);
 
@@ -153,12 +159,13 @@ class KpiReportExecutorCycleTest {
     @Test
     void comparisonDisabledRunsOnlyTheMainQuery() {
         windows(0, cardA, d(2026, 2, 5), d(2026, 3, 4));
+        // Forced by: the single KPI path always resolves the previous cycle's span (no longer skipped when disabled).
+        windows(1, cardA, d(2026, 1, 5), d(2026, 2, 4));
 
         var data = executor.execute(kpi(new Comparison(false, null, null), cycleFilter("this_billing_cycle")), ds, userId);
 
         assertEquals(1, sqls.size());
         assertNull(data.comparison());
-        verify(cycles, never()).windows(eq(userId), eq(1), any(LocalDate.class));
         assertNotNull(data.meta().dateRange());
     }
 
@@ -174,7 +181,8 @@ class KpiReportExecutorCycleTest {
 
     @Test
     void noCardsMeansNoComparisonAndNoDateRange() {
-        when(cycles.windows(eq(userId), anyInt(), any(LocalDate.class))).thenReturn(new CycleWindows(Map.of()));
+        stub(0, new CycleWindows(Map.of()));
+        stub(1, new CycleWindows(Map.of()));
 
         var data = executor.execute(kpi(null, cycleFilter("this_billing_cycle")), ds, userId);
 

@@ -41,14 +41,16 @@ class DatasourceCatalogCycleTest {
     }
 
     @Test
-    void onlyTransactionDateAndSettlementDateAreCycleFields() {
+    void onlyTransactionDateAndTheBillingCycleGroupingAreCycleFields() {
         Set<String> cycleFields = DatasourceCatalog.transactionFields().stream()
                 .filter(f -> Boolean.TRUE.equals(f.billingCycle()))
                 .map(FieldDef::name).collect(Collectors.toSet());
-        assertEquals(Set.of("date", "settlementDate"), cycleFields);
-        assertTrue(DatasourceCatalog.transactionFields().stream()
-                .filter(f -> f.type() == FieldType.DATE)
-                .allMatch(f -> Boolean.TRUE.equals(f.billingCycle())));
+        assertEquals(Set.of("date", "billingCycle"), cycleFields);
+        // settlement date no longer carries the cycle operators: membership is on the effective date
+        assertNull(catalog.field("settlementDate").billingCycle());
+        assertEquals(Set.of("date"), DatasourceCatalog.transactionFields().stream()
+                .filter(f -> f.type() == FieldType.DATE && Boolean.TRUE.equals(f.billingCycle()))
+                .map(FieldDef::name).collect(Collectors.toSet()));
     }
 
     @Test
@@ -58,7 +60,7 @@ class DatasourceCatalogCycleTest {
         assertEquals("Billing cycle", f.label());
         assertEquals(FieldType.STRING, f.type());
         assertEquals(FieldRole.DIMENSION, f.role());
-        assertNull(f.billingCycle());
+        assertTrue(f.billingCycle());
     }
 
     @Test
@@ -66,10 +68,11 @@ class DatasourceCatalogCycleTest {
         RewardEarningsDatasource ds = new RewardEarningsDatasource(mock(RewardCalculationService.class), mock(RewardReportSupport.class));
 
         assertTrue(ds.field("effectiveDate").billingCycle());
-        assertTrue(ds.field("transactionDate").billingCycle());
+        assertNull(ds.field("transactionDate").billingCycle());
         assertEquals("Billing cycle", ds.field("cycle").label());
-        assertNull(ds.field("cycle").billingCycle());
-        assertEquals("cardId", ds.cycleAccountKey());
+        assertTrue(ds.field("cycle").billingCycle());
+        assertEquals("card", ds.billingCycleAccountField());
+        assertEquals("cardId", ds.field("card").idField());
     }
 
     @Test
@@ -92,13 +95,13 @@ class DatasourceCatalogCycleTest {
     }
 
     @Test
-    void computedDatasourcesHaveNoCycleKeyByDefault() {
+    void computedDatasourcesHaveNoBillingCycleAccountFieldByDefault() {
         ComputedReportDatasource ds = new ComputedReportDatasource() {
             public String name() { return "x"; }
             public String label() { return "x"; }
             public List<FieldDef> fields() { return List.of(); }
             public List<java.util.Map<String, Object>> rows() { return List.of(); }
         };
-        assertNull(ds.cycleAccountKey());
+        assertNull(ds.billingCycleAccountField());
     }
 }

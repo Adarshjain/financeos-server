@@ -81,7 +81,7 @@ class InMemoryReportExecutorCycleTest {
         for (int i = 0; i < cardStartEnd.length; i += 3) {
             m.put((UUID) cardStartEnd[i], new Cycle((LocalDate) cardStartEnd[i + 1], (LocalDate) cardStartEnd[i + 2], Source.PROJECTED));
         }
-        when(cycles.windows(eq(userId), eq(ago), any(LocalDate.class))).thenReturn(new CycleWindows(m));
+        when(cycles.windows(eq(userId), eq(ago), any(LocalDate.class), any())).thenReturn(new CycleWindows(m));
     }
 
     private static FilterClause cycle(String op) {
@@ -139,7 +139,7 @@ class InMemoryReportExecutorCycleTest {
     }
 
     @Test
-    void datasourceWithoutCycleAccountKeyMatchesNothing() {
+    void datasourceWithoutBillingCycleAccountFieldMatchesNothing() {
         windows(0, cardA, d(2026, 2, 5), d(2026, 3, 4));
         CycleDatasource noKey = new CycleDatasource(null);
         noKey.rows = List.of(row(cardA, d(2026, 2, 10), "7"));
@@ -297,7 +297,7 @@ class InMemoryReportExecutorCycleTest {
         assertNull(executor.execute(kpi(null, cycle("this_billing_cycle")), ds, Map.of()).comparison());
         assertNull(executor.execute(kpi(new Comparison(false, null, null), cycle("this_billing_cycle")), ds, Map.of()).comparison());
         assertNull(executor.execute(kpi(new Comparison(null, null, null), cycle("this_billing_cycle")), ds, Map.of()).comparison());
-        verify(cycles, never()).windows(eq(userId), eq(1), any(LocalDate.class));
+        verify(cycles, never()).windows(eq(userId), eq(1), any(LocalDate.class), any());
     }
 
     @Test
@@ -307,7 +307,7 @@ class InMemoryReportExecutorCycleTest {
 
         assertNull(data.comparison());
         assertNull(data.meta().dateRange());
-        verify(cycles, never()).windows(any(), eq(1), any());
+        verify(cycles, never()).windows(any(), eq(1), any(), any());
     }
 
     @Test
@@ -329,19 +329,21 @@ class InMemoryReportExecutorCycleTest {
         final List<DateHint> hints = new ArrayList<>();
         private final String key;
 
+        /** @param key the id key the card field reads from the row; null = datasource without billing cycles */
         CycleDatasource(String key) {
             this.key = key;
         }
 
         @Override public String name() { return "cyc"; }
         @Override public String label() { return "Cyc"; }
-        @Override public String cycleAccountKey() { return key; }
+        @Override public String billingCycleAccountField() { return key == null ? null : "card"; }
 
         @Override
         public List<FieldDef> fields() {
             return List.of(
                     FieldDef.cycleDate("date", "Date", List.of()),
                     new FieldDef("cardId", "Card", FieldType.STRING, FieldRole.DIMENSION, null, null, null, List.of()),
+                    new FieldDef("card", "Card", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, List.of(), null, key),
                     new FieldDef("kind", "Kind", FieldType.STRING, FieldRole.DIMENSION, null, null, null, List.of()),
                     new FieldDef("amount", "Amount", FieldType.NUMBER, FieldRole.MEASURE,
                             List.of(Aggregation.SUM, Aggregation.COUNT), null, null, List.of(), "currency"));
