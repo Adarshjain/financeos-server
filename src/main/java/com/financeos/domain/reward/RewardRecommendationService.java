@@ -9,6 +9,7 @@ import com.financeos.api.reward.dto.SimulatedMilestoneResponse;
 import com.financeos.api.reward.dto.SimulatedRuleLineResponse;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
@@ -72,7 +73,7 @@ public class RewardRecommendationService {
             }
         }
 
-        LocalDate evalDate = request.date() != null ? request.date() : LocalDate.now();
+        LocalDate evalDate = request.date() != null ? request.date() : AppTime.today();
 
         // 2. Candidate accounts resolution and ownership validation
         List<Account> candidateAccounts = new ArrayList<>();

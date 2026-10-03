@@ -1,6 +1,7 @@
 package com.financeos.domain.loan;
 
 import com.financeos.core.observability.Events;
+import com.financeos.core.time.AppTime;
 import net.logstash.logback.argument.StructuredArguments;
 import com.financeos.api.account.dto.AccountResponse;
 import com.financeos.api.loan.dto.*;
@@ -566,7 +567,7 @@ public class LoanService {
         List<LoanCharge> charges = loanChargeRepository.findByLoan_IdOrderByChargeDateAscCreatedAtAsc(loanId);
         ScheduleResult schedule = scheduleService.compute(loan, events, payments, charges);
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = AppTime.today();
         LocalDate maxDueDate = today.plusDays(7);
 
         List<InstallmentDto> targetInstallments = schedule.installments().stream()

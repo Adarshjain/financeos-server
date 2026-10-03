@@ -1,5 +1,6 @@
 package com.financeos.core.data;
 
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
@@ -104,7 +105,7 @@ public class DevDataSeeder implements CommandLineRunner {
     }
 
     private void seedTransactions(User user, List<Account> accounts, Map<String, Category> categories) {
-        LocalDate end = LocalDate.now();
+        LocalDate end = AppTime.today();
         LocalDate start = end.minusYears(5);
 
         List<Transaction> allTransactions = new ArrayList<>();

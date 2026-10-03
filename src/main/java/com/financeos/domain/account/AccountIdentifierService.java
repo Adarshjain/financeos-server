@@ -2,6 +2,7 @@ package com.financeos.domain.account;
 
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.job.Job;
 import com.financeos.domain.job.JobService;
 import com.financeos.domain.job.JobTrigger;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.time.ZoneOffset;
 import java.util.*;
 
 @Service
@@ -81,7 +81,7 @@ public class AccountIdentifierService {
         if (account.getIngestFromDate() != null) {
             Instant minInstant = account.getIngestFromDate()
                     .minusDays(ingestProperties.getDateWindowDays())
-                    .atStartOfDay(ZoneOffset.UTC)
+                    .atStartOfDay(AppTime.zone())
                     .toInstant();
 
             List<GmailProcessedMessage> parked = processedMessageRepository.findParkedForReactivation(

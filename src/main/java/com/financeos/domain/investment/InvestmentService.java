@@ -4,6 +4,7 @@ import com.financeos.api.investment.dto.*;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
@@ -344,7 +345,7 @@ public class InvestmentService {
 
         // Portfolio terminal cashflow
         if (totalCurrentValue.compareTo(BigDecimal.ZERO) > 0) {
-            portfolioCashflows.add(new XirrCalculator.Cashflow(LocalDate.now(), totalCurrentValue));
+            portfolioCashflows.add(new XirrCalculator.Cashflow(AppTime.today(), totalCurrentValue));
         }
 
         Double portfolioXirr = calculateXirrPercentage(portfolioCashflows);
@@ -712,7 +713,7 @@ public class InvestmentService {
 
         // Terminal cashflow for XIRR
         if (currentValue != null && openQty.compareTo(BigDecimal.ZERO) > 0) {
-            cashflows.add(new XirrCalculator.Cashflow(LocalDate.now(), currentValue));
+            cashflows.add(new XirrCalculator.Cashflow(AppTime.today(), currentValue));
         }
 
         Double xirr = calculateXirrPercentage(cashflows);
@@ -732,7 +733,7 @@ public class InvestmentService {
         String mergedIntoName = null;
         LocalDate mergedIntoDate = null;
         for (CorporateAction ca : corpActions) {
-            if (ca.getType() == CorporateActionType.merger && ca.getTargetInstrument() != null && !ca.getExDate().isAfter(LocalDate.now())) {
+            if (ca.getType() == CorporateActionType.merger && ca.getTargetInstrument() != null && !ca.getExDate().isAfter(AppTime.today())) {
                 mergedIntoName = ca.getTargetInstrument().getName();
                 mergedIntoDate = ca.getExDate();
                 break;

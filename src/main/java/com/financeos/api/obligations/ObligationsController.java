@@ -4,6 +4,7 @@ import com.financeos.api.loan.dto.InstallmentDto;
 import com.financeos.api.loan.dto.LoanResponse;
 import com.financeos.api.obligations.dto.ObligationItemDto;
 import com.financeos.api.obligations.dto.ObligationsResponse;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.lending.LendingService;
 import com.financeos.domain.loan.LoanService;
 import com.financeos.domain.loan.LoanStatus;
@@ -31,7 +32,7 @@ public class ObligationsController {
     @GetMapping("/upcoming")
     public ObligationsResponse getUpcomingObligations(@RequestParam(defaultValue = "3") int months) {
         int windowMonths = Math.max(1, Math.min(12, months));
-        LocalDate today = LocalDate.now();
+        LocalDate today = AppTime.today();
         LocalDate maxDate = today.plusMonths(windowMonths);
 
         List<ObligationItemDto> items = new ArrayList<>();

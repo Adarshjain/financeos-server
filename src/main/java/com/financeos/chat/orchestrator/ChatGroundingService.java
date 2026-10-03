@@ -1,6 +1,7 @@
 package com.financeos.chat.orchestrator;
 
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.category.Category;
@@ -44,7 +45,7 @@ public class ChatGroundingService {
     }
 
     private String generateGroundingBlock(UUID userId) {
-        LocalDate today = LocalDate.now();
+        LocalDate today = AppTime.today();
         int year = today.getYear();
         String activeFy = (today.getMonthValue() >= 4)
                 ? "FY " + year + "-" + String.format("%02d", (year + 1) % 100)
@@ -79,7 +80,7 @@ public class ChatGroundingService {
     }
 
     private String buildStaticDateBlock() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = AppTime.today();
         return "Today's Date: " + today + "\n";
     }
 

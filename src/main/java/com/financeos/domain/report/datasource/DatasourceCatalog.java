@@ -42,7 +42,11 @@ public class DatasourceCatalog {
              * break a saved filter; a filter holding the label still matches.
              */
             String idField,
-            /* DATE fields only: true when the billing-cycle operators apply (credit-card rows). */
+            /*
+             * Billing cycles. On a DATE field: the billing-cycle operators apply. On a dimension:
+             * the field groups by billing cycle. Either way the report must be limited to one
+             * account (see ReportDatasource.billingCycleAccountField).
+             */
             Boolean billingCycle) {
 
         public FieldDef(String name, String label, FieldType type, FieldRole role,
@@ -60,6 +64,12 @@ public class DatasourceCatalog {
         /** A DATE dimension that supports the billing-cycle operators. */
         public static FieldDef cycleDate(String name, String label, List<ReportType> allowedInReports) {
             return new FieldDef(name, label, FieldType.DATE, FieldRole.DIMENSION, null, null, null,
+                    allowedInReports, null, null, true);
+        }
+
+        /** A STRING dimension holding a billing cycle ("start → end"). */
+        public static FieldDef cycleGrouping(String name, String label, List<ReportType> allowedInReports) {
+            return new FieldDef(name, label, FieldType.STRING, FieldRole.DIMENSION, null, null, null,
                     allowedInReports, null, null, true);
         }
 
@@ -82,10 +92,17 @@ public class DatasourceCatalog {
             @JsonProperty("boolean") List<String> booleanOperators) {
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public record SingleDatasourceView(
             String name,
             String label,
-            List<FieldDef> fields) {
+            List<FieldDef> fields,
+            /* The account filter field billing-cycle reports require (null = no billing cycles). */
+            String billingCycleAccountField) {
+
+        public SingleDatasourceView(String name, String label, List<FieldDef> fields) {
+            this(name, label, fields, null);
+        }
     }
 
     public record ReportCatalogView(
@@ -145,8 +162,8 @@ public class DatasourceCatalog {
             new FieldDef("isLoanLeg", "Is loan leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("linkType", "Link type", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("TRANSFER", "CC_PAYMENT", "REFUND", "REVERSAL", "FEE", "EMI"), null, CHART_TABLE),
-            FieldDef.cycleDate("settlementDate", "Settlement date", CHART_TABLE),
-            new FieldDef("billingCycle", "Billing cycle", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
+            new FieldDef("settlementDate", "Settlement date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
+            FieldDef.cycleGrouping("billingCycle", "Billing cycle", CHART_TABLE),
             new FieldDef("reviewType", "Review status", FieldType.ENUM, FieldRole.DIMENSION, null,
                     Arrays.stream(ReviewType.values()).map(Enum::name).toList(), null, CHART_TABLE),
             new FieldDef("mcc", "MCC", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),

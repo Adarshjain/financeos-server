@@ -1,5 +1,6 @@
 package com.financeos.domain.account.card;
 
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.user.User;
 import jakarta.persistence.*;
@@ -89,6 +90,6 @@ public class Card {
     }
 
     public void close(LocalDate on) {
-        this.closedOn = on != null ? on : LocalDate.now();
+        this.closedOn = on != null ? on : AppTime.today();
     }
 }

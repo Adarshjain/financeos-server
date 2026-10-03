@@ -51,6 +51,11 @@ public class TransactionsDatasource implements ReportDatasource {
     }
 
     @Override
+    public String billingCycleAccountField() {
+        return "account";
+    }
+
+    @Override
     public ReportQueryBuilder queryBuilder() {
         return queryBuilder;
     }

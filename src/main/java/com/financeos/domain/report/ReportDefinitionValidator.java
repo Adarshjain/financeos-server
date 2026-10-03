@@ -1,9 +1,8 @@
 package com.financeos.domain.report;
 
-import com.financeos.domain.account.cycle.CycleOperators;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.domain.account.cycle.CycleOperators;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.DatasourceRegistry;
@@ -21,6 +20,7 @@ import com.financeos.domain.report.definition.ReportDefinition;
 import com.financeos.domain.report.definition.SortClause;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -66,6 +66,68 @@ public class ReportDefinitionValidator {
         } else {
             throw new ValidationException("Unsupported report definition type");
         }
+        validateBillingCycleScope(datasource, definition);
+    }
+
+    // ------------------------------------------------------------------ Billing cycle
+
+    /**
+     * Billing cycles differ per account, so a report that filters by a billing-cycle operator or
+     * groups by a billing-cycle field must be limited to exactly one account (an "is" filter, or
+     * "in" with a single value, on the datasource's billing-cycle account field).
+     */
+    private void validateBillingCycleScope(ReportDatasource datasource, ReportDefinition definition) {
+        List<FilterClause> filters = filtersOf(definition);
+        boolean usesCycle = filters.stream().anyMatch(f -> CycleOperators.isCycle(f.operator()))
+                || groupedFields(definition).stream().map(datasource::field)
+                        .anyMatch(f -> f != null && f.type() != FieldType.DATE && Boolean.TRUE.equals(f.billingCycle()));
+        if (!usesCycle) {
+            return;
+        }
+        String accountField = datasource.billingCycleAccountField();
+        if (accountField == null) {
+            throw new ValidationException("Billing cycles are not available on this datasource");
+        }
+        FieldDef account = datasource.field(accountField);
+        String label = account != null ? account.label() : accountField;
+        long single = filters.stream().filter(f -> accountField.equals(f.field()) && isSingleValue(f)).count();
+        if (single != 1 || filters.stream().anyMatch(f -> accountField.equals(f.field()) && !isSingleValue(f))) {
+            throw new ValidationException("Billing cycles differ per account: add exactly one '" + label
+                    + " is …' filter to use a billing-cycle filter or grouping");
+        }
+    }
+
+    private static List<FilterClause> filtersOf(ReportDefinition definition) {
+        List<FilterClause> filters = switch (definition) {
+            case KpiDefinition kpi -> kpi.filters();
+            case ChartDefinition chart -> chart.filters();
+            case RawTableDefinition raw -> raw.filters();
+            case AggregatedTableDefinition aggregated -> aggregated.filters();
+            default -> null;
+        };
+        return filters == null ? List.of() : filters;
+    }
+
+    private static boolean isSingleValue(FilterClause f) {
+        if ("is".equals(f.operator())) {
+            return f.value() != null && !f.value().isNull() && !f.value().isArray();
+        }
+        return "in".equals(f.operator()) && f.value() != null && f.value().isArray() && f.value().size() == 1;
+    }
+
+    /** Every field a definition groups or lists by (dimensions, series, rows, columns). */
+    private static List<String> groupedFields(ReportDefinition definition) {
+        List<String> out = new ArrayList<>();
+        if (definition instanceof ChartDefinition chart) {
+            if (chart.dimension() != null) out.add(chart.dimension().field());
+            if (chart.series() != null) out.add(chart.series().field());
+        } else if (definition instanceof RawTableDefinition raw) {
+            if (raw.columns() != null) out.addAll(raw.columns());
+        } else if (definition instanceof AggregatedTableDefinition aggregated) {
+            if (aggregated.rows() != null) aggregated.rows().forEach(d -> out.add(d.field()));
+            if (aggregated.columns() != null) aggregated.columns().forEach(d -> out.add(d.field()));
+        }
+        return out;
     }
 
     // ------------------------------------------------------------------ KPI

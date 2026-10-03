@@ -138,6 +138,24 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     @Query("SELECT MAX(COALESCE(t.settlementDate, t.date)) FROM Transaction t WHERE t.account.id = :accountId")
     LocalDate findMaxEffectiveDateByAccountId(@Param("accountId") UUID accountId);
 
+    /** An account's activity span by effective date, both ends inclusive. */
+    record EffectiveDateSpan(LocalDate from, LocalDate to) {
+    }
+
+    /**
+     * Every effective date on the account: the earliest through the later of {@code today} and
+     * the latest (future-dated settlements included). Null when the account has no transactions.
+     */
+    default EffectiveDateSpan effectiveDateSpan(UUID accountId, LocalDate today) {
+        LocalDate min = findMinEffectiveDateByAccountId(accountId);
+        if (min == null) {
+            return null;
+        }
+        LocalDate max = findMaxEffectiveDateByAccountId(accountId);
+        LocalDate to = max != null && max.isAfter(today) ? max : today;
+        return new EffectiveDateSpan(min.isAfter(to) ? to : min, to);
+    }
+
     @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.account.id = :accountId " +
            "AND (:from IS NULL OR t.date >= :from) " +
            "AND (:to IS NULL OR t.date <= :to) " +

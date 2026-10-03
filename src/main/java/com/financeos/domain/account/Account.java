@@ -1,5 +1,6 @@
 package com.financeos.domain.account;
 
+import com.financeos.core.time.AppTime;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -123,7 +124,7 @@ public class Account {
     private LocalDate anchorDate;
 
     public boolean isClosed() {
-        return isClosed(LocalDate.now());
+        return isClosed(AppTime.today());
     }
 
     public boolean isClosed(LocalDate asOf) {
@@ -131,7 +132,7 @@ public class Account {
     }
 
     public boolean isClosing() {
-        return isClosing(LocalDate.now());
+        return isClosing(AppTime.today());
     }
 
     public boolean isClosing(LocalDate asOf) {
@@ -139,7 +140,7 @@ public class Account {
     }
 
     public AccountStatus getStatus() {
-        return getStatus(LocalDate.now());
+        return getStatus(AppTime.today());
     }
 
     public AccountStatus getStatus(LocalDate asOf) {

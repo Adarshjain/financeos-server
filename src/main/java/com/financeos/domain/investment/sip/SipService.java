@@ -4,6 +4,7 @@ import com.financeos.api.investment.dto.*;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
@@ -132,7 +133,7 @@ public class SipService {
      * Execution attribution is by (broker, instrument) in [start_date, min(today, end_date)].
      */
     private SipProgressDto computeProgress(Sip sip) {
-        LocalDate today = LocalDate.now();
+        LocalDate today = AppTime.today();
         LocalDate cutoffDate = (sip.getEndDate() != null && sip.getEndDate().isBefore(today)) ? sip.getEndDate() : today;
 
         int expectedInstallments = 0;

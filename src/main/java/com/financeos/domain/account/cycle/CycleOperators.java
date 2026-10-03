@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Billing-cycle date operators. Unlike other relative operators they resolve PER CARD: each
- * credit card's rows are kept to that card's own cycle, and other accounts are excluded.
- * {@code billing_cycles_ago} ({amount: n}) is internal — KPI comparisons use it to reach the
- * cycle before the filtered one.
+ * Billing-cycle date operators. They resolve per account (a credit card's statement cycles,
+ * any other account's calendar months) on the transaction's effective date, and a report using
+ * them must be limited to one account. {@code billing_cycles_ago} ({amount: n}) is internal —
+ * KPI comparisons use it to reach the cycle before the filtered one.
  */
 public final class CycleOperators {
 
@@ -52,5 +52,28 @@ public final class CycleOperators {
 
     public static int cyclesAgo(FilterClause filter) {
         return cyclesAgo(filter.operator(), filter.value());
+    }
+
+    /**
+     * The single account a billing-cycle report is limited to: the value of its one-value
+     * filter on {@code accountField} (an account id, or a name for name-based fields); null if
+     * there is none (the validator rejects such reports).
+     */
+    public static String singleAccountRef(String accountField, List<FilterClause> filters) {
+        if (accountField == null || filters == null) {
+            return null;
+        }
+        for (FilterClause f : filters) {
+            if (!accountField.equals(f.field()) || f.value() == null) {
+                continue;
+            }
+            if ("is".equals(f.operator()) && !f.value().isArray()) {
+                return f.value().asText();
+            }
+            if ("in".equals(f.operator()) && f.value().isArray() && f.value().size() == 1) {
+                return f.value().get(0).asText();
+            }
+        }
+        return null;
     }
 }

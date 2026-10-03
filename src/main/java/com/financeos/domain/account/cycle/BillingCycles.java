@@ -13,14 +13,16 @@ import java.util.List;
  *
  * <p>The cycle containing a date is, in order of preference:
  * <ol>
- *   <li>the period of an imported statement that covers it;</li>
- *   <li>a projection from the nearest statement: cycles repeat monthly on that statement's
- *       closing day (clamped to short months), forward from the latest statement before the
- *       date and backward from the earliest one after it, never overlapping a real statement;</li>
+ *   <li>the period of an imported statement that covers it (overlapping statements are
+ *       trimmed so the later one wins, so no date belongs to two periods);</li>
+ *   <li>a projected cycle: cycles close monthly on the card's closing day (taken from the
+ *       nearest statement, see {@link #closingDay}), clamped to short months; a projected
+ *       cycle never overlaps a real statement, so a partial statement (a card opened mid-cycle)
+ *       or a missing one leaves a short stub cycle beside it;</li>
  *   <li>the calendar month, when the card has no usable statement at all.</li>
  * </ol>
  * The current cycle normally has no statement yet (it is issued after the cycle closes), so
- * it is almost always a projection from the latest statement.
+ * it is almost always projected from the latest statement.
  */
 public final class BillingCycles {
 
@@ -41,9 +43,13 @@ public final class BillingCycles {
     private record Period(LocalDate start, LocalDate end) {
     }
 
-    /** Guard against runaway projection loops (≈ 400 years of monthly cycles). */
+    /** Guard against runaway loops (≈ 400 years of monthly cycles). */
     private static final int MAX_STEPS = 5000;
 
+    /** How many statements (up to the reference one) inform the closing day. */
+    private static final int CLOSING_DAY_LOOKBACK = 3;
+
+    /** Non-overlapping statement periods, ordered by start. */
     private final List<Period> periods;
 
     private BillingCycles(List<Period> periods) {
@@ -52,18 +58,48 @@ public final class BillingCycles {
 
     /** Cycles from a card's statements; rejected and date-less statements are ignored. */
     public static BillingCycles fromStatements(List<Statement> statements) {
-        List<Period> periods = new ArrayList<>();
+        List<Period> raw = new ArrayList<>();
         if (statements != null) {
             for (Statement s : statements) {
                 if (s.getVerdict() == StatementVerdict.REJECTED || s.getPeriodStart() == null || s.getPeriodEnd() == null
                         || s.getPeriodEnd().isBefore(s.getPeriodStart())) {
                     continue;
                 }
-                periods.add(new Period(s.getPeriodStart(), s.getPeriodEnd()));
+                raw.add(new Period(s.getPeriodStart(), s.getPeriodEnd()));
             }
         }
-        periods.sort(Comparator.comparing(Period::start).thenComparing(Period::end));
-        return new BillingCycles(List.copyOf(periods));
+        return new BillingCycles(withoutOverlaps(raw));
+    }
+
+    /** Calendar months only — for accounts that have no billing cycle (not credit cards). */
+    public static BillingCycles calendarMonths() {
+        return new BillingCycles(List.of());
+    }
+
+    /**
+     * Trims overlapping periods so the later statement wins (a revised or re-issued statement
+     * replaces the overlapping days of the earlier one); a period trimmed to nothing is dropped.
+     */
+    private static List<Period> withoutOverlaps(List<Period> raw) {
+        List<Period> sorted = new ArrayList<>(raw);
+        sorted.sort(Comparator.comparing(Period::start).thenComparing(Period::end));
+        List<Period> out = new ArrayList<>();
+        for (Period p : sorted) {
+            while (!out.isEmpty()) {
+                Period last = out.get(out.size() - 1);
+                if (last.end().isBefore(p.start())) {
+                    break;
+                }
+                out.remove(out.size() - 1);
+                LocalDate trimmedEnd = p.start().minusDays(1);
+                if (!trimmedEnd.isBefore(last.start())) {
+                    out.add(new Period(last.start(), trimmedEnd));
+                    break;
+                }
+            }
+            out.add(p);
+        }
+        return List.copyOf(out);
     }
 
     public boolean hasStatements() {
@@ -75,23 +111,33 @@ public final class BillingCycles {
         if (periods.isEmpty()) {
             return new Cycle(date.withDayOfMonth(1), date.withDayOfMonth(date.lengthOfMonth()), Source.CALENDAR_MONTH);
         }
-        Period before = null;
-        Period after = null;
-        for (Period p : periods) {
+        int before = -1;
+        int after = -1;
+        for (int i = 0; i < periods.size(); i++) {
+            Period p = periods.get(i);
             if (!date.isBefore(p.start()) && !date.isAfter(p.end())) {
                 return new Cycle(p.start(), p.end(), Source.STATEMENT);
             }
-            if (p.end().isBefore(date) && (before == null || p.end().isAfter(before.end()))) {
-                before = p;
-            }
-            if (p.start().isAfter(date) && (after == null || p.start().isBefore(after.start()))) {
-                after = p;
+            if (p.end().isBefore(date)) {
+                before = i;
+            } else if (after < 0) {
+                after = i;
             }
         }
-        if (before != null) {
-            return projectForward(before, date, after);
+        int closingDay = closingDay(before >= 0 ? before : after);
+        LocalDate end = onDay(date, closingDay);
+        if (end.isBefore(date)) {
+            end = onDay(date.plusMonths(1), closingDay);
         }
-        return projectBackward(after, date);
+        LocalDate start = onDay(end.minusMonths(1), closingDay).plusDays(1);
+        // A projected cycle never overlaps a real statement.
+        if (before >= 0 && !start.isAfter(periods.get(before).end())) {
+            start = periods.get(before).end().plusDays(1);
+        }
+        if (after >= 0 && !end.isBefore(periods.get(after).start())) {
+            end = periods.get(after).start().minusDays(1);
+        }
+        return new Cycle(start, end, Source.PROJECTED);
     }
 
     /** The cycle {@code n} cycles before the one containing {@code date} (n = 0 is that cycle). */
@@ -103,7 +149,7 @@ public final class BillingCycles {
         return cycle;
     }
 
-    /** Every cycle overlapping [from, to], oldest first. */
+    /** Every cycle overlapping [from, to], oldest first; contiguous and non-overlapping. */
     public List<Cycle> between(LocalDate from, LocalDate to) {
         List<Cycle> out = new ArrayList<>();
         if (to.isBefore(from)) {
@@ -118,35 +164,25 @@ public final class BillingCycles {
         return out;
     }
 
-    /** Monthly cycles closing on {@code from}'s closing day, after {@code from}, never into {@code next}. */
-    private static Cycle projectForward(Period from, LocalDate date, Period next) {
-        int closingDay = from.end().getDayOfMonth();
-        LocalDate start = from.end().plusDays(1);
-        LocalDate end = onDay(from.end().plusMonths(1), closingDay);
-        int k = 1;
-        while (end.isBefore(date) && k < MAX_STEPS) {
-            start = end.plusDays(1);
-            k++;
-            end = onDay(from.end().plusMonths(k), closingDay);
+    /**
+     * The closing day near statement {@code ref}: its end day, except that an end on the last
+     * day of a short month is ambiguous (28 Feb closes a 28th, 30th or 31st card alike), so the
+     * largest end day among the last few statements up to {@code ref} wins. With only short
+     * month-end evidence, a month-end card is assumed.
+     */
+    private int closingDay(int ref) {
+        LocalDate end = periods.get(ref).end();
+        if (end.getDayOfMonth() < end.lengthOfMonth()) {
+            return end.getDayOfMonth();
         }
-        if (next != null && !end.isBefore(next.start())) {
-            end = next.start().minusDays(1);
+        int day = end.getDayOfMonth();
+        boolean onlyMonthEnds = true;
+        for (int i = Math.max(0, ref - CLOSING_DAY_LOOKBACK + 1); i <= ref; i++) {
+            LocalDate e = periods.get(i).end();
+            day = Math.max(day, e.getDayOfMonth());
+            onlyMonthEnds &= e.getDayOfMonth() == e.lengthOfMonth();
         }
-        return new Cycle(start, end, Source.PROJECTED);
-    }
-
-    /** Monthly cycles opening on {@code to}'s opening day, before {@code to}. */
-    private static Cycle projectBackward(Period to, LocalDate date) {
-        int openingDay = to.start().getDayOfMonth();
-        LocalDate end = to.start().minusDays(1);
-        LocalDate start = onDay(to.start().minusMonths(1), openingDay);
-        int k = 1;
-        while (start.isAfter(date) && k < MAX_STEPS) {
-            end = start.minusDays(1);
-            k++;
-            start = onDay(to.start().minusMonths(k), openingDay);
-        }
-        return new Cycle(start, end, Source.PROJECTED);
+        return onlyMonthEnds ? 31 : day;
     }
 
     private static LocalDate onDay(LocalDate monthOf, int day) {

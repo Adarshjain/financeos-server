@@ -21,4 +21,12 @@ public interface ReportDatasource {
     }
 
     ReportQueryBuilder queryBuilder();
+
+    /**
+     * The field that picks one account, required (as a single-value filter) whenever a report
+     * uses billing cycles; null when the datasource has no billing cycles.
+     */
+    default String billingCycleAccountField() {
+        return null;
+    }
 }

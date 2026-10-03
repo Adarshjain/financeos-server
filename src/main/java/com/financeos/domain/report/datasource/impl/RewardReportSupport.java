@@ -1,5 +1,6 @@
 package com.financeos.domain.report.datasource.impl;
 
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.reward.RewardMilestone;
@@ -80,14 +81,8 @@ public class RewardReportSupport {
      */
     @Nullable
     DateBounds bounds(UUID accountId) {
-        LocalDate min = transactionRepository.findMinEffectiveDateByAccountId(accountId);
-        if (min == null) {
-            return null;
-        }
-        LocalDate today = LocalDate.now();
-        LocalDate max = transactionRepository.findMaxEffectiveDateByAccountId(accountId);
-        LocalDate to = max != null && max.isAfter(today) ? max : today;
-        return new DateBounds(min.isAfter(to) ? to : min, to);
+        TransactionRepository.EffectiveDateSpan span = transactionRepository.effectiveDateSpan(accountId, AppTime.today());
+        return span == null ? null : new DateBounds(span.from(), span.to());
     }
 
     /** Rupee value of an amount in a reward unit; unvalued points are worth zero. */

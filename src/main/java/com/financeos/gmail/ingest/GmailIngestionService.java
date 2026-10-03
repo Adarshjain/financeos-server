@@ -1,6 +1,7 @@
 package com.financeos.gmail.ingest;
 
 import com.financeos.core.security.UserContextHelper;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.categorization.CategorizationService;
 import com.financeos.domain.transaction.Transaction;
@@ -25,7 +26,6 @@ import org.springframework.transaction.support.TransactionTemplate;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneOffset;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -140,9 +140,9 @@ public class GmailIngestionService {
         var demandOpt = backfillDemandRepository.findById(userId);
         if (demandOpt.isPresent()) {
             LocalDate demandFloor = demandOpt.get().getFloorDate();
-            LocalDate maxBackfillFloor = LocalDate.now().minusDays(ingestProperties.getMaxBackfillDays());
+            LocalDate maxBackfillFloor = AppTime.today().minusDays(ingestProperties.getMaxBackfillDays());
             LocalDate effectiveFloor = demandFloor.isAfter(maxBackfillFloor) ? demandFloor : maxBackfillFloor;
-            Instant floorInstant = effectiveFloor.atStartOfDay(ZoneOffset.UTC).toInstant();
+            Instant floorInstant = effectiveFloor.atStartOfDay(AppTime.zone()).toInstant();
 
             List<GmailSyncCursor> deficitCursors = cursors.stream()
                     .filter(c -> c.getEarliestCoveredAt().isAfter(floorInstant))
@@ -156,7 +156,7 @@ public class GmailIngestionService {
                     Instant earliestCovered = entry.getKey();
                     List<GmailSyncCursor> groupCursors = entry.getValue();
 
-                    long floorEpoch = effectiveFloor.atStartOfDay(ZoneOffset.UTC).toEpochSecond();
+                    long floorEpoch = effectiveFloor.atStartOfDay(AppTime.zone()).toEpochSecond();
                     long beforeEpoch = earliestCovered.plus(Duration.ofDays(1)).getEpochSecond();
 
                     String senderQuery = groupCursors.stream()

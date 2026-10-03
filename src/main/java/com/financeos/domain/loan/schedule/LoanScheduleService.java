@@ -1,6 +1,7 @@
 package com.financeos.domain.loan.schedule;
 
 import com.financeos.core.observability.Events;
+import com.financeos.core.time.AppTime;
 import net.logstash.logback.argument.StructuredArguments;
 import com.financeos.api.loan.dto.InstallmentDto;
 import com.financeos.core.exception.ValidationException;
@@ -23,7 +24,7 @@ public class LoanScheduleService {
     private static final Logger log = LoggerFactory.getLogger(LoanScheduleService.class);
 
     public ScheduleResult compute(Loan loan, List<LoanEvent> events, List<LoanPayment> payments, List<LoanCharge> charges) {
-        return compute(loan, events, payments, charges, LocalDate.now());
+        return compute(loan, events, payments, charges, AppTime.today());
     }
 
     public ScheduleResult compute(Loan loan, List<LoanEvent> events, List<LoanPayment> payments, List<LoanCharge> charges, LocalDate today) {

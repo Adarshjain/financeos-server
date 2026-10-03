@@ -95,8 +95,8 @@ public class RewardEarningsDatasource implements ComputedReportDatasource {
     }
 
     @Override
-    public String cycleAccountKey() {
-        return "cardId";
+    public String billingCycleAccountField() {
+        return "card";
     }
 
     @Override
@@ -206,7 +206,7 @@ public class RewardEarningsDatasource implements ComputedReportDatasource {
 
         return List.of(
                 FieldDef.cycleDate("effectiveDate", "Effective Date", CHART_TABLE),
-                FieldDef.cycleDate("transactionDate", "Transaction Date", TABLE_ONLY),
+                new FieldDef("transactionDate", "Transaction Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
                 new FieldDef("card", "Card", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE, null, "cardId"),
                 new FieldDef("cardholder", "Cardholder", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("rule", "Rule", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE, null, "ruleId"),
@@ -217,7 +217,7 @@ public class RewardEarningsDatasource implements ComputedReportDatasource {
                 new FieldDef("accrualType", "Accrual type", FieldType.ENUM, FieldRole.DIMENSION, null, names(AccrualType.values()), null, CHART_TABLE),
                 new FieldDef("channel", "Channel", FieldType.ENUM, FieldRole.DIMENSION, null, channelValues, null, CHART_TABLE),
                 new FieldDef("mcc", "MCC", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
-                new FieldDef("cycle", "Billing cycle", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
+                FieldDef.cycleGrouping("cycle", "Billing cycle", CHART_TABLE),
                 new FieldDef("rewardYear", "Reward year", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
                 new FieldDef("description", "Description", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
                 new FieldDef("valueInr", "Reward value (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
