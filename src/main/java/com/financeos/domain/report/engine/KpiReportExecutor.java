@@ -61,8 +61,10 @@ public class KpiReportExecutor {
             int cyclesAgo = CycleOperators.cyclesAgo(dateFilter);
             LocalDate today = AppTime.today();
             currentRange = span(billingCycleService.windows(userId, cyclesAgo, today, accountRef));
-            previous = span(billingCycleService.windows(userId, cyclesAgo + 1, today, accountRef));
-            previousFilters = withCyclesAgo(filters, dateFilter, cyclesAgo + 1);
+            if (comparisonEnabled(def.comparison())) {
+                previous = span(billingCycleService.windows(userId, cyclesAgo + 1, today, accountRef));
+                previousFilters = withCyclesAgo(filters, dateFilter, cyclesAgo + 1);
+            }
         } else {
             currentRange = dateRangeResolver.effectiveRange(dateFilter);
             if (dateFilter != null && currentRange.bounded()) {
