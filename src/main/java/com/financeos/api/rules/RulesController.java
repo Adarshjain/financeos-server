@@ -29,6 +29,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -65,6 +67,9 @@ public class RulesController {
         this.jobService = jobService;
     }
 
+    private static final Set<String> SORTABLE_FIELDS =
+            Set.of("merchantKey", "displayName", "appliedCount", "lastAppliedAt", "createdAt");
+
     private static MatchType parseMatchType(String value) {
         if (value == null || value.isBlank()) {
             return MatchType.MERCHANT_KEY;
@@ -80,20 +85,48 @@ public class RulesController {
     public ResponseEntity<Page<RuleResponse>> getRules(
             @RequestParam(required = false) Boolean verified,
             @RequestParam(required = false) String search,
+            @RequestParam(required = false) String source,
+            @RequestParam(required = false) String matchType,
+            @RequestParam(required = false) Boolean applied,
+            @RequestParam(required = false) UUID categoryId,
             @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
 
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 
-        Pageable sortedPageable = pageable;
+        Sort sort;
         if (pageable.getSort().isUnsorted()) {
-            sortedPageable = PageRequest.of(
-                    pageable.getPageNumber(),
-                    pageable.getPageSize(),
-                    Sort.by(Sort.Order.asc("verified"), Sort.Order.desc("lastAppliedAt"))
-            );
+            sort = Sort.by(Sort.Order.asc("verified"), Sort.Order.desc("lastAppliedAt"));
+        } else {
+            for (Sort.Order order : pageable.getSort()) {
+                if (!SORTABLE_FIELDS.contains(order.getProperty())) {
+                    throw new ValidationException("Unsupported sort field: " + order.getProperty());
+                }
+            }
+            sort = Sort.unsorted();
+            for (Sort.Order order : pageable.getSort()) {
+                if (order.getProperty().equals("lastAppliedAt")) {
+                    // Never-applied rules have no lastAppliedAt; keep them at the end in either direction.
+                    // Sort.Order#nullsLast isn't honoured for @Query methods, so sort on the null check first.
+                    // Wrapped in a function so Spring Data doesn't prefix the expression with the alias.
+                    sort = sort.and(JpaSort.unsafe("COALESCE(CASE WHEN r.lastAppliedAt IS NULL THEN 1 ELSE 0 END, 0)"));
+                }
+                sort = sort.and(Sort.by(order));
+            }
         }
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+                sort.and(Sort.by("id")));
 
-        Page<CategoryRule> rules = categoryRuleRepository.findRules(currentSessionUserId, verified, search, sortedPageable);
+        String sourceFilter = source == null || source.isBlank() ? null : source.trim().toUpperCase(Locale.ROOT);
+        if (sourceFilter != null && !sourceFilter.equals("LLM") && !sourceFilter.equals("USER")) {
+            throw new ValidationException("Unknown rule source: " + source);
+        }
+        MatchType matchTypeFilter = matchType == null || matchType.isBlank() ? null : parseMatchType(matchType);
+        // applied=true → used at least once, applied=false → never used
+        Integer minApplied = Boolean.TRUE.equals(applied) ? 1 : null;
+        Integer maxApplied = Boolean.FALSE.equals(applied) ? 0 : null;
+
+        Page<CategoryRule> rules = categoryRuleRepository.findRules(currentSessionUserId, verified, search,
+                sourceFilter, matchTypeFilter, minApplied, maxApplied, categoryId, sortedPageable);
         Page<RuleResponse> response = rules.map(RuleResponse::from);
         return ResponseEntity.ok(response);
     }
