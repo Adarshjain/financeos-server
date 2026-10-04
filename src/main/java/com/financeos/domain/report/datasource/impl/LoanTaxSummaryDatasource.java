@@ -126,8 +126,8 @@ public class LoanTaxSummaryDatasource implements ComputedReportDatasource {
         List<String> loanTypeValues = Arrays.stream(LoanType.values()).map(Enum::name).toList();
 
         return List.of(
-                new FieldDef("financialYear", "Financial Year", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
-                new FieldDef("loanId", "Loan ID", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
+                new FieldDef("financialYear", "Financial Year", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
+                new FieldDef("loanId", "Loan ID", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY).notFilterable(),
                 new FieldDef("loanName", "Loan", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("loanType", "Loan Type", FieldType.ENUM, FieldRole.DIMENSION, null, loanTypeValues, null, CHART_TABLE),
                 new FieldDef("lender", "Lender", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),

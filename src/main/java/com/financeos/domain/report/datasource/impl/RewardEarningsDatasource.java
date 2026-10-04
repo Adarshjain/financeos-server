@@ -218,20 +218,20 @@ public class RewardEarningsDatasource implements ComputedReportDatasource {
                 new FieldDef("channel", "Channel", FieldType.ENUM, FieldRole.DIMENSION, null, channelValues, null, CHART_TABLE),
                 new FieldDef("mcc", "MCC", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
                 FieldDef.cycleGrouping("cycle", "Billing cycle", CHART_TABLE),
-                new FieldDef("rewardYear", "Reward year", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
+                new FieldDef("rewardYear", "Reward year", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE).notFilterable(),
                 new FieldDef("description", "Description", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
                 new FieldDef("valueInr", "Reward value (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("cashInr", "Cashback (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("points", "Points", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
                 new FieldDef("pointsValueInr", "Points value (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("netValueInr", "Net value (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
-                new FieldDef("earned", "Earned (raw units)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
+                new FieldDef("earned", "Earned (₹ or points)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
                 new FieldDef("spend", "Eligible spend (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("amount", "Transaction amount (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("basis", "Rule basis (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("instantDiscount", "Instant discount (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("convenienceFee", "Convenience fee (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
-                new FieldDef("txnCount", "Eligible transactions", FieldType.NUMBER, FieldRole.MEASURE, SUM_ONLY, null, null, KPI_CHART_TABLE, "number")
+                new FieldDef("txnCount", "Eligible transactions", FieldType.NUMBER, FieldRole.MEASURE, SUM_ONLY, null, null, KPI_CHART_TABLE, "number").notFilterable()
         );
     }
 
