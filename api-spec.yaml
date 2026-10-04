@@ -8000,6 +8000,8 @@ components:
           type: boolean
         dynamic:
           type: boolean
+        filterable:
+          type: boolean
         format:
           type: string
         idField:
@@ -8031,6 +8033,7 @@ components:
       - allowedInReports
       - billingCycle
       - dynamic
+      - filterable
       - format
       - idField
       - label

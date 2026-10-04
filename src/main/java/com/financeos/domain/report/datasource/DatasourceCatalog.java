@@ -2,9 +2,14 @@ package com.financeos.domain.report.datasource;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.financeos.domain.account.AccountType;
+import com.financeos.domain.account.card.CardholderRelationship;
 import com.financeos.domain.account.cycle.CycleOperators;
 import com.financeos.domain.report.ReportType;
 import com.financeos.domain.transaction.ReviewType;
+import com.financeos.domain.transaction.TransactionChannel;
+import com.financeos.domain.transaction.TransactionSource;
+import com.financeos.domain.transaction.link.LinkType;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -47,18 +52,42 @@ public class DatasourceCatalog {
              * the field groups by billing cycle. Either way the report must be limited to one
              * account (see ReportDatasource.billingCycleAccountField).
              */
-            Boolean billingCycle) {
+            Boolean billingCycle,
+            /*
+             * False when the field cannot be filtered on (it is offered for grouping and columns
+             * only: labels, internal ids, counters); null = filterable.
+             */
+            Boolean filterable) {
+
+        public FieldDef(String name, String label, FieldType type, FieldRole role,
+                        List<Aggregation> aggregations, List<String> values,
+                        Boolean dynamic, List<ReportType> allowedInReports, String format, String idField,
+                        Boolean billingCycle) {
+            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, format, idField,
+                    billingCycle, null);
+        }
 
         public FieldDef(String name, String label, FieldType type, FieldRole role,
                         List<Aggregation> aggregations, List<String> values,
                         Boolean dynamic, List<ReportType> allowedInReports, String format, String idField) {
-            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, format, idField, null);
+            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, format, idField, null, null);
+        }
+
+        /** This field for grouping and columns only: not offered (or accepted) as a filter. */
+        public FieldDef notFilterable() {
+            return new FieldDef(name, label, type, role, aggregations, values, dynamic, allowedInReports, format,
+                    idField, billingCycle, false);
+        }
+
+        /** Not a bean getter on purpose: "filterable" must serialize from the component alone. */
+        public boolean canFilter() {
+            return !Boolean.FALSE.equals(filterable);
         }
 
         public FieldDef(String name, String label, FieldType type, FieldRole role,
                         List<Aggregation> aggregations, List<String> values,
                         Boolean dynamic, List<ReportType> allowedInReports, String format) {
-            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, format, null, null);
+            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, format, null, null, null);
         }
 
         /** A DATE dimension that supports the billing-cycle operators. */
@@ -67,16 +96,19 @@ public class DatasourceCatalog {
                     allowedInReports, null, null, true);
         }
 
-        /** A STRING dimension holding a billing cycle ("start → end"). */
+        /**
+         * A STRING dimension holding a billing cycle ("start → end"); grouping only — filtering on
+         * the label adds nothing over the date field's billing-cycle operators.
+         */
         public static FieldDef cycleGrouping(String name, String label, List<ReportType> allowedInReports) {
             return new FieldDef(name, label, FieldType.STRING, FieldRole.DIMENSION, null, null, null,
-                    allowedInReports, null, null, true);
+                    allowedInReports, null, null, true).notFilterable();
         }
 
         public FieldDef(String name, String label, FieldType type, FieldRole role,
                         List<Aggregation> aggregations, List<String> values,
                         Boolean dynamic, List<ReportType> allowedInReports) {
-            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, null, null, null);
+            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, null, null, null, null);
         }
     }
 
@@ -150,9 +182,9 @@ public class DatasourceCatalog {
             new FieldDef("category", "Category", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
             new FieldDef("account", "Account", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
             new FieldDef("accountType", "Account Type", FieldType.ENUM, FieldRole.DIMENSION, null,
-                    List.of("bank_account", "credit_card", "broker", "generic"), null, CHART_TABLE),
+                    names(AccountType.values()), null, CHART_TABLE),
             new FieldDef("source", "Source", FieldType.ENUM, FieldRole.DIMENSION, null,
-                    List.of("gmail", "manual"), null, CHART_TABLE),
+                    names(TransactionSource.values()), null, CHART_TABLE),
             new FieldDef("description", "Description", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
             new FieldDef("isUnderMonitoring", "Under monitoring", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isExcluded", "Is Excluded", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
@@ -161,22 +193,27 @@ public class DatasourceCatalog {
             new FieldDef("isLendingLeg", "Is lending leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isLoanLeg", "Is loan leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("linkType", "Link type", FieldType.ENUM, FieldRole.DIMENSION, null,
-                    List.of("TRANSFER", "CC_PAYMENT", "REFUND", "REVERSAL", "FEE", "EMI"), null, CHART_TABLE),
+                    names(LinkType.values()), null, CHART_TABLE),
             new FieldDef("settlementDate", "Settlement date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
             FieldDef.cycleGrouping("billingCycle", "Billing cycle", CHART_TABLE),
             new FieldDef("reviewType", "Review status", FieldType.ENUM, FieldRole.DIMENSION, null,
-                    Arrays.stream(ReviewType.values()).map(Enum::name).toList(), null, CHART_TABLE),
+                    names(ReviewType.values()), null, CHART_TABLE),
             new FieldDef("mcc", "MCC", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
             new FieldDef("channel", "Channel", FieldType.ENUM, FieldRole.DIMENSION, null,
-                    List.of("ONLINE", "POS", "UPI", "CONTACTLESS", "OTHER"), null, CHART_TABLE),
+                    names(TransactionChannel.values()), null, CHART_TABLE),
             new FieldDef("isEmi", "Is EMI", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isInternational", "Is international", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("instantDiscount", "Instant discount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
             new FieldDef("convenienceFee", "Convenience fee", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
             new FieldDef("card", "Card", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
-            new FieldDef("cardholder", "Cardholder", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
+            new FieldDef("cardholder", "Cardholder", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
             new FieldDef("cardRelationship", "Card Relationship", FieldType.ENUM, FieldRole.DIMENSION, null,
-                    List.of("SELF", "SPOUSE", "PARENT", "CHILD", "SIBLING", "OTHER"), null, CHART_TABLE));
+                    names(CardholderRelationship.values()), null, CHART_TABLE));
+
+    /** A static enum field's values: the enum's names, as stored. */
+    private static List<String> names(Enum<?>[] values) {
+        return Arrays.stream(values).map(Enum::name).toList();
+    }
 
     private static final Map<String, FieldDef> BY_NAME = FIELDS.stream()
             .collect(Collectors.toMap(FieldDef::name, f -> f, (a, b) -> a, LinkedHashMap::new));

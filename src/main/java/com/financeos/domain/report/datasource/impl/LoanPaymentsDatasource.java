@@ -98,7 +98,7 @@ public class LoanPaymentsDatasource implements ComputedReportDatasource {
         return List.of(
                 new FieldDef("paymentDate", "Payment Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
                 new FieldDef("dueDate", "Due Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
-                new FieldDef("loanId", "Loan ID", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
+                new FieldDef("loanId", "Loan ID", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY).notFilterable(),
                 new FieldDef("loanName", "Loan", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("loanType", "Loan Type", FieldType.ENUM, FieldRole.DIMENSION, null, loanTypeValues, null, CHART_TABLE),
                 new FieldDef("lender", "Lender", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),

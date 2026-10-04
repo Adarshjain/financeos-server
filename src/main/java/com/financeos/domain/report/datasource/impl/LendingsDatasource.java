@@ -97,14 +97,14 @@ public class LendingsDatasource implements ComputedReportDatasource {
         return List.of(
                 new FieldDef("entryDate", "Entry Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
                 new FieldDef("expectedReturnDate", "Expected Return Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
-                new FieldDef("counterpartyId", "Counterparty ID", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
+                new FieldDef("counterpartyId", "Counterparty ID", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY).notFilterable(),
                 new FieldDef("counterpartyName", "Counterparty", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("direction", "Direction", FieldType.ENUM, FieldRole.DIMENSION, null, directionValues, null, CHART_TABLE),
                 new FieldDef("amount", "Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("signedAmount", "Signed Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("notes", "Notes", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
                 new FieldDef("isLinked", "Is Linked", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
-                new FieldDef("transactionId", "Transaction ID", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
+                new FieldDef("transactionId", "Transaction ID", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY).notFilterable(),
                 new FieldDef("transactionAccount", "Transaction Account", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE)
         );
     }

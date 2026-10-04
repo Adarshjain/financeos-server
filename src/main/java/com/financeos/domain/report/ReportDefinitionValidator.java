@@ -320,6 +320,9 @@ public class ReportDefinitionValidator {
         if (operator == null) {
             throw new ValidationException("filter.operator is required for '" + filter.field() + "'");
         }
+        if (!field.canFilter()) {
+            throw new ValidationException("'" + field.label() + "' can't be used as a filter; group by it or show it as a column instead");
+        }
         boolean cycleOperator = CycleOperators.PUBLIC.contains(operator);
         if (cycleOperator && !Boolean.TRUE.equals(field.billingCycle())) {
             throw new ValidationException("Operator '" + operator + "' is only available on billing-cycle date fields; '"
