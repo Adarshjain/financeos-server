@@ -99,17 +99,25 @@ public class Transaction {
             return;
         }
 
+        // Compare by id, never by instance: callers pass categories loaded in another persistence
+        // context while ours are lazy proxies, so instance equality never matches. A kept category
+        // would then be deleted and re-inserted, and Hibernate flushes the insert first, tripping
+        // UC_TRANSACTION_CATEGORY (prod 409 on PUT /rules/{id}, request 6f8e1b6753f840659b60).
+        java.util.Set<UUID> newIds = newCategories.stream()
+                .map(Category::getId)
+                .collect(java.util.stream.Collectors.toSet());
+
         // 1. Remove categories that are no longer present
-        this.categories.removeIf(tc -> !newCategories.contains(tc.getCategory()));
+        this.categories.removeIf(tc -> !newIds.contains(tc.getCategory().getId()));
 
         // 2. Identify categories already present to avoid redundant inserts
-        java.util.Set<Category> existingCategories = this.categories.stream()
-                .map(TransactionCategory::getCategory)
+        java.util.Set<UUID> existingIds = this.categories.stream()
+                .map(tc -> tc.getCategory().getId())
                 .collect(java.util.stream.Collectors.toSet());
 
         // 3. Add only the newly associated categories
         for (Category category : newCategories) {
-            if (!existingCategories.contains(category)) {
+            if (existingIds.add(category.getId())) {
                 this.categories.add(new TransactionCategory(this, category));
             }
         }
