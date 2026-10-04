@@ -17,6 +17,7 @@ import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import jakarta.servlet.http.Cookie;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -67,6 +69,8 @@ class RuleUpdateCategoriesIntegrationTest {
     private Category food;
     private Category travel;
     private Category shopping;
+    private final List<UUID> ruleIds = new ArrayList<>();
+    private final List<UUID> transactionIds = new ArrayList<>();
 
     @BeforeEach
     void setUp() throws Exception {
@@ -86,6 +90,20 @@ class RuleUpdateCategoriesIntegrationTest {
         food = categoryRepository.save(new Category("Food", user));
         travel = categoryRepository.save(new Category("Travel", user));
         shopping = categoryRepository.save(new Category("Shopping", user));
+    }
+
+    /**
+     * Every @SpringBootTest class shares one in-memory H2 database and a cached context does not
+     * recreate the schema, so rows left here break later tests that wipe whole tables (users FK).
+     * Deleted by id so each entity is reloaded fresh rather than merging the stale detached copies.
+     */
+    @AfterEach
+    void tearDown() {
+        transactionRepository.deleteAllById(transactionIds);
+        categoryRuleRepository.deleteAllById(ruleIds);
+        categoryRepository.deleteAllById(List.of(food.getId(), travel.getId(), shopping.getId()));
+        accountRepository.deleteById(account.getId());
+        userRepository.deleteById(user.getId());
     }
 
     private Cookie authenticate(String email, String password) throws Exception {
@@ -115,7 +133,9 @@ class RuleUpdateCategoriesIntegrationTest {
         rule.setSource("USER");
         rule.setVerified(true);
         rule.setCategories(new HashSet<>(Set.of(categories)));
-        return categoryRuleRepository.save(rule);
+        CategoryRule saved = categoryRuleRepository.save(rule);
+        ruleIds.add(saved.getId());
+        return saved;
     }
 
     private Transaction linkedTransaction(CategoryRule rule, ReviewType reviewType, Category... categories) {
@@ -129,7 +149,9 @@ class RuleUpdateCategoriesIntegrationTest {
         txn.setReviewType(reviewType);
         txn.setAppliedRule(rule);
         txn.setCategories(new HashSet<>(Set.of(categories)));
-        return transactionRepository.save(txn);
+        Transaction saved = transactionRepository.save(txn);
+        transactionIds.add(saved.getId());
+        return saved;
     }
 
     private void updateRuleCategories(CategoryRule rule, Category... categories) throws Exception {
