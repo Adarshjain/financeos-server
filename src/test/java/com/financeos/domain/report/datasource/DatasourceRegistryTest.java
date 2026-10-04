@@ -161,7 +161,7 @@ class DatasourceRegistryTest {
         FieldDef channelField = txView.fields().stream().filter(f -> "channel".equals(f.name())).findFirst().orElseThrow();
         assertEquals(FieldType.ENUM, channelField.type());
         assertEquals(FieldRole.DIMENSION, channelField.role());
-        assertEquals(List.of("ONLINE", "POS", "UPI", "CONTACTLESS", "OTHER"), channelField.values());
+        assertEquals(List.of("ONLINE", "POS", "UPI", "CONTACTLESS", "ATM", "OTHER"), channelField.values());
 
         FieldDef isEmiField = txView.fields().stream().filter(f -> "isEmi".equals(f.name())).findFirst().orElseThrow();
         assertEquals(FieldType.BOOLEAN, isEmiField.type());
