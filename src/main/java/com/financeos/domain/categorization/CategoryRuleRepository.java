@@ -21,11 +21,22 @@ public interface CategoryRuleRepository extends JpaRepository<CategoryRule, UUID
     @Query("SELECT r FROM CategoryRule r WHERE r.user.id = :userId " +
            "AND (:verified IS NULL OR r.verified = :verified) " +
            "AND (:search IS NULL OR LOWER(r.merchantKey) LIKE LOWER(CONCAT('%', CONCAT(:search, '%'))) " +
-           "OR LOWER(r.displayName) LIKE LOWER(CONCAT('%', CONCAT(:search, '%'))))")
+           "OR LOWER(r.displayName) LIKE LOWER(CONCAT('%', CONCAT(:search, '%')))) " +
+           "AND (:source IS NULL OR r.source = :source) " +
+           "AND (:matchType IS NULL OR r.matchType = :matchType) " +
+           "AND (:minApplied IS NULL OR r.appliedCount >= :minApplied) " +
+           "AND (:maxApplied IS NULL OR r.appliedCount <= :maxApplied) " +
+           "AND (:categoryId IS NULL OR r.id IN " +
+           "(SELECT r2.id FROM CategoryRule r2 JOIN r2.categories c WHERE c.id = :categoryId))")
     Page<CategoryRule> findRules(
             @Param("userId") UUID userId,
             @Param("verified") Boolean verified,
             @Param("search") String search,
+            @Param("source") String source,
+            @Param("matchType") MatchType matchType,
+            @Param("minApplied") Integer minApplied,
+            @Param("maxApplied") Integer maxApplied,
+            @Param("categoryId") UUID categoryId,
             Pageable pageable);
 
     @EntityGraph(attributePaths = "categories")

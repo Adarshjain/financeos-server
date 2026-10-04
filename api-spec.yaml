@@ -5023,6 +5023,27 @@ paths:
         required: false
         schema:
           type: string
+      - in: query
+        name: source
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: matchType
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: applied
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: categoryId
+        required: false
+        schema:
+          type: string
+          format: uuid
       - description: Zero-based page index (0..N)
         in: query
         name: page
