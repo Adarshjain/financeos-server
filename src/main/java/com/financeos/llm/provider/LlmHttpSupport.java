@@ -5,11 +5,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.http.HttpTimeoutException;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class LlmHttpSupport {
 
@@ -55,6 +62,33 @@ public class LlmHttpSupport {
                     }
                 })
                 .orElse(null);
+    }
+
+    /**
+     * Sends {@code request} and bounds the WHOLE exchange — headers and body — by {@code timeoutMs}.
+     *
+     * {@link java.net.http.HttpRequest.Builder#timeout} only bounds the wait for response headers.
+     * OpenRouter sends headers immediately and then trickles keep-alive whitespace while the model
+     * runs, so a 90 s header timeout let single calls run 4–6 minutes in prod. A non-positive
+     * {@code timeoutMs} means no deadline.
+     */
+    public static HttpResponse<String> sendWithDeadline(HttpClient client, HttpRequest request, long timeoutMs)
+            throws Exception {
+        CompletableFuture<HttpResponse<String>> future = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        try {
+            return timeoutMs > 0 ? future.get(timeoutMs, TimeUnit.MILLISECONDS) : future.get();
+        } catch (TimeoutException e) {
+            future.cancel(true);
+            throw new HttpTimeoutException("No complete response within " + timeoutMs + "ms");
+        } catch (ExecutionException e) {
+            if (e.getCause() instanceof Exception cause) {
+                throw cause;
+            }
+            throw e;
+        } catch (InterruptedException e) {
+            future.cancel(true);
+            throw e;
+        }
     }
 
     @FunctionalInterface
