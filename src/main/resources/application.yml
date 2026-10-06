@@ -365,6 +365,15 @@ jobs:
     cron: ${JOBS_RETENTION_CRON:0 30 3 * * *}
     zone: ${JOBS_RETENTION_ZONE:Asia/Kolkata}
 
+# Keeps the Vercel SSR function warm (cold starts cost ~2 s of TTFB). Off by default; the prod
+# profile turns it on. /login without a cookie renders server-side but never calls this API.
+warm-ping:
+  enabled: ${WARM_PING_ENABLED:false}
+  url: ${WARM_PING_URL:${app.ui-path}/login}
+  interval-ms: ${WARM_PING_INTERVAL_MS:300000}
+  initial-delay-ms: ${WARM_PING_INITIAL_DELAY_MS:60000}
+  timeout-ms: ${WARM_PING_TIMEOUT_MS:20000}
+
 # Chat with Your Data configuration
 chat:
   enabled: ${CHAT_ENABLED:true}

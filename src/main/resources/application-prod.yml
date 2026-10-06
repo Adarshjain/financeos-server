@@ -35,3 +35,6 @@ management:
       endpoint: ${GRAFANA_OTLP_ENDPOINT:http://localhost:4318/v1/traces}
       headers:
         Authorization: Basic ${GRAFANA_OTLP_AUTH:none}
+
+warm-ping:
+  enabled: ${WARM_PING_ENABLED:true}
