@@ -7,6 +7,12 @@
 #   gc.log showed 2.1 s Full GCs (CodeCache/Metadata GC Threshold) on a 102 MB heap on this swapping box.
 #   Env additions live in .env: SERVER_TOMCAT_THREADS_MAX=25, SERVER_FORWARD_HEADERS_STRATEGY=native,
 #   DB alias financeosdb_tp, and SERVER_ADDRESS=127.0.0.1 after the TLS cutover.
+# - 2026-10-06: footprint trim — the box swapped ~1 GB/week and swap turned Full GCs into 5–11 s stalls.
+#   Prometheus 7d peaks: heap committed 237 MB (live set after Full GC <= ~93 MB), metaspace 135 MB,
+#   code cache 49 MB. So: -Xmx320m (3x the live set) + Min/MaxHeapFreeRatio so Serial hands heap back
+#   after a Full GC; SweeperThreshold=50 (% of the 128m code cache, default 15 = every ~19 MB of
+#   C1 code growth forced a Full GC, logged as "CodeCache GC Threshold"); MALLOC_ARENA_MAX=2 caps
+#   glibc's per-thread native arenas.
 #
 # To apply:
 #   sudo cp financeos.service /etc/systemd/system/financeos.service
@@ -25,7 +31,9 @@ EnvironmentFile=/home/ubuntu/financeos-server/.env
 
 # Oracle wallet configuration
 Environment="TNS_ADMIN=/home/ubuntu/financeos-server/wallet"
-ExecStart=/usr/bin/java -Xmx512m -XX:+UseSerialGC -XX:TieredStopAtLevel=1 -XX:ReservedCodeCacheSize=128m -XX:MetaspaceSize=128m -Xss512k \
+Environment="MALLOC_ARENA_MAX=2"
+ExecStart=/usr/bin/java -Xmx320m -XX:+UseSerialGC -XX:TieredStopAtLevel=1 -XX:ReservedCodeCacheSize=128m -XX:MetaspaceSize=128m -Xss512k \
+  -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=30 -XX:SweeperThreshold=50 \
   -XX:+ExitOnOutOfMemoryError \
   -Xlog:gc*:file=/home/ubuntu/financeos-server/logs/gc.log:time,uptime:filecount=3,filesize=5M \
   -Djava.net.preferIPv4Stack=true \
