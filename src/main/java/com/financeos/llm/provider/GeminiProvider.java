@@ -76,7 +76,7 @@ public class GeminiProvider implements LlmProvider {
 
         log.info("Making API call to provider [{}], model [{}], task [{}]", id, modelToUse, request.task());
         HttpResponse<String> response = LlmHttpSupport.executeAndHandleExceptions(
-                () -> httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString()), id);
+                () -> LlmHttpSupport.sendWithDeadline(httpClient, httpRequest, timeoutMs), id);
         return parseResponseBody(response.body(), response.statusCode(), LlmHttpSupport.parseRetryAfter(response), id, modelToUse, objectMapper);
     }
 
