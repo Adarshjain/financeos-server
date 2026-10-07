@@ -60,7 +60,7 @@ class DividendMatcherTest {
     @Test
     void band_spansSeventyEightPercentToTenTimesGrossPlusTolerance() {
         assertEquals(new BigDecimal("775.00"), DividendMatcher.bandLow(new BigDecimal("1000")));
-        assertEquals(new BigDecimal("10005.00"), DividendMatcher.bandHigh(new BigDecimal("1000")));
+        assertEquals(new BigDecimal("10105.00"), DividendMatcher.bandHigh(new BigDecimal("1000"))); // 10.10× + tol: a 10.08× credit stays in reach
         // gross ₹1: 0.78 − ₹1 tolerance would go negative → clamped to zero
         assertEquals(0, DividendMatcher.bandLow(new BigDecimal("1")).compareTo(BigDecimal.ZERO));
     }
@@ -209,6 +209,11 @@ class DividendMatcherTest {
         assertTrue(DividendMatcher.hasKeyword("NEFT-INFOSYS LIMITED-DIVIDEND", DividendType.dividend));
         assertTrue(DividendMatcher.hasKeyword("ICICI PRU MF IDCW PAYOUT", DividendType.dividend));
         assertFalse(DividendMatcher.hasKeyword("UPI/INDIVIDUAL PAYMENT", DividendType.dividend));
+        assertFalse(DividendMatcher.hasKeyword("UPI/DIVYA S/9876543210/dinner", DividendType.dividend));
+        assertFalse(DividendMatcher.hasKeyword("IMPS DIVESH KUMAR", DividendType.dividend));
+        assertTrue(DividendMatcher.hasKeyword("NEFT HDFC BANK DIVD", DividendType.dividend));
+        assertTrue(DividendMatcher.hasKeyword("ACH C- ITC LTD DVD", DividendType.dividend));
+        assertTrue(DividendMatcher.hasKeyword("INFOSYS DIVIDENDPAYOUT", DividendType.dividend));
         assertFalse(DividendMatcher.hasKeyword(null, DividendType.dividend));
         assertFalse(DividendMatcher.hasKeyword("INTEREST CREDIT", DividendType.dividend));
     }
@@ -266,5 +271,48 @@ class DividendMatcherTest {
         assertEquals(10, DividendMatcher.splitRatio(new BigDecimal("5000"), new BigDecimal("500")));
         assertNull(DividendMatcher.splitRatio(new BigDecimal("5000"), BigDecimal.ZERO));
         assertNull(DividendMatcher.splitRatio(null, new BigDecimal("500")));
+    }
+
+    // --- boundaries and gaps flagged in review ----------------------------------------------------------
+
+    @Test
+    void exact_acceptsReceivedExactlyToleranceAway() {
+        // gross 1000 → tol ₹5; 1005 and 995 are EXACT, 1005.01 is not
+        Dividend d = dividend("1000", null, DividendType.dividend, INFY);
+        assertEquals(DividendMatchTier.EXACT, DividendMatcher.score(d, credit("1005.00", BASE, "x"), BASE).orElseThrow().tier());
+        assertEquals(DividendMatchTier.EXACT, DividendMatcher.score(d, credit("995.00", BASE, "x"), BASE).orElseThrow().tier());
+        assertTrue(DividendMatcher.score(d, credit("1005.01", BASE, "x"), BASE).isEmpty());
+    }
+
+    @Test
+    void fuzzy_acceptsReceivedExactlyAtBandLowAndRejectsJustBelow() {
+        Dividend d = dividend("1000", null, DividendType.dividend, INFY);
+        String narration = "ACH C- INFOSYS LTD DIVIDEND";
+        // bandLow = 780 − 5 = 775.00
+        assertEquals(DividendMatchTier.FUZZY, DividendMatcher.score(d, credit("775.00", BASE, narration), BASE).orElseThrow().tier());
+        assertTrue(DividendMatcher.score(d, credit("774.99", BASE, narration), BASE).isEmpty());
+    }
+
+    @Test
+    void fuzzy_tickerTokenAloneSatisfiesTheCompanyRequirement() {
+        // instrument name shares no token with the narration; the ticker does
+        Dividend d = dividend("1000", null, DividendType.dividend, instrument("Tata Consultancy Services", "TCS"));
+        Optional<DividendMatcher.Scored> s = DividendMatcher.score(d, credit("800", BASE, "TCS DIVIDEND"), BASE);
+        assertEquals(DividendMatchTier.FUZZY, s.orElseThrow().tier());
+        assertTrue(s.get().reasons().contains(DividendMatchReason.SYMBOL_MATCH));
+    }
+
+    @Test
+    void fuzzy_interestRowsUseInterestKeywords() {
+        Dividend d = dividend("1000", null, DividendType.interest, instrument("Some Bond Fund", "BOND1"));
+        assertEquals(DividendMatchTier.FUZZY, DividendMatcher.score(d, credit("800", BASE, "SOME BOND INTEREST CREDIT"), BASE).orElseThrow().tier());
+        assertTrue(DividendMatcher.score(d, credit("800", BASE, "SOME BOND DIVIDEND"), BASE).isEmpty());
+    }
+
+    @Test
+    void splitRatio_tenTimesWithSlackIsInsideTheQueryBand() {
+        BigDecimal gross = new BigDecimal("500");
+        assertTrue(DividendMatcher.bandHigh(gross).compareTo(new BigDecimal("5040")) >= 0); // 10.08× must be fetched
+        assertEquals(10, DividendMatcher.splitRatio(new BigDecimal("5040"), gross));
     }
 }

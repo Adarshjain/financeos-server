@@ -1,6 +1,5 @@
 package com.financeos.api.investment.dto;
 
-import com.financeos.core.time.AppTime;
 import com.financeos.domain.holding.Holding;
 import com.financeos.domain.investment.dividend.Dividend;
 import com.financeos.domain.investment.dividend.DividendReceiptStatus;
@@ -36,11 +35,6 @@ public record DividendResponse(
         /** The linked bank credit, when {@code receiptStatus == received}. */
         @Nullable DividendTransactionSummary transaction
 ) {
-    /** Status derived with no bank-coverage knowledge (past-window unresolved rows read as unverifiable). */
-    public static DividendResponse from(Dividend dividend) {
-        return from(dividend, AppTime.today(), null);
-    }
-
     public static DividendResponse from(Dividend dividend, LocalDate today, @Nullable LocalDate coverageEnd) {
         Holding h = dividend.getHolding();
         return new DividendResponse(
