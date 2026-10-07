@@ -1,6 +1,7 @@
 package com.financeos.domain.investment.dividend;
 
 import com.financeos.domain.holding.Holding;
+import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -63,6 +64,21 @@ public class Dividend {
 
     @Column
     private String notes;
+
+    /**
+     * The bank credit this payout landed as (direct FK, {@code ON DELETE SET NULL}, V89). Several
+     * dividend rows may share one credit: an interim and a special dividend with the same record
+     * date arrive as a single payment.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transaction_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private Transaction transaction;
+
+    /** Manual override only ({@link DividendReceiptStatus#isManual()}); null = derive at read time. */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "receipt_status", length = 20)
+    private DividendReceiptStatus receiptStatus;
 
     @Column(name = "created_at")
     private Instant createdAt;

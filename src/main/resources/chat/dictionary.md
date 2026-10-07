@@ -102,10 +102,14 @@ Which instruments the user holds at which broker — a mapping ONLY.
 - There is deliberately NO quantity/cost/value here — those are derived; use `get_positions`.
 
 ### 6. `v_chat_dividends`
-Dividend/interest payouts received.
+Dividend/interest payouts the holdings were EXPECTED to pay, with receipt tracking against the bank.
 - `type`: `'dividend'`, `'interest'`, or `'other'`.
 - `amount` (gross), `per_unit`, `tds` (tax deducted at source), `ex_date`, `pay_date`.
-- `instrument_name`, `instrument_symbol`, `account_name`.
+- `source`: `'manual'`, `'import'` (CAS statement — real payout date) or `'suggested'` (auto-detected from Yahoo — `pay_date` defaults to the ex-date and is NOT a real payout date).
+- `transaction_id` (nullable) joins `v_chat_transactions.id` — the bank credit the payout actually landed as. NOT NULL = received; the credit's amount is what arrived (net of TDS). Several dividend rows may share one credit.
+- `receipt_status` (nullable) is a manual note: `'received_untracked'` (landed in a bank account the user does not track here) or `'not_received'` (confirmed missing). NULL `transaction_id` AND NULL `receipt_status` = not yet matched to a bank credit — say "not matched yet", never "missing" (the statement may simply not be imported).
+- Expected dividend income = SUM(`amount`); received = SUM of the linked `v_chat_transactions.amount`. A dividend credit is investment income, not salary: when asked about income by source, exclude or label transactions whose id appears in `v_chat_dividends.transaction_id`.
+- `instrument_name`, `instrument_symbol`, `account_name` (the broker account).
 
 ### 7. `v_chat_fno_trades`
 Futures & Options trades — ONE ROW PER CLOSED ROUND-TRIP (not per order).

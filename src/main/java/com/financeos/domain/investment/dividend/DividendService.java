@@ -38,19 +38,22 @@ public class DividendService {
     private final InvestmentService investmentService;
     private final YahooDividendEventsClient yahooClient;
     private final InvestmentTransactionRepository transactionRepository;
+    private final DividendReceiptStatusResolver receiptResolver;
 
     public DividendService(DividendRepository dividendRepository,
                            HoldingRepository holdingRepository,
                            UserRepository userRepository,
                            InvestmentService investmentService,
                            YahooDividendEventsClient yahooClient,
-                           InvestmentTransactionRepository transactionRepository) {
+                           InvestmentTransactionRepository transactionRepository,
+                           DividendReceiptStatusResolver receiptResolver) {
         this.dividendRepository = dividendRepository;
         this.holdingRepository = holdingRepository;
         this.userRepository = userRepository;
         this.investmentService = investmentService;
         this.yahooClient = yahooClient;
         this.transactionRepository = transactionRepository;
+        this.receiptResolver = receiptResolver;
     }
 
     public DividendResponse createDividend(CreateDividendRequest request) {
@@ -72,7 +75,7 @@ public class DividendService {
         dividend.setNotes(request.notes());
 
         Dividend saved = dividendRepository.save(dividend);
-        return DividendResponse.from(saved);
+        return receiptResolver.toResponse(saved);
     }
 
     public DividendResponse updateDividend(UUID id, UpdateDividendRequest request) {
@@ -93,7 +96,7 @@ public class DividendService {
         dividend.setNotes(request.notes());
 
         Dividend saved = dividendRepository.save(dividend);
-        return DividendResponse.from(saved);
+        return receiptResolver.toResponse(saved);
     }
 
     public void deleteDividend(UUID id) {
@@ -110,9 +113,16 @@ public class DividendService {
 
     @Transactional(readOnly = true)
     public Page<DividendResponse> getDividends(UUID holdingId, UUID brokerAccountId, UUID instrumentId,
-                                                DividendType type, LocalDate from, LocalDate to, Pageable pageable) {
-        Page<Dividend> page = dividendRepository.findFilteredDividends(holdingId, brokerAccountId, instrumentId, type, from, to, pageable);
-        return page.map(DividendResponse::from);
+                                                DividendType type, LocalDate from, LocalDate to,
+                                                DividendReceiptStatus receipt, Pageable pageable) {
+        DividendReceiptStatusResolver.Context ctx = receiptResolver.context();
+        DividendReceiptWindows.Thresholds th = DividendReceiptWindows.thresholds(ctx.today(), ctx.coverageEnd());
+        Page<Dividend> page = dividendRepository.findFilteredDividends(holdingId, brokerAccountId, instrumentId, type, from, to,
+                receipt != null ? receipt.name() : null,
+                th.suggestedAwaitFrom(), th.importAwaitFrom(), th.manualAwaitFrom(),
+                th.suggestedOverdueBefore(), th.importOverdueBefore(), th.manualOverdueBefore(),
+                pageable);
+        return page.map(d -> receiptResolver.toResponse(d, ctx));
     }
 
     @Transactional(readOnly = true)
@@ -268,6 +278,7 @@ public class DividendService {
 
         List<DividendResponse> createdResponses = new ArrayList<>();
         int skippedCount = 0;
+        DividendReceiptStatusResolver.Context ctx = receiptResolver.context();
 
         for (AcceptSuggestionsRequest.Item item : request.items()) {
             Holding holding = holdingRepository.findById(item.holdingId())
@@ -300,7 +311,7 @@ public class DividendService {
             dividend.setNotes(item.notes());
 
             Dividend saved = dividendRepository.save(dividend);
-            createdResponses.add(DividendResponse.from(saved));
+            createdResponses.add(receiptResolver.toResponse(saved, ctx));
         }
 
         return new AcceptSuggestionsResponse(createdResponses, skippedCount);

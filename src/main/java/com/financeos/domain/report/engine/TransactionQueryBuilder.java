@@ -44,6 +44,9 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     public static final String IS_LOAN_LEG =
             "(CASE WHEN EXISTS (SELECT 1 FROM loan_payments x WHERE x.transaction_id = t.id) OR EXISTS (SELECT 1 FROM loan_events x WHERE x.transaction_id = t.id) OR EXISTS (SELECT 1 FROM loan_charges x WHERE x.transaction_id = t.id) THEN 1 ELSE 0 END)";
 
+    public static final String IS_DIVIDEND_LEG =
+            "(CASE WHEN EXISTS (SELECT 1 FROM dividends x WHERE x.transaction_id = t.id) THEN 1 ELSE 0 END)";
+
     public static final String JOIN_ACCOUNTS = "ACCOUNTS";
     public static final String JOIN_CATEGORIES = "CATEGORIES";
     public static final String JOIN_CARDS = "CARDS";
@@ -83,6 +86,7 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             Map.entry("isRefundLeg", new Mapping(IS_REFUND_LEG, null)),
             Map.entry("isLendingLeg", new Mapping(IS_LENDING_LEG, null)),
             Map.entry("isLoanLeg", new Mapping(IS_LOAN_LEG, null)),
+            Map.entry("isDividendLeg", new Mapping(IS_DIVIDEND_LEG, null)),
             Map.entry("linkType", new Mapping(LINK_TYPE, JOIN_LINKS)),
             Map.entry("settlementDate", new Mapping("t.settlement_date", null)),
             Map.entry("billingCycle", new Mapping(BILLING_CYCLE_DIM, JOIN_BILLING_CYCLES)),

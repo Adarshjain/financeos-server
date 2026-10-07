@@ -1,7 +1,10 @@
 package com.financeos.api.investment.dto;
 
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.holding.Holding;
 import com.financeos.domain.investment.dividend.Dividend;
+import com.financeos.domain.investment.dividend.DividendReceiptStatus;
+import com.financeos.domain.investment.dividend.DividendReceiptWindows;
 import com.financeos.domain.investment.dividend.DividendType;
 
 import org.springframework.lang.Nullable;
@@ -27,9 +30,18 @@ public record DividendResponse(
         LocalDate payDate,
         String source,
         @Nullable String notes,
-        Instant createdAt
+        Instant createdAt,
+        /** Derived: see {@link DividendReceiptWindows#derive}. */
+        DividendReceiptStatus receiptStatus,
+        /** The linked bank credit, when {@code receiptStatus == received}. */
+        @Nullable DividendTransactionSummary transaction
 ) {
+    /** Status derived with no bank-coverage knowledge (past-window unresolved rows read as unverifiable). */
     public static DividendResponse from(Dividend dividend) {
+        return from(dividend, AppTime.today(), null);
+    }
+
+    public static DividendResponse from(Dividend dividend, LocalDate today, @Nullable LocalDate coverageEnd) {
         Holding h = dividend.getHolding();
         return new DividendResponse(
                 dividend.getId(),
@@ -47,7 +59,9 @@ public record DividendResponse(
                 dividend.getPayDate(),
                 dividend.getSource(),
                 dividend.getNotes(),
-                dividend.getCreatedAt()
+                dividend.getCreatedAt(),
+                DividendReceiptWindows.derive(dividend, today, coverageEnd),
+                DividendTransactionSummary.from(dividend.getTransaction())
         );
     }
 }
