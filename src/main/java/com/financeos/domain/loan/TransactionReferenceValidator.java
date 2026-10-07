@@ -2,6 +2,7 @@ package com.financeos.domain.loan;
 
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.domain.investment.dividend.DividendRepository;
 import com.financeos.domain.lending.LendingDirection;
 import com.financeos.domain.lending.LendingRepository;
 import com.financeos.domain.transaction.Transaction;
@@ -19,15 +20,18 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Guards the direct transaction FKs held by loan and lending rows.
+ * Guards the direct transaction FKs held by loan, lending and dividend rows.
  *
- * <p>Rules (plans/lending-transaction-linking-plan.md §3.1):
+ * <p>Rules (plans/lending-transaction-linking-plan.md §3.1, extended for dividend receipts):
  * <ul>
- *   <li>Loan rows are 1:1 with a transaction and exclusive across all four tables
+ *   <li>Loan rows are 1:1 with a transaction and exclusive across every table
  *       ({@link #validateForLoan}).</li>
  *   <li>Lending rows may share one transaction (split bills) but never a transaction that a loan
- *       row already references, and the entry direction must match the money direction:
+ *       or dividend row already references, and the entry direction must match the money direction:
  *       {@code lent} ↔ DEBIT, {@code borrowed} ↔ CREDIT ({@link #validateForLending}).</li>
+ *   <li>Dividend rows may share one transaction (interim + special dividend paid together) but
+ *       never one a loan or lending row references, and it must be a CREDIT
+ *       ({@link #validateForDividend}).</li>
  * </ul>
  */
 @Component
@@ -40,6 +44,7 @@ public class TransactionReferenceValidator {
     private final LoanPaymentRepository loanPaymentRepository;
     private final LoanChargeRepository loanChargeRepository;
     private final LendingRepository lendingRepository;
+    private final DividendRepository dividendRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -49,20 +54,25 @@ public class TransactionReferenceValidator {
             LoanEventRepository loanEventRepository,
             LoanPaymentRepository loanPaymentRepository,
             LoanChargeRepository loanChargeRepository,
-            LendingRepository lendingRepository) {
+            LendingRepository lendingRepository,
+            DividendRepository dividendRepository) {
         this.transactionRepository = transactionRepository;
         this.loanEventRepository = loanEventRepository;
         this.loanPaymentRepository = loanPaymentRepository;
         this.loanChargeRepository = loanChargeRepository;
         this.lendingRepository = lendingRepository;
+        this.dividendRepository = dividendRepository;
     }
 
-    /** Loan payments / events / charges: owned, and referenced by nothing else (loans or lendings). */
+    /** Loan payments / events / charges: owned, and referenced by nothing else (loans, lendings or dividends). */
     public Transaction validateForLoan(UUID transactionId) {
         if (transactionId == null) {
             return null;
         }
         Transaction transaction = loadOwned(transactionId);
+        if (isReferencedByDividend(transactionId)) {
+            throw new ValidationException("Transaction " + transactionId + " is already linked to a dividend");
+        }
         if (isTransactionReferenced(transactionId)) {
             throw new ValidationException("Transaction " + transactionId + " is already linked to a loan or lending record");
         }
@@ -81,10 +91,34 @@ public class TransactionReferenceValidator {
         if (isReferencedByLoan(transactionId)) {
             throw new ValidationException("Transaction " + transactionId + " is already linked to a loan record");
         }
+        if (isReferencedByDividend(transactionId)) {
+            throw new ValidationException("Transaction " + transactionId + " is already linked to a dividend");
+        }
         TransactionType expected = expectedTypeFor(direction);
         if (direction != null && transaction.getType() != expected) {
             String want = expected == TransactionType.DEBIT ? "a DEBIT (money out)" : "a CREDIT (money in)";
             throw new ValidationException("A '" + direction + "' entry must link " + want + " transaction");
+        }
+        return transaction;
+    }
+
+    /**
+     * Dividend rows: owned, a CREDIT, and not referenced by any loan or lending row. Other dividend
+     * rows on the same transaction are allowed (one credit can settle several payouts).
+     */
+    public Transaction validateForDividend(UUID transactionId) {
+        if (transactionId == null) {
+            return null;
+        }
+        Transaction transaction = loadOwned(transactionId);
+        if (isReferencedByLoan(transactionId)) {
+            throw new ValidationException("Transaction " + transactionId + " is already linked to a loan record");
+        }
+        if (isReferencedByLending(transactionId)) {
+            throw new ValidationException("Transaction " + transactionId + " is already linked to a lending record");
+        }
+        if (transaction.getType() != TransactionType.CREDIT) {
+            throw new ValidationException("A dividend must link a CREDIT (money in) transaction");
         }
         return transaction;
     }
@@ -106,13 +140,17 @@ public class TransactionReferenceValidator {
         return transactionId != null && lendingRepository.existsByTransaction_Id(transactionId);
     }
 
+    public boolean isReferencedByDividend(UUID transactionId) {
+        return transactionId != null && dividendRepository.existsByTransaction_Id(transactionId);
+    }
+
     public boolean isTransactionReferenced(UUID transactionId) {
-        return isReferencedByLoan(transactionId) || isReferencedByLending(transactionId);
+        return isReferencedByLoan(transactionId) || isReferencedByLending(transactionId) || isReferencedByDividend(transactionId);
     }
 
     /**
-     * Every transaction id referenced by any loan/lending row. Used only as an exclusion set for
-     * match suggestions — deliberately NOT user-filtered, so never surface it to a client.
+     * Every transaction id referenced by any loan/lending/dividend row. Used only as an exclusion set
+     * for match suggestions — deliberately NOT user-filtered, so never surface it to a client.
      */
     @SuppressWarnings("unchecked")
     public Set<UUID> getAllReferencedTransactionIds() {
@@ -120,7 +158,8 @@ public class TransactionReferenceValidator {
         String sql = "SELECT transaction_id FROM loan_events WHERE transaction_id IS NOT NULL "
                 + "UNION ALL SELECT transaction_id FROM loan_payments WHERE transaction_id IS NOT NULL "
                 + "UNION ALL SELECT transaction_id FROM loan_charges WHERE transaction_id IS NOT NULL "
-                + "UNION ALL SELECT transaction_id FROM lendings WHERE transaction_id IS NOT NULL";
+                + "UNION ALL SELECT transaction_id FROM lendings WHERE transaction_id IS NOT NULL "
+                + "UNION ALL SELECT transaction_id FROM dividends WHERE transaction_id IS NOT NULL";
 
         List<?> results = entityManager.createNativeQuery(sql).getResultList();
         for (Object res : results) {

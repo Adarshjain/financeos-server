@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +20,7 @@ public record AcceptSuggestionsRequest(
             @NotNull LocalDate exDate,
             @NotNull LocalDate payDate,
             @NotNull @Positive BigDecimal amount,
-            BigDecimal perUnit,
-            String notes
+            @Nullable BigDecimal perUnit,
+            @Nullable String notes
     ) {}
 }

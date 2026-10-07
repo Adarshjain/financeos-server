@@ -43,7 +43,8 @@ class ObligationRefServiceTest {
         loanPaymentRepository = mock(LoanPaymentRepository.class);
         loanEventRepository = mock(LoanEventRepository.class);
         loanChargeRepository = mock(LoanChargeRepository.class);
-        service = new ObligationRefService(lendingRepository, loanPaymentRepository, loanEventRepository, loanChargeRepository);
+        service = new ObligationRefService(lendingRepository, loanPaymentRepository, loanEventRepository, loanChargeRepository,
+                mock(com.financeos.domain.investment.dividend.DividendRepository.class));
     }
 
     private Transaction txn(UUID id) {

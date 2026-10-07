@@ -3,6 +3,8 @@ package com.financeos.api.investment;
 import org.springdoc.core.annotations.ParameterObject;
 
 import com.financeos.api.investment.dto.*;
+import com.financeos.domain.investment.dividend.DividendReceiptService;
+import com.financeos.domain.investment.dividend.DividendReceiptStatus;
 import com.financeos.domain.investment.dividend.DividendService;
 import com.financeos.domain.investment.dividend.DividendType;
 import jakarta.validation.Valid;
@@ -23,9 +25,11 @@ import java.util.UUID;
 public class DividendController {
 
     private final DividendService dividendService;
+    private final DividendReceiptService dividendReceiptService;
 
-    public DividendController(DividendService dividendService) {
+    public DividendController(DividendService dividendService, DividendReceiptService dividendReceiptService) {
         this.dividendService = dividendService;
+        this.dividendReceiptService = dividendReceiptService;
     }
 
     @PostMapping
@@ -53,12 +57,13 @@ public class DividendController {
             @RequestParam(required = false) DividendType type,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+            @RequestParam(required = false) DividendReceiptStatus receipt,
             @ParameterObject @PageableDefault(size = 25)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "payDate", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             }) Pageable pageable) {
-        return dividendService.getDividends(holdingId, brokerAccountId, instrumentId, type, from, to, pageable);
+        return dividendService.getDividends(holdingId, brokerAccountId, instrumentId, type, from, to, receipt, pageable);
     }
 
     @GetMapping("/summary")
@@ -80,5 +85,59 @@ public class DividendController {
     public AcceptSuggestionsResponse acceptSuggestions(
             @Valid @RequestBody AcceptSuggestionsRequest request) {
         return dividendService.acceptSuggestions(request);
+    }
+
+    // --- receipt reconciliation --------------------------------------------------------------------
+
+    /** Attach or replace the bank credit this payout landed as. */
+    @PutMapping("/{id}/transaction")
+    public DividendResponse linkDividendTransaction(@PathVariable UUID id, @Valid @RequestBody LinkDividendTransactionRequest request) {
+        return dividendReceiptService.linkTransaction(id, request.transactionId(), request.updateTds());
+    }
+
+    /** Detach the bank credit (idempotent). */
+    @DeleteMapping("/{id}/transaction")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void unlinkDividendTransaction(@PathVariable UUID id) {
+        dividendReceiptService.unlinkTransaction(id);
+    }
+
+    /** Set or clear the manual receipt note (received_untracked / not_received). */
+    @PutMapping("/{id}/receipt-status")
+    public DividendResponse setDividendReceiptStatus(@PathVariable UUID id, @RequestBody SetDividendReceiptStatusRequest request) {
+        return dividendReceiptService.setReceiptStatus(id, request.status());
+    }
+
+    /** Receipt status buckets (counts, expected net, received) honouring the list filters. */
+    @GetMapping("/receipts/summary")
+    public DividendReceiptSummaryResponse getDividendReceiptSummary(
+            @RequestParam(required = false) UUID holdingId,
+            @RequestParam(required = false) UUID brokerAccountId,
+            @RequestParam(required = false) UUID instrumentId,
+            @RequestParam(required = false) DividendType type) {
+        return dividendReceiptService.getReceiptSummary(holdingId, brokerAccountId, instrumentId, type);
+    }
+
+    /** Unresolved dividends with their candidate bank credits, best first. */
+    @GetMapping("/reconciliation")
+    public DividendReconciliationResponse getDividendReconciliation(
+            @RequestParam(required = false) UUID brokerAccountId,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+        return dividendReceiptService.getReconciliation(brokerAccountId, from, to);
+    }
+
+    /** Link several dividend ↔ credit pairs at once; partial success is reported per item. */
+    @PostMapping("/reconciliation/confirm")
+    public ConfirmDividendMatchesResponse confirmDividendMatches(@Valid @RequestBody ConfirmDividendMatchesRequest request) {
+        return dividendReceiptService.confirmMatches(request);
+    }
+
+    /** Bank credits that look like dividend payouts but are not recorded as dividends. */
+    @GetMapping("/reconciliation/unrecorded")
+    public UnrecordedDividendCreditsResponse getUnrecordedDividendCredits(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+        return dividendReceiptService.scanUnrecordedCredits(from, to);
     }
 }

@@ -46,7 +46,8 @@ class DividendServiceTest {
 
         dividendService = new DividendService(
                 dividendRepository, holdingRepository, userRepository,
-                investmentService, yahooClient, transactionRepository
+                investmentService, yahooClient, transactionRepository,
+                new DividendReceiptStatusResolver(Mockito.mock(com.financeos.domain.transaction.TransactionRepository.class))
         );
     }
 

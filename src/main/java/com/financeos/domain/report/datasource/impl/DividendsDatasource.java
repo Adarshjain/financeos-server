@@ -34,6 +34,10 @@ public class DividendsDatasource implements ReportDatasource {
     private static final List<ReportType> ALL = List.of(ReportType.KPI, ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> CHART_TABLE = List.of(ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> TABLE_ONLY = List.of(ReportType.TABLE);
+    private static final List<ReportType> NONE = List.of();
+
+    /** Stored-state view of receipt: linked / manual override / nothing yet (the time-based split is API-only). */
+    private static final List<String> RECEIPT_VALUES = List.of("received", "received_untracked", "not_received", "pending");
 
     private static final List<String> TYPE_VALUES = Arrays.stream(DividendType.values())
             .map(Enum::name)
@@ -57,7 +61,11 @@ public class DividendsDatasource implements ReportDatasource {
             new FieldDef("broker", "Broker", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
             new FieldDef("instrument", "Instrument", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
             new FieldDef("instrumentType", "Instrument type", FieldType.ENUM, FieldRole.DIMENSION, null, INSTRUMENT_TYPE_VALUES, null, CHART_TABLE),
-            new FieldDef("source", "Source", FieldType.ENUM, FieldRole.DIMENSION, null, SOURCE_VALUES, null, CHART_TABLE)
+            new FieldDef("source", "Source", FieldType.ENUM, FieldRole.DIMENSION, null, SOURCE_VALUES, null, CHART_TABLE),
+            new FieldDef("receipt", "Receipt", FieldType.ENUM, FieldRole.DIMENSION, null, RECEIPT_VALUES, null, CHART_TABLE),
+            new FieldDef("isLinked", "Is linked to a bank credit", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+            new FieldDef("receivedAmount", "Received amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
+            new FieldDef("receivedDate", "Received date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE)
     );
 
     public static class DividendsQueryBuilder extends AbstractReportQueryBuilder {
@@ -65,6 +73,11 @@ public class DividendsDatasource implements ReportDatasource {
         public static final String JOIN_HOLDINGS = "HOLDINGS";
         public static final String JOIN_INSTRUMENTS = "INSTRUMENTS";
         public static final String JOIN_ACCOUNTS = "ACCOUNTS";
+        public static final String JOIN_TRANSACTIONS = "TRANSACTIONS";
+
+        public static final String RECEIPT_EXPR =
+                "CASE WHEN d.transaction_id IS NOT NULL THEN 'received' WHEN d.receipt_status IS NOT NULL THEN d.receipt_status ELSE 'pending' END";
+        public static final String IS_LINKED_EXPR = "(CASE WHEN d.transaction_id IS NOT NULL THEN 1 ELSE 0 END)";
 
         private static final Map<String, Mapping> MAPPINGS = Map.ofEntries(
                 Map.entry("amount", new Mapping("d.amount", null)),
@@ -76,7 +89,11 @@ public class DividendsDatasource implements ReportDatasource {
                 Map.entry("broker", new Mapping("acc.name", JOIN_ACCOUNTS)),
                 Map.entry("instrument", new Mapping("ins.name", JOIN_INSTRUMENTS)),
                 Map.entry("instrumentType", new Mapping("ins.type", JOIN_INSTRUMENTS)),
-                Map.entry("source", new Mapping("d.source", null))
+                Map.entry("source", new Mapping("d.source", null)),
+                Map.entry("receipt", new Mapping(RECEIPT_EXPR, null)),
+                Map.entry("isLinked", new Mapping(IS_LINKED_EXPR, null)),
+                Map.entry("receivedAmount", new Mapping("tx.amount", JOIN_TRANSACTIONS)),
+                Map.entry("receivedDate", new Mapping("tx.transaction_date", JOIN_TRANSACTIONS))
         );
 
         public DividendsQueryBuilder(Map<String, FieldDef> fieldsMap, DateRangeResolver dateRangeResolver, SqlPredicates sqlPredicates) {
@@ -113,6 +130,9 @@ public class DividendsDatasource implements ReportDatasource {
             }
             if (joins.contains(JOIN_ACCOUNTS)) {
                 sb.append(" JOIN accounts acc ON acc.id = h.broker_account_id");
+            }
+            if (joins.contains(JOIN_TRANSACTIONS)) {
+                sb.append(" LEFT JOIN transactions tx ON tx.id = d.transaction_id");
             }
             return sb.toString();
         }

@@ -26,6 +26,7 @@ class TransactionReferenceValidatorTest {
     private LoanPaymentRepository loanPaymentRepository;
     private LoanChargeRepository loanChargeRepository;
     private LendingRepository lendingRepository;
+    private com.financeos.domain.investment.dividend.DividendRepository dividendRepository;
 
     private TransactionReferenceValidator validator;
 
@@ -39,9 +40,11 @@ class TransactionReferenceValidatorTest {
         loanPaymentRepository = mock(LoanPaymentRepository.class);
         loanChargeRepository = mock(LoanChargeRepository.class);
         lendingRepository = mock(LendingRepository.class);
+        dividendRepository = mock(com.financeos.domain.investment.dividend.DividendRepository.class);
 
         validator = new TransactionReferenceValidator(
-                transactionRepository, loanEventRepository, loanPaymentRepository, loanChargeRepository, lendingRepository);
+                transactionRepository, loanEventRepository, loanPaymentRepository, loanChargeRepository, lendingRepository,
+                dividendRepository);
 
         userId = UUID.randomUUID();
         user = new User();

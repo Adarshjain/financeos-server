@@ -121,6 +121,36 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("minDate") LocalDate minDate,
             @Param("maxDate") LocalDate maxDate);
 
+    /** Latest transaction date across the user's accounts of one type — how far tracked data reaches. */
+    @Query("SELECT MAX(t.date) FROM Transaction t WHERE t.account.type = :type")
+    LocalDate findMaxDateByAccountType(@Param("type") com.financeos.domain.account.AccountType type);
+
+    /**
+     * CREDITs on receiving-capable accounts inside an amount band and date window (dividend receipt
+     * candidates). The account is fetched because the response embeds it.
+     */
+    @Query("SELECT t FROM Transaction t JOIN FETCH t.account a WHERE t.type = com.financeos.domain.transaction.TransactionType.CREDIT " +
+           "AND a.type IN :accountTypes AND t.amount BETWEEN :minAmount AND :maxAmount AND t.date BETWEEN :minDate AND :maxDate")
+    List<Transaction> findCreditCandidates(
+            @Param("accountTypes") java.util.Collection<com.financeos.domain.account.AccountType> accountTypes,
+            @Param("minAmount") java.math.BigDecimal minAmount,
+            @Param("maxAmount") java.math.BigDecimal maxAmount,
+            @Param("minDate") LocalDate minDate,
+            @Param("maxDate") LocalDate maxDate);
+
+    /**
+     * CREDITs whose narration mentions a dividend keyword — a coarse SQL prefilter (DIV / IDCW
+     * substrings); the token-level check in {@code DividendMatcher.hasKeyword} refines it in Java.
+     */
+    @Query("SELECT t FROM Transaction t JOIN FETCH t.account a WHERE t.type = com.financeos.domain.transaction.TransactionType.CREDIT " +
+           "AND a.type IN :accountTypes AND t.date BETWEEN :fromDate AND :toDate AND (" +
+           "UPPER(t.sourcedDescription) LIKE '%DIV%' OR UPPER(t.description) LIKE '%DIV%' OR " +
+           "UPPER(t.sourcedDescription) LIKE '%IDCW%' OR UPPER(t.description) LIKE '%IDCW%')")
+    List<Transaction> findDividendLikeCredits(
+            @Param("accountTypes") java.util.Collection<com.financeos.domain.account.AccountType> accountTypes,
+            @Param("fromDate") LocalDate fromDate,
+            @Param("toDate") LocalDate toDate);
+
     @Query("SELECT t FROM Transaction t JOIN t.reviewReasons r WHERE t.account.id = :accountId AND t.user.id = :userId AND t.source = com.financeos.domain.transaction.TransactionSource.gmail_transaction_alert AND t.date < :beforeDate AND r = com.financeos.domain.transaction.ReviewReason.UNRECONCILED")
     List<Transaction> findUnreconciledAlertsBeforeDate(
             @Param("accountId") UUID accountId,

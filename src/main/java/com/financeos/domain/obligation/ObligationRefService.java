@@ -1,6 +1,10 @@
 package com.financeos.domain.obligation;
 
 import com.financeos.api.transaction.dto.ObligationRef;
+import com.financeos.domain.instrument.Instrument;
+import com.financeos.domain.investment.dividend.Dividend;
+import com.financeos.domain.investment.dividend.DividendRepository;
+import com.financeos.domain.investment.dividend.DividendType;
 import com.financeos.domain.lending.Lending;
 import com.financeos.domain.lending.LendingDirection;
 import com.financeos.domain.lending.LendingKind;
@@ -25,8 +29,9 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Reverse lookup + re-pointing for the direct transaction FKs held by loan/lending rows
- * ({@code lendings.transaction_id}, {@code loan_payments/loan_events/loan_charges.transaction_id}).
+ * Reverse lookup + re-pointing for the direct transaction FKs held by loan/lending/dividend rows
+ * ({@code lendings.transaction_id}, {@code loan_payments/loan_events/loan_charges.transaction_id},
+ * {@code dividends.transaction_id}).
  *
  * <p>All reads go through JPA entities carrying {@code @Filter("userFilter")}, so results are
  * tenant-scoped. One query per table per call — never per transaction.
@@ -39,15 +44,18 @@ public class ObligationRefService {
     private final LoanPaymentRepository loanPaymentRepository;
     private final LoanEventRepository loanEventRepository;
     private final LoanChargeRepository loanChargeRepository;
+    private final DividendRepository dividendRepository;
 
     public ObligationRefService(LendingRepository lendingRepository,
                                 LoanPaymentRepository loanPaymentRepository,
                                 LoanEventRepository loanEventRepository,
-                                LoanChargeRepository loanChargeRepository) {
+                                LoanChargeRepository loanChargeRepository,
+                                DividendRepository dividendRepository) {
         this.lendingRepository = lendingRepository;
         this.loanPaymentRepository = loanPaymentRepository;
         this.loanEventRepository = loanEventRepository;
         this.loanChargeRepository = loanChargeRepository;
+        this.dividendRepository = dividendRepository;
     }
 
     /** Batch: transactionId → its obligation refs (transactions with none are absent from the map). */
@@ -68,6 +76,9 @@ public class ObligationRefService {
         }
         for (LoanCharge c : loanChargeRepository.findWithLoanByTransactionIdIn(transactionIds)) {
             map.computeIfAbsent(c.getTransaction().getId(), k -> new ArrayList<>()).add(toRef(c));
+        }
+        for (Dividend d : dividendRepository.findWithHoldingByTransactionIdIn(transactionIds)) {
+            map.computeIfAbsent(d.getTransaction().getId(), k -> new ArrayList<>()).add(toRef(d));
         }
         return map;
     }
@@ -135,6 +146,16 @@ public class ObligationRefService {
             loanChargeRepository.flush();
         }
 
+        List<Dividend> dividends = dividendRepository.findWithHoldingByTransactionIdIn(List.of(from.getId()));
+        for (Dividend d : dividends) {
+            d.setTransaction(to);
+            moved.add(toRef(d).label());
+        }
+        if (!dividends.isEmpty()) {
+            dividendRepository.saveAll(dividends);
+            dividendRepository.flush();
+        }
+
         return moved;
     }
 
@@ -146,8 +167,9 @@ public class ObligationRefService {
      *   <li>Different DEBIT/CREDIT type → the direction rule (lent↔DEBIT, borrowed↔CREDIT, loan rows
      *       DEBIT) would break → reject.</li>
      *   <li>{@code deleted} has a LOAN_* ref and {@code kept} has any ref → loan rows are 1:1 → reject.</li>
-     *   <li>{@code deleted} has LENDING refs and {@code kept} has a LOAN_* ref → cross-module exclusivity → reject.</li>
-     *   <li>LENDING + LENDING on the same-type transaction → fine (split bill).</li>
+     *   <li>Refs from different families (LENDING vs LOAN_* vs DIVIDEND) → cross-module exclusivity → reject.</li>
+     *   <li>LENDING + LENDING (split bill) or DIVIDEND + DIVIDEND (one credit, several payouts) on the
+     *       same-type transaction → fine.</li>
      * </ul>
      *
      * @return null when compatible, otherwise the human-readable reason for a 400
@@ -165,13 +187,28 @@ public class ObligationRefService {
         if (keptRefs.isEmpty()) {
             return null;
         }
-        boolean deletedHasLoan = deletedRefs.stream().anyMatch(r -> r.kind() != ObligationKind.LENDING);
-        boolean keptHasLoan = keptRefs.stream().anyMatch(r -> r.kind() != ObligationKind.LENDING);
-        if (deletedHasLoan || keptHasLoan) {
-            return "Both transactions are linked to loan/lending records (" + keptRefs.get(0).label() + " and "
+        Family deletedFamily = familyOf(deletedRefs);
+        Family keptFamily = familyOf(keptRefs);
+        if (deletedFamily == Family.LOAN || keptFamily == Family.LOAN || deletedFamily != keptFamily) {
+            boolean dividendInvolved = deletedFamily == Family.DIVIDEND || keptFamily == Family.DIVIDEND;
+            String what = dividendInvolved ? "loan/lending/dividend" : "loan/lending";
+            return "Both transactions are linked to " + what + " records (" + keptRefs.get(0).label() + " and "
                     + deletedRefs.get(0).label() + "); unlink one before merging.";
         }
         return null;
+    }
+
+    /** Shareable families (LENDING, DIVIDEND) may co-exist with themselves; LOAN never shares. */
+    private enum Family { LOAN, LENDING, DIVIDEND }
+
+    private static Family familyOf(List<ObligationRef> refs) {
+        boolean anyLoan = refs.stream().anyMatch(r -> r.kind() != ObligationKind.LENDING && r.kind() != ObligationKind.DIVIDEND);
+        boolean anyLending = refs.stream().anyMatch(r -> r.kind() == ObligationKind.LENDING);
+        boolean anyDividend = refs.stream().anyMatch(r -> r.kind() == ObligationKind.DIVIDEND);
+        if (anyLoan || (anyLending && anyDividend)) {
+            return Family.LOAN; // exclusive: a loan row, or an impossible mixed set — never shareable
+        }
+        return anyDividend ? Family.DIVIDEND : Family.LENDING;
     }
 
     // --- label builders -------------------------------------------------------------------
@@ -185,6 +222,22 @@ public class ObligationRefService {
         return new ObligationRef(ObligationKind.LENDING, l.getId(),
                 l.getCounterparty() != null ? l.getCounterparty().getId() : null,
                 verb + " · " + cp, l.getAmount());
+    }
+
+    static ObligationRef toRef(Dividend d) {
+        Instrument instrument = d.getHolding() != null ? d.getHolding().getInstrument() : null;
+        String name = "";
+        if (instrument != null) {
+            String symbol = instrument.getSymbol();
+            // Stock tickers are short; MF rows carry an ISIN/AMFI code as symbol, which reads badly.
+            boolean tickerLike = symbol != null && !symbol.isBlank() && symbol.trim().length() <= 10;
+            name = tickerLike ? symbol.trim() : (instrument.getName() != null ? instrument.getName() : "");
+        }
+        String verb = d.getType() == DividendType.interest ? "Interest"
+                : d.getType() == DividendType.other ? "Payout" : "Dividend";
+        return new ObligationRef(ObligationKind.DIVIDEND, d.getId(),
+                instrument != null ? instrument.getId() : null,
+                verb + " · " + name, d.getAmount());
     }
 
     static ObligationRef toRef(LoanPayment p) {

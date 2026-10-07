@@ -82,9 +82,14 @@ public final class Events {
     public static final String LENDING_LINKED = "lending.linked";
     public static final String LENDING_UNLINKED = "lending.unlinked";
     public static final String LENDING_MATCH_ATTEMPTED = "lending.match.attempted";
-    /** A transaction referenced by a loan/lending row was deleted; the FK is ON DELETE SET NULL. */
+    public static final String DIVIDEND_LINKED = "dividend.linked";
+    public static final String DIVIDEND_UNLINKED = "dividend.unlinked";
+    /** Manual receipt override set or cleared (received_untracked / not_received / null). */
+    public static final String DIVIDEND_RECEIPT_STATUS_SET = "dividend.receipt.status.set";
+    public static final String DIVIDEND_MATCH_ATTEMPTED = "dividend.match.attempted";
+    /** A transaction referenced by a loan/lending/dividend row was deleted; the FK is ON DELETE SET NULL. */
     public static final String OBLIGATION_REF_ORPHANED = "obligation.ref.orphaned";
-    /** Merge carried loan/lending references from the absorbed transaction onto the kept one. */
+    /** Merge carried loan/lending/dividend references from the absorbed transaction onto the kept one. */
     public static final String OBLIGATION_REF_REPOINTED = "obligation.ref.repointed";
     public static final String CA_CREATED = "ca.created";
     // ca.applied is intentionally omitted: corporate actions in FinanceOS are replayed dynamically
