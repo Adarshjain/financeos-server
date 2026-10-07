@@ -6415,30 +6415,6 @@ components:
       - realized
       - totalCharges
       - unrealized
-    Bucket:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int64
-        expectedNet:
-          type: number
-        receivedAmount:
-          type: number
-        status:
-          type: string
-          enum:
-          - received
-          - received_untracked
-          - not_received
-          - awaiting
-          - overdue
-          - unverifiable
-      required:
-      - count
-      - expectedNet
-      - receivedAmount
-      - status
     BulkReattributeCardRequest:
       type: object
       properties:
@@ -7055,13 +7031,29 @@ components:
           format: int32
         skip:
           type: boolean
+    ConfirmDividendMatchItem:
+      type: object
+      properties:
+        dividendId:
+          type: string
+          format: uuid
+          x-required: true
+        transactionId:
+          type: string
+          format: uuid
+          x-required: true
+        updateTds:
+          type: boolean
+      required:
+      - dividendId
+      - transactionId
     ConfirmDividendMatchesRequest:
       type: object
       properties:
         items:
           type: array
           items:
-            $ref: "#/components/schemas/Item"
+            $ref: "#/components/schemas/ConfirmDividendMatchItem"
           x-required: true
       required:
       - items
@@ -7075,7 +7067,7 @@ components:
         skipped:
           type: array
           items:
-            $ref: "#/components/schemas/Skipped"
+            $ref: "#/components/schemas/SkippedDividendMatch"
       required:
       - linked
       - skipped
@@ -8173,13 +8165,106 @@ components:
       - rootCause
       - timeline
       - truncated
+    DividendHoldingHint:
+      type: object
+      properties:
+        brokerAccountId:
+          type: string
+          format: uuid
+        brokerName:
+          type: string
+        holdingId:
+          type: string
+          format: uuid
+        instrumentId:
+          type: string
+          format: uuid
+        instrumentName:
+          type: string
+        nameScore:
+          type: number
+          format: double
+        symbol:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - brokerAccountId
+      - brokerName
+      - holdingId
+      - instrumentId
+      - instrumentName
+      - nameScore
+    DividendMatchCandidate:
+      type: object
+      properties:
+        impliedTds:
+          type: number
+          nullable: true
+          x-nullable: true
+        reasons:
+          type: array
+          items:
+            type: string
+            enum:
+            - EXACT_GROSS
+            - NET_OF_RECORDED_TDS
+            - NET_OF_10PCT_TDS
+            - AMOUNT_WITHIN_BAND
+            - SPLIT_RATIO_SUSPECT
+            - DIVIDEND_KEYWORD
+            - NAME_MATCH
+            - SYMBOL_MATCH
+        score:
+          type: integer
+          format: int32
+        tier:
+          type: string
+          enum:
+          - EXACT
+          - NET_OF_TDS
+          - FUZZY
+        transaction:
+          $ref: "#/components/schemas/TransactionResponse"
+        variance:
+          type: number
+      required:
+      - reasons
+      - score
+      - tier
+      - transaction
+      - variance
+    DividendReceiptBucket:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        expectedNet:
+          type: number
+        receivedAmount:
+          type: number
+        status:
+          type: string
+          enum:
+          - received
+          - received_untracked
+          - not_received
+          - awaiting
+          - overdue
+          - unverifiable
+      required:
+      - count
+      - expectedNet
+      - receivedAmount
+      - status
     DividendReceiptSummaryResponse:
       type: object
       properties:
         buckets:
           type: array
           items:
-            $ref: "#/components/schemas/Bucket"
+            $ref: "#/components/schemas/DividendReceiptBucket"
         coverageEnd:
           type: string
           format: date
@@ -8191,6 +8276,18 @@ components:
       required:
       - buckets
       - totalCount
+    DividendReconciliationItem:
+      type: object
+      properties:
+        candidates:
+          type: array
+          items:
+            $ref: "#/components/schemas/DividendMatchCandidate"
+        dividend:
+          $ref: "#/components/schemas/DividendResponse"
+      required:
+      - candidates
+      - dividend
     DividendReconciliationResponse:
       type: object
       properties:
@@ -8202,7 +8299,7 @@ components:
         items:
           type: array
           items:
-            $ref: "#/components/schemas/Item"
+            $ref: "#/components/schemas/DividendReconciliationItem"
         unresolvedCount:
           type: integer
           format: int32
@@ -12985,7 +13082,7 @@ components:
       - instrumentName
       - progress
       - startDate
-    Skipped:
+    SkippedDividendMatch:
       type: object
       properties:
         dividendId:
@@ -13822,6 +13919,18 @@ components:
           type: string
           nullable: true
           x-nullable: true
+    UnrecordedDividendCredit:
+      type: object
+      properties:
+        holdingHints:
+          type: array
+          items:
+            $ref: "#/components/schemas/DividendHoldingHint"
+        transaction:
+          $ref: "#/components/schemas/TransactionResponse"
+      required:
+      - holdingHints
+      - transaction
     UnrecordedDividendCreditsResponse:
       type: object
       properties:
@@ -13831,7 +13940,7 @@ components:
         items:
           type: array
           items:
-            $ref: "#/components/schemas/Item"
+            $ref: "#/components/schemas/UnrecordedDividendCredit"
         to:
           type: string
           format: date

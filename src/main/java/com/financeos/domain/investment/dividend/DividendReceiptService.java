@@ -212,7 +212,7 @@ public class DividendReceiptService {
             }
         }
 
-        List<DividendReconciliationResponse.Item> items = new ArrayList<>();
+        List<DividendReconciliationResponse.DividendReconciliationItem> items = new ArrayList<>();
         for (Dividend d : unresolved) {
             List<DividendMatcher.Scored> all = scoredByDividend.get(d.getId());
             List<DividendMatcher.Scored> assigned = all.stream()
@@ -224,7 +224,7 @@ public class DividendReceiptService {
             if (assigned.isEmpty()) {
                 continue;
             }
-            items.add(new DividendReconciliationResponse.Item(
+            items.add(new DividendReconciliationResponse.DividendReconciliationItem(
                     resolver.toResponse(d, ctx),
                     assigned.stream().map(DividendReceiptService::toCandidate).toList()));
         }
@@ -234,12 +234,12 @@ public class DividendReceiptService {
     /** Partial success is reported, not hidden: each item ends up in {@code linked} or {@code skipped}. */
     public ConfirmDividendMatchesResponse confirmMatches(ConfirmDividendMatchesRequest request) {
         List<DividendResponse> linked = new ArrayList<>();
-        List<ConfirmDividendMatchesResponse.Skipped> skipped = new ArrayList<>();
-        for (ConfirmDividendMatchesRequest.Item item : request.items()) {
+        List<ConfirmDividendMatchesResponse.SkippedDividendMatch> skipped = new ArrayList<>();
+        for (ConfirmDividendMatchesRequest.ConfirmDividendMatchItem item : request.items()) {
             try {
                 linked.add(linkTransaction(item.dividendId(), item.transactionId(), item.updateTds()));
             } catch (ValidationException | ResourceNotFoundException e) {
-                skipped.add(new ConfirmDividendMatchesResponse.Skipped(item.dividendId(), e.getMessage()));
+                skipped.add(new ConfirmDividendMatchesResponse.SkippedDividendMatch(item.dividendId(), e.getMessage()));
             }
         }
         return new ConfirmDividendMatchesResponse(linked, skipped);
@@ -278,9 +278,9 @@ public class DividendReceiptService {
             }
         }
 
-        List<DividendReceiptSummaryResponse.Bucket> buckets = new ArrayList<>();
+        List<DividendReceiptSummaryResponse.DividendReceiptBucket> buckets = new ArrayList<>();
         for (DividendReceiptStatus s : DividendReceiptStatus.values()) {
-            buckets.add(new DividendReceiptSummaryResponse.Bucket(s, counts.get(s)[0], expected.get(s), received.get(s)));
+            buckets.add(new DividendReceiptSummaryResponse.DividendReceiptBucket(s, counts.get(s)[0], expected.get(s), received.get(s)));
         }
         return new DividendReceiptSummaryResponse(buckets, ctx.coverageEnd(), rows.size());
     }
@@ -306,15 +306,15 @@ public class DividendReceiptService {
         Set<UUID> inLinkGroups = linkGroupMembers(candidates.stream().map(Transaction::getId).collect(Collectors.toSet()));
 
         List<Holding> holdings = holdingRepository.findAllWithDetails();
-        List<UnrecordedDividendCreditsResponse.Item> items = new ArrayList<>();
+        List<UnrecordedDividendCreditsResponse.UnrecordedDividendCredit> items = new ArrayList<>();
         for (Transaction t : candidates) {
             if (inLinkGroups.contains(t.getId())) {
                 continue;
             }
             String desc = DividendMatcher.effectiveDescription(t);
-            List<UnrecordedDividendCreditsResponse.HoldingHint> hints = holdings.stream()
+            List<UnrecordedDividendCreditsResponse.DividendHoldingHint> hints = holdings.stream()
                     .filter(h -> h.getInstrument() != null && h.getBrokerAccount() != null)
-                    .map(h -> new UnrecordedDividendCreditsResponse.HoldingHint(
+                    .map(h -> new UnrecordedDividendCreditsResponse.DividendHoldingHint(
                             h.getId(),
                             h.getBrokerAccount().getId(),
                             h.getBrokerAccount().getName(),
@@ -323,12 +323,12 @@ public class DividendReceiptService {
                             h.getInstrument().getSymbol(),
                             DividendMatcher.symbolMatches(h.getInstrument(), desc) ? 1.0 : DividendMatcher.nameScore(h.getInstrument(), desc)))
                     .filter(hint -> hint.nameScore() >= DividendMatcher.NAME_SCORE_THRESHOLD)
-                    .sorted(Comparator.comparingDouble(UnrecordedDividendCreditsResponse.HoldingHint::nameScore).reversed()
-                            .thenComparing(UnrecordedDividendCreditsResponse.HoldingHint::instrumentName,
+                    .sorted(Comparator.comparingDouble(UnrecordedDividendCreditsResponse.DividendHoldingHint::nameScore).reversed()
+                            .thenComparing(UnrecordedDividendCreditsResponse.DividendHoldingHint::instrumentName,
                                     Comparator.nullsLast(Comparator.naturalOrder())))
                     .limit(MAX_HOLDING_HINTS)
                     .toList();
-            items.add(new UnrecordedDividendCreditsResponse.Item(TransactionResponse.from(t), hints));
+            items.add(new UnrecordedDividendCreditsResponse.UnrecordedDividendCredit(TransactionResponse.from(t), hints));
         }
         return new UnrecordedDividendCreditsResponse(items, start, end);
     }
@@ -382,8 +382,8 @@ public class DividendReceiptService {
         return Math.abs(ChronoUnit.DAYS.between(base, txnDate));
     }
 
-    private static DividendReconciliationResponse.Candidate toCandidate(DividendMatcher.Scored s) {
-        return new DividendReconciliationResponse.Candidate(
+    private static DividendReconciliationResponse.DividendMatchCandidate toCandidate(DividendMatcher.Scored s) {
+        return new DividendReconciliationResponse.DividendMatchCandidate(
                 TransactionResponse.from(s.transaction()), s.tier(), s.score(), s.reasons(), s.impliedTds(), s.variance());
     }
 

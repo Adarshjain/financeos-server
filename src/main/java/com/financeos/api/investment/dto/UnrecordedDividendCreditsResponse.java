@@ -14,16 +14,16 @@ import java.util.UUID;
  * narration resembles, best first, so the client can prefill a "record dividend" form.
  */
 public record UnrecordedDividendCreditsResponse(
-        List<Item> items,
+        List<UnrecordedDividendCredit> items,
         LocalDate from,
         LocalDate to
 ) {
-    public record Item(
+    public record UnrecordedDividendCredit(
             TransactionResponse transaction,
-            List<HoldingHint> holdingHints
+            List<DividendHoldingHint> holdingHints
     ) {}
 
-    public record HoldingHint(
+    public record DividendHoldingHint(
             UUID holdingId,
             UUID brokerAccountId,
             String brokerName,
