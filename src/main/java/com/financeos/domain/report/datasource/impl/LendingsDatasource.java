@@ -2,6 +2,7 @@ package com.financeos.domain.report.datasource.impl;
 
 import com.financeos.domain.lending.Lending;
 import com.financeos.domain.lending.LendingDirection;
+import com.financeos.domain.lending.LendingKind;
 import com.financeos.domain.lending.LendingService;
 import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
@@ -65,6 +66,7 @@ public class LendingsDatasource implements ComputedReportDatasource {
                     : null);
             map.put("counterpartyName", lending.getCounterparty() != null ? lending.getCounterparty().getName() : null);
             map.put("direction", lending.getDirection() != null ? lending.getDirection().name() : null);
+            map.put("kind", lending.getKind() != null ? lending.getKind().name() : null);
             map.put("amount", lending.getAmount());
 
             BigDecimal signedAmount = null;
@@ -93,6 +95,7 @@ public class LendingsDatasource implements ComputedReportDatasource {
 
     private List<FieldDef> buildCatalog() {
         List<String> directionValues = Arrays.stream(LendingDirection.values()).map(Enum::name).toList();
+        List<String> kindValues = Arrays.stream(LendingKind.values()).map(Enum::name).toList();
 
         return List.of(
                 new FieldDef("entryDate", "Entry Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
@@ -100,6 +103,7 @@ public class LendingsDatasource implements ComputedReportDatasource {
                 new FieldDef("counterpartyId", "Counterparty ID", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY).notFilterable(),
                 new FieldDef("counterpartyName", "Counterparty", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("direction", "Direction", FieldType.ENUM, FieldRole.DIMENSION, null, directionValues, null, CHART_TABLE),
+                new FieldDef("kind", "Entry Kind", FieldType.ENUM, FieldRole.DIMENSION, null, kindValues, null, CHART_TABLE),
                 new FieldDef("amount", "Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("signedAmount", "Signed Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("notes", "Notes", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),

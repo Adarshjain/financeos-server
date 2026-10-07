@@ -6891,6 +6891,10 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        repaidByYou:
+          type: number
+        repaidToYou:
+          type: number
         totalBorrowed:
           type: number
         totalLent:
@@ -6900,6 +6904,8 @@ components:
       - id
       - name
       - netPosition
+      - repaidByYou
+      - repaidToYou
       - totalBorrowed
       - totalLent
     CounterpartySuggestionResponse:
@@ -7229,6 +7235,11 @@ components:
         expectedReturnDate:
           type: string
           format: date
+        kind:
+          type: string
+          enum:
+          - principal
+          - settlement
         newCounterpartyName:
           type: string
         notes:
@@ -9138,6 +9149,11 @@ components:
         id:
           type: string
           format: uuid
+        kind:
+          type: string
+          enum:
+          - principal
+          - settlement
         notes:
           type: string
           nullable: true
@@ -9157,6 +9173,7 @@ components:
       - direction
       - entryDate
       - id
+      - kind
     LendingTransactionSummary:
       type: object
       properties:
@@ -13575,6 +13592,11 @@ components:
         expectedReturnDate:
           type: string
           format: date
+        kind:
+          type: string
+          enum:
+          - principal
+          - settlement
         notes:
           type: string
     UpdateLlmKeyPositionRequest:

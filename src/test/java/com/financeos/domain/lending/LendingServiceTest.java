@@ -49,6 +49,39 @@ class LendingServiceTest {
     }
 
     @Test
+    void testToCounterpartyResponse_settlementsFeedRepaidTotalsAndNetCountsEveryEntry() {
+        Counterparty cp = new Counterparty();
+        cp.setId(UUID.randomUUID());
+        cp.setName("Rahul Sharma");
+
+        // lent 5000, they repaid 2000, borrowed 1000, you repaid 1000 -> they still owe 3000
+        CounterpartyResponse response = CounterpartyResponse.from(cp,
+                new BigDecimal("5000.00"), new BigDecimal("1000.00"),
+                new BigDecimal("2000.00"), new BigDecimal("1000.00"), 4);
+
+        assertEquals(new BigDecimal("5000.00"), response.totalLent());
+        assertEquals(new BigDecimal("1000.00"), response.totalBorrowed());
+        assertEquals(new BigDecimal("2000.00"), response.repaidToYou());
+        assertEquals(new BigDecimal("1000.00"), response.repaidByYou());
+        assertEquals(new BigDecimal("3000.00"), response.netPosition());
+        assertEquals(4, response.entryCount());
+    }
+
+    @Test
+    void testToCounterpartyResponse_principalOnlyOverloadReportsZeroRepaid() {
+        Counterparty cp = new Counterparty();
+        cp.setId(UUID.randomUUID());
+        cp.setName("Priya Nair");
+
+        CounterpartyResponse response = CounterpartyResponse.from(cp, new BigDecimal("500.00"), null, 1);
+
+        assertEquals(BigDecimal.ZERO, response.repaidToYou());
+        assertEquals(BigDecimal.ZERO, response.repaidByYou());
+        assertEquals(BigDecimal.ZERO, response.totalBorrowed());
+        assertEquals(new BigDecimal("500.00"), response.netPosition());
+    }
+
+    @Test
     void testSummaryNetting_perCounterparty() {
         // Ramesh owes 50k, user owes Ramesh 20k -> Net +30k (lentOutstanding: 30k)
         // Suresh owes user 10k, user owes Suresh 15k -> Net -5k (borrowedOutstanding: 5k)

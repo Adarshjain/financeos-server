@@ -43,6 +43,11 @@ public class Lending {
     @Column(nullable = false, length = 30)
     private LendingDirection direction;
 
+    /** Principal = new money lent/borrowed; settlement = a repayment clearing an existing balance. */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private LendingKind kind = LendingKind.principal;
+
     @Column(nullable = false, precision = 19, scale = 4)
     private BigDecimal amount;
 

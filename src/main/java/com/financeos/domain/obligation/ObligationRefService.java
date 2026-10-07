@@ -3,6 +3,7 @@ package com.financeos.domain.obligation;
 import com.financeos.api.transaction.dto.ObligationRef;
 import com.financeos.domain.lending.Lending;
 import com.financeos.domain.lending.LendingDirection;
+import com.financeos.domain.lending.LendingKind;
 import com.financeos.domain.lending.LendingRepository;
 import com.financeos.domain.loan.LoanCharge;
 import com.financeos.domain.loan.LoanChargeRepository;
@@ -176,7 +177,10 @@ public class ObligationRefService {
     // --- label builders -------------------------------------------------------------------
 
     static ObligationRef toRef(Lending l) {
-        String verb = l.getDirection() == LendingDirection.lent ? "Lent" : "Borrowed";
+        boolean out = l.getDirection() == LendingDirection.lent;
+        String verb = l.getKind() == LendingKind.settlement
+                ? (out ? "You repaid" : "They repaid")
+                : (out ? "Lent" : "Borrowed");
         String cp = l.getCounterparty() != null ? l.getCounterparty().getName() : "";
         return new ObligationRef(ObligationKind.LENDING, l.getId(),
                 l.getCounterparty() != null ? l.getCounterparty().getId() : null,

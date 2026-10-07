@@ -4,6 +4,7 @@ import com.financeos.api.transaction.dto.ObligationRef;
 import com.financeos.domain.lending.Counterparty;
 import com.financeos.domain.lending.Lending;
 import com.financeos.domain.lending.LendingDirection;
+import com.financeos.domain.lending.LendingKind;
 import com.financeos.domain.lending.LendingRepository;
 import com.financeos.domain.loan.Loan;
 import com.financeos.domain.loan.LoanCharge;
@@ -156,6 +157,28 @@ class ObligationRefServiceTest {
         Map<UUID, List<ObligationRef>> result = service.refsFor(List.of(txnId));
 
         assertEquals("Borrowed · Priya", result.get(txnId).get(0).label());
+    }
+
+    @Test
+    void refsForCollection_lendingSettlementMoneyOut_youRepaidLabel() {
+        UUID txnId = UUID.randomUUID();
+        Transaction t = txn(txnId);
+        Lending l = lending(UUID.randomUUID(), t, LendingDirection.lent, "Rahul", new BigDecimal("500.00"));
+        l.setKind(LendingKind.settlement);
+        when(lendingRepository.findWithCounterpartyByTransactionIdIn(List.of(txnId))).thenReturn(List.of(l));
+
+        assertEquals("You repaid · Rahul", service.refsFor(List.of(txnId)).get(txnId).get(0).label());
+    }
+
+    @Test
+    void refsForCollection_lendingSettlementMoneyIn_theyRepaidLabel() {
+        UUID txnId = UUID.randomUUID();
+        Transaction t = txn(txnId);
+        Lending l = lending(UUID.randomUUID(), t, LendingDirection.borrowed, "Priya", new BigDecimal("200.00"));
+        l.setKind(LendingKind.settlement);
+        when(lendingRepository.findWithCounterpartyByTransactionIdIn(List.of(txnId))).thenReturn(List.of(l));
+
+        assertEquals("They repaid · Priya", service.refsFor(List.of(txnId)).get(txnId).get(0).label());
     }
 
     @Test
