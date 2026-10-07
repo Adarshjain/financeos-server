@@ -343,7 +343,7 @@ class DividendReceiptServiceTest {
 
         verify(transactionRepository).findCreditCandidates(
                 eq(DividendReceiptService.RECEIVING_ACCOUNT_TYPES),
-                eq(new BigDecimal("775.00")), eq(new BigDecimal("10005.00")),
+                eq(new BigDecimal("775.00")), eq(new BigDecimal("10105.00")),
                 eq(TODAY.minusDays(23)), eq(TODAY.plusDays(40)));
     }
 
@@ -609,5 +609,66 @@ class DividendReceiptServiceTest {
 
         assertEquals(bank.getId(), r.items().get(0).candidates().get(0).transaction().accountId());
         verify(dividendRepository, never()).save(none.capture());
+    }
+
+    // --- review gaps ------------------------------------------------------------------------------------
+
+    @Test
+    void reconciliation_equalScoresGoToTheDividendWithTheNearerBaseDate() {
+        // same score (no keyword/name hits, both within 3 days → penalty 0), different distance
+        Dividend near = dividend("1000", null, "manual", null, TODAY.minusDays(5), Instant.parse("2026-02-01T00:00:00Z"));
+        Dividend far = dividend("1000", null, "manual", null, TODAY.minusDays(8), Instant.parse("2026-01-01T00:00:00Z"));
+        Transaction t = credit("1000", TODAY.minusDays(5), "x");
+        when(dividendRepository.findUnresolvedForReconciliation(null, null, null)).thenReturn(List.of(far, near));
+        when(transactionRepository.findCreditCandidates(any(), any(), any(), any(), any())).thenReturn(List.of(t));
+
+        DividendReconciliationResponse r = service.getReconciliation(null, null, null);
+
+        assertEquals(1, r.items().size());
+        assertEquals(near.getId(), r.items().get(0).dividend().id()); // older `far` loses: distance decides before age
+    }
+
+    @Test
+    void link_updateTds_acceptsAGapOfExactlyTwentyFivePercent() {
+        Dividend d = manualDividend("1000", TODAY);
+        Transaction t = credit("750", TODAY, "x");
+        when(validator.validateForDividend(t.getId())).thenReturn(t);
+        service.linkTransaction(d.getId(), t.getId(), true);
+        assertEquals(new BigDecimal("250.00"), d.getTds());
+    }
+
+    @Test
+    void confirm_skipsADividendRepeatedInTheSameBatch() {
+        Dividend d = manualDividend("1000", TODAY);
+        Transaction t1 = credit("1000", TODAY, "a");
+        Transaction t2 = credit("1000", TODAY, "b");
+        when(validator.validateForDividend(t1.getId())).thenReturn(t1);
+        when(validator.validateForDividend(t2.getId())).thenReturn(t2);
+
+        ConfirmDividendMatchesResponse r = service.confirmMatches(new ConfirmDividendMatchesRequest(List.of(
+                new ConfirmDividendMatchesRequest.ConfirmDividendMatchItem(d.getId(), t1.getId(), false),
+                new ConfirmDividendMatchesRequest.ConfirmDividendMatchItem(d.getId(), t2.getId(), false))));
+
+        assertEquals(1, r.linked().size());
+        assertEquals(1, r.skipped().size());
+        assertTrue(r.skipped().get(0).reason().contains("more than once"));
+        assertSame(t1, d.getTransaction()); // the first item won; the second did not overwrite it
+    }
+
+    @Test
+    void summary_countsACreditSharedByTwoDividendsOnce() {
+        UUID sharedTxn = UUID.randomUUID();
+        List<Object[]> rows = List.of(
+                new Object[]{"manual", null, TODAY.minusDays(1), null, new BigDecimal("600"), null, sharedTxn, new BigDecimal("900")},
+                new Object[]{"manual", null, TODAY.minusDays(1), null, new BigDecimal("400"), null, sharedTxn, new BigDecimal("900")});
+        when(dividendRepository.findReceiptRowsForSummary(null, null, null, null)).thenReturn(rows);
+
+        DividendReceiptSummaryResponse r = service.getReceiptSummary(null, null, null, null);
+
+        DividendReceiptSummaryResponse.DividendReceiptBucket received = r.buckets().stream()
+                .filter(b -> b.status() == DividendReceiptStatus.received).findFirst().orElseThrow();
+        assertEquals(2, received.count());
+        assertEquals(0, received.expectedNet().compareTo(new BigDecimal("1000")));
+        assertEquals(0, received.receivedAmount().compareTo(new BigDecimal("900"))); // not 1800
     }
 }

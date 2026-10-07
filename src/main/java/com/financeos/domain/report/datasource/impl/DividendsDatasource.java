@@ -64,7 +64,8 @@ public class DividendsDatasource implements ReportDatasource {
             new FieldDef("source", "Source", FieldType.ENUM, FieldRole.DIMENSION, null, SOURCE_VALUES, null, CHART_TABLE),
             new FieldDef("receipt", "Receipt", FieldType.ENUM, FieldRole.DIMENSION, null, RECEIPT_VALUES, null, CHART_TABLE),
             new FieldDef("isLinked", "Is linked to a bank credit", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
-            new FieldDef("receivedAmount", "Received amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
+            // Attributed per dividend row: a credit shared by two rows (interim + special payout) is summed twice here.
+            new FieldDef("receivedAmount", "Received amount (per dividend row)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
             new FieldDef("receivedDate", "Received date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE)
     );
 

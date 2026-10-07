@@ -24,11 +24,15 @@ import java.util.stream.Collectors;
  * <ol>
  *   <li>EXACT — received ≈ gross, or ≈ gross − recorded TDS.</li>
  *   <li>NET_OF_TDS — TDS not recorded and received ≈ gross × 0.9.</li>
- *   <li>FUZZY — received anywhere in [0.78·gross, gross] (20% no-PAN TDS … rounding), or ≈ gross × a
- *       split ratio (Yahoo adjusts historical per-share amounts for splits, so pre-split expectations
- *       are low by the ratio). Only accepted when the narration carries a dividend keyword AND names
- *       the company (name score ≥ {@value #NAME_SCORE_THRESHOLD}).</li>
+ *   <li>FUZZY — received roughly in [0.78·gross, gross] (20% no-PAN TDS … rounding; both ends widened by
+ *       the tolerance), or ≈ gross × a split ratio (Yahoo adjusts historical per-share amounts for
+ *       splits, so pre-split expectations are low by the ratio). Only accepted when the narration
+ *       carries a dividend keyword AND identifies the company (name score ≥
+ *       {@value #NAME_SCORE_THRESHOLD}, or the ticker as its own token).</li>
  * </ol>
+ *
+ * <p>Assignment (in the service) is one dividend per credit: a credit is offered to the single dividend
+ * that scores it highest, while a dividend may be offered several credits.
  */
 public final class DividendMatcher {
 
@@ -39,7 +43,8 @@ public final class DividendMatcher {
     public static final BigDecimal MIN_TOLERANCE = new BigDecimal("1.00");
     public static final BigDecimal TOLERANCE_RATE = new BigDecimal("0.005");
     public static final BigDecimal BAND_LOW_FACTOR = new BigDecimal("0.78");
-    public static final BigDecimal BAND_HIGH_FACTOR = new BigDecimal("10");
+    /** Covers the largest split ratio (×10) plus its 1% slack, so a 10.08× credit is still fetched. */
+    public static final BigDecimal BAND_HIGH_FACTOR = new BigDecimal("10.10");
     public static final double NAME_SCORE_THRESHOLD = 0.5;
     public static final int[] SPLIT_RATIOS = {2, 3, 4, 5, 10};
     public static final BigDecimal SPLIT_RATIO_SLACK = new BigDecimal("0.01");
@@ -182,13 +187,16 @@ public final class DividendMatcher {
         return null;
     }
 
-    /** Dividend rows look for DIV… or IDCW tokens; interest rows for INT, INTT or INTEREST…. */
+    /** Narration tokens that mean "dividend"; a bare "div…" prefix would also match payers named Divya or Divesh. */
+    static final Set<String> DIVIDEND_TOKENS = Set.of("div", "divd", "dvd", "divi", "idcw");
+
+    /** Dividend rows look for DIV / DIVD / DVD / IDCW / DIVIDEND… tokens; interest rows for INT, INTT or INTEREST…. */
     public static boolean hasKeyword(String description, DividendType type) {
         Set<String> tokens = tokens(description);
         if (type == DividendType.interest) {
             return tokens.stream().anyMatch(t -> t.equals("int") || t.equals("intt") || t.startsWith("interest"));
         }
-        return tokens.stream().anyMatch(t -> t.startsWith("div") || t.equals("idcw"));
+        return tokens.stream().anyMatch(t -> DIVIDEND_TOKENS.contains(t) || t.startsWith("dividend"));
     }
 
     /**

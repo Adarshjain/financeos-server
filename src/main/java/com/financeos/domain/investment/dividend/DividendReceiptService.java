@@ -36,6 +36,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,8 @@ import java.util.stream.Collectors;
  *
  * <p>Link / unlink / manual override live here, plus the reconciliation engine: unresolved rows are
  * scored against CREDITs in their expected window ({@link DividendMatcher}), each credit is handed to
- * the single dividend that scores it highest, and the user confirms. The reverse scan finds credits
+ * the single dividend that scores it highest (one dividend per credit; a dividend may still be offered
+ * several credits), and the user confirms. The reverse scan finds credits
  * that look like dividends but have no row at all. Nothing here mutates {@code amount} — P&amp;L and
  * XIRR keep reading the gross expectation; the only write-back is TDS, and only on request.
  */
@@ -235,7 +237,13 @@ public class DividendReceiptService {
     public ConfirmDividendMatchesResponse confirmMatches(ConfirmDividendMatchesRequest request) {
         List<DividendResponse> linked = new ArrayList<>();
         List<ConfirmDividendMatchesResponse.SkippedDividendMatch> skipped = new ArrayList<>();
+        Set<UUID> seen = new HashSet<>();
         for (ConfirmDividendMatchesRequest.ConfirmDividendMatchItem item : request.items()) {
+            if (!seen.add(item.dividendId())) {
+                skipped.add(new ConfirmDividendMatchesResponse.SkippedDividendMatch(item.dividendId(),
+                        "Dividend appears more than once in this batch; only the first item was applied"));
+                continue;
+            }
             try {
                 linked.add(linkTransaction(item.dividendId(), item.transactionId(), item.updateTds()));
             } catch (ValidationException | ResourceNotFoundException e) {
@@ -253,6 +261,8 @@ public class DividendReceiptService {
         Map<DividendReceiptStatus, long[]> counts = new EnumMap<>(DividendReceiptStatus.class);
         Map<DividendReceiptStatus, BigDecimal> expected = new EnumMap<>(DividendReceiptStatus.class);
         Map<DividendReceiptStatus, BigDecimal> received = new EnumMap<>(DividendReceiptStatus.class);
+        // Several dividend rows may share one credit; the money arrived once, so count each credit once.
+        Set<UUID> creditsCounted = new HashSet<>();
         for (DividendReceiptStatus s : DividendReceiptStatus.values()) {
             counts.put(s, new long[1]);
             expected.put(s, BigDecimal.ZERO);
@@ -266,14 +276,15 @@ public class DividendReceiptService {
             DividendReceiptStatus manual = (DividendReceiptStatus) row[3];
             BigDecimal amount = row[4] != null ? (BigDecimal) row[4] : BigDecimal.ZERO;
             BigDecimal tds = row[5] != null ? (BigDecimal) row[5] : BigDecimal.ZERO;
-            boolean linkedRow = row[6] != null;
+            UUID txnId = (UUID) row[6];
+            boolean linkedRow = txnId != null;
             BigDecimal txnAmount = row[7] != null ? (BigDecimal) row[7] : null;
 
             DividendReceiptStatus status = DividendReceiptWindows.derive(source, exDate, payDate, linkedRow, manual,
                     ctx.today(), ctx.coverageEnd());
             counts.get(status)[0]++;
             expected.put(status, expected.get(status).add(amount.subtract(tds)));
-            if (txnAmount != null) {
+            if (txnAmount != null && creditsCounted.add(txnId)) {
                 received.put(status, received.get(status).add(txnAmount));
             }
         }

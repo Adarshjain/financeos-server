@@ -180,7 +180,7 @@ public class ObligationRefService {
             return null;
         }
         if (kept.getType() != deleted.getType()) {
-            return "The transaction being merged away is linked to a loan/lending record ("
+            return "The transaction being merged away is linked to a loan/lending/dividend record ("
                     + deletedRefs.get(0).label() + ") and the kept transaction has the opposite direction; unlink it first.";
         }
         List<ObligationRef> keptRefs = refsFor(kept.getId());

@@ -108,7 +108,7 @@ public class DividendController {
         return dividendReceiptService.setReceiptStatus(id, request.status());
     }
 
-    /** Receipt status buckets (counts, expected net, received) honouring the list filters. */
+    /** Receipt status buckets (counts, expected net, received) for the holding / broker / instrument / type filters. */
     @GetMapping("/receipts/summary")
     public DividendReceiptSummaryResponse getDividendReceiptSummary(
             @RequestParam(required = false) UUID holdingId,

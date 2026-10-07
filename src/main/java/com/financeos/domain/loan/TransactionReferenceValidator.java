@@ -73,7 +73,7 @@ public class TransactionReferenceValidator {
         if (isReferencedByDividend(transactionId)) {
             throw new ValidationException("Transaction " + transactionId + " is already linked to a dividend");
         }
-        if (isTransactionReferenced(transactionId)) {
+        if (isReferencedByLoan(transactionId) || isReferencedByLending(transactionId)) {
             throw new ValidationException("Transaction " + transactionId + " is already linked to a loan or lending record");
         }
         return transaction;

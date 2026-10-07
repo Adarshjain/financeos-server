@@ -369,7 +369,7 @@ public class TransactionService {
                 : TransactionType.DEBIT;
         if (type != transaction.getType() && obligationRefService != null && obligationRefService.hasRefs(id)) {
             throw new ValidationException(
-                    "This transaction is linked to a loan/lending record; unlink it before changing its direction.");
+                    "This transaction is linked to a loan/lending/dividend record; unlink it before changing its direction.");
         }
         transaction.setAmount(absoluteAmount);
         transaction.setType(type);
