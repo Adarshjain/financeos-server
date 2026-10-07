@@ -20,6 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,10 +79,26 @@ public class LendingService {
         return CounterpartyResponse.from(saved, BigDecimal.ZERO, BigDecimal.ZERO, 0);
     }
 
+    /** Lists the caller's counterparties; a non-blank {@code q} narrows to names containing it (case-insensitive). */
     @Transactional(readOnly = true)
-    public Page<CounterpartyResponse> getCounterparties(Pageable pageable) {
-        Page<Counterparty> page = counterpartyRepository.findAll(pageable);
+    public Page<CounterpartyResponse> getCounterparties(@Nullable String q, Pageable pageable) {
+        String term = q == null ? "" : q.trim();
+        Page<Counterparty> page = term.isEmpty()
+                ? counterpartyRepository.findAll(pageable)
+                : counterpartyRepository.findByNameContainingIgnoreCase(term, pageable);
         return page.map(this::toCounterpartyResponse);
+    }
+
+    /**
+     * Best counterparty for a transaction description by name-token overlap (see
+     * {@link CounterpartyNameMatcher}). The list is name-ordered so ties resolve
+     * deterministically.
+     */
+    @Transactional(readOnly = true)
+    public CounterpartySuggestionResponse suggestCounterparty(@Nullable String text) {
+        List<Counterparty> all = counterpartyRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        Counterparty best = CounterpartyNameMatcher.bestMatch(text, all);
+        return new CounterpartySuggestionResponse(best == null ? null : toCounterpartyResponse(best));
     }
 
     public CounterpartyResponse updateCounterparty(UUID id, UpdateCounterpartyRequest req) {

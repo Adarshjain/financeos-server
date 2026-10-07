@@ -1177,6 +1177,11 @@ paths:
     get:
       operationId: getCounterparties
       parameters:
+      - in: query
+        name: q
+        required: false
+        schema:
+          type: string
       - description: Zero-based page index (0..N)
         in: query
         name: page
@@ -1233,6 +1238,30 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/CounterpartyResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - counterparty-controller
+  /api/v1/counterparties/suggest:
+    get:
+      operationId: suggestCounterparty
+      parameters:
+      - in: query
+        name: text
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CounterpartySuggestionResponse"
           description: OK
         default:
           content:
@@ -6873,6 +6902,11 @@ components:
       - netPosition
       - totalBorrowed
       - totalLent
+    CounterpartySuggestionResponse:
+      type: object
+      properties:
+        counterparty:
+          $ref: "#/components/schemas/CounterpartyResponse"
     CreateAccountIdentifierRequest:
       type: object
       properties:

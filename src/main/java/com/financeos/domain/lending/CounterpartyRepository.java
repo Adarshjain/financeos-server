@@ -14,4 +14,7 @@ public interface CounterpartyRepository extends JpaRepository<Counterparty, UUID
     boolean existsByName(String name);
 
     Page<Counterparty> findAll(Pageable pageable);
+
+    /** Case-insensitive substring match on the name; Spring Data escapes LIKE wildcards in {@code q}. */
+    Page<Counterparty> findByNameContainingIgnoreCase(String q, Pageable pageable);
 }

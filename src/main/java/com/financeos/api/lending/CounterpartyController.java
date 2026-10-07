@@ -3,6 +3,7 @@ package com.financeos.api.lending;
 import org.springdoc.core.annotations.ParameterObject;
 
 import com.financeos.api.lending.dto.CounterpartyResponse;
+import com.financeos.api.lending.dto.CounterpartySuggestionResponse;
 import com.financeos.api.lending.dto.CreateCounterpartyRequest;
 import com.financeos.api.lending.dto.LendingMatchSuggestionsResponse;
 import com.financeos.api.lending.dto.UpdateCounterpartyRequest;
@@ -30,8 +31,15 @@ public class CounterpartyController {
 
     @GetMapping
     public Page<CounterpartyResponse> getCounterparties(
+            @RequestParam(required = false) String q,
             @ParameterObject @PageableDefault(size = 50, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
-        return lendingService.getCounterparties(pageable);
+        return lendingService.getCounterparties(q, pageable);
+    }
+
+    @GetMapping("/suggest")
+    @Operation(operationId = "suggestCounterparty")
+    public CounterpartySuggestionResponse suggestCounterparty(@RequestParam String text) {
+        return lendingService.suggestCounterparty(text);
     }
 
     @PostMapping
