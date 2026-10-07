@@ -45,9 +45,6 @@ public sealed interface AccountResponse {
 
     Instant updatedAt();
 
-    @Nullable
-    LocalDate ingestFromDate();
-
     BigDecimal balance();
 
     Boolean balanceAnchored();
@@ -153,7 +150,6 @@ public sealed interface AccountResponse {
                         replacesAccId,
                         account.getCreatedAt(),
                         account.getUpdatedAt(),
-                        account.getIngestFromDate(),
                         details != null ? details.getProvider() : null,
                         details != null ? details.getClientId() : null,
                         details != null ? details.getCashBalance() : BigDecimal.ZERO,
@@ -174,7 +170,6 @@ public sealed interface AccountResponse {
                     replacesAccId,
                     account.getCreatedAt(),
                     account.getUpdatedAt(),
-                    account.getIngestFromDate(),
                     bal,
                     anchored,
                     gap,
@@ -243,7 +238,6 @@ public sealed interface AccountResponse {
             @Nullable UUID replacesAccountId,
             Instant createdAt,
             Instant updatedAt,
-            @Nullable LocalDate ingestFromDate,
             @Nullable String provider,
             @Nullable String clientId,
             @Nullable BigDecimal cashBalance,
@@ -265,7 +259,6 @@ public sealed interface AccountResponse {
             @Nullable UUID replacesAccountId,
             Instant createdAt,
             Instant updatedAt,
-            @Nullable LocalDate ingestFromDate,
             BigDecimal balance,
             Boolean balanceAnchored,
             @Nullable BigDecimal reconciliationGap,

@@ -71,9 +71,13 @@ public sealed interface CreateAccountRequest {
             String description,
             @NotBlank(message = "Provider is required") String provider,
             String clientId,
-            BigDecimal cashBalance,
-            LocalDate ingestFromDate
+            BigDecimal cashBalance
     ) implements CreateAccountRequest {
+        /** Brokers are fed by broker imports, never by statements or Gmail: no ingest watermark. */
+        @Override
+        public LocalDate ingestFromDate() {
+            return null;
+        }
     }
 
     record GenericAccountRequest(
@@ -81,8 +85,12 @@ public sealed interface CreateAccountRequest {
             @NotNull(message = "Account type is required") AccountType type,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
-            String description,
-            LocalDate ingestFromDate
+            String description
     ) implements CreateAccountRequest {
+        /** Wallet/Cash accounts are manual-only: no statements, no Gmail sync, no ingest watermark. */
+        @Override
+        public LocalDate ingestFromDate() {
+            return null;
+        }
     }
 }

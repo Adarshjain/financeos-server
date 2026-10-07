@@ -6080,11 +6080,6 @@ components:
         id:
           type: string
           format: uuid
-        ingestFromDate:
-          type: string
-          format: date
-          nullable: true
-          x-nullable: true
         name:
           type: string
         provider:
@@ -6137,9 +6132,6 @@ components:
           enum:
           - asset
           - liability
-        ingestFromDate:
-          type: string
-          format: date
         name:
           type: string
           x-required: true
@@ -8316,9 +8308,6 @@ components:
           enum:
           - asset
           - liability
-        ingestFromDate:
-          type: string
-          format: date
         name:
           type: string
           x-required: true
@@ -8366,11 +8355,6 @@ components:
         id:
           type: string
           format: uuid
-        ingestFromDate:
-          type: string
-          format: date
-          nullable: true
-          x-nullable: true
         name:
           type: string
         reconciliationGap:
