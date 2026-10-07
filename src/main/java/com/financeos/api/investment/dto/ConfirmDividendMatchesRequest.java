@@ -9,9 +9,9 @@ import java.util.UUID;
 
 /** Body of {@code POST /investments/dividends/reconciliation/confirm}: link several dividends at once. */
 public record ConfirmDividendMatchesRequest(
-        @NotEmpty List<@Valid Item> items
+        @NotEmpty List<@Valid ConfirmDividendMatchItem> items
 ) {
-    public record Item(
+    public record ConfirmDividendMatchItem(
             @NotNull UUID dividendId,
             @NotNull UUID transactionId,
             boolean updateTds

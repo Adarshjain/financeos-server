@@ -6,9 +6,9 @@ import java.util.UUID;
 /** Partial success is reported, never hidden: every item is either in {@code linked} or in {@code skipped}. */
 public record ConfirmDividendMatchesResponse(
         List<DividendResponse> linked,
-        List<Skipped> skipped
+        List<SkippedDividendMatch> skipped
 ) {
-    public record Skipped(
+    public record SkippedDividendMatch(
             UUID dividendId,
             String reason
     ) {}

@@ -19,17 +19,17 @@ import java.util.List;
  * @param withCandidates  how many of them have at least one candidate (= {@code items.size()})
  */
 public record DividendReconciliationResponse(
-        List<Item> items,
+        List<DividendReconciliationItem> items,
         @Nullable LocalDate coverageEnd,
         int unresolvedCount,
         int withCandidates
 ) {
-    public record Item(
+    public record DividendReconciliationItem(
             DividendResponse dividend,
-            List<Candidate> candidates
+            List<DividendMatchCandidate> candidates
     ) {}
 
-    public record Candidate(
+    public record DividendMatchCandidate(
             TransactionResponse transaction,
             DividendMatchTier tier,
             int score,

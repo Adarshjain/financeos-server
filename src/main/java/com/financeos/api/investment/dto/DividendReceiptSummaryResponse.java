@@ -15,11 +15,11 @@ import java.util.List;
  * @param coverageEnd latest transaction date on any tracked bank account (null = no bank data)
  */
 public record DividendReceiptSummaryResponse(
-        List<Bucket> buckets,
+        List<DividendReceiptBucket> buckets,
         @Nullable LocalDate coverageEnd,
         long totalCount
 ) {
-    public record Bucket(
+    public record DividendReceiptBucket(
             DividendReceiptStatus status,
             long count,
             /** Σ (gross − recorded TDS) of the rows in this bucket. */

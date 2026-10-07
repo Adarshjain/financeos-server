@@ -421,7 +421,7 @@ class DividendReceiptServiceTest {
 
         DividendReconciliationResponse r = service.getReconciliation(null, null, null);
 
-        List<DividendReconciliationResponse.Candidate> cands = r.items().get(0).candidates();
+        List<DividendReconciliationResponse.DividendMatchCandidate> cands = r.items().get(0).candidates();
         assertEquals(2, cands.size());
         assertEquals(exact.getId(), cands.get(0).transaction().id());
         assertEquals(DividendMatchTier.EXACT, cands.get(0).tier());
@@ -453,15 +453,15 @@ class DividendReceiptServiceTest {
         when(validator.validateForDividend(rejectedTx)).thenThrow(new ValidationException("already linked to a loan record"));
 
         ConfirmDividendMatchesResponse r = service.confirmMatches(new ConfirmDividendMatchesRequest(List.of(
-                new ConfirmDividendMatchesRequest.Item(ok.getId(), t1.getId(), false),
-                new ConfirmDividendMatchesRequest.Item(bad.getId(), rejectedTx, false),
-                new ConfirmDividendMatchesRequest.Item(missing, t1.getId(), false))));
+                new ConfirmDividendMatchesRequest.ConfirmDividendMatchItem(ok.getId(), t1.getId(), false),
+                new ConfirmDividendMatchesRequest.ConfirmDividendMatchItem(bad.getId(), rejectedTx, false),
+                new ConfirmDividendMatchesRequest.ConfirmDividendMatchItem(missing, t1.getId(), false))));
 
         assertEquals(1, r.linked().size());
         assertEquals(ok.getId(), r.linked().get(0).id());
         assertEquals(2, r.skipped().size());
         Map<UUID, String> reasons = r.skipped().stream()
-                .collect(Collectors.toMap(ConfirmDividendMatchesResponse.Skipped::dividendId, ConfirmDividendMatchesResponse.Skipped::reason));
+                .collect(Collectors.toMap(ConfirmDividendMatchesResponse.SkippedDividendMatch::dividendId, ConfirmDividendMatchesResponse.SkippedDividendMatch::reason));
         assertTrue(reasons.get(bad.getId()).contains("loan record"));
         assertNotNull(reasons.get(missing));
     }
@@ -491,8 +491,8 @@ class DividendReceiptServiceTest {
         assertEquals(6, r.totalCount());
         assertEquals(TODAY.minusDays(30), r.coverageEnd());
         assertEquals(DividendReceiptStatus.values().length, r.buckets().size());
-        Map<DividendReceiptStatus, DividendReceiptSummaryResponse.Bucket> by = r.buckets().stream()
-                .collect(Collectors.toMap(DividendReceiptSummaryResponse.Bucket::status, b -> b));
+        Map<DividendReceiptStatus, DividendReceiptSummaryResponse.DividendReceiptBucket> by = r.buckets().stream()
+                .collect(Collectors.toMap(DividendReceiptSummaryResponse.DividendReceiptBucket::status, b -> b));
         assertEquals(1, by.get(DividendReceiptStatus.received).count());
         assertEquals(0, by.get(DividendReceiptStatus.received).expectedNet().compareTo(new BigDecimal("1000")));
         assertEquals(0, by.get(DividendReceiptStatus.received).receivedAmount().compareTo(new BigDecimal("900")));
@@ -559,7 +559,7 @@ class DividendReceiptServiceTest {
         UnrecordedDividendCreditsResponse r = service.scanUnrecordedCredits(null, null);
 
         // four holdings clear the threshold; the cap keeps the best three, ties ordered by name
-        List<UnrecordedDividendCreditsResponse.HoldingHint> hints = r.items().get(0).holdingHints();
+        List<UnrecordedDividendCreditsResponse.DividendHoldingHint> hints = r.items().get(0).holdingHints();
         assertEquals(3, hints.size());
         assertEquals(1.0, hints.get(0).nameScore());
         assertEquals(1.0, hints.get(1).nameScore());
