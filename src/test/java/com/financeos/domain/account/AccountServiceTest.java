@@ -259,8 +259,11 @@ class AccountServiceTest {
         });
         when(backfillDemandRepository.findById(userId)).thenReturn(Optional.empty());
 
-        CreateAccountRequest req = new CreateAccountRequest.GenericAccountRequest(
-                "Cash", AccountType.generic, false, FinancialPosition.asset, "desc", LocalDate.of(2026, 1, 1)
+        // Bank account: the ingest watermark only exists for bank/card accounts (broker and generic
+        // request records no longer carry it), so the ratchet is exercised through a bank request.
+        CreateAccountRequest req = new CreateAccountRequest.BankAccountRequest(
+                "Salary", AccountType.bank_account, false, FinancialPosition.asset, "desc",
+                null, null, null, LocalDate.of(2026, 1, 1)
         );
 
         Account saved = accountService.createAccount(req);
