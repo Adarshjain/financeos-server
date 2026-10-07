@@ -2,6 +2,7 @@ package com.financeos.api.lending.dto;
 
 import com.financeos.domain.lending.Lending;
 import com.financeos.domain.lending.LendingDirection;
+import com.financeos.domain.lending.LendingKind;
 
 import org.springframework.lang.Nullable;
 
@@ -15,6 +16,7 @@ public record LendingResponse(
         UUID counterpartyId,
         String counterpartyName,
         LendingDirection direction,
+        LendingKind kind,
         BigDecimal amount,
         LocalDate entryDate,
         @Nullable LocalDate expectedReturnDate,
@@ -31,6 +33,7 @@ public record LendingResponse(
                 lending.getCounterparty().getId(),
                 lending.getCounterparty().getName(),
                 lending.getDirection(),
+                lending.getKind(),
                 lending.getAmount(),
                 lending.getEntryDate(),
                 lending.getExpectedReturnDate(),

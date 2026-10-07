@@ -113,8 +113,7 @@ class LendingServiceLinkTest {
         when(counterpartyRepository.findById(counterparty.getId())).thenReturn(Optional.of(counterparty));
         when(transactionValidator.validateForLending(txnId, LendingDirection.lent)).thenReturn(txn);
 
-        CreateLendingRequest req = new CreateLendingRequest(
-                counterparty.getId(), null, LendingDirection.lent, new BigDecimal("500.00"),
+        CreateLendingRequest req = new CreateLendingRequest(counterparty.getId(), null, LendingDirection.lent, null, new BigDecimal("500.00"),
                 LocalDate.of(2026, 1, 1), null, txnId, null);
 
         LendingResponse response = lendingService.createLending(req);
@@ -137,8 +136,7 @@ class LendingServiceLinkTest {
         when(counterpartyRepository.findById(counterparty.getId())).thenReturn(Optional.of(counterparty));
         when(transactionValidator.validateForLending(txnId, LendingDirection.borrowed)).thenReturn(txn);
 
-        CreateLendingRequest req = new CreateLendingRequest(
-                counterparty.getId(), null, LendingDirection.borrowed, new BigDecimal("500.00"),
+        CreateLendingRequest req = new CreateLendingRequest(counterparty.getId(), null, LendingDirection.borrowed, null, new BigDecimal("500.00"),
                 LocalDate.of(2026, 1, 1), null, txnId, null);
 
         LendingResponse response = lendingService.createLending(req);
@@ -151,8 +149,7 @@ class LendingServiceLinkTest {
         when(counterpartyRepository.findById(counterparty.getId())).thenReturn(Optional.of(counterparty));
         when(transactionValidator.validateForLending(null, LendingDirection.lent)).thenReturn(null);
 
-        CreateLendingRequest req = new CreateLendingRequest(
-                counterparty.getId(), null, LendingDirection.lent, new BigDecimal("500.00"),
+        CreateLendingRequest req = new CreateLendingRequest(counterparty.getId(), null, LendingDirection.lent, null, new BigDecimal("500.00"),
                 LocalDate.of(2026, 1, 1), null, null, null);
 
         LendingResponse response = lendingService.createLending(req);
@@ -171,7 +168,7 @@ class LendingServiceLinkTest {
         Lending existing = lending(id, LendingDirection.lent, txn);
         when(lendingRepository.findById(id)).thenReturn(Optional.of(existing));
 
-        UpdateLendingRequest req = new UpdateLendingRequest(LendingDirection.borrowed, null, null, null, null);
+        UpdateLendingRequest req = new UpdateLendingRequest(LendingDirection.borrowed, null, null, null, null, null);
 
         ValidationException ex = assertThrows(ValidationException.class, () -> lendingService.updateLending(id, req));
         assertTrue(ex.getMessage().contains("Unlink the transaction"));
@@ -184,7 +181,7 @@ class LendingServiceLinkTest {
         Lending existing = lending(id, LendingDirection.lent, txn);
         when(lendingRepository.findById(id)).thenReturn(Optional.of(existing));
 
-        UpdateLendingRequest req = new UpdateLendingRequest(LendingDirection.lent, null, null, null, null);
+        UpdateLendingRequest req = new UpdateLendingRequest(LendingDirection.lent, null, null, null, null, null);
 
         LendingResponse response = lendingService.updateLending(id, req);
         assertEquals(txn.getId(), response.transactionId());
@@ -197,7 +194,7 @@ class LendingServiceLinkTest {
         Lending existing = lending(id, LendingDirection.lent, null);
         when(lendingRepository.findById(id)).thenReturn(Optional.of(existing));
 
-        UpdateLendingRequest req = new UpdateLendingRequest(LendingDirection.borrowed, null, null, null, null);
+        UpdateLendingRequest req = new UpdateLendingRequest(LendingDirection.borrowed, null, null, null, null, null);
 
         LendingResponse response = lendingService.updateLending(id, req);
         assertEquals(LendingDirection.borrowed, response.direction());
@@ -210,8 +207,7 @@ class LendingServiceLinkTest {
         Lending existing = lending(id, LendingDirection.lent, txn);
         when(lendingRepository.findById(id)).thenReturn(Optional.of(existing));
 
-        UpdateLendingRequest req = new UpdateLendingRequest(
-                null, new BigDecimal("999.00"), LocalDate.of(2026, 2, 1), null, "updated note");
+        UpdateLendingRequest req = new UpdateLendingRequest(null, null, new BigDecimal("999.00"), LocalDate.of(2026, 2, 1), null, "updated note");
 
         LendingResponse response = lendingService.updateLending(id, req);
 

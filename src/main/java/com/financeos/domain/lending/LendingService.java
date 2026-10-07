@@ -149,6 +149,7 @@ public class LendingService {
         lending.setUser(userRepository.getReferenceById(UserContext.getCurrentUserId()));
         lending.setCounterparty(cp);
         lending.setDirection(req.direction());
+        lending.setKind(req.kind() != null ? req.kind() : LendingKind.principal);
         lending.setAmount(req.amount());
         lending.setEntryDate(req.entryDate());
         lending.setExpectedReturnDate(req.expectedReturnDate());
@@ -187,6 +188,7 @@ public class LendingService {
         }
 
         if (req.direction() != null) lending.setDirection(req.direction());
+        if (req.kind() != null) lending.setKind(req.kind());
         if (req.amount() != null) lending.setAmount(req.amount());
         if (req.entryDate() != null) lending.setEntryDate(req.entryDate());
         if (req.expectedReturnDate() != null) lending.setExpectedReturnDate(req.expectedReturnDate());
@@ -387,19 +389,25 @@ public class LendingService {
                 StructuredArguments.keyValue("txnId", String.valueOf(transactionId)));
     }
 
+    /** Gross totals split by kind: principal feeds total lent/borrowed, settlements feed the repaid figures. */
     private CounterpartyResponse toCounterpartyResponse(Counterparty cp) {
         List<Lending> entries = lendingRepository.findByCounterparty_Id(cp.getId());
         BigDecimal totalLent = BigDecimal.ZERO;
         BigDecimal totalBorrowed = BigDecimal.ZERO;
+        BigDecimal repaidToYou = BigDecimal.ZERO;
+        BigDecimal repaidByYou = BigDecimal.ZERO;
 
         for (Lending l : entries) {
+            boolean settlement = l.getKind() == LendingKind.settlement;
             if (l.getDirection() == LendingDirection.lent) {
-                totalLent = totalLent.add(l.getAmount());
+                if (settlement) repaidByYou = repaidByYou.add(l.getAmount());
+                else totalLent = totalLent.add(l.getAmount());
             } else if (l.getDirection() == LendingDirection.borrowed) {
-                totalBorrowed = totalBorrowed.add(l.getAmount());
+                if (settlement) repaidToYou = repaidToYou.add(l.getAmount());
+                else totalBorrowed = totalBorrowed.add(l.getAmount());
             }
         }
-        return CounterpartyResponse.from(cp, totalLent, totalBorrowed, entries.size());
+        return CounterpartyResponse.from(cp, totalLent, totalBorrowed, repaidToYou, repaidByYou, entries.size());
     }
 
     // --- Aggregates & Helper Methods ---

@@ -1,6 +1,7 @@
 package com.financeos.api.lending.dto;
 
 import com.financeos.domain.lending.LendingDirection;
+import com.financeos.domain.lending.LendingKind;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -12,6 +13,8 @@ public record CreateLendingRequest(
         UUID counterpartyId,
         String newCounterpartyName,
         @NotNull LendingDirection direction,
+        /** Defaults to principal when omitted. */
+        LendingKind kind,
         @NotNull @Positive BigDecimal amount,
         @NotNull LocalDate entryDate,
         LocalDate expectedReturnDate,

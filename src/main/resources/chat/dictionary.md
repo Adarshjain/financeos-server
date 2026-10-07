@@ -120,9 +120,10 @@ Borrowings (home/car/personal loans) and their payments.
 
 ### 9. `v_chat_lendings`
 Two-way personal lend/borrow LEDGER per counterparty (each row is one ledger entry, not a loan with a status).
-- `counterparty_name`, `direction`, `amount`, `entry_date`, `expected_return_date`, `transaction_id`, `notes`.
+- `counterparty_name`, `direction`, `kind`, `amount`, `entry_date`, `expected_return_date`, `transaction_id`, `notes`.
+- `direction` is the money flow (`lent` = money out, `borrowed` = money in). `kind` is `principal` (new money lent/borrowed) or `settlement` (a repayment clearing a balance: `settlement` + `borrowed` = they paid the user back, `settlement` + `lent` = the user paid them back). "How much have I lent X" means principal only; "does X owe me" is the net below, which counts every row regardless of kind.
 - `transaction_id` (nullable) joins `v_chat_transactions.id` — the bank movement behind the entry. Several entries may share one transaction (split bills). Money lent/borrowed is NOT spending/income: when asked about spend, exclude transactions whose id appears in `v_chat_lendings.transaction_id`.
-- Net outstanding with a counterparty = sum of entries in one direction − sum in the other (group by `counterparty_name`, `direction`).
+- Net outstanding with a counterparty = sum of `lent` rows − sum of `borrowed` rows across BOTH kinds (group by `counterparty_name`, `direction`); positive = they owe the user.
 
 ### 10. `v_chat_instruments` & `v_chat_instrument_prices`
 Global reference instruments and latest price history points.

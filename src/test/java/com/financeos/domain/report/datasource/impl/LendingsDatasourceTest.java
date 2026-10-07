@@ -4,6 +4,7 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.lending.Counterparty;
 import com.financeos.domain.lending.Lending;
 import com.financeos.domain.lending.LendingDirection;
+import com.financeos.domain.lending.LendingKind;
 import com.financeos.domain.lending.LendingService;
 import com.financeos.domain.transaction.Transaction;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,6 +43,38 @@ class LendingsDatasourceTest {
         assertTrue(datasource.fields().stream().anyMatch(f -> "isLinked".equals(f.name())));
         assertTrue(datasource.fields().stream().anyMatch(f -> "transactionId".equals(f.name())));
         assertTrue(datasource.fields().stream().anyMatch(f -> "transactionAccount".equals(f.name())));
+    }
+
+    @Test
+    void catalogAndRowsExposeKindWhileSignedAmountStaysMoneyFlow() {
+        assertTrue(datasource.fields().stream().anyMatch(f -> "kind".equals(f.name())));
+
+        Counterparty cp = new Counterparty();
+        cp.setId(UUID.randomUUID());
+        cp.setName("John Doe");
+
+        Lending principal = new Lending();
+        principal.setId(UUID.randomUUID());
+        principal.setCounterparty(cp);
+        principal.setDirection(LendingDirection.lent);
+        principal.setAmount(new BigDecimal("5000.00"));
+        principal.setEntryDate(LocalDate.of(2025, 3, 1));
+
+        Lending repayment = new Lending();
+        repayment.setId(UUID.randomUUID());
+        repayment.setCounterparty(cp);
+        repayment.setDirection(LendingDirection.borrowed);
+        repayment.setKind(LendingKind.settlement);
+        repayment.setAmount(new BigDecimal("2000.00"));
+        repayment.setEntryDate(LocalDate.of(2025, 4, 1));
+
+        when(lendingService.getAllLendings()).thenReturn(List.of(principal, repayment));
+
+        List<Map<String, Object>> rows = datasource.rows();
+        assertEquals("principal", rows.get(0).get("kind"));
+        assertEquals("settlement", rows.get(1).get("kind"));
+        // A repayment received is still money in: the sign follows direction, not kind.
+        assertEquals(new BigDecimal("-2000.00"), rows.get(1).get("signedAmount"));
     }
 
     @Test
