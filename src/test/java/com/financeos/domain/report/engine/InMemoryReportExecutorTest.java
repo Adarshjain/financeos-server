@@ -20,6 +20,7 @@ import com.financeos.domain.report.definition.FilterClause;
 import com.financeos.domain.report.definition.Granularity;
 import com.financeos.domain.report.definition.KpiDefinition;
 import com.financeos.domain.report.definition.Comparison;
+import com.financeos.domain.report.definition.ComparisonDisplay;
 import com.financeos.domain.report.definition.ComparisonPeriod;
 import com.financeos.domain.report.definition.MeasureRef;
 import com.financeos.domain.report.definition.RawTableDefinition;
@@ -117,6 +118,28 @@ class InMemoryReportExecutorTest {
         assertEquals(new BigDecimal("100"), result.comparison().change());
         assertEquals("up", result.comparison().direction());
         assertEquals("good", result.comparison().sentiment());
+    }
+
+    @Test
+    void kpiComparisonEchoesTheRequestedDisplay() {
+        datasource.setRows(List.of(
+                Map.of("amount", new BigDecimal("200"), "date", LocalDate.of(2026, 5, 10)),
+                Map.of("amount", new BigDecimal("100"), "date", LocalDate.of(2026, 4, 15))
+        ));
+        ObjectNode betweenMay = JsonNodeFactory.instance.objectNode()
+                .put("from", "2026-05-01")
+                .put("to", "2026-05-31");
+        List<FilterClause> filters = List.of(new FilterClause("date", "between", betweenMay));
+
+        KpiData previous = executor.execute(new KpiDefinition("amount", Aggregation.SUM, filters,
+                new Comparison(true, ComparisonPeriod.PREVIOUS_PERIOD, true, ComparisonDisplay.PREVIOUS_VALUE)),
+                datasource, Map.of());
+        assertEquals("previous_value", previous.comparison().display());
+        assertEquals(new BigDecimal("100"), previous.comparison().previousValue());
+
+        KpiData change = executor.execute(new KpiDefinition("amount", Aggregation.SUM, filters,
+                new Comparison(true, ComparisonPeriod.PREVIOUS_PERIOD, true)), datasource, Map.of());
+        assertEquals("change", change.comparison().display());
     }
 
     @Test

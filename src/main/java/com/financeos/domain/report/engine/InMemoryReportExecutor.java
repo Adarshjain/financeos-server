@@ -15,6 +15,7 @@ import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.definition.AggregatedTableDefinition;
 import com.financeos.domain.report.definition.ChartDefinition;
 import com.financeos.domain.report.definition.ChartType;
+import com.financeos.domain.report.definition.ComparisonDisplay;
 import com.financeos.domain.report.definition.DimensionRef;
 import com.financeos.domain.report.definition.FilterClause;
 import com.financeos.domain.report.definition.Granularity;
@@ -156,7 +157,8 @@ public class InMemoryReportExecutor {
         if (def.comparison().higherIsBetter() != null && !"flat".equals(direction)) {
             sentiment = ("up".equals(direction) == def.comparison().higherIsBetter()) ? "good" : "bad";
         }
-        return new KpiData.Comparison(prevVal, prevView, change, changePct, direction, sentiment);
+        return new KpiData.Comparison(prevVal, prevView, change, changePct, direction, sentiment,
+                ComparisonDisplay.resolve(def.comparison()).json());
     }
 
     // ------------------------------------------------------------------
