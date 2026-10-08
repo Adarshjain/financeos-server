@@ -97,6 +97,10 @@ public class Statement {
     @Column(name = "verdict")
     private StatementVerdict verdict;
 
+    /** The one-shot "transactions didn't reconcile" digest was evaluated for this statement on this day. */
+    @Column(name = "review_notified_on")
+    private LocalDate reviewNotifiedOn;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

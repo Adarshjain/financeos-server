@@ -2,6 +2,7 @@ package com.financeos.domain.ingestion;
 
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,14 @@ public class FileIngestionDbHandler {
 
     @Transactional(readOnly = true)
     public List<Transaction> findExistingTransactions(UUID accountId, LocalDate minDate, LocalDate maxDate) {
-        return transactionRepository.findByAccountIdAndDateRange(accountId, minDate, maxDate);
+        List<Transaction> existing = transactionRepository.findByAccountIdAndDateRange(accountId, minDate, maxDate);
+        // The duplicate pass runs outside this session and flags matches with DUPLICATE_SUSPECT,
+        // which touches the lazy review-reasons collection; load it here or that flagging throws
+        // LazyInitializationException and the whole upload fails.
+        for (Transaction transaction : existing) {
+            Hibernate.initialize(transaction.getReviewReasons());
+        }
+        return existing;
     }
 
     @Transactional

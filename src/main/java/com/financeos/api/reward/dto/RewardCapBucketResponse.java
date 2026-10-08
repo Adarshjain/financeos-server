@@ -1,5 +1,7 @@
 package com.financeos.api.reward.dto;
 
+import org.springframework.lang.Nullable;
+
 import com.financeos.domain.reward.CapWindow;
 import com.financeos.domain.reward.CounterScope;
 import com.financeos.domain.reward.RewardCapBucket;
@@ -19,7 +21,9 @@ public record RewardCapBucketResponse(
         CounterScope counterScope,
         int ruleCount,
         Instant createdAt,
-        Instant updatedAt) {
+        Instant updatedAt,
+        /** Alert marker: the cap window (start date) already announced as exhausted. */
+        @Nullable java.time.LocalDate capNotifiedWindowStart) {
 
     public static RewardCapBucketResponse from(RewardCapBucket bucket, int ruleCount) {
         return new RewardCapBucketResponse(
@@ -32,6 +36,7 @@ public record RewardCapBucketResponse(
                 bucket.getCounterScope() != null ? bucket.getCounterScope() : CounterScope.ACCOUNT,
                 ruleCount,
                 bucket.getCreatedAt(),
-                bucket.getUpdatedAt());
+                bucket.getUpdatedAt(),
+                bucket.getCapNotifiedWindowStart());
     }
 }

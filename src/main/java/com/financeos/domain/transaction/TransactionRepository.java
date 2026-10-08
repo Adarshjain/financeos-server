@@ -163,6 +163,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("userId") UUID userId,
             @Param("beforeDate") LocalDate beforeDate);
 
+    /** Statement review digest: transactions still waiting for review inside a statement period, by reason. */
+    @Query("SELECT COUNT(DISTINCT t.id) FROM Transaction t JOIN t.reviewReasons r WHERE t.account.id = :accountId AND t.reviewType = com.financeos.domain.transaction.ReviewType.NEEDS_REVIEW AND t.date BETWEEN :from AND :to AND r IN :reasons")
+    long countNeedsReviewInPeriod(@Param("accountId") UUID accountId, @Param("from") LocalDate from, @Param("to") LocalDate to,
+                                  @Param("reasons") java.util.Collection<ReviewReason> reasons);
+
     @Query("SELECT MIN(t.date) FROM Transaction t WHERE t.account.id = :accountId")
     LocalDate findMinDateByAccountId(@Param("accountId") UUID accountId);
 

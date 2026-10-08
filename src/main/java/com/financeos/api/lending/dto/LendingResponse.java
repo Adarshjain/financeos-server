@@ -25,7 +25,10 @@ public record LendingResponse(
         /** The linked bank transaction, or null when the entry is unlinked. */
         @Nullable LendingTransactionSummary transaction,
         @Nullable String notes,
-        Instant createdAt
+        Instant createdAt,
+        /** Return-date reminder marker (DUE_0 / OVERDUE) for transparency. */
+        @Nullable String returnNotifiedKind,
+        @Nullable LocalDate returnNotifiedOn
 ) {
     public static LendingResponse from(Lending lending) {
         return new LendingResponse(
@@ -40,7 +43,9 @@ public record LendingResponse(
                 lending.getTransaction() != null ? lending.getTransaction().getId() : null,
                 LendingTransactionSummary.from(lending.getTransaction()),
                 lending.getNotes(),
-                lending.getCreatedAt()
+                lending.getCreatedAt(),
+                lending.getReturnNotifiedKind(),
+                lending.getReturnNotifiedOn()
         );
     }
 }

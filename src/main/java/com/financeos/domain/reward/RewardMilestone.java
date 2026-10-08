@@ -99,6 +99,18 @@ public class RewardMilestone {
     @Column(name = "active_to")
     private LocalDate activeTo;
 
+
+    /** Alert marker: the window (by start date) and kind (CLOSING / ACHIEVED) last announced. */
+
+    @Column(name = "notified_window_start")
+
+    private LocalDate notifiedWindowStart;
+
+
+    @Column(name = "notified_kind", length = 20)
+
+    private String notifiedKind;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

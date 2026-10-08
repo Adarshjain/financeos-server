@@ -62,7 +62,9 @@ public record RewardRuleResponse(
         @Nullable String capBucketName,
         @Nullable CapExhaustedBehavior onCapExhausted,
         Instant createdAt,
-        Instant updatedAt) {
+        Instant updatedAt,
+        /** Alert marker: the cap window (start date) already announced as exhausted. */
+        @Nullable LocalDate capNotifiedWindowStart) {
 
     /** tiers must be pre-parsed by the service (the entity stores them as JSON text). */
     public static RewardRuleResponse from(RewardRule rule, List<RewardTier> tiers) {
@@ -109,6 +111,7 @@ public record RewardRuleResponse(
                 rule.getCapBucket() != null ? rule.getCapBucket().getName() : null,
                 rule.getOnCapExhausted(),
                 rule.getCreatedAt(),
-                rule.getUpdatedAt());
+                rule.getUpdatedAt(),
+                rule.getCapNotifiedWindowStart());
     }
 }

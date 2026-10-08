@@ -65,6 +65,14 @@ public class Account {
     @Column(name = "notifications_muted", nullable = false)
     private Boolean notificationsMuted = false;
 
+    /** The daily rewards alert pass (milestones closing / achieved, caps exhausted) last ran on this day. V92. */
+    @Column(name = "reward_alerts_checked_on")
+    private LocalDate rewardAlertsCheckedOn;
+
+    /** The projected statement period end the user was already told has not arrived. V92. */
+    @Column(name = "statement_expected_notified_for")
+    private LocalDate statementExpectedNotifiedFor;
+
     /** Anchor for ANNIVERSARY_YEAR reward windows (card membership anniversary). */
     @Column(name = "reward_anniversary_date")
     private LocalDate rewardAnniversaryDate;

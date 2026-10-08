@@ -142,6 +142,8 @@ app:
 notifications:
   enabled: ${NOTIFICATIONS_ENABLED:true}
   tick-cron: ${NOTIFICATIONS_TICK_CRON:0 5 * * * *}
+  # A statement's "didn't reconcile" digest waits this long after ingest so uploads are fully linked.
+  review-digest-min-age-minutes: ${NOTIFICATIONS_REVIEW_DIGEST_MIN_AGE_MINUTES:60}
 
 # Gmail OAuth configuration
 gmail:

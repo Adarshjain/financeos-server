@@ -31,3 +31,7 @@ spring:
 logging:
   level:
     com.financeos.e2e: DEBUG
+
+# Statement review digests run on the next tick in E2E (no one-hour settling wait).
+notifications:
+  review-digest-min-age-minutes: 0

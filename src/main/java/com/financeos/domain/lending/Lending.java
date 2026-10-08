@@ -65,6 +65,13 @@ public class Lending {
     @Column(length = 1000)
     private String notes;
 
+    /** Return-date reminder marker (DUE_0 / OVERDUE) and when it was last sent. */
+    @Column(name = "return_notified_kind", length = 20)
+    private String returnNotifiedKind;
+
+    @Column(name = "return_notified_on")
+    private LocalDate returnNotifiedOn;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 

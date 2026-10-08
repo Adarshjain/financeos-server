@@ -27,7 +27,9 @@ public record JobResponse(
         int attempt,
         Instant createdAt,
         @Nullable Instant startedAt,
-        @Nullable Instant finishedAt
+        @Nullable Instant finishedAt,
+        /** When the "finished/failed" push for this job went out (user-triggered jobs only). */
+        @Nullable Instant notifiedAt
 ) {
     public static JobResponse from(Job job, ObjectMapper mapper) {
         JsonNode resultNode = null;
@@ -53,7 +55,8 @@ public record JobResponse(
                 job.getAttempt(),
                 job.getCreatedAt(),
                 job.getStartedAt(),
-                job.getFinishedAt()
+                job.getFinishedAt(),
+                job.getNotifiedAt()
         );
     }
 }

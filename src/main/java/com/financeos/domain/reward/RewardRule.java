@@ -205,6 +205,10 @@ public class RewardRule {
     @Column(name = "on_cap_exhausted", nullable = false, length = 20)
     private CapExhaustedBehavior onCapExhausted = CapExhaustedBehavior.FALL_THROUGH;
 
+    /** Alert marker: the cap window (by start date) already announced as exhausted. */
+    @Column(name = "cap_notified_window_start")
+    private LocalDate capNotifiedWindowStart;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

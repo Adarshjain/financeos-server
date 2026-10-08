@@ -212,10 +212,23 @@ public class RewardCalculationService {
         return evaluateMilestones(eval, from, to);
     }
 
+    /** Milestone statuses and cap usage for the windows containing {@code today}, from ONE evaluation (the daily alert pass). */
+    public record AlertSnapshot(List<RewardReportResponse.MilestoneStatus> milestones, List<CapUsage> caps) {
+    }
+
+    @Transactional(readOnly = true)
+    public AlertSnapshot alertSnapshot(UUID accountId, LocalDate today) {
+        Evaluation eval = evaluate(accountId, today, today, true, "alerts");
+        return new AlertSnapshot(evaluateMilestones(eval, today, today), capUsageFrom(eval, today, today));
+    }
+
     /** Period-cap usage per window intersecting [from, to], ordered by window then cap name. */
     @Transactional(readOnly = true)
     public List<CapUsage> capUsage(UUID accountId, LocalDate from, LocalDate to) {
-        Evaluation eval = evaluate(accountId, from, to, false, "report");
+        return capUsageFrom(evaluate(accountId, from, to, false, "report"), from, to);
+    }
+
+    private List<CapUsage> capUsageFrom(Evaluation eval, LocalDate from, LocalDate to) {
         Map<String, RewardRule> ruleByOwner = new LinkedHashMap<>();
         for (RewardRule rule : eval.rules) {
             if (rule.hasPeriodCap()) {

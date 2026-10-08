@@ -83,6 +83,13 @@ public class Job {
     @Column(name = "finished_at")
     private Instant finishedAt;
 
+
+    /** The "job finished/failed" push was sent (or deliberately skipped) at this time. */
+
+    @Column(name = "notified_at")
+
+    private Instant notifiedAt;
+
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
