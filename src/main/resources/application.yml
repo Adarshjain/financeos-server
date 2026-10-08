@@ -111,6 +111,14 @@ app:
   cors:
     allowed-origins: ${CORS_ORIGINS:http://localhost:3001}
   ui-path: ${UI_PATH:http://localhost:3001}
+  # Web Push (VAPID). Both keys unset => push is off: the settings page says so and the bill
+  # tick only records markers. Generate with com.financeos.core.push.GenerateVapidKeys.
+  push:
+    vapid-public-key: ${PUSH_VAPID_PUBLIC_KEY:}
+    vapid-private-key: ${PUSH_VAPID_PRIVATE_KEY:}
+    subject: ${PUSH_VAPID_SUBJECT:mailto:admin@financeos.local}
+    ttl-seconds: ${PUSH_TTL_SECONDS:86400}
+    timeout-seconds: ${PUSH_TIMEOUT_SECONDS:10}
   # Signup is invite-only. Unset/blank => all signups refused (fail closed).
   # Rotate by changing the env var and restarting; there is no expiry.
   invite:
@@ -129,6 +137,11 @@ app:
       lookback-days: ${LOKI_LOOKBACK_DAYS:14}
       timeout-seconds: 10
       max-lines: 500
+
+# Credit-card bill notifications: hourly tick in the business zone (app.zone).
+notifications:
+  enabled: ${NOTIFICATIONS_ENABLED:true}
+  tick-cron: ${NOTIFICATIONS_TICK_CRON:0 5 * * * *}
 
 # Gmail OAuth configuration
 gmail:

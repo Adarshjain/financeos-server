@@ -75,6 +75,26 @@ public class StatementCreditCardDetails {
     @Column(name = "reward_points_earned", precision = 19, scale = 4)
     private BigDecimal rewardPointsEarned;
 
+    // --- Bill payment tracking (V90). The statement is the bill; see domain.notification.CardBillService.
+
+    /** Set when the user marks this bill paid by hand; the date they chose (defaults to today). */
+    @Column(name = "paid_marked_on")
+    private LocalDate paidMarkedOn;
+
+    /** Amount of the manual mark; NULL means paid in full. */
+    @Column(name = "paid_marked_amount", precision = 19, scale = 4)
+    private BigDecimal paidMarkedAmount;
+
+    /**
+     * Send log: the most advanced notification kind already sent (or deliberately skipped) for this
+     * bill — see {@code BillNotificationKinds} for the order. Two columns replace a notifications table.
+     */
+    @Column(name = "last_notified_kind", length = 20)
+    private String lastNotifiedKind;
+
+    @Column(name = "last_notified_on")
+    private LocalDate lastNotifiedOn;
+
     public StatementCreditCardDetails(Statement statement) {
         this.statement = statement;
         this.statementId = statement.getId();

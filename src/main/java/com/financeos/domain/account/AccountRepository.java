@@ -27,5 +27,7 @@ public interface AccountRepository extends JpaRepository<Account, UUID>, Account
     List<Account> findByUserIdAndHasStatementPassword(UUID userId);
 
     List<Account> findByUserId(UUID userId);
+
+    List<Account> findByUserIdAndType(UUID userId, AccountType type);
 }
 

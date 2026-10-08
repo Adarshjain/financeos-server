@@ -1,5 +1,8 @@
 package com.financeos.domain.statement;
 
+import com.financeos.domain.notification.StatementCreatedEvent;
+import org.springframework.context.ApplicationEventPublisher;
+
 import com.financeos.domain.account.Account;
 import com.financeos.domain.user.User;
 
@@ -20,11 +23,14 @@ public class StatementPersistenceService {
 
     private final StatementRepository statementRepository;
     private final StatementTransactionRepository statementTransactionRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     public StatementPersistenceService(StatementRepository statementRepository,
-            StatementTransactionRepository statementTransactionRepository) {
+            StatementTransactionRepository statementTransactionRepository,
+            ApplicationEventPublisher eventPublisher) {
         this.statementRepository = statementRepository;
         this.statementTransactionRepository = statementTransactionRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     public static String sha256Hex(byte[] bytes) {
@@ -95,6 +101,8 @@ public class StatementPersistenceService {
         }
 
         Statement saved = statementRepository.save(statement);
+        // Consumed after commit (bill digest push); nothing happens if the transaction rolls back.
+        eventPublisher.publishEvent(new StatementCreatedEvent(saved.getId(), user.getId()));
         return Optional.of(saved);
     }
 
