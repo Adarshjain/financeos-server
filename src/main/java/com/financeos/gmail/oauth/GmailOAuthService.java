@@ -104,6 +104,9 @@ public class GmailOAuthService {
 
             connection.setEncryptedRefreshToken(tokenResponse.refreshToken());
             connection.setIsConnected(true);
+            // A fresh token repairs a dead mailbox: clear the failure and its reconnect-nag marker.
+            connection.setAuthFailedAt(null);
+            connection.setReconnectNotifiedAt(null);
 
             GmailConnection savedConnection = connectionRepository.save(connection);
             log.info("Gmail connection succeeded: email={}, userId={}", email, userId,

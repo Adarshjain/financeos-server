@@ -43,7 +43,8 @@ public class IngestionScheduler {
             return;
         }
 
-        List<GmailConnection> activeConnections = connectionRepository.findByIsConnectedTrue();
+        // Mailboxes whose token Google rejected are skipped until the user reconnects (no 2-hourly failing jobs).
+        List<GmailConnection> activeConnections = connectionRepository.findByIsConnectedTrueAndAuthFailedAtIsNull();
         log.info("Found {} active Gmail connection(s) to enqueue for ingestion", activeConnections.size());
 
         for (GmailConnection connection : activeConnections) {

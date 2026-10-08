@@ -40,4 +40,8 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     List<GmailProcessedMessage> findParkedForReactivation(@Param("userId") UUID userId, @Param("last4") String last4, @Param("statuses") Collection<GmailProcessedStatus> statuses, @Param("minDate") Instant minDate);
 
     Optional<GmailProcessedMessage> findByTransactionId(UUID transactionId);
+
+    /** Attention items the user has not been told about yet (the GMAIL_ATTENTION digest input). */
+    @Query("SELECT g FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.attentionNotifiedAt IS NULL ORDER BY g.discoveredAt ASC")
+    List<GmailProcessedMessage> findUnnotifiedAttentionItems(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
 }

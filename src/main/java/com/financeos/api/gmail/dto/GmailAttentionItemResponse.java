@@ -19,7 +19,9 @@ public record GmailAttentionItemResponse(
     @Nullable String error,
     int attemptCount,
     @Nullable Instant nextRetryAt,
-    Instant discoveredAt
+    Instant discoveredAt,
+    /** When this item was part of a "needs attention" push digest; null until then. */
+    @Nullable Instant attentionNotifiedAt
 ) {
     public static GmailAttentionItemResponse from(GmailProcessedMessage gpm) {
         return new GmailAttentionItemResponse(
@@ -33,7 +35,8 @@ public record GmailAttentionItemResponse(
             gpm.getError(),
             gpm.getAttemptCount(),
             gpm.getNextRetryAt(),
-            gpm.getDiscoveredAt()
+            gpm.getDiscoveredAt(),
+            gpm.getAttentionNotifiedAt()
         );
     }
 }

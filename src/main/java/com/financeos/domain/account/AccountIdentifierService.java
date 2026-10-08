@@ -95,6 +95,7 @@ public class AccountIdentifierService {
                 log.info("Re-activating {} parked rows for identifier {} on account {}", parked.size(), normalized, account.getId());
                 for (GmailProcessedMessage gpm : parked) {
                     gpm.setStatus(GmailProcessedStatus.DISCOVERED);
+                    gpm.setAttentionNotifiedAt(null); // announced again if it parks again
                     gpm.setAttemptCount(0);
                     gpm.setNextRetryAt(null);
                     gpm.setError(null);

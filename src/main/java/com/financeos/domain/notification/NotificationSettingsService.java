@@ -5,6 +5,8 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.push.WebPushCrypto;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.loan.Loan;
+import com.financeos.domain.loan.LoanRepository;
 import com.financeos.domain.notification.push.PushMessage;
 import com.financeos.domain.notification.push.PushSubscription;
 import com.financeos.domain.notification.push.WebPushSender;
@@ -25,7 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Preferences, device subscriptions and per-card mutes, plus the one delivery primitive every
+ * Preferences, device subscriptions and per-card / per-loan mutes, plus the one delivery primitive every
  * producer uses: {@link #deliver} fans a message out to the user's devices and prunes the ones
  * the browser has dropped.
  */
@@ -40,18 +42,21 @@ public class NotificationSettingsService {
 
     public record View(boolean pushEnabled, int sendHour, List<Integer> reminderOffsets,
                        Map<NotificationKind, Boolean> kinds, List<PushSubscription> subscriptions,
-                       List<UUID> mutedAccountIds, boolean pushConfigured) {
+                       List<UUID> mutedAccountIds, List<UUID> mutedLoanIds, boolean pushConfigured) {
     }
 
     private final UserNotificationSettingsRepository repository;
     private final AccountRepository accountRepository;
+    private final LoanRepository loanRepository;
     private final WebPushSender sender;
 
     public NotificationSettingsService(UserNotificationSettingsRepository repository,
                                        AccountRepository accountRepository,
+                                       LoanRepository loanRepository,
                                        WebPushSender sender) {
         this.repository = repository;
         this.accountRepository = accountRepository;
+        this.loanRepository = loanRepository;
         this.sender = sender;
     }
 
@@ -147,6 +152,19 @@ public class NotificationSettingsService {
         return view(userId);
     }
 
+    /** Per-loan EMI mute; same ownership contract as accounts (foreign loan answers 400). */
+    @Transactional
+    public View setLoanMuted(UUID userId, UUID loanId, boolean muted) {
+        Loan loan = loanRepository.findById(loanId)
+                .orElseThrow(() -> new ResourceNotFoundException("Loan", loanId));
+        if (loan.getUser() == null || !loan.getUser().getId().equals(userId)) {
+            throw new ValidationException("You do not have permission to access this loan.");
+        }
+        loan.setNotificationsMuted(muted);
+        loanRepository.save(loan);
+        return view(userId);
+    }
+
     /** Sends a hello to every device so the user can see push actually works. Returns how many accepted it. */
     @Transactional
     public int sendTest(UUID userId) {
@@ -158,7 +176,7 @@ public class NotificationSettingsService {
             throw new ValidationException("No device is registered for push notifications yet.");
         }
         return deliver(settings, new PushMessage("FinanceOS notifications are on",
-                "You'll get a nudge here when a card bill needs attention.", "/settings/notifications", "financeos-test"));
+                "You'll get a nudge here when a bill, EMI or mailbox needs attention.", "/settings/notifications", "financeos-test"));
     }
 
     /**
@@ -208,6 +226,9 @@ public class NotificationSettingsService {
                 .filter(a -> Boolean.TRUE.equals(a.getNotificationsMuted()))
                 .map(Account::getId)
                 .toList();
+        List<UUID> mutedLoans = loanRepository.findByUser_IdAndNotificationsMutedTrue(settings.getUserId()).stream()
+                .map(Loan::getId)
+                .toList();
         Map<NotificationKind, Boolean> kinds = new EnumMap<>(NotificationSettingsCodec.parseKinds(settings.getKindsJson()));
         return new View(
                 !Boolean.FALSE.equals(settings.getPushEnabled()),
@@ -216,6 +237,7 @@ public class NotificationSettingsService {
                 kinds,
                 NotificationSettingsCodec.parseSubscriptions(settings.getPushSubscriptions()),
                 muted,
+                mutedLoans,
                 sender.isConfigured());
     }
 

@@ -15,6 +15,7 @@ public record NotificationSettingsResponse(
         Map<String, Boolean> kinds,
         List<PushDeviceResponse> devices,
         List<UUID> mutedAccountIds,
+        List<UUID> mutedLoanIds,
         /** False when the server has no VAPID keys: the UI explains instead of offering to subscribe. */
         boolean pushConfigured
 ) {
@@ -33,6 +34,7 @@ public record NotificationSettingsResponse(
                         .map(s -> new PushDeviceResponse(s.endpoint(), s.userAgent(), s.addedAt()))
                         .toList(),
                 view.mutedAccountIds(),
+                view.mutedLoanIds(),
                 view.pushConfigured());
     }
 }

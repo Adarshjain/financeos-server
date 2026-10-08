@@ -69,6 +69,7 @@ public class GmailIngestEventListener {
                 log.info("Re-activating {} parked rows for last4 {}", parked.size(), event.last4());
                 for (GmailProcessedMessage gpm : parked) {
                     gpm.setStatus(GmailProcessedStatus.DISCOVERED);
+                    gpm.setAttentionNotifiedAt(null); // announced again if it parks again
                     gpm.setAttemptCount(0);
                     gpm.setNextRetryAt(null);
                     gpm.setError(null);
@@ -89,7 +90,7 @@ public class GmailIngestEventListener {
     private void enqueueSyncJobsForUser(java.util.UUID userId) {
         List<GmailConnection> connections = connectionRepository.findByUserId(userId);
         for (GmailConnection conn : connections) {
-            if (Boolean.TRUE.equals(conn.getIsConnected())) {
+            if (Boolean.TRUE.equals(conn.getIsConnected()) && conn.getAuthFailedAt() == null) {
                 try {
                     jobService.enqueue(
                             userId,

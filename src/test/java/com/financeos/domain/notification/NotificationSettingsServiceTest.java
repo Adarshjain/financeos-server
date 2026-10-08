@@ -17,6 +17,8 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.push.WebPushCrypto;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.loan.Loan;
+import com.financeos.domain.loan.LoanRepository;
 import com.financeos.domain.notification.push.PushMessage;
 import com.financeos.domain.notification.push.PushSubscription;
 import com.financeos.domain.notification.push.WebPushSender;
@@ -34,6 +36,7 @@ class NotificationSettingsServiceTest {
 
     private UserNotificationSettingsRepository repository;
     private AccountRepository accountRepository;
+    private LoanRepository loanRepository;
     private WebPushSender sender;
     private NotificationSettingsService service;
     private final UUID userId = UUID.randomUUID();
@@ -45,7 +48,8 @@ class NotificationSettingsServiceTest {
         repository = mock(UserNotificationSettingsRepository.class);
         accountRepository = mock(AccountRepository.class);
         sender = mock(WebPushSender.class);
-        service = new NotificationSettingsService(repository, accountRepository, sender);
+        loanRepository = mock(LoanRepository.class);
+        service = new NotificationSettingsService(repository, accountRepository, loanRepository, sender);
         when(repository.save(any())).thenAnswer(inv -> inv.getArgument(0));
         when(repository.findById(userId)).thenReturn(Optional.empty());
         when(accountRepository.findByUserId(userId)).thenReturn(List.of());
@@ -160,6 +164,28 @@ class NotificationSettingsServiceTest {
 
         assertThrows(ValidationException.class, () -> service.setAccountMuted(UUID.randomUUID(), account.getId(), true));
         assertThrows(ResourceNotFoundException.class, () -> service.setAccountMuted(userId, UUID.randomUUID(), true));
+    }
+
+    @Test
+    void loanMuteChecksOwnershipAndFlipsTheFlag() {
+        User owner = new User();
+        owner.setId(userId);
+        Loan loan = new Loan();
+        loan.setId(UUID.randomUUID());
+        loan.setUser(owner);
+        when(loanRepository.findById(loan.getId())).thenReturn(Optional.of(loan));
+        when(loanRepository.findByUser_IdAndNotificationsMutedTrue(userId)).thenAnswer(inv ->
+                Boolean.TRUE.equals(loan.getNotificationsMuted()) ? List.of(loan) : List.of());
+
+        NotificationSettingsService.View view = service.setLoanMuted(userId, loan.getId(), true);
+        assertEquals(List.of(loan.getId()), view.mutedLoanIds());
+        assertTrue(loan.getNotificationsMuted());
+        assertTrue(view.mutedAccountIds().isEmpty(), "loan mutes and card mutes are separate lists");
+        assertTrue(service.setLoanMuted(userId, loan.getId(), false).mutedLoanIds().isEmpty());
+        assertFalse(loan.getNotificationsMuted());
+
+        assertThrows(ValidationException.class, () -> service.setLoanMuted(UUID.randomUUID(), loan.getId(), true));
+        assertThrows(ResourceNotFoundException.class, () -> service.setLoanMuted(userId, UUID.randomUUID(), true));
     }
 
     @Test

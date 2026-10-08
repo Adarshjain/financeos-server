@@ -81,6 +81,20 @@ public class Loan {
     @Column(length = 1000)
     private String notes;
 
+    /** Per-loan opt-out of EMI pushes (autopay); the loan still shows everywhere. */
+    @Column(name = "notifications_muted", nullable = false)
+    private Boolean notificationsMuted = false;
+
+    /** EMI reminder marker: the installment it refers to, the last kind sent for it and when. */
+    @Column(name = "last_notified_seq")
+    private Integer lastNotifiedSeq;
+
+    @Column(name = "last_notified_kind", length = 20)
+    private String lastNotifiedKind;
+
+    @Column(name = "last_notified_on")
+    private LocalDate lastNotifiedOn;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 

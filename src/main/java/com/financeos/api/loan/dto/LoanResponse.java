@@ -40,7 +40,12 @@ public record LoanResponse(
         @Nullable LocalDate projectedEndDate,
         BigDecimal totalInterestPaid,
         BigDecimal totalInterestRemaining,
-        @Nullable Double effectiveAprPct
+        @Nullable Double effectiveAprPct,
+        /** Per-loan opt-out of EMI pushes. */
+        boolean notificationsMuted,
+        /** EMI reminder marker for the current installment (DUE_n / OVERDUE), for transparency. */
+        @Nullable String lastNotifiedKind,
+        @Nullable LocalDate lastNotifiedOn
 ) {
     public static LoanResponse from(Loan loan, ScheduleResult schedule) {
         return new LoanResponse(
@@ -70,7 +75,10 @@ public record LoanResponse(
                 schedule != null ? schedule.projectedEndDate() : null,
                 schedule != null ? schedule.totalInterestPaid() : BigDecimal.ZERO,
                 schedule != null ? schedule.totalInterestRemaining() : BigDecimal.ZERO,
-                schedule != null ? schedule.effectiveAprPct() : null
+                schedule != null ? schedule.effectiveAprPct() : null,
+                Boolean.TRUE.equals(loan.getNotificationsMuted()),
+                loan.getLastNotifiedKind(),
+                loan.getLastNotifiedOn()
         );
     }
 }

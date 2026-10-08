@@ -1,6 +1,8 @@
 package com.financeos.api.notification;
 
 import com.financeos.api.notification.dto.MuteAccountRequest;
+import com.financeos.api.notification.dto.MuteLoanRequest;
+import com.financeos.api.notification.dto.NotificationEvaluateResponse;
 import com.financeos.api.notification.dto.NotificationSettingsResponse;
 import com.financeos.api.notification.dto.PushPublicKeyResponse;
 import com.financeos.api.notification.dto.PushSubscriptionRequest;
@@ -8,6 +10,7 @@ import com.financeos.api.notification.dto.PushTestResponse;
 import com.financeos.api.notification.dto.RemovePushSubscriptionRequest;
 import com.financeos.api.notification.dto.UpdateNotificationSettingsRequest;
 import com.financeos.core.security.UserContext;
+import com.financeos.domain.notification.NotificationScheduler;
 import com.financeos.domain.notification.NotificationSettingsService;
 import com.financeos.domain.notification.push.WebPushSender;
 import jakarta.validation.Valid;
@@ -23,17 +26,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-/** Notification preferences, Web Push device registration and per-card mutes. */
+/** Notification preferences, Web Push device registration, per-card / per-loan mutes and an on-demand tick. */
 @RestController
 @RequestMapping("/api/v1/notifications")
 public class NotificationController {
 
     private final NotificationSettingsService settingsService;
     private final WebPushSender sender;
+    private final NotificationScheduler scheduler;
 
-    public NotificationController(NotificationSettingsService settingsService, WebPushSender sender) {
+    public NotificationController(NotificationSettingsService settingsService, WebPushSender sender,
+                                  NotificationScheduler scheduler) {
         this.settingsService = settingsService;
         this.sender = sender;
+        this.scheduler = scheduler;
     }
 
     private UUID requireCurrentUserId() {
@@ -89,5 +95,25 @@ public class NotificationController {
         UUID userId = requireCurrentUserId();
         return ResponseEntity.ok(NotificationSettingsResponse.from(
                 settingsService.setAccountMuted(userId, accountId, request.muted())));
+    }
+
+    @PutMapping("/loans/{loanId}/mute")
+    public ResponseEntity<NotificationSettingsResponse> muteLoan(@PathVariable UUID loanId,
+                                                                 @Valid @RequestBody MuteLoanRequest request) {
+        UUID userId = requireCurrentUserId();
+        return ResponseEntity.ok(NotificationSettingsResponse.from(
+                settingsService.setLoanMuted(userId, loanId, request.muted())));
+    }
+
+    /**
+     * Runs every producer for the caller right now — exactly what the hourly tick does for them.
+     * Idempotent through the producers' markers, so calling it twice sends nothing extra.
+     */
+    @PostMapping("/evaluate")
+    public ResponseEntity<NotificationEvaluateResponse> evaluate() {
+        UUID userId = requireCurrentUserId();
+        NotificationScheduler.Summary summary = scheduler.runProducers(userId);
+        return ResponseEntity.ok(new NotificationEvaluateResponse(
+                summary.evaluated(), summary.recorded(), summary.sent(), summary.failed()));
     }
 }

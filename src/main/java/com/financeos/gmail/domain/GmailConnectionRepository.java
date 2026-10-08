@@ -22,5 +22,11 @@ public interface GmailConnectionRepository extends JpaRepository<GmailConnection
 
     List<GmailConnection> findByIsConnectedTrue();
 
+    /** Connections the cron should sync: wanted by the user AND holding a token Google still accepts. */
+    List<GmailConnection> findByIsConnectedTrueAndAuthFailedAtIsNull();
+
+    /** A user's mailboxes whose token died and that the user still wants connected. */
+    List<GmailConnection> findByUserIdAndIsConnectedTrueAndAuthFailedAtIsNotNull(UUID userId);
+
     List<GmailConnection> findByUserId(UUID userId);
 }

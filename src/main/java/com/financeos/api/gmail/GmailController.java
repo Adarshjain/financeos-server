@@ -265,6 +265,7 @@ public class GmailController {
         gpm.setAttemptCount(0);
         gpm.setNextRetryAt(null);
         gpm.setError(null);
+        gpm.setAttentionNotifiedAt(null); // a second failure is announced again
         processedMessageRepository.save(gpm);
 
         GmailConnection conn = gpm.getConnection();
