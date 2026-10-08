@@ -176,6 +176,7 @@ public class BillNotificationService implements NotificationProducer {
             case DUE_UNKNOWN -> BillNotificationKinds.DUE_MISSING;
             case OVERDUE -> BillNotificationKinds.OVERDUE;
             case OPEN, PARTIAL -> applicableDueKind(bill, offsets);
+            case AWAITING_STATEMENT -> null;
         };
     }
 
@@ -209,8 +210,8 @@ public class BillNotificationService implements NotificationProducer {
         return BillNotificationKinds.isLater(kind, lastKind);
     }
 
-    /** Backfilled history must produce zero notifications. */
-    static boolean isStale(CardBill bill) {
+    /** Backfilled history must produce zero notifications (and no inbox rows). */
+    public static boolean isStale(CardBill bill) {
         if (bill.statementCreatedAt() == null) {
             return false;
         }

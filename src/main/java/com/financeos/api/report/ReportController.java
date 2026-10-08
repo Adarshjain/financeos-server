@@ -62,6 +62,13 @@ public class ReportController {
         return ResponseEntity.ok(ReportResponse.from(report, mapper));
     }
 
+    /** Copy a report the current user owns; the copy is named "<name> (copy)". */
+    @PostMapping("/{id}/duplicate")
+    public ResponseEntity<ReportResponse> duplicateReport(@PathVariable UUID id) {
+        Report copy = reportService.duplicate(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ReportResponse.from(copy, mapper));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReport(@PathVariable UUID id) {
         reportService.delete(id);

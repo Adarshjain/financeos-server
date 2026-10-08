@@ -113,7 +113,7 @@ public class EmiNotificationService implements NotificationProducer {
     // ---------------------------------------------------------------- decision logic (pure, package-private for tests)
 
     /** The first installment without a recorded payment, or null when the loan is fully settled. */
-    static InstallmentDto currentInstallment(List<InstallmentDto> installments) {
+    public static InstallmentDto currentInstallment(List<InstallmentDto> installments) {
         for (InstallmentDto installment : installments) {
             if (!"settled".equals(installment.status())) {
                 return installment;
@@ -136,7 +136,7 @@ public class EmiNotificationService implements NotificationProducer {
      * Overdue installments nobody is recording payments for: older than {@value #STALE_OVERDUE_DAYS}
      * days, or due before the loan was even entered (backfilled history).
      */
-    static boolean isStale(Loan loan, InstallmentDto installment, LocalDate today) {
+    public static boolean isStale(Loan loan, InstallmentDto installment, LocalDate today) {
         if (installment.dueDate().isBefore(today.minusDays(STALE_OVERDUE_DAYS))) {
             return true;
         }

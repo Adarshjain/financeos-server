@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class StatementExpectedNotificationService implements NotificationProducer {
 
     private static final Logger log = LoggerFactory.getLogger(StatementExpectedNotificationService.class);
-    static final int GRACE_DAYS = 5;
+    public static final int GRACE_DAYS = 5;
     private static final int MAX_CYCLES_FORWARD = 24;
 
     private final AccountRepository accountRepository;
@@ -98,7 +98,7 @@ public class StatementExpectedNotificationService implements NotificationProduce
      * The end of the latest projected period that is already {@value #GRACE_DAYS} days past
      * without a statement, or null when the card is current (or has no statement to project from).
      */
-    static LocalDate overduePeriodEnd(List<Statement> statements, LocalDate today) {
+    public static LocalDate overduePeriodEnd(List<Statement> statements, LocalDate today) {
         LocalDate lastEnd = statements.stream()
                 .map(Statement::getPeriodEnd)
                 .filter(Objects::nonNull)

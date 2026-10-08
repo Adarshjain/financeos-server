@@ -17,10 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 
+import static net.logstash.logback.argument.StructuredArguments.keyValue;
+
 @Service
 @Transactional
 @Slf4j
 public class ReportService {
+
+    static final String EVENT_REPORT_DUPLICATED = com.financeos.core.observability.Events.REPORT_DUPLICATED;
 
     private final ReportRepository reportRepository;
     private final ReportDefinitionValidator validator;
@@ -101,6 +105,23 @@ public class ReportService {
         report.setDefinition(json);
 
         return reportRepository.save(report);
+    }
+
+    /**
+     * Copies a report the current user owns (ownership enforced by {@link #get}) as a new report
+     * named "{@code <name> (copy)}" with the same type, datasource, definition and description.
+     */
+    public Report duplicate(UUID id) {
+        Report source = get(id);
+        Report copy = new Report(source.getUser(), source.getName() + " (copy)", source.getType(),
+                source.getDatasource(), source.getDefinition());
+        copy.setDescription(source.getDescription());
+        Report saved = reportRepository.save(copy);
+        log.info("Report duplicated",
+                keyValue("event", EVENT_REPORT_DUPLICATED),
+                keyValue("sourceReportId", id),
+                keyValue("reportId", saved.getId()));
+        return saved;
     }
 
     public void delete(UUID id) {

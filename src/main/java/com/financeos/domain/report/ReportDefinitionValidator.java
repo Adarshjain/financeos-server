@@ -39,7 +39,7 @@ public class ReportDefinitionValidator {
             "this_month", "this_week", "this_year", "previous_month", "previous_week",
             "previous_year", "today", "yesterday", "current_fy", "prev_fy", "all_time",
             CycleOperators.THIS_CYCLE, CycleOperators.PREVIOUS_CYCLE);
-    private static final Set<String> PARAM_DATE_OPS = Set.of("last_x_days", "last_x_months", "last_x_years");
+    private static final Set<String> PARAM_DATE_OPS = Set.of("last_x_days", "last_x_months", "last_x_years", "next_x_days");
 
     private final DatasourceRegistry registry;
 

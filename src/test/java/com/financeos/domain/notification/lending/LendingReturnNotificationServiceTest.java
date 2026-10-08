@@ -163,7 +163,7 @@ class LendingReturnNotificationServiceTest {
         PushMessage message = delivered();
         assertEquals("Rahul: ₹12,000 due back today", message.title());
         assertEquals("You lent it on 20 Sep. Tap to share the ledger.", message.body());
-        assertEquals("/loans/lendings/" + rahul.getId() + "?export=1", message.url());
+        assertEquals("/inbox?item=lending:" + rahul.getId(), message.url());
         assertEquals("lending-" + rahul.getId(), message.tag());
         assertEquals("DUE_0", subject.getReturnNotifiedKind());
         assertEquals(TODAY, subject.getReturnNotifiedOn());
@@ -195,7 +195,7 @@ class LendingReturnNotificationServiceTest {
         PushMessage message = delivered();
         assertEquals("Rahul: you owe ₹2,000, 1 day late", message.title());
         assertEquals("Was due back 19 Oct. Settle up and record it.", message.body());
-        assertEquals("/loans/lendings/" + rahul.getId(), message.url());
+        assertEquals("/inbox?item=lending:" + rahul.getId(), message.url());
 
         ledger.clear();
         entry(rahul, LendingDirection.borrowed, LendingKind.principal, "2000", TODAY.minusDays(20), TODAY);

@@ -1,85 +1,45 @@
 package com.financeos.api.obligations;
 
-import com.financeos.api.loan.dto.InstallmentDto;
-import com.financeos.api.loan.dto.LoanResponse;
-import com.financeos.api.obligations.dto.ObligationItemDto;
 import com.financeos.api.obligations.dto.ObligationsResponse;
-import com.financeos.core.time.AppTime;
-import com.financeos.domain.lending.LendingService;
-import com.financeos.domain.loan.LoanService;
-import com.financeos.domain.loan.LoanStatus;
+import com.financeos.core.security.UserContext;
+import com.financeos.domain.obligations.ObligationsService;
 
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.UUID;
 
+/**
+ * Upcoming obligations: EMIs, lending returns, card bills and expected statements, overdue
+ * first. {@code months} is the look-ahead window (1..12, default 3); {@code kinds} is an
+ * optional CSV of {@code emi,lending_due,card_bill,statement_expected} (default all).
+ */
 @RestController
 @RequestMapping("/api/v1/obligations")
 public class ObligationsController {
 
-    private final LoanService loanService;
-    private final LendingService lendingService;
+    private final ObligationsService obligationsService;
 
-    public ObligationsController(LoanService loanService, LendingService lendingService) {
-        this.loanService = loanService;
-        this.lendingService = lendingService;
+    public ObligationsController(ObligationsService obligationsService) {
+        this.obligationsService = obligationsService;
+    }
+
+    private UUID requireCurrentUserId() {
+        UUID userId = UserContext.getCurrentUserId();
+        if (userId == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User is not authenticated");
+        }
+        return userId;
     }
 
     @GetMapping("/upcoming")
-    public ObligationsResponse getUpcomingObligations(@RequestParam(defaultValue = "3") int months) {
-        int windowMonths = Math.max(1, Math.min(12, months));
-        LocalDate today = AppTime.today();
-        LocalDate maxDate = today.plusMonths(windowMonths);
-
-        List<ObligationItemDto> items = new ArrayList<>();
-
-        // 1. EMI Obligations from Active Loans
-        List<LoanResponse> activeLoans = loanService.getLoans(LoanStatus.active, Pageable.unpaged()).getContent();
-
-        for (LoanResponse loan : activeLoans) {
-            List<InstallmentDto> installments = loanService.getLoanSchedule(loan.id());
-            for (InstallmentDto inst : installments) {
-                if (!"settled".equals(inst.status())) {
-                    LocalDate due = inst.dueDate();
-                    boolean isOverdue = due.isBefore(today);
-                    boolean isUpcoming = !due.isBefore(today) && !due.isAfter(maxDate);
-
-                    if (isOverdue || isUpcoming) {
-                        items.add(new ObligationItemDto(
-                                "emi",
-                                due,
-                                inst.emi(),
-                                isOverdue ? "overdue" : "upcoming",
-                                loan.id(),
-                                loan.name(),
-                                inst.seq(),
-                                null,
-                                null,
-                                null,
-                                null
-                        ));
-                    }
-                }
-            }
-        }
-
-        // 2. Lending Due Obligations
-        List<ObligationItemDto> lendingItems = lendingService.getUpcomingLendingObligations(today, maxDate);
-        items.addAll(lendingItems);
-
-        // Sort: overdue first (oldest first), then upcoming by date ascending
-        items.sort((a, b) -> {
-            boolean aOverdue = "overdue".equalsIgnoreCase(a.status());
-            boolean bOverdue = "overdue".equalsIgnoreCase(b.status());
-            if (aOverdue && !bOverdue) return -1;
-            if (!aOverdue && bOverdue) return 1;
-            return a.date().compareTo(b.date());
-        });
-
-        return new ObligationsResponse(items);
+    public ObligationsResponse getUpcomingObligations(@RequestParam(defaultValue = "3") int months,
+                                                      @RequestParam(required = false) String kinds) {
+        UUID userId = requireCurrentUserId();
+        return obligationsService.upcoming(userId, months, ObligationsService.parseKinds(kinds));
     }
 }

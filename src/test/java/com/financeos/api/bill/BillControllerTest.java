@@ -42,7 +42,8 @@ class BillControllerTest {
                 PaidSource.NONE, BillStatus.OPEN, 8L, null,
                 List.of(new CardBill.PossiblePayment(UUID.randomUUID(), LocalDate.of(2026, 10, 12), new BigDecimal("100"), "UPI")),
                 false, null, "RECEIVED", LocalDate.of(2026, 10, 11),
-                new CardBill.Digest(new BigDecimal("100"), null, null, null, null, null, new BigDecimal("1000"), new BigDecimal("10.0"), 3));
+                new CardBill.Digest(new BigDecimal("100"), null, null, null, null, null, new BigDecimal("1000"), new BigDecimal("10.0"), 3),
+                new BigDecimal("250"), LocalDate.of(2026, 11, 10));
     }
 
     @AfterEach
@@ -53,7 +54,7 @@ class BillControllerTest {
     @Test
     void listMapsTheDomainViewOneToOne() {
         when(service.listBills(userId)).thenReturn(List.of(bill));
-        ResponseEntity<List<CardBillResponse>> response = controller.listBills();
+        ResponseEntity<List<CardBillResponse>> response = controller.listBills(null);
         assertEquals(200, response.getStatusCode().value());
         CardBillResponse body = response.getBody().get(0);
         assertEquals(statementId, body.statementId());
@@ -62,6 +63,8 @@ class BillControllerTest {
         assertEquals("UPI", body.possiblePayments().get(0).description());
         assertEquals(new BigDecimal("10.0"), body.digest().utilizationPct());
         assertEquals("RECEIVED", body.lastNotifiedKind());
+        assertEquals(new BigDecimal("250"), body.unbilledAmount());
+        assertEquals(LocalDate.of(2026, 11, 10), body.nextStatementExpectedOn());
     }
 
     @Test
@@ -86,7 +89,7 @@ class BillControllerTest {
     @Test
     void unauthenticatedCallsAreRejected() {
         UserContext.clear();
-        assertThrows(ResponseStatusException.class, () -> controller.listBills());
+        assertThrows(ResponseStatusException.class, () -> controller.listBills(null));
         assertThrows(ResponseStatusException.class, () -> controller.markPaid(statementId, null));
     }
 }

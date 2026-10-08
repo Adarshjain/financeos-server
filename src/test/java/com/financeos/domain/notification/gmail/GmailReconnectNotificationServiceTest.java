@@ -106,7 +106,7 @@ class GmailReconnectNotificationServiceTest {
         verify(settingsService).deliver(eq(settings), message.capture());
         assertEquals("Gmail disconnected", message.getValue().title());
         assertEquals("Reconnect ajay@example.test to keep importing alerts and statements.", message.getValue().body());
-        assertEquals("/settings/gmail", message.getValue().url());
+        assertEquals("/inbox?item=gmail-reconnect:" + connection.getId(), message.getValue().url());
         assertEquals("gmail-reconnect-" + connection.getId(), message.getValue().tag());
     }
 

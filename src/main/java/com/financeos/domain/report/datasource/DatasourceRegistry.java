@@ -28,7 +28,10 @@ public class DatasourceRegistry {
             "lendings",
             "reward_earnings",
             "reward_milestones",
-            "reward_caps"
+            "reward_caps",
+            "net_worth",
+            "obligations",
+            "attention"
     );
 
     private final Map<String, ReportDatasource> byNameMap;

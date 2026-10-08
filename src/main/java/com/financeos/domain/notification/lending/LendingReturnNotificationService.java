@@ -57,7 +57,7 @@ public class LendingReturnNotificationService implements NotificationProducer {
     }
 
     /** One counterparty's position: what is outstanding, which way, and the entry that sets the date. */
-    record Obligation(UUID counterpartyId, String counterpartyName, BigDecimal outstanding, LendingDirection direction, Lending subject) {
+    public record Obligation(UUID counterpartyId, String counterpartyName, BigDecimal outstanding, LendingDirection direction, Lending subject) {
     }
 
     @Override
@@ -95,9 +95,10 @@ public class LendingReturnNotificationService implements NotificationProducer {
 
     /**
      * Counterparties with a non-zero net balance whose earliest expected return date (principal
-     * entries in the outstanding direction) is today or earlier.
+     * entries in the outstanding direction) is {@code today} or earlier. The inbox passes a later
+     * date to look ahead; the subject is still the earliest such entry.
      */
-    static List<Obligation> dueObligations(List<Lending> entries, LocalDate today) {
+    public static List<Obligation> dueObligations(List<Lending> entries, LocalDate today) {
         Map<UUID, List<Lending>> byCounterparty = new LinkedHashMap<>();
         for (Lending entry : entries) {
             if (entry.getCounterparty() != null) {

@@ -186,7 +186,7 @@ class CardBillServiceTest {
     }
 
     @Test
-    void unlinkedCreditIsOnlyAPossiblePaymentAndRefundLinksAreNeither() {
+    void unlinkedCreditIsOnlyAPossiblePaymentAndARefundLinkCountsAsPaid() {
         Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
         Transaction maybePayment = credit(card, TODAY.minusDays(1), "48250");
         Transaction refund = credit(card, TODAY.minusDays(3), "999");
@@ -199,8 +199,8 @@ class CardBillServiceTest {
 
         CardBill bill = service.build(card, s, TODAY);
 
-        assertEquals(BillStatus.OPEN, bill.status(), "a plain credit never closes the bill");
-        assertEquals(0, bill.paidAmount().signum());
+        assertEquals(BillStatus.PARTIAL, bill.status(), "a plain credit never closes the bill; the refund pays part of it");
+        assertEquals(new BigDecimal("999"), bill.paidAmount());
         assertEquals(1, bill.possiblePayments().size());
         assertEquals(maybePayment.getId(), bill.possiblePayments().get(0).transactionId());
         assertEquals(new BigDecimal("48250"), bill.possiblePayments().get(0).amount());
@@ -299,7 +299,7 @@ class CardBillServiceTest {
     }
 
     @Test
-    void listBillsSkipsClosedCardsAndCardsWithoutStatementsAndSortsMostUrgentFirst() {
+    void listBillsSkipsClosedCardsListsCardsWithoutStatementsAsAwaitingAndSortsMostUrgentFirst() {
         Account overdueCard = account("Axis");
         Account soonCard = account("ICICI");
         Account closed = account("Old");
@@ -321,7 +321,12 @@ class CardBillServiceTest {
 
         List<CardBill> bills = service.listBills(user.getId());
 
-        assertEquals(List.of("Axis", "Closing", "ICICI"), bills.stream().map(CardBill::accountName).toList());
+        assertEquals(List.of("Axis", "Closing", "ICICI", "Empty"), bills.stream().map(CardBill::accountName).toList());
+        CardBill awaiting = bills.get(3);
+        assertEquals(BillStatus.AWAITING_STATEMENT, awaiting.status());
+        assertNull(awaiting.statementId());
+        assertEquals(PaidSource.NONE, awaiting.paidSource());
+        assertTrue(awaiting.possiblePayments().isEmpty());
     }
 
     // ---------------------------------------------------------------- writes

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Resolves relative date operators (this_month, last_x_days, current_fy, ...) into concrete
+ * Resolves relative date operators (this_month, last_x_days, next_x_days, current_fy, ...) into concrete
  * {@link DateRange}s, and computes the preceding equal-length window used by KPI comparisons.
  *
  * <p>All ranges are inclusive on both ends. "Today" is the server-local date. The fiscal year
@@ -86,6 +86,10 @@ public class DateRangeResolver {
                 int n = positiveAmount(value, operator);
                 yield DateRange.of(today.minusDays(n - 1L), today);
             }
+            case "next_x_days" -> {
+                int n = positiveAmount(value, operator);
+                yield DateRange.of(today, today.plusDays(n - 1L));
+            }
             case "last_x_months" -> {
                 int n = positiveAmount(value, operator);
                 yield DateRange.of(today.minusMonths(n).plusDays(1), today);
@@ -123,7 +127,7 @@ public class DateRangeResolver {
             }
             return DateRange.of(newFrom, newTo);
         }
-        // Rolling / explicit (last_x_*, between, is, today, yesterday): flat shift by length.
+        // Rolling / explicit (last_x_*, next_x_days, between, is, today, yesterday): flat shift by length.
         long len = current.lengthDays();
         return DateRange.of(current.from().minusDays(len), current.to().minusDays(len));
     }

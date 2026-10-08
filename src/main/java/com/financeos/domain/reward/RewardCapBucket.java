@@ -67,6 +67,10 @@ public class RewardCapBucket {
     @Column(name = "cap_notified_window_start")
     private java.time.LocalDate capNotifiedWindowStart;
 
+    /** Alert marker: the business date the cap-exhausted marker was recorded (inbox recency). */
+    @Column(name = "cap_notified_on")
+    private java.time.LocalDate capNotifiedOn;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

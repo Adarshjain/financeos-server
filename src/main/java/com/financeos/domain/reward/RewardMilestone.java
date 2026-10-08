@@ -111,6 +111,10 @@ public class RewardMilestone {
 
     private String notifiedKind;
 
+    /** Alert marker: the business date the window marker was last recorded (inbox recency). */
+    @Column(name = "notified_on")
+    private LocalDate notifiedOn;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

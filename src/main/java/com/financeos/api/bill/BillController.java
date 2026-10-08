@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -39,10 +40,14 @@ public class BillController {
         return userId;
     }
 
+    /** All open cards' bills, most urgent first; {@code accountId} narrows the list to one card. */
     @GetMapping
-    public ResponseEntity<List<CardBillResponse>> listBills() {
+    public ResponseEntity<List<CardBillResponse>> listBills(@RequestParam(required = false) UUID accountId) {
         UUID userId = requireCurrentUserId();
-        return ResponseEntity.ok(cardBillService.listBills(userId).stream().map(CardBillResponse::from).toList());
+        return ResponseEntity.ok(cardBillService.listBills(userId).stream()
+                .filter(bill -> accountId == null || accountId.equals(bill.accountId()))
+                .map(CardBillResponse::from)
+                .toList());
     }
 
     @GetMapping("/{statementId}")

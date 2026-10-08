@@ -33,24 +33,29 @@ public final class JobMessages {
     /** Where a tap lands: the page that started the job, which already shows its inline job panel. */
     public static String url(JobType type) {
         return switch (type) {
-            case STATEMENT_INGEST -> "/settings/ingest";
+            case STATEMENT_INGEST -> "/transactions/import";
             case INVESTMENT_IMPORT_COMMIT, BROKER_RECONCILE_COMMIT -> "/investments";
-            default -> "/settings/jobs?type=" + type.name();
+            default -> "/settings/activity?type=" + type.name();
         };
     }
 
     public static PushMessage forJob(Job job, ObjectMapper mapper) {
         String label = label(job.getType());
         if (job.getStatus() == JobStatus.FAILED) {
-            String reason = job.getErrorMessage() == null || job.getErrorMessage().isBlank()
-                    ? "Open the job to see what went wrong."
-                    : truncate(job.getErrorMessage().strip());
-            return new PushMessage(label + " failed", reason, url(job.getType()), "job-" + job.getId(), true);
+            return new PushMessage(label + " failed", failureReason(job), url(job.getType()), "job-" + job.getId(), true);
         }
         return new PushMessage(label + " finished", summary(job, mapper), url(job.getType()), "job-" + job.getId(), true);
     }
 
-    static String summary(Job job, ObjectMapper mapper) {
+    /** The stored error, truncated for a push body or an inbox subtitle; a generic line when there is none. */
+    public static String failureReason(Job job) {
+        return job.getErrorMessage() == null || job.getErrorMessage().isBlank()
+                ? "Open the job to see what went wrong."
+                : truncate(job.getErrorMessage().strip());
+    }
+
+    /** One line on what a successful job did, read leniently from its result JSON. */
+    public static String summary(Job job, ObjectMapper mapper) {
         JsonNode result = null;
         if (job.getResult() != null && !job.getResult().isBlank()) {
             try {

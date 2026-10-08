@@ -109,7 +109,7 @@ class BillNotificationServiceTest {
         return new CardBill(card.getId(), "HDFC", "4321", statement.getId(), statement.getPeriodStart(), statement.getPeriodEnd(),
                 status == BillStatus.DUE_UNKNOWN ? null : due, total, null, BigDecimal.ZERO, total,
                 PaidSource.NONE, status, status == BillStatus.DUE_UNKNOWN ? null : daysUntilDue, null, List.of(),
-                Boolean.TRUE.equals(card.getNotificationsMuted()), createdAt, null, null, null);
+                Boolean.TRUE.equals(card.getNotificationsMuted()), createdAt, null, null, null, null, null);
     }
 
     private void billIs(CardBill bill) {
@@ -327,7 +327,8 @@ class BillNotificationServiceTest {
     void manualPaidMarkerIsNeverReset() {
         CardBill manual = new CardBill(card.getId(), "HDFC", "4321", statement.getId(), null, statement.getPeriodEnd(),
                 TODAY.plusDays(2), new BigDecimal("1000"), null, new BigDecimal("1000"), BigDecimal.ZERO,
-                PaidSource.MANUAL, BillStatus.PAID, 2L, TODAY, List.of(), false, statement.getCreatedAt(), "PAID", TODAY, null);
+                PaidSource.MANUAL, BillStatus.PAID, 2L, TODAY, List.of(), false, statement.getCreatedAt(), "PAID", TODAY, null,
+                null, null);
         billIs(manual);
         details().setLastNotifiedKind("PAID");
 

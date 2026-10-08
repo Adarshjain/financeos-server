@@ -75,7 +75,8 @@ class AccountDeletionSchemaTest {
                 "counterparties", "lendings", "reward_rules", "reward_milestones", "reward_cap_buckets",
                 "jobs", "gmail_processed_messages", "gmail_sync_cursors", "dashboards", "reports",
                 "category_rules", "gmail_connections", "gmail_senders", "gmail_backfill_demand",
-                "llm_api_keys", "llm_task_prefs", "fno_trades", "user_notification_settings"
+                "llm_api_keys", "llm_task_prefs", "fno_trades", "user_notification_settings",
+                "inbox_item_state"
         );
 
         for (String table : tablesWithUserId) {

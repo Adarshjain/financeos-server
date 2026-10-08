@@ -38,7 +38,8 @@ class DashboardServiceTest {
                 reportRepository,
                 userRepository,
                 validator,
-                mapper
+                mapper,
+                new BuiltinWidgetRegistry(mapper)
         );
         UserContext.clear();
     }

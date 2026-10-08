@@ -112,7 +112,7 @@ class JobNotificationServiceTest {
         PushMessage message = delivered();
         assertEquals("Statement import finished", message.title());
         assertEquals("142 transactions added from 2 files · 3 flagged as possible duplicates", message.body());
-        assertEquals("/settings/ingest", message.url());
+        assertEquals("/transactions/import", message.url());
         assertEquals("job-" + job.getId(), message.tag());
         assertTrue(message.quietWhenVisible(), "an open tab already toasts the job");
         assertNotNull(job.getNotifiedAt());
@@ -182,7 +182,7 @@ class JobNotificationServiceTest {
         PushMessage rule = JobMessages.forJob(job, mapper);
         assertEquals("Rule apply finished", rule.title());
         assertEquals("37 transactions categorised", rule.body());
-        assertEquals("/settings/jobs?type=RULE_APPLY", rule.url());
+        assertEquals("/settings/activity?type=RULE_APPLY", rule.url());
 
         job.setType(JobType.STATEMENT_INGEST);
         job.setResult("not json");

@@ -22,7 +22,7 @@ class BillMessagesTest {
                 LocalDate.of(2026, 9, 11), LocalDate.of(2026, 10, 10), LocalDate.of(2026, 10, 28),
                 total, new BigDecimal("2500"), paid, remaining,
                 paid != null && paid.signum() > 0 ? PaidSource.LINK : PaidSource.NONE, status, days, null,
-                List.of(), false, Instant.now(), null, null, digest);
+                List.of(), false, Instant.now(), null, null, digest, null, null);
     }
 
     @Test
@@ -47,7 +47,7 @@ class BillMessagesTest {
 
         assertEquals("HDFC Regalia ••4321: ₹48,250 due 28 Oct", m.title());
         assertEquals("Min ₹2,500 · Spent ₹48,250 · Paid ₹30,000 · Charges ₹500 · 1205 pts earned · 18400 pts balance", m.body());
-        assertEquals("/dashboard?bill=" + STATEMENT, m.url());
+        assertEquals("/upcoming?bill=" + STATEMENT, m.url());
         assertEquals("bill-" + STATEMENT, m.tag());
     }
 
@@ -97,7 +97,7 @@ class BillMessagesTest {
     void cardLabelOmitsLast4WhenUnknown() {
         CardBill noLast4 = new CardBill(UUID.randomUUID(), "Amex", null, STATEMENT, null, null, LocalDate.of(2026, 10, 28),
                 new BigDecimal("10"), null, BigDecimal.ZERO, new BigDecimal("10"), PaidSource.NONE, BillStatus.OPEN, 3L, null,
-                List.of(), false, null, null, null, null);
+                List.of(), false, null, null, null, null, null, null);
         assertEquals("Amex: bill due in 3 days", BillMessages.dueReminder(noLast4).title());
     }
 

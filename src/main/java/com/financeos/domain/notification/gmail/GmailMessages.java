@@ -1,5 +1,6 @@
 package com.financeos.domain.notification.gmail;
 
+import com.financeos.domain.inbox.InboxKinds;
 import com.financeos.domain.notification.push.PushMessage;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailProcessedMessage;
@@ -19,7 +20,7 @@ public final class GmailMessages {
     public static PushMessage reconnect(GmailConnection connection) {
         return new PushMessage("Gmail disconnected",
                 "Reconnect " + connection.getEmail() + " to keep importing alerts and statements.",
-                "/settings/gmail", "gmail-reconnect-" + connection.getId());
+                InboxKinds.inboxHref(InboxKinds.gmailReconnectKey(connection.getId())), "gmail-reconnect-" + connection.getId());
     }
 
     /** One digest for every item the user has not been told about yet. */
@@ -53,7 +54,7 @@ public final class GmailMessages {
             parts.add(failed + " failed to import");
         }
         String title = n == 1 ? "1 email needs attention" : n + " emails need attention";
-        return new PushMessage(title, String.join(" · ", parts), "/settings/gmail?focus=attention", "gmail-attention");
+        return new PushMessage(title, String.join(" · ", parts), InboxKinds.inboxHref(InboxKinds.KEY_GMAIL_ATTENTION), "gmail-attention");
     }
 
     static boolean isNoKeys(GmailProcessedMessage item) {

@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -14,4 +15,7 @@ import java.util.UUID;
 public interface ReportRepository extends JpaRepository<Report, UUID> {
 
     List<Report> findAllByType(ReportType type);
+
+    /** The user's oldest report with this exact name over this datasource (the Home seeder reuses it). */
+    Optional<Report> findFirstByUser_IdAndNameAndDatasourceOrderByCreatedAtAsc(UUID userId, String name, String datasource);
 }

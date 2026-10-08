@@ -10,11 +10,15 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.lang.Nullable;
 
+/**
+ * A card's bill. An {@code AWAITING_STATEMENT} row (open card, no live statement) has a null
+ * {@code statementId}, period, due date and totals; {@code unbilledAmount} is the spend so far.
+ */
 public record CardBillResponse(
         UUID accountId,
         String accountName,
         @Nullable String last4,
-        UUID statementId,
+        @Nullable UUID statementId,
         @Nullable LocalDate periodStart,
         @Nullable LocalDate periodEnd,
         @Nullable LocalDate paymentDueDate,
@@ -31,7 +35,9 @@ public record CardBillResponse(
         @Nullable Instant statementCreatedAt,
         @Nullable String lastNotifiedKind,
         @Nullable LocalDate lastNotifiedOn,
-        @Nullable BillDigestResponse digest
+        @Nullable BillDigestResponse digest,
+        @Nullable BigDecimal unbilledAmount,
+        @Nullable LocalDate nextStatementExpectedOn
 ) {
     public record PossiblePaymentResponse(UUID transactionId, @Nullable LocalDate date, @Nullable BigDecimal amount,
                                           @Nullable String description) {
@@ -62,6 +68,7 @@ public record CardBillResponse(
                 bill.muted(), bill.statementCreatedAt(), bill.lastNotifiedKind(), bill.lastNotifiedOn(),
                 d == null ? null : new BillDigestResponse(d.totalPurchases(), d.paymentsReceived(), d.financeCharges(),
                         d.feesAndCharges(), d.rewardPointsEarned(), d.rewardPointsBalance(), d.creditLimit(),
-                        d.utilizationPct(), d.transactionCount()));
+                        d.utilizationPct(), d.transactionCount()),
+                bill.unbilledAmount(), bill.nextStatementExpectedOn());
     }
 }
