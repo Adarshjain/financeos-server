@@ -39,9 +39,10 @@ public record CardBill(
         LocalDate lastNotifiedOn,
         Digest digest,
         /**
-         * Spend after the statement period end (since ever for a card without one), net of refunds and
-         * cashback but not of linked bill payments; never negative. Null when {@link CardBillService#build}
-         * produced the row directly or the statement has no period end.
+         * Card spend after the statement period end (since ever for a card without one): the
+         * non-excluded debits only. Credits never reduce it; payments and refunds count towards the
+         * open bill instead. Never negative. Null when {@link CardBillService#build} produced the row
+         * directly or the statement has no period end.
          */
         @Nullable BigDecimal unbilledAmount,
         /**

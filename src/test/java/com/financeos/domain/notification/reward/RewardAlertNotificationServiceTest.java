@@ -284,4 +284,71 @@ class RewardAlertNotificationServiceTest {
         assertEquals("this year", RewardMessages.windowLabel(CapWindow.CALENDAR_YEAR));
         assertEquals("this period", RewardMessages.windowLabel(null));
     }
+
+    // ---------------------------------------------------------------- notified-on markers (inbox recency)
+
+    @Test
+    void recordingAMilestoneMarkerAlsoRecordsTodayAsItsNotifiedOnDate() {
+        snapshot(List.of(status("82000", false, WINDOW_END)), List.of());
+        service.evaluate(userId);
+        assertEquals("CLOSING", milestone.getNotifiedKind());
+        assertEquals(TODAY, milestone.getNotifiedOn());
+
+        // Achieved later in the same window: the date moves with the marker.
+        milestone.setNotifiedOn(TODAY.minusDays(5));
+        card.setRewardAlertsCheckedOn(null);
+        snapshot(List.of(status("101000", true, WINDOW_END)), List.of());
+        service.evaluate(userId);
+        assertEquals("ACHIEVED", milestone.getNotifiedKind());
+        assertEquals(TODAY, milestone.getNotifiedOn());
+    }
+
+    @Test
+    void aMilestoneWithNothingNewKeepsItsNotifiedOnDate() {
+        LocalDate earlier = TODAY.minusDays(4);
+        milestone.setNotifiedWindowStart(WINDOW_START);
+        milestone.setNotifiedKind("ACHIEVED");
+        milestone.setNotifiedOn(earlier);
+        snapshot(List.of(status("120000", true, WINDOW_END)), List.of());
+
+        service.evaluate(userId);
+
+        assertEquals(earlier, milestone.getNotifiedOn(), "already announced for this window");
+        verify(milestoneRepository, never()).save(any());
+    }
+
+    @Test
+    void recordingACapMarkerAlsoRecordsTodayOnTheRuleOrBucket() {
+        snapshot(List.of(), List.of(cap(rule.getId(), null, null, "1000"), cap(null, bucket.getId(), "Shared monthly cap", "1200")));
+
+        service.evaluate(userId);
+
+        assertEquals(TODAY, rule.getCapNotifiedOn());
+        assertEquals(TODAY, bucket.getCapNotifiedOn());
+    }
+
+    @Test
+    void capsNotRecordedKeepTheirNotifiedOnDate() {
+        LocalDate earlier = TODAY.minusDays(3);
+        bucket.setCapNotifiedWindowStart(WINDOW_START);
+        bucket.setCapNotifiedOn(earlier);
+        snapshot(List.of(), List.of(cap(rule.getId(), null, null, "400"), cap(null, bucket.getId(), "Shared monthly cap", "1200")));
+
+        service.evaluate(userId);
+
+        assertNull(rule.getCapNotifiedOn(), "not exhausted: no marker, no date");
+        assertEquals(earlier, bucket.getCapNotifiedOn(), "same window already recorded");
+    }
+
+    @Test
+    void notifiedOnIsRecordedEvenWhenTheKindIsSwitchedOff() {
+        kinds.put(NotificationKind.REWARD_MILESTONE, false);
+        kinds.put(NotificationKind.REWARD_CAP, false);
+        prefs(true);
+        snapshot(List.of(status("101000", true, WINDOW_END)), List.of(cap(rule.getId(), null, null, "1000")));
+
+        assertEquals(new NotificationOutcome(1, 2, 0), service.evaluate(userId));
+        assertEquals(TODAY, milestone.getNotifiedOn());
+        assertEquals(TODAY, rule.getCapNotifiedOn());
+    }
 }

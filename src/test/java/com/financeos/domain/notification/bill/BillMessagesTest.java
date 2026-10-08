@@ -111,4 +111,53 @@ class BillMessagesTest {
                 .title().contains("overdue by 2 days"));
         assertThrows(IllegalArgumentException.class, () -> BillMessages.forKind("PAID", open));
     }
+
+    // ---------------------------------------------------------------- deep links: inbox row vs Upcoming
+
+    private static final String INBOX = "/inbox?item=bill:" + STATEMENT;
+    private static final String UPCOMING = "/upcoming?bill=" + STATEMENT;
+
+    private static CardBill withStatus(BillStatus status, Long days) {
+        return bill(status, new BigDecimal("1000"), BigDecimal.ZERO, days, null);
+    }
+
+    @Test
+    void hrefOpensTheInboxRowForOverdueAndMissingFiguresWhateverTheDays() {
+        assertEquals(INBOX, BillMessages.href(withStatus(BillStatus.OVERDUE, -1L)));
+        assertEquals(INBOX, BillMessages.href(withStatus(BillStatus.OVERDUE, -40L)));
+        assertEquals(INBOX, BillMessages.href(withStatus(BillStatus.DUE_UNKNOWN, null)));
+    }
+
+    @Test
+    void hrefForOpenAndPartialBillsSwitchesToUpcomingAfterSevenDays() {
+        for (BillStatus status : List.of(BillStatus.OPEN, BillStatus.PARTIAL)) {
+            assertEquals(INBOX, BillMessages.href(withStatus(status, 0L)), status + " due today");
+            assertEquals(INBOX, BillMessages.href(withStatus(status, 7L)), status + " due in 7 days");
+            assertEquals(UPCOMING, BillMessages.href(withStatus(status, 8L)), status + " due in 8 days");
+            assertEquals(UPCOMING, BillMessages.href(withStatus(status, null)), status + " without a day count");
+        }
+    }
+
+    @Test
+    void hrefForBillsTheInboxNeverListsGoesToUpcoming() {
+        assertEquals(UPCOMING, BillMessages.href(withStatus(BillStatus.NO_DUE, 3L)));
+        assertEquals(UPCOMING, BillMessages.href(withStatus(BillStatus.PAID, 3L)));
+        assertEquals(UPCOMING, BillMessages.href(withStatus(BillStatus.AWAITING_STATEMENT, 3L)));
+        assertEquals(UPCOMING, BillMessages.href(withStatus(null, 3L)), "a missing status is treated as not billed yet");
+    }
+
+    @Test
+    void everyMessageCarriesTheSameDeepLink() {
+        CardBill dueSoon = withStatus(BillStatus.OPEN, 5L);
+        assertEquals(INBOX, BillMessages.received(dueSoon).url(), "a digest for a bill due within the week opens the inbox row");
+        assertEquals(INBOX, BillMessages.dueReminder(dueSoon).url());
+        assertEquals(INBOX, BillMessages.forKind("DUE_7", withStatus(BillStatus.OPEN, 7L)).url());
+        assertEquals(INBOX, BillMessages.overdue(withStatus(BillStatus.OVERDUE, -2L)).url());
+        assertEquals(INBOX, BillMessages.dueMissing(withStatus(BillStatus.DUE_UNKNOWN, null)).url());
+        assertEquals(INBOX, BillMessages.received(withStatus(BillStatus.DUE_UNKNOWN, null)).url());
+
+        assertEquals(UPCOMING, BillMessages.received(withStatus(BillStatus.NO_DUE, 18L)).url());
+        assertEquals(UPCOMING, BillMessages.forKind("DUE_14", withStatus(BillStatus.OPEN, 10L)).url());
+        assertEquals("bill-" + STATEMENT, BillMessages.dueReminder(dueSoon).tag(), "the tag is unchanged by the link");
+    }
 }

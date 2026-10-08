@@ -3,6 +3,7 @@ package com.financeos.domain.report.datasource.impl;
 import com.financeos.api.lending.dto.CounterpartyResponse;
 import com.financeos.api.loan.dto.LoanResponse;
 import com.financeos.core.time.AppTime;
+import com.financeos.core.tx.SectionRunner;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountService;
 import com.financeos.domain.account.AccountType;
@@ -20,6 +21,7 @@ import net.logstash.logback.argument.StructuredArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -70,13 +72,22 @@ public class NetWorthDatasource implements ComputedReportDatasource {
     private final AccountService accountService;
     private final LoanService loanService;
     private final LendingService lendingService;
+    private final SectionRunner sectionRunner;
     private final List<FieldDef> fields;
 
-    public NetWorthDatasource(AccountService accountService, LoanService loanService, LendingService lendingService) {
+    @Autowired
+    public NetWorthDatasource(AccountService accountService, LoanService loanService, LendingService lendingService,
+                              SectionRunner sectionRunner) {
         this.accountService = accountService;
         this.loanService = loanService;
         this.lendingService = lendingService;
+        this.sectionRunner = sectionRunner;
         this.fields = buildCatalog();
+    }
+
+    /** Runs sections inline, without their own transactions (plain unit tests). */
+    public NetWorthDatasource(AccountService accountService, LoanService loanService, LendingService lendingService) {
+        this(accountService, loanService, lendingService, SectionRunner.DIRECT);
     }
 
     @Override
@@ -193,10 +204,13 @@ public class NetWorthDatasource implements ComputedReportDatasource {
         return row;
     }
 
-    /** Runs one section's load; a failure logs and yields no rows rather than failing the datasource. */
-    private static <T> List<T> guarded(String section, Supplier<List<T>> loader) {
+    /**
+     * Runs one section's load in its own transaction ({@link SectionRunner}); a failure rolls back only
+     * that section, logs, and yields no rows rather than failing the datasource.
+     */
+    private <T> List<T> guarded(String section, Supplier<List<T>> loader) {
         try {
-            List<T> out = loader.get();
+            List<T> out = sectionRunner.run(loader);
             return out != null ? out : List.of();
         } catch (RuntimeException e) {
             log.warn("Net worth section {} failed: {}", section, e.getMessage(),

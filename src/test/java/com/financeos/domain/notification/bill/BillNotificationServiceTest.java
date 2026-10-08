@@ -434,4 +434,49 @@ class BillNotificationServiceTest {
         assertEquals(BillNotificationService.Outcome.NONE, service.onStatementCreated(userId, statement.getId()));
         assertNull(details().getLastNotifiedKind());
     }
+
+    // ---------------------------------------------------------------- awaiting-statement rows never notify
+
+    private CardBill awaitingRow() {
+        return new CardBill(card.getId(), "HDFC", null, null, null, null, null, null, null, null, null,
+                PaidSource.NONE, BillStatus.AWAITING_STATEMENT, null, null, List.of(), false, null, null, null, null,
+                new BigDecimal("500"), TODAY.plusDays(5));
+    }
+
+    @Test
+    void awaitingStatementRowHasNoApplicableKindAndIsNeverStale() {
+        CardBill awaiting = awaitingRow();
+        assertNull(BillNotificationService.applicableKind(awaiting, OFFSETS));
+        assertNull(BillNotificationService.applicableDueKind(awaiting, OFFSETS));
+        assertFalse(BillNotificationService.shouldSend(BillNotificationService.applicableKind(awaiting, OFFSETS), null, null, TODAY));
+        assertFalse(BillNotificationService.isStale(awaiting));
+    }
+
+    @Test
+    void staleGuardIsFalseWhenTheBillHasNeitherDueDateNorPeriodEnd() {
+        CardBill undated = new CardBill(card.getId(), "HDFC", "4321", statement.getId(), null, null, null, null, null,
+                BigDecimal.ZERO, null, PaidSource.NONE, BillStatus.DUE_UNKNOWN, null, null, List.of(), false,
+                TODAY.minusYears(2).atStartOfDay(IST).toInstant(), null, null, null, null, null);
+        assertFalse(BillNotificationService.isStale(undated));
+    }
+
+    @Test
+    void tickBuildsOnlyCardsWithALiveStatementAndNeverReadsTheListedAwaitingRows() {
+        Account empty = new Account();
+        empty.setId(UUID.randomUUID());
+        empty.setName("Axis");
+        empty.setType(AccountType.credit_card);
+        when(accountRepository.findByUserIdAndType(userId, AccountType.credit_card)).thenReturn(List.of(empty, card));
+        when(cardBillService.latestLiveStatement(empty.getId())).thenReturn(Optional.empty());
+        billIs(bill(BillStatus.OPEN, 3L));
+
+        BillNotificationService.Outcome outcome = service.evaluateUser(userId);
+
+        assertEquals(new BillNotificationService.Outcome(1, 1, 1), outcome, "only the billed card is evaluated");
+        verify(cardBillService, never()).listBills(any());
+        verify(cardBillService, never()).build(eq(empty), any(), any());
+        ArgumentCaptor<PushMessage> message = ArgumentCaptor.forClass(PushMessage.class);
+        verify(settingsService).deliver(eq(settings), message.capture());
+        assertEquals("/inbox?item=bill:" + statement.getId(), message.getValue().url(), "due in 3 days: the inbox lists it");
+    }
 }

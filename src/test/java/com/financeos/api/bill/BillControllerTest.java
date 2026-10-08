@@ -23,6 +23,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 
 class BillControllerTest {
 
@@ -91,5 +95,60 @@ class BillControllerTest {
         UserContext.clear();
         assertThrows(ResponseStatusException.class, () -> controller.listBills(null));
         assertThrows(ResponseStatusException.class, () -> controller.markPaid(statementId, null));
+    }
+
+    // ---------------------------------------------------------------- accountId filter
+
+    private CardBill awaitingRow(UUID accountId) {
+        return new CardBill(accountId, "Axis", null, null, null, null, null, null, null, null, null,
+                PaidSource.NONE, BillStatus.AWAITING_STATEMENT, null, null, List.of(), false, null, null, null, null,
+                new BigDecimal("900"), null);
+    }
+
+    @Test
+    void listWithoutAFilterReturnsEveryBillInTheServiceOrder() {
+        CardBill awaiting = awaitingRow(UUID.randomUUID());
+        when(service.listBills(userId)).thenReturn(List.of(bill, awaiting));
+
+        List<CardBillResponse> body = controller.listBills(null).getBody();
+
+        assertEquals(List.of(bill.accountId(), awaiting.accountId()), body.stream().map(CardBillResponse::accountId).toList());
+    }
+
+    @Test
+    void accountIdFilterKeepsOnlyThatCardsRowIncludingAnAwaitingRow() {
+        CardBill awaiting = awaitingRow(UUID.randomUUID());
+        when(service.listBills(userId)).thenReturn(List.of(bill, awaiting));
+
+        List<CardBillResponse> billed = controller.listBills(bill.accountId()).getBody();
+        assertEquals(1, billed.size());
+        assertEquals(statementId, billed.get(0).statementId());
+
+        ResponseEntity<List<CardBillResponse>> response = controller.listBills(awaiting.accountId());
+        assertEquals(200, response.getStatusCode().value());
+        CardBillResponse row = response.getBody().get(0);
+        assertEquals(1, response.getBody().size());
+        assertEquals(BillStatus.AWAITING_STATEMENT, row.status());
+        assertNull(row.statementId());
+        assertNull(row.digest());
+        assertTrue(row.possiblePayments().isEmpty());
+        assertEquals(new BigDecimal("900"), row.unbilledAmount());
+        assertNull(row.nextStatementExpectedOn());
+    }
+
+    @Test
+    void accountIdMatchingNoCardIsAnEmptyList() {
+        when(service.listBills(userId)).thenReturn(List.of(bill));
+        ResponseEntity<List<CardBillResponse>> response = controller.listBills(UUID.randomUUID());
+        assertEquals(200, response.getStatusCode().value());
+        assertTrue(response.getBody().isEmpty());
+    }
+
+    @Test
+    void unauthenticatedFilteredListIsA401AndNeverReachesTheService() {
+        UserContext.clear();
+        ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> controller.listBills(bill.accountId()));
+        assertEquals(401, e.getStatusCode().value());
+        verify(service, never()).listBills(any());
     }
 }
