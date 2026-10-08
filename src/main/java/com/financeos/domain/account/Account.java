@@ -61,6 +61,10 @@ public class Account {
     @Column(name = "closed_on")
     private LocalDate closedOn;
 
+    /** Per-card opt-out from bill notifications (e.g. a card on autopay). V90. */
+    @Column(name = "notifications_muted", nullable = false)
+    private Boolean notificationsMuted = false;
+
     /** Anchor for ANNIVERSARY_YEAR reward windows (card membership anniversary). */
     @Column(name = "reward_anniversary_date")
     private LocalDate rewardAnniversaryDate;

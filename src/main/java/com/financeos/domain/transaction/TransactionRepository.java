@@ -52,6 +52,12 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("source") TransactionSource source,
             @Param("reviewType") ReviewType reviewType);
 
+    /** Card bills: credits posted after a statement's period end (payments, refunds, cashback — the caller sorts them out). */
+    @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId " +
+           "AND t.type = com.financeos.domain.transaction.TransactionType.CREDIT AND t.date > :afterDate " +
+           "ORDER BY t.date DESC, t.createdAt DESC")
+    List<Transaction> findCreditsAfter(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
+
     @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.date BETWEEN :startDate AND :endDate")
     List<Transaction> findByAccountIdAndDateRange(
             @Param("accountId") UUID accountId,

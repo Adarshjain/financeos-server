@@ -2,6 +2,7 @@ package com.financeos.core.time;
 
 import java.time.Clock;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 /**
@@ -25,6 +26,11 @@ public final class AppTime {
     /** Today in the business zone. */
     public static LocalDate today() {
         return LocalDate.now(clock);
+    }
+
+    /** The current wall-clock time in the business zone (for send-hour gates). */
+    public static LocalDateTime now() {
+        return LocalDateTime.now(clock);
     }
 
     /** The business zone (for turning a business date into an instant, e.g. its midnight). */

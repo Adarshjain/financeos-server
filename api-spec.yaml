@@ -963,6 +963,136 @@ paths:
           description: Error response
       tags:
       - auth-controller
+  /api/v1/bills:
+    get:
+      operationId: listBills
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CardBillResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - bill-controller
+  /api/v1/bills/{statementId}:
+    get:
+      operationId: getBill
+      parameters:
+      - in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CardBillResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - bill-controller
+  /api/v1/bills/{statementId}/details:
+    patch:
+      operationId: updateDetails
+      parameters:
+      - in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateBillDetailsRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CardBillResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - bill-controller
+  /api/v1/bills/{statementId}/mark-paid:
+    delete:
+      operationId: unmarkPaid
+      parameters:
+      - in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CardBillResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - bill-controller
+    post:
+      operationId: markPaid
+      parameters:
+      - in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MarkBillPaidRequest"
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CardBillResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - bill-controller
   /api/v1/categories:
     get:
       operationId: getAllCategories
@@ -4494,6 +4624,162 @@ paths:
           description: Error response
       tags:
       - loan-controller
+  /api/v1/notifications/accounts/{accountId}/mute:
+    put:
+      operationId: muteAccount
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MuteAccountRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotificationSettingsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-controller
+  /api/v1/notifications/push/public-key:
+    get:
+      operationId: getPublicKey
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PushPublicKeyResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-controller
+  /api/v1/notifications/push/subscriptions:
+    post:
+      operationId: subscribe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PushSubscriptionRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotificationSettingsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-controller
+  /api/v1/notifications/push/subscriptions/remove:
+    post:
+      operationId: unsubscribe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RemovePushSubscriptionRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotificationSettingsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-controller
+  /api/v1/notifications/push/test:
+    post:
+      operationId: sendTest
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PushTestResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-controller
+  /api/v1/notifications/settings:
+    get:
+      operationId: getSettings
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotificationSettingsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-controller
+    put:
+      operationId: updateSettings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateNotificationSettingsRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotificationSettingsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-controller
   /api/v1/obligations/upcoming:
     get:
       operationId: getUpcomingObligations
@@ -6268,6 +6554,46 @@ components:
       - failures
       - skippedIds
       - succeededIds
+    BillDigestResponse:
+      type: object
+      properties:
+        creditLimit:
+          type: number
+          nullable: true
+          x-nullable: true
+        feesAndCharges:
+          type: number
+          nullable: true
+          x-nullable: true
+        financeCharges:
+          type: number
+          nullable: true
+          x-nullable: true
+        paymentsReceived:
+          type: number
+          nullable: true
+          x-nullable: true
+        rewardPointsBalance:
+          type: number
+          nullable: true
+          x-nullable: true
+        rewardPointsEarned:
+          type: number
+          nullable: true
+          x-nullable: true
+        totalPurchases:
+          type: number
+          nullable: true
+          x-nullable: true
+        transactionCount:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        utilizationPct:
+          type: number
+          nullable: true
+          x-nullable: true
     BrokerAccountResponse:
       type: object
       properties:
@@ -6491,6 +6817,107 @@ components:
       - window
       - windowEnd
       - windowStart
+    CardBillResponse:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        accountName:
+          type: string
+        daysUntilDue:
+          type: integer
+          format: int64
+          nullable: true
+          x-nullable: true
+        digest:
+          $ref: "#/components/schemas/BillDigestResponse"
+        last4:
+          type: string
+          nullable: true
+          x-nullable: true
+        lastNotifiedKind:
+          type: string
+          nullable: true
+          x-nullable: true
+        lastNotifiedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        minimumAmountDue:
+          type: number
+          nullable: true
+          x-nullable: true
+        muted:
+          type: boolean
+        paidAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        paidMarkedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        paidSource:
+          type: string
+          enum:
+          - NONE
+          - MANUAL
+          - LINK
+        paymentDueDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        periodEnd:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        periodStart:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        possiblePayments:
+          type: array
+          items:
+            $ref: "#/components/schemas/PossiblePaymentResponse"
+        remainingAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        statementCreatedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        statementId:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+          - NO_DUE
+          - DUE_UNKNOWN
+          - OPEN
+          - PARTIAL
+          - PAID
+          - OVERDUE
+        totalAmountDue:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - accountId
+      - accountName
+      - muted
+      - paidSource
+      - possiblePayments
+      - statementId
+      - status
     CardBreakdown:
       type: object
       properties:
@@ -9521,6 +9948,18 @@ components:
       - status
       - triggerSource
       - type
+    Keys:
+      type: object
+      properties:
+        auth:
+          type: string
+          x-required: true
+        p256dh:
+          type: string
+          x-required: true
+      required:
+      - auth
+      - p256dh
     LendingMatchSuggestion:
       type: object
       properties:
@@ -10078,6 +10517,18 @@ components:
       required:
       - email
       - password
+    MarkBillPaidRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+          nullable: true
+          x-nullable: true
+        paidOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
     MatchSuggestionsResponse:
       type: object
       properties:
@@ -10292,6 +10743,50 @@ components:
       - label
       - structuredOutput
       - trainsOnData
+    MuteAccountRequest:
+      type: object
+      properties:
+        muted:
+          type: boolean
+          x-required: true
+      required:
+      - muted
+    NotificationSettingsResponse:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            $ref: "#/components/schemas/PushDeviceResponse"
+        kinds:
+          type: object
+          additionalProperties:
+            type: boolean
+        mutedAccountIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        pushConfigured:
+          type: boolean
+        pushEnabled:
+          type: boolean
+        reminderOffsets:
+          type: array
+          items:
+            type: integer
+            format: int32
+        sendHour:
+          type: integer
+          format: int32
+      required:
+      - devices
+      - kinds
+      - mutedAccountIds
+      - pushConfigured
+      - pushEnabled
+      - reminderOffsets
+      - sendHour
     OAuthStartResponse:
       type: object
       properties:
@@ -11213,6 +11708,27 @@ components:
             $ref: "#/components/schemas/PositionDto"
       required:
       - positions
+    PossiblePaymentResponse:
+      type: object
+      properties:
+        amount:
+          type: number
+          nullable: true
+          x-nullable: true
+        date:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        transactionId:
+          type: string
+          format: uuid
+      required:
+      - transactionId
     PreviewMatchesRequest:
       type: object
       properties:
@@ -11256,6 +11772,55 @@ components:
       - models
       - name
       - type
+    PushDeviceResponse:
+      type: object
+      properties:
+        addedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        endpoint:
+          type: string
+        userAgent:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - endpoint
+    PushPublicKeyResponse:
+      type: object
+      properties:
+        configured:
+          type: boolean
+        publicKey:
+          type: string
+      required:
+      - configured
+      - publicKey
+    PushSubscriptionRequest:
+      type: object
+      properties:
+        endpoint:
+          type: string
+          x-required: true
+        keys:
+          $ref: "#/components/schemas/Keys"
+        userAgent:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - endpoint
+      - keys
+    PushTestResponse:
+      type: object
+      properties:
+        sent:
+          type: integer
+          format: int32
+      required:
+      - sent
     RawLogEntry:
       type: object
       properties:
@@ -11445,6 +12010,14 @@ components:
       - totalValue
       - tradeDate
       - type
+    RemovePushSubscriptionRequest:
+      type: object
+      properties:
+        endpoint:
+          type: string
+          x-required: true
+      required:
+      - endpoint
     ReorderRewardRulesRequest:
       type: object
       properties:
@@ -13948,6 +14521,22 @@ components:
       - from
       - items
       - to
+    UpdateBillDetailsRequest:
+      type: object
+      properties:
+        minimumAmountDue:
+          type: number
+          nullable: true
+          x-nullable: true
+        paymentDueDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        totalAmountDue:
+          type: number
+          nullable: true
+          x-nullable: true
     UpdateCardholderRequest:
       type: object
       properties:
@@ -14164,6 +14753,35 @@ components:
         tenureMonths:
           type: integer
           format: int32
+    UpdateNotificationSettingsRequest:
+      type: object
+      properties:
+        kinds:
+          type: object
+          additionalProperties:
+            type: boolean
+            nullable: true
+            x-nullable: true
+          nullable: true
+          x-nullable: true
+        pushEnabled:
+          type: boolean
+          nullable: true
+          x-nullable: true
+        reminderOffsets:
+          type: array
+          items:
+            type: integer
+            format: int32
+            nullable: true
+            x-nullable: true
+          nullable: true
+          x-nullable: true
+        sendHour:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
     UpdatePriceRequest:
       type: object
       properties:
