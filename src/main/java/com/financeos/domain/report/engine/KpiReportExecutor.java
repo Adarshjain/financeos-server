@@ -9,6 +9,7 @@ import com.financeos.domain.account.cycle.CycleWindows;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.definition.Comparison;
+import com.financeos.domain.report.definition.ComparisonDisplay;
 import com.financeos.domain.report.definition.FilterClause;
 import com.financeos.domain.report.definition.KpiDefinition;
 import jakarta.persistence.EntityManager;
@@ -77,7 +78,8 @@ public class KpiReportExecutor {
         if (comparisonEnabled(def.comparison()) && previousFilters != null && currentRange.bounded() && previous.bounded()) {
             Aggregate prior = runAggregate(def, queryBuilder, previousFilters, userId);
             Boolean higherIsBetter = def.comparison() == null ? null : def.comparison().higherIsBetter();
-            comparison = buildComparison(main.value(), prior.value(), previous, higherIsBetter);
+            comparison = buildComparison(main.value(), prior.value(), previous, higherIsBetter,
+                    ComparisonDisplay.resolve(def.comparison()));
         }
 
         KpiData.Meta meta = new KpiData.Meta(
@@ -162,8 +164,10 @@ public class KpiReportExecutor {
     }
 
     private static KpiData.Comparison buildComparison(BigDecimal current, BigDecimal previousValue,
-            DateRange previousRange, Boolean higherIsBetter) {
+            DateRange previousRange, Boolean higherIsBetter, ComparisonDisplay display) {
         BigDecimal cur = current == null ? BigDecimal.ZERO : current;
+        // The change treats a missing prior value as zero; the echoed previousValue stays null so
+        // a "previous value" display can show a dash instead of a fabricated zero.
         BigDecimal prev = previousValue == null ? BigDecimal.ZERO : previousValue;
         BigDecimal change = cur.subtract(prev);
 
@@ -187,6 +191,7 @@ public class KpiReportExecutor {
         }
 
         KpiData.DateRangeView previousView = new KpiData.DateRangeView(previousRange.from(), previousRange.to());
-        return new KpiData.Comparison(prev, previousView, change, changePercent, direction, sentiment);
+        return new KpiData.Comparison(previousValue, previousView, change, changePercent, direction, sentiment,
+                display.json());
     }
 }

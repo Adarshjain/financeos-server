@@ -194,11 +194,12 @@ A single aggregated metric, optionally with period-over-period comparison.
   "comparison": {
     "enabled": true,
     "period": "previous_period",
-    "higherIsBetter": false
+    "higherIsBetter": false,
+    "display": "change"
   }
 }
 ```
-*(Note: `comparison` is nullable or can have `enabled: false`)*
+*(Note: `comparison` is nullable or can have `enabled: false`. `display` is `change` (default: the delta vs the previous period) or `previous_value` (show the previous period's value instead of the delta — use it when the user asks to see last period's figure rather than the change).)*
 
 #### 2. CHART Report
 One measure over a primary dimension, optionally grouped into a series dimension.
