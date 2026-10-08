@@ -52,21 +52,21 @@ public class InboxController {
         return ResponseEntity.ok(inboxService.summaryOnly(requireCurrentUserId()));
     }
 
-    @PostMapping("/{key:.+}/snooze")
+    @PostMapping("/{key}/snooze")
     public ResponseEntity<InboxResponse> snooze(@PathVariable("key") String key, @Valid @RequestBody InboxSnoozeRequest request) {
         UUID userId = requireCurrentUserId();
         inboxService.snooze(userId, key, request.until());
         return ResponseEntity.ok(inboxService.list(userId));
     }
 
-    @PostMapping("/{key:.+}/dismiss")
+    @PostMapping("/{key}/dismiss")
     public ResponseEntity<InboxResponse> dismiss(@PathVariable("key") String key) {
         UUID userId = requireCurrentUserId();
         inboxService.dismiss(userId, key);
         return ResponseEntity.ok(inboxService.list(userId));
     }
 
-    @DeleteMapping("/{key:.+}/state")
+    @DeleteMapping("/{key}/state")
     public ResponseEntity<InboxResponse> clearState(@PathVariable("key") String key) {
         UUID userId = requireCurrentUserId();
         inboxService.clearState(userId, key);
