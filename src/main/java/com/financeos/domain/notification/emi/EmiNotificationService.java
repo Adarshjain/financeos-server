@@ -12,6 +12,7 @@ import com.financeos.domain.notification.NotificationPrefs;
 import com.financeos.domain.notification.NotificationPrefsLoader;
 import com.financeos.domain.notification.NotificationProducer;
 import com.financeos.domain.notification.NotificationSettingsService;
+import com.financeos.domain.notification.ReminderSequence;
 import com.financeos.domain.notification.bill.BillNotificationKinds;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -123,27 +124,12 @@ public class EmiNotificationService implements NotificationProducer {
 
     /** OVERDUE once the due date has passed; otherwise the smallest configured offset already reached. */
     static String applicableKind(long daysUntilDue, List<Integer> offsets) {
-        if (daysUntilDue < 0) {
-            return BillNotificationKinds.OVERDUE;
-        }
-        Integer best = null;
-        for (Integer offset : offsets) {
-            if (offset != null && offset >= daysUntilDue && (best == null || offset < best)) {
-                best = offset;
-            }
-        }
-        return best == null ? null : BillNotificationKinds.dueIn(best);
+        return ReminderSequence.applicableKind(daysUntilDue, offsets);
     }
 
     /** Later in the sequence than the marker; OVERDUE additionally repeats weekly. */
     static boolean shouldSend(String kind, String lastKind, LocalDate lastOn, LocalDate today) {
-        if (BillNotificationKinds.OVERDUE.equals(kind)) {
-            if (BillNotificationKinds.OVERDUE.equals(lastKind)) {
-                return lastOn == null || !lastOn.isAfter(today.minusDays(OVERDUE_RENAG_DAYS));
-            }
-            return BillNotificationKinds.rank(lastKind) < BillNotificationKinds.RANK_OVERDUE;
-        }
-        return BillNotificationKinds.isLater(kind, lastKind);
+        return ReminderSequence.shouldSend(kind, lastKind, lastOn, today, OVERDUE_RENAG_DAYS);
     }
 
     /**

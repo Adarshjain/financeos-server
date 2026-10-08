@@ -5,6 +5,7 @@ import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,16 +26,19 @@ public class JobService {
     private final JobRepository jobRepository;
     private final JobArtifactRepository artifactRepository;
     private final ObjectMapper objectMapper;
+    private final ApplicationEventPublisher eventPublisher;
     private JobWorker jobWorker;
 
     public JobService(JobRepository jobRepository,
                       JobArtifactRepository artifactRepository,
                       ObjectMapper objectMapper,
-                      @Lazy JobWorker jobWorker) {
+                      @Lazy JobWorker jobWorker,
+                      ApplicationEventPublisher eventPublisher) {
         this.jobRepository = jobRepository;
         this.artifactRepository = artifactRepository;
         this.objectMapper = objectMapper;
         this.jobWorker = jobWorker;
+        this.eventPublisher = eventPublisher;
     }
 
     @Transactional
@@ -112,6 +116,7 @@ public class JobService {
         job.setFinishedAt(Instant.now());
         jobRepository.save(job);
         artifactRepository.deleteByJobId(jobId);
+        publishFinished(job);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -129,6 +134,15 @@ public class JobService {
         }
         job.setFinishedAt(Instant.now());
         jobRepository.save(job);
+        publishFinished(job);
+    }
+
+    /** Consumed after this REQUIRES_NEW transaction commits (the "job finished" push). */
+    private void publishFinished(Job job) {
+        if (eventPublisher != null) {
+            eventPublisher.publishEvent(new com.financeos.domain.notification.job.JobFinishedEvent(
+                    job.getId(), job.getUserId(), job.getType(), job.getStatus(), job.getTriggerSource()));
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

@@ -21,6 +21,10 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
 
     List<Statement> findByAccountIdOrderByPeriodEndAsc(UUID accountId);
 
+    /** Statements whose review digest has not run yet, ingested inside [from, to] (old enough to be fully linked, new enough to matter). */
+    @Query("SELECT s FROM Statement s WHERE s.user.id = :userId AND s.reviewNotifiedOn IS NULL AND s.createdAt BETWEEN :from AND :to AND (s.verdict IS NULL OR s.verdict <> com.financeos.domain.statement.StatementVerdict.REJECTED) ORDER BY s.createdAt ASC")
+    List<Statement> findReviewDigestCandidates(@Param("userId") UUID userId, @Param("from") java.time.Instant from, @Param("to") java.time.Instant to);
+
     interface AnchorStatementProjection {
         UUID getId();
         LocalDate getPeriodEnd();

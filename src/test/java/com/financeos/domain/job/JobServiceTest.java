@@ -29,7 +29,7 @@ class JobServiceTest {
         jobRepository = mock(JobRepository.class);
         jobArtifactRepository = mock(JobArtifactRepository.class);
         objectMapper = new ObjectMapper();
-        jobService = new JobService(jobRepository, jobArtifactRepository, objectMapper, null);
+        jobService = new JobService(jobRepository, jobArtifactRepository, objectMapper, null, null);
     }
 
     @Test

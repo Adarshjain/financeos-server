@@ -36,7 +36,10 @@ public record RewardMilestoneResponse(
         @Nullable LocalDate activeFrom,
         @Nullable LocalDate activeTo,
         Instant createdAt,
-        Instant updatedAt) {
+        Instant updatedAt,
+        /** Alert marker: the window (start date) and kind (CLOSING / ACHIEVED) last announced. */
+        @Nullable LocalDate notifiedWindowStart,
+        @Nullable String notifiedKind) {
 
     public static RewardMilestoneResponse from(RewardMilestone milestone, MilestoneEligibility eligibility) {
         MilestoneEligibility e = eligibility != null ? eligibility : MilestoneEligibility.EMPTY;
@@ -61,6 +64,8 @@ public record RewardMilestoneResponse(
                 milestone.getActiveFrom(),
                 milestone.getActiveTo(),
                 milestone.getCreatedAt(),
-                milestone.getUpdatedAt());
+                milestone.getUpdatedAt(),
+                milestone.getNotifiedWindowStart(),
+                milestone.getNotifiedKind());
     }
 }

@@ -8388,6 +8388,11 @@ components:
           format: uuid
           nullable: true
           x-nullable: true
+        statementExpectedNotifiedFor:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         type:
           type: string
           enum:
@@ -9958,6 +9963,11 @@ components:
         id:
           type: string
           format: uuid
+        notifiedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
         progressCurrent:
           type: integer
           format: int32
@@ -10102,6 +10112,15 @@ components:
           - settlement
         notes:
           type: string
+          nullable: true
+          x-nullable: true
+        returnNotifiedKind:
+          type: string
+          nullable: true
+          x-nullable: true
+        returnNotifiedOn:
+          type: string
+          format: date
           nullable: true
           x-nullable: true
         transaction:
@@ -12429,6 +12448,11 @@ components:
           format: uuid
         cap:
           type: number
+        capNotifiedWindowStart:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         counterScope:
           type: string
           enum:
@@ -12776,6 +12800,15 @@ components:
           x-nullable: true
         name:
           type: string
+        notifiedKind:
+          type: string
+          nullable: true
+          x-nullable: true
+        notifiedWindowStart:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         payoutTiming:
           type: string
           enum:
@@ -13059,6 +13092,11 @@ components:
           x-nullable: true
         capBucketName:
           type: string
+          nullable: true
+          x-nullable: true
+        capNotifiedWindowStart:
+          type: string
+          format: date
           nullable: true
           x-nullable: true
         capWindow:
@@ -14045,6 +14083,11 @@ components:
           nullable: true
           x-nullable: true
         periodStart:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        reviewNotifiedOn:
           type: string
           format: date
           nullable: true

@@ -63,6 +63,10 @@ public class RewardCapBucket {
     @Column(name = "counter_scope", nullable = false, length = 20)
     private CounterScope counterScope = CounterScope.ACCOUNT;
 
+    /** Alert marker: the cap window (by start date) already announced as exhausted. */
+    @Column(name = "cap_notified_window_start")
+    private java.time.LocalDate capNotifiedWindowStart;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

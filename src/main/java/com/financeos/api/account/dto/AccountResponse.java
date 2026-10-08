@@ -135,7 +135,8 @@ public sealed interface AccountResponse {
                         gap,
                         anchorDate,
                         cardholders,
-                        warnList);
+                        warnList,
+                        account.getStatementExpectedNotifiedFor());
             }
             case broker -> {
                 AccountBrokerDetails details = account.getBrokerDetails();
@@ -224,7 +225,9 @@ public sealed interface AccountResponse {
             @Nullable BigDecimal reconciliationGap,
             @Nullable LocalDate anchorDate,
             List<CardholderResponse> cardholders,
-            List<String> warnings) implements AccountResponse {
+            List<String> warnings,
+            /** The projected statement period end already announced as "hasn't arrived" (null = none). */
+            @Nullable LocalDate statementExpectedNotifiedFor) implements AccountResponse {
     }
 
     record BrokerAccountResponse(

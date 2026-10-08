@@ -30,7 +30,9 @@ public record StatementSummaryResponse(
         @Nullable StatementVerdict verdict,
         @Nullable String bankName,
         @Nullable String accountNumberMasked,
-        Instant createdAt
+        Instant createdAt,
+        /** The "didn't reconcile" digest ran for this statement on this day (null = not yet). */
+        @Nullable LocalDate reviewNotifiedOn
 ) {
     public static StatementSummaryResponse from(Statement statement) {
         return new StatementSummaryResponse(
@@ -52,7 +54,8 @@ public record StatementSummaryResponse(
                 statement.getVerdict(),
                 statement.getBankName(),
                 statement.getAccountNumberMasked(),
-                statement.getCreatedAt()
+                statement.getCreatedAt(),
+                statement.getReviewNotifiedOn()
         );
     }
 }
