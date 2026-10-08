@@ -6,9 +6,11 @@ import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
+import com.financeos.domain.account.cycle.BillingCycles;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementCreditCardDetails;
 import com.financeos.domain.statement.StatementRepository;
+import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.link.LinkType;
@@ -33,11 +35,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The statement is the bill. This service turns a card's latest live statement plus the
- * settlement signals (manual mark, CC_PAYMENT links, unlinked credits) into a {@link CardBill},
+ * settlement signals (manual mark, CC_PAYMENT and REFUND/REVERSAL links, unlinked credits) into a {@link CardBill},
  * and owns the three writes a user can make on it: mark paid, undo, fill in missing details.
  *
  * <p>Settlement precedence: a manual mark wins; otherwise the card-side credits of CC_PAYMENT
- * links after the period end count as paid; plain credits are only ever surfaced as
+ * links, and credits linked as a REFUND or REVERSAL, after the period end count as paid; plain credits are only ever surfaced as
  * "possible payments" for the user to confirm — they never close a bill on their own.
  */
 @Service
@@ -61,7 +63,12 @@ public class CardBillService {
         this.transactionLinkRepository = transactionLinkRepository;
     }
 
-    /** Every open credit card that has a live statement, most urgent first. */
+    /**
+     * Every open credit card, most urgent first: a card with a live statement carries that bill
+     * (enriched with the unbilled spend and the next expected statement); a card without one is an
+     * {@link BillStatus#AWAITING_STATEMENT} row. Notifications never see the awaiting rows — they
+     * go through {@link #build} directly.
+     */
     public List<CardBill> listBills(UUID userId) {
         LocalDate today = AppTime.today();
         List<CardBill> bills = new ArrayList<>();
@@ -69,8 +76,8 @@ public class CardBillService {
             if (!isOpen(account, today)) {
                 continue;
             }
-            latestLiveStatement(account.getId())
-                    .ifPresent(statement -> bills.add(build(account, statement, today)));
+            Optional<Statement> live = latestLiveStatement(account.getId());
+            bills.add(live.isPresent() ? buildEnriched(account, live.get(), today) : awaitingStatement(account));
         }
         bills.sort(Comparator
                 .comparingInt((CardBill b) -> urgency(b.status()))
@@ -81,7 +88,7 @@ public class CardBillService {
 
     public CardBill findByStatementId(UUID userId, UUID statementId) {
         Statement statement = loadOwnedCardStatement(userId, statementId);
-        return build(statement.getAccount(), statement, AppTime.today());
+        return buildEnriched(statement.getAccount(), statement, AppTime.today());
     }
 
     /**
@@ -102,7 +109,19 @@ public class CardBillService {
         return Optional.ofNullable(best);
     }
 
+    /**
+     * The bill as the settlement signals describe it. {@code unbilledAmount} and
+     * {@code nextStatementExpectedOn} are left null here: the notification tick does not need them
+     * and must not pay for the extra queries. {@link #listBills} fills them in.
+     */
     public CardBill build(Account account, Statement statement, LocalDate today) {
+        return assemble(account, statement, today).bill();
+    }
+
+    private record Built(CardBill bill, Settlement settlement) {
+    }
+
+    private Built assemble(Account account, Statement statement, LocalDate today) {
         StatementCreditCardDetails d = statement.getCreditCardDetails();
         BigDecimal total = d.getTotalAmountDue();
         LocalDate due = d.getPaymentDueDate();
@@ -160,7 +179,7 @@ public class CardBillService {
                 d.getRewardPointsEarned(), d.getRewardPointsBalance(), creditLimit, utilization,
                 statement.getTransactionCount());
 
-        return new CardBill(
+        CardBill bill = new CardBill(
                 account.getId(),
                 account.getName(),
                 account.primaryLast4(),
@@ -181,7 +200,85 @@ public class CardBillService {
                 statement.getCreatedAt(),
                 d.getLastNotifiedKind(),
                 d.getLastNotifiedOn(),
-                digest);
+                digest,
+                null,
+                null);
+        return new Built(bill, settlement);
+    }
+
+    /** {@link #build} plus the two read-side extras: unbilled spend since the period end and the next expected statement. */
+    private CardBill buildEnriched(Account account, Statement statement, LocalDate today) {
+        Built built = assemble(account, statement, today);
+        LocalDate periodEnd = statement.getPeriodEnd();
+        BigDecimal unbilled = periodEnd == null
+                ? null
+                : unbilled(transactionRepository.sumIncludedDebitsAfter(account.getId(), periodEnd));
+        return built.bill().withUnbilled(unbilled, nextStatementExpectedOn(account.getId()));
+    }
+
+    /** An open card with no live statement: nothing to pay yet, only what has been spent so far. */
+    private CardBill awaitingStatement(Account account) {
+        BigDecimal spendSinceEver = unbilled(transactionRepository.sumIncludedDebits(account.getId()));
+        return new CardBill(
+                account.getId(),
+                account.getName(),
+                account.primaryLast4(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                PaidSource.NONE,
+                BillStatus.AWAITING_STATEMENT,
+                null,
+                null,
+                List.of(),
+                Boolean.TRUE.equals(account.getNotificationsMuted()),
+                null,
+                null,
+                null,
+                null,
+                spendSinceEver,
+                nextStatementExpectedOn(account.getId()));
+    }
+
+    /**
+     * Card spend not yet on a statement: the non-excluded debits. Credits never reduce it: bill
+     * payments and refunds both count towards the open bill instead (see {@link #settle}).
+     * Null-guarded because a mocked repository returns null.
+     */
+    private static BigDecimal unbilled(BigDecimal debits) {
+        return (debits == null ? BigDecimal.ZERO : debits).max(BigDecimal.ZERO);
+    }
+
+    /**
+     * The projected close of the cycle after the card's latest dated statement, from
+     * {@link BillingCycles}. May already be past when the next statement is late (the client shows
+     * the lateness); null when no non-rejected statement carries both period dates.
+     */
+    private LocalDate nextStatementExpectedOn(UUID accountId) {
+        List<Statement> statements = statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId);
+        if (statements == null || statements.isEmpty()) {
+            return null;
+        }
+        BillingCycles cycles = BillingCycles.fromStatements(statements);
+        if (!cycles.hasStatements()) {
+            return null;
+        }
+        LocalDate latestPeriodEnd = null;
+        for (Statement s : statements) {
+            if (s.getVerdict() == StatementVerdict.REJECTED || s.getPeriodStart() == null || s.getPeriodEnd() == null
+                    || s.getPeriodEnd().isBefore(s.getPeriodStart())) {
+                continue; // the same statements BillingCycles ignores
+            }
+            if (latestPeriodEnd == null || s.getPeriodEnd().isAfter(latestPeriodEnd)) {
+                latestPeriodEnd = s.getPeriodEnd();
+            }
+        }
+        return latestPeriodEnd == null ? null : cycles.containing(latestPeriodEnd.plusDays(1)).end();
     }
 
     // ---------------------------------------------------------------- writes
@@ -206,7 +303,7 @@ public class CardBillService {
             d.setLastNotifiedOn(today);
         }
         statementRepository.save(statement);
-        return build(statement.getAccount(), statement, today);
+        return buildEnriched(statement.getAccount(), statement, today);
     }
 
     /** Undo a manual mark; reminders resume from the start of the sequence. */
@@ -222,7 +319,7 @@ public class CardBillService {
             d.setLastNotifiedOn(today);
         }
         statementRepository.save(statement);
-        return build(statement.getAccount(), statement, today);
+        return buildEnriched(statement.getAccount(), statement, today);
     }
 
     /** Fill in (or correct) what the parser missed. Resets the sequence so reminders re-evaluate against the new date. */
@@ -255,7 +352,7 @@ public class CardBillService {
             d.setLastNotifiedOn(today);
         }
         statementRepository.save(statement);
-        return build(statement.getAccount(), statement, today);
+        return buildEnriched(statement.getAccount(), statement, today);
     }
 
     // ---------------------------------------------------------------- helpers
@@ -267,7 +364,10 @@ public class CardBillService {
     private record Settlement(BigDecimal linkedPaid, List<CardBill.PossiblePayment> possible) {
     }
 
-    /** Credits after the period end, split into link-confirmed payments and unlinked "possible" ones. */
+    /**
+     * Credits after the period end, split into ones that count towards the bill (CC_PAYMENT-linked
+     * payments, and REFUND/REVERSAL-linked credits) and unlinked "possible" payments.
+     */
     private Settlement settle(UUID accountId, LocalDate periodEnd) {
         if (periodEnd == null) {
             return new Settlement(BigDecimal.ZERO, List.of());
@@ -304,7 +404,9 @@ public class CardBillService {
                     possible.add(new CardBill.PossiblePayment(credit.getId(), credit.getDate(), credit.getAmount(),
                             credit.getDescription()));
                 }
-            } else if (type == LinkType.CC_PAYMENT && !anchors.contains(credit.getId())) {
+            } else if ((type == LinkType.CC_PAYMENT && !anchors.contains(credit.getId()))
+                    || type == LinkType.REFUND || type == LinkType.REVERSAL) {
+                // A refund or reversal credited to the card pays down the open bill like a payment does.
                 linkedPaid = linkedPaid.add(credit.getAmount() == null ? BigDecimal.ZERO : credit.getAmount());
             }
         }
@@ -346,8 +448,9 @@ public class CardBillService {
             case OVERDUE -> 0;
             case DUE_UNKNOWN -> 1;
             case OPEN, PARTIAL -> 2;
-            case NO_DUE -> 3;
-            case PAID -> 4;
+            case AWAITING_STATEMENT -> 3;
+            case NO_DUE -> 4;
+            case PAID -> 5;
         };
     }
 }

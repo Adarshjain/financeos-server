@@ -151,7 +151,7 @@ public class DatasourceCatalog {
             List.of("is", "after", "before", "between"),
             List.of("this_month", "this_week", "this_year", "previous_month",
                     "previous_week", "previous_year", "last_x_days", "last_x_months",
-                    "last_x_years", "today", "yesterday", "current_fy", "prev_fy", "all_time"),
+                    "last_x_years", "next_x_days", "today", "yesterday", "current_fy", "prev_fy", "all_time"),
             CycleOperators.PUBLIC);
 
     private static final List<String> STRING_OPERATORS =
@@ -176,6 +176,8 @@ public class DatasourceCatalog {
 
     private static final List<FieldDef> FIELDS = List.of(
             new FieldDef("amount", "Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
+            // Spend view of the same money: debits positive, credits (refunds, income) negative.
+            new FieldDef("spend", "Spend", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
             FieldDef.cycleDate("date", "Date", CHART_TABLE),
             new FieldDef("type", "Type", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("DEBIT", "CREDIT"), null, CHART_TABLE),

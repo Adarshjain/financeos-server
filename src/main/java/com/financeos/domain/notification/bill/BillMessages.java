@@ -1,5 +1,6 @@
 package com.financeos.domain.notification.bill;
 
+import com.financeos.domain.inbox.InboxKinds;
 import com.financeos.domain.notification.MessageFormat;
 import com.financeos.domain.notification.push.PushMessage;
 import java.math.BigDecimal;
@@ -119,6 +120,20 @@ public final class BillMessages {
     }
 
     private static PushMessage message(CardBill bill, String title, String body) {
-        return new PushMessage(title, body, "/dashboard?bill=" + bill.statementId(), "bill-" + bill.statementId());
+        return new PushMessage(title, body, href(bill), "bill-" + bill.statementId());
+    }
+
+    /**
+     * The inbox row when the inbox lists this bill (overdue, figures missing, or due within
+     * {@link InboxKinds#DUE_SOON_DAYS}, mirroring the bill inbox collector); otherwise the bill
+     * on the Upcoming page, so the tap never lands on an inbox without the item.
+     */
+    static String href(CardBill bill) {
+        boolean inInbox = switch (bill.status() == null ? BillStatus.AWAITING_STATEMENT : bill.status()) {
+            case OVERDUE, DUE_UNKNOWN -> true;
+            case OPEN, PARTIAL -> bill.daysUntilDue() != null && bill.daysUntilDue() <= InboxKinds.DUE_SOON_DAYS;
+            default -> false;
+        };
+        return inInbox ? InboxKinds.inboxHref(InboxKinds.billKey(bill.statementId())) : "/upcoming?bill=" + bill.statementId();
     }
 }

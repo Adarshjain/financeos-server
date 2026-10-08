@@ -1,6 +1,7 @@
 package com.financeos.domain.notification.statement;
 
 import com.financeos.domain.account.Account;
+import com.financeos.domain.inbox.InboxKinds;
 import com.financeos.domain.notification.MessageFormat;
 import com.financeos.domain.notification.push.PushMessage;
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ public final class StatementExpectedMessages {
         boolean gmail = card.getIngestFromDate() != null;
         String body = "Expected around " + MessageFormat.date(expectedPeriodEnd) + ". "
                 + (gmail ? "Check the mailbox connection, or upload it." : "Upload it to keep bills and rewards current.");
-        return new PushMessage(title, body, gmail ? "/settings/gmail" : "/settings/ingest", "statement-expected-" + card.getId());
+        return new PushMessage(title, body, InboxKinds.inboxHref(InboxKinds.statementExpectedKey(card.getId(), expectedPeriodEnd)),
+                "statement-expected-" + card.getId());
     }
 }

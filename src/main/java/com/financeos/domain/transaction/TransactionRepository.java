@@ -100,6 +100,17 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     @Query("SELECT COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END), 0) FROM Transaction t WHERE t.account.id = :accountId AND t.date > :afterDate")
     java.math.BigDecimal findPostAnchorTransactionSumByAccountId(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
 
+    /** Card unbilled spend: non-excluded DEBITs posted after {@code afterDate} (a statement's period end). */
+    @Query("SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t WHERE t.account.id = :accountId " +
+           "AND t.type = com.financeos.domain.transaction.TransactionType.DEBIT AND t.isTransactionExcluded = false " +
+           "AND t.date > :afterDate")
+    java.math.BigDecimal sumIncludedDebitsAfter(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
+
+    /** Card unbilled spend with no statement yet: every non-excluded DEBIT. */
+    @Query("SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t WHERE t.account.id = :accountId " +
+           "AND t.type = com.financeos.domain.transaction.TransactionType.DEBIT AND t.isTransactionExcluded = false")
+    java.math.BigDecimal sumIncludedDebits(@Param("accountId") UUID accountId);
+
     interface BalanceAggregatesProjection {
         java.math.BigDecimal getTotalSum();
         java.math.BigDecimal getPostAnchorSum();
@@ -209,4 +220,13 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("currentCardId") UUID currentCardId);
 
     long countByCardId(UUID cardId);
+
+    /** Inbox: how many of the user's transactions sit in the review queue. */
+    @Query("SELECT COUNT(t) FROM Transaction t WHERE t.user.id = :userId AND t.reviewType = :reviewType")
+    long countByUserIdAndReviewType(@Param("userId") UUID userId, @Param("reviewType") ReviewType reviewType);
+
+    /** Inbox: of those, how many carry one review reason (e.g. CATEGORY_UNVERIFIED). */
+    @Query("SELECT COUNT(DISTINCT t.id) FROM Transaction t JOIN t.reviewReasons r WHERE t.user.id = :userId AND t.reviewType = :reviewType AND r = :reason")
+    long countByUserIdAndReviewTypeAndReason(@Param("userId") UUID userId, @Param("reviewType") ReviewType reviewType,
+                                             @Param("reason") ReviewReason reason);
 }

@@ -45,6 +45,13 @@ public class User {
     @Column(name = "created_at")
     private Instant createdAt;
 
+    /**
+     * When the Home dashboard was seeded for this user; null = not yet. Claimed by
+     * {@link UserRepository#markHomeSeeded} (conditional UPDATE), never set through the entity.
+     */
+    @Column(name = "home_seeded_at")
+    private Instant homeSeededAt;
+
     @PrePersist
     protected void onCreate() {
         if (createdAt == null) {

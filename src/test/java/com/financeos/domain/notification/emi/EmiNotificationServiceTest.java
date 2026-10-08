@@ -135,7 +135,7 @@ class EmiNotificationServiceTest {
         PushMessage message = delivered();
         assertEquals("Home loan: EMI debits in 3 days", message.title());
         assertEquals("₹25,000 on 23 Oct from HDFC Savings · #4 of 12", message.body());
-        assertEquals("/loans/" + loan.getId() + "?installment=4", message.url());
+        assertEquals("/inbox?item=emi:" + loan.getId() + ":4", message.url());
         assertEquals("emi-" + loan.getId(), message.tag());
         assertEquals(4, loan.getLastNotifiedSeq());
         assertEquals("DUE_3", loan.getLastNotifiedKind());

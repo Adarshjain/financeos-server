@@ -38,7 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
  * never hourly): a milestone whose window closes within {@value #CLOSING_WINDOW_DAYS} days with
  * at least half the threshold reached ("₹X more to go"), a milestone achieved, and a period cap
  * exhausted for the current window. Markers: the milestone row (window start + kind), the rule or
- * bucket row (window start), and {@code accounts.reward_alerts_checked_on} for the daily gate.
+ * bucket row (window start), the date each marker was recorded (the inbox's recency test), and {@code accounts.reward_alerts_checked_on} for the daily gate.
  */
 @Service
 public class RewardAlertNotificationService implements NotificationProducer {
@@ -47,7 +47,7 @@ public class RewardAlertNotificationService implements NotificationProducer {
     static final int CLOSING_WINDOW_DAYS = 7;
     static final BigDecimal CLOSING_PROGRESS_RATIO = new BigDecimal("0.5");
     static final String KIND_CLOSING = "CLOSING";
-    static final String KIND_ACHIEVED = "ACHIEVED";
+    public static final String KIND_ACHIEVED = "ACHIEVED";
 
     private final AccountRepository accountRepository;
     private final RewardRuleRepository ruleRepository;
@@ -118,6 +118,7 @@ public class RewardAlertNotificationService implements NotificationProducer {
                 }
                 milestone.setNotifiedWindowStart(status.windowStart());
                 milestone.setNotifiedKind(kind);
+                milestone.setNotifiedOn(today);
                 milestoneRepository.save(milestone);
                 recorded++;
             }
@@ -141,9 +142,11 @@ public class RewardAlertNotificationService implements NotificationProducer {
                 }
                 if (bucket != null) {
                     bucket.setCapNotifiedWindowStart(cap.windowStart());
+                    bucket.setCapNotifiedOn(today);
                     bucketRepository.save(bucket);
                 } else {
                     rule.setCapNotifiedWindowStart(cap.windowStart());
+                    rule.setCapNotifiedOn(today);
                     ruleRepository.save(rule);
                 }
                 recorded++;

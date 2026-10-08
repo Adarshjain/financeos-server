@@ -111,7 +111,7 @@ class GmailAttentionNotificationServiceTest {
         assertEquals("4 emails need attention", message.getValue().title());
         assertEquals("2 couldn't be matched to an account · 1 from an account not opted in · 1 failed to import",
                 message.getValue().body());
-        assertEquals("/settings/gmail?focus=attention", message.getValue().url());
+        assertEquals("/inbox?item=gmail-attention", message.getValue().url());
         assertEquals("gmail-attention", message.getValue().tag());
         for (GmailProcessedMessage m : List.of(a, b, c, d)) {
             assertNotNull(m.getAttentionNotifiedAt());

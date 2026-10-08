@@ -23,6 +23,9 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
 
     public static final String SIGNED_AMOUNT = "(CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END)";
 
+    /** The spend-positive view of {@link #SIGNED_AMOUNT}: debits positive, credits negative. */
+    public static final String SPEND_AMOUNT = "(CASE WHEN t.type = 'DEBIT' THEN t.amount ELSE -t.amount END)";
+
     public static final String CATEGORY_LISTAGG =
             "(SELECT LISTAGG(cx.name, ', ') WITHIN GROUP (ORDER BY cx.name)"
             + " FROM transaction_categories tcx JOIN categories cx ON cx.id = tcx.category_id"
@@ -73,6 +76,7 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
 
     private static final Map<String, Mapping> MAPPINGS = Map.ofEntries(
             Map.entry("amount", new Mapping(SIGNED_AMOUNT, null)),
+            Map.entry("spend", new Mapping(SPEND_AMOUNT, null)),
             Map.entry("date", new Mapping("t.transaction_date", null)),
             Map.entry("type", new Mapping("t.type", null)),
             Map.entry("source", new Mapping("t.source", null)),

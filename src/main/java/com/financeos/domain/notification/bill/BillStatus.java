@@ -11,5 +11,7 @@ public enum BillStatus {
     PARTIAL,
     PAID,
     /** Due date passed and not paid in full (whatever was paid is still shown). */
-    OVERDUE
+    OVERDUE,
+    /** An open card with no live statement yet: nothing to pay, only unbilled spend so far. Never notified. */
+    AWAITING_STATEMENT
 }

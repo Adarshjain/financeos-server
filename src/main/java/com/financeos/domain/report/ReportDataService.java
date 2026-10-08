@@ -64,6 +64,17 @@ public class ReportDataService {
     @Transactional(readOnly = true)
     public ReportData runAdHoc(ReportType type, String datasourceName, JsonNode definitionNode,
             Integer page, Integer size) {
+        return runDefinition(type, datasourceName, definitionNode, page, size);
+    }
+
+    /**
+     * Validate a definition node for {@code type} against {@code datasourceName} and run it for the
+     * current user. Shared by ad-hoc reports and built-in dashboard widgets (whose definitions are
+     * server templates); nothing is persisted.
+     */
+    @Transactional(readOnly = true)
+    public ReportData runDefinition(ReportType type, String datasourceName, JsonNode definitionNode,
+            Integer page, Integer size) {
         if (type == null) {
             throw new ValidationException("type is required");
         }

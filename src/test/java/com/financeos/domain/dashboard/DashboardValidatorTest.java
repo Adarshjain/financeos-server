@@ -3,6 +3,7 @@ package com.financeos.domain.dashboard;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.core.exception.ValidationException;
 import java.util.List;
 import java.util.UUID;
@@ -10,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class DashboardValidatorTest {
 
-    private final DashboardValidator validator = new DashboardValidator();
+    private final DashboardValidator validator = new DashboardValidator(new BuiltinWidgetRegistry(new ObjectMapper()));
     private static final UUID REPORT = UUID.fromString("00000000-0000-0000-0000-000000000001");
 
     private static DashboardWidget widget(String id, int x, int y, int w, int h) {

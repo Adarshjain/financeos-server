@@ -209,6 +209,10 @@ public class RewardRule {
     @Column(name = "cap_notified_window_start")
     private LocalDate capNotifiedWindowStart;
 
+    /** Alert marker: the business date the cap-exhausted marker was recorded (inbox recency). */
+    @Column(name = "cap_notified_on")
+    private LocalDate capNotifiedOn;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

@@ -29,7 +29,7 @@ public class JobNotificationService {
     private static final Logger log = LoggerFactory.getLogger(JobNotificationService.class);
 
     /** The long, user-started operations worth a push when the tab is gone. */
-    static final Set<JobType> NOTIFIED_TYPES = Set.of(
+    public static final Set<JobType> NOTIFIED_TYPES = Set.of(
             JobType.STATEMENT_INGEST, JobType.INVESTMENT_IMPORT_COMMIT, JobType.BROKER_RECONCILE_COMMIT, JobType.RULE_APPLY);
 
     private final JobRepository jobRepository;

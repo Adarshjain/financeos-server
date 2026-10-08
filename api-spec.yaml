@@ -966,6 +966,13 @@ paths:
   /api/v1/bills:
     get:
       operationId: listBills
+      parameters:
+      - in: query
+        name: accountId
+        required: false
+        schema:
+          type: string
+          format: uuid
       responses:
         "200":
           content:
@@ -1538,9 +1545,88 @@ paths:
           description: Error response
       tags:
       - dashboard-controller
+  /api/v1/dashboards/builtins:
+    get:
+      operationId: listBuiltins
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BuiltinWidgetResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - dashboard-controller
+  /api/v1/dashboards/builtins/{key}/data:
+    post:
+      operationId: runBuiltin
+      parameters:
+      - in: path
+        name: key
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BuiltinDataRequest"
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ReportData"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - dashboard-controller
   /api/v1/dashboards/default:
     get:
       operationId: getDefaultDashboard
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/DashboardResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - dashboard-controller
+  /api/v1/dashboards/home/restore:
+    post:
+      operationId: restoreHome
       responses:
         "200":
           content:
@@ -2037,6 +2123,120 @@ paths:
           description: Error response
       tags:
       - gmail-controller
+  /api/v1/inbox:
+    get:
+      operationId: list
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InboxResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - inbox-controller
+  /api/v1/inbox/summary:
+    get:
+      operationId: summary
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InboxSummaryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - inbox-controller
+  /api/v1/inbox/{key}/dismiss:
+    post:
+      operationId: dismiss
+      parameters:
+      - in: path
+        name: key
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InboxResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - inbox-controller
+  /api/v1/inbox/{key}/snooze:
+    post:
+      operationId: snooze
+      parameters:
+      - in: path
+        name: key
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InboxSnoozeRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InboxResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - inbox-controller
+  /api/v1/inbox/{key}/state:
+    delete:
+      operationId: clearState
+      parameters:
+      - in: path
+        name: key
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InboxResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - inbox-controller
   /api/v1/instruments:
     get:
       operationId: search
@@ -4840,6 +5040,11 @@ paths:
           type: integer
           format: int32
           default: 3
+      - in: query
+        name: kinds
+        required: false
+        schema:
+          type: string
       responses:
         "200":
           content:
@@ -5090,6 +5295,31 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ReportData"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - report-controller
+  /api/v1/reports/{id}/duplicate:
+    post:
+      operationId: duplicateReport
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ReportResponse"
           description: OK
         default:
           content:
@@ -6790,6 +7020,103 @@ components:
       - realized
       - totalCharges
       - unrealized
+    BuiltinDataRequest:
+      type: object
+      properties:
+        params:
+          nullable: true
+          x-nullable: true
+    BuiltinParamResponse:
+      type: object
+      properties:
+        defaultValue:
+          nullable: true
+          x-nullable: true
+        max:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        min:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        name:
+          type: string
+        required:
+          type: boolean
+        type:
+          type: string
+      required:
+      - name
+      - required
+      - type
+    BuiltinRefResponse:
+      type: object
+      properties:
+        href:
+          type: string
+          nullable: true
+          x-nullable: true
+        key:
+          type: string
+        kind:
+          type: string
+        label:
+          type: string
+        minW:
+          type: integer
+          format: int32
+        templateType:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - key
+      - kind
+      - label
+      - minW
+    BuiltinWidgetResponse:
+      type: object
+      properties:
+        datasource:
+          type: string
+          nullable: true
+          x-nullable: true
+        description:
+          type: string
+        href:
+          type: string
+          nullable: true
+          x-nullable: true
+        key:
+          type: string
+        kind:
+          type: string
+        label:
+          type: string
+        minW:
+          type: integer
+          format: int32
+        params:
+          type: array
+          items:
+            $ref: "#/components/schemas/BuiltinParamResponse"
+        templateDefinition:
+          nullable: true
+          x-nullable: true
+        templateType:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - description
+      - key
+      - kind
+      - label
+      - minW
+      - params
     BulkReattributeCardRequest:
       type: object
       properties:
@@ -6900,6 +7227,11 @@ components:
           x-nullable: true
         muted:
           type: boolean
+        nextStatementExpectedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         paidAmount:
           type: number
           nullable: true
@@ -6946,6 +7278,8 @@ components:
         statementId:
           type: string
           format: uuid
+          nullable: true
+          x-nullable: true
         status:
           type: string
           enum:
@@ -6955,7 +7289,12 @@ components:
           - PARTIAL
           - PAID
           - OVERDUE
+          - AWAITING_STATEMENT
         totalAmountDue:
+          type: number
+          nullable: true
+          x-nullable: true
+        unbilledAmount:
           type: number
           nullable: true
           x-nullable: true
@@ -6965,7 +7304,6 @@ components:
       - muted
       - paidSource
       - possiblePayments
-      - statementId
       - status
     CardBreakdown:
       type: object
@@ -8524,15 +8862,27 @@ components:
     DashboardWidget:
       type: object
       properties:
+        builtinKey:
+          type: string
+          nullable: true
+          x-nullable: true
         id:
           type: string
           x-required: true
+        kind:
+          type: string
+          nullable: true
+          x-nullable: true
         layout:
           $ref: "#/components/schemas/WidgetLayout"
+        params:
+          nullable: true
+          x-nullable: true
         reportId:
           type: string
           format: uuid
-          x-required: true
+          nullable: true
+          x-nullable: true
         title:
           type: string
           nullable: true
@@ -8540,7 +8890,6 @@ components:
       required:
       - id
       - layout
-      - reportId
     DateOperators:
       type: object
       properties:
@@ -9519,6 +9868,209 @@ components:
       - matchStatus
       - parsedRow
       - rowIndex
+    InboxActionPayloadResponse:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        amount:
+          type: number
+          nullable: true
+          x-nullable: true
+        connectionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        counterpartyId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        date:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        installmentSeq:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        jobId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        loanId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        statementId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        transactionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+    InboxActionResponse:
+      type: object
+      properties:
+        href:
+          type: string
+          nullable: true
+          x-nullable: true
+        label:
+          type: string
+        payload:
+          $ref: "#/components/schemas/InboxActionPayloadResponse"
+        type:
+          type: string
+      required:
+      - label
+      - type
+    InboxItemResponse:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: "#/components/schemas/InboxActionResponse"
+        amount:
+          type: number
+          nullable: true
+          x-nullable: true
+        count:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        date:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        href:
+          type: string
+          nullable: true
+          x-nullable: true
+        key:
+          type: string
+        kind:
+          type: string
+        refs:
+          $ref: "#/components/schemas/InboxRefsResponse"
+        rowType:
+          type: string
+        section:
+          type: string
+        severity:
+          type: string
+        snoozedUntil:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        subtitle:
+          type: string
+          nullable: true
+          x-nullable: true
+        title:
+          type: string
+      required:
+      - actions
+      - key
+      - kind
+      - refs
+      - rowType
+      - section
+      - severity
+      - title
+    InboxRefsResponse:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        connectionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        counterpartyId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        jobId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        loanId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        statementId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+    InboxResponse:
+      type: object
+      properties:
+        generatedAt:
+          type: string
+          format: date-time
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/InboxItemResponse"
+        summary:
+          $ref: "#/components/schemas/InboxSummaryResponse"
+      required:
+      - generatedAt
+      - items
+      - summary
+    InboxSnoozeRequest:
+      type: object
+      properties:
+        until:
+          type: string
+          format: date
+          x-required: true
+      required:
+      - until
+    InboxSummaryResponse:
+      type: object
+      properties:
+        actNow:
+          type: integer
+          format: int32
+        badge:
+          type: integer
+          format: int32
+        info:
+          type: integer
+          format: int32
+        needsLook:
+          type: integer
+          format: int32
+      required:
+      - actNow
+      - badge
+      - info
+      - needsLook
     InstallmentDto:
       type: object
       properties:
@@ -10924,8 +11476,19 @@ components:
     ObligationItemDto:
       type: object
       properties:
+        accountId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        accountName:
+          type: string
+          nullable: true
+          x-nullable: true
         amount:
           type: number
+          nullable: true
+          x-nullable: true
         counterpartyId:
           type: string
           format: uuid
@@ -10938,11 +11501,22 @@ components:
         date:
           type: string
           format: date
+          nullable: true
+          x-nullable: true
+        daysUntil:
+          type: integer
+          format: int64
+          nullable: true
+          x-nullable: true
         direction:
           type: string
           enum:
           - lent
           - borrowed
+          nullable: true
+          x-nullable: true
+        href:
+          type: string
           nullable: true
           x-nullable: true
         installmentSeq:
@@ -10964,13 +11538,20 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        statementId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
         status:
           type: string
+        title:
+          type: string
+          nullable: true
+          x-nullable: true
         type:
           type: string
       required:
-      - amount
-      - date
       - status
       - type
     ObligationRef:
@@ -15120,21 +15701,33 @@ components:
     WidgetResponse:
       type: object
       properties:
+        builtin:
+          $ref: "#/components/schemas/BuiltinRefResponse"
+        builtinKey:
+          type: string
+          nullable: true
+          x-nullable: true
         id:
+          type: string
+        kind:
           type: string
         layout:
           $ref: "#/components/schemas/WidgetLayout"
+        params:
+          nullable: true
+          x-nullable: true
         report:
           $ref: "#/components/schemas/ReportRef"
         reportId:
           type: string
           format: uuid
+          nullable: true
+          x-nullable: true
         title:
           type: string
           nullable: true
           x-nullable: true
       required:
       - id
+      - kind
       - layout
-      - report
-      - reportId

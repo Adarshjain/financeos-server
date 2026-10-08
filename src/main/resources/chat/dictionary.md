@@ -259,7 +259,7 @@ Filters in an array are combined with logical `AND`. Operators are per FIELD TYP
 | :--- | :--- | :--- | :--- |
 | **Date (absolute)** | `is`, `after`, `before` | `"YYYY-MM-DD"` scalar | `{"field": "date", "operator": "after", "value": "2026-04-01"}` |
 | **Date (range)** | `between` | `{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}` | `{"field": "date", "operator": "between", "value": {"from": "2026-04-01", "to": "2026-06-30"}}` |
-| **Date (relative, param)** | `last_x_days`, `last_x_months`, `last_x_years` | `{"amount": N}` | `{"field": "date", "operator": "last_x_days", "value": {"amount": 30}}` |
+| **Date (relative, param)** | `last_x_days`, `last_x_months`, `last_x_years`, `next_x_days` (forward: today to today+N-1) | `{"amount": N}` | `{"field": "date", "operator": "last_x_days", "value": {"amount": 30}}` |
 | **Date (relative, valueless)** | `today`, `yesterday`, `this_week`, `this_month`, `this_year`, `previous_week`, `previous_month`, `previous_year`, `current_fy`, `prev_fy`, `all_time` | *Omit `value` property* | `{"field": "date", "operator": "this_month"}` |
 | **String** | `exact`, `starts_with`, `ends_with`, `contains`, `in` | Scalar string (`in`: array) | `{"field": "description", "operator": "contains", "value": "uber"}` |
 | **Number** | `equals`, `greater_than`, `less_than`, `between` | Scalar number (`between`: `{"from": N, "to": N}`) | `{"field": "amount", "operator": "greater_than", "value": 1000}` |

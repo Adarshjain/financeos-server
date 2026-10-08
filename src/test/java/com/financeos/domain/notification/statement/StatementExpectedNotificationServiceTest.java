@@ -139,7 +139,7 @@ class StatementExpectedNotificationServiceTest {
         verify(settingsService).deliver(eq(settings), message.capture());
         assertEquals("HDFC Regalia: Sep statement hasn't arrived", message.getValue().title());
         assertEquals("Expected around 15 Sep. Check the mailbox connection, or upload it.", message.getValue().body());
-        assertEquals("/settings/gmail", message.getValue().url());
+        assertEquals("/inbox?item=statement-expected:" + card.getId() + ":2026-09-15", message.getValue().url());
         assertEquals("statement-expected-" + card.getId(), message.getValue().tag());
         assertEquals(LocalDate.of(2026, 9, 15), card.getStatementExpectedNotifiedFor());
         verify(accountRepository).save(card);
@@ -160,7 +160,7 @@ class StatementExpectedNotificationServiceTest {
     void manualCardsPointAtTheUploadPage() {
         card.setIngestFromDate(null);
         PushMessage message = StatementExpectedMessages.missing(card, LocalDate.of(2026, 9, 15));
-        assertEquals("/settings/ingest", message.url());
+        assertEquals("/inbox?item=statement-expected:" + card.getId() + ":2026-09-15", message.url());
         assertEquals("Expected around 15 Sep. Upload it to keep bills and rewards current.", message.body());
     }
 

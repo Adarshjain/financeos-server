@@ -2,6 +2,7 @@ package com.financeos.domain.dashboard;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.financeos.api.dashboard.dto.BuiltinRefResponse;
 import com.financeos.api.dashboard.dto.CreateDashboardRequest;
 import com.financeos.api.dashboard.dto.DashboardResponse;
 import com.financeos.api.dashboard.dto.DashboardSummaryResponse;
@@ -36,14 +37,17 @@ public class DashboardService {
     private final UserRepository userRepository;
     private final DashboardValidator validator;
     private final ObjectMapper mapper;
+    private final BuiltinWidgetRegistry builtins;
 
     public DashboardService(DashboardRepository dashboardRepository, ReportRepository reportRepository,
-            UserRepository userRepository, DashboardValidator validator, ObjectMapper mapper) {
+            UserRepository userRepository, DashboardValidator validator, ObjectMapper mapper,
+            BuiltinWidgetRegistry builtins) {
         this.dashboardRepository = dashboardRepository;
         this.reportRepository = reportRepository;
         this.userRepository = userRepository;
         this.validator = validator;
         this.mapper = mapper;
+        this.builtins = builtins;
     }
 
     public DashboardResponse create(CreateDashboardRequest req) {
@@ -100,6 +104,12 @@ public class DashboardService {
         return toResponse(dashboard);
     }
 
+    /** The response shape of a registry entry when a widget references it. */
+    public static BuiltinRefResponse toBuiltinRef(BuiltinWidgetRegistry.Entry entry) {
+        return new BuiltinRefResponse(entry.key(), entry.label(), entry.minW(), entry.kind(),
+                entry.templateType() == null ? null : entry.templateType().name(), entry.href());
+    }
+
     // ------------------------------------------------------------------ helpers
 
     private Dashboard loadOwned(UUID id) {
@@ -119,23 +129,40 @@ public class DashboardService {
         List<DashboardWidget> widgets = parse(dashboard.getWidgets());
 
         // Batch-resolve referenced reports, scoped to the current user (foreign/deleted -> absent).
+        // Built-in widgets never touch the report repository.
         Set<UUID> reportIds = widgets.stream()
+                .filter(widget -> !widget.usesBuiltin())
                 .map(DashboardWidget::reportId)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
-        Map<UUID, Report> reportsById = reportRepository.findAllById(reportIds).stream()
-                .collect(Collectors.toMap(Report::getId, r -> r));
+        Map<UUID, Report> reportsById = reportIds.isEmpty()
+                ? Map.of()
+                : reportRepository.findAllById(reportIds).stream()
+                        .collect(Collectors.toMap(Report::getId, r -> r));
 
-        List<WidgetResponse> widgetResponses = widgets.stream().map(widget -> {
-            Report report = widget.reportId() == null ? null : reportsById.get(widget.reportId());
-            ReportRef ref = report != null
-                    ? new ReportRef(report.getName(), report.getType(), true)
-                    : new ReportRef(null, null, false);
-            return new WidgetResponse(widget.id(), widget.reportId(), widget.title(), widget.layout(), ref);
-        }).toList();
+        List<WidgetResponse> widgetResponses = widgets.stream()
+                .map(widget -> widget.usesBuiltin() ? toBuiltinWidget(widget) : toReportWidget(widget, reportsById))
+                .toList();
 
         return new DashboardResponse(dashboard.getId(), dashboard.getName(), dashboard.getDescription(),
                 dashboard.isDefault(), widgetResponses, dashboard.getCreatedAt(), dashboard.getUpdatedAt());
+    }
+
+    private WidgetResponse toReportWidget(DashboardWidget widget, Map<UUID, Report> reportsById) {
+        Report report = widget.reportId() == null ? null : reportsById.get(widget.reportId());
+        ReportRef ref = report != null
+                ? new ReportRef(report.getName(), report.getType(), true)
+                : new ReportRef(null, null, false);
+        return new WidgetResponse(widget.id(), widget.reportId(), widget.title(), widget.layout(), ref,
+                DashboardWidget.KIND_REPORT, null, null, null);
+    }
+
+    private WidgetResponse toBuiltinWidget(DashboardWidget widget) {
+        BuiltinRefResponse ref = builtins.find(widget.builtinKey())
+                .map(DashboardService::toBuiltinRef)
+                .orElse(null);
+        return new WidgetResponse(widget.id(), null, widget.title(), widget.layout(), null,
+                DashboardWidget.KIND_BUILTIN, widget.builtinKey(), widget.paramsOrNull(), ref);
     }
 
     private DashboardSummaryResponse toSummary(Dashboard dashboard) {

@@ -108,4 +108,17 @@ public final class Events {
 
     // Diagnostics & Observability Events
     public static final String DIAGNOSTICS_LOOKUP = "diagnostics.lookup";
+
+    // Inbox Events (user snooze / dismiss / undo on a computed row)
+    public static final String INBOX_ITEM_SNOOZED = "inbox.item.snoozed";
+    public static final String INBOX_ITEM_DISMISSED = "inbox.item.dismissed";
+    public static final String INBOX_ITEM_STATE_CLEARED = "inbox.item.state_cleared";
+
+    // Home dashboard, built-in widgets and report datasources
+    public static final String DASHBOARD_HOME_SEEDED = "dashboard.home.seeded";
+    public static final String DASHBOARD_HOME_SPEND_REPORT_SKIPPED = "dashboard.home.spend_report.skipped";
+    public static final String REPORT_DUPLICATED = "report.duplicated";
+    public static final String REPORT_NET_WORTH_ROW_SKIPPED = "report.net_worth.row_skipped";
+    public static final String REPORT_NET_WORTH_SECTION_FAILED = "report.net_worth.section_failed";
+    public static final String OBLIGATIONS_SECTION_FAILED = "obligations.section.failed";
 }
