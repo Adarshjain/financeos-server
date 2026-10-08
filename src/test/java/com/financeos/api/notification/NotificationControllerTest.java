@@ -8,6 +8,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.financeos.api.notification.dto.MuteAccountRequest;
+import com.financeos.api.notification.dto.MuteLoanRequest;
+import com.financeos.api.notification.dto.NotificationEvaluateResponse;
 import com.financeos.api.notification.dto.NotificationSettingsResponse;
 import com.financeos.api.notification.dto.PushPublicKeyResponse;
 import com.financeos.api.notification.dto.PushSubscriptionRequest;
@@ -15,6 +17,7 @@ import com.financeos.api.notification.dto.RemovePushSubscriptionRequest;
 import com.financeos.api.notification.dto.UpdateNotificationSettingsRequest;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.notification.NotificationKind;
+import com.financeos.domain.notification.NotificationScheduler;
 import com.financeos.domain.notification.NotificationSettingsService;
 import com.financeos.domain.notification.push.PushSubscription;
 import com.financeos.domain.notification.push.WebPushSender;
@@ -31,6 +34,7 @@ class NotificationControllerTest {
 
     private NotificationSettingsService service;
     private WebPushSender sender;
+    private NotificationScheduler scheduler;
     private NotificationController controller;
     private final UUID userId = UUID.randomUUID();
     private NotificationSettingsService.View view;
@@ -39,12 +43,13 @@ class NotificationControllerTest {
     void setUp() {
         service = mock(NotificationSettingsService.class);
         sender = mock(WebPushSender.class);
-        controller = new NotificationController(service, sender);
+        scheduler = mock(NotificationScheduler.class);
+        controller = new NotificationController(service, sender, scheduler);
         UserContext.setCurrentUserId(userId);
         view = new NotificationSettingsService.View(true, 9, List.of(7, 3, 1, 0),
                 Map.of(NotificationKind.BILL_OVERDUE, false, NotificationKind.BILL_DUE_REMINDER, true, NotificationKind.STATEMENT_RECEIVED, true),
                 List.of(new PushSubscription("https://push/1", "k", "a", "Chrome", Instant.parse("2026-10-08T05:00:00Z"))),
-                List.of(UUID.randomUUID()), true);
+                List.of(UUID.randomUUID()), List.of(UUID.randomUUID()), true);
     }
 
     @AfterEach
@@ -62,7 +67,24 @@ class NotificationControllerTest {
         assertEquals(1, body.devices().size());
         assertEquals("https://push/1", body.devices().get(0).endpoint());
         assertEquals(1, body.mutedAccountIds().size());
+        assertEquals(1, body.mutedLoanIds().size());
         assertTrue(body.pushConfigured());
+    }
+
+    @Test
+    void loanMuteDelegatesWithTheCurrentUser() {
+        UUID loanId = UUID.randomUUID();
+        when(service.setLoanMuted(userId, loanId, true)).thenReturn(view);
+        NotificationSettingsResponse body = controller.muteLoan(loanId, new MuteLoanRequest(true)).getBody();
+        verify(service).setLoanMuted(userId, loanId, true);
+        assertEquals(1, body.mutedLoanIds().size());
+    }
+
+    @Test
+    void evaluateRunsEveryProducerForTheCallerAndReportsTheSummary() {
+        when(scheduler.runProducers(userId)).thenReturn(new NotificationScheduler.Summary(1, 4, 2, 1, 1));
+        NotificationEvaluateResponse body = controller.evaluate().getBody();
+        assertEquals(new NotificationEvaluateResponse(4, 2, 1, 1), body);
     }
 
     @Test
@@ -102,5 +124,7 @@ class NotificationControllerTest {
         UserContext.clear();
         assertThrows(ResponseStatusException.class, () -> controller.getSettings());
         assertThrows(ResponseStatusException.class, () -> controller.getPublicKey());
+        assertThrows(ResponseStatusException.class, () -> controller.evaluate());
+        assertThrows(ResponseStatusException.class, () -> controller.muteLoan(UUID.randomUUID(), new MuteLoanRequest(true)));
     }
 }

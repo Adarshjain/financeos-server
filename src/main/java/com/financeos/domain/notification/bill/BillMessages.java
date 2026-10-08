@@ -1,18 +1,14 @@
 package com.financeos.domain.notification.bill;
 
+import com.financeos.domain.notification.MessageFormat;
 import com.financeos.domain.notification.push.PushMessage;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /** Push texts for every bill kind. Pure; bodies stay short because the OS truncates them. */
 public final class BillMessages {
-
-    private static final DateTimeFormatter DATE = DateTimeFormatter.ofPattern("d MMM", Locale.ENGLISH);
 
     private BillMessages() {
     }
@@ -107,40 +103,15 @@ public final class BillMessages {
     }
 
     static String date(LocalDate date) {
-        return date == null ? "—" : DATE.format(date);
+        return MessageFormat.date(date);
     }
 
-    /** Indian grouping (12,34,567.50); whole amounts drop the paise. JDK formatters cannot do the 2-2-3 grouping. */
     static String money(BigDecimal amount) {
-        if (amount == null) {
-            return "₹—";
-        }
-        BigDecimal abs = amount.abs().setScale(2, RoundingMode.HALF_UP);
-        String[] split = abs.toPlainString().split("\\.");
-        String whole = split[0];
-        StringBuilder grouped = new StringBuilder();
-        if (whole.length() > 3) {
-            String head = whole.substring(0, whole.length() - 3);
-            String tail = whole.substring(whole.length() - 3);
-            StringBuilder headGrouped = new StringBuilder();
-            for (int i = head.length(); i > 0; i -= 2) {
-                int start = Math.max(0, i - 2);
-                if (headGrouped.length() > 0) {
-                    headGrouped.insert(0, ',');
-                }
-                headGrouped.insert(0, head, start, i);
-            }
-            grouped.append(headGrouped).append(',').append(tail);
-        } else {
-            grouped.append(whole);
-        }
-        String paise = split.length > 1 ? split[1] : "00";
-        String text = "00".equals(paise) ? grouped.toString() : grouped + "." + paise;
-        return (amount.signum() < 0 ? "-₹" : "₹") + text;
+        return MessageFormat.money(amount);
     }
 
     static String points(BigDecimal points) {
-        return points.setScale(0, RoundingMode.HALF_UP).toPlainString();
+        return MessageFormat.points(points);
     }
 
     private static BigDecimal nz(BigDecimal value) {

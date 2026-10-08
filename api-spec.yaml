@@ -4655,6 +4655,55 @@ paths:
           description: Error response
       tags:
       - notification-controller
+  /api/v1/notifications/evaluate:
+    post:
+      operationId: evaluate
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotificationEvaluateResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-controller
+  /api/v1/notifications/loans/{loanId}/mute:
+    put:
+      operationId: muteLoan
+      parameters:
+      - in: path
+        name: loanId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MuteLoanRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotificationSettingsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-controller
   /api/v1/notifications/push/public-key:
     get:
       operationId: getPublicKey
@@ -9277,6 +9326,11 @@ components:
         attemptCount:
           type: integer
           format: int32
+        attentionNotifiedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
         discoveredAt:
           type: string
           format: date-time
@@ -9337,6 +9391,11 @@ components:
     GmailConnectionResponse:
       type: object
       properties:
+        authFailedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
         connectedAt:
           type: string
           format: date-time
@@ -9356,11 +9415,14 @@ components:
           format: date-time
           nullable: true
           x-nullable: true
+        needsReconnect:
+          type: boolean
       required:
       - email
       - id
       - isConnected
       - isPrimary
+      - needsReconnect
     GmailSenderRequest:
       type: object
       properties:
@@ -10390,6 +10452,15 @@ components:
         id:
           type: string
           format: uuid
+        lastNotifiedKind:
+          type: string
+          nullable: true
+          x-nullable: true
+        lastNotifiedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         lender:
           type: string
           nullable: true
@@ -10420,6 +10491,8 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        notificationsMuted:
+          type: boolean
         outstandingPrincipal:
           type: number
         paymentAccountId:
@@ -10474,6 +10547,7 @@ components:
       - id
       - loanType
       - name
+      - notificationsMuted
       - outstandingPrincipal
       - principal
       - rateType
@@ -10751,6 +10825,34 @@ components:
           x-required: true
       required:
       - muted
+    MuteLoanRequest:
+      type: object
+      properties:
+        muted:
+          type: boolean
+          x-required: true
+      required:
+      - muted
+    NotificationEvaluateResponse:
+      type: object
+      properties:
+        evaluated:
+          type: integer
+          format: int32
+        failed:
+          type: integer
+          format: int32
+        recorded:
+          type: integer
+          format: int32
+        sent:
+          type: integer
+          format: int32
+      required:
+      - evaluated
+      - failed
+      - recorded
+      - sent
     NotificationSettingsResponse:
       type: object
       properties:
@@ -10763,6 +10865,11 @@ components:
           additionalProperties:
             type: boolean
         mutedAccountIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        mutedLoanIds:
           type: array
           items:
             type: string
@@ -10783,6 +10890,7 @@ components:
       - devices
       - kinds
       - mutedAccountIds
+      - mutedLoanIds
       - pushConfigured
       - pushEnabled
       - reminderOffsets

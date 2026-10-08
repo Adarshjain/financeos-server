@@ -87,6 +87,10 @@ public class GmailProcessedMessage {
     @Column(name = "processed_at")
     private Instant processedAt;
 
+    /** When this row was part of a "needs attention" digest (GMAIL_ATTENTION marker); reset on retry. */
+    @Column(name = "attention_notified_at")
+    private Instant attentionNotifiedAt;
+
     @PrePersist
     protected void onCreate() {
         if (discoveredAt == null) {

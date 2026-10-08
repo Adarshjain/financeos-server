@@ -15,6 +15,9 @@ public interface LoanRepository extends JpaRepository<Loan, UUID> {
 
     List<Loan> findByStatus(LoanStatus status);
 
+    /** Loans the user muted for EMI pushes (notification settings view). */
+    List<Loan> findByUser_IdAndNotificationsMutedTrue(UUID userId);
+
     @Query("SELECT COUNT(le) FROM LoanEvent le WHERE le.loan.id = :loanId")
     long countEventsByLoanId(@Param("loanId") UUID loanId);
 

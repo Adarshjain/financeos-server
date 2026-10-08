@@ -3,6 +3,7 @@ package com.financeos.gmail.engine;
 import com.financeos.gmail.client.GmailApiClient;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.internal.*;
+import com.google.api.client.auth.oauth2.TokenResponseException;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.*;
@@ -171,6 +172,21 @@ public class GmailEngine {
     }
 
     private GmailEngineException handleIOException(IOException e) {
+        return classify(e);
+    }
+
+    /**
+     * Maps a Google client exception onto {@link GmailError}. A refresh-token rejection surfaces as
+     * a {@link TokenResponseException} with a 4xx status (invalid_grant is a 400 whose message
+     * contains neither 401 nor 403), so it is matched by type first: it is an auth failure the
+     * user must fix by reconnecting, not a transient network error to retry forever.
+     */
+    static GmailEngineException classify(IOException e) {
+        if (e instanceof TokenResponseException tre && tre.getStatusCode() >= 400 && tre.getStatusCode() < 500) {
+            String error = tre.getDetails() != null && tre.getDetails().getError() != null
+                    ? tre.getDetails().getError() : "token rejected";
+            return new GmailEngineException(GmailError.AUTH_ERROR, "Google rejected the refresh token (" + error + ")", e);
+        }
         String errorMsg = e.getMessage();
         if (errorMsg != null) {
             if (errorMsg.contains("401") || errorMsg.contains("403")) {

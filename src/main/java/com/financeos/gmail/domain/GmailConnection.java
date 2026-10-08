@@ -48,6 +48,14 @@ public class GmailConnection {
     @Column(name = "connected_at")
     private Instant connectedAt;
 
+    /** Set when Google rejected the refresh token (invalid_grant etc.); cleared by a reconnect. */
+    @Column(name = "auth_failed_at")
+    private Instant authFailedAt;
+
+    /** Last time the user was told to reconnect this mailbox (the GMAIL_RECONNECT marker). */
+    @Column(name = "reconnect_notified_at")
+    private Instant reconnectNotifiedAt;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

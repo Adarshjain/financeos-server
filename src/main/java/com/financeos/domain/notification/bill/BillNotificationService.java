@@ -5,6 +5,8 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.notification.NotificationKind;
+import com.financeos.domain.notification.NotificationOutcome;
+import com.financeos.domain.notification.NotificationProducer;
 import com.financeos.domain.notification.NotificationSettingsCodec;
 import com.financeos.domain.notification.NotificationSettingsService;
 import com.financeos.domain.notification.UserNotificationSettings;
@@ -37,7 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
  * push later never replays a backlog.
  */
 @Service
-public class BillNotificationService {
+public class BillNotificationService implements NotificationProducer {
 
     private static final Logger log = LoggerFactory.getLogger(BillNotificationService.class);
 
@@ -69,6 +71,18 @@ public class BillNotificationService {
         this.accountRepository = accountRepository;
         this.statementRepository = statementRepository;
         this.sender = sender;
+    }
+
+    @Override
+    public String name() {
+        return "bills";
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public NotificationOutcome evaluate(UUID userId) {
+        Outcome outcome = evaluateUser(userId);
+        return new NotificationOutcome(outcome.evaluated(), outcome.recorded(), outcome.sent());
     }
 
     /** Hourly tick for one user: reminders, overdue nags, due-missing nudges, paid markers. */
