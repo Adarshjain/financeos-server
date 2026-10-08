@@ -7,6 +7,7 @@ import com.financeos.api.obligations.dto.ObligationsResponse;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.observability.Events;
 import com.financeos.core.time.AppTime;
+import com.financeos.core.tx.SectionRunner;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
@@ -24,6 +25,7 @@ import com.financeos.domain.statement.StatementVerdict;
 import net.logstash.logback.argument.StructuredArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -94,17 +96,30 @@ public class ObligationsService {
     private final CardBillService cardBillService;
     private final AccountRepository accountRepository;
     private final StatementRepository statementRepository;
+    private final SectionRunner sectionRunner;
 
+    @Autowired
     public ObligationsService(LoanService loanService,
                               LendingService lendingService,
                               CardBillService cardBillService,
                               AccountRepository accountRepository,
-                              StatementRepository statementRepository) {
+                              StatementRepository statementRepository,
+                              SectionRunner sectionRunner) {
         this.loanService = loanService;
         this.lendingService = lendingService;
         this.cardBillService = cardBillService;
         this.accountRepository = accountRepository;
         this.statementRepository = statementRepository;
+        this.sectionRunner = sectionRunner;
+    }
+
+    /** Runs sections inline, without their own transactions (plain unit tests). */
+    public ObligationsService(LoanService loanService,
+                              LendingService lendingService,
+                              CardBillService cardBillService,
+                              AccountRepository accountRepository,
+                              StatementRepository statementRepository) {
+        this(loanService, lendingService, cardBillService, accountRepository, statementRepository, SectionRunner.DIRECT);
     }
 
     /**
@@ -138,13 +153,14 @@ public class ObligationsService {
 
     /**
      * One kind's rows, or none if computing them fails: a broken section (say a malformed loan schedule)
-     * must not take the whole Upcoming list or widget down. A failure inside another transactional
-     * service can still mark the shared transaction rollback-only, so this degrades only failures that
-     * happen in this service's own code paths.
+     * must not take the whole Upcoming list or widget down. Each section runs in its own transaction
+     * ({@link SectionRunner}), so a failure inside a transactional collaborator rolls back only that
+     * section instead of marking the caller's transaction rollback-only.
      */
-    private static List<ObligationItemDto> section(String kind, Supplier<List<ObligationItemDto>> rows) {
+    private List<ObligationItemDto> section(String kind, Supplier<List<ObligationItemDto>> rows) {
         try {
-            return rows.get();
+            List<ObligationItemDto> out = sectionRunner.run(rows);
+            return out != null ? out : List.of();
         } catch (RuntimeException e) {
             log.warn("Obligations section failed: kind={}", kind, e,
                     StructuredArguments.keyValue("event", Events.OBLIGATIONS_SECTION_FAILED),

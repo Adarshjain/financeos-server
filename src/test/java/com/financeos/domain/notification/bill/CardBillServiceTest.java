@@ -42,6 +42,12 @@ import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import com.financeos.domain.account.card.Card;
+import com.financeos.domain.account.card.Cardholder;
+import com.financeos.domain.account.card.CardholderRole;
+import com.financeos.domain.statement.StatementVerdict;
 
 class CardBillServiceTest {
 
@@ -417,5 +423,372 @@ class CardBillServiceTest {
         assertFalse(service.findByStatementId(user.getId(), s.getId()).muted());
         card.setNotificationsMuted(true);
         assertTrue(service.findByStatementId(user.getId(), s.getId()).muted());
+    }
+
+    // ---------------------------------------------------------------- awaiting-statement rows, unbilled spend, next statement
+
+    /** Stubs the card's live statements, every statement the cycles see, and the unbilled debit sum after the period end. */
+    private void liveStatement(Account account, Statement statement, BigDecimal debitsAfterClose) {
+        when(statementRepository.findQualifyingCreditCardStatements(account.getId())).thenReturn(List.of(statement));
+        when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(account.getId())).thenReturn(List.of(statement));
+        if (statement.getPeriodEnd() != null) {
+            when(transactionRepository.sumIncludedDebitsAfter(account.getId(), statement.getPeriodEnd())).thenReturn(debitsAfterClose);
+        }
+    }
+
+    /** A dated statement the bill never picks up (no card details): only the cycle projection sees it. */
+    private Statement datedStatementWithoutDetails(Account account, LocalDate periodStart, LocalDate periodEnd) {
+        Statement s = new Statement();
+        s.setId(UUID.randomUUID());
+        s.setUser(user);
+        s.setAccount(account);
+        s.setStatementType("credit_card");
+        s.setPeriodStart(periodStart);
+        s.setPeriodEnd(periodEnd);
+        return s;
+    }
+
+    @Test
+    void awaitingStatementRowCarriesOnlyTheAccountFieldsTheSpendSoFarAndTheNextExpectedStatement() {
+        Cardholder holder = new Cardholder();
+        holder.setId(UUID.randomUUID());
+        holder.setAccount(card);
+        holder.setRole(CardholderRole.PRIMARY);
+        Card plastic = new Card();
+        plastic.setId(UUID.randomUUID());
+        plastic.setAccount(card);
+        plastic.setCardholder(holder);
+        plastic.setLast4("4321");
+        holder.getCards().add(plastic);
+        card.getCardholders().add(holder);
+        card.setNotificationsMuted(true);
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(card));
+        when(statementRepository.findQualifyingCreditCardStatements(card.getId())).thenReturn(List.of());
+        // A dated statement exists but is not a live bill (no card details): the cycle still projects from it.
+        Statement notLive = datedStatementWithoutDetails(card, LocalDate.of(2026, 9, 11), LocalDate.of(2026, 10, 10));
+        when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId())).thenReturn(List.of(notLive));
+        when(transactionRepository.sumIncludedDebits(card.getId())).thenReturn(new BigDecimal("7340.50"));
+
+        CardBill row = service.listBills(user.getId()).get(0);
+
+        assertEquals(BillStatus.AWAITING_STATEMENT, row.status());
+        assertEquals(card.getId(), row.accountId());
+        assertEquals("HDFC Regalia", row.accountName());
+        assertEquals("4321", row.last4());
+        assertTrue(row.muted());
+        assertNull(row.statementId());
+        assertNull(row.periodStart());
+        assertNull(row.periodEnd());
+        assertNull(row.paymentDueDate());
+        assertNull(row.totalAmountDue());
+        assertNull(row.minimumAmountDue());
+        assertNull(row.paidAmount());
+        assertNull(row.remainingAmount());
+        assertNull(row.daysUntilDue());
+        assertNull(row.paidMarkedOn());
+        assertNull(row.statementCreatedAt());
+        assertNull(row.lastNotifiedKind());
+        assertNull(row.lastNotifiedOn());
+        assertNull(row.digest());
+        assertEquals(PaidSource.NONE, row.paidSource());
+        assertTrue(row.possiblePayments().isEmpty());
+        assertEquals(new BigDecimal("7340.50"), row.unbilledAmount(), "since-ever spend: the card has no statement to count from");
+        assertEquals(LocalDate.of(2026, 11, 10), row.nextStatementExpectedOn());
+        verify(transactionRepository, never()).sumIncludedDebitsAfter(any(), any());
+        verify(transactionRepository, never()).findCreditsAfter(any(), any());
+    }
+
+    @Test
+    void awaitingStatementRowWithNoStatementsAtAllHasNoExpectedDateAndFloorsTheSpend() {
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(card));
+        when(statementRepository.findQualifyingCreditCardStatements(card.getId())).thenReturn(List.of());
+        when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId())).thenReturn(List.of());
+
+        when(transactionRepository.sumIncludedDebits(card.getId())).thenReturn(null);
+        CardBill noSpend = service.listBills(user.getId()).get(0);
+        assertEquals(BigDecimal.ZERO, noSpend.unbilledAmount());
+        assertNull(noSpend.nextStatementExpectedOn());
+        assertFalse(noSpend.muted());
+        assertNull(noSpend.last4());
+
+        when(transactionRepository.sumIncludedDebits(card.getId())).thenReturn(new BigDecimal("-40"));
+        assertEquals(BigDecimal.ZERO, service.listBills(user.getId()).get(0).unbilledAmount(), "never negative");
+    }
+
+    @Test
+    void closedCardsGetNoAwaitingRowIncludingOneClosingToday() {
+        Account closedToday = account("Closed today");
+        closedToday.setClosedOn(TODAY);
+        Account closedEarlier = account("Closed earlier");
+        closedEarlier.setClosedOn(TODAY.minusDays(30));
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card))
+                .thenReturn(List.of(closedToday, closedEarlier));
+
+        assertTrue(service.listBills(user.getId()).isEmpty());
+        verify(statementRepository, never()).findQualifyingCreditCardStatements(any());
+        verify(transactionRepository, never()).sumIncludedDebits(any());
+    }
+
+    @Test
+    void listBillsOrdersEveryStatusWithAwaitingBetweenOpenAndNothingDueThenByDueDateThenName() {
+        Account overdue = account("Overdue");
+        Account unknown = account("Unknown");
+        Account open = account("Open");
+        Account partial = account("Partial");
+        Account awaitingZ = account("zeta");
+        Account awaitingA = account("Alpha");
+        Account noDue = account("NoDue");
+        Account paid = account("Paid");
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card))
+                .thenReturn(List.of(paid, awaitingZ, noDue, partial, awaitingA, open, unknown, overdue));
+        Statement overdueS = statement(overdue, TODAY.minusDays(30), BigDecimal.TEN, TODAY.minusDays(2));
+        Statement unknownS = statement(unknown, TODAY.minusDays(10), BigDecimal.TEN, null);
+        Statement openS = statement(open, TODAY.minusDays(10), BigDecimal.TEN, TODAY.plusDays(3));
+        Statement partialS = statement(partial, TODAY.minusDays(10), BigDecimal.TEN, TODAY.plusDays(5));
+        partialS.getCreditCardDetails().setPaidMarkedOn(TODAY);
+        partialS.getCreditCardDetails().setPaidMarkedAmount(BigDecimal.ONE);
+        Statement noDueS = statement(noDue, TODAY.minusDays(10), BigDecimal.ZERO, TODAY.plusDays(1));
+        Statement paidS = statement(paid, TODAY.minusDays(10), BigDecimal.TEN, TODAY.plusDays(1));
+        paidS.getCreditCardDetails().setPaidMarkedOn(TODAY);
+        liveStatement(overdue, overdueS, BigDecimal.ZERO);
+        liveStatement(unknown, unknownS, BigDecimal.ZERO);
+        liveStatement(open, openS, BigDecimal.ZERO);
+        liveStatement(partial, partialS, BigDecimal.ZERO);
+        liveStatement(noDue, noDueS, BigDecimal.ZERO);
+        liveStatement(paid, paidS, BigDecimal.ZERO);
+        when(statementRepository.findQualifyingCreditCardStatements(awaitingZ.getId())).thenReturn(List.of());
+        when(statementRepository.findQualifyingCreditCardStatements(awaitingA.getId())).thenReturn(List.of());
+
+        List<CardBill> bills = service.listBills(user.getId());
+
+        assertEquals(List.of(BillStatus.OVERDUE, BillStatus.DUE_UNKNOWN, BillStatus.OPEN, BillStatus.PARTIAL,
+                        BillStatus.AWAITING_STATEMENT, BillStatus.AWAITING_STATEMENT, BillStatus.NO_DUE, BillStatus.PAID),
+                bills.stream().map(CardBill::status).toList());
+        assertEquals(List.of("Overdue", "Unknown", "Open", "Partial", "Alpha", "zeta", "NoDue", "Paid"),
+                bills.stream().map(CardBill::accountName).toList(),
+                "OPEN and PARTIAL share a bucket ordered by due date; awaiting rows tie-break by name, ignoring case");
+    }
+
+    @Test
+    void unbilledAmountIsTheIncludedDebitSumAfterThePeriodEndAndCreditsNeverReduceIt() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(card));
+        liveStatement(card, s, new BigDecimal("3500"));
+        Transaction refund = credit(card, TODAY.minusDays(2), "1200");
+        Transaction plain = credit(card, TODAY.minusDays(1), "800");
+        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(refund, plain));
+        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
+                .thenReturn(List.of(link(LinkType.REFUND, refund, false)));
+
+        CardBill bill = service.listBills(user.getId()).get(0);
+
+        assertEquals(new BigDecimal("3500"), bill.unbilledAmount());
+        assertEquals(new BigDecimal("1200"), bill.paidAmount(), "the refund counts towards the bill instead");
+        verify(transactionRepository).sumIncludedDebitsAfter(card.getId(), s.getPeriodEnd());
+        verify(transactionRepository, never()).sumIncludedDebits(any());
+    }
+
+    @Test
+    void unbilledAmountIsFlooredAtZeroAndTreatsAMissingSumAsZero() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("100"), TODAY.plusDays(18));
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(card));
+        liveStatement(card, s, new BigDecimal("-25"));
+        assertEquals(BigDecimal.ZERO, service.listBills(user.getId()).get(0).unbilledAmount());
+
+        when(transactionRepository.sumIncludedDebitsAfter(card.getId(), s.getPeriodEnd())).thenReturn(null);
+        assertEquals(BigDecimal.ZERO, service.listBills(user.getId()).get(0).unbilledAmount());
+    }
+
+    @Test
+    void statementWithoutAPeriodEndHasNoUnbilledAmountOrExpectedStatement() {
+        Statement undated = statement(card, null, new BigDecimal("100"), TODAY.plusDays(5));
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(card));
+        liveStatement(card, undated, null);
+
+        CardBill bill = service.listBills(user.getId()).get(0);
+
+        assertEquals(BillStatus.OPEN, bill.status());
+        assertNull(bill.unbilledAmount());
+        assertNull(bill.nextStatementExpectedOn(), "an undated statement gives the cycles nothing to project from");
+        verify(transactionRepository, never()).sumIncludedDebitsAfter(any(), any());
+        verify(transactionRepository, never()).sumIncludedDebits(any());
+    }
+
+    @Test
+    void nextStatementIsTheCycleAfterTheLatestDatedStatementAndMayAlreadyBePast() {
+        Statement current = statement(card, TODAY.minusDays(10), new BigDecimal("100"), TODAY.plusDays(18));
+        Statement older = statement(card, LocalDate.of(2026, 9, 10), new BigDecimal("100"), LocalDate.of(2026, 9, 28));
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(card));
+        when(statementRepository.findQualifyingCreditCardStatements(card.getId())).thenReturn(List.of(older, current));
+        // Listed oldest first on purpose: the latest period end wins whatever the order.
+        when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId())).thenReturn(List.of(older, current));
+
+        assertEquals(LocalDate.of(2026, 11, 10), service.listBills(user.getId()).get(0).nextStatementExpectedOn());
+
+        // The next statement is late: the projected close is already behind today and is still reported.
+        Statement stale = statement(card, LocalDate.of(2026, 8, 10), new BigDecimal("100"), LocalDate.of(2026, 8, 28));
+        when(statementRepository.findQualifyingCreditCardStatements(card.getId())).thenReturn(List.of(stale));
+        when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId())).thenReturn(List.of(stale));
+        assertEquals(LocalDate.of(2026, 9, 10), service.listBills(user.getId()).get(0).nextStatementExpectedOn());
+    }
+
+    @Test
+    void nextStatementIgnoresRejectedAndInvertedStatementsAndIsNullWithNoDatedOne() {
+        Statement live = statement(card, LocalDate.of(2026, 9, 10), new BigDecimal("100"), LocalDate.of(2026, 9, 28));
+        Statement rejected = datedStatementWithoutDetails(card, LocalDate.of(2026, 9, 11), LocalDate.of(2026, 10, 10));
+        rejected.setVerdict(StatementVerdict.REJECTED);
+        Statement inverted = datedStatementWithoutDetails(card, LocalDate.of(2026, 12, 10), LocalDate.of(2026, 11, 11));
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(card));
+        when(statementRepository.findQualifyingCreditCardStatements(card.getId())).thenReturn(List.of(live));
+        when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId()))
+                .thenReturn(List.of(inverted, rejected, live));
+
+        assertEquals(LocalDate.of(2026, 10, 10), service.listBills(user.getId()).get(0).nextStatementExpectedOn(),
+                "projected from the September statement: the rejected and the inverted periods are ignored");
+
+        Statement undated = datedStatementWithoutDetails(card, null, null);
+        when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId()))
+                .thenReturn(List.of(rejected, inverted, undated));
+        assertNull(service.listBills(user.getId()).get(0).nextStatementExpectedOn());
+    }
+
+    @Test
+    void buildLeavesTheReadSideExtrasNullAndNeverQueriesForThem() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        liveStatement(card, s, new BigDecimal("3500"));
+
+        CardBill bill = service.build(card, s, TODAY);
+
+        assertNull(bill.unbilledAmount());
+        assertNull(bill.nextStatementExpectedOn());
+        verify(transactionRepository, never()).sumIncludedDebitsAfter(any(), any());
+        verify(transactionRepository, never()).sumIncludedDebits(any());
+        verify(statementRepository, never()).findByAccountIdOrderByPeriodEndDescNullsLast(any());
+    }
+
+    @Test
+    void singleBillReadsAndEveryWriteReturnTheEnrichedBill() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        liveStatement(card, s, new BigDecimal("3500"));
+        LocalDate next = LocalDate.of(2026, 11, 10);
+
+        CardBill read = service.findByStatementId(user.getId(), s.getId());
+        assertEquals(new BigDecimal("3500"), read.unbilledAmount());
+        assertEquals(next, read.nextStatementExpectedOn());
+
+        CardBill marked = service.markPaid(user.getId(), s.getId(), new BigDecimal("1000"), null);
+        assertEquals(new BigDecimal("3500"), marked.unbilledAmount());
+        assertEquals(next, marked.nextStatementExpectedOn());
+
+        CardBill unmarked = service.unmarkPaid(user.getId(), s.getId());
+        assertEquals(new BigDecimal("3500"), unmarked.unbilledAmount());
+        assertEquals(next, unmarked.nextStatementExpectedOn());
+
+        CardBill updated = service.updateDetails(user.getId(), s.getId(), TODAY.plusDays(20), null, null);
+        assertEquals(new BigDecimal("3500"), updated.unbilledAmount());
+        assertEquals(next, updated.nextStatementExpectedOn());
+    }
+
+    // ---------------------------------------------------------------- refund / reversal settlement
+
+    @Test
+    void reversalLinkedCreditCountsAsLinkedPaymentAndIsNotAPossiblePayment() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        Transaction reversal = credit(card, TODAY.minusDays(2), "1500");
+        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(reversal));
+        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
+                .thenReturn(List.of(link(LinkType.REVERSAL, reversal, false)));
+
+        CardBill bill = service.build(card, s, TODAY);
+
+        assertEquals(BillStatus.PARTIAL, bill.status());
+        assertEquals(PaidSource.LINK, bill.paidSource());
+        assertEquals(new BigDecimal("1500"), bill.paidAmount());
+        assertEquals(new BigDecimal("46750"), bill.remainingAmount());
+        assertTrue(bill.possiblePayments().isEmpty());
+    }
+
+    @Test
+    void refundsAndPaymentsTogetherCanPayTheBillInFull() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("10000"), TODAY.plusDays(18));
+        Transaction payment = credit(card, TODAY.minusDays(3), "8000");
+        Transaction refund = credit(card, TODAY.minusDays(2), "1500");
+        Transaction reversal = credit(card, TODAY.minusDays(1), "500");
+        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(payment, refund, reversal));
+        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection())).thenReturn(List.of(
+                link(LinkType.CC_PAYMENT, payment, false), link(LinkType.REFUND, refund, false),
+                link(LinkType.REVERSAL, reversal, false)));
+
+        CardBill bill = service.build(card, s, TODAY);
+
+        assertEquals(BillStatus.PAID, bill.status());
+        assertEquals(PaidSource.LINK, bill.paidSource());
+        assertEquals(new BigDecimal("10000"), bill.paidAmount());
+        assertEquals(0, bill.remainingAmount().signum());
+    }
+
+    @Test
+    void refundOrReversalCountsEvenWhenTheCardCreditIsTheLinkAnchor() {
+        for (LinkType type : List.of(LinkType.REFUND, LinkType.REVERSAL)) {
+            Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+            Transaction anchored = credit(card, TODAY.minusDays(2), "700");
+            when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(anchored));
+            when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
+                    .thenReturn(List.of(link(type, anchored, true)));
+
+            CardBill bill = service.build(card, s, TODAY);
+
+            assertEquals(new BigDecimal("700"), bill.paidAmount(), type + ": the anchor rule is CC_PAYMENT-only");
+            assertEquals(PaidSource.LINK, bill.paidSource(), type.name());
+        }
+    }
+
+    @Test
+    void creditsLinkedAsTransferFeeOrEmiAreNeitherPaidNorPossible() {
+        for (LinkType type : List.of(LinkType.TRANSFER, LinkType.FEE, LinkType.EMI)) {
+            Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+            Transaction linked = credit(card, TODAY.minusDays(2), "700");
+            when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(linked));
+            when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
+                    .thenReturn(List.of(link(type, linked, false)));
+
+            CardBill bill = service.build(card, s, TODAY);
+
+            assertEquals(BillStatus.OPEN, bill.status(), type.name());
+            assertEquals(0, bill.paidAmount().signum(), type.name());
+            assertTrue(bill.possiblePayments().isEmpty(), type.name());
+        }
+    }
+
+    @Test
+    void excludedRefundLinkedCreditDoesNotCount() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        Transaction refund = credit(card, TODAY.minusDays(2), "999");
+        refund.setTransactionExcluded(true);
+        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(refund));
+        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
+                .thenReturn(List.of(link(LinkType.REFUND, refund, false)));
+
+        CardBill bill = service.build(card, s, TODAY);
+
+        assertEquals(BillStatus.OPEN, bill.status());
+        assertEquals(PaidSource.NONE, bill.paidSource());
+    }
+
+    @Test
+    void manualMarkStillWinsOverRefundLinks() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        Transaction refund = credit(card, TODAY.minusDays(2), "48250");
+        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(refund));
+        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
+                .thenReturn(List.of(link(LinkType.REFUND, refund, false)));
+        s.getCreditCardDetails().setPaidMarkedOn(TODAY);
+        s.getCreditCardDetails().setPaidMarkedAmount(new BigDecimal("10000"));
+
+        CardBill bill = service.build(card, s, TODAY);
+
+        assertEquals(PaidSource.MANUAL, bill.paidSource());
+        assertEquals(new BigDecimal("10000"), bill.paidAmount(), "the refund that alone would pay in full is ignored");
+        assertEquals(BillStatus.PARTIAL, bill.status());
     }
 }
