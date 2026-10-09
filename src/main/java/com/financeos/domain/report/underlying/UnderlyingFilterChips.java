@@ -26,7 +26,8 @@ import java.util.stream.StreamSupport;
  * {@code in Food, Fuel}, {@code is No}); date operators read as words ({@code This month},
  * {@code Last 30 days}, {@code Between 01/10/2026 and 31/10/2026}), dates as dd/mm/yyyy. A
  * computed datasource's dynamic enum filters store ids ({@code idField}); those are shown by the
- * label the field's filter options give them (the id itself when no option matches). Internal
+ * label the field's filter options give them (the id itself when no option matches). A static
+ * enum's values read by the field's value labels ({@code Kind in Bank account, Broker}). Internal
  * clauses ({@link UnderlyingOperators}) are not shown.
  */
 @Component
@@ -61,7 +62,11 @@ public class UnderlyingFilterChips {
         for (FilterClause filter : shown) {
             FieldDef field = datasource.field(filter.field());
             String fieldLabel = field != null ? field.label() : filter.field();
-            Map<String, String> labels = idLabels.getOrDefault(filter.field(), Map.of());
+            Map<String, String> labels = new HashMap<>();
+            if (field != null && field.valueLabels() != null) {
+                labels.putAll(field.valueLabels());
+            }
+            labels.putAll(idLabels.getOrDefault(filter.field(), Map.of()));
             chips.add(new UnderlyingFilterChip(filter.field(), fieldLabel, filter.operator(),
                     text(field, filter, labels)));
         }

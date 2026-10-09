@@ -14,7 +14,6 @@ import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.definition.AggregatedTableDefinition;
 import com.financeos.domain.report.definition.ChartDefinition;
 import com.financeos.domain.report.definition.ChartType;
-import com.financeos.domain.report.definition.ComparisonDisplay;
 import com.financeos.domain.report.definition.DimensionRef;
 import com.financeos.domain.report.definition.FilterClause;
 import com.financeos.domain.report.definition.Granularity;
@@ -26,6 +25,7 @@ import com.financeos.domain.report.definition.SortDirection;
 import com.financeos.domain.report.definition.TableDefinition;
 import com.financeos.domain.report.underlying.UnderlyingOperators;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -82,7 +82,7 @@ public class InMemoryReportExecutor {
         if (periods.previousAvailable()) {
             List<Map<String, Object>> prevRows = filterRows(allRows, periods.previous().filters(), computedDs);
             BigDecimal prevVal = calculateAggregate(prevRows, def.measure(), def.aggregation());
-            comparison = comparison(val, prevVal, rangeView(periods.previous().range()), def);
+            comparison = KpiComparisons.build(val, prevVal, periods.previous().range(), def.comparison());
         }
 
         DateRange range = periods.current().range();
@@ -102,8 +102,18 @@ public class InMemoryReportExecutor {
      * {@link UnderlyingOperators#listing}), in datasource order.
      */
     public KpiRows kpiRows(KpiDefinition def, ReportDatasource datasource, List<FilterClause> periodFilters) {
+        return kpiRows(def, datasource, periodFilters, null);
+    }
+
+    /**
+     * {@link #kpiRows(KpiDefinition, ReportDatasource, List)} over rows the caller already loaded
+     * from the datasource ({@code loadedRows}, every row or at least the period's); null loads them.
+     */
+    public KpiRows kpiRows(KpiDefinition def, ReportDatasource datasource, List<FilterClause> periodFilters,
+                           @Nullable List<Map<String, Object>> loadedRows) {
         ComputedReportDatasource computedDs = (ComputedReportDatasource) datasource;
-        List<Map<String, Object>> periodRows = filterRows(loadRows(computedDs, periodFilters), periodFilters, computedDs);
+        List<Map<String, Object>> rows = loadedRows != null ? loadedRows : loadRows(computedDs, periodFilters);
+        List<Map<String, Object>> periodRows = filterRows(rows, periodFilters, computedDs);
         BigDecimal value = calculateAggregate(periodRows, def.measure(), def.aggregation());
         List<Map<String, Object>> listed = filterRows(periodRows,
                 UnderlyingOperators.listing(def.measure(), def.aggregation(), value), computedDs);
@@ -137,26 +147,6 @@ public class InMemoryReportExecutor {
 
     private static KpiData.DateRangeView rangeView(DateRange range) {
         return new KpiData.DateRangeView(range.from(), range.to());
-    }
-
-    private KpiData.Comparison comparison(BigDecimal val, BigDecimal prevVal, KpiData.DateRangeView prevView, KpiDefinition def) {
-        if (prevVal == null) {
-            return null;
-        }
-        BigDecimal change = val != null ? val.subtract(prevVal) : null;
-        BigDecimal changePct = null;
-        if (val != null && prevVal.compareTo(BigDecimal.ZERO) != 0) {
-            changePct = change.divide(prevVal.abs(), 4, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
-        }
-        String direction = change == null || change.compareTo(BigDecimal.ZERO) == 0 ? "flat"
-                : (change.compareTo(BigDecimal.ZERO) > 0 ? "up" : "down");
-        Boolean higherIsBetter = def.comparison() == null ? null : def.comparison().higherIsBetter();
-        String sentiment = "neutral";
-        if (higherIsBetter != null && !"flat".equals(direction)) {
-            sentiment = ("up".equals(direction) == higherIsBetter) ? "good" : "bad";
-        }
-        return new KpiData.Comparison(prevVal, prevView, change, changePct, direction, sentiment,
-                ComparisonDisplay.resolve(def.comparison()).json());
     }
 
     // ------------------------------------------------------------------
@@ -245,7 +235,9 @@ public class InMemoryReportExecutor {
         ChartData.Meta meta = new ChartData.Meta(filteredRows.size(), dateRangeView);
         ChartData.MeasureView measureView = new ChartData.MeasureView(measure.field(), measure.aggregation().json());
 
-        return new ChartData("CHART", def.chartType().json(), dim.field(), categories, seriesList, measureView, meta);
+        return new ChartData("CHART", def.chartType().json(), dim.field(), categories, seriesList, measureView, meta,
+                ChartReportExecutor.valueLabels(datasource, dim),
+                seriesDim != null ? ChartReportExecutor.valueLabels(datasource, seriesDim) : null);
     }
 
     // ------------------------------------------------------------------
@@ -329,7 +321,7 @@ public class InMemoryReportExecutor {
             String label = f != null ? f.label() : colName;
             String type = f != null ? f.type().name().toLowerCase() : "string";
             String format = f != null ? f.format() : null;
-            return new TableData.Column(colName, label, type, format);
+            return new TableData.Column(colName, label, type, format, f != null ? f.valueLabels() : null);
         }).toList();
 
         List<Map<String, Object>> data = new ArrayList<>();
@@ -345,6 +337,12 @@ public class InMemoryReportExecutor {
 
         TableData.Page pageObj = new TableData.Page(pNum, pSize, totalRows, totalPages);
         return new TableData("TABLE", "raw", tableColumns, data, pageObj);
+    }
+
+    private static PivotTableData.DimensionInfo dimensionInfo(DimensionRef d, ReportDatasource datasource) {
+        FieldDef f = datasource.field(d.field());
+        return new PivotTableData.DimensionInfo(d.field(), f != null ? f.label() : d.field(),
+                ChartReportExecutor.valueLabels(datasource, d));
     }
 
     private PivotTableData executeAggregatedTable(AggregatedTableDefinition def, ReportDatasource datasource, Integer page, Integer size) {
@@ -378,15 +376,8 @@ public class InMemoryReportExecutor {
         List<List<Object>> sortedColKeys = new ArrayList<>(rawColKeys);
         sortedColKeys.sort((a, b) -> compareDimensionLists(a, b, colDims, datasource));
 
-        List<PivotTableData.DimensionInfo> rowDimInfo = rowDims.stream().map(d -> {
-            FieldDef f = datasource.field(d.field());
-            return new PivotTableData.DimensionInfo(d.field(), f != null ? f.label() : d.field());
-        }).toList();
-
-        List<PivotTableData.DimensionInfo> colDimInfo = colDims.stream().map(d -> {
-            FieldDef f = datasource.field(d.field());
-            return new PivotTableData.DimensionInfo(d.field(), f != null ? f.label() : d.field());
-        }).toList();
+        List<PivotTableData.DimensionInfo> rowDimInfo = rowDims.stream().map(d -> dimensionInfo(d, datasource)).toList();
+        List<PivotTableData.DimensionInfo> colDimInfo = colDims.stream().map(d -> dimensionInfo(d, datasource)).toList();
 
         List<PivotTableData.MeasureInfo> measureInfos = measures.stream().map(m -> {
             FieldDef f = datasource.field(m.field());

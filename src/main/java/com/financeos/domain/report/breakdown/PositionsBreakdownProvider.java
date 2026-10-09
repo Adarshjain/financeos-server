@@ -11,8 +11,10 @@ import com.financeos.domain.investment.HoldingPosition;
 import com.financeos.domain.investment.HoldingTrace;
 import com.financeos.domain.investment.InvestmentService;
 import com.financeos.domain.notification.MessageFormat;
+import com.financeos.domain.report.definition.SortClause;
 import com.financeos.domain.report.engine.ReportData;
 import com.financeos.domain.report.engine.TableData;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,8 +83,8 @@ public class PositionsBreakdownProvider implements RowBreakdownProvider {
         BigDecimal total = open ? p.currentValue() : BigDecimal.ZERO;
 
         List<BreakdownSectionData> sections = List.of(
-                new BreakdownSectionData(LOTS, "Open lots", null, null, lotsTable(trace, 0, size)),
-                new BreakdownSectionData(HISTORY, "History", null, null, historyTable(trace, 0, size)));
+                new BreakdownSectionData(LOTS, "Open lots", null, null, lotsTable(trace, 0, size, null)),
+                new BreakdownSectionData(HISTORY, "History", null, null, historyTable(trace, 0, size, null)));
 
         return new RowBreakdownResponse(
                 datasource(),
@@ -99,12 +101,18 @@ public class PositionsBreakdownProvider implements RowBreakdownProvider {
                 notes(p));
     }
 
+    /** Declared here (not only the interface default) so it runs in this bean's transaction. */
     @Override
     public ReportData section(String rowId, String section, int page, int size) {
+        return section(rowId, section, page, size, null);
+    }
+
+    @Override
+    public ReportData section(String rowId, String section, int page, int size, @Nullable SortClause sort) {
         HoldingTrace trace = trace(rowId);
         return switch (section) {
-            case LOTS -> lotsTable(trace, page, size);
-            case HISTORY -> historyTable(trace, page, size);
+            case LOTS -> lotsTable(trace, page, size, sort);
+            case HISTORY -> historyTable(trace, page, size, sort);
             default -> throw new ResourceNotFoundException("Breakdown section", section);
         };
     }
@@ -203,7 +211,7 @@ public class PositionsBreakdownProvider implements RowBreakdownProvider {
      * the row's quantity and invested amount: both are the unrounded lot sums rounded once, so the
      * per-lot rounding is apportioned (largest remainder) to land on that same figure.
      */
-    private TableData lotsTable(HoldingTrace trace, int page, int size) {
+    private TableData lotsTable(HoldingTrace trace, int page, int size, @Nullable SortClause sort) {
         List<HoldingTrace.OpenLot> lots = trace.openLots();
         List<BigDecimal> quantities = apportion(lots.stream().map(HoldingTrace.OpenLot::quantity).toList(), QUANTITY_SCALE);
         List<BigDecimal> costs = apportion(lots.stream().map(HoldingTrace.OpenLot::cost).toList(), COST_SCALE);
@@ -220,10 +228,10 @@ public class PositionsBreakdownProvider implements RowBreakdownProvider {
             row.put("cost", costs.get(i));
             rows.add(row);
         }
-        return BreakdownTables.slice(LOT_COLUMNS, rows, page, size);
+        return BreakdownTables.sorted(LOT_COLUMNS, rows, sort, page, size);
     }
 
-    private TableData historyTable(HoldingTrace trace, int page, int size) {
+    private TableData historyTable(HoldingTrace trace, int page, int size, @Nullable SortClause sort) {
         List<HoldingTrace.Event> events = trace.events();
         List<Map<String, Object>> rows = new ArrayList<>();
         for (int i = 0; i < events.size(); i++) {
@@ -237,7 +245,7 @@ public class PositionsBreakdownProvider implements RowBreakdownProvider {
             row.put("quantityAfter", e.quantityAfter());
             rows.add(row);
         }
-        return BreakdownTables.slice(HISTORY_COLUMNS, rows, page, size);
+        return BreakdownTables.sorted(HISTORY_COLUMNS, rows, sort, page, size);
     }
 
     private static String originLabel(HoldingTrace.LotSource source) {

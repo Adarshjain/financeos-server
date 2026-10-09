@@ -7,7 +7,6 @@ import com.financeos.domain.account.cycle.CycleOperators;
 import com.financeos.domain.account.cycle.CycleWindows;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ReportDatasource;
-import com.financeos.domain.report.definition.ComparisonDisplay;
 import com.financeos.domain.report.definition.FilterClause;
 import com.financeos.domain.report.definition.KpiDefinition;
 import jakarta.persistence.EntityManager;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -49,9 +47,7 @@ public class KpiReportExecutor {
         KpiData.Comparison comparison = null;
         if (periods.previousAvailable()) {
             Aggregate prior = runAggregate(def, queryBuilder, periods.previous().filters(), userId);
-            Boolean higherIsBetter = def.comparison() == null ? null : def.comparison().higherIsBetter();
-            comparison = buildComparison(main.value(), prior.value(), periods.previous().range(), higherIsBetter,
-                    ComparisonDisplay.resolve(def.comparison()));
+            comparison = KpiComparisons.build(main.value(), prior.value(), periods.previous().range(), def.comparison());
         }
 
         DateRange currentRange = periods.current().range();
@@ -121,37 +117,5 @@ public class KpiReportExecutor {
             value = BigDecimal.ZERO;
         }
         return new Aggregate(value, rowCount);
-    }
-
-    private static KpiData.Comparison buildComparison(BigDecimal current, BigDecimal previousValue,
-            DateRange previousRange, Boolean higherIsBetter, ComparisonDisplay display) {
-        BigDecimal cur = current == null ? BigDecimal.ZERO : current;
-        // The change treats a missing prior value as zero; the echoed previousValue stays null so
-        // a "previous value" display can show a dash instead of a fabricated zero.
-        BigDecimal prev = previousValue == null ? BigDecimal.ZERO : previousValue;
-        BigDecimal change = cur.subtract(prev);
-
-        BigDecimal changePercent = null;
-        if (prev.signum() != 0) {
-            changePercent = change
-                    .divide(prev.abs(), 6, RoundingMode.HALF_UP)
-                    .multiply(BigDecimal.valueOf(100))
-                    .setScale(2, RoundingMode.HALF_UP);
-        }
-
-        String direction = change.signum() > 0 ? "up" : change.signum() < 0 ? "down" : "flat";
-
-        String sentiment;
-        if (higherIsBetter == null || change.signum() == 0) {
-            sentiment = "neutral";
-        } else if (change.signum() > 0) {
-            sentiment = higherIsBetter ? "good" : "bad";
-        } else {
-            sentiment = higherIsBetter ? "bad" : "good";
-        }
-
-        KpiData.DateRangeView previousView = new KpiData.DateRangeView(previousRange.from(), previousRange.to());
-        return new KpiData.Comparison(previousValue, previousView, change, changePercent, direction, sentiment,
-                display.json());
     }
 }

@@ -265,7 +265,7 @@ class InMemoryReportExecutorCycleTest {
 
         assertEquals("down", data.comparison().direction());
         assertEquals("bad", data.comparison().sentiment());
-        assertEquals(new BigDecimal("-80.0000"), data.comparison().changePercent());
+        assertEquals(new BigDecimal("-80.00"), data.comparison().changePercent());
     }
 
     @Test

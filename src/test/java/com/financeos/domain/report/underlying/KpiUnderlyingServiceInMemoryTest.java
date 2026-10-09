@@ -163,7 +163,7 @@ class KpiUnderlyingServiceInMemoryTest {
         KpiData kpi = inMemory.execute(def, ds, Map.of());
         KpiUnderlyingResponse previous = run(ds, "previous", null, null, null);
 
-        assertNull(kpi.comparison(), "the in-memory KPI drops a comparison without a previous value");
+        assertNull(kpi.comparison().previousValue(), "an empty previous period has no previous value, as on the SQL path");
         assertNull(previous.value());
         assertTrue(previous.previousAvailable());
         assertEquals(0, previous.rowCount());

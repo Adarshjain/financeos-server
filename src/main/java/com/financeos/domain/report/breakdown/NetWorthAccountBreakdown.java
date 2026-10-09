@@ -9,7 +9,9 @@ import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.investment.HoldingPosition;
 import com.financeos.domain.investment.InvestmentService;
 import com.financeos.domain.notification.MessageFormat;
+import com.financeos.domain.report.datasource.impl.NetWorthDatasource;
 import com.financeos.domain.report.datasource.impl.NetWorthPlacement;
+import com.financeos.domain.report.definition.SortClause;
 import com.financeos.domain.report.engine.ReportData;
 import com.financeos.domain.report.engine.TableData;
 import com.financeos.domain.transaction.Transaction;
@@ -17,6 +19,7 @@ import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +28,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,13 +98,20 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
 
     @Override
     public Optional<ReportData> section(UUID id, String section, int page, int size) {
+        return section(id, section, page, size, null);
+    }
+
+    @Override
+    public Optional<ReportData> section(UUID id, String section, int page, int size, @Nullable SortClause sort) {
         return countedAccount(id).map(account -> {
             boolean broker = account.getType() == AccountType.broker;
             if (broker && HOLDINGS.equals(section)) {
-                return BreakdownTables.slice(HOLDING_COLUMNS, holdingRows(openPositions(account)), page, size);
+                return BreakdownTables.sorted(HOLDING_COLUMNS, holdingRows(openPositions(account)), sort, page, size);
             }
             if (!broker && TRANSACTIONS.equals(section)) {
-                return transactionsTable(account, anchorDate(account), page, size);
+                return sort == null
+                        ? transactionsTable(account, anchorDate(account), page, size)
+                        : sortedTransactionsTable(account, anchorDate(account), sort, page, size);
             }
             throw new ResourceNotFoundException("Breakdown section", section);
         });
@@ -183,18 +194,43 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
         return BreakdownTables.page(TRANSACTION_COLUMNS, rows, page, size, result.getTotalElements());
     }
 
-    /** Amount is signed as the balance counts it: credits positive, every other type negative. */
+    /**
+     * The section ordered by one of its columns over every listed transaction, then paged. The
+     * rows come from two flat queries (the transactions, their category names) with the same
+     * WHERE as {@link #transactionsTable}, in its newest-first order, which the stable sort keeps
+     * as the tiebreak.
+     */
+    private TableData sortedTransactionsTable(Account account, LocalDate anchor, SortClause sort, int page, int size) {
+        BreakdownTables.requireColumn(TRANSACTION_COLUMNS, sort);
+        Map<UUID, List<String>> categories = new HashMap<>();
+        for (TransactionRepository.BalanceTransactionCategoryRow c
+                : transactionRepository.findBalanceTransactionCategoryNames(account.getId(), anchor)) {
+            categories.computeIfAbsent(c.getTransactionId(), k -> new ArrayList<>()).add(c.getName());
+        }
+        List<Map<String, Object>> rows = transactionRepository.findBalanceTransactionRows(account.getId(), anchor).stream()
+                .map(t -> transactionRow(t.getId(), t.getDate(), t.getDescription(), t.getSourcedDescription(),
+                        categories.getOrDefault(t.getId(), List.of()), t.getType(), t.getAmount(), t.getExcluded()))
+                .toList();
+        return BreakdownTables.sorted(TRANSACTION_COLUMNS, rows, sort, page, size);
+    }
+
     private static Map<String, Object> transactionRow(Transaction t) {
+        return transactionRow(t.getId(), t.getDate(), t.getDescription(), t.getSourcedDescription(),
+                t.getCategories().stream().map(tc -> tc.getCategory().getName()).toList(),
+                t.getType(), t.getAmount(), t.isTransactionExcluded());
+    }
+
+    /** Amount is signed as the balance counts it: credits positive, every other type negative. */
+    private static Map<String, Object> transactionRow(UUID id, LocalDate date, String description,
+                                                      String sourcedDescription, List<String> categoryNames,
+                                                      TransactionType type, BigDecimal amount, boolean excluded) {
         Map<String, Object> row = new LinkedHashMap<>();
-        row.put("id", t.getId().toString());
-        row.put("date", t.getDate());
-        row.put("description", t.getDescription() != null ? t.getDescription() : t.getSourcedDescription());
-        row.put("category", t.getCategories().stream()
-                .map(tc -> tc.getCategory().getName())
-                .sorted()
-                .collect(Collectors.joining(", ")));
-        row.put("amount", t.getType() == TransactionType.CREDIT ? t.getAmount() : t.getAmount().negate());
-        row.put("excluded", t.isTransactionExcluded());
+        row.put("id", id.toString());
+        row.put("date", date);
+        row.put("description", description != null ? description : sourcedDescription);
+        row.put("category", categoryNames.stream().sorted().collect(Collectors.joining(", ")));
+        row.put("amount", type == TransactionType.CREDIT ? amount : amount.negate());
+        row.put("excluded", excluded);
         return row;
     }
 
@@ -251,15 +287,8 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
         return row;
     }
 
+    /** The account type as the net worth Kind column labels it. */
     private static String kindLabel(AccountType type) {
-        if (type == null) {
-            return "Account";
-        }
-        return switch (type) {
-            case bank_account -> "Bank account";
-            case credit_card -> "Credit card";
-            case broker -> "Broker";
-            case generic -> "Account";
-        };
+        return type == null ? "Account" : NetWorthDatasource.kindLabel(type.name());
     }
 }

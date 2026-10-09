@@ -14,6 +14,7 @@ import com.financeos.domain.loan.LoanStatus;
 import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ComputedReportDatasource;
+import com.financeos.domain.report.datasource.DatasourceCatalog;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
@@ -83,6 +84,17 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
             AccountType.bank_account.name(), AccountType.credit_card.name(), AccountType.broker.name(),
             AccountType.generic.name(), KIND_LOAN, KIND_LENDING);
     static final List<String> SIDE_VALUES = List.of(FinancialPosition.asset.name(), FinancialPosition.liability.name());
+    /** How each kind reads for people; the generic account type is a wallet or cash account in the app. */
+    static final Map<String, String> KIND_LABELS = DatasourceCatalog.valueLabels(
+            AccountType.bank_account.name(), "Bank account",
+            AccountType.credit_card.name(), "Credit card",
+            AccountType.broker.name(), "Broker",
+            AccountType.generic.name(), "Wallet/Cash",
+            KIND_LOAN, "Loan",
+            KIND_LENDING, "Lending");
+    static final Map<String, String> SIDE_LABELS = DatasourceCatalog.valueLabels(
+            FinancialPosition.asset.name(), "Asset",
+            FinancialPosition.liability.name(), "Liability");
 
     private final AccountService accountService;
     private final LoanService loanService;
@@ -123,6 +135,16 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
     @Override
     public List<Map<String, Object>> rows() {
         return snapshot().rows();
+    }
+
+    /** How a row's {@code kind} reads for people (the Kind column's label for it). */
+    public static String kindLabel(String kind) {
+        return KIND_LABELS.getOrDefault(kind, kind);
+    }
+
+    /** How a row's {@code side} reads for people: "Asset" / "Liability". */
+    public static String sideLabel(FinancialPosition side) {
+        return SIDE_LABELS.get(side.name());
     }
 
     // ------------------------------------------------------------------ KPI underlying data
@@ -169,6 +191,13 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
     @Override
     public List<UnderlyingExcludedItem> notCounted() {
         return snapshot().notCounted();
+    }
+
+    /** The rows and the left-out items share one pass over accounts, loans and counterparties. */
+    @Override
+    public UnderlyingExtras.Snapshot underlyingSnapshot() {
+        Snapshot snapshot = snapshot();
+        return new UnderlyingExtras.Snapshot(snapshot.rows(), snapshot.notCounted());
     }
 
     // ------------------------------------------------------------------ sections
@@ -301,8 +330,10 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
         return List.of(
                 new FieldDef("id", "ID", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY).notFilterable(),
                 new FieldDef("name", "Name", FieldType.STRING, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
-                new FieldDef("kind", "Kind", FieldType.ENUM, FieldRole.DIMENSION, null, KIND_VALUES, null, CHART_TABLE),
-                new FieldDef("side", "Side", FieldType.ENUM, FieldRole.DIMENSION, null, SIDE_VALUES, null, CHART_TABLE),
+                new FieldDef("kind", "Kind", FieldType.ENUM, FieldRole.DIMENSION, null, KIND_VALUES, null, CHART_TABLE)
+                        .withValueLabels(KIND_LABELS),
+                new FieldDef("side", "Side", FieldType.ENUM, FieldRole.DIMENSION, null, SIDE_VALUES, null, CHART_TABLE)
+                        .withValueLabels(SIDE_LABELS),
                 new FieldDef("value", "Value", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM), null, null,
                         KPI_CHART_TABLE, "currency"),
                 new FieldDef("signedValue", "Net value", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM), null,

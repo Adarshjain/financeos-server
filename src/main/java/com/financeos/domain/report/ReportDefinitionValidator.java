@@ -22,6 +22,7 @@ import com.financeos.domain.report.definition.TableDefinition;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -309,10 +310,20 @@ public class ReportDefinitionValidator {
             return;
         }
         for (SortClause clause : sort) {
-            if (clause == null || clause.key() == null || !validKeys.contains(clause.key())) {
-                throw new ValidationException(
-                        "Sort key is not an available column: " + (clause == null ? null : clause.key()));
-            }
+            requireSortKey(clause, validKeys);
+        }
+    }
+
+    /**
+     * Rejects a sort clause whose key is not one of {@code validKeys} (a table's sortable columns),
+     * with the message every report table uses.
+     *
+     * @throws ValidationException when the key is missing or not among {@code validKeys}
+     */
+    public static void requireSortKey(SortClause clause, Collection<String> validKeys) {
+        if (clause == null || clause.key() == null || !validKeys.contains(clause.key())) {
+            throw new ValidationException(
+                    "Sort key is not an available column: " + (clause == null ? null : clause.key()));
         }
     }
 

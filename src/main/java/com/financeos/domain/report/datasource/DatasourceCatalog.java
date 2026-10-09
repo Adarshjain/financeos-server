@@ -13,6 +13,7 @@ import com.financeos.domain.transaction.link.LinkType;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -57,7 +58,21 @@ public class DatasourceCatalog {
              * False when the field cannot be filtered on (it is offered for grouping and columns
              * only: labels, internal ids, counters); null = filterable.
              */
-            Boolean filterable) {
+            Boolean filterable,
+            /*
+             * Static enums only: how each stored value reads for people (e.g. bank_account ->
+             * "Bank account"); null when the values read as they are. Display only: filters,
+             * sorting and grouping keep the stored values.
+             */
+            Map<String, String> valueLabels) {
+
+        public FieldDef(String name, String label, FieldType type, FieldRole role,
+                        List<Aggregation> aggregations, List<String> values,
+                        Boolean dynamic, List<ReportType> allowedInReports, String format, String idField,
+                        Boolean billingCycle, Boolean filterable) {
+            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, format, idField,
+                    billingCycle, filterable, null);
+        }
 
         public FieldDef(String name, String label, FieldType type, FieldRole role,
                         List<Aggregation> aggregations, List<String> values,
@@ -76,7 +91,21 @@ public class DatasourceCatalog {
         /** This field for grouping and columns only: not offered (or accepted) as a filter. */
         public FieldDef notFilterable() {
             return new FieldDef(name, label, type, role, aggregations, values, dynamic, allowedInReports, format,
-                    idField, billingCycle, false);
+                    idField, billingCycle, false, valueLabels);
+        }
+
+        /** This field with display labels for its stored values, in the given order. */
+        public FieldDef withValueLabels(Map<String, String> labels) {
+            return new FieldDef(name, label, type, role, aggregations, values, dynamic, allowedInReports, format,
+                    idField, billingCycle, filterable, Collections.unmodifiableMap(new LinkedHashMap<>(labels)));
+        }
+
+        /** How {@code value} reads for people: its label when it has one, else the value itself. */
+        public Object displayValue(Object value) {
+            if (valueLabels == null || !(value instanceof String s)) {
+                return value;
+            }
+            return valueLabels.getOrDefault(s, s);
         }
 
         /** Not a bean getter on purpose: "filterable" must serialize from the component alone. */
@@ -212,6 +241,21 @@ public class DatasourceCatalog {
             new FieldDef("cardholder", "Cardholder", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
             new FieldDef("cardRelationship", "Card Relationship", FieldType.ENUM, FieldRole.DIMENSION, null,
                     names(CardholderRelationship.values()), null, CHART_TABLE));
+
+    /**
+     * Display labels for a static enum's values, in the given order: {@code value1, label1,
+     * value2, label2, ...} (see {@link FieldDef#withValueLabels}).
+     */
+    public static Map<String, String> valueLabels(String... valueLabelPairs) {
+        if (valueLabelPairs.length % 2 != 0) {
+            throw new IllegalArgumentException("Value labels come in value, label pairs");
+        }
+        Map<String, String> labels = new LinkedHashMap<>();
+        for (int i = 0; i < valueLabelPairs.length; i += 2) {
+            labels.put(valueLabelPairs[i], valueLabelPairs[i + 1]);
+        }
+        return Collections.unmodifiableMap(labels);
+    }
 
     /** A static enum field's values: the enum's names, as stored. */
     private static List<String> names(Enum<?>[] values) {

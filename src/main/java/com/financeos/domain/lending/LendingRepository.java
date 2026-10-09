@@ -2,6 +2,7 @@ package com.financeos.domain.lending;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +19,8 @@ public interface LendingRepository extends JpaRepository<Lending, UUID> {
     Page<Lending> findAll(Pageable pageable);
 
     List<Lending> findByCounterparty_Id(UUID counterpartyId);
+
+    List<Lending> findByCounterparty_Id(UUID counterpartyId, Sort sort);
 
     boolean existsByCounterparty_Id(UUID counterpartyId);
 

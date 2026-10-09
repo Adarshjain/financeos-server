@@ -9,9 +9,12 @@ import com.financeos.domain.loan.LoanEventType;
 import com.financeos.domain.loan.LoanService;
 import com.financeos.domain.loan.LoanService.LoanScheduleDetail;
 import com.financeos.domain.loan.LoanStatus;
+import com.financeos.domain.report.datasource.impl.NetWorthDatasource;
 import com.financeos.domain.report.datasource.impl.NetWorthPlacement;
+import com.financeos.domain.report.definition.SortClause;
 import com.financeos.domain.report.engine.ReportData;
 import com.financeos.domain.report.engine.TableData;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,13 +71,18 @@ class NetWorthLoanBreakdown implements NetWorthItemBreakdown {
 
     @Override
     public Optional<ReportData> section(UUID id, String section, int page, int size) {
+        return section(id, section, page, size, null);
+    }
+
+    @Override
+    public Optional<ReportData> section(UUID id, String section, int page, int size, @Nullable SortClause sort) {
         return activeLoan(id).map(detail -> {
             LoanView view = new LoanView(detail, AppTime.today());
             if (INSTALLMENTS.equals(section)) {
-                return BreakdownTables.slice(INSTALLMENT_COLUMNS, installmentRows(view), page, size);
+                return BreakdownTables.sorted(INSTALLMENT_COLUMNS, installmentRows(view), sort, page, size);
             }
             if (PREPAYMENTS.equals(section) && !view.prepayments().isEmpty()) {
-                return BreakdownTables.slice(PREPAYMENT_COLUMNS, prepaymentRows(view), page, size);
+                return BreakdownTables.sorted(PREPAYMENT_COLUMNS, prepaymentRows(view), sort, page, size);
             }
             throw new ResourceNotFoundException("Breakdown section", section);
         });
@@ -129,7 +137,8 @@ class NetWorthLoanBreakdown implements NetWorthItemBreakdown {
             sections.add(new BreakdownSectionData(PREPAYMENTS, "Prepayments", null, null,
                     BreakdownTables.slice(PREPAYMENT_COLUMNS, prepaymentRows(view), 0, size)));
         }
-        return NetWorthBreakdownProvider.response(loan.id(), loan.name(), "Loan", placement, totalLabel, steps,
+        return NetWorthBreakdownProvider.response(loan.id(), loan.name(),
+                NetWorthDatasource.kindLabel(NetWorthDatasource.KIND_LOAN), placement, totalLabel, steps,
                 sections, notes);
     }
 

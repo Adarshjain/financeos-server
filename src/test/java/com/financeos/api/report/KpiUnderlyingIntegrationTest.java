@@ -440,7 +440,7 @@ class KpiUnderlyingIntegrationTest {
         assertEquals(List.of(card, bankId), rowIds(sorted.get("table")));
         assertEquals("signedValue", sorted.get("sortKey").asText());
         assertCsvAttachment(csv);
-        assertEquals(List.of("Name,Kind,Side,Net value", "Main Bank,bank_account,asset,97801.00", "Rewards Card,credit_card,liability,-2500.00"),
+        assertEquals(List.of("Name,Kind,Side,Net value", "Main Bank,Bank account,Asset,97801.00", "Rewards Card,Credit card,Liability,-2500.00"),
                 csvLines(csv));
         assertEquals(400, api.post("/api/v1/dashboards/builtins/net_worth/underlying?sort=value,asc", null).getStatus());
     }

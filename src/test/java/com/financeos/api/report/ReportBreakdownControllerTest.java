@@ -42,9 +42,9 @@ class ReportBreakdownControllerTest {
     @Test
     void sectionPassesTheRawPagingThroughAndAnswers200() {
         ReportData table = new TableData("TABLE", "raw", List.of(), List.of(), new TableData.Page(2, 10, 0, 1));
-        when(service.section("net_worth", "r", "entries", 2, 10)).thenReturn(table);
+        when(service.section("net_worth", "r", "entries", 2, 10, null)).thenReturn(table);
 
-        ResponseEntity<ReportData> response = controller.rowBreakdownSection("net_worth", "r", "entries", 2, 10);
+        ResponseEntity<ReportData> response = controller.rowBreakdownSection("net_worth", "r", "entries", 2, 10, null);
 
         assertEquals(200, response.getStatusCode().value());
         assertSame(table, response.getBody());
