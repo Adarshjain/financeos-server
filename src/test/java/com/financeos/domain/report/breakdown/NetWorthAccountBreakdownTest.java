@@ -198,7 +198,7 @@ class NetWorthAccountBreakdownTest {
                 step("start", "Closing balance on statement ending 30/09/2026", "700"),
                 step("add", "Credits after 30/09/2026 (1)", "300"),
                 step("equals", "Balance", "1000")), r.steps());
-        assertEquals("Account", r.kindLabel());
+        assertEquals("Wallet/Cash", r.kindLabel());
         assertMatchesListedRow(generic, r);
     }
 

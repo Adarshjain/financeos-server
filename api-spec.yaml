@@ -5240,6 +5240,11 @@ paths:
         schema:
           type: integer
           format: int32
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
       responses:
         "200":
           content:
@@ -9834,6 +9839,10 @@ components:
           - string
           - enum
           - boolean
+        valueLabels:
+          type: object
+          additionalProperties:
+            type: string
         values:
           type: array
           items:
@@ -9850,6 +9859,7 @@ components:
       - name
       - role
       - type
+      - valueLabels
       - values
     FilterClause:
       type: object

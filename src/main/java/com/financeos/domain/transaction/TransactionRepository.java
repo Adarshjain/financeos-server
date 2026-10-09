@@ -141,6 +141,49 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
                                               @Param("afterDate") LocalDate afterDate,
                                               Pageable pageable);
 
+    /** One row of {@link #findBalanceTransactionRows}: the fields a balance breakdown lists. */
+    interface BalanceTransactionRow {
+        UUID getId();
+
+        LocalDate getDate();
+
+        String getDescription();
+
+        String getSourcedDescription();
+
+        TransactionType getType();
+
+        java.math.BigDecimal getAmount();
+
+        boolean getExcluded();
+    }
+
+    /**
+     * Every transaction {@link #findBalanceTransactions} lists (same WHERE, same order), as flat
+     * rows without loading entities — for ordering the whole list by another column.
+     */
+    @Query("SELECT t.id AS id, t.date AS date, t.description AS description, " +
+           "t.sourcedDescription AS sourcedDescription, t.type AS type, t.amount AS amount, " +
+           "t.isTransactionExcluded AS excluded " +
+           "FROM Transaction t WHERE t.account.id = :accountId AND (:afterDate IS NULL OR t.date > :afterDate) " +
+           "ORDER BY t.date DESC, t.createdAt DESC, t.id DESC")
+    List<BalanceTransactionRow> findBalanceTransactionRows(@Param("accountId") UUID accountId,
+                                                           @Param("afterDate") LocalDate afterDate);
+
+    /** One category of one transaction, by name. */
+    interface BalanceTransactionCategoryRow {
+        UUID getTransactionId();
+
+        String getName();
+    }
+
+    /** The category names of every transaction {@link #findBalanceTransactionRows} lists. */
+    @Query("SELECT tc.transaction.id AS transactionId, c.name AS name FROM TransactionCategory tc JOIN tc.category c " +
+           "WHERE tc.transaction.account.id = :accountId " +
+           "AND (:afterDate IS NULL OR tc.transaction.date > :afterDate)")
+    List<BalanceTransactionCategoryRow> findBalanceTransactionCategoryNames(@Param("accountId") UUID accountId,
+                                                                           @Param("afterDate") LocalDate afterDate);
+
     /**
      * Credits and debits (every non-CREDIT type, as the balance signs them) among the transactions
      * {@link #findBalanceTransactions} lists, with how many of them are excluded transactions.

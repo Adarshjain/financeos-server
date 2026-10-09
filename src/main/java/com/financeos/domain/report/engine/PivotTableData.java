@@ -1,5 +1,7 @@
 package com.financeos.domain.report.engine;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +21,16 @@ public record PivotTableData(
         List<Row> rows,
         TableData.Page page) implements ReportData {
 
-    public record DimensionInfo(String field, String label) {
+    /**
+     * A row or column dimension. {@code valueLabels} (static enum fields only, else omitted) says how
+     * each stored value in {@code Row.values} / {@code ColumnHeader.values} reads for people.
+     */
+    public record DimensionInfo(String field, String label,
+                                @JsonInclude(JsonInclude.Include.NON_NULL) Map<String, String> valueLabels) {
+
+        public DimensionInfo(String field, String label) {
+            this(field, label, null);
+        }
     }
 
     public record MeasureInfo(String key, String field, String aggregation, String label, String format) {

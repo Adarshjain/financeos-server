@@ -16,6 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 /**
@@ -30,6 +31,9 @@ public class AttentionDatasource implements ComputedReportDatasource {
     private static final List<ReportType> CHART_TABLE = List.of(ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> TABLE_ONLY = List.of(ReportType.TABLE);
 
+    /** Each kind as the inbox names it. */
+    private static final Map<String, String> KIND_LABELS = InboxKinds.ALL.stream()
+            .collect(Collectors.toMap(k -> k, InboxKinds::label, (a, b) -> a, LinkedHashMap::new));
     private static final List<String> SEVERITIES = List.of(
             InboxItemResponse.SEVERITY_CRITICAL, InboxItemResponse.SEVERITY_WARNING, InboxItemResponse.SEVERITY_INFO);
     private static final List<String> SECTIONS = List.of(
@@ -119,7 +123,8 @@ public class AttentionDatasource implements ComputedReportDatasource {
     private static List<FieldDef> buildCatalog() {
         return List.of(
                 new FieldDef("id", "ID", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY).notFilterable(),
-                new FieldDef("kind", "Kind", FieldType.ENUM, FieldRole.DIMENSION, null, InboxKinds.ALL, null, CHART_TABLE),
+                new FieldDef("kind", "Kind", FieldType.ENUM, FieldRole.DIMENSION, null, InboxKinds.ALL, null, CHART_TABLE)
+                        .withValueLabels(KIND_LABELS),
                 new FieldDef("label", "Label", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
                 new FieldDef("severity", "Severity", FieldType.ENUM, FieldRole.DIMENSION, null, SEVERITIES, null, CHART_TABLE),
                 new FieldDef("section", "Section", FieldType.ENUM, FieldRole.DIMENSION, null, SECTIONS, null, CHART_TABLE),

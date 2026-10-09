@@ -20,8 +20,9 @@ import java.util.stream.Collectors;
 /**
  * Writes raw-table pages as CSV for spreadsheets: UTF-8 with a byte-order mark, CRLF line ends,
  * RFC 4180 quoting (a field holding a comma, quote or line break is quoted, quotes doubled).
- * Cells read as people see them: dates dd/mm/yyyy, currency and percent with two decimals, other
- * numbers plain (no trailing zeros, no exponent), booleans Yes/No, lists comma-joined, null empty.
+ * Cells read as people see them: enum values by their column's label (bank_account as "Bank
+ * account"), dates dd/mm/yyyy, currency and percent with two decimals, other numbers plain (no
+ * trailing zeros, no exponent), booleans Yes/No, lists comma-joined, null empty.
  * Text that a spreadsheet would read as a formula (starting with = + - @ tab or CR) gets a leading
  * apostrophe, so bank narrations and names can never run as formulas when the file is opened.
  */
@@ -48,11 +49,25 @@ final class UnderlyingCsvWriter {
     void rows(TableData page) throws IOException {
         for (Map<String, Object> row : page.rows()) {
             out.write(page.columns().stream()
-                    .map(c -> escape(cell(row.get(c.key()), c.format())))
+                    .map(c -> escape(cell(labelled(row.get(c.key()), c.valueLabels()), c.format())))
                     .collect(Collectors.joining(",")));
             out.write(CRLF);
         }
         out.flush();
+    }
+
+    /** The value as its column labels it: a stored enum value (or each one of a list) by its label. */
+    static Object labelled(Object value, Map<String, String> valueLabels) {
+        if (valueLabels == null) {
+            return value;
+        }
+        return switch (value) {
+            case String s -> valueLabels.getOrDefault(s, s);
+            case Collection<?> values -> values.stream()
+                    .map(v -> v instanceof String s ? valueLabels.getOrDefault(s, s) : v)
+                    .toList();
+            case null, default -> value;
+        };
     }
 
     static String cell(Object value, String format) {

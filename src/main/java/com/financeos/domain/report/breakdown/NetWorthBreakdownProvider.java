@@ -2,9 +2,11 @@ package com.financeos.domain.report.breakdown;
 
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.time.AppTime;
-import com.financeos.domain.account.FinancialPosition;
+import com.financeos.domain.report.datasource.impl.NetWorthDatasource;
 import com.financeos.domain.report.datasource.impl.NetWorthPlacement;
+import com.financeos.domain.report.definition.SortClause;
 import com.financeos.domain.report.engine.ReportData;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -42,8 +44,10 @@ public class NetWorthBreakdownProvider implements RowBreakdownProvider {
     }
 
     @Override
-    public ReportData section(String rowId, String section, int page, int size) {
-        return resolve(rowId, (kind, id) -> kind.section(id, section, page, size));
+    public ReportData section(String rowId, String section, int page, int size, @Nullable SortClause sort) {
+        return resolve(rowId, (kind, id) -> sort == null
+                ? kind.section(id, section, page, size)
+                : kind.section(id, section, page, size, sort));
     }
 
     private <T> T resolve(String rowId, BiFunction<NetWorthItemBreakdown, UUID, Optional<T>> lookup) {
@@ -74,7 +78,7 @@ public class NetWorthBreakdownProvider implements RowBreakdownProvider {
                                          String totalLabel, List<BreakdownStep> steps,
                                          List<BreakdownSectionData> sections, List<String> notes) {
         return new RowBreakdownResponse(DATASOURCE, id.toString(), name,
-                placement.side() == FinancialPosition.asset ? "Asset" : "Liability", kindLabel,
+                NetWorthDatasource.sideLabel(placement.side()), kindLabel,
                 placement.value(), totalLabel, BreakdownChain.CURRENCY, AppTime.today(), steps, sections, notes);
     }
 }

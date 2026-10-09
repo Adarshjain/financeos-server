@@ -37,6 +37,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -151,7 +152,11 @@ public class KpiUnderlyingService {
         KpiPeriods periods = periodResolver.resolve(def, ds, userId);
         KpiPeriods.Period period = periods.select(request.period());
         List<String> columns = columns(ds, def.measure());
-        Listing listing = listing(def, ds, period, columns, sort(ds, columns, request.sort()), userId, true);
+        // One pass for the rows and what was left out of them (net worth computes both together).
+        UnderlyingExtras extras = ds instanceof UnderlyingExtras e ? e : null;
+        UnderlyingExtras.Snapshot snapshot = extras != null ? extras.underlyingSnapshot() : null;
+        Listing listing = listing(def, ds, period, columns, sort(ds, columns, request.sort()), userId, true,
+                snapshot != null ? snapshot.rows() : null);
 
         int pageNumber = page == null ? 0 : Math.max(0, page);
         int pageSize = Math.max(1, Math.min(size == null ? DEFAULT_PAGE_SIZE : size, MAX_PAGE_SIZE));
@@ -176,7 +181,7 @@ public class KpiUnderlyingService {
                 filterChips.describe(ds, chipFilters(periods, request.period())),
                 rowAction(ds),
                 ds.underlyingGroupField(),
-                ds instanceof UnderlyingExtras extras ? extras.notCounted() : List.of(),
+                snapshot != null ? snapshot.notCounted() : extras != null ? extras.notCounted() : List.of(),
                 sort == null ? null : sort.key(),
                 sort == null ? null : sort.direction().json(),
                 table);
@@ -192,7 +197,7 @@ public class KpiUnderlyingService {
         UUID userId = UserContext.getCurrentUserId();
         KpiPeriods.Period period = periodResolver.resolve(def, ds, userId).select(request.period());
         List<String> columns = columns(ds, def.measure());
-        Listing listing = listing(def, ds, period, columns, sort(ds, columns, request.sort()), userId, false);
+        Listing listing = listing(def, ds, period, columns, sort(ds, columns, request.sort()), userId, false, null);
 
         TableData first = listing.pager().page(0, listing.chunkSize());
         long total = first.page().totalElements();
@@ -227,11 +232,15 @@ public class KpiUnderlyingService {
     private record Listing(BigDecimal value, List<UnderlyingSummaryLine> summaryLines, int chunkSize, Pager pager) {
     }
 
+    /**
+     * @param loadedRows computed datasources: the rows already loaded for this request (see
+     *                   {@link UnderlyingExtras#underlyingSnapshot}), or null to load them
+     */
     private Listing listing(KpiDefinition def, ReportDatasource ds, KpiPeriods.Period period, List<String> columns,
-            List<SortClause> sort, UUID userId, boolean withSummary) {
+            List<SortClause> sort, UUID userId, boolean withSummary, @Nullable List<Map<String, Object>> loadedRows) {
         if (ds instanceof ComputedReportDatasource) {
             // Computed rows are in memory already: one sort, and the whole list is one export chunk.
-            InMemoryReportExecutor.KpiRows rows = inMemoryExecutor.kpiRows(def, ds, period.filters());
+            InMemoryReportExecutor.KpiRows rows = inMemoryExecutor.kpiRows(def, ds, period.filters(), loadedRows);
             List<UnderlyingSummaryLine> summary = withSummary && ds instanceof UnderlyingExtras extras
                     ? extras.summaryLines(rows.rows()) : List.of();
             return new Listing(rows.value(), summary, Math.max(1, rows.rows().size()),

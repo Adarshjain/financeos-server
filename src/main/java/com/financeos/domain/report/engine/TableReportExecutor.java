@@ -70,7 +70,8 @@ public class TableReportExecutor {
             FieldDef field = datasource.field(column);
             selectExprs.add(rawColumnExpr(column, datasource, queryBuilder, joins));
             columns.add(new TableData.Column(column, field != null ? field.label() : column,
-                    field != null ? field.type().json() : "string", field != null ? field.format() : null));
+                    field != null ? field.type().json() : "string", field != null ? field.format() : null,
+                    field != null ? field.valueLabels() : null));
             colTypes.add(field != null ? field.type() : FieldType.STRING);
         }
 
@@ -136,7 +137,6 @@ public class TableReportExecutor {
         ReportQueryBuilder queryBuilder = datasource.queryBuilder();
         Set<String> joins = new HashSet<>();
         Map<String, Object> params = new HashMap<>();
-        String where = queryBuilder.buildWhere(def.filters(), userId, params, joins);
 
         List<DimensionRef> rowDims = def.rows();
         List<DimensionRef> colDims = def.columns() == null ? List.of() : def.columns();
@@ -156,6 +156,9 @@ public class TableReportExecutor {
             measureExprs.add(m.aggregation().name() + "(" + queryBuilder.expression(m.field(), joins) + ")");
             measureKeys.add(m.field() + "_" + m.aggregation().json());
         }
+        // After the grouping expressions: a filter on a field the pivot also groups by (transactions
+        // category) then narrows the grouped rows too, not only the transactions.
+        String where = queryBuilder.buildWhere(def.filters(), userId, params, joins);
 
         List<String> selects = new ArrayList<>();
         for (int i = 0; i < rowExprs.size(); i++) {
@@ -289,7 +292,9 @@ public class TableReportExecutor {
         String label = ref.granularity() != null
                 ? granularityLabel(ref.granularity())
                 : (f != null ? f.label() : ref.field());
-        return new PivotTableData.DimensionInfo(ref.field(), label);
+        // A date bucket's values are already labels; only a plain field's stored values are relabelled.
+        return new PivotTableData.DimensionInfo(ref.field(), label,
+                ref.granularity() == null && f != null ? f.valueLabels() : null);
     }
 
     private String label(DimensionRef ref, Object raw) {

@@ -50,6 +50,8 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     public static final String IS_DIVIDEND_LEG =
             "(CASE WHEN EXISTS (SELECT 1 FROM dividends x WHERE x.transaction_id = t.id) THEN 1 ELSE 0 END)";
 
+    private static final String CATEGORY = "category";
+
     public static final String JOIN_ACCOUNTS = "ACCOUNTS";
     public static final String JOIN_CATEGORIES = "CATEGORIES";
     public static final String JOIN_CARDS = "CARDS";
@@ -83,7 +85,7 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             Map.entry("description", new Mapping("t.description", null)),
             Map.entry("account", new Mapping("a.name", JOIN_ACCOUNTS)),
             Map.entry("accountType", new Mapping("a.type", JOIN_ACCOUNTS)),
-            Map.entry("category", new Mapping("c.name", JOIN_CATEGORIES)),
+            Map.entry(CATEGORY, new Mapping("c.name", JOIN_CATEGORIES)),
             Map.entry("isUnderMonitoring", new Mapping("t.is_under_monitoring", null)),
             Map.entry("isExcluded", new Mapping("t.is_excluded", null)),
             Map.entry("isTransferLeg", new Mapping(IS_TRANSFER_LEG, null)),
@@ -118,13 +120,30 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     }
 
     /**
-     * Billing-cycle operators: each account keeps its own cycle window (a credit card's from its
+     * Category filters: a transaction can have several categories, so it matches through a
+     * semi-join over its categories ({@link SqlPredicates#category}) instead of the categories join,
+     * which would repeat it once per matching category (a KPI double counted it and listings repeated
+     * its id). When the query also groups by category (the join is already recorded: executors
+     * resolve grouping expressions before the WHERE), the joined category must match as well, so the
+     * groups are the filtered categories only.
+     *
+     * <p>Billing-cycle operators: each account keeps its own cycle window (a credit card's from its
      * statements, any other account's calendar month), matched on {@link #EFFECTIVE_DATE}
      * whichever date field carries the operator. Bound as one (account AND range) disjunct per
      * account; the validator limits the report to one account.
      */
     @Override
     protected String specialPredicate(FilterClause filter, UUID userId, Map<String, Object> params, Set<String> joins, int idx) {
+        if (CATEGORY.equals(filter.field())) {
+            String p = "f" + idx;
+            String semiJoin = sqlPredicates.category(filter.operator(), filter.value(), params, p, idExpression());
+            if (!joins.contains(JOIN_CATEGORIES)) {
+                return semiJoin;
+            }
+            String joinedRow = sqlPredicates.build(FieldType.ENUM, MAPPINGS.get(CATEGORY).expression(),
+                    filter.operator(), filter.value(), params, p + "r");
+            return "(" + semiJoin + " AND " + joinedRow + ")";
+        }
         FieldDef field = catalogFields.get(filter.field());
         if (field == null || field.type() != FieldType.DATE || !CycleOperators.isCycle(filter.operator())) {
             return null;

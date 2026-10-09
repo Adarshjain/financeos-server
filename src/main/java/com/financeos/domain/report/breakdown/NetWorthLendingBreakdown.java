@@ -7,12 +7,15 @@ import com.financeos.domain.lending.LendingDirection;
 import com.financeos.domain.lending.LendingKind;
 import com.financeos.domain.lending.LendingRepository;
 import com.financeos.domain.lending.LendingService;
+import com.financeos.domain.report.datasource.impl.NetWorthDatasource;
 import com.financeos.domain.report.datasource.impl.NetWorthPlacement;
+import com.financeos.domain.report.definition.SortClause;
 import com.financeos.domain.report.engine.ReportData;
 import com.financeos.domain.report.engine.TableData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,11 +61,24 @@ class NetWorthLendingBreakdown implements NetWorthItemBreakdown {
 
     @Override
     public Optional<ReportData> section(UUID id, String section, int page, int size) {
+        return section(id, section, page, size, null);
+    }
+
+    @Override
+    public Optional<ReportData> section(UUID id, String section, int page, int size, @Nullable SortClause sort) {
         return countedCounterparty(id).map(cp -> {
             if (!ENTRIES.equals(section)) {
                 throw new ResourceNotFoundException("Breakdown section", section);
             }
-            return entriesTable(cp.id(), page, size);
+            if (sort == null) {
+                return entriesTable(cp.id(), page, size);
+            }
+            // Sorted over every entry (newest first as the tiebreak), then paged.
+            BreakdownTables.requireColumn(ENTRY_COLUMNS, sort);
+            List<Map<String, Object>> rows = lendingRepository.findByCounterparty_Id(cp.id(), NEWEST_FIRST).stream()
+                    .map(NetWorthLendingBreakdown::entryRow)
+                    .toList();
+            return BreakdownTables.sorted(ENTRY_COLUMNS, rows, sort, page, size);
         });
     }
 
@@ -89,7 +105,8 @@ class NetWorthLendingBreakdown implements NetWorthItemBreakdown {
 
         BreakdownSectionData section = new BreakdownSectionData(ENTRIES, "Entries", null, null,
                 entriesTable(cp.id(), 0, size));
-        return NetWorthBreakdownProvider.response(cp.id(), cp.name(), "Lending", placement, totalLabel, steps,
+        return NetWorthBreakdownProvider.response(cp.id(), cp.name(),
+                NetWorthDatasource.kindLabel(NetWorthDatasource.KIND_LENDING), placement, totalLabel, steps,
                 List.of(section), List.of());
     }
 

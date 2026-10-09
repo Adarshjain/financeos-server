@@ -50,17 +50,20 @@ public class ChartReportExecutor {
 
         Set<String> joins = new HashSet<>();
         Map<String, Object> params = new HashMap<>();
-        String where = queryBuilder.buildWhere(filters, userId, params, joins);
 
-        // True contributing-row count (DISTINCT guards against dimension-join fan-out,
-        // e.g. the transactions category many-to-many).
-        long rowCount = countRows(queryBuilder, joins, where, params, userId);
-
+        // Grouping expressions before the WHERE: a filter on a field the chart also groups by
+        // (transactions category) then narrows the grouped rows too, not only the transactions.
         DimensionRef dimRef = def.dimension();
         String dimSql = dimensionSql(queryBuilder, dimRef, joins);
         String measureExpr = queryBuilder.expression(def.measure().field(), joins);
         String aggFn = def.measure().aggregation().name();
         String seriesSql = hasSeries ? dimensionSql(queryBuilder, seriesRef, joins) : null;
+
+        String where = queryBuilder.buildWhere(filters, userId, params, joins);
+
+        // True contributing-row count (DISTINCT guards against dimension-join fan-out,
+        // e.g. the transactions category many-to-many).
+        long rowCount = countRows(queryBuilder, joins, where, params, userId);
 
         StringBuilder sql = new StringBuilder("SELECT ").append(dimSql).append(" AS dim");
         if (hasSeries) {
@@ -145,7 +148,18 @@ public class ChartReportExecutor {
                 categories,
                 series,
                 new ChartData.MeasureView(def.measure().field(), agg.json()),
-                meta);
+                meta,
+                valueLabels(datasource, dimRef),
+                hasSeries ? valueLabels(datasource, seriesRef) : null);
+    }
+
+    /** The display labels of a plain (not date-bucketed) dimension's stored values; null when none. */
+    static Map<String, String> valueLabels(ReportDatasource datasource, DimensionRef ref) {
+        if (ref.granularity() != null) {
+            return null;
+        }
+        var field = datasource.field(ref.field());
+        return field != null ? field.valueLabels() : null;
     }
 
     private String label(DimensionRef ref, Object raw) {

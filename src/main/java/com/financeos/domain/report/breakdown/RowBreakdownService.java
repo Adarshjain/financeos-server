@@ -3,7 +3,10 @@ package com.financeos.domain.report.breakdown;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.report.datasource.DatasourceRegistry;
 import com.financeos.domain.report.datasource.ReportDatasource;
+import com.financeos.domain.report.definition.SortClause;
 import com.financeos.domain.report.engine.ReportData;
+import com.financeos.domain.report.engine.RuntimeSort;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
@@ -41,9 +44,25 @@ public class RowBreakdownService {
         return provider(datasource).breakdown(rowId, size(size));
     }
 
-    /** One page of one section of a row's breakdown. */
+    /** One page of one section of a row's breakdown, in the section's default order. */
     public ReportData section(String datasource, String rowId, String section, Integer page, Integer size) {
-        return provider(datasource).section(rowId, section, page == null ? 0 : Math.max(0, page), size(size));
+        return section(datasource, rowId, section, page, size, null);
+    }
+
+    /**
+     * One page of one section of a row's breakdown, ordered by {@code sort} ({@code <column>,<asc|desc>},
+     * one of the section's columns) over the whole section; null or blank keeps the default order.
+     *
+     * @throws ValidationException when {@code sort} is malformed (before anything is loaded) or not a column of the section
+     */
+    public ReportData section(String datasource, String rowId, String section, Integer page, Integer size,
+                              @Nullable String sort) {
+        SortClause clause = RuntimeSort.parse(sort).orElse(null);
+        RowBreakdownProvider provider = provider(datasource);
+        int pageNumber = page == null ? 0 : Math.max(0, page);
+        return clause == null
+                ? provider.section(rowId, section, pageNumber, size(size))
+                : provider.section(rowId, section, pageNumber, size(size), clause);
     }
 
     private RowBreakdownProvider provider(String datasource) {
