@@ -165,6 +165,12 @@ public class InvestmentTradesDatasource implements ReportDatasource {
         return FIELDS;
     }
 
+    /** A KPI's underlying rows are identified by trade date, instrument, buy/sell type and broker. */
+    @Override
+    public List<String> underlyingColumns() {
+        return List.of("tradeDate", "instrument", "type", "broker");
+    }
+
     @Override
     public ReportQueryBuilder queryBuilder() {
         return queryBuilder;

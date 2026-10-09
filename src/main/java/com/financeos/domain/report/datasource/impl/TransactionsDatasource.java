@@ -55,6 +55,12 @@ public class TransactionsDatasource implements ReportDatasource {
         return "account";
     }
 
+    /** A KPI's underlying rows are identified by date, description, account and category. */
+    @Override
+    public List<String> underlyingColumns() {
+        return List.of("date", "description", "account", "category");
+    }
+
     @Override
     public ReportQueryBuilder queryBuilder() {
         return queryBuilder;

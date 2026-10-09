@@ -208,6 +208,21 @@ public class AccountService {
         return account;
     }
 
+    /**
+     * The current user's account with its balance populated exactly as {@link #getAccountById} does
+     * (cardholders left lazy), or empty when no such account exists or it belongs to someone else.
+     */
+    @Transactional(readOnly = true)
+    public Optional<Account> findOwnedAccount(UUID id) {
+        UUID currentUserId = UserContext.getCurrentUserId();
+        return accountRepository.findById(id)
+                .filter(account -> account.getUser() != null && account.getUser().getId().equals(currentUserId))
+                .map(account -> {
+                    populateBalanceInfo(account);
+                    return account;
+                });
+    }
+
     public Account updateAccount(UUID id, CreateAccountRequest request) {
         Account account = getAccountById(id);
 

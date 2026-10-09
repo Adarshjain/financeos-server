@@ -55,6 +55,9 @@ class InMemoryReportExecutorCycleTest {
     void setUp() {
         cycles = mock(BillingCycleService.class);
         executor = new InMemoryReportExecutor(new DateRangeResolver(4), cycles);
+        // Forced by the KPI comparison now being on by default: it reads the previous cycle's windows,
+        // which the real service returns empty (never null) when a test does not stub them.
+        when(cycles.windows(any(), anyInt(), any(), any())).thenReturn(new CycleWindows(Map.of()));
         ds = new CycleDatasource("cardId");
         UserContext.setCurrentUserId(userId);
     }
@@ -290,14 +293,20 @@ class InMemoryReportExecutorCycleTest {
     }
 
     @Test
-    void inMemoryDefaultIsNoComparisonWhenNullOrNotEnabled() {
+    void inMemoryComparisonIsOnUnlessExplicitlyDisabled() {
         windows(0, cardA, d(2026, 2, 5), d(2026, 3, 4));
-        ds.rows = List.of(row(cardA, d(2026, 2, 10), "10"));
+        windows(1, cardA, d(2026, 1, 5), d(2026, 2, 4));
+        ds.rows = List.of(row(cardA, d(2026, 2, 10), "10"), row(cardA, d(2026, 1, 10), "4"));
 
-        assertNull(executor.execute(kpi(null, cycle("this_billing_cycle")), ds, Map.of()).comparison());
         assertNull(executor.execute(kpi(new Comparison(false, null, null), cycle("this_billing_cycle")), ds, Map.of()).comparison());
-        assertNull(executor.execute(kpi(new Comparison(null, null, null), cycle("this_billing_cycle")), ds, Map.of()).comparison());
         verify(cycles, never()).windows(eq(userId), eq(1), any(LocalDate.class), any());
+
+        var noComparison = executor.execute(kpi(null, cycle("this_billing_cycle")), ds, Map.of()).comparison();
+        assertEquals(new BigDecimal("4"), noComparison.previousValue());
+        assertEquals(d(2026, 1, 5), noComparison.previousDateRange().from());
+        assertEquals("neutral", noComparison.sentiment());
+        var nullEnabled = executor.execute(kpi(new Comparison(null, null, null), cycle("this_billing_cycle")), ds, Map.of()).comparison();
+        assertEquals(new BigDecimal("4"), nullEnabled.previousValue());
     }
 
     @Test

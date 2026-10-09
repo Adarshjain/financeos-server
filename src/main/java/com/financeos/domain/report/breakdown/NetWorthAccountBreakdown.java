@@ -1,0 +1,265 @@
+package com.financeos.domain.report.breakdown;
+
+import com.financeos.core.exception.ResourceNotFoundException;
+import com.financeos.core.time.AppTime;
+import com.financeos.domain.account.Account;
+import com.financeos.domain.account.AccountService;
+import com.financeos.domain.account.AccountType;
+import com.financeos.domain.holding.HoldingRepository;
+import com.financeos.domain.investment.HoldingPosition;
+import com.financeos.domain.investment.InvestmentService;
+import com.financeos.domain.notification.MessageFormat;
+import com.financeos.domain.report.datasource.impl.NetWorthPlacement;
+import com.financeos.domain.report.engine.ReportData;
+import com.financeos.domain.report.engine.TableData;
+import com.financeos.domain.transaction.Transaction;
+import com.financeos.domain.transaction.TransactionRepository;
+import com.financeos.domain.transaction.TransactionType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+/**
+ * Breakdown of an account row of net worth.
+ *
+ * <p>Bank, generic and credit card accounts: the balance's base (the anchor statement's closing
+ * balance, the opening balance, or nothing) plus the credits and minus the debits that the balance
+ * counts — every transaction of the account (excluded ones too) dated after the anchor statement's
+ * period end, or all of them without an anchor. The movements come from one aggregate over exactly
+ * the balance's transactions, and the base is the account's calculated balance minus those
+ * movements: {@code BalanceMath} computes the balance as base + movements over the same rows (with
+ * the card sign flip of the statement's closing balance), so this is that base, read back without
+ * restating its rules.
+ *
+ * <p>Brokers: the cash balance plus the market value of each open holding, the same per-holding
+ * {@link InvestmentService#calculateHoldingPosition} figures the account's balance sums.
+ */
+@Component
+@Transactional(readOnly = true)
+class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
+
+    static final String TRANSACTIONS = "transactions";
+    static final String HOLDINGS = "holdings";
+
+    private static final DateTimeFormatter DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    private static final List<TableData.Column> TRANSACTION_COLUMNS = List.of(
+            new TableData.Column("date", "Date", "date", null),
+            new TableData.Column("description", "Description", "string", null),
+            new TableData.Column("category", "Category", "string", null),
+            new TableData.Column("amount", "Amount", "number", "currency"),
+            new TableData.Column("excluded", "Excluded", "boolean", null));
+
+    private static final List<TableData.Column> HOLDING_COLUMNS = List.of(
+            new TableData.Column("instrument", "Instrument", "string", null),
+            new TableData.Column("quantity", "Quantity", "number", "number"),
+            new TableData.Column("price", "Price", "number", "currency"),
+            new TableData.Column("priceDate", "Price date", "date", null),
+            new TableData.Column("value", "Value", "number", "currency"),
+            new TableData.Column("valuation", "Valuation", "string", null));
+
+    private final AccountService accountService;
+    private final TransactionRepository transactionRepository;
+    private final HoldingRepository holdingRepository;
+    private final InvestmentService investmentService;
+
+    NetWorthAccountBreakdown(AccountService accountService, TransactionRepository transactionRepository,
+                             HoldingRepository holdingRepository, InvestmentService investmentService) {
+        this.accountService = accountService;
+        this.transactionRepository = transactionRepository;
+        this.holdingRepository = holdingRepository;
+        this.investmentService = investmentService;
+    }
+
+    @Override
+    public Optional<RowBreakdownResponse> breakdown(UUID id, int size) {
+        return countedAccount(id).map(account -> account.getType() == AccountType.broker
+                ? broker(account, size)
+                : ledger(account, size));
+    }
+
+    @Override
+    public Optional<ReportData> section(UUID id, String section, int page, int size) {
+        return countedAccount(id).map(account -> {
+            boolean broker = account.getType() == AccountType.broker;
+            if (broker && HOLDINGS.equals(section)) {
+                return BreakdownTables.slice(HOLDING_COLUMNS, holdingRows(openPositions(account)), page, size);
+            }
+            if (!broker && TRANSACTIONS.equals(section)) {
+                return transactionsTable(account, anchorDate(account), page, size);
+            }
+            throw new ResourceNotFoundException("Breakdown section", section);
+        });
+    }
+
+    /** The user's account when it is a row of net worth today (not excluded, not closed). */
+    private Optional<Account> countedAccount(UUID id) {
+        return accountService.findOwnedAccount(id)
+                .filter(account -> NetWorthPlacement.omission(account, AppTime.today()) == null);
+    }
+
+    // ------------------------------------------------------------------ bank / generic / credit card
+
+    private RowBreakdownResponse ledger(Account account, int size) {
+        LocalDate anchor = anchorDate(account);
+        TransactionRepository.BalanceMovementsProjection movements =
+                transactionRepository.findBalanceMovements(account.getId(), anchor);
+        long creditCount = movements.getCreditCount();
+        long debitCount = movements.getDebitCount();
+        BigDecimal credits = movements.getCreditSum();
+        BigDecimal debits = movements.getDebitSum();
+        BigDecimal balance = NetWorthPlacement.balance(account);
+        BigDecimal base = balance.subtract(credits).add(debits);
+        boolean card = account.getType() == AccountType.credit_card;
+        String since = anchor != null ? DATE.format(anchor) : null;
+
+        BreakdownChain chain = new BreakdownChain(balance);
+        if (anchor != null) {
+            chain.start(card
+                    ? (base.signum() > 0 ? "In credit on statement ending " : "Owed on statement ending ") + since
+                    : "Closing balance on statement ending " + since, base);
+        } else if (card) {
+            chain.start("Starting balance", base);
+        } else if (account.getType() == AccountType.bank_account || base.signum() != 0) {
+            chain.start("Opening balance", base);
+        }
+        if (card) {
+            movement(chain, since == null ? "Spends" : "Spends since " + since, debitCount, debits.negate());
+            movement(chain, since == null ? "Payments and refunds" : "Payments and refunds since " + since,
+                    creditCount, credits);
+        } else {
+            movement(chain, since == null ? "Credits" : "Credits after " + since, creditCount, credits);
+            movement(chain, since == null ? "Debits" : "Debits after " + since, debitCount, debits.negate());
+        }
+        String totalLabel = card ? (balance.signum() > 0 ? "In credit" : "Outstanding") : "Balance";
+        NetWorthPlacement placement = NetWorthPlacement.ofAccount(account);
+        List<BreakdownStep> steps = chain.close(totalLabel, placement.value(), "account " + account.getId());
+
+        List<String> notes = new ArrayList<>();
+        if (account.getReconciliationGap() != null) {
+            notes.add("Opening balance plus all transactions differs from the statement-anchored balance by "
+                    + MessageFormat.money(account.getReconciliationGap().abs()) + ".");
+        }
+        if (movements.getExcludedCount() > 0) {
+            notes.add("Excluded transactions still count towards balances.");
+        }
+        BreakdownSectionData transactions = new BreakdownSectionData(TRANSACTIONS,
+                since == null ? "Transactions" : "Transactions after " + since, "transaction", null,
+                transactionsTable(account, anchor, 0, size));
+        return NetWorthBreakdownProvider.response(account.getId(), account.getName(), kindLabel(account.getType()),
+                placement, totalLabel, steps, List.of(transactions), notes);
+    }
+
+    /** Adds a movement of {@code count} transactions, or nothing when there are none. */
+    private static void movement(BreakdownChain chain, String label, long count, BigDecimal signedAmount) {
+        if (count > 0) {
+            chain.term(label + " (" + count + ")", signedAmount);
+        }
+    }
+
+    /** The anchor statement's period end when the balance is anchored, else null (all transactions count). */
+    private static LocalDate anchorDate(Account account) {
+        return Boolean.TRUE.equals(account.getBalanceAnchored()) ? account.getAnchorDate() : null;
+    }
+
+    private TableData transactionsTable(Account account, LocalDate anchor, int page, int size) {
+        Page<Transaction> result = transactionRepository.findBalanceTransactions(account.getId(), anchor,
+                PageRequest.of(page, size));
+        List<Map<String, Object>> rows = result.getContent().stream().map(NetWorthAccountBreakdown::transactionRow).toList();
+        return BreakdownTables.page(TRANSACTION_COLUMNS, rows, page, size, result.getTotalElements());
+    }
+
+    /** Amount is signed as the balance counts it: credits positive, every other type negative. */
+    private static Map<String, Object> transactionRow(Transaction t) {
+        Map<String, Object> row = new LinkedHashMap<>();
+        row.put("id", t.getId().toString());
+        row.put("date", t.getDate());
+        row.put("description", t.getDescription() != null ? t.getDescription() : t.getSourcedDescription());
+        row.put("category", t.getCategories().stream()
+                .map(tc -> tc.getCategory().getName())
+                .sorted()
+                .collect(Collectors.joining(", ")));
+        row.put("amount", t.getType() == TransactionType.CREDIT ? t.getAmount() : t.getAmount().negate());
+        row.put("excluded", t.isTransactionExcluded());
+        return row;
+    }
+
+    // ------------------------------------------------------------------ broker
+
+    private RowBreakdownResponse broker(Account account, int size) {
+        List<HoldingPosition> open = openPositions(account);
+        BigDecimal cash = account.getBrokerDetails() != null && account.getBrokerDetails().getCashBalance() != null
+                ? account.getBrokerDetails().getCashBalance()
+                : BigDecimal.ZERO;
+        BigDecimal holdings = open.stream().map(HoldingPosition::currentValue).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BreakdownChain chain = new BreakdownChain(NetWorthPlacement.balance(account)).start("Cash balance", cash);
+        if (!open.isEmpty()) {
+            chain.term("Holdings at market value (" + open.size() + ")", holdings);
+        }
+        NetWorthPlacement placement = NetWorthPlacement.ofAccount(account);
+        List<BreakdownStep> steps = chain.close("Balance", placement.value(), "broker account " + account.getId());
+
+        BreakdownSectionData section = new BreakdownSectionData(HOLDINGS, "Holdings", "breakdown", "positions",
+                BreakdownTables.slice(HOLDING_COLUMNS, holdingRows(open), 0, size));
+        return NetWorthBreakdownProvider.response(account.getId(), account.getName(), kindLabel(account.getType()),
+                placement, "Balance", steps, List.of(section), List.of());
+    }
+
+    /** Holdings that add to the balance: those with a current value (open quantity). */
+    private List<HoldingPosition> openPositions(Account account) {
+        return holdingRepository.findByBrokerAccountId(account.getId()).stream()
+                .map(investmentService::calculateHoldingPosition)
+                .filter(Objects::nonNull)
+                .filter(p -> p.currentValue() != null)
+                .toList();
+    }
+
+    /** Largest value first, then by instrument name and holding id for a stable order. */
+    private static List<Map<String, Object>> holdingRows(List<HoldingPosition> positions) {
+        return positions.stream()
+                .sorted(Comparator.comparing(HoldingPosition::currentValue).reversed()
+                        .thenComparing(p -> p.holding().getInstrument().getName(), Comparator.nullsLast(Comparator.naturalOrder()))
+                        .thenComparing(p -> p.holding().getId()))
+                .map(NetWorthAccountBreakdown::holdingRow)
+                .toList();
+    }
+
+    private static Map<String, Object> holdingRow(HoldingPosition p) {
+        Map<String, Object> row = new LinkedHashMap<>();
+        row.put("id", p.holding().getId().toString());
+        row.put("instrument", p.holding().getInstrument().getName());
+        row.put("quantity", p.openQty());
+        row.put("price", p.latestPrice());
+        row.put("priceDate", p.priceAsOf());
+        row.put("value", p.currentValue());
+        row.put("valuation", p.latestPrice() == null ? "At cost (no price)" : null);
+        return row;
+    }
+
+    private static String kindLabel(AccountType type) {
+        if (type == null) {
+            return "Account";
+        }
+        return switch (type) {
+            case bank_account -> "Bank account";
+            case credit_card -> "Credit card";
+            case broker -> "Broker";
+            case generic -> "Account";
+        };
+    }
+}

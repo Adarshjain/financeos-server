@@ -4,6 +4,7 @@ import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.FieldType;
 import com.financeos.domain.report.definition.FilterClause;
 import com.financeos.domain.report.definition.Granularity;
+import com.financeos.domain.report.underlying.UnderlyingOperators;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -77,6 +78,9 @@ public abstract class AbstractReportQueryBuilder implements ReportQueryBuilder {
     }
 
     protected String predicate(FilterClause filter, UUID userId, Map<String, Object> params, Set<String> joins, int idx) {
+        if (UnderlyingOperators.isInternal(filter.operator())) {
+            return underlyingPredicate(filter, expression(filter.field(), joins), params, "f" + idx);
+        }
         String special = specialPredicate(filter, userId, params, joins, idx);
         if (special != null) {
             return special;
@@ -92,6 +96,15 @@ public abstract class AbstractReportQueryBuilder implements ReportQueryBuilder {
 
     protected String specialPredicate(FilterClause filter, UUID userId, Map<String, Object> params, Set<String> joins, int idx) {
         return null;
+    }
+
+    /** The KPI underlying-data clauses (see {@link UnderlyingOperators}) over the field's own expression. */
+    private static String underlyingPredicate(FilterClause filter, String expr, Map<String, Object> params, String p) {
+        if (UnderlyingOperators.PRESENT.equals(filter.operator())) {
+            return expr + " IS NOT NULL";
+        }
+        params.put(p, filter.value().decimalValue());
+        return expr + " = :" + p;
     }
 
     @Override

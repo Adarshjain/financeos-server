@@ -339,7 +339,7 @@ class InMemoryReportExecutorMultiValueTest {
     }
 
     @Test
-    void kpiComparisonWithNullEnabledIsTreatedAsDisabled() {
+    void kpiComparisonWithNullEnabledIsTreatedAsEnabled() {
         ds.rows = List.of(dated("2026-05-10", "200"));
 
         KpiData result = executor.execute(new KpiDefinition("amount", Aggregation.SUM,
@@ -347,7 +347,10 @@ class InMemoryReportExecutorMultiValueTest {
                 new Comparison(null, ComparisonPeriod.PREVIOUS_PERIOD, true)), ds, Map.of());
 
         assertEquals(new BigDecimal("200"), result.value());
-        assertNull(result.comparison());
+        assertEquals(BigDecimal.ZERO, result.comparison().previousValue());
+        assertEquals(LocalDate.of(2026, 3, 31), result.comparison().previousDateRange().from());
+        assertEquals(LocalDate.of(2026, 4, 30), result.comparison().previousDateRange().to());
+        assertEquals("up", result.comparison().direction());
     }
 
     private static Map<String, Object> withId(String id, Map<String, Object> row) {
@@ -363,14 +366,16 @@ class InMemoryReportExecutorMultiValueTest {
         sum(between("2026-05-01", "2026-05-31"));
 
         assertEquals(1, ds.hints.size());
-        assertEquals(new ComputedReportDatasource.DateHint("date", LocalDate.of(2026, 5, 1), LocalDate.of(2026, 5, 31)), ds.hints.get(0));
+        // Forced by the KPI comparison now being on by default: the hint also spans the previous period.
+        assertEquals(new ComputedReportDatasource.DateHint("date", LocalDate.of(2026, 3, 31), LocalDate.of(2026, 5, 31)), ds.hints.get(0));
     }
 
     @Test
     void singleDayIsFilterPassesADayHint() {
         ds.rows = List.of(dated("2026-05-10", "1"));
         sum(f("date", "is", "2026-05-10"));
-        assertEquals(new ComputedReportDatasource.DateHint("date", LocalDate.of(2026, 5, 10), LocalDate.of(2026, 5, 10)), ds.hints.get(0));
+        // Forced by the KPI comparison now being on by default: the hint also spans the previous day.
+        assertEquals(new ComputedReportDatasource.DateHint("date", LocalDate.of(2026, 5, 9), LocalDate.of(2026, 5, 10)), ds.hints.get(0));
     }
 
     @Test

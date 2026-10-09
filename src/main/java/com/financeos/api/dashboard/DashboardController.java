@@ -78,20 +78,21 @@ public class DashboardController {
 
     /**
      * Run a template built-in with the widget's params and return its data (the same union as
-     * {@code POST /reports/{id}/data}). 400 for a component built-in.
+     * {@code POST /reports/{id}/data}, with the same paging and sort). 400 for a component built-in.
      */
     @PostMapping("/api/v1/dashboards/builtins/{key}/data")
     public ResponseEntity<ReportData> runBuiltin(
             @PathVariable String key,
             @RequestBody(required = false) BuiltinDataRequest request,
             @RequestParam(required = false) Integer page,
-            @RequestParam(required = false) Integer size) {
+            @RequestParam(required = false) Integer size,
+            @RequestParam(required = false) String sort) {
         requireCurrentUserId();
         BuiltinWidgetRegistry.Entry entry = builtins.require(key);
         JsonNode params = request == null ? null : request.params();
         JsonNode definition = builtins.resolveDefinition(entry, params);
         return ResponseEntity.ok(reportDataService.runDefinition(
-                entry.templateType(), entry.datasource(), definition, page, size));
+                entry.templateType(), entry.datasource(), definition, page, size, sort));
     }
 
     /** Creates a fresh Home dashboard (the seeded layout) and makes it the default. */

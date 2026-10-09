@@ -53,6 +53,9 @@ class InMemoryReportExecutorAccountScopeTest {
         AppTime.useClock(Clock.fixed(Instant.parse("2026-03-10T20:00:00Z"), ZoneId.of("Asia/Kolkata")));
         cycles = mock(BillingCycleService.class);
         executor = new InMemoryReportExecutor(new DateRangeResolver(4), cycles);
+        // Forced by the KPI comparison now being on by default: it reads the previous cycle's windows,
+        // which the real service returns empty (never null) when a test does not stub them.
+        when(cycles.windows(any(), anyInt(), any(), any())).thenReturn(new CycleWindows(Map.of()));
         UserContext.setCurrentUserId(userId);
     }
 

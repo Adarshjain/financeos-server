@@ -2,13 +2,11 @@ package com.financeos.domain.report.engine;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.cycle.BillingCycleService;
 import com.financeos.domain.account.cycle.CycleOperators;
 import com.financeos.domain.account.cycle.CycleWindows;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ReportDatasource;
-import com.financeos.domain.report.definition.Comparison;
 import com.financeos.domain.report.definition.ComparisonDisplay;
 import com.financeos.domain.report.definition.FilterClause;
 import com.financeos.domain.report.definition.KpiDefinition;
@@ -20,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,52 +33,28 @@ public class KpiReportExecutor {
     @PersistenceContext
     private EntityManager em;
 
-    private final DateRangeResolver dateRangeResolver;
-    private final BillingCycleService billingCycleService;
+    private final KpiPeriodResolver periodResolver;
 
     public KpiReportExecutor(DateRangeResolver dateRangeResolver, BillingCycleService billingCycleService) {
-        this.dateRangeResolver = dateRangeResolver;
-        this.billingCycleService = billingCycleService;
+        this.periodResolver = new KpiPeriodResolver(dateRangeResolver, billingCycleService);
     }
 
     @Transactional(readOnly = true)
     public KpiData execute(KpiDefinition def, ReportDatasource datasource, UUID userId) {
         ReportQueryBuilder queryBuilder = datasource.queryBuilder();
-        List<FilterClause> filters = def.filters() == null ? List.of() : def.filters();
+        KpiPeriods periods = periodResolver.resolve(def, datasource, userId);
 
-        Aggregate main = runAggregate(def, queryBuilder, filters, userId);
-
-        FilterClause dateFilter = dateRangeResolver.findDateFilter(datasource, filters);
-        DateRange currentRange;
-        DateRange previous = DateRange.unbounded();
-        List<FilterClause> previousFilters = null;
-        if (CycleOperators.isCycle(dateFilter)) {
-            // Billing cycle: the report is limited to one account, whose cycle (and the one
-            // before it) gives the range; the comparison steps back one cycle, not a flat shift.
-            String accountRef = CycleOperators.singleAccountRef(datasource.billingCycleAccountField(), filters);
-            int cyclesAgo = CycleOperators.cyclesAgo(dateFilter);
-            LocalDate today = AppTime.today();
-            currentRange = span(billingCycleService.windows(userId, cyclesAgo, today, accountRef));
-            if (comparisonEnabled(def.comparison())) {
-                previous = span(billingCycleService.windows(userId, cyclesAgo + 1, today, accountRef));
-                previousFilters = withCyclesAgo(filters, dateFilter, cyclesAgo + 1);
-            }
-        } else {
-            currentRange = dateRangeResolver.effectiveRange(dateFilter);
-            if (dateFilter != null && currentRange.bounded()) {
-                previous = dateRangeResolver.previousPeriod(dateFilter.operator(), currentRange);
-                previousFilters = withDateRange(filters, dateFilter, previous);
-            }
-        }
+        Aggregate main = runAggregate(def, queryBuilder, periods.current().filters(), userId);
 
         KpiData.Comparison comparison = null;
-        if (comparisonEnabled(def.comparison()) && previousFilters != null && currentRange.bounded() && previous.bounded()) {
-            Aggregate prior = runAggregate(def, queryBuilder, previousFilters, userId);
+        if (periods.previousAvailable()) {
+            Aggregate prior = runAggregate(def, queryBuilder, periods.previous().filters(), userId);
             Boolean higherIsBetter = def.comparison() == null ? null : def.comparison().higherIsBetter();
-            comparison = buildComparison(main.value(), prior.value(), previous, higherIsBetter,
+            comparison = buildComparison(main.value(), prior.value(), periods.previous().range(), higherIsBetter,
                     ComparisonDisplay.resolve(def.comparison()));
         }
 
+        DateRange currentRange = periods.current().range();
         KpiData.Meta meta = new KpiData.Meta(
                 main.rowCount(),
                 currentRange.bounded()
@@ -91,6 +64,16 @@ public class KpiReportExecutor {
         var measureField = datasource.field(def.measure());
         String format = measureField != null ? measureField.format() : null;
         return new KpiData("KPI", main.value(), def.measure(), def.aggregation().json(), format, comparison, meta);
+    }
+
+    /**
+     * The KPI's figure over {@code filters} — one period's filters from {@link KpiPeriodResolver} —
+     * computed by the same query {@link #execute} runs, so it equals the KPI's value (current
+     * period) or its comparison's previous value (previous period).
+     */
+    @Transactional(readOnly = true)
+    public BigDecimal value(KpiDefinition def, ReportDatasource datasource, List<FilterClause> filters, UUID userId) {
+        return runAggregate(def, datasource.queryBuilder(), filters, userId).value();
     }
 
     private record Aggregate(BigDecimal value, long rowCount) {
@@ -138,29 +121,6 @@ public class KpiReportExecutor {
             value = BigDecimal.ZERO;
         }
         return new Aggregate(value, rowCount);
-    }
-
-    /** Replaces the date filter with an explicit BETWEEN over the given (previous) range. */
-    private static List<FilterClause> withDateRange(List<FilterClause> filters, FilterClause dateFilter,
-            DateRange range) {
-        List<FilterClause> out = new ArrayList<>();
-        for (FilterClause filter : filters) {
-            if (filter != dateFilter) {
-                out.add(filter);
-            }
-        }
-        ObjectNode value = JsonNodeFactory.instance.objectNode();
-        value.put("from", range.from().toString());
-        value.put("to", range.to().toString());
-        out.add(new FilterClause(dateFilter.field(), "between", value));
-        return out;
-    }
-
-    private static boolean comparisonEnabled(Comparison comparison) {
-        if (comparison == null) {
-            return true; // comparison is on by default
-        }
-        return comparison.enabled() == null || comparison.enabled();
     }
 
     private static KpiData.Comparison buildComparison(BigDecimal current, BigDecimal previousValue,

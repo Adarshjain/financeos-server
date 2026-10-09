@@ -75,22 +75,27 @@ public class ReportController {
         return ResponseEntity.noContent().build();
     }
 
-    /** Run a saved report and return its computed data ({@code page}/{@code size} apply to tables). */
+    /**
+     * Run a saved report and return its computed data ({@code page}/{@code size} apply to tables;
+     * {@code sort=<key>,<asc|desc>} re-orders a table for this run only).
+     */
     @PostMapping("/{id}/data")
     public ResponseEntity<ReportData> runSavedReport(
             @PathVariable UUID id,
             @RequestParam(required = false) Integer page,
-            @RequestParam(required = false) Integer size) {
-        return ResponseEntity.ok(reportDataService.runSaved(id, page, size));
+            @RequestParam(required = false) Integer size,
+            @RequestParam(required = false) String sort) {
+        return ResponseEntity.ok(reportDataService.runSaved(id, page, size, sort));
     }
 
-    /** Run an ad-hoc (unsaved) report definition and return its computed data. */
+    /** Run an ad-hoc (unsaved) report definition and return its computed data (paging and sort as for saved reports). */
     @PostMapping("/data")
     public ResponseEntity<ReportData> runAdHocReport(
             @Valid @RequestBody RunReportRequest request,
             @RequestParam(required = false) Integer page,
-            @RequestParam(required = false) Integer size) {
-        return ResponseEntity.ok(reportDataService.runAdHoc(
-                request.type(), request.datasource(), request.definition(), page, size));
+            @RequestParam(required = false) Integer size,
+            @RequestParam(required = false) String sort) {
+        return ResponseEntity.ok(reportDataService.runDefinition(
+                request.type(), request.datasource(), request.definition(), page, size, sort));
     }
 }

@@ -134,6 +134,12 @@ public class FnoTradesDatasource implements ReportDatasource {
         return FIELDS;
     }
 
+    /** A KPI's underlying rows are identified by exit date, trading symbol, contract type and broker. */
+    @Override
+    public List<String> underlyingColumns() {
+        return List.of("exitDate", "tradingSymbol", "contractType", "broker");
+    }
+
     @Override
     public ReportQueryBuilder queryBuilder() {
         return queryBuilder;

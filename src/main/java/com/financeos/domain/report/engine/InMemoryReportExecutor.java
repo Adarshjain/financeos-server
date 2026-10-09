@@ -3,7 +3,6 @@ package com.financeos.domain.report.engine;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
-import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.cycle.BillingCycleService;
 import com.financeos.domain.account.cycle.CycleOperators;
 import com.financeos.domain.account.cycle.CycleWindows;
@@ -25,6 +24,7 @@ import com.financeos.domain.report.definition.RawTableDefinition;
 import com.financeos.domain.report.definition.SortClause;
 import com.financeos.domain.report.definition.SortDirection;
 import com.financeos.domain.report.definition.TableDefinition;
+import com.financeos.domain.report.underlying.UnderlyingOperators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -43,6 +43,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
@@ -52,7 +53,7 @@ public class InMemoryReportExecutor {
     private static final int MAX_PAGE_SIZE = 1000;
 
     private final DateRangeResolver dateRangeResolver;
-    private final BillingCycleService billingCycleService;
+    private final KpiPeriodResolver periodResolver;
 
     public InMemoryReportExecutor(DateRangeResolver dateRangeResolver) {
         this(dateRangeResolver, null);
@@ -61,7 +62,7 @@ public class InMemoryReportExecutor {
     @Autowired
     public InMemoryReportExecutor(DateRangeResolver dateRangeResolver, BillingCycleService billingCycleService) {
         this.dateRangeResolver = dateRangeResolver;
-        this.billingCycleService = billingCycleService;
+        this.periodResolver = new KpiPeriodResolver(dateRangeResolver, billingCycleService);
     }
 
     // ------------------------------------------------------------------
@@ -70,40 +71,22 @@ public class InMemoryReportExecutor {
 
     public KpiData execute(KpiDefinition def, ReportDatasource datasource, Map<String, Object> unusedParams) {
         ComputedReportDatasource computedDs = (ComputedReportDatasource) datasource;
-        FilterClause dateFilter = dateRangeResolver.findDateFilter(datasource, def.filters());
-        if (CycleOperators.isCycle(dateFilter)) {
-            return cycleKpi(def, computedDs, dateFilter);
-        }
-        DateRange effRange = dateRangeResolver.effectiveRange(dateFilter);
-        boolean compare = def.comparison() != null && Boolean.TRUE.equals(def.comparison().enabled())
-                && dateFilter != null && effRange.bounded();
-        DateRange prevRange = compare ? dateRangeResolver.previousPeriod(dateFilter.operator(), effRange) : DateRange.unbounded();
+        KpiPeriods periods = periodResolver.resolve(def, datasource, UserContext.getCurrentUserId());
 
         // The comparison reads the previous period from the same rows, so the hint spans both.
-        ComputedReportDatasource.DateHint hint = hint(dateFilter, effRange);
-        if (hint != null && prevRange.bounded()) {
-            hint = new ComputedReportDatasource.DateHint(hint.field(),
-                    prevRange.from().isBefore(hint.from()) ? prevRange.from() : hint.from(),
-                    prevRange.to().isAfter(hint.to()) ? prevRange.to() : hint.to());
-        }
-        List<Map<String, Object>> allRows = loadRows(computedDs, hint);
-        List<Map<String, Object>> filteredRows = filterRows(allRows, def.filters(), computedDs);
-
+        List<Map<String, Object>> allRows = loadRows(computedDs, kpiHint(periods));
+        List<Map<String, Object>> filteredRows = filterRows(allRows, periods.current().filters(), computedDs);
         BigDecimal val = calculateAggregate(filteredRows, def.measure(), def.aggregation());
 
-        KpiData.DateRangeView effRangeView = effRange.bounded()
-                ? new KpiData.DateRangeView(effRange.from(), effRange.to())
-                : null;
-        KpiData.Meta meta = new KpiData.Meta(filteredRows.size(), effRangeView);
-
         KpiData.Comparison comparison = null;
-        if (compare) {
-            if (prevRange.bounded()) {
-                List<Map<String, Object>> prevRows = filterRowsForDateRange(allRows, dateFilter, prevRange, def.filters(), computedDs);
-                BigDecimal prevVal = calculateAggregate(prevRows, def.measure(), def.aggregation());
-                comparison = comparison(val, prevVal, new KpiData.DateRangeView(prevRange.from(), prevRange.to()), def);
-            }
+        if (periods.previousAvailable()) {
+            List<Map<String, Object>> prevRows = filterRows(allRows, periods.previous().filters(), computedDs);
+            BigDecimal prevVal = calculateAggregate(prevRows, def.measure(), def.aggregation());
+            comparison = comparison(val, prevVal, rangeView(periods.previous().range()), def);
         }
+
+        DateRange range = periods.current().range();
+        KpiData.Meta meta = new KpiData.Meta(filteredRows.size(), range.bounded() ? rangeView(range) : null);
 
         FieldDef measureFieldDef = datasource.field(def.measure());
         String format = measureFieldDef != null ? measureFieldDef.format() : null;
@@ -112,34 +95,48 @@ public class InMemoryReportExecutor {
     }
 
     /**
-     * KPI over a billing-cycle date filter (limited to one account): the comparison is the
-     * cycle before rather than a flat date shift.
+     * The rows behind one period of a KPI (its underlying data). {@code periodFilters} are that
+     * period's filters from {@link KpiPeriodResolver}; the value is aggregated over the period's
+     * rows exactly as {@link #execute(KpiDefinition, ReportDatasource, Map)} does, so it equals
+     * the KPI's figure for that period. The rows are those the figure is made of (see
+     * {@link UnderlyingOperators#listing}), in datasource order.
      */
-    private KpiData cycleKpi(KpiDefinition def, ComputedReportDatasource ds, FilterClause dateFilter) {
-        int cyclesAgo = CycleOperators.cyclesAgo(dateFilter);
-        CycleWindows current = cycleWindows(cyclesAgo, ds, def.filters());
-        boolean compare = def.comparison() != null && Boolean.TRUE.equals(def.comparison().enabled())
-                && !current.byAccount().isEmpty();
-        CycleWindows previous = compare ? cycleWindows(cyclesAgo + 1, ds, def.filters()) : null;
+    public KpiRows kpiRows(KpiDefinition def, ReportDatasource datasource, List<FilterClause> periodFilters) {
+        ComputedReportDatasource computedDs = (ComputedReportDatasource) datasource;
+        List<Map<String, Object>> periodRows = filterRows(loadRows(computedDs, periodFilters), periodFilters, computedDs);
+        BigDecimal value = calculateAggregate(periodRows, def.measure(), def.aggregation());
+        List<Map<String, Object>> listed = filterRows(periodRows,
+                UnderlyingOperators.listing(def.measure(), def.aggregation(), value), computedDs);
+        return new KpiRows(value, listed);
+    }
 
-        ComputedReportDatasource.DateHint hint = spanHint(dateFilter.field(), current, previous);
-        List<Map<String, Object>> allRows = loadRows(ds, hint);
-        List<Map<String, Object>> filteredRows = filterRows(allRows, def.filters(), ds);
-        BigDecimal val = calculateAggregate(filteredRows, def.measure(), def.aggregation());
+    /**
+     * One period of a KPI over a computed datasource.
+     *
+     * @param value the KPI's figure for the period
+     * @param rows  the datasource rows that make up the figure
+     */
+    public record KpiRows(BigDecimal value, List<Map<String, Object>> rows) {
+    }
 
-        KpiData.Comparison comparison = null;
-        if (compare) {
-            List<FilterClause> previousFilters = KpiReportExecutor.withCyclesAgo(def.filters(), dateFilter, cyclesAgo + 1);
-            BigDecimal prevVal = calculateAggregate(filterRows(allRows, previousFilters, ds), def.measure(), def.aggregation());
-            KpiData.DateRangeView prevView = new KpiData.DateRangeView(previous.earliestStart(), previous.latestEnd());
-            comparison = comparison(val, prevVal, prevView, def);
+    /** A hint on the date filter's field spanning the KPI's bounded periods; null when none is bounded. */
+    private static ComputedReportDatasource.DateHint kpiHint(KpiPeriods periods) {
+        LocalDate from = null;
+        LocalDate to = null;
+        List<DateRange> ranges = periods.previousAvailable()
+                ? List.of(periods.current().range(), periods.previous().range())
+                : List.of(periods.current().range());
+        for (DateRange range : ranges) {
+            if (range.bounded()) {
+                from = from == null || range.from().isBefore(from) ? range.from() : from;
+                to = to == null || range.to().isAfter(to) ? range.to() : to;
+            }
         }
-        KpiData.DateRangeView view = current.byAccount().isEmpty() ? null
-                : new KpiData.DateRangeView(current.earliestStart(), current.latestEnd());
-        FieldDef measureFieldDef = ds.field(def.measure());
-        return new KpiData("KPI", val, def.measure(), def.aggregation().json(),
-                measureFieldDef != null ? measureFieldDef.format() : null, comparison,
-                new KpiData.Meta(filteredRows.size(), view));
+        return from == null ? null : new ComputedReportDatasource.DateHint(periods.dateFilter().field(), from, to);
+    }
+
+    private static KpiData.DateRangeView rangeView(DateRange range) {
+        return new KpiData.DateRangeView(range.from(), range.to());
     }
 
     private KpiData.Comparison comparison(BigDecimal val, BigDecimal prevVal, KpiData.DateRangeView prevView, KpiDefinition def) {
@@ -153,9 +150,10 @@ public class InMemoryReportExecutor {
         }
         String direction = change == null || change.compareTo(BigDecimal.ZERO) == 0 ? "flat"
                 : (change.compareTo(BigDecimal.ZERO) > 0 ? "up" : "down");
+        Boolean higherIsBetter = def.comparison() == null ? null : def.comparison().higherIsBetter();
         String sentiment = "neutral";
-        if (def.comparison().higherIsBetter() != null && !"flat".equals(direction)) {
-            sentiment = ("up".equals(direction) == def.comparison().higherIsBetter()) ? "good" : "bad";
+        if (higherIsBetter != null && !"flat".equals(direction)) {
+            sentiment = ("up".equals(direction) == higherIsBetter) ? "good" : "bad";
         }
         return new KpiData.Comparison(prevVal, prevView, change, changePct, direction, sentiment,
                 ComparisonDisplay.resolve(def.comparison()).json());
@@ -281,17 +279,31 @@ public class InMemoryReportExecutor {
         List<Map<String, Object>> allRows = loadRows(computedDs, def.filters());
         List<Map<String, Object>> filteredRows = filterRows(allRows, def.filters(), computedDs);
 
+        // Page numbers are 0-based, matching the SQL path and the client's pager.
+        int pSize = size != null && size > 0 ? Math.min(size, MAX_PAGE_SIZE) : DEFAULT_PAGE_SIZE;
+        int pNum = page != null ? Math.max(0, page) : 0;
+        return rawTable(filteredRows, def.columns(), def.sort(), datasource, pNum, pSize);
+    }
+
+    /**
+     * One page of already-filtered rows as a raw table: ordered by {@code sort} (any field of the
+     * datasource; empty for the default first-date-descending order, ties keeping the given
+     * order) and projected to {@code columns} plus the row {@code id}. {@code page} is 0-based
+     * and {@code size} is taken as given (at least 1).
+     */
+    public TableData rawTable(List<Map<String, Object>> filteredRows, List<String> columns, List<SortClause> sort,
+                              ReportDatasource datasource, int page, int size) {
         List<IndexedRow> indexedRows = new ArrayList<>();
         for (int i = 0; i < filteredRows.size(); i++) {
             indexedRows.add(new IndexedRow(i, filteredRows.get(i)));
         }
 
-        List<SortClause> sort = def.sort() != null && !def.sort().isEmpty()
-                ? def.sort()
+        List<SortClause> order = sort != null && !sort.isEmpty()
+                ? sort
                 : defaultSort(datasource);
-        if (!sort.isEmpty()) {
+        if (!order.isEmpty()) {
             indexedRows.sort((a, b) -> {
-                for (SortClause sc : sort) {
+                for (SortClause sc : order) {
                     Object valA = displayValue(a.row.get(sc.key()));
                     Object valB = displayValue(b.row.get(sc.key()));
                     int cmp = compareValues(valA, valB);
@@ -303,9 +315,8 @@ public class InMemoryReportExecutor {
             });
         }
 
-        // Page numbers are 0-based, matching the SQL path and the client's pager.
-        int pSize = size != null && size > 0 ? Math.min(size, MAX_PAGE_SIZE) : DEFAULT_PAGE_SIZE;
-        int pNum = page != null ? Math.max(0, page) : 0;
+        int pSize = Math.max(1, size);
+        int pNum = Math.max(0, page);
         int totalRows = indexedRows.size();
         int totalPages = totalRows == 0 ? 1 : (int) Math.ceil((double) totalRows / pSize);
         int fromIdx = pNum * pSize;
@@ -313,7 +324,7 @@ public class InMemoryReportExecutor {
 
         List<IndexedRow> pageRows = fromIdx < totalRows ? indexedRows.subList(fromIdx, toIdx) : List.of();
 
-        List<TableData.Column> columns = def.columns().stream().map(colName -> {
+        List<TableData.Column> tableColumns = columns.stream().map(colName -> {
             FieldDef f = datasource.field(colName);
             String label = f != null ? f.label() : colName;
             String type = f != null ? f.type().name().toLowerCase() : "string";
@@ -326,14 +337,14 @@ public class InMemoryReportExecutor {
             Map<String, Object> map = new LinkedHashMap<>();
             Object idVal = ir.row.get("id");
             map.put("id", idVal != null ? String.valueOf(idVal) : String.valueOf(ir.index));
-            for (String colName : def.columns()) {
+            for (String colName : columns) {
                 map.put(colName, displayValue(ir.row.get(colName)));
             }
             data.add(map);
         }
 
         TableData.Page pageObj = new TableData.Page(pNum, pSize, totalRows, totalPages);
-        return new TableData("TABLE", "raw", columns, data, pageObj);
+        return new TableData("TABLE", "raw", tableColumns, data, pageObj);
     }
 
     private PivotTableData executeAggregatedTable(AggregatedTableDefinition def, ReportDatasource datasource, Integer page, Integer size) {
@@ -380,7 +391,7 @@ public class InMemoryReportExecutor {
         List<PivotTableData.MeasureInfo> measureInfos = measures.stream().map(m -> {
             FieldDef f = datasource.field(m.field());
             String fieldLabel = f != null ? f.label() : m.field();
-            String mKey = m.field() + "_" + m.aggregation().json();
+            String mKey = measureKey(m);
             String label = fieldLabel + " (" + capitalize(m.aggregation().json()) + ")";
             String format = f != null ? f.format() : null;
             return new PivotTableData.MeasureInfo(mKey, m.field(), m.aggregation().json(), label, format);
@@ -405,8 +416,7 @@ public class InMemoryReportExecutor {
             }
         }
 
-        List<PivotTableData.Row> pivotRows = new ArrayList<>();
-        int rowIndex = 0;
+        List<PivotEntry> pivotEntries = new ArrayList<>();
         for (List<Object> rKeys : sortedRowKeys) {
             Map<String, String> rHeaderVals = new LinkedHashMap<>();
             List<String> rParts = new ArrayList<>();
@@ -425,7 +435,7 @@ public class InMemoryReportExecutor {
                 Map<String, Object> measureVals = new LinkedHashMap<>();
                 if (gRows != null) {
                     for (MeasureRef m : measures) {
-                        String mKey = m.field() + "_" + m.aggregation().json();
+                        String mKey = measureKey(m);
                         BigDecimal aggVal = calculateAggregate(gRows, m.field(), m.aggregation());
                         measureVals.put(mKey, aggVal);
                     }
@@ -439,7 +449,7 @@ public class InMemoryReportExecutor {
                     Map<String, Object> measureVals = new LinkedHashMap<>();
                     if (gRows != null) {
                         for (MeasureRef m : measures) {
-                            String mKey = m.field() + "_" + m.aggregation().json();
+                            String mKey = measureKey(m);
                             BigDecimal aggVal = calculateAggregate(gRows, m.field(), m.aggregation());
                             measureVals.put(mKey, aggVal);
                         }
@@ -448,8 +458,10 @@ public class InMemoryReportExecutor {
                 }
             }
 
-            pivotRows.add(new PivotTableData.Row(rowKeyStr, rHeaderVals, cells));
+            pivotEntries.add(new PivotEntry(rKeys, new PivotTableData.Row(rowKeyStr, rHeaderVals, cells)));
         }
+        sortPivotRows(pivotEntries, def.sort(), rowDims, colDims.isEmpty() ? measures : List.of());
+        List<PivotTableData.Row> pivotRows = pivotEntries.stream().map(PivotEntry::row).toList();
 
         // Page numbers are 0-based, matching the SQL path and the client's pager.
         int pSize = size != null && size > 0 ? Math.min(size, MAX_PAGE_SIZE) : DEFAULT_PAGE_SIZE;
@@ -484,26 +496,15 @@ public class InMemoryReportExecutor {
                 .toList();
     }
 
-    private List<Map<String, Object>> filterRowsForDateRange(List<Map<String, Object>> rows, FilterClause dateFilter, DateRange range, List<FilterClause> allFilters, ComputedReportDatasource ds) {
-        return rows.stream()
-                .filter(row -> {
-                    if (!matchesFilters(row, allFilters.stream().filter(f -> f != dateFilter).toList(), ds, Map.of())) {
-                        return false;
-                    }
-                    Object val = row.get(dateFilter.field());
-                    LocalDate d = ResultValues.toLocalDate(val);
-                    return range.contains(d);
-                })
-                .toList();
-    }
-
     private boolean matchesFilters(Map<String, Object> row, List<FilterClause> filters, ComputedReportDatasource ds,
                                    Map<FilterClause, CycleWindows> cycles) {
         for (FilterClause f : filters) {
             FieldDef fieldDef = ds.field(f.field());
             Object rowVal = row.get(f.field());
             boolean matches;
-            if (cycles.containsKey(f)) {
+            if (UnderlyingOperators.isInternal(f.operator())) {
+                matches = matchesUnderlying(rowVal, f);
+            } else if (cycles.containsKey(f)) {
                 // Billing cycle: the row's card must exist and its date fall in that card's window.
                 matches = cycles.get(f).contains(accountOf(row, ds), ResultValues.toLocalDate(rowVal));
             } else if (fieldDef != null && fieldDef.idField() != null) {
@@ -521,6 +522,19 @@ public class InMemoryReportExecutor {
             }
         }
         return true;
+    }
+
+    /**
+     * The KPI underlying-data clauses (see {@link UnderlyingOperators}): a value is present when it
+     * reads as a number (exactly the values {@link #calculateAggregate} counts), and equal when it
+     * compares equal to the clause's number.
+     */
+    private static boolean matchesUnderlying(Object rowVal, FilterClause f) {
+        BigDecimal value = ResultValues.toBigDecimal(rowVal);
+        if (value == null) {
+            return false;
+        }
+        return UnderlyingOperators.PRESENT.equals(f.operator()) || value.compareTo(f.value().decimalValue()) == 0;
     }
 
     private boolean matchesFilter(Object rowVal, FilterClause f, FieldDef fieldDef) {
@@ -716,7 +730,7 @@ public class InMemoryReportExecutor {
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    private int compareValues(Object a, Object b) {
+    private static int compareValues(Object a, Object b) {
         if (a == null && b == null) return 0;
         if (a == null) return -1;
         if (b == null) return 1;
@@ -740,6 +754,49 @@ public class InMemoryReportExecutor {
         return 0;
     }
 
+    /**
+     * Orders pivot rows by the table's sort clauses the way the SQL pivot does: a row dimension
+     * sorts on its grouped value, a measure key ({@code field_agg}) on that measure's aggregate
+     * (only offered without column dimensions), and keys that are neither are ignored. Values
+     * compare like raw-table cells (nulls first ascending, last descending). The sort is stable,
+     * so rows tied on every clause keep the default dimension order, and pages never overlap.
+     */
+    private static void sortPivotRows(List<PivotEntry> entries, List<SortClause> sort, List<DimensionRef> rowDims,
+                                      List<MeasureRef> sortableMeasures) {
+        if (sort == null || sort.isEmpty()) {
+            return;
+        }
+        Map<String, Function<PivotEntry, Object>> sortable = new HashMap<>();
+        for (int i = 0; i < rowDims.size(); i++) {
+            int index = i;
+            sortable.put(rowDims.get(i).field(), entry -> entry.rowKeys().get(index));
+        }
+        for (MeasureRef m : sortableMeasures) {
+            String key = measureKey(m);
+            sortable.put(key, entry -> entry.row().cells().get("").get(key));
+        }
+        Comparator<PivotEntry> order = null;
+        for (SortClause clause : sort) {
+            Function<PivotEntry, Object> value = sortable.get(clause.key());
+            if (value == null) {
+                continue;
+            }
+            Comparator<PivotEntry> byClause = (a, b) -> compareValues(value.apply(a), value.apply(b));
+            if (clause.direction() == SortDirection.DESC) {
+                byClause = byClause.reversed();
+            }
+            order = order == null ? byClause : order.thenComparing(byClause);
+        }
+        if (order != null) {
+            entries.sort(order);
+        }
+    }
+
+    /** A pivot measure's key: {@code <field>_<aggregation>}, e.g. {@code amount_sum}. */
+    private static String measureKey(MeasureRef m) {
+        return m.field() + "_" + m.aggregation().json();
+    }
+
     private static String capitalize(String str) {
         if (str == null || str.isEmpty()) return str;
         return str.substring(0, 1).toUpperCase() + str.substring(1);
@@ -757,10 +814,10 @@ public class InMemoryReportExecutor {
     /** Rows for one run, letting the datasource skip work outside the run's date filter. */
     private List<Map<String, Object>> loadRows(ComputedReportDatasource ds, List<FilterClause> filters) {
         FilterClause dateFilter = dateRangeResolver.findDateFilter(ds, filters);
-        if (CycleOperators.isCycle(dateFilter)) {
-            return loadRows(ds, spanHint(dateFilter.field(), cycleWindows(CycleOperators.cyclesAgo(dateFilter), ds, filters), null));
-        }
-        return loadRows(ds, hint(dateFilter, dateRangeResolver.effectiveRange(dateFilter)));
+        DateRange range = CycleOperators.isCycle(dateFilter)
+                ? KpiReportExecutor.span(cycleWindows(CycleOperators.cyclesAgo(dateFilter), ds, filters))
+                : dateRangeResolver.effectiveRange(dateFilter);
+        return loadRows(ds, hint(dateFilter, range));
     }
 
     private List<Map<String, Object>> loadRows(ComputedReportDatasource ds, ComputedReportDatasource.DateHint hint) {
@@ -770,11 +827,7 @@ public class InMemoryReportExecutor {
 
     /** The current user's windows {@code cyclesAgo} cycles back, for the account the report is limited to. */
     private CycleWindows cycleWindows(int cyclesAgo, ComputedReportDatasource ds, List<FilterClause> filters) {
-        if (billingCycleService == null) {
-            return new CycleWindows(Map.of());
-        }
-        String accountRef = CycleOperators.singleAccountRef(ds.billingCycleAccountField(), filters);
-        return billingCycleService.windows(UserContext.getCurrentUserId(), cyclesAgo, AppTime.today(), accountRef);
+        return periodResolver.cycleWindows(UserContext.getCurrentUserId(), cyclesAgo, ds, filters);
     }
 
     /**
@@ -793,17 +846,6 @@ public class InMemoryReportExecutor {
         } catch (IllegalArgumentException e) {
             return null;
         }
-    }
-
-    /** A hint spanning the cycle windows (of one or two cycle sets); null when there are none. */
-    private static ComputedReportDatasource.DateHint spanHint(String field, CycleWindows a, CycleWindows b) {
-        LocalDate from = a.earliestStart();
-        LocalDate to = a.latestEnd();
-        if (b != null && b.earliestStart() != null) {
-            from = from == null || b.earliestStart().isBefore(from) ? b.earliestStart() : from;
-            to = to == null || b.latestEnd().isAfter(to) ? b.latestEnd() : to;
-        }
-        return from == null ? null : new ComputedReportDatasource.DateHint(field, from, to);
     }
 
     private static ComputedReportDatasource.DateHint hint(FilterClause dateFilter, DateRange range) {
@@ -860,6 +902,7 @@ public class InMemoryReportExecutor {
     }
 
     private record IndexedRow(int index, Map<String, Object> row) {}
+    private record PivotEntry(List<Object> rowKeys, PivotTableData.Row row) {}
     private record DimensionKey(Object dimVal, Object seriesVal) {}
     private record MultiDimensionKey(List<Object> rowKeys, List<Object> colKeys) {}
 }
