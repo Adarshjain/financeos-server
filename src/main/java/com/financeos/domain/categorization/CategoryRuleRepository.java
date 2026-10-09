@@ -63,4 +63,6 @@ public interface CategoryRuleRepository extends JpaRepository<CategoryRule, UUID
 
     @EntityGraph(attributePaths = "categories")
     List<CategoryRule> findWithCategoriesByIdIn(Collection<UUID> ids);
+
+    List<CategoryRule> findByUserIdAndIdIn(UUID userId, Collection<UUID> ids);
 }

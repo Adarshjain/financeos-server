@@ -116,10 +116,23 @@ public class CategorizationService {
 
     @Transactional
     public void verifyRule(CategoryRule rule) {
-        rule.setVerified(true);
-        categoryRuleRepository.save(rule);
+        verifyRules(List.of(rule));
+    }
 
-        List<Transaction> txns = transactionRepository.findByAppliedRuleId(rule.getId());
+    /**
+     * Marks the rules verified and clears CATEGORY_UNVERIFIED from every transaction linked to any
+     * of them, in one transaction.
+     */
+    @Transactional
+    public void verifyRules(Collection<CategoryRule> rules) {
+        if (rules.isEmpty()) {
+            return;
+        }
+        rules.forEach(rule -> rule.setVerified(true));
+        categoryRuleRepository.saveAll(rules);
+
+        List<UUID> ruleIds = rules.stream().map(CategoryRule::getId).toList();
+        List<Transaction> txns = transactionRepository.findByAppliedRuleIdIn(ruleIds);
         List<Transaction> toSave = new ArrayList<>();
         for (Transaction txn : txns) {
             if (txn.getReviewReasons() != null && txn.getReviewReasons().contains(ReviewReason.CATEGORY_UNVERIFIED)) {
