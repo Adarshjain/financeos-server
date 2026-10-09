@@ -154,6 +154,40 @@ class RuleUpdateCategoriesIntegrationTest {
         return saved;
     }
 
+    private CategoryRule rule(String pattern, MatchType matchType, Category... categories) {
+        CategoryRule rule = new CategoryRule();
+        rule.setUser(user);
+        rule.setMerchantKey(pattern);
+        rule.setMatchType(matchType);
+        rule.setSource("USER");
+        rule.setVerified(true);
+        rule.setCategories(new HashSet<>(Set.of(categories)));
+        CategoryRule saved = categoryRuleRepository.save(rule);
+        ruleIds.add(saved.getId());
+        return saved;
+    }
+
+    private Transaction linkedTransaction(CategoryRule rule, String sourcedDescription, ReviewType reviewType,
+                                          Category... categories) {
+        Transaction txn = linkedTransaction(rule, reviewType, categories);
+        txn.setSourcedDescription(sourcedDescription);
+        return transactionRepository.save(txn);
+    }
+
+    private void updateRule(CategoryRule rule, Map<String, Object> body) throws Exception {
+        mockMvc.perform(put("/api/v1/rules/{id}", rule.getId())
+                        .cookie(session)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(body)))
+                .andExpect(status().isOk());
+    }
+
+    private UUID appliedRuleId(Transaction txn) {
+        String id = jdbcTemplate.queryForObject(
+                "SELECT applied_rule_id FROM transactions WHERE id = ?", String.class, txn.getId().toString());
+        return id == null ? null : UUID.fromString(id);
+    }
+
     private void updateRuleCategories(CategoryRule rule, Category... categories) throws Exception {
         Map<String, Object> body = new HashMap<>();
         body.put("categoryIds", java.util.Arrays.stream(categories).map(Category::getId).toList());
@@ -249,5 +283,79 @@ class RuleUpdateCategoriesIntegrationTest {
         for (Transaction txn : txns) {
             assertEquals(Set.of(travel.getId()), categoryRows(txn).keySet());
         }
+    }
+
+    @Test
+    void patternChange_unlinksLinkedTransactionsItNoLongerMatches_keepingTheirCategories() throws Exception {
+        CategoryRule rule = rule("swiggy", MatchType.CONTAINS, food);
+        Transaction stillMatches = linkedTransaction(rule, "UPI SWIGGY INSTAMART", ReviewType.AUTO_REVIEWED, food);
+        Transaction noLongerMatches = linkedTransaction(rule, "UPI SWIGGY DINEOUT", ReviewType.AUTO_REVIEWED, food);
+
+        updateRule(rule, Map.of("merchantKey", "instamart", "matchType", "CONTAINS"));
+
+        assertEquals(rule.getId(), appliedRuleId(stillMatches));
+        assertNull(appliedRuleId(noLongerMatches));
+        assertEquals(Set.of(food.getId()), categoryRows(noLongerMatches).keySet());
+    }
+
+    @Test
+    void patternAndCategoryChange_newCategoriesReachOnlyTransactionsStillLinked() throws Exception {
+        CategoryRule rule = rule("swiggy", MatchType.CONTAINS, food);
+        Transaction stillMatches = linkedTransaction(rule, "UPI SWIGGY INSTAMART", ReviewType.AUTO_REVIEWED, food);
+        Transaction noLongerMatches = linkedTransaction(rule, "UPI SWIGGY DINEOUT", ReviewType.AUTO_REVIEWED, food);
+
+        updateRule(rule, Map.of(
+                "merchantKey", "instamart",
+                "matchType", "CONTAINS",
+                "categoryIds", List.of(shopping.getId())));
+
+        assertEquals(Set.of(shopping.getId()), categoryRows(stillMatches).keySet());
+        assertNull(appliedRuleId(noLongerMatches));
+        assertEquals(Set.of(food.getId()), categoryRows(noLongerMatches).keySet());
+    }
+
+    @Test
+    void matchTypeChange_unlinksLinkedTransactionsItNoLongerMatches() throws Exception {
+        CategoryRule rule = rule("swiggy", MatchType.CONTAINS, food);
+        Transaction startsWith = linkedTransaction(rule, "SWIGGY ORDER 42", ReviewType.AUTO_REVIEWED, food);
+        Transaction contains = linkedTransaction(rule, "UPI SWIGGY ORDER 43", ReviewType.AUTO_REVIEWED, food);
+
+        updateRule(rule, Map.of("merchantKey", "swiggy", "matchType", "STARTS_WITH"));
+
+        assertEquals(rule.getId(), appliedRuleId(startsWith));
+        assertNull(appliedRuleId(contains));
+    }
+
+    @Test
+    void patternChange_unlinksManuallyReviewedTransactionWithoutTouchingItsCategories() throws Exception {
+        CategoryRule rule = rule("swiggy", MatchType.CONTAINS, food);
+        Transaction manual = linkedTransaction(rule, "UPI SWIGGY DINEOUT", ReviewType.MANUALLY_REVIEWED, food, travel);
+        Map<UUID, Long> rowsBefore = categoryRows(manual);
+
+        updateRule(rule, Map.of(
+                "merchantKey", "instamart",
+                "matchType", "CONTAINS",
+                "categoryIds", List.of(shopping.getId())));
+
+        assertNull(appliedRuleId(manual));
+        assertEquals(rowsBefore, categoryRows(manual));
+    }
+
+    /** The edit dialog always resends the pattern; an unchanged one must not unlink anything. */
+    @Test
+    void unchangedPatternResent_keepsEveryLinkAndAppliesCategories() throws Exception {
+        CategoryRule rule = rule("swiggy", MatchType.CONTAINS, food);
+        Transaction matching = linkedTransaction(rule, "UPI SWIGGY ORDER", ReviewType.AUTO_REVIEWED, food);
+        Transaction notMatching = linkedTransaction(rule, "ZOMATO ORDER", ReviewType.AUTO_REVIEWED, food);
+
+        updateRule(rule, Map.of(
+                "merchantKey", "swiggy",
+                "matchType", "CONTAINS",
+                "categoryIds", List.of(travel.getId())));
+
+        assertEquals(rule.getId(), appliedRuleId(matching));
+        assertEquals(rule.getId(), appliedRuleId(notMatching));
+        assertEquals(Set.of(travel.getId()), categoryRows(matching).keySet());
+        assertEquals(Set.of(travel.getId()), categoryRows(notMatching).keySet());
     }
 }

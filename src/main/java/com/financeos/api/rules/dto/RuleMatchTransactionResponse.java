@@ -19,7 +19,8 @@ public record RuleMatchTransactionResponse(
         String sourcedDescription,
         List<CategoryResponse> categories,
         @Nullable String reviewType,
-        @Nullable UUID appliedRuleId
+        @Nullable UUID appliedRuleId,
+        @Nullable String appliedRuleName
 ) {
     public static RuleMatchTransactionResponse from(RuleMatchService.MatchedTransaction match) {
         List<CategoryResponse> categories = match.categories().stream()
@@ -34,7 +35,8 @@ public record RuleMatchTransactionResponse(
                 match.sourcedDescription(),
                 categories,
                 match.reviewType() != null ? match.reviewType().name() : null,
-                match.appliedRuleId()
+                match.appliedRuleId(),
+                match.appliedRuleName()
         );
     }
 }

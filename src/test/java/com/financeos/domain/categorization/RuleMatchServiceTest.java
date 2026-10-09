@@ -105,6 +105,45 @@ public class RuleMatchServiceTest {
     }
 
     @Test
+    public void findMatchesNamesTheRuleEachMatchIsLinkedTo() {
+        rule.setDisplayName("Food delivery");
+        CategoryRule otherRule = new CategoryRule();
+        otherRule.setId(UUID.randomUUID());
+        otherRule.setUser(testUser);
+        otherRule.setMerchantKey("INSTAMART");
+        otherRule.setMatchType(MatchType.CONTAINS);
+        otherRule.setDisplayName("  ");
+
+        UUID linkedHere = UUID.randomUUID();
+        UUID linkedElsewhere = UUID.randomUUID();
+        UUID unlinked = UUID.randomUUID();
+        when(transactionRepository.findRuleMatchCandidates(userId, ReviewType.MANUALLY_REVIEWED))
+                .thenReturn(List.of(
+                        candidate(linkedHere, "UPI SWIGGY ORDER"),
+                        candidate(linkedElsewhere, "SWIGGY INSTAMART"),
+                        candidate(unlinked, "SWIGGY DINEOUT")));
+
+        Transaction here = txn(linkedHere, "UPI SWIGGY ORDER");
+        here.setAppliedRule(rule);
+        Transaction elsewhere = txn(linkedElsewhere, "SWIGGY INSTAMART");
+        elsewhere.setAppliedRule(otherRule);
+        Transaction none = txn(unlinked, "SWIGGY DINEOUT");
+        when(transactionRepository.findAllByIdInAndUserId(List.of(linkedHere, linkedElsewhere, unlinked), userId))
+                .thenReturn(List.of(here, elsewhere, none));
+
+        List<RuleMatchService.MatchedTransaction> content = ruleMatchService
+                .findMatches(userId, MatchType.CONTAINS, "SWIGGY", PageRequest.of(0, 10))
+                .getContent();
+
+        assertEquals(rule.getId(), content.get(0).appliedRuleId());
+        assertEquals("Food delivery", content.get(0).appliedRuleName());
+        assertEquals(otherRule.getId(), content.get(1).appliedRuleId());
+        assertEquals("INSTAMART", content.get(1).appliedRuleName(), "blank display name falls back to the pattern");
+        assertNull(content.get(2).appliedRuleId());
+        assertNull(content.get(2).appliedRuleName());
+    }
+
+    @Test
     public void applyToTransactionsSetsRuleCategoriesAndLink() {
         UUID txnId = UUID.randomUUID();
         Transaction txn = txn(txnId, "UPI SWIGGY ORDER");
