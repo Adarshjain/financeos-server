@@ -5983,6 +5983,30 @@ paths:
           description: Error response
       tags:
       - rules-controller
+  /api/v1/rules/verify:
+    post:
+      operationId: verifyRules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BulkVerifyRulesRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BulkVerifyRulesResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - rules-controller
   /api/v1/rules/{id}:
     delete:
       operationId: deleteRule
@@ -7146,6 +7170,27 @@ components:
           format: int32
       required:
       - updatedCount
+    BulkVerifyRulesRequest:
+      type: object
+      properties:
+        ruleIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          maxItems: 500
+          minItems: 0
+          x-required: true
+      required:
+      - ruleIds
+    BulkVerifyRulesResponse:
+      type: object
+      properties:
+        verifiedCount:
+          type: integer
+          format: int32
+      required:
+      - verifiedCount
     CapStatus:
       type: object
       properties:

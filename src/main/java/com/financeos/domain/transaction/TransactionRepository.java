@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -74,6 +75,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("endDate") LocalDate endDate);
 
     List<Transaction> findByAppliedRuleId(UUID appliedRuleId);
+
+    List<Transaction> findByAppliedRuleIdIn(Collection<UUID> appliedRuleIds);
 
     interface RuleMatchCandidate {
         UUID getId();

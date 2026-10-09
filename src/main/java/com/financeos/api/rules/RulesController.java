@@ -4,6 +4,8 @@ import org.springdoc.core.annotations.ParameterObject;
 
 import com.financeos.api.rules.dto.ApplyRuleRequest;
 import com.financeos.api.rules.dto.ApplyRuleResponse;
+import com.financeos.api.rules.dto.BulkVerifyRulesRequest;
+import com.financeos.api.rules.dto.BulkVerifyRulesResponse;
 import com.financeos.api.rules.dto.CreateRuleRequest;
 import com.financeos.api.rules.dto.PreviewMatchesRequest;
 import com.financeos.api.rules.dto.RuleMatchTransactionResponse;
@@ -248,6 +250,25 @@ public class RulesController {
 
         categorizationService.verifyRule(rule);
         return ResponseEntity.ok(RuleResponse.from(rule));
+    }
+
+    /**
+     * Verifies several rules at once. All-or-nothing: if any id is unknown or belongs to another
+     * user, nothing is verified. Already-verified rules are accepted and left as they are.
+     */
+    @PostMapping("/verify")
+    public ResponseEntity<BulkVerifyRulesResponse> verifyRules(@Valid @RequestBody BulkVerifyRulesRequest request) {
+        UUID currentSessionUserId = UserContext.getCurrentUserId();
+
+        Set<UUID> requestedIds = new HashSet<>(request.ruleIds());
+        List<CategoryRule> rules = categoryRuleRepository.findByUserIdAndIdIn(currentSessionUserId, requestedIds);
+        if (rules.size() != requestedIds.size()) {
+            throw new ResourceNotFoundException("One or more rules not found");
+        }
+
+        List<CategoryRule> unverified = rules.stream().filter(rule -> !rule.isVerified()).toList();
+        categorizationService.verifyRules(unverified);
+        return ResponseEntity.ok(new BulkVerifyRulesResponse(unverified.size()));
     }
 
     /**
