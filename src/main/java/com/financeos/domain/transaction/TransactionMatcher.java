@@ -78,6 +78,13 @@ public class TransactionMatcher {
                 continue;
             }
 
+            // Bank text vs bank text: the same row always carries the same date and narration,
+            // so two rows that differ only in a reference number are different transactions.
+            if (isBankText(candidate)
+                    && (dateDiff != 0 || !sameText(line.description(), effectiveDescription(candidate)))) {
+                continue;
+            }
+
             boolean isSameCard = lineCardId != null && candidate.getCard() != null && lineCardId.equals(candidate.getCard().getId());
             double similarity = calculateSimilarity(line.description(), effectiveDescription(candidate));
 
@@ -115,9 +122,27 @@ public class TransactionMatcher {
         if (t1.getAmount() == null || t2.getAmount() == null) return false;
         if (t1.getAmount().compareTo(t2.getAmount()) != 0) return false;
         if (t1.getType() != t2.getType()) return false;
-        
+
+        if (isBankText(t1) && isBankText(t2)) {
+            return dateDiff == 0 && sameText(effectiveDescription(t1), effectiveDescription(t2));
+        }
+
         double similarity = calculateSimilarity(effectiveDescription(t1), effectiveDescription(t2));
         return similarity >= 0.7; // 70% Jaccard token similarity overlap threshold
+    }
+
+    /**
+     * True when the row's description is the bank's own narration (statement upload or Gmail statement),
+     * as opposed to alert text written by the extractor or a user-typed manual entry.
+     */
+    private static boolean isBankText(Transaction t) {
+        return t.getSource() == TransactionSource.file_upload || t.getSource() == TransactionSource.gmail_statement;
+    }
+
+    /** Exact comparison ignoring case and whitespace (PDF extraction can wrap or space narrations differently). */
+    static boolean sameText(String s1, String s2) {
+        if (s1 == null || s2 == null) return false;
+        return s1.replaceAll("\\s+", "").equalsIgnoreCase(s2.replaceAll("\\s+", ""));
     }
 
     /**
