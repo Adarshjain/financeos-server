@@ -256,6 +256,18 @@ public class StatementReconciliationService {
 
         Set<UUID> consumedTxnIds = new HashSet<>();
 
+        // A row another statement already claimed belongs to that statement's line. It may only be
+        // re-matched when this statement also covers its date (overlapping statements); otherwise a
+        // same-amount payment just across the boundary would be swallowed by last month's row.
+        Set<UUID> claimedTxnIds = statementPersistenceService.findStatementLinkedTransactionIds(
+                resolvedAccount.getId(), searchStart, searchEnd);
+        for (Transaction t : allPeriodTxns) {
+            boolean outsideThisStatement = t.getDate().isBefore(minLineDate) || t.getDate().isAfter(maxLineDate);
+            if (outsideThisStatement && claimedTxnIds.contains(t.getId())) {
+                consumedTxnIds.add(t.getId());
+            }
+        }
+
         // Loop over candidate statement lines and match/reconcile
         for (int i = 0; i < candidateLines.size(); i++) {
             ParsedStatementLine line = candidateLines.get(i);

@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -107,6 +108,12 @@ public class StatementPersistenceService {
     }
 
     public record TxnLink(UUID transactionId, int lineIndex, BigDecimal balanceAfter, Boolean chainValid) {
+    }
+
+    /** Ids of the account's transactions in the date range that some statement already links to. */
+    @Transactional(readOnly = true)
+    public Set<UUID> findStatementLinkedTransactionIds(UUID accountId, LocalDate startDate, LocalDate endDate) {
+        return statementTransactionRepository.findLinkedTransactionIds(accountId, startDate, endDate);
     }
 
     @Transactional
