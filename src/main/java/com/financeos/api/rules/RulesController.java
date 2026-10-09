@@ -184,6 +184,7 @@ public class RulesController {
             throw new ValidationException("You do not have permission to modify this rule.");
         }
 
+        boolean patternChanged = false;
         if (request.merchantKey() != null || request.matchType() != null) {
             MatchType newType = request.matchType() != null ? parseMatchType(request.matchType()) : rule.getMatchType();
             String rawPattern = request.merchantKey() != null ? request.merchantKey() : rule.getMerchantKey();
@@ -199,6 +200,7 @@ public class RulesController {
                 }
                 rule.setMerchantKey(canonicalKey);
                 rule.setMatchType(newType);
+                patternChanged = true;
             }
         }
 
@@ -210,6 +212,7 @@ public class RulesController {
             rule.setMcc(request.mcc().isBlank() ? null : request.mcc());
         }
 
+        Set<Category> newCategories = null;
         if (request.categoryIds() != null) {
             List<Category> categories = categoryRepository.findAllById(request.categoryIds());
             if (categories.size() != request.categoryIds().size()) {
@@ -221,11 +224,12 @@ public class RulesController {
                 }
             }
 
-            // Category change triggers retroactive re-apply
-            categorizationService.updateRuleCategories(rule, new HashSet<>(categories));
-        } else {
-            categoryRuleRepository.save(rule);
+            newCategories = new HashSet<>(categories);
         }
+
+        // Linked transactions only: unlinks those a changed pattern no longer matches, then
+        // re-applies categories to the rest.
+        categorizationService.saveEditedRule(rule, patternChanged, newCategories);
 
         return ResponseEntity.ok(RuleResponse.from(rule));
     }

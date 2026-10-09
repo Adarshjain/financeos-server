@@ -62,7 +62,8 @@ public class RuleMatchService {
             String sourcedDescription,
             Set<Category> categories,
             ReviewType reviewType,
-            UUID appliedRuleId) {
+            UUID appliedRuleId,
+            String appliedRuleName) {
     }
 
     @Transactional(readOnly = true)
@@ -174,6 +175,7 @@ public class RuleMatchService {
         Set<Category> categories = txn.getCategories().stream()
                 .map(tc -> tc.getCategory())
                 .collect(Collectors.toSet());
+        CategoryRule appliedRule = txn.getAppliedRule();
         return new MatchedTransaction(
                 txn.getId(),
                 txn.getDate(),
@@ -182,7 +184,14 @@ public class RuleMatchService {
                 txn.getSourcedDescription(),
                 categories,
                 txn.getReviewType(),
-                txn.getAppliedRule() != null ? txn.getAppliedRule().getId() : null
+                appliedRule != null ? appliedRule.getId() : null,
+                appliedRule != null ? ruleName(appliedRule) : null
         );
+    }
+
+    /** What the rules page shows for a rule: its display name, else its pattern. */
+    private static String ruleName(CategoryRule rule) {
+        String displayName = rule.getDisplayName();
+        return displayName != null && !displayName.isBlank() ? displayName : rule.getMerchantKey();
     }
 }

@@ -132,6 +132,37 @@ public class CategorizationService {
         }
     }
 
+    /**
+     * Persists an edited rule and keeps its linked transactions consistent with it, in one
+     * transaction. When the pattern changed, linked transactions it no longer matches are unlinked
+     * first: they keep their current categories but stop following the rule. Then, when categories
+     * were supplied, the remaining linked transactions get them. Transactions the pattern matches
+     * but that aren't linked are left alone; linking them is the explicit apply action.
+     */
+    @Transactional
+    public void saveEditedRule(CategoryRule rule, boolean patternChanged, Set<Category> newCategories) {
+        if (patternChanged) {
+            List<Transaction> noLongerMatching = new ArrayList<>();
+            for (Transaction txn : transactionRepository.findByAppliedRuleId(rule.getId())) {
+                if (!RuleMatcher.matches(rule, RuleMatcher.MatchContext.of(txn.getSourcedDescription()))) {
+                    txn.setAppliedRule(null);
+                    noLongerMatching.add(txn);
+                }
+            }
+            if (!noLongerMatching.isEmpty()) {
+                transactionRepository.saveAll(noLongerMatching);
+                log.info("Unlinked {} transaction(s) from rule {} after its pattern changed",
+                        noLongerMatching.size(), rule.getId());
+            }
+        }
+
+        if (newCategories != null) {
+            updateRuleCategories(rule, newCategories);
+        } else {
+            categoryRuleRepository.save(rule);
+        }
+    }
+
     @Transactional
     public void updateRuleCategories(CategoryRule rule, Set<Category> newCategories) {
         rule.setCategories(newCategories);

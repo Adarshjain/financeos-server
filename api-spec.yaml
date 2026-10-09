@@ -14031,6 +14031,10 @@ components:
           format: uuid
           nullable: true
           x-nullable: true
+        appliedRuleName:
+          type: string
+          nullable: true
+          x-nullable: true
         categories:
           type: array
           items:
