@@ -20,8 +20,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 /**
  * The inbox: a read of everything needing attention, plus snooze / dismiss / undo on a row key.
- * Keys contain ':' (e.g. {@code emi:<loanId>:<seq>}), hence the {@code {key:.+}} segment; the
- * client URL-encodes them and Spring decodes before matching. Every write returns the fresh inbox
+ * Keys contain ':' (e.g. {@code emi:<loanId>:<seq>}) but never '/' or '.', so a plain {@code {key}}
+ * segment matches them; the client URL-encodes them and Spring decodes before matching. Every write returns the fresh inbox
  * so the client never needs a second round trip.
  */
 @RestController
