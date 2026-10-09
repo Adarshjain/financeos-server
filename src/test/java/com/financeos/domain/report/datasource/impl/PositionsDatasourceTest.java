@@ -84,4 +84,11 @@ class PositionsDatasourceTest {
         assertEquals(new BigDecimal("300"), r2.get("realizedGainLoss"));
         assertEquals(Boolean.FALSE, r2.get("isOpen"));
     }
+
+    @Test
+    void underlyingRowsAreIdentifiedByBrokerAndInstrument() {
+        assertEquals(List.of("broker", "instrument"), datasource.underlyingColumns());
+        assertNull(datasource.underlyingDefaultSort());
+        assertNull(datasource.underlyingGroupField());
+    }
 }

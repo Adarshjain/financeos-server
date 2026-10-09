@@ -124,6 +124,48 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
            "FROM Transaction t WHERE t.account.id = :accountId")
     BalanceAggregatesProjection findBalanceAggregatesByAccountId(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
 
+    /**
+     * The transactions an account's calculated balance is made of, newest first with a stable
+     * tiebreak (created time, then id). The WHERE is exactly the balance rule of
+     * {@link #findBalanceAggregatesByAccountId} and the batch balance query: every transaction of the
+     * account (excluded ones included, no review or source filter), restricted to
+     * {@code date > afterDate} when the balance is anchored on a statement ending {@code afterDate};
+     * a null {@code afterDate} (no anchor) lists them all.
+     */
+    @Query(value = "SELECT t FROM Transaction t WHERE t.account.id = :accountId " +
+                   "AND (:afterDate IS NULL OR t.date > :afterDate) " +
+                   "ORDER BY t.date DESC, t.createdAt DESC, t.id DESC",
+           countQuery = "SELECT COUNT(t) FROM Transaction t WHERE t.account.id = :accountId " +
+                        "AND (:afterDate IS NULL OR t.date > :afterDate)")
+    Page<Transaction> findBalanceTransactions(@Param("accountId") UUID accountId,
+                                              @Param("afterDate") LocalDate afterDate,
+                                              Pageable pageable);
+
+    /**
+     * Credits and debits (every non-CREDIT type, as the balance signs them) among the transactions
+     * {@link #findBalanceTransactions} lists, with how many of them are excluded transactions.
+     */
+    interface BalanceMovementsProjection {
+        Long getCreditCount();
+
+        java.math.BigDecimal getCreditSum();
+
+        Long getDebitCount();
+
+        java.math.BigDecimal getDebitSum();
+
+        Long getExcludedCount();
+    }
+
+    /** Totals of {@link #findBalanceTransactions} (same WHERE): credit − debit sums to the balance's movement. */
+    @Query("SELECT COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN 1 ELSE 0 END), 0) AS creditCount, " +
+           "COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE 0 END), 0) AS creditSum, " +
+           "COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN 0 ELSE 1 END), 0) AS debitCount, " +
+           "COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN 0 ELSE t.amount END), 0) AS debitSum, " +
+           "COALESCE(SUM(CASE WHEN t.isTransactionExcluded = true THEN 1 ELSE 0 END), 0) AS excludedCount " +
+           "FROM Transaction t WHERE t.account.id = :accountId AND (:afterDate IS NULL OR t.date > :afterDate)")
+    BalanceMovementsProjection findBalanceMovements(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
+
     @Query("SELECT t FROM Transaction t WHERE t.type = :type AND t.amount BETWEEN :minAmount AND :maxAmount AND t.date BETWEEN :minDate AND :maxDate AND t.account.id = :accountId")
     List<Transaction> findMatchCandidatesByAccount(
             @Param("type") TransactionType type,

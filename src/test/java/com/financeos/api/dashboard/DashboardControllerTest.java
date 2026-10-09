@@ -173,64 +173,64 @@ class DashboardControllerTest {
     @Test
     void upcomingRunsTheTemplateWithTheDaysParamSubstituted() {
         ReportData data = mock(ReportData.class);
-        when(reportDataService.runDefinition(eq(ReportType.TABLE), eq("obligations"), any(), eq(2), eq(25)))
+        when(reportDataService.runDefinition(eq(ReportType.TABLE), eq("obligations"), any(), eq(2), eq(25), eq(null)))
                 .thenReturn(data);
 
         ResponseEntity<ReportData> response = controller.runBuiltin("upcoming",
-                new BuiltinDataRequest(mapper.createObjectNode().put("days", 30)), 2, 25);
+                new BuiltinDataRequest(mapper.createObjectNode().put("days", 30)), 2, 25, null);
 
         assertEquals(200, response.getStatusCode().value());
         assertSame(data, response.getBody());
         ArgumentCaptor<JsonNode> def = ArgumentCaptor.forClass(JsonNode.class);
-        verify(reportDataService).runDefinition(eq(ReportType.TABLE), eq("obligations"), def.capture(), eq(2), eq(25));
+        verify(reportDataService).runDefinition(eq(ReportType.TABLE), eq("obligations"), def.capture(), eq(2), eq(25), eq(null));
         assertEquals(30, horizonDays(def.getValue()));
         assertEquals("raw", def.getValue().get("mode").asText());
     }
 
     @Test
     void upcomingWithoutABodyOrParamsUsesTheDefaultHorizon() {
-        controller.runBuiltin("upcoming", null, null, null);
-        controller.runBuiltin("upcoming", new BuiltinDataRequest(null), null, null);
+        controller.runBuiltin("upcoming", null, null, null, null);
+        controller.runBuiltin("upcoming", new BuiltinDataRequest(null), null, null, null);
 
         ArgumentCaptor<JsonNode> def = ArgumentCaptor.forClass(JsonNode.class);
         verify(reportDataService, org.mockito.Mockito.times(2))
-                .runDefinition(eq(ReportType.TABLE), eq("obligations"), def.capture(), eq(null), eq(null));
+                .runDefinition(eq(ReportType.TABLE), eq("obligations"), def.capture(), eq(null), eq(null), eq(null));
         assertEquals(14, horizonDays(def.getAllValues().get(0)));
         assertEquals(14, horizonDays(def.getAllValues().get(1)));
     }
 
     @Test
     void netWorthRunsItsKpiTemplate() {
-        controller.runBuiltin("net_worth", null, null, null);
+        controller.runBuiltin("net_worth", null, null, null, null);
 
         ArgumentCaptor<JsonNode> def = ArgumentCaptor.forClass(JsonNode.class);
-        verify(reportDataService).runDefinition(eq(ReportType.KPI), eq("net_worth"), def.capture(), eq(null), eq(null));
+        verify(reportDataService).runDefinition(eq(ReportType.KPI), eq("net_worth"), def.capture(), eq(null), eq(null), eq(null));
         assertEquals("signedValue", def.getValue().get("measure").asText());
     }
 
     @Test
     void componentBuiltinsHaveNoDataAndAre400() {
-        assertThrows(ValidationException.class, () -> controller.runBuiltin("attention", null, null, null));
+        assertThrows(ValidationException.class, () -> controller.runBuiltin("attention", null, null, null, null));
         assertThrows(ValidationException.class, () -> controller.runBuiltin("bills_due",
                 new BuiltinDataRequest(mapper.createObjectNode().put("accountId", UUID.randomUUID().toString())),
-                null, null));
+                null, null, null));
         verifyNoInteractions(reportDataService);
     }
 
     @Test
     void unknownBuiltinIs404() {
-        assertThrows(ResourceNotFoundException.class, () -> controller.runBuiltin("cash_flow", null, null, null));
+        assertThrows(ResourceNotFoundException.class, () -> controller.runBuiltin("cash_flow", null, null, null, null));
         verifyNoInteractions(reportDataService);
     }
 
     @Test
     void undeclaredOrOutOfRangeParamsAre400() {
         assertThrows(ValidationException.class, () -> controller.runBuiltin("upcoming",
-                new BuiltinDataRequest(mapper.createObjectNode().put("months", 3)), null, null));
+                new BuiltinDataRequest(mapper.createObjectNode().put("months", 3)), null, null, null));
         assertThrows(ValidationException.class, () -> controller.runBuiltin("upcoming",
-                new BuiltinDataRequest(mapper.createObjectNode().put("days", 91)), null, null));
+                new BuiltinDataRequest(mapper.createObjectNode().put("days", 91)), null, null, null));
         assertThrows(ValidationException.class, () -> controller.runBuiltin("net_worth",
-                new BuiltinDataRequest(mapper.createObjectNode().put("days", 7)), null, null));
+                new BuiltinDataRequest(mapper.createObjectNode().put("days", 7)), null, null, null));
         verifyNoInteractions(reportDataService);
     }
 
@@ -238,9 +238,17 @@ class DashboardControllerTest {
     void runBuiltinRequiresAUser() {
         UserContext.clear();
         ResponseStatusException e = assertThrows(ResponseStatusException.class,
-                () -> controller.runBuiltin("upcoming", null, null, null));
+                () -> controller.runBuiltin("upcoming", null, null, null, null));
         assertEquals(HttpStatus.UNAUTHORIZED, e.getStatusCode());
         verifyNoInteractions(reportDataService);
+    }
+
+    @Test
+    void runBuiltinPassesTheSortThrough() {
+        controller.runBuiltin("upcoming", null, 1, 25, "dueDate,desc");
+
+        verify(reportDataService).runDefinition(eq(ReportType.TABLE), eq("obligations"), any(), eq(1), eq(25),
+                eq("dueDate,desc"));
     }
 
     // ------------------------------------------------------------------ restore

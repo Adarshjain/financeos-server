@@ -49,6 +49,12 @@ public class PositionsDatasource implements ComputedReportDatasource {
         return fields;
     }
 
+    /** A holding is identified by its broker and instrument. */
+    @Override
+    public List<String> underlyingColumns() {
+        return List.of("broker", "instrument");
+    }
+
     @Override
     public List<Map<String, Object>> rows() {
         List<PositionDto> positions = investmentService.getAllPositions();

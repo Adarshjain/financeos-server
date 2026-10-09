@@ -272,6 +272,18 @@ public class TransactionService {
         return queryTransactions(criteria, pageable);
     }
 
+    /**
+     * Loads one transaction with the same associations the list endpoints fetch. The lookup is scoped to the
+     * current user, so an unknown id and another user's id are indistinguishable (both 404).
+     */
+    @Transactional(readOnly = true)
+    public Transaction getTransaction(UUID id) {
+        UUID userId = com.financeos.core.security.UserContext.getCurrentUserId();
+        return transactionRepository.findAllByIdInAndUserId(List.of(id), userId).stream()
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction", id));
+    }
+
     public Transaction updateTransaction(UUID id, com.financeos.api.transaction.dto.UpdateTransactionRequest request) {
         Transaction transaction = transactionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction", id));

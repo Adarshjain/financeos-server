@@ -161,6 +161,12 @@ public class DividendsDatasource implements ReportDatasource {
         return FIELDS;
     }
 
+    /** A KPI's underlying rows are identified by pay date, instrument, dividend type and broker. */
+    @Override
+    public List<String> underlyingColumns() {
+        return List.of("payDate", "instrument", "type", "broker");
+    }
+
     @Override
     public ReportQueryBuilder queryBuilder() {
         return queryBuilder;

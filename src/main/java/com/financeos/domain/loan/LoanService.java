@@ -155,6 +155,28 @@ public class LoanService {
         return schedule.installments();
     }
 
+    /** A loan with its events (effective-date order) and the schedule computed from them as of today. */
+    public record LoanScheduleDetail(LoanResponse loan, List<LoanEventResponse> events, List<InstallmentDto> installments) {}
+
+    /**
+     * The current user's loan with its events and computed schedule (the same computation as
+     * {@link #getLoans}), or empty when no such loan exists or it belongs to someone else.
+     */
+    @Transactional(readOnly = true)
+    public Optional<LoanScheduleDetail> findOwnedLoanSchedule(UUID loanId) {
+        UUID currentUserId = UserContext.getCurrentUserId();
+        return loanRepository.findById(loanId)
+                .filter(loan -> loan.getUser() != null && loan.getUser().getId().equals(currentUserId))
+                .map(loan -> {
+                    List<LoanEvent> events = loanEventRepository.findByLoan_IdOrderByEffectiveDateAscCreatedAtAsc(loanId);
+                    List<LoanPayment> payments = loanPaymentRepository.findByLoan_IdOrderByInstallmentSeqAsc(loanId);
+                    List<LoanCharge> charges = loanChargeRepository.findByLoan_IdOrderByChargeDateAscCreatedAtAsc(loanId);
+                    ScheduleResult schedule = scheduleService.compute(loan, events, payments, charges);
+                    return new LoanScheduleDetail(LoanResponse.from(loan, schedule),
+                            events.stream().map(LoanEventResponse::from).toList(), schedule.installments());
+                });
+    }
+
     public LoanResponse updateLoan(UUID loanId, UpdateLoanRequest req) {
         Loan loan = getLoanAndVerifyOwnership(loanId);
 

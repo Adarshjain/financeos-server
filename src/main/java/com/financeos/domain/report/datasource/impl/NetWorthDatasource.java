@@ -17,6 +17,11 @@ import com.financeos.domain.report.datasource.ComputedReportDatasource;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
+import com.financeos.domain.report.definition.SortClause;
+import com.financeos.domain.report.definition.SortDirection;
+import com.financeos.domain.report.underlying.UnderlyingExcludedItem;
+import com.financeos.domain.report.underlying.UnderlyingExtras;
+import com.financeos.domain.report.underlying.UnderlyingSummaryLine;
 import net.logstash.logback.argument.StructuredArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +31,12 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Supplier;
 
 /**
@@ -47,10 +54,14 @@ import java.util.function.Supplier;
  * </ul>
  * {@code signedValue} is positive for assets and negative for liabilities, so its sum is the
  * net worth. A row that fails to compute is logged and skipped; the datasource never fails as
- * a whole because of one account.
+ * a whole because of one account. The side/value rules live in {@link NetWorthPlacement}, shared
+ * with the net worth row breakdown.
+ *
+ * <p>KPI underlying data lists name, kind and side, assets first then the largest values, grouped
+ * by side, with "Assets"/"Liabilities" totals and the accounts left out ({@link #notCounted()}).
  */
 @Component
-public class NetWorthDatasource implements ComputedReportDatasource {
+public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingExtras {
 
     private static final Logger log = LoggerFactory.getLogger(NetWorthDatasource.class);
 
@@ -61,6 +72,10 @@ public class NetWorthDatasource implements ComputedReportDatasource {
     private static final List<ReportType> KPI_CHART_TABLE = List.of(ReportType.KPI, ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> CHART_TABLE = List.of(ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> TABLE_ONLY = List.of(ReportType.TABLE);
+
+    /** Reason code of a row that failed to compute (see {@link #notCounted()}). */
+    private static final String REASON_ERROR = "error";
+    private static final DateTimeFormatter DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static final String KIND_LOAN = "loan";
     public static final String KIND_LENDING = "lending";
@@ -107,101 +122,156 @@ public class NetWorthDatasource implements ComputedReportDatasource {
 
     @Override
     public List<Map<String, Object>> rows() {
-        LocalDate today = AppTime.today();
-        List<Map<String, Object>> rows = new ArrayList<>();
-        accountRows(today, rows);
-        loanRows(today, rows);
-        lendingRows(today, rows);
-        return rows;
+        return snapshot().rows();
+    }
+
+    // ------------------------------------------------------------------ KPI underlying data
+
+    @Override
+    public List<String> underlyingColumns() {
+        return List.of("name", "kind", "side");
+    }
+
+    @Override
+    public List<SortClause> underlyingDefaultSort() {
+        return List.of(new SortClause("side", SortDirection.ASC), new SortClause("value", SortDirection.DESC));
+    }
+
+    @Override
+    public String underlyingGroupField() {
+        return "side";
+    }
+
+    /** "Assets" and "Liabilities": the {@code value} totals of the listed rows on each side. */
+    @Override
+    public List<UnderlyingSummaryLine> summaryLines(List<Map<String, Object>> listedRows) {
+        BigDecimal assets = BigDecimal.ZERO;
+        BigDecimal liabilities = BigDecimal.ZERO;
+        for (Map<String, Object> row : listedRows) {
+            BigDecimal value = decimal(row.get("value"));
+            if (value == null) {
+                continue;
+            }
+            if (FinancialPosition.asset.name().equals(row.get("side"))) {
+                assets = assets.add(value);
+            } else if (FinancialPosition.liability.name().equals(row.get("side"))) {
+                liabilities = liabilities.add(value);
+            }
+        }
+        return List.of(new UnderlyingSummaryLine("Assets", assets, "currency"),
+                new UnderlyingSummaryLine("Liabilities", liabilities, "currency"));
+    }
+
+    /**
+     * Accounts left out on purpose (excluded from net assets, closed) and every account, loan or
+     * counterparty whose row failed to compute. A whole failed section has no items to name.
+     */
+    @Override
+    public List<UnderlyingExcludedItem> notCounted() {
+        return snapshot().notCounted();
     }
 
     // ------------------------------------------------------------------ sections
 
-    private void accountRows(LocalDate today, List<Map<String, Object>> rows) {
+    /** One pass over every section, yielding the rows and what was left out of them. */
+    private Snapshot snapshot() {
+        LocalDate today = AppTime.today();
+        Snapshot snapshot = new Snapshot(new ArrayList<>(), new ArrayList<>());
+        accountRows(today, snapshot);
+        loanRows(today, snapshot);
+        lendingRows(today, snapshot);
+        return snapshot;
+    }
+
+    private record Snapshot(List<Map<String, Object>> rows, List<UnderlyingExcludedItem> notCounted) {
+    }
+
+    private void accountRows(LocalDate today, Snapshot snapshot) {
         List<Account> accounts = guarded("accounts", accountService::getAllAccounts);
         for (Account account : accounts) {
+            String id = id(account.getId());
             try {
-                Map<String, Object> row = accountRow(account, today);
-                if (row != null) {
-                    rows.add(row);
+                NetWorthPlacement.Omission omission = NetWorthPlacement.omission(account, today);
+                if (omission != null) {
+                    snapshot.notCounted().add(new UnderlyingExcludedItem(id, account.getName(), NetWorthPlacement.kind(account),
+                            omission.reason(), omissionLabel(omission, account), account.getCalculatedBalance()));
+                    continue;
                 }
+                snapshot.rows().add(row(id, account.getName(), NetWorthPlacement.kind(account),
+                        NetWorthPlacement.ofAccount(account), today));
             } catch (RuntimeException e) {
-                skipped("account", account.getId() == null ? null : account.getId().toString(), e);
+                skipped("account", id, e);
+                snapshot.notCounted().add(failed(id, account.getName(), NetWorthPlacement.kind(account)));
             }
         }
     }
 
-    private Map<String, Object> accountRow(Account account, LocalDate today) {
-        if (Boolean.TRUE.equals(account.getExcludeFromNetAsset())) {
-            return null;
-        }
-        if (account.getClosedOn() != null && !account.getClosedOn().isAfter(today)) {
-            return null; // closed on or before today
-        }
-        BigDecimal balance = account.getCalculatedBalance() != null ? account.getCalculatedBalance() : BigDecimal.ZERO;
-        FinancialPosition side = account.getFinancialPosition();
-        if (side == null) {
-            side = account.getType() == AccountType.credit_card ? FinancialPosition.liability : FinancialPosition.asset;
-        }
-        BigDecimal value;
-        if (balance.signum() < 0) {
-            // Owed money: a card's bill, an overdrawn bank account, a negative generic balance.
-            side = FinancialPosition.liability;
-            value = balance.negate();
-        } else if (balance.signum() > 0 && account.getType() == AccountType.credit_card) {
-            side = FinancialPosition.asset; // overpaid card
-            value = balance;
-        } else {
-            value = balance;
-        }
-        String kind = account.getType() != null ? account.getType().name() : AccountType.generic.name();
-        return row(account.getId() == null ? null : account.getId().toString(), account.getName(), kind, side, value, today);
-    }
-
-    private void loanRows(LocalDate today, List<Map<String, Object>> rows) {
+    private void loanRows(LocalDate today, Snapshot snapshot) {
         List<LoanResponse> loans = guarded("loans",
                 () -> loanService.getLoans(LoanStatus.active, Pageable.unpaged()).getContent());
         for (LoanResponse loan : loans) {
+            String id = id(loan.id());
             try {
-                BigDecimal outstanding = loan.outstandingPrincipal() != null ? loan.outstandingPrincipal() : BigDecimal.ZERO;
-                rows.add(row(loan.id() == null ? null : loan.id().toString(), loan.name(), KIND_LOAN,
-                        FinancialPosition.liability, outstanding.abs(), today));
+                snapshot.rows().add(row(id, loan.name(), KIND_LOAN, NetWorthPlacement.ofLoan(loan), today));
             } catch (RuntimeException e) {
-                skipped("loan", loan.id() == null ? null : loan.id().toString(), e);
+                skipped("loan", id, e);
+                snapshot.notCounted().add(failed(id, loan.name(), KIND_LOAN));
             }
         }
     }
 
-    private void lendingRows(LocalDate today, List<Map<String, Object>> rows) {
+    private void lendingRows(LocalDate today, Snapshot snapshot) {
         List<CounterpartyResponse> counterparties = guarded("lendings",
                 () -> lendingService.getCounterparties(null, Pageable.unpaged()).getContent());
         for (CounterpartyResponse cp : counterparties) {
+            String id = id(cp.id());
             try {
-                BigDecimal net = cp.netPosition();
-                if (net == null || net.signum() == 0) {
-                    continue;
+                NetWorthPlacement placement = NetWorthPlacement.ofLending(cp);
+                if (placement != null) {
+                    snapshot.rows().add(row(id, cp.name(), KIND_LENDING, placement, today));
                 }
-                FinancialPosition side = net.signum() > 0 ? FinancialPosition.asset : FinancialPosition.liability;
-                rows.add(row(cp.id() == null ? null : cp.id().toString(), cp.name(), KIND_LENDING, side, net.abs(), today));
             } catch (RuntimeException e) {
-                skipped("lending", cp.id() == null ? null : cp.id().toString(), e);
+                skipped("lending", id, e);
+                snapshot.notCounted().add(failed(id, cp.name(), KIND_LENDING));
             }
         }
     }
 
     // ------------------------------------------------------------------ helpers
 
-    private static Map<String, Object> row(String id, String name, String kind, FinancialPosition side,
-                                           BigDecimal value, LocalDate asOf) {
+    private static Map<String, Object> row(String id, String name, String kind, NetWorthPlacement placement,
+                                           LocalDate asOf) {
         Map<String, Object> row = new LinkedHashMap<>();
         row.put("id", id);
         row.put("name", name);
         row.put("kind", kind);
-        row.put("side", side.name());
-        row.put("value", value);
-        row.put("signedValue", side == FinancialPosition.asset ? value : value.negate());
+        row.put("side", placement.side().name());
+        row.put("value", placement.value());
+        row.put("signedValue", placement.signedValue());
         row.put("asOf", asOf);
         return row;
+    }
+
+    private static String id(UUID id) {
+        return id == null ? null : id.toString();
+    }
+
+    private static String omissionLabel(NetWorthPlacement.Omission omission, Account account) {
+        return switch (omission) {
+            case EXCLUDED -> "Excluded from net worth";
+            case CLOSED -> "Closed on " + DATE.format(account.getClosedOn());
+        };
+    }
+
+    private static UnderlyingExcludedItem failed(String id, String name, String kind) {
+        return new UnderlyingExcludedItem(id, name, kind, REASON_ERROR, "Couldn't be calculated", null);
+    }
+
+    private static BigDecimal decimal(Object value) {
+        if (value instanceof BigDecimal b) {
+            return b;
+        }
+        return value instanceof Number n ? new BigDecimal(n.toString()) : null;
     }
 
     /**

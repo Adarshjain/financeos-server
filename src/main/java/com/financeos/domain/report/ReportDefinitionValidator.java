@@ -18,6 +18,7 @@ import com.financeos.domain.report.definition.MeasureRef;
 import com.financeos.domain.report.definition.RawTableDefinition;
 import com.financeos.domain.report.definition.ReportDefinition;
 import com.financeos.domain.report.definition.SortClause;
+import com.financeos.domain.report.definition.TableDefinition;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -168,13 +169,11 @@ public class ReportDefinitionValidator {
         if (isEmpty(table.columns())) {
             throw new ValidationException("A raw table requires at least one column");
         }
-        Set<String> sortKeys = new HashSet<>();
         for (String column : table.columns()) {
             FieldDef field = requireField(datasource, column);
             requireAllowedIn(field, ReportType.TABLE, "column");
-            sortKeys.add(column);
         }
-        validateSortKeys(table.sort(), sortKeys);
+        validateSortKeys(table.sort(), sortableKeys(table));
         validateFilters(datasource, table.filters());
     }
 
@@ -192,9 +191,7 @@ public class ReportDefinitionValidator {
                 throw new ValidationException("Duplicate row dimension: " + dimension.field());
             }
         }
-        Set<String> sortKeys = new HashSet<>(rowFields);
-        boolean hasColumns = !isEmpty(table.columns());
-        if (hasColumns) {
+        if (!isEmpty(table.columns())) {
             Set<String> columnFields = new HashSet<>();
             for (DimensionRef dimension : table.columns()) {
                 validateDimension(datasource, dimension, ReportType.TABLE, "columns");
@@ -209,12 +206,35 @@ public class ReportDefinitionValidator {
         }
         for (MeasureRef measure : table.measures()) {
             validateMeasureRef(datasource, measure, ReportType.TABLE);
-            if (!hasColumns) {
-                sortKeys.add(measure.field() + "_" + measure.aggregation().json());
+        }
+        validateSortKeys(table.sort(), sortableKeys(table));
+        validateFilters(datasource, table.filters());
+    }
+
+    /**
+     * Checks a run-time (header) sort clause against the same rules as a saved sort: a raw
+     * table sorts by one of its columns; a pivot by a row dimension, or by a measure key
+     * ({@code field_agg}) only when it has no column dimensions. The table itself is assumed valid.
+     *
+     * @throws ValidationException when the clause's key is not sortable for {@code table}
+     */
+    public void validateRuntimeSort(TableDefinition table, SortClause clause) {
+        validateSortKeys(List.of(clause), sortableKeys(table));
+    }
+
+    /** The keys a table may be sorted by (see {@link #validateRuntimeSort}). */
+    private static Set<String> sortableKeys(TableDefinition table) {
+        Set<String> keys = new HashSet<>();
+        switch (table) {
+            case RawTableDefinition raw -> keys.addAll(raw.columns());
+            case AggregatedTableDefinition aggregated -> {
+                aggregated.rows().forEach(dimension -> keys.add(dimension.field()));
+                if (isEmpty(aggregated.columns())) {
+                    aggregated.measures().forEach(measure -> keys.add(measure.field() + "_" + measure.aggregation().json()));
+                }
             }
         }
-        validateSortKeys(table.sort(), sortKeys);
-        validateFilters(datasource, table.filters());
+        return keys;
     }
 
     // ------------------------------------------------------------------ shared helpers

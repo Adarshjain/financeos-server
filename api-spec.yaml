@@ -1586,6 +1586,11 @@ paths:
         schema:
           type: integer
           format: int32
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -1606,6 +1611,97 @@ paths:
           description: Error response
       tags:
       - dashboard-controller
+  /api/v1/dashboards/builtins/{key}/underlying:
+    post:
+      operationId: builtinUnderlying
+      parameters:
+      - in: path
+        name: key
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: period
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BuiltinDataRequest"
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/KpiUnderlyingResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - kpi-underlying-controller
+  /api/v1/dashboards/builtins/{key}/underlying/csv:
+    post:
+      operationId: builtinUnderlyingCsv
+      parameters:
+      - in: path
+        name: key
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: period
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BuiltinDataRequest"
+      responses:
+        "200":
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+          description: The underlying rows as CSV
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - kpi-underlying-controller
   /api/v1/dashboards/default:
     get:
       operationId: getDefaultDashboard
@@ -5078,6 +5174,87 @@ paths:
           description: Error response
       tags:
       - report-datasource-controller
+  /api/v1/report/datasource/{name}/rows/{rowId}/breakdown:
+    get:
+      operationId: rowBreakdown
+      parameters:
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: rowId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RowBreakdownResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - report-breakdown-controller
+  /api/v1/report/datasource/{name}/rows/{rowId}/breakdown/sections/{section}:
+    get:
+      operationId: rowBreakdownSection
+      parameters:
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: rowId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: section
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ReportData"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - report-breakdown-controller
   /api/v1/report/datasource/{name}/values:
     get:
       operationId: reportFieldValues
@@ -5171,6 +5348,11 @@ paths:
         schema:
           type: integer
           format: int32
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -5192,6 +5374,89 @@ paths:
           description: Error response
       tags:
       - report-controller
+  /api/v1/reports/underlying:
+    post:
+      operationId: adHocUnderlying
+      parameters:
+      - in: query
+        name: period
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RunReportRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/KpiUnderlyingResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - kpi-underlying-controller
+  /api/v1/reports/underlying/csv:
+    post:
+      operationId: adHocUnderlyingCsv
+      parameters:
+      - in: query
+        name: period
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RunReportRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+          description: The underlying rows as CSV
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - kpi-underlying-controller
   /api/v1/reports/{id}:
     delete:
       operationId: deleteReport
@@ -5289,6 +5554,11 @@ paths:
         schema:
           type: integer
           format: int32
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
       responses:
         "200":
           content:
@@ -5329,6 +5599,89 @@ paths:
           description: Error response
       tags:
       - report-controller
+  /api/v1/reports/{id}/underlying:
+    post:
+      operationId: savedUnderlying
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: period
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/KpiUnderlyingResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - kpi-underlying-controller
+  /api/v1/reports/{id}/underlying/csv:
+    post:
+      operationId: savedUnderlyingCsv
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: period
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+          description: The underlying rows as CSV
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - kpi-underlying-controller
   /api/v1/reward-cap-buckets:
     get:
       operationId: getBuckets
@@ -6476,6 +6829,30 @@ paths:
           description: Error response
       tags:
       - transaction-controller
+    get:
+      operationId: getTransaction
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TransactionResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - transaction-controller
     put:
       operationId: updateTransaction
       parameters:
@@ -6897,6 +7274,49 @@ components:
           type: number
           nullable: true
           x-nullable: true
+    BreakdownSectionData:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        rowAction:
+          type: string
+          nullable: true
+          x-nullable: true
+        rowBreakdownDatasource:
+          type: string
+          nullable: true
+          x-nullable: true
+        table:
+          $ref: "#/components/schemas/ReportData"
+      required:
+      - key
+      - label
+      - table
+    BreakdownStep:
+      type: object
+      properties:
+        amount:
+          type: number
+          nullable: true
+          x-nullable: true
+        detail:
+          type: string
+          nullable: true
+          x-nullable: true
+        format:
+          type: string
+          nullable: true
+          x-nullable: true
+        label:
+          type: string
+        op:
+          type: string
+      required:
+      - label
+      - op
     BrokerAccountResponse:
       type: object
       properties:
@@ -10629,6 +11049,81 @@ components:
       required:
       - auth
       - p256dh
+    KpiUnderlyingResponse:
+      type: object
+      properties:
+        aggregation:
+          type: string
+        datasource:
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: "#/components/schemas/UnderlyingFilterChip"
+        format:
+          type: string
+          nullable: true
+          x-nullable: true
+        groupField:
+          type: string
+          nullable: true
+          x-nullable: true
+        measure:
+          type: string
+        measureLabel:
+          type: string
+        notCounted:
+          type: array
+          items:
+            $ref: "#/components/schemas/UnderlyingExcludedItem"
+        period:
+          type: string
+        previousAvailable:
+          type: boolean
+        previousRange:
+          $ref: "#/components/schemas/UnderlyingRange"
+        range:
+          $ref: "#/components/schemas/UnderlyingRange"
+        rowAction:
+          type: string
+          nullable: true
+          x-nullable: true
+        rowCount:
+          type: integer
+          format: int64
+        sortDirection:
+          type: string
+          nullable: true
+          x-nullable: true
+        sortKey:
+          type: string
+          nullable: true
+          x-nullable: true
+        summaryLines:
+          type: array
+          items:
+            $ref: "#/components/schemas/UnderlyingSummaryLine"
+        table:
+          $ref: "#/components/schemas/ReportData"
+        value:
+          type: number
+          nullable: true
+          x-nullable: true
+        winnerOnly:
+          type: boolean
+      required:
+      - aggregation
+      - datasource
+      - filters
+      - measure
+      - measureLabel
+      - notCounted
+      - period
+      - previousAvailable
+      - rowCount
+      - summaryLines
+      - table
+      - winnerOnly
     LendingMatchSuggestion:
       type: object
       properties:
@@ -14025,6 +14520,56 @@ components:
       - provider
       - providerName
       - trainsOnData
+    RowBreakdownResponse:
+      type: object
+      properties:
+        asOf:
+          type: string
+          format: date
+        datasource:
+          type: string
+        format:
+          type: string
+          nullable: true
+          x-nullable: true
+        kindLabel:
+          type: string
+          nullable: true
+          x-nullable: true
+        notes:
+          type: array
+          items:
+            type: string
+        rowId:
+          type: string
+        sections:
+          type: array
+          items:
+            $ref: "#/components/schemas/BreakdownSectionData"
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/BreakdownStep"
+        subtitle:
+          type: string
+          nullable: true
+          x-nullable: true
+        title:
+          type: string
+        total:
+          type: number
+        totalLabel:
+          type: string
+      required:
+      - asOf
+      - datasource
+      - notes
+      - rowId
+      - sections
+      - steps
+      - title
+      - total
+      - totalLabel
     RuleBreakdown:
       type: object
       properties:
@@ -15273,6 +15818,72 @@ components:
           type: string
           nullable: true
           x-nullable: true
+    UnderlyingExcludedItem:
+      type: object
+      properties:
+        id:
+          type: string
+        kind:
+          type: string
+        name:
+          type: string
+        reason:
+          type: string
+        reasonLabel:
+          type: string
+        value:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - id
+      - kind
+      - name
+      - reason
+      - reasonLabel
+    UnderlyingFilterChip:
+      type: object
+      properties:
+        field:
+          type: string
+        fieldLabel:
+          type: string
+        operator:
+          type: string
+        text:
+          type: string
+      required:
+      - field
+      - fieldLabel
+      - operator
+      - text
+    UnderlyingRange:
+      type: object
+      nullable: true
+      properties:
+        from:
+          type: string
+          format: date
+        to:
+          type: string
+          format: date
+      required:
+      - from
+      - to
+    UnderlyingSummaryLine:
+      type: object
+      properties:
+        format:
+          type: string
+          nullable: true
+          x-nullable: true
+        label:
+          type: string
+        value:
+          type: number
+      required:
+      - label
+      - value
     UnrecordedDividendCredit:
       type: object
       properties:

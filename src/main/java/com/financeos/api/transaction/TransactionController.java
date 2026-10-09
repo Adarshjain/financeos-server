@@ -64,15 +64,17 @@ public class TransactionController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<TransactionResponse> getTransaction(@PathVariable UUID id) {
+        return ResponseEntity.ok(toSingleResponse(transactionService.getTransaction(id)));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<TransactionResponse> updateTransaction(
             @PathVariable UUID id,
             @Valid @RequestBody UpdateTransactionRequest request) {
         Transaction transaction = transactionService.updateTransaction(id, request);
-        java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap =
-                transactionLinkService.linkSummariesFor(java.util.List.of(id));
-        java.util.Map<UUID, java.util.List<ObligationRef>> refMap = obligationRefService.refsFor(java.util.List.of(id));
-        return ResponseEntity.ok(TransactionResponse.from(transaction, null, linkMap, refMap));
+        return ResponseEntity.ok(toSingleResponse(transaction));
     }
 
     @DeleteMapping("/{id}")
@@ -110,5 +112,11 @@ public class TransactionController {
         BulkReattributeResponse response = transactionService.bulkReattributeCard(request);
         return ResponseEntity.ok(response);
     }
-}
 
+    /** Single-row mapping: same links and obligation refs as a list row; no running balance outside a list. */
+    private TransactionResponse toSingleResponse(Transaction transaction) {
+        java.util.List<UUID> ids = java.util.List.of(transaction.getId());
+        return TransactionResponse.from(transaction, null,
+                transactionLinkService.linkSummariesFor(ids), obligationRefService.refsFor(ids));
+    }
+}

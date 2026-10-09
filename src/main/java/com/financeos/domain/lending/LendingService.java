@@ -101,6 +101,18 @@ public class LendingService {
         return new CounterpartySuggestionResponse(best == null ? null : toCounterpartyResponse(best));
     }
 
+    /**
+     * The current user's counterparty with its ledger totals (as {@link #getCounterparties} lists it),
+     * or empty when no such counterparty exists or it belongs to someone else.
+     */
+    @Transactional(readOnly = true)
+    public Optional<CounterpartyResponse> findOwnedCounterparty(UUID id) {
+        UUID userId = UserContext.getCurrentUserId();
+        return counterpartyRepository.findById(id)
+                .filter(cp -> cp.getUser() != null && cp.getUser().getId().equals(userId))
+                .map(this::toCounterpartyResponse);
+    }
+
     public CounterpartyResponse updateCounterparty(UUID id, UpdateCounterpartyRequest req) {
         Counterparty cp = getCounterpartyAndVerifyOwnership(id);
         if (req.name() != null && !req.name().isBlank() && !req.name().equalsIgnoreCase(cp.getName())) {

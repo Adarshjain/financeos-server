@@ -430,13 +430,43 @@ public class InvestmentService {
     }
 
     public HoldingPosition calculateHoldingPosition(Holding holding, java.util.function.Consumer<com.financeos.domain.investment.dto.RealizedLot> lotCollector) {
+        return calculateHoldingPosition(holding, lotCollector, null);
+    }
+
+    /**
+     * The position of one of the current user's holdings plus the engine's trace of it (the
+     * events it applied and the lots left open), for explaining how the position is made up.
+     * {@code findById} bypasses the userFilter, so ownership is checked explicitly; a missing or
+     * foreign holding is a 404.
+     */
+    @Transactional(readOnly = true)
+    public HoldingTrace traceHoldingPosition(UUID holdingId) {
+        Holding holding = holdingRepository.findById(holdingId)
+                .filter(h -> h.getUser() != null && h.getUser().getId().equals(UserContext.getCurrentUserId()))
+                .orElseThrow(() -> new ResourceNotFoundException("Holding", holdingId));
+        TraceSink trace = new TraceSink(new ArrayList<>(), new ArrayList<>());
+        HoldingPosition position = calculateHoldingPosition(holding, null, trace);
+        return new HoldingTrace(position, List.copyOf(trace.openLots()), List.copyOf(trace.events()));
+    }
+
+    /** Collects the engine trace when {@link #traceHoldingPosition} asks for one. */
+    private record TraceSink(List<HoldingTrace.Event> events, List<HoldingTrace.OpenLot> openLots) {}
+
+    /**
+     * The FIFO / corporate-action / intraday engine. {@code lotCollector} receives every matched
+     * sell lot and {@code trace} (when non-null) every applied event and the final open lots;
+     * neither changes the result.
+     */
+    private HoldingPosition calculateHoldingPosition(Holding holding,
+                                                     java.util.function.Consumer<com.financeos.domain.investment.dto.RealizedLot> lotCollector,
+                                                     TraceSink trace) {
         List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
         List<CorporateAction> corpActions = corporateActionRepository.findByInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
 
         SeedDerivation seedDerivation = deriveSeeds(holding);
         List<DemergerSeedEvent> demergerSeedEvents = new ArrayList<>();
         for (SeedLot s : seedDerivation.seedLots()) {
-            demergerSeedEvents.add(new DemergerSeedEvent(s.date(), s.qty(), s.costPerUnit()));
+            demergerSeedEvents.add(new DemergerSeedEvent(s));
         }
         List<XirrCalculator.Cashflow> mergerBridgeOutflows = seedDerivation.mergerBridgeOutflows();
         BigDecimal fractionalRealized = seedDerivation.fractionalRealized();
@@ -481,6 +511,7 @@ public class InvestmentService {
 
                 BigDecimal dayIntradayRealized = intradaySellVal.subtract(intradayBuyVal);
                 intradayRealized = intradayRealized.add(dayIntradayRealized);
+                timeline.add(new IntradayNettingEvent(date, intradayQty));
 
                 BigDecimal dayBuyQty = BigDecimal.ZERO;
                 BigDecimal dayBuyVal = BigDecimal.ZERO;
@@ -511,7 +542,7 @@ public class InvestmentService {
                     delivBuyTxn.setQuantity(delivBuyQty);
                     delivBuyTxn.setPrice(costPerUnit);
                     delivBuyTxn.setTotalCharges(BigDecimal.ZERO);
-                    timeline.add(new TxnEvent(delivBuyTxn));
+                    timeline.add(new TxnEvent(delivBuyTxn, true));
                 }
 
                 if (delivSellQty.compareTo(BigDecimal.ZERO) > 0) {
@@ -522,7 +553,7 @@ public class InvestmentService {
                     delivSellTxn.setQuantity(delivSellQty);
                     delivSellTxn.setPrice(sellPrice);
                     delivSellTxn.setTotalCharges(BigDecimal.ZERO);
-                    timeline.add(new TxnEvent(delivSellTxn));
+                    timeline.add(new TxnEvent(delivSellTxn, true));
                 }
 
                 // XIRR: the delivery leg's cashflows are emitted by the synthetic
@@ -534,7 +565,7 @@ public class InvestmentService {
                 cashflows.add(new XirrCalculator.Cashflow(date, intradayDayCashflow));
             } else {
                 for (InvestmentTransaction t : dayTxns) {
-                    timeline.add(new TxnEvent(t));
+                    timeline.add(new TxnEvent(t, false));
                 }
             }
         }
@@ -560,15 +591,15 @@ public class InvestmentService {
         BigDecimal cumulativeRealized = fractionalRealized;
 
         for (TimelineEvent event : timeline) {
-            if (event instanceof DemergerSeedEvent seed) {
-                openLots.add(new Lot(seed.qty(), seed.costPerUnit(), seed.date()));
+            BigDecimal qtyBefore = trace != null ? openQuantity(openLots) : null;
+            if (event instanceof DemergerSeedEvent seedEvent) {
+                SeedLot seed = seedEvent.seed();
+                openLots.add(new Lot(seed.qty(), seed.costPerUnit(), seed.date(),
+                        HoldingTrace.LotSource.corporateAction(seed.source())));
             } else if (event instanceof CorpActionEvent caEvent) {
                 CorporateAction ca = caEvent.action();
                 if (ca.getType() == CorporateActionType.merger) {
-                    BigDecimal mergerValue = BigDecimal.ZERO;
-                    for (Lot lot : openLots) {
-                        mergerValue = mergerValue.add(lot.remainingQty.multiply(lot.costPerUnit));
-                    }
+                    BigDecimal mergerValue = openCost(openLots);
                     if (mergerValue.compareTo(BigDecimal.ZERO) > 0) {
                         cashflows.add(new XirrCalculator.Cashflow(ca.getExDate(), mergerValue));
                     }
@@ -601,7 +632,8 @@ public class InvestmentService {
                 if (txn.getType() == InvestmentTransactionType.buy) {
                     // Clean cost basis: costPerUnit uses traded price ONLY (no + txnCharges)
                     BigDecimal costPerUnit = txn.getPrice();
-                    openLots.add(new Lot(txn.getQuantity(), costPerUnit, txn.getTradeDate()));
+                    openLots.add(new Lot(txn.getQuantity(), costPerUnit, txn.getTradeDate(),
+                            txnEvent.intradayNetted() ? HoldingTrace.LotSource.INTRADAY_NETTED_DELIVERY : HoldingTrace.LotSource.BUY));
 
                     BigDecimal totalOutflow = txn.getQuantity().multiply(txn.getPrice()).add(txnCharges);
                     cashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), totalOutflow.negate()));
@@ -666,14 +698,19 @@ public class InvestmentService {
                     cashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), netProceeds));
                 }
             }
+            if (trace != null) {
+                trace.events().add(traceEvent(event, qtyBefore, openQuantity(openLots)));
+            }
         }
 
-        BigDecimal openQty = BigDecimal.ZERO;
-        BigDecimal openCost = BigDecimal.ZERO;
-        for (Lot lot : openLots) {
-            openQty = openQty.add(lot.remainingQty);
-            openCost = openCost.add(lot.remainingQty.multiply(lot.costPerUnit));
+        if (trace != null) {
+            for (Lot lot : openLots) {
+                trace.openLots().add(new HoldingTrace.OpenLot(lot.buyDate, lot.source, lot.remainingQty, lot.costPerUnit));
+            }
         }
+
+        BigDecimal openQty = openQuantity(openLots);
+        BigDecimal openCost = openCost(openLots);
 
         BigDecimal avgCost = openQty.compareTo(BigDecimal.ZERO) > 0
                 ? openCost.divide(openQty, 4, RoundingMode.HALF_UP)
@@ -773,16 +810,61 @@ public class InvestmentService {
                 .doubleValue();
     }
 
-    private interface TimelineEvent {
+    /** The open quantity of a set of lots, unrounded. */
+    private static BigDecimal openQuantity(List<Lot> lots) {
+        BigDecimal qty = BigDecimal.ZERO;
+        for (Lot lot : lots) {
+            qty = qty.add(lot.remainingQty);
+        }
+        return qty;
+    }
+
+    /** The clean cost of a set of lots ({@code Σ remainingQty × costPerUnit}), unrounded. */
+    private static BigDecimal openCost(List<Lot> lots) {
+        BigDecimal cost = BigDecimal.ZERO;
+        for (Lot lot : lots) {
+            cost = cost.add(lot.remainingQty.multiply(lot.costPerUnit));
+        }
+        return cost;
+    }
+
+    /** The trace entry of an applied event, given the open quantity before and after it. */
+    private static HoldingTrace.Event traceEvent(TimelineEvent event, BigDecimal qtyBefore, BigDecimal qtyAfter) {
+        BigDecimal change = qtyAfter.subtract(qtyBefore);
+        return switch (event) {
+            case DemergerSeedEvent s -> new HoldingTrace.Event(s.date(), HoldingTrace.EventKind.RECEIVED_FROM_CORPORATE_ACTION,
+                    s.seed().source(), s.seed().qty(), null, change, qtyAfter);
+            case CorpActionEvent c -> new HoldingTrace.Event(c.date(), HoldingTrace.EventKind.CORPORATE_ACTION,
+                    c.action(), null, null, change, qtyAfter);
+            case IntradayNettingEvent n -> new HoldingTrace.Event(n.date(), HoldingTrace.EventKind.INTRADAY_NETTED,
+                    null, n.intradayQty(), null, change, qtyAfter);
+            case TxnEvent t -> {
+                boolean buy = t.txn().getType() == InvestmentTransactionType.buy;
+                HoldingTrace.EventKind kind = t.intradayNetted()
+                        ? (buy ? HoldingTrace.EventKind.DELIVERY_BUY : HoldingTrace.EventKind.DELIVERY_SELL)
+                        : (buy ? HoldingTrace.EventKind.BUY : HoldingTrace.EventKind.SELL);
+                yield new HoldingTrace.Event(t.date(), kind, null, t.txn().getQuantity(), t.txn().getPrice(), change, qtyAfter);
+            }
+        };
+    }
+
+    private sealed interface TimelineEvent {
         LocalDate date();
     }
 
-    private record TxnEvent(InvestmentTransaction txn) implements TimelineEvent {
+    /**
+     * A trade applied to the lots. {@code intradayNetted} marks the synthetic delivery residual of
+     * a day whose intraday buys and sells were netted (it stands in for that day's real trades).
+     */
+    private record TxnEvent(InvestmentTransaction txn, boolean intradayNetted) implements TimelineEvent {
         @Override
         public LocalDate date() {
             return txn.getTradeDate();
         }
     }
+
+    /** Marks a day whose intraday buys and sells were netted; it moves no lots (traced only). */
+    private record IntradayNettingEvent(LocalDate date, BigDecimal intradayQty) implements TimelineEvent {}
 
     private record CorpActionEvent(CorporateAction action) implements TimelineEvent {
         @Override
@@ -791,11 +873,20 @@ public class InvestmentService {
         }
     }
 
-    private record DemergerSeedEvent(LocalDate date, BigDecimal qty, BigDecimal costPerUnit) implements TimelineEvent {}
+    private record DemergerSeedEvent(SeedLot seed) implements TimelineEvent {
+        @Override
+        public LocalDate date() {
+            return seed.date();
+        }
+    }
 
 
-    /** A CA-seeded lot (demerger child / merger target): shares that arrive without a buy txn. */
-    public record SeedLot(LocalDate date, BigDecimal qty, BigDecimal costPerUnit) {}
+    /**
+     * A CA-seeded lot (demerger child / merger target): shares that arrive without a buy txn.
+     *
+     * @param source the demerger/merger of the other instrument the shares came from
+     */
+    public record SeedLot(LocalDate date, BigDecimal qty, BigDecimal costPerUnit, CorporateAction source) {}
 
     private record SeedDerivation(
             List<SeedLot> seedLots,
@@ -850,7 +941,7 @@ public class InvestmentService {
                     for (BigDecimal[] r : rawLots) {
                         BigDecimal seedQty = r[0].multiply(scale).setScale(8, RoundingMode.HALF_UP);
                         if (seedQty.compareTo(BigDecimal.ZERO) > 0) {
-                            seedLots.add(new SeedLot(ca.getExDate(), seedQty, r[1]));
+                            seedLots.add(new SeedLot(ca.getExDate(), seedQty, r[1], ca));
                         }
                     }
 
@@ -952,11 +1043,7 @@ public class InvestmentService {
     }
 
     public BigDecimal openQtyAsOf(Holding holding, LocalDate date) {
-        List<Lot> lots = buildOpenLotsBeforeDate(holding, date, true, null);
-        BigDecimal total = BigDecimal.ZERO;
-        for (Lot lot : lots) {
-            total = total.add(lot.remainingQty);
-        }
+        BigDecimal total = openQuantity(buildOpenLotsBeforeDate(holding, date, true, null));
         return total.compareTo(BigDecimal.ZERO) > 0 ? total : BigDecimal.ZERO;
     }
 
@@ -1039,7 +1126,7 @@ public class InvestmentService {
                     delivBuyTxn.setQuantity(delivBuyQty);
                     delivBuyTxn.setPrice(costPerUnit);
                     delivBuyTxn.setTotalCharges(BigDecimal.ZERO);
-                    timeline.add(new TxnEvent(delivBuyTxn));
+                    timeline.add(new TxnEvent(delivBuyTxn, true));
                 }
 
                 if (delivSellQty.compareTo(BigDecimal.ZERO) > 0) {
@@ -1050,11 +1137,11 @@ public class InvestmentService {
                     delivSellTxn.setQuantity(delivSellQty);
                     delivSellTxn.setPrice(sellPrice);
                     delivSellTxn.setTotalCharges(BigDecimal.ZERO);
-                    timeline.add(new TxnEvent(delivSellTxn));
+                    timeline.add(new TxnEvent(delivSellTxn, true));
                 }
             } else {
                 for (InvestmentTransaction t : dayTxns) {
-                    timeline.add(new TxnEvent(t));
+                    timeline.add(new TxnEvent(t, false));
                 }
             }
         }
@@ -1069,7 +1156,7 @@ public class InvestmentService {
             for (SeedLot seed : seedLots) {
                 boolean include = strictBefore ? seed.date().compareTo(cutoffDate) < 0 : seed.date().compareTo(cutoffDate) <= 0;
                 if (include) {
-                    timeline.add(new DemergerSeedEvent(seed.date(), seed.qty(), seed.costPerUnit()));
+                    timeline.add(new DemergerSeedEvent(seed));
                 }
             }
         }
@@ -1085,7 +1172,8 @@ public class InvestmentService {
         LinkedList<Lot> openLots = new LinkedList<>();
 
         for (TimelineEvent event : timeline) {
-            if (event instanceof DemergerSeedEvent seed) {
+            if (event instanceof DemergerSeedEvent seedEvent) {
+                SeedLot seed = seedEvent.seed();
                 openLots.add(new Lot(seed.qty(), seed.costPerUnit(), seed.date()));
             } else if (event instanceof CorpActionEvent caEvent) {
                 CorporateAction ca = caEvent.action();
@@ -1157,11 +1245,18 @@ public class InvestmentService {
         public BigDecimal remainingQty;
         public BigDecimal costPerUnit;
         public LocalDate buyDate;
+        /** Where the lot came from; set by the position engine for its trace, else null. */
+        public final HoldingTrace.LotSource source;
 
-        public Lot(BigDecimal remainingQty, BigDecimal costPerUnit, LocalDate buyDate) {
+        public Lot(BigDecimal remainingQty, BigDecimal costPerUnit, LocalDate buyDate, HoldingTrace.LotSource source) {
             this.remainingQty = remainingQty;
             this.costPerUnit = costPerUnit;
             this.buyDate = buyDate;
+            this.source = source;
+        }
+
+        public Lot(BigDecimal remainingQty, BigDecimal costPerUnit, LocalDate buyDate) {
+            this(remainingQty, costPerUnit, buyDate, null);
         }
 
         public Lot(BigDecimal remainingQty, BigDecimal costPerUnit) {
