@@ -272,4 +272,42 @@ class FileIngestionServiceTest {
         assertThat(res.duplicateDetails()).hasSize(50);
         assertThat(res.duplicatesTruncated()).isEqualTo(5);
     }
+
+    @Test
+    void identicalRowsInOneStatementAreNotDuplicatesButRepeatInAnOverlappingStatementIs() {
+        byte[] bytes1 = "file1_content".getBytes();
+        byte[] bytes2 = "file2_content".getBytes();
+        UploadedFile file1 = new UploadedFile("file1.pdf", "application/pdf", bytes1);
+        UploadedFile file2 = new UploadedFile("file2.pdf", "application/pdf", bytes2);
+
+        // Two genuine metro top-ups on one day print identically in the same statement.
+        ParsedStatementLine topUp = new ParsedStatementLine(LocalDate.of(2026, 8, 1), new BigDecimal("20.00"), "debit", "PAYTM NOIDA", null, null);
+        StatementExtractionResult result1 = StatementExtractionResult.success(List.of(topUp, topUp), "1234", LocalDate.of(2026, 8, 1), LocalDate.of(2026, 8, 1), null);
+        // The overlapping statement repeats one of them.
+        StatementExtractionResult result2 = StatementExtractionResult.success(List.of(topUp), "1234", LocalDate.of(2026, 8, 1), LocalDate.of(2026, 8, 1), null);
+        when(statementParser.parse(eq(bytes1), nullable(String.class))).thenReturn(result1);
+        when(statementParser.parse(eq(bytes2), nullable(String.class))).thenReturn(result2);
+
+        Statement stmt1 = new Statement();
+        stmt1.setId(UUID.randomUUID());
+        Statement stmt2 = new Statement();
+        stmt2.setId(UUID.randomUUID());
+        when(statementPersistenceService.createIfNew(eq(user), eq(account), eq(StatementSource.file_upload), eq("file1.pdf"), any(), nullable(StatementDraft.class)))
+                .thenReturn(Optional.of(stmt1));
+        when(statementPersistenceService.createIfNew(eq(user), eq(account), eq(StatementSource.file_upload), eq("file2.pdf"), any(), nullable(StatementDraft.class)))
+                .thenReturn(Optional.of(stmt2));
+        when(dbHandler.findExistingTransactions(eq(accountId), any(LocalDate.class), any(LocalDate.class))).thenReturn(List.of());
+
+        TransactionMatcher realMatcher = new TransactionMatcher();
+        when(transactionMatcher.areDuplicates(any(), any(), anyInt())).thenAnswer(inv ->
+                realMatcher.areDuplicates(inv.getArgument(0), inv.getArgument(1), inv.getArgument(2)));
+
+        FileIngestionResult single = ingestionService.ingest(accountId, List.of(file1));
+        assertThat(single.totalDuplicatesFound()).isZero();
+
+        FileIngestionResult overlapping = ingestionService.ingest(accountId, List.of(file1, file2));
+        assertThat(overlapping.totalDuplicatesFound()).isEqualTo(3);
+        assertThat(overlapping.fileDetails().get(0).duplicates()).isEqualTo(2);
+        assertThat(overlapping.fileDetails().get(1).duplicates()).isEqualTo(1);
+    }
 }

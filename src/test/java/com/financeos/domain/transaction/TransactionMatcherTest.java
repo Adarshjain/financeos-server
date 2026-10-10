@@ -12,8 +12,9 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Bank narration vs bank narration must match exactly (same date, same text ignoring case/whitespace);
- * any pair involving alert or manual text keeps the loose amount/date/similarity rules.
+ * Bank narration vs bank narration must match exactly (same date, same text ignoring case/whitespace).
+ * On upload, a pair involving alert or manual text matches only when the shorter text appears in the
+ * longer one starting at a word; reconcile keeps the loose amount/date rules for such pairs.
  */
 class TransactionMatcherTest {
 
@@ -75,10 +76,75 @@ class TransactionMatcherTest {
     }
 
     @Test
-    void uploadAgainstManualEntryKeepsTheSimilarityRule() {
+    void bankRowsWithIdenticalNarrationButDifferentAmountsAreNotDuplicates() {
+        Transaction other = txn(TransactionSource.file_upload, DAY, RAMESH_1);
+        other.setAmount(new BigDecimal("501.00"));
+        assertThat(matcher.areDuplicates(txn(TransactionSource.file_upload, DAY, RAMESH_1), other, 0)).isFalse();
+    }
+
+    @Test
+    void bankRowsWithIdenticalNarrationButOppositeDirectionsAreNotDuplicates() {
+        Transaction refund = txn(TransactionSource.file_upload, DAY, RAMESH_1);
+        refund.setType(TransactionType.CREDIT);
+        assertThat(matcher.areDuplicates(txn(TransactionSource.file_upload, DAY, RAMESH_1), refund, 0)).isFalse();
+    }
+
+    @Test
+    void uploadMatchesAnAlertWhoseCounterpartyTheNarrationNames() {
+        assertThat(matcher.areDuplicates(
+                txn(TransactionSource.file_upload, DAY, "UPI/DR/412345678901/SWIGGY/YESB/swiggy@ybl/Payment"),
+                txn(TransactionSource.gmail_transaction_alert, DAY, "Swiggy"), 0)).isTrue();
+    }
+
+    @Test
+    void uploadMatchesAnAlertCounterpartyIgnoringItsLegalSuffix() {
+        assertThat(matcher.areDuplicates(
+                txn(TransactionSource.file_upload, DAY, "UPI/DR/412345678901/SWIGGY/YESB/swiggy@ybl/Payment"),
+                txn(TransactionSource.gmail_transaction_alert, DAY, "Swiggy Limited"), 0)).isTrue();
+    }
+
+    @Test
+    void uploadMatchesAMultiWordCounterpartyTheNarrationWritesAsOneWord() {
+        assertThat(matcher.areDuplicates(
+                txn(TransactionSource.file_upload, DAY, "AMAZONPAY INDIA BANGALORE IN"),
+                txn(TransactionSource.gmail_transaction_alert, DAY, "Amazon Pay"), 0)).isTrue();
+    }
+
+    @Test
+    void uploadDoesNotMatchAnAlertForAnotherCounterpartyWithTheSameDateAndAmount() {
+        assertThat(matcher.areDuplicates(
+                txn(TransactionSource.file_upload, DAY, "UPI/DR/412345678901/SWIGGY/YESB/swiggy@ybl/Payment"),
+                txn(TransactionSource.gmail_transaction_alert, DAY, "Zomato"), 0)).isFalse();
+    }
+
+    @Test
+    void uploadDoesNotMatchAManualEntryFoundOnlyInsideAnotherWord() {
+        assertThat(matcher.areDuplicates(
+                txn(TransactionSource.file_upload, DAY, "NEFT DR HDFC0000001 CURRENT ACCOUNT TRANSFER"),
+                txn(TransactionSource.manual, DAY, "Rent"), 0)).isFalse();
+    }
+
+    @Test
+    void uploadDoesNotMatchAManualEntryCarryingANarrationWithAnotherReference() {
+        // Token similarity of these two is 0.8, which the old 0.7 rule flagged as a duplicate.
         assertThat(matcher.areDuplicates(
                 txn(TransactionSource.file_upload, DAY, RAMESH_1),
-                txn(TransactionSource.manual, DAY, RAMESH_2), 0)).isTrue();
+                txn(TransactionSource.manual, DAY, RAMESH_2), 0)).isFalse();
+    }
+
+    @Test
+    void uploadDoesNotMatchAnAlertOnAnotherDay() {
+        assertThat(matcher.areDuplicates(
+                txn(TransactionSource.file_upload, DAY, "UPI/DR/412345678901/SWIGGY/YESB/swiggy@ybl/Payment"),
+                txn(TransactionSource.gmail_transaction_alert, DAY.plusDays(1), "Swiggy"), 0)).isFalse();
+    }
+
+    @Test
+    void uploadDoesNotMatchAnAlertWithoutAUsableCounterparty() {
+        Transaction bank = txn(TransactionSource.file_upload, DAY, "UPI/DR/412345678901/A K/YESB");
+        assertThat(matcher.areDuplicates(bank, txn(TransactionSource.gmail_transaction_alert, DAY, "A K"), 0)).isFalse();
+        assertThat(matcher.areDuplicates(bank, txn(TransactionSource.gmail_transaction_alert, DAY, "Ltd"), 0)).isFalse();
+        assertThat(matcher.areDuplicates(bank, txn(TransactionSource.gmail_transaction_alert, DAY, null), 0)).isFalse();
     }
 
     // --- findBestMatch (statement reconcile) ---

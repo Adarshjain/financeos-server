@@ -127,8 +127,7 @@ public class TransactionMatcher {
             return dateDiff == 0 && sameText(effectiveDescription(t1), effectiveDescription(t2));
         }
 
-        double similarity = calculateSimilarity(effectiveDescription(t1), effectiveDescription(t2));
-        return similarity >= 0.7; // 70% Jaccard token similarity overlap threshold
+        return namesSameCounterparty(effectiveDescription(t1), effectiveDescription(t2));
     }
 
     /**
@@ -143,6 +142,39 @@ public class TransactionMatcher {
     static boolean sameText(String s1, String s2) {
         if (s1 == null || s2 == null) return false;
         return s1.replaceAll("\\s+", "").equalsIgnoreCase(s2.replaceAll("\\s+", ""));
+    }
+
+    /**
+     * True when the shorter text appears in the longer one, starting at a word, ignoring case,
+     * punctuation and legal suffixes: an alert's or manual entry's counterparty ("Swiggy Limited")
+     * matches the bank narration that names it ("UPI/DR/4123/SWIGGY/YESB"), while two narrations
+     * that differ anywhere, such as in a reference number, never match.
+     */
+    static boolean namesSameCounterparty(String s1, String s2) {
+        if (s1 == null || s2 == null) return false;
+        List<String> words1 = words(s1);
+        List<String> words2 = words(s2);
+        String joined1 = String.join("", words1);
+        String joined2 = String.join("", words2);
+        boolean firstIsShorter = joined1.length() <= joined2.length();
+        List<String> shortWords = firstIsShorter ? words1 : words2;
+        List<String> longWords = firstIsShorter ? words2 : words1;
+        String needle = String.join("", shortWords.stream().filter(w -> !LEGAL_SUFFIXES.contains(w)).toList());
+        if (needle.length() < 3) return false;
+
+        String haystack = String.join("", longWords);
+        int wordStart = 0;
+        for (String word : longWords) {
+            if (haystack.startsWith(needle, wordStart)) return true;
+            wordStart += word.length();
+        }
+        return false;
+    }
+
+    private static final Set<String> LEGAL_SUFFIXES = Set.of("ltd", "limited", "pvt", "private", "llp", "inc", "corp");
+
+    private static List<String> words(String s) {
+        return Arrays.stream(s.toLowerCase().split("[^a-z0-9]+")).filter(w -> !w.isEmpty()).toList();
     }
 
     /**
