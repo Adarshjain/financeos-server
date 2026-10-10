@@ -75,6 +75,22 @@ class AccountDeletionSchemaTest {
             }
         }
 
+        // Java migrations (src/main/java/db/migration, e.g. V100) add user_id columns too.
+        Path javaMigrationDir = migrationDir.resolve("../../../java/db/migration").normalize();
+        assertTrue(Files.exists(javaMigrationDir), "Java migrations directory must exist: " + javaMigrationDir);
+        try (Stream<Path> paths = Files.list(javaMigrationDir)) {
+            for (Path javaFile : paths.filter(p -> p.toString().endsWith(".java")).sorted().toList()) {
+                Matcher addMatcher = ADD_USER_ID_PATTERN.matcher(Files.readString(javaFile));
+                while (addMatcher.find()) {
+                    tablesWithUserId.add(addMatcher.group(1).trim().toLowerCase(Locale.ROOT));
+                }
+            }
+        }
+        assertTrue(tablesWithUserId.contains("corporate_actions"), "V100 makes corporate actions per user");
+        String v100 = Files.readString(javaMigrationDir.resolve("V100__per_user_corporate_actions.java"));
+        assertTrue(v100.contains("fk_corp_actions_user") && v100.contains("ON DELETE CASCADE"),
+                "V100 must cascade corporate actions with their user");
+
         // Verify that every table with a user_id column is accounted for in the V1-V79 cascade design
         Set<String> expectedUserTables = Set.of(
                 "accounts", "account_bank_details", "account_credit_card_details", "account_broker_details",
@@ -87,7 +103,7 @@ class AccountDeletionSchemaTest {
                 "category_rules", "gmail_connections", "gmail_senders", "gmail_backfill_demand",
                 "llm_api_keys", "llm_task_prefs", "fno_trades", "user_notification_settings",
                 "inbox_item_state", "user_instrument_overrides", "instrument_prices", "instrument_aliases",
-                "user_instrument_repoints"
+                "user_instrument_repoints", "corporate_actions"
         );
 
         for (String table : tablesWithUserId) {

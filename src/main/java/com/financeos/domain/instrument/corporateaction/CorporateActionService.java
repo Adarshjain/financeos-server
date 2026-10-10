@@ -26,6 +26,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * A user's own corporate actions. Every read and write is the caller's: another user's action is a
+ * 404, the list holds only the caller's, and the child holdings a demerger/merger creates are the
+ * caller's own (one per broker where they hold the parent). Instruments stay the shared catalog.
+ */
 @Service
 @Transactional
 public class CorporateActionService {
@@ -50,13 +55,33 @@ public class CorporateActionService {
         this.userRepository = userRepository;
     }
 
+    private static UUID requireUser() {
+        UUID userId = UserContext.getCurrentUserId();
+        if (userId == null) {
+            throw new ValidationException("A corporate action needs a signed-in user");
+        }
+        return userId;
+    }
+
+    /** The caller's action {@code id} on {@code instrumentId}; another user's, or one on another instrument, is a 404. */
+    private CorporateAction ownAction(UUID userId, UUID instrumentId, UUID id) {
+        CorporateAction ca = corporateActionRepository.findByIdAndUser_Id(id, userId)
+                .orElseThrow(() -> new ResourceNotFoundException("CorporateAction", id));
+        if (!ca.getInstrument().getId().equals(instrumentId)) {
+            throw new ResourceNotFoundException("CorporateAction", id);
+        }
+        return ca;
+    }
+
     public CorporateActionResponse createCorporateAction(UUID instrumentId, CreateCorporateActionRequest request) {
+        UUID userId = requireUser();
         Instrument instrument = instrumentRepository.findById(instrumentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Instrument", instrumentId));
 
         validateRequest(instrumentId, request.type(), request.targetInstrumentId(), request.costAllocationPct(), request.fractionalCashInLieu());
 
         CorporateAction ca = new CorporateAction();
+        ca.setUser(userRepository.getReferenceById(userId));
         ca.setInstrument(instrument);
         ca.setType(request.type());
         ca.setRatioFrom(request.ratioFrom());
@@ -79,7 +104,7 @@ public class CorporateActionService {
         CorporateAction saved = corporateActionRepository.save(ca);
 
         if ((saved.getType() == CorporateActionType.demerger || saved.getType() == CorporateActionType.merger) && saved.getTargetInstrument() != null) {
-            materializeChildHoldings(saved.getInstrument().getId(), saved.getTargetInstrument());
+            materializeChildHoldings(userId, saved.getInstrument().getId(), saved.getTargetInstrument());
         }
 
         String parentIsin = saved.getInstrument() != null ? saved.getInstrument().getIsin() : "";
@@ -99,12 +124,8 @@ public class CorporateActionService {
     }
 
     public CorporateActionResponse updateCorporateAction(UUID instrumentId, UUID id, UpdateCorporateActionRequest request) {
-        CorporateAction ca = corporateActionRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("CorporateAction", id));
-
-        if (!ca.getInstrument().getId().equals(instrumentId)) {
-            throw new ResourceNotFoundException("CorporateAction", id);
-        }
+        UUID userId = requireUser();
+        CorporateAction ca = ownAction(userId, instrumentId, id);
 
         validateRequest(instrumentId, request.type(), request.targetInstrumentId(), request.costAllocationPct(), request.fractionalCashInLieu());
 
@@ -129,7 +150,7 @@ public class CorporateActionService {
         CorporateAction saved = corporateActionRepository.save(ca);
 
         if ((saved.getType() == CorporateActionType.demerger || saved.getType() == CorporateActionType.merger) && saved.getTargetInstrument() != null) {
-            materializeChildHoldings(saved.getInstrument().getId(), saved.getTargetInstrument());
+            materializeChildHoldings(userId, saved.getInstrument().getId(), saved.getTargetInstrument());
         }
 
         return CorporateActionResponse.from(saved, overrideService.overridesForCurrentUser());
@@ -159,13 +180,14 @@ public class CorporateActionService {
         }
     }
 
-    private void materializeChildHoldings(UUID parentInstrumentId, Instrument targetInstrument) {
-        UUID userId = UserContext.getCurrentUserId();
-        if (userId == null) {
-            return;
-        }
+    /**
+     * Gives {@code userId} a holding of the demerger/merger target at every broker where they hold the
+     * parent (where they have none yet), so the seeded shares have a holding to land in. Only the
+     * caller's own parent holdings: other users' actions are their own.
+     */
+    private void materializeChildHoldings(UUID userId, UUID parentInstrumentId, Instrument targetInstrument) {
         User user = userRepository.getReferenceById(userId);
-        List<Holding> parentHoldings = holdingRepository.findByInstrumentId(parentInstrumentId);
+        List<Holding> parentHoldings = holdingRepository.findByUser_IdAndInstrument_Id(userId, parentInstrumentId);
         for (Holding parentHolding : parentHoldings) {
             Optional<Holding> existingChild = holdingRepository.findByBrokerAccountIdAndInstrumentId(
                     parentHolding.getBrokerAccount().getId(),
@@ -180,29 +202,28 @@ public class CorporateActionService {
     }
 
     public void deleteCorporateAction(UUID instrumentId, UUID id) {
-        CorporateAction ca = corporateActionRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("CorporateAction", id));
-
-        if (!ca.getInstrument().getId().equals(instrumentId)) {
-            throw new ResourceNotFoundException("CorporateAction", id);
-        }
-
-        corporateActionRepository.delete(ca);
+        corporateActionRepository.delete(ownAction(requireUser(), instrumentId, id));
     }
 
+    /** The caller's own corporate actions on the instrument, oldest first; 404 for an unknown instrument. */
     @Transactional(readOnly = true)
     public List<CorporateActionResponse> getCorporateActions(UUID instrumentId) {
         if (!instrumentRepository.existsById(instrumentId)) {
             throw new ResourceNotFoundException("Instrument", instrumentId);
         }
-        List<CorporateAction> actions = corporateActionRepository.findByInstrumentIdOrderByExDateAsc(instrumentId);
+        UUID userId = UserContext.getCurrentUserId();
+        List<CorporateAction> actions = userId == null ? List.of()
+                : corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(userId, instrumentId);
         InstrumentOverrides overrides = actions.isEmpty() ? InstrumentOverrides.NONE : overrideService.overridesForCurrentUser();
         return actions.stream().map(ca -> CorporateActionResponse.from(ca, overrides)).toList();
     }
 
+    /** The caller's own corporate actions, newest first (none without a signed-in user). */
     @Transactional(readOnly = true)
     public List<CorporateActionResponse> getAllCorporateActions() {
-        List<CorporateAction> actions = corporateActionRepository.findAllWithInstruments();
+        UUID userId = UserContext.getCurrentUserId();
+        List<CorporateAction> actions = userId == null ? List.of()
+                : corporateActionRepository.findAllOwnedWithInstruments(userId);
         InstrumentOverrides overrides = actions.isEmpty() ? InstrumentOverrides.NONE : overrideService.overridesForCurrentUser();
         return actions.stream().map(ca -> CorporateActionResponse.from(ca, overrides)).toList();
     }

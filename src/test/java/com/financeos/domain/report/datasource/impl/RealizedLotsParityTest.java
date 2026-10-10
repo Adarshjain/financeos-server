@@ -103,7 +103,7 @@ class RealizedLotsParityTest {
         when(holdingRepository.findAllWithDetails()).thenReturn(List.of(holding));
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId()))
                 .thenReturn(List.of(buy1, buy2, sell1));
-        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(holding.getInstrument().getId()))
+        when(corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(null, holding.getInstrument().getId()))
                 .thenReturn(List.of());
 
         HoldingPosition pos = investmentService.calculateHoldingPosition(holding);
@@ -153,7 +153,7 @@ class RealizedLotsParityTest {
         when(holdingRepository.findAllWithDetails()).thenReturn(List.of(holding));
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId()))
                 .thenReturn(List.of(buy, sell));
-        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(holding.getInstrument().getId()))
+        when(corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(null, holding.getInstrument().getId()))
                 .thenReturn(List.of(split));
 
         HoldingPosition pos = investmentService.calculateHoldingPosition(holding);

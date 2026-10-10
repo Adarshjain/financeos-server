@@ -103,9 +103,9 @@ class DemergerCorporateActionTest {
 
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(parentHolding.getId()))
                 .thenReturn(List.of(buyTxn));
-        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(parentInstrument.getId()))
+        when(corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(null, parentInstrument.getId()))
                 .thenReturn(List.of(demerger));
-        when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(parentInstrument.getId()))
+        when(corporateActionRepository.findByUser_IdAndTargetInstrument_IdOrderByExDateAsc(null, parentInstrument.getId()))
                 .thenReturn(List.of());
         when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(parentInstrument.getId()), org.mockito.ArgumentMatchers.any()))
                 .thenReturn(java.util.List.of());
@@ -150,15 +150,15 @@ class DemergerCorporateActionTest {
 
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(childHolding.getId()))
                 .thenReturn(List.of());
-        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(childInstrument.getId()))
+        when(corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(null, childInstrument.getId()))
                 .thenReturn(List.of());
-        when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(childInstrument.getId()))
+        when(corporateActionRepository.findByUser_IdAndTargetInstrument_IdOrderByExDateAsc(null, childInstrument.getId()))
                 .thenReturn(List.of(demerger));
         when(holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccount.getId(), parentInstrument.getId()))
                 .thenReturn(Optional.of(parentHolding));
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(parentHolding.getId()))
                 .thenReturn(List.of(parentBuy));
-        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(parentInstrument.getId()))
+        when(corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(null, parentInstrument.getId()))
                 .thenReturn(List.of(demerger));
         when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(childInstrument.getId()), org.mockito.ArgumentMatchers.any()))
                 .thenReturn(java.util.List.of());

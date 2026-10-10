@@ -1,10 +1,12 @@
 package com.financeos.domain.instrument.corporateaction;
 
 import com.financeos.domain.instrument.Instrument;
+import com.financeos.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -12,11 +14,19 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
+/**
+ * A split, bonus, demerger or merger as ONE user recorded it for their own holdings. Corporate actions
+ * are per user (V100): each user's lot engine, positions, realised lots, XIRR, tax harvest, dividends
+ * and reports read only their own, and a change one user makes never moves another user's numbers.
+ * Scoped like every user-owned row (the Hibernate {@code userFilter} on a request), and every
+ * repository read also names the owner explicitly so jobs without a signed-in user stay scoped.
+ */
 @Entity
 @Table(name = "corporate_actions")
 @Getter
 @Setter
 @NoArgsConstructor
+@Filter(name = "userFilter", condition = "user_id = :userId")
 public class CorporateAction {
 
     @Id
@@ -24,6 +34,12 @@ public class CorporateAction {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(length = 36)
     private UUID id;
+
+    /** The user whose holdings the action applies to (NOT NULL in the database since V100). */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "instrument_id", nullable = false)

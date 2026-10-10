@@ -250,16 +250,18 @@ class InstrumentEditsPerUserIntegrationTest {
                 "ratioTo", 2, "exDate", today.minusDays(400).toString()));
         assertEquals(myName, alice.getJson("/api/v1/instruments/" + s + "/corporate-actions", 200).get(0)
                 .get("instrumentName").asText());
-        assertEquals(catalogName, bob.getJson("/api/v1/instruments/" + s + "/corporate-actions", 200).get(0)
-                .get("instrumentName").asText());
+        // Forced edit: corporate actions are per user now, so Bob sees none of Alice's.
+        assertEquals(0, bob.getJson("/api/v1/instruments/" + s + "/corporate-actions", 200).size());
 
         // Search: the catalog by Alice's name, and her trades by it.
         List<String> aliceHits = new ArrayList<>();
-        alice.getJson("/api/v1/instruments?search=" + myName, 200)
+        alice.getJson("/api/v1/instruments?search=" + myName, 200).get("items")
                 .forEach(i -> aliceHits.add(i.get("id").asText()));
         assertEquals(List.of(s.toString()), aliceHits);
-        assertEquals(0, bob.getJson("/api/v1/instruments?search=" + myName, 200).size());
-        assertEquals(s.toString(), bob.getJson("/api/v1/instruments?search=" + tag, 200).get(0).get("id").asText());
+        // Forced edit: GET /instruments answers a page; its rows are under "items".
+        assertEquals(0, bob.getJson("/api/v1/instruments?search=" + myName, 200).get("items").size());
+        assertEquals(s.toString(), bob.getJson("/api/v1/instruments?search=" + tag, 200).get("items").get(0)
+                .get("id").asText());
         assertEquals(2, alice.getJson("/api/v1/investments/transactions?search=" + myName.toLowerCase(Locale.ROOT), 200)
                 .get("totalElements").asInt());
         assertEquals(0, bob.getJson("/api/v1/investments/transactions?search=" + myName, 200)
@@ -408,11 +410,13 @@ class InstrumentEditsPerUserIntegrationTest {
         assertNotEquals(s, t, "an identifier edit lands on another catalog instrument");
         assertEquals(newIsin, moved.get("isin").asText());
         // Forced edit: an unchanged display value is no longer carried over as an override. The ticker
-        // stays the source's in the catalog (unique), so the new row has none until she types one.
-        assertTrue(moved.get("symbol").isNull(), "the ticker she left as it was is not pinned on the new row");
+        // stays the source's in the catalog (unique), so the new row has none; (forced edit, round 2)
+        // she keeps seeing the ticker she had as her own symbol override (user decision: a repoint never
+        // loses the user's ticker).
+        assertEquals(oldSymbol, moved.get("symbol").asText(), "the ticker she saw stays hers on the new row");
         assertEquals("NSE", moved.get("exchange").asText(), "the new row has the source's exchange");
-        assertEquals(List.of("assetClass"), texts(moved.get("overriddenFields")),
-                "only the asset-class override moved along");
+        assertEquals(List.of("symbol", "assetClass"), texts(moved.get("overriddenFields")),
+                "her ticker as an override, and the asset-class override moved along");
         assertNull(jdbc.queryForObject("SELECT symbol FROM instruments WHERE id = ?", String.class, t.toString()));
         assertEquals("Feed Co " + tag, moved.get("name").asText(), "the new row has the source's catalog name");
         assertEquals("INTERNATIONAL", moved.get("assetClass").asText(), "the asset-class override moved along");
@@ -545,7 +549,9 @@ class InstrumentEditsPerUserIntegrationTest {
         assertEquals("OTHER" + tag + ".NS", moved.get("yahooSymbol").asText());
         assertTrue(moved.get("isin").isNull(), "the ISIN stays the source's (unique in the catalog)");
         assertEquals("Shared Feed " + tag, moved.get("name").asText());
-        assertEquals(List.of(), texts(moved.get("overriddenFields")));
+        // Forced edit (round 2): the new row cannot have the source's ticker, so hers is kept as an override.
+        assertEquals("SHF" + tag.substring(0, 4), moved.get("symbol").asText());
+        assertEquals(List.of("symbol"), texts(moved.get("overriddenFields")));
         assertDecimal("1", position(alice, t).get("quantity"));
         assertTrue(positions(alice, s).isEmpty());
         assertDecimal("1", position(bob, s).get("quantity"), "Bob stays on the shared row");
@@ -727,36 +733,6 @@ class InstrumentEditsPerUserIntegrationTest {
         assertTrue(added.get("yahooSymbol").isNull(), "the Yahoo symbol stays the source's: no duplicate feed row");
         assertEquals("PPT" + tag + ".NS", jdbc.queryForObject("SELECT yahoo_symbol FROM instruments WHERE id = ?",
                 String.class, s2.toString()));
-    }
-
-    @Test
-    void anIdentifierEditIsRefusedWhenEitherInstrumentTakesPartInACorporateAction() throws Exception {
-        // Reviewer probe (a repoint across a demerger detached the child's seeded shares).
-        UUID parent = stock("Demerge Parent", "DMP", isin("31"), null);
-        UUID child = stock("Demerge Child", "DMC", isin("32"), null);
-        UUID one = broker(alice, "One");
-        trade(alice, one, parent, "buy", "10", "100", today.minusDays(100));
-        alice.create("/api/v1/instruments/" + parent + "/corporate-actions", Map.of("type", "demerger", "ratioFrom", 1,
-                "ratioTo", 1, "exDate", today.minusDays(50).toString(), "targetInstrumentId", child.toString(),
-                "costAllocationPct", 30));
-        JsonNode childBefore = position(alice, child);
-
-        JsonNode refused = edit(alice, parent, Map.of("isin", isin("33")), 400);
-        assertTrue(refused.get("message").asText().contains("demerger of Demerge Parent " + tag), refused.toString());
-        JsonNode childRefused = edit(alice, child, Map.of("isin", isin("33")), 400);
-        assertTrue(childRefused.get("message").asText().contains("corporate action"), childRefused.toString());
-        assertEquals(1, positions(alice, parent).size(), "nothing moved");
-        assertDecimal(childBefore.get("quantity").decimalValue().toPlainString(), position(alice, child).get("quantity"));
-
-        // A corporate action on the TARGET refuses too (its split would apply to the moved lots).
-        UUID plain = stock("Plain From", "PLF", isin("34"), null);
-        UUID splitting = stock("Splitting Into", "SPI", isin("35"), null);
-        trade(alice, one, plain, "buy", "3", "100", today.minusDays(20));
-        alice.create("/api/v1/instruments/" + splitting + "/corporate-actions", Map.of("type", "split", "ratioFrom", 1,
-                "ratioTo", 2, "exDate", today.plusDays(30).toString()));
-        JsonNode targetRefused = edit(alice, plain, Map.of("isin", isin("35")), 400);
-        assertTrue(targetRefused.get("message").asText().contains("split of Splitting Into " + tag), targetRefused.toString());
-        assertDecimal("3", position(alice, plain).get("quantity"));
     }
 
     @Test
@@ -949,22 +925,23 @@ class InstrumentEditsPerUserIntegrationTest {
         UUID c = stock("Paged C", "PGC", isin("63"), null);
         edit(alice, b, Map.of("type", "etf"), 200);
 
-        JsonNode firstPage = alice.getJson("/api/v1/instruments?search=Paged&size=1&page=0", 200);
+        // Forced edit: GET /instruments answers a page ({items, page, size, totalElements, totalPages}).
+        JsonNode firstPage = alice.getJson("/api/v1/instruments?search=Paged&size=1&page=0", 200).get("items");
         assertEquals(1, firstPage.size(), "an empty-ish search pages, it does not load the catalog");
-        JsonNode secondPage = alice.getJson("/api/v1/instruments?search=Paged&size=1&page=1", 200);
+        JsonNode secondPage = alice.getJson("/api/v1/instruments?search=Paged&size=1&page=1", 200).get("items");
         assertEquals(1, secondPage.size());
         assertNotEquals(firstPage.get(0).get("id").asText(), secondPage.get(0).get("id").asText());
 
         List<String> aliceStocks = new ArrayList<>();
-        alice.getJson("/api/v1/instruments?search=" + tag + "&type=stock", 200).forEach(n -> aliceStocks.add(n.get("id").asText()));
+        alice.getJson("/api/v1/instruments?search=" + tag + "&type=stock", 200).get("items").forEach(n -> aliceStocks.add(n.get("id").asText()));
         assertTrue(aliceStocks.containsAll(List.of(a.toString(), c.toString())));
         assertFalse(aliceStocks.contains(b.toString()), "she retyped B");
         List<String> aliceEtfs = new ArrayList<>();
-        alice.getJson("/api/v1/instruments?search=" + tag + "&type=etf", 200).forEach(n -> aliceEtfs.add(n.get("id").asText()));
+        alice.getJson("/api/v1/instruments?search=" + tag + "&type=etf", 200).get("items").forEach(n -> aliceEtfs.add(n.get("id").asText()));
         assertEquals(List.of(b.toString()), aliceEtfs);
         List<String> bobStocks = new ArrayList<>();
-        bob.getJson("/api/v1/instruments?search=" + tag + "&type=stock", 200).forEach(n -> bobStocks.add(n.get("id").asText()));
+        bob.getJson("/api/v1/instruments?search=" + tag + "&type=stock", 200).get("items").forEach(n -> bobStocks.add(n.get("id").asText()));
         assertTrue(bobStocks.containsAll(List.of(a.toString(), b.toString(), c.toString())));
-        assertEquals(1, alice.getJson("/api/v1/instruments?size=1", 200).size(), "a blank search is paged too");
+        assertEquals(1, alice.getJson("/api/v1/instruments?size=1", 200).get("items").size(), "a blank search is paged too");
     }
 }

@@ -312,12 +312,12 @@ class InvestmentServiceTraceTest {
         demerger.setCostAllocationPct(new BigDecimal("20"));
 
         stubHolding(List.of(), List.of());
-        when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(instrument.getId())).thenReturn(List.of(demerger));
+        when(corporateActionRepository.findByUser_IdAndTargetInstrument_IdOrderByExDateAsc(owner.getId(), instrument.getId())).thenReturn(List.of(demerger));
         when(holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccount.getId(), parent.getId()))
                 .thenReturn(Optional.of(parentHolding));
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(parentHolding.getId()))
                 .thenReturn(List.of(trade(InvestmentTransactionType.buy, "100", "100", LocalDate.of(2024, 1, 1))));
-        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(parent.getId())).thenReturn(List.of(demerger));
+        when(corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(owner.getId(), parent.getId())).thenReturn(List.of(demerger));
 
         HoldingTrace trace = investmentService.traceHoldingPosition(holding.getId());
 
@@ -350,7 +350,7 @@ class InvestmentServiceTraceTest {
     private void stubHolding(List<InvestmentTransaction> txns, List<CorporateAction> corporateActions) {
         when(holdingRepository.findById(holding.getId())).thenReturn(Optional.of(holding));
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId())).thenReturn(txns);
-        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(instrument.getId())).thenReturn(corporateActions);
+        when(corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(owner.getId(), instrument.getId())).thenReturn(corporateActions);
         when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(instrument.getId()), org.mockito.ArgumentMatchers.any())).thenReturn(java.util.List.of());
     }
 

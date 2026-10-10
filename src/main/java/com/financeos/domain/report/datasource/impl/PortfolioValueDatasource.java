@@ -128,8 +128,9 @@ public class PortfolioValueDatasource implements ComputedReportDatasource {
         for (Holding h : holdings) {
             var txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(h.getId());
             txnsByHolding.put(h.getId(), txns);
-            casByHolding.put(h.getId(),
-                    corporateActionRepository.findByInstrumentIdOrderByExDateAsc(h.getInstrument().getId()));
+            // The holding owner's own corporate actions (they are per user), never another user's.
+            casByHolding.put(h.getId(), corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(
+                    h.getUser() != null ? h.getUser().getId() : null, h.getInstrument().getId()));
             List<InvestmentService.SeedLot> seeds = investmentService.seedLotsFor(h);
             seedsByHolding.put(h.getId(), seeds);
             if (!txns.isEmpty()) {

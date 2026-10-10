@@ -70,6 +70,39 @@ public interface InstrumentRepository extends JpaRepository<Instrument, UUID> {
            "LOCATE(LOWER(:search), LOWER(i.amfiCode)) > 0)")
     List<Instrument> searchInstruments(@Param("search") String search, @Param("type") InstrumentType type);
 
+    /**
+     * The filter of {@link #listAsSeenBy}: the type and the text match apply to the instrument as the
+     * user sees it ({@code o} = their override row, if any; its null fields mean the catalog value),
+     * and the text also matches the catalog name / symbol and the ISIN, AMFI code and Yahoo symbol.
+     * {@code :search} is lowercased by the caller; LOCATE, not LIKE: a typed % or _ is no wildcard.
+     */
+    String LIST_AS_SEEN_FROM = "FROM Instrument i LEFT JOIN UserInstrumentOverride o "
+            + "ON o.instrumentId = i.id AND o.userId = :userId WHERE "
+            + "(:type IS NULL OR COALESCE(o.type, i.type) = :type) AND "
+            + "(:search IS NULL OR "
+            + "LOCATE(:search, LOWER(COALESCE(o.name, i.name))) > 0 OR "
+            + "LOCATE(:search, LOWER(COALESCE(o.symbol, i.symbol))) > 0 OR "
+            + "LOCATE(:search, LOWER(i.name)) > 0 OR "
+            + "LOCATE(:search, LOWER(i.symbol)) > 0 OR "
+            + "LOCATE(:search, LOWER(i.isin)) > 0 OR "
+            + "LOCATE(:search, LOWER(i.amfiCode)) > 0 OR "
+            + "LOCATE(:search, LOWER(i.yahooSymbol)) > 0)";
+
+    /**
+     * One page of the catalog as {@code userId} sees it, filtered as {@link #LIST_AS_SEEN_FROM} and sorted
+     * by the name they see (their override over the catalog name; case-insensitive), ascending unless
+     * {@code dir} is {@code "desc"}, then by id — so paging is stable and the count is exact.
+     */
+    @Query(value = "SELECT i " + LIST_AS_SEEN_FROM
+            + " ORDER BY CASE WHEN :dir = 'desc' THEN LOWER(COALESCE(o.name, i.name)) END DESC, "
+            + "LOWER(COALESCE(o.name, i.name)) ASC, i.id ASC",
+            countQuery = "SELECT COUNT(i) " + LIST_AS_SEEN_FROM)
+    org.springframework.data.domain.Page<Instrument> listAsSeenBy(@Param("userId") UUID userId,
+                                                                  @Param("search") String search,
+                                                                  @Param("type") InstrumentType type,
+                                                                  @Param("dir") String dir,
+                                                                  Pageable pageable);
+
     /** {@link #searchInstruments(String, InstrumentType)} one page at a time, by name then id. */
     @Query("SELECT i FROM Instrument i WHERE " +
            "(:type IS NULL OR i.type = :type) AND " +

@@ -124,20 +124,28 @@ class InstrumentLocalSearchTest {
 
     @Test
     void theInstrumentListPagesClampsAndBatchesPrices() {
+        // Forced edit: GET /instruments is a page with a total now (listAsSeenBy), not a list.
         InstrumentService service = new InstrumentService(instrumentRepository, priceRepository,
                 mock(InstrumentClassificationService.class), overrides, null);
         when(overrides.overridesFor(user)).thenReturn(InstrumentOverrides.NONE);
-        when(instrumentRepository.searchInstrumentsPage(any(), any(), any())).thenReturn(List.of(stock, renamed));
+        PageRequest clamped = PageRequest.of(0, InstrumentService.MAX_PAGE_SIZE);
+        when(instrumentRepository.listAsSeenBy(any(), any(), any(), any(), any()))
+                .thenReturn(new org.springframework.data.domain.PageImpl<>(List.of(stock, renamed), clamped, 2));
         InstrumentPrice price = new InstrumentPrice(stock, LocalDate.of(2026, 10, 9), new BigDecimal("1500"), PriceSource.YAHOO);
         when(priceRepository.findLatestByInstrumentIds(anyCollection(), eq(user))).thenReturn(List.of(price));
 
-        List<InstrumentResponse> out = service.searchInstruments(null, null, -3, 5000);
+        com.financeos.api.instrument.dto.InstrumentListPage page = service.listInstruments(null, null, null, -3, 5000);
+        List<InstrumentResponse> out = page.items();
 
-        verify(instrumentRepository).searchInstrumentsPage(null, null, PageRequest.of(0, InstrumentService.MAX_PAGE_SIZE));
+        verify(instrumentRepository).listAsSeenBy(user, null, null, "asc", clamped);
         verify(priceRepository, times(1)).findLatestByInstrumentIds(anyCollection(), eq(user));
         verify(priceRepository, never()).findLatestVisible(any(), any());
         assertEquals(0, new BigDecimal("1500").compareTo(out.get(0).lastPrice()));
         assertEquals(null, out.get(1).lastPrice());
+        assertEquals(0, page.page());
+        assertEquals(InstrumentService.MAX_PAGE_SIZE, page.size());
+        assertEquals(2, page.totalElements());
+        assertEquals(1, page.totalPages());
     }
 
     @Test
