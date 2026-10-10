@@ -37,6 +37,11 @@ public class InstrumentAlias {
     @Column(length = 50)
     private String source;
 
+    /** Null for a catalog alias every user's imports use; else the user whose own import hint this is. */
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(name = "user_id", length = 36)
+    private UUID userId;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

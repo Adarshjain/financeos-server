@@ -1,6 +1,7 @@
 package com.financeos.api.investment.dto;
 
 import com.financeos.domain.holding.Holding;
+import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.investment.dividend.Dividend;
 import com.financeos.domain.investment.dividend.DividendReceiptStatus;
 import com.financeos.domain.investment.dividend.DividendReceiptWindows;
@@ -20,7 +21,7 @@ public record DividendResponse(
         String brokerName,
         UUID instrumentId,
         String instrumentName,
-        String symbol,
+        @Nullable String symbol,
         DividendType type,
         BigDecimal amount,
         @Nullable BigDecimal perUnit,
@@ -36,6 +37,12 @@ public record DividendResponse(
         @Nullable DividendTransactionSummary transaction
 ) {
     public static DividendResponse from(Dividend dividend, LocalDate today, @Nullable LocalDate coverageEnd) {
+        return from(dividend, today, coverageEnd, InstrumentOverrides.NONE);
+    }
+
+    /** The dividend with its instrument's name and symbol as {@code overrides}' user sees them. */
+    public static DividendResponse from(Dividend dividend, LocalDate today, @Nullable LocalDate coverageEnd,
+                                        InstrumentOverrides overrides) {
         Holding h = dividend.getHolding();
         return new DividendResponse(
                 dividend.getId(),
@@ -43,8 +50,8 @@ public record DividendResponse(
                 h.getBrokerAccount().getId(),
                 h.getBrokerAccount().getName(),
                 h.getInstrument().getId(),
-                h.getInstrument().getName(),
-                h.getInstrument().getSymbol(),
+                overrides.name(h.getInstrument()),
+                overrides.symbol(h.getInstrument()),
                 dividend.getType(),
                 dividend.getAmount(),
                 dividend.getPerUnit(),

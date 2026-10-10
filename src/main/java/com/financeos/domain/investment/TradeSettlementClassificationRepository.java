@@ -11,6 +11,8 @@ import java.util.UUID;
 @Repository
 public interface TradeSettlementClassificationRepository extends JpaRepository<TradeSettlementClassification, UUID> {
     List<TradeSettlementClassification> findByHoldingId(UUID holdingId);
+    /** Every intraday classification of one user (batch input for the lot engine). */
+    List<TradeSettlementClassification> findByUser_Id(UUID userId);
     List<TradeSettlementClassification> findByBrokerAccountIdAndInstrumentId(UUID brokerAccountId, UUID instrumentId);
     Optional<TradeSettlementClassification> findByBrokerAccountIdAndInstrumentIdAndTradeDate(UUID brokerAccountId, UUID instrumentId, LocalDate tradeDate);
     void deleteByBrokerAccountId(UUID brokerAccountId);

@@ -1,5 +1,6 @@
 package com.financeos.api.investment.dto;
 
+import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.investment.sip.Sip;
 import com.financeos.domain.investment.sip.SipFrequency;
 
@@ -28,13 +29,18 @@ public record SipResponse(
         Instant createdAt
 ) {
     public static SipResponse from(Sip sip, SipProgressDto progress) {
+        return from(sip, progress, InstrumentOverrides.NONE);
+    }
+
+    /** The SIP with its instrument's name and symbol as {@code overrides}' user sees them. */
+    public static SipResponse from(Sip sip, SipProgressDto progress, InstrumentOverrides overrides) {
         return new SipResponse(
                 sip.getId(),
                 sip.getBrokerAccount().getId(),
                 sip.getBrokerAccount().getName(),
                 sip.getInstrument().getId(),
-                sip.getInstrument().getName(),
-                sip.getInstrument().getSymbol(),
+                overrides.name(sip.getInstrument()),
+                overrides.symbol(sip.getInstrument()),
                 sip.getAmount(),
                 sip.getFrequency(),
                 sip.getDayOfMonth(),

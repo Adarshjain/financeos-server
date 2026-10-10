@@ -99,8 +99,8 @@ public class InvestmentTradesDatasource implements ReportDatasource {
                 Map.entry("type", new Mapping("it.type", null)),
                 Map.entry("settlementType", new Mapping("it.settlement_type", null)),
                 Map.entry("broker", new Mapping("acc.name", JOIN_ACCOUNTS)),
-                Map.entry("instrument", new Mapping("ins.name", JOIN_INSTRUMENTS)),
-                Map.entry("instrumentType", new Mapping("ins.type", JOIN_INSTRUMENTS)),
+                Map.entry("instrument", new Mapping("COALESCE(uio.name, ins.name)", JOIN_INSTRUMENTS)),
+                Map.entry("instrumentType", new Mapping("COALESCE(uio.type, CAST(ins.type AS VARCHAR(50)))", JOIN_INSTRUMENTS)),
                 Map.entry("source", new Mapping("it.source", null))
         );
 
@@ -135,6 +135,8 @@ public class InvestmentTradesDatasource implements ReportDatasource {
             }
             if (joins.contains(JOIN_INSTRUMENTS)) {
                 sb.append(" JOIN instruments ins ON ins.id = h.instrument_id");
+                // The holding owner's own name / type for the instrument, when they edited it.
+                sb.append(" LEFT JOIN user_instrument_overrides uio ON uio.instrument_id = ins.id AND uio.user_id = h.user_id");
             }
             if (joins.contains(JOIN_ACCOUNTS)) {
                 sb.append(" JOIN accounts acc ON acc.id = h.broker_account_id");

@@ -1,5 +1,6 @@
 package com.financeos.api.instrument.dto;
 
+import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.instrument.corporateaction.CorporateAction;
 import com.financeos.domain.instrument.corporateaction.CorporateActionType;
 
@@ -14,7 +15,7 @@ public record CorporateActionResponse(
         UUID id,
         UUID instrumentId,
         String instrumentName,
-        String instrumentSymbol,
+        @Nullable String instrumentSymbol,
         CorporateActionType type,
         Integer ratioFrom,
         Integer ratioTo,
@@ -28,19 +29,24 @@ public record CorporateActionResponse(
         Instant createdAt
 ) {
     public static CorporateActionResponse from(CorporateAction ca) {
+        return from(ca, InstrumentOverrides.NONE);
+    }
+
+    /** The action with its instruments' names and symbols as {@code overrides}' user sees them. */
+    public static CorporateActionResponse from(CorporateAction ca, InstrumentOverrides overrides) {
         return new CorporateActionResponse(
                 ca.getId(),
                 ca.getInstrument() != null ? ca.getInstrument().getId() : null,
-                ca.getInstrument() != null ? ca.getInstrument().getName() : null,
-                ca.getInstrument() != null ? ca.getInstrument().getSymbol() : null,
+                ca.getInstrument() != null ? overrides.name(ca.getInstrument()) : null,
+                ca.getInstrument() != null ? overrides.symbol(ca.getInstrument()) : null,
                 ca.getType(),
                 ca.getRatioFrom(),
                 ca.getRatioTo(),
                 ca.getExDate(),
                 ca.getNotes(),
                 ca.getTargetInstrument() != null ? ca.getTargetInstrument().getId() : null,
-                ca.getTargetInstrument() != null ? ca.getTargetInstrument().getName() : null,
-                ca.getTargetInstrument() != null ? ca.getTargetInstrument().getSymbol() : null,
+                ca.getTargetInstrument() != null ? overrides.name(ca.getTargetInstrument()) : null,
+                ca.getTargetInstrument() != null ? overrides.symbol(ca.getTargetInstrument()) : null,
                 ca.getCostAllocationPct(),
                 ca.getFractionalCashInLieu(),
                 ca.getCreatedAt()
