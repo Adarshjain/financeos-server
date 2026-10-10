@@ -8,8 +8,10 @@ import org.slf4j.MDC;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -123,5 +125,86 @@ class JobWorkerTest {
         assertThat(MDC.get("userId")).isNull();
 
         verify(jobService, times(1)).fail(eq(jobIdUserB), eq("RuntimeException"), contains("Simulated Failure"));
+    }
+
+    private JobWorker workerWith(Executor executor) {
+        return new JobWorker(
+                jobRepository,
+                jobService,
+                handlerRegistry,
+                mock(com.financeos.core.observability.ObservabilityMetrics.class),
+                executor,
+                objectMapper,
+                2
+        );
+    }
+
+    private Job pendingJob() {
+        Job job = new Job();
+        job.setId(UUID.randomUUID());
+        job.setType(JobType.PRICE_REFRESH);
+        job.setStatus(JobStatus.PENDING);
+        return job;
+    }
+
+    @Test
+    void poll_whilePaused_claimsNothing() {
+        JobWorker worker = workerWith(Runnable::run);
+
+        worker.pause();
+        worker.poll();
+
+        assertThat(worker.isPaused()).isTrue();
+        verifyNoInteractions(jobRepository, jobService);
+    }
+
+    @Test
+    void poll_afterResume_claimsPendingJobsAgain() throws Exception {
+        Job job = pendingJob();
+        when(jobRepository.findByStatusOrderByCreatedAtAsc(eq(JobStatus.PENDING), any())).thenReturn(List.of(job));
+        when(jobService.claim(job.getId())).thenReturn(true);
+        JobHandler handler = mock(JobHandler.class);
+        when(handler.execute(any())).thenReturn("ok");
+        when(handlerRegistry.get(JobType.PRICE_REFRESH)).thenReturn(handler);
+        JobWorker worker = workerWith(Runnable::run);
+
+        worker.pause();
+        worker.resume();
+        worker.poll();
+
+        assertThat(worker.isPaused()).isFalse();
+        verify(jobService).claim(job.getId());
+        verify(handler).execute(any());
+    }
+
+    @Test
+    void pause_waitsForAnInProgressPoll_soRunningCountIsFinalWhenItReturns() throws Exception {
+        Job job = pendingJob();
+        CountDownLatch pollInsideQuery = new CountDownLatch(1);
+        CountDownLatch releaseQuery = new CountDownLatch(1);
+        when(jobRepository.findByStatusOrderByCreatedAtAsc(eq(JobStatus.PENDING), any())).thenAnswer(inv -> {
+            pollInsideQuery.countDown();
+            releaseQuery.await(5, TimeUnit.SECONDS);
+            return List.of(job);
+        });
+        when(jobService.claim(job.getId())).thenReturn(true);
+        // Executor that never runs the task: the claimed job stays in flight.
+        JobWorker worker = workerWith(command -> { });
+
+        Thread poller = new Thread(worker::poll);
+        poller.start();
+        assertThat(pollInsideQuery.await(5, TimeUnit.SECONDS)).isTrue();
+
+        Thread pauser = new Thread(worker::pause);
+        pauser.start();
+        pauser.join(200);
+        assertThat(pauser.isAlive()).as("pause must block while a poll is claiming").isTrue();
+
+        releaseQuery.countDown();
+        pauser.join(5000);
+        poller.join(5000);
+
+        assertThat(worker.isPaused()).isTrue();
+        assertThat(worker.getInFlightCount()).isEqualTo(1);
     }
 }

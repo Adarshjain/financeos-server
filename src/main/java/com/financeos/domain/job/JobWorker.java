@@ -36,6 +36,10 @@ public class JobWorker {
 
     private final AtomicInteger inFlight = new AtomicInteger(0);
 
+    // Set by the deploy pipeline (via JobsEndpoint) before a restart: no new PENDING jobs are
+    // claimed, so running jobs can finish and the queue carries over to the next boot.
+    private volatile boolean paused = false;
+
     public JobWorker(JobRepository jobRepository,
                      JobService jobService,
                      JobHandlerRegistry handlerRegistry,
@@ -56,6 +60,26 @@ public class JobWorker {
         return inFlight.get();
     }
 
+    public boolean isPaused() {
+        return paused;
+    }
+
+    // synchronized with pollInternal: once this returns, no poll is mid-claim, so
+    // getInFlightCount() can only go down until resume().
+    public synchronized void pause() {
+        if (!paused) {
+            paused = true;
+            log.info("Job worker paused: inFlight={}", inFlight.get());
+        }
+    }
+
+    public synchronized void resume() {
+        if (paused) {
+            paused = false;
+            log.info("Job worker resumed");
+        }
+    }
+
     public void poke() {
         jobExecutor.execute(this::pollInternal);
     }
@@ -66,6 +90,9 @@ public class JobWorker {
     }
 
     private synchronized void pollInternal() {
+        if (paused) {
+            return;
+        }
         int availableSlots = concurrency - inFlight.get();
         if (availableSlots <= 0) {
             return;

@@ -14,8 +14,11 @@ env:
   APP_DIR: /home/ubuntu/financeos-server
   APP_PORT: "8080"
   MGMT_PORT: "8081"
+  # How long the deploy waits for running background jobs before giving up (and NOT restarting).
+  DRAIN_TIMEOUT_SECONDS: "1200"
   # Empty when the secret is unset; slack-notify.sh then warns and exits 0.
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  DEPLOY_COMPONENT: Server
 
 jobs:
   build:
@@ -100,6 +103,46 @@ jobs:
           scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new \
             target/backend-1.0.0.jar "$USER@$HOST:$APP_DIR/target/backend-1.0.0.jar.new"
 
+      # Pause the job worker (no new PENDING jobs are claimed; they stay queued for the next boot)
+      # and wait until nothing is running, so a restart never interrupts a job mid-flight.
+      - name: Drain background jobs
+        id: drain
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new "$USER@$HOST" \
+            bash -s -- "$MGMT_PORT" "$DRAIN_TIMEOUT_SECONDS" <<'EOF'
+            set -uo pipefail
+            url="http://127.0.0.1:$1/actuator/jobs"
+            timeout="$2"
+            code=$(curl -s -m 10 -o /dev/null -w '%{http_code}' -X POST \
+                     -H 'Content-Type: application/json' -d '{"paused":true}' "$url")
+            case "$code" in
+              200) ;;
+              000) echo "Server not reachable; nothing to drain."; exit 0 ;;
+              404) echo "::warning::Running build has no /actuator/jobs; restarting without a drain."; exit 0 ;;
+              *)   echo "::error::Pausing the job worker failed (HTTP $code)."; exit 1 ;;
+            esac
+            elapsed=0
+            while :; do
+              running=$(curl -s -m 10 "$url" | grep -o '"running": *[0-9]*' | grep -o '[0-9]*$')
+              if [ "$running" = "0" ]; then
+                echo "No running jobs after ${elapsed}s; safe to restart."
+                exit 0
+              fi
+              if [ "$elapsed" -ge "$timeout" ]; then
+                curl -s -m 10 -o /dev/null -X POST -H 'Content-Type: application/json' \
+                  -d '{"paused":false}' "$url" || true
+                echo "::error::${running:-?} job(s) still running after ${timeout}s; worker resumed, deploy aborted. Re-run once they finish."
+                exit 1
+              fi
+              echo "Waiting on ${running:-?} running job(s)... (${elapsed}s)"
+              sleep 5
+              elapsed=$((elapsed + 5))
+            done
+          EOF
+
       - name: Swap in new JAR and restart
         env:
           HOST: ${{ secrets.DEPLOY_HOST }}
@@ -131,11 +174,23 @@ jobs:
           ssh -i ~/.ssh/deploy_key "$USER@$HOST" 'sudo journalctl -u financeos -n 80 --no-pager' || true
           exit 1
 
+      # A failure after a successful drain (e.g. the JAR swap) would leave the old server paused.
+      # After a restart this is a no-op: a fresh JVM starts unpaused.
+      - name: Resume job worker on failure
+        if: failure() && steps.drain.outcome == 'success'
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          ssh -i ~/.ssh/deploy_key "$USER@$HOST" \
+            "curl -s -m 10 -X POST -H 'Content-Type: application/json' -d '{\"paused\":false}' http://127.0.0.1:$MGMT_PORT/actuator/jobs" || true
+
       - name: Notify Slack — result
         if: always()
         continue-on-error: true
         env:
           DEPLOY_START_TS: ${{ needs.build.outputs.start_ts }}
+          DEPLOY_FAILURE_HINT: Rollback is manual — `backend-1.0.0.jar.prev` is on the VM.
         run: |
           status="${{ job.status }}"
           if [ "${{ needs.build.result }}" = "cancelled" ] || [ "${{ needs.e2e.result }}" = "cancelled" ]; then
