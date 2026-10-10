@@ -100,6 +100,22 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     @Query("SELECT COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END), 0) FROM Transaction t WHERE t.account.id = :accountId")
     java.math.BigDecimal findTotalTransactionSumByAccountId(@Param("accountId") UUID accountId);
 
+    /** One account's signed day totals (credits positive) for every date after {@code afterDate}. */
+    interface DailySumProjection {
+        LocalDate getDate();
+
+        java.math.BigDecimal getTotal();
+    }
+
+    /**
+     * The account's signed transaction total per date after {@code afterDate} (future dates
+     * included), over the same rows the calculated balance is made of: every transaction of the
+     * account, excluded ones included. One grouped query for a whole balance series.
+     */
+    @Query("SELECT t.date AS date, SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END) AS total "
+            + "FROM Transaction t WHERE t.account.id = :accountId AND t.date > :afterDate GROUP BY t.date")
+    List<DailySumProjection> sumSignedByDateAfter(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
+
     @Query("SELECT COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END), 0) FROM Transaction t WHERE t.account.id = :accountId AND t.date > :afterDate")
     java.math.BigDecimal findPostAnchorTransactionSumByAccountId(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
 

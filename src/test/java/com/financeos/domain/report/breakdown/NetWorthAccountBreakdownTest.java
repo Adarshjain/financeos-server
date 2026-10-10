@@ -2,6 +2,7 @@ package com.financeos.domain.report.breakdown;
 
 import static com.financeos.domain.report.breakdown.BreakdownAssertions.assertReconciles;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -410,20 +411,119 @@ class NetWorthAccountBreakdownTest {
     // ------------------------------------------------------------------ not a row
 
     @Test
-    void excludedClosedOrUnknownAccountsHaveNoBreakdown() {
-        Account excluded = account(AccountType.bank_account, "Hidden");
-        excluded.setExcludeFromNetAsset(true);
-        Account closed = account(AccountType.bank_account, "Closed");
-        closed.setClosedOn(TODAY);
+    void unknownOrOtherUsersAccountsHaveNoBreakdown() {
         UUID unknown = UUID.randomUUID();
         when(accountService.findOwnedAccount(unknown)).thenReturn(Optional.empty());
 
-        assertTrue(breakdown.breakdown(excluded.getId(), 25).isEmpty());
-        assertTrue(breakdown.breakdown(closed.getId(), 25).isEmpty());
         assertTrue(breakdown.breakdown(unknown, 25).isEmpty());
-        assertTrue(breakdown.section(excluded.getId(), "transactions", 0, 25).isEmpty());
         assertTrue(breakdown.section(unknown, "transactions", 0, 25).isEmpty());
         verifyNoInteractions(transactionRepository);
+    }
+
+    // ------------------------------------------------------------------ not counted in net worth
+
+    @Test
+    void anExcludedAccountIsExplainedWithTheSameChainAndFlaggedNotCounted() {
+        Account bank = anchored(AccountType.bank_account, "Hidden", "50000", movements(2, "10000", 3, "4500", 0), "0");
+        bank.setExcludeFromNetAsset(true);
+
+        RowBreakdownResponse r = breakdown.breakdown(bank.getId(), 25).orElseThrow();
+
+        assertEquals(List.of(
+                step("start", "Closing balance on statement ending 30/09/2026", "50000"),
+                step("add", "Credits after 30/09/2026 (2)", "10000"),
+                step("subtract", "Debits after 30/09/2026 (3)", "4500"),
+                step("equals", "Balance", "55500")), r.steps());
+        assertEquals(new BigDecimal("55500"), r.total());
+        assertTrue(r.notCounted());
+        assertEquals("Excluded from net worth", r.notCountedReason());
+        assertEquals("Not counted in net worth", r.subtitle());
+        assertEquals("Bank account", r.kindLabel());
+        assertEquals(List.of("This account is marked excluded from net worth, so its balance is not part of the total."),
+                r.notes());
+        assertEquals("transactions", r.sections().get(0).key());
+        assertReconciles(r);
+    }
+
+    @Test
+    void aClosedCardIsExplainedWithItsClosingDateAndKeepsItsOtherNotes() {
+        Account card = account(AccountType.credit_card, "Old card");
+        card.setClosedOn(TODAY.minusDays(5));
+        applyUnanchored(card, movements(1, "2000", 2, "500", 1));
+
+        RowBreakdownResponse r = breakdown.breakdown(card.getId(), 25).orElseThrow();
+
+        assertTrue(r.notCounted());
+        assertEquals("Closed", r.notCountedReason());
+        assertEquals("Not counted in net worth", r.subtitle());
+        assertEquals(List.of("This account was closed on 03/10/2026, so its balance is not part of the total.",
+                "Excluded transactions still count towards balances."), r.notes());
+        assertReconciles(r);
+    }
+
+    @Test
+    void closedTodayIsNotCountedButClosingTomorrowIs() {
+        Account closedToday = account(AccountType.generic, "Wallet");
+        closedToday.setClosedOn(TODAY);
+        applyUnanchored(closedToday, movements(1, "5", 0, "0", 0));
+        Account closing = account(AccountType.generic, "Closing");
+        closing.setClosedOn(TODAY.plusDays(1));
+        applyUnanchored(closing, movements(1, "5", 0, "0", 0));
+
+        assertEquals("Closed", breakdown.breakdown(closedToday.getId(), 25).orElseThrow().notCountedReason());
+        RowBreakdownResponse counted = breakdown.breakdown(closing.getId(), 25).orElseThrow();
+        assertFalse(counted.notCounted());
+        assertNull(counted.notCountedReason());
+    }
+
+    @Test
+    void anExcludedAndClosedAccountReportsExcluded() {
+        Account bank = account(AccountType.bank_account, "Both");
+        bank.setExcludeFromNetAsset(true);
+        bank.setClosedOn(TODAY.minusDays(1));
+        applyUnanchored(bank, movements(0, "0", 0, "0", 0));
+
+        assertEquals("Excluded from net worth", breakdown.breakdown(bank.getId(), 25).orElseThrow().notCountedReason());
+    }
+
+    @Test
+    void anExcludedBrokerIsExplainedAsCashPlusHoldings() {
+        Account broker = broker("1000", "1300");
+        broker.setExcludeFromNetAsset(true);
+        HoldingPosition p = position(broker, "Infosys", "1", "300", "300");
+        holdings(broker, p);
+
+        RowBreakdownResponse r = breakdown.breakdown(broker.getId(), 25).orElseThrow();
+
+        assertEquals(List.of(
+                step("start", "Cash balance", "1000"),
+                step("add", "Holdings at market value (1)", "300"),
+                step("equals", "Balance", "1300")), r.steps());
+        assertTrue(r.notCounted());
+        assertEquals("Excluded from net worth", r.notCountedReason());
+        assertEquals(List.of(holdingRow(p, null)),
+                ((TableData) breakdown.section(broker.getId(), "holdings", 0, 25).orElseThrow()).rows());
+    }
+
+    @Test
+    void anExcludedAccountsTransactionsSectionIsServed() {
+        Account bank = account(AccountType.bank_account, "Hidden");
+        bank.setExcludeFromNetAsset(true);
+        applyUnanchored(bank, movements(0, "0", 0, "0", 0));
+
+        assertTrue(breakdown.section(bank.getId(), "transactions", 0, 25).isPresent());
+        verify(transactionRepository).findBalanceTransactions(bank.getId(), null, PageRequest.of(0, 25));
+    }
+
+    @Test
+    void aCountedAccountIsNotFlagged() {
+        Account bank = anchored(AccountType.bank_account, "Savings", "100", movements(0, "0", 0, "0", 0), "0");
+
+        RowBreakdownResponse r = breakdown.breakdown(bank.getId(), 25).orElseThrow();
+
+        assertFalse(r.notCounted());
+        assertNull(r.notCountedReason());
+        assertEquals("Asset", r.subtitle());
     }
 
     @Test

@@ -29,11 +29,19 @@ public class CounterpartyController {
         this.lendingService = lendingService;
     }
 
+    /**
+     * The caller's people with their ledger totals, paged. {@code q} narrows by name;
+     * {@code outstanding=true} keeps only people with a nonzero net position; {@code sort=net}
+     * orders by absolute net position, largest first (then name), instead of the default name order.
+     */
     @GetMapping
+    @Operation(description = "People with ledger totals, paged. q narrows by name; outstanding=true keeps only "
+            + "nonzero net positions; sort=net orders by absolute net position, largest first (then name).")
     public Page<CounterpartyResponse> getCounterparties(
             @RequestParam(required = false) String q,
+            @RequestParam(required = false, defaultValue = "false") boolean outstanding,
             @ParameterObject @PageableDefault(size = 50, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
-        return lendingService.getCounterparties(q, pageable);
+        return lendingService.getCounterparties(q, outstanding, pageable);
     }
 
     @GetMapping("/suggest")

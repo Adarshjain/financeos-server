@@ -359,7 +359,8 @@ class RowBreakdownIntegrationTest {
         assertNotFound(api.get(NET_WORTH + UUID.randomUUID() + "/breakdown"));
         assertNotFound(api.get(NET_WORTH + "not-a-uuid/breakdown"));
         assertNotFound(api.get(POSITIONS + UUID.randomUUID() + "/breakdown"));
-        assertNotFound(api.get(NET_WORTH + hidden + "/breakdown"));
+        // An excluded account is explained to its owner (flagged not counted) but never to another user.
+        assertNotFound(otherApi.get(NET_WORTH + hidden + "/breakdown"));
         assertNotFound(api.get(NET_WORTH + bank + "/breakdown/sections/holdings"));
         assertNotFound(api.get(POSITIONS + f.holding + "/breakdown/sections/nope"));
     }

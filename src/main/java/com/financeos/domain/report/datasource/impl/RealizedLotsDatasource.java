@@ -1,11 +1,13 @@
 package com.financeos.domain.report.datasource.impl;
 
 import com.financeos.domain.instrument.InstrumentType;
+import com.financeos.domain.investment.CapitalGainsTerm;
 import com.financeos.domain.investment.InvestmentService;
 import com.financeos.domain.investment.dto.RealizedLot;
 import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ComputedReportDatasource;
+import com.financeos.domain.report.datasource.DatasourceCatalog;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
@@ -42,6 +44,12 @@ public class RealizedLotsDatasource implements ComputedReportDatasource {
     private static final List<ReportType> CHART_TABLE = List.of(ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> KPI_CHART_TABLE = List.of(ReportType.KPI, ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> TABLE_ONLY = List.of(ReportType.TABLE);
+
+    /** short / long by holding period; slab = specified debt bought on or after 1 Apr 2023. */
+    static final Map<String, String> TERM_LABELS = DatasourceCatalog.valueLabels(
+            CapitalGainsTerm.SHORT, "Short term",
+            CapitalGainsTerm.LONG, "Long term",
+            CapitalGainsTerm.SLAB, "Slab rate");
 
     private final InvestmentService investmentService;
     private final List<FieldDef> fields;
@@ -81,6 +89,9 @@ public class RealizedLotsDatasource implements ComputedReportDatasource {
             map.put("instrumentType", lot.instrumentType() != null ? lot.instrumentType().name() : null);
             map.put("broker", lot.brokerName());
             map.put("term", lot.term());
+            map.put("assetClass", lot.assetClass() != null ? lot.assetClass().name() : null);
+            map.put("taxClass", lot.taxClass() != null ? lot.taxClass().name() : null);
+            map.put("grandfathered", lot.grandfathered());
             map.put("realizedPnl", lot.realizedPnl());
             map.put("buyValue", lot.buyValue());
             map.put("sellValue", lot.sellValue());
@@ -95,7 +106,7 @@ public class RealizedLotsDatasource implements ComputedReportDatasource {
 
     private List<FieldDef> buildCatalog() {
         List<String> instTypeValues = Arrays.stream(InstrumentType.values()).map(Enum::name).toList();
-        List<String> termValues = List.of("short", "long");
+        List<String> termValues = List.of(CapitalGainsTerm.SHORT, CapitalGainsTerm.LONG, CapitalGainsTerm.SLAB);
 
         return List.of(
                 new FieldDef("sellDate", "Sell Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
@@ -103,7 +114,13 @@ public class RealizedLotsDatasource implements ComputedReportDatasource {
                 new FieldDef("instrument", "Instrument", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("instrumentType", "Instrument Type", FieldType.ENUM, FieldRole.DIMENSION, null, instTypeValues, null, CHART_TABLE),
                 new FieldDef("broker", "Broker", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
-                new FieldDef("term", "Term (ST / LT)", FieldType.ENUM, FieldRole.DIMENSION, null, termValues, null, CHART_TABLE),
+                new FieldDef("term", "Term (ST / LT)", FieldType.ENUM, FieldRole.DIMENSION, null, termValues, null, CHART_TABLE)
+                        .withValueLabels(TERM_LABELS),
+                new FieldDef("assetClass", "Asset Class", FieldType.ENUM, FieldRole.DIMENSION, null, PositionsDatasource.ASSET_CLASS_VALUES, null, CHART_TABLE)
+                        .withValueLabels(PositionsDatasource.ASSET_CLASS_LABELS),
+                new FieldDef("taxClass", "Tax Class", FieldType.ENUM, FieldRole.DIMENSION, null, PositionsDatasource.TAX_CLASS_VALUES, null, CHART_TABLE)
+                        .withValueLabels(PositionsDatasource.TAX_CLASS_LABELS),
+                new FieldDef("grandfathered", "Grandfathered (bought before 1 Feb 2018)", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, List.of()),
                 new FieldDef("realizedPnl", "Realized P&L", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.COUNT, Aggregation.MIN, Aggregation.MAX), null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("buyValue", "Buy Value", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("sellValue", "Sell Value", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, KPI_CHART_TABLE, "currency"),

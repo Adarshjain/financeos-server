@@ -21,6 +21,7 @@ import com.financeos.api.dashboard.dto.DashboardResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.domain.dashboard.BuiltinAvailabilityService;
 import com.financeos.domain.dashboard.BuiltinWidgetRegistry;
 import com.financeos.domain.dashboard.DashboardService;
 import com.financeos.domain.dashboard.HomeDashboardSeeder;
@@ -53,7 +54,10 @@ class DashboardControllerTest {
         dashboardService = mock(DashboardService.class);
         seeder = mock(HomeDashboardSeeder.class);
         reportDataService = mock(ReportDataService.class);
-        controller = new DashboardController(dashboardService, seeder, new BuiltinWidgetRegistry(mapper), reportDataService);
+        controller = new DashboardController(dashboardService, seeder, new BuiltinWidgetRegistry(mapper), reportDataService,
+                new BuiltinAvailabilityService(mock(com.financeos.domain.account.AccountRepository.class),
+                        mock(com.financeos.domain.loan.LoanRepository.class),
+                        mock(com.financeos.domain.holding.HoldingRepository.class)));
         UserContext.setCurrentUserId(userId);
     }
 
@@ -120,7 +124,10 @@ class DashboardControllerTest {
     void builtinsListsEveryEntryWithItsSchema() {
         List<BuiltinWidgetResponse> body = controller.listBuiltins().getBody();
 
-        assertEquals(List.of("net_worth", "attention", "upcoming", "bills_due"),
+        assertEquals(List.of("net_worth", "attention", "upcoming", "bills_due",
+                        "card_utilisation", "milestone_progress", "cap_headroom", "rewards_earned", "spend_heatmap",
+                        "portfolio_snapshot", "top_movers", "allocation", "tax_harvest", "loan_payoff",
+                        "lending_balances", "account_tile", "emergency_fund", "shortcuts"),
                 body.stream().map(BuiltinWidgetResponse::key).toList());
 
         BuiltinWidgetResponse netWorth = body.get(0);

@@ -15,8 +15,10 @@ public record CardCycleSummaryResponse(
         @Nullable BigDecimal minimumAmountDue,
         @Nullable LocalDate paymentDueDate,
         @Nullable Long daysUntilDue,
+        /** The limit utilisation is measured against: the card's own, else the latest statement's. */
         @Nullable BigDecimal creditLimit,
         @Nullable BigDecimal availableCreditLimit,
+        /** Live: what the card owes now ÷ creditLimit × 100 (one decimal); 0 when in credit, null without a limit. */
         @Nullable BigDecimal utilizationPct,
         @Nullable BigDecimal rewardPointsBalance,
         List<CardCycleHistoryItemResponse> history

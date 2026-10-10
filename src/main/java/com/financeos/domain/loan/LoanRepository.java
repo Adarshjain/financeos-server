@@ -11,6 +11,10 @@ import java.util.UUID;
 
 public interface LoanRepository extends JpaRepository<Loan, UUID> {
 
+    /** Whether the user has at least one row. */
+    boolean existsByUser_Id(UUID userId);
+
+
     Page<Loan> findByStatus(LoanStatus status, Pageable pageable);
 
     List<Loan> findByStatus(LoanStatus status);

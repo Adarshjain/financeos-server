@@ -4,7 +4,9 @@ import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.definition.SortClause;
 import com.financeos.domain.report.engine.ReportQueryBuilder;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public interface ReportDatasource {
     String name();                    // e.g. "transactions"
@@ -54,5 +56,14 @@ public interface ReportDatasource {
      */
     default String underlyingGroupField() {
         return null;
+    }
+
+    /**
+     * How filter values of {@code field} that are not shown as they are read for people (e.g. the
+     * account ids an app-built transactions filter holds), keyed by value; values it does not know
+     * are left out. Display only (filter chips).
+     */
+    default Map<String, String> filterValueLabels(String field, Collection<String> values) {
+        return Map.of();
     }
 }

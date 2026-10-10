@@ -130,7 +130,7 @@ class InvestmentServiceTraceTest {
         InstrumentPrice price = new InstrumentPrice();
         price.setClose(new BigDecimal("130"));
         price.setAsOf(LocalDate.of(2024, 3, 5));
-        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(instrument.getId())).thenReturn(Optional.of(price));
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(instrument.getId()), org.mockito.ArgumentMatchers.any())).thenReturn(java.util.List.of(price));
 
         HoldingTrace trace = investmentService.traceHoldingPosition(holding.getId());
 
@@ -243,7 +243,11 @@ class InvestmentServiceTraceTest {
         assertSame(bonus, bonusEvent.action());
         assertEquals(0, bonusEvent.quantityChange().compareTo(new BigDecimal("20")));
         assertEquals(0, bonusEvent.quantityAfter().compareTo(new BigDecimal("40")));
-        assertEquals(0, trace.openLots().get(0).costPerUnit().compareTo(new BigDecimal("25")));
+        // The split rescales the bought lot (20 @ 50); the bonus adds a new zero-cost lot on its ex-date.
+        assertEquals(0, trace.openLots().get(0).costPerUnit().compareTo(new BigDecimal("50")));
+        assertEquals(0, trace.openLots().get(1).costPerUnit().signum());
+        assertEquals(LocalDate.of(2024, 6, 1), trace.openLots().get(1).buyDate());
+        assertEquals(LotOrigin.BONUS, trace.openLots().get(1).source().origin());
         assertLotsSumToPosition(trace);
     }
 
@@ -323,7 +327,8 @@ class InvestmentServiceTraceTest {
         OpenLot lot = trace.openLots().get(0);
         assertEquals(LotOrigin.CORPORATE_ACTION, lot.source().origin());
         assertSame(demerger, lot.source().action());
-        assertEquals(LocalDate.of(2024, 6, 1), lot.buyDate());
+        // The child shares inherit the parent lot's buy date (s.2(42A)); the event stays on the ex-date.
+        assertEquals(LocalDate.of(2024, 1, 1), lot.buyDate());
         assertLotsSumToPosition(trace);
         assertSame(demerger, investmentService.seedLotsFor(holding).get(0).source());
     }
@@ -346,7 +351,7 @@ class InvestmentServiceTraceTest {
         when(holdingRepository.findById(holding.getId())).thenReturn(Optional.of(holding));
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId())).thenReturn(txns);
         when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(instrument.getId())).thenReturn(corporateActions);
-        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(instrument.getId())).thenReturn(Optional.empty());
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(instrument.getId()), org.mockito.ArgumentMatchers.any())).thenReturn(java.util.List.of());
     }
 
     private Instrument instrument(String name) {

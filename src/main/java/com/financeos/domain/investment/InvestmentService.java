@@ -23,11 +23,13 @@ import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,7 +55,11 @@ public class InvestmentService {
     private final TradeSettlementClassificationRepository classificationRepository;
     private final ApplicationEventPublisher eventPublisher;
     private final FnoTradeRepository fnoTradeRepository;
+    /** Per-user asset-class overrides; null in lot-engine unit tests (then nobody has one). */
+    @Nullable
+    private final AssetClassOverrideService overrideService;
 
+    /** Without per-user asset-class overrides (lot-engine unit tests). */
     public InvestmentService(InvestmentTransactionRepository transactionRepository,
                               HoldingRepository holdingRepository,
                               AccountRepository accountRepository,
@@ -65,6 +71,24 @@ public class InvestmentService {
                               TradeSettlementClassificationRepository classificationRepository,
                               ApplicationEventPublisher eventPublisher,
                               FnoTradeRepository fnoTradeRepository) {
+        this(transactionRepository, holdingRepository, accountRepository, instrumentRepository, priceRepository,
+                userRepository, corporateActionRepository, dividendRepository, classificationRepository, eventPublisher,
+                fnoTradeRepository, null);
+    }
+
+    @Autowired
+    public InvestmentService(InvestmentTransactionRepository transactionRepository,
+                              HoldingRepository holdingRepository,
+                              AccountRepository accountRepository,
+                              InstrumentRepository instrumentRepository,
+                              InstrumentPriceRepository priceRepository,
+                              UserRepository userRepository,
+                              CorporateActionRepository corporateActionRepository,
+                              DividendRepository dividendRepository,
+                              TradeSettlementClassificationRepository classificationRepository,
+                              ApplicationEventPublisher eventPublisher,
+                              FnoTradeRepository fnoTradeRepository,
+                              @Nullable AssetClassOverrideService overrideService) {
         this.transactionRepository = transactionRepository;
         this.holdingRepository = holdingRepository;
         this.accountRepository = accountRepository;
@@ -76,6 +100,55 @@ public class InvestmentService {
         this.classificationRepository = classificationRepository;
         this.eventPublisher = eventPublisher;
         this.fnoTradeRepository = fnoTradeRepository;
+        this.overrideService = overrideService;
+    }
+
+    /**
+     * The current user's instrument overrides — display fields and asset class — for every service
+     * that shows instruments (one query; {@link InstrumentOverrides#NONE} without a user).
+     */
+    @Transactional(readOnly = true)
+    public InstrumentOverrides instrumentOverrides() {
+        return overridesOf(UserContext.getCurrentUserId());
+    }
+
+    /** {@code userId}'s instrument overrides ({@link InstrumentOverrides#NONE} for none / no user). */
+    public InstrumentOverrides instrumentOverridesOf(@Nullable UUID userId) {
+        return overridesOf(userId);
+    }
+
+    private InstrumentOverrides overridesOf(@Nullable UUID userId) {
+        return overrideService == null || userId == null
+                ? InstrumentOverrides.NONE
+                : InstrumentOverrides.orNone(overrideService.overridesFor(userId));
+    }
+
+    /** Whose view a holding is computed in: the current user, else (outside a request) its owner. */
+    @Nullable
+    private static UUID viewerOf(Holding holding) {
+        UUID userId = UserContext.getCurrentUserId();
+        if (userId == null && holding.getUser() != null) {
+            userId = holding.getUser().getId();
+        }
+        return userId;
+    }
+
+    /** The viewer of a batch of one user's holdings (see {@link #viewerOf(Holding)}). */
+    @Nullable
+    private static UUID viewerOf(List<Holding> holdings) {
+        UUID userId = UserContext.getCurrentUserId();
+        return userId != null || holdings.isEmpty() ? userId : viewerOf(holdings.get(0));
+    }
+
+    /** The holding's effective classification for its viewer (their overrides over the global class). */
+    private AssetClassifier.Classification classificationOf(Holding holding) {
+        return overridesOf(viewerOf(holding)).classification(holding.getInstrument());
+    }
+
+    /** A realised lot with the instrument's name and type as {@code overrides}' user sees them. */
+    private static com.financeos.domain.investment.dto.RealizedLot asSeen(
+            com.financeos.domain.investment.dto.RealizedLot lot, Instrument instrument, InstrumentOverrides overrides) {
+        return lot.withInstrument(overrides.name(instrument), overrides.type(instrument));
     }
 
     public InvestmentTransactionResponse createTransaction(CreateInvestmentTransactionRequest request) {
@@ -128,7 +201,7 @@ public class InvestmentService {
         // reflects it without a manual price refresh (handled by PriceRefreshEventListener).
         eventPublisher.publishEvent(new PriceRefreshEvent(Set.of(instrument.getId())));
 
-        return InvestmentTransactionResponse.from(saved);
+        return InvestmentTransactionResponse.from(saved, instrumentOverrides());
     }
 
     public InvestmentTransactionResponse updateTransaction(UUID id, UpdateInvestmentTransactionRequest request) {
@@ -163,7 +236,7 @@ public class InvestmentService {
         }
         validateHoldingFifo(saved.getHolding());
 
-        return InvestmentTransactionResponse.from(saved);
+        return InvestmentTransactionResponse.from(saved, instrumentOverrides());
     }
 
     public void deleteTransaction(UUID id) {
@@ -191,7 +264,8 @@ public class InvestmentService {
         String normalizedSearch = (search != null && !search.isBlank()) ? search.trim() : null;
         Page<InvestmentTransaction> page = transactionRepository.findFilteredTransactions(
                 brokerAccountId, instrumentId, holdingId, normalizedSearch, withStableSort(pageable));
-        return page.map(InvestmentTransactionResponse::from);
+        InstrumentOverrides overrides = page.isEmpty() ? InstrumentOverrides.NONE : instrumentOverrides();
+        return page.map(t -> InvestmentTransactionResponse.from(t, overrides));
     }
 
     /**
@@ -227,7 +301,12 @@ public class InvestmentService {
         List<Holding> holdings = holdingRepository.findAllWithDetails();
         List<PositionDto> positions = new ArrayList<>();
 
+        LocalDate today = AppTime.today();
+        InstrumentOverrides overrides = holdings.isEmpty() ? InstrumentOverrides.NONE : instrumentOverrides();
+        Map<UUID, List<DayChange.PricePoint>> closes = latestTwoCloses(holdings);
+        Map<UUID, List<CorporateAction>> recentActions = recentCorporateActions(holdings, today);
         for (Holding holding : holdings) {
+            UUID instrumentId = holding.getInstrument().getId();
             HoldingPosition pos;
             try {
                 pos = calculateHoldingPosition(holding);
@@ -236,10 +315,89 @@ public class InvestmentService {
                         holding.getId(), holding.getInstrument().getName(), e.getMessage());
                 continue;
             }
-            positions.add(pos.toPositionDto());
+            PositionDto dto = pos.toPositionDto(overrides);
+            DayChange change = DayChange.forPosition(dto.quantity(), dto.lastPrice(), dto.lastPriceAsOf(),
+                    closes.get(instrumentId), today, recentActions.get(instrumentId));
+            positions.add(dto.withDayChange(change));
         }
 
         return positions;
+    }
+
+    /** Oracle caps an IN list at 1000 expressions. */
+    private static final int IN_LIST_CHUNK = 900;
+
+    /**
+     * The latest two closes the holdings' viewer sees for every instrument the holdings reference
+     * (their own MANUAL price wins on its date), newest first, from one batch query per
+     * {@value #IN_LIST_CHUNK} instruments (never one per holding).
+     */
+    private Map<UUID, List<DayChange.PricePoint>> latestTwoCloses(List<Holding> holdings) {
+        String viewer = PricePrecedence.userParam(viewerOf(holdings));
+        List<String> ids = holdings.stream()
+                .map(h -> h.getInstrument().getId())
+                .filter(Objects::nonNull)
+                .distinct()
+                .map(UUID::toString)
+                .toList();
+        Map<UUID, List<DayChange.PricePoint>> result = new HashMap<>();
+        for (int from = 0; from < ids.size(); from += IN_LIST_CHUNK) {
+            List<Object[]> rows = priceRepository.findLatestTwoCloses(
+                    ids.subList(from, Math.min(ids.size(), from + IN_LIST_CHUNK)), viewer);
+            if (rows == null) {
+                continue;
+            }
+            for (Object[] row : rows) {
+                UUID instrumentId = UUID.fromString(row[0].toString());
+                LocalDate asOf = toLocalDate(row[1]);
+                BigDecimal close = row[2] instanceof BigDecimal bd ? bd : new BigDecimal(row[2].toString());
+                result.computeIfAbsent(instrumentId, k -> new ArrayList<>()).add(new DayChange.PricePoint(asOf, close));
+            }
+        }
+        result.values().forEach(points -> points.sort(Comparator.comparing(DayChange.PricePoint::asOf).reversed()));
+        return result;
+    }
+
+    /**
+     * The corporate actions of every instrument the holdings reference with an ex-date recent enough
+     * to fall between a current price and the one before it ({@link DayChange#forPosition}): one
+     * batch query per {@value #IN_LIST_CHUNK} instruments.
+     */
+    private Map<UUID, List<CorporateAction>> recentCorporateActions(List<Holding> holdings, LocalDate today) {
+        List<UUID> ids = holdings.stream()
+                .map(h -> h.getInstrument().getId())
+                .filter(Objects::nonNull)
+                .distinct()
+                .toList();
+        Map<UUID, List<CorporateAction>> result = new HashMap<>();
+        LocalDate from = today.minusDays(DayChange.CURRENT_WITHIN_DAYS + DayChange.PREVIOUS_WITHIN_DAYS);
+        for (int i = 0; i < ids.size(); i += IN_LIST_CHUNK) {
+            List<CorporateAction> rows = corporateActionRepository.findByInstrumentIdsExDateFrom(
+                    ids.subList(i, Math.min(ids.size(), i + IN_LIST_CHUNK)), from);
+            if (rows == null) {
+                continue;
+            }
+            for (CorporateAction ca : rows) {
+                result.computeIfAbsent(ca.getInstrument().getId(), k -> new ArrayList<>()).add(ca);
+            }
+        }
+        return result;
+    }
+
+    private static LocalDate toLocalDate(Object value) {
+        if (value instanceof LocalDate ld) {
+            return ld;
+        }
+        if (value instanceof java.sql.Date d) {
+            return d.toLocalDate();
+        }
+        if (value instanceof java.sql.Timestamp ts) {
+            return ts.toLocalDateTime().toLocalDate();
+        }
+        if (value instanceof java.time.LocalDateTime ldt) {
+            return ldt.toLocalDate();
+        }
+        return LocalDate.parse(value.toString().substring(0, 10));
     }
 
     @Transactional(readOnly = true)
@@ -261,6 +419,15 @@ public class InvestmentService {
 
         List<XirrCalculator.Cashflow> portfolioCashflows = new ArrayList<>();
 
+        LocalDate today = AppTime.today();
+        InstrumentOverrides overrides = holdings.isEmpty() ? InstrumentOverrides.NONE : instrumentOverrides();
+        Map<UUID, List<DayChange.PricePoint>> closes = latestTwoCloses(holdings);
+        Map<UUID, List<CorporateAction>> recentActions = recentCorporateActions(holdings, today);
+        BigDecimal dayChange = null;
+        BigDecimal previousValue = BigDecimal.ZERO;
+        LocalDate priceAsOf = null;
+        LocalDate previousPriceAsOf = null;
+
         for (Holding holding : holdings) {
             HoldingPosition pos;
             try {
@@ -270,6 +437,19 @@ public class InvestmentService {
                 log.warn("Skipping holding {} ({}) in summary: {}",
                         holding.getId(), holding.getInstrument().getName(), e.getMessage());
                 continue;
+            }
+            if (pos.openQty().signum() > 0 && pos.priceAsOf() != null
+                    && (priceAsOf == null || pos.priceAsOf().isAfter(priceAsOf))) {
+                priceAsOf = pos.priceAsOf();
+            }
+            DayChange change = DayChange.forPosition(pos.openQty(), pos.latestPrice(), pos.priceAsOf(),
+                    closes.get(holding.getInstrument().getId()), today, recentActions.get(holding.getInstrument().getId()));
+            if (change.dayChange() != null) {
+                dayChange = (dayChange == null ? BigDecimal.ZERO : dayChange).add(change.dayChange());
+                previousValue = previousValue.add(change.previousValue(pos.openQty()));
+                if (previousPriceAsOf == null || change.previousCloseAsOf().isAfter(previousPriceAsOf)) {
+                    previousPriceAsOf = change.previousCloseAsOf();
+                }
             }
             totalRealized = totalRealized.add(pos.realized());
             totalIntradayRealized = totalIntradayRealized.add(pos.intradayRealized());
@@ -322,7 +502,7 @@ public class InvestmentService {
             brokerAcc.totalCharges = brokerAcc.totalCharges.add(pos.totalCharges());
 
             // Instrument Type accumulation
-            InstrumentType instType = holding.getInstrument().getType();
+            InstrumentType instType = overrides.type(holding.getInstrument());
             InstrumentTypeAccumulator typeAcc = typeMap.computeIfAbsent(instType, k -> new InstrumentTypeAccumulator(instType));
             if (pos.openQty().compareTo(BigDecimal.ZERO) > 0) {
                 typeAcc.invested = typeAcc.invested.add(pos.openCost());
@@ -400,7 +580,13 @@ public class InvestmentService {
                 absoluteReturnPercent,
                 byBroker,
                 byInstrumentType,
-                totalFnoRealized.setScale(2, RoundingMode.HALF_UP)
+                totalFnoRealized.setScale(2, RoundingMode.HALF_UP),
+                dayChange == null ? null : dayChange.setScale(2, RoundingMode.HALF_UP),
+                dayChange == null || previousValue.signum() == 0
+                        ? null
+                        : dayChange.multiply(new BigDecimal("100")).divide(previousValue, 2, RoundingMode.HALF_UP),
+                priceAsOf,
+                previousPriceAsOf
         );
     }
 
@@ -430,7 +616,8 @@ public class InvestmentService {
     }
 
     public HoldingPosition calculateHoldingPosition(Holding holding, java.util.function.Consumer<com.financeos.domain.investment.dto.RealizedLot> lotCollector) {
-        return calculateHoldingPosition(holding, lotCollector, null);
+        return calculateHoldingPosition(holding, lotCollector, null, null,
+                lotCollector != null ? classificationOf(holding) : null);
     }
 
     /**
@@ -445,7 +632,7 @@ public class InvestmentService {
                 .filter(h -> h.getUser() != null && h.getUser().getId().equals(UserContext.getCurrentUserId()))
                 .orElseThrow(() -> new ResourceNotFoundException("Holding", holdingId));
         TraceSink trace = new TraceSink(new ArrayList<>(), new ArrayList<>());
-        HoldingPosition position = calculateHoldingPosition(holding, null, trace);
+        HoldingPosition position = calculateHoldingPosition(holding, null, trace, null, null);
         return new HoldingTrace(position, List.copyOf(trace.openLots()), List.copyOf(trace.events()));
     }
 
@@ -453,17 +640,103 @@ public class InvestmentService {
     private record TraceSink(List<HoldingTrace.Event> events, List<HoldingTrace.OpenLot> openLots) {}
 
     /**
+     * Everything the lot engine reads for the current user's holdings, loaded up front in a fixed
+     * number of batch queries (never one per holding). Built by {@link #loadEngineInputs}; a null
+     * inputs argument makes the engine read per holding from the repositories instead.
+     */
+    private record EngineInputs(
+            List<Holding> holdings,
+            Map<UUID, List<InvestmentTransaction>> txnsByHolding,
+            Map<UUID, List<CorporateAction>> actionsByInstrument,
+            Map<UUID, List<CorporateAction>> actionsByTarget,
+            Map<UUID, List<TradeSettlementClassification>> classificationsByHolding,
+            Map<UUID, InstrumentPrice> latestPriceByInstrument,
+            Map<UUID, List<Dividend>> dividendsByHolding,
+            InstrumentOverrides overrides) {}
+
+    /**
+     * Batch-loads the engine inputs for {@code userId}'s {@code holdings}: transactions, intraday
+     * classifications, dividends and overrides by user (one query each), corporate actions on and
+     * into the held instruments and their latest prices (one query each per {@value #IN_LIST_CHUNK}
+     * instruments).
+     */
+    private EngineInputs loadEngineInputs(UUID userId, List<Holding> holdings) {
+        Set<UUID> holdingIds = new HashSet<>();
+        Set<UUID> instrumentIdSet = new LinkedHashSet<>();
+        for (Holding h : holdings) {
+            holdingIds.add(h.getId());
+            instrumentIdSet.add(h.getInstrument().getId());
+        }
+        List<UUID> instrumentIds = List.copyOf(instrumentIdSet);
+
+        Map<UUID, List<InvestmentTransaction>> txns = new HashMap<>();
+        for (InvestmentTransaction t : transactionRepository.findByUser_IdOrderByTradeDateAscCreatedAtAsc(userId)) {
+            if (t.getHolding() != null && holdingIds.contains(t.getHolding().getId())) {
+                txns.computeIfAbsent(t.getHolding().getId(), k -> new ArrayList<>()).add(t);
+            }
+        }
+        Map<UUID, List<TradeSettlementClassification>> classifications = new HashMap<>();
+        for (TradeSettlementClassification c : classificationRepository.findByUser_Id(userId)) {
+            if (c.getHolding() != null && holdingIds.contains(c.getHolding().getId())) {
+                classifications.computeIfAbsent(c.getHolding().getId(), k -> new ArrayList<>()).add(c);
+            }
+        }
+        Map<UUID, List<Dividend>> dividends = new HashMap<>();
+        for (Dividend d : dividendRepository.findByUser_Id(userId)) {
+            if (d.getHolding() != null && holdingIds.contains(d.getHolding().getId())) {
+                dividends.computeIfAbsent(d.getHolding().getId(), k -> new ArrayList<>()).add(d);
+            }
+        }
+        Map<UUID, List<CorporateAction>> actions = new HashMap<>();
+        Map<UUID, List<CorporateAction>> actionsByTarget = new HashMap<>();
+        Map<UUID, InstrumentPrice> latestPrices = new HashMap<>();
+        for (int from = 0; from < instrumentIds.size(); from += IN_LIST_CHUNK) {
+            List<UUID> chunk = instrumentIds.subList(from, Math.min(instrumentIds.size(), from + IN_LIST_CHUNK));
+            for (CorporateAction ca : corporateActionRepository.findByInstrumentIdsWithInstruments(chunk)) {
+                actions.computeIfAbsent(ca.getInstrument().getId(), k -> new ArrayList<>()).add(ca);
+            }
+            for (CorporateAction ca : corporateActionRepository.findByTargetInstrumentIdsWithInstruments(chunk)) {
+                actionsByTarget.computeIfAbsent(ca.getTargetInstrument().getId(), k -> new ArrayList<>()).add(ca);
+            }
+            latestPrices.putAll(PricePrecedence.byInstrument(priceRepository.findLatestByInstrumentIds(chunk, userId)));
+        }
+        InstrumentOverrides overrides = overridesOf(userId);
+        return new EngineInputs(holdings, txns, actions, actionsByTarget, classifications, latestPrices, dividends, overrides);
+    }
+
+    private List<InvestmentTransaction> txnsOf(Holding holding, @Nullable EngineInputs in) {
+        return in != null ? in.txnsByHolding().getOrDefault(holding.getId(), List.of())
+                : transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
+    }
+
+    private List<CorporateAction> actionsOf(UUID instrumentId, @Nullable EngineInputs in) {
+        return in != null ? in.actionsByInstrument().getOrDefault(instrumentId, List.of())
+                : corporateActionRepository.findByInstrumentIdOrderByExDateAsc(instrumentId);
+    }
+
+    private List<TradeSettlementClassification> classificationsOf(Holding holding, @Nullable EngineInputs in) {
+        return in != null ? in.classificationsByHolding().getOrDefault(holding.getId(), List.of())
+                : classificationRepository.findByHoldingId(holding.getId());
+    }
+
+    /**
      * The FIFO / corporate-action / intraday engine. {@code lotCollector} receives every matched
-     * sell lot and {@code trace} (when non-null) every applied event and the final open lots;
-     * neither changes the result.
+     * sell lot (classified by {@code classification}, required with a collector) and {@code trace}
+     * (when non-null) every applied event and the final open lots; neither changes the result.
+     * {@code inputs} (nullable) supplies the batch-loaded reads; without it they run per holding.
      */
     private HoldingPosition calculateHoldingPosition(Holding holding,
                                                      java.util.function.Consumer<com.financeos.domain.investment.dto.RealizedLot> lotCollector,
-                                                     TraceSink trace) {
-        List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
-        List<CorporateAction> corpActions = corporateActionRepository.findByInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
+                                                     TraceSink trace,
+                                                     @Nullable EngineInputs inputs,
+                                                     @Nullable AssetClassifier.Classification classification) {
+        if (lotCollector != null && classification == null) {
+            classification = classificationOf(holding);
+        }
+        List<InvestmentTransaction> txns = txnsOf(holding, inputs);
+        List<CorporateAction> corpActions = actionsOf(holding.getInstrument().getId(), inputs);
 
-        SeedDerivation seedDerivation = deriveSeeds(holding);
+        SeedDerivation seedDerivation = deriveSeeds(holding, inputs);
         List<DemergerSeedEvent> demergerSeedEvents = new ArrayList<>();
         for (SeedLot s : seedDerivation.seedLots()) {
             demergerSeedEvents.add(new DemergerSeedEvent(s));
@@ -472,7 +745,7 @@ public class InvestmentService {
         BigDecimal fractionalRealized = seedDerivation.fractionalRealized();
         List<XirrCalculator.Cashflow> fractionalCashflows = seedDerivation.fractionalCashflows();
 
-        List<TradeSettlementClassification> classifications = classificationRepository.findByHoldingId(holding.getId());
+        List<TradeSettlementClassification> classifications = classificationsOf(holding, inputs);
         Map<LocalDate, TradeSettlementClassification> classMap = new HashMap<>();
         for (TradeSettlementClassification c : classifications) {
             classMap.put(c.getTradeDate(), c);
@@ -594,11 +867,13 @@ public class InvestmentService {
             BigDecimal qtyBefore = trace != null ? openQuantity(openLots) : null;
             if (event instanceof DemergerSeedEvent seedEvent) {
                 SeedLot seed = seedEvent.seed();
-                openLots.add(new Lot(seed.qty(), seed.costPerUnit(), seed.date(),
+                openLots.add(new Lot(seed.qty(), seed.costPerUnit(), seed.buyDate(),
                         HoldingTrace.LotSource.corporateAction(seed.source())));
             } else if (event instanceof CorpActionEvent caEvent) {
                 CorporateAction ca = caEvent.action();
-                if (ca.getType() == CorporateActionType.merger) {
+                if (ca.getType() == CorporateActionType.bonus) {
+                    addBonusLot(openLots, ca, true);
+                } else if (ca.getType() == CorporateActionType.merger) {
                     BigDecimal mergerValue = openCost(openLots);
                     if (mergerValue.compareTo(BigDecimal.ZERO) > 0) {
                         cashflows.add(new XirrCalculator.Cashflow(ca.getExDate(), mergerValue));
@@ -666,7 +941,7 @@ public class InvestmentService {
                             BigDecimal pnl = sellVal.subtract(buyVal);
                             LocalDate bDate = oldestLot.buyDate != null ? oldestLot.buyDate : txn.getTradeDate();
                             long days = java.time.temporal.ChronoUnit.DAYS.between(bDate, txn.getTradeDate());
-                            String term = days > 365 ? "long" : "short";
+                            String term = CapitalGainsTerm.term(classification.taxClass(), bDate, txn.getTradeDate());
 
                             lotCollector.accept(new com.financeos.domain.investment.dto.RealizedLot(
                                     holding.getId(),
@@ -682,7 +957,10 @@ public class InvestmentService {
                                     sellVal,
                                     pnl,
                                     days,
-                                    term
+                                    term,
+                                    classification.assetClass(),
+                                    classification.taxClass(),
+                                    CapitalGainsTerm.grandfathered(classification.taxClass(), bDate)
                             ));
                         }
 
@@ -716,7 +994,9 @@ public class InvestmentService {
                 ? openCost.divide(openQty, 4, RoundingMode.HALF_UP)
                 : BigDecimal.ZERO;
 
-        Optional<InstrumentPrice> latestPrice = priceRepository.findTopByInstrumentIdOrderByAsOfDesc(holding.getInstrument().getId());
+        Optional<InstrumentPrice> latestPrice = inputs != null
+                ? Optional.ofNullable(inputs.latestPriceByInstrument().get(holding.getInstrument().getId()))
+                : PricePrecedence.preferred(priceRepository.findLatestVisible(holding.getInstrument().getId(), viewerOf(holding)));
         BigDecimal priceClose = latestPrice.map(InstrumentPrice::getClose).orElse(null);
         LocalDate priceAsOf = latestPrice.map(InstrumentPrice::getAsOf).orElse(null);
         PriceSource priceSource = latestPrice.map(InstrumentPrice::getSource).orElse(null);
@@ -738,12 +1018,23 @@ public class InvestmentService {
         }
 
         // Add dividends to cashflows
-        BigDecimal holdingDividends = dividendRepository.sumAmountByHoldingId(holding.getId());
-        if (holdingDividends == null) {
+        BigDecimal holdingDividends;
+        List<Dividend> dividendsList;
+        if (inputs != null) {
+            dividendsList = inputs.dividendsByHolding().getOrDefault(holding.getId(), List.of());
             holdingDividends = BigDecimal.ZERO;
+            for (Dividend div : dividendsList) {
+                if (div.getAmount() != null) {
+                    holdingDividends = holdingDividends.add(div.getAmount());
+                }
+            }
+        } else {
+            holdingDividends = dividendRepository.sumAmountByHoldingId(holding.getId());
+            if (holdingDividends == null) {
+                holdingDividends = BigDecimal.ZERO;
+            }
+            dividendsList = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId());
         }
-
-        List<Dividend> dividendsList = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId());
         for (Dividend div : dividendsList) {
             cashflows.add(new XirrCalculator.Cashflow(div.getPayDate(), div.getAmount()));
         }
@@ -771,7 +1062,8 @@ public class InvestmentService {
         LocalDate mergedIntoDate = null;
         for (CorporateAction ca : corpActions) {
             if (ca.getType() == CorporateActionType.merger && ca.getTargetInstrument() != null && !ca.getExDate().isAfter(AppTime.today())) {
-                mergedIntoName = ca.getTargetInstrument().getName();
+                mergedIntoName = (inputs != null ? inputs.overrides() : overridesOf(viewerOf(holding)))
+                        .name(ca.getTargetInstrument());
                 mergedIntoDate = ca.getExDate();
                 break;
             }
@@ -808,6 +1100,29 @@ public class InvestmentService {
                 .multiply(new BigDecimal("100"))
                 .setScale(2, RoundingMode.HALF_UP)
                 .doubleValue();
+    }
+
+    /**
+     * Applies a bonus issue: the bonus shares are a NEW lot bought on the ex-date at zero cost
+     * (s.55(2)(aa)), appended after the existing lots so FIFO sells the original shares first; the
+     * existing lots keep their quantity and cost, so the position's total cost (and so its average
+     * cost over the larger quantity) is the same as rescaling. Bonus ratios are stored held →
+     * held-after (a 1:1 bonus is 1 → 2), so the new shares are {@code open × (to − from) ÷ from}.
+     * A bonus without a usable ratio, or on no open shares, adds nothing.
+     */
+    private static void addBonusLot(LinkedList<Lot> openLots, CorporateAction ca, boolean traced) {
+        Integer from = ca.getRatioFrom();
+        Integer to = ca.getRatioTo();
+        if (from == null || from <= 0 || to == null || to <= from) {
+            return;
+        }
+        BigDecimal bonusQty = openQuantity(openLots)
+                .multiply(BigDecimal.valueOf(to - from))
+                .divide(BigDecimal.valueOf(from), 8, RoundingMode.HALF_UP);
+        if (bonusQty.signum() > 0) {
+            openLots.add(new Lot(bonusQty, BigDecimal.ZERO, ca.getExDate(),
+                    traced ? HoldingTrace.LotSource.bonus(ca) : null));
+        }
     }
 
     /** The open quantity of a set of lots, unrounded. */
@@ -884,9 +1199,17 @@ public class InvestmentService {
     /**
      * A CA-seeded lot (demerger child / merger target): shares that arrive without a buy txn.
      *
-     * @param source the demerger/merger of the other instrument the shares came from
+     * @param date    the ex-date: when the shares enter the holding's timeline
+     * @param buyDate the acquisition date for tax: the parent lot's buy date (s.2(42A) — the child /
+     *                acquirer shares inherit the parent's holding period; grandfathering follows it)
+     * @param source  the demerger/merger of the other instrument the shares came from
      */
-    public record SeedLot(LocalDate date, BigDecimal qty, BigDecimal costPerUnit, CorporateAction source) {}
+    public record SeedLot(LocalDate date, BigDecimal qty, BigDecimal costPerUnit, CorporateAction source, LocalDate buyDate) {
+        /** A seed whose holding period starts on its ex-date. */
+        public SeedLot(LocalDate date, BigDecimal qty, BigDecimal costPerUnit, CorporateAction source) {
+            this(date, qty, costPerUnit, source, date);
+        }
+    }
 
     private record SeedDerivation(
             List<SeedLot> seedLots,
@@ -900,23 +1223,32 @@ public class InvestmentService {
      * Extracted verbatim from calculateHoldingPosition so buildOpenLotsBeforeDate callers
      * (e.g. the portfolio_value datasource) can seed the same lots.
      */
-    private SeedDerivation deriveSeeds(Holding holding) {
-        List<CorporateAction> targetCAs = corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
+    private SeedDerivation deriveSeeds(Holding holding, @Nullable EngineInputs inputs) {
+        List<CorporateAction> targetCAs = inputs != null
+                ? inputs.actionsByTarget().getOrDefault(holding.getInstrument().getId(), List.of())
+                : corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
         List<SeedLot> seedLots = new ArrayList<>();
         List<XirrCalculator.Cashflow> mergerBridgeOutflows = new ArrayList<>();
         BigDecimal fractionalRealized = BigDecimal.ZERO;
         List<XirrCalculator.Cashflow> fractionalCashflows = new ArrayList<>();
         for (CorporateAction ca : targetCAs) {
-            Optional<Holding> parentHoldingOpt = holdingRepository.findByBrokerAccountIdAndInstrumentId(
-                    holding.getBrokerAccount().getId(),
-                    ca.getInstrument().getId()
-            );
+            Optional<Holding> parentHoldingOpt = inputs != null
+                    ? inputs.holdings().stream()
+                            .filter(h -> h.getBrokerAccount().getId().equals(holding.getBrokerAccount().getId())
+                                    && h.getInstrument().getId().equals(ca.getInstrument().getId()))
+                            .findFirst()
+                    : holdingRepository.findByBrokerAccountIdAndInstrumentId(
+                            holding.getBrokerAccount().getId(),
+                            ca.getInstrument().getId());
             if (parentHoldingOpt.isPresent() && (ca.getCostAllocationPct() != null || ca.getType() == CorporateActionType.merger) && ca.getRatioFrom() != null && ca.getRatioFrom() > 0 && ca.getRatioTo() != null && ca.getRatioTo() > 0) {
-                List<Lot> parentOpenLots = buildParentOpenLotsBeforeCa(parentHoldingOpt.get(), ca);
+                List<Lot> parentOpenLots = buildParentOpenLotsBeforeCa(parentHoldingOpt.get(), ca, inputs);
                 BigDecimal costAllocPct = ca.getType() == CorporateActionType.merger ? new BigDecimal("100") : ca.getCostAllocationPct();
                 BigDecimal E = BigDecimal.ZERO;
                 BigDecimal Cseed = BigDecimal.ZERO;
+                // One seed per parent lot, in the parent's FIFO order, each keeping its buy date and
+                // its share of the carved cost.
                 List<BigDecimal[]> rawLots = new ArrayList<>();
+                List<LocalDate> rawBuyDates = new ArrayList<>();
                 for (Lot parentLot : parentOpenLots) {
                     BigDecimal childQty = parentLot.remainingQty
                             .multiply(BigDecimal.valueOf(ca.getRatioTo()))
@@ -929,6 +1261,7 @@ public class InvestmentService {
                     if (childQty.compareTo(BigDecimal.ZERO) > 0) {
                         BigDecimal costPerUnit = childCost.divide(childQty, 8, RoundingMode.HALF_UP);
                         rawLots.add(new BigDecimal[]{childQty, costPerUnit});
+                        rawBuyDates.add(parentLot.buyDate != null ? parentLot.buyDate : ca.getExDate());
                         E = E.add(childQty);
                         Cseed = Cseed.add(childCost);
                     }
@@ -938,10 +1271,11 @@ public class InvestmentService {
                     BigDecimal F = E.subtract(W);
                     BigDecimal scale = W.compareTo(BigDecimal.ZERO) > 0 ? W.divide(E, 10, RoundingMode.HALF_UP) : BigDecimal.ZERO;
 
-                    for (BigDecimal[] r : rawLots) {
+                    for (int i = 0; i < rawLots.size(); i++) {
+                        BigDecimal[] r = rawLots.get(i);
                         BigDecimal seedQty = r[0].multiply(scale).setScale(8, RoundingMode.HALF_UP);
                         if (seedQty.compareTo(BigDecimal.ZERO) > 0) {
-                            seedLots.add(new SeedLot(ca.getExDate(), seedQty, r[1], ca));
+                            seedLots.add(new SeedLot(ca.getExDate(), seedQty, r[1], ca, rawBuyDates.get(i)));
                         }
                     }
 
@@ -952,7 +1286,7 @@ public class InvestmentService {
                     if (F.compareTo(BigDecimal.ZERO) > 0) {
                         BigDecimal proceeds = BigDecimal.ZERO;
                         if (ca.getFractionalCashInLieu() != null && ca.getFractionalCashInLieu().compareTo(BigDecimal.ZERO) > 0) {
-                            BigDecimal totalFrac = computeTotalFractionForCa(ca);
+                            BigDecimal totalFrac = computeTotalFractionForCa(ca, inputs);
                             if (totalFrac.compareTo(BigDecimal.ZERO) > 0) {
                                 proceeds = ca.getFractionalCashInLieu().multiply(F).divide(totalFrac, 4, RoundingMode.HALF_UP);
                             }
@@ -970,7 +1304,7 @@ public class InvestmentService {
 
     /** The seeded lots for a holding, for callers that only need quantities/cost (no XIRR parts). */
     public List<SeedLot> seedLotsFor(Holding holding) {
-        return deriveSeeds(holding).seedLots();
+        return deriveSeeds(holding, null).seedLots();
     }
 
     private int getEventOrder(TimelineEvent e) {
@@ -1029,11 +1363,14 @@ public class InvestmentService {
         classificationRepository.save(c);
     }
 
-    private BigDecimal computeTotalFractionForCa(CorporateAction ca) {
+    private BigDecimal computeTotalFractionForCa(CorporateAction ca, @Nullable EngineInputs inputs) {
         BigDecimal total = BigDecimal.ZERO;
-        for (Holding ph : holdingRepository.findByInstrumentId(ca.getInstrument().getId())) {
+        List<Holding> parents = inputs != null
+                ? inputs.holdings().stream().filter(h -> h.getInstrument().getId().equals(ca.getInstrument().getId())).toList()
+                : holdingRepository.findByInstrumentId(ca.getInstrument().getId());
+        for (Holding ph : parents) {
             BigDecimal e = BigDecimal.ZERO;
-            for (Lot lot : buildParentOpenLotsBeforeCa(ph, ca)) {
+            for (Lot lot : buildParentOpenLotsBeforeCa(ph, ca, inputs)) {
                 e = e.add(lot.remainingQty.multiply(BigDecimal.valueOf(ca.getRatioTo()))
                         .divide(BigDecimal.valueOf(ca.getRatioFrom()), 10, RoundingMode.HALF_UP).setScale(8, RoundingMode.HALF_UP));
             }
@@ -1047,8 +1384,13 @@ public class InvestmentService {
         return total.compareTo(BigDecimal.ZERO) > 0 ? total : BigDecimal.ZERO;
     }
 
-    private List<Lot> buildParentOpenLotsBeforeCa(Holding parentHolding, CorporateAction demergerCa) {
-        return buildOpenLotsBeforeDate(parentHolding, demergerCa.getExDate(), false, demergerCa.getId());
+    private List<Lot> buildParentOpenLotsBeforeCa(Holding parentHolding, CorporateAction demergerCa, @Nullable EngineInputs inputs) {
+        if (inputs == null) {
+            return buildOpenLotsBeforeDate(parentHolding, demergerCa.getExDate(), false, demergerCa.getId());
+        }
+        return buildOpenLotsBeforeDate(parentHolding, demergerCa.getExDate(), false, demergerCa.getId(),
+                txnsOf(parentHolding, inputs), actionsOf(parentHolding.getInstrument().getId(), inputs), null,
+                classificationsOf(parentHolding, inputs));
     }
 
     public List<Lot> buildOpenLotsBeforeDate(Holding parentHolding, LocalDate cutoffDate, boolean strictBefore, UUID caToIgnore) {
@@ -1064,12 +1406,21 @@ public class InvestmentService {
      */
     public List<Lot> buildOpenLotsBeforeDate(Holding parentHolding, LocalDate cutoffDate, boolean strictBefore, UUID caToIgnore,
             List<InvestmentTransaction> prefetchedTxns, List<CorporateAction> prefetchedCorpActions, List<SeedLot> seedLots) {
+        return buildOpenLotsBeforeDate(parentHolding, cutoffDate, strictBefore, caToIgnore, prefetchedTxns,
+                prefetchedCorpActions, seedLots, null);
+    }
+
+    /** As above, with optional prefetched intraday classifications too (null reads them per holding). */
+    private List<Lot> buildOpenLotsBeforeDate(Holding parentHolding, LocalDate cutoffDate, boolean strictBefore, UUID caToIgnore,
+            List<InvestmentTransaction> prefetchedTxns, List<CorporateAction> prefetchedCorpActions, List<SeedLot> seedLots,
+            @Nullable List<TradeSettlementClassification> prefetchedClassifications) {
         List<InvestmentTransaction> txns = prefetchedTxns != null ? prefetchedTxns
                 : transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(parentHolding.getId());
         List<CorporateAction> corpActions = prefetchedCorpActions != null ? prefetchedCorpActions
                 : corporateActionRepository.findByInstrumentIdOrderByExDateAsc(parentHolding.getInstrument().getId());
 
-        List<TradeSettlementClassification> classifications = classificationRepository.findByHoldingId(parentHolding.getId());
+        List<TradeSettlementClassification> classifications = prefetchedClassifications != null ? prefetchedClassifications
+                : classificationRepository.findByHoldingId(parentHolding.getId());
         Map<LocalDate, TradeSettlementClassification> classMap = new HashMap<>();
         for (TradeSettlementClassification c : classifications) {
             boolean include = strictBefore ? c.getTradeDate().compareTo(cutoffDate) < 0 : c.getTradeDate().compareTo(cutoffDate) <= 0;
@@ -1174,10 +1525,12 @@ public class InvestmentService {
         for (TimelineEvent event : timeline) {
             if (event instanceof DemergerSeedEvent seedEvent) {
                 SeedLot seed = seedEvent.seed();
-                openLots.add(new Lot(seed.qty(), seed.costPerUnit(), seed.date()));
+                openLots.add(new Lot(seed.qty(), seed.costPerUnit(), seed.buyDate()));
             } else if (event instanceof CorpActionEvent caEvent) {
                 CorporateAction ca = caEvent.action();
-                if (ca.getType() == CorporateActionType.merger) {
+                if (ca.getType() == CorporateActionType.bonus) {
+                    addBonusLot(openLots, ca, false);
+                } else if (ca.getType() == CorporateActionType.merger) {
                     // The transferor's shares convert in-kind on merger; without this the ratio
                     // branch below would scale them instead of closing the position.
                     openLots.clear();
@@ -1230,15 +1583,64 @@ public class InvestmentService {
     public List<com.financeos.domain.investment.dto.RealizedLot> getAllRealizedLots() {
         List<Holding> holdings = holdingRepository.findAllWithDetails();
         List<com.financeos.domain.investment.dto.RealizedLot> lots = new ArrayList<>();
+        InstrumentOverrides overrides = holdings.isEmpty() ? InstrumentOverrides.NONE : instrumentOverrides();
         for (Holding holding : holdings) {
             try {
-                calculateHoldingPosition(holding, lots::add);
+                calculateHoldingPosition(holding, lot -> lots.add(asSeen(lot, holding.getInstrument(), overrides)), null, null,
+                        overrides.classification(holding.getInstrument()));
             } catch (Exception e) {
                 log.warn("Skipping holding {} ({}) in realized lots: {}",
                         holding.getId(), holding.getInstrument().getName(), e.getMessage());
             }
         }
         return lots;
+    }
+
+    /**
+     * One holding's position with the lots left open and the lots it realised, from a single run of
+     * the position engine (corporate actions, intraday netting and seeded lots applied as everywhere).
+     */
+    public record HoldingLots(Holding holding, HoldingPosition position, List<HoldingTrace.OpenLot> openLots,
+                              List<com.financeos.domain.investment.dto.RealizedLot> realizedLots,
+                              AssetClassifier.Classification classification) {
+        /** With the instrument's global classification (no per-user override). */
+        public HoldingLots(Holding holding, HoldingPosition position, List<HoldingTrace.OpenLot> openLots,
+                           List<com.financeos.domain.investment.dto.RealizedLot> realizedLots) {
+            this(holding, position, openLots, realizedLots, AssetClassifier.effective(holding.getInstrument()));
+        }
+    }
+
+    /**
+     * Every holding of the current user with its open and realised lots, classified with the user's
+     * own asset-class overrides (one engine pass per holding; a holding the engine cannot compute is
+     * skipped, as on the positions page). The engine's reads are batch-loaded per user up front, so
+     * the number of queries does not grow with the number of holdings.
+     */
+    @Transactional(readOnly = true)
+    public List<HoldingLots> getAllHoldingLots() {
+        List<HoldingLots> out = new ArrayList<>();
+        List<Holding> holdings = holdingRepository.findAllWithDetails();
+        if (holdings.isEmpty()) {
+            return out;
+        }
+        UUID userId = UserContext.getCurrentUserId();
+        EngineInputs inputs = userId != null ? loadEngineInputs(userId, holdings) : null;
+        InstrumentOverrides overrides = inputs != null ? inputs.overrides() : instrumentOverrides();
+        for (Holding holding : holdings) {
+            List<com.financeos.domain.investment.dto.RealizedLot> realized = new ArrayList<>();
+            TraceSink trace = new TraceSink(new ArrayList<>(), new ArrayList<>());
+            AssetClassifier.Classification classification = overrides.classification(holding.getInstrument());
+            try {
+                HoldingPosition position = calculateHoldingPosition(holding,
+                        lot -> realized.add(asSeen(lot, holding.getInstrument(), overrides)), trace, inputs, classification);
+                out.add(new HoldingLots(holding, position, List.copyOf(trace.openLots()), List.copyOf(realized),
+                        classification));
+            } catch (Exception e) {
+                log.warn("Skipping holding {} ({}) in holding lots: {}",
+                        holding.getId(), holding.getInstrument().getName(), e.getMessage());
+            }
+        }
+        return out;
     }
 
     public static class Lot {

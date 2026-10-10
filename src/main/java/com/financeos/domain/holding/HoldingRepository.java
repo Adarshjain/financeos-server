@@ -11,6 +11,10 @@ import java.util.UUID;
 @Repository
 public interface HoldingRepository extends JpaRepository<Holding, UUID> {
 
+    /** Whether the user has at least one row. */
+    boolean existsByUser_Id(UUID userId);
+
+
     Optional<Holding> findByBrokerAccountIdAndInstrumentId(UUID brokerAccountId, UUID instrumentId);
 
     List<Holding> findByBrokerAccountId(UUID brokerAccountId);

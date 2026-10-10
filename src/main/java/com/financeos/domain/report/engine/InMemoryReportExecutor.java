@@ -324,6 +324,14 @@ public class InMemoryReportExecutor {
             return new TableData.Column(colName, label, type, format, f != null ? f.valueLabels() : null);
         }).toList();
 
+        // A dynamic enum column backed by a stable id (card -> cardId) also carries that id, so a
+        // client can link the row to the thing it names.
+        List<String> idFields = columns.stream()
+                .map(datasource::field)
+                .filter(f -> f != null && f.idField() != null && !columns.contains(f.idField()))
+                .map(FieldDef::idField)
+                .distinct()
+                .toList();
         List<Map<String, Object>> data = new ArrayList<>();
         for (IndexedRow ir : pageRows) {
             Map<String, Object> map = new LinkedHashMap<>();
@@ -331,6 +339,10 @@ public class InMemoryReportExecutor {
             map.put("id", idVal != null ? String.valueOf(idVal) : String.valueOf(ir.index));
             for (String colName : columns) {
                 map.put(colName, displayValue(ir.row.get(colName)));
+            }
+            for (String idField : idFields) {
+                Object id = ir.row.get(idField);
+                map.put(idField, id != null ? String.valueOf(id) : null);
             }
             data.add(map);
         }
@@ -357,11 +369,13 @@ public class InMemoryReportExecutor {
         Map<MultiDimensionKey, List<Map<String, Object>>> cellGroups = new LinkedHashMap<>();
         Set<List<Object>> rawRowKeys = new LinkedHashSet<>();
         Set<List<Object>> rawColKeys = new LinkedHashSet<>();
+        Map<List<Object>, Map<String, Object>> firstRowOfGroup = new HashMap<>();
 
         for (Map<String, Object> row : filteredRows) {
             // A multi-valued dimension fans the row out: one key combination per value.
             for (List<Object> rKeys : keyCombinations(row, rowDims, datasource)) {
                 rawRowKeys.add(rKeys);
+                firstRowOfGroup.putIfAbsent(rKeys, row);
                 for (List<Object> cKeys : keyCombinations(row, colDims, datasource)) {
                     rawColKeys.add(cKeys);
                     MultiDimensionKey key = new MultiDimensionKey(rKeys, cKeys);
@@ -449,7 +463,8 @@ public class InMemoryReportExecutor {
                 }
             }
 
-            pivotEntries.add(new PivotEntry(rKeys, new PivotTableData.Row(rowKeyStr, rHeaderVals, cells)));
+            pivotEntries.add(new PivotEntry(rKeys, new PivotTableData.Row(rowKeyStr, rHeaderVals, cells,
+                    rowIds(firstRowOfGroup.get(rKeys), rowDims, datasource))));
         }
         sortPivotRows(pivotEntries, def.sort(), rowDims, colDims.isEmpty() ? measures : List.of());
         List<PivotTableData.Row> pivotRows = pivotEntries.stream().map(PivotEntry::row).toList();
@@ -881,6 +896,27 @@ public class InMemoryReportExecutor {
             combos = next;
         }
         return combos;
+    }
+
+    /**
+     * The stable ids behind a pivot row's id-backed dimensions (keyed by id field), read from a row
+     * of the group; null when no row dimension has an id field.
+     */
+    private static Map<String, String> rowIds(Map<String, Object> sample, List<DimensionRef> rowDims,
+                                              ReportDatasource datasource) {
+        Map<String, String> ids = null;
+        for (DimensionRef dim : rowDims) {
+            FieldDef f = datasource.field(dim.field());
+            if (f == null || f.idField() == null || groupValues(sample == null ? null : sample.get(dim.field())).size() > 1) {
+                continue;
+            }
+            if (ids == null) {
+                ids = new LinkedHashMap<>();
+            }
+            Object id = sample == null ? null : sample.get(f.idField());
+            ids.put(f.idField(), id != null ? String.valueOf(id) : null);
+        }
+        return ids;
     }
 
     /** Multi-valued cells render and sort as a comma-joined string. */

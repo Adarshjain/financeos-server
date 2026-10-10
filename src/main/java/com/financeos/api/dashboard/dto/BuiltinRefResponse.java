@@ -14,5 +14,11 @@ public record BuiltinRefResponse(
         String kind,
         /** KPI | CHART | TABLE for template built-ins; null for components. */
         @Nullable String templateType,
-        @Nullable String href) {
+        @Nullable String href,
+        /** overview | cards_rewards | spending | investments | loans_lending | shortcuts */
+        String category,
+        /** The short line under the title on the dashboard; null for none. */
+        @Nullable String subtitle,
+        /** The client renderer for a template's data; null for the report type's default rendering. */
+        @Nullable String view) {
 }

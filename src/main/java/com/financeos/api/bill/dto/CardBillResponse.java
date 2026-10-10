@@ -50,7 +50,9 @@ public record CardBillResponse(
             @Nullable BigDecimal feesAndCharges,
             @Nullable BigDecimal rewardPointsEarned,
             @Nullable BigDecimal rewardPointsBalance,
+            /** The card's own limit, else the statement's. */
             @Nullable BigDecimal creditLimit,
+            /** Live: what the card owes now ÷ limit × 100, one decimal (same as GET /accounts); null without a limit. */
             @Nullable BigDecimal utilizationPct,
             @Nullable Integer transactionCount) {
     }

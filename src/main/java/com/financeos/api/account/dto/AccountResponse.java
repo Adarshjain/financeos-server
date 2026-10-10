@@ -136,7 +136,9 @@ public sealed interface AccountResponse {
                         anchorDate,
                         cardholders,
                         warnList,
-                        account.getStatementExpectedNotifiedFor());
+                        account.getStatementExpectedNotifiedFor(),
+                        account.getUtilizationPct(),
+                        account.getEffectiveCreditLimit());
             }
             case broker -> {
                 AccountBrokerDetails details = account.getBrokerDetails();
@@ -227,7 +229,17 @@ public sealed interface AccountResponse {
             List<CardholderResponse> cardholders,
             List<String> warnings,
             /** The projected statement period end already announced as "hasn't arrived" (null = none). */
-            @Nullable LocalDate statementExpectedNotifiedFor) implements AccountResponse {
+            @Nullable LocalDate statementExpectedNotifiedFor,
+            /**
+             * Live utilisation: max(0, amount the card line owes now) ÷ credit limit × 100, one decimal.
+             * The limit is the card's own, else the latest statement's; null when neither is known.
+             */
+            @Nullable BigDecimal utilizationPct,
+            /**
+             * The limit {@code utilizationPct} divides by: the card's own credit limit when set, else
+             * the latest statement's that has one; null when neither is known.
+             */
+            @Nullable BigDecimal effectiveCreditLimit) implements AccountResponse {
     }
 
     record BrokerAccountResponse(

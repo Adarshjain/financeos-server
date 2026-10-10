@@ -29,5 +29,11 @@ public interface AccountRepository extends JpaRepository<Account, UUID>, Account
     List<Account> findByUserId(UUID userId);
 
     List<Account> findByUserIdAndType(UUID userId, AccountType type);
+
+    /** Whether the user has at least one account of {@code type} (open or closed). */
+    boolean existsByUser_IdAndType(UUID userId, AccountType type);
+
+    /** Whether the user has any account at all. */
+    boolean existsByUser_Id(UUID userId);
 }
 

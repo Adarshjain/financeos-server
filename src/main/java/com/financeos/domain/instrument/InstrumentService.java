@@ -6,193 +6,337 @@ import com.financeos.api.instrument.dto.InstrumentResponse;
 import com.financeos.api.instrument.dto.UpsertPriceRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.core.security.UserContext;
 import com.financeos.core.time.AppTime;
-import com.financeos.domain.instrument.price.PriceRefreshEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
+/**
+ * The instrument API. The instrument master, its feed prices and its catalog aliases are shared by
+ * every user, so nothing a user does here changes what another user sees: display edits (name,
+ * symbol, exchange, currency, type) and the asset class are the user's own overrides; an identifier
+ * edit (ISIN, AMFI code, Yahoo symbol — what picks the price feed) moves only that user's holdings to
+ * the catalog instrument with those identifiers; manual prices belong to the user who entered them.
+ */
 @Service
 @Transactional
 public class InstrumentService {
 
     private final InstrumentRepository instrumentRepository;
     private final InstrumentPriceRepository priceRepository;
-    private final InstrumentAliasRepository aliasRepository;
-    private final ApplicationEventPublisher eventPublisher;
+    private final InstrumentClassificationService classificationService;
+    private final AssetClassOverrideService overrideService;
+    /** Moves a user's references to another instrument; null in unit tests that never repoint. */
+    @Nullable
+    private final InstrumentRepointService repointService;
 
+    /** Without identifier repointing (unit tests); the alias repository and publisher are unused. */
     public InstrumentService(InstrumentRepository instrumentRepository,
                              InstrumentPriceRepository priceRepository,
                              InstrumentAliasRepository aliasRepository,
-                             ApplicationEventPublisher eventPublisher) {
+                             ApplicationEventPublisher eventPublisher,
+                             InstrumentClassificationService classificationService,
+                             AssetClassOverrideService overrideService) {
+        this(instrumentRepository, priceRepository, classificationService, overrideService, null);
+    }
+
+    @Autowired
+    public InstrumentService(InstrumentRepository instrumentRepository,
+                             InstrumentPriceRepository priceRepository,
+                             InstrumentClassificationService classificationService,
+                             AssetClassOverrideService overrideService,
+                             @Nullable InstrumentRepointService repointService) {
         this.instrumentRepository = instrumentRepository;
         this.priceRepository = priceRepository;
-        this.aliasRepository = aliasRepository;
-        this.eventPublisher = eventPublisher;
+        this.classificationService = classificationService;
+        this.overrideService = overrideService;
+        this.repointService = repointService;
     }
 
+    // ------------------------------------------------------------------ reads
+
+    private InstrumentOverrides overrides(@Nullable UUID userId) {
+        return userId == null ? InstrumentOverrides.NONE : InstrumentOverrides.orNone(overrideService.overridesFor(userId));
+    }
+
+    private Optional<InstrumentPrice> latestPrice(UUID instrumentId, @Nullable UUID userId) {
+        return PricePrecedence.preferred(priceRepository.findLatestVisible(instrumentId, userId));
+    }
+
+    /** {@code instrument} as {@code userId} sees it: their overrides and the latest price they see. */
+    private InstrumentResponse view(Instrument instrument, @Nullable UUID userId, InstrumentOverrides overrides) {
+        return InstrumentResponse.from(instrument, latestPrice(instrument.getId(), userId), overrides);
+    }
+
+    private InstrumentResponse view(Instrument instrument, @Nullable UUID userId) {
+        return view(instrument, userId, overrides(userId));
+    }
+
+    private Instrument find(UUID id) {
+        return instrumentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Instrument", id));
+    }
+
+    /** Default and largest page of {@link #searchInstruments}. */
+    public static final int DEFAULT_PAGE_SIZE = 50;
+    public static final int MAX_PAGE_SIZE = 200;
+
+    /** {@link #searchInstruments(String, InstrumentType, int, int)}'s first page. */
     @Transactional(readOnly = true)
     public List<InstrumentResponse> searchInstruments(String search, InstrumentType type) {
-        List<Instrument> instruments = instrumentRepository.searchInstruments(search, type);
-        return instruments.stream()
-                .map(inst -> {
-                    Optional<InstrumentPrice> latestPrice = priceRepository.findTopByInstrumentIdOrderByAsOfDesc(inst.getId());
-                    return InstrumentResponse.from(inst, latestPrice);
-                })
-                .toList();
+        return searchInstruments(search, type, 0, DEFAULT_PAGE_SIZE);
     }
 
-    public InstrumentResponse createInstrument(InstrumentRequest request) {
-        if (request.isin() != null && !request.isin().isBlank()) {
-            Optional<Instrument> existing = instrumentRepository.findByIsin(request.isin().trim());
-            if (existing.isPresent()) {
-                Instrument inst = existing.get();
-                Optional<InstrumentPrice> latestPrice = priceRepository.findTopByInstrumentIdOrderByAsOfDesc(inst.getId());
-                return InstrumentResponse.from(inst, latestPrice);
-            }
+    /**
+     * One page (by name) of the catalog instruments matching {@code search} (name, symbol, ISIN, AMFI
+     * code; blank = all), filtered on the type the current user sees, plus — on the first page — the
+     * ones they renamed or retyped to match; each as the user sees it, with the latest price they see
+     * (one batched price query). An empty search pages the catalog instead of loading all of it.
+     */
+    @Transactional(readOnly = true)
+    public List<InstrumentResponse> searchInstruments(String search, InstrumentType type, int page, int size) {
+        UUID userId = UserContext.getCurrentUserId();
+        InstrumentOverrides overrides = overrides(userId);
+        int safePage = Math.max(0, page);
+        int safeSize = Math.min(MAX_PAGE_SIZE, Math.max(1, size));
+        List<Instrument> found = InstrumentLocalSearch.find(instrumentRepository, search, type, overrides, safePage, safeSize);
+        Map<UUID, InstrumentPrice> prices = latestPrices(found, userId);
+        List<InstrumentResponse> out = new ArrayList<>(found.size());
+        for (Instrument inst : found) {
+            out.add(InstrumentResponse.from(inst, Optional.ofNullable(prices.get(inst.getId())), overrides));
         }
+        return out;
+    }
 
-        Instrument instrument = new Instrument();
-        instrument.setType(request.type());
-        instrument.setName(request.name());
-        instrument.setSymbol(request.symbol());
-        instrument.setExchange(request.exchange());
-        instrument.setIsin(request.isin() != null ? request.isin().trim() : null);
-        instrument.setAmfiCode(request.amfiCode());
-        instrument.setYahooSymbol(request.yahooSymbol());
-        if (request.currency() != null && !request.currency().isBlank()) {
-            instrument.setCurrency(request.currency());
+    /** The latest price {@code userId} sees for each instrument, in batched queries (≤ 900 ids each). */
+    private Map<UUID, InstrumentPrice> latestPrices(List<Instrument> instruments, @Nullable UUID userId) {
+        Map<UUID, InstrumentPrice> out = new LinkedHashMap<>();
+        List<UUID> ids = instruments.stream().map(Instrument::getId).toList();
+        for (List<UUID> chunk : InstrumentLocalSearch.chunks(ids)) {
+            List<InstrumentPrice> rows = priceRepository.findLatestByInstrumentIds(chunk, userId);
+            out.putAll(PricePrecedence.byInstrument(rows));
         }
-
-        Instrument saved = instrumentRepository.save(instrument);
-        return InstrumentResponse.from(saved, Optional.empty());
+        return out;
     }
 
     @Transactional(readOnly = true)
     public InstrumentResponse getInstrumentById(UUID id) {
-        Instrument instrument = instrumentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Instrument", id));
-        Optional<InstrumentPrice> latestPrice = priceRepository.findTopByInstrumentIdOrderByAsOfDesc(id);
-        return InstrumentResponse.from(instrument, latestPrice);
+        return view(find(id), UserContext.getCurrentUserId());
     }
 
-    public InstrumentResponse updateInstrument(UUID id, InstrumentRequest request) {
-        Instrument instrument = instrumentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Instrument", id));
+    // ------------------------------------------------------------------ catalog rows
 
-        String oldSymbol = instrument.getSymbol();
-        String oldName = instrument.getName();
-        String oldYahooSymbol = instrument.getYahooSymbol();
-        String oldAmfiCode = instrument.getAmfiCode();
-
-        if (oldSymbol != null && !oldSymbol.isBlank() && request.symbol() != null && !request.symbol().isBlank()
-                && !oldSymbol.equalsIgnoreCase(request.symbol().trim())) {
-            aliasRepository.save(new InstrumentAlias(instrument, oldSymbol, oldName, "USER_EDIT"));
+    /**
+     * Adds an instrument to the shared catalog — or, when one with the ISIN, AMFI code or Yahoo symbol
+     * (case-insensitive) already exists, returns that one unchanged (a create never edits an existing
+     * row and never mints a duplicate of one).
+     */
+    public InstrumentResponse createInstrument(InstrumentRequest request) {
+        UUID userId = UserContext.getCurrentUserId();
+        Optional<Instrument> existing = findByAnyIdentifier(request.isin(), request.amfiCode(), request.yahooSymbol());
+        if (existing.isPresent()) {
+            return view(existing.get(), userId);
         }
 
+        Instrument instrument = new Instrument();
         instrument.setType(request.type());
-        instrument.setName(request.name());
-        instrument.setSymbol(request.symbol());
-        instrument.setExchange(request.exchange());
-        instrument.setIsin(request.isin() != null ? request.isin().trim() : null);
-        instrument.setAmfiCode(request.amfiCode());
-        instrument.setYahooSymbol(request.yahooSymbol());
+        instrument.setName(request.name().trim());
+        instrument.setSymbol(blankToNull(request.symbol()));
+        instrument.setExchange(blankToNull(request.exchange()));
+        instrument.setIsin(blankToNull(request.isin()));
+        instrument.setAmfiCode(blankToNull(request.amfiCode()));
+        instrument.setYahooSymbol(blankToNull(request.yahooSymbol()));
         if (request.currency() != null && !request.currency().isBlank()) {
-            instrument.setCurrency(request.currency());
+            instrument.setCurrency(request.currency().trim());
         }
+        classificationService.classify(instrument);
 
         Instrument saved = instrumentRepository.save(instrument);
-
-        boolean yahooChanged = (oldYahooSymbol == null && saved.getYahooSymbol() != null) ||
-                (oldYahooSymbol != null && !oldYahooSymbol.equalsIgnoreCase(saved.getYahooSymbol()));
-        boolean amfiChanged = (oldAmfiCode == null && saved.getAmfiCode() != null) ||
-                (oldAmfiCode != null && !oldAmfiCode.equalsIgnoreCase(saved.getAmfiCode()));
-
-        if ((yahooChanged || amfiChanged) && eventPublisher != null) {
-            eventPublisher.publishEvent(new PriceRefreshEvent(Set.of(saved.getId())));
-        }
-
-        Optional<InstrumentPrice> latestPrice = priceRepository.findTopByInstrumentIdOrderByAsOfDesc(id);
-        return InstrumentResponse.from(saved, latestPrice);
+        return InstrumentResponse.from(saved, Optional.empty(), overrides(userId));
     }
 
+    /**
+     * Edits the instrument for the current user's account only.
+     * <ul>
+     *   <li>Identifiers (ISIN, AMFI code, Yahoo symbol) choose the price feed, so a change never touches
+     *   the shared row: the catalog instrument with the new identifiers is found (or added) and only
+     *   this user's holdings, trades, dividends, SIPs, manual prices and aliases move to it — merged
+     *   into their existing holding of it at the same broker. The answer is that instrument (a new id).</li>
+     *   <li>Display fields (name, symbol, exchange, currency, type) become the user's overrides wherever
+     *   they differ from the catalog; one equal to the catalog (or a blank symbol / exchange / currency)
+     *   clears that override.</li>
+     * </ul>
+     */
+    public InstrumentResponse updateInstrument(UUID id, InstrumentRequest request) {
+        UUID userId = requireUser("Editing an instrument needs a signed-in user");
+        Instrument instrument = find(id);
+
+        if (!identifiersChanged(instrument, request)) {
+            overrideService.setDisplay(userId, instrument, request.name(), request.symbol(), request.exchange(),
+                    request.currency(), request.type());
+            return view(instrument, userId);
+        }
+        if (blankToNull(request.isin()) == null && blankToNull(request.amfiCode()) == null
+                && blankToNull(request.yahooSymbol()) == null) {
+            throw new ValidationException(
+                    "Give an ISIN, AMFI code or Yahoo symbol to switch the price feed; they can't all be cleared");
+        }
+        if (repointService == null) {
+            throw new IllegalStateException("Identifier edits need the repoint service");
+        }
+        // Only what the user changed relative to how they saw the source follows them to the target;
+        // values they left as they were stay the target's own (no carried overrides, no pinned type).
+        DisplayChanges changes = DisplayChanges.between(overrides(userId), instrument, request);
+        InstrumentRepointService.Result result = repointService.repoint(userId, instrument, request, changes);
+        Instrument target = result.target();
+        overrideService.setDisplay(userId, target, request.name(), request.symbol(), request.exchange(),
+                request.currency(), request.type(), changes);
+        return view(target, userId).withMerge(result.merged(), result.mergedWithSells()
+                ? "Both holdings had sells. Their trades are now one history, so realised gains and the lots "
+                        + "still open may differ from before."
+                : null);
+    }
+
+    /** The catalog instrument with the ISIN, else the AMFI code, else the Yahoo symbol (blank ones skipped). */
+    private Optional<Instrument> findByAnyIdentifier(@Nullable String isin, @Nullable String amfiCode,
+                                                     @Nullable String yahooSymbol) {
+        Optional<Instrument> found = Optional.empty();
+        if (blankToNull(isin) != null) {
+            found = instrumentRepository.findByIsin(isin.trim());
+        }
+        if (found.isEmpty() && blankToNull(amfiCode) != null) {
+            found = instrumentRepository.findByAmfiCode(amfiCode.trim());
+        }
+        if (found.isEmpty() && blankToNull(yahooSymbol) != null) {
+            found = instrumentRepository.findByYahooSymbol(yahooSymbol.trim());
+        }
+        return found == null ? Optional.empty() : found;
+    }
+
+    /** Whether the request's ISIN / AMFI code / Yahoo symbol differ from the instrument's (case-insensitive). */
+    static boolean identifiersChanged(Instrument instrument, InstrumentRequest request) {
+        return !sameIdentifier(instrument.getIsin(), request.isin())
+                || !sameIdentifier(instrument.getAmfiCode(), request.amfiCode())
+                || !sameIdentifier(instrument.getYahooSymbol(), request.yahooSymbol());
+    }
+
+    private static boolean sameIdentifier(@Nullable String current, @Nullable String requested) {
+        String a = blankToNull(current);
+        String b = blankToNull(requested);
+        return a == null ? b == null : b != null && a.equalsIgnoreCase(b);
+    }
+
+    @Nullable
+    private static String blankToNull(@Nullable String value) {
+        return value == null || value.isBlank() ? null : value.trim();
+    }
+
+    private static UUID requireUser(String message) {
+        UUID userId = UserContext.getCurrentUserId();
+        if (userId == null) {
+            throw new ValidationException(message);
+        }
+        return userId;
+    }
+
+    // ------------------------------------------------------------------ per-user overrides
+
+    /**
+     * Pins the current user's own asset class for the instrument (a {@link UserInstrumentOverride};
+     * the shared instrument row is not touched, so no other user is affected), or with a null
+     * {@code assetClass} removes that override so the global AMFI / rule classification applies again.
+     */
+    public InstrumentResponse updateAssetClass(UUID id, AssetClass assetClass) {
+        Instrument instrument = find(id);
+        UUID userId = UserContext.getCurrentUserId();
+        if (userId == null) {
+            throw new ValidationException("An asset-class override needs a signed-in user");
+        }
+        overrideService.set(userId, id, assetClass);
+        // The fresh class through the one classification path (InstrumentOverrides → AssetClassifier).
+        InstrumentOverrides mine = overrides(userId).withAssetClass(id, assetClass);
+        return view(instrument, userId, mine);
+    }
+
+    /** Removes every override the current user has on the instrument (display fields and asset class). */
+    public InstrumentResponse resetOverrides(UUID id) {
+        Instrument instrument = find(id);
+        UUID userId = requireUser("Resetting an instrument needs a signed-in user");
+        overrideService.clear(userId, id);
+        return view(instrument, userId, InstrumentOverrides.NONE);
+    }
+
+    // ------------------------------------------------------------------ manual prices (the user's own)
+
+    /** Sets the current user's own MANUAL price for a date (default today); only they see it. */
     public InstrumentResponse upsertPrice(UUID id, UpsertPriceRequest request) {
-        Instrument instrument = instrumentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Instrument", id));
+        UUID userId = requireUser("A manual price needs a signed-in user");
+        Instrument instrument = find(id);
+        if (request.price() == null || request.price().signum() < 0) {
+            throw new ValidationException("Price must be non-negative");
+        }
 
         LocalDate asOf = request.asOf() != null ? request.asOf() : AppTime.today();
-        Optional<InstrumentPrice> existingPrice = priceRepository.findByInstrumentIdAndAsOf(id, asOf);
-
-        InstrumentPrice price;
-        if (existingPrice.isPresent()) {
-            price = existingPrice.get();
-            price.setClose(request.price());
-            price.setSource(PriceSource.MANUAL);
-        } else {
-            price = new InstrumentPrice(instrument, asOf, request.price(), PriceSource.MANUAL);
-        }
+        InstrumentPrice price = priceRepository.findByInstrumentIdAndAsOfAndUserId(id, asOf, userId)
+                .orElseGet(() -> InstrumentPrice.manual(instrument, userId, asOf, request.price()));
+        price.setClose(request.price());
         priceRepository.save(price);
 
-        Optional<InstrumentPrice> latestPrice = priceRepository.findTopByInstrumentIdOrderByAsOfDesc(id);
-        return InstrumentResponse.from(instrument, latestPrice);
+        return view(instrument, userId);
+    }
+
+    /** One of the current user's own MANUAL prices, else 404 (feed and other users' prices included). */
+    private InstrumentPrice ownManualPrice(UUID instrumentId, UUID priceId, UUID userId) {
+        InstrumentPrice price = priceRepository.findById(priceId)
+                .orElseThrow(() -> new ResourceNotFoundException("InstrumentPrice", priceId));
+        if (price.getInstrument() == null || !Objects.equals(price.getInstrument().getId(), instrumentId)
+                || !price.isOwnManual(userId)) {
+            throw new ResourceNotFoundException("InstrumentPrice", priceId);
+        }
+        return price;
     }
 
     public InstrumentResponse updateManualPrice(UUID instrumentId, UUID priceId, BigDecimal newClose) {
         if (newClose == null || newClose.compareTo(BigDecimal.ZERO) < 0) {
             throw new ValidationException("Price must be non-negative");
         }
-
-        InstrumentPrice price = priceRepository.findById(priceId)
-                .orElseThrow(() -> new ResourceNotFoundException("InstrumentPrice", priceId));
-
-        if (!price.getInstrument().getId().equals(instrumentId)) {
-            throw new ResourceNotFoundException("InstrumentPrice", priceId);
-        }
-
-        if (price.getSource() != PriceSource.MANUAL) {
-            throw new ValidationException("Only manually-entered prices can be edited; auto-fetched prices refresh from AMFI/Yahoo.");
-        }
-
+        UUID userId = requireUser("Editing a price needs a signed-in user");
+        InstrumentPrice price = ownManualPrice(instrumentId, priceId, userId);
         price.setClose(newClose);
         priceRepository.save(price);
-
-        // Note: deleting/editing the latest point simply makes positions recompute their
-        // currentValue from the next-latest price (or null if none) — no extra work, positions read latest dynamically.
-        Instrument instrument = price.getInstrument();
-        Optional<InstrumentPrice> latestPrice = priceRepository.findTopByInstrumentIdOrderByAsOfDesc(instrumentId);
-        return InstrumentResponse.from(instrument, latestPrice);
+        // Positions read the latest visible price dynamically, so nothing else needs recomputing.
+        return view(price.getInstrument(), userId);
     }
 
     public void deleteManualPrice(UUID instrumentId, UUID priceId) {
-        InstrumentPrice price = priceRepository.findById(priceId)
-                .orElseThrow(() -> new ResourceNotFoundException("InstrumentPrice", priceId));
-
-        if (!price.getInstrument().getId().equals(instrumentId)) {
-            throw new ResourceNotFoundException("InstrumentPrice", priceId);
-        }
-
-        if (price.getSource() != PriceSource.MANUAL) {
-            throw new ValidationException("Only manually-entered prices can be deleted; auto-fetched prices refresh from AMFI/Yahoo.");
-        }
-
-        // Note: deleting/editing the latest point simply makes positions recompute their
-        // currentValue from the next-latest price (or null if none) — no extra work, positions read latest dynamically.
-        priceRepository.delete(price);
+        UUID userId = requireUser("Deleting a price needs a signed-in user");
+        priceRepository.delete(ownManualPrice(instrumentId, priceId, userId));
     }
 
+    /**
+     * The prices the current user sees, newest first: feed prices plus their own MANUAL prices (theirs
+     * in place of the feed's on a date both have).
+     */
     @Transactional(readOnly = true)
     public List<InstrumentPriceResponse> getPriceHistory(UUID instrumentId, LocalDate from, LocalDate to) {
         if (!instrumentRepository.existsById(instrumentId)) {
             throw new ResourceNotFoundException("Instrument", instrumentId);
         }
-        List<InstrumentPrice> prices = priceRepository.findPriceHistory(instrumentId, from, to);
-        return prices.stream().map(InstrumentPriceResponse::from).toList();
+        UUID userId = UserContext.getCurrentUserId();
+        return PricePrecedence.collapse(priceRepository.findPriceHistory(instrumentId, userId, from, to)).stream()
+                .map(p -> InstrumentPriceResponse.from(p, userId))
+                .toList();
     }
 }

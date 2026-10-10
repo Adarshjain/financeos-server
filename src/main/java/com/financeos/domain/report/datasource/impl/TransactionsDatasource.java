@@ -1,5 +1,7 @@
 package com.financeos.domain.report.datasource.impl;
 
+import com.financeos.core.security.UserContext;
+import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.cycle.BillingCycleService;
 import com.financeos.domain.report.datasource.DatasourceCatalog;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
@@ -11,8 +13,11 @@ import com.financeos.domain.report.engine.TransactionQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,6 +27,7 @@ public class TransactionsDatasource implements ReportDatasource {
     private static final List<FieldDef> FIELDS = DatasourceCatalog.transactionFields();
 
     private final TransactionQueryBuilder queryBuilder;
+    private AccountRepository accountRepository;
 
     /** Without billing cycles: cycle operators and the billing-cycle dimension are unavailable. */
     public TransactionsDatasource(SqlPredicates sqlPredicates, DateRangeResolver dateRangeResolver) {
@@ -59,6 +65,39 @@ public class TransactionsDatasource implements ReportDatasource {
     @Override
     public List<String> underlyingColumns() {
         return List.of("date", "description", "account", "category");
+    }
+
+    /** Labels the account ids an app-built filter holds (see TransactionQueryBuilder) by account name. */
+    @Autowired(required = false)
+    public void setAccountRepository(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
+
+    /** Account ids (the current user's) read as the account's name. */
+    @Override
+    public Map<String, String> filterValueLabels(String field, Collection<String> values) {
+        UUID userId = UserContext.getCurrentUserId();
+        if (!"account".equals(field) || accountRepository == null || userId == null) {
+            return Map.of();
+        }
+        List<UUID> ids = values.stream().map(TransactionsDatasource::uuidOrNull)
+                .filter(java.util.Objects::nonNull).distinct().toList();
+        if (ids.isEmpty()) {
+            return Map.of();
+        }
+        Map<String, String> labels = new HashMap<>();
+        accountRepository.findAllById(ids).stream()
+                .filter(a -> a.getUser() != null && userId.equals(a.getUser().getId()))
+                .forEach(a -> labels.put(a.getId().toString(), a.getName()));
+        return labels;
+    }
+
+    private static UUID uuidOrNull(String value) {
+        try {
+            return value != null && value.length() == 36 ? UUID.fromString(value) : null;
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     @Override

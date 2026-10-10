@@ -9,7 +9,18 @@ import java.util.List;
 public record BuiltinWidgetResponse(
         String key,
         String label,
+        /** The long picker text; shown only in the picker. */
         String description,
+        /** overview | cards_rewards | spending | investments | loans_lending | shortcuts */
+        String category,
+        /** The short line under the title on the dashboard; null for none. */
+        @Nullable String subtitle,
+        /** A "Needs …" sentence for the picker; null when nothing is needed. */
+        @Nullable String requires,
+        /** The client renderer for a template's data; null for the report type's default rendering. */
+        @Nullable String view,
+        /** Null when the current user can use the widget, else what to add first (e.g. "Add a credit card first"). */
+        @Nullable String unavailableReason,
         int minW,
         /** {@code template} (runs a report definition through the engine) or {@code component}. */
         String kind,

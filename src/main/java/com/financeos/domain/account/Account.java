@@ -135,6 +135,17 @@ public class Account {
     @Transient
     private LocalDate anchorDate;
 
+    /** Credit cards only: live utilisation (see {@link CardUtilization}); null when unknown or not a card. */
+    @Transient
+    private java.math.BigDecimal utilizationPct;
+
+    /**
+     * Credit cards only: the limit {@link #utilizationPct} divides by — the card's own limit, else
+     * the latest statement's (see {@link CardUtilization#creditLimit}); null when neither is known.
+     */
+    @Transient
+    private java.math.BigDecimal effectiveCreditLimit;
+
     public boolean isClosed() {
         return isClosed(AppTime.today());
     }

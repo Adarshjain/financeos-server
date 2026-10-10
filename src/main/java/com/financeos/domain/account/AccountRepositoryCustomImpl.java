@@ -22,7 +22,16 @@ public class AccountRepositoryCustomImpl implements AccountRepositoryCustom {
             return Collections.emptyMap();
         }
 
-        String sql = "SELECT " +
+        // The balance aggregate (b) plus, per account, the credit limit of its latest non-rejected
+        // statement that carries one: the utilisation fallback for cards without their own limit.
+        String sql = "SELECT b.account_id, b.anchor_date, b.anchor_closing_balance, b.total_sum, b.post_anchor_sum, " +
+                "( SELECT d.credit_limit FROM statements sl " +
+                "  JOIN statement_credit_card_details d ON d.statement_id = sl.id " +
+                "  WHERE sl.account_id = b.account_id AND d.credit_limit IS NOT NULL " +
+                "    AND (sl.verdict IS NULL OR sl.verdict <> 'REJECTED') " +
+                "  ORDER BY sl.period_end DESC NULLS LAST, sl.created_at DESC " +
+                "  FETCH FIRST 1 ROWS ONLY ) AS latest_statement_credit_limit " +
+                "FROM ( SELECT " +
                 "a.id AS account_id, " +
                 "s.period_end AS anchor_date, " +
                 "s.closing_balance AS anchor_closing_balance, " +
@@ -47,7 +56,7 @@ public class AccountRepositoryCustomImpl implements AccountRepositoryCustom {
                 ") s ON s.account_id = a.id " +
                 "LEFT JOIN transactions t ON t.account_id = a.id " +
                 "WHERE a.id IN (:accountIds) " +
-                "GROUP BY a.id, s.period_end, s.closing_balance";
+                "GROUP BY a.id, s.period_end, s.closing_balance ) b";
 
         Query query = entityManager.createNativeQuery(sql);
         List<String> idStrings = accountIds.stream().map(UUID::toString).toList();
@@ -63,6 +72,7 @@ public class AccountRepositoryCustomImpl implements AccountRepositoryCustom {
             BigDecimal anchorClosingBalance = parseBigDecimal(arr[2]);
             BigDecimal totalSum = parseBigDecimal(arr[3]);
             BigDecimal postAnchorSum = parseBigDecimal(arr[4]);
+            BigDecimal latestStatementCreditLimit = arr.length > 5 ? parseBigDecimal(arr[5]) : null;
 
             if (accId != null) {
                 result.put(accId, new AccountBalanceBatch(
@@ -70,7 +80,8 @@ public class AccountRepositoryCustomImpl implements AccountRepositoryCustom {
                         anchorDate,
                         anchorClosingBalance,
                         totalSum != null ? totalSum : BigDecimal.ZERO,
-                        postAnchorSum != null ? postAnchorSum : BigDecimal.ZERO
+                        postAnchorSum != null ? postAnchorSum : BigDecimal.ZERO,
+                        latestStatementCreditLimit
                 ));
             }
         }

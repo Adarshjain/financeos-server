@@ -67,6 +67,10 @@ public class UnderlyingFilterChips {
                 labels.putAll(field.valueLabels());
             }
             labels.putAll(idLabels.getOrDefault(filter.field(), Map.of()));
+            if (field != null && (field.type() == FieldType.ENUM || field.type() == FieldType.STRING)
+                    && filter.value() != null) {
+                labels.putAll(datasource.filterValueLabels(filter.field(), texts(filter.value())));
+            }
             chips.add(new UnderlyingFilterChip(filter.field(), fieldLabel, filter.operator(),
                     text(field, filter, labels)));
         }
@@ -87,6 +91,16 @@ public class UnderlyingFilterChips {
         fieldValues.values(datasource.name()).options().forEach((field, options) -> out.put(field,
                 options.stream().collect(Collectors.toMap(ReportFieldValuesResponse.Option::value,
                         ReportFieldValuesResponse.Option::label, (a, b) -> a))));
+        return out;
+    }
+
+    private static List<String> texts(JsonNode value) {
+        List<String> out = new ArrayList<>();
+        if (value.isArray()) {
+            value.forEach(v -> out.add(v.asText()));
+        } else {
+            out.add(value.asText());
+        }
         return out;
     }
 

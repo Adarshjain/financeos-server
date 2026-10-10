@@ -1,11 +1,14 @@
 package com.financeos.domain.report.datasource.impl;
 
 import com.financeos.api.investment.dto.PositionDto;
+import com.financeos.domain.instrument.AssetClass;
 import com.financeos.domain.instrument.InstrumentType;
+import com.financeos.domain.instrument.TaxClass;
 import com.financeos.domain.investment.InvestmentService;
 import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ComputedReportDatasource;
+import com.financeos.domain.report.datasource.DatasourceCatalog;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
@@ -25,6 +28,22 @@ public class PositionsDatasource implements ComputedReportDatasource {
     private static final List<ReportType> KPI_CHART_TABLE = List.of(ReportType.KPI, ReportType.CHART, ReportType.TABLE);
     private static final List<ReportType> TABLE_ONLY = List.of(ReportType.TABLE);
     private static final List<ReportType> NONE = List.of();
+
+    static final List<String> ASSET_CLASS_VALUES = Arrays.stream(AssetClass.values()).map(Enum::name).toList();
+    /** How each asset class reads for people. */
+    static final Map<String, String> ASSET_CLASS_LABELS = DatasourceCatalog.valueLabels(
+            AssetClass.EQUITY.name(), "Equity",
+            AssetClass.DEBT.name(), "Debt",
+            AssetClass.HYBRID.name(), "Hybrid",
+            AssetClass.GOLD.name(), "Gold",
+            AssetClass.INTERNATIONAL.name(), "International",
+            AssetClass.OTHER.name(), "Other");
+    static final List<String> TAX_CLASS_VALUES = Arrays.stream(TaxClass.values()).map(Enum::name).toList();
+    /** How each tax class reads for people. */
+    static final Map<String, String> TAX_CLASS_LABELS = DatasourceCatalog.valueLabels(
+            TaxClass.EQUITY_ORIENTED.name(), "Equity-oriented",
+            TaxClass.SPECIFIED_DEBT.name(), "Specified debt",
+            TaxClass.OTHER.name(), "Other");
 
     private final InvestmentService investmentService;
     private final List<FieldDef> fields;
@@ -66,6 +85,8 @@ public class PositionsDatasource implements ComputedReportDatasource {
             map.put("broker", p.brokerName());
             map.put("instrument", p.instrument() != null ? p.instrument().name() : null);
             map.put("instrumentType", p.instrument() != null && p.instrument().type() != null ? p.instrument().type().name() : null);
+            map.put("assetClass", p.assetClass() != null ? p.assetClass().name() : null);
+            map.put("taxClass", p.taxClass() != null ? p.taxClass().name() : null);
             map.put("invested", p.invested());
             map.put("currentValue", p.currentValue());
             map.put("unrealizedGainLoss", p.unrealizedGainLoss());
@@ -90,6 +111,10 @@ public class PositionsDatasource implements ComputedReportDatasource {
                 new FieldDef("broker", "Broker", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("instrument", "Instrument", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("instrumentType", "Instrument Type", FieldType.ENUM, FieldRole.DIMENSION, null, instTypeValues, null, CHART_TABLE),
+                new FieldDef("assetClass", "Asset Class", FieldType.ENUM, FieldRole.DIMENSION, null, ASSET_CLASS_VALUES, null, CHART_TABLE)
+                        .withValueLabels(ASSET_CLASS_LABELS),
+                new FieldDef("taxClass", "Tax Class", FieldType.ENUM, FieldRole.DIMENSION, null, TAX_CLASS_VALUES, null, CHART_TABLE)
+                        .withValueLabels(TAX_CLASS_LABELS),
                 new FieldDef("invested", "Invested Amount", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.COUNT, Aggregation.MIN, Aggregation.MAX), null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("currentValue", "Current Value", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.COUNT, Aggregation.MIN, Aggregation.MAX), null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("unrealizedGainLoss", "Unrealized P&L", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.COUNT, Aggregation.MIN, Aggregation.MAX), null, null, KPI_CHART_TABLE, "currency"),

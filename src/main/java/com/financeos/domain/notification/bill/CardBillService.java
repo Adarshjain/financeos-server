@@ -5,7 +5,9 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.account.AccountService;
 import com.financeos.domain.account.AccountType;
+import com.financeos.domain.account.CardUtilization;
 import com.financeos.domain.account.cycle.BillingCycles;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementCreditCardDetails;
@@ -18,7 +20,6 @@ import com.financeos.domain.transaction.link.TransactionLink;
 import com.financeos.domain.transaction.link.TransactionLinkMember;
 import com.financeos.domain.transaction.link.TransactionLinkRepository;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -52,15 +53,18 @@ public class CardBillService {
     private final StatementRepository statementRepository;
     private final TransactionRepository transactionRepository;
     private final TransactionLinkRepository transactionLinkRepository;
+    private final AccountService accountService;
 
     public CardBillService(AccountRepository accountRepository,
                            StatementRepository statementRepository,
                            TransactionRepository transactionRepository,
-                           TransactionLinkRepository transactionLinkRepository) {
+                           TransactionLinkRepository transactionLinkRepository,
+                           AccountService accountService) {
         this.accountRepository = accountRepository;
         this.statementRepository = statementRepository;
         this.transactionRepository = transactionRepository;
         this.transactionLinkRepository = transactionLinkRepository;
+        this.accountService = accountService;
     }
 
     /**
@@ -110,9 +114,10 @@ public class CardBillService {
     }
 
     /**
-     * The bill as the settlement signals describe it. {@code unbilledAmount} and
-     * {@code nextStatementExpectedOn} are left null here: the notification tick does not need them
-     * and must not pay for the extra queries. {@link #listBills} fills them in.
+     * The bill as the settlement signals describe it. {@code unbilledAmount},
+     * {@code nextStatementExpectedOn} and the digest's live {@code utilizationPct} are left null
+     * here: the notification tick does not need them and must not pay for the extra queries.
+     * {@link #listBills} and the other read paths fill them in.
      */
     public CardBill build(Account account, Statement statement, LocalDate today) {
         return assemble(account, statement, today).bill();
@@ -167,16 +172,12 @@ public class CardBillService {
                 : settlement.possible;
         Long daysUntilDue = due == null ? null : ChronoUnit.DAYS.between(today, due);
 
-        BigDecimal creditLimit = d.getCreditLimit() != null
-                ? d.getCreditLimit()
-                : (account.getCreditCardDetails() != null ? account.getCreditCardDetails().getCreditLimit() : null);
-        BigDecimal utilization = null;
-        if (total != null && creditLimit != null && creditLimit.signum() > 0) {
-            utilization = total.multiply(BigDecimal.valueOf(100)).divide(creditLimit, 1, RoundingMode.HALF_UP);
-        }
+        // The limit utilisation divides by: the card's own, else the latest statement's that has one
+        // (CardUtilization.creditLimit, the same rule as GET /accounts and the cycle summary).
+        BigDecimal creditLimit = CardUtilization.creditLimit(account, statementRepository);
         CardBill.Digest digest = new CardBill.Digest(
                 d.getTotalPurchases(), d.getPaymentsReceived(), d.getFinanceCharges(), d.getFeesAndCharges(),
-                d.getRewardPointsEarned(), d.getRewardPointsBalance(), creditLimit, utilization,
+                d.getRewardPointsEarned(), d.getRewardPointsBalance(), creditLimit, null,
                 statement.getTransactionCount());
 
         CardBill bill = new CardBill(
@@ -206,14 +207,19 @@ public class CardBillService {
         return new Built(bill, settlement);
     }
 
-    /** {@link #build} plus the two read-side extras: unbilled spend since the period end and the next expected statement. */
+    /**
+     * {@link #build} plus the read-side extras: unbilled spend since the period end, the next
+     * expected statement and the digest's live utilisation (balance now ÷ limit, see
+     * {@link CardUtilization}) — the same figure GET /accounts reports for the card.
+     */
     private CardBill buildEnriched(Account account, Statement statement, LocalDate today) {
         Built built = assemble(account, statement, today);
         LocalDate periodEnd = statement.getPeriodEnd();
         BigDecimal unbilled = periodEnd == null
                 ? null
                 : unbilled(transactionRepository.sumIncludedDebitsAfter(account.getId(), periodEnd));
-        return built.bill().withUnbilled(unbilled, nextStatementExpectedOn(account.getId()));
+        BigDecimal utilization = accountService.populateLiveBalance(account).getUtilizationPct();
+        return built.bill().withUtilization(utilization).withUnbilled(unbilled, nextStatementExpectedOn(account.getId()));
     }
 
     /** An open card with no live statement: nothing to pay yet, only what has been spent so far. */

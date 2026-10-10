@@ -38,7 +38,8 @@ class IsinFirstSearchTest {
                 instrumentRepository,
                 priceRepository,
                 aliasRepository,
-                List.of()
+                List.of(),
+                mock(InstrumentClassificationService.class)
         );
     }
 
