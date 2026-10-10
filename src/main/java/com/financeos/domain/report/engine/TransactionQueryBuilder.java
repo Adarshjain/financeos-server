@@ -77,13 +77,20 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     public static final String CARDHOLDER_DIM = "NVL(ch.person_name, 'Unattributed')";
     public static final String CARD_RELATIONSHIP_DIM = "NVL(ch.relationship, 'Unattributed')";
 
+    /**
+     * The description a transaction shows: the user's own, else the text it was imported with
+     * (the app shows {@code description ?? sourcedDescription} everywhere), so listings, sorting
+     * and description filters all work on the text people see.
+     */
+    public static final String DESCRIPTION = "COALESCE(t.description, t.sourced_description)";
+
     private static final Map<String, Mapping> MAPPINGS = Map.ofEntries(
             Map.entry("amount", new Mapping(SIGNED_AMOUNT, null)),
             Map.entry("spend", new Mapping(SPEND_AMOUNT, null)),
             Map.entry("date", new Mapping("t.transaction_date", null)),
             Map.entry("type", new Mapping("t.type", null)),
             Map.entry("source", new Mapping("t.source", null)),
-            Map.entry("description", new Mapping("t.description", null)),
+            Map.entry("description", new Mapping(DESCRIPTION, null)),
             Map.entry("account", new Mapping("a.name", JOIN_ACCOUNTS)),
             Map.entry("accountType", new Mapping("a.type", JOIN_ACCOUNTS)),
             Map.entry(CATEGORY, new Mapping("c.name", JOIN_CATEGORIES)),

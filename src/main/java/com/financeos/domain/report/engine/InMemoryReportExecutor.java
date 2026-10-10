@@ -121,6 +121,30 @@ public class InMemoryReportExecutor {
     }
 
     /**
+     * The KPI's aggregation of {@code measure} within each group of {@code rows} sharing a value of
+     * {@code groupField} (keyed by that raw value, in first-seen order; rows without a group value
+     * are left out). Each group aggregates exactly as the KPI's own figure does.
+     */
+    public Map<String, BigDecimal> groupAggregates(List<Map<String, Object>> rows, String groupField, String measure,
+                                                   Aggregation aggregation) {
+        Map<String, List<Map<String, Object>>> groups = new LinkedHashMap<>();
+        for (Map<String, Object> row : rows) {
+            Object group = row.get(groupField);
+            if (group != null) {
+                groups.computeIfAbsent(String.valueOf(group), g -> new ArrayList<>()).add(row);
+            }
+        }
+        Map<String, BigDecimal> totals = new LinkedHashMap<>();
+        groups.forEach((group, groupRows) -> {
+            BigDecimal total = calculateAggregate(groupRows, measure, aggregation);
+            if (total != null) {
+                totals.put(group, total);
+            }
+        });
+        return totals;
+    }
+
+    /**
      * One period of a KPI over a computed datasource.
      *
      * @param value the KPI's figure for the period

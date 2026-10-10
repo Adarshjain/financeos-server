@@ -181,6 +181,7 @@ public class KpiUnderlyingService {
                 filterChips.describe(ds, chipFilters(periods, request.period())),
                 rowAction(ds),
                 ds.underlyingGroupField(),
+                listing.groupTotals(),
                 snapshot != null ? snapshot.notCounted() : extras != null ? extras.notCounted() : List.of(),
                 sort == null ? null : sort.key(),
                 sort == null ? null : sort.direction().json(),
@@ -227,9 +228,11 @@ public class KpiUnderlyingService {
      *
      * @param value        the KPI's figure for the period
      * @param summaryLines datasource totals over all listed rows
+     * @param groupTotals  each group's figure over all listed rows (see {@link KpiUnderlyingResponse#groupTotals})
      * @param chunkSize    rows per page when exporting everything
      */
-    private record Listing(BigDecimal value, List<UnderlyingSummaryLine> summaryLines, int chunkSize, Pager pager) {
+    private record Listing(BigDecimal value, List<UnderlyingSummaryLine> summaryLines,
+            Map<String, BigDecimal> groupTotals, int chunkSize, Pager pager) {
     }
 
     /**
@@ -243,14 +246,19 @@ public class KpiUnderlyingService {
             InMemoryReportExecutor.KpiRows rows = inMemoryExecutor.kpiRows(def, ds, period.filters(), loadedRows);
             List<UnderlyingSummaryLine> summary = withSummary && ds instanceof UnderlyingExtras extras
                     ? extras.summaryLines(rows.rows()) : List.of();
-            return new Listing(rows.value(), summary, Math.max(1, rows.rows().size()),
+            String groupField = ds.underlyingGroupField();
+            Map<String, BigDecimal> groupTotals = withSummary && groupField != null
+                    ? inMemoryExecutor.groupAggregates(rows.rows(), groupField, def.measure(), def.aggregation())
+                    : Map.of();
+            return new Listing(rows.value(), summary, groupTotals, Math.max(1, rows.rows().size()),
                     (page, size) -> inMemoryExecutor.rawTable(rows.rows(), columns, sort, ds, page, size));
         }
         BigDecimal value = kpiExecutor.value(def, ds, period.filters(), userId);
         List<FilterClause> filters = new ArrayList<>(period.filters());
         filters.addAll(UnderlyingOperators.listing(def.measure(), def.aggregation(), value));
         RawTableDefinition table = new RawTableDefinition(TableMode.RAW, columns, filters, sort);
-        return new Listing(value, List.of(), CSV_CHUNK,
+        // No SQL datasource groups its underlying rows, so there are no group totals to compute.
+        return new Listing(value, List.of(), Map.of(), CSV_CHUNK,
                 (page, size) -> (TableData) tableExecutor.execute(table, ds, userId, page, size));
     }
 

@@ -6,6 +6,7 @@ import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The rows behind one period of a KPI ("View underlying data").
@@ -28,10 +29,14 @@ import java.util.List;
  *                          aggregation yields no value without rows)
  * @param rowCount          total rows listed across all pages
  * @param winnerOnly        true for MIN/MAX: only the winning row(s) are listed
- * @param summaryLines      datasource-specific totals over all listed rows (empty when none)
+ * @param summaryLines      datasource-specific totals over all listed rows (empty when none); kept for
+ *                          compatibility, the client shows {@code groupTotals} instead
  * @param filters           one human-readable chip per KPI filter clause (internal clauses excluded)
  * @param rowAction         {@code transaction} / {@code breakdown} when rows open a detail view, else null
  * @param groupField        field the client groups rows by while no runtime sort is active, else null
+ * @param groupTotals       with a {@code groupField}: each group's figure (the KPI's aggregation of
+ *                          its measure over every listed row of that group, all pages), keyed by
+ *                          the group field's raw value; empty when there is no grouping
  * @param notCounted        items left out of the figure on purpose or by failure (empty when none)
  * @param sortKey           echo of the runtime sort key; null when the default order applies
  * @param sortDirection     echo of the runtime sort direction ({@code asc}/{@code desc}); null by default
@@ -55,8 +60,21 @@ public record KpiUnderlyingResponse(
         List<UnderlyingFilterChip> filters,
         @Nullable String rowAction,
         @Nullable String groupField,
+        Map<String, BigDecimal> groupTotals,
         List<UnderlyingExcludedItem> notCounted,
         @Nullable String sortKey,
         @Nullable String sortDirection,
         ReportData table) {
+
+    /** A response without grouping (no group totals). */
+    public KpiUnderlyingResponse(String period, String datasource, @Nullable UnderlyingRange range,
+            boolean previousAvailable, @Nullable UnderlyingRange previousRange, String measure, String measureLabel,
+            String aggregation, @Nullable String format, @Nullable BigDecimal value, long rowCount, boolean winnerOnly,
+            List<UnderlyingSummaryLine> summaryLines, List<UnderlyingFilterChip> filters, @Nullable String rowAction,
+            @Nullable String groupField, List<UnderlyingExcludedItem> notCounted, @Nullable String sortKey,
+            @Nullable String sortDirection, ReportData table) {
+        this(period, datasource, range, previousAvailable, previousRange, measure, measureLabel, aggregation, format,
+                value, rowCount, winnerOnly, summaryLines, filters, rowAction, groupField, Map.of(), notCounted,
+                sortKey, sortDirection, table);
+    }
 }

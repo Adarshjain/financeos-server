@@ -183,7 +183,8 @@ public class RewardEarningsDatasource implements ComputedReportDatasource {
         map.put("mcc", line.mcc());
         map.put("cycle", period(reportLine.cycleStart(), reportLine.cycleEnd()));
         map.put("rewardYear", period(reportLine.rewardYearStart(), reportLine.rewardYearEnd()));
-        map.put("description", line.description());
+        // The text the transaction shows: its own description, else the one it was imported with.
+        map.put("description", line.description() != null ? line.description() : line.sourcedDescription());
         map.put("valueInr", value);
         map.put("cashInr", cash);
         map.put("points", points);
