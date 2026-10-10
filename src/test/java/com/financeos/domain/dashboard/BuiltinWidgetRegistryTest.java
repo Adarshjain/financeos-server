@@ -28,6 +28,16 @@ import com.financeos.domain.report.datasource.DatasourceCatalog;
 import com.financeos.domain.report.datasource.DatasourceRegistry;
 import com.financeos.domain.report.datasource.impl.NetWorthDatasource;
 import com.financeos.domain.report.datasource.impl.ObligationsDatasource;
+import com.financeos.domain.report.datasource.impl.PositionsDatasource;
+import com.financeos.domain.report.datasource.impl.RewardCapsDatasource;
+import com.financeos.domain.report.datasource.impl.RewardEarningsDatasource;
+import com.financeos.domain.report.datasource.impl.RewardMilestonesDatasource;
+import com.financeos.domain.report.datasource.impl.RewardReportSupport;
+import com.financeos.domain.report.datasource.impl.TransactionsDatasource;
+import com.financeos.domain.report.engine.DateRangeResolver;
+import com.financeos.domain.report.engine.SqlPredicates;
+import com.financeos.domain.investment.InvestmentService;
+import com.financeos.domain.reward.RewardCalculationService;
 import com.financeos.domain.report.definition.ReportDefinitions;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -55,14 +65,17 @@ class BuiltinWidgetRegistryTest {
 
     @Test
     void allListsTheFourEntriesInCatalogOrder() {
-        assertEquals(List.of("net_worth", "attention", "upcoming", "bills_due"),
+        assertEquals(List.of("net_worth", "attention", "upcoming", "bills_due",
+                        "card_utilisation", "milestone_progress", "cap_headroom", "rewards_earned", "spend_heatmap",
+                        "portfolio_snapshot", "top_movers", "allocation", "tax_harvest", "loan_payoff",
+                        "lending_balances", "account_tile", "emergency_fund", "shortcuts"),
                 registry.all().stream().map(Entry::key).toList());
     }
 
     @Test
     void allIsAnUnmodifiableSnapshot() {
         assertThrows(UnsupportedOperationException.class, () -> registry.all().clear());
-        assertEquals(4, registry.all().size());
+        assertEquals(18, registry.all().size());
     }
 
     @Test
@@ -352,9 +365,15 @@ class BuiltinWidgetRegistryTest {
 
     @Test
     void templatesAreValidDefinitionsForTheirDatasources() {
+        DateRangeResolver dates = new DateRangeResolver(4);
         DatasourceRegistry datasources = new DatasourceRegistry(List.of(
                 new NetWorthDatasource(mock(AccountService.class), mock(LoanService.class), mock(LendingService.class)),
-                new ObligationsDatasource(mock(ObligationsService.class))), new DatasourceCatalog());
+                new ObligationsDatasource(mock(ObligationsService.class)),
+                new RewardMilestonesDatasource(mock(RewardCalculationService.class), mock(RewardReportSupport.class)),
+                new RewardCapsDatasource(mock(RewardCalculationService.class), mock(RewardReportSupport.class)),
+                new RewardEarningsDatasource(mock(RewardCalculationService.class), mock(RewardReportSupport.class)),
+                new PositionsDatasource(mock(InvestmentService.class)),
+                new TransactionsDatasource(new SqlPredicates(dates), dates)), new DatasourceCatalog());
         ReportDefinitionValidator validator = new ReportDefinitionValidator(datasources);
 
         for (Entry entry : registry.all()) {

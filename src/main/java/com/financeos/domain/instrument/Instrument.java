@@ -48,6 +48,20 @@ public class Instrument {
     @Column(nullable = false)
     private String currency = "INR";
 
+    /** Allocation bucket; null until classified (readers fall back to {@link AssetClassifier#effectiveAssetClass}). */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "asset_class", length = 20)
+    private AssetClass assetClass;
+
+    /** Mutual funds: the raw AMFI scheme-category header, e.g. "Open Ended Schemes(Equity Scheme - Large Cap Fund)". */
+    @Column(name = "scheme_category", length = 200)
+    private String schemeCategory;
+
+    /** Where {@link #assetClass} came from: AMFI or RULE (a user's override is per user, in {@link UserInstrumentOverride}). */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "asset_class_source", length = 10)
+    private AssetClassSource assetClassSource;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

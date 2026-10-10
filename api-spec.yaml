@@ -555,6 +555,40 @@ paths:
           description: Error response
       tags:
       - account-controller
+  /api/v1/accounts/{id}/balance-series:
+    get:
+      operationId: getBalanceSeries
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: days
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 30
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BalancePointResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-balance-series-controller
   /api/v1/accounts/{id}/card-summary:
     get:
       operationId: getCardCycleSummary
@@ -1312,6 +1346,9 @@ paths:
       - corporate-action-controller
   /api/v1/counterparties:
     get:
+      description: "People with ledger totals, paged. q narrows by name; outstanding=true\
+        \ keeps only nonzero net positions; sort=net orders by absolute net position,\
+        \ largest first (then name)."
       operationId: getCounterparties
       parameters:
       - in: query
@@ -1319,6 +1356,12 @@ paths:
         required: false
         schema:
           type: string
+      - in: query
+        name: outstanding
+        required: false
+        schema:
+          type: boolean
+          default: false
       - description: Zero-based page index (0..N)
         in: query
         name: page
@@ -1602,6 +1645,35 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ReportData"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - dashboard-controller
+  /api/v1/dashboards/builtins/{key}/definition:
+    post:
+      operationId: resolveBuiltinDefinition
+      parameters:
+      - in: path
+        name: key
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BuiltinDataRequest"
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BuiltinDefinitionResponse"
           description: OK
         default:
           content:
@@ -2333,6 +2405,24 @@ paths:
           description: Error response
       tags:
       - inbox-controller
+  /api/v1/insights/emergency-fund:
+    get:
+      operationId: emergencyFund
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EmergencyFundResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - insights-controller
   /api/v1/instruments:
     get:
       operationId: search
@@ -2351,6 +2441,20 @@ paths:
           - stock
           - mutual_fund
           - etf
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50
       responses:
         "200":
           content:
@@ -2475,6 +2579,36 @@ paths:
           description: Error response
       tags:
       - instrument-controller
+    patch:
+      operationId: updateInstrumentAssetClass
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateInstrumentAssetClassRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InstrumentResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - instrument-controller
     put:
       operationId: update_1
       parameters:
@@ -2490,6 +2624,31 @@ paths:
             schema:
               $ref: "#/components/schemas/InstrumentRequest"
         required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InstrumentResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - instrument-controller
+  /api/v1/instruments/{id}/overrides:
+    delete:
+      operationId: resetInstrumentOverrides
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
       responses:
         "200":
           content:
@@ -3693,6 +3852,43 @@ paths:
           description: Error response
       tags:
       - investment-controller
+  /api/v1/investments/tax/harvest:
+    get:
+      operationId: harvest
+      parameters:
+      - in: query
+        name: fy
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TaxHarvestResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - tax-harvest-controller
   /api/v1/investments/transactions:
     get:
       operationId: getTransactions
@@ -6995,6 +7191,17 @@ components:
       - identifierId
       - jobIds
       - reactivatedCount
+    BalancePointResponse:
+      type: object
+      properties:
+        balance:
+          type: number
+        date:
+          type: string
+          format: date
+      required:
+      - balance
+      - date
     BankAccountRequest:
       type: object
       properties:
@@ -7475,13 +7682,45 @@ components:
         params:
           nullable: true
           x-nullable: true
+    BuiltinDefinitionResponse:
+      type: object
+      properties:
+        datasource:
+          type: string
+        definition: {}
+        key:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+        windowAsOf:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+      required:
+      - datasource
+      - definition
+      - key
+      - label
+      - type
     BuiltinParamResponse:
       type: object
       properties:
         defaultValue:
           nullable: true
           x-nullable: true
+        itemPattern:
+          type: string
+          nullable: true
+          x-nullable: true
         max:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        maxItems:
           type: integer
           format: int32
           nullable: true
@@ -7493,6 +7732,18 @@ components:
           x-nullable: true
         name:
           type: string
+        options:
+          type: array
+          items:
+            type: string
+            nullable: true
+            x-nullable: true
+          nullable: true
+          x-nullable: true
+        ref:
+          type: string
+          nullable: true
+          x-nullable: true
         required:
           type: boolean
         type:
@@ -7504,6 +7755,8 @@ components:
     BuiltinRefResponse:
       type: object
       properties:
+        category:
+          type: string
         href:
           type: string
           nullable: true
@@ -7517,11 +7770,20 @@ components:
         minW:
           type: integer
           format: int32
+        subtitle:
+          type: string
+          nullable: true
+          x-nullable: true
         templateType:
           type: string
           nullable: true
           x-nullable: true
+        view:
+          type: string
+          nullable: true
+          x-nullable: true
       required:
+      - category
       - key
       - kind
       - label
@@ -7529,6 +7791,8 @@ components:
     BuiltinWidgetResponse:
       type: object
       properties:
+        category:
+          type: string
         datasource:
           type: string
           nullable: true
@@ -7552,6 +7816,14 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/BuiltinParamResponse"
+        requires:
+          type: string
+          nullable: true
+          x-nullable: true
+        subtitle:
+          type: string
+          nullable: true
+          x-nullable: true
         templateDefinition:
           nullable: true
           x-nullable: true
@@ -7559,7 +7831,16 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        unavailableReason:
+          type: string
+          nullable: true
+          x-nullable: true
+        view:
+          type: string
+          nullable: true
+          x-nullable: true
       required:
+      - category
       - description
       - key
       - kind
@@ -8382,6 +8663,8 @@ components:
           type: string
         instrumentSymbol:
           type: string
+          nullable: true
+          x-nullable: true
         notes:
           type: string
           nullable: true
@@ -8418,7 +8701,6 @@ components:
       - id
       - instrumentId
       - instrumentName
-      - instrumentSymbol
       - ratioFrom
       - ratioTo
       - type
@@ -9151,6 +9433,10 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        effectiveCreditLimit:
+          type: number
+          nullable: true
+          x-nullable: true
         excludeFromNetAsset:
           type: boolean
         financialPosition:
@@ -9208,6 +9494,10 @@ components:
         updatedAt:
           type: string
           format: date-time
+        utilizationPct:
+          type: number
+          nullable: true
+          x-nullable: true
         warnings:
           type: array
           items:
@@ -9663,6 +9953,8 @@ components:
           type: string
         symbol:
           type: string
+          nullable: true
+          x-nullable: true
         tds:
           type: number
           nullable: true
@@ -9687,7 +9979,6 @@ components:
       - payDate
       - receiptStatus
       - source
-      - symbol
       - type
     DividendSuggestionsResponse:
       type: object
@@ -9757,6 +10048,38 @@ components:
       - date
       - id
       - signedAmount
+    EmergencyFundResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: "#/components/schemas/LiquidAccount"
+        band:
+          type: string
+          nullable: true
+          x-nullable: true
+        historyMonths:
+          type: integer
+          format: int32
+        liquidBalance:
+          type: number
+        medianOutflow:
+          type: number
+        months:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonthOutflow"
+        monthsCovered:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - accounts
+      - historyMonths
+      - liquidBalance
+      - medianOutflow
+      - months
     EnqueueResponse:
       type: object
       properties:
@@ -10289,6 +10612,211 @@ components:
           type: string
       required:
       - authorizationUrl
+    HarvestLosses:
+      type: object
+      properties:
+        longTerm:
+          type: number
+        shortTerm:
+          type: number
+        total:
+          type: number
+      required:
+      - longTerm
+      - shortTerm
+      - total
+    HarvestOpenLot:
+      type: object
+      properties:
+        assetClass:
+          type: string
+          enum:
+          - EQUITY
+          - DEBT
+          - HYBRID
+          - GOLD
+          - INTERNATIONAL
+          - OTHER
+        broker:
+          type: string
+        buyDate:
+          type: string
+          format: date
+        cost:
+          type: number
+        costPerUnit:
+          type: number
+        daysToLongTerm:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        gain:
+          type: number
+        grandfathered:
+          type: boolean
+        holdingId:
+          type: string
+          format: uuid
+        instrument:
+          type: string
+        instrumentId:
+          type: string
+          format: uuid
+        longTermOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        price:
+          type: number
+          nullable: true
+          x-nullable: true
+        quantity:
+          type: number
+        taxClass:
+          type: string
+          enum:
+          - EQUITY_ORIENTED
+          - SPECIFIED_DEBT
+          - OTHER
+        term:
+          type: string
+        value:
+          type: number
+      required:
+      - assetClass
+      - broker
+      - buyDate
+      - cost
+      - costPerUnit
+      - gain
+      - grandfathered
+      - holdingId
+      - instrument
+      - instrumentId
+      - quantity
+      - taxClass
+      - term
+      - value
+    HarvestOpenLotPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/HarvestOpenLot"
+        page:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    HarvestOtherGains:
+      type: object
+      properties:
+        longTerm:
+          type: number
+        shortTerm:
+          type: number
+        total:
+          type: number
+      required:
+      - longTerm
+      - shortTerm
+      - total
+    HarvestRealised:
+      type: object
+      properties:
+        exemptionLeft:
+          type: number
+        exemptionLimit:
+          type: number
+        exemptionUsed:
+          type: number
+        ltcg:
+          type: number
+        ltcl:
+          type: number
+        ltclCarriedForward:
+          type: number
+        netEquityLtcg:
+          type: number
+        netLtcg:
+          type: number
+        netStcg:
+          type: number
+        otherGains:
+          $ref: "#/components/schemas/HarvestOtherGains"
+        slabGains:
+          type: number
+        stcg:
+          type: number
+        stcl:
+          type: number
+        stclCarriedForward:
+          type: number
+        taxableLtcg:
+          type: number
+      required:
+      - exemptionLeft
+      - exemptionLimit
+      - exemptionUsed
+      - ltcg
+      - ltcl
+      - ltclCarriedForward
+      - netEquityLtcg
+      - netLtcg
+      - netStcg
+      - otherGains
+      - slabGains
+      - stcg
+      - stcl
+      - stclCarriedForward
+      - taxableLtcg
+    HarvestSummary:
+      type: object
+      properties:
+        harvestableLosses:
+          $ref: "#/components/schemas/HarvestLosses"
+        harvestableLtcg:
+          type: number
+        turningLongTermSoon:
+          $ref: "#/components/schemas/HarvestTurningLongTerm"
+        unrealisedLongTermEquityGain:
+          type: number
+      required:
+      - harvestableLosses
+      - harvestableLtcg
+      - turningLongTermSoon
+      - unrealisedLongTermEquityGain
+    HarvestTurningLongTerm:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        gain:
+          type: number
+        withinDays:
+          type: integer
+          format: int32
+      required:
+      - count
+      - gain
+      - withinDays
     ImportCommitRequest:
       type: object
       properties:
@@ -10670,6 +11198,8 @@ components:
           format: date
         close:
           type: number
+        editable:
+          type: boolean
         id:
           type: string
           format: uuid
@@ -10682,6 +11212,7 @@ components:
       required:
       - asOf
       - close
+      - editable
       - id
       - source
     InstrumentRequest:
@@ -10689,17 +11220,29 @@ components:
       properties:
         amfiCode:
           type: string
+          maxLength: 50
+          minLength: 0
         currency:
           type: string
+          maxLength: 10
+          minLength: 0
         exchange:
           type: string
+          maxLength: 20
+          minLength: 0
         isin:
           type: string
+          maxLength: 50
+          minLength: 0
         name:
           type: string
+          maxLength: 255
+          minLength: 0
           x-required: true
         symbol:
           type: string
+          maxLength: 50
+          minLength: 0
         type:
           type: string
           enum:
@@ -10709,6 +11252,8 @@ components:
           x-required: true
         yahooSymbol:
           type: string
+          maxLength: 50
+          minLength: 0
       required:
       - name
       - type
@@ -10717,6 +11262,23 @@ components:
       properties:
         amfiCode:
           type: string
+          nullable: true
+          x-nullable: true
+        assetClass:
+          type: string
+          enum:
+          - EQUITY
+          - DEBT
+          - HYBRID
+          - GOLD
+          - INTERNATIONAL
+          - OTHER
+        assetClassSource:
+          type: string
+          enum:
+          - AMFI
+          - RULE
+          - MANUAL
           nullable: true
           x-nullable: true
         createdAt:
@@ -10752,12 +11314,34 @@ components:
           - MANUAL
           nullable: true
           x-nullable: true
+        mergeNote:
+          type: string
+          nullable: true
+          x-nullable: true
+        mergedHoldings:
+          type: boolean
         name:
           type: string
+        overridden:
+          type: boolean
+        overriddenFields:
+          type: array
+          items:
+            type: string
+        schemeCategory:
+          type: string
+          nullable: true
+          x-nullable: true
         symbol:
           type: string
           nullable: true
           x-nullable: true
+        taxClass:
+          type: string
+          enum:
+          - EQUITY_ORIENTED
+          - SPECIFIED_DEBT
+          - OTHER
         type:
           type: string
           enum:
@@ -10772,10 +11356,15 @@ components:
           nullable: true
           x-nullable: true
       required:
+      - assetClass
       - createdAt
       - currency
       - id
+      - mergedHoldings
       - name
+      - overridden
+      - overriddenFields
+      - taxClass
       - type
       - updatedAt
     InstrumentTypeSummaryDto:
@@ -11288,6 +11877,23 @@ components:
           x-required: true
       required:
       - transactionId
+    LiquidAccount:
+      type: object
+      properties:
+        balance:
+          type: number
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          type: string
+      required:
+      - balance
+      - id
+      - name
+      - type
     LlmBucketHealthDto:
       type: object
       properties:
@@ -11938,6 +12544,19 @@ components:
       - label
       - structuredOutput
       - trainsOnData
+    MonthOutflow:
+      type: object
+      properties:
+        beforeHistory:
+          type: boolean
+        month:
+          type: string
+        outflow:
+          type: number
+      required:
+      - beforeHistory
+      - month
+      - outflow
     MuteAccountRequest:
       type: object
       properties:
@@ -12835,6 +13454,17 @@ components:
           type: number
           nullable: true
           x-nullable: true
+        assetClass:
+          type: string
+          enum:
+          - EQUITY
+          - DEBT
+          - HYBRID
+          - GOLD
+          - INTERNATIONAL
+          - OTHER
+          nullable: true
+          x-nullable: true
         avgBuy:
           type: number
           nullable: true
@@ -12859,6 +13489,14 @@ components:
           nullable: true
           x-nullable: true
         currentValue:
+          type: number
+          nullable: true
+          x-nullable: true
+        dayChange:
+          type: number
+          nullable: true
+          x-nullable: true
+        dayChangePct:
           type: number
           nullable: true
           x-nullable: true
@@ -12911,6 +13549,15 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        previousClose:
+          type: number
+          nullable: true
+          x-nullable: true
+        previousCloseAsOf:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         provider:
           type: string
         quantity:
@@ -12925,6 +13572,14 @@ components:
           x-nullable: true
         sellValue:
           type: number
+          nullable: true
+          x-nullable: true
+        taxClass:
+          type: string
+          enum:
+          - EQUITY_ORIENTED
+          - SPECIFIED_DEBT
+          - OTHER
           nullable: true
           x-nullable: true
         totalCharges:
@@ -14546,6 +15201,12 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        notCounted:
+          type: boolean
+        notCountedReason:
+          type: string
+          nullable: true
+          x-nullable: true
         notes:
           type: array
           items:
@@ -14573,6 +15234,7 @@ components:
       required:
       - asOf
       - datasource
+      - notCounted
       - notes
       - rowId
       - sections
@@ -15445,6 +16107,24 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/InstrumentTypeSummaryDto"
+        dayChange:
+          type: number
+          nullable: true
+          x-nullable: true
+        dayChangePct:
+          type: number
+          nullable: true
+          x-nullable: true
+        previousPriceAsOf:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        priceAsOf:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         totalCharges:
           type: number
         totalCurrentValue:
@@ -15516,6 +16196,30 @@ components:
       - totalExecutions
       - unresolvedInstruments
       - warningsCount
+    TaxHarvestResponse:
+      type: object
+      properties:
+        fy:
+          type: integer
+          format: int32
+        fyEnd:
+          type: string
+          format: date
+        fyStart:
+          type: string
+          format: date
+        openLots:
+          $ref: "#/components/schemas/HarvestOpenLotPage"
+        realised:
+          $ref: "#/components/schemas/HarvestRealised"
+        summary:
+          $ref: "#/components/schemas/HarvestSummary"
+      required:
+      - fy
+      - fyEnd
+      - fyStart
+      - openLots
+      - realised
     TestKeyRequest:
       type: object
       properties:
@@ -16045,6 +16749,20 @@ components:
       - amount
       - payDate
       - type
+    UpdateInstrumentAssetClassRequest:
+      type: object
+      properties:
+        assetClass:
+          type: string
+          enum:
+          - EQUITY
+          - DEBT
+          - HYBRID
+          - GOLD
+          - INTERNATIONAL
+          - OTHER
+          nullable: true
+          x-nullable: true
     UpdateInvestmentTransactionRequest:
       type: object
       properties:

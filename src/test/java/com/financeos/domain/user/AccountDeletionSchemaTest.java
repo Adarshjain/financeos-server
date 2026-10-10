@@ -25,6 +25,12 @@ class AccountDeletionSchemaTest {
             Pattern.CASE_INSENSITIVE
     );
 
+    /** A user_id added to an existing table later (also inside an EXECUTE IMMEDIATE string). */
+    private static final Pattern ADD_USER_ID_PATTERN = Pattern.compile(
+            "ALTER\\s+TABLE\\s+([a-zA-Z0-9_]+)\\s+ADD\\s*\\(?\\s*user_id\\b",
+            Pattern.CASE_INSENSITIVE
+    );
+
     private static final Pattern USER_ID_COLUMN_PATTERN = Pattern.compile(
             "\\buser_id\\b",
             Pattern.CASE_INSENSITIVE
@@ -62,6 +68,10 @@ class AccountDeletionSchemaTest {
                         tablesWithUserId.add(tableName);
                     }
                 }
+                Matcher addMatcher = ADD_USER_ID_PATTERN.matcher(content);
+                while (addMatcher.find()) {
+                    tablesWithUserId.add(addMatcher.group(1).trim().toLowerCase(Locale.ROOT));
+                }
             }
         }
 
@@ -76,7 +86,8 @@ class AccountDeletionSchemaTest {
                 "jobs", "gmail_processed_messages", "gmail_sync_cursors", "dashboards", "reports",
                 "category_rules", "gmail_connections", "gmail_senders", "gmail_backfill_demand",
                 "llm_api_keys", "llm_task_prefs", "fno_trades", "user_notification_settings",
-                "inbox_item_state"
+                "inbox_item_state", "user_instrument_overrides", "instrument_prices", "instrument_aliases",
+                "user_instrument_repoints"
         );
 
         for (String table : tablesWithUserId) {

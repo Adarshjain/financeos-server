@@ -24,6 +24,9 @@ public interface LendingRepository extends JpaRepository<Lending, UUID> {
 
     boolean existsByCounterparty_Id(UUID counterpartyId);
 
+    /** Whether the user has recorded any lending entry (the lending_balances widget's availability). */
+    boolean existsByUser_Id(UUID userId);
+
     boolean existsByTransaction_Id(UUID transactionId);
 
     // --- fetch-joined variants: responses embed the linked transaction + its account, and the

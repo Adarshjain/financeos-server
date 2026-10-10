@@ -2,12 +2,16 @@ package com.financeos.api.dashboard;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.financeos.api.dashboard.dto.BuiltinDataRequest;
+import com.financeos.api.dashboard.dto.BuiltinDefinitionResponse;
 import com.financeos.api.dashboard.dto.BuiltinParamResponse;
 import com.financeos.api.dashboard.dto.BuiltinWidgetResponse;
 import com.financeos.api.dashboard.dto.CreateDashboardRequest;
 import com.financeos.api.dashboard.dto.DashboardResponse;
 import com.financeos.api.dashboard.dto.UpdateDashboardRequest;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
+import com.financeos.domain.dashboard.BuiltinAvailability;
+import com.financeos.domain.dashboard.BuiltinAvailabilityService;
 import com.financeos.domain.dashboard.BuiltinWidgetRegistry;
 import com.financeos.domain.dashboard.DashboardService;
 import com.financeos.domain.dashboard.HomeDashboardSeeder;
@@ -34,13 +38,16 @@ public class DashboardController {
     private final HomeDashboardSeeder homeSeeder;
     private final BuiltinWidgetRegistry builtins;
     private final ReportDataService reportDataService;
+    private final BuiltinAvailabilityService availability;
 
     public DashboardController(DashboardService dashboardService, HomeDashboardSeeder homeSeeder,
-            BuiltinWidgetRegistry builtins, ReportDataService reportDataService) {
+            BuiltinWidgetRegistry builtins, ReportDataService reportDataService,
+            BuiltinAvailabilityService availability) {
         this.dashboardService = dashboardService;
         this.homeSeeder = homeSeeder;
         this.builtins = builtins;
         this.reportDataService = reportDataService;
+        this.availability = availability;
     }
 
     private UUID requireCurrentUserId() {
@@ -70,10 +77,16 @@ public class DashboardController {
         return ResponseEntity.ok(dashboardService.getDefault());
     }
 
-    /** The built-in widget catalog: what the editor can place, with each entry's param schema. */
+    /**
+     * The built-in widget catalog: what the editor can place, with each entry's param schema and,
+     * per the current user, why an entry cannot be used yet ({@code unavailableReason}).
+     */
     @GetMapping("/api/v1/dashboards/builtins")
     public ResponseEntity<List<BuiltinWidgetResponse>> listBuiltins() {
-        return ResponseEntity.ok(builtins.all().stream().map(this::toResponse).toList());
+        BuiltinAvailability.Facts facts = availability.factsFor(requireCurrentUserId());
+        return ResponseEntity.ok(builtins.all().stream()
+                .map(entry -> toResponse(entry, availability.unavailableReason(entry, facts)))
+                .toList());
     }
 
     /**
@@ -93,6 +106,26 @@ public class DashboardController {
         JsonNode definition = builtins.resolveDefinition(entry, params);
         return ResponseEntity.ok(reportDataService.runDefinition(
                 entry.templateType(), entry.datasource(), definition, page, size, sort));
+    }
+
+    /**
+     * The definition a template built-in runs for these params — the params and the request-time
+     * filters (today's reward windows, the card filter, the months/days horizon) applied exactly as
+     * {@code POST /builtins/{key}/data} applies them — for saving as the caller's own report. Date
+     * windows that a relative preset expresses stay relative; today's reward windows are pinned as
+     * fixed dates ({@code windowAsOf} = today). 400 for a component built-in or invalid params.
+     */
+    @PostMapping("/api/v1/dashboards/builtins/{key}/definition")
+    public ResponseEntity<BuiltinDefinitionResponse> resolveBuiltinDefinition(
+            @PathVariable String key,
+            @RequestBody(required = false) BuiltinDataRequest request) {
+        requireCurrentUserId();
+        BuiltinWidgetRegistry.Entry entry = builtins.require(key);
+        JsonNode params = request == null ? null : request.params();
+        JsonNode definition = builtins.resolveDefinition(entry, params);
+        return ResponseEntity.ok(new BuiltinDefinitionResponse(entry.key(), entry.label(),
+                entry.templateType().name(), entry.datasource(), definition,
+                BuiltinWidgetRegistry.pinsTodaysWindow(entry) ? AppTime.today() : null));
     }
 
     /** Creates a fresh Home dashboard (the seeded layout) and makes it the default. */
@@ -119,12 +152,14 @@ public class DashboardController {
         return ResponseEntity.noContent().build();
     }
 
-    private BuiltinWidgetResponse toResponse(BuiltinWidgetRegistry.Entry entry) {
+    private BuiltinWidgetResponse toResponse(BuiltinWidgetRegistry.Entry entry, String unavailableReason) {
         JsonNode templateWithDefaults = entry.isTemplate() ? builtins.resolveDefinition(entry, null) : null;
         List<BuiltinParamResponse> params = entry.params().stream()
-                .map(p -> new BuiltinParamResponse(p.name(), p.type(), p.required(), p.defaultValue(), p.min(), p.max()))
+                .map(p -> new BuiltinParamResponse(p.name(), p.type(), p.required(), p.defaultValue(), p.min(),
+                        p.max(), p.ref(), p.options(), p.maxItems(), p.itemPattern()))
                 .toList();
-        return new BuiltinWidgetResponse(entry.key(), entry.label(), entry.description(), entry.minW(), entry.kind(),
+        return new BuiltinWidgetResponse(entry.key(), entry.label(), entry.description(), entry.category(),
+                entry.subtitle(), entry.requires(), entry.view(), unavailableReason, entry.minW(), entry.kind(),
                 entry.templateType() == null ? null : entry.templateType().name(), entry.datasource(),
                 templateWithDefaults, entry.href(), params);
     }

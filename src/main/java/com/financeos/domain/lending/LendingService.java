@@ -19,6 +19,7 @@ import net.logstash.logback.argument.StructuredArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
@@ -77,6 +78,64 @@ public class LendingService {
 
         Counterparty saved = counterpartyRepository.save(cp);
         return CounterpartyResponse.from(saved, BigDecimal.ZERO, BigDecimal.ZERO, 0);
+    }
+
+    /** Sort key on {@code GET /counterparties} that orders by absolute net position, largest first. */
+    public static final String SORT_BY_NET = "net";
+
+    /**
+     * Lists the caller's counterparties, paged. A non-blank {@code q} narrows to names containing it
+     * (case-insensitive); {@code outstanding} keeps only people with a nonzero net position; a
+     * {@code sort=net} (either direction) orders by absolute net position, largest first, then name.
+     * Without either option this is the plain database page.
+     */
+    @Transactional(readOnly = true)
+    public Page<CounterpartyResponse> getCounterparties(@Nullable String q, boolean outstanding, Pageable pageable) {
+        boolean byNet = pageable.getSort().getOrderFor(SORT_BY_NET) != null;
+        if (!outstanding && !byNet) {
+            return getCounterparties(q, pageable);
+        }
+        String term = q == null ? "" : q.trim().toLowerCase(java.util.Locale.ROOT);
+        List<Object[]> rows = counterpartyRepository.findNetPositions(UserContext.getCurrentUserId());
+        List<NetRow> nets = new ArrayList<>();
+        for (Object[] row : rows) {
+            UUID id = row[0] instanceof UUID u ? u : UUID.fromString(row[0].toString());
+            String name = row[1] == null ? "" : row[1].toString();
+            BigDecimal net = row[2] instanceof BigDecimal bd ? bd : new BigDecimal(row[2].toString());
+            if (!term.isEmpty() && !name.toLowerCase(java.util.Locale.ROOT).contains(term)) {
+                continue;
+            }
+            if (outstanding && net.signum() == 0) {
+                continue;
+            }
+            nets.add(new NetRow(id, name, net));
+        }
+        Comparator<NetRow> byName = Comparator.comparing(NetRow::name, String.CASE_INSENSITIVE_ORDER);
+        Sort.Order nameOrder = pageable.getSort().getOrderFor("name");
+        if (nameOrder != null && nameOrder.isDescending()) {
+            byName = byName.reversed();
+        }
+        Comparator<NetRow> order = byNet
+                ? Comparator.comparing((NetRow r) -> r.net().abs(), Comparator.reverseOrder()).thenComparing(byName)
+                : byName;
+        nets.sort(order.thenComparing(NetRow::id));
+
+        List<NetRow> slice = pageable.isUnpaged()
+                ? nets
+                : nets.subList((int) Math.min(pageable.getOffset(), nets.size()),
+                        (int) Math.min(pageable.getOffset() + pageable.getPageSize(), nets.size()));
+        Map<UUID, Counterparty> byId = new HashMap<>();
+        counterpartyRepository.findAllById(slice.stream().map(NetRow::id).toList())
+                .forEach(cp -> byId.put(cp.getId(), cp));
+        List<CounterpartyResponse> content = slice.stream()
+                .map(r -> byId.get(r.id()))
+                .filter(java.util.Objects::nonNull)
+                .map(this::toCounterpartyResponse)
+                .toList();
+        return new PageImpl<>(content, pageable, nets.size());
+    }
+
+    private record NetRow(UUID id, String name, BigDecimal net) {
     }
 
     /** Lists the caller's counterparties; a non-blank {@code q} narrows to names containing it (case-insensitive). */
@@ -424,6 +483,12 @@ public class LendingService {
 
     // --- Aggregates & Helper Methods ---
 
+    /**
+     * Outstanding totals across people. Each person's net is kind-agnostic — every lent-direction
+     * entry (principal or settlement) minus every borrowed-direction one — so it equals
+     * {@link CounterpartyResponse#netPosition()}; positive nets sum into lentOutstanding, negative
+     * ones into borrowedOutstanding.
+     */
     @Transactional(readOnly = true)
     public LendingTotals getLendingTotals() {
         List<Counterparty> counterparties = counterpartyRepository.findAll();

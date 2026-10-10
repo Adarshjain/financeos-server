@@ -17,6 +17,7 @@ import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountCreditCardDetails;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.account.AccountService;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementCreditCardDetails;
@@ -58,6 +59,7 @@ class CardBillServiceTest {
     private StatementRepository statementRepository;
     private TransactionRepository transactionRepository;
     private TransactionLinkRepository linkRepository;
+    private AccountService accountService;
     private CardBillService service;
 
     private User user;
@@ -70,7 +72,10 @@ class CardBillServiceTest {
         statementRepository = mock(StatementRepository.class);
         transactionRepository = mock(TransactionRepository.class);
         linkRepository = mock(TransactionLinkRepository.class);
-        service = new CardBillService(accountRepository, statementRepository, transactionRepository, linkRepository);
+        accountService = mock(AccountService.class);
+        when(accountService.populateLiveBalance(any())).thenAnswer(inv -> inv.getArgument(0));
+        service = new CardBillService(accountRepository, statementRepository, transactionRepository, linkRepository,
+                accountService);
 
         user = new User();
         user.setId(UUID.randomUUID());
@@ -155,7 +160,7 @@ class CardBillServiceTest {
         assertEquals(18L, bill.daysUntilDue());
         assertEquals("HDFC Regalia", bill.accountName());
         assertNull(bill.last4());
-        assertEquals(new BigDecimal("24.1"), bill.digest().utilizationPct());
+        assertNull(bill.digest().utilizationPct(), "build() leaves the live utilisation to the read paths");
         assertEquals(12, bill.digest().transactionCount());
         assertTrue(bill.possiblePayments().isEmpty());
     }
@@ -272,13 +277,20 @@ class CardBillServiceTest {
     }
 
     @Test
-    void utilizationFallsBackToTheAccountLimitAndIsNullWithout() {
+    void digestCreditLimitPrefersTheAccountLimitAndFallsBackToTheLatestStatementWithOne() {
         Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("50000"), TODAY.plusDays(18));
-        assertEquals(new BigDecimal("25.0"), service.build(card, s, TODAY).digest().utilizationPct());
         s.getCreditCardDetails().setCreditLimit(new BigDecimal("100000"));
-        assertEquals(new BigDecimal("50.0"), service.build(card, s, TODAY).digest().utilizationPct());
+        when(statementRepository.findLatestCreditLimits(eq(card.getId()), any())).thenReturn(List.of(new BigDecimal("150000")));
+        assertEquals(new BigDecimal("200000"), service.build(card, s, TODAY).digest().creditLimit(),
+                "the card's own limit wins over any statement's");
+        verify(statementRepository, never()).findLatestCreditLimits(any(), any());
+
+        // Without its own limit: the latest statement that has one (the same fallback utilisation uses),
+        // not necessarily the statement being shown.
         card.setCreditCardDetails(null);
-        s.getCreditCardDetails().setCreditLimit(null);
+        assertEquals(new BigDecimal("150000"), service.build(card, s, TODAY).digest().creditLimit());
+        when(statementRepository.findLatestCreditLimits(eq(card.getId()), any())).thenReturn(List.of());
+        assertNull(service.build(card, s, TODAY).digest().creditLimit());
         assertNull(service.build(card, s, TODAY).digest().utilizationPct());
     }
 

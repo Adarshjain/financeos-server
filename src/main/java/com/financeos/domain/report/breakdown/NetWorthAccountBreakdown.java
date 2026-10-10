@@ -6,6 +6,7 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountService;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.holding.HoldingRepository;
+import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.investment.HoldingPosition;
 import com.financeos.domain.investment.InvestmentService;
 import com.financeos.domain.notification.MessageFormat;
@@ -91,7 +92,7 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
 
     @Override
     public Optional<RowBreakdownResponse> breakdown(UUID id, int size) {
-        return countedAccount(id).map(account -> account.getType() == AccountType.broker
+        return ownedAccount(id).map(account -> account.getType() == AccountType.broker
                 ? broker(account, size)
                 : ledger(account, size));
     }
@@ -103,10 +104,10 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
 
     @Override
     public Optional<ReportData> section(UUID id, String section, int page, int size, @Nullable SortClause sort) {
-        return countedAccount(id).map(account -> {
+        return ownedAccount(id).map(account -> {
             boolean broker = account.getType() == AccountType.broker;
             if (broker && HOLDINGS.equals(section)) {
-                return BreakdownTables.sorted(HOLDING_COLUMNS, holdingRows(openPositions(account)), sort, page, size);
+                return BreakdownTables.sorted(HOLDING_COLUMNS, holdingRows(openPositions(account), overrides()), sort, page, size);
             }
             if (!broker && TRANSACTIONS.equals(section)) {
                 return sort == null
@@ -117,10 +118,21 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
         });
     }
 
-    /** The user's account when it is a row of net worth today (not excluded, not closed). */
-    private Optional<Account> countedAccount(UUID id) {
-        return accountService.findOwnedAccount(id)
-                .filter(account -> NetWorthPlacement.omission(account, AppTime.today()) == null);
+    /**
+     * The current user's account (another user's or an unknown id is empty → 404). Accounts net
+     * worth leaves out today (excluded, closed) are served too, flagged not counted.
+     */
+    private Optional<Account> ownedAccount(UUID id) {
+        return accountService.findOwnedAccount(id);
+    }
+
+    /** {@link NetWorthBreakdownProvider#accountResponse} with the account's omission today. */
+    private static RowBreakdownResponse response(Account account, NetWorthPlacement placement, String totalLabel,
+                                                 List<BreakdownStep> steps, List<BreakdownSectionData> sections,
+                                                 List<String> notes) {
+        return NetWorthBreakdownProvider.accountResponse(account.getId(), account.getName(),
+                kindLabel(account.getType()), placement, totalLabel, steps, sections, notes,
+                NetWorthPlacement.omission(account, AppTime.today()), account.getClosedOn());
     }
 
     // ------------------------------------------------------------------ bank / generic / credit card
@@ -171,8 +183,7 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
         BreakdownSectionData transactions = new BreakdownSectionData(TRANSACTIONS,
                 since == null ? "Transactions" : "Transactions after " + since, "transaction", null,
                 transactionsTable(account, anchor, 0, size));
-        return NetWorthBreakdownProvider.response(account.getId(), account.getName(), kindLabel(account.getType()),
-                placement, totalLabel, steps, List.of(transactions), notes);
+        return response(account, placement, totalLabel, steps, List.of(transactions), notes);
     }
 
     /** Adds a movement of {@code count} transactions, or nothing when there are none. */
@@ -251,9 +262,8 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
         List<BreakdownStep> steps = chain.close("Balance", placement.value(), "broker account " + account.getId());
 
         BreakdownSectionData section = new BreakdownSectionData(HOLDINGS, "Holdings", "breakdown", "positions",
-                BreakdownTables.slice(HOLDING_COLUMNS, holdingRows(open), 0, size));
-        return NetWorthBreakdownProvider.response(account.getId(), account.getName(), kindLabel(account.getType()),
-                placement, "Balance", steps, List.of(section), List.of());
+                BreakdownTables.slice(HOLDING_COLUMNS, holdingRows(open, overrides()), 0, size));
+        return response(account, placement, "Balance", steps, List.of(section), List.of());
     }
 
     /** Holdings that add to the balance: those with a current value (open quantity). */
@@ -266,19 +276,24 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
     }
 
     /** Largest value first, then by instrument name and holding id for a stable order. */
-    private static List<Map<String, Object>> holdingRows(List<HoldingPosition> positions) {
+    /** The current user's instrument overrides (holding rows show their names). */
+    private InstrumentOverrides overrides() {
+        return InstrumentOverrides.orNone(investmentService.instrumentOverrides());
+    }
+
+    private static List<Map<String, Object>> holdingRows(List<HoldingPosition> positions, InstrumentOverrides ov) {
         return positions.stream()
                 .sorted(Comparator.comparing(HoldingPosition::currentValue).reversed()
-                        .thenComparing(p -> p.holding().getInstrument().getName(), Comparator.nullsLast(Comparator.naturalOrder()))
+                        .thenComparing(p -> ov.name(p.holding().getInstrument()), Comparator.nullsLast(Comparator.naturalOrder()))
                         .thenComparing(p -> p.holding().getId()))
-                .map(NetWorthAccountBreakdown::holdingRow)
+                .map(p -> holdingRow(p, ov))
                 .toList();
     }
 
-    private static Map<String, Object> holdingRow(HoldingPosition p) {
+    private static Map<String, Object> holdingRow(HoldingPosition p, InstrumentOverrides ov) {
         Map<String, Object> row = new LinkedHashMap<>();
         row.put("id", p.holding().getId().toString());
-        row.put("instrument", p.holding().getInstrument().getName());
+        row.put("instrument", ov.name(p.holding().getInstrument()));
         row.put("quantity", p.openQty());
         row.put("price", p.latestPrice());
         row.put("priceDate", p.priceAsOf());

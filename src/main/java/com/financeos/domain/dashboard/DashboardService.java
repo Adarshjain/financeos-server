@@ -107,7 +107,8 @@ public class DashboardService {
     /** The response shape of a registry entry when a widget references it. */
     public static BuiltinRefResponse toBuiltinRef(BuiltinWidgetRegistry.Entry entry) {
         return new BuiltinRefResponse(entry.key(), entry.label(), entry.minW(), entry.kind(),
-                entry.templateType() == null ? null : entry.templateType().name(), entry.href());
+                entry.templateType() == null ? null : entry.templateType().name(), entry.href(),
+                entry.category(), entry.subtitle(), entry.view());
     }
 
     // ------------------------------------------------------------------ helpers

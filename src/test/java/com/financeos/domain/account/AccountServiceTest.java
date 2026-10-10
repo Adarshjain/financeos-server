@@ -234,12 +234,15 @@ class AccountServiceTest {
         stmt.setCreditCardDetails(details);
 
         when(statementRepository.findByAccountIdOrderByPeriodEndAsc(accountId)).thenReturn(List.of(stmt));
+        // Utilisation is live: the card owes 15,000 now against the statement's 1,00,000 limit.
+        when(statementRepository.findLatestCreditLimits(eq(accountId), any())).thenReturn(List.of(new BigDecimal("100000.00")));
+        when(transactionRepository.findTotalTransactionSumByAccountId(accountId)).thenReturn(new BigDecimal("-15000.00"));
 
         CardCycleSummaryResponse summary = accountService.getCardCycleSummary(accountId);
 
         assertNotNull(summary);
         assertEquals(stmt.getId(), summary.statementId());
-        assertEquals(new BigDecimal("15.00"), summary.utilizationPct());
+        assertEquals(new BigDecimal("15.0"), summary.utilizationPct());
         assertEquals(10L, summary.daysUntilDue());
         assertEquals(1, summary.history().size());
     }

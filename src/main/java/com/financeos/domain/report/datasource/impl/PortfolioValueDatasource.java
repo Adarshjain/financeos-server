@@ -3,11 +3,13 @@ package com.financeos.domain.report.datasource.impl;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.holding.Holding;
 import com.financeos.domain.holding.HoldingRepository;
+import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.instrument.InstrumentPrice;
 import com.financeos.domain.instrument.InstrumentPriceRepository;
 import com.financeos.domain.instrument.InstrumentType;
-import com.financeos.domain.investment.InvestmentService;
+import com.financeos.domain.instrument.PricePrecedence;
 import com.financeos.domain.investment.InvestmentService.Lot;
+import com.financeos.domain.investment.InvestmentService;
 import com.financeos.domain.investment.InvestmentTransactionRepository;
 import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
@@ -93,7 +95,24 @@ public class PortfolioValueDatasource implements ComputedReportDatasource {
                 .map(h -> h.getInstrument().getId())
                 .distinct()
                 .toList();
-        List<InstrumentPrice> allPrices = priceRepository.findByInstrumentIdInOrderByAsOfAsc(instrumentIds);
+        // The prices and instrument overrides of ONE user — the holdings' owner: the signed-in user, or
+        // outside a request (jobs, chat) the user the holdings belong to. Feed prices plus their own
+        // MANUAL ones (theirs win on a date); IN lists chunked below Oracle's 1000 limit.
+        java.util.UUID viewer = com.financeos.core.security.UserContext.getCurrentUserId();
+        if (viewer == null && holdings.get(0).getUser() != null) {
+            viewer = holdings.get(0).getUser().getId();
+        }
+        List<InstrumentPrice> visible = new ArrayList<>();
+        for (List<java.util.UUID> chunk : com.financeos.domain.instrument.InstrumentLocalSearch.chunks(instrumentIds)) {
+            List<InstrumentPrice> rows = priceRepository.findVisibleByInstrumentIds(chunk, viewer);
+            if (rows != null) {
+                visible.addAll(rows);
+            }
+        }
+        visible.sort(java.util.Comparator.comparing(InstrumentPrice::getAsOf,
+                java.util.Comparator.nullsFirst(java.util.Comparator.naturalOrder())));
+        List<InstrumentPrice> allPrices = PricePrecedence.collapse(visible);
+        InstrumentOverrides overrides = InstrumentOverrides.orNone(investmentService.instrumentOverridesOf(viewer));
         Map<java.util.UUID, List<InstrumentPrice>> priceMap = new LinkedHashMap<>();
         for (InstrumentPrice p : allPrices) {
             priceMap.computeIfAbsent(p.getInstrument().getId(), k -> new ArrayList<>()).add(p);
@@ -162,8 +181,8 @@ public class PortfolioValueDatasource implements ComputedReportDatasource {
                     map.put("valueDate", d);
                     map.put("value", val.setScale(2, RoundingMode.HALF_UP));
                     map.put("broker", holding.getBrokerAccount().getName());
-                    map.put("instrumentType", holding.getInstrument().getType().name());
-                    map.put("instrument", holding.getInstrument().getName());
+                    map.put("instrumentType", overrides.type(holding.getInstrument()).name());
+                    map.put("instrument", overrides.name(holding.getInstrument()));
 
                     rows.add(map);
                 }

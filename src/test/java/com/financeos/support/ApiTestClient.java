@@ -59,6 +59,32 @@ public final class ApiTestClient {
         return response;
     }
 
+    /** PATCHes {@code body} as JSON and parses the response, failing unless the status is {@code expected}. */
+    public JsonNode patchJson(String path, String jsonBody, int expected) throws Exception {
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.patch(path).cookie(session)
+                        .contentType(MediaType.APPLICATION_JSON).content(jsonBody))
+                .andReturn().getResponse();
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        return json(response, expected, "PATCH " + path);
+    }
+
+    /** PUTs {@code body} as JSON and parses the response, failing unless the status is {@code expected}. */
+    public JsonNode putJson(String path, Object body, int expected) throws Exception {
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put(path).cookie(session)
+                        .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(body)))
+                .andReturn().getResponse();
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        return json(response, expected, "PUT " + path);
+    }
+
+    /** DELETEs {@code path} and parses the response (null node when empty), failing unless the status is {@code expected}. */
+    public JsonNode deleteJson(String path, int expected) throws Exception {
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.delete(path).cookie(session))
+                .andReturn().getResponse();
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        return json(response, expected, "DELETE " + path);
+    }
+
     /** GETs {@code path} and returns the raw response, whatever its status. */
     public MockHttpServletResponse get(String path) throws Exception {
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(path).cookie(session))

@@ -23,6 +23,10 @@ import java.util.List;
  * @param steps      the reconciling chain plus standalone {@code info} facts, in display order
  * @param sections   supporting tables, each holding its first page
  * @param notes      muted explanatory lines
+ * @param notCounted true when the row's item exists but is not counted in its datasource's total
+ *                   today (a net worth account marked excluded, or closed); its breakdown is still
+ *                   served so the balance can be explained
+ * @param notCountedReason why it is not counted ("Excluded from net worth" / "Closed"), or null
  */
 public record RowBreakdownResponse(
         String datasource,
@@ -36,5 +40,16 @@ public record RowBreakdownResponse(
         LocalDate asOf,
         List<BreakdownStep> steps,
         List<BreakdownSectionData> sections,
-        List<String> notes) {
+        List<String> notes,
+        boolean notCounted,
+        @Nullable String notCountedReason) {
+
+    /** A row that counts towards its datasource's total. */
+    public RowBreakdownResponse(String datasource, String rowId, String title, @Nullable String subtitle,
+                                @Nullable String kindLabel, BigDecimal total, String totalLabel,
+                                @Nullable String format, LocalDate asOf, List<BreakdownStep> steps,
+                                List<BreakdownSectionData> sections, List<String> notes) {
+        this(datasource, rowId, title, subtitle, kindLabel, total, totalLabel, format, asOf, steps, sections, notes,
+                false, null);
+    }
 }

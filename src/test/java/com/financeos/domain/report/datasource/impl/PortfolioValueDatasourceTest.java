@@ -102,7 +102,7 @@ class PortfolioValueDatasourceTest {
         p1.setAsOf(LocalDate.of(2026, 1, 20));
         p1.setClose(new BigDecimal("2500"));
 
-        when(priceRepository.findByInstrumentIdInOrderByAsOfAsc(anyList()))
+        when(priceRepository.findVisibleByInstrumentIds(anyList(), org.mockito.ArgumentMatchers.any()))
                 .thenReturn(List.of(p1));
 
         List<Map<String, Object>> rows = datasource.rows();
@@ -141,7 +141,7 @@ class PortfolioValueDatasourceTest {
                 });
 
         // No stored price history
-        when(priceRepository.findByInstrumentIdInOrderByAsOfAsc(anyList()))
+        when(priceRepository.findVisibleByInstrumentIds(anyList(), org.mockito.ArgumentMatchers.any()))
                 .thenReturn(List.of());
 
         List<Map<String, Object>> rows = datasource.rows();

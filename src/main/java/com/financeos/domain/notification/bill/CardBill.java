@@ -74,6 +74,20 @@ public record CardBill(
     }
 
     /** The same bill with the two read-side extras filled in. */
+    /** This bill with the digest's live utilisation set (a bill without a digest is returned as is). */
+    public CardBill withUtilization(@Nullable BigDecimal utilizationPct) {
+        if (digest == null) {
+            return this;
+        }
+        Digest withPct = new Digest(digest.totalPurchases(), digest.paymentsReceived(), digest.financeCharges(),
+                digest.feesAndCharges(), digest.rewardPointsEarned(), digest.rewardPointsBalance(),
+                digest.creditLimit(), utilizationPct, digest.transactionCount());
+        return new CardBill(accountId, accountName, last4, statementId, periodStart, periodEnd, paymentDueDate,
+                totalAmountDue, minimumAmountDue, paidAmount, remainingAmount, paidSource, status, daysUntilDue,
+                paidMarkedOn, possiblePayments, muted, statementCreatedAt, lastNotifiedKind, lastNotifiedOn, withPct,
+                unbilledAmount, nextStatementExpectedOn);
+    }
+
     public CardBill withUnbilled(@Nullable BigDecimal unbilledAmount, @Nullable LocalDate nextStatementExpectedOn) {
         return new CardBill(accountId, accountName, last4, statementId, periodStart, periodEnd, paymentDueDate,
                 totalAmountDue, minimumAmountDue, paidAmount, remainingAmount, paidSource, status, daysUntilDue,

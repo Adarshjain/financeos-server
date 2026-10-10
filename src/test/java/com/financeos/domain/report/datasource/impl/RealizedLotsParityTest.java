@@ -138,7 +138,8 @@ class RealizedLotsParityTest {
         sell.setType(InvestmentTransactionType.sell);
         sell.setQuantity(new BigDecimal("10"));
         sell.setPrice(new BigDecimal("80"));
-        sell.setTradeDate(LocalDate.of(2025, 1, 1));
+        // Held more than 12 months (exactly 12 — 2025-01-01 — is still short term).
+        sell.setTradeDate(LocalDate.of(2025, 1, 2));
 
         com.financeos.domain.instrument.corporateaction.CorporateAction split =
                 new com.financeos.domain.instrument.corporateaction.CorporateAction();

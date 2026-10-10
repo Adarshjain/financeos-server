@@ -36,4 +36,15 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
 
     @Query("SELECT s.id AS id, s.periodEnd AS periodEnd, s.closingBalance AS closingBalance FROM Statement s WHERE s.account.id = :accountId AND s.periodEnd IS NOT NULL AND s.closingBalance IS NOT NULL AND s.verdict != com.financeos.domain.statement.StatementVerdict.REJECTED ORDER BY s.periodEnd DESC, s.createdAt DESC")
     List<AnchorStatementProjection> findEligibleAnchorStatements(@Param("accountId") UUID accountId, org.springframework.data.domain.Pageable pageable);
+
+    /**
+     * Credit limits printed on the account's non-rejected statements, newest first (pass a one-row
+     * page for the latest): the utilisation fallback for a card without a limit of its own.
+     */
+    @Query("SELECT d.creditLimit FROM StatementCreditCardDetails d JOIN d.statement s " +
+           "WHERE s.account.id = :accountId AND d.creditLimit IS NOT NULL " +
+           "AND (s.verdict IS NULL OR s.verdict <> com.financeos.domain.statement.StatementVerdict.REJECTED) " +
+           "ORDER BY s.periodEnd DESC NULLS LAST, s.createdAt DESC")
+    List<java.math.BigDecimal> findLatestCreditLimits(@Param("accountId") UUID accountId,
+                                                       org.springframework.data.domain.Pageable pageable);
 }

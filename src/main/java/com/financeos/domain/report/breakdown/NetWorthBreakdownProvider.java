@@ -9,6 +9,9 @@ import com.financeos.domain.report.engine.ReportData;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,8 +20,9 @@ import java.util.function.BiFunction;
 /**
  * Explains a {@code net_worth} row. The row id is an account, loan or counterparty id; it is
  * resolved by looking it up as each in turn, among the current user's rows of net worth today
- * (an excluded or closed account, an inactive loan or a settled counterparty is no row and
- * answers 404). Each kind recomputes its value through the same services and
+ * (an inactive loan or a settled counterparty is no row and answers 404). An account net worth
+ * leaves out (excluded or closed) is still explained, flagged {@code notCounted} with its reason,
+ * so its balance can be followed from a surface that shows it outside net worth. Each kind recomputes its value through the same services and
  * {@link NetWorthPlacement} rules the datasource uses, so the breakdown's total is the row's value.
  */
 @Component
@@ -80,5 +84,38 @@ public class NetWorthBreakdownProvider implements RowBreakdownProvider {
         return new RowBreakdownResponse(DATASOURCE, id.toString(), name,
                 NetWorthDatasource.sideLabel(placement.side()), kindLabel,
                 placement.value(), totalLabel, BreakdownChain.CURRENCY, AppTime.today(), steps, sections, notes);
+    }
+
+    /** Subtitle of an item net worth leaves out today. */
+    static final String NOT_COUNTED_SUBTITLE = "Not counted in net worth";
+    static final String EXCLUDED_REASON = "Excluded from net worth";
+    static final String CLOSED_REASON = "Closed";
+    private static final DateTimeFormatter DAY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    /**
+     * {@link #response} for an account; when net worth leaves it out today ({@code omission} non-null)
+     * the response is subtitled {@link #NOT_COUNTED_SUBTITLE}, flagged {@code notCounted} with the
+     * reason, and its first note says why the balance is not part of the total.
+     */
+    static RowBreakdownResponse accountResponse(UUID id, String name, String kindLabel, NetWorthPlacement placement,
+                                                String totalLabel, List<BreakdownStep> steps,
+                                                List<BreakdownSectionData> sections, List<String> notes,
+                                                @Nullable NetWorthPlacement.Omission omission,
+                                                @Nullable LocalDate closedOn) {
+        if (omission == null) {
+            return response(id, name, kindLabel, placement, totalLabel, steps, sections, notes);
+        }
+        String reason = omission == NetWorthPlacement.Omission.EXCLUDED ? EXCLUDED_REASON : CLOSED_REASON;
+        String why = omission == NetWorthPlacement.Omission.EXCLUDED
+                ? "This account is marked excluded from net worth, so its balance is not part of the total."
+                : "This account was closed" + (closedOn != null
+                        ? " on " + DAY.format(closedOn) : "")
+                        + ", so its balance is not part of the total.";
+        List<String> allNotes = new ArrayList<>();
+        allNotes.add(why);
+        allNotes.addAll(notes);
+        return new RowBreakdownResponse(DATASOURCE, id.toString(), name, NOT_COUNTED_SUBTITLE, kindLabel,
+                placement.value(), totalLabel, BreakdownChain.CURRENCY, AppTime.today(), steps, sections,
+                List.copyOf(allNotes), true, reason);
     }
 }

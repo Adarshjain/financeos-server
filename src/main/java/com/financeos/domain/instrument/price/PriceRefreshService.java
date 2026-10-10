@@ -23,17 +23,20 @@ public class PriceRefreshService {
     private final HoldingRepository holdingRepository;
     private final List<PriceProvider> priceProviders;
     private final PriceProperties priceProperties;
+    private final InstrumentClassificationService classificationService;
 
     public PriceRefreshService(InstrumentRepository instrumentRepository,
                                InstrumentPriceRepository priceRepository,
                                HoldingRepository holdingRepository,
                                List<PriceProvider> priceProviders,
-                               PriceProperties priceProperties) {
+                               PriceProperties priceProperties,
+                               InstrumentClassificationService classificationService) {
         this.instrumentRepository = instrumentRepository;
         this.priceRepository = priceRepository;
         this.holdingRepository = holdingRepository;
         this.priceProviders = priceProviders;
         this.priceProperties = priceProperties;
+        this.classificationService = classificationService;
     }
 
     /**
@@ -82,6 +85,8 @@ public class PriceRefreshService {
             }
         }
 
+        classify(targets);
+
         for (Map.Entry<PriceProvider, List<Instrument>> entry : grouped.entrySet()) {
             PriceProvider provider = entry.getKey();
             List<Instrument> providerTargets = entry.getValue();
@@ -97,12 +102,14 @@ public class PriceRefreshService {
                 try {
                     PriceQuote quote = quotes.get(inst.getId());
                     if (quote != null && quote.close() != null && quote.asOf() != null) {
-                        Optional<InstrumentPrice> existingPrice = priceRepository.findByInstrumentIdAndAsOf(inst.getId(), quote.asOf());
+                        // Only the shared (ownerless) row of the date: a user's own MANUAL price is a
+                        // separate row the refresh never reads, overwrites or deletes.
+                        Optional<InstrumentPrice> existingPrice = priceRepository.findByInstrumentIdAndAsOfAndUserIdIsNull(inst.getId(), quote.asOf());
                         if (existingPrice.isPresent()) {
                             InstrumentPrice ep = existingPrice.get();
                             if (ep.getSource() == PriceSource.MANUAL) {
                                 skippedCount++;
-                                log.info("Skipping price refresh for instrument {} on {} as MANUAL price override exists.", inst.getName(), quote.asOf());
+                                log.info("Skipping price refresh for instrument {} on {} as a legacy shared MANUAL price exists.", inst.getName(), quote.asOf());
                                 continue;
                             }
                             ep.setClose(quote.close());
@@ -133,6 +140,22 @@ public class PriceRefreshService {
         }
 
         return new PriceRefreshResult(refreshedCount, skippedCount, failedList, LocalDate.now(zoneId));
+    }
+
+    /**
+     * Keeps the refreshed instruments' asset classes current (AMFI header for funds, rules for the
+     * rest; MANUAL untouched). Best effort: a classification problem never fails the price refresh.
+     */
+    private void classify(List<Instrument> targets) {
+        for (Instrument inst : targets) {
+            try {
+                if (classificationService.classify(inst)) {
+                    instrumentRepository.save(inst);
+                }
+            } catch (Exception e) {
+                log.warn("Could not classify instrument {}: {}", inst.getId(), e.getMessage());
+            }
+        }
     }
 
     /** Human-readable label for error messages: "Name (SYMBOL)" when the symbol adds information. */

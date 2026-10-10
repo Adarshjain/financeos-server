@@ -51,6 +51,7 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             "(CASE WHEN EXISTS (SELECT 1 FROM dividends x WHERE x.transaction_id = t.id) THEN 1 ELSE 0 END)";
 
     private static final String CATEGORY = "category";
+    private static final String ACCOUNT = "account";
 
     public static final String JOIN_ACCOUNTS = "ACCOUNTS";
     public static final String JOIN_CATEGORIES = "CATEGORIES";
@@ -134,6 +135,9 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
      */
     @Override
     protected String specialPredicate(FilterClause filter, UUID userId, Map<String, Object> params, Set<String> joins, int idx) {
+        if (ACCOUNT.equals(filter.field())) {
+            return accountPredicate(filter, params, joins, "f" + idx);
+        }
         if (CATEGORY.equals(filter.field())) {
             String p = "f" + idx;
             String semiJoin = sqlPredicates.category(filter.operator(), filter.value(), params, p, idExpression());
@@ -159,6 +163,65 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             parts.add("(t.account_id = :" + p + "a AND " + EFFECTIVE_DATE + " BETWEEN :" + p + "s AND :" + p + "e)");
         }
         return parts.isEmpty() ? "1 = 0" : "(" + String.join(" OR ", parts) + ")";
+    }
+
+    /**
+     * Account filters hold account names (the filter dropdown) or account ids (links built by the
+     * app, e.g. the emergency fund drill, where names may repeat). A value that parses as a UUID
+     * matches the transaction's account id, any other value the account's name; a positive operator
+     * matches either, a negated one excludes both. Null when every value is a name (the standard
+     * name predicate applies).
+     */
+    private String accountPredicate(FilterClause filter, Map<String, Object> params, Set<String> joins, String p) {
+        String op = filter.operator();
+        if (filter.value() == null) {
+            return null;
+        }
+        List<String> values = new ArrayList<>();
+        if (filter.value().isArray()) {
+            filter.value().forEach(v -> values.add(v.asText()));
+        } else {
+            values.add(filter.value().asText());
+        }
+        List<String> ids = new ArrayList<>();
+        List<String> names = new ArrayList<>();
+        for (String v : values) {
+            if (isUuid(v)) {
+                ids.add(v.toLowerCase());
+            } else {
+                names.add(v);
+            }
+        }
+        if (ids.isEmpty()) {
+            return null;
+        }
+        boolean negated = "is_not".equals(op) || "not_in".equals(op);
+        if (!negated && !"is".equals(op) && !"in".equals(op)) {
+            return null;
+        }
+        params.put(p + "i", ids);
+        String byId = negated ? "t.account_id NOT IN (:" + p + "i)" : "t.account_id IN (:" + p + "i)";
+        if (names.isEmpty()) {
+            return byId;
+        }
+        params.put(p + "n", names);
+        String name = expression(ACCOUNT, joins);
+        String byName = negated
+                ? "(" + name + " NOT IN (:" + p + "n) OR " + name + " IS NULL)"
+                : name + " IN (:" + p + "n)";
+        return "(" + byId + (negated ? " AND " : " OR ") + byName + ")";
+    }
+
+    private static boolean isUuid(String value) {
+        if (value == null || value.length() != 36) {
+            return false;
+        }
+        try {
+            UUID.fromString(value);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     private BillingCycleService requireCycles() {

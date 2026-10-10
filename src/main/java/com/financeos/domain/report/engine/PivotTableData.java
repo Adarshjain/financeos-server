@@ -39,6 +39,16 @@ public record PivotTableData(
     public record ColumnHeader(String key, Map<String, String> values) {
     }
 
-    public record Row(String key, Map<String, String> values, Map<String, Map<String, Object>> cells) {
+    /**
+     * One row group. {@code ids} (computed datasources only, else omitted) carries the stable id
+     * behind each row dimension that has one ({@code card} -> its {@code cardId}), keyed by the
+     * dimension's id field, so a client can link a row to the thing it groups.
+     */
+    public record Row(String key, Map<String, String> values, Map<String, Map<String, Object>> cells,
+                      @JsonInclude(JsonInclude.Include.NON_NULL) Map<String, String> ids) {
+
+        public Row(String key, Map<String, String> values, Map<String, Map<String, Object>> cells) {
+            this(key, values, cells, null);
+        }
     }
 }

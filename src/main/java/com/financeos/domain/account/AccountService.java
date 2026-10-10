@@ -189,6 +189,16 @@ public class AccountService {
                         batch != null ? batch.totalSum() : null,
                         batch != null ? batch.postAnchorSum() : null
                 );
+                // The statement-limit fallback rides on the same batch row: no per-card query.
+                if (account.getType() == AccountType.credit_card) {
+                    BigDecimal limit = CardUtilization.limit(CardUtilization.accountLimit(account),
+                            batch != null ? batch.latestStatementCreditLimit() : null);
+                    account.setEffectiveCreditLimit(limit);
+                    account.setUtilizationPct(CardUtilization.pct(account.getCalculatedBalance(), limit, null));
+                } else {
+                    account.setEffectiveCreditLimit(null);
+                    account.setUtilizationPct(null);
+                }
             }
         }
 
@@ -506,17 +516,10 @@ public class AccountService {
             daysUntilDue = java.time.temporal.ChronoUnit.DAYS.between(AppTime.today(), d.getPaymentDueDate());
         }
 
-        BigDecimal creditLimit = d != null && d.getCreditLimit() != null
-                ? d.getCreditLimit()
-                : (account.getCreditCardDetails() != null ? account.getCreditCardDetails().getCreditLimit() : null);
-
-        BigDecimal utilizationPct = null;
-        if (d != null && creditLimit != null && creditLimit.compareTo(BigDecimal.ZERO) > 0 && d.getTotalAmountDue() != null) {
-            utilizationPct = d.getTotalAmountDue()
-                    .divide(creditLimit, 4, java.math.RoundingMode.HALF_UP)
-                    .multiply(new BigDecimal("100"))
-                    .setScale(2, java.math.RoundingMode.HALF_UP);
-        }
+        // Live utilisation (balance now ÷ limit), the same figure GET /accounts reports; the limit
+        // shown beside it is the one it was computed against.
+        BigDecimal creditLimit = account.getEffectiveCreditLimit();
+        BigDecimal utilizationPct = account.getUtilizationPct();
 
         return new CardCycleSummaryResponse(
                 latest.getId(),
@@ -532,6 +535,29 @@ public class AccountService {
                 d != null ? d.getRewardPointsBalance() : null,
                 history
         );
+    }
+
+    /**
+     * Fills the account's transient balance fields (and, for a credit card, its live utilisation)
+     * exactly as {@link #getAccountById} does, without the ownership check: for callers that already
+     * hold an owned account entity.
+     */
+    @Transactional(readOnly = true)
+    public Account populateLiveBalance(Account account) {
+        populateBalanceInfo(account);
+        return account;
+    }
+
+    /** Live utilisation for a card whose balance is populated; the statement limit is read only when needed. */
+    private void applyUtilization(Account account) {
+        if (account.getType() != AccountType.credit_card) {
+            account.setEffectiveCreditLimit(null);
+            account.setUtilizationPct(null);
+            return;
+        }
+        BigDecimal limit = CardUtilization.creditLimit(account, statementRepository);
+        account.setEffectiveCreditLimit(limit);
+        account.setUtilizationPct(CardUtilization.pct(account.getCalculatedBalance(), limit, null));
     }
 
     private void populateBalanceInfo(Account account) {
@@ -562,5 +588,6 @@ public class AccountService {
             BigDecimal totalSum = transactionRepository.findTotalTransactionSumByAccountId(account.getId());
             BalanceMath.apply(account, null, null, totalSum, null);
         }
+        applyUtilization(account);
     }
 }
