@@ -11667,6 +11667,10 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        groupTotals:
+          type: object
+          additionalProperties:
+            type: number
         measure:
           type: string
         measureLabel:
@@ -11714,6 +11718,7 @@ components:
       - aggregation
       - datasource
       - filters
+      - groupTotals
       - measure
       - measureLabel
       - notCounted
