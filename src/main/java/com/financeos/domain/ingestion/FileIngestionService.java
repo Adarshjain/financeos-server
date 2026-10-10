@@ -235,9 +235,10 @@ public class FileIngestionService {
                     }
                 }
 
-                // Check duplicates within the uploaded batch
+                // Check duplicates within the uploaded batch. Rows of one statement are distinct by
+                // definition, so only rows from different files (overlapping periods) can repeat.
                 for (int j = 0; j < newTransactionsToInsert.size(); j++) {
-                    if (i == j) continue;
+                    if (pendingLinks.get(i).fileIndex() == pendingLinks.get(j).fileIndex()) continue;
                     Transaction otherNewTx = newTransactionsToInsert.get(j);
                     if (transactionMatcher.areDuplicates(newTx, otherNewTx, dateWindow)) {
                         duplicateNewTxns.add(newTx);
