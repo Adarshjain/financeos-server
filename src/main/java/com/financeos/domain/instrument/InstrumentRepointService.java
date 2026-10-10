@@ -7,6 +7,7 @@ import com.financeos.domain.instrument.corporateaction.CorporateAction;
 import com.financeos.domain.instrument.corporateaction.CorporateActionRepository;
 import com.financeos.domain.instrument.price.PriceRefreshEvent;
 import com.financeos.domain.instrument.search.InstrumentSearchService;
+import com.financeos.domain.investment.InvestmentService;
 import jakarta.persistence.EntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +28,23 @@ import java.util.UUID;
  * only this user's references follow: holdings (merged into their existing holding of the target at
  * the same broker, trades, dividends and intraday classifications moving with them), intraday
  * classifications without a holding, SIPs, their own MANUAL prices, their own import aliases and their
- * asset-class override. The move is recorded ({@link InstrumentRepointMap}) so the user's later imports
- * of the source land on the target. A price fetch for the target follows the commit.
+ * asset-class override, and their own corporate actions (as the instrument they apply to and as the
+ * demerger child / merger acquirer), so their positions and cost are the same on the target as on the
+ * source. The move is recorded ({@link InstrumentRepointMap}) so the user's later imports of the source
+ * land on the target. A price fetch for the target follows the commit.
  *
- * <p>Refused when either instrument takes part in a corporate action: those are global and keyed by
- * instrument, so moving one user's lots across would detach a demerger / merger child from its parent
- * holding or apply a split / bonus to the wrong lots.
+ * <p>Corporate actions are per user, so carrying them touches no one else's. A repoint never changes
+ * the user's positions or cost, so onto an EXISTING target two moves are refused (400, naming the
+ * actions): one that would leave a demerger / merger of the user's pointing from an instrument into
+ * itself (the source and target are its two sides), and one that would let one of the user's actions
+ * reach lots it did not reach before — an action on the target while the source has lots (the moved
+ * lots would get it), or an action on the source while the target has lots (the target's lots, at any
+ * broker, would get it). A new target has no actions and no lots, so nothing is refused there. As a
+ * safety net on top of that rule, the user's figures (every holding's open quantity and cost, and
+ * realised gains) are computed before and after the move in the same transaction; a difference rolls
+ * the move back with a 400. Holdings merged at one broker are the exception: their trades become one
+ * FIFO history, so only their quantity must match ({@link Result#mergeChangedFigures} says whether
+ * their cost or realised gains moved).
  */
 @Service
 @Transactional
@@ -50,6 +62,7 @@ public class InstrumentRepointService {
     private final org.springframework.context.ApplicationEventPublisher eventPublisher;
     private final CorporateActionRepository corporateActionRepository;
     private final InstrumentRepointMap repointMap;
+    private final InvestmentService investmentService;
 
     public InstrumentRepointService(InstrumentSearchService searchService,
                                     InstrumentRepository instrumentRepository,
@@ -58,7 +71,8 @@ public class InstrumentRepointService {
                                     EntityManager entityManager,
                                     org.springframework.context.ApplicationEventPublisher eventPublisher,
                                     CorporateActionRepository corporateActionRepository,
-                                    InstrumentRepointMap repointMap) {
+                                    InstrumentRepointMap repointMap,
+                                    InvestmentService investmentService) {
         this.searchService = searchService;
         this.instrumentRepository = instrumentRepository;
         this.overrideService = overrideService;
@@ -67,14 +81,15 @@ public class InstrumentRepointService {
         this.eventPublisher = eventPublisher;
         this.corporateActionRepository = corporateActionRepository;
         this.repointMap = repointMap;
+        this.investmentService = investmentService;
     }
 
     /**
      * The outcome of a repoint: the instrument the user now holds, whether it was added to the catalog
-     * for this edit, whether a holding was merged into one they already had of it, and whether both
-     * merged holdings had sells (realised gains may then change).
+     * for this edit, whether a holding was merged into one they already had of it, and whether merging
+     * changed the merged holdings' open cost or realised gains (their trades became one FIFO history).
      */
-    public record Result(Instrument target, boolean created, boolean merged, boolean mergedWithSells) {
+    public record Result(Instrument target, boolean created, boolean merged, boolean mergeChangedFigures) {
     }
 
     /**
@@ -82,9 +97,13 @@ public class InstrumentRepointService {
      * Yahoo symbol — only the ones that differ from {@code source}'s: an unchanged one still names the
      * source), with {@code userId}'s references to {@code source} moved onto it. When none has them, a
      * new catalog row with the changed identifiers is added; its display fields are the source's
-     * catalog values except those the user changed ({@code changes}). Fails (400) when the identifiers
-     * lead back to {@code source} itself, when every changed identifier was cleared, or when either
-     * instrument takes part in a corporate action.
+     * catalog values except those the user changed ({@code changes}). When that new row cannot take the
+     * ticker (another row has it), the user's previous ticker (symbol + exchange as they saw them) is
+     * pinned as their own override so their holding keeps showing it. Fails (400) when the identifiers
+     * lead back to {@code source} itself, when every changed identifier was cleared, when one of the
+     * user's demergers / mergers has {@code source} and the target as its two sides, when one of the
+     * user's corporate actions would reach lots it did not reach before, or when the user's figures
+     * would change anyway (the move is then rolled back).
      */
     public Result repoint(UUID userId, Instrument source, InstrumentRequest request, DisplayChanges changes) {
         String isin = changed(source.getIsin(), request.isin());
@@ -103,17 +122,28 @@ public class InstrumentRepointService {
                             + "Enter a manual price instead, or use an ISIN, AMFI code or Yahoo symbol of another instrument.",
                     source.getName(), describeFeed(source)));
         }
-        refuseAcrossCorporateActions(source, target);
+        refuseSelfReferencingActions(userId, source, target);
+        refuseActionsReachingOtherLots(userId, source, target);
 
         boolean created = false;
+        boolean tickerDropped = false;
+        String keptSymbol = null;
+        String keptExchange = null;
         if (target == null) {
             String symbol = changes.symbol() ? blankToNull(request.symbol()) : source.getSymbol();
             String exchange = changes.exchange() ? blankToNull(request.exchange()) : source.getExchange();
             // A ticker is unique in the catalog (symbol + exchange): when another row already has it
-            // (typically the source itself) the new row goes without the symbol; a symbol the user
-            // typed then shows as their own override.
+            // (typically the source itself) the new row goes without the symbol; the ticker the user
+            // typed, or else the one they saw on the source, then shows as their own override.
             boolean tickerTaken = symbol != null && exchange != null
                     && instrumentRepository.existsTickerIgnoreCase(symbol.trim(), exchange.trim());
+            if (tickerTaken) {
+                // The ticker as the user saw it (their override over the source's catalog value).
+                InstrumentOverrides seen = InstrumentOverrides.orNone(overrideService.overridesFor(userId));
+                tickerDropped = true;
+                keptSymbol = changes.symbol() ? blankToNull(request.symbol()) : blankToNull(seen.symbol(source));
+                keptExchange = changes.exchange() ? blankToNull(request.exchange()) : blankToNull(seen.exchange(source));
+            }
             target = searchService.createFromRequest(new ResolveInstrumentRequest(
                     changes.type() && request.type() != null ? request.type() : source.getType(),
                     changes.name() && !blank(request.name()) ? request.name() : source.getName(),
@@ -128,16 +158,25 @@ public class InstrumentRepointService {
 
         // Pending entity changes first, so the SQL below sees and is not overwritten by them.
         entityManager.flush();
+        List<InvestmentService.HoldingFigures> figuresBefore = investmentService.figuresOf(userId);
         Moved moved = moveReferences(userId, source, finalTarget);
+        entityManager.clear();
+        boolean mergeChangedFigures = verifyFiguresUnchanged(userId, source, finalTarget, figuresBefore,
+                investmentService.figuresOf(userId), moved.mergedBrokers());
         entityManager.clear();
 
         overrideService.moveAssetClass(userId, source.getId(), finalTarget.getId());
-        repointMap.record(userId, source.getId(), finalTarget.getId());
         Instrument reloaded = entityManager.find(Instrument.class, finalTarget.getId());
+        if (tickerDropped && reloaded != null) {
+            // The new row went without the ticker; the user keeps seeing theirs as an override.
+            overrideService.setDisplay(userId, reloaded, null, keptSymbol, keptExchange, null, null,
+                    new DisplayChanges(false, true, true, false, false));
+        }
+        repointMap.record(userId, source.getId(), finalTarget.getId());
         log.info("Repointed user {} from instrument {} to {}: {}", userId, source.getId(), finalTarget.getId(), moved);
         eventPublisher.publishEvent(new PriceRefreshEvent(Set.of(finalTarget.getId())));
         return new Result(reloaded != null ? reloaded : finalTarget, created, moved.holdingsMerged() > 0,
-                moved.mergedWithSells());
+                mergeChangedFigures);
     }
     private static boolean blank(String value) {
         return value == null || value.isBlank();
@@ -178,30 +217,167 @@ public class InstrumentRepointService {
     }
 
     /**
-     * Refuses the move when {@code source} or {@code target} takes part in any corporate action (as
-     * the instrument it applies to or as its target), whatever its date. Corporate actions are global
-     * and keyed by instrument: a demerger / merger child finds its parent holding by (broker, parent
-     * instrument), and splits / bonuses adjust the lots of the instrument they name, so moving one
-     * user's lots across would detach or mis-adjust them. Future-dated ones count too: they will apply.
+     * Refuses the move when one of {@code userId}'s demergers / mergers has {@code source} on one side
+     * and {@code target} on the other: carried over, it would turn an instrument into itself. Only an
+     * existing target can be one (a new catalog row has no corporate actions yet). Other users'
+     * corporate actions are theirs and never block this user's move.
      */
-    private void refuseAcrossCorporateActions(Instrument source, @org.springframework.lang.Nullable Instrument target) {
-        List<UUID> ids = target == null ? List.of(source.getId()) : List.of(source.getId(), target.getId());
-        List<CorporateAction> actions = corporateActionRepository.findInvolving(ids);
-        if (actions.isEmpty()) {
+    private void refuseSelfReferencingActions(UUID userId, Instrument source,
+                                              @org.springframework.lang.Nullable Instrument target) {
+        if (target == null) {
             return;
         }
         List<String> described = new java.util.ArrayList<>();
-        for (CorporateAction ca : actions) {
-            described.add(describe(ca));
+        for (CorporateAction ca : corporateActionRepository.findOwnedInvolving(userId, List.of(source.getId(), target.getId()))) {
+            if (ca.getInstrument() == null || ca.getTargetInstrument() == null) {
+                continue;
+            }
+            UUID from = movedId(ca.getInstrument().getId(), source, target);
+            UUID to = movedId(ca.getTargetInstrument().getId(), source, target);
+            if (from.equals(to)) {
+                described.add(describe(ca));
+            }
         }
-        String who = target == null ? source.getName() + " is" : source.getName() + " or " + target.getName() + " is";
+        if (described.isEmpty()) {
+            return;
+        }
         throw new ValidationException(String.format(
-                "Can't switch the price feed of %s for one account: %s part of %s (%s). Corporate actions are "
-                        + "shared by every holder of an instrument, so one account's lots can't be moved across them. "
-                        + "Enter a manual price instead.",
-                source.getName(), who,
-                actions.size() == 1 ? "a corporate action" : actions.size() + " corporate actions",
-                String.join("; ", described)));
+                "Can't switch %s to %s: your %s would then be from %s into itself. Edit or delete that corporate "
+                        + "action first.",
+                source.getName(), target.getName(), String.join("; ", described), target.getName()));
+    }
+
+    /**
+     * Refuses a move onto an existing {@code target} that would let one of {@code userId}'s corporate
+     * actions reach lots it does not reach today (it would change their quantities and cost): an action
+     * on the target (split, bonus, demerger parent, merger transferor) while the source has lots — the
+     * moved lots would get it — or one on the source while the target has lots, at any broker. A side
+     * "has lots" when the user traded it or one of their demergers / mergers seeds shares into it.
+     * Actions that only seed shares into one side carry over without reaching anything new.
+     */
+    private void refuseActionsReachingOtherLots(UUID userId, Instrument source,
+                                                @org.springframework.lang.Nullable Instrument target) {
+        if (target == null) {
+            return;
+        }
+        List<CorporateAction> involved = corporateActionRepository.findOwnedInvolving(userId,
+                List.of(source.getId(), target.getId()));
+        boolean sourceHasLots = hasLots(userId, source.getId(), involved);
+        boolean targetHasLots = hasLots(userId, target.getId(), involved);
+        List<String> reasons = new java.util.ArrayList<>();
+        for (CorporateAction ca : involved) {
+            UUID on = ca.getInstrument() != null ? ca.getInstrument().getId() : null;
+            if (target.getId().equals(on) && sourceHasLots) {
+                reasons.add("your " + describe(ca) + " would also apply to the shares moved from " + source.getName());
+            } else if (source.getId().equals(on) && targetHasLots) {
+                reasons.add("your " + describe(ca) + " would also apply to the " + target.getName()
+                        + " shares you already hold");
+            }
+        }
+        if (reasons.isEmpty()) {
+            return;
+        }
+        throw new ValidationException(String.format(
+                "Can't switch %s to %s: %s. That would change your quantities and cost, and a switch keeps them as "
+                        + "they are. Edit or delete that corporate action first.",
+                source.getName(), target.getName(), String.join("; ", reasons)));
+    }
+
+    /** Whether {@code userId} has lots of {@code instrumentId}: a trade of it, or one of their demergers / mergers seeding into it. */
+    private boolean hasLots(UUID userId, UUID instrumentId, List<CorporateAction> involved) {
+        for (CorporateAction ca : involved) {
+            boolean seeds = ca.getType() == com.financeos.domain.instrument.corporateaction.CorporateActionType.demerger
+                    || ca.getType() == com.financeos.domain.instrument.corporateaction.CorporateActionType.merger;
+            if (seeds && ca.getTargetInstrument() != null && ca.getTargetInstrument().getId().equals(instrumentId)) {
+                return true;
+            }
+        }
+        Integer trades = jdbc.queryForObject("SELECT COUNT(*) FROM investment_transactions t JOIN holdings h "
+                + "ON h.id = t.holding_id WHERE h.user_id = ? AND h.instrument_id = ?", Integer.class,
+                userId.toString(), instrumentId.toString());
+        return trades != null && trades > 0;
+    }
+
+    /**
+     * The safety net under the rules above: {@code userId}'s figures after the move must equal those
+     * before, with the source's holdings counted as the target's. Per (broker, instrument): open
+     * quantity always; open cost and realised gains too, except where a source holding was merged into
+     * the target's at that broker (one FIFO history now). Any other difference — or a holding the
+     * engine can no longer compute — throws (400), rolling the whole move back.
+     *
+     * @return whether a merged holding's open cost or realised gains moved (beyond rounding)
+     */
+    static boolean verifyFiguresUnchanged(UUID userId, Instrument source, Instrument target,
+                                           List<InvestmentService.HoldingFigures> before,
+                                           List<InvestmentService.HoldingFigures> after,
+                                           Set<String> mergedBrokers) {
+        Map<String, Figures> was = aggregate(before, source.getId(), target.getId());
+        Map<String, Figures> now = aggregate(after, source.getId(), target.getId());
+        Set<String> keys = new java.util.TreeSet<>(was.keySet());
+        keys.addAll(now.keySet());
+        List<String> changed = new java.util.ArrayList<>();
+        boolean mergeChanged = false;
+        for (String key : keys) {
+            Figures a = was.getOrDefault(key, Figures.NONE);
+            Figures b = now.getOrDefault(key, Figures.NONE);
+            boolean merged = mergedBrokers.contains(key.substring(0, key.indexOf('|')))
+                    && key.endsWith("|" + target.getId());
+            boolean same = (b.error() == null || a.error() != null) && a.quantity().compareTo(b.quantity()) == 0;
+            if (same && !merged) {
+                same = a.openCost().compareTo(b.openCost()) == 0 && a.realized().compareTo(b.realized()) == 0;
+            }
+            if (merged && same && (a.openCost().subtract(b.openCost()).abs().compareTo(CENT) > 0
+                    || a.realized().subtract(b.realized()).abs().compareTo(CENT) > 0)) {
+                mergeChanged = true;
+            }
+            if (!same) {
+                Figures named = b.label() != null ? b : a;
+                changed.add(named.label() + " (quantity " + a.quantity().stripTrailingZeros().toPlainString() + " → "
+                        + b.quantity().stripTrailingZeros().toPlainString() + ", cost "
+                        + a.openCost().stripTrailingZeros().toPlainString() + " → "
+                        + b.openCost().stripTrailingZeros().toPlainString() + ")");
+            }
+        }
+        if (!changed.isEmpty()) {
+            log.warn("Repoint of user {} from {} to {} refused, figures would change: {}", userId, source.getId(),
+                    target.getId(), changed);
+            throw new ValidationException(String.format(
+                    "Can't switch %s to %s: it would change your positions — %s. A switch keeps quantities and cost "
+                            + "as they are; check your corporate actions on these instruments first.",
+                    source.getName(), target.getName(), String.join("; ", changed)));
+        }
+        return mergeChanged;
+    }
+
+    private static final BigDecimal CENT = new BigDecimal("0.01");
+
+    /** One (broker, instrument)'s summed figures; {@code label} names it for a message. */
+    private record Figures(BigDecimal quantity, BigDecimal openCost, BigDecimal realized,
+                           @org.springframework.lang.Nullable String error,
+                           @org.springframework.lang.Nullable String label) {
+        static final Figures NONE = new Figures(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, null, null);
+
+        Figures plus(InvestmentService.HoldingFigures h, String label) {
+            return new Figures(quantity.add(h.quantity()), openCost.add(h.openCost()),
+                    realized.add(h.realized()).add(h.intradayRealized()), error != null ? error : h.error(), label);
+        }
+    }
+
+    /** Figures per "broker|instrument", the source's holdings counted as the target's. */
+    private static Map<String, Figures> aggregate(List<InvestmentService.HoldingFigures> figures, UUID source, UUID target) {
+        Map<String, Figures> out = new java.util.HashMap<>();
+        for (InvestmentService.HoldingFigures h : figures) {
+            UUID instrument = h.instrumentId().equals(source) ? target : h.instrumentId();
+            String key = h.brokerAccountId() + "|" + instrument;
+            String label = h.instrumentName() + " at " + h.brokerName();
+            out.put(key, out.getOrDefault(key, Figures.NONE).plus(h, label));
+        }
+        return out;
+    }
+
+    /** {@code id} after the user's move from {@code source} to {@code target}. */
+    private static UUID movedId(UUID id, Instrument source, Instrument target) {
+        return id.equals(source.getId()) ? target.getId() : id;
     }
 
     private static String describe(CorporateAction ca) {
@@ -209,7 +385,10 @@ public class InstrumentRepointService {
         String target = ca.getTargetInstrument() != null ? ca.getTargetInstrument().getName() : null;
         String what = switch (ca.getType()) {
             case split -> "split of " + instrument + " " + ca.getRatioFrom() + ":" + ca.getRatioTo();
-            case bonus -> "bonus on " + instrument + " " + ca.getRatioTo() + ":" + ca.getRatioFrom();
+            // Stored held → held-after (a 1:1 bonus is 1 → 2); named the usual way, new : held.
+            case bonus -> "bonus on " + instrument
+                    + (ca.getRatioFrom() != null && ca.getRatioTo() != null
+                            ? " " + (ca.getRatioTo() - ca.getRatioFrom()) + ":" + ca.getRatioFrom() : "");
             case demerger -> "demerger of " + instrument + (target != null ? " into " + target : "");
             case merger -> "merger of " + instrument + (target != null ? " into " + target : "");
         };
@@ -217,7 +396,8 @@ public class InstrumentRepointService {
     }
 
     /** What a repoint moved, for the log. */
-    record Moved(int holdingsMoved, int holdingsMerged, boolean mergedWithSells, int sips, int prices, int aliases) {
+    record Moved(int holdingsMoved, int holdingsMerged, Set<String> mergedBrokers, int sips, int prices,
+                 int aliases, int corporateActions) {
     }
 
     private Moved moveReferences(UUID userId, Instrument source, Instrument target) {
@@ -226,7 +406,7 @@ public class InstrumentRepointService {
         String to = target.getId().toString();
         int movedHoldings = 0;
         int mergedHoldings = 0;
-        boolean mergedWithSells = false;
+        Set<String> mergedBrokers = new java.util.HashSet<>();
 
         List<Map<String, Object>> holdings = jdbc.queryForList(
                 "SELECT id, broker_account_id, notes FROM holdings WHERE user_id = ? AND instrument_id = ?", user, from);
@@ -242,9 +422,7 @@ public class InstrumentRepointService {
                 movedHoldings++;
             } else {
                 String keepId = existing.get(0);
-                if (hasSells(holdingId) && hasSells(keepId)) {
-                    mergedWithSells = true;
-                }
+                mergedBrokers.add(brokerId);
                 jdbc.update("UPDATE investment_transactions SET holding_id = ? WHERE holding_id = ?", keepId, holdingId);
                 jdbc.update("UPDATE dividends SET holding_id = ? WHERE holding_id = ?", keepId, holdingId);
                 moveClassifications("holding_id = ?", new Object[]{holdingId}, to, keepId);
@@ -261,6 +439,13 @@ public class InstrumentRepointService {
         moveClassifications("holding_id IS NULL AND user_id = ? AND instrument_id = ?", new Object[]{user, from}, to, null);
 
         int sips = jdbc.update("UPDATE sips SET instrument_id = ? WHERE user_id = ? AND instrument_id = ?", to, user, from);
+
+        // The user's own corporate actions follow (as the instrument and as the child / acquirer), so
+        // their splits, bonuses, demergers and mergers apply to the moved lots exactly as before.
+        int corporateActions = jdbc.update("UPDATE corporate_actions SET instrument_id = ? WHERE user_id = ? "
+                + "AND instrument_id = ?", to, user, from);
+        corporateActions += jdbc.update("UPDATE corporate_actions SET target_instrument_id = ? WHERE user_id = ? "
+                + "AND target_instrument_id = ?", to, user, from);
 
         // The user's own manual prices; where they already priced the target on that date, theirs there stays.
         jdbc.update("DELETE FROM instrument_prices WHERE user_id = ? AND instrument_id = ? AND as_of IN ("
@@ -287,13 +472,7 @@ public class InstrumentRepointService {
                 aliases++;
             }
         }
-        return new Moved(movedHoldings, mergedHoldings, mergedWithSells, sips, prices, aliases);
-    }
-
-    private boolean hasSells(String holdingId) {
-        Integer sells = jdbc.queryForObject("SELECT COUNT(*) FROM investment_transactions WHERE holding_id = ? AND type = ?",
-                Integer.class, holdingId, "sell");
-        return sells != null && sells > 0;
+        return new Moved(movedHoldings, mergedHoldings, mergedBrokers, sips, prices, aliases, corporateActions);
     }
 
     /**

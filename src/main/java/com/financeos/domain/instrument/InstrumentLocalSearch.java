@@ -13,8 +13,9 @@ import java.util.UUID;
 
 /**
  * Catalog search as one user sees the catalog: the type filter and the text match apply to their own
- * view (their renamed / retyped instruments), and the database does the paging. Shared by the
- * instrument list (GET /instruments) and the catalog picker (GET /instruments/catalog-search).
+ * view (their renamed / retyped instruments), and the database does the paging. Used by the catalog
+ * picker (GET /instruments/catalog-search); the instrument list (GET /instruments) filters, sorts and
+ * counts on the user's view in one query instead ({@link InstrumentRepository#listAsSeenBy}).
  */
 public final class InstrumentLocalSearch {
 

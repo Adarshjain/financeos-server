@@ -213,7 +213,9 @@ class InvestmentOverridesAndBatchTest {
         ca.setRatioFrom(1);
         ca.setRatioTo(2);
         ca.setExDate(LocalDate.of(2026, 10, 8));
-        when(corporateActionRepository.findByInstrumentIdsExDateFrom(anyCollection(), eq(TODAY.minusDays(11))))
+        ca.setUser(owner);
+        when(corporateActionRepository.findOwnedByInstrumentIdsExDateFrom(eq(List.of(owner.getId())), anyCollection(),
+                eq(TODAY.minusDays(11))))
                 .thenReturn(List.of(ca));
 
         List<PositionDto> positions = service.getAllPositions();
@@ -227,7 +229,7 @@ class InvestmentOverridesAndBatchTest {
         assertEquals(d("200.00"), summary.dayChange());
         assertEquals(d("2.00"), summary.dayChangePct(), "over the adjusted previous value 20 × 500");
         assertEquals(LocalDate.of(2026, 10, 7), summary.previousPriceAsOf());
-        verify(corporateActionRepository, times(2)).findByInstrumentIdsExDateFrom(anyCollection(), any());
+        verify(corporateActionRepository, times(2)).findOwnedByInstrumentIdsExDateFrom(any(), anyCollection(), any());
     }
 
     // ------------------------------------------------------------------ batch engine inputs
@@ -275,8 +277,8 @@ class InvestmentOverridesAndBatchTest {
         verify(transactionRepository, times(1)).findByUser_IdOrderByTradeDateAscCreatedAtAsc(owner.getId());
         verify(classificationRepository, times(1)).findByUser_Id(owner.getId());
         verify(dividendRepository, times(1)).findByUser_Id(owner.getId());
-        verify(corporateActionRepository, times(1)).findByInstrumentIdsWithInstruments(anyCollection());
-        verify(corporateActionRepository, times(1)).findByTargetInstrumentIdsWithInstruments(anyCollection());
+        verify(corporateActionRepository, times(1)).findOwnedByInstrumentIds(eq(owner.getId()), anyCollection());
+        verify(corporateActionRepository, times(1)).findOwnedByTargetInstrumentIds(eq(owner.getId()), anyCollection());
         verify(priceRepository, times(1)).findLatestByInstrumentIds(anyCollection(), org.mockito.ArgumentMatchers.any());
         verify(overrides, times(1)).overridesFor(owner.getId());
         verifyNoMoreInteractions(holdingRepository, transactionRepository, classificationRepository, dividendRepository,
@@ -300,8 +302,8 @@ class InvestmentOverridesAndBatchTest {
         when(holdingRepository.findAllWithDetails()).thenReturn(List.of(parent, acquirer));
         when(transactionRepository.findByUser_IdOrderByTradeDateAscCreatedAtAsc(owner.getId())).thenReturn(List.of(
                 txn(parent, InvestmentTransactionType.buy, "10", "100", LocalDate.of(2020, 1, 1))));
-        when(corporateActionRepository.findByInstrumentIdsWithInstruments(anyCollection())).thenReturn(List.of(merger));
-        when(corporateActionRepository.findByTargetInstrumentIdsWithInstruments(anyCollection())).thenReturn(List.of(merger));
+        when(corporateActionRepository.findOwnedByInstrumentIds(eq(owner.getId()), anyCollection())).thenReturn(List.of(merger));
+        when(corporateActionRepository.findOwnedByTargetInstrumentIds(eq(owner.getId()), anyCollection())).thenReturn(List.of(merger));
 
         List<InvestmentService.HoldingLots> lots = service.getAllHoldingLots();
 
@@ -311,8 +313,8 @@ class InvestmentOverridesAndBatchTest {
         assertEquals(0, d("1000").compareTo(seeded.cost()));
         assertEquals(LocalDate.of(2020, 1, 1), seeded.buyDate());
         verify(holdingRepository, never()).findByBrokerAccountIdAndInstrumentId(any(), any());
-        verify(corporateActionRepository, never()).findByInstrumentIdOrderByExDateAsc(any());
-        verify(corporateActionRepository, never()).findByTargetInstrumentIdOrderByExDateAsc(any());
+        verify(corporateActionRepository, never()).findByUser_IdAndInstrument_IdOrderByExDateAsc(any(), any());
+        verify(corporateActionRepository, never()).findByUser_IdAndTargetInstrument_IdOrderByExDateAsc(any(), any());
         verify(classificationRepository, never()).findByHoldingId(any());
     }
 }

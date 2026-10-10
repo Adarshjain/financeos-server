@@ -51,17 +51,20 @@ public class InstrumentController {
     }
 
     /**
-     * One page (by name; {@code page} from 0, {@code size} default 50, at most 200) of the catalog
-     * instruments matching {@code search} (blank = all), filtered on the type the signed-in user sees.
-     * The first page also carries their own renamed / retyped instruments that match only in their view.
+     * One page of the catalog instruments as the signed-in user sees them, with the total over all pages:
+     * {@code search} matches the name and symbol they see, the catalog name and symbol, ISIN, AMFI code
+     * and Yahoo symbol (blank = all); {@code type} is the type they see; {@code sort} is
+     * {@code name[,asc|desc]} (the name they see, case-insensitive; default {@code name,asc}; anything
+     * else is a 400); {@code page} from 0, {@code size} default 50, at most 200.
      */
     @GetMapping
-    public List<InstrumentResponse> search(
+    public InstrumentListPage search(
             @RequestParam(required = false) String search,
             @RequestParam(required = false) InstrumentType type,
+            @RequestParam(required = false) String sort,
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "" + InstrumentService.DEFAULT_PAGE_SIZE) int size) {
-        return instrumentService.searchInstruments(search, type, page, size);
+        return instrumentService.listInstruments(search, type, sort, page, size);
     }
 
     /**
@@ -85,8 +88,9 @@ public class InstrumentController {
      * A changed ISIN / AMFI code / Yahoo symbol switches only this user's holdings, trades, dividends,
      * SIPs and manual prices to the catalog instrument with those identifiers (added when none has
      * them) — the answer is then that instrument, with a different id. 400 when the identifiers lead
-     * back to this same instrument (its price feed is shared), are all cleared, or either instrument
-     * takes part in a corporate action. Only the identifiers that changed pick the target; only the
+     * back to this same instrument (its price feed is shared), are all cleared, or would turn one of the
+     * user's demergers / mergers into one from an instrument into itself. The user's own corporate
+     * actions on or into the instrument move with them. Only the identifiers that changed pick the target; only the
      * display fields the user changed follow them there. {@code mergedHoldings} / {@code mergeNote} on
      * the answer say whether a holding was merged into one they already had (and whether realised gains
      * may change because both had sells).

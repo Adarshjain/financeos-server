@@ -128,7 +128,7 @@ class BonusAndInheritedHoldingPeriodTest {
 
     private void stub(Holding h, List<InvestmentTransaction> txns, List<CorporateAction> actions) {
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(h.getId())).thenReturn(txns);
-        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(h.getInstrument().getId())).thenReturn(actions);
+        when(corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(owner.getId(), h.getInstrument().getId())).thenReturn(actions);
         when(holdingRepository.findById(h.getId())).thenReturn(Optional.of(h));
     }
 
@@ -254,7 +254,7 @@ class BonusAndInheritedHoldingPeriodTest {
         parentWithTwoLots(acquirer.getInstrument(), merger);
         stub(acquirer, List.of(trade(acquirer, InvestmentTransactionType.sell, "150", "100", LocalDate.of(2024, 8, 1))),
                 List.of());
-        when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(acquirer.getInstrument().getId()))
+        when(corporateActionRepository.findByUser_IdAndTargetInstrument_IdOrderByExDateAsc(owner.getId(), acquirer.getInstrument().getId()))
                 .thenReturn(List.of(merger));
 
         List<InvestmentService.SeedLot> seeds = service.seedLotsFor(acquirer);
@@ -292,7 +292,7 @@ class BonusAndInheritedHoldingPeriodTest {
         demerger.setCostAllocationPct(d("20"));
         parentWithTwoLots(child.getInstrument(), demerger);
         stub(child, List.of(), List.of());
-        when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(child.getInstrument().getId()))
+        when(corporateActionRepository.findByUser_IdAndTargetInstrument_IdOrderByExDateAsc(owner.getId(), child.getInstrument().getId()))
                 .thenReturn(List.of(demerger));
 
         HoldingTrace trace = service.traceHoldingPosition(child.getId());
@@ -319,7 +319,7 @@ class BonusAndInheritedHoldingPeriodTest {
         merger.setCostAllocationPct(d("100"));
         parentWithTwoLots(acquirer.getInstrument(), merger);
         stub(acquirer, List.of(), List.of());
-        when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(acquirer.getInstrument().getId()))
+        when(corporateActionRepository.findByUser_IdAndTargetInstrument_IdOrderByExDateAsc(owner.getId(), acquirer.getInstrument().getId()))
                 .thenReturn(List.of(merger));
         when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(acquirer.getInstrument().getId()), org.mockito.ArgumentMatchers.any()))
                 .thenReturn(java.util.List.of(new InstrumentPrice(acquirer.getInstrument(), TODAY, d("80"), PriceSource.YAHOO)));

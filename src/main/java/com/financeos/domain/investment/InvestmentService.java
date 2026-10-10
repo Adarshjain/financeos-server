@@ -133,6 +133,22 @@ public class InvestmentService {
         return userId;
     }
 
+    /**
+     * The user a holding belongs to, whose corporate actions apply to it (corporate actions are per
+     * user); null for an owner-less holding, which then has none.
+     */
+    @Nullable
+    private static UUID ownerOf(Holding holding) {
+        return holding.getUser() != null ? holding.getUser().getId() : null;
+    }
+
+    /** A holding's instrument as its owner holds it: the key of per-owner corporate-action lookups. */
+    private record OwnedInstrument(@Nullable UUID ownerId, UUID instrumentId) {
+        static OwnedInstrument of(Holding holding) {
+            return new OwnedInstrument(ownerOf(holding), holding.getInstrument().getId());
+        }
+    }
+
     /** The viewer of a batch of one user's holdings (see {@link #viewerOf(Holding)}). */
     @Nullable
     private static UUID viewerOf(List<Holding> holdings) {
@@ -304,7 +320,7 @@ public class InvestmentService {
         LocalDate today = AppTime.today();
         InstrumentOverrides overrides = holdings.isEmpty() ? InstrumentOverrides.NONE : instrumentOverrides();
         Map<UUID, List<DayChange.PricePoint>> closes = latestTwoCloses(holdings);
-        Map<UUID, List<CorporateAction>> recentActions = recentCorporateActions(holdings, today);
+        Map<OwnedInstrument, List<CorporateAction>> recentActions = recentCorporateActions(holdings, today);
         for (Holding holding : holdings) {
             UUID instrumentId = holding.getInstrument().getId();
             HoldingPosition pos;
@@ -317,7 +333,7 @@ public class InvestmentService {
             }
             PositionDto dto = pos.toPositionDto(overrides);
             DayChange change = DayChange.forPosition(dto.quantity(), dto.lastPrice(), dto.lastPriceAsOf(),
-                    closes.get(instrumentId), today, recentActions.get(instrumentId));
+                    closes.get(instrumentId), today, recentActions.get(OwnedInstrument.of(holding)));
             positions.add(dto.withDayChange(change));
         }
 
@@ -359,26 +375,33 @@ public class InvestmentService {
     }
 
     /**
-     * The corporate actions of every instrument the holdings reference with an ex-date recent enough
-     * to fall between a current price and the one before it ({@link DayChange#forPosition}): one
-     * batch query per {@value #IN_LIST_CHUNK} instruments.
+     * The holdings' owners' own corporate actions on the instruments they hold, with an ex-date recent
+     * enough to fall between a current price and the one before it ({@link DayChange#forPosition}),
+     * keyed by (owner, instrument): one batch query per {@value #IN_LIST_CHUNK} instruments. A user's
+     * day change never reads another user's actions, even when a job computes several users at once.
      */
-    private Map<UUID, List<CorporateAction>> recentCorporateActions(List<Holding> holdings, LocalDate today) {
+    private Map<OwnedInstrument, List<CorporateAction>> recentCorporateActions(List<Holding> holdings, LocalDate today) {
+        List<UUID> owners = holdings.stream().map(InvestmentService::ownerOf).filter(Objects::nonNull).distinct().toList();
         List<UUID> ids = holdings.stream()
                 .map(h -> h.getInstrument().getId())
                 .filter(Objects::nonNull)
                 .distinct()
                 .toList();
-        Map<UUID, List<CorporateAction>> result = new HashMap<>();
+        Map<OwnedInstrument, List<CorporateAction>> result = new HashMap<>();
+        if (owners.isEmpty()) {
+            return result;
+        }
         LocalDate from = today.minusDays(DayChange.CURRENT_WITHIN_DAYS + DayChange.PREVIOUS_WITHIN_DAYS);
         for (int i = 0; i < ids.size(); i += IN_LIST_CHUNK) {
-            List<CorporateAction> rows = corporateActionRepository.findByInstrumentIdsExDateFrom(
-                    ids.subList(i, Math.min(ids.size(), i + IN_LIST_CHUNK)), from);
+            List<CorporateAction> rows = corporateActionRepository.findOwnedByInstrumentIdsExDateFrom(
+                    owners, ids.subList(i, Math.min(ids.size(), i + IN_LIST_CHUNK)), from);
             if (rows == null) {
                 continue;
             }
             for (CorporateAction ca : rows) {
-                result.computeIfAbsent(ca.getInstrument().getId(), k -> new ArrayList<>()).add(ca);
+                OwnedInstrument key = new OwnedInstrument(ca.getUser() != null ? ca.getUser().getId() : null,
+                        ca.getInstrument().getId());
+                result.computeIfAbsent(key, k -> new ArrayList<>()).add(ca);
             }
         }
         return result;
@@ -422,7 +445,7 @@ public class InvestmentService {
         LocalDate today = AppTime.today();
         InstrumentOverrides overrides = holdings.isEmpty() ? InstrumentOverrides.NONE : instrumentOverrides();
         Map<UUID, List<DayChange.PricePoint>> closes = latestTwoCloses(holdings);
-        Map<UUID, List<CorporateAction>> recentActions = recentCorporateActions(holdings, today);
+        Map<OwnedInstrument, List<CorporateAction>> recentActions = recentCorporateActions(holdings, today);
         BigDecimal dayChange = null;
         BigDecimal previousValue = BigDecimal.ZERO;
         LocalDate priceAsOf = null;
@@ -443,7 +466,7 @@ public class InvestmentService {
                 priceAsOf = pos.priceAsOf();
             }
             DayChange change = DayChange.forPosition(pos.openQty(), pos.latestPrice(), pos.priceAsOf(),
-                    closes.get(holding.getInstrument().getId()), today, recentActions.get(holding.getInstrument().getId()));
+                    closes.get(holding.getInstrument().getId()), today, recentActions.get(OwnedInstrument.of(holding)));
             if (change.dayChange() != null) {
                 dayChange = (dayChange == null ? BigDecimal.ZERO : dayChange).add(change.dayChange());
                 previousValue = previousValue.add(change.previousValue(pos.openQty()));
@@ -656,9 +679,9 @@ public class InvestmentService {
 
     /**
      * Batch-loads the engine inputs for {@code userId}'s {@code holdings}: transactions, intraday
-     * classifications, dividends and overrides by user (one query each), corporate actions on and
-     * into the held instruments and their latest prices (one query each per {@value #IN_LIST_CHUNK}
-     * instruments).
+     * classifications, dividends and overrides by user (one query each), the user's own corporate
+     * actions on and into the held instruments and their latest prices (one query each per
+     * {@value #IN_LIST_CHUNK} instruments).
      */
     private EngineInputs loadEngineInputs(UUID userId, List<Holding> holdings) {
         Set<UUID> holdingIds = new HashSet<>();
@@ -692,10 +715,10 @@ public class InvestmentService {
         Map<UUID, InstrumentPrice> latestPrices = new HashMap<>();
         for (int from = 0; from < instrumentIds.size(); from += IN_LIST_CHUNK) {
             List<UUID> chunk = instrumentIds.subList(from, Math.min(instrumentIds.size(), from + IN_LIST_CHUNK));
-            for (CorporateAction ca : corporateActionRepository.findByInstrumentIdsWithInstruments(chunk)) {
+            for (CorporateAction ca : corporateActionRepository.findOwnedByInstrumentIds(userId, chunk)) {
                 actions.computeIfAbsent(ca.getInstrument().getId(), k -> new ArrayList<>()).add(ca);
             }
-            for (CorporateAction ca : corporateActionRepository.findByTargetInstrumentIdsWithInstruments(chunk)) {
+            for (CorporateAction ca : corporateActionRepository.findOwnedByTargetInstrumentIds(userId, chunk)) {
                 actionsByTarget.computeIfAbsent(ca.getTargetInstrument().getId(), k -> new ArrayList<>()).add(ca);
             }
             latestPrices.putAll(PricePrecedence.byInstrument(priceRepository.findLatestByInstrumentIds(chunk, userId)));
@@ -709,9 +732,11 @@ public class InvestmentService {
                 : transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
     }
 
-    private List<CorporateAction> actionsOf(UUID instrumentId, @Nullable EngineInputs in) {
+    /** The holding owner's corporate actions on its instrument (never another user's). */
+    private List<CorporateAction> actionsOf(Holding holding, @Nullable EngineInputs in) {
+        UUID instrumentId = holding.getInstrument().getId();
         return in != null ? in.actionsByInstrument().getOrDefault(instrumentId, List.of())
-                : corporateActionRepository.findByInstrumentIdOrderByExDateAsc(instrumentId);
+                : corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(ownerOf(holding), instrumentId);
     }
 
     private List<TradeSettlementClassification> classificationsOf(Holding holding, @Nullable EngineInputs in) {
@@ -734,7 +759,7 @@ public class InvestmentService {
             classification = classificationOf(holding);
         }
         List<InvestmentTransaction> txns = txnsOf(holding, inputs);
-        List<CorporateAction> corpActions = actionsOf(holding.getInstrument().getId(), inputs);
+        List<CorporateAction> corpActions = actionsOf(holding, inputs);
 
         SeedDerivation seedDerivation = deriveSeeds(holding, inputs);
         List<DemergerSeedEvent> demergerSeedEvents = new ArrayList<>();
@@ -1226,7 +1251,8 @@ public class InvestmentService {
     private SeedDerivation deriveSeeds(Holding holding, @Nullable EngineInputs inputs) {
         List<CorporateAction> targetCAs = inputs != null
                 ? inputs.actionsByTarget().getOrDefault(holding.getInstrument().getId(), List.of())
-                : corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(holding.getInstrument().getId());
+                : corporateActionRepository.findByUser_IdAndTargetInstrument_IdOrderByExDateAsc(ownerOf(holding),
+                        holding.getInstrument().getId());
         List<SeedLot> seedLots = new ArrayList<>();
         List<XirrCalculator.Cashflow> mergerBridgeOutflows = new ArrayList<>();
         BigDecimal fractionalRealized = BigDecimal.ZERO;
@@ -1286,7 +1312,7 @@ public class InvestmentService {
                     if (F.compareTo(BigDecimal.ZERO) > 0) {
                         BigDecimal proceeds = BigDecimal.ZERO;
                         if (ca.getFractionalCashInLieu() != null && ca.getFractionalCashInLieu().compareTo(BigDecimal.ZERO) > 0) {
-                            BigDecimal totalFrac = computeTotalFractionForCa(ca, inputs);
+                            BigDecimal totalFrac = computeTotalFractionForCa(ca, ownerOf(holding), inputs);
                             if (totalFrac.compareTo(BigDecimal.ZERO) > 0) {
                                 proceeds = ca.getFractionalCashInLieu().multiply(F).divide(totalFrac, 4, RoundingMode.HALF_UP);
                             }
@@ -1363,11 +1389,16 @@ public class InvestmentService {
         classificationRepository.save(c);
     }
 
-    private BigDecimal computeTotalFractionForCa(CorporateAction ca, @Nullable EngineInputs inputs) {
+    /**
+     * The fractional entitlement of {@code ownerId}'s parent holdings (every broker) for a
+     * demerger/merger: the cash-in-lieu on the action is the owner's own amount, shared across their
+     * brokers by fraction. Never another user's holdings.
+     */
+    private BigDecimal computeTotalFractionForCa(CorporateAction ca, @Nullable UUID ownerId, @Nullable EngineInputs inputs) {
         BigDecimal total = BigDecimal.ZERO;
         List<Holding> parents = inputs != null
                 ? inputs.holdings().stream().filter(h -> h.getInstrument().getId().equals(ca.getInstrument().getId())).toList()
-                : holdingRepository.findByInstrumentId(ca.getInstrument().getId());
+                : holdingRepository.findByUser_IdAndInstrument_Id(ownerId, ca.getInstrument().getId());
         for (Holding ph : parents) {
             BigDecimal e = BigDecimal.ZERO;
             for (Lot lot : buildParentOpenLotsBeforeCa(ph, ca, inputs)) {
@@ -1389,7 +1420,7 @@ public class InvestmentService {
             return buildOpenLotsBeforeDate(parentHolding, demergerCa.getExDate(), false, demergerCa.getId());
         }
         return buildOpenLotsBeforeDate(parentHolding, demergerCa.getExDate(), false, demergerCa.getId(),
-                txnsOf(parentHolding, inputs), actionsOf(parentHolding.getInstrument().getId(), inputs), null,
+                txnsOf(parentHolding, inputs), actionsOf(parentHolding, inputs), null,
                 classificationsOf(parentHolding, inputs));
     }
 
@@ -1417,7 +1448,8 @@ public class InvestmentService {
         List<InvestmentTransaction> txns = prefetchedTxns != null ? prefetchedTxns
                 : transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(parentHolding.getId());
         List<CorporateAction> corpActions = prefetchedCorpActions != null ? prefetchedCorpActions
-                : corporateActionRepository.findByInstrumentIdOrderByExDateAsc(parentHolding.getInstrument().getId());
+                : corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(ownerOf(parentHolding),
+                        parentHolding.getInstrument().getId());
 
         List<TradeSettlementClassification> classifications = prefetchedClassifications != null ? prefetchedClassifications
                 : classificationRepository.findByHoldingId(parentHolding.getId());
@@ -1577,6 +1609,46 @@ public class InvestmentService {
         }
 
         return openLots;
+    }
+
+    /**
+     * One holding's engine figures: open quantity and cost, and realised gains (delivery and intraday).
+     * {@code error} is the engine's message when it could not compute the holding (the figures are then
+     * zero).
+     */
+    public record HoldingFigures(UUID holdingId, UUID brokerAccountId, String brokerName, UUID instrumentId,
+                                 String instrumentName, BigDecimal quantity, BigDecimal openCost,
+                                 BigDecimal realized, BigDecimal intradayRealized, @Nullable String error) {
+    }
+
+    /**
+     * The figures of every holding {@code userId} owns, from the same engine as the positions page
+     * (their own corporate actions, intraday netting and seeded lots), with the reads batch-loaded for
+     * that user — no signed-in user or request filter needed. For checks that compare a user's figures
+     * before and after a change in one transaction; prices play no part.
+     */
+    public List<HoldingFigures> figuresOf(UUID userId) {
+        List<Holding> holdings = holdingRepository.findAllWithDetailsOfUser(userId);
+        List<HoldingFigures> out = new ArrayList<>();
+        if (holdings.isEmpty()) {
+            return out;
+        }
+        EngineInputs inputs = loadEngineInputs(userId, holdings);
+        for (Holding h : holdings) {
+            UUID broker = h.getBrokerAccount().getId();
+            String brokerName = h.getBrokerAccount().getName();
+            Instrument instrument = h.getInstrument();
+            try {
+                HoldingPosition p = calculateHoldingPosition(h, null, null, inputs, null);
+                out.add(new HoldingFigures(h.getId(), broker, brokerName, instrument.getId(), instrument.getName(),
+                        p.openQty(), p.openCost(), p.realized(), p.intradayRealized(), null));
+            } catch (Exception e) {
+                out.add(new HoldingFigures(h.getId(), broker, brokerName, instrument.getId(), instrument.getName(),
+                        BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                        String.valueOf(e.getMessage())));
+            }
+        }
+        return out;
     }
 
     @Transactional(readOnly = true)

@@ -228,7 +228,7 @@ class InvestmentInstrumentOverridesTest {
         merger.setExDate(TODAY.minusDays(10));
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(from.getId())).thenReturn(List.of(
                 txn(from, InvestmentTransactionType.buy, "1", "10", TODAY.minusDays(30))));
-        when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(from.getInstrument().getId()))
+        when(corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(owner.getId(), from.getInstrument().getId()))
                 .thenReturn(List.of(merger));
 
         assertEquals("My Bank", service.calculateHoldingPosition(from).mergedIntoName());

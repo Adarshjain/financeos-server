@@ -1,5 +1,6 @@
 package com.financeos.domain.instrument;
 
+import com.financeos.api.instrument.dto.InstrumentListPage;
 import com.financeos.api.instrument.dto.InstrumentPriceResponse;
 import com.financeos.api.instrument.dto.InstrumentRequest;
 import com.financeos.api.instrument.dto.InstrumentResponse;
@@ -89,35 +90,55 @@ public class InstrumentService {
         return instrumentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Instrument", id));
     }
 
-    /** Default and largest page of {@link #searchInstruments}. */
+    /** Default and largest page of {@link #listInstruments}. */
     public static final int DEFAULT_PAGE_SIZE = 50;
     public static final int MAX_PAGE_SIZE = 200;
-
-    /** {@link #searchInstruments(String, InstrumentType, int, int)}'s first page. */
-    @Transactional(readOnly = true)
-    public List<InstrumentResponse> searchInstruments(String search, InstrumentType type) {
-        return searchInstruments(search, type, 0, DEFAULT_PAGE_SIZE);
-    }
+    /** The sort keys of {@link #listInstruments}; {@code name} is the name the user sees. */
+    public static final List<String> SORT_KEYS = List.of("name");
 
     /**
-     * One page (by name) of the catalog instruments matching {@code search} (name, symbol, ISIN, AMFI
-     * code; blank = all), filtered on the type the current user sees, plus — on the first page — the
-     * ones they renamed or retyped to match; each as the user sees it, with the latest price they see
-     * (one batched price query). An empty search pages the catalog instead of loading all of it.
+     * One page of the catalog instruments as the current user sees them: matching {@code search} (the
+     * name and symbol they see, the catalog name and symbol, ISIN, AMFI code, Yahoo symbol; blank = all)
+     * and {@code type} (the type they see; null = any), sorted by {@code sort} ({@code <key>[,asc|desc]},
+     * key one of {@link #SORT_KEYS}; default {@code name,asc}), with the total over all pages. Each item
+     * carries the latest price they see (one batched price query). The database filters, sorts, counts
+     * and pages on the user's own overrides (a left join on their override row), so a renamed or retyped
+     * instrument lands on the page, and in the count, where they see it.
      */
     @Transactional(readOnly = true)
-    public List<InstrumentResponse> searchInstruments(String search, InstrumentType type, int page, int size) {
+    public InstrumentListPage listInstruments(@Nullable String search, @Nullable InstrumentType type,
+                                              @Nullable String sort, int page, int size) {
         UUID userId = UserContext.getCurrentUserId();
-        InstrumentOverrides overrides = overrides(userId);
+        String dir = sortDirection(sort);
         int safePage = Math.max(0, page);
         int safeSize = Math.min(MAX_PAGE_SIZE, Math.max(1, size));
-        List<Instrument> found = InstrumentLocalSearch.find(instrumentRepository, search, type, overrides, safePage, safeSize);
-        Map<UUID, InstrumentPrice> prices = latestPrices(found, userId);
-        List<InstrumentResponse> out = new ArrayList<>(found.size());
-        for (Instrument inst : found) {
-            out.add(InstrumentResponse.from(inst, Optional.ofNullable(prices.get(inst.getId())), overrides));
+        String needle = search == null || search.isBlank() ? null : search.trim().toLowerCase(java.util.Locale.ROOT);
+        org.springframework.data.domain.Page<Instrument> found = instrumentRepository.listAsSeenBy(userId, needle, type,
+                dir, org.springframework.data.domain.PageRequest.of(safePage, safeSize));
+        InstrumentOverrides overrides = found.isEmpty() ? InstrumentOverrides.NONE : overrides(userId);
+        Map<UUID, InstrumentPrice> prices = latestPrices(found.getContent(), userId);
+        List<InstrumentResponse> items = new ArrayList<>(found.getNumberOfElements());
+        for (Instrument inst : found.getContent()) {
+            items.add(InstrumentResponse.from(inst, Optional.ofNullable(prices.get(inst.getId())), overrides));
         }
-        return out;
+        return new InstrumentListPage(items, safePage, safeSize, found.getTotalElements(), found.getTotalPages());
+    }
+
+    /** {@code "asc"} or {@code "desc"} from a {@code <key>[,asc|desc]} sort; 400 for an unknown key or direction. */
+    static String sortDirection(@Nullable String sort) {
+        if (sort == null || sort.isBlank()) {
+            return "asc";
+        }
+        String[] parts = sort.split(",", -1);
+        String key = parts[0].trim();
+        if (!SORT_KEYS.contains(key) || parts.length > 2) {
+            throw new ValidationException("Unsupported instrument sort: " + sort + " (use name, name,asc or name,desc)");
+        }
+        String dir = parts.length == 2 ? parts[1].trim().toLowerCase(java.util.Locale.ROOT) : "asc";
+        if (!dir.equals("asc") && !dir.equals("desc")) {
+            throw new ValidationException("Unsupported sort direction: " + parts[1].trim() + " (use asc or desc)");
+        }
+        return dir;
     }
 
     /** The latest price {@code userId} sees for each instrument, in batched queries (≤ 900 ids each). */
@@ -172,8 +193,9 @@ public class InstrumentService {
      * <ul>
      *   <li>Identifiers (ISIN, AMFI code, Yahoo symbol) choose the price feed, so a change never touches
      *   the shared row: the catalog instrument with the new identifiers is found (or added) and only
-     *   this user's holdings, trades, dividends, SIPs, manual prices and aliases move to it — merged
-     *   into their existing holding of it at the same broker. The answer is that instrument (a new id).</li>
+     *   this user's holdings, trades, dividends, SIPs, manual prices, aliases and own corporate actions
+     *   move to it — merged into their existing holding of it at the same broker. The answer is that
+     *   instrument (a new id).</li>
      *   <li>Display fields (name, symbol, exchange, currency, type) become the user's overrides wherever
      *   they differ from the catalog; one equal to the catalog (or a blank symbol / exchange / currency)
      *   clears that override.</li>
@@ -203,9 +225,9 @@ public class InstrumentService {
         Instrument target = result.target();
         overrideService.setDisplay(userId, target, request.name(), request.symbol(), request.exchange(),
                 request.currency(), request.type(), changes);
-        return view(target, userId).withMerge(result.merged(), result.mergedWithSells()
-                ? "Both holdings had sells. Their trades are now one history, so realised gains and the lots "
-                        + "still open may differ from before."
+        return view(target, userId).withMerge(result.merged(), result.mergeChangedFigures()
+                ? "The two holdings' trades are now one history, so realised gains and the lots still open "
+                        + "differ from before."
                 : null);
     }
 

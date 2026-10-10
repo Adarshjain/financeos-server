@@ -2,6 +2,7 @@ package com.financeos.domain.holding;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,7 +20,18 @@ public interface HoldingRepository extends JpaRepository<Holding, UUID> {
 
     List<Holding> findByBrokerAccountId(UUID brokerAccountId);
 
-    List<Holding> findByInstrumentId(UUID instrumentId);
+    /**
+     * {@code userId}'s holdings of one instrument (one per broker account). A null user matches none:
+     * an explicit JPQL equality (a derived query would turn a null owner into {@code IS NULL} and
+     * return the owner-less rows).
+     */
+    @Query("SELECT h FROM Holding h WHERE h.user.id = :userId AND h.instrument.id = :instrumentId")
+    List<Holding> findByUser_IdAndInstrument_Id(@Param("userId") UUID userId, @Param("instrumentId") UUID instrumentId);
+
+    /** Every holding {@code userId} owns, broker and instrument fetched (no request filter needed); null matches none. */
+    @Query("SELECT DISTINCT h FROM Holding h LEFT JOIN FETCH h.brokerAccount b LEFT JOIN FETCH b.brokerDetails "
+            + "LEFT JOIN FETCH h.instrument WHERE h.user.id = :userId")
+    List<Holding> findAllWithDetailsOfUser(@Param("userId") UUID userId);
 
     @Query("SELECT DISTINCT h FROM Holding h LEFT JOIN FETCH h.brokerAccount b LEFT JOIN FETCH b.brokerDetails LEFT JOIN FETCH h.instrument")
     List<Holding> findAllWithDetails();

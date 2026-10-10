@@ -2442,6 +2442,11 @@ paths:
           - mutual_fund
           - etf
       - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
         name: page
         required: false
         schema:
@@ -2460,9 +2465,7 @@ paths:
           content:
             '*/*':
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/InstrumentResponse"
+                $ref: "#/components/schemas/InstrumentListPage"
           description: OK
         default:
           content:
@@ -11190,6 +11193,31 @@ components:
       - id
       - name
       - type
+    InstrumentListPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/InstrumentResponse"
+        page:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
     InstrumentPriceResponse:
       type: object
       properties:

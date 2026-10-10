@@ -170,29 +170,45 @@ class InstrumentServiceUserScopeTest {
 
     @Test
     void searchFindsTheCallersOwnNamesAndFiltersOnTheirType() {
+        // Forced edit: the user's own names and types are filtered, sorted and counted in the query
+        // (listAsSeenBy joins their override row; InstrumentListIntegrationTest runs it), so here the
+        // service hands it the caller, the lowercased text, the type and the direction, and shows the
+        // rows with the caller's overrides.
         UserInstrumentOverride row = new UserInstrumentOverride(user, instrument.getId());
         row.setName("Bluechip IT");
         row.setType(InstrumentType.etf);
         when(overrides.overridesFor(user)).thenReturn(InstrumentOverrides.of(List.of(row)));
-        when(instrumentRepository.searchInstruments("bluechip", null)).thenReturn(List.of());
-        when(instrumentRepository.findAllById(List.of(instrument.getId()))).thenReturn(List.of(instrument));
+        org.springframework.data.domain.PageRequest first = org.springframework.data.domain.PageRequest.of(0, 50);
+        when(instrumentRepository.listAsSeenBy(user, "bluechip", InstrumentType.etf, "desc", first))
+                .thenReturn(new org.springframework.data.domain.PageImpl<>(List.of(instrument), first, 1));
 
-        List<InstrumentResponse> asEtf = service.searchInstruments("bluechip", InstrumentType.etf);
-        assertEquals(1, asEtf.size());
-        assertEquals("Bluechip IT", asEtf.get(0).name());
-        assertEquals(InstrumentType.etf, asEtf.get(0).type());
-
-        assertEquals(0, service.searchInstruments("bluechip", InstrumentType.stock).size(),
-                "the catalog type no longer matches for this user");
+        com.financeos.api.instrument.dto.InstrumentListPage asEtf =
+                service.listInstruments("  BlueChip ", InstrumentType.etf, "name,DESC", 0, 50);
+        assertEquals(1, asEtf.items().size());
+        assertEquals(1, asEtf.totalElements());
+        assertEquals("Bluechip IT", asEtf.items().get(0).name());
+        assertEquals(InstrumentType.etf, asEtf.items().get(0).type());
     }
 
     @Test
     void searchWithoutOverridesFiltersTypeInTheQuery() {
+        // Forced edit: the query is the paged, counted listAsSeenBy (first page, 50, by name ascending).
+        org.springframework.data.domain.PageRequest first = org.springframework.data.domain.PageRequest.of(0, 50);
         when(overrides.overridesFor(user)).thenReturn(InstrumentOverrides.NONE);
-        // Forced edit: the query is paged now (first page, 50 by name).
-        when(instrumentRepository.searchInstrumentsPage("inf", InstrumentType.stock,
-                org.springframework.data.domain.PageRequest.of(0, 50))).thenReturn(List.of(instrument));
-        assertEquals(1, service.searchInstruments("inf", InstrumentType.stock).size());
+        when(instrumentRepository.listAsSeenBy(user, "inf", InstrumentType.stock, "asc", first))
+                .thenReturn(new org.springframework.data.domain.PageImpl<>(List.of(instrument), first, 1));
+        assertEquals(1, service.listInstruments("inf", InstrumentType.stock, null, 0, 50).items().size());
+    }
+
+    @Test
+    void anUnknownSortKeyOrDirectionIsRejected() {
+        assertEquals("asc", InstrumentService.sortDirection("name"));
+        assertEquals("desc", InstrumentService.sortDirection(" name , desc "));
+        assertEquals("asc", InstrumentService.sortDirection(""));
+        assertThrows(ValidationException.class, () -> service.listInstruments(null, null, "lastPrice,desc", 0, 50));
+        assertThrows(ValidationException.class, () -> service.listInstruments(null, null, "name,up", 0, 50));
+        assertThrows(ValidationException.class, () -> service.listInstruments(null, null, "name,asc,x", 0, 50));
+        verify(instrumentRepository, never()).listAsSeenBy(any(), any(), any(), any(), any());
     }
 
     // ------------------------------------------------------------------ manual prices
