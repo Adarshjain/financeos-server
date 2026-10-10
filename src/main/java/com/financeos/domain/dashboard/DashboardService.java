@@ -130,9 +130,9 @@ public class DashboardService {
         List<DashboardWidget> widgets = parse(dashboard.getWidgets());
 
         // Batch-resolve referenced reports, scoped to the current user (foreign/deleted -> absent).
-        // Built-in widgets never touch the report repository.
+        // Built-in and text widgets never touch the report repository.
         Set<UUID> reportIds = widgets.stream()
-                .filter(widget -> !widget.usesBuiltin())
+                .filter(widget -> !widget.usesBuiltin() && !widget.usesText())
                 .map(DashboardWidget::reportId)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
@@ -142,7 +142,9 @@ public class DashboardService {
                         .collect(Collectors.toMap(Report::getId, r -> r));
 
         List<WidgetResponse> widgetResponses = widgets.stream()
-                .map(widget -> widget.usesBuiltin() ? toBuiltinWidget(widget) : toReportWidget(widget, reportsById))
+                .map(widget -> widget.usesBuiltin() ? toBuiltinWidget(widget)
+                        : widget.usesText() ? toTextWidget(widget)
+                        : toReportWidget(widget, reportsById))
                 .toList();
 
         return new DashboardResponse(dashboard.getId(), dashboard.getName(), dashboard.getDescription(),
@@ -164,6 +166,11 @@ public class DashboardService {
                 .orElse(null);
         return new WidgetResponse(widget.id(), null, widget.title(), widget.layout(), null,
                 DashboardWidget.KIND_BUILTIN, widget.builtinKey(), widget.paramsOrNull(), ref);
+    }
+
+    private WidgetResponse toTextWidget(DashboardWidget widget) {
+        return new WidgetResponse(widget.id(), null, widget.title(), widget.layout(), null,
+                DashboardWidget.KIND_TEXT, null, widget.paramsOrNull(), null);
     }
 
     private DashboardSummaryResponse toSummary(Dashboard dashboard) {

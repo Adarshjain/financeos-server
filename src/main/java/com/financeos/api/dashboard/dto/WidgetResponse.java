@@ -7,10 +7,11 @@ import org.springframework.lang.Nullable;
 import java.util.UUID;
 
 /**
- * A widget enriched for rendering. {@code kind} is always resolved ({@code report} or
- * {@code builtin}): a report widget carries {@code reportId} + {@code report}; a built-in widget
- * carries {@code builtinKey} + {@code params} + {@code builtin} (null when the key is no longer
- * registered).
+ * A widget enriched for rendering. {@code kind} is always resolved ({@code report},
+ * {@code builtin} or {@code text}): a report widget carries {@code reportId} + {@code report}; a
+ * built-in widget carries {@code builtinKey} + {@code params} + {@code builtin} (null when the key
+ * is no longer registered); a text widget (section header) carries {@code title} + optional
+ * {@code params.description}.
  */
 public record WidgetResponse(
         String id,
