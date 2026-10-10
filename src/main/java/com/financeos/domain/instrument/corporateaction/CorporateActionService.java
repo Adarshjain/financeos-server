@@ -8,7 +8,9 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.holding.Holding;
 import com.financeos.domain.holding.HoldingRepository;
+import com.financeos.domain.instrument.AssetClassOverrideService;
 import com.financeos.domain.instrument.Instrument;
+import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.instrument.InstrumentRepository;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
@@ -34,11 +36,14 @@ public class CorporateActionService {
     private final InstrumentRepository instrumentRepository;
     private final HoldingRepository holdingRepository;
     private final UserRepository userRepository;
+    private final AssetClassOverrideService overrideService;
 
     public CorporateActionService(CorporateActionRepository corporateActionRepository,
                                   InstrumentRepository instrumentRepository,
                                   HoldingRepository holdingRepository,
-                                  UserRepository userRepository) {
+                                  UserRepository userRepository,
+                                  AssetClassOverrideService overrideService) {
+        this.overrideService = overrideService;
         this.corporateActionRepository = corporateActionRepository;
         this.instrumentRepository = instrumentRepository;
         this.holdingRepository = holdingRepository;
@@ -90,7 +95,7 @@ public class CorporateActionService {
                 StructuredArguments.keyValue("ratio", ratio),
                 StructuredArguments.keyValue("cashInLieuInr", saved.getFractionalCashInLieu() != null ? saved.getFractionalCashInLieu().toString() : "0"));
 
-        return CorporateActionResponse.from(saved);
+        return CorporateActionResponse.from(saved, overrideService.overridesForCurrentUser());
     }
 
     public CorporateActionResponse updateCorporateAction(UUID instrumentId, UUID id, UpdateCorporateActionRequest request) {
@@ -127,7 +132,7 @@ public class CorporateActionService {
             materializeChildHoldings(saved.getInstrument().getId(), saved.getTargetInstrument());
         }
 
-        return CorporateActionResponse.from(saved);
+        return CorporateActionResponse.from(saved, overrideService.overridesForCurrentUser());
     }
 
     private void validateRequest(UUID parentInstrumentId, CorporateActionType type, UUID targetInstrumentId, BigDecimal costAllocationPct, BigDecimal fractionalCashInLieu) {
@@ -191,12 +196,14 @@ public class CorporateActionService {
             throw new ResourceNotFoundException("Instrument", instrumentId);
         }
         List<CorporateAction> actions = corporateActionRepository.findByInstrumentIdOrderByExDateAsc(instrumentId);
-        return actions.stream().map(CorporateActionResponse::from).toList();
+        InstrumentOverrides overrides = actions.isEmpty() ? InstrumentOverrides.NONE : overrideService.overridesForCurrentUser();
+        return actions.stream().map(ca -> CorporateActionResponse.from(ca, overrides)).toList();
     }
 
     @Transactional(readOnly = true)
     public List<CorporateActionResponse> getAllCorporateActions() {
         List<CorporateAction> actions = corporateActionRepository.findAllWithInstruments();
-        return actions.stream().map(CorporateActionResponse::from).toList();
+        InstrumentOverrides overrides = actions.isEmpty() ? InstrumentOverrides.NONE : overrideService.overridesForCurrentUser();
+        return actions.stream().map(ca -> CorporateActionResponse.from(ca, overrides)).toList();
     }
 }

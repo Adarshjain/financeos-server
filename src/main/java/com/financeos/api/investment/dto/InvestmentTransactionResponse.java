@@ -1,6 +1,7 @@
 package com.financeos.api.investment.dto;
 
 import com.financeos.domain.holding.Holding;
+import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.instrument.InstrumentType;
 import com.financeos.domain.investment.InvestmentTransaction;
 import com.financeos.domain.investment.InvestmentTransactionType;
@@ -47,14 +48,19 @@ public record InvestmentTransactionResponse(
     ) {}
 
     public static InvestmentTransactionResponse from(InvestmentTransaction txn) {
+        return from(txn, InstrumentOverrides.NONE);
+    }
+
+    /** The trade with its instrument's name, symbol and type as {@code overrides}' user sees them. */
+    public static InvestmentTransactionResponse from(InvestmentTransaction txn, InstrumentOverrides overrides) {
         Holding h = txn.getHolding();
         String provider = h.getBrokerAccount().getBrokerDetails() != null ? h.getBrokerAccount().getBrokerDetails().getProvider() : null;
 
         InstrumentInfoDto instrumentDto = new InstrumentInfoDto(
                 h.getInstrument().getId(),
-                h.getInstrument().getType(),
-                h.getInstrument().getName(),
-                h.getInstrument().getSymbol()
+                overrides.type(h.getInstrument()),
+                overrides.name(h.getInstrument()),
+                overrides.symbol(h.getInstrument())
         );
 
         return new InvestmentTransactionResponse(

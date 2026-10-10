@@ -130,7 +130,7 @@ Two-way personal lend/borrow LEDGER per counterparty (each row is one ledger ent
 - Net outstanding with a counterparty = sum of `lent` rows − sum of `borrowed` rows across BOTH kinds (group by `counterparty_name`, `direction`); positive = they owe the user.
 
 ### 10. `v_chat_instruments` & `v_chat_instrument_prices`
-Global reference instruments and latest price history points.
+Reference instruments and their price history points. Names, symbols, exchange, type and currency are as the user edited them for their own account (instrument names in the trades, holdings and dividends views too). Prices are the shared feed prices plus the user's own manual prices (`source = 'MANUAL'`); on a date with both, only the user's manual price is listed.
 
 ---
 

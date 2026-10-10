@@ -52,6 +52,19 @@ public class ImportService {
     private final UserRepository userRepository;
     private final InstrumentSearchService instrumentSearchService;
     private final ApplicationEventPublisher eventPublisher;
+    /** Where the user's repointed instruments now go; null in unit tests (then nothing is repointed). */
+    @org.springframework.lang.Nullable
+    private InstrumentRepointMap repointMap;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setRepointMap(InstrumentRepointMap repointMap) {
+        this.repointMap = repointMap;
+    }
+
+    /** {@code instrument} as the signed-in user's imports see it (their repoint applied after any match). */
+    private Instrument repointed(Instrument instrument) {
+        return repointMap == null || instrument == null ? instrument : repointMap.applyForCurrentUser(instrument);
+    }
 
     public ImportService(List<ImportParser> parsers,
                          InstrumentRepository instrumentRepository,
@@ -95,6 +108,9 @@ public class ImportService {
         List<ParsedRow> parsedRows = parser.parse(inputStream, new ParseContext(brokerAccountId, password));
 
         List<ImportPreviewResponse.ImportRowPreviewDto> rowDtos = new ArrayList<>();
+        // Matched instruments are shown as this user sees them (their own names).
+        InstrumentOverrides overrides = instrumentSearchService != null
+                ? InstrumentOverrides.orNone(instrumentSearchService.currentUserOverrides()) : InstrumentOverrides.NONE;
         int matchedCount = 0;
         int unmatchedCount = 0;
         int duplicateCount = 0;
@@ -125,6 +141,15 @@ public class ImportService {
             }
 
             if (matchedInstrument == null && row.parsedSymbol() != null && !row.parsedSymbol().isBlank()) {
+                // The user's own alias (their repointed instrument) beats a catalog symbol match.
+                matchedInstrument = ownAliasInstrument(row.parsedSymbol());
+                if (matchedInstrument != null) {
+                    resolveSource = "name";
+                    resolveOutcome = "matched";
+                    resolveCandidateCount = 1;
+                }
+            }
+            if (matchedInstrument == null && row.parsedSymbol() != null && !row.parsedSymbol().isBlank()) {
                 List<Instrument> searchResults = instrumentRepository.searchInstruments(row.parsedSymbol(), null);
                 for (Instrument inst : searchResults) {
                     if (inst.getSymbol() != null && inst.getSymbol().equalsIgnoreCase(row.parsedSymbol())) {
@@ -138,7 +163,7 @@ public class ImportService {
                     }
                 }
                 if (matchedInstrument == null && aliasRepository != null) {
-                    matchedInstrument = aliasRepository.findFirstByOldSymbolIgnoreCase(row.parsedSymbol().trim())
+                    matchedInstrument = aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserIdIsNull(row.parsedSymbol().trim())
                             .map(InstrumentAlias::getInstrument)
                             .orElse(null);
                     if (matchedInstrument != null) {
@@ -209,17 +234,27 @@ public class ImportService {
                             }
                         }
 
-                        if (bestCandidate != null) {
+                        if (bestCandidate != null && bestCandidate.existingInstrumentId() != null) {
+                            // A catalog row (shown with the user's own overrides): used as it is, never
+                            // re-resolved from those display values.
+                            matchedInstrument = instrumentRepository.findById(bestCandidate.existingInstrumentId()).orElse(null);
+                            if (matchedInstrument != null) {
+                                resolveSource = "search";
+                                resolveOutcome = "matched";
+                            }
+                        } else if (bestCandidate != null) {
+                            // TRUSTED may fill a shared row's empty identifiers, so only what the provider
+                            // returned goes in — never a value from the user's file (e.g. its ISIN).
                             InstrumentResponse resolved = instrumentSearchService.resolve(new ResolveInstrumentRequest(
                                     bestCandidate.type(),
                                     bestCandidate.name(),
                                     bestCandidate.symbol(),
                                     bestCandidate.exchange(),
-                                    bestCandidate.isin() != null ? bestCandidate.isin() : row.parsedIsin(),
+                                    bestCandidate.isin(),
                                     bestCandidate.amfiCode(),
                                     bestCandidate.yahooSymbol(),
                                     bestCandidate.currency(),
-                                    bestCandidate.existingInstrumentId()
+                                    null
                             ));
                             matchedInstrument = instrumentRepository.findById(resolved.id()).orElse(null);
                             if (matchedInstrument != null) {
@@ -296,6 +331,10 @@ public class ImportService {
 
             if (matchedInstrument == null) {
                 resolveOutcome = externalSearchExhausted ? "dead" : "ambiguous";
+            } else {
+                // However it matched (ISIN, AMFI, Yahoo, ticker, alias, search, created), an instrument the
+                // user moved off stands for the one they moved to — so duplicates are checked there too.
+                matchedInstrument = repointed(matchedInstrument);
             }
 
             log.info("Instrument resolve: isin={}, symbol={}, source={}, outcome={}",
@@ -316,10 +355,10 @@ public class ImportService {
                 matchedCount++;
                 matchedDto = new ImportPreviewResponse.MatchedInstrumentDto(
                         matchedInstrument.getId(),
-                        matchedInstrument.getType(),
-                        matchedInstrument.getName(),
-                        matchedInstrument.getSymbol(),
-                        matchedInstrument.getExchange(),
+                        overrides.type(matchedInstrument),
+                        overrides.name(matchedInstrument),
+                        overrides.symbol(matchedInstrument),
+                        overrides.exchange(matchedInstrument),
                         matchedInstrument.getIsin()
                 );
 
@@ -445,6 +484,9 @@ public class ImportService {
                         instrument = instrumentRepository.findByIsin(newInstDto.isin().trim()).orElse(null);
                     }
                     if (instrument == null && newInstDto.symbol() != null && !newInstDto.symbol().isBlank()) {
+                        instrument = ownAliasInstrument(newInstDto.symbol());
+                    }
+                    if (instrument == null && newInstDto.symbol() != null && !newInstDto.symbol().isBlank()) {
                         List<Instrument> searchResults = instrumentRepository.searchInstruments(newInstDto.symbol().trim(), null);
                         for (Instrument inst : searchResults) {
                             if (inst.getSymbol() != null && inst.getSymbol().equalsIgnoreCase(newInstDto.symbol().trim())) {
@@ -455,7 +497,7 @@ public class ImportService {
                             }
                         }
                         if (instrument == null && aliasRepository != null) {
-                            instrument = aliasRepository.findFirstByOldSymbolIgnoreCase(newInstDto.symbol().trim())
+                            instrument = aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserIdIsNull(newInstDto.symbol().trim())
                                     .map(InstrumentAlias::getInstrument)
                                     .orElse(null);
                         }
@@ -485,6 +527,8 @@ public class ImportService {
                 if (instrument == null) {
                     throw new ValidationException("Row " + rowDto.rowIndex() + ": No instrument provided or created");
                 }
+                // A row picked (or found) as an instrument the user moved off lands on the one they moved to.
+                instrument = repointed(instrument);
 
                 // Resolve or create Holding (Note: Multiple folios of the same scheme collapse into one holding for (brokerAccount x instrument))
                 final Instrument finalInstrument = instrument;
@@ -646,5 +690,16 @@ public class ImportService {
             txn.setDpCharges(charges.dpCharges());
             txn.setOtherCharges(charges.otherCharges());
         }
+    }
+
+    /** The instrument the current user's own alias maps {@code symbol} to (set when they repointed it), or null. */
+    private Instrument ownAliasInstrument(String symbol) {
+        java.util.UUID userId = com.financeos.core.security.UserContext.getCurrentUserId();
+        if (aliasRepository == null || userId == null || symbol == null || symbol.isBlank()) {
+            return null;
+        }
+        return aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserId(symbol.trim(), userId)
+                .map(InstrumentAlias::getInstrument)
+                .orElse(null);
     }
 }

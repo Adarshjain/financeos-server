@@ -8,6 +8,7 @@ import com.financeos.core.time.AppTime;
 import com.financeos.domain.holding.Holding;
 import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.Instrument;
+import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.instrument.InstrumentType;
 import com.financeos.domain.instrument.price.YahooDividendEventsClient;
 import com.financeos.domain.investment.InvestmentService;
@@ -198,6 +199,8 @@ public class DividendService {
 
         List<DividendSuggestionsResponse.Suggestion> suggestions = new ArrayList<>();
         List<String> skippedSymbols = new ArrayList<>();
+        InstrumentOverrides overrides = holdings.isEmpty()
+                ? InstrumentOverrides.NONE : InstrumentOverrides.orNone(investmentService.instrumentOverrides());
         int scannedCount = holdingsBySymbol.size();
 
         int index = 0;
@@ -257,8 +260,8 @@ public class DividendService {
                             holding.getBrokerAccount().getId(),
                             holding.getBrokerAccount().getName(),
                             holding.getInstrument().getId(),
-                            holding.getInstrument().getName(),
-                            holding.getInstrument().getSymbol() != null ? holding.getInstrument().getSymbol() : symbol,
+                            overrides.name(holding.getInstrument()),
+                            overrides.symbol(holding.getInstrument()) != null ? overrides.symbol(holding.getInstrument()) : symbol,
                             event.exDate(),
                             perUnit,
                             qtyHeld,

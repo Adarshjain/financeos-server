@@ -107,8 +107,8 @@ class DemergerCorporateActionTest {
                 .thenReturn(List.of(demerger));
         when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(parentInstrument.getId()))
                 .thenReturn(List.of());
-        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(parentInstrument.getId()))
-                .thenReturn(Optional.empty());
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(parentInstrument.getId()), org.mockito.ArgumentMatchers.any()))
+                .thenReturn(java.util.List.of());
 
         Method calcMethod = InvestmentService.class.getDeclaredMethod("calculateHoldingPosition", Holding.class);
         calcMethod.setAccessible(true);
@@ -160,8 +160,8 @@ class DemergerCorporateActionTest {
                 .thenReturn(List.of(parentBuy));
         when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(parentInstrument.getId()))
                 .thenReturn(List.of(demerger));
-        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(childInstrument.getId()))
-                .thenReturn(Optional.empty());
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(childInstrument.getId()), org.mockito.ArgumentMatchers.any()))
+                .thenReturn(java.util.List.of());
 
         Method calcMethod = InvestmentService.class.getDeclaredMethod("calculateHoldingPosition", Holding.class);
         calcMethod.setAccessible(true);

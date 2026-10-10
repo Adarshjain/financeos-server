@@ -10,7 +10,9 @@ import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.holding.Holding;
 import com.financeos.domain.holding.HoldingRepository;
+import com.financeos.domain.instrument.AssetClassOverrideService;
 import com.financeos.domain.instrument.Instrument;
+import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.instrument.InstrumentRepository;
 import com.financeos.domain.investment.InvestmentTransaction;
 import com.financeos.domain.investment.InvestmentTransactionRepository;
@@ -37,13 +39,16 @@ public class SipService {
     private final HoldingRepository holdingRepository;
     private final InvestmentTransactionRepository transactionRepository;
     private final UserRepository userRepository;
+    private final AssetClassOverrideService overrideService;
 
     public SipService(SipRepository sipRepository,
                       AccountRepository accountRepository,
                       InstrumentRepository instrumentRepository,
                       HoldingRepository holdingRepository,
                       InvestmentTransactionRepository transactionRepository,
-                      UserRepository userRepository) {
+                      UserRepository userRepository,
+                      AssetClassOverrideService overrideService) {
+        this.overrideService = overrideService;
         this.sipRepository = sipRepository;
         this.accountRepository = accountRepository;
         this.instrumentRepository = instrumentRepository;
@@ -79,7 +84,7 @@ public class SipService {
         sip.setNotes(request.notes());
 
         Sip saved = sipRepository.save(sip);
-        return SipResponse.from(saved, computeProgress(saved));
+        return SipResponse.from(saved, computeProgress(saved), overrideService.overridesForCurrentUser());
     }
 
     public SipResponse updateSip(UUID id, UpdateSipRequest request) {
@@ -100,7 +105,7 @@ public class SipService {
         sip.setNotes(request.notes());
 
         Sip saved = sipRepository.save(sip);
-        return SipResponse.from(saved, computeProgress(saved));
+        return SipResponse.from(saved, computeProgress(saved), overrideService.overridesForCurrentUser());
     }
 
     public void deleteSip(UUID id) {
@@ -119,13 +124,14 @@ public class SipService {
     public SipResponse getSip(UUID id) {
         Sip sip = sipRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Sip", id));
-        return SipResponse.from(sip, computeProgress(sip));
+        return SipResponse.from(sip, computeProgress(sip), overrideService.overridesForCurrentUser());
     }
 
     @Transactional(readOnly = true)
     public List<SipResponse> getSips(UUID brokerAccountId, UUID instrumentId, Boolean active) {
         List<Sip> sips = sipRepository.findFilteredSips(brokerAccountId, instrumentId, active);
-        return sips.stream().map(sip -> SipResponse.from(sip, computeProgress(sip))).toList();
+        InstrumentOverrides overrides = sips.isEmpty() ? InstrumentOverrides.NONE : overrideService.overridesForCurrentUser();
+        return sips.stream().map(sip -> SipResponse.from(sip, computeProgress(sip), overrides)).toList();
     }
 
     /**

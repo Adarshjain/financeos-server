@@ -43,7 +43,7 @@ class InvestmentTradesQueryBuilderTest {
         assertTrue(joins.contains(InvestmentTradesQueryBuilder.JOIN_HOLDINGS));
 
         String instExpr = queryBuilder.expression("instrument", joins);
-        assertEquals("ins.name", instExpr);
+        assertEquals("COALESCE(uio.name, ins.name)", instExpr);
         assertTrue(joins.contains(InvestmentTradesQueryBuilder.JOIN_INSTRUMENTS));
     }
 

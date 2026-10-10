@@ -40,6 +40,15 @@ public class InstrumentPrice {
     @Column(nullable = false)
     private PriceSource source;
 
+    /**
+     * Null for a feed (AMFI / YAHOO) price every user sees, and for a MANUAL price entered before
+     * prices had an owner (read-only); else the user whose own MANUAL price this is — seen only by
+     * them, and preferred over a feed price of the same date.
+     */
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(name = "user_id", length = 36)
+    private UUID userId;
+
     @Column(name = "created_at")
     private Instant createdAt;
 
@@ -55,5 +64,17 @@ public class InstrumentPrice {
         this.asOf = asOf;
         this.close = close;
         this.source = source;
+    }
+
+    /** {@code userId}'s own MANUAL price. */
+    public static InstrumentPrice manual(Instrument instrument, UUID userId, LocalDate asOf, BigDecimal close) {
+        InstrumentPrice price = new InstrumentPrice(instrument, asOf, close, PriceSource.MANUAL);
+        price.setUserId(userId);
+        return price;
+    }
+
+    /** Whether this is {@code userId}'s own MANUAL price (the only prices a user may edit or delete). */
+    public boolean isOwnManual(UUID userId) {
+        return userId != null && userId.equals(this.userId) && source == PriceSource.MANUAL;
     }
 }

@@ -112,8 +112,8 @@ class MergerCorporateActionTest {
                 .thenReturn(List.of(merger));
         when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(transferorInstrument.getId()))
                 .thenReturn(List.of());
-        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(transferorInstrument.getId()))
-                .thenReturn(Optional.empty());
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(transferorInstrument.getId()), org.mockito.ArgumentMatchers.any()))
+                .thenReturn(java.util.List.of());
 
         HoldingPosition transferorPos = investmentService.calculateHoldingPosition(transferorHolding);
 
@@ -132,8 +132,8 @@ class MergerCorporateActionTest {
                 .thenReturn(List.of(merger));
         when(holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccount.getId(), transferorInstrument.getId()))
                 .thenReturn(Optional.of(transferorHolding));
-        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(acquirerInstrument.getId()))
-                .thenReturn(Optional.empty());
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(acquirerInstrument.getId()), org.mockito.ArgumentMatchers.any()))
+                .thenReturn(java.util.List.of());
 
         HoldingPosition acquirerPos = investmentService.calculateHoldingPosition(acquirerHolding);
 
@@ -178,8 +178,8 @@ class MergerCorporateActionTest {
                 .thenReturn(List.of(merger));
         when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(transferorInstrument.getId()))
                 .thenReturn(List.of());
-        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(transferorInstrument.getId()))
-                .thenReturn(Optional.of(transferorPrice));
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(transferorInstrument.getId()), org.mockito.ArgumentMatchers.any()))
+                .thenReturn(java.util.List.of(transferorPrice));
 
         // Mocks for acquirer calculation
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(acquirerHolding.getId()))
@@ -190,8 +190,8 @@ class MergerCorporateActionTest {
                 .thenReturn(List.of(merger));
         when(holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccount.getId(), transferorInstrument.getId()))
                 .thenReturn(Optional.of(transferorHolding));
-        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(acquirerInstrument.getId()))
-                .thenReturn(Optional.of(acquirerPrice));
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(acquirerInstrument.getId()), org.mockito.ArgumentMatchers.any()))
+                .thenReturn(java.util.List.of(acquirerPrice));
 
         when(holdingRepository.findByBrokerAccountId(brokerAccount.getId()))
                 .thenReturn(List.of(transferorHolding, acquirerHolding));
@@ -219,8 +219,8 @@ class MergerCorporateActionTest {
                 .thenReturn(List.of());
         when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(transferorInstrument.getId()))
                 .thenReturn(List.of());
-        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(transferorInstrument.getId()))
-                .thenReturn(Optional.empty());
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(transferorInstrument.getId()), org.mockito.ArgumentMatchers.any()))
+                .thenReturn(java.util.List.of());
 
         HoldingPosition pos = investmentService.calculateHoldingPosition(transferorHolding);
 
@@ -248,8 +248,8 @@ class MergerCorporateActionTest {
                 .thenReturn(List.of());
         when(corporateActionRepository.findByTargetInstrumentIdOrderByExDateAsc(transferorInstrument.getId()))
                 .thenReturn(List.of());
-        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(transferorInstrument.getId()))
-                .thenReturn(Optional.empty());
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(transferorInstrument.getId()), org.mockito.ArgumentMatchers.any()))
+                .thenReturn(java.util.List.of());
 
         com.financeos.api.investment.dto.SummaryResponse summary = investmentService.getSummary();
 
@@ -294,8 +294,8 @@ class MergerCorporateActionTest {
                 .thenReturn(List.of(buyTxn));
         when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(transferorInstrument.getId()))
                 .thenReturn(List.of(merger));
-        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(acquirerInstrument.getId()))
-                .thenReturn(Optional.empty());
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(acquirerInstrument.getId()), org.mockito.ArgumentMatchers.any()))
+                .thenReturn(java.util.List.of());
 
         HoldingPosition acquirerPos = investmentService.calculateHoldingPosition(acquirerHolding);
 
@@ -341,8 +341,8 @@ class MergerCorporateActionTest {
                 .thenReturn(List.of(buyTxn));
         when(corporateActionRepository.findByInstrumentIdOrderByExDateAsc(transferorInstrument.getId()))
                 .thenReturn(List.of(merger));
-        when(priceRepository.findTopByInstrumentIdOrderByAsOfDesc(acquirerInstrument.getId()))
-                .thenReturn(Optional.empty());
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(acquirerInstrument.getId()), org.mockito.ArgumentMatchers.any()))
+                .thenReturn(java.util.List.of());
 
         HoldingPosition acquirerPos = investmentService.calculateHoldingPosition(acquirerHolding);
 

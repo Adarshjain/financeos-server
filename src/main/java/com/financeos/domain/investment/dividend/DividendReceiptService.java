@@ -15,6 +15,7 @@ import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.holding.Holding;
 import com.financeos.domain.holding.HoldingRepository;
+import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.loan.TransactionReferenceValidator;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
@@ -317,6 +318,7 @@ public class DividendReceiptService {
         Set<UUID> inLinkGroups = linkGroupMembers(candidates.stream().map(Transaction::getId).collect(Collectors.toSet()));
 
         List<Holding> holdings = holdingRepository.findAllWithDetails();
+        InstrumentOverrides overrides = holdings.isEmpty() ? InstrumentOverrides.NONE : resolver.overrides();
         List<UnrecordedDividendCreditsResponse.UnrecordedDividendCredit> items = new ArrayList<>();
         for (Transaction t : candidates) {
             if (inLinkGroups.contains(t.getId())) {
@@ -330,8 +332,8 @@ public class DividendReceiptService {
                             h.getBrokerAccount().getId(),
                             h.getBrokerAccount().getName(),
                             h.getInstrument().getId(),
-                            h.getInstrument().getName(),
-                            h.getInstrument().getSymbol(),
+                            overrides.name(h.getInstrument()),
+                            overrides.symbol(h.getInstrument()),
                             DividendMatcher.symbolMatches(h.getInstrument(), desc) ? 1.0 : DividendMatcher.nameScore(h.getInstrument(), desc)))
                     .filter(hint -> hint.nameScore() >= DividendMatcher.NAME_SCORE_THRESHOLD)
                     .sorted(Comparator.comparingDouble(UnrecordedDividendCreditsResponse.DividendHoldingHint::nameScore).reversed()

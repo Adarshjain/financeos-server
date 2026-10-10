@@ -1,7 +1,9 @@
 package com.financeos.domain.obligation;
 
 import com.financeos.api.transaction.dto.ObligationRef;
+import com.financeos.domain.instrument.AssetClassOverrideService;
 import com.financeos.domain.instrument.Instrument;
+import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.investment.dividend.Dividend;
 import com.financeos.domain.investment.dividend.DividendRepository;
 import com.financeos.domain.investment.dividend.DividendType;
@@ -18,6 +20,8 @@ import com.financeos.domain.loan.LoanEventType;
 import com.financeos.domain.loan.LoanPayment;
 import com.financeos.domain.loan.LoanPaymentRepository;
 import com.financeos.domain.transaction.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,17 +49,39 @@ public class ObligationRefService {
     private final LoanEventRepository loanEventRepository;
     private final LoanChargeRepository loanChargeRepository;
     private final DividendRepository dividendRepository;
+    /** The reader's instrument overrides (dividend labels name the instrument); null in unit tests. */
+    @Nullable
+    private final AssetClassOverrideService overrideService;
 
+    /** Without instrument overrides (unit tests). */
     public ObligationRefService(LendingRepository lendingRepository,
                                 LoanPaymentRepository loanPaymentRepository,
                                 LoanEventRepository loanEventRepository,
                                 LoanChargeRepository loanChargeRepository,
                                 DividendRepository dividendRepository) {
+        this(lendingRepository, loanPaymentRepository, loanEventRepository, loanChargeRepository, dividendRepository,
+                null);
+    }
+
+    @Autowired
+    public ObligationRefService(LendingRepository lendingRepository,
+                                LoanPaymentRepository loanPaymentRepository,
+                                LoanEventRepository loanEventRepository,
+                                LoanChargeRepository loanChargeRepository,
+                                DividendRepository dividendRepository,
+                                @Nullable AssetClassOverrideService overrideService) {
         this.lendingRepository = lendingRepository;
         this.loanPaymentRepository = loanPaymentRepository;
         this.loanEventRepository = loanEventRepository;
         this.loanChargeRepository = loanChargeRepository;
         this.dividendRepository = dividendRepository;
+        this.overrideService = overrideService;
+    }
+
+    /** The current user's instrument overrides, loaded only when there are dividends to label. */
+    private InstrumentOverrides overrides(List<Dividend> dividends) {
+        return dividends.isEmpty() || overrideService == null
+                ? InstrumentOverrides.NONE : InstrumentOverrides.orNone(overrideService.overridesForCurrentUser());
     }
 
     /** Batch: transactionId → its obligation refs (transactions with none are absent from the map). */
@@ -77,8 +103,10 @@ public class ObligationRefService {
         for (LoanCharge c : loanChargeRepository.findWithLoanByTransactionIdIn(transactionIds)) {
             map.computeIfAbsent(c.getTransaction().getId(), k -> new ArrayList<>()).add(toRef(c));
         }
-        for (Dividend d : dividendRepository.findWithHoldingByTransactionIdIn(transactionIds)) {
-            map.computeIfAbsent(d.getTransaction().getId(), k -> new ArrayList<>()).add(toRef(d));
+        List<Dividend> dividendRows = dividendRepository.findWithHoldingByTransactionIdIn(transactionIds);
+        InstrumentOverrides overrides = overrides(dividendRows);
+        for (Dividend d : dividendRows) {
+            map.computeIfAbsent(d.getTransaction().getId(), k -> new ArrayList<>()).add(toRef(d, overrides));
         }
         return map;
     }
@@ -147,9 +175,10 @@ public class ObligationRefService {
         }
 
         List<Dividend> dividends = dividendRepository.findWithHoldingByTransactionIdIn(List.of(from.getId()));
+        InstrumentOverrides overrides = overrides(dividends);
         for (Dividend d : dividends) {
             d.setTransaction(to);
-            moved.add(toRef(d).label());
+            moved.add(toRef(d, overrides).label());
         }
         if (!dividends.isEmpty()) {
             dividendRepository.saveAll(dividends);
@@ -225,13 +254,19 @@ public class ObligationRefService {
     }
 
     static ObligationRef toRef(Dividend d) {
+        return toRef(d, InstrumentOverrides.NONE);
+    }
+
+    /** The dividend's ref, naming the instrument as {@code overrides}' user sees it. */
+    static ObligationRef toRef(Dividend d, InstrumentOverrides overrides) {
         Instrument instrument = d.getHolding() != null ? d.getHolding().getInstrument() : null;
         String name = "";
         if (instrument != null) {
-            String symbol = instrument.getSymbol();
+            String symbol = overrides.symbol(instrument);
+            String instrumentName = overrides.name(instrument);
             // Stock tickers are short; MF rows carry an ISIN/AMFI code as symbol, which reads badly.
             boolean tickerLike = symbol != null && !symbol.isBlank() && symbol.trim().length() <= 10;
-            name = tickerLike ? symbol.trim() : (instrument.getName() != null ? instrument.getName() : "");
+            name = tickerLike ? symbol.trim() : (instrumentName != null ? instrumentName : "");
         }
         String verb = d.getType() == DividendType.interest ? "Interest"
                 : d.getType() == DividendType.other ? "Payout" : "Dividend";

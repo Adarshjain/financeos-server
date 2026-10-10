@@ -26,14 +26,16 @@ public record HoldingTrace(HoldingPosition position, List<OpenLot> openLots, Lis
         /** The delivery residual of a day whose intraday buys and sells were netted. */
         INTRADAY_NETTED_DELIVERY,
         /** Shares received from a demerger or merger of another instrument. */
-        CORPORATE_ACTION
+        CORPORATE_ACTION,
+        /** Bonus shares of this instrument: a zero-cost lot acquired on the bonus ex-date. */
+        BONUS
     }
 
     /**
      * The origin of a lot.
      *
-     * @param action the demerger/merger the shares were received from; null unless
-     *               {@code origin} is {@link LotOrigin#CORPORATE_ACTION}
+     * @param action the demerger/merger the shares were received from ({@link LotOrigin#CORPORATE_ACTION})
+     *               or the bonus issue that created them ({@link LotOrigin#BONUS}); null otherwise
      */
     public record LotSource(LotOrigin origin, CorporateAction action) {
 
@@ -42,6 +44,10 @@ public record HoldingTrace(HoldingPosition position, List<OpenLot> openLots, Lis
 
         public static LotSource corporateAction(CorporateAction action) {
             return new LotSource(LotOrigin.CORPORATE_ACTION, action);
+        }
+
+        public static LotSource bonus(CorporateAction action) {
+            return new LotSource(LotOrigin.BONUS, action);
         }
     }
 

@@ -72,6 +72,24 @@ public class BrokerReconciliationService {
     private final ApplicationEventPublisher eventPublisher;
     private final FnoTradeRepository fnoTradeRepository;
     private final FnoTradeService fnoTradeService;
+    /** Where the user's repointed instruments now go; null in unit tests (then nothing is repointed). */
+    @org.springframework.lang.Nullable
+    private com.financeos.domain.instrument.InstrumentRepointMap repointMap;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setRepointMap(com.financeos.domain.instrument.InstrumentRepointMap repointMap) {
+        this.repointMap = repointMap;
+    }
+
+    /** {@code instrument} as the signed-in user's imports see it (their repoint applied after any match). */
+    private Instrument repointed(Instrument instrument) {
+        return repointMap == null || instrument == null ? instrument : repointMap.applyForCurrentUser(instrument);
+    }
+
+    private UUID repointedId(UUID instrumentId) {
+        return repointMap == null || instrumentId == null ? instrumentId
+                : repointMap.resolve(UserContext.getCurrentUserId(), instrumentId);
+    }
 
     public BrokerReconciliationService(
             ZerodhaTradebookParser zerodhaTradebookParser,
@@ -757,7 +775,7 @@ public class BrokerReconciliationService {
             if (execDto.skip()) {
                 skipped++;
                 boolean dup = execDto.instrumentId() != null
-                        && checkDuplicateInDb(brokerAccount.getId(), execDto.instrumentId(), execDto);
+                        && checkDuplicateInDb(brokerAccount.getId(), repointedId(execDto.instrumentId()), execDto);
                 skippedItems.add(new ImportCommitResponse.SkippedCommitItem(
                         execDto.rowIndex(), execDto.symbol(),
                         dup ? "Duplicate — already in your portfolio" : "Excluded during review"));
@@ -809,6 +827,8 @@ public class BrokerReconciliationService {
                     }
                 }
 
+                // An instrument the user moved off stands for the one they moved to.
+                instrument = repointed(instrument);
                 if (instrument == null) {
                     throw new ValidationException("No instrument mapped — set a match in the review step before importing");
                 }
@@ -1013,6 +1033,13 @@ public class BrokerReconciliationService {
         if (isin != null && !isin.isBlank()) {
             matched = instrumentRepository.findByIsin(isin.trim()).orElse(null);
         }
+        java.util.UUID aliasUser = com.financeos.core.security.UserContext.getCurrentUserId();
+        if (matched == null && symbol != null && !symbol.isBlank() && aliasRepository != null && aliasUser != null) {
+            // The user's own alias (their repointed instrument) beats a catalog symbol match.
+            matched = aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserId(symbol.trim(), aliasUser)
+                    .map(InstrumentAlias::getInstrument)
+                    .orElse(null);
+        }
         if (matched == null && symbol != null && !symbol.isBlank()) {
             List<Instrument> list = instrumentRepository.searchInstruments(symbol.trim(), null);
             for (Instrument inst : list) {
@@ -1024,18 +1051,24 @@ public class BrokerReconciliationService {
                 }
             }
             if (matched == null && aliasRepository != null) {
-                matched = aliasRepository.findFirstByOldSymbolIgnoreCase(symbol.trim())
+                matched = aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserIdIsNull(symbol.trim())
                         .map(InstrumentAlias::getInstrument)
                         .orElse(null);
             }
         }
+        // However it matched, an instrument the user moved off stands for the one they moved to (so the
+        // duplicate checks look at the holding they have now).
+        matched = repointed(matched);
         if (matched != null) {
+            // Shown as this user sees the instrument (their own names).
+            InstrumentOverrides overrides = instrumentSearchService != null
+                    ? InstrumentOverrides.orNone(instrumentSearchService.currentUserOverrides()) : InstrumentOverrides.NONE;
             return new ReconcilePreviewResponse.MatchedInstrumentDto(
                     matched.getId(),
-                    matched.getType(),
-                    matched.getName(),
-                    matched.getSymbol(),
-                    matched.getExchange(),
+                    overrides.type(matched),
+                    overrides.name(matched),
+                    overrides.symbol(matched),
+                    overrides.exchange(matched),
                     matched.getIsin()
             );
         }

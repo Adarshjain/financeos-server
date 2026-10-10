@@ -38,7 +38,7 @@ class DividendsQueryBuilderTest {
         assertTrue(joins.isEmpty());
 
         String instExpr = queryBuilder.expression("instrument", joins);
-        assertEquals("ins.name", instExpr);
+        assertEquals("COALESCE(uio.name, ins.name)", instExpr);
         assertTrue(joins.contains(DividendsQueryBuilder.JOIN_INSTRUMENTS));
         assertTrue(joins.contains(DividendsQueryBuilder.JOIN_HOLDINGS));
     }
