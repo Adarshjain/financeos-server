@@ -76,7 +76,7 @@ class ImportServiceTest {
         brokerAccount.setId(brokerAccountId);
         brokerAccount.setType(AccountType.broker);
 
-        when(accountRepository.findById(brokerAccountId)).thenReturn(Optional.of(brokerAccount));
+        when(accountRepository.findByIdAndUser_Id(eq(brokerAccountId), any())).thenReturn(Optional.of(brokerAccount));
         when(transactionRepository.findFilteredTransactions(any(), any(), any(), any(), any())).thenReturn(org.springframework.data.domain.Page.empty());
     }
 

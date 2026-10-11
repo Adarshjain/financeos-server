@@ -76,7 +76,7 @@ class ImportServiceTrustedCandidateTest {
         Account broker = new Account();
         broker.setId(brokerAccountId);
         broker.setType(AccountType.broker);
-        when(accounts.findById(brokerAccountId)).thenReturn(Optional.of(broker));
+        when(accounts.findByIdAndUser_Id(eq(brokerAccountId), any())).thenReturn(Optional.of(broker));
         UserContext.setCurrentUserId(user);
     }
 

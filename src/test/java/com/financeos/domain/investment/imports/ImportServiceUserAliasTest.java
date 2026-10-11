@@ -33,6 +33,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -72,7 +73,7 @@ class ImportServiceUserAliasTest {
         Account broker = new Account();
         broker.setId(brokerAccountId);
         broker.setType(AccountType.broker);
-        when(accountRepository.findById(brokerAccountId)).thenReturn(Optional.of(broker));
+        when(accountRepository.findByIdAndUser_Id(eq(brokerAccountId), any())).thenReturn(Optional.of(broker));
         when(transactionRepository.findFilteredTransactions(any(), any(), any(), any(), any()))
                 .thenReturn(org.springframework.data.domain.Page.empty());
 

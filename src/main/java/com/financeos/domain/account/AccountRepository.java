@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -27,6 +28,9 @@ public interface AccountRepository extends JpaRepository<Account, UUID>, Account
     List<Account> findByUserIdAndHasStatementPassword(UUID userId);
 
     List<Account> findByUserId(UUID userId);
+
+    /** The account when {@code userId} owns it; empty for a missing id and for another user's account alike. */
+    Optional<Account> findByIdAndUser_Id(UUID id, UUID userId);
 
     List<Account> findByUserIdAndType(UUID userId, AccountType type);
 

@@ -76,7 +76,7 @@ class BrokerReconciliationRepointMapTest {
         account.setId(brokerAccountId);
         account.setType(AccountType.broker);
         account.setName("Zerodha");
-        when(accountRepository.findById(brokerAccountId)).thenReturn(Optional.of(account));
+        when(accountRepository.findByIdAndUser_Id(eq(brokerAccountId), any())).thenReturn(Optional.of(account));
         source = instrument("INE333A01011");
         target = instrument("INE333A01099");
         when(instrumentRepository.findByIsin(source.getIsin())).thenReturn(Optional.of(source));

@@ -410,7 +410,8 @@ public class AccountService {
         account.setRewardAnniversaryDate(request.anniversaryDate());
 
         if (request.replacesAccountId() != null) {
-            Account replacesAccount = accountRepository.findById(request.replacesAccountId())
+            // Only an account of the same owner can be replaced; another user's id reads as not found.
+            Account replacesAccount = accountRepository.findByIdAndUser_Id(request.replacesAccountId(), account.getUser().getId())
                     .orElseThrow(() -> new ResourceNotFoundException("Account", request.replacesAccountId()));
             account.setReplacesAccount(replacesAccount);
         }

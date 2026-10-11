@@ -174,7 +174,7 @@ public class BrokerReconciliationService {
             String holdingsFilename,
             ImportAssetScope assetScope
     ) {
-        Account brokerAccount = accountRepository.findById(brokerAccountId)
+        Account brokerAccount = accountRepository.findByIdAndUser_Id(brokerAccountId, UserContext.getCurrentUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("Account", brokerAccountId));
 
         if (brokerAccount.getType() != AccountType.broker) {
@@ -755,7 +755,7 @@ public class BrokerReconciliationService {
     }
 
     public ImportCommitResponse commit(ReconcileCommitRequest request) {
-        Account brokerAccount = accountRepository.findById(request.brokerAccountId())
+        Account brokerAccount = accountRepository.findByIdAndUser_Id(request.brokerAccountId(), UserContext.getCurrentUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("Account", request.brokerAccountId()));
 
         if (brokerAccount.getType() != AccountType.broker) {

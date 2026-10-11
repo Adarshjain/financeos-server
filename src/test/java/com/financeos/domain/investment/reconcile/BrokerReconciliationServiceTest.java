@@ -92,7 +92,7 @@ class BrokerReconciliationServiceTest {
         Account account = new Account();
         account.setType(AccountType.broker);
         account.setName("Zerodha Account");
-        when(accountRepository.findById(brokerAccountId)).thenReturn(Optional.of(account));
+        when(accountRepository.findByIdAndUser_Id(eq(brokerAccountId), any())).thenReturn(Optional.of(account));
     }
 
     @Test
