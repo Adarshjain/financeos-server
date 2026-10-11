@@ -13,6 +13,7 @@ import com.financeos.domain.job.JobService;
 import com.financeos.domain.job.JobTrigger;
 import com.financeos.domain.job.JobType;
 import com.financeos.domain.job.handlers.GmailSyncPayload;
+import com.financeos.domain.notification.gmail.GmailAttentionNotificationService;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.user.AuthService;
@@ -219,7 +220,8 @@ public class GmailController {
     public ResponseEntity<Page<GmailAttentionItemResponse>> getAttentionItems(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
-            @RequestParam(defaultValue = "false") boolean includeRetryable) {
+            @RequestParam(defaultValue = "false") boolean includeRetryable,
+            @RequestParam(defaultValue = "false") boolean archived) {
         User currentUser = authService.getCurrentUser();
         List<GmailProcessedStatus> statuses = new ArrayList<>(List.of(
                 GmailProcessedStatus.UNRESOLVED_ACCOUNT,
@@ -230,11 +232,15 @@ public class GmailController {
             statuses.add(GmailProcessedStatus.FAILED_RETRYABLE);
         }
 
-        Page<GmailProcessedMessage> items = processedMessageRepository.findAttentionItems(
-                currentUser.getId(),
-                statuses,
-                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "discoveredAt"))
-        );
+        Page<GmailAttentionRow> items = archived
+                ? processedMessageRepository.findArchivedAttentionItems(
+                        currentUser.getId(),
+                        statuses,
+                        PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "archivedAt")))
+                : processedMessageRepository.findAttentionItems(
+                        currentUser.getId(),
+                        statuses,
+                        PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "discoveredAt")));
 
         Page<GmailAttentionItemResponse> response = items.map(GmailAttentionItemResponse::from);
         return ResponseEntity.ok(response);
@@ -279,6 +285,41 @@ public class GmailController {
         );
 
         return ResponseEntity.accepted().body(new EnqueueResponse(job.getId()));
+    }
+
+    /** Hides an attention item from the list, the Inbox count and the push digest until it is unarchived or retried. */
+    @PostMapping("/api/v1/gmail/attention/{ledgerId}/archive")
+    @Transactional
+    public ResponseEntity<Void> archiveAttentionItem(@PathVariable UUID ledgerId) {
+        GmailProcessedMessage gpm = ownedAttentionItem(ledgerId);
+        if (gpm.getArchivedAt() == null) {
+            gpm.setArchivedAt(Instant.now());
+            processedMessageRepository.save(gpm);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/api/v1/gmail/attention/{ledgerId}/unarchive")
+    @Transactional
+    public ResponseEntity<Void> unarchiveAttentionItem(@PathVariable UUID ledgerId) {
+        GmailProcessedMessage gpm = ownedAttentionItem(ledgerId);
+        if (gpm.getArchivedAt() != null) {
+            gpm.setArchivedAt(null);
+            processedMessageRepository.save(gpm);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    /** The current user's ledger row, which must be in a "needs attention" status (retryable failures are still in flight). */
+    private GmailProcessedMessage ownedAttentionItem(UUID ledgerId) {
+        User currentUser = authService.getCurrentUser();
+        GmailProcessedMessage gpm = processedMessageRepository.findById(ledgerId)
+                .filter(m -> m.getUser().getId().equals(currentUser.getId()))
+                .orElseThrow(() -> new ResourceNotFoundException("GmailProcessedMessage", ledgerId));
+        if (!GmailAttentionNotificationService.ATTENTION_STATUSES.contains(gpm.getStatus())) {
+            throw new ValidationException("Item is not in a needs-attention status: " + gpm.getStatus());
+        }
+        return gpm;
     }
 
     @PostMapping("/api/v1/gmail/attention/{ledgerId}/assign")

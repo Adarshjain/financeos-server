@@ -91,6 +91,21 @@ public class GmailProcessedMessage {
     @Column(name = "attention_notified_at")
     private Instant attentionNotifiedAt;
 
+    /** When the user archived this attention item (hidden from the list, Inbox and digest); null when not archived. */
+    @Column(name = "archived_at")
+    private Instant archivedAt;
+
+    /**
+     * A status change means the message was retried or reactivated, so an archive no longer applies:
+     * if it lands in "needs attention" again it is a fresh outcome and must show.
+     */
+    public void setStatus(GmailProcessedStatus status) {
+        if (this.status != status) {
+            this.archivedAt = null;
+        }
+        this.status = status;
+    }
+
     @PrePersist
     protected void onCreate() {
         if (discoveredAt == null) {

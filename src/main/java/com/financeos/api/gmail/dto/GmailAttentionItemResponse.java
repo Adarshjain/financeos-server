@@ -1,5 +1,6 @@
 package com.financeos.api.gmail.dto;
 
+import com.financeos.gmail.domain.GmailAttentionRow;
 import com.financeos.gmail.domain.GmailProcessedMessage;
 import com.financeos.gmail.domain.GmailProcessedStatus;
 
@@ -21,9 +22,19 @@ public record GmailAttentionItemResponse(
     @Nullable Instant nextRetryAt,
     Instant discoveredAt,
     /** When this item was part of a "needs attention" push digest; null until then. */
-    @Nullable Instant attentionNotifiedAt
+    @Nullable Instant attentionNotifiedAt,
+    /** When the message was last processed (the attempt that parked or failed it). */
+    @Nullable Instant processedAt,
+    /** The Gmail mailbox the message came from. */
+    String connectionEmail,
+    /** The account the message resolved to (set for "not opted in"); null when no account matched. */
+    @Nullable UUID accountId,
+    @Nullable String accountName,
+    /** When the user archived this item; null while it is active. */
+    @Nullable Instant archivedAt
 ) {
-    public static GmailAttentionItemResponse from(GmailProcessedMessage gpm) {
+    public static GmailAttentionItemResponse from(GmailAttentionRow row) {
+        GmailProcessedMessage gpm = row.message();
         return new GmailAttentionItemResponse(
             gpm.getId(),
             gpm.getGmailMessageId(),
@@ -36,7 +47,12 @@ public record GmailAttentionItemResponse(
             gpm.getAttemptCount(),
             gpm.getNextRetryAt(),
             gpm.getDiscoveredAt(),
-            gpm.getAttentionNotifiedAt()
+            gpm.getAttentionNotifiedAt(),
+            gpm.getProcessedAt(),
+            row.connectionEmail(),
+            row.accountId(),
+            row.accountName(),
+            gpm.getArchivedAt()
         );
     }
 }
