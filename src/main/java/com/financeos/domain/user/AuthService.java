@@ -4,7 +4,9 @@ import com.financeos.api.auth.dto.LoginRequest;
 import com.financeos.api.auth.dto.SignupRequest;
 import com.financeos.core.exception.DuplicateResourceException;
 import com.financeos.core.exception.ResourceNotFoundException;
+import com.financeos.core.exception.ValidationException;
 import com.financeos.core.oauth.GoogleOAuthClient;
+import com.financeos.core.oauth.OAuthStateService;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailConnectionRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,6 +41,9 @@ public class AuthService {
 
     private static final Logger log = LoggerFactory.getLogger(AuthService.class);
 
+    /** Sign-in callback error when the state is missing, forged or expired. */
+    public static final String INVALID_STATE_MESSAGE = "Google sign-in expired or was not started here. Please try again.";
+
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -48,6 +53,7 @@ public class AuthService {
     private final GoogleOAuthClient googleOAuthClient;
     private final GmailConnectionRepository gmailConnectionRepository;
     private final InviteCodeService inviteCodeService;
+    private final OAuthStateService stateService;
 
     public AuthService(AuthenticationManager authenticationManager,
             UserRepository userRepository,
@@ -55,7 +61,9 @@ public class AuthService {
             SecurityContextRepository securityContextRepository,
             GoogleOAuthClient googleOAuthClient,
             GmailConnectionRepository gmailConnectionRepository,
-            InviteCodeService inviteCodeService) {
+            InviteCodeService inviteCodeService,
+            OAuthStateService stateService) {
+        this.stateService = stateService;
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -119,8 +127,8 @@ public class AuthService {
 
     public String generateGoogleAuthUrl() {
         String flowId = UUID.randomUUID().toString().substring(0, 8);
-        // Note: state carries flowId prefix followed by random UUID for CSRF correlation entropy
-        String state = flowId + "." + UUID.randomUUID();
+        // Signed and short-lived; the client binds it to the browser that started sign-in (see OAuthStateService).
+        String state = stateService.issue(OAuthStateService.Purpose.GOOGLE_SSO, flowId, null);
         String redirectUri = googleOAuthClient.getRedirectUri();
         String scopes = String.join(" ", googleOAuthClient.getSsoScopes());
 
@@ -152,23 +160,27 @@ public class AuthService {
         return dotIdx > 0 ? state.substring(0, dotIdx) : state;
     }
 
-    public User handleGoogleLogin(String code, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
-        return handleGoogleLogin(code, null, httpRequest, httpResponse);
-    }
-
+    /**
+     * Completes Google sign-in. The state must be one this server issued for sign-in and still be
+     * fresh; otherwise the code is never exchanged.
+     */
     public User handleGoogleLogin(String code, String state, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         String effectiveFlowId = parseFlowId(state);
         MDC.put("flowId", effectiveFlowId);
 
         try {
             boolean hasCode = code != null && !code.isBlank();
-            // Note: state is carried for correlation only (flowId) and is not verified against session state
-            log.info("Google OAuth callback received: flowId={}, hasCode={}, hasError=false, stateValidated=false", effectiveFlowId, hasCode,
+            boolean stateValid = stateService.isValid(OAuthStateService.Purpose.GOOGLE_SSO, state, null);
+            log.info("Google OAuth callback received: flowId={}, hasCode={}, hasError=false, stateValidated={}", effectiveFlowId, hasCode,
+                    stateValid,
                     StructuredArguments.keyValue("event", Events.OAUTH_GOOGLE_CALLBACK_RECEIVED),
                     StructuredArguments.keyValue("flowId", effectiveFlowId),
                     StructuredArguments.keyValue("hasCode", hasCode),
                     StructuredArguments.keyValue("hasError", false),
-                    StructuredArguments.keyValue("stateValidated", false));
+                    StructuredArguments.keyValue("stateValidated", stateValid));
+            if (!stateValid) {
+                throw new ValidationException(INVALID_STATE_MESSAGE);
+            }
 
             long startTokenTime = System.currentTimeMillis();
             var tokenResponse = googleOAuthClient.exchangeCodeForTokens(code);

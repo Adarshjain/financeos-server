@@ -32,6 +32,7 @@ public final class Events {
     public static final String AUTH_SIGNUP_REJECTED = "auth.signup.rejected";
     public static final String AUTH_SIGNUP_THROTTLED = "auth.signup.throttled";
     public static final String AUTH_SESSION_CREATED = "auth.session.created";
+    public static final String AUTH_SESSION_ORPHANED = "auth.session.orphaned";
     // Note: JDBC-backed session expiry is unobservable because Spring Session performs a bulk SQL DELETE without publishing per-session events.
 
     // Google OAuth Events

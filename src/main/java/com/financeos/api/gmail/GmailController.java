@@ -118,7 +118,7 @@ public class GmailController {
 
         try {
             User currentUser = authService.getCurrentUser();
-            GmailConnection connection = oauthService.handleCallback(currentUser.getId(), code);
+            GmailConnection connection = oauthService.handleCallback(currentUser.getId(), code, state);
 
             String redirectUrl = uiPath + "/settings/gmail?gmail=success&email=" + URLEncoder.encode(connection.getEmail(), StandardCharsets.UTF_8);
             return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
