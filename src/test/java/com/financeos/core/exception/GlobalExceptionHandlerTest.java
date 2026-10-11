@@ -9,6 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
+import java.util.List;
+import java.util.Set;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -272,5 +279,86 @@ class GlobalExceptionHandlerTest {
                 resolver.resolveMethod(new MissingServletRequestPartException("f")).getName());
         assertEquals("handleGenericException",
                 resolver.resolveMethod(new RuntimeException("boom")).getName());
+    }
+
+    @Test
+    void testNoResourceFoundIsA404WithoutStackTrace() {
+        NoResourceFoundException ex = new NoResourceFoundException(HttpMethod.GET, "actuator/nope");
+        ResponseEntity<GlobalExceptionHandler.ErrorResponse> response = handler.handleNoEndpoint(ex, request);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals("NOT_FOUND", response.getBody().code());
+        assertNull(response.getBody().errorId());
+        assertEquals(1, listAppender.list.size());
+        assertNull(listAppender.list.get(0).getThrowableProxy());
+    }
+
+    @Test
+    void testNoHandlerFoundIsA404WithoutStackTrace() {
+        NoHandlerFoundException ex = new NoHandlerFoundException("POST", "/api/v1/nope", new HttpHeaders());
+        ResponseEntity<GlobalExceptionHandler.ErrorResponse> response = handler.handleNoEndpoint(ex, request);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals("NOT_FOUND", response.getBody().code());
+        assertNull(response.getBody().errorId());
+        assertNull(listAppender.list.get(0).getThrowableProxy());
+    }
+
+    @Test
+    void testMethodNotSupportedIsA405ListingTheAllowedMethods() {
+        HttpRequestMethodNotSupportedException ex = new HttpRequestMethodNotSupportedException("POST", List.of("GET", "PUT"));
+        ResponseEntity<GlobalExceptionHandler.ErrorResponse> response = handler.handleMethodNotSupported(ex, request);
+
+        assertEquals(HttpStatus.METHOD_NOT_ALLOWED, response.getStatusCode());
+        assertEquals("METHOD_NOT_ALLOWED", response.getBody().code());
+        assertEquals("Method POST is not supported here", response.getBody().message());
+        assertEquals(Set.of(HttpMethod.GET, HttpMethod.PUT), response.getHeaders().getAllow());
+        assertNull(response.getBody().errorId());
+        assertNull(listAppender.list.get(0).getThrowableProxy());
+    }
+
+    @Test
+    void testMethodNotSupportedWithoutKnownMethodsHasNoAllowHeader() {
+        HttpRequestMethodNotSupportedException ex = new HttpRequestMethodNotSupportedException("PATCH");
+        ResponseEntity<GlobalExceptionHandler.ErrorResponse> response = handler.handleMethodNotSupported(ex, request);
+
+        assertEquals(HttpStatus.METHOD_NOT_ALLOWED, response.getStatusCode());
+        assertTrue(response.getHeaders().getAllow().isEmpty());
+    }
+
+    @Test
+    void testMockMvcUnknownPathReturns404() throws Exception {
+        MockMvc mvc = MockMvcBuilders.standaloneSetup(new DummyTestController())
+                .setControllerAdvice(handler)
+                .build();
+
+        mvc.perform(get("/test/does-not-exist"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.code").value("NOT_FOUND"))
+                .andExpect(jsonPath("$.errorId").doesNotExist());
+    }
+
+    @Test
+    void testMockMvcWrongMethodReturns405WithAllowHeader() throws Exception {
+        MockMvc mvc = MockMvcBuilders.standaloneSetup(new DummyTestController())
+                .setControllerAdvice(handler)
+                .build();
+
+        mvc.perform(post("/test/param").param("before", "x"))
+                .andExpect(status().isMethodNotAllowed())
+                .andExpect(header().string("Allow", "GET"))
+                .andExpect(jsonPath("$.code").value("METHOD_NOT_ALLOWED"));
+    }
+
+    @Test
+    void testDispatchSendsMissingPathsAndWrongMethodsToTheirHandlers() {
+        ExceptionHandlerMethodResolver resolver = new ExceptionHandlerMethodResolver(GlobalExceptionHandler.class);
+
+        assertEquals("handleNoEndpoint",
+                resolver.resolveMethod(new NoResourceFoundException(HttpMethod.POST, "actuator/jobs")).getName());
+        assertEquals("handleNoEndpoint",
+                resolver.resolveMethod(new NoHandlerFoundException("GET", "/x", new HttpHeaders())).getName());
+        assertEquals("handleMethodNotSupported",
+                resolver.resolveMethod(new HttpRequestMethodNotSupportedException("POST")).getName());
     }
 }
