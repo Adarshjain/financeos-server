@@ -9,6 +9,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.MDC;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
@@ -16,6 +17,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -25,6 +27,8 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.security.SecureRandom;
 import java.time.Instant;
@@ -108,8 +112,7 @@ public class GlobalExceptionHandler {
      *
      * Without this, {@code handleGenericException} claims it — {@code Exception} is
      * assignable from it and it is the only match — so every intended 401/403/404/409
-     * left here as a 500 with a stack trace in the logs. That also covers Spring's own
-     * {@code NoResourceFoundException}, which extends this type.
+     * left here as a 500 with a stack trace in the logs.
      */
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ErrorResponse> handleResponseStatus(ResponseStatusException ex, HttpServletRequest request) {
@@ -126,6 +129,34 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(status)
                 .body(new ErrorResponse(code, message));
+    }
+
+    /**
+     * A path nothing serves. Spring raises {@link NoResourceFoundException} (the static-resource
+     * fallback found nothing) or {@link NoHandlerFoundException}; both are {@code ServletException}s,
+     * not {@link ResponseStatusException}s, so without this they left as 500s with a stack trace —
+     * including unknown actuator paths on the management port, which broke the deploy drain probe.
+     */
+    @ExceptionHandler({NoResourceFoundException.class, NoHandlerFoundException.class})
+    public ResponseEntity<ErrorResponse> handleNoEndpoint(Exception ex, HttpServletRequest request) {
+        String message = "No endpoint at this path";
+        log4xx("NOT_FOUND", message, null, request);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("NOT_FOUND", message));
+    }
+
+    /** A path that exists but not for this method: 405 with the allowed methods, not a 500. */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ErrorResponse> handleMethodNotSupported(HttpRequestMethodNotSupportedException ex,
+                                                                  HttpServletRequest request) {
+        String message = "Method " + ex.getMethod() + " is not supported here";
+        log4xx("METHOD_NOT_ALLOWED", message, null, request);
+        ResponseEntity.BodyBuilder response = ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED);
+        if (ex.getSupportedHttpMethods() != null && !ex.getSupportedHttpMethods().isEmpty()) {
+            response.allow(ex.getSupportedHttpMethods().toArray(new HttpMethod[0]));
+        }
+        return response.body(new ErrorResponse("METHOD_NOT_ALLOWED", message));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
