@@ -2,5 +2,6 @@ package com.financeos.statement.parser;
 
 import java.util.List;
 
-record TxnBuild(List<TxnDraft> txns, Double openingFromMarker) {
+// droppedRows: dated rows discarded for want of a parseable date or any amount
+record TxnBuild(List<TxnDraft> txns, Double openingFromMarker, int droppedRows) {
 }

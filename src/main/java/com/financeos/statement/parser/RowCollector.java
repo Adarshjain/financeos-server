@@ -19,32 +19,54 @@ final class RowCollector {
     // Interest-rate notes ("1.5% p.m.") and invoice furniture (GSTIN/HSN lines).
     private static final Pattern PERCENT_NOTE = Pattern.compile("\\d\\s?%");
     private static final Pattern GSTIN_HSN = Pattern.compile("\\bgstin\\b|\\bhsn\\b");
+    // Page-break furniture inside a running table: the carried-forward marker ends a
+    // page, a page number and the brought-forward marker start the next.
+    private static final Pattern PAGE_CARRY = Pattern.compile("carried forward|balance c/f");
+    private static final Pattern PAGE_NUMBER = Pattern.compile("^page \\d+( of \\d+)?$");
+    private static final Pattern PAGE_FURNITURE = Pattern.compile("^page \\d+( of \\d+)?$|brought forward|balance b/f");
+    // Lines one transaction block may span after a page break (HSBC UPI/NEFT
+    // narrations run 6-7 lines before the amount line).
+    private static final int CARRY_WINDOW = 10;
 
     private static int findHeaderRow(List<Line> lines, int firstTxnIdx) {
-        List<String> flat = new ArrayList<>();
-        for (List<String> kws : Tokens.HEADER_KEYWORDS.values()) {
-            flat.addAll(kws);
-        }
         int stop = Math.max(firstTxnIdx - 8, -1);
         for (int i = firstTxnIdx - 1; i > stop; i--) {
-            String text = lines.get(i).text().toLowerCase(Locale.ROOT);
-            int hits = 0;
-            for (String kw : flat) {
-                if (text.contains(kw)) {
-                    hits++;
-                }
-            }
-            if (hits >= 3) {
+            if (isHeaderLine(lines.get(i))) {
                 return i;
             }
         }
         return -1;
     }
 
+    private static boolean isHeaderLine(Line line) {
+        String text = line.text().toLowerCase(Locale.ROOT);
+        int hits = 0;
+        for (List<String> kws : Tokens.HEADER_KEYWORDS.values()) {
+            for (String kw : kws) {
+                if (text.contains(kw)) {
+                    hits++;
+                }
+            }
+        }
+        return hits >= 3;
+    }
+
+    // A column header between two candidate rows, on the first one's page.
+    private static boolean headerBetween(List<Line> lines, int from, int to) {
+        int page = lines.get(from).page();
+        for (int i = from + 1; i < to && lines.get(i).page() == page; i++) {
+            if (isHeaderLine(lines.get(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static boolean blockHasAmount(List<Line> lines, DateAnchor[] anchors, int i) {
         // An amount-bearing line closes THIS block even if it starts with a date
         // (value-date + amount + balance lines) - only an amount-less anchored
-        // line starts a new block.
+        // line starts a new block, and only when its date sits no further right
+        // than this row's (a date further right is inside the narration).
         int end = Math.min(i + 7, lines.size());
         for (int j = i; j < end; j++) {
             for (Word w : lines.get(j).words()) {
@@ -52,9 +74,34 @@ final class RowCollector {
                     return true;
                 }
             }
-            if (j > i && anchors[j] != null) {
+            if (j > i && anchors[j] != null && ax(lines, anchors, j) <= ax(lines, anchors, i) + 15) {
                 return false;
             }
+        }
+        return false;
+    }
+
+    private static boolean lineHasAmount(Line line) {
+        return amountCount(line) > 0;
+    }
+
+    private static int amountCount(Line line) {
+        int n = 0;
+        for (Word w : line.words()) {
+            if (Tokens.parseAmount(Tokens.norm(w.text())) != null) {
+                n++;
+            }
+        }
+        return n;
+    }
+
+    private static boolean followsAmountLine(List<Line> lines, int i) {
+        for (int k = i - 1; k >= 0; k--) {
+            String text = lines.get(k).text().toLowerCase(Locale.ROOT);
+            if (PAGE_NUMBER.matcher(text).find()) {
+                continue;
+            }
+            return lineHasAmount(lines.get(k));
         }
         return false;
     }
@@ -84,6 +131,35 @@ final class RowCollector {
             throw new StatementParseException(
                     "ERROR: no date-anchored rows found — cannot locate a transaction table. "
                             + "Run with --debug and share the output.");
+        }
+
+        // Block layouts (HSBC): the date-column line opens a multi-line block and
+        // its amounts arrive on a later line. A date outside the date column starts
+        // a row only right after the previous row's amount line (indented
+        // sub-transactions); one that turns up mid-block is part of the narration
+        // ("2026/02/27 063232 <ref>" on NEFT rows). Left in, those out-vote the
+        // real rows in the column and date-format votes, or cut a block in two.
+        Map<Integer, Double> dateColX = new LinkedHashMap<>();
+        for (int i : cand) {
+            dateColX.merge(lines.get(i).page(), ax(lines, anchors, i), Math::min);
+        }
+        int inCol = 0;
+        int inColAmountless = 0;
+        for (int i : cand) {
+            if (ax(lines, anchors, i) - dateColX.get(lines.get(i).page()) <= 15) {
+                inCol++;
+                if (!lineHasAmount(lines.get(i))) {
+                    inColAmountless++;
+                }
+            }
+        }
+        if (inColAmountless * 2 > inCol) {
+            int before = cand.size();
+            cand.removeIf(i -> ax(lines, anchors, i) - dateColX.get(lines.get(i).page()) > 15
+                    && !followsAmountLine(lines, i));
+            if (cand.size() < before) {
+                debug.accept("[debug] " + (before - cand.size()) + " narration dates inside open blocks kept as text");
+            }
         }
 
         // Keep only rows whose date sits at a consistent x-position (the date
@@ -186,6 +262,15 @@ final class RowCollector {
             throw new StatementParseException("ERROR: no transaction rows conform to the inferred date format.");
         }
 
+        // A dated line in a box above the transaction table (HSBC's "Your Upcoming
+        // Action/Payment Dates") is not a row: it has no column header of its own,
+        // and the table's header sits between it and the first real row.
+        while (cand.size() >= 2 && findHeaderRow(lines, cand.get(0)) < 0
+                && headerBetween(lines, cand.get(0), cand.get(1))) {
+            debug.accept("[debug] dropped dated line above the table header: " + lines.get(cand.get(0)).text());
+            cand.remove(0);
+        }
+
         // Keep all remaining candidates - transaction tables can be split into
         // several blocks (per card section / per page) with summary boxes between.
         List<Integer> txnIdx = cand;
@@ -203,18 +288,39 @@ final class RowCollector {
             }
         }
         if (!lastHasAmount) {
+            // The block can also run across a page break (HSBC: "Balance Carried
+            // Forward", page header, "Balance Brought Forward", then the rest of the
+            // row and any undated same-day rows). Step over that furniture, but past
+            // it only extend through amount-bearing lines so trailing text stays out.
+            double dateX = ax(lines, anchors, last);
+            boolean carried = false;
             int end = Math.min(last + 7, n);
             for (int j = last + 1; j < end; j++) {
-                if (anchors[j] != null) {
+                String text = lines.get(j).text().toLowerCase(Locale.ROOT);
+                // A date in the date column starts a new row; one inside the narration
+                // ("2026/02/27 063232 <ref>" on HSBC NEFT rows) belongs to this block.
+                if (anchors[j] != null && Math.abs(ax(lines, anchors, j) - dateX) <= 15) {
                     break;
                 }
-                String text = lines.get(j).text().toLowerCase(Locale.ROOT);
+                if (PAGE_CARRY.matcher(text).find()) {
+                    carried = true;
+                    end = Math.min(j + CARRY_WINDOW, n);
+                    continue;
+                }
+                if (carried && PAGE_FURNITURE.matcher(text).find()) {
+                    continue;
+                }
                 if (Tokens.OPENING_BAL.matcher(text).find() || Tokens.CLOSING_BAL.matcher(text).find()
                         || Tokens.isSummaryLine(text)
                         || text.contains("page ") || text.contains("statement") || text.contains("generated on")) {
                     break;
                 }
-                last = j;
+                if (!carried) {
+                    last = j;
+                } else if (lineHasAmount(lines.get(j))) {
+                    last = j;
+                    end = Math.min(j + CARRY_WINDOW, n);
+                }
             }
         }
         int headerIdx = findHeaderRow(lines, first);
@@ -276,7 +382,10 @@ final class RowCollector {
                 // unless it's a summary/furniture line (contains balance keywords).
                 String text = ln.text().toLowerCase(Locale.ROOT);
                 java.util.regex.Matcher cardMatcher = Tokens.CARD_MASK.matcher(ln.text());
-                boolean hasCardMask = cardMatcher.find();
+                // A line carrying an amount and a balance is a transaction line even
+                // when a reference in it looks like a masked card ("HIB- 8385506X5742925
+                // 100.00 529,054.98" on HSBC card-bill payments).
+                boolean hasCardMask = cardMatcher.find() && amountCount(ln) < 2;
                 String cardToken = hasCardMask ? cardMatcher.group(1) : null;
                 boolean isCardSectionHeader = hasCardMask && (
                         (cardToken.indexOf('X') >= 0 || cardToken.indexOf('x') >= 0 || cardToken.indexOf('*') >= 0)

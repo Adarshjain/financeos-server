@@ -137,13 +137,14 @@ final class SignAssigner {
         return new ChainHit(bal, amount, match.col);
     }
 
-    private record RunResult(List<RowResult> results, int chainBreaks, Map<Integer, List<Integer>> votes) {
+    private record RunResult(List<RowResult> results, int chainBreaks, Map<Integer, List<Integer>> votes, int pruned) {
     }
 
     private static RunResult run(List<TxnDraft> txns, int balanceCol, Double opening) {
         Double prev = opening;
         List<RowResult> results = new ArrayList<>();
         int chainBreaks = 0;
+        int pruned = 0;
         Map<Integer, List<Integer>> votes = new HashMap<>();
         for (int idx = 0; idx < txns.size(); idx++) {
             TxnDraft t = txns.get(idx);
@@ -164,6 +165,7 @@ final class SignAssigner {
             // (summary boxes and ads sometimes carry a date and amounts).
             if (hit == null && prev != null && idx + 1 < txns.size()
                     && chains(txns.get(idx + 1), prev, balanceCol) != null) {
+                pruned++;
                 continue;
             }
             Double amount;
@@ -193,13 +195,14 @@ final class SignAssigner {
                 prev = bal;
             }
         }
-        return new RunResult(results, chainBreaks, votes);
+        return new RunResult(results, chainBreaks, votes, pruned);
     }
 
     static SignOutcome assignSigns(List<TxnDraft> txns, int balanceCol, Double openingBalance) {
         RunResult r = run(txns, balanceCol, openingBalance);
         List<RowResult> results = r.results();
         int chainBreaks = r.chainBreaks();
+        int pruned = r.pruned();
         Double opening = openingBalance;
         if (openingBalance == null && !txns.isEmpty()) {
             // No printed opening balance: derive it from the first row. Its sign
@@ -230,13 +233,14 @@ final class SignAssigner {
                     if (countValid(r2.results()) > countValid(results)) {
                         results = r2.results();
                         chainBreaks = r2.chainBreaks();
+                        pruned = r2.pruned();
                         opening = candidateOpening;
                     }
                 }
                 break;
             }
         }
-        return new SignOutcome(results, chainBreaks, opening);
+        return new SignOutcome(results, chainBreaks, opening, pruned);
     }
 
     private static long countValid(List<RowResult> results) {

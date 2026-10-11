@@ -13,4 +13,6 @@ public class ParseInfo {
     public Boolean crossCredits;
     public LinkedHashMap<String, Boolean> cardChecks;
     public String verdict;
+    // dated rows the parser discarded (no date/amount, or chain outliers)
+    public int rowsDropped;
 }
