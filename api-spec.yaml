@@ -1995,12 +1995,39 @@ paths:
         schema:
           type: boolean
           default: false
+      - in: query
+        name: archived
+        required: false
+        schema:
+          type: boolean
+          default: false
       responses:
         "200":
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/PageGmailAttentionItemResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-controller
+  /api/v1/gmail/attention/{ledgerId}/archive:
+    post:
+      operationId: archiveAttentionItem
+      parameters:
+      - in: path
+        name: ledgerId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
           description: OK
         default:
           content:
@@ -2057,6 +2084,27 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/EnqueueResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-controller
+  /api/v1/gmail/attention/{ledgerId}/unarchive:
+    post:
+      operationId: unarchiveAttentionItem
+      parameters:
+      - in: path
+        name: ledgerId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
           description: OK
         default:
           content:
@@ -10478,6 +10526,20 @@ components:
     GmailAttentionItemResponse:
       type: object
       properties:
+        accountId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        accountName:
+          type: string
+          nullable: true
+          x-nullable: true
+        archivedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
         attemptCount:
           type: integer
           format: int32
@@ -10486,6 +10548,8 @@ components:
           format: date-time
           nullable: true
           x-nullable: true
+        connectionEmail:
+          type: string
         discoveredAt:
           type: string
           format: date-time
@@ -10508,6 +10572,11 @@ components:
           nullable: true
           x-nullable: true
         nextRetryAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        processedAt:
           type: string
           format: date-time
           nullable: true
@@ -10539,6 +10608,7 @@ components:
           x-nullable: true
       required:
       - attemptCount
+      - connectionEmail
       - discoveredAt
       - gmailMessageId
       - id
