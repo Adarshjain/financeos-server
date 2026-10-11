@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -15,6 +16,12 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     boolean existsByAccountIdAndPeriodStartAndPeriodEnd(UUID accountId, LocalDate periodStart, LocalDate periodEnd);
 
     boolean existsByAccountIdAndFileSha256(UUID accountId, String fileSha256);
+
+    /** The statement only when it belongs to this account — the caller has already proven the account is theirs. */
+    Optional<Statement> findByIdAndAccount_Id(UUID id, UUID accountId);
+
+    @Query("SELECT MAX(s.periodEnd) FROM Statement s WHERE s.account.id = :accountId")
+    LocalDate findLatestPeriodEnd(@Param("accountId") UUID accountId);
 
     @Query("SELECT s FROM Statement s WHERE s.account.id = :accountId ORDER BY s.periodEnd DESC NULLS LAST, s.createdAt DESC")
     List<Statement> findByAccountIdOrderByPeriodEndDescNullsLast(@Param("accountId") UUID accountId);
