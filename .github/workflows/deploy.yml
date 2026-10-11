@@ -56,8 +56,8 @@ jobs:
           path: target/backend-1.0.0.jar
           retention-days: 1
 
+  # Runs alongside build (it builds its own jar from this commit); deploy still needs both to pass.
   e2e:
-    needs: [build]
     uses: Adarshjain/financeos-client/.github/workflows/e2e.yml@main
     with:
       server_ref: ${{ github.sha }}
