@@ -3,6 +3,7 @@ package com.financeos.statement.parser;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -24,6 +25,13 @@ public final class StatementParseEngine {
         Consumer<String> dbg = debug != null ? debug : s -> {
         };
         FileType type = FileType.detect(bytes);
+        if (type == FileType.PDF) {
+            int start = FileType.pdfHeaderOffset(bytes);
+            if (start > 0) {
+                dbg.accept("[debug] skipped " + start + " bytes before the %PDF- header");
+                bytes = Arrays.copyOfRange(bytes, start, bytes.length);
+            }
+        }
         WordSource extractor = type == FileType.PDF ? new PdfWordExtractor() : new ExcelGridExtractor();
         List<Line> lines = extractor.extract(bytes, password);
 
