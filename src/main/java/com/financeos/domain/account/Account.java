@@ -140,11 +140,15 @@ public class Account {
     private java.math.BigDecimal utilizationPct;
 
     /**
-     * Credit cards only: the limit {@link #utilizationPct} divides by — the card's own limit, else
-     * the latest statement's (see {@link CardUtilization#creditLimit}); null when neither is known.
+     * Credit cards only: the limit {@link #utilizationPct} divides by — the shared limit for a pooled
+     * card, else the card's own limit, else the latest statement's (see {@link CardUtilization#creditLimit}); null when neither is known.
      */
     @Transient
     private java.math.BigDecimal effectiveCreditLimit;
+
+    /** Credit cards in a shared limit only: the pool with what all its accounts owe now; else null. */
+    @Transient
+    private CreditLimitPoolUsage limitPoolUsage;
 
     public boolean isClosed() {
         return isClosed(AppTime.today());

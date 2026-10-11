@@ -6,6 +6,7 @@ import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.FinancialPosition;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -52,15 +53,31 @@ public sealed interface CreateAccountRequest {
             FinancialPosition financialPosition,
             String description,
             @NotBlank(message = "Last 4 digits are required") String last4,
-            @NotNull(message = "Credit limit is required") BigDecimal creditLimit,
+            /**
+             * The account's own limit: required unless {@code limitPool} is set, where it is an
+             * optional cap inside the shared limit (enforced by AccountService).
+             */
+            @Nullable BigDecimal creditLimit,
             /** Card membership anniversary — anchors ANNIVERSARY_YEAR reward windows. */
             @NotNull(message = "Card anniversary date is required") LocalDate anniversaryDate,
             String statementPassword,
             LocalDate ingestFromDate,
             java.util.UUID replacesAccountId,
             String issuer,
-            String productName
+            String productName,
+            /** The shared limit this account draws on; null = not pooled. */
+            @Nullable CreditLimitPoolRequest limitPool
     ) implements CreateAccountRequest {
+        /** An unpooled card, for callers that predate shared limits. */
+        public CreditCardRequest(String name, AccountType type, Boolean excludeFromNetAsset,
+                                 FinancialPosition financialPosition, String description, String last4,
+                                 BigDecimal creditLimit, LocalDate anniversaryDate, String statementPassword,
+                                 LocalDate ingestFromDate, java.util.UUID replacesAccountId, String issuer,
+                                 String productName) {
+            this(name, type, excludeFromNetAsset, financialPosition, description, last4, creditLimit,
+                    anniversaryDate, statementPassword, ingestFromDate, replacesAccountId, issuer, productName,
+                    null);
+        }
     }
 
     record BrokerRequest(

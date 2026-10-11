@@ -138,7 +138,8 @@ public sealed interface AccountResponse {
                         warnList,
                         account.getStatementExpectedNotifiedFor(),
                         account.getUtilizationPct(),
-                        account.getEffectiveCreditLimit());
+                        account.getEffectiveCreditLimit(),
+                        CreditLimitPoolResponse.from(account.getLimitPoolUsage()));
             }
             case broker -> {
                 AccountBrokerDetails details = account.getBrokerDetails();
@@ -231,15 +232,19 @@ public sealed interface AccountResponse {
             /** The projected statement period end already announced as "hasn't arrived" (null = none). */
             @Nullable LocalDate statementExpectedNotifiedFor,
             /**
-             * Live utilisation: max(0, amount the card line owes now) ÷ credit limit × 100, one decimal.
-             * The limit is the card's own, else the latest statement's; null when neither is known.
+             * Live utilisation: max(0, amount owed now) ÷ credit limit × 100, one decimal. For a pooled
+             * account both sides are the pool's (all members' owed ÷ shared limit); otherwise the
+             * card's own owed over its own limit, else the latest statement's; null when unknown.
              */
             @Nullable BigDecimal utilizationPct,
             /**
-             * The limit {@code utilizationPct} divides by: the card's own credit limit when set, else
-             * the latest statement's that has one; null when neither is known.
+             * The limit {@code utilizationPct} divides by: the shared limit when the account is in a
+             * pool, else the card's own credit limit when set, else the latest statement's that has
+             * one; null when none is known.
              */
-            @Nullable BigDecimal effectiveCreditLimit) implements AccountResponse {
+            @Nullable BigDecimal effectiveCreditLimit,
+            /** The shared limit this account draws on, with usage across all its accounts; null = not pooled. */
+            @Nullable CreditLimitPoolResponse limitPool) implements AccountResponse {
     }
 
     record BrokerAccountResponse(

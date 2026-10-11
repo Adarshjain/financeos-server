@@ -54,6 +54,7 @@ User accounts (bank accounts, credit cards, investment broker accounts).
 - `exclude_from_net_asset`: 1 if excluded from net asset calculations, 0 otherwise.
 - `financial_position`: `'asset'` (bank/broker) or `'liability'` (credit card/loan).
 - `cc_last4`, `cc_credit_limit`, `bank_last4`: Card & bank metadata (`cc_last4` comes from the open primary card).
+- `cc_limit_pool_id`, `cc_limit_pool_name`, `cc_limit_pool_limit`: The **shared credit limit** a credit card draws on (some banks give several cards one limit). Null when the card has its own limit only. Cards with the same `cc_limit_pool_id` share ONE limit: never add their limits together. For a pooled card `cc_credit_limit` is an optional cap inside the pool (null = the card can use the whole pool). Total available credit = each distinct pool's `cc_limit_pool_limit` once, plus `cc_credit_limit` of unpooled cards.
 - `bank_opening_balance`: The bank account's opening balance when it was added (current balance = opening balance + CREDITs − DEBITs from `v_chat_transactions` since then).
 - `broker_cash_balance`: Idle cash sitting in a broker account (NOT invested holdings — use `get_portfolio_value` for those).
 
