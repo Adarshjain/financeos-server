@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,8 +47,14 @@ class SlowQueryIntegrationTest {
     void testRealJdbcQueryTriggersSlowQueryHandler() {
         transactionRepository.count();
 
-        assertFalse(appender.list.isEmpty(), "Expected db.slow_query log emission when running real query with threshold=0");
-        ILoggingEvent logEvent = appender.list.get(0);
+        // With threshold=0 every query logs, including the context's background schedulers on other
+        // threads; only the query this thread just ran is the one under test.
+        String testThread = Thread.currentThread().getName();
+        List<ILoggingEvent> ownEvents = appender.list.stream()
+                .filter(e -> testThread.equals(e.getThreadName()))
+                .toList();
+        assertFalse(ownEvents.isEmpty(), "Expected db.slow_query log emission when running real query with threshold=0");
+        ILoggingEvent logEvent = ownEvents.get(0);
         assertEquals("WARN", logEvent.getLevel().toString());
         assertTrue(logEvent.getFormattedMessage().contains("Slow SQL query detected"));
 
