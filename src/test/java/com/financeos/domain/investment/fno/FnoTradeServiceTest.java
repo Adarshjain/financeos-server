@@ -4,6 +4,7 @@ import com.financeos.api.investment.dto.CreateFnoTradeRequest;
 import com.financeos.api.investment.dto.FnoTradeResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
@@ -56,7 +57,7 @@ class FnoTradeServiceTest {
 
     @Test
     void testCreateFnoTradeSuccessAndRealizedPnlCalculation() {
-        when(accountRepository.findById(brokerAccountId)).thenReturn(Optional.of(brokerAccount));
+        when(accountRepository.findByIdAndUser_Id(eq(brokerAccountId), any())).thenReturn(Optional.of(brokerAccount));
         when(userRepository.getReferenceById(any())).thenReturn(user);
         when(fnoTradeRepository.save(any(FnoTrade.class))).thenAnswer(i -> {
             FnoTrade t = i.getArgument(0);
@@ -98,7 +99,7 @@ class FnoTradeServiceTest {
 
     @Test
     void testCreateFnoTradeShortOptionSuccess() {
-        when(accountRepository.findById(brokerAccountId)).thenReturn(Optional.of(brokerAccount));
+        when(accountRepository.findByIdAndUser_Id(eq(brokerAccountId), any())).thenReturn(Optional.of(brokerAccount));
         when(userRepository.getReferenceById(any())).thenReturn(user);
         when(fnoTradeRepository.save(any(FnoTrade.class))).thenAnswer(i -> {
             FnoTrade t = i.getArgument(0);
@@ -136,7 +137,7 @@ class FnoTradeServiceTest {
         bankAccount.setId(brokerAccountId);
         bankAccount.setType(AccountType.bank_account);
 
-        when(accountRepository.findById(brokerAccountId)).thenReturn(Optional.of(bankAccount));
+        when(accountRepository.findByIdAndUser_Id(eq(brokerAccountId), any())).thenReturn(Optional.of(bankAccount));
 
         CreateFnoTradeRequest req = new CreateFnoTradeRequest(
                 brokerAccountId,
@@ -161,10 +162,16 @@ class FnoTradeServiceTest {
         UUID tradeId = UUID.randomUUID();
         FnoTrade trade = new FnoTrade();
         trade.setId(tradeId);
+        trade.setUser(user);
 
         when(fnoTradeRepository.findById(tradeId)).thenReturn(Optional.of(trade));
 
-        fnoTradeService.deleteTrade(tradeId);
+        UserContext.setCurrentUserId(userId);
+        try {
+            fnoTradeService.deleteTrade(tradeId);
+        } finally {
+            UserContext.clear();
+        }
 
         verify(fnoTradeRepository).delete(trade);
     }

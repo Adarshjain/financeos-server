@@ -40,6 +40,7 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
@@ -79,7 +80,7 @@ class IntradayClassificationTest {
         Account account = new Account();
         account.setType(AccountType.broker);
         account.setName("Zerodha");
-        when(accountRepository.findById(brokerAccountId)).thenReturn(Optional.of(account));
+        when(accountRepository.findByIdAndUser_Id(eq(brokerAccountId), any())).thenReturn(Optional.of(account));
         lenient().when(instrumentRepository.findByIsin(any())).thenReturn(Optional.empty());
         lenient().when(instrumentRepository.searchInstruments(any(), any())).thenReturn(List.of());
     }

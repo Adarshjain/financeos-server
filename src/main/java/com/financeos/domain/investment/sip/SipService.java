@@ -58,7 +58,7 @@ public class SipService {
     }
 
     public SipResponse createSip(CreateSipRequest request) {
-        Account brokerAccount = accountRepository.findById(request.brokerAccountId())
+        Account brokerAccount = accountRepository.findByIdAndUser_Id(request.brokerAccountId(), UserContext.getCurrentUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("Account", request.brokerAccountId()));
 
         if (brokerAccount.getType() != AccountType.broker) {
@@ -124,6 +124,11 @@ public class SipService {
     public SipResponse getSip(UUID id) {
         Sip sip = sipRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Sip", id));
+
+        UUID currentUserId = UserContext.getCurrentUserId();
+        if (sip.getUser() == null || !sip.getUser().getId().equals(currentUserId)) {
+            throw new ResourceNotFoundException("Sip", id);
+        }
         return SipResponse.from(sip, computeProgress(sip), overrideService.overridesForCurrentUser());
     }
 

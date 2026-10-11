@@ -171,7 +171,7 @@ public class InvestmentService {
         UUID userId = UserContext.getCurrentUserId();
         User user = userRepository.getReferenceById(userId);
 
-        Account brokerAccount = accountRepository.findById(request.brokerAccountId())
+        Account brokerAccount = accountRepository.findByIdAndUser_Id(request.brokerAccountId(), userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", request.brokerAccountId()));
 
         if (brokerAccount.getType() != AccountType.broker) {

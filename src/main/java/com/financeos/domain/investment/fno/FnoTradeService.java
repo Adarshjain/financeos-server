@@ -37,12 +37,7 @@ public class FnoTradeService {
     }
 
     public FnoTradeResponse createTrade(CreateFnoTradeRequest request) {
-        Account account = accountRepository.findById(request.brokerAccountId())
-                .orElseThrow(() -> new ResourceNotFoundException("Account", request.brokerAccountId()));
-
-        if (account.getType() != AccountType.broker) {
-            throw new ValidationException("Account must be a broker account");
-        }
+        Account account = ownedBrokerAccount(request.brokerAccountId());
 
         UUID userId = UserContext.getCurrentUserId();
         User user = userId != null ? userRepository.getReferenceById(userId) : null;
@@ -88,21 +83,12 @@ public class FnoTradeService {
     }
 
     public void deleteTrade(UUID id) {
-        FnoTrade trade = fnoTradeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("FnoTrade", id));
-        fnoTradeRepository.delete(trade);
+        fnoTradeRepository.delete(ownedTrade(id));
     }
 
     public FnoTradeResponse updateTrade(UUID id, CreateFnoTradeRequest request) {
-        FnoTrade trade = fnoTradeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("FnoTrade", id));
-
-        Account account = accountRepository.findById(request.brokerAccountId())
-                .orElseThrow(() -> new ResourceNotFoundException("Account", request.brokerAccountId()));
-
-        if (account.getType() != AccountType.broker) {
-            throw new ValidationException("Account must be a broker account");
-        }
+        FnoTrade trade = ownedTrade(id);
+        Account account = ownedBrokerAccount(request.brokerAccountId());
 
         trade.setBrokerAccount(account);
         trade.setTradingSymbol(request.tradingSymbol());
@@ -135,8 +121,7 @@ public class FnoTradeService {
             return List.of();
         }
 
-        Account account = accountRepository.findById(brokerAccountId)
-                .orElseThrow(() -> new ResourceNotFoundException("Account", brokerAccountId));
+        Account account = ownedBrokerAccount(brokerAccountId);
 
         UUID userId = UserContext.getCurrentUserId();
         User user = userId != null ? userRepository.getReferenceById(userId) : null;
@@ -180,5 +165,23 @@ public class FnoTradeService {
         }
 
         return savedTrades;
+    }
+
+    /** The current user's trade; another user's trade is reported as not found, like a missing one. */
+    private FnoTrade ownedTrade(UUID id) {
+        UUID currentUserId = UserContext.getCurrentUserId();
+        return fnoTradeRepository.findById(id)
+                .filter(trade -> trade.getUser() != null && trade.getUser().getId().equals(currentUserId))
+                .orElseThrow(() -> new ResourceNotFoundException("FnoTrade", id));
+    }
+
+    /** The current user's broker account; another user's account is reported as not found, like a missing one. */
+    private Account ownedBrokerAccount(UUID accountId) {
+        Account account = accountRepository.findByIdAndUser_Id(accountId, UserContext.getCurrentUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("Account", accountId));
+        if (account.getType() != AccountType.broker) {
+            throw new ValidationException("Account must be a broker account");
+        }
+        return account;
     }
 }

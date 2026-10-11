@@ -93,7 +93,7 @@ public class ImportService {
     }
 
     public ImportPreviewResponse preview(InputStream inputStream, ImportSource source, UUID brokerAccountId, String password) {
-        Account brokerAccount = accountRepository.findById(brokerAccountId)
+        Account brokerAccount = accountRepository.findByIdAndUser_Id(brokerAccountId, UserContext.getCurrentUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("Account", brokerAccountId));
 
         if (brokerAccount.getType() != AccountType.broker) {
@@ -446,7 +446,7 @@ public class ImportService {
     }
 
     public ImportCommitResponse commit(ImportSource source, UUID brokerAccountId, List<ImportCommitRequest.CommitRowDto> rows) {
-        Account brokerAccount = accountRepository.findById(brokerAccountId)
+        Account brokerAccount = accountRepository.findByIdAndUser_Id(brokerAccountId, UserContext.getCurrentUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("Account", brokerAccountId));
 
         if (brokerAccount.getType() != AccountType.broker) {
