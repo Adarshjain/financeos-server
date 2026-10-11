@@ -2,6 +2,7 @@ package com.financeos.gmail.oauth;
 
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.core.oauth.OAuthStateService;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.client.GmailApiClient;
@@ -28,25 +29,32 @@ public class GmailOAuthService {
 
     private static final Logger log = LoggerFactory.getLogger(GmailOAuthService.class);
 
+    /** Callback error when the state is missing, forged, expired or another user's. */
+    public static final String INVALID_STATE = "invalid_state";
+
     private final GmailApiClient gmailApiClient;
     private final GmailConnectionRepository connectionRepository;
     private final UserRepository userRepository;
+    private final OAuthStateService stateService;
 
     public GmailOAuthService(GmailApiClient gmailApiClient,
             GmailConnectionRepository connectionRepository,
-            UserRepository userRepository) {
+            UserRepository userRepository,
+            OAuthStateService stateService) {
         this.gmailApiClient = gmailApiClient;
         this.connectionRepository = connectionRepository;
         this.userRepository = userRepository;
+        this.stateService = stateService;
     }
 
     /**
-     * Build OAuth authorization URL.
+     * Build OAuth authorization URL. Its state is signed and bound to {@code userId}, so only that
+     * user's own callback can complete the flow.
      */
     @Transactional(readOnly = true)
     public String buildAuthorizationUrl(UUID userId) {
         String flowId = UUID.randomUUID().toString().substring(0, 8);
-        String state = userId != null ? userId.toString() : flowId;
+        String state = stateService.issue(OAuthStateService.Purpose.GMAIL_CONNECT, flowId, userId);
         log.info("Gmail OAuth authorize started: flowId={}, userId={}", flowId, userId,
                 StructuredArguments.keyValue("event", Events.OAUTH_GMAIL_AUTHORIZE_STARTED),
                 StructuredArguments.keyValue("flowId", flowId),
@@ -55,22 +63,28 @@ public class GmailOAuthService {
     }
 
     /**
-     * Handle OAuth callback and store encrypted refresh token.
+     * Handle OAuth callback and store encrypted refresh token. The state must be one this server issued
+     * to {@code userId} (see {@link #buildAuthorizationUrl}); otherwise the code is never exchanged and
+     * no mailbox is attached.
      */
-    public GmailConnection handleCallback(UUID userId, String code) throws IOException {
-        String flowId = UUID.randomUUID().toString().substring(0, 8);
+    public GmailConnection handleCallback(UUID userId, String code, String state) throws IOException {
+        int dot = state != null ? state.indexOf('.') : -1;
+        String flowId = dot > 0 ? state.substring(0, dot) : UUID.randomUUID().toString().substring(0, 8);
         MDC.put("flowId", flowId);
 
         try {
             boolean hasCode = code != null && !code.isBlank();
-            // stateValidated=false: The state parameter in Gmail OAuth flow carries correlation context
-            // and user identifier but is not verified against a server-side session nonce.
-            log.info("Gmail OAuth callback received: flowId={}, hasCode={}, hasError=false, stateValidated=false", flowId, hasCode,
+            boolean stateValid = stateService.isValid(OAuthStateService.Purpose.GMAIL_CONNECT, state, userId);
+            log.info("Gmail OAuth callback received: flowId={}, hasCode={}, hasError=false, stateValidated={}", flowId, hasCode,
+                    stateValid,
                     StructuredArguments.keyValue("event", Events.OAUTH_GMAIL_CALLBACK_RECEIVED),
                     StructuredArguments.keyValue("flowId", flowId),
                     StructuredArguments.keyValue("hasCode", hasCode),
                     StructuredArguments.keyValue("hasError", false),
-                    StructuredArguments.keyValue("stateValidated", false));
+                    StructuredArguments.keyValue("stateValidated", stateValid));
+            if (!stateValid) {
+                throw new ValidationException(INVALID_STATE);
+            }
 
             long tokenStart = System.currentTimeMillis();
             GmailApiClient.TokenResponse tokenResponse = gmailApiClient.exchangeCodeForTokens(code);
