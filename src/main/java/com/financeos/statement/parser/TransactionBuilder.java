@@ -3,6 +3,9 @@ package com.financeos.statement.parser;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -30,23 +33,24 @@ final class TransactionBuilder {
         // block (all lines until the next transaction/marker) IS the transaction —
         // absorb those lines so its amounts and balance are parsed as one row.
         List<RawRow> merged = new ArrayList<>();
+        Set<Word> narrationAmounts = Collections.newSetFromMap(new IdentityHashMap<>());
         int mi = 0;
         while (mi < rawRows.size()) {
             RawRow r = rawRows.get(mi);
-            if (Boolean.TRUE.equals(r.isNewTxn()) && r.line().words().stream()
-                    .noneMatch(w -> Tokens.parseAmount(Tokens.norm(w.text())) != null)) {
-                List<Word> block = new ArrayList<>(r.line().words());
+            if (Boolean.TRUE.equals(r.isNewTxn()) && !hasAmount(r.line())) {
+                List<Line> block = new ArrayList<>();
+                block.add(r.line());
                 int mj = mi + 1;
                 while (mj < rawRows.size() && !Boolean.TRUE.equals(rawRows.get(mj).isNewTxn())) {
                     RawRow rj = rawRows.get(mj);
                     if (Boolean.FALSE.equals(rj.isNewTxn())) {
-                        block.addAll(rj.line().words());
+                        block.add(rj.line());
                     } else {
                         merged.add(rj); // keep marker rows (page-boundary B/F)
                     }
                     mj++;
                 }
-                merged.add(new RawRow(new Line(block), true, r.anchor(), r.cardLast4()));
+                merged.addAll(splitBlock(r, block, narrationAmounts));
                 mi = mj;
             } else {
                 merged.add(r);
@@ -55,6 +59,7 @@ final class TransactionBuilder {
         }
 
         List<TxnDraft> txns = new ArrayList<>();
+        int droppedRows = 0;
         List<Map.Entry<Integer, Line>> continuations = new ArrayList<>();
         Double openingFromMarker = null;
 
@@ -88,6 +93,7 @@ final class TransactionBuilder {
             int span = anchor.span();
             LocalDate parsedDate = parseRowDate(anchor.text(), rowFmts);
             if (parsedDate == null) {
+                droppedRows++;
                 continue;
             }
             LocalDate date = injectYear(parsedDate, periodStart, periodEnd);
@@ -127,7 +133,9 @@ final class TransactionBuilder {
                 String tok = Tokens.norm(w.text());
                 String nxt = ci + 1 < words.size() ? Tokens.norm(words.get(ci + 1).text()) : "";
                 Amount amt = Tokens.parseAmount(tok);
-                if (amt != null) {
+                if (amt != null && narrationAmounts.contains(w)) {
+                    // figure printed inside the narration, not an amount column
+                } else if (amt != null) {
                     amounts.add(new AmountCell(amt.value(), amt.sign() != 0 ? amt.sign() : pendingSign, w.x1(), tok));
                     pendingSign = 0;
                 } else if (Tokens.isCurrencyToken(tok) && Tokens.parseAmount(nxt) != null) {
@@ -226,8 +234,98 @@ final class TransactionBuilder {
         }
         // A row with no amounts anywhere is not a transaction (stray dated
         // summary/footer lines that slipped past the filters).
+        int before = txns.size();
         txns.removeIf(t -> t.amounts.isEmpty());
-        return new TxnBuild(txns, openingFromMarker);
+        droppedRows += before - txns.size();
+        return new TxnBuild(txns, openingFromMarker, droppedRows);
+    }
+
+    private static boolean hasAmount(Line line) {
+        return line.words().stream().anyMatch(w -> Tokens.parseAmount(Tokens.norm(w.text())) != null);
+    }
+
+    // A dated block whose lines carry no amounts until a later line. A "closing"
+    // line holds an amount plus the balance at the block's right edge; it ends one
+    // transaction. HSBC prints the date once per day, so a block can hold several
+    // closing lines — one per same-day transaction — and each becomes its own row
+    // under the block's date. Figures left of every amount column (the "INR
+    // 10000.00" in a card-swipe narration) are recorded as narration, not amounts.
+    private static List<RawRow> splitBlock(RawRow dated, List<Line> block, Set<Word> narrationAmounts) {
+        double right = Double.NEGATIVE_INFINITY;
+        for (Line ln : block) {
+            for (Word w : ln.words()) {
+                if (Tokens.parseAmount(Tokens.norm(w.text())) != null) {
+                    right = Math.max(right, w.x1());
+                }
+            }
+        }
+        List<Integer> closers = new ArrayList<>();
+        double amountLeft = Double.POSITIVE_INFINITY;
+        for (int i = 0; i < block.size(); i++) {
+            List<Word> amts = amountWords(block.get(i));
+            if (amts.size() >= 2 && Math.abs(amts.get(amts.size() - 1).x1() - right) <= Tokens.COL_TOL) {
+                closers.add(i);
+                for (Word w : amts) {
+                    amountLeft = Math.min(amountLeft, w.x0());
+                }
+            }
+        }
+        if (closers.isEmpty()) {
+            return List.of(new RawRow(new Line(flatten(block, 0, block.size())), true, dated.anchor(), dated.cardLast4()));
+        }
+        Set<Integer> closerSet = new HashSet<>(closers);
+        for (int i = 0; i < block.size(); i++) {
+            if (closerSet.contains(i)) {
+                continue;
+            }
+            for (Word w : amountWords(block.get(i))) {
+                if (w.x1() < amountLeft - Tokens.COL_TOL) {
+                    narrationAmounts.add(w);
+                }
+            }
+        }
+
+        DateAnchor anchor = dated.anchor();
+        List<Word> dateWords = dated.line().words().subList(anchor.start(), anchor.start() + anchor.span());
+        List<RawRow> rows = new ArrayList<>();
+        int from = 0;
+        for (int c = 0; c < closers.size(); c++) {
+            int to = c == closers.size() - 1 ? block.size() : closers.get(c) + 1;
+            List<Word> words = flatten(block, from, to);
+            if (c == 0) {
+                rows.add(new RawRow(new Line(words), true, anchor, dated.cardLast4()));
+            } else {
+                // Undated sibling: inherit the block's date, positioned at its own first line.
+                Word first = words.get(0);
+                List<Word> withDate = new ArrayList<>();
+                for (Word d : dateWords) {
+                    withDate.add(new Word(d.text(), d.x0(), d.x1(), first.top(), first.page()));
+                }
+                withDate.addAll(words);
+                rows.add(new RawRow(new Line(withDate), true,
+                        new DateAnchor(0, anchor.span(), anchor.text()), dated.cardLast4()));
+            }
+            from = to;
+        }
+        return rows;
+    }
+
+    private static List<Word> amountWords(Line line) {
+        List<Word> out = new ArrayList<>();
+        for (Word w : line.words()) {
+            if (Tokens.parseAmount(Tokens.norm(w.text())) != null) {
+                out.add(w);
+            }
+        }
+        return out;
+    }
+
+    private static List<Word> flatten(List<Line> block, int from, int to) {
+        List<Word> words = new ArrayList<>();
+        for (int i = from; i < to; i++) {
+            words.addAll(block.get(i).words());
+        }
+        return words;
     }
 
     private static double[] refZone(Line headerWords) {

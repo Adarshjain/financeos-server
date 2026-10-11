@@ -48,7 +48,8 @@ public class StatementParser {
         ParseInfo parseInfo = parsed.parseInfo();
 
         List<ParsedStatementLine> lines = new ArrayList<>();
-        int skipped = 0;
+        // Rows the engine discarded outright count as skipped, alongside rows it kept without an amount.
+        int skipped = parseInfo.rowsDropped;
         for (RowResult r : parsed.transactions()) {
             if (r.amount == null) {
                 skipped++;

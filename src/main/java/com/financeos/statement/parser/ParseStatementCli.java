@@ -352,6 +352,7 @@ public class ParseStatementCli {
             out.println(String.format(Locale.US, "  card: %-25s : %s", e.getKey(),
                     Boolean.TRUE.equals(e.getValue()) ? "PASS ✓" : "FAIL ✗"));
         }
+        out.println("  rows dropped                    : " + pi.rowsDropped);
         out.println("  verdict                         : " + pi.verdict);
     }
 

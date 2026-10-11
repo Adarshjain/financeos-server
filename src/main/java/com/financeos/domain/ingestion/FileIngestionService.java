@@ -17,8 +17,10 @@ import com.financeos.gmail.reconcile.ParsedStatementLine;
 import com.financeos.gmail.reconcile.StatementExtractionResult;
 import com.financeos.gmail.reconcile.StatementParser;
 import com.financeos.domain.statement.Statement;
+import com.financeos.domain.statement.StatementDraft;
 import com.financeos.domain.statement.StatementPersistenceService;
 import com.financeos.domain.statement.StatementSource;
+import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.domain.transaction.ReviewStatusManager;
 import com.financeos.domain.transaction.ReviewReason;
 import com.financeos.domain.categorization.CategorizationService;
@@ -160,6 +162,10 @@ public class FileIngestionService {
                                 parseResult.accountNumber(), account.getId(), filename);
                         warningMessage = "Warning: statement account number does not match this account";
                     }
+                }
+                String reconciliation = reconciliationWarning(parseResult.draft());
+                if (reconciliation != null) {
+                    warningMessage = warningMessage == null ? reconciliation : warningMessage + ". " + reconciliation;
                 }
 
                 LocalDate effectiveEnd = parseResult.periodEnd();
@@ -345,6 +351,27 @@ public class FileIngestionService {
                 duplicateDetails,
                 duplicatesTruncated
         );
+    }
+
+    // The parser checks its rows against the statement's own opening and closing
+    // balances. When they don't reconcile, rows were missed or misread — the
+    // transactions are still created, but the user has to know to check them.
+    static String reconciliationWarning(StatementDraft draft) {
+        if (draft == null) {
+            return null;
+        }
+        boolean unreconciled = Boolean.FALSE.equals(draft.checksumOk());
+        if (!unreconciled && draft.verdict() != StatementVerdict.REJECTED) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder(unreconciled
+                ? "Statement totals don't add up: the transactions found don't take the opening balance to the closing balance"
+                : "These transactions couldn't be verified against the statement's balances");
+        int skipped = draft.linesSkipped();
+        if (skipped > 0) {
+            sb.append(", and ").append(skipped).append(skipped == 1 ? " row" : " rows").append(" couldn't be read");
+        }
+        return sb.append(". Some may be missing or wrong; check them against the statement.").toString();
     }
 }
 

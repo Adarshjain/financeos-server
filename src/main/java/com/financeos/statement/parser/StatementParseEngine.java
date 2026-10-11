@@ -113,8 +113,10 @@ public final class StatementParseEngine {
 
         List<RowResult> results;
         String mode;
+        int rowsDropped = tb.droppedRows();
         if (oracle.balanceCol() != null && oracle.score() >= 0.6) {
             SignOutcome so = SignAssigner.assignSigns(tb.txns(), oracle.balanceCol(), meta.openingBalance);
+            rowsDropped += so.pruned();
             if (meta.openingBalance == null) {
                 meta.openingBalance = so.openingUsed();
             }
@@ -387,6 +389,7 @@ public final class StatementParseEngine {
         parseInfo.crossCredits = crossCredits;
         parseInfo.cardChecks = cardChecks;
         parseInfo.verdict = verdict;
+        parseInfo.rowsDropped = rowsDropped;
 
         return new ParsedStatement(meta, statementType, summaryFields, derived, parseInfo, results);
     }

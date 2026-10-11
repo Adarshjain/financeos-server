@@ -10,6 +10,7 @@ import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementDraft;
 import com.financeos.domain.statement.StatementPersistenceService;
 import com.financeos.domain.statement.StatementSource;
+import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.domain.transaction.ReviewReason;
 import com.financeos.domain.transaction.ReviewStatusManager;
 import com.financeos.domain.transaction.Transaction;
@@ -30,6 +31,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -309,5 +311,81 @@ class FileIngestionServiceTest {
         assertThat(overlapping.totalDuplicatesFound()).isEqualTo(3);
         assertThat(overlapping.fileDetails().get(0).duplicates()).isEqualTo(2);
         assertThat(overlapping.fileDetails().get(1).duplicates()).isEqualTo(1);
+    }
+
+    @Test
+    void unreconciledStatementStillCreatesItsTransactionsButWarns() {
+        byte[] bytes = "file1_content".getBytes();
+        UploadedFile file = new UploadedFile("hsbc.pdf", "application/pdf", bytes);
+        ParsedStatementLine line = new ParsedStatementLine(LocalDate.of(2026, 2, 25), new BigDecimal("10000.00"), "credit", "MOBIKWIK", new BigDecimal("10000.00"), true);
+        StatementExtractionResult result = StatementExtractionResult.success(List.of(line), "1234",
+                LocalDate.of(2026, 2, 25), LocalDate.of(2026, 2, 25), draft(false, StatementVerdict.NEEDS_REVIEW, 0));
+        when(statementParser.parse(eq(bytes), nullable(String.class))).thenReturn(result);
+        Statement stmt = new Statement();
+        stmt.setId(UUID.randomUUID());
+        when(statementPersistenceService.createIfNew(eq(user), eq(account), eq(StatementSource.file_upload), eq("hsbc.pdf"), any(), nullable(StatementDraft.class)))
+                .thenReturn(Optional.of(stmt));
+        when(dbHandler.findExistingTransactions(eq(accountId), any(LocalDate.class), any(LocalDate.class))).thenReturn(List.of());
+
+        FileIngestionResult res = ingestionService.ingest(accountId, List.of(file));
+
+        FileIngestionResult.FileSummary summary = res.fileDetails().get(0);
+        assertThat(summary.status()).isEqualTo("SUCCESS");
+        assertThat(summary.created()).isEqualTo(1);
+        assertThat(summary.errorMessage()).isNull();
+        assertThat(summary.warning()).isEqualTo("Statement totals don't add up: the transactions found don't take the opening "
+                + "balance to the closing balance. Some may be missing or wrong; check them against the statement.");
+    }
+
+    @Test
+    void accountMismatchAndUnreconciledWarningsAreBothReported() {
+        byte[] bytes = "file1_content".getBytes();
+        UploadedFile file = new UploadedFile("hsbc.pdf", "application/pdf", bytes);
+        ParsedStatementLine line = new ParsedStatementLine(LocalDate.of(2026, 2, 25), new BigDecimal("10000.00"), "credit", "MOBIKWIK", null, null);
+        StatementExtractionResult result = StatementExtractionResult.success(List.of(line), "9999",
+                LocalDate.of(2026, 2, 25), LocalDate.of(2026, 2, 25), draft(false, StatementVerdict.NEEDS_REVIEW, 0));
+        when(statementParser.parse(eq(bytes), nullable(String.class))).thenReturn(result);
+        Statement stmt = new Statement();
+        stmt.setId(UUID.randomUUID());
+        when(statementPersistenceService.createIfNew(eq(user), eq(account), eq(StatementSource.file_upload), eq("hsbc.pdf"), any(), nullable(StatementDraft.class)))
+                .thenReturn(Optional.of(stmt));
+        when(dbHandler.findExistingTransactions(eq(accountId), any(LocalDate.class), any(LocalDate.class))).thenReturn(List.of());
+
+        FileIngestionResult res = ingestionService.ingest(accountId, List.of(file));
+
+        assertThat(res.fileDetails().get(0).warning())
+                .startsWith("Warning: statement account number does not match this account. Statement totals don't add up");
+    }
+
+    @Test
+    void unreconciledWarningCountsSkippedRows() {
+        assertThat(FileIngestionService.reconciliationWarning(draft(false, StatementVerdict.REJECTED, 2)))
+                .isEqualTo("Statement totals don't add up: the transactions found don't take the opening balance to the "
+                        + "closing balance, and 2 rows couldn't be read. Some may be missing or wrong; check them against the statement.");
+        assertThat(FileIngestionService.reconciliationWarning(draft(false, StatementVerdict.NEEDS_REVIEW, 1)))
+                .contains(", and 1 row couldn't be read.");
+    }
+
+    @Test
+    void rejectedStatementWithoutBalancesToCheckWarnsItCouldNotBeVerified() {
+        assertThat(FileIngestionService.reconciliationWarning(draft(null, StatementVerdict.REJECTED, 0)))
+                .isEqualTo("These transactions couldn't be verified against the statement's balances. "
+                        + "Some may be missing or wrong; check them against the statement.");
+    }
+
+    @Test
+    void reconciledOrUncheckableButAcceptedStatementsDoNotWarn() {
+        assertThat(FileIngestionService.reconciliationWarning(draft(true, StatementVerdict.AUTO_INGEST, 0))).isNull();
+        // rows dropped from a statement whose totals still reconcile were not transactions
+        assertThat(FileIngestionService.reconciliationWarning(draft(true, StatementVerdict.AUTO_INGEST, 1))).isNull();
+        assertThat(FileIngestionService.reconciliationWarning(draft(null, StatementVerdict.NEEDS_REVIEW, 0))).isNull();
+        assertThat(FileIngestionService.reconciliationWarning(null)).isNull();
+    }
+
+    private static StatementDraft draft(Boolean checksumOk, StatementVerdict verdict, int linesSkipped) {
+        return new StatementDraft("bank_account", LocalDate.of(2026, 2, 1), LocalDate.of(2026, 2, 27),
+                BigDecimal.ZERO, new BigDecimal("327690.89"), "HSBC", "043-000000-006", 1, linesSkipped,
+                BigDecimal.ZERO, new BigDecimal("10000.00"), "balance_chain", new BigDecimal("100.0"),
+                checksumOk, verdict, Map.of());
     }
 }
