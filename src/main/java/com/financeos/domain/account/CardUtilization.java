@@ -22,6 +22,8 @@ import java.util.List;
  *   limit          = account credit limit, else the latest statement's credit limit
  *   utilizationPct = owed / limit * 100, scale 1 (HALF_UP); null when there is no positive limit
  * </pre>
+ * A card in a shared limit ({@link CreditLimitPool}) is measured on the pool instead: the owed of
+ * every account in the pool over the pool's limit (see {@link #poolUsage}).
  * A card in credit is 0% utilised (never the absolute value of the credit).
  */
 public final class CardUtilization {
@@ -67,17 +69,46 @@ public final class CardUtilization {
 
     /**
      * The limit a card's utilisation divides by, the one definition every surface uses (GET
-     * /accounts, the cycle summary, the bill digest): the account's own limit when positive, else the
+     * /accounts, the cycle summary, the bill digest): the shared limit when the card is in a pool,
+     * else the account's own limit when positive, else the
      * credit limit on the latest non-rejected statement that has one (read only when needed), else null.
      */
     @Nullable
     public static BigDecimal creditLimit(Account account, StatementRepository statementRepository) {
+        CreditLimitPool pool = limitPool(account);
+        if (pool != null) {
+            return pool.getCreditLimit();
+        }
         BigDecimal accountLimit = accountLimit(account);
         if (accountLimit != null && accountLimit.signum() > 0) {
             return accountLimit;
         }
         List<BigDecimal> limits = statementRepository.findLatestCreditLimits(account.getId(), PageRequest.of(0, 1));
         return limit(null, limits == null || limits.isEmpty() ? null : limits.get(0));
+    }
+
+    /** The shared limit the account draws on (null for non-cards and unpooled cards). */
+    @Nullable
+    public static CreditLimitPool limitPool(Account account) {
+        AccountCreditCardDetails details = account.getCreditCardDetails();
+        return details != null ? details.getLimitPool() : null;
+    }
+
+    /**
+     * A shared limit's usage across {@code members}, which must be every account in the pool with
+     * its balance populated: owed is summed over all of them, closed ones included.
+     */
+    public static CreditLimitPoolUsage poolUsage(CreditLimitPool pool, java.util.Collection<Account> members) {
+        BigDecimal owed = BigDecimal.ZERO;
+        int open = 0;
+        for (Account member : members) {
+            owed = owed.add(owed(member.getCalculatedBalance()));
+            if (!member.isClosed()) {
+                open++;
+            }
+        }
+        return new CreditLimitPoolUsage(pool.getId(), pool.getName(), pool.getCreditLimit(), owed,
+                members.size(), open);
     }
 
     /** The account's own credit limit (null for non-cards or when unset). */

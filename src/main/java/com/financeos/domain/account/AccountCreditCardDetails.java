@@ -37,8 +37,18 @@ public class AccountCreditCardDetails {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private Account account;
 
-    @Column(name = "credit_limit", nullable = false, precision = 19, scale = 4)
+    /**
+     * The account's own limit. Required unless the account is in a {@link #limitPool}; there it is
+     * an optional cap inside the shared limit (null = the account can use the whole pool).
+     */
+    @Column(name = "credit_limit", precision = 19, scale = 4)
     private BigDecimal creditLimit;
+
+    /** The shared limit this account draws on, or null when it has a limit of its own only. */
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "limit_pool_id")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private CreditLimitPool limitPool;
 
     @Column(name = "issuer", length = 100)
     private String issuer;

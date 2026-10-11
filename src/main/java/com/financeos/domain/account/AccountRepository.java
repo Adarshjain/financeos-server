@@ -1,6 +1,7 @@
 package com.financeos.domain.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -39,5 +40,19 @@ public interface AccountRepository extends JpaRepository<Account, UUID>, Account
 
     /** Whether the user has any account at all. */
     boolean existsByUser_Id(UUID userId);
+
+    /** Every account (open or closed) of {@code userId} that draws on the shared limit {@code poolId}. */
+    @Query("SELECT d.account FROM AccountCreditCardDetails d WHERE d.limitPool.id = :poolId AND d.account.user.id = :userId")
+    List<Account> findLimitPoolMembers(@Param("poolId") UUID poolId, @Param("userId") UUID userId);
+
+    /** The shared limit when {@code userId} owns it; empty for a missing id and another user's pool alike. */
+    @Query("SELECT p FROM CreditLimitPool p WHERE p.id = :id AND p.user.id = :userId")
+    Optional<CreditLimitPool> findOwnedLimitPool(@Param("id") UUID id, @Param("userId") UUID userId);
+
+    /** Deletes the user's shared limits that no account draws on any more (pending changes are flushed first). */
+    @Modifying(flushAutomatically = true)
+    @Query("DELETE FROM CreditLimitPool p WHERE p.user.id = :userId "
+            + "AND NOT EXISTS (SELECT d FROM AccountCreditCardDetails d WHERE d.limitPool = p)")
+    int deleteEmptyLimitPools(@Param("userId") UUID userId);
 }
 

@@ -4,6 +4,7 @@ import com.financeos.api.account.dto.AccountResponse;
 import com.financeos.api.account.dto.CardCycleHistoryItemResponse;
 import com.financeos.api.account.dto.CardCycleSummaryResponse;
 import com.financeos.api.account.dto.CreateAccountRequest;
+import com.financeos.api.account.dto.CreditLimitPoolRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
@@ -202,7 +203,30 @@ public class AccountService {
             }
         }
 
+        // Every member of a user's pool is in this list, so pool usage needs no further query
+        // (beyond loading each pool's own row).
+        java.util.Map<UUID, List<Account>> byPool = new java.util.LinkedHashMap<>();
+        for (Account account : accounts) {
+            CreditLimitPool pool = account.getType() == AccountType.credit_card ? CardUtilization.limitPool(account) : null;
+            if (pool != null) {
+                byPool.computeIfAbsent(pool.getId(), k -> new ArrayList<>()).add(account);
+            }
+        }
+        for (List<Account> members : byPool.values()) {
+            applyPoolUsage(CardUtilization.limitPool(members.get(0)), members);
+        }
+
         return accounts;
+    }
+
+    /** Sets the pool's usage on every member and measures each member's utilisation on the pool. */
+    private static void applyPoolUsage(CreditLimitPool pool, List<Account> members) {
+        CreditLimitPoolUsage usage = CardUtilization.poolUsage(pool, members);
+        for (Account member : members) {
+            member.setLimitPoolUsage(usage);
+            member.setEffectiveCreditLimit(usage.creditLimit());
+            member.setUtilizationPct(usage.utilizationPct());
+        }
     }
 
     @Transactional(readOnly = true)
@@ -275,6 +299,8 @@ public class AccountService {
         }
 
         Account saved = accountRepository.save(account);
+        // Leaving (or switching) a shared limit can empty the old one.
+        accountRepository.deleteEmptyLimitPools(saved.getUser().getId());
         populateBalanceInfo(saved);
 
         boolean dateAdvanced = newDate != null && (oldDate == null || newDate.isBefore(oldDate));
@@ -298,6 +324,8 @@ public class AccountService {
     public void deleteAccount(UUID id) {
         Account account = getAccountById(id);
         accountRepository.delete(account);
+        // The deleted card may have been the last account on a shared limit.
+        accountRepository.deleteEmptyLimitPools(account.getUser().getId());
     }
 
     public AccountResponse closeAccount(UUID id, LocalDate closedOn) {
@@ -407,6 +435,10 @@ public class AccountService {
             throw new ValidationException("Credit card details can only be added to credit card accounts");
         }
 
+        if (request.limitPool() == null && request.creditLimit() == null) {
+            throw new ValidationException("Credit limit is required");
+        }
+
         account.setRewardAnniversaryDate(request.anniversaryDate());
 
         if (request.replacesAccountId() != null) {
@@ -432,6 +464,7 @@ public class AccountService {
             details.setUser(account.getUser());
             account.setCreditCardDetails(details);
         }
+        account.getCreditCardDetails().setLimitPool(resolveLimitPool(account, request));
 
         // Upsert primary cardholder and primary card
         Cardholder primaryCh = null;
@@ -482,6 +515,54 @@ public class AccountService {
     }
 
 
+
+    /**
+     * The shared limit the request puts the account in: null when it names none; the caller's
+     * existing pool (renamed or re-limited when the request says so) when it carries an id; else a
+     * new pool, persisted with the account. A pooled account's own limit, when given, is a cap inside
+     * the pool and cannot exceed it.
+     */
+    private CreditLimitPool resolveLimitPool(Account account, CreateAccountRequest.CreditCardRequest request) {
+        CreditLimitPoolRequest ref = request.limitPool();
+        if (ref == null) {
+            return null;
+        }
+        CreditLimitPool pool;
+        if (ref.id() != null) {
+            pool = accountRepository.findOwnedLimitPool(ref.id(), account.getUser().getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Shared credit limit", ref.id()));
+            if (ref.name() != null) {
+                pool.setName(validPoolName(ref.name()));
+            }
+            if (ref.creditLimit() != null) {
+                pool.setCreditLimit(validPoolLimit(ref.creditLimit()));
+            }
+        } else {
+            pool = new CreditLimitPool(account.getUser(), validPoolName(ref.name()), validPoolLimit(ref.creditLimit()));
+        }
+        if (request.creditLimit() != null && request.creditLimit().compareTo(pool.getCreditLimit()) > 0) {
+            throw new ValidationException("An account's own limit cannot be more than the shared limit");
+        }
+        return pool;
+    }
+
+    private static String validPoolName(String name) {
+        String trimmed = name == null ? "" : name.trim();
+        if (trimmed.isEmpty()) {
+            throw new ValidationException("Shared limit name is required");
+        }
+        if (trimmed.length() > 150) {
+            throw new ValidationException("Shared limit name must be at most 150 characters");
+        }
+        return trimmed;
+    }
+
+    private static BigDecimal validPoolLimit(BigDecimal limit) {
+        if (limit == null || limit.signum() <= 0) {
+            throw new ValidationException("Shared credit limit must be greater than zero");
+        }
+        return limit;
+    }
 
     @Transactional(readOnly = true)
     public CardCycleSummaryResponse getCardCycleSummary(UUID accountId) {
@@ -556,9 +637,42 @@ public class AccountService {
             account.setUtilizationPct(null);
             return;
         }
+        CreditLimitPool pool = CardUtilization.limitPool(account);
+        if (pool != null) {
+            applyPoolUsage(pool, poolMembersWithBalances(account, pool));
+            return;
+        }
+        account.setLimitPoolUsage(null);
         BigDecimal limit = CardUtilization.creditLimit(account, statementRepository);
         account.setEffectiveCreditLimit(limit);
         account.setUtilizationPct(CardUtilization.pct(account.getCalculatedBalance(), limit, null));
+    }
+
+    /**
+     * {@code account} (balance already populated) plus every other account in its pool, their
+     * balances filled from one batch query, the same figures GET /accounts computes.
+     */
+    private List<Account> poolMembersWithBalances(Account account, CreditLimitPool pool) {
+        List<Account> members = new ArrayList<>();
+        members.add(account);
+        List<Account> others = accountRepository.findLimitPoolMembers(pool.getId(), account.getUser().getId()).stream()
+                .filter(m -> !m.getId().equals(account.getId()))
+                .toList();
+        if (others.isEmpty()) {
+            return members;
+        }
+        var batches = accountRepository.findAccountBalanceBatches(others.stream().map(Account::getId).toList());
+        for (Account other : others) {
+            var batch = batches.get(other.getId());
+            BalanceMath.apply(
+                    other,
+                    batch != null ? batch.anchorDate() : null,
+                    batch != null ? batch.anchorClosingBalance() : null,
+                    batch != null ? batch.totalSum() : null,
+                    batch != null ? batch.postAnchorSum() : null);
+            members.add(other);
+        }
+        return members;
     }
 
     private void populateBalanceInfo(Account account) {

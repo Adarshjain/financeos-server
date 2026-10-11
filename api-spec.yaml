@@ -9518,6 +9518,8 @@ components:
           format: date
           nullable: true
           x-nullable: true
+        limitPool:
+          $ref: "#/components/schemas/CreditLimitPoolResponse"
         name:
           type: string
         productName:
@@ -9573,7 +9575,8 @@ components:
           x-required: true
         creditLimit:
           type: number
-          x-required: true
+          nullable: true
+          x-nullable: true
         description:
           type: string
         excludeFromNetAsset:
@@ -9591,6 +9594,8 @@ components:
         last4:
           type: string
           x-required: true
+        limitPool:
+          $ref: "#/components/schemas/CreditLimitPoolRequest"
         name:
           type: string
           x-required: true
@@ -9608,10 +9613,57 @@ components:
           x-required: true
       required:
       - anniversaryDate
-      - creditLimit
       - last4
       - name
       - type
+    CreditLimitPoolRequest:
+      type: object
+      properties:
+        creditLimit:
+          type: number
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        name:
+          type: string
+          nullable: true
+          x-nullable: true
+    CreditLimitPoolResponse:
+      type: object
+      properties:
+        available:
+          type: number
+        creditLimit:
+          type: number
+        id:
+          type: string
+          format: uuid
+        memberCount:
+          type: integer
+          format: int32
+        name:
+          type: string
+        openMemberCount:
+          type: integer
+          format: int32
+        owed:
+          type: number
+        utilizationPct:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - available
+      - creditLimit
+      - id
+      - memberCount
+      - name
+      - openMemberCount
+      - owed
     DashboardResponse:
       type: object
       properties:
