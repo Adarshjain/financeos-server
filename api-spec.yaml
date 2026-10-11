@@ -468,6 +468,68 @@ paths:
           description: Error response
       tags:
       - statement-controller
+  /api/v1/accounts/{accountId}/statements/{statementId}:
+    delete:
+      operationId: deleteStatement
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/StatementDeletionResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - statement-controller
+  /api/v1/accounts/{accountId}/statements/{statementId}/deletion-preview:
+    get:
+      operationId: previewStatementDeletion
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/StatementDeletionPreviewResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - statement-controller
   /api/v1/accounts/{id}:
     delete:
       operationId: deleteAccount_1
@@ -15893,6 +15955,46 @@ components:
           type: number
           nullable: true
           x-nullable: true
+    StatementDeletionPreviewResponse:
+      type: object
+      properties:
+        alertsToReopen:
+          type: integer
+          format: int32
+        linkedToRecords:
+          type: integer
+          format: int32
+        transactionsKept:
+          type: integer
+          format: int32
+        transactionsToDelete:
+          type: integer
+          format: int32
+      required:
+      - alertsToReopen
+      - linkedToRecords
+      - transactionsKept
+      - transactionsToDelete
+    StatementDeletionResponse:
+      type: object
+      properties:
+        alertsReopened:
+          type: integer
+          format: int32
+        duplicateFlagsCleared:
+          type: integer
+          format: int32
+        transactionsDeleted:
+          type: integer
+          format: int32
+        transactionsKept:
+          type: integer
+          format: int32
+      required:
+      - alertsReopened
+      - duplicateFlagsCleared
+      - transactionsDeleted
+      - transactionsKept
     StatementDetailResponse:
       type: object
       properties:
