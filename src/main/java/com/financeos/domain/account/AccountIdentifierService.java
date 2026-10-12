@@ -2,7 +2,6 @@ package com.financeos.domain.account;
 
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
-import com.financeos.core.time.AppTime;
 import com.financeos.domain.job.Job;
 import com.financeos.domain.job.JobService;
 import com.financeos.domain.job.JobTrigger;
@@ -12,7 +11,7 @@ import com.financeos.domain.user.User;
 import com.financeos.gmail.domain.GmailProcessedMessage;
 import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.gmail.domain.GmailProcessedStatus;
-import com.financeos.gmail.ingest.GmailIngestProperties;
+import com.financeos.gmail.ingest.ParkedMessageSettler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -31,16 +30,16 @@ public class AccountIdentifierService {
     private final AccountIdentifierRepository accountIdentifierRepository;
     private final GmailProcessedMessageRepository processedMessageRepository;
     private final JobService jobService;
-    private final GmailIngestProperties ingestProperties;
+    private final ParkedMessageSettler parkedMessageSettler;
 
     public AccountIdentifierService(AccountIdentifierRepository accountIdentifierRepository,
                                     GmailProcessedMessageRepository processedMessageRepository,
                                     JobService jobService,
-                                    GmailIngestProperties ingestProperties) {
+                                    ParkedMessageSettler parkedMessageSettler) {
         this.accountIdentifierRepository = accountIdentifierRepository;
         this.processedMessageRepository = processedMessageRepository;
         this.jobService = jobService;
-        this.ingestProperties = ingestProperties;
+        this.parkedMessageSettler = parkedMessageSettler;
     }
 
     @Transactional
@@ -79,10 +78,7 @@ public class AccountIdentifierService {
         List<UUID> jobIds = new ArrayList<>();
 
         if (account.getIngestFromDate() != null) {
-            Instant minInstant = account.getIngestFromDate()
-                    .minusDays(ingestProperties.getDateWindowDays())
-                    .atStartOfDay(AppTime.zone())
-                    .toInstant();
+            Instant minInstant = parkedMessageSettler.windowStart(account.getIngestFromDate());
 
             List<GmailProcessedMessage> parked = processedMessageRepository.findParkedForReactivation(
                     user.getId(),
@@ -125,6 +121,9 @@ public class AccountIdentifierService {
         } else {
             log.info("Skipping reactivation for identifier {}: account {} has null ingestFromDate", normalized, account.getId());
         }
+
+        // Parked email outside the reopened window would only be skipped again: settle it in place.
+        parkedMessageSettler.settle(user.getId(), normalized);
 
         return new CreationResult(identifier, reactivatedCount, jobIds);
     }

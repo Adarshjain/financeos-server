@@ -72,7 +72,7 @@ class GmailIngestionRunDetailTest {
 
         service = new GmailIngestionService(gmailEngine, cursorService, senderRepository, accountResolver,
                 gmailTransactionWriter, geminiExtractor, processedMessageRepository, backfillDemandRepository, props,
-                statementReconciliationService, mock(CategorizationService.class), transactionRepository, txManager);
+                statementReconciliationService, mock(CategorizationService.class), transactionRepository, txManager, mock(ParkedMessageSettler.class));
 
         userId = UUID.randomUUID();
         user = new User();
@@ -365,7 +365,7 @@ class GmailIngestionRunDetailTest {
         GmailIngestionService idle = new GmailIngestionService(gmailEngine, cursorService, none, accountResolver,
                 gmailTransactionWriter, geminiExtractor, processedMessageRepository, backfillDemandRepository,
                 mock(GmailIngestProperties.class), statementReconciliationService, mock(CategorizationService.class),
-                transactionRepository, txManager);
+                transactionRepository, txManager, mock(ParkedMessageSettler.class));
 
         SyncSummary summary = idle.syncConnection(connection);
 

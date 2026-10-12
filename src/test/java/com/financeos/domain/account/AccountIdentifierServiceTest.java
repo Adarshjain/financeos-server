@@ -10,7 +10,9 @@ import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailProcessedMessage;
 import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.gmail.domain.GmailProcessedStatus;
+import com.financeos.gmail.ingest.AccountResolver;
 import com.financeos.gmail.ingest.GmailIngestProperties;
+import com.financeos.gmail.ingest.ParkedMessageSettler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -32,6 +34,7 @@ class AccountIdentifierServiceTest {
     private GmailProcessedMessageRepository processedMessageRepository;
     private JobService jobService;
     private GmailIngestProperties ingestProperties;
+    private AccountResolver accountResolver;
     private AccountIdentifierService service;
 
     private User testUser;
@@ -43,13 +46,14 @@ class AccountIdentifierServiceTest {
         processedMessageRepository = mock(GmailProcessedMessageRepository.class);
         jobService = mock(JobService.class);
         ingestProperties = mock(GmailIngestProperties.class);
+        accountResolver = mock(AccountResolver.class);
         when(ingestProperties.getDateWindowDays()).thenReturn(30);
 
         service = new AccountIdentifierService(
                 accountIdentifierRepository,
                 processedMessageRepository,
                 jobService,
-                ingestProperties
+                new ParkedMessageSettler(processedMessageRepository, accountResolver, ingestProperties)
         );
 
         testUser = new User();
@@ -116,6 +120,25 @@ class AccountIdentifierServiceTest {
         assertThat(gpm1.getAttemptCount()).isEqualTo(0);
 
         verify(processedMessageRepository).saveAll(List.of(gpm1));
+    }
+
+    @Test
+    void createIdentifier_settlesParkedEmailOlderThanTheWindow() {
+        testAccount.setIngestFromDate(LocalDate.of(2026, 10, 7));
+        when(accountIdentifierRepository.findByUserIdAndValue(testUser.getId(), "0438")).thenReturn(Optional.empty());
+        when(accountIdentifierRepository.save(any(AccountIdentifier.class))).thenAnswer(inv -> inv.getArgument(0));
+        when(accountResolver.resolve("0438")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(testAccount, null)));
+        GmailProcessedMessage old = new GmailProcessedMessage();
+        old.setId(UUID.randomUUID());
+        old.setExtractedLast4("0438");
+        old.setStatus(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
+        when(processedMessageRepository.findParkedBefore(eq(testUser.getId()), eq("0438"), anyCollection(), any(Instant.class)))
+                .thenReturn(List.of(old));
+
+        service.createOrUpdateIdentifier(testUser, testAccount, "0438", null);
+
+        assertThat(old.getStatus()).isEqualTo(GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK);
+        assertThat(old.getAccount()).isSameAs(testAccount);
     }
 
     @Test
