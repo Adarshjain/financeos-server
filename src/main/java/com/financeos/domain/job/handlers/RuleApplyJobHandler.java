@@ -3,6 +3,7 @@ package com.financeos.domain.job.handlers;
 import com.financeos.api.rules.dto.ApplyRuleResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.domain.category.Category;
 import com.financeos.domain.categorization.CategoryRule;
 import com.financeos.domain.categorization.CategoryRuleRepository;
 import com.financeos.domain.categorization.RuleMatchService;
@@ -10,6 +11,8 @@ import com.financeos.domain.job.JobExecutionContext;
 import com.financeos.domain.job.JobHandler;
 import com.financeos.domain.job.JobType;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class RuleApplyJobHandler implements JobHandler {
@@ -41,10 +44,30 @@ public class RuleApplyJobHandler implements JobHandler {
         ctx.checkCancelled();
 
         boolean all = Boolean.TRUE.equals(payload.all());
-        int applied = all
-                ? ruleMatchService.applyToAllMatches(rule.getId())
-                : ruleMatchService.applyToTransactions(rule.getId(), payload.transactionIds());
+        RuleMatchService.ApplyOutcome outcome = all
+                ? ruleMatchService.applyToAllMatchesDetailed(rule.getId())
+                : ruleMatchService.applyToTransactionsDetailed(rule.getId(), payload.transactionIds());
 
-        return new ApplyRuleResponse(applied);
+        List<String> categories = rule.getCategories().stream()
+                .map(Category::getName)
+                .sorted(String.CASE_INSENSITIVE_ORDER)
+                .toList();
+        String ruleName = rule.getDisplayName() != null && !rule.getDisplayName().isBlank()
+                ? rule.getDisplayName()
+                : rule.getMerchantKey();
+
+        return new ApplyRuleResponse(
+                outcome.applied(),
+                rule.getId(),
+                ruleName,
+                rule.getMatchType(),
+                rule.getMerchantKey(),
+                categories,
+                all,
+                outcome.requested(),
+                outcome.skippedManuallyReviewed(),
+                outcome.skippedNoLongerMatching(),
+                outcome.notFound(),
+                outcome.appliedSample());
     }
 }
