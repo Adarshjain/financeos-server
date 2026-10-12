@@ -1,6 +1,5 @@
 package com.financeos.gmail.ingest.event;
 
-import com.financeos.core.time.AppTime;
 import com.financeos.domain.job.JobService;
 import com.financeos.domain.job.JobTrigger;
 import com.financeos.domain.job.JobType;
@@ -10,7 +9,7 @@ import com.financeos.gmail.domain.GmailConnectionRepository;
 import com.financeos.gmail.domain.GmailProcessedMessage;
 import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.gmail.domain.GmailProcessedStatus;
-import com.financeos.gmail.ingest.GmailIngestProperties;
+import com.financeos.gmail.ingest.ParkedMessageSettler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,16 +30,16 @@ public class GmailIngestEventListener {
     private final GmailProcessedMessageRepository processedMessageRepository;
     private final GmailConnectionRepository connectionRepository;
     private final JobService jobService;
-    private final GmailIngestProperties ingestProperties;
+    private final ParkedMessageSettler parkedMessageSettler;
 
     public GmailIngestEventListener(GmailProcessedMessageRepository processedMessageRepository,
                                    GmailConnectionRepository connectionRepository,
                                    JobService jobService,
-                                   GmailIngestProperties ingestProperties) {
+                                   ParkedMessageSettler parkedMessageSettler) {
         this.processedMessageRepository = processedMessageRepository;
         this.connectionRepository = connectionRepository;
         this.jobService = jobService;
-        this.ingestProperties = ingestProperties;
+        this.parkedMessageSettler = parkedMessageSettler;
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -48,11 +47,13 @@ public class GmailIngestEventListener {
     public void handleAccountIngestChanged(AccountIngestChangedEvent event) {
         log.info("Handling AccountIngestChangedEvent for user {}, last4 {}, date {}", event.userId(), event.last4(), event.ingestFromDate());
 
+        if (event.last4() != null && !event.last4().isBlank()) {
+            // Parked email outside the reopened window would only be skipped again: settle it in place.
+            parkedMessageSettler.settle(event.userId(), event.last4());
+        }
+
         if (event.last4() != null && !event.last4().isBlank() && event.ingestFromDate() != null) {
-            Instant minInstant = event.ingestFromDate()
-                    .minusDays(ingestProperties.getDateWindowDays())
-                    .atStartOfDay(AppTime.zone())
-                    .toInstant();
+            Instant minInstant = parkedMessageSettler.windowStart(event.ingestFromDate());
 
             List<GmailProcessedMessage> parked = processedMessageRepository.findParkedForReactivation(
                     event.userId(),

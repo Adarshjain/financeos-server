@@ -46,6 +46,16 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     @Query("SELECT g FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.extractedLast4 = :last4 AND g.status IN :statuses AND (g.internalDate IS NULL OR g.internalDate >= :minDate)")
     List<GmailProcessedMessage> findParkedForReactivation(@Param("userId") UUID userId, @Param("last4") String last4, @Param("statuses") Collection<GmailProcessedStatus> statuses, @Param("minDate") Instant minDate);
 
+    /** Parked rows for a last 4 whose email predates {@code before}: outside the window an ingest date reopens. */
+    @Query("SELECT g FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.extractedLast4 = :last4 AND g.status IN :statuses AND g.internalDate < :before")
+    List<GmailProcessedMessage> findParkedBefore(@Param("userId") UUID userId, @Param("last4") String last4, @Param("statuses") Collection<GmailProcessedStatus> statuses, @Param("before") Instant before);
+
+    @Query("SELECT g FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.extractedLast4 = :last4 AND g.status IN :statuses")
+    List<GmailProcessedMessage> findParked(@Param("userId") UUID userId, @Param("last4") String last4, @Param("statuses") Collection<GmailProcessedStatus> statuses);
+
+    @Query("SELECT DISTINCT g.extractedLast4 FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.extractedLast4 IS NOT NULL AND g.status IN :statuses")
+    List<String> findParkedLast4s(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
+
     Optional<GmailProcessedMessage> findByTransactionId(UUID transactionId);
 
     /** Inbox: every attention item for the user, notified or not; archived items are excluded. */

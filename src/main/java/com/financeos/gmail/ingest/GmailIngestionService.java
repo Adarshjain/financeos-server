@@ -48,6 +48,7 @@ public class GmailIngestionService {
     private final CategorizationService categorizationService;
     private final TransactionRepository transactionRepository;
     private final TransactionTemplate transactionTemplate;
+    private final ParkedMessageSettler parkedMessageSettler;
 
     public GmailIngestionService(GmailEngine gmailEngine,
                                  GmailSyncCursorService cursorService,
@@ -61,7 +62,8 @@ public class GmailIngestionService {
                                  StatementReconciliationService statementReconciliationService,
                                  CategorizationService categorizationService,
                                  TransactionRepository transactionRepository,
-                                 PlatformTransactionManager transactionManager) {
+                                 PlatformTransactionManager transactionManager,
+                                 ParkedMessageSettler parkedMessageSettler) {
         this.gmailEngine = gmailEngine;
         this.cursorService = cursorService;
         this.gmailSenderRepository = gmailSenderRepository;
@@ -75,6 +77,7 @@ public class GmailIngestionService {
         this.categorizationService = categorizationService;
         this.transactionRepository = transactionRepository;
         this.transactionTemplate = new TransactionTemplate(transactionManager);
+        this.parkedMessageSettler = parkedMessageSettler;
     }
 
     public SyncSummary syncConnection(GmailConnection connection) {
@@ -96,6 +99,9 @@ public class GmailIngestionService {
 
         // 2. Stale PROCESSING sweep
         sweepStaleProcessing(connection);
+
+        // 2b. Parked rows whose account now exists and that predate its window: settle without a refetch
+        settleParkedMessages(userId);
 
         // 3. Processing phase
         return processPendingMessages(connection, enabledSenders, discovery);
@@ -236,6 +242,15 @@ public class GmailIngestionService {
                 row.setStatus(GmailProcessedStatus.DISCOVERED);
             }
             processedMessageRepository.saveAll(staleRows);
+        }
+    }
+
+    private void settleParkedMessages(UUID userId) {
+        try {
+            parkedMessageSettler.settleAll(userId);
+        } catch (Exception e) {
+            // Housekeeping only: the sync itself must still run.
+            log.warn("Settling parked Gmail rows failed for user {}: {}", userId, e.getMessage());
         }
     }
 

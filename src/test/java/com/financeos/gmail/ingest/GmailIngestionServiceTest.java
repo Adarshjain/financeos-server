@@ -41,6 +41,7 @@ class GmailIngestionServiceTest {
     private CategorizationService categorizationService;
     private TransactionRepository transactionRepository;
     private PlatformTransactionManager transactionManager;
+    private ParkedMessageSettler parkedMessageSettler;
 
     private GmailIngestionService gmailIngestionService;
 
@@ -63,6 +64,7 @@ class GmailIngestionServiceTest {
         categorizationService = mock(CategorizationService.class);
         transactionRepository = mock(TransactionRepository.class);
         transactionManager = mock(PlatformTransactionManager.class);
+        parkedMessageSettler = mock(ParkedMessageSettler.class);
 
         TransactionStatus status = mock(TransactionStatus.class);
         when(transactionManager.getTransaction(any())).thenReturn(status);
@@ -80,7 +82,8 @@ class GmailIngestionServiceTest {
                 statementReconciliationService,
                 categorizationService,
                 transactionRepository,
-                transactionManager
+                transactionManager,
+                parkedMessageSettler
         );
 
         userId = UUID.randomUUID();
@@ -229,6 +232,22 @@ class GmailIngestionServiceTest {
 
         assertThat(staleRow.getStatus()).isEqualTo(GmailProcessedStatus.DISCOVERED);
         verify(processedMessageRepository).saveAll(anyList());
+    }
+
+    @Test
+    void sync_settlesTheUsersParkedRows() {
+        gmailIngestionService.syncConnection(connection);
+
+        verify(parkedMessageSettler).settleAll(userId);
+    }
+
+    @Test
+    void sync_stillDrainsWhenSettlingParkedRowsFails() {
+        when(parkedMessageSettler.settleAll(userId)).thenThrow(new IllegalStateException("boom"));
+
+        gmailIngestionService.syncConnection(connection);
+
+        verify(processedMessageRepository).findPendingForDrain(eq(connection.getId()), any(), any());
     }
 
     @Test
