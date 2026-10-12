@@ -5,6 +5,7 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.account.BalanceMath;
 import com.financeos.domain.account.AccountService;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.CardUtilization;
@@ -214,10 +215,12 @@ public class CardBillService {
      */
     private CardBill buildEnriched(Account account, Statement statement, LocalDate today) {
         Built built = assemble(account, statement, today);
-        LocalDate periodEnd = statement.getPeriodEnd();
-        BigDecimal unbilled = periodEnd == null
+        // Unbilled = dated after the statement's last billed day (BalanceMath.cutoff), as the balance counts it.
+        LocalDate cutoff = BalanceMath.cutoff(statement.getPeriodEnd(),
+                statement.getPeriodEnd() == null ? null : statementRepository.findLastLineDate(statement.getId()));
+        BigDecimal unbilled = cutoff == null
                 ? null
-                : unbilled(transactionRepository.sumIncludedDebitsAfter(account.getId(), periodEnd));
+                : unbilled(transactionRepository.sumIncludedDebitsAfter(account.getId(), cutoff));
         BigDecimal utilization = accountService.populateLiveBalance(account).getUtilizationPct();
         return built.bill().withUtilization(utilization).withUnbilled(unbilled, nextStatementExpectedOn(account.getId()));
     }

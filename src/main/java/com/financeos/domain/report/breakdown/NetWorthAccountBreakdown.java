@@ -44,7 +44,8 @@ import java.util.stream.Collectors;
  * <p>Bank, generic and credit card accounts: the balance's base (the anchor statement's closing
  * balance, the opening balance, or nothing) plus the credits and minus the debits that the balance
  * counts — every transaction of the account (excluded ones too) dated after the anchor statement's
- * period end, or all of them without an anchor. The movements come from one aggregate over exactly
+ * last billed day ({@link com.financeos.domain.account.BalanceMath#cutoff}: its period end, or its
+ * latest line's date when earlier), or all of them without an anchor. The movements come from one aggregate over exactly
  * the balance's transactions, and the base is the account's calculated balance minus those
  * movements: {@code BalanceMath} computes the balance as base + movements over the same rows (with
  * the card sign flip of the statement's closing balance), so this is that base, read back without
@@ -148,13 +149,15 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
         BigDecimal balance = NetWorthPlacement.balance(account);
         BigDecimal base = balance.subtract(credits).add(debits);
         boolean card = account.getType() == AccountType.credit_card;
+        // Movements are dated after the cutoff; the base is the statement, named by its period end.
         String since = anchor != null ? DATE.format(anchor) : null;
+        String ending = account.getAnchorDate() != null ? DATE.format(account.getAnchorDate()) : since;
 
         BreakdownChain chain = new BreakdownChain(balance);
         if (anchor != null) {
             chain.start(card
-                    ? (base.signum() > 0 ? "In credit on statement ending " : "Owed on statement ending ") + since
-                    : "Closing balance on statement ending " + since, base);
+                    ? (base.signum() > 0 ? "In credit on statement ending " : "Owed on statement ending ") + ending
+                    : "Closing balance on statement ending " + ending, base);
         } else if (card) {
             chain.start("Starting balance", base);
         } else if (account.getType() == AccountType.bank_account || base.signum() != 0) {
@@ -193,9 +196,15 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
         }
     }
 
-    /** The anchor statement's period end when the balance is anchored, else null (all transactions count). */
+    /**
+     * The anchor statement's cutoff (its last billed day) when the balance is anchored, else null
+     * (all transactions count).
+     */
     private static LocalDate anchorDate(Account account) {
-        return Boolean.TRUE.equals(account.getBalanceAnchored()) ? account.getAnchorDate() : null;
+        if (!Boolean.TRUE.equals(account.getBalanceAnchored())) {
+            return null;
+        }
+        return account.getAnchorCutoff() != null ? account.getAnchorCutoff() : account.getAnchorDate();
     }
 
     private TableData transactionsTable(Account account, LocalDate anchor, int page, int size) {
