@@ -190,6 +190,19 @@ class GmailIngestionRunDetailTest {
     }
 
     @Test
+    void anEmailListedByBothForwardAndBackfillPassesCountsOnce() {
+        LocalDate floor = com.financeos.core.time.AppTime.today().minusDays(60);
+        when(backfillDemandRepository.findById(userId)).thenReturn(Optional.of(new GmailBackfillDemand(user, floor)));
+        cursor.setEarliestCoveredAt(Instant.now());
+        when(gmailEngine.listMessageIds(eq(connection), anyString())).thenReturn(List.of("a", "b"), List.of("b", "c"));
+
+        SyncSummary summary = service.syncConnection(connection);
+
+        verify(gmailEngine, times(2)).listMessageIds(eq(connection), anyString());
+        assertThat(summary.listed()).isEqualTo(3);
+    }
+
+    @Test
     void anAlertNamesTheAccountAndTheTransactionItCreated() {
         GmailProcessedMessage row = pending("alert-1");
         GmailMessage m = message("alert-1", "HDFC Alerts <alerts@bank.com>", "You spent Rs 450", List.of());

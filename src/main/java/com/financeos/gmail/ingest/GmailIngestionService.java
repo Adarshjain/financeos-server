@@ -101,7 +101,7 @@ public class GmailIngestionService {
         return processPendingMessages(connection, enabledSenders, discovery);
     }
 
-    /** What the discovery phase listed: new ledger rows, every id Gmail returned, and the window searched. */
+    /** What the discovery phase listed: new ledger rows, distinct ids Gmail returned, and the window searched. */
     private record Discovery(int newCount, int listed, Instant searchedSince, LocalDate backfilledTo) {}
 
     private Discovery discoverMessages(GmailConnection connection, List<GmailSender> enabledSenders) {
@@ -111,7 +111,8 @@ public class GmailIngestionService {
         }
 
         int totalDiscovered = 0;
-        int listed = 0;
+        // Forward and backfill windows can overlap; count each message once.
+        Set<String> listedIds = new HashSet<>();
         Instant searchedSince = null;
         LocalDate backfilledTo = null;
 
@@ -138,7 +139,7 @@ public class GmailIngestionService {
             List<String> messageIds = gmailEngine.listMessageIds(connection, query);
             int newCount = saveDiscoveredMessageIds(connection, messageIds, fetchStart);
             totalDiscovered += newCount;
-            listed += messageIds.size();
+            listedIds.addAll(messageIds);
             Instant groupSince = Instant.ofEpochSecond(afterEpoch);
             if (searchedSince == null || groupSince.isBefore(searchedSince)) {
                 searchedSince = groupSince;
@@ -182,7 +183,7 @@ public class GmailIngestionService {
                     List<String> messageIds = gmailEngine.listMessageIds(connection, query);
                     int newCount = saveDiscoveredMessageIds(connection, messageIds, Instant.now());
                     totalDiscovered += newCount;
-                    listed += messageIds.size();
+                    listedIds.addAll(messageIds);
 
                     cursorService.updateEarliestCoveredAt(groupCursors, floorInstant);
                 }
@@ -190,7 +191,7 @@ public class GmailIngestionService {
             }
         }
 
-        return new Discovery(totalDiscovered, listed, searchedSince, backfilledTo);
+        return new Discovery(totalDiscovered, listedIds.size(), searchedSince, backfilledTo);
     }
 
     private int saveDiscoveredMessageIds(GmailConnection connection, List<String> messageIds, Instant fetchStart) {
