@@ -3,6 +3,7 @@ package com.financeos.gmail.ingest.gemini;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.financeos.core.time.AppTime;
 import com.financeos.gmail.internal.GmailMessage;
 import com.financeos.llm.LlmClient;
 import com.financeos.llm.LlmException;
@@ -31,6 +32,7 @@ public class GeminiExtractor {
         try {
             String subject = message.subject();
             String bodyText = message.getStrippedText();
+            LocalDate sentOn = sentOn(message);
 
             // Construct prompt
             String prompt = String.format(
@@ -39,8 +41,12 @@ public class GeminiExtractor {
                     "Set isTransaction=false if the email does not confirm a single completed movement of money — " +
                     "e.g. OTPs, payment requests, failed or declined transactions, balance-only updates, " +
                     "bill-due or autopay reminders, promotional offers. Refunds and reversals ARE transactions.\n\n" +
+                    "%s" +
                     "Subject: %s\n" +
                     "Body:\n%s",
+                    sentOn == null ? "" : "Email sent on: " + sentOn
+                            + " (the transaction happened on or before this day; use it only to read the email's own"
+                            + " date correctly, e.g. its year or a 2-digit year, never as the transaction date itself)\n",
                     subject, bodyText
             );
 
@@ -107,7 +113,14 @@ public class GeminiExtractor {
                         "Unparseable date: " + extracted.date());
             }
 
-            return GeminiExtractionResult.success(extracted, parsedDate);
+            GeminiExtractionResult result = GeminiExtractionResult.success(extracted, parsedDate);
+            // An alert cannot describe a purchase made after it was sent: a later date is a misread.
+            if (sentOn != null && parsedDate.isAfter(sentOn)) {
+                log.warn("Extracted date {} is after the email was sent ({}) for message: {}; using the sent date",
+                        parsedDate, sentOn, message.messageId());
+                result = result.withDateCappedTo(sentOn);
+            }
+            return result;
 
         } catch (LlmException e) {
             log.error("Failed to extract transaction using Gemini", e);
@@ -116,5 +129,11 @@ public class GeminiExtractor {
             log.error("Failed to extract transaction using Gemini", e);
             return GeminiExtractionResult.failure("Extraction error: " + e.getMessage());
         }
+    }
+
+    /** The day the email was sent, in the business zone (IST); null when Gmail gave no timestamp. */
+    private static LocalDate sentOn(GmailMessage message) {
+        return message.internalDate() == null ? null
+                : message.internalDate().atZone(AppTime.zone()).toLocalDate();
     }
 }

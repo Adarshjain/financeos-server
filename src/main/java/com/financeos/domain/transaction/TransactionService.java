@@ -327,6 +327,7 @@ public class TransactionService {
         }
 
         // Update fields
+        java.time.LocalDate dateBefore = transaction.getDate();
         transaction.setDate(request.date());
         transaction.setDescription(request.description());
 
@@ -361,6 +362,12 @@ public class TransactionService {
 
         if (request.categoryIds() != null && !categoriesEqual) {
             reviewStatusManager.clearReason(transaction, ReviewReason.CATEGORY_UNVERIFIED, ReviewType.MANUALLY_REVIEWED);
+        }
+        // The user setting the date themselves settles a date the server capped from an email alert.
+        if (request.date() != null && !request.date().equals(dateBefore)
+                && transaction.getReviewReasons() != null
+                && transaction.getReviewReasons().contains(ReviewReason.DATE_CORRECTED)) {
+            reviewStatusManager.clearReason(transaction, ReviewReason.DATE_CORRECTED, ReviewType.MANUALLY_REVIEWED);
         }
 
         if (transaction.getAppliedRule() != null && request.categoryIds() != null) {

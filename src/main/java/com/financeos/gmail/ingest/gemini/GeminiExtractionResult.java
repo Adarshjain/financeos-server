@@ -13,8 +13,31 @@ public record GeminiExtractionResult(
     String accountLast4,
     double confidence,
     boolean isSuccess,
-    String failureReason
+    String failureReason,
+    LocalDate dateCorrectedFrom
 ) {
+    /**
+     * @param dateCorrectedFrom the date the model returned when it was later than the day the
+     *                          email was sent and {@code date} was capped to the sent day; null
+     *                          when the model's date was kept
+     */
+    public GeminiExtractionResult(boolean isTransaction, BigDecimal amount, String currency, String direction,
+                                  LocalDate date, String description, String accountLast4, double confidence,
+                                  boolean isSuccess, String failureReason) {
+        this(isTransaction, amount, currency, direction, date, description, accountLast4, confidence,
+                isSuccess, failureReason, null);
+    }
+
+    public boolean dateCorrected() {
+        return dateCorrectedFrom != null;
+    }
+
+    /** The same result with {@code date} capped to {@code sentOn}; {@code dateCorrectedFrom} keeps the model's date. */
+    public GeminiExtractionResult withDateCappedTo(LocalDate sentOn) {
+        return new GeminiExtractionResult(isTransaction, amount, currency, direction, sentOn, description,
+                accountLast4, confidence, isSuccess, failureReason, date);
+    }
+
     public static GeminiExtractionResult success(ExtractedTransaction tx, LocalDate parsedDate) {
         return new GeminiExtractionResult(
             tx.isTransaction(),
