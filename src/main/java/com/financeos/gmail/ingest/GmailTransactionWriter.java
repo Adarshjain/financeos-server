@@ -72,6 +72,9 @@ public class GmailTransactionWriter {
         txn.setSource(TransactionSource.gmail_transaction_alert);
         txn.setType(TransactionType.fromLlmDirection(extractionResult.direction()));
         reviewStatusManager.addReason(txn, ReviewReason.UNRECONCILED);
+        if (extractionResult.dateCorrected()) {
+            reviewStatusManager.addReason(txn, ReviewReason.DATE_CORRECTED);
+        }
         txn.setSourceMessageId(gmailMessageId);
         txn.setTransactionUnderMonitoring(false);
         txn.setTransactionExcluded(false);

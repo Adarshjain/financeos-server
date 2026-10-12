@@ -7521,6 +7521,7 @@ components:
             - UNRECONCILED
             - CATEGORY_UNVERIFIED
             - DUPLICATE_SUSPECT
+            - DATE_CORRECTED
         reviewType:
           type: string
           enum:
@@ -12654,6 +12655,7 @@ components:
             - UNRECONCILED
             - CATEGORY_UNVERIFIED
             - DUPLICATE_SUSPECT
+            - DATE_CORRECTED
           uniqueItems: true
         reviewType:
           type: string
@@ -16729,6 +16731,7 @@ components:
             - UNRECONCILED
             - CATEGORY_UNVERIFIED
             - DUPLICATE_SUSPECT
+            - DATE_CORRECTED
         reviewType:
           type: string
           enum:
