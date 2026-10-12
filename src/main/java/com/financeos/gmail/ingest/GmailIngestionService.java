@@ -87,26 +87,33 @@ public class GmailIngestionService {
         List<GmailSender> enabledSenders = gmailSenderRepository.findByUserIdAndEnabledTrue(userId);
         if (enabledSenders.isEmpty()) {
             log.info("No enabled Gmail senders configured for user: {}", userId);
-            return new SyncSummary(0, 0, 0, 0, 0, 0, 0, 0, 0L);
+            return new SyncSummary(0, 0, 0, 0, 0, 0, 0, 0, 0L,
+                    connection.getEmail(), 0, null, null, List.of(), 0, Map.of(), List.of(), 0);
         }
 
         // 1. Discovery phase
-        int discoveredCount = discoverMessages(connection, enabledSenders);
+        Discovery discovery = discoverMessages(connection, enabledSenders);
 
         // 2. Stale PROCESSING sweep
         sweepStaleProcessing(connection);
 
         // 3. Processing phase
-        return processPendingMessages(connection, enabledSenders, discoveredCount);
+        return processPendingMessages(connection, enabledSenders, discovery);
     }
 
-    private int discoverMessages(GmailConnection connection, List<GmailSender> enabledSenders) {
+    /** What the discovery phase listed: new ledger rows, every id Gmail returned, and the window searched. */
+    private record Discovery(int newCount, int listed, Instant searchedSince, LocalDate backfilledTo) {}
+
+    private Discovery discoverMessages(GmailConnection connection, List<GmailSender> enabledSenders) {
         List<GmailSyncCursor> cursors = cursorService.getOrSeedCursors(connection);
         if (cursors.isEmpty()) {
-            return 0;
+            return new Discovery(0, 0, null, null);
         }
 
         int totalDiscovered = 0;
+        int listed = 0;
+        Instant searchedSince = null;
+        LocalDate backfilledTo = null;
 
         // Forward Pass: group senders by identical lastListedAt
         Map<Instant, List<GmailSyncCursor>> forwardGroups = cursors.stream()
@@ -131,6 +138,11 @@ public class GmailIngestionService {
             List<String> messageIds = gmailEngine.listMessageIds(connection, query);
             int newCount = saveDiscoveredMessageIds(connection, messageIds, fetchStart);
             totalDiscovered += newCount;
+            listed += messageIds.size();
+            Instant groupSince = Instant.ofEpochSecond(afterEpoch);
+            if (searchedSince == null || groupSince.isBefore(searchedSince)) {
+                searchedSince = groupSince;
+            }
 
             cursorService.updateLastListedAt(groupCursors, fetchStart);
         }
@@ -170,13 +182,15 @@ public class GmailIngestionService {
                     List<String> messageIds = gmailEngine.listMessageIds(connection, query);
                     int newCount = saveDiscoveredMessageIds(connection, messageIds, Instant.now());
                     totalDiscovered += newCount;
+                    listed += messageIds.size();
 
                     cursorService.updateEarliestCoveredAt(groupCursors, floorInstant);
                 }
+                backfilledTo = effectiveFloor;
             }
         }
 
-        return totalDiscovered;
+        return new Discovery(totalDiscovered, listed, searchedSince, backfilledTo);
     }
 
     private int saveDiscoveredMessageIds(GmailConnection connection, List<String> messageIds, Instant fetchStart) {
@@ -224,7 +238,7 @@ public class GmailIngestionService {
         }
     }
 
-    private SyncSummary processPendingMessages(GmailConnection connection, List<GmailSender> enabledSenders, int discoveredInRun) {
+    private SyncSummary processPendingMessages(GmailConnection connection, List<GmailSender> enabledSenders, Discovery discovery) {
         long pendingTotal = processedMessageRepository.countByConnectionIdAndStatusIn(
                 connection.getId(),
                 List.of(GmailProcessedStatus.DISCOVERED, GmailProcessedStatus.FAILED_RETRYABLE)
@@ -249,6 +263,8 @@ public class GmailIngestionService {
         int failedPermanentCount = 0;
 
         List<Transaction> createdTxns = new ArrayList<>();
+        List<SyncSummary.MessageResult> messageResults = new ArrayList<>();
+        Map<GmailProcessedStatus, Integer> statusCounts = new EnumMap<>(GmailProcessedStatus.class);
 
         Gmail service = null;
         try {
@@ -259,14 +275,15 @@ public class GmailIngestionService {
 
         for (GmailProcessedMessage row : pendingBatch) {
             processedCount++;
-            List<Transaction> singleCreatedTxns = processSingleMessageInTx(service, connection, row, enabledSenders);
-            if (singleCreatedTxns != null && !singleCreatedTxns.isEmpty()) {
-                createdTxns.addAll(singleCreatedTxns);
+            ProcessedMessage outcome = processSingleMessageInTx(service, connection, row, enabledSenders);
+            if (!outcome.createdTxns().isEmpty()) {
+                createdTxns.addAll(outcome.createdTxns());
             }
+            SyncSummary.MessageResult result = outcome.result();
+            messageResults.add(result);
+            statusCounts.merge(result.status(), 1, Integer::sum);
 
-            // Fetch refreshed status to increment counters
-            GmailProcessedMessage refreshed = processedMessageRepository.findById(row.getId()).orElse(row);
-            switch (refreshed.getStatus()) {
+            switch (result.status()) {
                 case CREATED -> createdCount++;
                 case RECONCILED -> reconciledCount++;
                 case SKIPPED_NOT_TRANSACTION, SKIPPED_BEFORE_WATERMARK, SKIPPED_SENDER_DISABLED, SKIPPED_DUPLICATE, SKIPPED_MESSAGE_GONE -> skippedCount++;
@@ -286,8 +303,20 @@ public class GmailIngestionService {
                 List.of(GmailProcessedStatus.DISCOVERED, GmailProcessedStatus.FAILED_RETRYABLE)
         );
 
+        // Problems first, so a capped list still shows everything the user has to act on.
+        messageResults.sort(Comparator.comparingInt(r -> displayRank(r.status())));
+        int truncated = Math.max(0, messageResults.size() - SyncSummary.MAX_MESSAGES);
+        List<SyncSummary.MessageResult> shown = truncated > 0
+                ? List.copyOf(messageResults.subList(0, SyncSummary.MAX_MESSAGES))
+                : List.copyOf(messageResults);
+
+        List<String> senderAddresses = enabledSenders.stream()
+                .map(GmailSender::getSenderAddress)
+                .distinct()
+                .toList();
+
         return new SyncSummary(
-                discoveredInRun,
+                discovery.newCount(),
                 processedCount,
                 createdCount,
                 reconciledCount,
@@ -295,132 +324,207 @@ public class GmailIngestionService {
                 parkedCount,
                 failedRetryableCount,
                 failedPermanentCount,
-                backlogRemaining
+                backlogRemaining,
+                connection.getEmail(),
+                discovery.listed(),
+                discovery.searchedSince(),
+                discovery.backfilledTo(),
+                senderAddresses,
+                budget,
+                statusCounts,
+                shown,
+                truncated
         );
     }
 
-    private List<Transaction> processSingleMessageInTx(Gmail service, GmailConnection connection, GmailProcessedMessage row, List<GmailSender> enabledSenders) {
+    private static int displayRank(GmailProcessedStatus status) {
+        return switch (status) {
+            case FAILED_PERMANENT -> 0;
+            case FAILED_RETRYABLE -> 1;
+            case UNRESOLVED_ACCOUNT, ACCOUNT_NOT_OPTED_IN -> 2;
+            case CREATED, RECONCILED -> 3;
+            default -> 4;
+        };
+    }
+
+    /** One message's created transactions plus its run detail (built inside the transaction, while entities are attached). */
+    private record ProcessedMessage(List<Transaction> createdTxns, SyncSummary.MessageResult result) {}
+
+    private ProcessedMessage processSingleMessageInTx(Gmail service, GmailConnection connection, GmailProcessedMessage row, List<GmailSender> enabledSenders) {
         return transactionTemplate.execute(status -> {
             GmailProcessedMessage gpm = processedMessageRepository.findById(row.getId()).orElse(row);
-            gpm.setStatus(GmailProcessedStatus.PROCESSING);
-            gpm.setProcessedAt(Instant.now());
-            processedMessageRepository.save(gpm);
+            ReconSummary[] recon = new ReconSummary[1];
+            List<Transaction> created = processMessage(service, connection, gpm, enabledSenders, recon);
+            return new ProcessedMessage(created, toMessageResult(gpm, created, recon[0]));
+        });
+    }
 
+    private SyncSummary.MessageResult toMessageResult(GmailProcessedMessage gpm, List<Transaction> created, ReconSummary recon) {
+        Account account = gpm.getAccount();
+        if (account == null && !created.isEmpty()) {
+            account = created.get(0).getAccount();
+        }
+        List<Transaction> refs = created;
+        if (refs.isEmpty() && gpm.getTransaction() != null) {
+            refs = List.of(gpm.getTransaction());
+        }
+        List<SyncSummary.TxnRef> txnRefs = refs.stream()
+                .limit(SyncSummary.MAX_TRANSACTIONS_PER_MESSAGE)
+                .map(t -> new SyncSummary.TxnRef(
+                        t.getId(),
+                        t.getDate(),
+                        t.getAmount(),
+                        t.getDescription() != null ? t.getDescription() : t.getSourcedDescription(),
+                        t.getType() != null ? t.getType().name() : null))
+                .toList();
+        String last4 = gpm.getExtractedLast4();
+        if (last4 == null && recon != null) {
+            last4 = recon.accountLast4();
+        }
+        String error = gpm.getError();
+        if (error == null && recon != null) {
+            error = recon.failureReason();
+        }
+        return new SyncSummary.MessageResult(
+                gpm.getId(),
+                gpm.getGmailMessageId(),
+                gpm.getInternalDate(),
+                gpm.getSenderAddress(),
+                gpm.getSubject(),
+                gpm.getStatus(),
+                account != null ? account.getId() : null,
+                account != null ? account.getName() : null,
+                last4,
+                recon != null ? recon.attachmentFilename() : null,
+                error,
+                gpm.getAttemptCount(),
+                gpm.getNextRetryAt(),
+                created.size(),
+                recon != null ? recon.matched() : 0,
+                txnRefs);
+    }
+
+    private List<Transaction> processMessage(Gmail service, GmailConnection connection, GmailProcessedMessage gpm,
+                                             List<GmailSender> enabledSenders, ReconSummary[] reconOut) {
+        gpm.setStatus(GmailProcessedStatus.PROCESSING);
+        gpm.setProcessedAt(Instant.now());
+        processedMessageRepository.save(gpm);
+
+        try {
+            GmailMessage message;
             try {
-                GmailMessage message;
-                try {
-                    message = service != null
-                            ? gmailEngine.fetchMessageDetails(service, gpm.getGmailMessageId())
-                            : gmailEngine.fetchMessageDetails(connection, gpm.getGmailMessageId());
-                } catch (MessageGoneException e) {
-                    gpm.setStatus(GmailProcessedStatus.SKIPPED_MESSAGE_GONE);
-                    gpm.setError(null);
-                    processedMessageRepository.save(gpm);
-                    return List.of();
-                }
-
-                gpm.setInternalDate(message.internalDate());
-                gpm.setSubject(truncate(message.subject(), 500));
-                String fromAddress = extractEmailAddress(message.from());
-                gpm.setSenderAddress(fromAddress);
-
-                // Allowlist check
-                GmailSender sender = findMatchingSender(enabledSenders, fromAddress);
-                if (sender == null) {
-                    gpm.setStatus(GmailProcessedStatus.SKIPPED_SENDER_DISABLED);
-                    gpm.setError(null);
-                    processedMessageRepository.save(gpm);
-                    return List.of();
-                }
-
-                // Duplicate guard across user transactions
-                if (transactionRepository.existsByUserIdAndSourceMessageId(connection.getUser().getId(), message.messageId())) {
-                    gpm.setStatus(GmailProcessedStatus.SKIPPED_DUPLICATE);
-                    gpm.setError(null);
-                    processedMessageRepository.save(gpm);
-                    return List.of();
-                }
-
-                // Statement path check
-                if (hasStatementAttachment(message)) {
-                    ReconSummary recon = statementReconciliationService.reconcile(connection, message);
-                    if (recon.createdTransactions() != null && !recon.createdTransactions().isEmpty()) {
-                        return recon.createdTransactions();
-                    }
-                    return List.of();
-                }
-
-                // Transaction Alert path -> Gemini extraction
-                GeminiExtractionResult extractionResult = geminiExtractor.extract(message);
-                if (!extractionResult.isSuccess()) {
-                    throw new RuntimeException("Extraction failed: " + extractionResult.failureReason());
-                }
-
-                if (!extractionResult.isTransaction()) {
-                    gpm.setStatus(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
-                    gpm.setError(null);
-                    processedMessageRepository.save(gpm);
-                    return List.of();
-                }
-
-                gpm.setExtractedLast4(normalizeLast4(extractionResult.accountLast4()));
-                AccountResolver.ResolvedCard resolved = accountResolver.resolve(extractionResult.accountLast4()).orElse(null);
-                Account account = resolved != null ? resolved.account() : null;
-                com.financeos.domain.account.card.Card card = resolved != null ? resolved.card() : null;
-
-                if (account == null) {
-                    gpm.setStatus(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
-                    gpm.setError("No single account matches card/account ending " + extractionResult.accountLast4());
-                    processedMessageRepository.save(gpm);
-                    return List.of();
-                }
-
-                gpm.setAccount(account);
-
-                if (account.getIngestFromDate() == null) {
-                    gpm.setStatus(GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN);
-                    gpm.setError("Account " + account.getName() + " is not opted in for Gmail ingestion");
-                    processedMessageRepository.save(gpm);
-                    return List.of();
-                }
-
-                // Write transaction (checks ingestFromDate watermark inside writer)
-                GmailProcessedMessage result = gmailTransactionWriter.writeTransaction(
-                        connection, message.messageId(), extractionResult, account, card);
-                gpm.setStatus(result.getStatus());
-                gpm.setTransaction(result.getTransaction());
-                gpm.setError(result.getError());
-                processedMessageRepository.save(gpm);
-
-                if (result.getTransaction() != null) {
-                    return List.of(result.getTransaction());
-                }
-                return List.of();
-
-            } catch (Exception e) {
-                log.warn("Failed processing message {}: {}", gpm.getGmailMessageId(), e.getMessage());
-                int attempts = gpm.getAttemptCount() + 1;
-                gpm.setAttemptCount(attempts);
-                boolean isNoKeys = (e instanceof com.financeos.llm.LlmException le && le.getKind() == com.financeos.llm.LlmException.Kind.NO_KEYS)
-                        || (e.getMessage() != null && e.getMessage().contains("No API keys configured"));
-                if (isNoKeys) {
-                    gpm.setError("needs attention: add an API key in Settings");
-                } else {
-                    gpm.setError(truncate(e.getMessage() != null ? e.getMessage() : e.toString(), 2000));
-                }
-
-                if (attempts < ingestProperties.getRetryMaxAttempts()) {
-                    gpm.setStatus(GmailProcessedStatus.FAILED_RETRYABLE);
-                    long backoffSeconds = Math.min(86400L, 7200L * (1L << (attempts - 1)));
-                    gpm.setNextRetryAt(Instant.now().plusSeconds(backoffSeconds));
-                } else {
-                    gpm.setStatus(GmailProcessedStatus.FAILED_PERMANENT);
-                    gpm.setNextRetryAt(null);
-                }
+                message = service != null
+                        ? gmailEngine.fetchMessageDetails(service, gpm.getGmailMessageId())
+                        : gmailEngine.fetchMessageDetails(connection, gpm.getGmailMessageId());
+            } catch (MessageGoneException e) {
+                gpm.setStatus(GmailProcessedStatus.SKIPPED_MESSAGE_GONE);
+                gpm.setError(null);
                 processedMessageRepository.save(gpm);
                 return List.of();
             }
-        });
+
+            gpm.setInternalDate(message.internalDate());
+            gpm.setSubject(truncate(message.subject(), 500));
+            String fromAddress = extractEmailAddress(message.from());
+            gpm.setSenderAddress(fromAddress);
+
+            // Allowlist check
+            GmailSender sender = findMatchingSender(enabledSenders, fromAddress);
+            if (sender == null) {
+                gpm.setStatus(GmailProcessedStatus.SKIPPED_SENDER_DISABLED);
+                gpm.setError(null);
+                processedMessageRepository.save(gpm);
+                return List.of();
+            }
+
+            // Duplicate guard across user transactions
+            if (transactionRepository.existsByUserIdAndSourceMessageId(connection.getUser().getId(), message.messageId())) {
+                gpm.setStatus(GmailProcessedStatus.SKIPPED_DUPLICATE);
+                gpm.setError(null);
+                processedMessageRepository.save(gpm);
+                return List.of();
+            }
+
+            // Statement path check
+            if (hasStatementAttachment(message)) {
+                ReconSummary recon = statementReconciliationService.reconcile(connection, message);
+                reconOut[0] = recon;
+                if (recon.createdTransactions() != null && !recon.createdTransactions().isEmpty()) {
+                    return recon.createdTransactions();
+                }
+                return List.of();
+            }
+
+            // Transaction Alert path -> Gemini extraction
+            GeminiExtractionResult extractionResult = geminiExtractor.extract(message);
+            if (!extractionResult.isSuccess()) {
+                throw new RuntimeException("Extraction failed: " + extractionResult.failureReason());
+            }
+
+            if (!extractionResult.isTransaction()) {
+                gpm.setStatus(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
+                gpm.setError(null);
+                processedMessageRepository.save(gpm);
+                return List.of();
+            }
+
+            gpm.setExtractedLast4(normalizeLast4(extractionResult.accountLast4()));
+            AccountResolver.ResolvedCard resolved = accountResolver.resolve(extractionResult.accountLast4()).orElse(null);
+            Account account = resolved != null ? resolved.account() : null;
+            com.financeos.domain.account.card.Card card = resolved != null ? resolved.card() : null;
+
+            if (account == null) {
+                gpm.setStatus(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
+                gpm.setError("No single account matches card/account ending " + extractionResult.accountLast4());
+                processedMessageRepository.save(gpm);
+                return List.of();
+            }
+
+            gpm.setAccount(account);
+
+            if (account.getIngestFromDate() == null) {
+                gpm.setStatus(GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN);
+                gpm.setError("Account " + account.getName() + " is not opted in for Gmail ingestion");
+                processedMessageRepository.save(gpm);
+                return List.of();
+            }
+
+            // Write transaction (checks ingestFromDate watermark inside writer)
+            GmailProcessedMessage result = gmailTransactionWriter.writeTransaction(
+                    connection, message.messageId(), extractionResult, account, card);
+            gpm.setStatus(result.getStatus());
+            gpm.setTransaction(result.getTransaction());
+            gpm.setError(result.getError());
+            processedMessageRepository.save(gpm);
+
+            if (result.getTransaction() != null) {
+                return List.of(result.getTransaction());
+            }
+            return List.of();
+
+        } catch (Exception e) {
+            log.warn("Failed processing message {}: {}", gpm.getGmailMessageId(), e.getMessage());
+            int attempts = gpm.getAttemptCount() + 1;
+            gpm.setAttemptCount(attempts);
+            boolean isNoKeys = (e instanceof com.financeos.llm.LlmException le && le.getKind() == com.financeos.llm.LlmException.Kind.NO_KEYS)
+                    || (e.getMessage() != null && e.getMessage().contains("No API keys configured"));
+            if (isNoKeys) {
+                gpm.setError("needs attention: add an API key in Settings");
+            } else {
+                gpm.setError(truncate(e.getMessage() != null ? e.getMessage() : e.toString(), 2000));
+            }
+
+            if (attempts < ingestProperties.getRetryMaxAttempts()) {
+                gpm.setStatus(GmailProcessedStatus.FAILED_RETRYABLE);
+                long backoffSeconds = Math.min(86400L, 7200L * (1L << (attempts - 1)));
+                gpm.setNextRetryAt(Instant.now().plusSeconds(backoffSeconds));
+            } else {
+                gpm.setStatus(GmailProcessedStatus.FAILED_PERMANENT);
+                gpm.setNextRetryAt(null);
+            }
+            processedMessageRepository.save(gpm);
+            return List.of();
+        }
     }
 
     private boolean hasStatementAttachment(GmailMessage message) {

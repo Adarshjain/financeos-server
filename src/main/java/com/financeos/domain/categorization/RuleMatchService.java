@@ -37,6 +37,8 @@ import java.util.stream.Collectors;
 public class RuleMatchService {
 
     private static final int APPLY_CHUNK_SIZE = 500;
+    /** Applied transactions listed in an {@link ApplyOutcome}; the counts always cover all of them. */
+    static final int APPLY_OUTCOME_SAMPLE_SIZE = 50;
 
     private final TransactionRepository transactionRepository;
     private final CategoryRuleRepository categoryRuleRepository;
@@ -64,6 +66,27 @@ public class RuleMatchService {
             ReviewType reviewType,
             UUID appliedRuleId,
             String appliedRuleName) {
+    }
+
+    /**
+     * What an apply did: how many transactions were asked for, how many took the rule, why the rest
+     * were left alone, and the first {@value #APPLY_OUTCOME_SAMPLE_SIZE} applied transactions.
+     */
+    public record ApplyOutcome(
+            int requested,
+            int applied,
+            int skippedManuallyReviewed,
+            int skippedNoLongerMatching,
+            int notFound,
+            List<AppliedTransaction> appliedSample) {
+    }
+
+    public record AppliedTransaction(
+            UUID id,
+            LocalDate date,
+            BigDecimal amount,
+            TransactionType type,
+            String description) {
     }
 
     @Transactional(readOnly = true)
@@ -96,12 +119,24 @@ public class RuleMatchService {
      */
     @Transactional
     public int applyToTransactions(UUID ruleId, List<UUID> transactionIds) {
+        return applyToTransactionsDetailed(ruleId, transactionIds).applied();
+    }
+
+    /** {@link #applyToTransactions} with the full outcome. */
+    @Transactional
+    public ApplyOutcome applyToTransactionsDetailed(UUID ruleId, List<UUID> transactionIds) {
         return apply(loadRule(ruleId), transactionIds);
     }
 
     /** Applies the rule to every transaction its pattern currently matches. */
     @Transactional
     public int applyToAllMatches(UUID ruleId) {
+        return applyToAllMatchesDetailed(ruleId).applied();
+    }
+
+    /** {@link #applyToAllMatches} with the full outcome. */
+    @Transactional
+    public ApplyOutcome applyToAllMatchesDetailed(UUID ruleId) {
         CategoryRule rule = loadRule(ruleId);
         List<UUID> matchedIds = matchingTransactionIds(rule.getUser().getId(), rule.getMatchType(), rule.getMerchantKey());
         return apply(rule, matchedIds);
@@ -125,23 +160,30 @@ public class RuleMatchService {
         return matched;
     }
 
-    private int apply(CategoryRule rule, List<UUID> transactionIds) {
+    private ApplyOutcome apply(CategoryRule rule, List<UUID> transactionIds) {
         UUID ruleUserId = rule.getUser().getId();
         Set<Category> ruleCategories = new HashSet<>(rule.getCategories());
 
         int applied = 0;
+        int found = 0;
+        int skippedManuallyReviewed = 0;
+        int skippedNoLongerMatching = 0;
+        List<AppliedTransaction> appliedSample = new ArrayList<>();
         for (int start = 0; start < transactionIds.size(); start += APPLY_CHUNK_SIZE) {
             List<UUID> chunk = transactionIds.subList(start, Math.min(start + APPLY_CHUNK_SIZE, transactionIds.size()));
             List<Transaction> txns = transactionRepository.findAllByIdInAndUserId(chunk, ruleUserId);
             List<Transaction> toSave = new ArrayList<>();
+            found += txns.size();
 
             for (Transaction txn : txns) {
                 if (txn.getReviewType() == ReviewType.MANUALLY_REVIEWED) {
+                    skippedManuallyReviewed++;
                     continue;
                 }
                 // Re-verify the predicate so a stale or hand-crafted id can't attach the rule
                 // to a transaction its pattern doesn't match.
                 if (!RuleMatcher.matches(rule, RuleMatcher.MatchContext.of(txn.getSourcedDescription()))) {
+                    skippedNoLongerMatching++;
                     continue;
                 }
 
@@ -155,6 +197,14 @@ public class RuleMatchService {
                 }
                 toSave.add(txn);
                 applied++;
+                if (appliedSample.size() < APPLY_OUTCOME_SAMPLE_SIZE) {
+                    appliedSample.add(new AppliedTransaction(
+                            txn.getId(),
+                            txn.getDate(),
+                            txn.getAmount(),
+                            txn.getType(),
+                            txn.getDescription() != null ? txn.getDescription() : txn.getSourcedDescription()));
+                }
             }
 
             if (!toSave.isEmpty()) {
@@ -168,7 +218,8 @@ public class RuleMatchService {
             categoryRuleRepository.save(rule);
         }
         log.info("Applied rule {} ({}) to {} transaction(s)", rule.getId(), rule.getMerchantKey(), applied);
-        return applied;
+        return new ApplyOutcome(transactionIds.size(), applied, skippedManuallyReviewed, skippedNoLongerMatching,
+                transactionIds.size() - found, appliedSample);
     }
 
     private static MatchedTransaction snapshot(Transaction txn) {

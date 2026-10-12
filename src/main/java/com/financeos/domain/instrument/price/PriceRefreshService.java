@@ -62,10 +62,12 @@ public class PriceRefreshService {
         int refreshedCount = 0;
         int skippedCount = 0;
         List<PriceRefreshResult.FailedItem> failedList = new ArrayList<>();
+        List<PriceRefreshResult.RefreshedItem> refreshedItems = new ArrayList<>();
+        List<PriceRefreshResult.SkippedItem> skippedItems = new ArrayList<>();
         ZoneId zoneId = ZoneId.of(priceProperties.getTimezone() != null ? priceProperties.getTimezone() : "Asia/Kolkata");
 
         if (targets.isEmpty()) {
-            return new PriceRefreshResult(0, 0, failedList, LocalDate.now(zoneId));
+            return new PriceRefreshResult(0, 0, failedList, LocalDate.now(zoneId), refreshedItems, skippedItems);
         }
 
         Map<PriceProvider, List<Instrument>> grouped = new LinkedHashMap<>();
@@ -109,6 +111,11 @@ public class PriceRefreshService {
                             InstrumentPrice ep = existingPrice.get();
                             if (ep.getSource() == PriceSource.MANUAL) {
                                 skippedCount++;
+                                skippedItems.add(new PriceRefreshResult.SkippedItem(
+                                        inst.getId(),
+                                        label(inst),
+                                        "A manually entered price already exists for " + quote.asOf() + ", so it was kept."
+                                ));
                                 log.info("Skipping price refresh for instrument {} on {} as a legacy shared MANUAL price exists.", inst.getName(), quote.asOf());
                                 continue;
                             }
@@ -116,10 +123,14 @@ public class PriceRefreshService {
                             ep.setSource(provider.source());
                             priceRepository.save(ep);
                             refreshedCount++;
+                            refreshedItems.add(new PriceRefreshResult.RefreshedItem(
+                                    inst.getId(), label(inst), quote.close(), quote.asOf(), provider.source()));
                         } else {
                             InstrumentPrice newPrice = new InstrumentPrice(inst, quote.asOf(), quote.close(), provider.source());
                             priceRepository.save(newPrice);
                             refreshedCount++;
+                            refreshedItems.add(new PriceRefreshResult.RefreshedItem(
+                                    inst.getId(), label(inst), quote.close(), quote.asOf(), provider.source()));
                         }
                     } else {
                         failedList.add(new PriceRefreshResult.FailedItem(
@@ -139,7 +150,7 @@ public class PriceRefreshService {
             }
         }
 
-        return new PriceRefreshResult(refreshedCount, skippedCount, failedList, LocalDate.now(zoneId));
+        return new PriceRefreshResult(refreshedCount, skippedCount, failedList, LocalDate.now(zoneId), refreshedItems, skippedItems);
     }
 
     /**
