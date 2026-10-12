@@ -26,7 +26,7 @@ public record SyncSummary(
     int failedPermanent,
     long backlogRemaining,
     @Nullable String mailbox,
-    // Message ids Gmail returned across every listing of this run, new or already known.
+    // Distinct message ids Gmail returned across this run's listings, new or already known.
     int listed,
     // Earliest point the forward pass searched from (cursor minus overlap); null when nothing was listed.
     @Nullable Instant searchedSince,
