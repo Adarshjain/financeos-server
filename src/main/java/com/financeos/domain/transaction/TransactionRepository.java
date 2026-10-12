@@ -119,7 +119,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     @Query("SELECT COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END), 0) FROM Transaction t WHERE t.account.id = :accountId AND t.date > :afterDate")
     java.math.BigDecimal findPostAnchorTransactionSumByAccountId(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
 
-    /** Card unbilled spend: non-excluded DEBITs posted after {@code afterDate} (a statement's period end). */
+    /** Card unbilled spend: non-excluded DEBITs dated after {@code afterDate} (a statement's last billed day, {@code BalanceMath.cutoff}). */
     @Query("SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t WHERE t.account.id = :accountId " +
            "AND t.type = com.financeos.domain.transaction.TransactionType.DEBIT AND t.isTransactionExcluded = false " +
            "AND t.date > :afterDate")
@@ -145,8 +145,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
      * tiebreak (created time, then id). The WHERE is exactly the balance rule of
      * {@link #findBalanceAggregatesByAccountId} and the batch balance query: every transaction of the
      * account (excluded ones included, no review or source filter), restricted to
-     * {@code date > afterDate} when the balance is anchored on a statement ending {@code afterDate};
-     * a null {@code afterDate} (no anchor) lists them all.
+     * {@code date > afterDate} when the balance is anchored on a statement whose last billed day
+     * is {@code afterDate} ({@code BalanceMath.cutoff}: its period end, or its latest line's date
+     * when earlier); a null {@code afterDate} (no anchor) lists them all.
      */
     @Query(value = "SELECT t FROM Transaction t WHERE t.account.id = :accountId " +
                    "AND (:afterDate IS NULL OR t.date > :afterDate) " +

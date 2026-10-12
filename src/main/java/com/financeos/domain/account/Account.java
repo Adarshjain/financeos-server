@@ -135,6 +135,14 @@ public class Account {
     @Transient
     private LocalDate anchorDate;
 
+    /**
+     * The last day the anchor statement bills ({@link BalanceMath#cutoff}: its period end, or its
+     * latest line's date when earlier); the balance adds every transaction dated after it. Null
+     * when the balance is not anchored.
+     */
+    @Transient
+    private LocalDate anchorCutoff;
+
     /** Credit cards only: live utilisation (see {@link CardUtilization}); null when unknown or not a card. */
     @Transient
     private java.math.BigDecimal utilizationPct;

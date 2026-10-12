@@ -186,6 +186,7 @@ public class AccountService {
                 BalanceMath.apply(
                         account,
                         batch != null ? batch.anchorDate() : null,
+                        batch != null ? batch.anchorCutoff() : null,
                         batch != null ? batch.anchorClosingBalance() : null,
                         batch != null ? batch.totalSum() : null,
                         batch != null ? batch.postAnchorSum() : null
@@ -667,6 +668,7 @@ public class AccountService {
             BalanceMath.apply(
                     other,
                     batch != null ? batch.anchorDate() : null,
+                    batch != null ? batch.anchorCutoff() : null,
                     batch != null ? batch.anchorClosingBalance() : null,
                     batch != null ? batch.totalSum() : null,
                     batch != null ? batch.postAnchorSum() : null);
@@ -693,12 +695,14 @@ public class AccountService {
             StatementRepository.AnchorStatementProjection anchor = eligible.get(0);
             BigDecimal anchorClosingBalance = anchor.getClosingBalance();
             LocalDate anchorDate = anchor.getPeriodEnd();
+            // Everything dated after the statement's last billed day is unbilled (BalanceMath.cutoff).
+            LocalDate cutoff = BalanceMath.cutoff(anchorDate, statementRepository.findLastLineDate(anchor.getId()));
 
-            TransactionRepository.BalanceAggregatesProjection aggregates = transactionRepository.findBalanceAggregatesByAccountId(account.getId(), anchorDate);
+            TransactionRepository.BalanceAggregatesProjection aggregates = transactionRepository.findBalanceAggregatesByAccountId(account.getId(), cutoff);
             BigDecimal totalSum = aggregates != null ? aggregates.getTotalSum() : null;
             BigDecimal postAnchorSum = aggregates != null ? aggregates.getPostAnchorSum() : null;
 
-            BalanceMath.apply(account, anchorDate, anchorClosingBalance, totalSum, postAnchorSum);
+            BalanceMath.apply(account, anchorDate, cutoff, anchorClosingBalance, totalSum, postAnchorSum);
         } else {
             BigDecimal totalSum = transactionRepository.findTotalTransactionSumByAccountId(account.getId());
             BalanceMath.apply(account, null, null, totalSum, null);

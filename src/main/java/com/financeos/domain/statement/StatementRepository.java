@@ -45,6 +45,14 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     List<AnchorStatementProjection> findEligibleAnchorStatements(@Param("accountId") UUID accountId, org.springframework.data.domain.Pageable pageable);
 
     /**
+     * The latest transaction date among the statement's linked lines, null when it has none: with
+     * the period end, the last day the statement bills (see
+     * {@link com.financeos.domain.account.BalanceMath#cutoff}).
+     */
+    @Query("SELECT MAX(t.date) FROM StatementTransaction st, Transaction t WHERE st.id.statementId = :statementId AND t.id = st.id.transactionId")
+    LocalDate findLastLineDate(@Param("statementId") UUID statementId);
+
+    /**
      * Credit limits printed on the account's non-rejected statements, newest first (pass a one-row
      * page for the latest): the utilisation fallback for a card without a limit of its own.
      */
