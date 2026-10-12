@@ -20,6 +20,7 @@ import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.gmail.engine.GmailEngine;
 import com.financeos.gmail.ingest.AccountResolver;
 import com.financeos.gmail.ingest.GmailIngestProperties;
+import com.financeos.gmail.ingest.ParkedMessageSettler;
 import com.financeos.gmail.internal.GmailAttachment;
 import com.financeos.gmail.internal.GmailMessage;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -74,7 +75,7 @@ class StatementReconciliationClaimedRowsTest {
         service = new StatementReconciliationService(gmailEngine, statementParser, transactionRepository,
                 mock(GmailProcessedMessageRepository.class), new GmailIngestProperties(), mock(AccountRepository.class),
                 accountResolver, new TransactionMatcher(), new ReviewStatusManager(), statementPersistenceService,
-                mock(CardRepository.class));
+                mock(CardRepository.class), mock(ParkedMessageSettler.class));
 
         connection = new GmailConnection();
         connection.setId(UUID.randomUUID());
