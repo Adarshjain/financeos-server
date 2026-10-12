@@ -138,6 +138,33 @@ public final class StatementPdfFixtures {
 		return d.save();
 	}
 
+	/**
+	 * slice savings statement: "02 Sep '26" dates with an apostrophe year, the
+	 * period only as an unlabelled masthead range, debits printed with the minus
+	 * before the currency, and interest narrations that carry their own date.
+	 */
+	public static byte[] sliceApostropheYear() throws Exception {
+		Doc d = new Doc();
+		d.line(r(560, "01 Sep '26 - 30 Sep '26"));
+		d.line(l(40, "TEST USER"));
+		d.line(l(40, "Customer ID"), l(130, "380000000000"), l(330, "A/C number"), l(420, "000011112222333"));
+		d.line(l(40, "Account Opening"), l(130, "12 Apr '26"), l(330, "IFSC"), l(420, "NESF0000333"));
+		d.line(l(50, "Opening balance"), l(160, "Total credits"), l(270, "Interest earned"), l(380, "Total debits"),
+				l(480, "Closing balance"));
+		d.line(l(50, "Rs.0.84"), l(160, "Rs.2,20,070.84"), l(270, "Rs.70.84"), l(380, "Rs.2,20,000.00"),
+				l(480, "Rs.71.68"));
+		d.line(l(40, "DATE"), l(110, "DETAILS"), l(300, "REF NO."), l(440, "AMOUNT"), l(520, "BALANCE"));
+		d.line(l(40, "01 Sep '26"), l(110, "Interest Cr. for 31 Aug 2026"), l(300, "2022615351394"),
+				r(480, "Rs.70.84"), r(560, "Rs.71.68"));
+		d.line(l(40, "02 Sep '26"), l(110, "RTGS Credit-TEST USER-HSBC040000"), l(300, "20226245213934"),
+				r(480, "Rs.2,20,000.00"), r(560, "Rs.2,20,071.68"));
+		d.line(l(110, "2-XX9759-HSBCR22026090238615010"));
+		d.line(l(40, "02 Sep '26"), l(110, "IMPS-Debit-REF 624509173023-TO"), l(300, "20260902447225201"),
+				r(480, "-Rs.2,20,000.00"), r(560, "Rs.71.68"));
+		d.line(l(40, "Generated on 02 Oct '26"));
+		return d.save();
+	}
+
 	private static void header(Doc d) {
 		d.line(l(DATE, "Date"), l(NARR, "Transaction Details"), l(335, "Deposits"), l(409, "Withdrawals"),
 				l(523, "Balance"));

@@ -53,7 +53,7 @@ final class Tokens {
 
     static final Pattern DATE_TOKEN = Pattern.compile(
             "^(\\d{1,2}[/\\-.]\\d{1,2}[/\\-.]\\d{2,4}"
-                    + "|\\d{1,2}[/\\-. ][A-Za-z]{3,9}[/\\-. ]\\d{2,4}"
+                    + "|\\d{1,2}[/\\-. ][A-Za-z]{3,9}[/\\-. ](?:\\d{2,4}|'\\d{2})"
                     + "|[A-Za-z]{3,9} \\d{1,2} \\d{2,4}"
                     + "|\\d{1,2}[A-Za-z]{3,9}\\d{2,4}"
                     + "|\\d{1,2}\\s?[A-Za-z]{3,9}"
@@ -64,9 +64,10 @@ final class Tokens {
 
     // Amount: needs decimal point or comma grouping so bare ref numbers don't match.
     // The currency prefix includes "C" and "`" - rupee glyphs extract as those in
-    // HDFC and ICICI fonts respectively.
+    // HDFC and ICICI fonts respectively. A minus may also sit before the currency
+    // ("-₹2,20,000.00", slice).
     static final Pattern AMOUNT = Pattern.compile(
-            "^\\(?(?:[₹$€£C`]|Rs\\.?|INR)?\\s?(-?\\d{1,3}(?:,\\d{2,3})*\\.\\d{1,2}|-?\\d+\\.\\d{1,2})\\)?\\s*(Cr|CR|cr|Dr|DR|dr)?\\.?$");
+            "^\\(?(?:(-)?(?:[₹$€£C`]|Rs\\.?|INR))?\\s?(-?\\d{1,3}(?:,\\d{2,3})*\\.\\d{1,2}|-?\\d+\\.\\d{1,2})\\)?\\s*(Cr|CR|cr|Dr|DR|dr)?\\.?$");
 
     static final Pattern LOOSE_AMOUNT = Pattern.compile(
             "^(?:[₹$€£C`]|Rs\\.?|INR)?\\s?(\\d{1,3}(?:,\\d{2,3})+)$");
@@ -128,12 +129,12 @@ final class Tokens {
         if (!m.matches()) {
             return null;
         }
-        double value = Double.parseDouble(m.group(1).replace(",", ""));
+        double value = Double.parseDouble(m.group(2).replace(",", ""));
         int sign = 0;
-        if (m.group(2) != null) {
-            sign = m.group(2).equalsIgnoreCase("cr") ? 1 : -1;
+        if (m.group(3) != null) {
+            sign = m.group(3).equalsIgnoreCase("cr") ? 1 : -1;
         }
-        if (t.startsWith("(") || value < 0 || trailingMinus) {
+        if (t.startsWith("(") || value < 0 || trailingMinus || m.group(1) != null) {
             value = Math.abs(value);
             sign = -1;
         }
