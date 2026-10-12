@@ -16,6 +16,7 @@ import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.gmail.domain.GmailProcessedStatus;
 import com.financeos.gmail.engine.GmailEngine;
 import com.financeos.gmail.ingest.GmailIngestProperties;
+import com.financeos.gmail.ingest.ParkedMessageSettler;
 import com.financeos.gmail.ingest.SyncSummary;
 import com.financeos.gmail.internal.GmailAttachment;
 import com.financeos.gmail.internal.GmailMessage;
@@ -55,6 +56,7 @@ public class StatementReconciliationService {
     private final ReviewStatusManager reviewStatusManager;
     private final StatementPersistenceService statementPersistenceService;
     private final com.financeos.domain.account.card.CardRepository cardRepository;
+    private final ParkedMessageSettler parkedMessageSettler;
 
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
@@ -66,7 +68,8 @@ public class StatementReconciliationService {
                                           TransactionMatcher transactionMatcher,
                                           ReviewStatusManager reviewStatusManager,
                                           StatementPersistenceService statementPersistenceService,
-                                          com.financeos.domain.account.card.CardRepository cardRepository) {
+                                          com.financeos.domain.account.card.CardRepository cardRepository,
+                                          ParkedMessageSettler parkedMessageSettler) {
         this.gmailEngine = gmailEngine;
         this.statementParser = statementParser;
         this.transactionRepository = transactionRepository;
@@ -78,6 +81,7 @@ public class StatementReconciliationService {
         this.reviewStatusManager = reviewStatusManager;
         this.statementPersistenceService = statementPersistenceService;
         this.cardRepository = cardRepository;
+        this.parkedMessageSettler = parkedMessageSettler;
     }
 
 
@@ -141,10 +145,7 @@ public class StatementReconciliationService {
             }
 
             if (candidateAccount == null) {
-                log.error("Encrypted statement could not be decrypted with any stored password. File: {}", chosenAttachment.filename());
-                recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED_PERMANENT,
-                        "Encrypted statement could not be decrypted with any stored password.");
-                return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, "Encrypted statement could not be decrypted with any stored password", chosenAttachment.filename(), null, false);
+                return settleUndecryptable(connection, message, chosenAttachment.filename());
             }
         }
 
@@ -445,6 +446,60 @@ public class StatementReconciliationService {
             return account.getBankDetails().getStatementPassword();
         }
         return null;
+    }
+
+    /**
+     * A protected statement that no stored password opens. The bank usually still names the account
+     * outside the PDF ("customer ID XXX1277", "XXX1277.pdf"); when that names exactly one account the
+     * usual opt-in and window rules apply, so a statement from before the account's window is skipped
+     * rather than asking for a password nobody needs. The digits are kept on the row either way, so a
+     * row parked here is settled or reopened like any other when its account changes.
+     */
+    private ReconSummary settleUndecryptable(GmailConnection connection, GmailMessage message, String filename) {
+        List<String> texts = new ArrayList<>(List.of(Objects.toString(message.subject(), ""), message.getStrippedText()));
+        message.attachments().forEach(att -> texts.add(att.filename()));
+        List<String> numbers = MaskedNumberHints.find(texts.toArray(String[]::new));
+        Map<UUID, Account> accounts = new LinkedHashMap<>();
+        Map<UUID, String> numberByAccount = new HashMap<>();
+        for (String number : numbers) {
+            accountResolver.resolve(number).ifPresent(r -> {
+                accounts.putIfAbsent(r.account().getId(), r.account());
+                numberByAccount.putIfAbsent(r.account().getId(), number);
+            });
+        }
+
+        if (accounts.size() == 1) {
+            Account account = accounts.values().iterator().next();
+            String last4 = numberByAccount.get(account.getId());
+            if (account.getIngestFromDate() == null) {
+                recordLedger(connection, message.messageId(), account, GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN, last4,
+                        "Account " + account.getName() + " is not opted in for Gmail ingestion");
+                return new ReconSummary(0, 0, 0, List.of(), null, "Account not opted in", filename, last4, false);
+            }
+            if (message.internalDate() != null && message.internalDate().isBefore(parkedMessageSettler.windowStart(account.getIngestFromDate()))) {
+                log.info("Undecryptable statement {} for account {} predates its ingest window; skipping", message.messageId(), account.getId());
+                recordLedger(connection, message.messageId(), account, GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK, last4, null);
+                return new ReconSummary(0, 0, 0, List.of(), null, null, filename, last4, false);
+            }
+            String reason = "Encrypted statement could not be decrypted. Save the statement password on " + account.getName() + ".";
+            log.error("Encrypted statement for account {} could not be decrypted with any stored password. File: {}", account.getId(), filename);
+            recordLedger(connection, message.messageId(), account, GmailProcessedStatus.FAILED_PERMANENT, last4, reason);
+            return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, reason, filename, last4, false);
+        }
+
+        if (accounts.isEmpty() && numbers.size() == 1) {
+            String last4 = numbers.get(0);
+            log.error("Encrypted statement names account ending {} but no single account matches it", last4);
+            recordLedger(connection, message.messageId(), null, GmailProcessedStatus.UNRESOLVED_ACCOUNT, last4,
+                    "Failed to resolve account for encrypted statement ending " + last4);
+            return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.UNRESOLVED_ACCOUNT,
+                    "No single account matches statement number " + last4, filename, last4, false);
+        }
+
+        log.error("Encrypted statement could not be decrypted with any stored password. File: {}", filename);
+        recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED_PERMANENT,
+                "Encrypted statement could not be decrypted with any stored password.");
+        return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, "Encrypted statement could not be decrypted with any stored password", filename, null, false);
     }
 
     private void recordLedger(GmailConnection connection, String messageId, Account account, GmailProcessedStatus status, String extractedLast4, String error) {
