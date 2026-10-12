@@ -16,10 +16,12 @@ final class MetadataExtractor {
     private static final Pattern TO_TILL_THROUGH = Pattern.compile("\\b(to|till|through)\\b", Pattern.CASE_INSENSITIVE);
     private static final Pattern NAME_LABEL_EXCLUDE = Pattern.compile(
             "(?:branch|bank|scheme|product|nominee)\\s+name", Pattern.CASE_INSENSITIVE);
+    private static final Pattern RANGE_SEP = Pattern.compile("\\s+[-–]\\s+");
 
     static StatementMeta extract(List<Line> preTable, String dateFmt) {
         StatementMeta meta = new StatementMeta();
         String bankFallback = null;
+        LocalDate[] bareRange = null;
 
         for (int i = 0; i < preTable.size(); i++) {
             Line ln = preTable.get(i);
@@ -101,6 +103,9 @@ final class MetadataExtractor {
                     }
                 }
             }
+            if (bareRange == null) {
+                bareRange = bareDateRange(ln, dateFmt);
+            }
             // Balance labels must be on short summary lines — T&C sentences also
             // say "opening balance" but with example figures.
             if (Tokens.OPENING_BAL.matcher(text).find() && meta.openingBalance == null && words.size() <= 8) {
@@ -131,6 +136,37 @@ final class MetadataExtractor {
         if (meta.bank == null) {
             meta.bank = bankFallback;
         }
+        // Fallback only, so a labelled period line always wins.
+        if (meta.periodStart == null && bareRange != null) {
+            meta.periodStart = bareRange[0];
+            meta.periodEnd = bareRange[1];
+        }
         return meta;
+    }
+
+    // An unlabelled masthead line that is nothing but a date range
+    // ("01 Sep '26 - 30 Sep '26", slice).
+    private static LocalDate[] bareDateRange(Line ln, String dateFmt) {
+        String[] parts = RANGE_SEP.split(ln.text().strip());
+        if (parts.length != 2 || !Tokens.isDateToken(Tokens.norm(parts[0]))
+                || !Tokens.isDateToken(Tokens.norm(parts[1]))) {
+            return null;
+        }
+        List<String> fmts = new ArrayList<>();
+        if (dateFmt != null) {
+            fmts.add(dateFmt);
+        }
+        fmts.addAll(Dates.DATE_FORMATS);
+        List<LocalDate> found = Dates.findDatesInWords(ln.words(), fmts);
+        if (found.size() != 2) {
+            return null;
+        }
+        LocalDate start = found.get(0);
+        LocalDate end = found.get(1);
+        long days = ChronoUnit.DAYS.between(start, end);
+        if (start.getYear() <= 1990 || end.getYear() <= 1990 || days < 0 || days > 400) {
+            return null;
+        }
+        return new LocalDate[]{start, end};
     }
 }

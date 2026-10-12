@@ -25,7 +25,10 @@ final class Dates {
             "%d %b %Y", "%d %b %y", "%d %B %Y", "%Y-%m-%d",
             "%d-%B-%Y", "%b %d %Y", "%B %d %Y", "%b %d %y",
             "%d%b%Y", "%d%b%y", "%d%B%Y", "%Y/%m/%d",
-            "%d%b", "%d%B", "%d %b", "%d-%b", "%d/%b");
+            "%d%b", "%d%B", "%d %b", "%d-%b", "%d/%b",
+            // Apostrophe year ("02 Sep '26", slice). Kept last: only text with
+            // the apostrophe parses, so it never outvotes an existing format.
+            "%d %b '%y");
 
     private static final Map<String, DateTimeFormatter> FORMATTERS;
 
