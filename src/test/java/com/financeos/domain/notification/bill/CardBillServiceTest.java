@@ -44,6 +44,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import com.financeos.domain.account.card.Card;
 import com.financeos.domain.account.card.Cardholder;
@@ -802,5 +803,94 @@ class CardBillServiceTest {
         assertEquals(PaidSource.MANUAL, bill.paidSource());
         assertEquals(new BigDecimal("10000"), bill.paidAmount(), "the refund that alone would pay in full is ignored");
         assertEquals(BillStatus.PARTIAL, bill.status());
+    }
+
+    // ---------------------------------------------------------------- settlement window = last billed day
+
+    @Test
+    void linkedPaymentDatedOnThePeriodEndPaysTheBillWhenTheStatementsLinesStopEarlier() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        // The issuer cuts by posting date: its last line is dated the day before the period end, so a
+        // payment dated on the period end is not on the statement — the balance already counts it.
+        when(statementRepository.findLastLineDate(s.getId())).thenReturn(s.getPeriodEnd().minusDays(1));
+        Transaction payment = credit(card, s.getPeriodEnd(), "48250");
+        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd().minusDays(1))).thenReturn(List.of(payment));
+        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
+                .thenReturn(List.of(link(LinkType.CC_PAYMENT, payment, false)));
+
+        CardBill bill = service.build(card, s, TODAY);
+
+        assertEquals(BillStatus.PAID, bill.status());
+        assertEquals(PaidSource.LINK, bill.paidSource());
+        assertEquals(0, bill.remainingAmount().signum());
+        verify(transactionRepository, never()).findCreditsAfter(card.getId(), s.getPeriodEnd());
+    }
+
+    @Test
+    void settlementAndUnbilledSpendCountFromTheSameLastBilledDayReadOnce() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        LocalDate lastLine = s.getPeriodEnd().minusDays(2);
+        when(statementRepository.findLastLineDate(s.getId())).thenReturn(lastLine);
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(card));
+        when(statementRepository.findQualifyingCreditCardStatements(card.getId())).thenReturn(List.of(s));
+        when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId())).thenReturn(List.of(s));
+        when(transactionRepository.sumIncludedDebitsAfter(card.getId(), lastLine)).thenReturn(new BigDecimal("777"));
+        Transaction payment = credit(card, s.getPeriodEnd(), "20000");
+        when(transactionRepository.findCreditsAfter(card.getId(), lastLine)).thenReturn(List.of(payment));
+        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
+                .thenReturn(List.of(link(LinkType.CC_PAYMENT, payment, false)));
+
+        CardBill bill = service.listBills(user.getId()).get(0);
+
+        assertEquals(BillStatus.PARTIAL, bill.status());
+        assertEquals(new BigDecimal("28250"), bill.remainingAmount());
+        assertEquals(new BigDecimal("777"), bill.unbilledAmount());
+        verify(statementRepository, times(1)).findLastLineDate(s.getId());
+        verify(transactionRepository, never()).findCreditsAfter(card.getId(), s.getPeriodEnd());
+        verify(transactionRepository, never()).sumIncludedDebitsAfter(card.getId(), s.getPeriodEnd());
+    }
+
+    @Test
+    void aLineDatedAfterThePeriodEndNeverMovesTheSettlementWindowLater() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        when(statementRepository.findLastLineDate(s.getId())).thenReturn(s.getPeriodEnd().plusDays(1));
+        Transaction payment = credit(card, TODAY.minusDays(2), "48250");
+        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(payment));
+        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
+                .thenReturn(List.of(link(LinkType.CC_PAYMENT, payment, false)));
+
+        CardBill bill = service.build(card, s, TODAY);
+
+        assertEquals(BillStatus.PAID, bill.status());
+        verify(transactionRepository, never()).findCreditsAfter(card.getId(), s.getPeriodEnd().plusDays(1));
+    }
+
+    @Test
+    void aStatementWithoutLinesSettlesFromItsPeriodEndAndAnUndatedOneNeverReadsItsLines() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        when(statementRepository.findLastLineDate(s.getId())).thenReturn(null);
+        Transaction payment = credit(card, TODAY.minusDays(2), "48250");
+        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(payment));
+        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
+                .thenReturn(List.of(link(LinkType.CC_PAYMENT, payment, false)));
+        assertEquals(BillStatus.PAID, service.build(card, s, TODAY).status());
+
+        Statement undated = statement(card, null, new BigDecimal("100"), TODAY.plusDays(5));
+        assertEquals(BillStatus.OPEN, service.build(card, undated, TODAY).status());
+        verify(statementRepository, never()).findLastLineDate(undated.getId());
+        verify(transactionRepository, never()).findCreditsAfter(eq(card.getId()), eq(null));
+    }
+
+    @Test
+    void updateDetailsWithATotalDueMovesTheStatementsClosingBalanceWithIt() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        s.setClosingBalance(new BigDecimal("48250"));
+        liveStatement(card, s, BigDecimal.ZERO);
+
+        service.updateDetails(user.getId(), s.getId(), null, new BigDecimal("50000"), null);
+        assertEquals(new BigDecimal("50000"), s.getClosingBalance(), "the account balance anchors on the corrected total");
+
+        service.updateDetails(user.getId(), s.getId(), TODAY.plusDays(20), null, new BigDecimal("2500"));
+        assertEquals(new BigDecimal("50000"), s.getClosingBalance(), "a due-date or minimum edit leaves it alone");
     }
 }

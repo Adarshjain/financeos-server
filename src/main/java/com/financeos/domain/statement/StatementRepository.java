@@ -41,7 +41,21 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     @Query("SELECT s FROM Statement s JOIN FETCH s.creditCardDetails d WHERE s.account.id = :accountId AND s.statementType = 'credit_card' AND s.verdict != com.financeos.domain.statement.StatementVerdict.REJECTED ORDER BY s.periodEnd ASC NULLS LAST, s.createdAt ASC")
     List<Statement> findQualifyingCreditCardStatements(@Param("accountId") UUID accountId);
 
-    @Query("SELECT s.id AS id, s.periodEnd AS periodEnd, s.closingBalance AS closingBalance FROM Statement s WHERE s.account.id = :accountId AND s.periodEnd IS NOT NULL AND s.closingBalance IS NOT NULL AND s.verdict != com.financeos.domain.statement.StatementVerdict.REJECTED ORDER BY s.periodEnd DESC, s.createdAt DESC")
+    /**
+     * The statements an account balance can anchor on, latest first: dated, not rejected, with a
+     * closing balance — the parser's, else (credit cards) the total amount due, the same figure:
+     * what the card owed when the statement closed. A card statement the parser could not
+     * reconcile carries no closing balance yet still prints the total due, and the bill
+     * ({@code CardBillService}) already treats it as the current statement; without the fallback
+     * the balance would stay anchored on the previous statement and disagree with the bill. The
+     * batch query ({@code AccountRepositoryCustomImpl.findAccountBalanceBatches}) applies the same rule.
+     */
+    @Query("SELECT s.id AS id, s.periodEnd AS periodEnd, COALESCE(s.closingBalance, d.totalAmountDue) AS closingBalance "
+           + "FROM Statement s LEFT JOIN s.creditCardDetails d "
+           + "WHERE s.account.id = :accountId AND s.periodEnd IS NOT NULL "
+           + "AND COALESCE(s.closingBalance, d.totalAmountDue) IS NOT NULL "
+           + "AND s.verdict != com.financeos.domain.statement.StatementVerdict.REJECTED "
+           + "ORDER BY s.periodEnd DESC, s.createdAt DESC")
     List<AnchorStatementProjection> findEligibleAnchorStatements(@Param("accountId") UUID accountId, org.springframework.data.domain.Pageable pageable);
 
     /**

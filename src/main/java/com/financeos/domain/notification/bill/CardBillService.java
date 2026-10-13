@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,8 +42,10 @@ import org.springframework.transaction.annotation.Transactional;
  * and owns the three writes a user can make on it: mark paid, undo, fill in missing details.
  *
  * <p>Settlement precedence: a manual mark wins; otherwise the card-side credits of CC_PAYMENT
- * links, and credits linked as a REFUND or REVERSAL, after the period end count as paid; plain credits are only ever surfaced as
- * "possible payments" for the user to confirm — they never close a bill on their own.
+ * links, and credits linked as a REFUND or REVERSAL, dated after the statement's last billed day
+ * ({@link BalanceMath#cutoff}: the period end, or the latest line's date when earlier — the day the
+ * unbilled spend and the account balance count from too) count as paid; plain credits are only ever
+ * surfaced as "possible payments" for the user to confirm — they never close a bill on their own.
  */
 @Service
 @Transactional(readOnly = true)
@@ -118,13 +121,16 @@ public class CardBillService {
      * The bill as the settlement signals describe it. {@code unbilledAmount},
      * {@code nextStatementExpectedOn} and the digest's live {@code utilizationPct} are left null
      * here: the notification tick does not need them and must not pay for the extra queries.
-     * {@link #listBills} and the other read paths fill them in.
+     * {@link #listBills} and the other read paths fill them in. Settlement itself reads one thing
+     * beyond the statement: the date of its latest line, which fixes the day it settles from
+     * ({@link #lastBilledDay}).
      */
     public CardBill build(Account account, Statement statement, LocalDate today) {
         return assemble(account, statement, today).bill();
     }
 
-    private record Built(CardBill bill, Settlement settlement) {
+    /** {@code cutoff} is the statement's last billed day ({@link #lastBilledDay}); null when it has no period end. */
+    private record Built(CardBill bill, Settlement settlement, @Nullable LocalDate cutoff) {
     }
 
     private Built assemble(Account account, Statement statement, LocalDate today) {
@@ -132,7 +138,8 @@ public class CardBillService {
         BigDecimal total = d.getTotalAmountDue();
         LocalDate due = d.getPaymentDueDate();
 
-        Settlement settlement = settle(account.getId(), statement.getPeriodEnd());
+        LocalDate cutoff = lastBilledDay(statement);
+        Settlement settlement = settle(account.getId(), cutoff);
 
         BigDecimal paid;
         PaidSource source;
@@ -205,7 +212,21 @@ public class CardBillService {
                 digest,
                 null,
                 null);
-        return new Built(bill, settlement);
+        return new Built(bill, settlement, cutoff);
+    }
+
+    /**
+     * The last day the statement bills ({@link BalanceMath#cutoff}): its period end, or the date of
+     * its latest linked line when that comes earlier (an issuer cutting by posting date lists
+     * nothing dated on the period end itself). Null for a statement without a period end. The
+     * settlement, the unbilled spend and the account balance all count from the day after it, so
+     * the bill and GET /accounts owe the same money.
+     */
+    @Nullable
+    private LocalDate lastBilledDay(Statement statement) {
+        LocalDate periodEnd = statement.getPeriodEnd();
+        return BalanceMath.cutoff(periodEnd,
+                periodEnd == null ? null : statementRepository.findLastLineDate(statement.getId()));
     }
 
     /**
@@ -215,9 +236,8 @@ public class CardBillService {
      */
     private CardBill buildEnriched(Account account, Statement statement, LocalDate today) {
         Built built = assemble(account, statement, today);
-        // Unbilled = dated after the statement's last billed day (BalanceMath.cutoff), as the balance counts it.
-        LocalDate cutoff = BalanceMath.cutoff(statement.getPeriodEnd(),
-                statement.getPeriodEnd() == null ? null : statementRepository.findLastLineDate(statement.getId()));
+        // Unbilled = dated after the statement's last billed day, the day the settlement counts from too.
+        LocalDate cutoff = built.cutoff();
         BigDecimal unbilled = cutoff == null
                 ? null
                 : unbilled(transactionRepository.sumIncludedDebitsAfter(account.getId(), cutoff));
@@ -352,6 +372,9 @@ public class CardBillService {
         }
         if (totalAmountDue != null) {
             d.setTotalAmountDue(totalAmountDue);
+            // A card statement's closing balance is its total due, and the account balance anchors on
+            // it (StatementRepository.findEligibleAnchorStatements): a corrected total moves the owed too.
+            statement.setClosingBalance(totalAmountDue);
         }
         if (minimumAmountDue != null) {
             d.setMinimumAmountDue(minimumAmountDue);
@@ -374,14 +397,17 @@ public class CardBillService {
     }
 
     /**
-     * Credits after the period end, split into ones that count towards the bill (CC_PAYMENT-linked
-     * payments, and REFUND/REVERSAL-linked credits) and unlinked "possible" payments.
+     * Credits dated after the statement's last billed day ({@code cutoff}, {@link #lastBilledDay}),
+     * split into ones that count towards the bill (CC_PAYMENT-linked payments, and
+     * REFUND/REVERSAL-linked credits) and unlinked "possible" payments. A payment dated on the
+     * period end that the statement did not list is after the cutoff, so once linked it pays this
+     * bill — the same day the account balance stops owing it.
      */
-    private Settlement settle(UUID accountId, LocalDate periodEnd) {
-        if (periodEnd == null) {
+    private Settlement settle(UUID accountId, @Nullable LocalDate cutoff) {
+        if (cutoff == null) {
             return new Settlement(BigDecimal.ZERO, List.of());
         }
-        List<Transaction> credits = transactionRepository.findCreditsAfter(accountId, periodEnd).stream()
+        List<Transaction> credits = transactionRepository.findCreditsAfter(accountId, cutoff).stream()
                 .filter(t -> !t.isTransactionExcluded())
                 .toList();
         if (credits.isEmpty()) {

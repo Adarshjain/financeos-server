@@ -26,7 +26,8 @@ public class AccountRepositoryCustomImpl implements AccountRepositoryCustom {
         // statement that carries one: the utilisation fallback for cards without their own limit.
         // The anchor's cutoff is BalanceMath.cutoff in SQL: the earlier of its period end and its
         // latest linked line's date (the period end when it has no lines); post_anchor_sum is over
-        // the transactions dated after that cutoff.
+        // the transactions dated after that cutoff. The anchor's closing balance falls back to a card
+        // statement's total amount due, as StatementRepository.findEligibleAnchorStatements does.
         String sql = "SELECT b.account_id, b.anchor_date, b.anchor_closing_balance, b.total_sum, b.post_anchor_sum, " +
                 "( SELECT d.credit_limit FROM statements sl " +
                 "  JOIN statement_credit_card_details d ON d.statement_id = sl.id " +
@@ -44,20 +45,23 @@ public class AccountRepositoryCustomImpl implements AccountRepositoryCustom {
                 "COALESCE(SUM(CASE WHEN s.anchor_cutoff IS NOT NULL AND t.transaction_date > s.anchor_cutoff THEN (CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END) ELSE 0 END), 0) AS post_anchor_sum " +
                 "FROM accounts a " +
                 "LEFT JOIN ( " +
-                "    SELECT s1.id, s1.account_id, s1.period_end, s1.closing_balance, " +
+                "    SELECT s1.id, s1.account_id, s1.period_end, " +
+                "           COALESCE(s1.closing_balance, d1.total_amount_due) AS closing_balance, " +
                 "           LEAST(s1.period_end, COALESCE(( " +
                 "               SELECT MAX(tx.transaction_date) FROM statement_transactions st " +
                 "               JOIN transactions tx ON tx.id = st.transaction_id " +
                 "               WHERE st.statement_id = s1.id ), s1.period_end)) AS anchor_cutoff " +
                 "    FROM statements s1 " +
+                "    LEFT JOIN statement_credit_card_details d1 ON d1.statement_id = s1.id " +
                 "    WHERE s1.period_end IS NOT NULL " +
-                "      AND s1.closing_balance IS NOT NULL " +
+                "      AND COALESCE(s1.closing_balance, d1.total_amount_due) IS NOT NULL " +
                 "      AND s1.verdict != 'REJECTED' " +
                 "      AND s1.id = ( " +
                 "          SELECT s2.id FROM statements s2 " +
+                "          LEFT JOIN statement_credit_card_details d2 ON d2.statement_id = s2.id " +
                 "          WHERE s2.account_id = s1.account_id " +
                 "            AND s2.period_end IS NOT NULL " +
-                "            AND s2.closing_balance IS NOT NULL " +
+                "            AND COALESCE(s2.closing_balance, d2.total_amount_due) IS NOT NULL " +
                 "            AND s2.verdict != 'REJECTED' " +
                 "          ORDER BY s2.period_end DESC, s2.created_at DESC " +
                 "          FETCH FIRST 1 ROWS ONLY " +
