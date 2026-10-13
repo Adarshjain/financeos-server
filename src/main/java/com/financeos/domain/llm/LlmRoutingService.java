@@ -153,12 +153,29 @@ public class LlmRoutingService {
                 ? taskPrefRepository.findByUserIdAndTaskGroupOrderByPositionAsc(userId, group)
                 : Collections.emptyList();
 
-        List<String> order = effectiveOptionOrder(group, userPrefs);
-
         List<RoutingEntryDto> entries = new ArrayList<>();
         int position = 1;
-        for (String optionId : order) {
-            LlmProperties.RoutingOption option = optionById(optionId);
+        for (Slot slot : effectiveSlots(group, userPrefs)) {
+            if (slot.custom() != null) {
+                LlmTaskPref pref = slot.custom();
+                String provider = pref.getProvider().trim().toLowerCase();
+                entries.add(new RoutingEntryDto(
+                        position++,
+                        CustomModelSpec.OPTION_ID,
+                        pref.getModel(),
+                        provider,
+                        getFriendlyProviderName(provider),
+                        pref.getModel(),
+                        activeProviderKeys.contains(provider) || isAllowNoKey(provider),
+                        true,
+                        pref.getStructuredOutput(),
+                        pref.getReasoningEffort(),
+                        pref.getMaxOutputTokens(),
+                        pref.getProviderPin()
+                ));
+                continue;
+            }
+            LlmProperties.RoutingOption option = optionById(slot.optionId());
             if (option == null) {
                 continue;
             }
@@ -183,24 +200,47 @@ public class LlmRoutingService {
         );
     }
 
+    /** One position in a group's order: a menu option id, or a user-typed model row. */
+    private record Slot(String optionId, LlmTaskPref custom) {}
+
     /**
-     * Saved order, then anything new from config. Keeping unsaved options at the tail means adding
-     * a model to the menu can never quietly outrank a preference the user already expressed.
+     * Saved order (menu options and custom rows alike), then anything new from config. Keeping
+     * unsaved options at the tail means adding a model to the menu can never quietly outrank a
+     * preference the user already expressed.
      */
-    private List<String> effectiveOptionOrder(LlmTaskGroup group, List<LlmTaskPref> userPrefs) {
+    private List<Slot> effectiveSlots(LlmTaskGroup group, List<LlmTaskPref> userPrefs) {
         List<String> configured = configuredOptions().stream().map(LlmProperties.RoutingOption::getId).toList();
 
-        LinkedHashSet<String> order = new LinkedHashSet<>();
+        List<Slot> slots = new ArrayList<>();
+        Set<String> seenOptions = new HashSet<>();
         for (LlmTaskPref pref : userPrefs) {
-            if (configured.stream().anyMatch(id -> id.equalsIgnoreCase(pref.getOptionId()))) {
-                order.add(pref.getOptionId());
+            if (pref.isCustom()) {
+                if (pref.getProvider() != null && !pref.getProvider().isBlank()
+                        && pref.getModel() != null && !pref.getModel().isBlank()) {
+                    slots.add(new Slot(null, pref));
+                }
+                continue;
             }
+            configured.stream()
+                    .filter(id -> id.equalsIgnoreCase(pref.getOptionId()))
+                    .findFirst()
+                    .ifPresent(id -> {
+                        if (seenOptions.add(id.toLowerCase())) {
+                            slots.add(new Slot(id, null));
+                        }
+                    });
         }
         for (String optionId : defaultOptionOrder(group)) {
-            order.add(optionId);
+            if (seenOptions.add(optionId.toLowerCase())) {
+                slots.add(new Slot(optionId, null));
+            }
         }
-        order.addAll(configured);   // any option missing from both, so nothing is ever unreachable
-        return new ArrayList<>(order);
+        for (String optionId : configured) {   // any option missing from both, so nothing is ever unreachable
+            if (seenOptions.add(optionId.toLowerCase())) {
+                slots.add(new Slot(optionId, null));
+            }
+        }
+        return slots;
     }
 
     /** The shipped order for a group, from {@code llm.default-routing}. */
@@ -218,7 +258,8 @@ public class LlmRoutingService {
      * Replaces a group's order. The payload must be a permutation of the entire option menu —
      * the UI only reorders, never adds or removes, and requiring the full set here makes a partial
      * save (which would leave an option silently unreachable) unrepresentable rather than merely
-     * discouraged.
+     * discouraged. Custom rows ({@code optionId = "custom"}) may appear any number of times, anywhere
+     * in the order, as long as no (provider, model) pair repeats.
      */
     @Transactional
     public LlmRoutingGroupDto updateRouting(UUID userId, LlmTaskGroup group, List<RoutingEntryRequest> entries) {
@@ -227,12 +268,21 @@ public class LlmRoutingService {
         }
 
         List<String> configured = configuredOptions().stream().map(LlmProperties.RoutingOption::getId).toList();
-        List<String> resolved = new ArrayList<>();
+        List<Slot> resolved = new ArrayList<>();
         Set<String> seen = new LinkedHashSet<>();
 
         for (RoutingEntryRequest entry : entries) {
             if (entry.optionId() == null || entry.optionId().isBlank()) {
                 throw new IllegalArgumentException("Each routing entry needs an optionId");
+            }
+            if (CustomModelSpec.isCustomOptionId(entry.optionId())) {
+                CustomModelSpec spec = customModelSpec(entry.provider(), entry.model(), entry.structuredOutput(),
+                        entry.reasoningEffort(), entry.maxOutputTokens(), entry.providerPin());
+                if (!seen.add("custom:" + spec.key())) {
+                    throw new IllegalArgumentException("Duplicate custom model: " + spec.provider() + " " + spec.model());
+                }
+                resolved.add(new Slot(null, customPref(spec)));
+                continue;
             }
             LlmProperties.RoutingOption option = optionById(entry.optionId());
             if (option == null) {
@@ -241,7 +291,7 @@ public class LlmRoutingService {
             if (!seen.add(option.getId().toLowerCase())) {
                 throw new IllegalArgumentException("Duplicate routing option: " + option.getId());
             }
-            resolved.add(option.getId());
+            resolved.add(new Slot(option.getId(), null));
         }
 
         List<String> missing = configured.stream()
@@ -262,11 +312,14 @@ public class LlmRoutingService {
 
         List<LlmTaskPref> newPrefs = new ArrayList<>();
         for (int i = 0; i < resolved.size(); i++) {
-            LlmTaskPref pref = new LlmTaskPref();
+            Slot slot = resolved.get(i);
+            LlmTaskPref pref = slot.custom() != null ? slot.custom() : new LlmTaskPref();
             pref.setUser(user);
             pref.setTaskGroup(group);
             pref.setPosition(i + 1);
-            pref.setOptionId(resolved.get(i));
+            if (slot.custom() == null) {
+                pref.setOptionId(slot.optionId());
+            }
             newPrefs.add(pref);
         }
         taskPrefRepository.saveAll(newPrefs);
@@ -299,9 +352,12 @@ public class LlmRoutingService {
                 ? keyRepository.findByUserIdAndStatusOrderByPositionAsc(userId, LlmKeyStatus.ACTIVE)
                 : Collections.emptyList();
 
+        List<LlmTaskPref> prefs = userId != null
+                ? taskPrefRepository.findByUserIdOrderByTaskGroupAscPositionAsc(userId)
+                : Collections.emptyList();
         for (LlmKey key : activeKeys) {
             String provider = key.getProvider().toLowerCase();
-            for (String model : modelsReachableFor(provider)) {
+            for (String model : modelsReachableFor(provider, prefs)) {
                 BucketStateRegistry.BucketCooldownInfo status =
                         registry.getBucketStatus(FailoverLlmClient.bucketKeyFor(key.getId(), model));
                 healthList.add(new LlmBucketHealthDto(
@@ -322,9 +378,10 @@ public class LlmRoutingService {
 
     /**
      * Every model this provider can actually be invoked with: the models pinned by routing options,
-     * plus the provider default, plus (for a chain-style provider) its full ordered model list.
+     * plus the provider default, plus (for a chain-style provider) its full ordered model list,
+     * plus any model the user typed onto a custom row for this provider.
      */
-    private List<String> modelsReachableFor(String provider) {
+    private List<String> modelsReachableFor(String provider, List<LlmTaskPref> prefs) {
         LinkedHashSet<String> models = new LinkedHashSet<>();
         LlmProperties.ProviderProperties props = providerProps(provider);
 
@@ -341,7 +398,41 @@ public class LlmRoutingService {
         if (props != null && props.getModel() != null && !props.getModel().isBlank()) {
             models.add(props.getModel());
         }
+        for (LlmTaskPref pref : prefs) {
+            if (pref.isCustom() && pref.getProvider() != null && provider.equalsIgnoreCase(pref.getProvider().trim())
+                    && pref.getModel() != null && !pref.getModel().isBlank()) {
+                models.add(pref.getModel().trim());
+            }
+        }
         return new ArrayList<>(models);
+    }
+
+    // ---------------------------------------------------------------- custom models
+
+    /** Validates a user-typed model against the providers this deployment actually has. */
+    public CustomModelSpec customModelSpec(String provider, String model, String structuredOutput, String reasoningEffort,
+                                           Integer maxOutputTokens, String providerPin) {
+        Set<String> providers = llmProperties != null && llmProperties.getProviders() != null
+                ? llmProperties.getProviders().keySet()
+                : Set.of();
+        return CustomModelSpec.of(provider, model, structuredOutput, reasoningEffort, maxOutputTokens, providerPin, providers);
+    }
+
+    public CustomModelSpec customModelSpec(TestModelRequest request) {
+        return customModelSpec(request.provider(), request.model(), request.structuredOutput(),
+                request.reasoningEffort(), request.maxOutputTokens(), request.providerPin());
+    }
+
+    private static LlmTaskPref customPref(CustomModelSpec spec) {
+        LlmTaskPref pref = new LlmTaskPref();
+        pref.setOptionId(CustomModelSpec.OPTION_ID);
+        pref.setProvider(spec.provider());
+        pref.setModel(spec.model());
+        pref.setStructuredOutput(spec.options().structuredOutput());
+        pref.setReasoningEffort(spec.options().reasoningEffort());
+        pref.setMaxOutputTokens(spec.options().maxOutputTokens());
+        pref.setProviderPin(spec.options().providerPin());
+        return pref;
     }
 
     // ---------------------------------------------------------------- helpers

@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.financeos.api.llm.dto.TestKeyResponse;
 import com.financeos.llm.LlmException;
+import com.financeos.llm.LlmCallOptions;
 import com.financeos.llm.LlmProvider;
 import com.financeos.llm.LlmRequest;
 import com.financeos.llm.LlmResponse;
@@ -238,6 +239,50 @@ public class LlmKeyService {
                 ? llmProperties.getProviders().get(providerId).getModel()
                 : null);
 
+        return probe(provider, apiKey, providerId, model, LlmCallOptions.NONE, "key " + keyId);
+    }
+
+    /**
+     * Probe a user-typed model with the user's own key for that provider and the row's call knobs
+     * applied, so a model is proven to answer the schema-constrained way every task needs before
+     * it is allowed onto a routing row.
+     */
+    public TestKeyResponse testModel(UUID userId, CustomModelSpec spec) {
+        if (encryptionService == null || !encryptionService.isConfigured()) {
+            return TestKeyResponse.failure("Key storage is not configured.");
+        }
+        String providerId = spec.provider();
+        LlmProvider provider = providers != null ? providers.get(providerId) : null;
+        if (provider == null) {
+            return TestKeyResponse.failure("Provider not configured: " + providerId);
+        }
+        LlmKey key = keyRepository.findByUserIdAndStatusOrderByPositionAsc(userId, LlmKeyStatus.ACTIVE).stream()
+                .filter(k -> k.getProvider() != null && providerId.equalsIgnoreCase(k.getProvider()))
+                .findFirst()
+                .orElse(null);
+        String apiKey = null;
+        if (key != null) {
+            try {
+                apiKey = encryptionService.decrypt(key.getKeyCiphertext());
+            } catch (Exception e) {
+                return TestKeyResponse.failure("Failed to decrypt key: " + e.getMessage());
+            }
+        } else if (!allowsNoKey(providerId)) {
+            return TestKeyResponse.failure("Add a " + getFriendlyName(providerId) + " API key first.");
+        }
+        return probe(provider, apiKey, providerId, spec.model(), spec.options(),
+                key != null ? "key " + key.getId() : "no key");
+    }
+
+    private boolean allowsNoKey(String providerId) {
+        LlmProperties.ProviderProperties props = llmProperties != null && llmProperties.getProviders() != null
+                ? llmProperties.getProviders().get(providerId)
+                : null;
+        return props != null && props.isAllowNoKey();
+    }
+
+    private TestKeyResponse probe(LlmProvider provider, String apiKey, String providerId, String model,
+                                  LlmCallOptions options, String subject) {
         // Send a real schema, not a bare ping: every task this key will serve is schema-constrained,
         // so "the key works" is only useful if it also proves the model honours structured output.
         ObjectNode schema = OBJECT_MAPPER.createObjectNode();
@@ -247,13 +292,13 @@ public class LlmKeyService {
 
         try {
             LlmRequest req = new LlmRequest("test", "Reply with {\"status\":\"ok\"}.", schema, 0.0);
-            provider.complete(req, apiKey, model);
+            provider.complete(req, apiKey, model, options);
             return TestKeyResponse.success("Model '" + (model != null ? model : providerId) + "' responded successfully");
         } catch (LlmException e) {
-            log.warn("Test completion failed for key {} provider {} model {}: {}", keyId, providerId, model, e.getMessage());
+            log.warn("Test completion failed for {} provider {} model {}: {}", subject, providerId, model, e.getMessage());
             return TestKeyResponse.failure(describeFailure(e, providerId, model));
         } catch (Exception e) {
-            log.warn("Test completion failed for key {} provider {} model {}: {}", keyId, providerId, model, e.getMessage());
+            log.warn("Test completion failed for {} provider {} model {}: {}", subject, providerId, model, e.getMessage());
             return TestKeyResponse.failure(e.getMessage() != null ? e.getMessage() : "Unknown error during test completion");
         }
     }

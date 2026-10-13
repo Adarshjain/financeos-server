@@ -29,14 +29,24 @@ public class FailoverLlmClient implements LlmClient {
     private final ObservabilityMetrics metrics;
     private final BucketStateRegistry bucketStateRegistry;
 
-    public record ChainEntry(String providerId, String model) {}
+    /** One link of a chain; {@code options} carries a custom row's call knobs (NONE for menu options). */
+    public record ChainEntry(String providerId, String model, LlmCallOptions options) {
+        public ChainEntry(String providerId, String model) {
+            this(providerId, model, LlmCallOptions.NONE);
+        }
+    }
 
     public record BucketTarget(
             LlmKey key,
             String providerId,
             String model,
-            String bucketKey
-    ) {}
+            String bucketKey,
+            LlmCallOptions options
+    ) {
+        public BucketTarget(LlmKey key, String providerId, String model, String bucketKey) {
+            this(key, providerId, model, bucketKey, LlmCallOptions.NONE);
+        }
+    }
 
     public FailoverLlmClient(LlmProperties properties,
                               Map<String, LlmProvider> providers,
@@ -234,7 +244,7 @@ public class FailoverLlmClient implements LlmClient {
             for (int attempt = 1; attempt <= attemptsPerProvider; attempt++) {
                 long startTime = System.currentTimeMillis();
                 try {
-                    LlmResponse response = provider.complete(request, apiKey, model);
+                    LlmResponse response = provider.complete(request, apiKey, model, LlmCallOptions.orNone(target.options()));
                     long latencyMs = System.currentTimeMillis() - startTime;
                     int responseChars = response != null && response.jsonText() != null ? response.jsonText().length() : 0;
 
@@ -420,7 +430,7 @@ public class FailoverLlmClient implements LlmClient {
             if (keys.isEmpty()) {
                 if (keyRepository == null || (providerProps != null && providerProps.isAllowNoKey())) {
                     String model = entry.model() != null && !entry.model().isBlank() ? entry.model().trim() : getModel(providerId);
-                    targets.add(new BucketTarget(null, providerId, model, providerId + ":default:" + model));
+                    targets.add(new BucketTarget(null, providerId, model, providerId + ":default:" + model, entry.options()));
                 }
                 continue;
             }
@@ -429,21 +439,21 @@ public class FailoverLlmClient implements LlmClient {
                 // Explicit user-specified model collapses Gemini model-major iteration
                 String model = entry.model().trim();
                 for (LlmKey key : keys) {
-                    targets.add(new BucketTarget(key, providerId, model, bucketKeyFor(key.getId(), model)));
+                    targets.add(new BucketTarget(key, providerId, model, bucketKeyFor(key.getId(), model), entry.options()));
                 }
             } else if ("gemini".equalsIgnoreCase(providerId)) {
                 // Model-major iteration: best model across ALL keys, then next model across all keys
                 List<String> models = getGeminiModels(providerProps);
                 for (String model : models) {
                     for (LlmKey key : keys) {
-                        targets.add(new BucketTarget(key, providerId, model, bucketKeyFor(key.getId(), model)));
+                        targets.add(new BucketTarget(key, providerId, model, bucketKeyFor(key.getId(), model), entry.options()));
                     }
                 }
             } else {
                 // OpenAI-compatible rotation
                 String model = getModel(providerId);
                 for (LlmKey key : keys) {
-                    targets.add(new BucketTarget(key, providerId, model, bucketKeyFor(key.getId(), model)));
+                    targets.add(new BucketTarget(key, providerId, model, bucketKeyFor(key.getId(), model), entry.options()));
                 }
             }
         }
@@ -491,7 +501,11 @@ public class FailoverLlmClient implements LlmClient {
             if (!groupPrefs.isEmpty()) {
                 List<ChainEntry> entries = new ArrayList<>();
                 for (LlmTaskPref pref : groupPrefs) {
-                    entries.addAll(expandOption(pref.getOptionId()));
+                    if (pref.isCustom()) {
+                        entries.addAll(customEntry(pref));
+                    } else {
+                        entries.addAll(expandOption(pref.getOptionId()));
+                    }
                 }
                 if (!entries.isEmpty()) {
                     return entries;
@@ -533,6 +547,15 @@ public class FailoverLlmClient implements LlmClient {
      * teaching {@code buildBucketList} about option shapes — is what keeps model-major ordering
      * correct: entry order is model order, and each entry then fans out across the user's keys.
      */
+    /** A user-typed model row becomes one chain entry that carries its own call knobs. */
+    private List<ChainEntry> customEntry(LlmTaskPref pref) {
+        if (pref.getProvider() == null || pref.getProvider().isBlank()
+                || pref.getModel() == null || pref.getModel().isBlank()) {
+            return List.of();
+        }
+        return List.of(new ChainEntry(pref.getProvider().trim().toLowerCase(), pref.getModel().trim(), pref.callOptions()));
+    }
+
     private List<ChainEntry> expandOption(String optionId) {
         LlmProperties.RoutingOption option = findRoutingOption(optionId);
         if (option == null || option.getProvider() == null || option.getProvider().isBlank()) {

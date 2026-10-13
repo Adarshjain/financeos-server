@@ -1,6 +1,7 @@
 package com.financeos.domain.llm;
 
 import com.financeos.domain.user.User;
+import com.financeos.llm.LlmCallOptions;
 import com.financeos.llm.LlmTaskGroup;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,12 +40,42 @@ public class LlmTaskPref {
     @Column(nullable = false)
     private Integer position;
 
-    /** Id of the {@code llm.routing-options} entry the user picked. Provider and models derive from it. */
+    /**
+     * Id of the {@code llm.routing-options} entry the user picked, or {@link CustomModelSpec#OPTION_ID}
+     * for a user-typed model — then {@code provider} and {@code model} carry the identity and the
+     * remaining columns are the optional call knobs (see {@link LlmCallOptions}).
+     */
     @Column(name = "option_id", nullable = false, length = 64)
     private String optionId;
 
+    @Column(length = 32)
+    private String provider;
+
+    @Column(length = 255)
+    private String model;
+
+    @Column(name = "structured_output", length = 16)
+    private String structuredOutput;
+
+    @Column(name = "reasoning_effort", length = 16)
+    private String reasoningEffort;
+
+    @Column(name = "max_output_tokens")
+    private Integer maxOutputTokens;
+
+    @Column(name = "provider_pin", length = 64)
+    private String providerPin;
+
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
+
+    public boolean isCustom() {
+        return CustomModelSpec.isCustomOptionId(optionId);
+    }
+
+    public LlmCallOptions callOptions() {
+        return LlmCallOptions.of(structuredOutput, reasoningEffort, maxOutputTokens, providerPin);
+    }
 
     @PrePersist
     protected void onCreate() {

@@ -3,6 +3,8 @@ package com.financeos.api.llm;
 import com.financeos.api.llm.dto.*;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.llm.LlmRoutingService;
+import com.financeos.domain.llm.LlmKeyService;
+import com.financeos.domain.llm.CustomModelSpec;
 import com.financeos.llm.LlmTaskGroup;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -19,9 +21,11 @@ import java.util.UUID;
 public class LlmRoutingController {
 
     private final LlmRoutingService routingService;
+    private final LlmKeyService keyService;
 
-    public LlmRoutingController(LlmRoutingService routingService) {
+    public LlmRoutingController(LlmRoutingService routingService, LlmKeyService keyService) {
         this.routingService = routingService;
+        this.keyService = keyService;
     }
 
     private UUID requireCurrentUserId() {
@@ -79,6 +83,21 @@ public class LlmRoutingController {
         try {
             LlmRoutingGroupDto updated = routingService.updateRouting(userId, taskGroup, request.entries());
             return ResponseEntity.ok(updated);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    /**
+     * Live probe of a user-typed model with the user's own key and the row's call knobs. The UI
+     * only lets a custom row onto a group's order once this says ok.
+     */
+    @PostMapping("/routing/test-model")
+    public ResponseEntity<TestKeyResponse> testModel(@Valid @RequestBody TestModelRequest request) {
+        UUID userId = requireCurrentUserId();
+        try {
+            CustomModelSpec spec = routingService.customModelSpec(request);
+            return ResponseEntity.ok(keyService.testModel(userId, spec));
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
