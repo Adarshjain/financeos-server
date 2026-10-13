@@ -64,11 +64,6 @@ public class BillInboxCollector implements InboxCollector {
         List<InboxActionResponse> actions = new ArrayList<>();
         actions.add(InboxActionResponse.mutate("mark_paid", "Mark paid",
                 InboxActionPayloadResponse.forStatement(bill.statementId(), bill.remainingAmount())));
-        if (bill.possiblePayments() != null && !bill.possiblePayments().isEmpty()) {
-            CardBill.PossiblePayment payment = bill.possiblePayments().get(0);
-            actions.add(InboxActionResponse.mutate("confirm_payment", "Confirm payment " + InboxRows.money(payment.amount()),
-                    InboxActionPayloadResponse.forPayment(bill.statementId(), payment.transactionId(), payment.amount(), payment.date())));
-        }
         actions.add(InboxRows.snooze());
         return row(bill, severity, title(bill), subtitle.toString(), actions);
     }

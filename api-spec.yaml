@@ -8111,7 +8111,7 @@ components:
           enum:
           - NONE
           - MANUAL
-          - LINK
+          - CREDITS
         paymentDueDate:
           type: string
           format: date
@@ -8127,10 +8127,6 @@ components:
           format: date
           nullable: true
           x-nullable: true
-        possiblePayments:
-          type: array
-          items:
-            $ref: "#/components/schemas/PossiblePaymentResponse"
         remainingAmount:
           type: number
           nullable: true
@@ -8168,7 +8164,6 @@ components:
       - accountName
       - muted
       - paidSource
-      - possiblePayments
       - status
     CardBreakdown:
       type: object
@@ -13840,27 +13835,6 @@ components:
             $ref: "#/components/schemas/PositionDto"
       required:
       - positions
-    PossiblePaymentResponse:
-      type: object
-      properties:
-        amount:
-          type: number
-          nullable: true
-          x-nullable: true
-        date:
-          type: string
-          format: date
-          nullable: true
-          x-nullable: true
-        description:
-          type: string
-          nullable: true
-          x-nullable: true
-        transactionId:
-          type: string
-          format: uuid
-      required:
-      - transactionId
     PreviewMatchesRequest:
       type: object
       properties:

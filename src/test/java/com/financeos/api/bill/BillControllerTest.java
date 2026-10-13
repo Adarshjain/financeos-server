@@ -44,7 +44,6 @@ class BillControllerTest {
         bill = new CardBill(UUID.randomUUID(), "HDFC", "4321", statementId, null, LocalDate.of(2026, 10, 10),
                 LocalDate.of(2026, 10, 28), new BigDecimal("100"), new BigDecimal("5"), BigDecimal.ZERO, new BigDecimal("100"),
                 PaidSource.NONE, BillStatus.OPEN, 8L, null,
-                List.of(new CardBill.PossiblePayment(UUID.randomUUID(), LocalDate.of(2026, 10, 12), new BigDecimal("100"), "UPI")),
                 false, null, "RECEIVED", LocalDate.of(2026, 10, 11),
                 new CardBill.Digest(new BigDecimal("100"), null, null, null, null, null, new BigDecimal("1000"), new BigDecimal("10.0"), 3),
                 new BigDecimal("250"), LocalDate.of(2026, 11, 10));
@@ -63,8 +62,6 @@ class BillControllerTest {
         CardBillResponse body = response.getBody().get(0);
         assertEquals(statementId, body.statementId());
         assertEquals(BillStatus.OPEN, body.status());
-        assertEquals(1, body.possiblePayments().size());
-        assertEquals("UPI", body.possiblePayments().get(0).description());
         assertEquals(new BigDecimal("10.0"), body.digest().utilizationPct());
         assertEquals("RECEIVED", body.lastNotifiedKind());
         assertEquals(new BigDecimal("250"), body.unbilledAmount());
@@ -101,7 +98,7 @@ class BillControllerTest {
 
     private CardBill awaitingRow(UUID accountId) {
         return new CardBill(accountId, "Axis", null, null, null, null, null, null, null, null, null,
-                PaidSource.NONE, BillStatus.AWAITING_STATEMENT, null, null, List.of(), false, null, null, null, null,
+                PaidSource.NONE, BillStatus.AWAITING_STATEMENT, null, null, false, null, null, null, null,
                 new BigDecimal("900"), null);
     }
 
@@ -131,7 +128,6 @@ class BillControllerTest {
         assertEquals(BillStatus.AWAITING_STATEMENT, row.status());
         assertNull(row.statementId());
         assertNull(row.digest());
-        assertTrue(row.possiblePayments().isEmpty());
         assertEquals(new BigDecimal("900"), row.unbilledAmount());
         assertNull(row.nextStatementExpectedOn());
     }

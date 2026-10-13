@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -20,7 +19,6 @@ import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementCreditCardDetails;
 import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.transaction.TransactionRepository;
-import com.financeos.domain.transaction.link.TransactionLinkRepository;
 import com.financeos.domain.user.User;
 import java.math.BigDecimal;
 import java.time.Clock;
@@ -54,11 +52,9 @@ class CardBillLiveUtilizationTest {
         accountRepository = mock(AccountRepository.class);
         statementRepository = mock(StatementRepository.class);
         transactionRepository = mock(TransactionRepository.class);
-        TransactionLinkRepository linkRepository = mock(TransactionLinkRepository.class);
         accountService = mock(AccountService.class);
-        service = new CardBillService(accountRepository, statementRepository, transactionRepository, linkRepository, accountService);
-        when(transactionRepository.findCreditsAfter(any(), any())).thenReturn(List.of());
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection())).thenReturn(List.of());
+        service = new CardBillService(accountRepository, statementRepository, transactionRepository, accountService);
+        when(transactionRepository.sumCreditsAfter(any(), any())).thenReturn(BigDecimal.ZERO);
         when(statementRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
         user = new User();
@@ -147,7 +143,7 @@ class CardBillLiveUtilizationTest {
         CardBill noDigest = new CardBill(bill.accountId(), bill.accountName(), bill.last4(), bill.statementId(),
                 bill.periodStart(), bill.periodEnd(), bill.paymentDueDate(), bill.totalAmountDue(), bill.minimumAmountDue(),
                 bill.paidAmount(), bill.remainingAmount(), bill.paidSource(), bill.status(), bill.daysUntilDue(),
-                bill.paidMarkedOn(), bill.possiblePayments(), bill.muted(), bill.statementCreatedAt(),
+                bill.paidMarkedOn(), bill.muted(), bill.statementCreatedAt(),
                 bill.lastNotifiedKind(), bill.lastNotifiedOn(), null, null, null);
         assertSame(noDigest, noDigest.withUtilization(new BigDecimal("1.0")));
     }

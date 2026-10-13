@@ -14,60 +14,51 @@ import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementCreditCardDetails;
 import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.statement.StatementVerdict;
-import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
-import com.financeos.domain.transaction.link.LinkType;
-import com.financeos.domain.transaction.link.TransactionLink;
-import com.financeos.domain.transaction.link.TransactionLinkMember;
-import com.financeos.domain.transaction.link.TransactionLinkRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * The statement is the bill. This service turns a card's latest live statement plus the
- * settlement signals (manual mark, CC_PAYMENT and REFUND/REVERSAL links, unlinked credits) into a {@link CardBill},
- * and owns the three writes a user can make on it: mark paid, undo, fill in missing details.
+ * The statement is the bill. This service turns a card's latest live statement plus what the card
+ * has been credited since into a {@link CardBill}, and owns the three writes a user can make on it:
+ * mark paid, undo, fill in missing details.
  *
- * <p>Settlement precedence: a manual mark wins; otherwise the card-side credits of CC_PAYMENT
- * links, and credits linked as a REFUND or REVERSAL, dated after the statement's last billed day
- * ({@link BalanceMath#cutoff}: the period end, or the latest line's date when earlier — the day the
- * unbilled spend and the account balance count from too) count as paid; plain credits are only ever
- * surfaced as "possible payments" for the user to confirm — they never close a bill on their own.
+ * <p>The bill owes what the account balance owes. Both count from the statement's last billed day
+ * ({@link BalanceMath#cutoff}: the period end, or the latest line's date when earlier): the total
+ * due, less every credit dated after that day (payments, refunds, cashback — linked or not,
+ * excluded or not, exactly the credits the balance subtracts), plus every debit after it as
+ * unbilled spend. So {@code remainingAmount + unbilledAmount} is the negative balance GET /accounts
+ * reports for the card.
+ *
+ * <p>Settlement precedence: a manual mark wins over the credits (a payment whose transaction has not
+ * arrived yet); otherwise the credits since the last billed day pay the bill, and whatever they
+ * cover beyond it comes off the unbilled spend.
  */
 @Service
 @Transactional(readOnly = true)
 public class CardBillService {
 
-    static final int MAX_POSSIBLE_PAYMENTS = 5;
-
     private final AccountRepository accountRepository;
     private final StatementRepository statementRepository;
     private final TransactionRepository transactionRepository;
-    private final TransactionLinkRepository transactionLinkRepository;
     private final AccountService accountService;
 
     public CardBillService(AccountRepository accountRepository,
                            StatementRepository statementRepository,
                            TransactionRepository transactionRepository,
-                           TransactionLinkRepository transactionLinkRepository,
                            AccountService accountService) {
         this.accountRepository = accountRepository;
         this.statementRepository = statementRepository;
         this.transactionRepository = transactionRepository;
-        this.transactionLinkRepository = transactionLinkRepository;
         this.accountService = accountService;
     }
 
@@ -118,19 +109,21 @@ public class CardBillService {
     }
 
     /**
-     * The bill as the settlement signals describe it. {@code unbilledAmount},
+     * The bill as the statement and the credits since describe it. {@code unbilledAmount},
      * {@code nextStatementExpectedOn} and the digest's live {@code utilizationPct} are left null
      * here: the notification tick does not need them and must not pay for the extra queries.
-     * {@link #listBills} and the other read paths fill them in. Settlement itself reads one thing
-     * beyond the statement: the date of its latest line, which fixes the day it settles from
-     * ({@link #lastBilledDay}).
+     * {@link #listBills} and the other read paths fill them in. Settlement reads two things beyond
+     * the statement: the date of its latest line ({@link #lastBilledDay}) and the credit sum after it.
      */
     public CardBill build(Account account, Statement statement, LocalDate today) {
         return assemble(account, statement, today).bill();
     }
 
-    /** {@code cutoff} is the statement's last billed day ({@link #lastBilledDay}); null when it has no period end. */
-    private record Built(CardBill bill, Settlement settlement, @Nullable LocalDate cutoff) {
+    /**
+     * {@code cutoff} is the statement's last billed day ({@link #lastBilledDay}; null without a period
+     * end) and {@code creditsSince} the credits dated after it (zero without a cutoff).
+     */
+    private record Built(CardBill bill, @Nullable LocalDate cutoff, BigDecimal creditsSince) {
     }
 
     private Built assemble(Account account, Statement statement, LocalDate today) {
@@ -139,16 +132,18 @@ public class CardBillService {
         LocalDate due = d.getPaymentDueDate();
 
         LocalDate cutoff = lastBilledDay(statement);
-        Settlement settlement = settle(account.getId(), cutoff);
+        BigDecimal creditsSince = cutoff == null
+                ? BigDecimal.ZERO
+                : nonNegative(transactionRepository.sumCreditsAfter(account.getId(), cutoff));
 
         BigDecimal paid;
         PaidSource source;
         if (d.getPaidMarkedOn() != null) {
             paid = d.getPaidMarkedAmount() != null ? d.getPaidMarkedAmount() : total;
             source = PaidSource.MANUAL;
-        } else if (settlement.linkedPaid.signum() > 0) {
-            paid = settlement.linkedPaid;
-            source = PaidSource.LINK;
+        } else if (creditsSince.signum() > 0) {
+            paid = creditsSince;
+            source = PaidSource.CREDITS;
         } else {
             paid = BigDecimal.ZERO;
             source = PaidSource.NONE;
@@ -175,9 +170,6 @@ public class CardBillService {
                     ? BigDecimal.ZERO
                     : total.subtract(paid == null ? BigDecimal.ZERO : paid).max(BigDecimal.ZERO);
         }
-        List<CardBill.PossiblePayment> possible = status == BillStatus.PAID || status == BillStatus.NO_DUE
-                ? List.of()
-                : settlement.possible;
         Long daysUntilDue = due == null ? null : ChronoUnit.DAYS.between(today, due);
 
         // The limit utilisation divides by: the card's own, else the latest statement's that has one
@@ -204,7 +196,6 @@ public class CardBillService {
                 status,
                 daysUntilDue,
                 d.getPaidMarkedOn(),
-                possible,
                 Boolean.TRUE.equals(account.getNotificationsMuted()),
                 statement.getCreatedAt(),
                 d.getLastNotifiedKind(),
@@ -212,15 +203,15 @@ public class CardBillService {
                 digest,
                 null,
                 null);
-        return new Built(bill, settlement, cutoff);
+        return new Built(bill, cutoff, creditsSince);
     }
 
     /**
      * The last day the statement bills ({@link BalanceMath#cutoff}): its period end, or the date of
      * its latest linked line when that comes earlier (an issuer cutting by posting date lists
      * nothing dated on the period end itself). Null for a statement without a period end. The
-     * settlement, the unbilled spend and the account balance all count from the day after it, so
-     * the bill and GET /accounts owe the same money.
+     * credits that pay the bill, the unbilled spend and the account balance all count from the day
+     * after it, so the bill and GET /accounts owe the same money.
      */
     @Nullable
     private LocalDate lastBilledDay(Statement statement) {
@@ -230,24 +221,26 @@ public class CardBillService {
     }
 
     /**
-     * {@link #build} plus the read-side extras: unbilled spend since the period end, the next
+     * {@link #build} plus the read-side extras: unbilled spend since the last billed day, the next
      * expected statement and the digest's live utilisation (balance now ÷ limit, see
      * {@link CardUtilization}) — the same figure GET /accounts reports for the card.
      */
     private CardBill buildEnriched(Account account, Statement statement, LocalDate today) {
         Built built = assemble(account, statement, today);
-        // Unbilled = dated after the statement's last billed day, the day the settlement counts from too.
-        LocalDate cutoff = built.cutoff();
-        BigDecimal unbilled = cutoff == null
+        BigDecimal unbilled = built.cutoff() == null
                 ? null
-                : unbilled(transactionRepository.sumIncludedDebitsAfter(account.getId(), cutoff));
+                : unbilled(transactionRepository.sumDebitsAfter(account.getId(), built.cutoff()),
+                        built.creditsSince(), statement.getCreditCardDetails().getTotalAmountDue());
         BigDecimal utilization = accountService.populateLiveBalance(account).getUtilizationPct();
         return built.bill().withUtilization(utilization).withUnbilled(unbilled, nextStatementExpectedOn(account.getId()));
     }
 
-    /** An open card with no live statement: nothing to pay yet, only what has been spent so far. */
+    /** An open card with no live statement: nothing to pay yet, only what the card owes so far. */
     private CardBill awaitingStatement(Account account) {
-        BigDecimal spendSinceEver = unbilled(transactionRepository.sumIncludedDebits(account.getId()));
+        // Nothing to count from, so the balance is the plain signed sum (credits positive) and the card
+        // owes its negative part — the figure GET /accounts shows for an unanchored card.
+        BigDecimal signedSum = transactionRepository.findTotalTransactionSumByAccountId(account.getId());
+        BigDecimal owedSoFar = signedSum == null ? BigDecimal.ZERO : signedSum.negate().max(BigDecimal.ZERO);
         return new CardBill(
                 account.getId(),
                 account.getName(),
@@ -264,23 +257,31 @@ public class CardBillService {
                 BillStatus.AWAITING_STATEMENT,
                 null,
                 null,
-                List.of(),
                 Boolean.TRUE.equals(account.getNotificationsMuted()),
                 null,
                 null,
                 null,
                 null,
-                spendSinceEver,
+                owedSoFar,
                 nextStatementExpectedOn(account.getId()));
     }
 
     /**
-     * Card spend not yet on a statement: the non-excluded debits. Credits never reduce it: bill
-     * payments and refunds both count towards the open bill instead (see {@link #settle}).
-     * Null-guarded because a mocked repository returns null.
+     * What the card owes beyond the bill: the debits dated after the last billed day, less whatever
+     * the credits since cover beyond the total due (a credit larger than the bill pays down the new
+     * spend too, and a statement in credit — a negative total — counts its credit the same way).
+     * Never negative. A null total (details missing) leaves the credits to the bill alone, and a
+     * null sum (a mocked repository) counts as zero.
      */
-    private static BigDecimal unbilled(BigDecimal debits) {
-        return (debits == null ? BigDecimal.ZERO : debits).max(BigDecimal.ZERO);
+    static BigDecimal unbilled(@Nullable BigDecimal debitsSince, BigDecimal creditsSince, @Nullable BigDecimal total) {
+        BigDecimal debits = debitsSince == null ? BigDecimal.ZERO : debitsSince;
+        BigDecimal beyondBill = total == null ? BigDecimal.ZERO : creditsSince.subtract(total).max(BigDecimal.ZERO);
+        return debits.subtract(beyondBill).max(BigDecimal.ZERO);
+    }
+
+    /** A repository sum, never negative; null (a mocked repository) counts as zero. */
+    private static BigDecimal nonNegative(@Nullable BigDecimal sum) {
+        return sum == null ? BigDecimal.ZERO : sum.max(BigDecimal.ZERO);
     }
 
     /**
@@ -391,61 +392,6 @@ public class CardBillService {
 
     static boolean isOpen(Account account, LocalDate today) {
         return account.getClosedOn() == null || account.getClosedOn().isAfter(today);
-    }
-
-    private record Settlement(BigDecimal linkedPaid, List<CardBill.PossiblePayment> possible) {
-    }
-
-    /**
-     * Credits dated after the statement's last billed day ({@code cutoff}, {@link #lastBilledDay}),
-     * split into ones that count towards the bill (CC_PAYMENT-linked payments, and
-     * REFUND/REVERSAL-linked credits) and unlinked "possible" payments. A payment dated on the
-     * period end that the statement did not list is after the cutoff, so once linked it pays this
-     * bill — the same day the account balance stops owing it.
-     */
-    private Settlement settle(UUID accountId, @Nullable LocalDate cutoff) {
-        if (cutoff == null) {
-            return new Settlement(BigDecimal.ZERO, List.of());
-        }
-        List<Transaction> credits = transactionRepository.findCreditsAfter(accountId, cutoff).stream()
-                .filter(t -> !t.isTransactionExcluded())
-                .toList();
-        if (credits.isEmpty()) {
-            return new Settlement(BigDecimal.ZERO, List.of());
-        }
-        Set<UUID> creditIds = new HashSet<>();
-        credits.forEach(t -> creditIds.add(t.getId()));
-
-        Map<UUID, LinkType> linkedAs = new HashMap<>();
-        Set<UUID> anchors = new HashSet<>();
-        for (TransactionLink link : transactionLinkRepository.findDistinctByMembers_Transaction_IdIn(creditIds)) {
-            for (TransactionLinkMember member : link.getMembers()) {
-                UUID txnId = member.getTransaction().getId();
-                if (creditIds.contains(txnId)) {
-                    linkedAs.put(txnId, link.getType());
-                    if (member.isAnchor()) {
-                        anchors.add(txnId);
-                    }
-                }
-            }
-        }
-
-        BigDecimal linkedPaid = BigDecimal.ZERO;
-        List<CardBill.PossiblePayment> possible = new ArrayList<>();
-        for (Transaction credit : credits) {
-            LinkType type = linkedAs.get(credit.getId());
-            if (type == null) {
-                if (possible.size() < MAX_POSSIBLE_PAYMENTS) {
-                    possible.add(new CardBill.PossiblePayment(credit.getId(), credit.getDate(), credit.getAmount(),
-                            credit.getDescription()));
-                }
-            } else if ((type == LinkType.CC_PAYMENT && !anchors.contains(credit.getId()))
-                    || type == LinkType.REFUND || type == LinkType.REVERSAL) {
-                // A refund or reversal credited to the card pays down the open bill like a payment does.
-                linkedPaid = linkedPaid.add(credit.getAmount() == null ? BigDecimal.ZERO : credit.getAmount());
-            }
-        }
-        return new Settlement(linkedPaid, possible);
     }
 
     private Statement loadOwnedCardStatement(UUID userId, UUID statementId) {

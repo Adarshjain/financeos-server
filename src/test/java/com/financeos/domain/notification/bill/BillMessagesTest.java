@@ -21,8 +21,8 @@ class BillMessagesTest {
         return new CardBill(UUID.randomUUID(), "HDFC Regalia", "4321", STATEMENT,
                 LocalDate.of(2026, 9, 11), LocalDate.of(2026, 10, 10), LocalDate.of(2026, 10, 28),
                 total, new BigDecimal("2500"), paid, remaining,
-                paid != null && paid.signum() > 0 ? PaidSource.LINK : PaidSource.NONE, status, days, null,
-                List.of(), false, Instant.now(), null, null, digest, null, null);
+                paid != null && paid.signum() > 0 ? PaidSource.CREDITS : PaidSource.NONE, status, days, null,
+                false, Instant.now(), null, null, digest, null, null);
     }
 
     @Test
@@ -97,7 +97,7 @@ class BillMessagesTest {
     void cardLabelOmitsLast4WhenUnknown() {
         CardBill noLast4 = new CardBill(UUID.randomUUID(), "Amex", null, STATEMENT, null, null, LocalDate.of(2026, 10, 28),
                 new BigDecimal("10"), null, BigDecimal.ZERO, new BigDecimal("10"), PaidSource.NONE, BillStatus.OPEN, 3L, null,
-                List.of(), false, null, null, null, null, null, null);
+                false, null, null, null, null, null, null);
         assertEquals("Amex: bill due in 3 days", BillMessages.dueReminder(noLast4).title());
     }
 

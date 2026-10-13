@@ -636,7 +636,7 @@ class ObligationsServiceTest {
         return new CardBill(accountId, name, last4, statementId, null, null, due,
                 total == null ? null : new BigDecimal(total), null, null,
                 remaining == null ? null : new BigDecimal(remaining), PaidSource.NONE, status, null, null,
-                List.of(), false, null, null, null, null, null, null);
+                false, null, null, null, null, null, null);
     }
 
     private static Account card(String name, LocalDate closedOn) {
