@@ -190,9 +190,8 @@ llm:
       label: "Gemini (Flash chain)"
       provider: gemini
       models:
-        - gemini-3.7-flash
+        - gemini-3.8-flash
         - gemini-3.6-flash
-        - gemini-3.5-flash
         - gemini-3.5-flash-lite
         - gemini-3.1-flash-lite
       notes: "Current-generation Flash models only. Fastest first response — the best lead for Chat."
@@ -236,24 +235,23 @@ llm:
       validate-url: ${GEMINI_VALIDATE_URL:https://generativelanguage.googleapis.com/v1beta/models}
       # Authoritative order for the gemini-chain routing option. model-catalog below is
       # display metadata only (labels / free / trains-on-data) and never sets chain order.
-      models: ${GEMINI_MODELS:gemini-3.7-flash,gemini-3.6-flash,gemini-3.5-flash,gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-2.5-flash,gemini-2.5-flash-lite}
+      # Since 2026-10-08 Google auto-routes gemini-3.7-flash -> gemini-3.8-flash and gemini-3.5-flash ->
+      # gemini-3.6-flash, so the old ids are left out: listing both halves of a pair spent two more
+      # attempts on one overloaded model and gave the circuit breaker two buckets for one quota.
+      # gemini-3.1-flash-lite shuts down 2027-05-07.
+      models: ${GEMINI_MODELS:gemini-3.8-flash,gemini-3.6-flash,gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-2.5-flash,gemini-2.5-flash-lite}
       model: ${GEMINI_MODEL:gemini-3.5-flash-lite}
       timeout-ms: ${GEMINI_TIMEOUT_MS:30000}
       batch-size: ${GEMINI_BATCH_SIZE:200}
       model-catalog:
-        - id: gemini-3.7-flash
-          label: "Gemini 3.7 Flash"
+        - id: gemini-3.8-flash
+          label: "Gemini 3.8 Flash"
           free: true
           trains-on-data: "yes"
           structured-output: json-schema
-          notes: "Fastest flagship reasoning model"
+          notes: "Current flagship Flash model (gemini-3.7-flash now routes here)"
         - id: gemini-3.6-flash
           label: "Gemini 3.6 Flash"
-          free: true
-          trains-on-data: "yes"
-          structured-output: json-schema
-        - id: gemini-3.5-flash
-          label: "Gemini 3.5 Flash"
           free: true
           trains-on-data: "yes"
           structured-output: json-schema
