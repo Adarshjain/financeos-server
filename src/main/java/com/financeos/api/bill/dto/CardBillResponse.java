@@ -30,7 +30,6 @@ public record CardBillResponse(
         BillStatus status,
         @Nullable Long daysUntilDue,
         @Nullable LocalDate paidMarkedOn,
-        List<PossiblePaymentResponse> possiblePayments,
         boolean muted,
         @Nullable Instant statementCreatedAt,
         @Nullable String lastNotifiedKind,
@@ -39,10 +38,6 @@ public record CardBillResponse(
         @Nullable BigDecimal unbilledAmount,
         @Nullable LocalDate nextStatementExpectedOn
 ) {
-    public record PossiblePaymentResponse(UUID transactionId, @Nullable LocalDate date, @Nullable BigDecimal amount,
-                                          @Nullable String description) {
-    }
-
     public record BillDigestResponse(
             @Nullable BigDecimal totalPurchases,
             @Nullable BigDecimal paymentsReceived,
@@ -64,9 +59,6 @@ public record CardBillResponse(
                 bill.periodStart(), bill.periodEnd(), bill.paymentDueDate(),
                 bill.totalAmountDue(), bill.minimumAmountDue(), bill.paidAmount(), bill.remainingAmount(),
                 bill.paidSource(), bill.status(), bill.daysUntilDue(), bill.paidMarkedOn(),
-                bill.possiblePayments().stream()
-                        .map(p -> new PossiblePaymentResponse(p.transactionId(), p.date(), p.amount(), p.description()))
-                        .toList(),
                 bill.muted(), bill.statementCreatedAt(), bill.lastNotifiedKind(), bill.lastNotifiedOn(),
                 d == null ? null : new BillDigestResponse(d.totalPurchases(), d.paymentsReceived(), d.financeCharges(),
                         d.feesAndCharges(), d.rewardPointsEarned(), d.rewardPointsBalance(), d.creditLimit(),

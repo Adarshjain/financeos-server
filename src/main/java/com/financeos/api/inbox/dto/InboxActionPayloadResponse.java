@@ -22,10 +22,6 @@ public record InboxActionPayloadResponse(
         return new InboxActionPayloadResponse(statementId, null, amount, null, null, null, null, null, null, null);
     }
 
-    public static InboxActionPayloadResponse forPayment(UUID statementId, UUID transactionId, BigDecimal amount, LocalDate date) {
-        return new InboxActionPayloadResponse(statementId, transactionId, amount, date, null, null, null, null, null, null);
-    }
-
     public static InboxActionPayloadResponse forLoan(UUID loanId, Integer installmentSeq) {
         return new InboxActionPayloadResponse(null, null, null, null, null, loanId, installmentSeq, null, null, null);
     }

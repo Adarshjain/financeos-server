@@ -40,8 +40,9 @@ import org.springframework.test.web.servlet.MockMvc;
 /**
  * The Bills due widget (GET /bills: to pay + unbilled) and the accounts page (GET /accounts: the
  * negative balance) owe the same money, over the real queries: the balance anchors on a card
- * statement that has only a total amount due, and a linked payment dated on the statement day
- * settles the bill the same day the balance stops owing it.
+ * statement that has only a total amount due; a credit dated on the statement day settles the bill
+ * the same day the balance stops owing it, linked or not; excluded rows count on both sides; and a
+ * credit beyond the bill comes off the unbilled spend.
  */
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -106,37 +107,39 @@ class BillAndBalanceAgreeIntegrationTest {
     }
 
     @Test
-    void linkedPaymentDatedOnTheStatementDaySettlesTheBillTheDayTheBalanceStopsOwingIt() throws Exception {
+    void aCreditDatedOnTheStatementDaySettlesTheBillTheDayTheBalanceStopsOwingItLinkedOrNot() throws Exception {
         Statement s = statement(END, new BigDecimal("6000"), new BigDecimal("6000"), StatementVerdict.AUTO_INGEST);
         // The issuer cuts by posting date: the statement's last line is dated the day before the period end.
-        UUID billed = save(END.minusDays(1), "6000", TransactionType.DEBIT);
+        UUID billed = save(END.minusDays(1), "6000", TransactionType.DEBIT, false);
         statementPersistenceService.linkTransactions(s.getId(), List.of(
                 new StatementPersistenceService.TxnLink(billed, 0, null, null)));
-        save(END, "999", TransactionType.DEBIT);                     // bought on the close, not on the statement
-        UUID cardCredit = save(END, "6000", TransactionType.CREDIT); // paid on the statement day, not on it either
-        UUID bank = api.create("/api/v1/accounts", Map.of("type", "bank_account", "name", "Salary", "last4", "7483",
-                "openingBalance", 0, "financialPosition", "asset", "excludeFromNetAsset", false));
-        UUID bankDebit = saveOn(accountRepository.findById(bank).orElseThrow(), END, "6000", TransactionType.DEBIT);
+        save(END, "999", TransactionType.DEBIT, false);  // bought on the close, not on the statement
+        save(END, "6000", TransactionType.CREDIT, false); // paid on the statement day, not on it either, never linked
+        save(END.plusDays(1), "250", TransactionType.DEBIT, true); // excluded: the balance counts it, so does the bill
 
-        JsonNode open = find(api.getJson("/api/v1/bills", 200), "accountId", card.getId());
-        assertEquals("OVERDUE", open.get("status").asText(), "an unlinked credit is only a possible payment");
-        assertEquals(bd("6000"), money(open.get("remainingAmount")));
-        assertEquals(1, open.get("possiblePayments").size());
-
-        api.postJson("/api/v1/transaction-links", Map.of("type", "CC_PAYMENT", "members", List.of(
-                Map.of("transactionId", bankDebit.toString(), "isAnchor", true),
-                Map.of("transactionId", cardCredit.toString(), "isAnchor", false))), 201);
-
-        JsonNode paid = find(api.getJson("/api/v1/bills", 200), "accountId", card.getId());
-        assertEquals("PAID", paid.get("status").asText(), "linked, the payment on the period end settles the bill");
-        assertEquals("LINK", paid.get("paidSource").asText());
-        assertEquals(0, money(paid.get("remainingAmount")).signum());
-        assertEquals(bd("999"), money(paid.get("unbilledAmount")));
+        JsonNode bill = find(api.getJson("/api/v1/bills", 200), "accountId", card.getId());
+        assertEquals("PAID", bill.get("status").asText(), "the credit on the period end settles the bill, no link needed");
+        assertEquals("CREDITS", bill.get("paidSource").asText());
+        assertEquals(0, money(bill.get("remainingAmount")).signum());
+        assertEquals(bd("1249"), money(bill.get("unbilledAmount")), "the close-day purchase plus the excluded one");
 
         JsonNode single = api.getJson("/api/v1/accounts/" + card.getId(), 200);
-        assertEquals(bd("-999"), money(single.get("balance")), "closing 6000 − payment 6000 + purchase 999");
-        assertEquals(bd("999"), money(paid.get("remainingAmount")).add(money(paid.get("unbilledAmount"))),
+        assertEquals(bd("-1249"), money(single.get("balance")), "closing 6000 − payment 6000 + purchases 999 + 250");
+        assertEquals(bd("1249"), money(bill.get("remainingAmount")).add(money(bill.get("unbilledAmount"))),
                 "to pay + unbilled is what the accounts page shows as outstanding");
+    }
+
+    @Test
+    void creditsBeyondTheBillComeOffTheUnbilledSpend() throws Exception {
+        statement(END, new BigDecimal("6000"), new BigDecimal("6000"), StatementVerdict.AUTO_INGEST);
+        save(END.plusDays(1), "999", TransactionType.DEBIT, false);
+        save(END.plusDays(2), "6500", TransactionType.CREDIT, false); // overpaid by 500
+
+        JsonNode bill = find(api.getJson("/api/v1/bills", 200), "accountId", card.getId());
+        assertEquals("PAID", bill.get("status").asText());
+        assertEquals(bd("499"), money(bill.get("unbilledAmount")), "999 less the 500 paid beyond the bill");
+        JsonNode single = api.getJson("/api/v1/accounts/" + card.getId(), 200);
+        assertEquals(bd("-499"), money(single.get("balance")));
     }
 
     private Statement statement(LocalDate periodEnd, BigDecimal closing, BigDecimal totalDue, StatementVerdict verdict) {
@@ -153,10 +156,14 @@ class BillAndBalanceAgreeIntegrationTest {
     }
 
     private UUID save(LocalDate date, String amount, TransactionType type) {
-        return saveOn(card, date, amount, type);
+        return save(date, amount, type, false);
     }
 
-    private UUID saveOn(Account account, LocalDate date, String amount, TransactionType type) {
+    private UUID save(LocalDate date, String amount, TransactionType type, boolean excluded) {
+        return saveOn(card, date, amount, type, excluded);
+    }
+
+    private UUID saveOn(Account account, LocalDate date, String amount, TransactionType type, boolean excluded) {
         Transaction t = new Transaction();
         t.setUser(user);
         t.setAccount(account);
@@ -167,7 +174,7 @@ class BillAndBalanceAgreeIntegrationTest {
         t.setSourcedDescription(type == TransactionType.CREDIT ? "PAYMENT RECEIVED" : "PURCHASE");
         t.setReviewType(ReviewType.AUTO_REVIEWED);
         t.setTransactionUnderMonitoring(false);
-        t.setTransactionExcluded(false);
+        t.setTransactionExcluded(excluded);
         return transactionRepository.save(t).getId();
     }
 

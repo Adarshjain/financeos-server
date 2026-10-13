@@ -23,7 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * The TransactionRepository queries added for the navigation redesign, on real rows: the Inbox
  * review counts ({@code countByUserIdAndReviewType}, {@code countByUserIdAndReviewTypeAndReason})
- * and the card unbilled-spend sums ({@code sumIncludedDebitsAfter}, {@code sumIncludedDebits}).
+ * and the card bill sums ({@code sumDebitsAfter}, {@code sumCreditsAfter}), which count every row the
+ * account balance counts, excluded ones included.
  * No UserContext is set, so the Hibernate userFilter cannot mask a missing user predicate.
  */
 @SpringBootTest
@@ -105,19 +106,19 @@ class TransactionRepositoryNavigationQueriesIntegrationTest {
         assertEquals(1, reasonCount(otherUser, ReviewReason.CATEGORY_UNVERIFIED));
     }
 
-    // ------------------------------------------------------------------ sumIncludedDebitsAfter
+    // ------------------------------------------------------------------ sumDebitsAfter
 
     @Test
-    void debitsAfter_sumsIncludedDebitsStrictlyAfterTheDate() {
+    void debitsAfter_sumsEveryDebitStrictlyAfterTheDateExcludedOnesIncluded() {
         money(card, PERIOD_END.minusDays(1), "1000", TransactionType.DEBIT, false);
         money(card, PERIOD_END, "2000", TransactionType.DEBIT, false);              // on the date: billed
         money(card, PERIOD_END.plusDays(1), "300.50", TransactionType.DEBIT, false);
         money(card, PERIOD_END.plusDays(10), "200", TransactionType.DEBIT, false);
         money(card, PERIOD_END.plusDays(2), "5000", TransactionType.CREDIT, false); // payment, not spend
-        money(card, PERIOD_END.plusDays(3), "4000", TransactionType.DEBIT, true);   // excluded
+        money(card, PERIOD_END.plusDays(3), "4000", TransactionType.DEBIT, true);   // excluded: the balance counts it
         money(otherCard, PERIOD_END.plusDays(1), "7000", TransactionType.DEBIT, false);
 
-        assertAmount("500.50", transactionRepository.sumIncludedDebitsAfter(card.getId(), PERIOD_END));
+        assertAmount("4500.50", transactionRepository.sumDebitsAfter(card.getId(), PERIOD_END));
     }
 
     @Test
@@ -125,25 +126,26 @@ class TransactionRepositoryNavigationQueriesIntegrationTest {
         money(card, PERIOD_END, "2000", TransactionType.DEBIT, false);
         money(card, PERIOD_END.plusDays(1), "100", TransactionType.CREDIT, false);
 
-        assertAmount("0", transactionRepository.sumIncludedDebitsAfter(card.getId(), PERIOD_END));
+        assertAmount("0", transactionRepository.sumDebitsAfter(card.getId(), PERIOD_END));
     }
 
-    // ------------------------------------------------------------------ sumIncludedDebits
+    // ------------------------------------------------------------------ sumCreditsAfter
 
     @Test
-    void allDebits_sumsEveryIncludedDebitOfTheAccountOnly() {
-        money(card, PERIOD_END.minusDays(40), "1000", TransactionType.DEBIT, false);
-        money(card, PERIOD_END.plusDays(1), "250.25", TransactionType.DEBIT, false);
-        money(card, PERIOD_END, "900", TransactionType.CREDIT, false);
-        money(card, PERIOD_END, "4000", TransactionType.DEBIT, true);
-        money(otherCard, PERIOD_END, "7000", TransactionType.DEBIT, false);
+    void creditsAfter_sumsEveryCreditStrictlyAfterTheDateExcludedOnesIncluded() {
+        money(card, PERIOD_END, "900", TransactionType.CREDIT, false);               // on the date: billed
+        money(card, PERIOD_END.plusDays(1), "250.25", TransactionType.CREDIT, false); // payment
+        money(card, PERIOD_END.plusDays(2), "40", TransactionType.CREDIT, true);      // excluded cashback: counts
+        money(card, PERIOD_END.plusDays(2), "4000", TransactionType.DEBIT, false);    // spend, not a credit
+        money(otherCard, PERIOD_END.plusDays(1), "7000", TransactionType.CREDIT, false);
 
-        assertAmount("1250.25", transactionRepository.sumIncludedDebits(card.getId()));
+        assertAmount("290.25", transactionRepository.sumCreditsAfter(card.getId(), PERIOD_END));
     }
 
     @Test
-    void allDebits_isZeroForAnAccountWithoutTransactions() {
-        assertAmount("0", transactionRepository.sumIncludedDebits(card.getId()));
+    void creditsAfter_isZeroForAnAccountWithoutCredits() {
+        money(card, PERIOD_END.plusDays(1), "100", TransactionType.DEBIT, false);
+        assertAmount("0", transactionRepository.sumCreditsAfter(card.getId(), PERIOD_END));
     }
 
     // ------------------------------------------------------------------ helpers

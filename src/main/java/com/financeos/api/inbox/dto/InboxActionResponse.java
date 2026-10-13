@@ -4,7 +4,7 @@ import org.springframework.lang.Nullable;
 
 /**
  * One button on an inbox row. {@code type} is one of
- * {@code mark_paid | confirm_payment | set_details | snooze | dismiss | open | reconnect | upload | review | approve_suggested | retry};
+ * {@code mark_paid | set_details | snooze | dismiss | open | reconnect | upload | review | approve_suggested | retry};
  * {@code href} is where a navigation action lands, {@code payload} what a mutation action needs.
  */
 public record InboxActionResponse(

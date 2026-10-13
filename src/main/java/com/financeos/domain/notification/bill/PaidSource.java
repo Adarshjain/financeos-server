@@ -4,6 +4,9 @@ public enum PaidSource {
     NONE,
     /** The user pressed "Mark as paid". */
     MANUAL,
-    /** CC_PAYMENT link(s) whose card-side credit falls after the statement period. */
-    LINK
+    /**
+     * Credits on the card dated after the statement's last billed day — payments, refunds, cashback,
+     * linked or not — the same credits the account balance subtracts.
+     */
+    CREDITS
 }

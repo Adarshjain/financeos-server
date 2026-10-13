@@ -48,15 +48,15 @@ class BillInboxCollectorTest {
 
     /** A live statement imported a few days after it closed, so it is never stale. */
     private CardBill bill(BillStatus status, LocalDate due, BigDecimal minimum, BigDecimal paid, BigDecimal remaining,
-                          List<CardBill.PossiblePayment> possible, boolean muted) {
+                          boolean muted) {
         Long days = due == null ? null : ChronoUnit.DAYS.between(TODAY, due);
         return new CardBill(accountId, "HDFC Regalia", "1234", UUID.randomUUID(), LocalDate.of(2026, 9, 1), LocalDate.of(2026, 9, 30),
-                due, new BigDecimal("15000"), minimum, paid, remaining, PaidSource.NONE, status, days, null, possible, muted,
+                due, new BigDecimal("15000"), minimum, paid, remaining, PaidSource.NONE, status, days, null, muted,
                 LocalDate.of(2026, 10, 2).atStartOfDay(IST).toInstant(), null, null, null, null, null);
     }
 
     private CardBill open(BillStatus status, int daysUntilDue) {
-        return bill(status, TODAY.plusDays(daysUntilDue), new BigDecimal("750"), null, new BigDecimal("15000"), List.of(), false);
+        return bill(status, TODAY.plusDays(daysUntilDue), new BigDecimal("750"), null, new BigDecimal("15000"), false);
     }
 
     private List<InboxItemResponse> collect(CardBill... bills) {
@@ -81,7 +81,7 @@ class BillInboxCollectorTest {
 
     @Test
     void anOpenBillWithoutDaysUntilDueIsLeftOut() {
-        CardBill noDays = bill(BillStatus.OPEN, null, null, null, new BigDecimal("15000"), List.of(), false);
+        CardBill noDays = bill(BillStatus.OPEN, null, null, null, new BigDecimal("15000"), false);
         assertEquals(List.of(), collect(noDays));
     }
 
@@ -95,10 +95,10 @@ class BillInboxCollectorTest {
 
     @Test
     void paidNoDueAndAwaitingStatementRowsAreNothingToActOn() {
-        CardBill paid = bill(BillStatus.PAID, TODAY.plusDays(2), null, new BigDecimal("15000"), BigDecimal.ZERO, List.of(), false);
-        CardBill noDue = bill(BillStatus.NO_DUE, TODAY.plusDays(2), null, null, BigDecimal.ZERO, List.of(), false);
+        CardBill paid = bill(BillStatus.PAID, TODAY.plusDays(2), null, new BigDecimal("15000"), BigDecimal.ZERO, false);
+        CardBill noDue = bill(BillStatus.NO_DUE, TODAY.plusDays(2), null, null, BigDecimal.ZERO, false);
         CardBill awaiting = new CardBill(accountId, "HDFC Regalia", "1234", null, null, null, null, null, null, null, null,
-                PaidSource.NONE, BillStatus.AWAITING_STATEMENT, null, null, List.of(), false, null, null, null, null,
+                PaidSource.NONE, BillStatus.AWAITING_STATEMENT, null, null, false, null, null, null, null,
                 new BigDecimal("4200"), TODAY.plusDays(10));
 
         assertEquals(List.of(), collect(paid, noDue, awaiting));
@@ -106,7 +106,7 @@ class BillInboxCollectorTest {
 
     @Test
     void mutedCardsStayOutEvenWhenOverdue() {
-        CardBill muted = bill(BillStatus.OVERDUE, TODAY.minusDays(2), null, null, new BigDecimal("15000"), List.of(), true);
+        CardBill muted = bill(BillStatus.OVERDUE, TODAY.minusDays(2), null, null, new BigDecimal("15000"), true);
         assertEquals(List.of(), collect(muted));
     }
 
@@ -116,7 +116,7 @@ class BillInboxCollectorTest {
         LocalDate due = TODAY.minusDays(20);
         CardBill stale = new CardBill(accountId, "HDFC Regalia", "1234", UUID.randomUUID(), LocalDate.of(2026, 8, 1),
                 LocalDate.of(2026, 8, 31), due, new BigDecimal("15000"), null, null, new BigDecimal("15000"), PaidSource.NONE,
-                BillStatus.OVERDUE, -20L, null, List.of(), false, TODAY.atTime(10, 0).atZone(IST).toInstant(), null, null, null, null, null);
+                BillStatus.OVERDUE, -20L, null, false, TODAY.atTime(10, 0).atZone(IST).toInstant(), null, null, null, null, null);
         assertEquals(List.of(), collect(stale));
     }
 
@@ -142,7 +142,7 @@ class BillInboxCollectorTest {
     @Test
     void titleDropsTheLast4WhenTheCardHasNone() {
         CardBill b = new CardBill(accountId, "Amex Gold", null, UUID.randomUUID(), null, null, TODAY, new BigDecimal("100"), null,
-                null, new BigDecimal("100"), PaidSource.NONE, BillStatus.OPEN, 0L, null, List.of(), false, null, null, null, null, null, null);
+                null, new BigDecimal("100"), PaidSource.NONE, BillStatus.OPEN, 0L, null, false, null, null, null, null, null, null);
         InboxItemResponse row = collect(b).get(0);
         assertEquals("Amex Gold bill", row.title());
         assertEquals("Due today · 20 Oct", row.subtitle(), "no minimum and nothing paid: no third part");
@@ -151,9 +151,9 @@ class BillInboxCollectorTest {
     @Test
     void subtitlePrefersWhatIsAlreadyPaidOverTheMinimum() {
         CardBill partial = bill(BillStatus.PARTIAL, TODAY.plusDays(1), new BigDecimal("750"), new BigDecimal("2000"),
-                new BigDecimal("13000"), List.of(), false);
+                new BigDecimal("13000"), false);
         CardBill zeroPaid = bill(BillStatus.OPEN, TODAY.plusDays(1), new BigDecimal("750"), BigDecimal.ZERO,
-                new BigDecimal("15000"), List.of(), false);
+                new BigDecimal("15000"), false);
 
         List<InboxItemResponse> rows = collect(partial, zeroPaid);
 
@@ -162,40 +162,21 @@ class BillInboxCollectorTest {
     }
 
     @Test
-    void dueRowActionsAreMarkPaidThenSnoozeWhenNoPaymentLooksLikeIt() {
-        CardBill noPossible = bill(BillStatus.OPEN, TODAY.plusDays(2), null, null, new BigDecimal("15000"), null, false);
-        CardBill emptyPossible = open(BillStatus.OPEN, 2);
+    void dueRowActionsAreMarkPaidThenSnooze() {
+        CardBill due = open(BillStatus.OPEN, 2);
 
-        List<InboxItemResponse> rows = collect(noPossible, emptyPossible);
+        List<InboxItemResponse> rows = collect(due);
 
         assertEquals(List.of(
-                InboxActionResponse.mutate("mark_paid", "Mark paid", InboxActionPayloadResponse.forStatement(noPossible.statementId(), new BigDecimal("15000"))),
+                InboxActionResponse.mutate("mark_paid", "Mark paid", InboxActionPayloadResponse.forStatement(due.statementId(), new BigDecimal("15000"))),
                 InboxRows.snooze()), rows.get(0).actions());
-        assertEquals(List.of("mark_paid", "snooze"), rows.get(1).actions().stream().map(InboxActionResponse::type).toList());
-    }
-
-    @Test
-    void confirmPaymentOffersTheFirstPossiblePayment() {
-        UUID first = UUID.randomUUID();
-        List<CardBill.PossiblePayment> possible = List.of(
-                new CardBill.PossiblePayment(first, TODAY.minusDays(1), new BigDecimal("12000"), "NEFT HDFC CARD"),
-                new CardBill.PossiblePayment(UUID.randomUUID(), TODAY, new BigDecimal("3000"), "UPI"));
-        CardBill b = bill(BillStatus.OPEN, TODAY.plusDays(2), null, null, new BigDecimal("15000"), possible, false);
-
-        List<InboxActionResponse> actions = collect(b).get(0).actions();
-
-        assertEquals(3, actions.size());
-        assertEquals("mark_paid", actions.get(0).type());
-        assertEquals(InboxActionResponse.mutate("confirm_payment", "Confirm payment ₹12,000",
-                InboxActionPayloadResponse.forPayment(b.statementId(), first, new BigDecimal("12000"), TODAY.minusDays(1))), actions.get(1));
-        assertEquals(InboxRows.snooze(), actions.get(2));
     }
 
     @Test
     void dueUnknownAsksForTheDetailsAndCanBeSnoozed() {
         CardBill unknown = new CardBill(accountId, "HDFC Regalia", "1234", UUID.randomUUID(), LocalDate.of(2026, 9, 1),
                 LocalDate.of(2026, 9, 30), null, new BigDecimal("8000"), null, null, new BigDecimal("8000"), PaidSource.NONE,
-                BillStatus.DUE_UNKNOWN, null, null, List.of(), false, LocalDate.of(2026, 10, 2).atStartOfDay(IST).toInstant(),
+                BillStatus.DUE_UNKNOWN, null, null, false, LocalDate.of(2026, 10, 2).atStartOfDay(IST).toInstant(),
                 null, null, null, null, null);
 
         InboxItemResponse row = collect(unknown).get(0);

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -22,23 +21,15 @@ import com.financeos.domain.account.AccountType;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementCreditCardDetails;
 import com.financeos.domain.statement.StatementRepository;
-import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
-import com.financeos.domain.transaction.TransactionType;
-import com.financeos.domain.transaction.link.LinkType;
-import com.financeos.domain.transaction.link.TransactionLink;
-import com.financeos.domain.transaction.link.TransactionLinkMember;
-import com.financeos.domain.transaction.link.TransactionLinkRepository;
 import com.financeos.domain.user.User;
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,7 +50,6 @@ class CardBillServiceTest {
     private AccountRepository accountRepository;
     private StatementRepository statementRepository;
     private TransactionRepository transactionRepository;
-    private TransactionLinkRepository linkRepository;
     private AccountService accountService;
     private CardBillService service;
 
@@ -72,17 +62,14 @@ class CardBillServiceTest {
         accountRepository = mock(AccountRepository.class);
         statementRepository = mock(StatementRepository.class);
         transactionRepository = mock(TransactionRepository.class);
-        linkRepository = mock(TransactionLinkRepository.class);
         accountService = mock(AccountService.class);
         when(accountService.populateLiveBalance(any())).thenAnswer(inv -> inv.getArgument(0));
-        service = new CardBillService(accountRepository, statementRepository, transactionRepository, linkRepository,
-                accountService);
+        service = new CardBillService(accountRepository, statementRepository, transactionRepository, accountService);
 
         user = new User();
         user.setId(UUID.randomUUID());
         card = account("HDFC Regalia");
-        when(transactionRepository.findCreditsAfter(any(), any())).thenReturn(List.of());
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection())).thenReturn(List.of());
+        when(transactionRepository.sumCreditsAfter(any(), any())).thenReturn(BigDecimal.ZERO);
         when(statementRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
     }
 
@@ -122,29 +109,9 @@ class CardBillServiceTest {
         return s;
     }
 
-    private Transaction credit(Account account, LocalDate date, String amount) {
-        Transaction t = new Transaction();
-        t.setId(UUID.randomUUID());
-        t.setUser(user);
-        t.setAccount(account);
-        t.setDate(date);
-        t.setAmount(new BigDecimal(amount));
-        t.setType(TransactionType.CREDIT);
-        t.setDescription("PAYMENT RECEIVED");
-        return t;
-    }
-
-    private TransactionLink link(LinkType type, Transaction counterpart, boolean counterpartIsAnchor) {
-        TransactionLink link = new TransactionLink();
-        link.setId(UUID.randomUUID());
-        link.setType(type);
-        Set<TransactionLinkMember> members = new HashSet<>();
-        members.add(new TransactionLinkMember(link, counterpart, counterpartIsAnchor));
-        Transaction other = credit(account("Bank"), counterpart.getDate(), counterpart.getAmount().toPlainString());
-        other.setType(TransactionType.DEBIT);
-        members.add(new TransactionLinkMember(link, other, !counterpartIsAnchor));
-        link.setMembers(members);
-        return link;
+    /** The card's credits dated after {@code cutoff} (the statement's last billed day). */
+    private void creditsAfter(Account account, LocalDate cutoff, String sum) {
+        when(transactionRepository.sumCreditsAfter(account.getId(), cutoff)).thenReturn(new BigDecimal(sum));
     }
 
     // ---------------------------------------------------------------- status matrix
@@ -163,75 +130,54 @@ class CardBillServiceTest {
         assertNull(bill.last4());
         assertNull(bill.digest().utilizationPct(), "build() leaves the live utilisation to the read paths");
         assertEquals(12, bill.digest().transactionCount());
-        assertTrue(bill.possiblePayments().isEmpty());
     }
 
     @Test
-    void ccPaymentLinkAfterPeriodEndPaysTheBill() {
+    void creditsAfterTheLastBilledDayPayTheBill() {
         Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
-        Transaction payment = credit(card, TODAY.minusDays(2), "48250");
-        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(payment));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                .thenReturn(List.of(link(LinkType.CC_PAYMENT, payment, false)));
+        creditsAfter(card, s.getPeriodEnd(), "48250");
 
         CardBill bill = service.build(card, s, TODAY);
 
         assertEquals(BillStatus.PAID, bill.status());
-        assertEquals(PaidSource.LINK, bill.paidSource());
+        assertEquals(PaidSource.CREDITS, bill.paidSource());
         assertEquals(new BigDecimal("48250"), bill.paidAmount());
         assertEquals(0, bill.remainingAmount().signum());
-        assertTrue(bill.possiblePayments().isEmpty());
     }
 
     @Test
-    void partialLinkedPaymentLeavesTheRemainder() {
+    void partialCreditsLeaveTheRemainder() {
         Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
-        Transaction payment = credit(card, TODAY.minusDays(2), "20000");
-        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(payment));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                .thenReturn(List.of(link(LinkType.CC_PAYMENT, payment, false)));
+        creditsAfter(card, s.getPeriodEnd(), "20000");
 
         CardBill bill = service.build(card, s, TODAY);
 
         assertEquals(BillStatus.PARTIAL, bill.status());
+        assertEquals(PaidSource.CREDITS, bill.paidSource());
         assertEquals(new BigDecimal("28250"), bill.remainingAmount());
     }
 
     @Test
-    void unlinkedCreditIsOnlyAPossiblePaymentAndARefundLinkCountsAsPaid() {
+    void paidSourceIsCreditsOnlyWhenSomethingWasCreditedAndAMissingSumCountsAsNothing() {
         Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
-        Transaction maybePayment = credit(card, TODAY.minusDays(1), "48250");
-        Transaction refund = credit(card, TODAY.minusDays(3), "999");
-        Transaction excluded = credit(card, TODAY.minusDays(4), "500");
-        excluded.setTransactionExcluded(true);
-        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd()))
-                .thenReturn(List.of(maybePayment, refund, excluded));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                .thenReturn(List.of(link(LinkType.REFUND, refund, false)));
+        when(transactionRepository.sumCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(null);
+        assertEquals(PaidSource.NONE, service.build(card, s, TODAY).paidSource());
+        assertEquals(0, service.build(card, s, TODAY).paidAmount().signum());
 
-        CardBill bill = service.build(card, s, TODAY);
+        creditsAfter(card, s.getPeriodEnd(), "0");
+        assertEquals(PaidSource.NONE, service.build(card, s, TODAY).paidSource());
 
-        assertEquals(BillStatus.PARTIAL, bill.status(), "a plain credit never closes the bill; the refund pays part of it");
-        assertEquals(new BigDecimal("999"), bill.paidAmount());
-        assertEquals(1, bill.possiblePayments().size());
-        assertEquals(maybePayment.getId(), bill.possiblePayments().get(0).transactionId());
-        assertEquals(new BigDecimal("48250"), bill.possiblePayments().get(0).amount());
+        creditsAfter(card, s.getPeriodEnd(), "-5");
+        assertEquals(PaidSource.NONE, service.build(card, s, TODAY).paidSource(), "a sum is never negative");
+
+        creditsAfter(card, s.getPeriodEnd(), "0.01");
+        assertEquals(PaidSource.CREDITS, service.build(card, s, TODAY).paidSource());
     }
 
     @Test
-    void ccPaymentLinkWhereTheCardCreditIsTheAnchorDoesNotCount() {
+    void manualMarkWinsOverCreditsFullAndPartial() {
         Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
-        Transaction oddCredit = credit(card, TODAY.minusDays(2), "48250");
-        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(oddCredit));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                .thenReturn(List.of(link(LinkType.CC_PAYMENT, oddCredit, true)));
-
-        assertEquals(BillStatus.OPEN, service.build(card, s, TODAY).status());
-    }
-
-    @Test
-    void manualMarkWinsOverLinksFullAndPartial() {
-        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        creditsAfter(card, s.getPeriodEnd(), "5000");
         s.getCreditCardDetails().setPaidMarkedOn(TODAY.minusDays(1));
         assertEquals(BillStatus.PAID, service.build(card, s, TODAY).status());
         assertEquals(PaidSource.MANUAL, service.build(card, s, TODAY).paidSource());
@@ -345,7 +291,6 @@ class CardBillServiceTest {
         assertEquals(BillStatus.AWAITING_STATEMENT, awaiting.status());
         assertNull(awaiting.statementId());
         assertEquals(PaidSource.NONE, awaiting.paidSource());
-        assertTrue(awaiting.possiblePayments().isEmpty());
     }
 
     // ---------------------------------------------------------------- writes
@@ -440,12 +385,12 @@ class CardBillServiceTest {
 
     // ---------------------------------------------------------------- awaiting-statement rows, unbilled spend, next statement
 
-    /** Stubs the card's live statements, every statement the cycles see, and the unbilled debit sum after the period end. */
+    /** Stubs the card's live statements, every statement the cycles see, and the debit sum after the period end. */
     private void liveStatement(Account account, Statement statement, BigDecimal debitsAfterClose) {
         when(statementRepository.findQualifyingCreditCardStatements(account.getId())).thenReturn(List.of(statement));
         when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(account.getId())).thenReturn(List.of(statement));
         if (statement.getPeriodEnd() != null) {
-            when(transactionRepository.sumIncludedDebitsAfter(account.getId(), statement.getPeriodEnd())).thenReturn(debitsAfterClose);
+            when(transactionRepository.sumDebitsAfter(account.getId(), statement.getPeriodEnd())).thenReturn(debitsAfterClose);
         }
     }
 
@@ -480,7 +425,8 @@ class CardBillServiceTest {
         // A dated statement exists but is not a live bill (no card details): the cycle still projects from it.
         Statement notLive = datedStatementWithoutDetails(card, LocalDate.of(2026, 9, 11), LocalDate.of(2026, 10, 10));
         when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId())).thenReturn(List.of(notLive));
-        when(transactionRepository.sumIncludedDebits(card.getId())).thenReturn(new BigDecimal("7340.50"));
+        // Debits 9000 less credits 1659.50 since ever: the negative balance of an unanchored card.
+        when(transactionRepository.findTotalTransactionSumByAccountId(card.getId())).thenReturn(new BigDecimal("-7340.50"));
 
         CardBill row = service.listBills(user.getId()).get(0);
 
@@ -504,11 +450,10 @@ class CardBillServiceTest {
         assertNull(row.lastNotifiedOn());
         assertNull(row.digest());
         assertEquals(PaidSource.NONE, row.paidSource());
-        assertTrue(row.possiblePayments().isEmpty());
-        assertEquals(new BigDecimal("7340.50"), row.unbilledAmount(), "since-ever spend: the card has no statement to count from");
+        assertEquals(new BigDecimal("7340.50"), row.unbilledAmount(), "what the card owes so far: no statement to count from");
         assertEquals(LocalDate.of(2026, 11, 10), row.nextStatementExpectedOn());
-        verify(transactionRepository, never()).sumIncludedDebitsAfter(any(), any());
-        verify(transactionRepository, never()).findCreditsAfter(any(), any());
+        verify(transactionRepository, never()).sumDebitsAfter(any(), any());
+        verify(transactionRepository, never()).sumCreditsAfter(any(), any());
     }
 
     @Test
@@ -517,15 +462,16 @@ class CardBillServiceTest {
         when(statementRepository.findQualifyingCreditCardStatements(card.getId())).thenReturn(List.of());
         when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId())).thenReturn(List.of());
 
-        when(transactionRepository.sumIncludedDebits(card.getId())).thenReturn(null);
+        when(transactionRepository.findTotalTransactionSumByAccountId(card.getId())).thenReturn(null);
         CardBill noSpend = service.listBills(user.getId()).get(0);
         assertEquals(BigDecimal.ZERO, noSpend.unbilledAmount());
         assertNull(noSpend.nextStatementExpectedOn());
         assertFalse(noSpend.muted());
         assertNull(noSpend.last4());
 
-        when(transactionRepository.sumIncludedDebits(card.getId())).thenReturn(new BigDecimal("-40"));
-        assertEquals(BigDecimal.ZERO, service.listBills(user.getId()).get(0).unbilledAmount(), "never negative");
+        when(transactionRepository.findTotalTransactionSumByAccountId(card.getId())).thenReturn(new BigDecimal("40"));
+        assertEquals(BigDecimal.ZERO, service.listBills(user.getId()).get(0).unbilledAmount(),
+                "a card in credit owes nothing: never negative");
     }
 
     @Test
@@ -539,7 +485,7 @@ class CardBillServiceTest {
 
         assertTrue(service.listBills(user.getId()).isEmpty());
         verify(statementRepository, never()).findQualifyingCreditCardStatements(any());
-        verify(transactionRepository, never()).sumIncludedDebits(any());
+        verify(transactionRepository, never()).findTotalTransactionSumByAccountId(any());
     }
 
     @Test
@@ -583,22 +529,55 @@ class CardBillServiceTest {
     }
 
     @Test
-    void unbilledAmountIsTheIncludedDebitSumAfterThePeriodEndAndCreditsNeverReduceIt() {
+    void unbilledIsTheDebitSumAfterTheLastBilledDayAndCreditsWithinTheBillNeverReduceIt() {
         Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
         when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(card));
         liveStatement(card, s, new BigDecimal("3500"));
-        Transaction refund = credit(card, TODAY.minusDays(2), "1200");
-        Transaction plain = credit(card, TODAY.minusDays(1), "800");
-        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(refund, plain));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                .thenReturn(List.of(link(LinkType.REFUND, refund, false)));
+        creditsAfter(card, s.getPeriodEnd(), "2000");
 
         CardBill bill = service.listBills(user.getId()).get(0);
 
         assertEquals(new BigDecimal("3500"), bill.unbilledAmount());
-        assertEquals(new BigDecimal("1200"), bill.paidAmount(), "the refund counts towards the bill instead");
-        verify(transactionRepository).sumIncludedDebitsAfter(card.getId(), s.getPeriodEnd());
-        verify(transactionRepository, never()).sumIncludedDebits(any());
+        assertEquals(new BigDecimal("2000"), bill.paidAmount(), "the credits count towards the bill instead");
+        assertEquals(new BigDecimal("46250"), bill.remainingAmount());
+        verify(transactionRepository).sumDebitsAfter(card.getId(), s.getPeriodEnd());
+        verify(transactionRepository, never()).findTotalTransactionSumByAccountId(any());
+    }
+
+    @Test
+    void creditsBeyondTheBillComeOffTheUnbilledSpendSoToPayPlusUnbilledIsWhatTheCardOwes() {
+        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(card));
+        liveStatement(card, s, new BigDecimal("3500"));
+        creditsAfter(card, s.getPeriodEnd(), "50000"); // 1750 more than the bill
+
+        CardBill bill = service.listBills(user.getId()).get(0);
+
+        assertEquals(BillStatus.PAID, bill.status());
+        assertEquals(0, bill.remainingAmount().signum());
+        assertEquals(new BigDecimal("1750"), bill.unbilledAmount(), "48250 + 3500 − 50000: the balance's figure");
+
+        creditsAfter(card, s.getPeriodEnd(), "60000"); // more than the bill and the new spend together
+        assertEquals(BigDecimal.ZERO, service.listBills(user.getId()).get(0).unbilledAmount(), "a card in credit owes nothing");
+    }
+
+    @Test
+    void aStatementInCreditCountsItsCreditAgainstTheNewSpendAndAMissingTotalLeavesTheCreditsToTheBill() {
+        Statement inCredit = statement(card, TODAY.minusDays(10), new BigDecimal("-120"), TODAY.plusDays(18));
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(card));
+        liveStatement(card, inCredit, new BigDecimal("500"));
+        creditsAfter(card, inCredit.getPeriodEnd(), "100");
+        CardBill bill = service.listBills(user.getId()).get(0);
+        assertEquals(BillStatus.NO_DUE, bill.status());
+        assertEquals(new BigDecimal("280"), bill.unbilledAmount(), "−120 + 500 − 100, as the balance has it");
+
+        Statement noTotal = statement(card, TODAY.minusDays(10), null, TODAY.plusDays(18));
+        liveStatement(card, noTotal, new BigDecimal("500"));
+        creditsAfter(card, noTotal.getPeriodEnd(), "100");
+        CardBill unknown = service.listBills(user.getId()).get(0);
+        assertEquals(BillStatus.DUE_UNKNOWN, unknown.status());
+        assertEquals(new BigDecimal("100"), unknown.paidAmount());
+        assertEquals(new BigDecimal("500"), unknown.unbilledAmount(), "nothing to measure the credits against");
     }
 
     @Test
@@ -608,7 +587,7 @@ class CardBillServiceTest {
         liveStatement(card, s, new BigDecimal("-25"));
         assertEquals(BigDecimal.ZERO, service.listBills(user.getId()).get(0).unbilledAmount());
 
-        when(transactionRepository.sumIncludedDebitsAfter(card.getId(), s.getPeriodEnd())).thenReturn(null);
+        when(transactionRepository.sumDebitsAfter(card.getId(), s.getPeriodEnd())).thenReturn(null);
         assertEquals(BigDecimal.ZERO, service.listBills(user.getId()).get(0).unbilledAmount());
     }
 
@@ -623,8 +602,9 @@ class CardBillServiceTest {
         assertEquals(BillStatus.OPEN, bill.status());
         assertNull(bill.unbilledAmount());
         assertNull(bill.nextStatementExpectedOn(), "an undated statement gives the cycles nothing to project from");
-        verify(transactionRepository, never()).sumIncludedDebitsAfter(any(), any());
-        verify(transactionRepository, never()).sumIncludedDebits(any());
+        verify(transactionRepository, never()).sumDebitsAfter(any(), any());
+        verify(transactionRepository, never()).sumCreditsAfter(any(), any());
+        verify(transactionRepository, never()).findTotalTransactionSumByAccountId(any());
     }
 
     @Test
@@ -674,8 +654,8 @@ class CardBillServiceTest {
 
         assertNull(bill.unbilledAmount());
         assertNull(bill.nextStatementExpectedOn());
-        verify(transactionRepository, never()).sumIncludedDebitsAfter(any(), any());
-        verify(transactionRepository, never()).sumIncludedDebits(any());
+        verify(transactionRepository, never()).sumDebitsAfter(any(), any());
+        verify(transactionRepository, never()).findTotalTransactionSumByAccountId(any());
         verify(statementRepository, never()).findByAccountIdOrderByPeriodEndDescNullsLast(any());
     }
 
@@ -702,128 +682,22 @@ class CardBillServiceTest {
         assertEquals(next, updated.nextStatementExpectedOn());
     }
 
-    // ---------------------------------------------------------------- refund / reversal settlement
-
-    @Test
-    void reversalLinkedCreditCountsAsLinkedPaymentAndIsNotAPossiblePayment() {
-        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
-        Transaction reversal = credit(card, TODAY.minusDays(2), "1500");
-        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(reversal));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                .thenReturn(List.of(link(LinkType.REVERSAL, reversal, false)));
-
-        CardBill bill = service.build(card, s, TODAY);
-
-        assertEquals(BillStatus.PARTIAL, bill.status());
-        assertEquals(PaidSource.LINK, bill.paidSource());
-        assertEquals(new BigDecimal("1500"), bill.paidAmount());
-        assertEquals(new BigDecimal("46750"), bill.remainingAmount());
-        assertTrue(bill.possiblePayments().isEmpty());
-    }
-
-    @Test
-    void refundsAndPaymentsTogetherCanPayTheBillInFull() {
-        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("10000"), TODAY.plusDays(18));
-        Transaction payment = credit(card, TODAY.minusDays(3), "8000");
-        Transaction refund = credit(card, TODAY.minusDays(2), "1500");
-        Transaction reversal = credit(card, TODAY.minusDays(1), "500");
-        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(payment, refund, reversal));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection())).thenReturn(List.of(
-                link(LinkType.CC_PAYMENT, payment, false), link(LinkType.REFUND, refund, false),
-                link(LinkType.REVERSAL, reversal, false)));
-
-        CardBill bill = service.build(card, s, TODAY);
-
-        assertEquals(BillStatus.PAID, bill.status());
-        assertEquals(PaidSource.LINK, bill.paidSource());
-        assertEquals(new BigDecimal("10000"), bill.paidAmount());
-        assertEquals(0, bill.remainingAmount().signum());
-    }
-
-    @Test
-    void refundOrReversalCountsEvenWhenTheCardCreditIsTheLinkAnchor() {
-        for (LinkType type : List.of(LinkType.REFUND, LinkType.REVERSAL)) {
-            Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
-            Transaction anchored = credit(card, TODAY.minusDays(2), "700");
-            when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(anchored));
-            when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                    .thenReturn(List.of(link(type, anchored, true)));
-
-            CardBill bill = service.build(card, s, TODAY);
-
-            assertEquals(new BigDecimal("700"), bill.paidAmount(), type + ": the anchor rule is CC_PAYMENT-only");
-            assertEquals(PaidSource.LINK, bill.paidSource(), type.name());
-        }
-    }
-
-    @Test
-    void creditsLinkedAsTransferFeeOrEmiAreNeitherPaidNorPossible() {
-        for (LinkType type : List.of(LinkType.TRANSFER, LinkType.FEE, LinkType.EMI)) {
-            Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
-            Transaction linked = credit(card, TODAY.minusDays(2), "700");
-            when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(linked));
-            when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                    .thenReturn(List.of(link(type, linked, false)));
-
-            CardBill bill = service.build(card, s, TODAY);
-
-            assertEquals(BillStatus.OPEN, bill.status(), type.name());
-            assertEquals(0, bill.paidAmount().signum(), type.name());
-            assertTrue(bill.possiblePayments().isEmpty(), type.name());
-        }
-    }
-
-    @Test
-    void excludedRefundLinkedCreditDoesNotCount() {
-        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
-        Transaction refund = credit(card, TODAY.minusDays(2), "999");
-        refund.setTransactionExcluded(true);
-        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(refund));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                .thenReturn(List.of(link(LinkType.REFUND, refund, false)));
-
-        CardBill bill = service.build(card, s, TODAY);
-
-        assertEquals(BillStatus.OPEN, bill.status());
-        assertEquals(PaidSource.NONE, bill.paidSource());
-    }
-
-    @Test
-    void manualMarkStillWinsOverRefundLinks() {
-        Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
-        Transaction refund = credit(card, TODAY.minusDays(2), "48250");
-        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(refund));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                .thenReturn(List.of(link(LinkType.REFUND, refund, false)));
-        s.getCreditCardDetails().setPaidMarkedOn(TODAY);
-        s.getCreditCardDetails().setPaidMarkedAmount(new BigDecimal("10000"));
-
-        CardBill bill = service.build(card, s, TODAY);
-
-        assertEquals(PaidSource.MANUAL, bill.paidSource());
-        assertEquals(new BigDecimal("10000"), bill.paidAmount(), "the refund that alone would pay in full is ignored");
-        assertEquals(BillStatus.PARTIAL, bill.status());
-    }
-
     // ---------------------------------------------------------------- settlement window = last billed day
 
     @Test
-    void linkedPaymentDatedOnThePeriodEndPaysTheBillWhenTheStatementsLinesStopEarlier() {
+    void aCreditDatedOnThePeriodEndPaysTheBillWhenTheStatementsLinesStopEarlier() {
         Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
         // The issuer cuts by posting date: its last line is dated the day before the period end, so a
         // payment dated on the period end is not on the statement — the balance already counts it.
         when(statementRepository.findLastLineDate(s.getId())).thenReturn(s.getPeriodEnd().minusDays(1));
-        Transaction payment = credit(card, s.getPeriodEnd(), "48250");
-        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd().minusDays(1))).thenReturn(List.of(payment));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                .thenReturn(List.of(link(LinkType.CC_PAYMENT, payment, false)));
+        creditsAfter(card, s.getPeriodEnd().minusDays(1), "48250");
 
         CardBill bill = service.build(card, s, TODAY);
 
         assertEquals(BillStatus.PAID, bill.status());
-        assertEquals(PaidSource.LINK, bill.paidSource());
+        assertEquals(PaidSource.CREDITS, bill.paidSource());
         assertEquals(0, bill.remainingAmount().signum());
-        verify(transactionRepository, never()).findCreditsAfter(card.getId(), s.getPeriodEnd());
+        verify(transactionRepository, never()).sumCreditsAfter(card.getId(), s.getPeriodEnd());
     }
 
     @Test
@@ -834,11 +708,8 @@ class CardBillServiceTest {
         when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(card));
         when(statementRepository.findQualifyingCreditCardStatements(card.getId())).thenReturn(List.of(s));
         when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(card.getId())).thenReturn(List.of(s));
-        when(transactionRepository.sumIncludedDebitsAfter(card.getId(), lastLine)).thenReturn(new BigDecimal("777"));
-        Transaction payment = credit(card, s.getPeriodEnd(), "20000");
-        when(transactionRepository.findCreditsAfter(card.getId(), lastLine)).thenReturn(List.of(payment));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                .thenReturn(List.of(link(LinkType.CC_PAYMENT, payment, false)));
+        when(transactionRepository.sumDebitsAfter(card.getId(), lastLine)).thenReturn(new BigDecimal("777"));
+        creditsAfter(card, lastLine, "20000");
 
         CardBill bill = service.listBills(user.getId()).get(0);
 
@@ -846,39 +717,33 @@ class CardBillServiceTest {
         assertEquals(new BigDecimal("28250"), bill.remainingAmount());
         assertEquals(new BigDecimal("777"), bill.unbilledAmount());
         verify(statementRepository, times(1)).findLastLineDate(s.getId());
-        verify(transactionRepository, never()).findCreditsAfter(card.getId(), s.getPeriodEnd());
-        verify(transactionRepository, never()).sumIncludedDebitsAfter(card.getId(), s.getPeriodEnd());
+        verify(transactionRepository, never()).sumCreditsAfter(card.getId(), s.getPeriodEnd());
+        verify(transactionRepository, never()).sumDebitsAfter(card.getId(), s.getPeriodEnd());
     }
 
     @Test
     void aLineDatedAfterThePeriodEndNeverMovesTheSettlementWindowLater() {
         Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
         when(statementRepository.findLastLineDate(s.getId())).thenReturn(s.getPeriodEnd().plusDays(1));
-        Transaction payment = credit(card, TODAY.minusDays(2), "48250");
-        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(payment));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                .thenReturn(List.of(link(LinkType.CC_PAYMENT, payment, false)));
+        creditsAfter(card, s.getPeriodEnd(), "48250");
 
         CardBill bill = service.build(card, s, TODAY);
 
         assertEquals(BillStatus.PAID, bill.status());
-        verify(transactionRepository, never()).findCreditsAfter(card.getId(), s.getPeriodEnd().plusDays(1));
+        verify(transactionRepository, never()).sumCreditsAfter(card.getId(), s.getPeriodEnd().plusDays(1));
     }
 
     @Test
     void aStatementWithoutLinesSettlesFromItsPeriodEndAndAnUndatedOneNeverReadsItsLines() {
         Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("48250"), TODAY.plusDays(18));
         when(statementRepository.findLastLineDate(s.getId())).thenReturn(null);
-        Transaction payment = credit(card, TODAY.minusDays(2), "48250");
-        when(transactionRepository.findCreditsAfter(card.getId(), s.getPeriodEnd())).thenReturn(List.of(payment));
-        when(linkRepository.findDistinctByMembers_Transaction_IdIn(anyCollection()))
-                .thenReturn(List.of(link(LinkType.CC_PAYMENT, payment, false)));
+        creditsAfter(card, s.getPeriodEnd(), "48250");
         assertEquals(BillStatus.PAID, service.build(card, s, TODAY).status());
 
         Statement undated = statement(card, null, new BigDecimal("100"), TODAY.plusDays(5));
         assertEquals(BillStatus.OPEN, service.build(card, undated, TODAY).status());
         verify(statementRepository, never()).findLastLineDate(undated.getId());
-        verify(transactionRepository, never()).findCreditsAfter(eq(card.getId()), eq(null));
+        verify(transactionRepository, never()).sumCreditsAfter(eq(card.getId()), eq(null));
     }
 
     @Test

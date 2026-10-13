@@ -108,7 +108,7 @@ class BillNotificationServiceTest {
         BigDecimal total = status == BillStatus.DUE_UNKNOWN ? null : new BigDecimal("1000");
         return new CardBill(card.getId(), "HDFC", "4321", statement.getId(), statement.getPeriodStart(), statement.getPeriodEnd(),
                 status == BillStatus.DUE_UNKNOWN ? null : due, total, null, BigDecimal.ZERO, total,
-                PaidSource.NONE, status, status == BillStatus.DUE_UNKNOWN ? null : daysUntilDue, null, List.of(),
+                PaidSource.NONE, status, status == BillStatus.DUE_UNKNOWN ? null : daysUntilDue, null,
                 Boolean.TRUE.equals(card.getNotificationsMuted()), createdAt, null, null, null, null, null);
     }
 
@@ -327,7 +327,7 @@ class BillNotificationServiceTest {
     void manualPaidMarkerIsNeverReset() {
         CardBill manual = new CardBill(card.getId(), "HDFC", "4321", statement.getId(), null, statement.getPeriodEnd(),
                 TODAY.plusDays(2), new BigDecimal("1000"), null, new BigDecimal("1000"), BigDecimal.ZERO,
-                PaidSource.MANUAL, BillStatus.PAID, 2L, TODAY, List.of(), false, statement.getCreatedAt(), "PAID", TODAY, null,
+                PaidSource.MANUAL, BillStatus.PAID, 2L, TODAY, false, statement.getCreatedAt(), "PAID", TODAY, null,
                 null, null);
         billIs(manual);
         details().setLastNotifiedKind("PAID");
@@ -439,7 +439,7 @@ class BillNotificationServiceTest {
 
     private CardBill awaitingRow() {
         return new CardBill(card.getId(), "HDFC", null, null, null, null, null, null, null, null, null,
-                PaidSource.NONE, BillStatus.AWAITING_STATEMENT, null, null, List.of(), false, null, null, null, null,
+                PaidSource.NONE, BillStatus.AWAITING_STATEMENT, null, null, false, null, null, null, null,
                 new BigDecimal("500"), TODAY.plusDays(5));
     }
 
@@ -455,7 +455,7 @@ class BillNotificationServiceTest {
     @Test
     void staleGuardIsFalseWhenTheBillHasNeitherDueDateNorPeriodEnd() {
         CardBill undated = new CardBill(card.getId(), "HDFC", "4321", statement.getId(), null, null, null, null, null,
-                BigDecimal.ZERO, null, PaidSource.NONE, BillStatus.DUE_UNKNOWN, null, null, List.of(), false,
+                BigDecimal.ZERO, null, PaidSource.NONE, BillStatus.DUE_UNKNOWN, null, null, false,
                 TODAY.minusYears(2).atStartOfDay(IST).toInstant(), null, null, null, null, null);
         assertFalse(BillNotificationService.isStale(undated));
     }

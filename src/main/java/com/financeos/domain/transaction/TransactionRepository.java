@@ -53,11 +53,14 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("source") TransactionSource source,
             @Param("reviewType") ReviewType reviewType);
 
-    /** Card bills: credits dated after a statement's last billed day ({@code BalanceMath.cutoff}; payments, refunds, cashback — the caller sorts them out). */
-    @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId " +
-           "AND t.type = com.financeos.domain.transaction.TransactionType.CREDIT AND t.date > :afterDate " +
-           "ORDER BY t.date DESC, t.createdAt DESC")
-    List<Transaction> findCreditsAfter(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
+    /**
+     * Card bills: every CREDIT dated after {@code afterDate} (a statement's last billed day,
+     * {@code BalanceMath.cutoff}) — payments, refunds, cashback, excluded rows included: exactly
+     * the credits the account balance subtracts, so the bill owes what the balance owes.
+     */
+    @Query("SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t WHERE t.account.id = :accountId " +
+           "AND t.type = com.financeos.domain.transaction.TransactionType.CREDIT AND t.date > :afterDate")
+    java.math.BigDecimal sumCreditsAfter(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
 
     @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.date BETWEEN :startDate AND :endDate")
     List<Transaction> findByAccountIdAndDateRange(
@@ -119,16 +122,13 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     @Query("SELECT COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END), 0) FROM Transaction t WHERE t.account.id = :accountId AND t.date > :afterDate")
     java.math.BigDecimal findPostAnchorTransactionSumByAccountId(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
 
-    /** Card unbilled spend: non-excluded DEBITs dated after {@code afterDate} (a statement's last billed day, {@code BalanceMath.cutoff}). */
+    /**
+     * Card unbilled spend: every DEBIT dated after {@code afterDate} (a statement's last billed day,
+     * {@code BalanceMath.cutoff}), excluded rows included — the account balance counts them.
+     */
     @Query("SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t WHERE t.account.id = :accountId " +
-           "AND t.type = com.financeos.domain.transaction.TransactionType.DEBIT AND t.isTransactionExcluded = false " +
-           "AND t.date > :afterDate")
-    java.math.BigDecimal sumIncludedDebitsAfter(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
-
-    /** Card unbilled spend with no statement yet: every non-excluded DEBIT. */
-    @Query("SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t WHERE t.account.id = :accountId " +
-           "AND t.type = com.financeos.domain.transaction.TransactionType.DEBIT AND t.isTransactionExcluded = false")
-    java.math.BigDecimal sumIncludedDebits(@Param("accountId") UUID accountId);
+           "AND t.type = com.financeos.domain.transaction.TransactionType.DEBIT AND t.date > :afterDate")
+    java.math.BigDecimal sumDebitsAfter(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
 
     interface BalanceAggregatesProjection {
         java.math.BigDecimal getTotalSum();
