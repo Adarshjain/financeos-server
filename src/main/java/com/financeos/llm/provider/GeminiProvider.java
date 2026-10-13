@@ -1,5 +1,6 @@
 package com.financeos.llm.provider;
 
+import com.financeos.llm.LlmCallOptions;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -40,6 +41,11 @@ public class GeminiProvider implements LlmProvider {
 
     @Override
     public LlmResponse complete(LlmRequest request, String apiKey, String model) {
+        return complete(request, apiKey, model, LlmCallOptions.NONE);
+    }
+
+    @Override
+    public LlmResponse complete(LlmRequest request, String apiKey, String model, LlmCallOptions options) {
         String keyToUse = apiKey != null ? apiKey.trim() : "";
         if (keyToUse.isEmpty() && !properties.isAllowNoKey()) {
             throw new LlmException(LlmException.Kind.FATAL, id, null, null, "API key is not configured for Gemini provider: " + id);
@@ -47,7 +53,7 @@ public class GeminiProvider implements LlmProvider {
 
         String requestBody;
         try {
-            requestBody = buildRequestBody(request, objectMapper);
+            requestBody = buildRequestBody(request, LlmCallOptions.orNone(options), objectMapper);
         } catch (Exception e) {
             throw new LlmException(LlmException.Kind.FATAL, id, null, null, "Failed to build request body: " + e.getMessage(), e);
         }
@@ -81,6 +87,11 @@ public class GeminiProvider implements LlmProvider {
     }
 
     public static String buildRequestBody(LlmRequest request, ObjectMapper objectMapper) throws Exception {
+        return buildRequestBody(request, LlmCallOptions.NONE, objectMapper);
+    }
+
+    public static String buildRequestBody(LlmRequest request, LlmCallOptions options, ObjectMapper objectMapper) throws Exception {
+        LlmCallOptions opts = LlmCallOptions.orNone(options);
         ObjectNode requestJson = objectMapper.createObjectNode();
         ObjectNode contentPart = objectMapper.createObjectNode().put("text", request.prompt() != null ? request.prompt() : "");
         requestJson.putArray("contents")
@@ -91,6 +102,14 @@ public class GeminiProvider implements LlmProvider {
         ObjectNode generationConfig = objectMapper.createObjectNode();
         generationConfig.put("responseMimeType", "application/json");
         generationConfig.put("temperature", request.temperature());
+        if (opts.maxOutputTokens() != null) {
+            generationConfig.put("maxOutputTokens", opts.maxOutputTokens());
+        }
+        if (opts.reasoningEffort() != null) {
+            // Gemini 3.x exposes thinking as a level and has no "off": the floor it accepts is minimal.
+            String level = "none".equals(opts.reasoningEffort()) ? "minimal" : opts.reasoningEffort();
+            generationConfig.putObject("thinkingConfig").put("thinkingLevel", level);
+        }
 
         if (request.responseSchema() != null && !request.responseSchema().isMissingNode() && !request.responseSchema().isNull()) {
             JsonNode convertedSchema = convertSchemaToGemini(request.responseSchema(), objectMapper);

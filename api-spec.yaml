@@ -4680,6 +4680,30 @@ paths:
           description: Error response
       tags:
       - llm-routing-controller
+  /api/v1/llm/routing/test-model:
+    post:
+      operationId: testModel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TestModelRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TestKeyResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - llm-routing-controller
   /api/v1/llm/routing/{group}:
     put:
       operationId: updateRouting
@@ -15313,8 +15337,15 @@ components:
     RoutingEntryDto:
       type: object
       properties:
+        custom:
+          type: boolean
         hasKey:
           type: boolean
+        maxOutputTokens:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
         model:
           type: string
           nullable: true
@@ -15330,7 +15361,20 @@ components:
           type: string
         providerName:
           type: string
+        providerPin:
+          type: string
+          nullable: true
+          x-nullable: true
+        reasoningEffort:
+          type: string
+          nullable: true
+          x-nullable: true
+        structuredOutput:
+          type: string
+          nullable: true
+          x-nullable: true
       required:
+      - custom
       - hasKey
       - optionId
       - optionLabel
@@ -15340,9 +15384,40 @@ components:
     RoutingEntryRequest:
       type: object
       properties:
+        maxOutputTokens:
+          type: integer
+          format: int32
+          maximum: 1000000
+          minimum: 1
+          nullable: true
+          x-nullable: true
+        model:
+          type: string
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          x-nullable: true
         optionId:
           type: string
           x-required: true
+        provider:
+          type: string
+          nullable: true
+          x-nullable: true
+        providerPin:
+          type: string
+          maxLength: 64
+          minLength: 0
+          nullable: true
+          x-nullable: true
+        reasoningEffort:
+          type: string
+          nullable: true
+          x-nullable: true
+        structuredOutput:
+          type: string
+          nullable: true
+          x-nullable: true
       required:
       - optionId
     RoutingOptionDto:
@@ -16473,6 +16548,41 @@ components:
           type: boolean
       required:
       - ok
+    TestModelRequest:
+      type: object
+      properties:
+        maxOutputTokens:
+          type: integer
+          format: int32
+          maximum: 1000000
+          minimum: 1
+          nullable: true
+          x-nullable: true
+        model:
+          type: string
+          maxLength: 255
+          minLength: 0
+          x-required: true
+        provider:
+          type: string
+          x-required: true
+        providerPin:
+          type: string
+          maxLength: 64
+          minLength: 0
+          nullable: true
+          x-nullable: true
+        reasoningEffort:
+          type: string
+          nullable: true
+          x-nullable: true
+        structuredOutput:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - model
+      - provider
     TierRequest:
       type: object
       properties:

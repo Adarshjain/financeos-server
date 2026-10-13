@@ -1,5 +1,6 @@
 package com.financeos.llm.provider;
 
+import com.financeos.llm.LlmCallOptions;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -44,6 +45,11 @@ public class OpenAiCompatProvider implements LlmProvider {
 
     @Override
     public LlmResponse complete(LlmRequest request, String apiKey, String model) {
+        return complete(request, apiKey, model, LlmCallOptions.NONE);
+    }
+
+    @Override
+    public LlmResponse complete(LlmRequest request, String apiKey, String model, LlmCallOptions options) {
         String keyToUse = apiKey != null ? apiKey.trim() : "";
         if (keyToUse.isEmpty() && !properties.isAllowNoKey()) {
             throw new LlmException(LlmException.Kind.FATAL, id, null, null, "API key is not configured for OpenAI provider: " + id);
@@ -53,7 +59,7 @@ public class OpenAiCompatProvider implements LlmProvider {
 
         String requestBody;
         try {
-            requestBody = buildRequestBody(request, properties, modelToUse, objectMapper);
+            requestBody = buildRequestBody(request, properties, modelToUse, LlmCallOptions.orNone(options), objectMapper);
         } catch (Exception e) {
             throw new LlmException(LlmException.Kind.FATAL, id, null, null, "Failed to build request body: " + e.getMessage(), e);
         }
@@ -93,6 +99,12 @@ public class OpenAiCompatProvider implements LlmProvider {
     }
 
     public static String buildRequestBody(LlmRequest request, LlmProperties.ProviderProperties properties, String model, ObjectMapper objectMapper) throws Exception {
+        return buildRequestBody(request, properties, model, LlmCallOptions.NONE, objectMapper);
+    }
+
+    public static String buildRequestBody(LlmRequest request, LlmProperties.ProviderProperties properties, String model,
+                                          LlmCallOptions options, ObjectMapper objectMapper) throws Exception {
+        LlmCallOptions opts = LlmCallOptions.orNone(options);
         ObjectNode body = objectMapper.createObjectNode();
         if (model != null && !model.isBlank()) {
             body.put("model", model);
@@ -102,8 +114,9 @@ public class OpenAiCompatProvider implements LlmProvider {
         body.put("temperature", request.temperature());
 
         String promptText = request.prompt() != null ? request.prompt() : "";
-        String structuredMode = null;
-        if (properties != null) {
+        // A custom row's own structured-output choice beats the catalog and the provider default.
+        String structuredMode = opts.structuredOutput();
+        if (structuredMode == null && properties != null) {
             if (model != null && properties.getModelCatalog() != null) {
                 for (LlmProperties.ModelEntry me : properties.getModelCatalog()) {
                     if (model.equalsIgnoreCase(me.getId()) && me.getStructuredOutput() != null && !me.getStructuredOutput().isBlank()) {
@@ -148,6 +161,19 @@ public class OpenAiCompatProvider implements LlmProvider {
         message.put("role", "user");
         message.put("content", promptText);
         body.putArray("messages").add(message);
+
+        if (opts.reasoningEffort() != null) {
+            body.putObject("reasoning").put("effort", opts.reasoningEffort());
+        }
+        if (opts.maxOutputTokens() != null) {
+            body.put("max_tokens", opts.maxOutputTokens());
+        }
+        if (opts.providerPin() != null) {
+            // OpenRouter provider routing: this upstream only, no silent fallback to another host.
+            ObjectNode providerPrefs = body.putObject("provider");
+            providerPrefs.putArray("only").add(opts.providerPin());
+            providerPrefs.put("allow_fallbacks", false);
+        }
 
         return objectMapper.writeValueAsString(body);
     }
