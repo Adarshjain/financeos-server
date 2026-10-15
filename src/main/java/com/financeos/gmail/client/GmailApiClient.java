@@ -49,13 +49,17 @@ public class GmailApiClient {
     }
 
     /**
-     * Build Google OAuth authorization URL.
+     * Build Google OAuth authorization URL. {@code prompt=consent} makes Google show the consent
+     * screen even when the mailbox already granted access: Google only returns a refresh token on
+     * consent, so without it a reconnect yields an access token alone. The legacy
+     * {@code approval_prompt=force} is not reliably honored and cannot be sent alongside it.
      */
     public String buildAuthorizationUrl(String state) {
         GoogleAuthorizationCodeFlow flow = createFlow();
         return flow.newAuthorizationUrl()
                 .setRedirectUri(redirectUri)
                 .setState(state)
+                .set("prompt", "consent")
                 .build();
     }
 
@@ -157,7 +161,6 @@ public class GmailApiClient {
                 .setAuthorizationServerEncodedUrl(endpoints.getOauth().getAuthorizationUrl())
                 .setTokenServerUrl(new GenericUrl(endpoints.getOauth().getTokenUrl()))
                 .setAccessType("offline")
-                .setApprovalPrompt("force")
                 .build();
     }
 

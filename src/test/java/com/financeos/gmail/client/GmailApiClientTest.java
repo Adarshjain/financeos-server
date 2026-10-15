@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GmailApiClientTest {
@@ -51,6 +52,10 @@ class GmailApiClientTest {
         assertTrue(authUrl.contains("redirect_uri=http://localhost:6969/api/v1/gmail/oauth/callback"), authUrl);
         assertTrue(authUrl.contains("access_type=offline"), authUrl);
         assertTrue(authUrl.contains("gmail.readonly"), authUrl);
+        // A reconnect must re-show consent or Google returns no refresh token; Google rejects
+        // approval_prompt together with prompt, so the legacy parameter must be gone.
+        assertTrue(authUrl.contains("prompt=consent"), authUrl);
+        assertFalse(authUrl.contains("approval_prompt"), authUrl);
 
         Gmail gmail = client.createGmailService("rt");
         assertEquals("http://localhost:8089/gmail/", gmail.getRootUrl());
