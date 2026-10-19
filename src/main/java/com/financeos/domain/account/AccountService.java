@@ -195,7 +195,10 @@ public class AccountService {
                 ? java.util.Map.of()
                 : accountRepository.findAccountBalanceBatches(nonBrokerIds);
 
+        java.util.Map<UUID, LocalDate> lastDates = lastTransactionDates(nonBrokerIds);
+
         for (Account account : accounts) {
+            account.setLastTransactionDate(lastDates.get(account.getId()));
             if (account.getType() == AccountType.broker) {
                 BigDecimal cash = account.getBrokerDetails() != null && account.getBrokerDetails().getCashBalance() != null
                         ? account.getBrokerDetails().getCashBalance()
@@ -240,6 +243,20 @@ public class AccountService {
         for (List<Account> members : byPool.values()) {
             applyPoolUsage(CardUtilization.limitPool(members.get(0)), members);
         }
+    }
+
+    private static final int IN_LIST_CHUNK = 900;
+
+    /** The latest transaction date per account id (accounts without transactions are absent), in chunks of 900 ids. */
+    private java.util.Map<UUID, LocalDate> lastTransactionDates(List<UUID> accountIds) {
+        java.util.Map<UUID, LocalDate> result = new java.util.HashMap<>();
+        for (int i = 0; i < accountIds.size(); i += IN_LIST_CHUNK) {
+            List<UUID> chunk = accountIds.subList(i, Math.min(accountIds.size(), i + IN_LIST_CHUNK));
+            for (TransactionRepository.AccountLastDateProjection row : transactionRepository.findLastTransactionDatesByAccountIds(chunk)) {
+                result.put(row.getAccountId(), row.getLastDate());
+            }
+        }
+        return result;
     }
 
     /** Sets the pool's usage on every member and measures each member's utilisation on the pool. */
@@ -705,6 +722,8 @@ public class AccountService {
     }
 
     private void populateBalanceInfo(Account account) {
+        account.setLastTransactionDate(account.getType() == AccountType.broker
+                ? null : transactionRepository.findMaxDateByAccountId(account.getId()));
         if (account.getType() == AccountType.broker) {
             BigDecimal cash = account.getBrokerDetails() != null && account.getBrokerDetails().getCashBalance() != null
                     ? account.getBrokerDetails().getCashBalance()

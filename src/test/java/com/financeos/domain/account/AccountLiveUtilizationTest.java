@@ -10,6 +10,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import com.financeos.api.account.dto.AccountResponse;
@@ -109,7 +110,9 @@ class AccountLiveUtilizationTest {
         assertEquals(new BigDecimal("0.0"), inCredit.getUtilizationPct());
         assertNull(noLimit.getUtilizationPct());
         assertNull(bank.getUtilizationPct(), "only cards have utilisation");
-        verifyNoInteractions(statementRepository, transactionRepository);
+        verifyNoInteractions(statementRepository);
+        verify(transactionRepository).findLastTransactionDatesByAccountIds(any());
+        verifyNoMoreInteractions(transactionRepository);
     }
 
     @Test

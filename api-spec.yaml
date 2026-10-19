@@ -7703,6 +7703,11 @@ components:
           format: date
           nullable: true
           x-nullable: true
+        lastTransactionDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         name:
           type: string
         openingBalance:
@@ -7989,6 +7994,11 @@ components:
         id:
           type: string
           format: uuid
+        lastTransactionDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         name:
           type: string
         provider:
@@ -9968,6 +9978,11 @@ components:
           format: date
           nullable: true
           x-nullable: true
+        lastTransactionDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         limitPool:
           $ref: "#/components/schemas/CreditLimitPoolResponse"
         name:
@@ -11016,6 +11031,11 @@ components:
         id:
           type: string
           format: uuid
+        lastTransactionDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         name:
           type: string
         reconciliationGap:

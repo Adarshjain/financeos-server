@@ -151,6 +151,22 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
            + "FROM Transaction t WHERE t.account.id IN :accountIds GROUP BY t.account.id")
     List<AccountSumProjection> findTotalTransactionSumsByAccountIds(@Param("accountIds") java.util.Collection<UUID> accountIds);
 
+    interface AccountLastDateProjection {
+        UUID getAccountId();
+        LocalDate getLastDate();
+    }
+
+    /**
+     * The latest transaction date per account for several accounts at once. Counts every transaction of the
+     * account (the same set the balance sums: no excluded/pending filter); an account without one has no row.
+     */
+    @Query("SELECT t.account.id AS accountId, MAX(t.date) AS lastDate FROM Transaction t "
+           + "WHERE t.account.id IN :accountIds GROUP BY t.account.id")
+    List<AccountLastDateProjection> findLastTransactionDatesByAccountIds(@Param("accountIds") java.util.Collection<UUID> accountIds);
+
+    @Query("SELECT MAX(t.date) FROM Transaction t WHERE t.account.id = :accountId")
+    LocalDate findMaxDateByAccountId(@Param("accountId") UUID accountId);
+
     interface BalanceAggregatesProjection {
         java.math.BigDecimal getTotalSum();
         java.math.BigDecimal getPostAnchorSum();

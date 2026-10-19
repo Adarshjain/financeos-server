@@ -131,6 +131,10 @@ public class Account {
     @Transient
     private java.math.BigDecimal calculatedBalance;
 
+    /** The latest date among the account's transactions (all of them count toward the balance); null when none. */
+    @Transient
+    private LocalDate lastTransactionDate;
+
     @Transient
     private Boolean balanceAnchored;
 
