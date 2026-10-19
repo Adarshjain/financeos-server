@@ -151,6 +151,33 @@ paths:
           description: Error response
       tags:
       - cardholder-controller
+  /api/v1/accounts/{accountId}/cardholders/stats:
+    get:
+      operationId: stats
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CardholderStatsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - cardholder-controller
   /api/v1/accounts/{accountId}/cardholders/{cardholderId}:
     delete:
       operationId: deleteCardholder
@@ -243,6 +270,39 @@ paths:
               schema:
                 $ref: "#/components/schemas/CardholderResponse"
           description: Created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - cardholder-controller
+  /api/v1/accounts/{accountId}/cardholders/{cardholderId}/cards/{cardId}:
+    delete:
+      operationId: deleteCard
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: cardholderId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: cardId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "204":
+          description: No Content
         default:
           content:
             application/json:
@@ -8559,6 +8619,28 @@ components:
       - id
       - isOpen
       - last4
+    CardStats:
+      type: object
+      properties:
+        cardId:
+          type: string
+          format: uuid
+        firstUsedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        lastUsedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        transactionCount:
+          type: integer
+          format: int64
+      required:
+      - cardId
+      - transactionCount
     CardholderResponse:
       type: object
       properties:
@@ -8627,6 +8709,52 @@ components:
       - isEffectivelyClosed
       - role
       - transactionCount
+    CardholderStatsResponse:
+      type: object
+      properties:
+        cardholderId:
+          type: string
+          format: uuid
+        cards:
+          type: array
+          items:
+            $ref: "#/components/schemas/CardStats"
+        currentCycleSpend:
+          type: number
+        cycleFrom:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        cycleTo:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        lastUsedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        spendThisYear:
+          type: number
+        transactionCount:
+          type: integer
+          format: int64
+        yearFrom:
+          type: string
+          format: date
+        yearTo:
+          type: string
+          format: date
+      required:
+      - cardholderId
+      - cards
+      - currentCycleSpend
+      - spendThisYear
+      - transactionCount
+      - yearFrom
+      - yearTo
     CategorizeRequest:
       type: object
       properties:
@@ -17298,6 +17426,9 @@ components:
     UpdateCardholderRequest:
       type: object
       properties:
+        openedOn:
+          type: string
+          format: date
         personName:
           type: string
         relationship:

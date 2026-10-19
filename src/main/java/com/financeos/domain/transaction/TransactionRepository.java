@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -326,6 +327,28 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("currentCardId") UUID currentCardId);
 
     long countByCardId(UUID cardId);
+
+    /** Card id, transaction count, first and last date: one row per card of the account that has transactions. */
+    @Query("SELECT t.card.id, COUNT(t), MIN(t.date), MAX(t.date) FROM Transaction t "
+            + "WHERE t.card.account.id = :accountId GROUP BY t.card.id")
+    List<Object[]> summarizeByCard(@Param("accountId") UUID accountId);
+
+    /**
+     * Card id and net spend (DEBIT minus CREDIT) per card of the account within [from, to]. Credits that are
+     * the counterpart of a CC_PAYMENT link (a bill payment landing on the card) are not refunds, so they are left out.
+     */
+    @Query("SELECT t.card.id, SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN -t.amount ELSE t.amount END) "
+            + "FROM Transaction t WHERE t.card.account.id = :accountId AND t.date >= :from AND t.date <= :to "
+            + "AND NOT (t.type = com.financeos.domain.transaction.TransactionType.CREDIT AND EXISTS ("
+            + "SELECT 1 FROM TransactionLinkMember m WHERE m.transaction = t "
+            + "AND m.link.type = com.financeos.domain.transaction.link.LinkType.CC_PAYMENT)) "
+            + "GROUP BY t.card.id")
+    List<Object[]> netSpendByCard(@Param("accountId") UUID accountId, @Param("from") LocalDate from, @Param("to") LocalDate to);
+
+    /** Moves every transaction of one card onto another; returns how many moved. */
+    @Modifying(flushAutomatically = true)
+    @Query("UPDATE Transaction t SET t.card = :to WHERE t.card = :from")
+    int reassignCard(@Param("from") com.financeos.domain.account.card.Card from, @Param("to") com.financeos.domain.account.card.Card to);
 
     /** Inbox: how many of the user's transactions sit in the review queue. */
     @Query("SELECT COUNT(t) FROM Transaction t WHERE t.user.id = :userId AND t.reviewType = :reviewType")

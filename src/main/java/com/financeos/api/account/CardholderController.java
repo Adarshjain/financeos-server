@@ -2,6 +2,7 @@ package com.financeos.api.account;
 
 import com.financeos.api.account.dto.*;
 import com.financeos.domain.account.card.CardholderService;
+import com.financeos.domain.account.card.CardholderStatsService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +15,21 @@ import java.util.UUID;
 public class CardholderController {
 
     private final CardholderService cardholderService;
+    private final CardholderStatsService cardholderStatsService;
 
-    public CardholderController(CardholderService cardholderService) {
+    public CardholderController(CardholderService cardholderService, CardholderStatsService cardholderStatsService) {
         this.cardholderService = cardholderService;
+        this.cardholderStatsService = cardholderStatsService;
     }
 
     @GetMapping
     public List<CardholderResponse> listByAccount(@PathVariable UUID accountId) {
         return cardholderService.listByAccount(accountId);
+    }
+
+    @GetMapping("/stats")
+    public List<CardholderStatsResponse> stats(@PathVariable UUID accountId) {
+        return cardholderStatsService.statsByAccount(accountId);
     }
 
     @PostMapping
@@ -96,5 +104,14 @@ public class CardholderController {
             @PathVariable UUID cardId,
             @RequestBody(required = false) CloseCardRequest request) {
         return cardholderService.closeCard(accountId, cardholderId, cardId, request != null ? request.closedOn() : null);
+    }
+
+    @DeleteMapping("/{cardholderId}/cards/{cardId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCard(
+            @PathVariable UUID accountId,
+            @PathVariable UUID cardholderId,
+            @PathVariable UUID cardId) {
+        cardholderService.deleteCard(accountId, cardholderId, cardId);
     }
 }
