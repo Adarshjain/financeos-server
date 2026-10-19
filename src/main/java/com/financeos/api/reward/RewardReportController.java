@@ -4,6 +4,7 @@ import org.springdoc.core.annotations.ParameterObject;
 
 import com.financeos.api.reward.dto.RewardLineResponse;
 import com.financeos.api.reward.dto.RewardReportResponse;
+import com.financeos.api.reward.dto.RewardTotalResponse;
 import com.financeos.domain.reward.RewardCalculationService;
 
 import org.springframework.data.domain.Page;
@@ -37,6 +38,15 @@ public class RewardReportController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
         return ResponseEntity.ok(rewardCalculationService.report(accountId, from, to));
+    }
+
+    /**
+     * Every credit card's reward total for its current anniversary year (calendar year when no
+     * anniversary is set) — one call for the Accounts list instead of one report per card.
+     */
+    @GetMapping("/totals")
+    public ResponseEntity<List<RewardTotalResponse>> getTotals() {
+        return ResponseEntity.ok(rewardCalculationService.totals());
     }
 
     /**
