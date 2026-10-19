@@ -18,7 +18,7 @@ public interface StatementTransactionRepository extends JpaRepository<StatementT
     @Query("SELECT new com.financeos.domain.statement.StatementLineProjection(" +
            "st.id.transactionId, st.lineIndex, t.date, " +
            "COALESCE(t.sourcedDescription, t.description), t.amount, t.type, t.reviewType, " +
-           "st.balanceAfter, st.chainValid) " +
+           "st.balanceAfter, st.chainValid, t.source, t.sourceMessageId) " +
            "FROM StatementTransaction st, Transaction t " +
            "WHERE st.id.statementId = :statementId AND t.id = st.id.transactionId " +
            "ORDER BY st.lineIndex ASC")

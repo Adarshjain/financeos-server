@@ -1,6 +1,7 @@
 package com.financeos.domain.statement;
 
 import com.financeos.domain.transaction.ReviewType;
+import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
 
 import java.math.BigDecimal;
@@ -16,5 +17,7 @@ public record StatementLineProjection(
         TransactionType type,
         ReviewType reviewType,
         BigDecimal balanceAfter,
-        Boolean chainValid
+        Boolean chainValid,
+        TransactionSource source,
+        String sourceMessageId
 ) {}

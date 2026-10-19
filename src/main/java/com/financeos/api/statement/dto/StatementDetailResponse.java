@@ -33,9 +33,31 @@ public record StatementDetailResponse(
         @Nullable String accountNumberMasked,
         Instant createdAt,
         @Nullable StatementCardDetailsResponse cardDetails,
-        List<StatementLineResponse> lines
+        List<StatementLineResponse> lines,
+        /** The account's balance from its own transactions at the end of periodEnd, in the sign of closingBalance. */
+        @Nullable BigDecimal ledgerBalanceAtClose,
+        @Nullable Boolean matchesLedger
 ) {
-    public static StatementDetailResponse from(Statement statement, StatementCardDetailsResponse cardDetails, List<StatementLineResponse> lines) {
+    public StatementDetailResponse(UUID id, StatementSource source, @Nullable String sourceRef,
+                                   @Nullable String statementType, @Nullable LocalDate periodStart,
+                                   @Nullable LocalDate periodEnd, @Nullable BigDecimal openingBalance,
+                                   @Nullable BigDecimal closingBalance, @Nullable BigDecimal totalDebits,
+                                   @Nullable BigDecimal totalCredits, @Nullable Integer transactionCount,
+                                   @Nullable Integer linesSkipped, @Nullable String parseMode,
+                                   @Nullable BigDecimal chainValidationPct, @Nullable Boolean checksumOk,
+                                   @Nullable StatementVerdict verdict, @Nullable String bankName,
+                                   @Nullable String accountNumberMasked, Instant createdAt,
+                                   @Nullable StatementCardDetailsResponse cardDetails,
+                                   List<StatementLineResponse> lines) {
+        this(id, source, sourceRef, statementType, periodStart, periodEnd, openingBalance, closingBalance,
+                totalDebits, totalCredits, transactionCount, linesSkipped, parseMode, chainValidationPct,
+                checksumOk, verdict, bankName, accountNumberMasked, createdAt, cardDetails, lines, null, null);
+    }
+
+    public static StatementDetailResponse from(Statement statement, StatementCardDetailsResponse cardDetails,
+                                               List<StatementLineResponse> lines,
+                                               @Nullable BigDecimal ledgerBalanceAtClose,
+                                               @Nullable Boolean matchesLedger) {
         return new StatementDetailResponse(
                 statement.getId(),
                 statement.getSource(),
@@ -57,7 +79,9 @@ public record StatementDetailResponse(
                 statement.getAccountNumberMasked(),
                 statement.getCreatedAt(),
                 cardDetails,
-                lines
+                lines,
+                ledgerBalanceAtClose,
+                matchesLedger
         );
     }
 }
