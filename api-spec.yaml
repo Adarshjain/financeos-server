@@ -7612,6 +7612,10 @@ components:
     BankAccountRequest:
       type: object
       properties:
+        bank:
+          type: string
+          nullable: true
+          x-nullable: true
         description:
           type: string
         excludeFromNetAsset:
@@ -7653,6 +7657,10 @@ components:
           type: number
         balanceAnchored:
           type: boolean
+        bank:
+          type: string
+          nullable: true
+          x-nullable: true
         cardholders:
           type: array
           items:
@@ -9902,6 +9910,10 @@ components:
           type: number
         balanceAnchored:
           type: boolean
+        bank:
+          type: string
+          nullable: true
+          x-nullable: true
         cardholders:
           type: array
           items:
@@ -10011,6 +10023,10 @@ components:
           type: string
           format: date
           x-required: true
+        bank:
+          type: string
+          nullable: true
+          x-nullable: true
         creditLimit:
           type: number
           nullable: true

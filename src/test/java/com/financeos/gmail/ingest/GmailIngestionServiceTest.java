@@ -145,7 +145,7 @@ class GmailIngestionServiceTest {
 
         Account account = new Account("HDFC", com.financeos.domain.account.AccountType.credit_card);
         account.setIngestFromDate(LocalDate.now().minusDays(10));
-        when(accountResolver.resolve("1234")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
+        when(accountResolver.resolve(eq("1234"), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
 
         GmailProcessedMessage createdResult = new GmailProcessedMessage();
         createdResult.setStatus(GmailProcessedStatus.CREATED);
@@ -187,7 +187,7 @@ class GmailIngestionServiceTest {
 
         Account unOptedAccount = new Account("SBI", com.financeos.domain.account.AccountType.bank_account);
         unOptedAccount.setIngestFromDate(null); // Not opted in
-        when(accountResolver.resolve("4321")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(unOptedAccount, null)));
+        when(accountResolver.resolve(eq("4321"), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(unOptedAccount, null)));
 
         SyncSummary summary = gmailIngestionService.syncConnection(connection);
 
@@ -322,7 +322,7 @@ class GmailIngestionServiceTest {
 
         Account account = new Account("Card", com.financeos.domain.account.AccountType.credit_card);
         account.setIngestFromDate(LocalDate.now().minusDays(10));
-        when(accountResolver.resolve("XX1234")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
+        when(accountResolver.resolve(eq("XX1234"), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
 
         GmailProcessedMessage createdResult = new GmailProcessedMessage();
         createdResult.setStatus(GmailProcessedStatus.CREATED);
@@ -333,6 +333,6 @@ class GmailIngestionServiceTest {
         // Verify extractedLast4 persisted on ledger row was truncated to "1234"
         assertThat(row.getExtractedLast4()).isEqualTo("1234");
         // Verify accountResolver was called with raw "XX1234"
-        verify(accountResolver).resolve("XX1234");
+        verify(accountResolver).resolve(eq("XX1234"), any());
     }
 }

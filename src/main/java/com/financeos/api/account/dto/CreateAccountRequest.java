@@ -33,6 +33,10 @@ public sealed interface CreateAccountRequest {
 
     LocalDate ingestFromDate();
 
+    /** BankCatalog id; optional, bank accounts and credit cards only (null for the other types). */
+    @Nullable
+    String bank();
+
     record BankAccountRequest(
             @NotBlank(message = "Name is required") String name,
             @NotNull(message = "Account type is required") AccountType type,
@@ -42,8 +46,16 @@ public sealed interface CreateAccountRequest {
             BigDecimal openingBalance,
             String last4,
             String statementPassword,
-            LocalDate ingestFromDate
+            LocalDate ingestFromDate,
+            @Nullable String bank
     ) implements CreateAccountRequest {
+        public BankAccountRequest(String name, AccountType type, Boolean excludeFromNetAsset,
+                                  FinancialPosition financialPosition, String description,
+                                  BigDecimal openingBalance, String last4, String statementPassword,
+                                  LocalDate ingestFromDate) {
+            this(name, type, excludeFromNetAsset, financialPosition, description, openingBalance, last4,
+                    statementPassword, ingestFromDate, null);
+        }
     }
 
     record CreditCardRequest(
@@ -66,8 +78,20 @@ public sealed interface CreateAccountRequest {
             String issuer,
             String productName,
             /** The shared limit this account draws on; null = not pooled. */
-            @Nullable CreditLimitPoolRequest limitPool
+            @Nullable CreditLimitPoolRequest limitPool,
+            @Nullable String bank
     ) implements CreateAccountRequest {
+        /** A card without a bank, for callers that predate it. */
+        public CreditCardRequest(String name, AccountType type, Boolean excludeFromNetAsset,
+                                 FinancialPosition financialPosition, String description, String last4,
+                                 BigDecimal creditLimit, LocalDate anniversaryDate, String statementPassword,
+                                 LocalDate ingestFromDate, java.util.UUID replacesAccountId, String issuer,
+                                 String productName, CreditLimitPoolRequest limitPool) {
+            this(name, type, excludeFromNetAsset, financialPosition, description, last4, creditLimit,
+                    anniversaryDate, statementPassword, ingestFromDate, replacesAccountId, issuer, productName,
+                    limitPool, null);
+        }
+
         /** An unpooled card, for callers that predate shared limits. */
         public CreditCardRequest(String name, AccountType type, Boolean excludeFromNetAsset,
                                  FinancialPosition financialPosition, String description, String last4,
@@ -76,7 +100,7 @@ public sealed interface CreateAccountRequest {
                                  String productName) {
             this(name, type, excludeFromNetAsset, financialPosition, description, last4, creditLimit,
                     anniversaryDate, statementPassword, ingestFromDate, replacesAccountId, issuer, productName,
-                    null);
+                    null, null);
         }
     }
 
@@ -95,6 +119,12 @@ public sealed interface CreateAccountRequest {
         public LocalDate ingestFromDate() {
             return null;
         }
+
+        /** No bank on brokers: a bank sent for one is ignored. */
+        @Override
+        public String bank() {
+            return null;
+        }
     }
 
     record GenericAccountRequest(
@@ -107,6 +137,12 @@ public sealed interface CreateAccountRequest {
         /** Wallet/Cash accounts are manual-only: no statements, no Gmail sync, no ingest watermark. */
         @Override
         public LocalDate ingestFromDate() {
+            return null;
+        }
+
+        /** No bank on generic accounts: a bank sent for it is ignored. */
+        @Override
+        public String bank() {
             return null;
         }
     }
