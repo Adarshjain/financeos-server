@@ -61,6 +61,10 @@ public class Account {
     @Column(name = "closed_on")
     private LocalDate closedOn;
 
+    /** {@link BankCatalog} id of the issuing bank (bank accounts and credit cards only); null = not set. V104. */
+    @Column(name = "bank", length = 32)
+    private String bank;
+
     /** Per-card opt-out from bill notifications (e.g. a card on autopay). V90. */
     @Column(name = "notifications_muted", nullable = false)
     private Boolean notificationsMuted = false;

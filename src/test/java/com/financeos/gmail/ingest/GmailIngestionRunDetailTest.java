@@ -210,7 +210,7 @@ class GmailIngestionRunDetailTest {
                 LocalDate.of(2026, 10, 11), "SWIGGY", "1234", 0.95, true, null);
         when(geminiExtractor.extract(m)).thenReturn(ext);
         Account account = optedIn("HDFC Regalia");
-        when(accountResolver.resolve("1234")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
+        when(accountResolver.resolve(eq("1234"), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
         Transaction created = txn(account, "SWIGGY", "450");
         when(gmailTransactionWriter.writeTransaction(connection, "alert-1", ext, account, null)).thenAnswer(inv -> {
             row.setAccount(account);
@@ -291,7 +291,7 @@ class GmailIngestionRunDetailTest {
         GmailMessage m = message("alert-2", "alerts@bank.com", "Spent", List.of());
         when(geminiExtractor.extract(m)).thenReturn(new GeminiExtractionResult(true, new BigDecimal("90"), "INR", "debit",
                 LocalDate.of(2026, 10, 11), "CAFE", "5555", 0.9, true, null));
-        when(accountResolver.resolve("5555")).thenReturn(Optional.empty());
+        when(accountResolver.resolve(eq("5555"), any())).thenReturn(Optional.empty());
 
         SyncSummary summary = service.syncConnection(connection);
 

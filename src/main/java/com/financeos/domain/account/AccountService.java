@@ -66,7 +66,19 @@ public class AccountService {
         this.eventPublisher = eventPublisher;
     }
 
+    /** A bank is optional; when sent it must be a catalog id (brokers and generic accounts never carry one). */
+    private static void validateBank(CreateAccountRequest request) {
+        String bank = request.bank();
+        if (bank == null) {
+            return;
+        }
+        if (!BankCatalog.isKnown(bank)) {
+            throw new ValidationException("Unknown bank: " + bank);
+        }
+    }
+
     public Account createAccount(CreateAccountRequest request) {
+        validateBank(request);
         UUID userId = UserContext.getCurrentUserId();
         User user = userRepository.getReferenceById(userId);
 
@@ -80,6 +92,7 @@ public class AccountService {
         }
         account.setFinancialPosition(position);
         account.setDescription(request.description());
+        account.setBank(request.bank());
         account.setIngestFromDate(request.ingestFromDate());
 
         switch (request) {
@@ -268,6 +281,7 @@ public class AccountService {
     }
 
     public Account updateAccount(UUID id, CreateAccountRequest request) {
+        validateBank(request);
         Account account = getAccountById(id);
 
         if (account.getType() != request.type()) {
@@ -282,6 +296,10 @@ public class AccountService {
         account.setExcludeFromNetAsset(request.excludeFromNetAsset() != null ? request.excludeFromNetAsset() : false);
         account.setFinancialPosition(request.financialPosition());
         account.setDescription(request.description());
+        // The live form does not send a bank: an omitted bank keeps the stored one (it is never cleared via the API).
+        if (request.bank() != null) {
+            account.setBank(request.bank());
+        }
         account.setIngestFromDate(newDate);
 
         switch (request) {

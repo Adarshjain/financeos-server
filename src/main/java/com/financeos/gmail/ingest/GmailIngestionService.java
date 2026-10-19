@@ -485,7 +485,8 @@ public class GmailIngestionService {
             }
 
             gpm.setExtractedLast4(normalizeLast4(extractionResult.accountLast4()));
-            AccountResolver.ResolvedCard resolved = accountResolver.resolve(extractionResult.accountLast4()).orElse(null);
+            AccountResolver.ResolvedCard resolved = accountResolver.resolve(
+                    extractionResult.accountLast4(), java.util.Arrays.asList(message.subject(), message.getStrippedText())).orElse(null);
             Account account = resolved != null ? resolved.account() : null;
             com.financeos.domain.account.card.Card card = resolved != null ? resolved.card() : null;
 
