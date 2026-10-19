@@ -18,9 +18,14 @@ public record StatementLineResponse(
         TransactionType type,
         @Nullable ReviewType reviewType,
         @Nullable BigDecimal balanceAfter,
-        @Nullable Boolean chainValid
+        @Nullable Boolean chainValid,
+        /** "created" when importing the statement created this transaction, "matched" when it linked an existing one. */
+        String origin
 ) {
-    public static StatementLineResponse from(com.financeos.domain.statement.StatementLineProjection p) {
+    public static final String ORIGIN_CREATED = "created";
+    public static final String ORIGIN_MATCHED = "matched";
+
+    public static StatementLineResponse from(com.financeos.domain.statement.StatementLineProjection p, boolean created) {
         if (p == null) return null;
         return new StatementLineResponse(
                 p.transactionId(),
@@ -31,7 +36,8 @@ public record StatementLineResponse(
                 p.type(),
                 p.reviewType(),
                 p.balanceAfter(),
-                p.chainValid()
+                p.chainValid(),
+                created ? ORIGIN_CREATED : ORIGIN_MATCHED
         );
     }
 }

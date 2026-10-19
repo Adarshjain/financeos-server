@@ -181,15 +181,8 @@ public class StatementDeletionService {
         return new Plan(account, statement, toDelete, kept, alertsToReopen);
     }
 
-    /** A file upload creates every row it links; a Gmail statement creates the rows keyed by its message id. */
     private static boolean createdBy(Statement statement, Transaction t) {
-        if (statement.getSource() == StatementSource.file_upload) {
-            return t.getSource() == TransactionSource.file_upload;
-        }
-        return t.getSource() == TransactionSource.gmail_statement
-                && statement.getSourceRef() != null
-                && t.getSourceMessageId() != null
-                && t.getSourceMessageId().startsWith(statement.getSourceRef() + ":");
+        return statement.createdTransaction(t.getSource(), t.getSourceMessageId());
     }
 
     private int countLinkedToRecords(List<UUID> deleteIds) {

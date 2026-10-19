@@ -1,6 +1,7 @@
 package com.financeos.domain.statement;
 
 import com.financeos.domain.account.Account;
+import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.user.User;
 
 import jakarta.persistence.*;
@@ -124,5 +125,21 @@ public class Statement {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = Instant.now();
+    }
+
+    /**
+     * Whether importing this statement created a transaction with this source, as opposed to
+     * linking one that already existed. A file upload creates every row it links; a Gmail
+     * statement creates the rows keyed by its message id ({@code <messageId>:<line>}). Decides
+     * what a delete removes and what a line is labelled.
+     */
+    public boolean createdTransaction(TransactionSource transactionSource, String transactionSourceMessageId) {
+        if (source == StatementSource.file_upload) {
+            return transactionSource == TransactionSource.file_upload;
+        }
+        return transactionSource == TransactionSource.gmail_statement
+                && sourceRef != null
+                && transactionSourceMessageId != null
+                && transactionSourceMessageId.startsWith(sourceRef + ":");
     }
 }

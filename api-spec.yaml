@@ -16374,6 +16374,10 @@ components:
         id:
           type: string
           format: uuid
+        ledgerBalanceAtClose:
+          type: number
+          nullable: true
+          x-nullable: true
         lines:
           type: array
           items:
@@ -16381,6 +16385,10 @@ components:
         linesSkipped:
           type: integer
           format: int32
+          nullable: true
+          x-nullable: true
+        matchesLedger:
+          type: boolean
           nullable: true
           x-nullable: true
         openingBalance:
@@ -16465,6 +16473,8 @@ components:
           format: int32
           nullable: true
           x-nullable: true
+        origin:
+          type: string
         reviewType:
           type: string
           enum:
@@ -16485,6 +16495,7 @@ components:
       required:
       - amount
       - date
+      - origin
       - transactionId
       - type
     StatementSummaryResponse:

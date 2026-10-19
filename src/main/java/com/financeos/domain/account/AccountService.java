@@ -709,4 +709,17 @@ public class AccountService {
         }
         applyUtilization(account);
     }
+
+    /**
+     * The balance made of the account's own transactions dated on or before {@code asOf}
+     * (the statement-anchor-free balance of {@link #populateBalanceInfo}, cut at that day), in the
+     * account's own sign: a credit card's is negative when money is owed.
+     */
+    public BigDecimal transactionBalanceAsOf(Account account, LocalDate asOf) {
+        TransactionRepository.BalanceAggregatesProjection aggregates =
+                transactionRepository.findBalanceAggregatesByAccountId(account.getId(), asOf);
+        BigDecimal total = aggregates != null && aggregates.getTotalSum() != null ? aggregates.getTotalSum() : BigDecimal.ZERO;
+        BigDecimal after = aggregates != null && aggregates.getPostAnchorSum() != null ? aggregates.getPostAnchorSum() : BigDecimal.ZERO;
+        return BalanceMath.pureTransactionBalance(account, total.subtract(after));
+    }
 }
