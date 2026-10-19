@@ -13,6 +13,7 @@ import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.card.Cardholder;
 import com.financeos.domain.account.card.CardholderRepository;
 import com.financeos.domain.account.cycle.BillingCycles;
+import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionChannel;
@@ -124,8 +125,29 @@ public class RewardCalculationService {
     @Transactional(readOnly = true)
     public List<RewardTotalResponse> totals() {
         LocalDate today = AppTime.today();
-        List<RewardTotalResponse> totals = new ArrayList<>();
-        for (Account card : accountRepository.findByUserIdAndType(UserContext.getCurrentUserId(), AccountType.credit_card)) {
+        List<Account> cards = accountRepository.findByUserIdAndType(UserContext.getCurrentUserId(), AccountType.credit_card);
+        if (cards.isEmpty()) {
+            return List.of();
+        }
+        // One query per kind of input for all cards (the per-card report() pays them card by card, which
+        // is a remote round trip each); every card then runs through the same prepare/run/buildReport path.
+        List<UUID> cardIds = cards.stream().map(Account::getId).toList();
+        Map<UUID, List<RewardRule>> rulesByCard = rewardRuleRepository.findByAccountIdInOrderByPriorityDesc(cardIds).stream()
+                .collect(Collectors.groupingBy(r -> r.getAccount().getId()));
+        Map<UUID, List<RewardMilestone>> milestonesByCard = rewardMilestoneRepository
+                .findByAccountIdInOrderByCreatedAtAsc(cardIds).stream()
+                .collect(Collectors.groupingBy(m -> m.getAccount().getId()));
+        Map<UUID, List<Cardholder>> cardholdersByCard = cardholderRepository == null ? Map.of()
+                : cardholderRepository.findByAccountIdIn(cardIds).stream()
+                        .collect(Collectors.groupingBy(ch -> ch.getAccount().getId()));
+        Map<UUID, List<Statement>> statementsByCard = statementRepository
+                .findByAccountIdInOrderByPeriodEndDescNullsLast(cardIds).stream()
+                .collect(Collectors.groupingBy(st -> st.getAccount().getId()));
+
+        record Planned(Account card, LocalDate from, LocalDate to, boolean fallback, Evaluation eval) {
+        }
+        List<Planned> planned = new ArrayList<>();
+        for (Account card : cards) {
             LocalDate anniversary = card.getRewardAnniversaryDate();
             boolean fallback = anniversary == null;
             LocalDate from;
@@ -140,8 +162,42 @@ public class RewardCalculationService {
                 }
                 to = anniversaryOnYear(anniversary, from.getYear() + 1).minusDays(1);
             }
-            RewardReportResponse.Summary summary = report(card.getId(), from, to).summary();
-            totals.add(new RewardTotalResponse(card.getId(), from, to, fallback,
+            Evaluation eval = prepare(new CardInputs(card,
+                    rulesByCard.getOrDefault(card.getId(), List.of()),
+                    milestonesByCard.getOrDefault(card.getId(), List.of()),
+                    cardholdersByCard.getOrDefault(card.getId(), List.of()),
+                    statementsByCard.getOrDefault(card.getId(), List.of())), from, to);
+            planned.add(new Planned(card, from, to, fallback, eval));
+        }
+
+        // A card with neither a usable rule nor a milestone earns nothing whatever its transactions are,
+        // so its transactions are not loaded (its report summary is the zero summary either way).
+        List<Planned> needTxns = planned.stream()
+                .filter(p -> !p.eval().rules.isEmpty() || !p.eval().milestones.isEmpty())
+                .toList();
+        Map<UUID, List<Transaction>> txnsByCard = new HashMap<>();
+        if (!needTxns.isEmpty()) {
+            LocalDate minFrom = needTxns.stream().map(p -> p.eval().expandedFrom).min(Comparator.naturalOrder()).orElseThrow();
+            LocalDate maxTo = needTxns.stream().map(p -> p.eval().expandedTo).max(Comparator.naturalOrder()).orElseThrow();
+            Map<UUID, Planned> byCard = new HashMap<>();
+            needTxns.forEach(p -> byCard.put(p.card().getId(), p));
+            for (Transaction txn : transactionRepository.findForRewardEvaluationIn(byCard.keySet(), minFrom, maxTo)) {
+                Planned p = byCard.get(txn.getAccount().getId());
+                LocalDate effective = effectiveDate(txn);
+                if (p != null && !effective.isBefore(p.eval().expandedFrom) && !effective.isAfter(p.eval().expandedTo)) {
+                    txnsByCard.computeIfAbsent(p.card().getId(), k -> new ArrayList<>()).add(txn);
+                }
+            }
+            txnsByCard.replaceAll((k, v) -> sortedForEvaluation(v));
+        }
+        List<UUID> allTxnIds = txnsByCard.values().stream().flatMap(List::stream).map(Transaction::getId).toList();
+        LinkEffects links = allTxnIds.isEmpty() ? new LinkEffects(Map.of(), Set.of()) : loadLinkEffects(allTxnIds);
+
+        List<RewardTotalResponse> totals = new ArrayList<>();
+        for (Planned p : planned) {
+            run(p.eval(), txnsByCard.getOrDefault(p.card().getId(), List.of()), links);
+            RewardReportResponse.Summary summary = buildReport(p.eval(), p.from(), p.to()).summary();
+            totals.add(new RewardTotalResponse(p.card().getId(), p.from(), p.to(), p.fallback(),
                     summary.points(), summary.grossValueInr()));
         }
         return totals;
@@ -343,6 +399,9 @@ public class RewardCalculationService {
         final Map<UUID, Transaction> txnById = new HashMap<>();
         UUID primaryCardholderId;
         UUID soleCardholderId;
+        /** The transaction range the evaluation needs (display range widened to full cap/tier/milestone windows). */
+        LocalDate expandedFrom;
+        LocalDate expandedTo;
 
         Evaluation(List<RewardRule> rules, List<MilestoneWithEligibility> milestones) {
             this.rules = rules;
@@ -421,14 +480,34 @@ public class RewardCalculationService {
             throw new ValidationException("You do not have permission to view rewards for this account.");
         }
 
-        List<RewardRule> rules = rewardRuleRepository.findByAccountIdOrderByPriorityDesc(accountId);
+        CardInputs inputs = new CardInputs(account,
+                rewardRuleRepository.findByAccountIdOrderByPriorityDesc(accountId),
+                includeMilestones ? rewardMilestoneRepository.findByAccountIdOrderByCreatedAtAsc(accountId) : List.of(),
+                cardholderRepository != null ? cardholderRepository.findByAccountId(accountId) : List.of(),
+                statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId));
+        Evaluation eval = prepare(inputs, from, to);
+        List<Transaction> transactions = transactionRepository.findForRewardEvaluation(
+                accountId, eval.expandedFrom, eval.expandedTo);
+        run(eval, transactions);
+        logRecompute(eval, accountId, from, to, trigger, startMs);
+        return eval;
+    }
+
+    /** Everything evaluating one card reads besides its transactions, so a batch can load it for many cards at once. */
+    private record CardInputs(Account account, List<RewardRule> rules, List<RewardMilestone> milestones,
+                              List<Cardholder> cardholders, List<Statement> statements) {
+    }
+
+    /** Builds the evaluation up to the transaction range it needs; runs no query. */
+    private Evaluation prepare(CardInputs inputs, LocalDate from, LocalDate to) {
+        Account account = inputs.account();
+        List<RewardRule> rules = inputs.rules();
         // Only milestones whose active range intersects the display range matter here.
-        List<MilestoneWithEligibility> milestones = !includeMilestones ? List.of()
-                : rewardMilestoneRepository.findByAccountIdOrderByCreatedAtAsc(accountId).stream()
-                        .filter(m -> (m.getActiveFrom() == null || !m.getActiveFrom().isAfter(to))
-                                && (m.getActiveTo() == null || m.getActiveTo().isAfter(from)))
-                        .map(m -> new MilestoneWithEligibility(m, rewardMilestoneService.parseEligibility(m)))
-                        .toList();
+        List<MilestoneWithEligibility> milestones = inputs.milestones().stream()
+                .filter(m -> (m.getActiveFrom() == null || !m.getActiveFrom().isAfter(to))
+                        && (m.getActiveTo() == null || m.getActiveTo().isAfter(from)))
+                .map(m -> new MilestoneWithEligibility(m, rewardMilestoneService.parseEligibility(m)))
+                .toList();
         List<RewardRule> usableRules = new ArrayList<>();
         Map<UUID, List<RewardTier>> schedules = new HashMap<>();
         for (RewardRule rule : rules) {
@@ -451,9 +530,7 @@ public class RewardCalculationService {
         eval.zeroLineUnit = account.getDefaultRewardType() == RewardType.POINTS ? UNIT_POINTS : UNIT_RUPEES;
         eval.pointValueInr = account.getPointValueInr();
 
-        List<Cardholder> allCardholders = cardholderRepository != null
-                ? cardholderRepository.findByAccountId(accountId)
-                : List.of();
+        List<Cardholder> allCardholders = inputs.cardholders();
         eval.allCardholders = allCardholders;
         eval.cardholderCount = allCardholders.size();
 
@@ -468,7 +545,7 @@ public class RewardCalculationService {
             eval.cardholderLabels.put(ch.getId(), ch.getDisplayName());
         }
         rules = usableRules;
-        eval.cycles = BillingCycles.fromStatements(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId));
+        eval.cycles = BillingCycles.fromStatements(inputs.statements());
 
         LocalDate expandedFrom = from;
         LocalDate expandedTo = to;
@@ -520,19 +597,30 @@ public class RewardCalculationService {
             }
         }
 
-        List<Transaction> transactions = transactionRepository.findForRewardEvaluation(accountId, expandedFrom, expandedTo);
-        transactions = new ArrayList<>(transactions);
-        transactions.sort(Comparator.comparing(RewardCalculationService::effectiveDate)
-                .thenComparing(t -> t.getId().toString()));
+        eval.expandedFrom = expandedFrom;
+        eval.expandedTo = expandedTo;
+        return eval;
+    }
 
-        List<UUID> ids = transactions.stream().map(Transaction::getId).toList();
+    /** Refund totals per anchor transaction and the never-earn transaction ids, from the transactions' links. */
+    private record LinkEffects(Map<UUID, BigDecimal> refundTotals, Set<UUID> neverEarnIds) {
+    }
+
+    private static final int MAX_IN_LIST = 900;
+
+    private LinkEffects loadLinkEffects(List<UUID> ids) {
         Map<UUID, BigDecimal> refundTotals = new HashMap<>();
         Set<UUID> neverEarnIds = new HashSet<>();
-        if (!ids.isEmpty()) {
-            List<UUID> linkIds = transactionLinkRepository.findLinkIdsByMemberTransactionIds(ids);
-            List<TransactionLink> links = linkIds.isEmpty()
-                    ? List.of()
-                    : transactionLinkRepository.findWithMembersByIdIn(linkIds);
+        // Every link id first (a link can have members in several chunks), then each link once.
+        Set<UUID> linkIds = new java.util.LinkedHashSet<>();
+        for (int i = 0; i < ids.size(); i += MAX_IN_LIST) {
+            linkIds.addAll(transactionLinkRepository.findLinkIdsByMemberTransactionIds(
+                    ids.subList(i, Math.min(ids.size(), i + MAX_IN_LIST))));
+        }
+        List<UUID> distinctLinkIds = new ArrayList<>(linkIds);
+        for (int i = 0; i < distinctLinkIds.size(); i += MAX_IN_LIST) {
+            List<TransactionLink> links = transactionLinkRepository.findWithMembersByIdIn(
+                    distinctLinkIds.subList(i, Math.min(distinctLinkIds.size(), i + MAX_IN_LIST)));
             for (TransactionLink link : links) {
                 if (NEVER_EARN_LINK_TYPES.contains(link.getType())) {
                     for (TransactionLinkMember member : link.getMembers()) {
@@ -554,6 +642,27 @@ public class RewardCalculationService {
                 }
             }
         }
+        return new LinkEffects(refundTotals, neverEarnIds);
+    }
+
+    private static List<Transaction> sortedForEvaluation(List<Transaction> transactions) {
+        List<Transaction> sorted = new ArrayList<>(transactions);
+        sorted.sort(Comparator.comparing(RewardCalculationService::effectiveDate)
+                .thenComparing(t -> t.getId().toString()));
+        return sorted;
+    }
+
+    /** Runs the rules over the transactions of the evaluation's expanded range, filling the evaluation. */
+    private void run(Evaluation eval, List<Transaction> transactions) {
+        transactions = sortedForEvaluation(transactions);
+        List<UUID> ids = transactions.stream().map(Transaction::getId).toList();
+        run(eval, transactions, ids.isEmpty() ? new LinkEffects(Map.of(), Set.of()) : loadLinkEffects(ids));
+    }
+
+    /** {@code transactions} already sorted by {@link #sortedForEvaluation}; {@code links} cover at least their ids. */
+    private void run(Evaluation eval, List<Transaction> transactions, LinkEffects links) {
+        Map<UUID, BigDecimal> refundTotals = links.refundTotals();
+        Set<UUID> neverEarnIds = links.neverEarnIds();
 
         Map<UUID, Pattern> regexCache = new HashMap<>();
         for (Transaction txn : transactions) {
@@ -563,6 +672,9 @@ public class RewardCalculationService {
             eval.txnById.put(txn.getId(), txn);
             evaluateTransaction(txn, refundTotals, neverEarnIds, eval, regexCache);
         }
+    }
+
+    private void logRecompute(Evaluation eval, UUID accountId, LocalDate from, LocalDate to, String trigger, long startMs) {
         long durationMs = System.currentTimeMillis() - startMs;
         log.info("Reward recompute completed: cardId={}, trigger={}, durationMs={}", accountId, trigger, durationMs,
                 StructuredArguments.keyValue("event", Events.REWARD_RECOMPUTE_COMPLETED),
@@ -573,7 +685,6 @@ public class RewardCalculationService {
                 StructuredArguments.keyValue("txnCount", eval.lines.size()),
                 StructuredArguments.keyValue("rulesEvaluated", eval.rules.size()),
                 StructuredArguments.keyValue("durationMs", durationMs));
-        return eval;
     }
 
     private void evaluateTransaction(Transaction txn, Map<UUID, BigDecimal> refundTotals,

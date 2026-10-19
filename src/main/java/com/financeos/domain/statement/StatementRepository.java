@@ -1,6 +1,7 @@
 package com.financeos.domain.statement;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -26,6 +27,11 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     @Query("SELECT s FROM Statement s WHERE s.account.id = :accountId ORDER BY s.periodEnd DESC NULLS LAST, s.createdAt DESC")
     List<Statement> findByAccountIdOrderByPeriodEndDescNullsLast(@Param("accountId") UUID accountId);
 
+    /** Statements of several accounts in the same order as the single-account query, credit-card details fetched with them. */
+    @EntityGraph(attributePaths = {"creditCardDetails"})
+    @Query("SELECT s FROM Statement s WHERE s.account.id IN :accountIds ORDER BY s.periodEnd DESC NULLS LAST, s.createdAt DESC")
+    List<Statement> findByAccountIdInOrderByPeriodEndDescNullsLast(@Param("accountIds") java.util.Collection<UUID> accountIds);
+
     List<Statement> findByAccountIdOrderByPeriodEndAsc(UUID accountId);
 
     /** Statements whose review digest has not run yet, ingested inside [from, to] (old enough to be fully linked, new enough to matter). */
@@ -40,6 +46,20 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
 
     @Query("SELECT s FROM Statement s JOIN FETCH s.creditCardDetails d WHERE s.account.id = :accountId AND s.statementType = 'credit_card' AND s.verdict != com.financeos.domain.statement.StatementVerdict.REJECTED ORDER BY s.periodEnd ASC NULLS LAST, s.createdAt ASC")
     List<Statement> findQualifyingCreditCardStatements(@Param("accountId") UUID accountId);
+
+    /** {@link #findQualifyingCreditCardStatements} for several accounts at once (the bills list). */
+    @Query("SELECT s FROM Statement s JOIN FETCH s.creditCardDetails d WHERE s.account.id IN :accountIds AND s.statementType = 'credit_card' AND s.verdict != com.financeos.domain.statement.StatementVerdict.REJECTED ORDER BY s.periodEnd ASC NULLS LAST, s.createdAt ASC")
+    List<Statement> findQualifyingCreditCardStatementsIn(@Param("accountIds") java.util.Collection<UUID> accountIds);
+
+    interface StatementLastLine {
+        UUID getStatementId();
+        LocalDate getLastLineDate();
+    }
+
+    /** {@link #findLastLineDate} for several statements at once; a statement without lines has no row. */
+    @Query("SELECT st.id.statementId AS statementId, MAX(t.date) AS lastLineDate FROM StatementTransaction st, Transaction t "
+           + "WHERE st.id.statementId IN :statementIds AND t.id = st.id.transactionId GROUP BY st.id.statementId")
+    List<StatementLastLine> findLastLineDates(@Param("statementIds") java.util.Collection<UUID> statementIds);
 
     /**
      * The statements an account balance can anchor on, latest first: dated, not rejected, with a

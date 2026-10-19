@@ -65,6 +65,7 @@ public class Cardholder {
 
     @OneToMany(mappedBy = "cardholder", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("issuedOn DESC, createdAt DESC")
+    @org.hibernate.annotations.BatchSize(size = 50)
     private List<Card> cards = new ArrayList<>();
 
     @Column(name = "created_at", nullable = false, updatable = false)

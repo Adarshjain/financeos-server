@@ -79,6 +79,15 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
 
+    /** {@link #findForRewardEvaluation} for several accounts at once (batched totals). */
+    @EntityGraph(attributePaths = { "categories.category", "card.cardholder" })
+    @Query("SELECT t FROM Transaction t WHERE t.account.id IN :accountIds " +
+            "AND COALESCE(t.settlementDate, t.date) BETWEEN :startDate AND :endDate")
+    List<Transaction> findForRewardEvaluationIn(
+            @Param("accountIds") java.util.Collection<UUID> accountIds,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate);
+
     List<Transaction> findByAppliedRuleId(UUID appliedRuleId);
 
     List<Transaction> findByAppliedRuleIdIn(Collection<UUID> appliedRuleIds);
@@ -131,6 +140,16 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     @Query("SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t WHERE t.account.id = :accountId " +
            "AND t.type = com.financeos.domain.transaction.TransactionType.DEBIT AND t.date > :afterDate")
     java.math.BigDecimal sumDebitsAfter(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
+
+    interface AccountSumProjection {
+        UUID getAccountId();
+        java.math.BigDecimal getTotal();
+    }
+
+    /** {@link #findTotalTransactionSumByAccountId} for several accounts at once; an account without transactions has no row. */
+    @Query("SELECT t.account.id AS accountId, SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END) AS total "
+           + "FROM Transaction t WHERE t.account.id IN :accountIds GROUP BY t.account.id")
+    List<AccountSumProjection> findTotalTransactionSumsByAccountIds(@Param("accountIds") java.util.Collection<UUID> accountIds);
 
     interface BalanceAggregatesProjection {
         java.math.BigDecimal getTotalSum();

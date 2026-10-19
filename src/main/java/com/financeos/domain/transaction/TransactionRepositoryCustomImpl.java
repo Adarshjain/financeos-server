@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -24,6 +25,39 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
 
     public TransactionRepositoryCustomImpl(TransactionListQueryBuilder queryBuilder) {
         this.queryBuilder = queryBuilder;
+    }
+
+    @Override
+    public Map<UUID, SumsAfter> sumsAfterCutoffs(Map<UUID, LocalDate> cutoffByAccountId) {
+        Map<UUID, SumsAfter> result = new HashMap<>();
+        if (cutoffByAccountId.isEmpty()) {
+            return result;
+        }
+        StringBuilder jpql = new StringBuilder(
+                "SELECT t.account.id, t.type, SUM(t.amount) FROM Transaction t WHERE ");
+        List<Map.Entry<UUID, LocalDate>> entries = new ArrayList<>(cutoffByAccountId.entrySet());
+        for (int i = 0; i < entries.size(); i++) {
+            jpql.append(i == 0 ? "" : " OR ").append("(t.account.id = :a").append(i).append(" AND t.date > :d").append(i).append(")");
+        }
+        jpql.append(" GROUP BY t.account.id, t.type");
+        jakarta.persistence.Query query = entityManager.createQuery(jpql.toString());
+        for (int i = 0; i < entries.size(); i++) {
+            query.setParameter("a" + i, entries.get(i).getKey());
+            query.setParameter("d" + i, entries.get(i).getValue());
+        }
+        Map<UUID, BigDecimal[]> sums = new HashMap<>();
+        for (Object row : query.getResultList()) {
+            Object[] cols = (Object[]) row;
+            UUID accountId = (UUID) cols[0];
+            BigDecimal sum = (BigDecimal) cols[2];
+            BigDecimal[] pair = sums.computeIfAbsent(accountId, k -> new BigDecimal[] { BigDecimal.ZERO, BigDecimal.ZERO });
+            pair[cols[1] == TransactionType.CREDIT ? 0 : 1] = sum;
+        }
+        for (UUID accountId : cutoffByAccountId.keySet()) {
+            BigDecimal[] pair = sums.getOrDefault(accountId, new BigDecimal[] { BigDecimal.ZERO, BigDecimal.ZERO });
+            result.put(accountId, new SumsAfter(pair[0], pair[1]));
+        }
+        return result;
     }
 
     @Override

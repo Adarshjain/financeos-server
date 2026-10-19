@@ -18,6 +18,11 @@ public interface RewardRuleRepository extends JpaRepository<RewardRule, UUID> {
     @Query("SELECT r FROM RewardRule r WHERE r.account.id = :accountId ORDER BY r.priority DESC, r.createdAt ASC")
     List<RewardRule> findByAccountIdOrderByPriorityDesc(@Param("accountId") UUID accountId);
 
+    /** Rules of several accounts, in evaluation order per account; categories fetched in the same query (batched totals). */
+    @EntityGraph(attributePaths = {"categories"})
+    @Query("SELECT r FROM RewardRule r WHERE r.account.id IN :accountIds ORDER BY r.priority DESC, r.createdAt ASC")
+    List<RewardRule> findByAccountIdInOrderByPriorityDesc(@Param("accountIds") java.util.Collection<UUID> accountIds);
+
     long countByCapBucketId(UUID capBucketId);
 
     long countByAccountId(UUID accountId);

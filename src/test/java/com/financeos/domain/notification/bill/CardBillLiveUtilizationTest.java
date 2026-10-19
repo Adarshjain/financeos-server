@@ -54,6 +54,7 @@ class CardBillLiveUtilizationTest {
         transactionRepository = mock(TransactionRepository.class);
         accountService = mock(AccountService.class);
         service = new CardBillService(accountRepository, statementRepository, transactionRepository, accountService);
+        BatchRepositoryBridge.install(statementRepository, transactionRepository, accountService);
         when(transactionRepository.sumCreditsAfter(any(), any())).thenReturn(BigDecimal.ZERO);
         when(statementRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 

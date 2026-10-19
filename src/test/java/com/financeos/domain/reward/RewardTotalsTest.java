@@ -62,6 +62,7 @@ class RewardTotalsTest {
     private User user;
     private int txnSeq = 0;
 
+    @SuppressWarnings("unchecked")
     @BeforeEach
     void setUp() {
         // Pin "today" to 2026-10-19 (Asia/Kolkata).
@@ -75,6 +76,24 @@ class RewardTotalsTest {
         lenient().when(statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(any())).thenReturn(List.of());
         lenient().when(transactionLinkRepository.findLinkIdsByMemberTransactionIds(any())).thenReturn(List.of());
         lenient().when(cardholderRepository.findByAccountId(any())).thenReturn(List.of());
+        // totals() reads every card's inputs through batch methods; answer them from the per-card stubs below.
+        lenient().when(rewardRuleRepository.findByAccountIdInOrderByPriorityDesc(any())).thenAnswer(inv -> {
+            List<RewardRule> all = new java.util.ArrayList<>();
+            for (UUID id : (java.util.Collection<UUID>) inv.getArgument(0)) {
+                all.addAll(rewardRuleRepository.findByAccountIdOrderByPriorityDesc(id));
+            }
+            return all;
+        });
+        lenient().when(rewardMilestoneRepository.findByAccountIdInOrderByCreatedAtAsc(any())).thenReturn(List.of());
+        lenient().when(cardholderRepository.findByAccountIdIn(any())).thenReturn(List.of());
+        lenient().when(statementRepository.findByAccountIdInOrderByPeriodEndDescNullsLast(any())).thenReturn(List.of());
+        lenient().when(transactionRepository.findForRewardEvaluationIn(any(), any(), any())).thenAnswer(inv -> {
+            List<Transaction> all = new java.util.ArrayList<>();
+            for (UUID id : (java.util.Collection<UUID>) inv.getArgument(0)) {
+                all.addAll(transactionRepository.findForRewardEvaluation(id, inv.getArgument(1), inv.getArgument(2)));
+            }
+            return all;
+        });
 
         service = new RewardCalculationService(
                 rewardRuleRepository, rewardRuleService, rewardMilestoneRepository, rewardMilestoneService,
