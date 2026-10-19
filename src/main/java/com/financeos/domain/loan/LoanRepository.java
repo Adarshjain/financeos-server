@@ -27,4 +27,7 @@ public interface LoanRepository extends JpaRepository<Loan, UUID> {
 
     @Query("SELECT COUNT(lp) FROM LoanPayment lp WHERE lp.loan.id = :loanId")
     long countPaymentsByLoanId(@Param("loanId") UUID loanId);
+
+    /** Loans paid from the given account that have the given status. */
+    List<Loan> findByPaymentAccount_IdAndStatus(UUID paymentAccountId, LoanStatus status);
 }

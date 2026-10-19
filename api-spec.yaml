@@ -710,6 +710,38 @@ paths:
           description: Error response
       tags:
       - account-controller
+  /api/v1/accounts/{id}/flow-summary:
+    get:
+      operationId: getFlowSummary
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: days
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 90
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AccountFlowSummaryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-insights-controller
   /api/v1/accounts/{id}/gmail-cleanup:
     post:
       operationId: performCleanup
@@ -772,6 +804,31 @@ paths:
           description: Error response
       tags:
       - gmail-controller
+  /api/v1/accounts/{id}/gmail-summary:
+    get:
+      operationId: getGmailSummary
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AccountGmailSummaryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-insights-controller
   /api/v1/accounts/{id}/identifiers:
     get:
       operationId: getAccountIdentifiers
@@ -856,6 +913,31 @@ paths:
           description: Error response
       tags:
       - account-controller
+  /api/v1/accounts/{id}/payments-from:
+    get:
+      operationId: getPaymentsFrom
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AccountPaymentsFromResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-insights-controller
   /api/v1/accounts/{id}/reopen:
     post:
       operationId: reopenAccount
@@ -885,6 +967,31 @@ paths:
           description: Error response
       tags:
       - account-controller
+  /api/v1/accounts/{id}/tab-counts:
+    get:
+      operationId: getTabCounts
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AccountTabCountsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-insights-controller
   /api/v1/auth/google/callback:
     get:
       operationId: handleGoogleCallback
@@ -6526,6 +6633,26 @@ paths:
           description: Error response
       tags:
       - reward-report-controller
+  /api/v1/rewards/totals:
+    get:
+      operationId: getTotals
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RewardTotalResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - reward-report-controller
   /api/v1/rules:
     get:
       operationId: getRules
@@ -7246,6 +7373,59 @@ components:
       required:
       - created
       - skippedCount
+    AccountFlowSummaryResponse:
+      type: object
+      properties:
+        averageDailyBalance:
+          type: number
+          nullable: true
+          x-nullable: true
+        from:
+          type: string
+          format: date
+        interestFrom:
+          type: string
+          format: date
+        interestLastQuarter:
+          type: number
+        interestTo:
+          type: string
+          format: date
+        moneyIn:
+          type: number
+        moneyOut:
+          type: number
+        to:
+          type: string
+          format: date
+        topInCategories:
+          type: array
+          items:
+            type: string
+        topOutCategories:
+          type: array
+          items:
+            type: string
+      required:
+      - from
+      - interestFrom
+      - interestLastQuarter
+      - interestTo
+      - moneyIn
+      - moneyOut
+      - to
+      - topInCategories
+      - topOutCategories
+    AccountGmailSummaryResponse:
+      type: object
+      properties:
+        lastAlert:
+          $ref: "#/components/schemas/LastAlert"
+        unmatchedCount:
+          type: integer
+          format: int64
+      required:
+      - unmatchedCount
     AccountIdentifierResponse:
       type: object
       properties:
@@ -7269,6 +7449,20 @@ components:
       - id
       - kind
       - value
+    AccountPaymentsFromResponse:
+      type: object
+      properties:
+        cardBills:
+          type: array
+          items:
+            $ref: "#/components/schemas/CardBill"
+        emis:
+          type: array
+          items:
+            $ref: "#/components/schemas/Emi"
+      required:
+      - cardBills
+      - emis
     AccountResponse:
       discriminator:
         mapping:
@@ -7282,6 +7476,22 @@ components:
       - $ref: "#/components/schemas/CreditCardAccountResponse"
       - $ref: "#/components/schemas/BrokerAccountResponse"
       - $ref: "#/components/schemas/GenericAccountResponse"
+    AccountTabCountsResponse:
+      type: object
+      properties:
+        cards:
+          type: integer
+          format: int64
+        statements:
+          type: integer
+          format: int64
+        transactions:
+          type: integer
+          format: int64
+      required:
+      - cards
+      - statements
+      - transactions
     ApplyRuleRequest:
       type: object
       properties:
@@ -8082,6 +8292,24 @@ components:
       - window
       - windowEnd
       - windowStart
+    CardBill:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        lastAmount:
+          type: number
+        lastPaidOn:
+          type: string
+          format: date
+        name:
+          type: string
+      required:
+      - accountId
+      - lastAmount
+      - lastPaidOn
+      - name
     CardBillResponse:
       type: object
       properties:
@@ -10265,6 +10493,25 @@ components:
       - liquidBalance
       - medianOutflow
       - months
+    Emi:
+      type: object
+      properties:
+        amount:
+          type: number
+        loanId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        nextDueDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+      required:
+      - amount
+      - loanId
+      - name
     EnqueueResponse:
       type: object
       properties:
@@ -11960,6 +12207,30 @@ components:
       - summaryLines
       - table
       - winnerOnly
+    LastAlert:
+      type: object
+      properties:
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+        transactionId:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+          - DEBIT
+          - CREDIT
+      required:
+      - amount
+      - date
+      - description
+      - transactionId
+      - type
     LendingMatchSuggestion:
       type: object
       properties:
@@ -15304,6 +15575,32 @@ components:
       required:
       - rate
       - upTo
+    RewardTotalResponse:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        calendarYearFallback:
+          type: boolean
+        from:
+          type: string
+          format: date
+        grossValueInr:
+          type: number
+          nullable: true
+          x-nullable: true
+        points:
+          type: number
+        to:
+          type: string
+          format: date
+      required:
+      - accountId
+      - calendarYearFallback
+      - from
+      - points
+      - to
     RootCause:
       type: object
       properties:

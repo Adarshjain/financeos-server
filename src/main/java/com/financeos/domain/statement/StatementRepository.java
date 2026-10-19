@@ -76,4 +76,7 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
            "ORDER BY s.periodEnd DESC NULLS LAST, s.createdAt DESC")
     List<java.math.BigDecimal> findLatestCreditLimits(@Param("accountId") UUID accountId,
                                                        org.springframework.data.domain.Pageable pageable);
+
+    /** Every statement of the account, as the account's statements list returns them. */
+    long countByAccount_Id(UUID accountId);
 }

@@ -29,4 +29,31 @@ public interface TransactionLinkRepository extends JpaRepository<TransactionLink
 
     @EntityGraph(attributePaths = { "members", "members.transaction" })
     List<TransactionLink> findWithMembersByIdIn(Collection<UUID> ids);
+
+    interface CardBillRow {
+        UUID getCardAccountId();
+
+        String getCardName();
+
+        java.time.LocalDate getPaidOn();
+
+        java.math.BigDecimal getAmount();
+    }
+
+    /**
+     * CC_PAYMENT links whose anchor DEBIT is on {@code accountId} and whose counterpart CREDIT is on a
+     * credit card account, anchor dated on or after {@code since}; latest first.
+     */
+    @Query("SELECT c.transaction.account.id AS cardAccountId, c.transaction.account.name AS cardName, "
+            + "a.transaction.date AS paidOn, a.transaction.amount AS amount "
+            + "FROM TransactionLink l JOIN l.members a JOIN l.members c "
+            + "WHERE l.type = com.financeos.domain.transaction.link.LinkType.CC_PAYMENT "
+            + "AND a.anchor = true AND c.anchor = false "
+            + "AND a.transaction.account.id = :accountId "
+            + "AND a.transaction.type = com.financeos.domain.transaction.TransactionType.DEBIT "
+            + "AND c.transaction.type = com.financeos.domain.transaction.TransactionType.CREDIT "
+            + "AND c.transaction.account.type = com.financeos.domain.account.AccountType.credit_card "
+            + "AND a.transaction.date >= :since "
+            + "ORDER BY a.transaction.date DESC, a.transaction.createdAt DESC")
+    List<CardBillRow> findCardBillPayments(@Param("accountId") UUID accountId, @Param("since") java.time.LocalDate since);
 }
