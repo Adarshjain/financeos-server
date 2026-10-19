@@ -65,6 +65,7 @@ class CardBillServiceTest {
         accountService = mock(AccountService.class);
         when(accountService.populateLiveBalance(any())).thenAnswer(inv -> inv.getArgument(0));
         service = new CardBillService(accountRepository, statementRepository, transactionRepository, accountService);
+        BatchRepositoryBridge.install(statementRepository, transactionRepository, accountService);
 
         user = new User();
         user.setId(UUID.randomUUID());

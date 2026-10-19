@@ -16,6 +16,8 @@ public interface CardholderRepository extends JpaRepository<Cardholder, UUID> {
 
     List<Cardholder> findByAccountId(UUID accountId);
 
+    List<Cardholder> findByAccountIdIn(java.util.Collection<UUID> accountIds);
+
     @Query("SELECT ch FROM Cardholder ch WHERE ch.account.id = :accountId AND ch.role = 'PRIMARY'")
     Optional<Cardholder> findPrimaryByAccountId(@Param("accountId") UUID accountId);
 

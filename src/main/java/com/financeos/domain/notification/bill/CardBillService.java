@@ -15,14 +15,18 @@ import com.financeos.domain.statement.StatementCreditCardDetails;
 import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.domain.transaction.TransactionRepository;
+import com.financeos.domain.transaction.TransactionRepositoryCustom;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,13 +74,13 @@ public class CardBillService {
      */
     public List<CardBill> listBills(UUID userId) {
         LocalDate today = AppTime.today();
+        List<Account> cards = accountRepository.findByUserIdAndType(userId, AccountType.credit_card);
+        List<Account> open = cards.stream().filter(account -> isOpen(account, today)).toList();
+        Batch batch = loadBatch(cards, open);
         List<CardBill> bills = new ArrayList<>();
-        for (Account account : accountRepository.findByUserIdAndType(userId, AccountType.credit_card)) {
-            if (!isOpen(account, today)) {
-                continue;
-            }
-            Optional<Statement> live = latestLiveStatement(account.getId());
-            bills.add(live.isPresent() ? buildEnriched(account, live.get(), today) : awaitingStatement(account));
+        for (Account account : open) {
+            Statement live = batch.liveStatements().get(account.getId());
+            bills.add(live != null ? buildEnriched(account, live, today, batch) : awaitingStatement(account, batch));
         }
         bills.sort(Comparator
                 .comparingInt((CardBill b) -> urgency(b.status()))
@@ -87,7 +91,7 @@ public class CardBillService {
 
     public CardBill findByStatementId(UUID userId, UUID statementId) {
         Statement statement = loadOwnedCardStatement(userId, statementId);
-        return buildEnriched(statement.getAccount(), statement, AppTime.today());
+        return buildEnriched(statement.getAccount(), statement, AppTime.today(), null);
     }
 
     /**
@@ -95,7 +99,11 @@ public class CardBillService {
      * Latest by period end; statements without a period end only win when nothing else exists.
      */
     public Optional<Statement> latestLiveStatement(UUID accountId) {
-        List<Statement> statements = statementRepository.findQualifyingCreditCardStatements(accountId);
+        return Optional.ofNullable(latestLive(statementRepository.findQualifyingCreditCardStatements(accountId)));
+    }
+
+    @Nullable
+    private static Statement latestLive(List<Statement> statements) {
         Statement best = null;
         for (Statement s : statements) {
             if (s.getCreditCardDetails() == null) {
@@ -105,7 +113,66 @@ public class CardBillService {
                 best = s;
             }
         }
-        return Optional.ofNullable(best);
+        return best;
+    }
+
+    /**
+     * What {@link #listBills} reads for all its cards at once instead of card by card (each read is a
+     * remote round trip): live statements, their last line dates, the credits and debits after each
+     * cutoff, every statement (for the next expected one) and the awaiting cards' signed sums. The
+     * cards' balances and utilisation are populated in one batch too ({@code AccountService#populateBalances}).
+     * Null where a method runs for a single bill, which reads each figure as it needs it.
+     */
+    private record Batch(Map<UUID, Statement> liveStatements,
+                         Map<UUID, LocalDate> lastLineDates,
+                         Map<UUID, TransactionRepositoryCustom.SumsAfter> sumsAfter,
+                         Map<UUID, List<Statement>> statementsByAccount,
+                         Map<UUID, BigDecimal> signedSums) {
+    }
+
+    private Batch loadBatch(List<Account> allCards, List<Account> openCards) {
+        if (openCards.isEmpty()) {
+            return new Batch(Map.of(), Map.of(), Map.of(), Map.of(), Map.of());
+        }
+        // Pool usage needs every member's balance, closed cards included.
+        accountService.populateBalances(allCards);
+        List<UUID> openIds = openCards.stream().map(Account::getId).toList();
+        Map<UUID, Statement> live = new HashMap<>();
+        statementRepository.findQualifyingCreditCardStatementsIn(openIds).stream()
+                .collect(Collectors.groupingBy(s -> s.getAccount().getId()))
+                .forEach((accountId, statements) -> {
+                    Statement best = latestLive(statements);
+                    if (best != null) {
+                        live.put(accountId, best);
+                    }
+                });
+        Map<UUID, LocalDate> lastLineByStatement = new HashMap<>();
+        if (!live.isEmpty()) {
+            for (StatementRepository.StatementLastLine row : statementRepository.findLastLineDates(
+                    live.values().stream().map(Statement::getId).toList())) {
+                lastLineByStatement.put(row.getStatementId(), row.getLastLineDate());
+            }
+        }
+        Map<UUID, LocalDate> cutoffs = new HashMap<>();
+        live.forEach((accountId, statement) -> {
+            LocalDate cutoff = BalanceMath.cutoff(statement.getPeriodEnd(), lastLineByStatement.get(statement.getId()));
+            if (cutoff != null) {
+                cutoffs.put(accountId, cutoff);
+            }
+        });
+        Map<UUID, List<Statement>> statementsByAccount = new HashMap<>();
+        statementRepository.findByAccountIdInOrderByPeriodEndDescNullsLast(openIds)
+                .forEach(s -> statementsByAccount.computeIfAbsent(s.getAccount().getId(), k -> new ArrayList<>()).add(s));
+        List<UUID> awaitingIds = openIds.stream().filter(id -> !live.containsKey(id)).toList();
+        Map<UUID, BigDecimal> signedSums = new HashMap<>();
+        if (!awaitingIds.isEmpty()) {
+            for (TransactionRepository.AccountSumProjection row
+                    : transactionRepository.findTotalTransactionSumsByAccountIds(awaitingIds)) {
+                signedSums.put(row.getAccountId(), row.getTotal());
+            }
+        }
+        return new Batch(live, lastLineByStatement, transactionRepository.sumsAfterCutoffs(cutoffs),
+                statementsByAccount, signedSums);
     }
 
     /**
@@ -116,7 +183,7 @@ public class CardBillService {
      * the statement: the date of its latest line ({@link #lastBilledDay}) and the credit sum after it.
      */
     public CardBill build(Account account, Statement statement, LocalDate today) {
-        return assemble(account, statement, today).bill();
+        return assemble(account, statement, today, null).bill();
     }
 
     /**
@@ -126,15 +193,19 @@ public class CardBillService {
     private record Built(CardBill bill, @Nullable LocalDate cutoff, BigDecimal creditsSince) {
     }
 
-    private Built assemble(Account account, Statement statement, LocalDate today) {
+    private Built assemble(Account account, Statement statement, LocalDate today, @Nullable Batch batch) {
         StatementCreditCardDetails d = statement.getCreditCardDetails();
         BigDecimal total = d.getTotalAmountDue();
         LocalDate due = d.getPaymentDueDate();
 
-        LocalDate cutoff = lastBilledDay(statement);
+        LocalDate cutoff = batch != null
+                ? BalanceMath.cutoff(statement.getPeriodEnd(), batch.lastLineDates().get(statement.getId()))
+                : lastBilledDay(statement);
         BigDecimal creditsSince = cutoff == null
                 ? BigDecimal.ZERO
-                : nonNegative(transactionRepository.sumCreditsAfter(account.getId(), cutoff));
+                : nonNegative(batch != null
+                        ? batch.sumsAfter().get(account.getId()).credits()
+                        : transactionRepository.sumCreditsAfter(account.getId(), cutoff));
 
         BigDecimal paid;
         PaidSource source;
@@ -174,7 +245,9 @@ public class CardBillService {
 
         // The limit utilisation divides by: the card's own, else the latest statement's that has one
         // (CardUtilization.creditLimit, the same rule as GET /accounts and the cycle summary).
-        BigDecimal creditLimit = CardUtilization.creditLimit(account, statementRepository);
+        BigDecimal creditLimit = batch != null
+                ? account.getEffectiveCreditLimit() // set by the batch balance population, same rule
+                : CardUtilization.creditLimit(account, statementRepository);
         CardBill.Digest digest = new CardBill.Digest(
                 d.getTotalPurchases(), d.getPaymentsReceived(), d.getFinanceCharges(), d.getFeesAndCharges(),
                 d.getRewardPointsEarned(), d.getRewardPointsBalance(), creditLimit, null,
@@ -225,21 +298,24 @@ public class CardBillService {
      * expected statement and the digest's live utilisation (balance now ÷ limit, see
      * {@link CardUtilization}) — the same figure GET /accounts reports for the card.
      */
-    private CardBill buildEnriched(Account account, Statement statement, LocalDate today) {
-        Built built = assemble(account, statement, today);
+    private CardBill buildEnriched(Account account, Statement statement, LocalDate today, @Nullable Batch batch) {
+        Built built = assemble(account, statement, today, batch);
         BigDecimal unbilled = built.cutoff() == null
                 ? null
-                : unbilled(transactionRepository.sumDebitsAfter(account.getId(), built.cutoff()),
+                : unbilled(batch != null
+                                ? batch.sumsAfter().get(account.getId()).debits()
+                                : transactionRepository.sumDebitsAfter(account.getId(), built.cutoff()),
                         built.creditsSince(), statement.getCreditCardDetails().getTotalAmountDue());
-        BigDecimal utilization = accountService.populateLiveBalance(account).getUtilizationPct();
-        return built.bill().withUtilization(utilization).withUnbilled(unbilled, nextStatementExpectedOn(account.getId()));
+        BigDecimal utilization = (batch != null ? account : accountService.populateLiveBalance(account)).getUtilizationPct();
+        return built.bill().withUtilization(utilization)
+                .withUnbilled(unbilled, nextStatementExpectedOn(account.getId(), batch));
     }
 
     /** An open card with no live statement: nothing to pay yet, only what the card owes so far. */
-    private CardBill awaitingStatement(Account account) {
+    private CardBill awaitingStatement(Account account, Batch batch) {
         // Nothing to count from, so the balance is the plain signed sum (credits positive) and the card
         // owes its negative part — the figure GET /accounts shows for an unanchored card.
-        BigDecimal signedSum = transactionRepository.findTotalTransactionSumByAccountId(account.getId());
+        BigDecimal signedSum = batch.signedSums().get(account.getId());
         BigDecimal owedSoFar = signedSum == null ? BigDecimal.ZERO : signedSum.negate().max(BigDecimal.ZERO);
         return new CardBill(
                 account.getId(),
@@ -263,7 +339,7 @@ public class CardBillService {
                 null,
                 null,
                 owedSoFar,
-                nextStatementExpectedOn(account.getId()));
+                nextStatementExpectedOn(account.getId(), batch));
     }
 
     /**
@@ -289,8 +365,10 @@ public class CardBillService {
      * {@link BillingCycles}. May already be past when the next statement is late (the client shows
      * the lateness); null when no non-rejected statement carries both period dates.
      */
-    private LocalDate nextStatementExpectedOn(UUID accountId) {
-        List<Statement> statements = statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId);
+    private LocalDate nextStatementExpectedOn(UUID accountId, @Nullable Batch batch) {
+        List<Statement> statements = batch != null
+                ? batch.statementsByAccount().get(accountId)
+                : statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId);
         if (statements == null || statements.isEmpty()) {
             return null;
         }
@@ -333,7 +411,7 @@ public class CardBillService {
             d.setLastNotifiedOn(today);
         }
         statementRepository.save(statement);
-        return buildEnriched(statement.getAccount(), statement, today);
+        return buildEnriched(statement.getAccount(), statement, today, null);
     }
 
     /** Undo a manual mark; reminders resume from the start of the sequence. */
@@ -349,7 +427,7 @@ public class CardBillService {
             d.setLastNotifiedOn(today);
         }
         statementRepository.save(statement);
-        return buildEnriched(statement.getAccount(), statement, today);
+        return buildEnriched(statement.getAccount(), statement, today, null);
     }
 
     /** Fill in (or correct) what the parser missed. Resets the sequence so reminders re-evaluate against the new date. */
@@ -385,7 +463,7 @@ public class CardBillService {
             d.setLastNotifiedOn(today);
         }
         statementRepository.save(statement);
-        return buildEnriched(statement.getAccount(), statement, today);
+        return buildEnriched(statement.getAccount(), statement, today, null);
     }
 
     // ---------------------------------------------------------------- helpers

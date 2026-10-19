@@ -161,7 +161,18 @@ public class AccountService {
             account.setCardholders(new ArrayList<>(chList));
         });
 
-        // 2. Batch compute balances in 1 query for all non-broker accounts
+        populateBalances(accounts);
+
+        return accounts;
+    }
+
+    /**
+     * Fills the balances, effective limits, utilisation and pool usage of {@code accounts} from one
+     * batch balance query (plus the pools' own rows): the figures GET /accounts reports. A pooled card's
+     * pool usage is only complete when {@code accounts} holds every member of the pool.
+     */
+    public void populateBalances(List<Account> accounts) {
+        // Batch compute balances in 1 query for all non-broker accounts
         List<UUID> nonBrokerIds = accounts.stream()
                 .filter(a -> a.getType() != AccountType.broker)
                 .map(Account::getId)
@@ -216,8 +227,6 @@ public class AccountService {
         for (List<Account> members : byPool.values()) {
             applyPoolUsage(CardUtilization.limitPool(members.get(0)), members);
         }
-
-        return accounts;
     }
 
     /** Sets the pool's usage on every member and measures each member's utilisation on the pool. */

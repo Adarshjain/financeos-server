@@ -33,6 +33,8 @@ public interface AccountRepository extends JpaRepository<Account, UUID>, Account
     /** The account when {@code userId} owns it; empty for a missing id and for another user's account alike. */
     Optional<Account> findByIdAndUser_Id(UUID id, UUID userId);
 
+    /** Detail rows fetched with the accounts: they are inverse one-to-ones Hibernate would otherwise load one by one. */
+    @org.springframework.data.jpa.repository.EntityGraph(attributePaths = {"bankDetails", "creditCardDetails", "brokerDetails"})
     List<Account> findByUserIdAndType(UUID userId, AccountType type);
 
     /** Whether the user has at least one account of {@code type} (open or closed). */

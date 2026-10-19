@@ -108,6 +108,7 @@ public class Account {
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("role ASC, createdAt ASC")
+    @org.hibernate.annotations.BatchSize(size = 50)
     private java.util.List<com.financeos.domain.account.card.Cardholder> cardholders = new java.util.ArrayList<>();
 
     public java.util.Optional<com.financeos.domain.account.card.Cardholder> primaryCardholder() {
