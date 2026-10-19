@@ -9,6 +9,7 @@ import com.financeos.domain.account.BalanceMath;
 import com.financeos.domain.account.AccountService;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.CardUtilization;
+import com.financeos.domain.account.CreditLimitPool;
 import com.financeos.domain.account.cycle.BillingCycles;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementCreditCardDetails;
@@ -73,9 +74,39 @@ public class CardBillService {
      * go through {@link #build} directly.
      */
     public List<CardBill> listBills(UUID userId) {
+        return listBills(userId, null);
+    }
+
+    /**
+     * {@link #listBills(UUID)} narrowed to one card: only that card's statements and sums are read.
+     * Its limit pool's other members (closed ones included) are loaded for balances only, as pool
+     * usage needs them. Empty when the card is missing, not the user's, not a credit card or closed.
+     */
+    public List<CardBill> listBills(UUID userId, @Nullable UUID accountId) {
         LocalDate today = AppTime.today();
-        List<Account> cards = accountRepository.findByUserIdAndType(userId, AccountType.credit_card);
-        List<Account> open = cards.stream().filter(account -> isOpen(account, today)).toList();
+        List<Account> cards;
+        if (accountId == null) {
+            cards = accountRepository.findByUserIdAndType(userId, AccountType.credit_card);
+        } else {
+            Account card = accountRepository.findById(accountId)
+                    .filter(a -> a.getType() == AccountType.credit_card
+                            && a.getUser() != null && a.getUser().getId().equals(userId))
+                    .orElse(null);
+            if (card == null || !isOpen(card, today)) {
+                return List.of();
+            }
+            CreditLimitPool pool = CardUtilization.limitPool(card);
+            cards = new ArrayList<>(List.of(card));
+            if (pool != null) {
+                accountRepository.findLimitPoolMembers(pool.getId(), userId).stream()
+                        .filter(m -> !m.getId().equals(card.getId()))
+                        .forEach(cards::add);
+            }
+        }
+        final UUID onlyId = accountId;
+        List<Account> open = cards.stream()
+                .filter(account -> onlyId == null || onlyId.equals(account.getId()))
+                .filter(account -> isOpen(account, today)).toList();
         Batch batch = loadBatch(cards, open);
         List<CardBill> bills = new ArrayList<>();
         for (Account account : open) {

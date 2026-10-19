@@ -44,8 +44,7 @@ public class BillController {
     @GetMapping
     public ResponseEntity<List<CardBillResponse>> listBills(@RequestParam(required = false) UUID accountId) {
         UUID userId = requireCurrentUserId();
-        return ResponseEntity.ok(cardBillService.listBills(userId).stream()
-                .filter(bill -> accountId == null || accountId.equals(bill.accountId()))
+        return ResponseEntity.ok(cardBillService.listBills(userId, accountId).stream()
                 .map(CardBillResponse::from)
                 .toList());
     }

@@ -56,7 +56,7 @@ class BillControllerTest {
 
     @Test
     void listMapsTheDomainViewOneToOne() {
-        when(service.listBills(userId)).thenReturn(List.of(bill));
+        when(service.listBills(userId, null)).thenReturn(List.of(bill));
         ResponseEntity<List<CardBillResponse>> response = controller.listBills(null);
         assertEquals(200, response.getStatusCode().value());
         CardBillResponse body = response.getBody().get(0);
@@ -105,7 +105,7 @@ class BillControllerTest {
     @Test
     void listWithoutAFilterReturnsEveryBillInTheServiceOrder() {
         CardBill awaiting = awaitingRow(UUID.randomUUID());
-        when(service.listBills(userId)).thenReturn(List.of(bill, awaiting));
+        when(service.listBills(userId, null)).thenReturn(List.of(bill, awaiting));
 
         List<CardBillResponse> body = controller.listBills(null).getBody();
 
@@ -113,9 +113,10 @@ class BillControllerTest {
     }
 
     @Test
-    void accountIdFilterKeepsOnlyThatCardsRowIncludingAnAwaitingRow() {
+    void accountIdIsPassedToTheServiceAndItsRowMappedIncludingAnAwaitingRow() {
         CardBill awaiting = awaitingRow(UUID.randomUUID());
-        when(service.listBills(userId)).thenReturn(List.of(bill, awaiting));
+        when(service.listBills(userId, bill.accountId())).thenReturn(List.of(bill));
+        when(service.listBills(userId, awaiting.accountId())).thenReturn(List.of(awaiting));
 
         List<CardBillResponse> billed = controller.listBills(bill.accountId()).getBody();
         assertEquals(1, billed.size());
@@ -134,7 +135,6 @@ class BillControllerTest {
 
     @Test
     void accountIdMatchingNoCardIsAnEmptyList() {
-        when(service.listBills(userId)).thenReturn(List.of(bill));
         ResponseEntity<List<CardBillResponse>> response = controller.listBills(UUID.randomUUID());
         assertEquals(200, response.getStatusCode().value());
         assertTrue(response.getBody().isEmpty());
@@ -145,6 +145,6 @@ class BillControllerTest {
         UserContext.clear();
         ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> controller.listBills(bill.accountId()));
         assertEquals(401, e.getStatusCode().value());
-        verify(service, never()).listBills(any());
+        verify(service, never()).listBills(any(), any());
     }
 }
