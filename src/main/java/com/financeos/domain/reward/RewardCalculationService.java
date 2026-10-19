@@ -2,11 +2,14 @@ package com.financeos.domain.reward;
 
 import com.financeos.api.reward.dto.RewardLineResponse;
 import com.financeos.api.reward.dto.RewardReportResponse;
+import com.financeos.api.reward.dto.RewardTotalResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.card.Cardholder;
 import com.financeos.domain.account.card.CardholderRepository;
 import com.financeos.domain.account.cycle.BillingCycles;
@@ -112,6 +115,36 @@ public class RewardCalculationService {
                 StructuredArguments.keyValue("durationMs", durationMs));
 
         return response;
+    }
+
+    /**
+     * Every credit card's total for its current anniversary year (calendar year when the card
+     * has no anniversary), using the same report math as {@link #report}.
+     */
+    @Transactional(readOnly = true)
+    public List<RewardTotalResponse> totals() {
+        LocalDate today = AppTime.today();
+        List<RewardTotalResponse> totals = new ArrayList<>();
+        for (Account card : accountRepository.findByUserIdAndType(UserContext.getCurrentUserId(), AccountType.credit_card)) {
+            LocalDate anniversary = card.getRewardAnniversaryDate();
+            boolean fallback = anniversary == null;
+            LocalDate from;
+            LocalDate to;
+            if (fallback) {
+                from = LocalDate.of(today.getYear(), 1, 1);
+                to = LocalDate.of(today.getYear(), 12, 31);
+            } else {
+                from = anniversaryOnYear(anniversary, today.getYear());
+                if (from.isAfter(today)) {
+                    from = anniversaryOnYear(anniversary, today.getYear() - 1);
+                }
+                to = anniversaryOnYear(anniversary, from.getYear() + 1).minusDays(1);
+            }
+            RewardReportResponse.Summary summary = report(card.getId(), from, to).summary();
+            totals.add(new RewardTotalResponse(card.getId(), from, to, fallback,
+                    summary.points(), summary.grossValueInr()));
+        }
+        return totals;
     }
 
     @Transactional(readOnly = true)
