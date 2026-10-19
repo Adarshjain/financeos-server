@@ -190,6 +190,16 @@ public class CardholderService {
             }
         }
 
+        if (request.openedOn() != null) {
+            if (request.openedOn().isAfter(AppTime.today())) {
+                throw new ValidationException("Opened on cannot be in the future.");
+            }
+            if (cardholder.getClosedOn() != null && request.openedOn().isAfter(cardholder.getClosedOn())) {
+                throw new ValidationException("Opened on cannot be after the closed date.");
+            }
+            cardholder.setOpenedOn(request.openedOn());
+        }
+
         cardholder.setPersonName(request.personName());
         cardholder.setSpendLimit(request.spendLimit());
 
@@ -360,6 +370,34 @@ public class CardholderService {
             count += transactionRepository.countByCardId(c.getId());
         }
         return CardholderResponse.from(cardholder, count);
+    }
+
+    /**
+     * Deletes a card that is no longer the holder's current one (closed or replaced). Its transactions move to
+     * the holder's open card, else to the most recently issued other card; the only card cannot be deleted.
+     */
+    public void deleteCard(UUID accountId, UUID cardholderId, UUID cardId) {
+        Cardholder cardholder = getCardholderAndValidateAccess(accountId, cardholderId);
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new ResourceNotFoundException("Card", cardId));
+        if (!card.getCardholder().getId().equals(cardholderId)) {
+            throw new ValidationException("Card does not belong to this cardholder.");
+        }
+        if (card.isOpen()) {
+            throw new ValidationException("Close or replace this card first.");
+        }
+
+        List<Card> others = cardholder.getCards().stream().filter(c -> !c.getId().equals(cardId)).toList();
+        Card target = others.stream().filter(Card::isOpen).findFirst()
+                .or(() -> others.stream().max(Comparator
+                        .comparing(Card::getIssuedOn, Comparator.nullsFirst(Comparator.naturalOrder()))
+                        .thenComparing(Card::getCreatedAt)))
+                .orElseThrow(() -> new ValidationException("This is the holder's only card. Delete the cardholder instead."));
+
+        transactionRepository.reassignCard(card, target);
+        // drop it from the holder too, so the cascade does not re-persist it
+        cardholder.getCards().removeIf(c -> c.getId().equals(cardId));
+        cardRepository.delete(card);
     }
 
     public void deleteCardholder(UUID accountId, UUID cardholderId) {
