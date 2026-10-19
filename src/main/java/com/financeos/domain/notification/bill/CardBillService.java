@@ -126,6 +126,89 @@ public class CardBillService {
     }
 
     /**
+     * One card's bills, a bill per statement (every statement {@link #findByStatementId} accepts: credit
+     * card type with card details, rejected ones included), newest period end first, undated last, each
+     * equal to {@code findByStatementId}. {@code limit} keeps the newest n; {@code from}/{@code to} bound
+     * the period end inclusively (a statement without one is then left out); all null means every
+     * statement. The account, its pool, statements, line dates and credit/debit sums are read once.
+     * Unknown account: not found; someone else's or not a credit card: validation error.
+     */
+    public List<CardBill> historyForAccount(UUID userId, UUID accountId, @Nullable Integer limit,
+                                            @Nullable LocalDate from, @Nullable LocalDate to) {
+        if (limit != null && limit < 1) {
+            throw new ValidationException("limit must be at least 1");
+        }
+        if (from != null && to != null && from.isAfter(to)) {
+            throw new ValidationException("from must not be after to");
+        }
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new ResourceNotFoundException("Account", accountId));
+        if (userId != null && (account.getUser() == null || !account.getUser().getId().equals(userId))) {
+            throw new ValidationException("You do not have permission to access this account.");
+        }
+        if (account.getType() != AccountType.credit_card) {
+            throw new ValidationException("Only credit card accounts carry bills.");
+        }
+        LocalDate today = AppTime.today();
+        List<Statement> all = statementRepository.findByAccountIdInOrderByPeriodEndDescNullsLast(List.of(accountId));
+        List<Statement> picked = new ArrayList<>();
+        for (Statement s : all) {
+            if (!"credit_card".equals(s.getStatementType()) || s.getCreditCardDetails() == null) {
+                continue;
+            }
+            LocalDate end = s.getPeriodEnd();
+            if ((from != null || to != null) && end == null) {
+                continue;
+            }
+            if ((from != null && end.isBefore(from)) || (to != null && end.isAfter(to))) {
+                continue;
+            }
+            picked.add(s);
+            if (limit != null && picked.size() >= limit) {
+                break;
+            }
+        }
+        if (picked.isEmpty()) {
+            return List.of();
+        }
+        accountService.populateLiveBalance(account);
+        Map<UUID, LocalDate> lastLines = new HashMap<>();
+        for (StatementRepository.StatementLastLine row : statementRepository.findLastLineDates(
+                picked.stream().map(Statement::getId).toList())) {
+            lastLines.put(row.getStatementId(), row.getLastLineDate());
+        }
+        Map<UUID, LocalDate> cutoffs = new HashMap<>();
+        for (Statement s : picked) {
+            LocalDate cutoff = BalanceMath.cutoff(s.getPeriodEnd(), lastLines.get(s.getId()));
+            if (cutoff != null) {
+                cutoffs.put(s.getId(), cutoff);
+            }
+        }
+        Map<UUID, TransactionRepositoryCustom.SumsAfter> sums = new HashMap<>();
+        if (!cutoffs.isEmpty()) {
+            List<TransactionRepositoryCustom.DaySums> days = transactionRepository.sumsByDayAfter(
+                    accountId, cutoffs.values().stream().min(Comparator.naturalOrder()).orElseThrow());
+            cutoffs.forEach((statementId, cutoff) -> {
+                BigDecimal credits = BigDecimal.ZERO;
+                BigDecimal debits = BigDecimal.ZERO;
+                for (TransactionRepositoryCustom.DaySums d : days) {
+                    if (d.date().isAfter(cutoff)) {
+                        credits = credits.add(d.credits());
+                        debits = debits.add(d.debits());
+                    }
+                }
+                sums.put(statementId, new TransactionRepositoryCustom.SumsAfter(credits, debits));
+            });
+        }
+        Batch batch = new Batch(Map.of(), lastLines, Map.of(), Map.of(accountId, all), Map.of(), sums);
+        List<CardBill> bills = new ArrayList<>();
+        for (Statement s : picked) {
+            bills.add(buildEnriched(account, s, today, batch));
+        }
+        return bills;
+    }
+
+    /**
      * The newest non-rejected credit-card statement with card details: the current bill.
      * Latest by period end; statements without a period end only win when nothing else exists.
      */
@@ -158,12 +241,13 @@ public class CardBillService {
                          Map<UUID, LocalDate> lastLineDates,
                          Map<UUID, TransactionRepositoryCustom.SumsAfter> sumsAfter,
                          Map<UUID, List<Statement>> statementsByAccount,
-                         Map<UUID, BigDecimal> signedSums) {
+                         Map<UUID, BigDecimal> signedSums,
+                         Map<UUID, TransactionRepositoryCustom.SumsAfter> sumsByStatement) {
     }
 
     private Batch loadBatch(List<Account> allCards, List<Account> openCards) {
         if (openCards.isEmpty()) {
-            return new Batch(Map.of(), Map.of(), Map.of(), Map.of(), Map.of());
+            return new Batch(Map.of(), Map.of(), Map.of(), Map.of(), Map.of(), Map.of());
         }
         // Pool usage needs every member's balance, closed cards included.
         accountService.populateBalances(allCards);
@@ -203,7 +287,7 @@ public class CardBillService {
             }
         }
         return new Batch(live, lastLineByStatement, transactionRepository.sumsAfterCutoffs(cutoffs),
-                statementsByAccount, signedSums);
+                statementsByAccount, signedSums, Map.of());
     }
 
     /**
@@ -235,7 +319,7 @@ public class CardBillService {
         BigDecimal creditsSince = cutoff == null
                 ? BigDecimal.ZERO
                 : nonNegative(batch != null
-                        ? batch.sumsAfter().get(account.getId()).credits()
+                        ? sumsOf(account, statement, batch).credits()
                         : transactionRepository.sumCreditsAfter(account.getId(), cutoff));
 
         BigDecimal paid;
@@ -334,12 +418,18 @@ public class CardBillService {
         BigDecimal unbilled = built.cutoff() == null
                 ? null
                 : unbilled(batch != null
-                                ? batch.sumsAfter().get(account.getId()).debits()
+                                ? sumsOf(account, statement, batch).debits()
                                 : transactionRepository.sumDebitsAfter(account.getId(), built.cutoff()),
                         built.creditsSince(), statement.getCreditCardDetails().getTotalAmountDue());
         BigDecimal utilization = (batch != null ? account : accountService.populateLiveBalance(account)).getUtilizationPct();
         return built.bill().withUtilization(utilization)
                 .withUnbilled(unbilled, nextStatementExpectedOn(account.getId(), batch));
+    }
+
+    /** The sums after this statement's cutoff: its own entry when the batch holds one per statement, else the account's. */
+    private static TransactionRepositoryCustom.SumsAfter sumsOf(Account account, Statement statement, Batch batch) {
+        TransactionRepositoryCustom.SumsAfter own = batch.sumsByStatement().get(statement.getId());
+        return own != null ? own : batch.sumsAfter().get(account.getId());
     }
 
     /** An open card with no live statement: nothing to pay yet, only what the card owes so far. */

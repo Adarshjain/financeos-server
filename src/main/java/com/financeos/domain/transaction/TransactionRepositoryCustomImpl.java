@@ -61,6 +61,25 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
     }
 
     @Override
+    public List<DaySums> sumsByDayAfter(UUID accountId, LocalDate after) {
+        jakarta.persistence.Query query = entityManager.createQuery(
+                "SELECT t.date, t.type, SUM(t.amount) FROM Transaction t "
+                        + "WHERE t.account.id = :a AND t.date > :d GROUP BY t.date, t.type ORDER BY t.date");
+        query.setParameter("a", accountId);
+        query.setParameter("d", after);
+        Map<LocalDate, BigDecimal[]> byDay = new java.util.TreeMap<>();
+        for (Object row : query.getResultList()) {
+            Object[] cols = (Object[]) row;
+            BigDecimal[] pair = byDay.computeIfAbsent((LocalDate) cols[0],
+                    k -> new BigDecimal[] { BigDecimal.ZERO, BigDecimal.ZERO });
+            pair[cols[1] == TransactionType.CREDIT ? 0 : 1] = (BigDecimal) cols[2];
+        }
+        List<DaySums> result = new ArrayList<>();
+        byDay.forEach((day, pair) -> result.add(new DaySums(day, pair[0], pair[1])));
+        return result;
+    }
+
+    @Override
     public Page<TransactionRepository.TransactionBalanceProjection> findFiltered(
             UUID userId,
             TransactionSearchCriteria criteria,

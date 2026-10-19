@@ -147,4 +147,24 @@ class BillControllerTest {
         assertEquals(401, e.getStatusCode().value());
         verify(service, never()).listBills(any(), any());
     }
+
+    @Test
+    void historyDelegatesWithTheCurrentUserAndParams() {
+        UUID accountId = UUID.randomUUID();
+        LocalDate from = LocalDate.of(2026, 4, 1);
+        LocalDate to = LocalDate.of(2027, 3, 31);
+        when(service.historyForAccount(userId, accountId, 3, from, to)).thenReturn(List.of(bill));
+        ResponseEntity<List<CardBillResponse>> response = controller.history(accountId, 3, from, to);
+        assertEquals(200, response.getStatusCode().value());
+        assertEquals(List.of(statementId), response.getBody().stream().map(CardBillResponse::statementId).toList());
+        when(service.historyForAccount(userId, accountId, null, null, null)).thenReturn(List.of());
+        assertTrue(controller.history(accountId, null, null, null).getBody().isEmpty());
+    }
+
+    @Test
+    void historyRequiresAUser() {
+        UserContext.clear();
+        assertThrows(ResponseStatusException.class, () -> controller.history(UUID.randomUUID(), null, null, null));
+        verify(service, never()).historyForAccount(any(), any(), any(), any(), any());
+    }
 }
