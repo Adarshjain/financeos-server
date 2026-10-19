@@ -6,8 +6,10 @@ import com.financeos.api.bill.dto.UpdateBillDetailsRequest;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.notification.bill.CardBillService;
 import jakarta.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,6 +47,23 @@ public class BillController {
     public ResponseEntity<List<CardBillResponse>> listBills(@RequestParam(required = false) UUID accountId) {
         UUID userId = requireCurrentUserId();
         return ResponseEntity.ok(cardBillService.listBills(userId, accountId).stream()
+                .map(CardBillResponse::from)
+                .toList());
+    }
+
+    /**
+     * One card's bills, a bill per statement, newest period end first; each equals
+     * {@code GET /bills/{statementId}}. {@code limit} keeps the newest n; {@code from}/{@code to} bound
+     * the period end inclusively; neither means every statement.
+     */
+    @GetMapping("/history")
+    public ResponseEntity<List<CardBillResponse>> history(
+            @RequestParam UUID accountId,
+            @RequestParam(required = false) Integer limit,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+        UUID userId = requireCurrentUserId();
+        return ResponseEntity.ok(cardBillService.historyForAccount(userId, accountId, limit, from, to).stream()
                 .map(CardBillResponse::from)
                 .toList());
     }

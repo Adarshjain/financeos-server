@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -21,6 +22,16 @@ public interface TransactionRepositoryCustom {
      * cutoff (strictly after). Every account asked for has an entry.
      */
     Map<UUID, SumsAfter> sumsAfterCutoffs(Map<UUID, LocalDate> cutoffByAccountId);
+
+    /** One day's credit and debit totals of an account. */
+    record DaySums(LocalDate date, java.math.BigDecimal credits, java.math.BigDecimal debits) {
+    }
+
+    /**
+     * The account's credit and debit totals per day, for days strictly after {@code after}, oldest
+     * first: lets several cutoffs of one account be summed in memory from a single query.
+     */
+    List<DaySums> sumsByDayAfter(UUID accountId, LocalDate after);
 
     /**
      * Executes the filtered transaction query computing true running balances.

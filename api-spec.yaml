@@ -1253,6 +1253,51 @@ paths:
           description: Error response
       tags:
       - bill-controller
+  /api/v1/bills/history:
+    get:
+      operationId: history
+      parameters:
+      - in: query
+        name: accountId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: from
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: to
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CardBillResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - bill-controller
   /api/v1/bills/{statementId}:
     get:
       operationId: getBill
