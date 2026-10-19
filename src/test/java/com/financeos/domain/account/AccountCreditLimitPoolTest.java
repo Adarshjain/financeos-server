@@ -339,7 +339,9 @@ class AccountCreditLimitPoolTest {
         assertEquals(new BigDecimal("30.0"), solo.getUtilizationPct());
         assertEquals(new BigDecimal("100000"), solo.getEffectiveCreditLimit());
         assertNull(solo.getLimitPoolUsage());
-        verifyNoInteractions(statementRepository, transactionRepository);
+        verifyNoInteractions(statementRepository);
+        verify(transactionRepository).findLastTransactionDatesByAccountIds(org.mockito.ArgumentMatchers.anyCollection());
+        org.mockito.Mockito.verifyNoMoreInteractions(transactionRepository);
         verify(accountRepository, never()).findLimitPoolMembers(any(), any());
     }
 

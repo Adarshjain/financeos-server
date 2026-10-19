@@ -55,6 +55,10 @@ public sealed interface AccountResponse {
     @Nullable
     LocalDate anchorDate();
 
+    /** The latest transaction date counted in the balance; null when the account has none. */
+    @Nullable
+    LocalDate lastTransactionDate();
+
     List<String> warnings();
 
     static AccountResponse from(Account account) {
@@ -70,6 +74,7 @@ public sealed interface AccountResponse {
         Boolean anchored = account.getBalanceAnchored() != null ? account.getBalanceAnchored() : false;
         BigDecimal gap = account.getReconciliationGap();
         LocalDate anchorDate = account.getAnchorDate();
+        LocalDate lastTxnDate = account.getLastTransactionDate();
         List<String> warnList = warnings != null ? warnings : List.of();
         UUID replacesAccId = account.getReplacesAccount() != null ? account.getReplacesAccount().getId() : null;
 
@@ -103,6 +108,7 @@ public sealed interface AccountResponse {
                         anchored,
                         gap,
                         anchorDate,
+                        lastTxnDate,
                         bankCardholders,
                         warnList);
             }
@@ -136,6 +142,7 @@ public sealed interface AccountResponse {
                         anchored,
                         gap,
                         anchorDate,
+                        lastTxnDate,
                         cardholders,
                         warnList,
                         account.getStatementExpectedNotifiedFor(),
@@ -163,6 +170,7 @@ public sealed interface AccountResponse {
                         anchored,
                         gap,
                         anchorDate,
+                        lastTxnDate,
                         warnList);
             }
             default -> new GenericAccountResponse(
@@ -180,6 +188,7 @@ public sealed interface AccountResponse {
                     anchored,
                     gap,
                     anchorDate,
+                    lastTxnDate,
                     warnList);
         };
     }
@@ -204,6 +213,7 @@ public sealed interface AccountResponse {
             Boolean balanceAnchored,
             @Nullable BigDecimal reconciliationGap,
             @Nullable LocalDate anchorDate,
+            @Nullable LocalDate lastTransactionDate,
             List<CardholderResponse> cardholders,
             List<String> warnings) implements AccountResponse {
     }
@@ -231,6 +241,7 @@ public sealed interface AccountResponse {
             Boolean balanceAnchored,
             @Nullable BigDecimal reconciliationGap,
             @Nullable LocalDate anchorDate,
+            @Nullable LocalDate lastTransactionDate,
             List<CardholderResponse> cardholders,
             List<String> warnings,
             /** The projected statement period end already announced as "hasn't arrived" (null = none). */
@@ -269,6 +280,7 @@ public sealed interface AccountResponse {
             Boolean balanceAnchored,
             @Nullable BigDecimal reconciliationGap,
             @Nullable LocalDate anchorDate,
+            @Nullable LocalDate lastTransactionDate,
             List<String> warnings) implements AccountResponse {
     }
 
@@ -287,6 +299,7 @@ public sealed interface AccountResponse {
             Boolean balanceAnchored,
             @Nullable BigDecimal reconciliationGap,
             @Nullable LocalDate anchorDate,
+            @Nullable LocalDate lastTransactionDate,
             List<String> warnings) implements AccountResponse {
     }
 }

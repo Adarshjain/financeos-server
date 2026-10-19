@@ -125,7 +125,9 @@ class AccountEffectiveCreditLimitTest {
         // Utilisation divides by the same figure.
         assertEquals(new BigDecimal("1.3"), fallback.getUtilizationPct());
         assertEquals(new BigDecimal("80000"), effective(fallback));
-        verifyNoInteractions(statementRepository, transactionRepository);
+        verifyNoInteractions(statementRepository);
+        verify(transactionRepository).findLastTransactionDatesByAccountIds(org.mockito.ArgumentMatchers.anyCollection());
+        org.mockito.Mockito.verifyNoMoreInteractions(transactionRepository);
     }
 
     @Test
