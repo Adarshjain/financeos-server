@@ -22,10 +22,26 @@ class BankCatalogTest {
     }
 
     @Test
-    void southIndianBankDoesNotAlsoCountAsIndianBank() {
-        assertThat(BankCatalog.banksNamedIn("Alert from South Indian Bank")).containsExactly("south_indian");
-        assertThat(BankCatalog.banksNamedIn("Indian Overseas Bank debit alert")).containsExactly("iob");
+    void indianBankIsNotMatchedInsideUncataloguedBanksNames() {
+        assertThat(BankCatalog.banksNamedIn("Alert from South Indian Bank")).isEmpty();
+        assertThat(BankCatalog.banksNamedIn("Indian Overseas Bank debit alert")).isEmpty();
         assertThat(BankCatalog.banksNamedIn("Indian Bank credit")).containsExactly("indian_bank");
+        assertThat(BankCatalog.banksNamedIn("South Indian Bank and Indian Bank")).containsExactly("indian_bank");
+    }
+
+    @Test
+    void catalogIsTheNineteenBanks() {
+        assertThat(BankCatalog.BANKS).extracting(BankCatalog.Bank::id).containsExactlyInAnyOrder(
+                "amex", "au", "axis", "bank_of_baroda", "canara", "csb", "equitas", "federal", "hdfc", "hsbc",
+                "icici", "idfc_first", "indian_bank", "indusind", "sbi", "sbm", "slice", "unity", "yes");
+    }
+
+    @Test
+    void droppedBanksAreUnknownAndNotNamed() {
+        for (String dropped : new String[] {"kotak", "pnb", "south_indian", "iob", "rbl", "idbi", "citi", "dbs"}) {
+            assertThat(BankCatalog.isKnown(dropped)).as(dropped).isFalse();
+        }
+        assertThat(BankCatalog.banksNamedIn("Kotak Mahindra Bank alert", "Citibank")).isEmpty();
     }
 
     @Test

@@ -39,7 +39,7 @@ public class AccountCreditCardDetails {
 
     /**
      * The account's own limit. Required unless the account is in a {@link #limitPool}; there it is
-     * an optional cap inside the shared limit (null = the account can use the whole pool).
+     * always null (the pool holds the only limit).
      */
     @Column(name = "credit_limit", precision = 19, scale = 4)
     private BigDecimal creditLimit;

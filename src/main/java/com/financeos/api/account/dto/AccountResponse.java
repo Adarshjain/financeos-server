@@ -133,7 +133,7 @@ public sealed interface AccountResponse {
                         account.getUpdatedAt(),
                         account.getIngestFromDate(),
                         last4,
-                        details != null ? details.getCreditLimit() : null,
+                        CardUtilization.accountLimit(account),
                         details != null ? details.getIssuer() : null,
                         details != null ? details.getProductName() : null,
                         account.getRewardAnniversaryDate(),

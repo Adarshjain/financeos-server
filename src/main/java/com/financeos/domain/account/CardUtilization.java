@@ -111,10 +111,10 @@ public final class CardUtilization {
                 members.size(), open);
     }
 
-    /** The account's own credit limit (null for non-cards or when unset). */
+    /** The account's own credit limit (null for non-cards, when unset, and always for a pooled card: the pool holds its limit). */
     @Nullable
     public static BigDecimal accountLimit(Account account) {
         AccountCreditCardDetails details = account.getCreditCardDetails();
-        return details != null ? details.getCreditLimit() : null;
+        return details != null && details.getLimitPool() == null ? details.getCreditLimit() : null;
     }
 }

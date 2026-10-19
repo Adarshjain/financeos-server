@@ -66,8 +66,8 @@ public sealed interface CreateAccountRequest {
             String description,
             @NotBlank(message = "Last 4 digits are required") String last4,
             /**
-             * The account's own limit: required unless {@code limitPool} is set, where it is an
-             * optional cap inside the shared limit (enforced by AccountService).
+             * The account's own limit: required unless {@code limitPool} is set, where it is
+             * ignored (a pooled card has no limit of its own; AccountService stores null).
              */
             @Nullable BigDecimal creditLimit,
             /** Card membership anniversary — anchors ANNIVERSARY_YEAR reward windows. */

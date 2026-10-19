@@ -231,28 +231,58 @@ class AccountCreditLimitPoolTest {
     }
 
     @Test
-    void aPooledCardsOwnLimitIsACapThatCannotExceedThePool() {
+    void aPooledCardsOwnLimitIsIgnoredAndStoredNull() {
         CreditLimitPool mine = pool("HDFC", "500000");
         when(accountRepository.findOwnedLimitPool(mine.getId(), user.getId())).thenReturn(Optional.of(mine));
         CreditLimitPoolRequest join = new CreditLimitPoolRequest(mine.getId(), null, null);
 
-        ValidationException e = assertThrows(ValidationException.class,
-                () -> service.addCreditCardDetails(newCard(), request("500001", join)));
-        assertEquals("An account's own limit cannot be more than the shared limit", e.getMessage());
-
-        Account equal = newCard();
-        service.addCreditCardDetails(equal, request("500000", join));
-        assertEquals(new BigDecimal("500000"), equal.getCreditCardDetails().getCreditLimit());
-        assertSame(mine, equal.getCreditCardDetails().getLimitPool());
+        // above, equal to and below the pool's limit: none is validated, none is stored
+        for (String own : new String[] {"500001", "500000", "100000"}) {
+            Account card = newCard();
+            service.addCreditCardDetails(card, request(own, join));
+            assertNull(card.getCreditCardDetails().getCreditLimit(), own);
+            assertSame(mine, card.getCreditCardDetails().getLimitPool());
+        }
     }
 
     @Test
-    void theCapIsCheckedAgainstTheLimitTheSameRequestSets() {
-        CreditLimitPool mine = pool("HDFC", "500000");
-        when(accountRepository.findOwnedLimitPool(mine.getId(), user.getId())).thenReturn(Optional.of(mine));
+    void aNewPoolCreatedWithTheCardAlsoDropsTheOwnLimit() {
+        Account card = newCard();
 
-        assertThrows(ValidationException.class, () -> service.addCreditCardDetails(newCard(),
-                request("400000", new CreditLimitPoolRequest(mine.getId(), null, new BigDecimal("300000")))));
+        service.addCreditCardDetails(card, request("999999", newPool("HDFC", "500000")));
+
+        assertNull(card.getCreditCardDetails().getCreditLimit());
+        assertEquals(new BigDecimal("500000"), card.getCreditCardDetails().getLimitPool().getCreditLimit());
+    }
+
+    @Test
+    void joiningAPoolOnUpdateClearsAStoredOwnLimit() {
+        CreditLimitPool mine = pool("HDFC", "500000");
+        Account account = card("200000", null);
+        when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
+        when(accountRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(accountRepository.findOwnedLimitPool(mine.getId(), user.getId())).thenReturn(Optional.of(mine));
+        when(accountRepository.findLimitPoolMembers(mine.getId(), user.getId())).thenReturn(List.of(account));
+
+        service.updateAccount(account.getId(), request("300000", new CreditLimitPoolRequest(mine.getId(), null, null)));
+
+        assertNull(account.getCreditCardDetails().getCreditLimit());
+        assertSame(mine, account.getCreditCardDetails().getLimitPool());
+    }
+
+    @Test
+    void aPooledCardNeverReportsALimitOfItsOwnEvenIfOneWasStored() {
+        Account pooled = card("250000", pool("HDFC", "500000"));
+        Account solo = card("250000", null);
+
+        assertNull(((AccountResponse.CreditCardAccountResponse) AccountResponse.from(pooled)).creditLimit());
+        assertEquals(new BigDecimal("250000"),
+                ((AccountResponse.CreditCardAccountResponse) AccountResponse.from(solo)).creditLimit());
+    }
+
+    @Test
+    void anUnpooledCardWithNoLimitAndNoPoolIsStillRejected() {
+        assertThrows(ValidationException.class, () -> service.addCreditCardDetails(newCard(), request(null, null)));
     }
 
     // ------------------------------------------------------------------ leaving a pool, pruning
@@ -339,9 +369,7 @@ class AccountCreditLimitPoolTest {
         assertEquals(new BigDecimal("30.0"), solo.getUtilizationPct());
         assertEquals(new BigDecimal("100000"), solo.getEffectiveCreditLimit());
         assertNull(solo.getLimitPoolUsage());
-        verifyNoInteractions(statementRepository);
-        verify(transactionRepository).findLastTransactionDatesByAccountIds(org.mockito.ArgumentMatchers.anyCollection());
-        org.mockito.Mockito.verifyNoMoreInteractions(transactionRepository);
+        verifyNoInteractions(statementRepository, transactionRepository);
         verify(accountRepository, never()).findLimitPoolMembers(any(), any());
     }
 

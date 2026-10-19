@@ -108,7 +108,6 @@ class AccountQueryCountTest {
         verifyNoMoreInteractions(accountRepository);
         verifyNoMoreInteractions(cardholderRepository);
         verifyNoInteractions(statementRepository);
-        verify(transactionRepository, times(1)).findLastTransactionDatesByAccountIds(org.mockito.ArgumentMatchers.anyCollection());
-        verifyNoMoreInteractions(transactionRepository);
+        verifyNoInteractions(transactionRepository);
     }
 }
