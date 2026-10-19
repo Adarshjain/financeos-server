@@ -65,4 +65,8 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     /** Attention items the user has not been told about yet (the GMAIL_ATTENTION digest input); archived items are excluded. */
     @Query("SELECT g FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.attentionNotifiedAt IS NULL AND g.archivedAt IS NULL ORDER BY g.discoveredAt ASC")
     List<GmailProcessedMessage> findUnnotifiedAttentionItems(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
+
+    /** {@link #findAttentionItems}' rows for one account (the row's resolved account), same filter; archived excluded. */
+    @Query("SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.account.id = :accountId AND g.status IN :statuses AND g.archivedAt IS NULL")
+    long countAttentionItemsForAccount(@Param("userId") UUID userId, @Param("accountId") UUID accountId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
 }

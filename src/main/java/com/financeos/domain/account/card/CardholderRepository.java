@@ -34,4 +34,7 @@ public interface CardholderRepository extends JpaRepository<Cardholder, UUID> {
 
     @Query("SELECT DISTINCT ch FROM Cardholder ch LEFT JOIN FETCH ch.cards WHERE ch.account.id IN :accountIds ORDER BY ch.role ASC, ch.createdAt ASC")
     List<Cardholder> findByAccountIdInWithCards(@Param("accountIds") List<UUID> accountIds);
+
+    /** Cardholders of the account that are not closed. */
+    long countByAccountIdAndClosedOnIsNull(UUID accountId);
 }

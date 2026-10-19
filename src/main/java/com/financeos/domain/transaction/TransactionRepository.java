@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -334,4 +335,44 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     @Query("SELECT COUNT(DISTINCT t.id) FROM Transaction t JOIN t.reviewReasons r WHERE t.user.id = :userId AND t.reviewType = :reviewType AND r = :reason")
     long countByUserIdAndReviewTypeAndReason(@Param("userId") UUID userId, @Param("reviewType") ReviewType reviewType,
                                              @Param("reason") ReviewReason reason);
+
+    /** Every transaction of the account: what the transactions list returns for an accountId filter (it excludes nothing). */
+    @Query("SELECT COUNT(t) FROM Transaction t WHERE t.account.id = :accountId")
+    long countAllByAccountId(@Param("accountId") UUID accountId);
+
+    interface TypeTotalProjection {
+        TransactionType getType();
+
+        java.math.BigDecimal getTotal();
+    }
+
+    /** The account's credit and debit totals (amounts are positive) for dates in {@code from}..{@code to}. */
+    @Query("SELECT t.type AS type, SUM(t.amount) AS total FROM Transaction t "
+            + "WHERE t.account.id = :accountId AND t.date BETWEEN :from AND :to GROUP BY t.type")
+    List<TypeTotalProjection> sumByTypeBetween(@Param("accountId") UUID accountId,
+                                               @Param("from") LocalDate from, @Param("to") LocalDate to);
+
+    interface CategoryTotalProjection {
+        String getName();
+
+        java.math.BigDecimal getTotal();
+    }
+
+    /** Per category name, the account's totals of one direction for dates in {@code from}..{@code to}; uncategorised rows have no row here. */
+    @Query("SELECT c.name AS name, SUM(t.amount) AS total FROM Transaction t JOIN t.categories tc JOIN tc.category c "
+            + "WHERE t.account.id = :accountId AND t.type = :type AND t.date BETWEEN :from AND :to GROUP BY c.name")
+    List<CategoryTotalProjection> sumByCategoryBetween(@Param("accountId") UUID accountId,
+                                                       @Param("type") TransactionType type,
+                                                       @Param("from") LocalDate from, @Param("to") LocalDate to);
+
+    /** Credits in the window that carry a category named "Interest" (case-insensitive, trimmed). */
+    @Query("SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t WHERE t.account.id = :accountId "
+            + "AND t.type = com.financeos.domain.transaction.TransactionType.CREDIT AND t.date BETWEEN :from AND :to "
+            + "AND EXISTS (SELECT 1 FROM TransactionCategory tc JOIN tc.category c WHERE tc.transaction = t "
+            + "AND LOWER(TRIM(c.name)) = 'interest')")
+    java.math.BigDecimal sumInterestCreditsBetween(@Param("accountId") UUID accountId,
+                                                   @Param("from") LocalDate from, @Param("to") LocalDate to);
+
+    /** The account's latest transaction of a source, by date then creation time. */
+    Optional<Transaction> findFirstByAccount_IdAndSourceOrderByDateDescCreatedAtDesc(UUID accountId, TransactionSource source);
 }
