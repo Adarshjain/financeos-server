@@ -108,10 +108,10 @@ class AccountResolverBankTiebreakTest {
     void southIndianBankTextDoesNotMatchIndianBank() {
         given(card("A", "indian_bank"), card("B", "hdfc"), "1111");
         assertThat(resolve("1111", "South Indian Bank alert")).isEmpty();
-        Account south = card("C", "south_indian");
+        assertThat(resolve("1111", "Indian Overseas Bank alert")).isEmpty();
         Account indian = card("D", "indian_bank");
-        given(south, indian, "2222");
-        assertThat(resolve("2222", "South Indian Bank alert")).map(r -> r.account()).contains(south);
+        given(indian, card("E", "hdfc"), "2222");
+        assertThat(resolve("2222", "Indian Bank alert")).map(r -> r.account()).contains(indian);
     }
 
     @Test
@@ -130,12 +130,12 @@ class AccountResolverBankTiebreakTest {
         a.setBankDetails(new com.financeos.domain.account.AccountBankDetails(a, null, "3333", null));
         Account b = new Account("Savings B", AccountType.bank_account);
         b.setId(UUID.randomUUID());
-        b.setBank("kotak");
+        b.setBank("federal");
         b.setBankDetails(new com.financeos.domain.account.AccountBankDetails(b, null, "3333", null));
         when(accountRepository.findAll()).thenReturn(List.of(a, b));
         when(cardRepository.findAll()).thenReturn(List.of());
 
-        assertThat(resolve("3333", "Kotak Mahindra Bank alert")).map(r -> r.account()).contains(b);
+        assertThat(resolve("3333", "Federal Bank alert")).map(r -> r.account()).contains(b);
     }
 
     @Test

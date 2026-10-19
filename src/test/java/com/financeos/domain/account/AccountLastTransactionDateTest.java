@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.context.ApplicationEventPublisher;
 
-/** AccountService fills lastTransactionDate: one chunked batch query for the list, one read for a single account. */
+/** lastTransactionDate is filled only by populateLastTransactionDates (the GET list/single path); every other read skips the query. */
 class AccountLastTransactionDateTest {
 
     private AccountRepository accountRepository;
@@ -87,17 +87,15 @@ class AccountLastTransactionDateTest {
         Account withTxn = account(AccountType.bank_account);
         Account without = account(AccountType.credit_card);
         Account broker = account(AccountType.broker);
-        when(accountRepository.findAll()).thenReturn(List.of(withTxn, without, broker));
         when(transactionRepository.findLastTransactionDatesByAccountIds(anyCollection()))
                 .thenReturn(List.of(row(withTxn.getId(), LocalDate.of(2026, 10, 5))));
 
-        service.getAllAccounts();
+        service.populateLastTransactionDates(List.of(withTxn, without, broker));
 
         assertEquals(LocalDate.of(2026, 10, 5), withTxn.getLastTransactionDate());
         assertNull(without.getLastTransactionDate());
         assertNull(broker.getLastTransactionDate(), "a broker's balance is not made of transactions");
         verify(transactionRepository, times(1)).findLastTransactionDatesByAccountIds(anyCollection());
-        verify(transactionRepository, never()).findMaxDateByAccountId(org.mockito.ArgumentMatchers.any());
         assertEquals(LocalDate.of(2026, 10, 5),
                 ((AccountResponse.BankAccountResponse) AccountResponse.from(withTxn)).lastTransactionDate());
         assertNull(((AccountResponse.CreditCardAccountResponse) AccountResponse.from(without)).lastTransactionDate());
@@ -105,9 +103,7 @@ class AccountLastTransactionDateTest {
 
     @Test
     void emptyListRunsNoQuery() {
-        when(accountRepository.findAll()).thenReturn(List.of());
-
-        service.getAllAccounts();
+        service.populateLastTransactionDates(List.of());
 
         verify(transactionRepository, never()).findLastTransactionDatesByAccountIds(anyCollection());
     }
@@ -119,7 +115,6 @@ class AccountLastTransactionDateTest {
         for (int i = 0; i < 1801; i++) {
             accounts.add(account(AccountType.bank_account));
         }
-        when(accountRepository.findAll()).thenReturn(accounts);
         when(transactionRepository.findLastTransactionDatesByAccountIds(anyCollection())).thenAnswer(inv -> {
             List<TransactionRepository.AccountLastDateProjection> rows = new ArrayList<>();
             for (UUID id : (Collection<UUID>) inv.getArgument(0)) {
@@ -128,7 +123,7 @@ class AccountLastTransactionDateTest {
             return rows;
         });
 
-        service.getAllAccounts();
+        service.populateLastTransactionDates(accounts);
 
         ArgumentCaptor<Collection<UUID>> chunks = ArgumentCaptor.forClass(Collection.class);
         verify(transactionRepository, times(3)).findLastTransactionDatesByAccountIds(chunks.capture());
@@ -137,22 +132,40 @@ class AccountLastTransactionDateTest {
     }
 
     @Test
-    void singleAccountReadsItsOwnMaxDate() {
+    void singleAccountReadsItsDateThroughTheSameBatchQuery() {
         Account bank = account(AccountType.bank_account);
-        when(accountRepository.findById(bank.getId())).thenReturn(Optional.of(bank));
-        when(transactionRepository.findTotalTransactionSumByAccountId(bank.getId())).thenReturn(BigDecimal.TEN);
-        when(transactionRepository.findMaxDateByAccountId(bank.getId())).thenReturn(LocalDate.of(2026, 10, 9));
+        when(transactionRepository.findLastTransactionDatesByAccountIds(anyCollection()))
+                .thenReturn(List.of(row(bank.getId(), LocalDate.of(2026, 10, 9))));
 
-        Account loaded = service.getAccountById(bank.getId());
+        service.populateLastTransactionDates(List.of(bank));
 
-        assertEquals(LocalDate.of(2026, 10, 9), loaded.getLastTransactionDate());
+        assertEquals(LocalDate.of(2026, 10, 9), bank.getLastTransactionDate());
     }
 
     @Test
     void singleAccountWithNoTransactionsIsNull() {
         Account bank = account(AccountType.bank_account);
+
+        service.populateLastTransactionDates(List.of(bank));
+
+        assertNull(bank.getLastTransactionDate());
+    }
+
+    @Test
+    void otherReadersRunNoLastDateQuery() {
+        Account bank = account(AccountType.bank_account);
+        Account card = account(AccountType.credit_card);
+        when(accountRepository.findAll()).thenReturn(List.of(bank, card));
         when(accountRepository.findById(bank.getId())).thenReturn(Optional.of(bank));
 
-        assertNull(service.getAccountById(bank.getId()).getLastTransactionDate());
+        service.getAllAccounts();
+        service.getAccountById(bank.getId());
+        service.findOwnedAccount(bank.getId());
+        service.populateLiveBalance(bank);
+        service.populateBalances(List.of(bank, card));
+
+        verify(transactionRepository, never()).findLastTransactionDatesByAccountIds(anyCollection());
+        assertNull(bank.getLastTransactionDate());
+        assertNull(card.getLastTransactionDate());
     }
 }

@@ -195,10 +195,7 @@ public class AccountService {
                 ? java.util.Map.of()
                 : accountRepository.findAccountBalanceBatches(nonBrokerIds);
 
-        java.util.Map<UUID, LocalDate> lastDates = lastTransactionDates(nonBrokerIds);
-
         for (Account account : accounts) {
-            account.setLastTransactionDate(lastDates.get(account.getId()));
             if (account.getType() == AccountType.broker) {
                 BigDecimal cash = account.getBrokerDetails() != null && account.getBrokerDetails().getCashBalance() != null
                         ? account.getBrokerDetails().getCashBalance()
@@ -246,6 +243,23 @@ public class AccountService {
     }
 
     private static final int IN_LIST_CHUNK = 900;
+
+    /**
+     * Sets {@code lastTransactionDate} on each account (null for brokers and accounts with no transactions)
+     * from one GROUP BY query per 900 ids. Only the account GET list and single GET call it: every other
+     * reader of {@link #populateBalances} / {@link #getAccountById} skips the query.
+     */
+    @Transactional(readOnly = true)
+    public void populateLastTransactionDates(List<Account> accounts) {
+        List<UUID> nonBrokerIds = accounts.stream()
+                .filter(a -> a.getType() != AccountType.broker)
+                .map(Account::getId)
+                .toList();
+        java.util.Map<UUID, LocalDate> lastDates = lastTransactionDates(nonBrokerIds);
+        for (Account account : accounts) {
+            account.setLastTransactionDate(lastDates.get(account.getId()));
+        }
+    }
 
     /** The latest transaction date per account id (accounts without transactions are absent), in chunks of 900 ids. */
     private java.util.Map<UUID, LocalDate> lastTransactionDates(List<UUID> accountIds) {
@@ -509,7 +523,12 @@ public class AccountService {
             details.setUser(account.getUser());
             account.setCreditCardDetails(details);
         }
-        account.getCreditCardDetails().setLimitPool(resolveLimitPool(account, request));
+        CreditLimitPool pool = resolveLimitPool(account, request);
+        account.getCreditCardDetails().setLimitPool(pool);
+        if (pool != null) {
+            // A pooled card has no limit of its own: the pool's limit is the only one.
+            account.getCreditCardDetails().setCreditLimit(null);
+        }
 
         // Upsert primary cardholder and primary card
         Cardholder primaryCh = null;
@@ -564,8 +583,7 @@ public class AccountService {
     /**
      * The shared limit the request puts the account in: null when it names none; the caller's
      * existing pool (renamed or re-limited when the request says so) when it carries an id; else a
-     * new pool, persisted with the account. A pooled account's own limit, when given, is a cap inside
-     * the pool and cannot exceed it.
+     * new pool, persisted with the account. A pooled account's own limit is ignored (stored null).
      */
     private CreditLimitPool resolveLimitPool(Account account, CreateAccountRequest.CreditCardRequest request) {
         CreditLimitPoolRequest ref = request.limitPool();
@@ -584,9 +602,6 @@ public class AccountService {
             }
         } else {
             pool = new CreditLimitPool(account.getUser(), validPoolName(ref.name()), validPoolLimit(ref.creditLimit()));
-        }
-        if (request.creditLimit() != null && request.creditLimit().compareTo(pool.getCreditLimit()) > 0) {
-            throw new ValidationException("An account's own limit cannot be more than the shared limit");
         }
         return pool;
     }
@@ -722,8 +737,6 @@ public class AccountService {
     }
 
     private void populateBalanceInfo(Account account) {
-        account.setLastTransactionDate(account.getType() == AccountType.broker
-                ? null : transactionRepository.findMaxDateByAccountId(account.getId()));
         if (account.getType() == AccountType.broker) {
             BigDecimal cash = account.getBrokerDetails() != null && account.getBrokerDetails().getCashBalance() != null
                     ? account.getBrokerDetails().getCashBalance()
