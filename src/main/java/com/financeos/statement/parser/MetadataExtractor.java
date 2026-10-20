@@ -16,12 +16,15 @@ final class MetadataExtractor {
     private static final Pattern TO_TILL_THROUGH = Pattern.compile("\\b(to|till|through)\\b", Pattern.CASE_INSENSITIVE);
     private static final Pattern NAME_LABEL_EXCLUDE = Pattern.compile(
             "(?:branch|bank|scheme|product|nominee)\\s+name", Pattern.CASE_INSENSITIVE);
+    private static final Pattern STATEMENT_DATE_LABEL = Pattern.compile(
+            "statement\\s+(?:date|dt)\\b\\s*:?", Pattern.CASE_INSENSITIVE);
     private static final Pattern RANGE_SEP = Pattern.compile("\\s+[-–]\\s+");
 
     static StatementMeta extract(List<Line> preTable, String dateFmt) {
         StatementMeta meta = new StatementMeta();
         String bankFallback = null;
         LocalDate[] bareRange = null;
+        LocalDate statementDate = null;
 
         for (int i = 0; i < preTable.size(); i++) {
             Line ln = preTable.get(i);
@@ -103,6 +106,9 @@ final class MetadataExtractor {
                     }
                 }
             }
+            if (statementDate == null) {
+                statementDate = labelledStatementDate(text, dateFmt);
+            }
             if (bareRange == null) {
                 bareRange = bareDateRange(ln, dateFmt);
             }
@@ -141,7 +147,38 @@ final class MetadataExtractor {
             meta.periodStart = bareRange[0];
             meta.periodEnd = bareRange[1];
         }
+        // Last resort: a labelled "Statement Date" closes the period; the start is never derived.
+        if (meta.periodStart == null && meta.periodEnd == null && statementDate != null) {
+            meta.periodEnd = statementDate;
+        }
         return meta;
+    }
+
+    // The date printed right after a "Statement Date" label on the same line.
+    private static LocalDate labelledStatementDate(String text, String dateFmt) {
+        Matcher m = STATEMENT_DATE_LABEL.matcher(text);
+        if (!m.find()) {
+            return null;
+        }
+        List<String> fmts = new ArrayList<>();
+        if (dateFmt != null) {
+            fmts.add(dateFmt);
+        }
+        fmts.addAll(Dates.DATE_FORMATS);
+        List<Word> rest = new ArrayList<>();
+        double x = 0;
+        for (String tok : text.substring(m.end()).strip().split("\\s+")) {
+            if (!tok.isEmpty()) {
+                rest.add(new Word(tok, x, x + tok.length(), 0, 0));
+                x += tok.length() + 1;
+            }
+        }
+        for (LocalDate d : Dates.findDatesInWords(rest, fmts)) {
+            if (d.getYear() > 1990) {
+                return d;
+            }
+        }
+        return null;
     }
 
     // An unlabelled masthead line that is nothing but a date range
