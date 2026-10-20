@@ -304,20 +304,6 @@ public final class StatementParseEngine {
                         Math.abs(prev + fc + debits - credits - due) <= tolCard);
             }
         }
-        if (meta.periodStart == null && !results.isEmpty()) {
-            LocalDate mn = results.get(0).date;
-            LocalDate mx = results.get(0).date;
-            for (RowResult r : results) {
-                if (r.date.isBefore(mn)) {
-                    mn = r.date;
-                }
-                if (r.date.isAfter(mx)) {
-                    mx = r.date;
-                }
-            }
-            meta.periodStart = mn;
-            meta.periodEnd = mx;
-        }
         if (meta.closingBalance == null) {
             meta.closingBalance = closingDerived;
         }
