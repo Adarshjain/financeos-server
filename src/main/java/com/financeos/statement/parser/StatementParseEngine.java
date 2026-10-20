@@ -377,7 +377,13 @@ public final class StatementParseEngine {
         parseInfo.verdict = verdict;
         parseInfo.rowsDropped = rowsDropped;
 
-        return new ParsedStatement(meta, statementType, summaryFields, derived, parseInfo, results);
+        StringBuilder summary = new StringBuilder();
+        for (Line ln : lines) {
+            if (ln.page() <= 2 || (ln.page() > maxTxnPage && ln.page() <= harvestMaxPage)) {
+                summary.append(ln.text()).append('\n');
+            }
+        }
+        return new ParsedStatement(meta, statementType, summaryFields, derived, parseInfo, results, summary.toString());
     }
 
     // A page is prose (terms & conditions) when a meaningful share of its lines run

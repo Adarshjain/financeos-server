@@ -53,6 +53,8 @@ public final class Events {
     public static final String LLM_CIRCUIT_CLOSED = "llm.circuit.closed";
     public static final String LLM_CHAIN_EXHAUSTED = "llm.chain.exhausted";
     public static final String LLM_BUCKET_COOLDOWN = "llm.bucket.cooldown";
+    public static final String STATEMENT_AI_DETAILS_FILLED = "statement.ai_details.filled";
+    public static final String STATEMENT_AI_DETAILS_SKIPPED = "statement.ai_details.skipped";
 
     // Job Events
     public static final String JOB_STARTED = "job.started";
