@@ -82,9 +82,9 @@ class BillControllerTest {
         when(service.unmarkPaid(userId, statementId)).thenReturn(bill);
         assertEquals(200, controller.unmarkPaid(statementId).getStatusCode().value());
 
-        when(service.updateDetails(userId, statementId, LocalDate.of(2026, 11, 1), null, null)).thenReturn(bill);
-        controller.updateDetails(statementId, new UpdateBillDetailsRequest(LocalDate.of(2026, 11, 1), null, null));
-        verify(service).updateDetails(userId, statementId, LocalDate.of(2026, 11, 1), null, null);
+        when(service.updateDetails(userId, statementId, null, null, LocalDate.of(2026, 11, 1), null, null)).thenReturn(bill);
+        controller.updateDetails(statementId, new UpdateBillDetailsRequest(null, null, LocalDate.of(2026, 11, 1), null, null));
+        verify(service).updateDetails(userId, statementId, null, null, LocalDate.of(2026, 11, 1), null, null);
     }
 
     @Test

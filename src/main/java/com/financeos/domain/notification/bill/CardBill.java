@@ -1,8 +1,10 @@
 package com.financeos.domain.notification.bill;
 
+import com.financeos.domain.statement.MissingDetails;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.lang.Nullable;
 
@@ -52,8 +54,25 @@ public record CardBill(
          * Projected close of the cycle after the latest dated statement. May already be in the past when
          * the next statement is late; null when the card has no dated statement.
          */
-        @Nullable LocalDate nextStatementExpectedOn
+        @Nullable LocalDate nextStatementExpectedOn,
+        /** Figures the statement still lacks (see {@link com.financeos.domain.statement.MissingDetails}); empty when complete, rejected or no statement. */
+        List<String> missingDetails
 ) {
+    /** A bill whose gaps are read off its own fields (no verdict known: treated as live). */
+    public CardBill(UUID accountId, String accountName, String last4, @Nullable UUID statementId,
+                    LocalDate periodStart, LocalDate periodEnd, LocalDate paymentDueDate,
+                    BigDecimal totalAmountDue, BigDecimal minimumAmountDue, BigDecimal paidAmount,
+                    BigDecimal remainingAmount, PaidSource paidSource, BillStatus status, Long daysUntilDue,
+                    LocalDate paidMarkedOn, boolean muted, Instant statementCreatedAt, String lastNotifiedKind,
+                    LocalDate lastNotifiedOn, Digest digest, @Nullable BigDecimal unbilledAmount,
+                    @Nullable LocalDate nextStatementExpectedOn) {
+        this(accountId, accountName, last4, statementId, periodStart, periodEnd, paymentDueDate, totalAmountDue,
+                minimumAmountDue, paidAmount, remainingAmount, paidSource, status, daysUntilDue, paidMarkedOn, muted,
+                statementCreatedAt, lastNotifiedKind, lastNotifiedOn, digest, unbilledAmount, nextStatementExpectedOn,
+                statementId == null ? List.of()
+                        : MissingDetails.of(null, periodStart, periodEnd, paymentDueDate, totalAmountDue, minimumAmountDue));
+    }
+
     /** The statement-arrived summary. */
     public record Digest(
             BigDecimal totalPurchases,
@@ -83,7 +102,7 @@ public record CardBill(
         return new CardBill(accountId, accountName, last4, statementId, periodStart, periodEnd, paymentDueDate,
                 totalAmountDue, minimumAmountDue, paidAmount, remainingAmount, paidSource, status, daysUntilDue,
                 paidMarkedOn, muted, statementCreatedAt, lastNotifiedKind, lastNotifiedOn, withPct,
-                unbilledAmount, nextStatementExpectedOn);
+                unbilledAmount, nextStatementExpectedOn, missingDetails);
     }
 
     /** The same bill with the two read-side extras filled in. */
@@ -91,6 +110,6 @@ public record CardBill(
         return new CardBill(accountId, accountName, last4, statementId, periodStart, periodEnd, paymentDueDate,
                 totalAmountDue, minimumAmountDue, paidAmount, remainingAmount, paidSource, status, daysUntilDue,
                 paidMarkedOn, muted, statementCreatedAt, lastNotifiedKind, lastNotifiedOn, digest,
-                unbilledAmount, nextStatementExpectedOn);
+                unbilledAmount, nextStatementExpectedOn, missingDetails);
     }
 }

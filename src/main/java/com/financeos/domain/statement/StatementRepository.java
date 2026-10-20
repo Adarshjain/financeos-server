@@ -18,6 +18,13 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
 
     boolean existsByAccountIdAndFileSha256(UUID accountId, String fileSha256);
 
+    /** Re-upload gap fill: the account's statements of the same file / the same period end. */
+    @Query("SELECT s FROM Statement s LEFT JOIN FETCH s.creditCardDetails WHERE s.account.id = :accountId AND s.fileSha256 = :sha ORDER BY s.createdAt ASC")
+    List<Statement> findByAccountIdAndFileSha256(@Param("accountId") UUID accountId, @Param("sha") String fileSha256);
+
+    @Query("SELECT s FROM Statement s LEFT JOIN FETCH s.creditCardDetails WHERE s.account.id = :accountId AND s.periodEnd = :periodEnd ORDER BY s.createdAt ASC")
+    List<Statement> findByAccountIdAndPeriodEnd(@Param("accountId") UUID accountId, @Param("periodEnd") LocalDate periodEnd);
+
     /** The statement only when it belongs to this account — the caller has already proven the account is theirs. */
     Optional<Statement> findByIdAndAccount_Id(UUID id, UUID accountId);
 
@@ -50,6 +57,10 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     /** {@link #findQualifyingCreditCardStatements} for several accounts at once (the bills list). */
     @Query("SELECT s FROM Statement s JOIN FETCH s.creditCardDetails d WHERE s.account.id IN :accountIds AND s.statementType = 'credit_card' AND s.verdict != com.financeos.domain.statement.StatementVerdict.REJECTED ORDER BY s.periodEnd ASC NULLS LAST, s.createdAt ASC")
     List<Statement> findQualifyingCreditCardStatementsIn(@Param("accountIds") java.util.Collection<UUID> accountIds);
+
+    /** Every non-rejected credit-card statement of the user, details (if any) and account fetched, for the missing-details scan. */
+    @Query("SELECT s FROM Statement s LEFT JOIN FETCH s.creditCardDetails d JOIN FETCH s.account a WHERE s.user.id = :userId AND s.statementType = 'credit_card' AND (s.verdict IS NULL OR s.verdict <> com.financeos.domain.statement.StatementVerdict.REJECTED) ORDER BY s.periodEnd DESC NULLS LAST, s.createdAt DESC")
+    List<Statement> findLiveCreditCardStatementsByUser(@Param("userId") UUID userId);
 
     interface StatementLastLine {
         UUID getStatementId();

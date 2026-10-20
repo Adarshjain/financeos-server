@@ -14,6 +14,7 @@ public final class InboxKinds {
     public static final String EMI = "emi";
     public static final String LENDING = "lending";
     public static final String STATEMENT_EXPECTED = "statement_expected";
+    public static final String STATEMENT_DETAILS_MISSING = "statement_details_missing";
     public static final String GMAIL_RECONNECT = "gmail_reconnect";
     public static final String GMAIL_ATTENTION = "gmail_attention";
     public static final String REVIEW = "review";
@@ -22,8 +23,8 @@ public final class InboxKinds {
     public static final String REWARD_CAP = "reward_cap";
 
     /** Every kind the inbox can produce, in display order. */
-    public static final List<String> ALL = List.of(BILL, EMI, LENDING, STATEMENT_EXPECTED, GMAIL_RECONNECT,
-            GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP);
+    public static final List<String> ALL = List.of(BILL, EMI, LENDING, STATEMENT_EXPECTED, STATEMENT_DETAILS_MISSING,
+            GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP);
 
     /** The two summary rows have fixed keys; everything else is keyed by its subject. */
     public static final String KEY_GMAIL_ATTENTION = "gmail-attention";
@@ -58,6 +59,11 @@ public final class InboxKinds {
 
     public static String statementExpectedKey(UUID accountId, LocalDate periodEnd) {
         return "statement-expected:" + accountId + ":" + periodEnd;
+    }
+
+    /** One per card, so it stays the same row while statements are fixed one by one. */
+    public static String statementDetailsMissingKey(UUID accountId) {
+        return "statement-details-missing:" + accountId;
     }
 
     public static String gmailReconnectKey(UUID connectionId) {
@@ -96,6 +102,7 @@ public final class InboxKinds {
             case EMI -> "EMIs";
             case LENDING -> "Lending returns";
             case STATEMENT_EXPECTED -> "Missing statements";
+            case STATEMENT_DETAILS_MISSING -> "Statement details missing";
             case GMAIL_RECONNECT -> "Gmail reconnect";
             case GMAIL_ATTENTION -> "Gmail attention";
             case REVIEW -> "Transactions to review";
@@ -113,6 +120,7 @@ public final class InboxKinds {
             case EMI -> "/loans";
             case LENDING -> "/loans/lendings";
             case STATEMENT_EXPECTED -> "/transactions/import";
+            case STATEMENT_DETAILS_MISSING -> "/ds/accounts";
             case GMAIL_RECONNECT -> "/settings/gmail";
             case GMAIL_ATTENTION -> "/settings/gmail?focus=attention";
             case REVIEW -> "/transactions/review";

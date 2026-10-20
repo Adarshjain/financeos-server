@@ -25,10 +25,17 @@ public record FileIngestionResult(
         @Nullable String errorMessage, // FAILED reason or SKIPPED reason ONLY
         @Nullable String warning,      // e.g. account-number-mismatch warning on a SUCCESS file
         int created,         // txns inserted from this file
-        int duplicates       // of those, how many were flagged DUPLICATE_SUSPECT
+        int duplicates,      // of those, how many were flagged DUPLICATE_SUSPECT
+        /** Re-upload of a card statement that lacked figures: the fields filled (PERIOD_END, DUE_DATE, TOTAL_DUE, MINIMUM_DUE, or PERIOD_UPDATED when the stored period was replaced); empty = nothing new; null = not such a re-upload. */
+        @Nullable List<String> filledDetails
     ) {
+        public FileSummary(String filename, String status, int linesParsed, @Nullable String errorMessage,
+                           @Nullable String warning, int created, int duplicates) {
+            this(filename, status, linesParsed, errorMessage, warning, created, duplicates, null);
+        }
+
         public FileSummary(String filename, String status, int linesParsed, String errorMessage) {
-            this(filename, status, linesParsed, errorMessage, null, 0, 0);
+            this(filename, status, linesParsed, errorMessage, null, 0, 0, null);
         }
     }
 

@@ -43,7 +43,8 @@ public class BillInboxCollector implements InboxCollector {
                 case OPEN, PARTIAL -> bill.daysUntilDue() != null && bill.daysUntilDue() <= InboxKinds.DUE_SOON_DAYS
                         ? due(bill, SEVERITY_WARNING) : null;
                 case OVERDUE -> due(bill, SEVERITY_CRITICAL);
-                case DUE_UNKNOWN -> dueUnknown(bill);
+                // Covered by the per-card "statement details missing" item (StatementDetailsInboxCollector).
+                case DUE_UNKNOWN -> bill.missingDetails().isEmpty() ? dueUnknown(bill) : null;
                 default -> null; // PAID, NO_DUE, AWAITING_STATEMENT: nothing to act on
             };
             if (row != null) {

@@ -94,6 +94,6 @@ public class BillController {
                                                           @Valid @RequestBody UpdateBillDetailsRequest request) {
         UUID userId = requireCurrentUserId();
         return ResponseEntity.ok(CardBillResponse.from(cardBillService.updateDetails(userId, statementId,
-                request.paymentDueDate(), request.totalAmountDue(), request.minimumAmountDue())));
+                request.periodStart(), request.periodEnd(), request.paymentDueDate(), request.totalAmountDue(), request.minimumAmountDue())));
     }
 }

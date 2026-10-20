@@ -36,7 +36,9 @@ public record CardBillResponse(
         @Nullable LocalDate lastNotifiedOn,
         @Nullable BillDigestResponse digest,
         @Nullable BigDecimal unbilledAmount,
-        @Nullable LocalDate nextStatementExpectedOn
+        @Nullable LocalDate nextStatementExpectedOn,
+        /** Statement figures still empty: PERIOD_END, DUE_DATE, TOTAL_DUE, MINIMUM_DUE; empty when complete. */
+        List<String> missingDetails
 ) {
     public record BillDigestResponse(
             @Nullable BigDecimal totalPurchases,
@@ -63,6 +65,6 @@ public record CardBillResponse(
                 d == null ? null : new BillDigestResponse(d.totalPurchases(), d.paymentsReceived(), d.financeCharges(),
                         d.feesAndCharges(), d.rewardPointsEarned(), d.rewardPointsBalance(), d.creditLimit(),
                         d.utilizationPct(), d.transactionCount()),
-                bill.unbilledAmount(), bill.nextStatementExpectedOn());
+                bill.unbilledAmount(), bill.nextStatementExpectedOn(), bill.missingDetails());
     }
 }

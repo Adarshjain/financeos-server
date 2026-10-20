@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public record StatementSummaryResponse(
@@ -32,7 +33,9 @@ public record StatementSummaryResponse(
         @Nullable String accountNumberMasked,
         Instant createdAt,
         /** The "didn't reconcile" digest ran for this statement on this day (null = not yet). */
-        @Nullable LocalDate reviewNotifiedOn
+        @Nullable LocalDate reviewNotifiedOn,
+        /** Credit-card figures still empty: PERIOD_END, DUE_DATE, TOTAL_DUE, MINIMUM_DUE; empty when complete. */
+        List<String> missingDetails
 ) {
     public static StatementSummaryResponse from(Statement statement) {
         return new StatementSummaryResponse(
@@ -55,7 +58,8 @@ public record StatementSummaryResponse(
                 statement.getBankName(),
                 statement.getAccountNumberMasked(),
                 statement.getCreatedAt(),
-                statement.getReviewNotifiedOn()
+                statement.getReviewNotifiedOn(),
+                com.financeos.domain.statement.MissingDetails.of(statement)
         );
     }
 }
