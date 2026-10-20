@@ -564,8 +564,8 @@ public class CardBillService {
         return buildEnriched(statement.getAccount(), statement, today, null);
     }
 
-    static final int MAX_PERIOD_DAYS = 400;
-    static final int MAX_DUE_AFTER_PERIOD_END_DAYS = 60;
+    static final int MAX_PERIOD_DAYS = StatementDetailsRules.MAX_PERIOD_DAYS;
+    static final int MAX_DUE_AFTER_PERIOD_END_DAYS = StatementDetailsRules.MAX_DUE_AFTER_PERIOD_END_DAYS;
 
     /**
      * Fill in (or correct) what the parser missed. Resets the sequence so reminders re-evaluate against the new date.
@@ -580,12 +580,7 @@ public class CardBillService {
                 && minimumAmountDue == null) {
             throw new ValidationException("Provide a period start, period end, due date, total due or minimum due");
         }
-        if (totalAmountDue != null && totalAmountDue.signum() < 0) {
-            throw new ValidationException("Total due cannot be negative");
-        }
-        if (minimumAmountDue != null && minimumAmountDue.signum() < 0) {
-            throw new ValidationException("Minimum due cannot be negative");
-        }
+        StatementDetailsRules.validateAmounts(totalAmountDue, minimumAmountDue);
         LocalDate today = AppTime.today();
         Statement statement = loadOwnedCardStatement(userId, statementId);
         StatementCreditCardDetails d = statement.getCreditCardDetails();
@@ -594,25 +589,8 @@ public class CardBillService {
         LocalDate due = paymentDueDate != null ? paymentDueDate : d.getPaymentDueDate();
         BigDecimal total = totalAmountDue != null ? totalAmountDue : d.getTotalAmountDue();
         BigDecimal min = minimumAmountDue != null ? minimumAmountDue : d.getMinimumAmountDue();
-        if ((periodStart != null || periodEnd != null) && start != null && end != null) {
-            if (start.isAfter(end)) {
-                throw new ValidationException("Period start must be on or before period end");
-            }
-            if (ChronoUnit.DAYS.between(start, end) > MAX_PERIOD_DAYS) {
-                throw new ValidationException("Statement period cannot be longer than " + MAX_PERIOD_DAYS + " days");
-            }
-        }
-        if ((paymentDueDate != null || periodEnd != null) && due != null && end != null) {
-            long gap = ChronoUnit.DAYS.between(end, due);
-            if (gap < 0 || gap > MAX_DUE_AFTER_PERIOD_END_DAYS) {
-                throw new ValidationException("Due date must be 0 to " + MAX_DUE_AFTER_PERIOD_END_DAYS
-                        + " days after the period end");
-            }
-        }
-        if ((totalAmountDue != null || minimumAmountDue != null) && total != null && min != null
-                && min.compareTo(total) > 0) {
-            throw new ValidationException("Minimum due cannot exceed total due");
-        }
+        StatementDetailsRules.validateRelations(periodStart, periodEnd, paymentDueDate, totalAmountDue,
+                minimumAmountDue, start, end, due, total, min);
         if (periodStart != null) {
             statement.setPeriodStart(periodStart);
         }

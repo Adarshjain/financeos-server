@@ -87,7 +87,6 @@ public class StatementParser {
                 mapVerdict(parseInfo.verdict),
                 cardFields(parsed.summaryFields())
         );
-
         String firstLine = null;
         if (!lines.isEmpty()) {
             ParsedStatementLine first = lines.get(0);
@@ -100,7 +99,8 @@ public class StatementParser {
         }
 
         com.financeos.core.observability.ParseLogger.completed(log, "StatementParser", lines.size(), firstLine, startTimeMs);
-        return StatementExtractionResult.success(lines, meta.accountNumber, periodStart, periodEnd, draft);
+        return StatementExtractionResult.success(lines, meta.accountNumber, periodStart, periodEnd, draft)
+                .withSummaryText(parsed.summaryText());
     }
 
     private static LinkedHashMap<String, Object> cardFields(Map<String, Object> summaryFields) {

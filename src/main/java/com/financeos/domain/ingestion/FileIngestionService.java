@@ -55,6 +55,13 @@ public class FileIngestionService {
     private final CategorizationService categorizationService;
     private final StatementPersistenceService statementPersistenceService;
     private final com.financeos.domain.account.AccountService accountService;
+    private com.financeos.statement.details.StatementDetailsAiFiller detailsAiFiller;
+
+    /** Optional: absent in plain unit tests, where no AI step runs. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setDetailsAiFiller(com.financeos.statement.details.StatementDetailsAiFiller detailsAiFiller) {
+        this.detailsAiFiller = detailsAiFiller;
+    }
 
     public FileIngestionService(AccountRepository accountRepository,
                                 UserRepository userRepository,
@@ -136,6 +143,10 @@ public class FileIngestionService {
                 if (!parseResult.success()) {
                     fileDetails.add(new FileIngestionResult.FileSummary(filename, "FAILED", 0, parseResult.failureReason()));
                     continue;
+                }
+                if (detailsAiFiller != null && parseResult.draft() != null) {
+                    // No transaction is open here; the filler never throws on LLM problems.
+                    parseResult = parseResult.withDraft(detailsAiFiller.fill(currentSessionUserId, parseResult.draft(), parseResult.summaryText()));
                 }
 
                 List<ParsedStatementLine> lines = parseResult.lines();
