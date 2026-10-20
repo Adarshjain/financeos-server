@@ -29,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -125,7 +126,11 @@ public class ObligationsService {
     /**
      * The user's obligations due within {@code months} (clamped to 1..12) plus everything
      * already overdue, limited to {@code kinds} (null or empty = all).
+     *
+     * <p>Runs with no transaction of its own: every section takes its own connection, so holding one
+     * here as well would let concurrent calls exhaust the pool waiting on each other.
      */
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public ObligationsResponse upcoming(UUID userId, int months, @Nullable Set<String> kinds) {
         int windowMonths = clampMonths(months);
         Set<String> wanted = kinds == null || kinds.isEmpty() ? ALL_KINDS : kinds;
