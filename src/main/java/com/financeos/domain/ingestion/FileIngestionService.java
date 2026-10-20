@@ -157,7 +157,7 @@ public class FileIngestionService {
                 }
 
                 String sha256 = StatementPersistenceService.sha256Hex(bytes);
-                Optional<List<String>> filled = statementPersistenceService.fillMissingDetails(accountId, sha256, parseResult.draft());
+                Optional<List<String>> filled = statementPersistenceService.refreshFromReupload(accountId, sha256, parseResult.draft());
                 if (filled.isPresent()) {
                     List<String> fields = filled.get();
                     String message = fields.isEmpty()

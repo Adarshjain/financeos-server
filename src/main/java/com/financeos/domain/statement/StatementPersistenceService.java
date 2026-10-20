@@ -4,6 +4,7 @@ import com.financeos.domain.notification.StatementCreatedEvent;
 import org.springframework.context.ApplicationEventPublisher;
 
 import com.financeos.domain.account.Account;
+import com.financeos.domain.notification.bill.StatementDetailsRules;
 import com.financeos.domain.user.User;
 
 import org.springframework.stereotype.Service;
@@ -109,22 +110,24 @@ public class StatementPersistenceService {
 
     /**
      * A re-upload of a card statement that already exists (same file, else same account and period
-     * end) while that statement still lacks figures: fills only its empty fields from the new parse.
-     * Never overwrites a present value and never touches lines. Empty when the draft is not a card
-     * statement or no matching statement has a gap (the caller then takes the normal duplicate path);
-     * otherwise the fields filled (empty list = nothing new in this file).
+     * end), complete or not: corrects its period from the new parse and fills its empty figures.
+     * The period is kept when the parsed one breaks {@link StatementDetailsRules} or another statement
+     * of the account already ends on that date. A present figure is never overwritten and lines are
+     * never touched. Empty when the draft is not a card statement or no live (non-rejected) statement
+     * matches (the caller then takes the normal duplicate path); otherwise the fields changed
+     * (empty list = nothing new in this file).
      */
     @Transactional
-    public Optional<List<String>> fillMissingDetails(UUID accountId, String fileSha256, StatementDraft draft) {
+    public Optional<List<String>> refreshFromReupload(UUID accountId, String fileSha256, StatementDraft draft) {
         if (!"credit_card".equals(draft.statementType())) {
             return Optional.empty();
         }
         Statement target = null;
         if (fileSha256 != null) {
-            target = firstWithGap(statementRepository.findByAccountIdAndFileSha256(accountId, fileSha256));
+            target = firstLive(statementRepository.findByAccountIdAndFileSha256(accountId, fileSha256));
         }
         if (target == null && draft.periodEnd() != null) {
-            target = firstWithGap(statementRepository.findByAccountIdAndPeriodEnd(accountId, draft.periodEnd()));
+            target = firstLive(statementRepository.findByAccountIdAndPeriodEnd(accountId, draft.periodEnd()));
         }
         if (target == null) {
             return Optional.empty();
@@ -136,7 +139,8 @@ public class StatementPersistenceService {
         boolean periodChanged = false;
         // The whole period is replaced, so a guessed start never survives beside a parsed end.
         if (draft.periodEnd() != null && (!draft.periodEnd().equals(target.getPeriodEnd())
-                || !java.util.Objects.equals(draft.periodStart(), target.getPeriodStart()))) {
+                || !java.util.Objects.equals(draft.periodStart(), target.getPeriodStart()))
+                && periodAcceptable(target, accountId, draft)) {
             target.setPeriodStart(draft.periodStart());
             target.setPeriodEnd(draft.periodEnd());
             periodChanged = true;
@@ -178,13 +182,28 @@ public class StatementPersistenceService {
         return Optional.of(List.copyOf(filled));
     }
 
-    private static Statement firstWithGap(List<Statement> candidates) {
+    private static Statement firstLive(List<Statement> candidates) {
         for (Statement s : candidates) {
-            if (!MissingDetails.of(s).isEmpty()) {
+            if (s.getVerdict() != StatementVerdict.REJECTED) {
                 return s;
             }
         }
         return null;
+    }
+
+    /** The parsed period passes the shared rules and no other statement of the account already ends on its end date. */
+    private boolean periodAcceptable(Statement target, UUID accountId, StatementDraft draft) {
+        try {
+            StatementDetailsRules.validateRelations(draft.periodStart(), draft.periodEnd(), null, null, null,
+                    draft.periodStart(), draft.periodEnd(), null, null, null);
+        } catch (RuntimeException e) {
+            return false;
+        }
+        if (draft.periodEnd().equals(target.getPeriodEnd())) {
+            return true;
+        }
+        return statementRepository.findByAccountIdAndPeriodEnd(accountId, draft.periodEnd()).stream()
+                .noneMatch(o -> !o.getId().equals(target.getId()));
     }
 
     public record TxnLink(UUID transactionId, int lineIndex, BigDecimal balanceAfter, Boolean chainValid) {

@@ -77,7 +77,7 @@ class FileIngestionGapFillTest {
     @Test
     void reportsTheFilledFieldsAndCreatesNothing() {
         byte[] bytes = parseOk("a");
-        when(persistence.fillMissingDetails(eq(accountId), any(), nullable(StatementDraft.class)))
+        when(persistence.refreshFromReupload(eq(accountId), any(), nullable(StatementDraft.class)))
                 .thenReturn(Optional.of(List.of("TOTAL_DUE", "DUE_DATE")));
 
         FileIngestionResult res = service.ingest(accountId, List.of(new UploadedFile("s.pdf", "application/pdf", bytes)));
@@ -93,7 +93,7 @@ class FileIngestionGapFillTest {
     @Test
     void reportsNothingNewWhenTheFileHasNothingToFill() {
         byte[] bytes = parseOk("b");
-        when(persistence.fillMissingDetails(eq(accountId), any(), nullable(StatementDraft.class)))
+        when(persistence.refreshFromReupload(eq(accountId), any(), nullable(StatementDraft.class)))
                 .thenReturn(Optional.of(List.of()));
 
         FileIngestionResult.FileSummary s = service.ingest(accountId,
@@ -107,7 +107,7 @@ class FileIngestionGapFillTest {
     @Test
     void anOrdinaryDuplicateKeepsTodaysMessageAndNoFilledList() {
         byte[] bytes = parseOk("c");
-        when(persistence.fillMissingDetails(eq(accountId), any(), nullable(StatementDraft.class))).thenReturn(Optional.empty());
+        when(persistence.refreshFromReupload(eq(accountId), any(), nullable(StatementDraft.class))).thenReturn(Optional.empty());
         when(persistence.createIfNew(any(), any(), any(), any(), any(), nullable(StatementDraft.class))).thenReturn(Optional.empty());
 
         FileIngestionResult.FileSummary s = service.ingest(accountId,
