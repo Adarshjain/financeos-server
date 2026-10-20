@@ -62,7 +62,7 @@ public class InboxService {
         for (InboxCollector collector : collectors) {
             for (InboxItemResponse item : collector.collect(userId, today)) {
                 InboxItemState state = states.get(item.key());
-                if (state != null && state.hides(today)) {
+                if (state != null && state.hides(today, InboxKinds.isSummaryKey(item.key()) ? item.count() : null)) {
                     continue;
                 }
                 items.add(item);
@@ -118,7 +118,7 @@ public class InboxService {
                 StructuredArguments.keyValue("itemKey", key), StructuredArguments.keyValue("until", until.toString()));
     }
 
-    /** Hide the row for good (until the state is cleared). Allowed on every row. */
+    /** Hide the row until the state is cleared; a summary row also returns once its count differs from now. Allowed on every row. */
     @Transactional
     public void dismiss(UUID userId, String key) {
         validateKey(key);
@@ -126,9 +126,25 @@ public class InboxService {
         if (state.getDismissedAt() == null) {
             state.setDismissedAt(Instant.now());
         }
+        if (InboxKinds.isSummaryKey(key)) {
+            state.setDismissedCount(currentCount(userId, key));
+        }
         stateRepository.save(state);
         log.info("Inbox item dismissed", StructuredArguments.keyValue("event", Events.INBOX_ITEM_DISMISSED),
                 StructuredArguments.keyValue("itemKey", key));
+    }
+
+    /** The count the summary row {@code key} shows right now, null when it has no row. */
+    private Integer currentCount(UUID userId, String key) {
+        LocalDate today = AppTime.today();
+        for (InboxCollector collector : collectors) {
+            for (InboxItemResponse item : collector.collect(userId, today)) {
+                if (key.equals(item.key())) {
+                    return item.count();
+                }
+            }
+        }
+        return null;
     }
 
     /** Undo: forget both the snooze and the dismissal. A key with no state is a no-op. */

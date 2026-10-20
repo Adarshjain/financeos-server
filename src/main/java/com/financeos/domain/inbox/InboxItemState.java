@@ -55,6 +55,10 @@ public class InboxItemState {
     @Column(name = "dismissed_at")
     private Instant dismissedAt;
 
+    /** For a summary row: its count when dismissed. The row returns once the count differs. Null on other rows. */
+    @Column(name = "dismissed_count")
+    private Integer dismissedCount;
+
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
@@ -69,6 +73,19 @@ public class InboxItemState {
     /** Still hiding the row on {@code today}: dismissed, or snoozed to a date after today (it returns on that date). */
     public boolean hides(LocalDate today) {
         return dismissedAt != null || (snoozedUntil != null && today.isBefore(snoozedUntil));
+    }
+
+    /**
+     * Like {@link #hides(LocalDate)} for a row that may be a summary: {@code currentCount} is the row's count, null for
+     * a non-summary row. A dismissed summary row hides only while its count equals the count at dismissal (a legacy
+     * dismissal with no stored count no longer hides).
+     */
+    public boolean hides(LocalDate today, Integer currentCount) {
+        if (currentCount == null) {
+            return hides(today);
+        }
+        boolean dismissedAtThisCount = dismissedAt != null && currentCount.equals(dismissedCount);
+        return dismissedAtThisCount || (snoozedUntil != null && today.isBefore(snoozedUntil));
     }
 
     @PrePersist

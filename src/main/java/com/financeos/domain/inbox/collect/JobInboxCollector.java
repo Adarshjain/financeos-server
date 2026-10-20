@@ -14,6 +14,7 @@ import com.financeos.domain.job.Job;
 import com.financeos.domain.job.JobRepository;
 import com.financeos.domain.job.JobStatus;
 import com.financeos.domain.job.JobTrigger;
+import com.financeos.domain.job.JobType;
 import com.financeos.domain.notification.job.JobMessages;
 import com.financeos.domain.notification.job.JobNotificationService;
 import java.time.Instant;
@@ -55,6 +56,10 @@ public class JobInboxCollector implements InboxCollector {
                 continue;
             }
             boolean failed = job.getStatus() == JobStatus.FAILED;
+            if (!failed && job.getType() == JobType.STATEMENT_INGEST) {
+                // A statement the user imported by hand already shows its result on the import page.
+                continue;
+            }
             String label = JobMessages.label(job.getType());
             // The Activity page filters by type and status; it has no per-job deep link.
             String href = "/settings/activity?type=" + job.getType().name() + "&status=" + job.getStatus().name();

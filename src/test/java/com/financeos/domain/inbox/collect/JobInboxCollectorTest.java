@@ -86,26 +86,52 @@ class JobInboxCollectorTest {
     @Test
     void aSucceededUserJobIsInformationWithItsResultSummary() {
         Instant finished = Instant.parse("2026-10-18T20:30:00Z"); // 19 Oct, 02:00 IST
-        Job job = job(JobType.STATEMENT_INGEST, JobStatus.SUCCEEDED, JobTrigger.USER, finished);
-        job.setResult("{\"filesProcessed\":2,\"totalCreated\":142,\"totalDuplicatesFound\":3}");
+        Job job = job(JobType.RULE_APPLY, JobStatus.SUCCEEDED, JobTrigger.USER, finished);
+        job.setResult("{\"appliedCount\":142}");
 
         List<InboxItemResponse> rows = collector.collect(userId, TODAY);
 
         assertEquals(1, rows.size());
         InboxItemResponse row = rows.get(0);
-        String href = "/settings/activity?type=STATEMENT_INGEST&status=SUCCEEDED";
+        String href = "/settings/activity?type=RULE_APPLY&status=SUCCEEDED";
         assertEquals("job:" + job.getId(), row.key());
         assertEquals("job", row.kind());
         assertEquals(InboxItemResponse.ROW_ITEM, row.rowType());
         assertEquals("info", row.severity());
         assertEquals("info", row.section());
-        assertEquals("Statement import finished", row.title());
-        assertEquals("142 transactions added from 2 files · 3 flagged as possible duplicates", row.subtitle());
+        assertEquals("Rule apply finished", row.title());
+        assertEquals("142 transactions categorised", row.subtitle());
         assertEquals(href, row.href());
         assertEquals(null, row.amount());
         assertEquals(LocalDate.of(2026, 10, 19), row.date(), "the finish date in the business zone");
         assertEquals(List.of(InboxRows.open(href), InboxRows.dismiss()), row.actions());
         assertEquals(InboxRefsResponse.ofJob(job.getId()), row.refs());
+    }
+
+    @Test
+    void aSucceededStatementImportHasNoRow() {
+        job(JobType.STATEMENT_INGEST, JobStatus.SUCCEEDED, JobTrigger.USER, TODAY.atTime(9, 0).atZone(IST).toInstant());
+
+        assertEquals(List.of(), collector.collect(userId, TODAY));
+    }
+
+    @Test
+    void aFailedStatementImportStillNeedsALook() {
+        Job job = job(JobType.STATEMENT_INGEST, JobStatus.FAILED, JobTrigger.USER, TODAY.atTime(9, 0).atZone(IST).toInstant());
+        job.setErrorMessage("Could not read the file");
+
+        InboxItemResponse row = collector.collect(userId, TODAY).get(0);
+
+        assertEquals("job:" + job.getId(), row.key());
+        assertEquals("needs_look", row.section());
+        assertEquals("Statement import failed", row.title());
+    }
+
+    @Test
+    void aSucceededJobOfAnotherTypeStillShows() {
+        job(JobType.RULE_APPLY, JobStatus.SUCCEEDED, JobTrigger.USER, TODAY.atTime(9, 0).atZone(IST).toInstant());
+
+        assertEquals(1, collector.collect(userId, TODAY).size());
     }
 
     @Test
@@ -133,8 +159,8 @@ class JobInboxCollectorTest {
 
     @Test
     void onlyJobsFinishedSinceMidnightSevenDaysAgoShow() {
-        Job atCutoff = job(JobType.STATEMENT_INGEST, JobStatus.SUCCEEDED, JobTrigger.USER, CUTOFF);
-        job(JobType.STATEMENT_INGEST, JobStatus.SUCCEEDED, JobTrigger.USER, CUTOFF.minusSeconds(1));
+        Job atCutoff = job(JobType.RULE_APPLY, JobStatus.SUCCEEDED, JobTrigger.USER, CUTOFF);
+        job(JobType.RULE_APPLY, JobStatus.SUCCEEDED, JobTrigger.USER, CUTOFF.minusSeconds(1));
 
         assertEquals(List.of("job:" + atCutoff.getId()), collector.collect(userId, TODAY).stream().map(InboxItemResponse::key).toList());
     }

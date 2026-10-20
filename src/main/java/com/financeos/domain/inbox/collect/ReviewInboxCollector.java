@@ -40,6 +40,6 @@ public class ReviewInboxCollector implements InboxCollector {
                 : n + " waiting for review";
         return List.of(InboxRows.summary(InboxKinds.KEY_REVIEW, InboxKinds.REVIEW, SEVERITY_WARNING, SECTION_NEEDS_LOOK,
                 "Transactions to review", subtitle, REVIEW_HREF, n,
-                List.of(InboxActionResponse.navigate("review", "Review", REVIEW_HREF))));
+                List.of(InboxActionResponse.navigate("review", "Review", REVIEW_HREF), InboxRows.dismiss())));
     }
 }

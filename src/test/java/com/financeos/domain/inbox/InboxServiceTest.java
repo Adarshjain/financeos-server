@@ -187,11 +187,56 @@ class InboxServiceTest {
         when(first.collect(userId, TODAY)).thenReturn(List.of(summaryRow(InboxKinds.KEY_REVIEW, LOOK, 12)));
         InboxItemState dismissed = state(InboxKinds.KEY_REVIEW);
         dismissed.setDismissedAt(Instant.now());
+        dismissed.setDismissedCount(12);
         when(repository.findByUserId(userId)).thenReturn(List.of(dismissed));
 
         InboxResponse response = service.list(userId);
         assertTrue(response.items().isEmpty());
         assertEquals(InboxSummaryResponse.EMPTY, response.summary());
+    }
+
+    private InboxItemState dismissedReview(Integer count) {
+        InboxItemState dismissed = state(InboxKinds.KEY_REVIEW);
+        dismissed.setDismissedAt(Instant.now());
+        dismissed.setDismissedCount(count);
+        when(repository.findByUserId(userId)).thenReturn(List.of(dismissed));
+        return dismissed;
+    }
+
+    @Test
+    void aDismissedSummaryRowReturnsWhenItsCountRises() {
+        when(first.collect(userId, TODAY)).thenReturn(List.of(summaryRow(InboxKinds.KEY_REVIEW, LOOK, 13)));
+        dismissedReview(12);
+
+        InboxResponse response = service.list(userId);
+        assertEquals(List.of("review"), keys(response));
+        assertEquals(new InboxSummaryResponse(0, 1, 0, 1), response.summary());
+    }
+
+    @Test
+    void aDismissedSummaryRowReturnsWhenItsCountDrops() {
+        when(first.collect(userId, TODAY)).thenReturn(List.of(summaryRow(InboxKinds.KEY_REVIEW, LOOK, 3)));
+        dismissedReview(12);
+
+        assertEquals(List.of("review"), keys(service.list(userId)));
+    }
+
+    @Test
+    void aLegacySummaryDismissalWithNoCountShowsTheRowAgain() {
+        when(first.collect(userId, TODAY)).thenReturn(List.of(summaryRow(InboxKinds.KEY_REVIEW, LOOK, 12)));
+        dismissedReview(null);
+
+        assertEquals(List.of("review"), keys(service.list(userId)));
+    }
+
+    @Test
+    void aStoredCountDoesNotAffectANonSummaryRow() {
+        when(first.collect(userId, TODAY)).thenReturn(List.of(item("a", ACT, CRIT, null, "A")));
+        InboxItemState dismissed = state("a");
+        dismissed.setDismissedAt(Instant.now());
+        when(repository.findByUserId(userId)).thenReturn(List.of(dismissed));
+
+        assertTrue(service.list(userId).items().isEmpty());
     }
 
     // ---------------------------------------------------------------- list: order
@@ -372,6 +417,46 @@ class InboxServiceTest {
     }
 
     @Test
+    void dismissingASummaryRowRecordsItsCurrentCount() {
+        when(first.collect(userId, TODAY)).thenReturn(List.of(summaryRow(InboxKinds.KEY_REVIEW, LOOK, 12)));
+
+        service.dismiss(userId, InboxKinds.KEY_REVIEW);
+
+        ArgumentCaptor<InboxItemState> saved = ArgumentCaptor.forClass(InboxItemState.class);
+        verify(repository).save(saved.capture());
+        assertEquals(12, saved.getValue().getDismissedCount());
+    }
+
+    @Test
+    void dismissingANonSummaryRowStoresNoCount() {
+        when(first.collect(userId, TODAY)).thenReturn(List.of(item("bill:abc", ACT, CRIT, null, "A")));
+
+        service.dismiss(userId, "bill:abc");
+
+        ArgumentCaptor<InboxItemState> saved = ArgumentCaptor.forClass(InboxItemState.class);
+        verify(repository).save(saved.capture());
+        assertEquals(null, saved.getValue().getDismissedCount());
+    }
+
+    @Test
+    void reDismissingASummaryRowAtANewCountHidesItAgain() {
+        Instant firstTime = Instant.parse("2026-01-01T00:00:00Z");
+        InboxItemState existing = state(InboxKinds.KEY_REVIEW);
+        existing.setDismissedAt(firstTime);
+        existing.setDismissedCount(12);
+        when(repository.findByUserIdAndItemKey(userId, InboxKinds.KEY_REVIEW)).thenReturn(Optional.of(existing));
+        when(repository.findByUserId(userId)).thenReturn(List.of(existing));
+        when(first.collect(userId, TODAY)).thenReturn(List.of(summaryRow(InboxKinds.KEY_REVIEW, LOOK, 15)));
+        assertEquals(List.of("review"), keys(service.list(userId)));
+
+        service.dismiss(userId, InboxKinds.KEY_REVIEW);
+
+        assertEquals(firstTime, existing.getDismissedAt());
+        assertEquals(15, existing.getDismissedCount());
+        assertTrue(service.list(userId).items().isEmpty());
+    }
+
+    @Test
     void dismissingASnoozedRowKeepsItsSnoozeAndAddsTheDismissal() {
         InboxItemState existing = state("bill:abc");
         existing.setSnoozedUntil(TODAY.plusDays(3));
@@ -411,6 +496,18 @@ class InboxServiceTest {
         when(repository.findByUserIdAndItemKey(userId, "bill:abc")).thenReturn(Optional.of(existing));
 
         service.clearState(userId, "bill:abc");
+
+        verify(repository).delete(existing);
+    }
+
+    @Test
+    void undoingASummaryDismissalDeletesTheStateSoTheCountIsGone() {
+        InboxItemState existing = state(InboxKinds.KEY_REVIEW);
+        existing.setDismissedAt(Instant.now());
+        existing.setDismissedCount(12);
+        when(repository.findByUserIdAndItemKey(userId, InboxKinds.KEY_REVIEW)).thenReturn(Optional.of(existing));
+
+        service.clearState(userId, InboxKinds.KEY_REVIEW);
 
         verify(repository).delete(existing);
     }
