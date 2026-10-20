@@ -54,7 +54,7 @@ class ReviewInboxCollectorTest {
         assertEquals("5 waiting for review", row.subtitle(), "nothing flagged for category: a plain count");
         assertEquals("/transactions/review", row.href());
         assertEquals(5, row.count());
-        assertEquals(List.of(InboxActionResponse.navigate("review", "Review", "/transactions/review")), row.actions());
+        assertEquals(List.of(InboxActionResponse.navigate("review", "Review", "/transactions/review"), InboxRows.dismiss()), row.actions());
     }
 
     @Test

@@ -39,6 +39,30 @@ class InboxItemStateTest {
     }
 
     @Test
+    void aDismissedSummaryRowHidesOnlyAtTheDismissedCount() {
+        InboxItemState state = new InboxItemState(userId, "review");
+        state.setDismissedAt(Instant.parse("2026-01-01T00:00:00Z"));
+        state.setDismissedCount(5);
+        assertTrue(state.hides(TODAY, 5));
+        assertFalse(state.hides(TODAY, 6));
+        assertFalse(state.hides(TODAY, 4));
+    }
+
+    @Test
+    void aSummaryDismissalWithNoCountNeverHides() {
+        InboxItemState state = new InboxItemState(userId, "review");
+        state.setDismissedAt(Instant.parse("2026-01-01T00:00:00Z"));
+        assertFalse(state.hides(TODAY, 5));
+    }
+
+    @Test
+    void aNullCurrentCountKeepsTheNonSummaryRule() {
+        InboxItemState state = new InboxItemState(userId, "k");
+        state.setDismissedAt(Instant.parse("2026-01-01T00:00:00Z"));
+        assertTrue(state.hides(TODAY, null));
+    }
+
+    @Test
     void aSnoozedRowIsHiddenBeforeTheDate() {
         InboxItemState state = new InboxItemState(userId, "k");
         state.setSnoozedUntil(TODAY.plusDays(1));
