@@ -165,6 +165,54 @@ public final class StatementPdfFixtures {
 		return d.save();
 	}
 
+	/**
+	 * Card statement whose summary is a two-row box: labels over a row of figures
+	 * ending "= C4,198.00", due date and minimum due under their own labels, and a
+	 * labelled billing period.
+	 */
+	public static byte[] cardSummaryBoxWithLabelsAboveValues() throws Exception {
+		Doc d = new Doc();
+		d.line(l(27, "Statement Date 17 Jul, 2026"));
+		d.line(l(27, "Billing Period 18 Jun, 2026 - 17 Jul, 2026"));
+		d.line(l(40, "PREVIOUS STATEMENT DUES"), l(250, "FINANCE CHARGES"), l(400, "TOTAL AMOUNT DUE"));
+		d.line(l(40, "C1,000.00"), l(140, "C500.00"), l(220, "+ C3,698.00"), l(320, "+ C0.00"), l(400, "= C4,198.00"));
+		d.line(l(40, "TOTAL CREDIT LIMIT"), l(180, "AVAILABLE CREDIT LIMIT"), l(330, "MINIMUM DUE"), l(440, "DUE DATE"));
+		d.line(l(40, "C9,00,000"), l(180, "C8,95,802"), l(330, "C327.00"), l(440, "06 Aug, 2026"));
+		d.line(l(40, "Domestic Transactions"));
+		d.line(l(40, "Date"), l(110, "Transaction Description"), l(500, "Amount"));
+		d.line(l(40, "20/06/2026"), l(110, "TEST MERCHANT ONE"), r(540, "C1,200.00"));
+		d.line(l(40, "05/07/2026"), l(110, "TEST MERCHANT TWO"), r(540, "C2,498.00"));
+		return d.save();
+	}
+
+	/**
+	 * Card statement whose summary labels are not text (undecodable): only the
+	 * unlabelled period range, a due date with the minimum due beside it, and
+	 * the total figure survive.
+	 */
+	public static byte[] cardSummaryWithoutLabels() throws Exception {
+		Doc d = new Doc();
+		d.line(l(58, "Credit Card Statement"));
+		d.line(l(58, "XXXXXXXXXXX 05 NOV 2026 447.71"));
+		d.line(l(337, "19 SEP 2026 To 18 OCT 2026 44,770.54"));
+		d.line(l(77, "Available Credit Limit 205,229.46"));
+		d.line(l(31, "20SEP"), l(80, "TEST MERCHANT ONE"), r(540, "1,200.00"));
+		d.line(l(31, "05OCT"), l(80, "TEST MERCHANT TWO"), r(540, "3,500.00"));
+		return d.save();
+	}
+
+	/** Card statement with transactions but neither a period label nor a period range. */
+	public static byte[] cardWithoutAnyPeriod() throws Exception {
+		Doc d = new Doc();
+		d.line(l(58, "Credit Card Statement"));
+		d.line(l(40, "TOTAL AMOUNT DUE"), l(250, "MINIMUM DUE"));
+		d.line(l(40, "C4,698.00"), l(250, "C235.00"));
+		d.line(l(40, "Date"), l(110, "Transaction Description"), l(500, "Amount"));
+		d.line(l(40, "20/06/2026"), l(110, "TEST MERCHANT ONE"), r(540, "C1,200.00"));
+		d.line(l(40, "05/07/2026"), l(110, "TEST MERCHANT TWO"), r(540, "C3,498.00"));
+		return d.save();
+	}
+
 	private static void header(Doc d) {
 		d.line(l(DATE, "Date"), l(NARR, "Transaction Details"), l(335, "Deposits"), l(409, "Withdrawals"),
 				l(523, "Balance"));
