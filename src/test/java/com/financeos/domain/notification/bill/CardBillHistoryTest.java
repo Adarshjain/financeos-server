@@ -154,25 +154,28 @@ class CardBillHistoryTest {
     }
 
     @Test
-    void everyStatementNewestFirstUndatedLastEachEqualToItsPerStatementBill() {
+    void everyStatementNewestFirstByStatementDateEachEqualToItsPerStatementBill() {
         List<CardBill> all = service.historyForAccount(user.getId(), card.getId(), null, null, null);
 
         assertEquals(6, all.size());
-        assertEquals(statements.stream().map(Statement::getId).toList(), ids(all));
+        // The undated one is created TODAY-9, so it sorts between the TODAY-10 and TODAY-40 statements by that date.
+        List<Statement> expected = new ArrayList<>(statements.subList(0, 5));
+        expected.add(0, statements.get(5));
+        assertEquals(expected.stream().map(Statement::getId).toList(), ids(all));
         for (int i = 0; i < all.size(); i++) {
-            when(statementRepository.findById(statements.get(i).getId())).thenReturn(Optional.of(statements.get(i)));
-            assertEquals(service.findByStatementId(user.getId(), statements.get(i).getId()), all.get(i), "bill " + i);
+            when(statementRepository.findById(expected.get(i).getId())).thenReturn(Optional.of(expected.get(i)));
+            assertEquals(service.findByStatementId(user.getId(), expected.get(i).getId()), all.get(i), "bill " + i);
         }
     }
 
     @Test
     void limitKeepsTheNewestN() {
         List<CardBill> two = service.historyForAccount(user.getId(), card.getId(), 2, null, null);
-        assertEquals(List.of(statements.get(0).getId(), statements.get(1).getId()), ids(two));
+        assertEquals(List.of(statements.get(5).getId(), statements.get(0).getId()), ids(two));
     }
 
     @Test
-    void rangeBoundsPeriodEndInclusiveAndDropsUndated() {
+    void rangeBoundsStatementDateInclusive() {
         LocalDate from = statements.get(3).getPeriodEnd();
         LocalDate to = statements.get(1).getPeriodEnd();
         List<CardBill> range = service.historyForAccount(user.getId(), card.getId(), null, from, to);
@@ -180,10 +183,35 @@ class CardBillHistoryTest {
     }
 
     @Test
+    void undatedStatementInsideRangeIsReturnedByItsCreatedDate() {
+        Statement undated = statements.get(5);
+        List<CardBill> range = service.historyForAccount(user.getId(), card.getId(), null,
+                TODAY.minusDays(9), TODAY.minusDays(9));
+        assertEquals(List.of(undated.getId()), ids(range));
+    }
+
+    @Test
+    void undatedStatementOutsideRangeIsExcluded() {
+        List<CardBill> range = service.historyForAccount(user.getId(), card.getId(), null,
+                TODAY.minusDays(45), TODAY.minusDays(35));
+        assertEquals(List.of(statements.get(1).getId()), ids(range));
+    }
+
+    @Test
+    void undatedStatementCreatedLateIsDatedInTheAppZoneNotUtc() {
+        Statement undated = statements.get(5);
+        // 23:30 IST on TODAY-9 is still TODAY-9 in IST though it is the same UTC day; 00:30 IST next day is the previous UTC day.
+        undated.setCreatedAt(TODAY.minusDays(8).atTime(0, 30).atZone(IST).toInstant());
+        List<CardBill> range = service.historyForAccount(user.getId(), card.getId(), null,
+                TODAY.minusDays(8), TODAY.minusDays(8));
+        assertEquals(List.of(undated.getId()), ids(range));
+    }
+
+    @Test
     void limitAndRangeCombine() {
         LocalDate from = statements.get(3).getPeriodEnd();
         List<CardBill> both = service.historyForAccount(user.getId(), card.getId(), 2, from, null);
-        assertEquals(List.of(statements.get(0).getId(), statements.get(1).getId()), ids(both));
+        assertEquals(List.of(statements.get(5).getId(), statements.get(0).getId()), ids(both));
     }
 
     @Test
