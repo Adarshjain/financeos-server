@@ -201,6 +201,33 @@ public final class StatementPdfFixtures {
 		return d.save();
 	}
 
+	/** Card statement whose header row labels "Total Dues" over the figures, with the due date and minimum due beside it. */
+	public static byte[] cardSummaryHeaderWithTotalDues() throws Exception {
+		Doc d = new Doc();
+		d.line(l(335, "Statement for Test Bank Credit Card"));
+		d.line(l(250, "Statement Date:17/01/2024"));
+		d.line(l(267, "Payment Due Date"), l(396, "Total Dues"), l(488, "Minimum Amount Due"));
+		d.line(l(17, "Some address line"), l(284, "06/02/2024"), l(408, "1,236.00"), l(521, "136.00"));
+		d.line(l(40, "Date"), l(110, "Transaction Description"), l(500, "Amount"));
+		d.line(l(40, "20/12/2023"), l(110, "TEST MERCHANT ONE"), r(540, "1,200.00"));
+		d.line(l(40, "05/01/2024"), l(110, "TEST MERCHANT TWO"), r(540, "36.00"));
+		return d.save();
+	}
+
+	/** Card statement whose minimum due label reads "Minimal payment due". */
+	public static byte[] cardSummaryWithMinimalPaymentDueLabel() throws Exception {
+		Doc d = new Doc();
+		d.line(l(413, "PAYMENT SUMMARY"));
+		d.line(l(363, "Payment due date"), l(476, "Minimal payment due"));
+		d.line(l(370, "02 NOV 2026"), l(505, "119.78"));
+		d.line(l(364, "Statement period"), l(480, "Total payment due"));
+		d.line(l(337, "19 SEP 2026 To 18 OCT 2026"), l(500, "11,978.10"));
+		d.line(l(40, "Date"), l(110, "Transaction Description"), l(500, "Amount"));
+		d.line(l(40, "20/09/2026"), l(110, "TEST MERCHANT ONE"), r(540, "1,200.00"));
+		d.line(l(40, "05/10/2026"), l(110, "TEST MERCHANT TWO"), r(540, "3,500.00"));
+		return d.save();
+	}
+
 	/** Card statement with transactions but neither a period label nor a period range. */
 	public static byte[] cardWithoutAnyPeriod() throws Exception {
 		Doc d = new Doc();

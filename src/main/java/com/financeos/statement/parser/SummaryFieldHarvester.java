@@ -28,10 +28,10 @@ final class SummaryFieldHarvester {
     // order irrelevant — overlapping matches resolved longest-first per line
     private static final List<FieldLabel> SUMMARY_FIELD_LABELS = List.of(
             new FieldLabel("total_amount_due", Pattern.compile(
-                    "total\\s+(?:amount\\s+|payment\\s+)?due\\b|net\\s+outstanding\\s+balance"
+                    "total\\s+(?:amount\\s+|payment\\s+)?dues?\\b|net\\s+outstanding\\s+balance"
                             + "|total\\s+outstanding\\b|outstanding\\s+balance")),
             new FieldLabel("minimum_amount_due", Pattern.compile(
-                    "min(?:imum)?\\s+(?:amount\\s+|payment\\s+)?due\\b")),
+                    "min(?:imum|imal)?\\s+(?:amount\\s+|payment\\s+)?due\\b")),
             new FieldLabel("payment_due_date", Pattern.compile("(?:payment\\s+)?due\\s+date")),
             new FieldLabel("credits_received", Pattern.compile("\\bcredits\\b")),
             new FieldLabel("cash_advance", Pattern.compile("cash\\s+advances?\\b")),
