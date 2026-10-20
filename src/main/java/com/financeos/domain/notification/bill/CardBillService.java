@@ -127,9 +127,9 @@ public class CardBillService {
 
     /**
      * One card's bills, a bill per statement (every statement {@link #findByStatementId} accepts: credit
-     * card type with card details, rejected ones included), newest period end first, undated last, each
+     * card type with card details, rejected ones included), newest statement date first (period end, else created date), each
      * equal to {@code findByStatementId}. {@code limit} keeps the newest n; {@code from}/{@code to} bound
-     * the period end inclusively (a statement without one is then left out); all null means every
+     * the statement date inclusively; all null means every
      * statement. The account, its pool, statements, line dates and credit/debit sums are read once.
      * Unknown account: not found; someone else's or not a credit card: validation error.
      */
@@ -151,12 +151,15 @@ public class CardBillService {
         }
         LocalDate today = AppTime.today();
         List<Statement> all = statementRepository.findByAccountIdInOrderByPeriodEndDescNullsLast(List.of(accountId));
+        List<Statement> ordered = new ArrayList<>(all);
+        ordered.sort(Comparator.comparing(CardBillService::statementDate, Comparator.nullsLast(Comparator.<LocalDate>reverseOrder()))
+                .thenComparing(Statement::getCreatedAt, Comparator.nullsLast(Comparator.<java.time.Instant>reverseOrder())));
         List<Statement> picked = new ArrayList<>();
-        for (Statement s : all) {
+        for (Statement s : ordered) {
             if (!"credit_card".equals(s.getStatementType()) || s.getCreditCardDetails() == null) {
                 continue;
             }
-            LocalDate end = s.getPeriodEnd();
+            LocalDate end = statementDate(s);
             if ((from != null || to != null) && end == null) {
                 continue;
             }
@@ -206,6 +209,14 @@ public class CardBillService {
             bills.add(buildEnriched(account, s, today, batch));
         }
         return bills;
+    }
+
+    /** A statement's date: its period end, else the day it was created in the app zone; null when neither exists. */
+    private static @Nullable LocalDate statementDate(Statement s) {
+        if (s.getPeriodEnd() != null) {
+            return s.getPeriodEnd();
+        }
+        return s.getCreatedAt() == null ? null : s.getCreatedAt().atZone(AppTime.zone()).toLocalDate();
     }
 
     /**
