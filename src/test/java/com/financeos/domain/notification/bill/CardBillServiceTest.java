@@ -353,16 +353,16 @@ class CardBillServiceTest {
         Statement s = statement(card, TODAY.minusDays(10), null, null);
         s.getCreditCardDetails().setLastNotifiedKind("DUE_MISSING");
 
-        CardBill bill = service.updateDetails(user.getId(), s.getId(), TODAY.plusDays(4), new BigDecimal("12000"), new BigDecimal("600"));
+        CardBill bill = service.updateDetails(user.getId(), s.getId(), null, null, TODAY.plusDays(4), new BigDecimal("12000"), new BigDecimal("600"));
 
         assertEquals(BillStatus.OPEN, bill.status());
         assertEquals(4L, bill.daysUntilDue());
         assertEquals(new BigDecimal("600"), bill.minimumAmountDue());
         assertEquals("RECEIVED", s.getCreditCardDetails().getLastNotifiedKind());
 
-        assertThrows(ValidationException.class, () -> service.updateDetails(user.getId(), s.getId(), null, null, null));
-        assertThrows(ValidationException.class, () -> service.updateDetails(user.getId(), s.getId(), null, new BigDecimal("-1"), null));
-        assertThrows(ValidationException.class, () -> service.updateDetails(user.getId(), s.getId(), null, null, new BigDecimal("-1")));
+        assertThrows(ValidationException.class, () -> service.updateDetails(user.getId(), s.getId(), null, null, null, null, null));
+        assertThrows(ValidationException.class, () -> service.updateDetails(user.getId(), s.getId(), null, null, null, new BigDecimal("-1"), null));
+        assertThrows(ValidationException.class, () -> service.updateDetails(user.getId(), s.getId(), null, null, null, null, new BigDecimal("-1")));
     }
 
     @Test
@@ -370,7 +370,7 @@ class CardBillServiceTest {
         Statement s = statement(card, TODAY.minusDays(10), new BigDecimal("100"), TODAY.plusDays(4));
         s.getCreditCardDetails().setLastNotifiedKind("PAID");
         s.getCreditCardDetails().setPaidMarkedOn(TODAY);
-        service.updateDetails(user.getId(), s.getId(), TODAY.plusDays(6), null, null);
+        service.updateDetails(user.getId(), s.getId(), null, null, TODAY.plusDays(6), null, null);
         assertEquals("PAID", s.getCreditCardDetails().getLastNotifiedKind());
     }
 
@@ -678,7 +678,7 @@ class CardBillServiceTest {
         assertEquals(new BigDecimal("3500"), unmarked.unbilledAmount());
         assertEquals(next, unmarked.nextStatementExpectedOn());
 
-        CardBill updated = service.updateDetails(user.getId(), s.getId(), TODAY.plusDays(20), null, null);
+        CardBill updated = service.updateDetails(user.getId(), s.getId(), null, null, TODAY.plusDays(20), null, null);
         assertEquals(new BigDecimal("3500"), updated.unbilledAmount());
         assertEquals(next, updated.nextStatementExpectedOn());
     }
@@ -753,10 +753,10 @@ class CardBillServiceTest {
         s.setClosingBalance(new BigDecimal("48250"));
         liveStatement(card, s, BigDecimal.ZERO);
 
-        service.updateDetails(user.getId(), s.getId(), null, new BigDecimal("50000"), null);
+        service.updateDetails(user.getId(), s.getId(), null, null, null, new BigDecimal("50000"), null);
         assertEquals(new BigDecimal("50000"), s.getClosingBalance(), "the account balance anchors on the corrected total");
 
-        service.updateDetails(user.getId(), s.getId(), TODAY.plusDays(20), null, new BigDecimal("2500"));
+        service.updateDetails(user.getId(), s.getId(), null, null, TODAY.plusDays(20), null, new BigDecimal("2500"));
         assertEquals(new BigDecimal("50000"), s.getClosingBalance(), "a due-date or minimum edit leaves it alone");
     }
 }

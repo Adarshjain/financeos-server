@@ -7,6 +7,8 @@ import org.springframework.lang.Nullable;
 
 /** Fill in what the parser missed; at least one field is required. */
 public record UpdateBillDetailsRequest(
+        @Nullable LocalDate periodStart,
+        @Nullable LocalDate periodEnd,
         @Nullable LocalDate paymentDueDate,
         @Nullable @PositiveOrZero BigDecimal totalAmountDue,
         @Nullable @PositiveOrZero BigDecimal minimumAmountDue) {

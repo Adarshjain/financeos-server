@@ -173,22 +173,13 @@ class BillInboxCollectorTest {
     }
 
     @Test
-    void dueUnknownAsksForTheDetailsAndCanBeSnoozed() {
+    void dueUnknownIsLeftToTheStatementDetailsItem() {
         CardBill unknown = new CardBill(accountId, "HDFC Regalia", "1234", UUID.randomUUID(), LocalDate.of(2026, 9, 1),
                 LocalDate.of(2026, 9, 30), null, new BigDecimal("8000"), null, null, new BigDecimal("8000"), PaidSource.NONE,
                 BillStatus.DUE_UNKNOWN, null, null, false, LocalDate.of(2026, 10, 2).atStartOfDay(IST).toInstant(),
                 null, null, null, null, null);
 
-        InboxItemResponse row = collect(unknown).get(0);
-
-        assertEquals("warning", row.severity());
-        assertEquals("act_now", row.section());
-        assertEquals("HDFC Regalia ••1234 bill", row.title());
-        assertEquals("Due date or amount missing on the statement · set it so reminders can start", row.subtitle());
-        assertEquals("/upcoming?bill=" + unknown.statementId(), row.href());
-        assertNull(row.date());
-        assertEquals(List.of(
-                InboxActionResponse.mutate("set_details", "Set details", InboxActionPayloadResponse.forStatement(unknown.statementId(), new BigDecimal("8000"))),
-                InboxRows.snooze()), row.actions());
+        // The card's "statement details missing" row covers it; no second row for the same statement.
+        assertEquals(List.of(), collect(unknown));
     }
 }

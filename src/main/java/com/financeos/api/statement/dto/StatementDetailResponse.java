@@ -36,7 +36,9 @@ public record StatementDetailResponse(
         List<StatementLineResponse> lines,
         /** The account's balance from its own transactions at the end of periodEnd, in the sign of closingBalance. */
         @Nullable BigDecimal ledgerBalanceAtClose,
-        @Nullable Boolean matchesLedger
+        @Nullable Boolean matchesLedger,
+        /** Credit-card figures still empty: PERIOD_END, DUE_DATE, TOTAL_DUE, MINIMUM_DUE; empty when complete. */
+        List<String> missingDetails
 ) {
     public StatementDetailResponse(UUID id, StatementSource source, @Nullable String sourceRef,
                                    @Nullable String statementType, @Nullable LocalDate periodStart,
@@ -51,7 +53,7 @@ public record StatementDetailResponse(
                                    List<StatementLineResponse> lines) {
         this(id, source, sourceRef, statementType, periodStart, periodEnd, openingBalance, closingBalance,
                 totalDebits, totalCredits, transactionCount, linesSkipped, parseMode, chainValidationPct,
-                checksumOk, verdict, bankName, accountNumberMasked, createdAt, cardDetails, lines, null, null);
+                checksumOk, verdict, bankName, accountNumberMasked, createdAt, cardDetails, lines, null, null, List.of());
     }
 
     public static StatementDetailResponse from(Statement statement, StatementCardDetailsResponse cardDetails,
@@ -81,7 +83,8 @@ public record StatementDetailResponse(
                 cardDetails,
                 lines,
                 ledgerBalanceAtClose,
-                matchesLedger
+                matchesLedger,
+                com.financeos.domain.statement.MissingDetails.of(statement)
         );
     }
 }

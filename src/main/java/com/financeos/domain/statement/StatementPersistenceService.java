@@ -107,6 +107,86 @@ public class StatementPersistenceService {
         return Optional.of(saved);
     }
 
+    /**
+     * A re-upload of a card statement that already exists (same file, else same account and period
+     * end) while that statement still lacks figures: fills only its empty fields from the new parse.
+     * Never overwrites a present value and never touches lines. Empty when the draft is not a card
+     * statement or no matching statement has a gap (the caller then takes the normal duplicate path);
+     * otherwise the fields filled (empty list = nothing new in this file).
+     */
+    @Transactional
+    public Optional<List<String>> fillMissingDetails(UUID accountId, String fileSha256, StatementDraft draft) {
+        if (!"credit_card".equals(draft.statementType())) {
+            return Optional.empty();
+        }
+        Statement target = null;
+        if (fileSha256 != null) {
+            target = firstWithGap(statementRepository.findByAccountIdAndFileSha256(accountId, fileSha256));
+        }
+        if (target == null && draft.periodEnd() != null) {
+            target = firstWithGap(statementRepository.findByAccountIdAndPeriodEnd(accountId, draft.periodEnd()));
+        }
+        if (target == null) {
+            return Optional.empty();
+        }
+        Map<String, Object> card = draft.cardFields() == null ? Map.of() : draft.cardFields();
+        List<String> filled = new java.util.ArrayList<>();
+        // A parsed period is trustworthy (label/range or labelled statement date), the stored one may have been guessed: replace it.
+        boolean hadEnd = target.getPeriodEnd() != null;
+        boolean periodChanged = false;
+        // The whole period is replaced, so a guessed start never survives beside a parsed end.
+        if (draft.periodEnd() != null && (!draft.periodEnd().equals(target.getPeriodEnd())
+                || !java.util.Objects.equals(draft.periodStart(), target.getPeriodStart()))) {
+            target.setPeriodStart(draft.periodStart());
+            target.setPeriodEnd(draft.periodEnd());
+            periodChanged = true;
+        }
+        if (periodChanged) {
+            filled.add(hadEnd ? MissingDetails.PERIOD_UPDATED : MissingDetails.PERIOD_END);
+        }
+        LocalDate due = (LocalDate) card.get("payment_due_date");
+        BigDecimal total = (BigDecimal) card.get("total_amount_due");
+        BigDecimal min = (BigDecimal) card.get("minimum_amount_due");
+        StatementCreditCardDetails d = target.getCreditCardDetails();
+        boolean needsDetails = (due != null || total != null || min != null)
+                && (d == null || d.getPaymentDueDate() == null || d.getTotalAmountDue() == null || d.getMinimumAmountDue() == null);
+        if (needsDetails) {
+            if (d == null) {
+                d = new StatementCreditCardDetails(target);
+                d.setUser(target.getUser());
+                target.setCreditCardDetails(d);
+            }
+            if (d.getPaymentDueDate() == null && due != null) {
+                d.setPaymentDueDate(due);
+                filled.add(MissingDetails.DUE_DATE);
+            }
+            if (d.getTotalAmountDue() == null && total != null) {
+                d.setTotalAmountDue(total);
+                if (target.getClosingBalance() == null) {
+                    target.setClosingBalance(total); // a card statement's closing balance is its total due
+                }
+                filled.add(MissingDetails.TOTAL_DUE);
+            }
+            if (d.getMinimumAmountDue() == null && min != null) {
+                d.setMinimumAmountDue(min);
+                filled.add(MissingDetails.MINIMUM_DUE);
+            }
+        }
+        if (!filled.isEmpty()) {
+            statementRepository.save(target);
+        }
+        return Optional.of(List.copyOf(filled));
+    }
+
+    private static Statement firstWithGap(List<Statement> candidates) {
+        for (Statement s : candidates) {
+            if (!MissingDetails.of(s).isEmpty()) {
+                return s;
+            }
+        }
+        return null;
+    }
+
     public record TxnLink(UUID transactionId, int lineIndex, BigDecimal balanceAfter, Boolean chainValid) {
     }
 

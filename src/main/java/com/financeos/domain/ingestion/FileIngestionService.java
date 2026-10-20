@@ -16,6 +16,7 @@ import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.reconcile.ParsedStatementLine;
 import com.financeos.gmail.reconcile.StatementExtractionResult;
 import com.financeos.gmail.reconcile.StatementParser;
+import com.financeos.domain.statement.MissingDetails;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementDraft;
 import com.financeos.domain.statement.StatementPersistenceService;
@@ -144,8 +145,20 @@ public class FileIngestionService {
                     continue;
                 }
 
+                String sha256 = StatementPersistenceService.sha256Hex(bytes);
+                Optional<List<String>> filled = statementPersistenceService.fillMissingDetails(accountId, sha256, parseResult.draft());
+                if (filled.isPresent()) {
+                    List<String> fields = filled.get();
+                    String message = fields.isEmpty()
+                            ? "Statement already ingested; nothing new to fill"
+                            : "Statement already ingested; filled in " + String.join(", ", fields.stream().map(MissingDetails::words).toList());
+                    fileDetails.add(new FileIngestionResult.FileSummary(filename, "SKIPPED", 0, message, null, 0, 0, fields));
+                    filesProcessed++;
+                    continue;
+                }
+
                 Optional<Statement> stmt = statementPersistenceService.createIfNew(user, account, StatementSource.file_upload,
-                        filename, StatementPersistenceService.sha256Hex(bytes), parseResult.draft());
+                        filename, sha256, parseResult.draft());
                 if (stmt.isEmpty()) {
                     fileDetails.add(new FileIngestionResult.FileSummary(filename, "SKIPPED", 0, "Statement already ingested (same period or file)"));
                     filesProcessed++;
@@ -301,7 +314,8 @@ public class FileIngestionService {
                             summary.errorMessage(),
                             summary.warning(),
                             createdForFile,
-                            dupsForFile
+                            dupsForFile,
+                            summary.filledDetails()
                     ));
                 }
             }
