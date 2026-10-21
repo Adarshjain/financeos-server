@@ -323,9 +323,17 @@ public class LendingService {
     @Transactional(readOnly = true)
     public List<CounterpartyMatchSuggestionsResponse> getAllMatchSuggestions() {
         List<CounterpartyMatchSuggestionsResponse> out = new ArrayList<>();
+        Set<UUID> referencedTxIds = null; // loaded once, lazily, on the first person with unlinked entries
         for (Counterparty cp : counterpartyRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))) {
+            List<Lending> entries = findUnlinkedEntries(cp.getId());
+            if (entries.isEmpty()) {
+                continue;
+            }
+            if (referencedTxIds == null) {
+                referencedTxIds = transactionValidator.getAllReferencedTransactionIds();
+            }
             List<LendingMatchSuggestionsResponse.LendingMatchSuggestion> suggestions =
-                    getMatchSuggestions(cp.getId()).suggestions();
+                    computeSuggestions(cp.getId(), entries, referencedTxIds);
             if (!suggestions.isEmpty()) {
                 out.add(new CounterpartyMatchSuggestionsResponse(cp.getId(), cp.getName(), suggestions));
             }
@@ -471,18 +479,26 @@ public class LendingService {
     public LendingMatchSuggestionsResponse getMatchSuggestions(UUID counterpartyId) {
         getCounterpartyAndVerifyOwnership(counterpartyId);
 
-        List<Lending> entries = lendingRepository.findByCounterpartyIdWithRefs(counterpartyId).stream()
-                .filter(l -> l.getTransaction() == null)
-                .sorted(Comparator.comparing(Lending::getEntryDate).thenComparing(Lending::getCreatedAt))
-                .toList();
+        List<Lending> entries = findUnlinkedEntries(counterpartyId);
 
         if (entries.isEmpty()) {
             logMatchAttempt(counterpartyId, null, null, 0, false, "no-unlinked-entries");
             return new LendingMatchSuggestionsResponse(Collections.emptyList());
         }
 
-        Set<UUID> referencedTxIds = transactionValidator.getAllReferencedTransactionIds();
+        return new LendingMatchSuggestionsResponse(
+                computeSuggestions(counterpartyId, entries, transactionValidator.getAllReferencedTransactionIds()));
+    }
 
+    private List<Lending> findUnlinkedEntries(UUID counterpartyId) {
+        return lendingRepository.findByCounterpartyIdWithRefs(counterpartyId).stream()
+                .filter(l -> l.getTransaction() == null)
+                .sorted(Comparator.comparing(Lending::getEntryDate).thenComparing(Lending::getCreatedAt))
+                .toList();
+    }
+
+    private List<LendingMatchSuggestionsResponse.LendingMatchSuggestion> computeSuggestions(
+            UUID counterpartyId, List<Lending> entries, Set<UUID> referencedTxIds) {
         // Fetch candidates per entry and drop those already referenced by a loan/lending row.
         Map<UUID, List<Transaction>> unreferencedByEntry = new LinkedHashMap<>();
         Map<UUID, Transaction> candidateTxObjects = new HashMap<>();
@@ -595,7 +611,7 @@ public class LendingService {
             ));
         }
 
-        return new LendingMatchSuggestionsResponse(suggestions);
+        return suggestions;
     }
 
     private void logMatchAttempt(UUID counterpartyId, UUID lendingId, UUID txnId, int candidateCount, boolean matched, String rejectReason) {

@@ -373,4 +373,45 @@ class LendingMatchSuggestionsTest {
         assertEquals(1, suggestion.candidates().size());
         assertEquals(match.getId(), suggestion.candidates().get(0).id());
     }
+
+    // --- getAllMatchSuggestions: shared preload -----------------------------------------------
+
+    @Test
+    void getAllMatchSuggestions_loadsReferencedIdsOnce_andSkipsPeopleWithoutUnlinkedEntries() {
+        Counterparty second = new Counterparty();
+        second.setId(UUID.randomUUID());
+        second.setName("Sita");
+        second.setUser(user);
+        Counterparty idle = new Counterparty();
+        idle.setId(UUID.randomUUID());
+        idle.setName("Zed");
+        idle.setUser(user);
+        when(counterpartyRepository.findAll(any(org.springframework.data.domain.Sort.class)))
+                .thenReturn(List.of(counterparty, second, idle));
+
+        Lending e1 = entry(LendingDirection.lent, new BigDecimal("500"), LocalDate.of(2026, 3, 10), Instant.now());
+        Lending e2 = entry(LendingDirection.lent, new BigDecimal("700"), LocalDate.of(2026, 3, 10), Instant.now());
+        e2.setCounterparty(second);
+        when(lendingRepository.findByCounterpartyIdWithRefs(counterparty.getId())).thenReturn(List.of(e1));
+        when(lendingRepository.findByCounterpartyIdWithRefs(second.getId())).thenReturn(List.of(e2));
+        when(lendingRepository.findByCounterpartyIdWithRefs(idle.getId())).thenReturn(List.of());
+        stubCandidatesForAnyEntry(TransactionType.DEBIT, List.of());
+
+        lendingService.getAllMatchSuggestions();
+
+        verify(transactionValidator, times(1)).getAllReferencedTransactionIds();
+        verify(transactionRepository, times(2)).findMatchCandidates(any(), any(), any(), any(), any());
+    }
+
+    @Test
+    void getAllMatchSuggestions_nobodyHasUnlinkedEntries_noCandidateQueryNoPreload() {
+        when(counterpartyRepository.findAll(any(org.springframework.data.domain.Sort.class)))
+                .thenReturn(List.of(counterparty));
+        when(lendingRepository.findByCounterpartyIdWithRefs(counterparty.getId())).thenReturn(List.of());
+
+        assertTrue(lendingService.getAllMatchSuggestions().isEmpty());
+
+        verify(transactionRepository, never()).findMatchCandidates(any(), any(), any(), any(), any());
+        verify(transactionValidator, never()).getAllReferencedTransactionIds();
+    }
 }
