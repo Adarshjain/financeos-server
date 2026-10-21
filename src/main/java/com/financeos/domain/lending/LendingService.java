@@ -139,11 +139,11 @@ public class LendingService {
         Map<UUID, Counterparty> byId = new HashMap<>();
         counterpartyRepository.findAllById(slice.stream().map(NetRow::id).toList())
                 .forEach(cp -> byId.put(cp.getId(), cp));
-        List<CounterpartyResponse> content = slice.stream()
+        List<Counterparty> people = slice.stream()
                 .map(r -> byId.get(r.id()))
                 .filter(java.util.Objects::nonNull)
-                .map(this::toCounterpartyResponse)
                 .toList();
+        List<CounterpartyResponse> content = toCounterpartyResponses(people);
         return new PageImpl<>(content, pageable, nets.size());
     }
 
@@ -157,7 +157,7 @@ public class LendingService {
         Page<Counterparty> page = term.isEmpty()
                 ? counterpartyRepository.findAll(pageable)
                 : counterpartyRepository.findByNameContainingIgnoreCase(term, pageable);
-        return page.map(this::toCounterpartyResponse);
+        return new PageImpl<>(toCounterpartyResponses(page.getContent()), pageable, page.getTotalElements());
     }
 
     /**
@@ -767,7 +767,31 @@ public class LendingService {
 
     /** Gross totals split by kind: principal feeds total lent/borrowed, settlements feed the repaid figures. */
     private CounterpartyResponse toCounterpartyResponse(Counterparty cp) {
-        List<Lending> entries = lendingRepository.findByCounterparty_Id(cp.getId());
+        return toCounterpartyResponse(cp, lendingRepository.findByCounterparty_Id(cp.getId()));
+    }
+
+    /** Responses for many people with one entries query per {@value #IN_CHUNK} ids, in input order. */
+    private List<CounterpartyResponse> toCounterpartyResponses(List<Counterparty> people) {
+        Map<UUID, List<Lending>> byCp = entriesByCounterparty(people.stream().map(Counterparty::getId).toList());
+        return people.stream()
+                .map(cp -> toCounterpartyResponse(cp, byCp.getOrDefault(cp.getId(), List.of())))
+                .toList();
+    }
+
+    private static final int IN_CHUNK = 1000;
+
+    /** Every entry of the given people, grouped by person; people without entries are absent. */
+    private Map<UUID, List<Lending>> entriesByCounterparty(List<UUID> ids) {
+        Map<UUID, List<Lending>> byCp = new HashMap<>();
+        for (int i = 0; i < ids.size(); i += IN_CHUNK) {
+            for (Lending l : lendingRepository.findByCounterparty_IdIn(ids.subList(i, Math.min(i + IN_CHUNK, ids.size())))) {
+                byCp.computeIfAbsent(l.getCounterparty().getId(), k -> new ArrayList<>()).add(l);
+            }
+        }
+        return byCp;
+    }
+
+    private CounterpartyResponse toCounterpartyResponse(Counterparty cp, List<Lending> entries) {
         BigDecimal totalLent = BigDecimal.ZERO;
         BigDecimal totalBorrowed = BigDecimal.ZERO;
         BigDecimal repaidToYou = BigDecimal.ZERO;
@@ -805,8 +829,9 @@ public class LendingService {
         BigDecimal lentOutstanding = BigDecimal.ZERO;
         BigDecimal borrowedOutstanding = BigDecimal.ZERO;
 
+        Map<UUID, List<Lending>> byCp = entriesByCounterparty(counterparties.stream().map(Counterparty::getId).toList());
         for (Counterparty cp : counterparties) {
-            List<Lending> entries = lendingRepository.findByCounterparty_Id(cp.getId());
+            List<Lending> entries = byCp.getOrDefault(cp.getId(), List.of());
             BigDecimal cpLent = BigDecimal.ZERO;
             BigDecimal cpBorrowed = BigDecimal.ZERO;
 
@@ -842,8 +867,9 @@ public class LendingService {
         List<ObligationItemDto> items = new ArrayList<>();
         LocalDate today = AppTime.today();
 
+        Map<UUID, List<Lending>> byCp = entriesByCounterparty(counterparties.stream().map(Counterparty::getId).toList());
         for (Counterparty cp : counterparties) {
-            List<Lending> entries = lendingRepository.findByCounterparty_Id(cp.getId());
+            List<Lending> entries = byCp.getOrDefault(cp.getId(), List.of());
             BigDecimal cpLent = BigDecimal.ZERO;
             BigDecimal cpBorrowed = BigDecimal.ZERO;
 
