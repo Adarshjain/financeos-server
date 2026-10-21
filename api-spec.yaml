@@ -18680,6 +18680,16 @@ components:
           type: string
         monitoringReason:
           type: string
+        reviewReasons:
+          type: array
+          items:
+            type: string
+            enum:
+            - UNRECONCILED
+            - CATEGORY_UNVERIFIED
+            - DUPLICATE_SUSPECT
+            - DATE_CORRECTED
+          uniqueItems: true
         reviewType:
           type: string
           enum:

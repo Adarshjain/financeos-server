@@ -296,6 +296,14 @@ public class TransactionService {
             throw new ValidationException("You do not have permission to update this transaction.");
         }
 
+        if (request.reviewType() == ReviewType.NEEDS_REVIEW) {
+            if (request.reviewReasons() != null && request.reviewReasons().isEmpty()) {
+                throw new ValidationException("Pick at least one reason it needs review");
+            }
+        } else if (request.reviewReasons() != null && !request.reviewReasons().isEmpty()) {
+            throw new ValidationException("Review reasons can only be set when the review type is NEEDS_REVIEW");
+        }
+
         // Validate non-zero amount
         if (request.amount().compareTo(BigDecimal.ZERO) == 0) {
             throw new ValidationException("Transaction amount cannot be zero");
@@ -378,7 +386,9 @@ public class TransactionService {
             }
         }
 
-        if (request.reviewType() != null && request.reviewType() != originalReviewType) {
+        if (request.reviewType() == ReviewType.NEEDS_REVIEW && request.reviewReasons() != null) {
+            reviewStatusManager.setReasons(transaction, request.reviewReasons());
+        } else if (request.reviewType() != null && request.reviewType() != originalReviewType) {
             reviewStatusManager.transitionTo(transaction, request.reviewType());
         }
 
@@ -516,6 +526,11 @@ public class TransactionService {
                     if (transaction.getAppliedRule() != null && !transaction.getAppliedRule().isVerified()) {
                         categorizationService.verifyRule(transaction.getAppliedRule());
                     }
+                }
+            } else if (reviewType == ReviewType.NEEDS_REVIEW && reviewReasons != null && !reviewReasons.isEmpty()) {
+                // Re-entering review (e.g. undoing an approve): put the given reasons back
+                for (ReviewReason r : reviewReasons) {
+                    reviewStatusManager.addReason(transaction, r);
                 }
             } else {
                 reviewStatusManager.transitionTo(transaction, reviewType);

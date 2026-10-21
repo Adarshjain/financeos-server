@@ -14,6 +14,20 @@ public class ReviewStatusManager {
         transitionTo(txn, ReviewType.NEEDS_REVIEW);
     }
 
+    /** Replaces the transaction's reasons with exactly the given set and puts it in NEEDS_REVIEW. */
+    public void setReasons(Transaction txn, java.util.Set<ReviewReason> reasons) {
+        if (reasons == null || reasons.isEmpty()) {
+            throw new com.financeos.core.exception.ValidationException("Pick at least one reason it needs review");
+        }
+        if (txn.getReviewReasons() == null) {
+            txn.setReviewReasons(new HashSet<>());
+        } else {
+            txn.getReviewReasons().clear();
+        }
+        txn.getReviewReasons().addAll(reasons);
+        transitionTo(txn, ReviewType.NEEDS_REVIEW);
+    }
+
     public void clearReason(Transaction txn, ReviewReason reason, ReviewType promoteTo) {
         if (txn.getReviewReasons() != null) {
             txn.getReviewReasons().remove(reason);
