@@ -334,15 +334,29 @@ public class LendingService {
     }
 
     private List<CounterpartyMatchSuggestionsResponse> allMatchSuggestions(java.util.function.Supplier<Set<UUID>> referencedTxIds) {
-        List<CounterpartyMatchSuggestionsResponse> out = new ArrayList<>();
-        for (Counterparty cp : counterpartyRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))) {
-            List<Lending> entries = findUnlinkedEntries(cp.getId());
-            if (entries.isEmpty()) {
-                continue;
+        List<Counterparty> people = counterpartyRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        Map<UUID, List<Lending>> unlinkedByCp = new HashMap<>();
+        for (Lending l : lendingRepository.findAllWithRefs()) {
+            if (l.getTransaction() == null) {
+                unlinkedByCp.computeIfAbsent(l.getCounterparty().getId(), k -> new ArrayList<>()).add(l);
             }
-            List<LendingMatchSuggestionsResponse.LendingMatchSuggestion> suggestions =
-                    computeSuggestions(cp.getId(), entries, referencedTxIds.get());
-            if (!suggestions.isEmpty()) {
+        }
+        Map<UUID, List<Lending>> entriesByCp = new LinkedHashMap<>();
+        for (Counterparty cp : people) {
+            List<Lending> entries = unlinkedByCp.get(cp.getId());
+            if (entries != null && !entries.isEmpty()) {
+                entriesByCp.put(cp.getId(), sortedEntries(entries));
+            }
+        }
+        if (entriesByCp.isEmpty()) {
+            return new ArrayList<>();
+        }
+        Map<UUID, List<LendingMatchSuggestionsResponse.LendingMatchSuggestion>> byCp =
+                computeSuggestions(entriesByCp, referencedTxIds.get());
+        List<CounterpartyMatchSuggestionsResponse> out = new ArrayList<>();
+        for (Counterparty cp : people) {
+            List<LendingMatchSuggestionsResponse.LendingMatchSuggestion> suggestions = byCp.get(cp.getId());
+            if (suggestions != null && !suggestions.isEmpty()) {
                 out.add(new CounterpartyMatchSuggestionsResponse(cp.getId(), cp.getName(), suggestions));
             }
         }
@@ -615,59 +629,112 @@ public class LendingService {
         }
 
         return new LendingMatchSuggestionsResponse(
-                computeSuggestions(counterpartyId, entries, transactionValidator.getAllReferencedTransactionIds()));
+                computeSuggestions(Map.of(counterpartyId, entries), transactionValidator.getAllReferencedTransactionIds())
+                        .getOrDefault(counterpartyId, Collections.emptyList()));
     }
 
     private List<Lending> findUnlinkedEntries(UUID counterpartyId) {
-        return lendingRepository.findByCounterpartyIdWithRefs(counterpartyId).stream()
+        return sortedEntries(lendingRepository.findByCounterpartyIdWithRefs(counterpartyId).stream()
                 .filter(l -> l.getTransaction() == null)
+                .toList());
+    }
+
+    private static List<Lending> sortedEntries(List<Lending> entries) {
+        return entries.stream()
                 .sorted(Comparator.comparing(Lending::getEntryDate).thenComparing(Lending::getCreatedAt))
                 .toList();
     }
 
-    private List<LendingMatchSuggestionsResponse.LendingMatchSuggestion> computeSuggestions(
-            UUID counterpartyId, List<Lending> entries, Set<UUID> referencedTxIds) {
-        // Fetch candidates per entry and drop those already referenced by a loan/lending row.
-        Map<UUID, List<Transaction>> unreferencedByEntry = new LinkedHashMap<>();
+    /**
+     * Suggestions for many people at once, keyed by counterparty id. One candidate query per transaction type
+     * matching the exact OR of every entry's own window and amount band (each entry then re-applies its predicate
+     * in memory), and one link query across all candidates.
+     */
+    private Map<UUID, List<LendingMatchSuggestionsResponse.LendingMatchSuggestion>> computeSuggestions(
+            Map<UUID, List<Lending>> entriesByCp, Set<UUID> referencedTxIds) {
+        Map<UUID, List<Transaction>> rawByEntry = fetchCandidates(entriesByCp.values().stream().flatMap(List::stream).toList());
+
+        // Drop candidates already referenced by a loan/lending row (per entry, with the same logging as before).
+        Map<UUID, Map<UUID, List<Transaction>>> unreferencedByCp = new LinkedHashMap<>();
         Map<UUID, Transaction> candidateTxObjects = new HashMap<>();
-
-        for (Lending entry : entries) {
-            TransactionType type = TransactionReferenceValidator.expectedTypeFor(entry.getDirection());
-            BigDecimal minAmount = entry.getAmount().subtract(MatchingConstants.MATCH_AMOUNT_TOLERANCE);
-            BigDecimal maxAmount = entry.getAmount().add(MatchingConstants.MATCH_AMOUNT_TOLERANCE);
-            LocalDate minDate = entry.getEntryDate().minusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS);
-            LocalDate maxDate = entry.getEntryDate().plusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS);
-
-            List<Transaction> candidates = transactionRepository.findMatchCandidates(type, minAmount, maxAmount, minDate, maxDate);
-
-            if (candidates.isEmpty()) {
-                logMatchAttempt(counterpartyId, entry.getId(), null, 0, false, "no-candidates");
-                unreferencedByEntry.put(entry.getId(), Collections.emptyList());
-                continue;
-            }
-
-            List<Transaction> unreferenced = new ArrayList<>();
-            for (Transaction t : candidates) {
-                if (referencedTxIds.contains(t.getId())) {
-                    logMatchAttempt(counterpartyId, entry.getId(), t.getId(), candidates.size(), false, "already-referenced");
-                } else {
-                    unreferenced.add(t);
-                    candidateTxObjects.put(t.getId(), t);
+        for (Map.Entry<UUID, List<Lending>> cpEntries : entriesByCp.entrySet()) {
+            UUID counterpartyId = cpEntries.getKey();
+            Map<UUID, List<Transaction>> unreferencedByEntry = new LinkedHashMap<>();
+            for (Lending entry : cpEntries.getValue()) {
+                List<Transaction> candidates = rawByEntry.getOrDefault(entry.getId(), Collections.emptyList());
+                if (candidates.isEmpty()) {
+                    logMatchAttempt(counterpartyId, entry.getId(), null, 0, false, "no-candidates");
+                    unreferencedByEntry.put(entry.getId(), Collections.emptyList());
+                    continue;
                 }
+                List<Transaction> unreferenced = new ArrayList<>();
+                for (Transaction t : candidates) {
+                    if (referencedTxIds.contains(t.getId())) {
+                        logMatchAttempt(counterpartyId, entry.getId(), t.getId(), candidates.size(), false, "already-referenced");
+                    } else {
+                        unreferenced.add(t);
+                        candidateTxObjects.put(t.getId(), t);
+                    }
+                }
+                unreferencedByEntry.put(entry.getId(), unreferenced);
             }
-            unreferencedByEntry.put(entry.getId(), unreferenced);
+            unreferencedByCp.put(counterpartyId, unreferencedByEntry);
         }
 
-        // Drop candidates that already sit in a transaction_links group (one query across all entries).
+        // Drop candidates that already sit in a transaction_links group (one query across all entries of all people).
         Set<UUID> allCandidateIds = candidateTxObjects.keySet();
-        Set<UUID> linkedTxIds = allCandidateIds.isEmpty()
-                ? Collections.emptySet()
-                : transactionLinkRepository.findDistinctByMembers_Transaction_IdIn(allCandidateIds).stream()
-                        .flatMap(link -> link.getMembers().stream())
-                        .map(member -> member.getTransaction().getId())
-                        .filter(allCandidateIds::contains)
-                        .collect(Collectors.toSet());
+        Set<UUID> linkedTxIds = new HashSet<>();
+        List<UUID> idList = new ArrayList<>(allCandidateIds);
+        for (int i = 0; i < idList.size(); i += IN_CHUNK) {
+            Set<UUID> chunk = new HashSet<>(idList.subList(i, Math.min(i + IN_CHUNK, idList.size())));
+            transactionLinkRepository.findDistinctByMembers_Transaction_IdIn(chunk).stream()
+                    .flatMap(link -> link.getMembers().stream())
+                    .map(member -> member.getTransaction().getId())
+                    .filter(allCandidateIds::contains)
+                    .forEach(linkedTxIds::add);
+        }
 
+        Map<UUID, List<LendingMatchSuggestionsResponse.LendingMatchSuggestion>> out = new LinkedHashMap<>();
+        for (Map.Entry<UUID, List<Lending>> cpEntries : entriesByCp.entrySet()) {
+            out.put(cpEntries.getKey(), buildSuggestions(cpEntries.getKey(), cpEntries.getValue(),
+                    unreferencedByCp.get(cpEntries.getKey()), linkedTxIds));
+        }
+        return out;
+    }
+
+    /** In-window, in-tolerance candidates per entry id, from one exact-windows query per transaction type. */
+    private Map<UUID, List<Transaction>> fetchCandidates(List<Lending> entries) {
+        Map<TransactionType, List<Lending>> byType = new LinkedHashMap<>();
+        for (Lending entry : entries) {
+            byType.computeIfAbsent(TransactionReferenceValidator.expectedTypeFor(entry.getDirection()), k -> new ArrayList<>()).add(entry);
+        }
+        Map<UUID, List<Transaction>> out = new HashMap<>();
+        for (Map.Entry<TransactionType, List<Lending>> group : byType.entrySet()) {
+            List<com.financeos.domain.transaction.TransactionRepositoryCustom.MatchWindow> windows = group.getValue().stream()
+                    .map(entry -> new com.financeos.domain.transaction.TransactionRepositoryCustom.MatchWindow(
+                            entry.getAmount().subtract(MatchingConstants.MATCH_AMOUNT_TOLERANCE),
+                            entry.getAmount().add(MatchingConstants.MATCH_AMOUNT_TOLERANCE),
+                            entry.getEntryDate().minusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS),
+                            entry.getEntryDate().plusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS),
+                            null))
+                    .toList();
+            List<Transaction> pool = transactionRepository.findMatchCandidatesAny(group.getKey(), windows);
+            for (Lending entry : group.getValue()) {
+                BigDecimal lo = entry.getAmount().subtract(MatchingConstants.MATCH_AMOUNT_TOLERANCE);
+                BigDecimal hi = entry.getAmount().add(MatchingConstants.MATCH_AMOUNT_TOLERANCE);
+                LocalDate from = entry.getEntryDate().minusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS);
+                LocalDate to = entry.getEntryDate().plusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS);
+                out.put(entry.getId(), pool.stream()
+                        .filter(t -> t.getAmount().compareTo(lo) >= 0 && t.getAmount().compareTo(hi) <= 0)
+                        .filter(t -> !t.getDate().isBefore(from) && !t.getDate().isAfter(to))
+                        .toList());
+            }
+        }
+        return out;
+    }
+
+    private List<LendingMatchSuggestionsResponse.LendingMatchSuggestion> buildSuggestions(
+            UUID counterpartyId, List<Lending> entries, Map<UUID, List<Transaction>> unreferencedByEntry, Set<UUID> linkedTxIds) {
         Map<UUID, List<Transaction>> candidateMap = new LinkedHashMap<>();
         for (Lending entry : entries) {
             List<Transaction> unreferenced = unreferencedByEntry.getOrDefault(entry.getId(), Collections.emptyList());

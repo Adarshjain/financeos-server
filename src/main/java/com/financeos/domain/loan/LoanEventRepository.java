@@ -12,6 +12,8 @@ public interface LoanEventRepository extends JpaRepository<LoanEvent, UUID> {
 
     List<LoanEvent> findByLoan_IdOrderByEffectiveDateAscCreatedAtAsc(UUID loanId);
 
+    List<LoanEvent> findByLoan_IdInOrderByEffectiveDateAscCreatedAtAsc(Collection<UUID> loanIds);
+
     boolean existsByTransaction_Id(UUID transactionId);
 
     @Query("SELECT e FROM LoanEvent e JOIN FETCH e.loan WHERE e.transaction.id IN :ids")

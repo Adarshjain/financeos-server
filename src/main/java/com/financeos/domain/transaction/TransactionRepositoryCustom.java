@@ -33,6 +33,19 @@ public interface TransactionRepositoryCustom {
      */
     List<DaySums> sumsByDayAfter(UUID accountId, LocalDate after);
 
+    /** One amount band + date window (+ optional account) a match candidate must fall in, bounds inclusive. */
+    record MatchWindow(java.math.BigDecimal minAmount, java.math.BigDecimal maxAmount,
+                       LocalDate minDate, LocalDate maxDate, UUID accountId) {
+    }
+
+    /**
+     * Transactions of {@code type} lying in at least one of the windows: an exact OR of the windows (no
+     * bounding box), identical windows deduplicated, {@value #MATCH_WINDOW_CHUNK} windows per query.
+     */
+    List<Transaction> findMatchCandidatesAny(TransactionType type, java.util.Collection<MatchWindow> windows);
+
+    int MATCH_WINDOW_CHUNK = 200;
+
     /**
      * Executes the filtered transaction query computing true running balances.
      */

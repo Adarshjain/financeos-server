@@ -13,6 +13,8 @@ public interface LoanPaymentRepository extends JpaRepository<LoanPayment, UUID> 
 
     List<LoanPayment> findByLoan_IdOrderByInstallmentSeqAsc(UUID loanId);
 
+    List<LoanPayment> findByLoan_IdInOrderByInstallmentSeqAsc(Collection<UUID> loanIds);
+
     Optional<LoanPayment> findByLoan_IdAndInstallmentSeq(UUID loanId, Integer installmentSeq);
 
     boolean existsByLoan_IdAndInstallmentSeq(UUID loanId, Integer installmentSeq);

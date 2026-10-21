@@ -240,8 +240,8 @@ class LendingServiceUnrecordedTransfersTest {
         unlinked.setAmount(new BigDecimal("400"));
         unlinked.setEntryDate(TODAY.minusDays(1));
         unlinked.setCreatedAt(Instant.parse("2026-01-02T00:00:00Z"));
-        when(lendingRepository.findByCounterpartyIdWithRefs(asha.getId())).thenReturn(List.of(unlinked));
-        when(transactionRepository.findMatchCandidates(eq(TransactionType.CREDIT), any(), any(), any(), any()))
+        when(lendingRepository.findAllWithRefs()).thenReturn(List.of(unlinked));
+        when(transactionRepository.findMatchCandidatesAny(eq(TransactionType.CREDIT), any()))
                 .thenReturn(List.of(candidate));
 
         List<UnrecordedTransferResponse> out = service.getUnrecordedTransfers();
