@@ -10,6 +10,8 @@ import com.financeos.api.rules.dto.CreateRuleRequest;
 import com.financeos.api.rules.dto.PreviewMatchesRequest;
 import com.financeos.api.rules.dto.RuleMatchTransactionResponse;
 import com.financeos.api.rules.dto.RuleResponse;
+import com.financeos.api.rules.dto.UnverifyRuleRequest;
+import com.financeos.api.rules.dto.UnverifyRuleResponse;
 import com.financeos.api.rules.dto.UpdateRuleRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
@@ -250,6 +252,27 @@ public class RulesController {
 
         categorizationService.verifyRule(rule);
         return ResponseEntity.ok(RuleResponse.from(rule));
+    }
+
+    /**
+     * Undo of a verify: marks the rule unverified and puts CATEGORY_UNVERIFIED back on the given
+     * transactions that are the caller's and still use this rule; others are skipped silently.
+     */
+    @PostMapping("/{id}/unverify")
+    public ResponseEntity<UnverifyRuleResponse> unverifyRule(@PathVariable UUID id,
+                                                             @Valid @RequestBody UnverifyRuleRequest request) {
+        UUID currentSessionUserId = UserContext.getCurrentUserId();
+
+        CategoryRule rule = categoryRuleRepository.findWithCategoriesById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Rule", id));
+
+        // SECURITY: verify ownership
+        if (!rule.getUser().getId().equals(currentSessionUserId)) {
+            throw new ValidationException("You do not have permission to modify this rule.");
+        }
+
+        List<UUID> restored = categorizationService.unverifyRule(rule, request.transactionIds(), currentSessionUserId);
+        return ResponseEntity.ok(new UnverifyRuleResponse(restored));
     }
 
     /**

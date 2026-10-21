@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.List;
@@ -468,7 +469,7 @@ public class TransactionService {
     @Transactional
     public com.financeos.api.transaction.dto.BatchReviewResponse batchReview(List<UUID> transactionIds, ReviewType reviewType, List<ReviewReason> reviewReasons) {
         if (transactionIds == null || transactionIds.isEmpty()) {
-            return new com.financeos.api.transaction.dto.BatchReviewResponse(List.of(), List.of(), List.of());
+            return new com.financeos.api.transaction.dto.BatchReviewResponse(List.of(), List.of(), List.of(), List.of());
         }
         if (transactionIds.size() > 500) {
             throw new ValidationException("Transaction IDs batch cannot exceed 500");
@@ -490,6 +491,7 @@ public class TransactionService {
         List<String> skippedIds = new ArrayList<>();
         List<com.financeos.api.transaction.dto.BatchFailure> failures = new ArrayList<>();
         List<Transaction> toSave = new ArrayList<>();
+        List<CategorizationService.RuleVerification> verifiedChanges = new ArrayList<>();
 
         for (UUID id : transactionIds) {
             Transaction transaction = map.get(id);
@@ -524,7 +526,7 @@ public class TransactionService {
 
                 if (transaction.getReviewType() == ReviewType.MANUALLY_REVIEWED) {
                     if (transaction.getAppliedRule() != null && !transaction.getAppliedRule().isVerified()) {
-                        categorizationService.verifyRule(transaction.getAppliedRule());
+                        verifiedChanges.addAll(categorizationService.verifyRule(transaction.getAppliedRule()));
                     }
                 }
             } else if (reviewType == ReviewType.NEEDS_REVIEW && reviewReasons != null && !reviewReasons.isEmpty()) {
@@ -544,7 +546,16 @@ public class TransactionService {
             transactionRepository.saveAll(toSave);
         }
 
-        return new com.financeos.api.transaction.dto.BatchReviewResponse(succeededIds, skippedIds, failures);
+        // Rows this call approved get their reasons back from the client's undo; every other row a
+        // verified rule cleared (a skipped row of this request included) is reported for unverify.
+        Set<String> approved = new HashSet<>(succeededIds);
+        List<com.financeos.api.transaction.dto.VerifiedRuleChange> verifiedRules = verifiedChanges.stream()
+                .map(change -> new com.financeos.api.transaction.dto.VerifiedRuleChange(
+                        change.ruleId(),
+                        change.clearedTransactionIds().stream().filter(t -> !approved.contains(t.toString())).toList()))
+                .toList();
+
+        return new com.financeos.api.transaction.dto.BatchReviewResponse(succeededIds, skippedIds, failures, verifiedRules);
     }
 
     @Transactional
