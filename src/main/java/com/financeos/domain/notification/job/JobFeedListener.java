@@ -133,7 +133,8 @@ public class JobFeedListener {
                         return;
                     }
                     kind = AppNotificationKind.JOB_FINISHED;
-                    title = "Rule applied";
+                    String ruleName = result.path("ruleName").asText("");
+                    title = ruleName.isBlank() ? "Rule applied" : "Rule '" + ruleName + "' applied";
                     body = JobMessages.plural(applied, "transaction") + " categorised";
                 }
             }

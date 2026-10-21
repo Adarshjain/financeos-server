@@ -173,6 +173,12 @@ class JobFeedListenerTest {
     // ---------------------------------------------------------------- rule apply
 
     @Test
+    void ruleApplyTitleNamesTheRuleWhenTheResultCarriesIt() {
+        Job job = fire(JobType.RULE_APPLY, JobStatus.SUCCEEDED, JobTrigger.USER, "{\"appliedCount\":1,\"ruleName\":\"Swiggy\"}", null);
+        recorded(job, AppNotificationKind.JOB_FINISHED, "Rule 'Swiggy' applied", "1 transaction categorised");
+    }
+
+    @Test
     void ruleApplySuccessNotifiesOnlyWhenSomethingWasCategorised() {
         Job job = fire(JobType.RULE_APPLY, JobStatus.SUCCEEDED, JobTrigger.USER, "{\"appliedCount\":4}", null);
         recorded(job, AppNotificationKind.JOB_FINISHED, "Rule applied", "4 transactions categorised");
