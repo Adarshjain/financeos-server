@@ -45,7 +45,7 @@ public class TransactionListQueryBuilder {
             Map.entry("card", new FieldMetadata("card", FieldType.ENUM, "ch.person_name", Join.CARDS, null)),
             Map.entry("category", new FieldMetadata("category", FieldType.ENUM, null, null, null)),
             Map.entry("reviewType", new FieldMetadata("reviewType", FieldType.ENUM, "sub.review_type", null, Set.of("NEEDS_REVIEW", "AUTO_REVIEWED", "MANUALLY_REVIEWED", "NA"))),
-            Map.entry("reviewReason", new FieldMetadata("reviewReason", FieldType.ENUM, null, null, Set.of("UNRECONCILED", "CATEGORY_UNVERIFIED", "DUPLICATE_SUSPECT"))),
+            Map.entry("reviewReason", new FieldMetadata("reviewReason", FieldType.ENUM, null, null, java.util.Arrays.stream(ReviewReason.values()).map(Enum::name).collect(java.util.stream.Collectors.toUnmodifiableSet()))),
             Map.entry("isUnderMonitoring", new FieldMetadata("isUnderMonitoring", FieldType.BOOLEAN, "sub.is_under_monitoring", null, null)),
             Map.entry("isExcluded", new FieldMetadata("isExcluded", FieldType.BOOLEAN, "sub.is_excluded", null, null)),
             Map.entry("coveredByStatement", new FieldMetadata("coveredByStatement", FieldType.BOOLEAN, null, Join.ACCOUNTS, null))
@@ -237,6 +237,12 @@ public class TransactionListQueryBuilder {
         if (criteria.search() != null && !criteria.search().isBlank()) {
             joins.add(Join.ACCOUNTS);
             params.put("q", "%" + SqlPredicates.escapeLike(criteria.search().toLowerCase()) + "%");
+            String amountDigits = numericSearchText(criteria.search());
+            String amountClause = "";
+            if (amountDigits != null) {
+                params.put("qAmt", "%" + amountDigits + "%");
+                amountClause = "\n                   OR TO_CHAR(ABS(sub.signed_amount), 'FM99999999999999990.99999999') LIKE :qAmt";
+            }
             predicates.add("""
                 (
                       LOWER(sub.description)        LIKE :q ESCAPE '\\'
@@ -245,7 +251,9 @@ public class TransactionListQueryBuilder {
                    OR EXISTS (SELECT 1 FROM transaction_categories tcx
                                  JOIN categories cx ON cx.id = tcx.category_id
                                 WHERE tcx.transaction_id = sub.id
-                                  AND LOWER(cx.name) LIKE :q ESCAPE '\\')
+                                  AND LOWER(cx.name) LIKE :q ESCAPE '\\')"""
+                + amountClause + """
+
                 )
                 """);
         }
@@ -254,6 +262,32 @@ public class TransactionListQueryBuilder {
             return "";
         }
         return " WHERE " + String.join(" AND ", predicates);
+    }
+
+    /**
+     * If the search text is a plain number (optional leading rupee sign / minus, comma grouping,
+     * one decimal point) returns its bare digits (with the decimal point, trailing decimal zeros dropped), else null.
+     */
+    static String numericSearchText(String search) {
+        if (search == null) {
+            return null;
+        }
+        String t = search.trim();
+        if (t.startsWith("\u20B9")) {
+            t = t.substring(1).trim();
+        }
+        if (t.startsWith("-")) {
+            t = t.substring(1).trim();
+        }
+        t = t.replace(",", "");
+        if (!t.matches("\\d+(\\.\\d*)?|\\.\\d+")) {
+            return null;
+        }
+        // Oracle's FM format drops trailing decimal zeros (3600 -> "3600.", 3600.50 -> "3600.5")
+        if (t.contains(".")) {
+            t = t.replaceAll("0+$", "");
+        }
+        return t;
     }
 
     private String getWhitelistedSortExpression(String property) {
