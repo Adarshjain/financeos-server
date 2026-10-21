@@ -10,7 +10,12 @@ import com.financeos.domain.notification.NotificationOutcome;
 import com.financeos.domain.notification.NotificationPrefs;
 import com.financeos.domain.notification.NotificationPrefsLoader;
 import com.financeos.domain.notification.NotificationProducer;
+import com.financeos.domain.inbox.InboxKinds;
+import com.financeos.domain.inbox.collect.InboxRows;
 import com.financeos.domain.notification.NotificationSettingsService;
+import com.financeos.domain.notification.feed.AppNotificationKind;
+import com.financeos.domain.notification.feed.AppNotificationRefs;
+import com.financeos.domain.notification.feed.NotificationFeedService;
 import com.financeos.domain.reward.RewardCalculationService;
 import com.financeos.domain.reward.RewardCapBucket;
 import com.financeos.domain.reward.RewardCapBucketRepository;
@@ -56,6 +61,7 @@ public class RewardAlertNotificationService implements NotificationProducer {
     private final RewardCalculationService calculationService;
     private final NotificationPrefsLoader prefsLoader;
     private final NotificationSettingsService settingsService;
+    private final NotificationFeedService feedService;
 
     public RewardAlertNotificationService(AccountRepository accountRepository,
                                           RewardRuleRepository ruleRepository,
@@ -63,7 +69,8 @@ public class RewardAlertNotificationService implements NotificationProducer {
                                           RewardCapBucketRepository bucketRepository,
                                           RewardCalculationService calculationService,
                                           NotificationPrefsLoader prefsLoader,
-                                          NotificationSettingsService settingsService) {
+                                          NotificationSettingsService settingsService,
+                                          NotificationFeedService feedService) {
         this.accountRepository = accountRepository;
         this.ruleRepository = ruleRepository;
         this.milestoneRepository = milestoneRepository;
@@ -71,11 +78,17 @@ public class RewardAlertNotificationService implements NotificationProducer {
         this.calculationService = calculationService;
         this.prefsLoader = prefsLoader;
         this.settingsService = settingsService;
+        this.feedService = feedService;
     }
 
     @Override
     public String name() {
         return "rewards";
+    }
+
+    @Override
+    public boolean runsWithoutPush() {
+        return true;
     }
 
     @Override
@@ -99,6 +112,7 @@ public class RewardAlertNotificationService implements NotificationProducer {
                 continue;
             }
             evaluated++;
+            String cardLabel = InboxRows.cardLabel(card.getName(), card.primaryLast4());
             RewardCalculationService.AlertSnapshot snapshot = calculationService.alertSnapshot(card.getId(), today);
 
             Map<UUID, RewardMilestone> milestoneById = milestones.stream().collect(Collectors.toMap(RewardMilestone::getId, Function.identity(), (a, b) -> a));
@@ -110,6 +124,12 @@ public class RewardAlertNotificationService implements NotificationProducer {
                 String kind = milestoneKind(status, today, milestone.getNotifiedWindowStart(), milestone.getNotifiedKind());
                 if (kind == null) {
                     continue;
+                }
+                if (KIND_ACHIEVED.equals(kind)) {
+                    // Same text as the inbox row; the feed is recorded whether or not push can be delivered.
+                    feedService.record(userId, AppNotificationKind.REWARD_MILESTONE, milestone.getName() + " unlocked",
+                            cardLabel + " · window from " + InboxRows.date(status.windowStart()), AppNotificationRefs.ofAccount(card.getId()),
+                            InboxKinds.rewardMilestoneKey(milestone.getId(), status.windowStart()));
                 }
                 if (prefs.deliverable(NotificationKind.REWARD_MILESTONE)) {
                     sent += settingsService.deliver(prefs.settings(), KIND_ACHIEVED.equals(kind)
@@ -136,6 +156,11 @@ public class RewardAlertNotificationService implements NotificationProducer {
                 if ((bucket == null && rule == null) || Objects.equals(already, cap.windowStart())) {
                     continue;
                 }
+                feedService.record(userId, AppNotificationKind.REWARD_CAP,
+                        cardLabel + ": " + (bucket != null ? bucket.getName() : rule.getName()) + " cap reached",
+                        "More spend here earns nothing for the rest of the window · from " + InboxRows.date(cap.windowStart()),
+                        AppNotificationRefs.ofAccount(card.getId()),
+                        InboxKinds.rewardCapKey(bucket != null ? bucket.getId() : rule.getId(), cap.windowStart()));
                 if (prefs.deliverable(NotificationKind.REWARD_CAP)) {
                     sent += settingsService.deliver(prefs.settings(), RewardMessages.capReached(card, cap));
                     log.info("Reward cap notification: owner={}, window={}", bucket != null ? bucket.getId() : rule.getId(), cap.windowStart());

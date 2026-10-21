@@ -37,6 +37,10 @@ public interface AccountRepository extends JpaRepository<Account, UUID>, Account
     @org.springframework.data.jpa.repository.EntityGraph(attributePaths = {"bankDetails", "creditCardDetails", "brokerDetails"})
     List<Account> findByUserIdAndType(UUID userId, AccountType type);
 
+    /** Ids of every user owning at least one account of {@code type} (for system-wide ticks; no user context). */
+    @Query("SELECT DISTINCT a.user.id FROM Account a WHERE a.type = :type")
+    List<UUID> findDistinctUserIdsByType(@Param("type") AccountType type);
+
     /** Whether the user has at least one account of {@code type} (open or closed). */
     boolean existsByUser_IdAndType(UUID userId, AccountType type);
 

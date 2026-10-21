@@ -22,7 +22,11 @@ import com.financeos.domain.notification.NotificationOutcome;
 import com.financeos.domain.notification.NotificationPrefs;
 import com.financeos.domain.notification.NotificationPrefsLoader;
 import com.financeos.domain.notification.NotificationSettingsCodec;
+import com.financeos.domain.inbox.InboxKinds;
 import com.financeos.domain.notification.NotificationSettingsService;
+import com.financeos.domain.notification.feed.AppNotificationKind;
+import com.financeos.domain.notification.feed.AppNotificationRefs;
+import com.financeos.domain.notification.feed.NotificationFeedService;
 import com.financeos.domain.notification.UserNotificationSettings;
 import com.financeos.domain.notification.push.PushMessage;
 import com.financeos.domain.reward.CapWindow;
@@ -64,8 +68,9 @@ class RewardAlertNotificationServiceTest {
     private final RewardCalculationService calculationService = mock(RewardCalculationService.class);
     private final NotificationPrefsLoader prefsLoader = mock(NotificationPrefsLoader.class);
     private final NotificationSettingsService settingsService = mock(NotificationSettingsService.class);
+    private final NotificationFeedService feedService = mock(NotificationFeedService.class);
     private final RewardAlertNotificationService service = new RewardAlertNotificationService(accountRepository, ruleRepository,
-            milestoneRepository, bucketRepository, calculationService, prefsLoader, settingsService);
+            milestoneRepository, bucketRepository, calculationService, prefsLoader, settingsService, feedService);
 
     private final UUID userId = UUID.randomUUID();
     private final UserNotificationSettings settings = new UserNotificationSettings(userId);
@@ -350,5 +355,52 @@ class RewardAlertNotificationServiceTest {
         assertEquals(new NotificationOutcome(1, 2, 0), service.evaluate(userId));
         assertEquals(TODAY, milestone.getNotifiedOn());
         assertEquals(TODAY, rule.getCapNotifiedOn());
+    }
+
+    // ---------------------------------------------------------------- in-app feed
+
+    @Test
+    void achievedMilestoneIsRecordedInTheFeedWithTheInboxText() {
+        snapshot(List.of(status("101000", true, WINDOW_END)), List.of());
+
+        service.evaluate(userId);
+
+        verify(feedService).record(userId, AppNotificationKind.REWARD_MILESTONE, "Q4 spend bonus unlocked",
+                "Infinia · window from 1 Oct", AppNotificationRefs.ofAccount(card.getId()),
+                InboxKinds.rewardMilestoneKey(milestone.getId(), WINDOW_START));
+    }
+
+    @Test
+    void closingMilestoneIsNotRecordedInTheFeed() {
+        snapshot(List.of(status("82000", false, WINDOW_END)), List.of());
+
+        service.evaluate(userId);
+
+        verify(feedService, never()).record(any(), any(), any(), any(), any(), any());
+    }
+
+    @Test
+    void exhaustedCapIsRecordedInTheFeedForARuleAndForABucket() {
+        snapshot(List.of(), List.of(cap(rule.getId(), null, null, "1000"), cap(null, bucket.getId(), "Shared monthly cap", "1000")));
+
+        service.evaluate(userId);
+
+        verify(feedService).record(userId, AppNotificationKind.REWARD_CAP, "Infinia: Dining 5% cap reached",
+                "More spend here earns nothing for the rest of the window · from 1 Oct", AppNotificationRefs.ofAccount(card.getId()),
+                InboxKinds.rewardCapKey(rule.getId(), WINDOW_START));
+        verify(feedService).record(userId, AppNotificationKind.REWARD_CAP, "Infinia: Shared monthly cap cap reached",
+                "More spend here earns nothing for the rest of the window · from 1 Oct", AppNotificationRefs.ofAccount(card.getId()),
+                InboxKinds.rewardCapKey(bucket.getId(), WINDOW_START));
+    }
+
+    @Test
+    void feedIsRecordedEvenWhenPushCannotBeDelivered() {
+        prefs(false);
+        snapshot(List.of(status("101000", true, WINDOW_END)), List.of(cap(rule.getId(), null, null, "1000")));
+
+        service.evaluate(userId);
+
+        verify(settingsService, never()).deliver(any(), any());
+        verify(feedService, times(2)).record(eq(userId), any(), any(), any(), any(), any());
     }
 }
