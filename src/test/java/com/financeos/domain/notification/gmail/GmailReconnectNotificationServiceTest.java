@@ -17,6 +17,9 @@ import com.financeos.domain.notification.NotificationPrefs;
 import com.financeos.domain.notification.NotificationPrefsLoader;
 import com.financeos.domain.notification.NotificationSettingsCodec;
 import com.financeos.domain.notification.NotificationSettingsService;
+import com.financeos.domain.notification.feed.AppNotificationKind;
+import com.financeos.domain.notification.feed.AppNotificationRefs;
+import com.financeos.domain.notification.feed.NotificationFeedService;
 import com.financeos.domain.notification.UserNotificationSettings;
 import com.financeos.domain.notification.push.PushMessage;
 import com.financeos.domain.user.User;
@@ -44,8 +47,9 @@ class GmailReconnectNotificationServiceTest {
     private final GmailConnectionRepository repository = mock(GmailConnectionRepository.class);
     private final NotificationPrefsLoader prefsLoader = mock(NotificationPrefsLoader.class);
     private final NotificationSettingsService settingsService = mock(NotificationSettingsService.class);
+    private final NotificationFeedService feedService = mock(NotificationFeedService.class);
     private final GmailReconnectNotificationService service =
-            new GmailReconnectNotificationService(repository, prefsLoader, settingsService);
+            new GmailReconnectNotificationService(repository, prefsLoader, settingsService, feedService);
 
     private final UUID userId = UUID.randomUUID();
     private GmailConnection connection;
@@ -220,5 +224,39 @@ class GmailReconnectNotificationServiceTest {
         assertEquals(new NotificationOutcome(1, 1, 0), service.evaluate(userId));
         assertEquals(daysAgo(0), connection.getReconnectNotifiedAt());
         verify(settingsService, never()).deliver(any(), any());
+    }
+
+    // ---------------------------------------------------------------- in-app feed
+
+    @Test
+    void firstTokenRejectionIsRecordedInTheFeedOnceKeyedByTheFailureTime() {
+        service.onAuthFailure(connection.getId());
+
+        String key = "gmail-reconnect:" + connection.getId() + ":" + connection.getAuthFailedAt().toEpochMilli();
+        verify(feedService).record(userId, AppNotificationKind.GMAIL_DISCONNECTED, "Gmail disconnected",
+                "ajay@example.test · reconnect to keep syncing", AppNotificationRefs.ofConnection(connection.getId()), key);
+    }
+
+    @Test
+    void feedIsRecordedEvenWhenPushCannotBeDelivered() {
+        prefs(false);
+
+        service.onAuthFailure(connection.getId());
+
+        verify(settingsService, never()).deliver(any(), any());
+        verify(feedService).record(eq(userId), eq(AppNotificationKind.GMAIL_DISCONNECTED), any(), any(), any(), any());
+    }
+
+    @Test
+    void repeatedFailuresAndTheWeeklyRenagNeverAddFeedRows() {
+        Instant first = daysAgo(8);
+        connection.setAuthFailedAt(first);
+        connection.setReconnectNotifiedAt(first);
+        when(repository.findByUserIdAndIsConnectedTrueAndAuthFailedAtIsNotNull(userId)).thenReturn(List.of(connection));
+
+        service.onAuthFailure(connection.getId());
+        service.evaluate(userId);
+
+        verify(feedService, never()).record(any(), any(), any(), any(), any(), any());
     }
 }

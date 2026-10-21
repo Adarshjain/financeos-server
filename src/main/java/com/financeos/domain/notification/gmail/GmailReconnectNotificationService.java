@@ -7,6 +7,9 @@ import com.financeos.domain.notification.NotificationPrefs;
 import com.financeos.domain.notification.NotificationPrefsLoader;
 import com.financeos.domain.notification.NotificationProducer;
 import com.financeos.domain.notification.NotificationSettingsService;
+import com.financeos.domain.notification.feed.AppNotificationKind;
+import com.financeos.domain.notification.feed.AppNotificationRefs;
+import com.financeos.domain.notification.feed.NotificationFeedService;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailConnectionRepository;
 import java.time.Instant;
@@ -35,13 +38,16 @@ public class GmailReconnectNotificationService implements NotificationProducer {
     private final GmailConnectionRepository connectionRepository;
     private final NotificationPrefsLoader prefsLoader;
     private final NotificationSettingsService settingsService;
+    private final NotificationFeedService feedService;
 
     public GmailReconnectNotificationService(GmailConnectionRepository connectionRepository,
                                              NotificationPrefsLoader prefsLoader,
-                                             NotificationSettingsService settingsService) {
+                                             NotificationSettingsService settingsService,
+                                             NotificationFeedService feedService) {
         this.connectionRepository = connectionRepository;
         this.prefsLoader = prefsLoader;
         this.settingsService = settingsService;
+        this.feedService = feedService;
     }
 
     @Override
@@ -60,10 +66,15 @@ public class GmailReconnectNotificationService implements NotificationProducer {
         if (connection == null || connection.getAuthFailedAt() != null) {
             return;
         }
-        connection.setAuthFailedAt(nowInstant());
+        Instant failedAt = nowInstant();
+        connection.setAuthFailedAt(failedAt);
         connectionRepository.save(connection);
         log.warn("Gmail connection {} ({}) needs reconnect: token rejected", connectionId, connection.getEmail());
         if (Boolean.TRUE.equals(connection.getIsConnected())) {
+            // The in-app feed hears about it once per detection, whatever the push settings are.
+            feedService.record(connection.getUser().getId(), AppNotificationKind.GMAIL_DISCONNECTED, "Gmail disconnected",
+                    connection.getEmail() + " · reconnect to keep syncing", AppNotificationRefs.ofConnection(connection.getId()),
+                    "gmail-reconnect:" + connection.getId() + ":" + failedAt.toEpochMilli());
             notify(connection, prefsLoader.load(connection.getUser().getId()));
         }
     }

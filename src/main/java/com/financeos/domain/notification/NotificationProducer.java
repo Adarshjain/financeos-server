@@ -16,4 +16,12 @@ public interface NotificationProducer {
     String name();
 
     NotificationOutcome evaluate(UUID userId);
+
+    /**
+     * Whether the tick also runs this producer for users push cannot reach (its output feeds the in-app
+     * feed too). Only the card-holders among them are visited; every other producer stays push-only.
+     */
+    default boolean runsWithoutPush() {
+        return false;
+    }
 }

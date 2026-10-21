@@ -97,7 +97,7 @@ public final class JobMessages {
         }
     }
 
-    private static String plural(int n, String noun) {
+    static String plural(int n, String noun) {
         return n + " " + noun + (n == 1 ? "" : "s");
     }
 

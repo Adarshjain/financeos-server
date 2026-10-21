@@ -9,6 +9,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.financeos.core.security.UserContext;
+import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.account.AccountType;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
@@ -17,6 +19,7 @@ import org.junit.jupiter.api.Test;
 class NotificationSchedulerTest {
 
     private final UserNotificationSettingsRepository repository = mock(UserNotificationSettingsRepository.class);
+    private final AccountRepository accounts = mock(AccountRepository.class);
     private final NotificationProducer bills = producer("bills");
     private final NotificationProducer emi = producer("emi");
 
@@ -49,7 +52,7 @@ class NotificationSchedulerTest {
         });
         when(emi.evaluate(any())).thenReturn(NotificationOutcome.NONE);
 
-        NotificationScheduler.Summary summary = new NotificationScheduler(repository, List.of(bills, emi), true).runTick();
+        NotificationScheduler.Summary summary = new NotificationScheduler(repository, accounts, List.of(bills, emi), true).runTick();
 
         assertEquals(new NotificationScheduler.Summary(3, 3, 2, 1, 1), summary);
         assertNull(UserContext.getCurrentUserId(), "pooled thread must not leak the last user");
@@ -61,7 +64,7 @@ class NotificationSchedulerTest {
         when(bills.evaluate(user)).thenThrow(new IllegalStateException("boom"));
         when(emi.evaluate(user)).thenReturn(new NotificationOutcome(3, 2, 2));
 
-        NotificationScheduler.Summary summary = new NotificationScheduler(repository, List.of(bills, emi), true).runProducers(user);
+        NotificationScheduler.Summary summary = new NotificationScheduler(repository, accounts, List.of(bills, emi), true).runProducers(user);
 
         assertEquals(new NotificationScheduler.Summary(1, 3, 2, 2, 1), summary);
         verify(emi).evaluate(user);
@@ -74,12 +77,12 @@ class NotificationSchedulerTest {
         when(emi.evaluate(user)).thenReturn(new NotificationOutcome(2, 1, 0));
 
         assertEquals(new NotificationScheduler.Summary(1, 3, 2, 1, 0),
-                new NotificationScheduler(repository, List.of(bills, emi), true).runProducers(user));
+                new NotificationScheduler(repository, accounts, List.of(bills, emi), true).runProducers(user));
     }
 
     @Test
     void disabledSchedulerDoesNothing() {
-        assertNull(new NotificationScheduler(repository, List.of(bills), false).runTick());
+        assertNull(new NotificationScheduler(repository, accounts, List.of(bills), false).runTick());
         verify(repository, never()).findByPushEnabledTrueAndPushSubscriptionsIsNotNull();
         verify(bills, never()).evaluate(any());
     }
@@ -88,7 +91,69 @@ class NotificationSchedulerTest {
     void tickWithNoReachableUsersIsAnEmptySummary() {
         when(repository.findByPushEnabledTrueAndPushSubscriptionsIsNotNull()).thenReturn(List.of());
         assertEquals(new NotificationScheduler.Summary(0, 0, 0, 0, 0),
-                new NotificationScheduler(repository, List.of(bills), true).runTick());
+                new NotificationScheduler(repository, accounts, List.of(bills), true).runTick());
         verify(bills, never()).evaluate(any());
+    }
+
+    @Test
+    void cardHoldersWithoutPushOnlyGetTheFeedProducersAndReachableUsersGetEverything() {
+        UUID reachable = UUID.randomUUID();
+        UUID noPush = UUID.randomUUID();
+        NotificationProducer rewards = producer("rewards");
+        when(rewards.runsWithoutPush()).thenReturn(true);
+        when(repository.findByPushEnabledTrueAndPushSubscriptionsIsNotNull()).thenReturn(List.of(new UserNotificationSettings(reachable)));
+        when(accounts.findDistinctUserIdsByType(AccountType.credit_card)).thenReturn(List.of(reachable, noPush));
+        when(bills.evaluate(any())).thenReturn(NotificationOutcome.NONE);
+        when(rewards.evaluate(reachable)).thenReturn(new NotificationOutcome(1, 1, 1));
+        when(rewards.evaluate(noPush)).thenAnswer(inv -> {
+            assertEquals(noPush, UserContext.getCurrentUserId());
+            return new NotificationOutcome(1, 1, 0);
+        });
+
+        NotificationScheduler.Summary summary = new NotificationScheduler(repository, accounts, List.of(bills, rewards), true).runTick();
+
+        assertEquals(new NotificationScheduler.Summary(2, 2, 2, 1, 0), summary);
+        verify(bills).evaluate(reachable);
+        verify(bills, never()).evaluate(noPush);
+        verify(rewards, org.mockito.Mockito.times(1)).evaluate(reachable);
+        verify(rewards).evaluate(noPush);
+        assertNull(UserContext.getCurrentUserId());
+    }
+
+    @Test
+    void feedProducerFailureForANonPushUserIsCountedAndDoesNotStopTheTick() {
+        UUID a = UUID.randomUUID();
+        UUID b = UUID.randomUUID();
+        NotificationProducer rewards = producer("rewards");
+        when(rewards.runsWithoutPush()).thenReturn(true);
+        when(repository.findByPushEnabledTrueAndPushSubscriptionsIsNotNull()).thenReturn(List.of());
+        when(accounts.findDistinctUserIdsByType(AccountType.credit_card)).thenReturn(List.of(a, b));
+        when(rewards.evaluate(a)).thenThrow(new IllegalStateException("boom"));
+        when(rewards.evaluate(b)).thenReturn(new NotificationOutcome(1, 1, 0));
+
+        assertEquals(new NotificationScheduler.Summary(2, 1, 1, 0, 1),
+                new NotificationScheduler(repository, accounts, List.of(bills, rewards), true).runTick());
+        verify(bills, never()).evaluate(any());
+    }
+
+    @Test
+    void nonPushUsersAreNotQueriedWhenNoProducerRunsWithoutPush() {
+        when(repository.findByPushEnabledTrueAndPushSubscriptionsIsNotNull()).thenReturn(List.of());
+        new NotificationScheduler(repository, accounts, List.of(bills), true).runTick();
+        verify(accounts, never()).findDistinctUserIdsByType(any());
+    }
+
+    @Test
+    void failingCardHolderLookupIsCountedAndReachableUsersStillRun() {
+        UUID a = UUID.randomUUID();
+        NotificationProducer rewards = producer("rewards");
+        when(rewards.runsWithoutPush()).thenReturn(true);
+        when(repository.findByPushEnabledTrueAndPushSubscriptionsIsNotNull()).thenReturn(List.of(new UserNotificationSettings(a)));
+        when(accounts.findDistinctUserIdsByType(AccountType.credit_card)).thenThrow(new IllegalStateException("db down"));
+        when(bills.evaluate(a)).thenReturn(new NotificationOutcome(1, 1, 1));
+        when(rewards.evaluate(a)).thenReturn(NotificationOutcome.NONE);
+
+        assertEquals(new NotificationScheduler.Summary(1, 1, 1, 1, 1),
+                new NotificationScheduler(repository, accounts, List.of(bills, rewards), true).runTick());
     }
 }

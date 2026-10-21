@@ -5514,6 +5514,147 @@ paths:
           description: Error response
       tags:
       - notification-controller
+  /api/v1/notifications/feed:
+    get:
+      operationId: listFeed
+      parameters:
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+      - description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageAppNotificationResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-feed-controller
+  /api/v1/notifications/feed/clear:
+    post:
+      operationId: clearFeed
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ClearNotificationsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-feed-controller
+  /api/v1/notifications/feed/read:
+    post:
+      operationId: markFeedRead
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MarkNotificationsReadRequest"
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-feed-controller
+  /api/v1/notifications/feed/summary:
+    get:
+      operationId: feedSummary
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AppNotificationSummaryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-feed-controller
+  /api/v1/notifications/feed/{id}/clear:
+    post:
+      operationId: clearFeedItem
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-feed-controller
+  /api/v1/notifications/feed/{id}/restore:
+    post:
+      operationId: restoreFeedItem
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - notification-feed-controller
   /api/v1/notifications/loans/{loanId}/mute:
     put:
       operationId: muteLoan
@@ -7597,6 +7738,42 @@ components:
       - cards
       - statements
       - transactions
+    AppNotificationResponse:
+      type: object
+      properties:
+        body:
+          type: string
+          nullable: true
+          x-nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+        read:
+          type: boolean
+        refs:
+          $ref: "#/components/schemas/Refs"
+        title:
+          type: string
+      required:
+      - createdAt
+      - id
+      - kind
+      - read
+      - refs
+      - title
+    AppNotificationSummaryResponse:
+      type: object
+      properties:
+        unread:
+          type: integer
+          format: int64
+      required:
+      - unread
     ApplyRuleRequest:
       type: object
       properties:
@@ -8982,6 +9159,14 @@ components:
           format: int64
       required:
       - deletedCount
+    ClearNotificationsResponse:
+      type: object
+      properties:
+        cleared:
+          type: integer
+          format: int32
+      required:
+      - cleared
     CloseAccountRequest:
       type: object
       properties:
@@ -13052,6 +13237,12 @@ components:
           format: date
           nullable: true
           x-nullable: true
+    MarkNotificationsReadRequest:
+      type: object
+      properties:
+        before:
+          type: string
+          format: date-time
     MatchSuggestionsResponse:
       type: object
       properties:
@@ -13521,6 +13712,52 @@ components:
       required:
       - label
       - value
+    PageAppNotificationResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/AppNotificationResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
     PageCounterpartyResponse:
       type: object
       properties:
@@ -14625,6 +14862,28 @@ components:
       - totalValue
       - tradeDate
       - type
+    Refs:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        connectionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        jobId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        jobType:
+          type: string
+          nullable: true
+          x-nullable: true
     RemovePushSubscriptionRequest:
       type: object
       properties:

@@ -25,6 +25,12 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
 
     Page<Job> findByUserIdAndTypeInAndStatusIn(UUID userId, Collection<JobType> types, Collection<JobStatus> statuses, Pageable pageable);
 
+    /** The user's most recent finished job of this type at or before {@code finishedAt}, excluding {@code excludeId} (use a page of 1). */
+    @Query("select j from Job j where j.userId = :userId and j.type = :type and j.id <> :excludeId and j.status in :statuses "
+            + "and j.finishedAt is not null and j.finishedAt <= :finishedAt order by j.finishedAt desc")
+    List<Job> findPreviousFinished(@Param("userId") UUID userId, @Param("type") JobType type, @Param("excludeId") UUID excludeId,
+                                   @Param("statuses") Collection<JobStatus> statuses, @Param("finishedAt") Instant finishedAt, Pageable limit);
+
     Optional<Job> findByIdAndUserId(UUID id, UUID userId);
 
     long countByUserIdAndStatus(UUID userId, JobStatus status);
