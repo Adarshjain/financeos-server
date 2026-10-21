@@ -9714,6 +9714,11 @@ components:
           format: date
           nullable: true
           x-nullable: true
+        firstEntryDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         id:
           type: string
           format: uuid
@@ -9740,6 +9745,9 @@ components:
           - borrowed
           nullable: true
           x-nullable: true
+        linkedEntryCount:
+          type: integer
+          format: int32
         name:
           type: string
         netPosition:
@@ -9759,6 +9767,7 @@ components:
       required:
       - entryCount
       - id
+      - linkedEntryCount
       - name
       - netPosition
       - repaidByYou
