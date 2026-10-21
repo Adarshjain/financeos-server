@@ -9,6 +9,9 @@ import com.financeos.api.lending.dto.CounterpartyResponse;
 import com.financeos.api.lending.dto.CounterpartySummaryResponse;
 import com.financeos.api.lending.dto.CounterpartySuggestionResponse;
 import com.financeos.api.lending.dto.CreateCounterpartyRequest;
+import com.financeos.api.lending.dto.CreateSettlementRequest;
+import com.financeos.api.lending.dto.LendingResponse;
+import com.financeos.api.lending.dto.UnrecordedTransferResponse;
 import com.financeos.api.lending.dto.LendingMatchSuggestionsResponse;
 import com.financeos.api.lending.dto.UpdateCounterpartyRequest;
 import com.financeos.domain.lending.LendingService;
@@ -61,6 +64,22 @@ public class CounterpartyController {
     @Operation(operationId = "getAllCounterpartyMatchSuggestions", description = "Match suggestions for every person with at least one candidate.")
     public List<CounterpartyMatchSuggestionsResponse> getAllMatchSuggestions() {
         return lendingService.getAllMatchSuggestions();
+    }
+
+    @GetMapping("/unrecorded-transfers")
+    @Operation(operationId = "getUnrecordedTransfers", description = "Recent bank transfers (last 90 days) that name a person "
+            + "but have no lending entry and would reduce that person's balance; direction is the settlement entry's direction. "
+            + "Newest first, at most 50.")
+    public List<UnrecordedTransferResponse> getUnrecordedTransfers() {
+        return lendingService.getUnrecordedTransfers();
+    }
+
+    @PostMapping("/{id}/settlements")
+    @Operation(operationId = "recordCounterpartySettlement", description = "Records a settlement entry from an unrecorded bank "
+            + "transfer and links the transaction. 404 foreign/missing person or transaction; 409 transaction already referenced; "
+            + "400 when it would not reduce the balance or exceeds it by more than the match tolerance.")
+    public LendingResponse recordSettlement(@PathVariable UUID id, @Valid @RequestBody CreateSettlementRequest req) {
+        return lendingService.recordSettlement(id, req.transactionId());
     }
 
     @GetMapping("/{id}")

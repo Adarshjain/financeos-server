@@ -270,6 +270,15 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("maxDate") LocalDate maxDate,
             @Param("accountId") UUID accountId);
 
+    /** The user's bank-account (non-card) transactions dated in the window, newest first. */
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.card IS NULL "
+            + "AND t.account.type = com.financeos.domain.account.AccountType.bank_account "
+            + "AND t.date BETWEEN :minDate AND :maxDate ORDER BY t.date DESC, t.id")
+    List<Transaction> findBankTransactionsBetween(
+            @Param("userId") UUID userId,
+            @Param("minDate") LocalDate minDate,
+            @Param("maxDate") LocalDate maxDate);
+
     @Query("SELECT t FROM Transaction t WHERE t.type = :type AND t.amount BETWEEN :minAmount AND :maxAmount AND t.date BETWEEN :minDate AND :maxDate")
     List<Transaction> findMatchCandidates(
             @Param("type") TransactionType type,

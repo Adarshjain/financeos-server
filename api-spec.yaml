@@ -1777,6 +1777,29 @@ paths:
           description: Error response
       tags:
       - counterparty-controller
+  /api/v1/counterparties/unrecorded-transfers:
+    get:
+      description: "Recent bank transfers (last 90 days) that name a person but have\
+        \ no lending entry and would reduce that person's balance; direction is the\
+        \ settlement entry's direction. Newest first, at most 50."
+      operationId: getUnrecordedTransfers
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UnrecordedTransferResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - counterparty-controller
   /api/v1/counterparties/{id}:
     delete:
       operationId: deleteCounterparty
@@ -1920,6 +1943,41 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/LendingMatchSuggestionsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - counterparty-controller
+  /api/v1/counterparties/{id}/settlements:
+    post:
+      description: Records a settlement entry from an unrecorded bank transfer and
+        links the transaction. 404 foreign/missing person or transaction; 409 transaction
+        already referenced; 400 when it would not reduce the balance or exceeds it
+        by more than the match tolerance.
+      operationId: recordCounterpartySettlement
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSettlementRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LendingResponse"
           description: OK
         default:
           content:
@@ -10286,6 +10344,15 @@ components:
       required:
       - categoryIds
       - merchantKey
+    CreateSettlementRequest:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          format: uuid
+          x-required: true
+      required:
+      - transactionId
     CreateSipRequest:
       type: object
       properties:
@@ -18184,6 +18251,26 @@ components:
       - from
       - items
       - to
+    UnrecordedTransferResponse:
+      type: object
+      properties:
+        counterpartyId:
+          type: string
+          format: uuid
+        counterpartyName:
+          type: string
+        direction:
+          type: string
+          enum:
+          - lent
+          - borrowed
+        transaction:
+          $ref: "#/components/schemas/TransactionResponse"
+      required:
+      - counterpartyId
+      - counterpartyName
+      - direction
+      - transaction
     UpdateBillDetailsRequest:
       type: object
       properties:
