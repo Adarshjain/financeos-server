@@ -61,6 +61,42 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
     }
 
     @Override
+    public List<Transaction> findMatchCandidatesAny(TransactionType type, Collection<MatchWindow> windows) {
+        List<MatchWindow> distinct = new ArrayList<>(new LinkedHashSet<>(windows));
+        Map<UUID, Transaction> byId = new LinkedHashMap<>();
+        for (int from = 0; from < distinct.size(); from += MATCH_WINDOW_CHUNK) {
+            List<MatchWindow> chunk = distinct.subList(from, Math.min(from + MATCH_WINDOW_CHUNK, distinct.size()));
+            StringBuilder jpql = new StringBuilder("SELECT t FROM Transaction t WHERE t.type = :type AND (");
+            for (int i = 0; i < chunk.size(); i++) {
+                jpql.append(i == 0 ? "" : " OR ")
+                        .append("(t.amount BETWEEN :lo").append(i).append(" AND :hi").append(i)
+                        .append(" AND t.date BETWEEN :from").append(i).append(" AND :to").append(i);
+                if (chunk.get(i).accountId() != null) {
+                    jpql.append(" AND t.account.id = :acct").append(i);
+                }
+                jpql.append(")");
+            }
+            jpql.append(")");
+            jakarta.persistence.TypedQuery<Transaction> query = entityManager.createQuery(jpql.toString(), Transaction.class);
+            query.setParameter("type", type);
+            for (int i = 0; i < chunk.size(); i++) {
+                MatchWindow w = chunk.get(i);
+                query.setParameter("lo" + i, w.minAmount());
+                query.setParameter("hi" + i, w.maxAmount());
+                query.setParameter("from" + i, w.minDate());
+                query.setParameter("to" + i, w.maxDate());
+                if (w.accountId() != null) {
+                    query.setParameter("acct" + i, w.accountId());
+                }
+            }
+            for (Transaction t : query.getResultList()) {
+                byId.putIfAbsent(t.getId(), t);
+            }
+        }
+        return new ArrayList<>(byId.values());
+    }
+
+    @Override
     public List<DaySums> sumsByDayAfter(UUID accountId, LocalDate after) {
         jakarta.persistence.Query query = entityManager.createQuery(
                 "SELECT t.date, t.type, SUM(t.amount) FROM Transaction t "

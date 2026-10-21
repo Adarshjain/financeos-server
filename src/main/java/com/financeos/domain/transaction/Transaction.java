@@ -91,6 +91,7 @@ public class Transaction {
     private BigDecimal balance;
 
     @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
+    @org.hibernate.annotations.BatchSize(size = 50)
     private Set<TransactionCategory> categories = new HashSet<>();
 
     public void setCategories(Set<Category> newCategories) {

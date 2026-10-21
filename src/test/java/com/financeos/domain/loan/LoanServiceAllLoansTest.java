@@ -19,6 +19,7 @@ import com.financeos.domain.loan.LoanService.LoanTotals;
 import com.financeos.domain.loan.schedule.LoanScheduleService;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
+import com.financeos.domain.transaction.TransactionRepositoryCustom;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
@@ -196,14 +197,14 @@ class LoanServiceAllLoansTest {
         return t;
     }
 
-    /** Stubs the candidate query to filter the pool by the amount range the service asks for. */
+    /** Stubs the candidate query to filter the pool by the amount bands of the windows the service asks for. */
     private void stubCandidates(List<Transaction> pool) {
-        when(transactionRepository.findMatchCandidates(any(), any(), any(), any(), any())).thenAnswer(inv -> {
-            BigDecimal min = inv.getArgument(1);
-            BigDecimal max = inv.getArgument(2);
+        when(transactionRepository.findMatchCandidatesAny(any(), any())).thenAnswer(inv -> {
+            java.util.Collection<TransactionRepositoryCustom.MatchWindow> windows = inv.getArgument(1);
             List<Transaction> out = new ArrayList<>();
             for (Transaction t : pool) {
-                if (t.getAmount().compareTo(min) >= 0 && t.getAmount().compareTo(max) <= 0) {
+                if (windows.stream().anyMatch(w -> t.getAmount().compareTo(w.minAmount()) >= 0
+                        && t.getAmount().compareTo(w.maxAmount()) <= 0)) {
                     out.add(t);
                 }
             }
@@ -289,8 +290,7 @@ class LoanServiceAllLoansTest {
         Loan bad = fiveThousandEmiLoan("Bad");
         Loan good = fiveThousandEmiLoan("Good");
         when(loanRepository.findByStatus(LoanStatus.active)).thenReturn(List.of(bad, good));
-        when(loanEventRepository.findByLoan_IdOrderByEffectiveDateAscCreatedAtAsc(bad.getId()))
-                .thenThrow(new IllegalStateException("boom"));
+        bad.setTenureMonths(0); // schedule computation throws for this loan
         stubCandidates(List.of(debit("4950")));
 
         List<LoanMatchSuggestionsResponse> result = loanService.getAllMatchSuggestions();

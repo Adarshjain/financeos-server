@@ -12,6 +12,8 @@ public interface LoanChargeRepository extends JpaRepository<LoanCharge, UUID> {
 
     List<LoanCharge> findByLoan_IdOrderByChargeDateAscCreatedAtAsc(UUID loanId);
 
+    List<LoanCharge> findByLoan_IdInOrderByChargeDateAscCreatedAtAsc(Collection<UUID> loanIds);
+
     boolean existsByTransaction_Id(UUID transactionId);
 
     @Query("SELECT c FROM LoanCharge c JOIN FETCH c.loan WHERE c.transaction.id IN :ids")

@@ -10,6 +10,7 @@ import com.financeos.domain.loan.TransactionReferenceValidator;
 import com.financeos.domain.obligation.MatchingConstants;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
+import com.financeos.domain.transaction.TransactionRepositoryCustom;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.transaction.link.LinkType;
 import com.financeos.domain.transaction.link.TransactionLink;
@@ -107,7 +108,7 @@ class LendingMatchSuggestionsTest {
     }
 
     private void stubCandidatesForAnyEntry(TransactionType type, List<Transaction> candidates) {
-        when(transactionRepository.findMatchCandidates(eq(type), any(), any(), any(), any())).thenReturn(candidates);
+        when(transactionRepository.findMatchCandidatesAny(eq(type), any())).thenReturn(candidates);
     }
 
     // --- counterparty ownership --------------------------------------------------------------
@@ -155,7 +156,7 @@ class LendingMatchSuggestionsTest {
 
         lendingService.getMatchSuggestions(counterparty.getId());
 
-        verify(transactionRepository, times(1)).findMatchCandidates(eq(TransactionType.DEBIT), any(), any(), any(), any());
+        verify(transactionRepository, times(1)).findMatchCandidatesAny(eq(TransactionType.DEBIT), any());
     }
 
     // --- candidate query bounds ------------------------------------------------------------------
@@ -166,16 +167,19 @@ class LendingMatchSuggestionsTest {
         BigDecimal amount = new BigDecimal("500.00");
         Lending unlinked = entry(LendingDirection.lent, amount, entryDate, Instant.now());
         when(lendingRepository.findByCounterpartyIdWithRefs(counterparty.getId())).thenReturn(List.of(unlinked));
-        when(transactionRepository.findMatchCandidates(any(), any(), any(), any(), any())).thenReturn(List.of());
+        when(transactionRepository.findMatchCandidatesAny(any(), any())).thenReturn(List.of());
 
         lendingService.getMatchSuggestions(counterparty.getId());
 
-        verify(transactionRepository).findMatchCandidates(
-                TransactionType.DEBIT,
+        org.mockito.ArgumentCaptor<java.util.Collection<TransactionRepositoryCustom.MatchWindow>> windows =
+                org.mockito.ArgumentCaptor.forClass(java.util.Collection.class);
+        verify(transactionRepository).findMatchCandidatesAny(eq(TransactionType.DEBIT), windows.capture());
+        assertEquals(List.of(new TransactionRepositoryCustom.MatchWindow(
                 amount.subtract(MatchingConstants.MATCH_AMOUNT_TOLERANCE),
                 amount.add(MatchingConstants.MATCH_AMOUNT_TOLERANCE),
                 entryDate.minusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS),
-                entryDate.plusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS));
+                entryDate.plusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS),
+                null)), List.copyOf(windows.getValue()));
     }
 
     @Test
@@ -184,16 +188,19 @@ class LendingMatchSuggestionsTest {
         BigDecimal amount = new BigDecimal("300.00");
         Lending unlinked = entry(LendingDirection.borrowed, amount, entryDate, Instant.now());
         when(lendingRepository.findByCounterpartyIdWithRefs(counterparty.getId())).thenReturn(List.of(unlinked));
-        when(transactionRepository.findMatchCandidates(any(), any(), any(), any(), any())).thenReturn(List.of());
+        when(transactionRepository.findMatchCandidatesAny(any(), any())).thenReturn(List.of());
 
         lendingService.getMatchSuggestions(counterparty.getId());
 
-        verify(transactionRepository).findMatchCandidates(
-                TransactionType.CREDIT,
+        org.mockito.ArgumentCaptor<java.util.Collection<TransactionRepositoryCustom.MatchWindow>> windows =
+                org.mockito.ArgumentCaptor.forClass(java.util.Collection.class);
+        verify(transactionRepository).findMatchCandidatesAny(eq(TransactionType.CREDIT), windows.capture());
+        assertEquals(List.of(new TransactionRepositoryCustom.MatchWindow(
                 amount.subtract(MatchingConstants.MATCH_AMOUNT_TOLERANCE),
                 amount.add(MatchingConstants.MATCH_AMOUNT_TOLERANCE),
                 entryDate.minusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS),
-                entryDate.plusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS));
+                entryDate.plusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS),
+                null)), List.copyOf(windows.getValue()));
     }
 
     // --- exclusion filters -----------------------------------------------------------------------
@@ -295,21 +302,8 @@ class LendingMatchSuggestionsTest {
         Transaction shared = candidate(TransactionType.DEBIT, new BigDecimal("500.00"), LocalDate.of(2026, 1, 1));
         Transaction exclusiveToB = candidate(TransactionType.DEBIT, new BigDecimal("300.00"), LocalDate.of(2026, 2, 1));
 
-        // Distinct amount/date bounds per entry -> stub per exact call using the entry's own tolerance window.
-        when(transactionRepository.findMatchCandidates(
-                eq(TransactionType.DEBIT),
-                eq(new BigDecimal("500.00").subtract(MatchingConstants.MATCH_AMOUNT_TOLERANCE)),
-                eq(new BigDecimal("500.00").add(MatchingConstants.MATCH_AMOUNT_TOLERANCE)),
-                eq(LocalDate.of(2026, 1, 1).minusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS)),
-                eq(LocalDate.of(2026, 1, 1).plusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS))))
-                .thenReturn(List.of(shared));
-        when(transactionRepository.findMatchCandidates(
-                eq(TransactionType.DEBIT),
-                eq(new BigDecimal("300.00").subtract(MatchingConstants.MATCH_AMOUNT_TOLERANCE)),
-                eq(new BigDecimal("300.00").add(MatchingConstants.MATCH_AMOUNT_TOLERANCE)),
-                eq(LocalDate.of(2026, 2, 1).minusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS)),
-                eq(LocalDate.of(2026, 2, 1).plusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS))))
-                .thenReturn(List.of(exclusiveToB));
+        // One batched query returns the pool; each entry takes its own tolerance window in memory.
+        stubCandidatesForAnyEntry(TransactionType.DEBIT, List.of(shared, exclusiveToB));
 
         LendingMatchSuggestionsResponse response = lendingService.getMatchSuggestions(counterparty.getId());
 
@@ -392,26 +386,24 @@ class LendingMatchSuggestionsTest {
         Lending e1 = entry(LendingDirection.lent, new BigDecimal("500"), LocalDate.of(2026, 3, 10), Instant.now());
         Lending e2 = entry(LendingDirection.lent, new BigDecimal("700"), LocalDate.of(2026, 3, 10), Instant.now());
         e2.setCounterparty(second);
-        when(lendingRepository.findByCounterpartyIdWithRefs(counterparty.getId())).thenReturn(List.of(e1));
-        when(lendingRepository.findByCounterpartyIdWithRefs(second.getId())).thenReturn(List.of(e2));
-        when(lendingRepository.findByCounterpartyIdWithRefs(idle.getId())).thenReturn(List.of());
+        when(lendingRepository.findAllWithRefs()).thenReturn(List.of(e1, e2));
         stubCandidatesForAnyEntry(TransactionType.DEBIT, List.of());
 
         lendingService.getAllMatchSuggestions();
 
         verify(transactionValidator, times(1)).getAllReferencedTransactionIds();
-        verify(transactionRepository, times(2)).findMatchCandidates(any(), any(), any(), any(), any());
+        verify(transactionRepository, times(1)).findMatchCandidatesAny(any(), any());
     }
 
     @Test
     void getAllMatchSuggestions_nobodyHasUnlinkedEntries_noCandidateQueryNoPreload() {
         when(counterpartyRepository.findAll(any(org.springframework.data.domain.Sort.class)))
                 .thenReturn(List.of(counterparty));
-        when(lendingRepository.findByCounterpartyIdWithRefs(counterparty.getId())).thenReturn(List.of());
+        when(lendingRepository.findAllWithRefs()).thenReturn(List.of());
 
         assertTrue(lendingService.getAllMatchSuggestions().isEmpty());
 
-        verify(transactionRepository, never()).findMatchCandidates(any(), any(), any(), any(), any());
+        verify(transactionRepository, never()).findMatchCandidatesAny(any(), any());
         verify(transactionValidator, never()).getAllReferencedTransactionIds();
     }
 }

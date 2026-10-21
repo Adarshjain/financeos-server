@@ -19,6 +19,7 @@ import com.financeos.domain.loan.schedule.LoanScheduleService;
 import com.financeos.domain.loan.schedule.ScheduleResult;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
+import com.financeos.domain.transaction.TransactionRepositoryCustom;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.user.UserRepository;
 import org.slf4j.Logger;
@@ -214,18 +215,44 @@ public class LoanService {
     /** Match suggestions for every active loan that has at least one candidate transaction; others are omitted. */
     @Transactional(readOnly = true)
     public List<LoanMatchSuggestionsResponse> getAllMatchSuggestions() {
-        List<LoanMatchSuggestionsResponse> result = new ArrayList<>();
-        for (Loan loan : loanRepository.findByStatus(LoanStatus.active)) {
-            MatchSuggestionsResponse r;
+        List<Loan> loans = loanRepository.findByStatus(LoanStatus.active);
+        if (loans.isEmpty()) {
+            return new ArrayList<>();
+        }
+        List<UUID> loanIds = loans.stream().map(Loan::getId).toList();
+        Map<UUID, List<LoanEvent>> events = new HashMap<>();
+        Map<UUID, List<LoanPayment>> payments = new HashMap<>();
+        Map<UUID, List<LoanCharge>> charges = new HashMap<>();
+        for (int i = 0; i < loanIds.size(); i += 1000) {
+            List<UUID> chunk = loanIds.subList(i, Math.min(i + 1000, loanIds.size()));
+            loanEventRepository.findByLoan_IdInOrderByEffectiveDateAscCreatedAtAsc(chunk)
+                    .forEach(x -> events.computeIfAbsent(x.getLoan().getId(), k -> new ArrayList<>()).add(x));
+            loanPaymentRepository.findByLoan_IdInOrderByInstallmentSeqAsc(chunk)
+                    .forEach(x -> payments.computeIfAbsent(x.getLoan().getId(), k -> new ArrayList<>()).add(x));
+            loanChargeRepository.findByLoan_IdInOrderByChargeDateAscCreatedAtAsc(chunk)
+                    .forEach(x -> charges.computeIfAbsent(x.getLoan().getId(), k -> new ArrayList<>()).add(x));
+        }
+
+        List<LoanTargets> targets = new ArrayList<>();
+        for (Loan loan : loans) {
             try {
-                r = getMatchSuggestions(loan.getId());
+                ScheduleResult schedule = scheduleService.compute(loan,
+                        events.getOrDefault(loan.getId(), List.of()),
+                        payments.getOrDefault(loan.getId(), List.of()),
+                        charges.getOrDefault(loan.getId(), List.of()));
+                targets.add(new LoanTargets(loan, targetInstallments(schedule)));
             } catch (RuntimeException e) {
                 log.warn("All-loans match suggestions skipped loan {} ({})", loan.getId(), e.getClass().getSimpleName());
-                continue;
             }
+        }
+
+        Map<UUID, MatchSuggestionsResponse> byLoan = matchSuggestionsFor(targets);
+        List<LoanMatchSuggestionsResponse> result = new ArrayList<>();
+        for (LoanTargets t : targets) {
+            MatchSuggestionsResponse r = byLoan.get(t.loan().getId());
             boolean any = r.suggestions().stream().anyMatch(sg -> !sg.candidates().isEmpty());
             if (any) {
-                result.add(new LoanMatchSuggestionsResponse(loan.getId(), loan.getName(), r.suggestions()));
+                result.add(new LoanMatchSuggestionsResponse(t.loan().getId(), t.loan().getName(), r.suggestions()));
             }
         }
         return result;
@@ -691,62 +718,84 @@ public class LoanService {
         List<LoanCharge> charges = loanChargeRepository.findByLoan_IdOrderByChargeDateAscCreatedAtAsc(loanId);
         ScheduleResult schedule = scheduleService.compute(loan, events, payments, charges);
 
-        LocalDate today = AppTime.today();
-        LocalDate maxDueDate = today.plusDays(7);
+        return matchSuggestionsFor(List.of(new LoanTargets(loan, targetInstallments(schedule)))).get(loanId);
+    }
 
-        List<InstallmentDto> targetInstallments = schedule.installments().stream()
+    private record LoanTargets(Loan loan, List<InstallmentDto> installments) {}
+
+    /** Unsettled installments due within a week from today, by seq. */
+    private List<InstallmentDto> targetInstallments(ScheduleResult schedule) {
+        LocalDate maxDueDate = AppTime.today().plusDays(7);
+        return schedule.installments().stream()
                 .filter(i -> !"settled".equals(i.status()))
                 .filter(i -> !i.dueDate().isAfter(maxDueDate))
                 .sorted(Comparator.comparing(InstallmentDto::seq))
                 .toList();
+    }
 
-        if (targetInstallments.isEmpty()) {
-            log.info("Loan match attempted: loanId={}, matched=false, reason=no-candidates", loanId,
-                    StructuredArguments.keyValue("event", Events.LOAN_MATCH_ATTEMPTED),
-                    StructuredArguments.keyValue("loanId", loanId != null ? loanId.toString() : ""),
-                    StructuredArguments.keyValue("txnId", ""),
-                    StructuredArguments.keyValue("toleranceUsed", MatchingConstants.LOAN_MATCH_AMOUNT_TOLERANCE_MIN.doubleValue()),
-                    StructuredArguments.keyValue("candidateCount", 0),
-                    StructuredArguments.keyValue("matched", false),
-                    StructuredArguments.keyValue("rejectReason", "no-candidates"));
-            return new MatchSuggestionsResponse(Collections.emptyList());
+    /**
+     * Suggestions for many loans at once: one candidate query matching the exact OR of every
+     * installment's own amount band, window and payment account, one referenced-ids load; each installment
+     * then re-applies its own predicate in memory.
+     */
+    private Map<UUID, MatchSuggestionsResponse> matchSuggestionsFor(List<LoanTargets> items) {
+        Map<UUID, MatchSuggestionsResponse> out = new HashMap<>();
+        List<LoanTargets> active = new ArrayList<>();
+        for (LoanTargets item : items) {
+            UUID loanId = item.loan().getId();
+            if (item.installments().isEmpty()) {
+                log.info("Loan match attempted: loanId={}, matched=false, reason=no-candidates", loanId,
+                        StructuredArguments.keyValue("event", Events.LOAN_MATCH_ATTEMPTED),
+                        StructuredArguments.keyValue("loanId", loanId != null ? loanId.toString() : ""),
+                        StructuredArguments.keyValue("txnId", ""),
+                        StructuredArguments.keyValue("toleranceUsed", MatchingConstants.LOAN_MATCH_AMOUNT_TOLERANCE_MIN.doubleValue()),
+                        StructuredArguments.keyValue("candidateCount", 0),
+                        StructuredArguments.keyValue("matched", false),
+                        StructuredArguments.keyValue("rejectReason", "no-candidates"));
+                out.put(loanId, new MatchSuggestionsResponse(Collections.emptyList()));
+            } else {
+                active.add(item);
+            }
+        }
+        if (active.isEmpty()) {
+            return out;
         }
 
         Set<UUID> referencedTxIds = transactionValidator.getAllReferencedTransactionIds();
 
-        UUID paymentAccountId = loan.getPaymentAccount() != null ? loan.getPaymentAccount().getId() : null;
-
-        // Fetch candidate transactions for all target installments
-        Map<Integer, List<Transaction>> candidateMap = new HashMap<>();
-
-        for (InstallmentDto inst : targetInstallments) {
-            BigDecimal expectedAmount = inst.emi().setScale(2, RoundingMode.HALF_UP);
-            BigDecimal tolerance = MatchingConstants.loanAmountTolerance(expectedAmount);
-            BigDecimal minAmount = expectedAmount.subtract(tolerance);
-            BigDecimal maxAmount = expectedAmount.add(tolerance);
-            LocalDate minDate = inst.dueDate().minusDays(7);
-            LocalDate maxDate = inst.dueDate().plusDays(7);
-
-            List<Transaction> candidates;
-            if (paymentAccountId != null) {
-                candidates = transactionRepository.findMatchCandidatesByAccount(
-                        TransactionType.DEBIT,
-                        minAmount,
-                        maxAmount,
-                        minDate,
-                        maxDate,
-                        paymentAccountId
-                );
-            } else {
-                candidates = transactionRepository.findMatchCandidates(
-                        TransactionType.DEBIT,
-                        minAmount,
-                        maxAmount,
-                        minDate,
-                        maxDate
-                );
+        // One query for the exact OR of every installment's own amount band, date window and payment account.
+        List<TransactionRepositoryCustom.MatchWindow> windows = new ArrayList<>();
+        for (LoanTargets item : active) {
+            UUID accountId = paymentAccountId(item.loan());
+            for (InstallmentDto inst : item.installments()) {
+                BigDecimal expected = inst.emi().setScale(2, RoundingMode.HALF_UP);
+                BigDecimal tol = MatchingConstants.loanAmountTolerance(expected);
+                windows.add(new TransactionRepositoryCustom.MatchWindow(expected.subtract(tol), expected.add(tol),
+                        inst.dueDate().minusDays(7), inst.dueDate().plusDays(7), accountId));
             }
+        }
+        List<Transaction> pool = transactionRepository.findMatchCandidatesAny(TransactionType.DEBIT, windows);
 
+        for (LoanTargets item : active) {
+            Loan loan = item.loan();
+            UUID loanId = loan.getId();
+            UUID accountId = paymentAccountId(loan);
+            List<InstallmentDto> targetInstallments = item.installments();
+
+            Map<Integer, List<Transaction>> candidateMap = new HashMap<>();
+            for (InstallmentDto inst : targetInstallments) {
+                BigDecimal expectedAmount = inst.emi().setScale(2, RoundingMode.HALF_UP);
+                BigDecimal tolerance = MatchingConstants.loanAmountTolerance(expectedAmount);
+                BigDecimal minAmount = expectedAmount.subtract(tolerance);
+                BigDecimal maxAmount = expectedAmount.add(tolerance);
+                LocalDate minDate = inst.dueDate().minusDays(7);
+                LocalDate maxDate = inst.dueDate().plusDays(7);
+
+                List<Transaction> candidates = pool.stream()
+                        .filter(t -> accountId == null || (t.getAccount() != null && accountId.equals(t.getAccount().getId())))
+                        .filter(t -> t.getAmount().compareTo(minAmount) >= 0 && t.getAmount().compareTo(maxAmount) <= 0)
+                        .filter(t -> !t.getDate().isBefore(minDate) && !t.getDate().isAfter(maxDate))
+                        .toList();
             for (Transaction t : candidates) {
                 if (referencedTxIds.contains(t.getId())) {
                     log.info("Loan match attempted: loanId={}, txnId={}, matched=false, reason=already-matched", loanId, t.getId(),
@@ -824,7 +873,13 @@ public class LoanService {
             ));
         }
 
-        return new MatchSuggestionsResponse(suggestions);
+        out.put(loanId, new MatchSuggestionsResponse(suggestions));
+        }
+        return out;
+    }
+
+    private static UUID paymentAccountId(Loan loan) {
+        return loan.getPaymentAccount() != null ? loan.getPaymentAccount().getId() : null;
     }
 
     private Loan getLoanAndVerifyOwnership(UUID loanId) {
