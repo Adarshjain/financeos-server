@@ -114,19 +114,29 @@ public class CategorizationService {
         return saved;
     }
 
+    /** A rule this call flipped to verified, and the transactions whose CATEGORY_UNVERIFIED it cleared. */
+    public record RuleVerification(UUID ruleId, List<UUID> clearedTransactionIds) {}
+
     @Transactional
-    public void verifyRule(CategoryRule rule) {
-        verifyRules(List.of(rule));
+    public List<RuleVerification> verifyRule(CategoryRule rule) {
+        return verifyRules(List.of(rule));
     }
 
     /**
      * Marks the rules verified and clears CATEGORY_UNVERIFIED from every transaction linked to any
-     * of them, in one transaction.
+     * of them, in one transaction. Returns, for each rule that was unverified before the call, the
+     * ids of the transactions it cleared (so the caller can undo it).
      */
     @Transactional
-    public void verifyRules(Collection<CategoryRule> rules) {
+    public List<RuleVerification> verifyRules(Collection<CategoryRule> rules) {
         if (rules.isEmpty()) {
-            return;
+            return List.of();
+        }
+        Set<UUID> wasUnverified = new LinkedHashSet<>();
+        for (CategoryRule rule : rules) {
+            if (!rule.isVerified()) {
+                wasUnverified.add(rule.getId());
+            }
         }
         rules.forEach(rule -> rule.setVerified(true));
         categoryRuleRepository.saveAll(rules);
@@ -134,15 +144,49 @@ public class CategorizationService {
         List<UUID> ruleIds = rules.stream().map(CategoryRule::getId).toList();
         List<Transaction> txns = transactionRepository.findByAppliedRuleIdIn(ruleIds);
         List<Transaction> toSave = new ArrayList<>();
+        Map<UUID, List<UUID>> clearedByRule = new LinkedHashMap<>();
+        wasUnverified.forEach(id -> clearedByRule.put(id, new ArrayList<>()));
         for (Transaction txn : txns) {
             if (txn.getReviewReasons() != null && txn.getReviewReasons().contains(ReviewReason.CATEGORY_UNVERIFIED)) {
                 reviewStatusManager.clearReason(txn, ReviewReason.CATEGORY_UNVERIFIED, ReviewType.AUTO_REVIEWED);
                 toSave.add(txn);
+                List<UUID> cleared = clearedByRule.get(txn.getAppliedRule().getId());
+                if (cleared != null) {
+                    cleared.add(txn.getId());
+                }
             }
         }
         if (!toSave.isEmpty()) {
             transactionRepository.saveAll(toSave);
         }
+        List<RuleVerification> result = new ArrayList<>();
+        clearedByRule.forEach((id, cleared) -> result.add(new RuleVerification(id, cleared)));
+        return result;
+    }
+
+    /**
+     * Undo of {@link #verifyRule}: marks the rule unverified and puts CATEGORY_UNVERIFIED back on
+     * those of the given transactions that belong to the user and are still linked to it. Returns
+     * the restored ids.
+     */
+    @Transactional
+    public List<UUID> unverifyRule(CategoryRule rule, List<UUID> transactionIds, UUID userId) {
+        rule.setVerified(false);
+        categoryRuleRepository.save(rule);
+        List<Transaction> restored = new ArrayList<>();
+        List<Transaction> candidates = transactionIds.isEmpty()
+                ? List.of()
+                : transactionRepository.findAllByIdInAndUserId(transactionIds.stream().distinct().toList(), userId);
+        for (Transaction txn : candidates) {
+            if (txn.getAppliedRule() != null && rule.getId().equals(txn.getAppliedRule().getId())) {
+                reviewStatusManager.addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
+                restored.add(txn);
+            }
+        }
+        if (!restored.isEmpty()) {
+            transactionRepository.saveAll(restored);
+        }
+        return restored.stream().map(Transaction::getId).toList();
     }
 
     /**
