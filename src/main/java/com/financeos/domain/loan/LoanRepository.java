@@ -19,6 +19,15 @@ public interface LoanRepository extends JpaRepository<Loan, UUID> {
 
     List<Loan> findByStatus(LoanStatus status);
 
+    /** Case-insensitive contains (pre-lowered LIKE pattern, backslash-escaped) on name, lender or account number. */
+    @Query("SELECT l FROM Loan l WHERE l.status = :status AND (LOWER(l.name) LIKE :pattern ESCAPE '\\' "
+            + "OR LOWER(l.lender) LIKE :pattern ESCAPE '\\' OR LOWER(l.loanAccountNumber) LIKE :pattern ESCAPE '\\')")
+    Page<Loan> searchByStatus(@Param("status") LoanStatus status, @Param("pattern") String pattern, Pageable pageable);
+
+    @Query("SELECT l FROM Loan l WHERE (LOWER(l.name) LIKE :pattern ESCAPE '\\' "
+            + "OR LOWER(l.lender) LIKE :pattern ESCAPE '\\' OR LOWER(l.loanAccountNumber) LIKE :pattern ESCAPE '\\')")
+    Page<Loan> search(@Param("pattern") String pattern, Pageable pageable);
+
     /** Loans the user muted for EMI pushes (notification settings view). */
     List<Loan> findByUser_IdAndNotificationsMutedTrue(UUID userId);
 

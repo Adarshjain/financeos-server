@@ -216,4 +216,34 @@ class LoanScheduleServiceTest {
         // Effective APR should be higher than nominal 10.0%
         assertTrue(result.effectiveAprPct() > 10.0, "Expected effective APR (" + result.effectiveAprPct() + ") to be > 10.0%");
     }
+
+    @Test
+    void testK_TwelveMonthLoan_HasExactlyTwelveRows_ResidualFoldedIntoLast() {
+        // 1.2L @ 12% for 12m: the 2dp-rounded EMI leaves a few paise, which must fold into the last row.
+        Loan loan = createBaseLoan(new BigDecimal("120000"), new BigDecimal("12"), 12);
+
+        ScheduleResult result = scheduleService.compute(loan, null, null, null, LocalDate.of(2025, 1, 1));
+
+        List<InstallmentDto> rows = result.installments();
+        assertEquals(12, rows.size());
+        assertEquals(0, BigDecimal.ZERO.compareTo(rows.get(11).closingBalance()));
+        BigDecimal sumPrincipal = rows.stream().map(InstallmentDto::principal).reduce(BigDecimal.ZERO, BigDecimal::add);
+        assertEquals(0, loan.getPrincipal().compareTo(sumPrincipal));
+        assertEquals(12, result.totalInstallments());
+    }
+
+    @Test
+    void testL_GenuinelySmallerFinalEmi_StaysItsOwnRow() {
+        // EMI deliberately rounded up by the bank: the last row is smaller but is a normal row, not a fold.
+        Loan loan = createBaseLoan(new BigDecimal("100000"), new BigDecimal("12"), 12);
+        loan.setEmiAmount(new BigDecimal("9000"));
+
+        ScheduleResult result = scheduleService.compute(loan, null, null, null, LocalDate.of(2025, 1, 1));
+
+        List<InstallmentDto> rows = result.installments();
+        assertEquals(12, rows.size());
+        assertTrue(rows.get(11).emi().compareTo(new BigDecimal("9000")) < 0);
+        assertTrue(rows.get(11).emi().compareTo(BigDecimal.ONE) > 0);
+        assertEquals(0, BigDecimal.ZERO.compareTo(rows.get(11).closingBalance()));
+    }
 }

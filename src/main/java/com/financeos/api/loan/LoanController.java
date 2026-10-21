@@ -13,7 +13,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -38,27 +37,36 @@ public class LoanController {
     @GetMapping
     public Page<LoanResponse> getLoans(
             @RequestParam(required = false) LoanStatus status,
+            @RequestParam(required = false) String q,
             @ParameterObject @PageableDefault(size = 50, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        return loanService.getLoans(status, pageable);
+        return loanService.getLoans(status, q, pageable);
     }
 
     @GetMapping("/summary")
     public LoansSummaryResponse getLoansSummary() {
-        Page<LoanResponse> activeLoans = loanService.getLoans(LoanStatus.active, Pageable.unpaged());
-        BigDecimal totalOutstanding = activeLoans.getContent().stream()
-                .map(LoanResponse::outstandingPrincipal)
-                .filter(java.util.Objects::nonNull)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
         var lendingSummary = lendingService.getLendingTotals();
+        var totals = loanService.getLoanTotals();
 
         return new LoansSummaryResponse(
-                totalOutstanding,
-                activeLoans.getTotalElements(),
+                totals.totalOutstanding(),
+                totals.activeLoanCount(),
                 lendingSummary.lentOutstanding(),
                 lendingSummary.borrowedOutstanding(),
-                lendingSummary.netReceivable()
+                lendingSummary.netReceivable(),
+                totals.borrowedPrincipal(),
+                totals.monthlyEmiTotal(),
+                totals.emiDueDays(),
+                totals.overdueAmount(),
+                totals.overdueCount(),
+                totals.interestPaidThisFy(),
+                totals.fyStart(),
+                totals.closedLoanCount()
         );
+    }
+
+    @GetMapping("/match-suggestions")
+    public List<LoanMatchSuggestionsResponse> getAllMatchSuggestions() {
+        return loanService.getAllMatchSuggestions();
     }
 
     @GetMapping("/{id}")

@@ -128,7 +128,8 @@ public class LoanScheduleService {
             BigDecimal closingBalance = balance.subtract(principalPart);
             BigDecimal emittedEmi = emi;
 
-            if (closingBalance.compareTo(BigDecimal.ZERO) == 0) {
+            // A sub-rupee residual (from the 2dp-rounded EMI) folds into this installment instead of a paise row.
+            if (closingBalance.compareTo(BigDecimal.ONE) < 0) {
                 principalPart = balance;
                 emittedEmi = interest.add(principalPart);
                 closingBalance = BigDecimal.ZERO;

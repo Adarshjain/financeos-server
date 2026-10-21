@@ -8,6 +8,7 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.observability.Events;
 import com.financeos.core.security.UserContext;
 import com.financeos.core.time.AppTime;
+import com.financeos.domain.notification.lending.LendingReturnNotificationService;
 import com.financeos.domain.loan.TransactionReferenceValidator;
 import com.financeos.domain.obligation.MatchingConstants;
 import com.financeos.domain.transaction.Transaction;
@@ -91,8 +92,15 @@ public class LendingService {
      */
     @Transactional(readOnly = true)
     public Page<CounterpartyResponse> getCounterparties(@Nullable String q, boolean outstanding, Pageable pageable) {
+        return getCounterparties(q, outstanding, null, pageable);
+    }
+
+    /** As above, plus an optional {@code direction} filter on the sign of the net position. */
+    @Transactional(readOnly = true)
+    public Page<CounterpartyResponse> getCounterparties(@Nullable String q, boolean outstanding,
+                                                        @Nullable CounterpartyDirection direction, Pageable pageable) {
         boolean byNet = pageable.getSort().getOrderFor(SORT_BY_NET) != null;
-        if (!outstanding && !byNet) {
+        if (!outstanding && !byNet && direction == null) {
             return getCounterparties(q, pageable);
         }
         String term = q == null ? "" : q.trim().toLowerCase(java.util.Locale.ROOT);
@@ -106,6 +114,9 @@ public class LendingService {
                 continue;
             }
             if (outstanding && net.signum() == 0) {
+                continue;
+            }
+            if (direction != null && !direction.matches(net)) {
                 continue;
             }
             nets.add(new NetRow(id, name, net));
@@ -170,6 +181,156 @@ public class LendingService {
         return counterpartyRepository.findById(id)
                 .filter(cp -> cp.getUser() != null && cp.getUser().getId().equals(userId))
                 .map(this::toCounterpartyResponse);
+    }
+
+    /** One counterparty with the list's totals and the last-entry / expected-return fields; 404 when missing or not the caller's. */
+    @Transactional(readOnly = true)
+    public CounterpartyResponse getCounterparty(UUID id) {
+        return toCounterpartyResponse(getOwnedCounterpartyOr404(id));
+    }
+
+    private Counterparty getOwnedCounterpartyOr404(UUID id) {
+        UUID userId = UserContext.getCurrentUserId();
+        return counterpartyRepository.findById(id)
+                .filter(cp -> cp.getUser() != null && cp.getUser().getId().equals(userId))
+                .orElseThrow(() -> new ResourceNotFoundException("Counterparty", id));
+    }
+
+    /**
+     * Tiles over all people: what is owed each way (nets are kind-agnostic, as in
+     * {@code netPosition}) and, per direction, the people whose expected return date
+     * ({@link #expectedReturnDateOf}) falls on or before the last day of the current month (IST).
+     */
+    @Transactional(readOnly = true)
+    public CounterpartySummaryResponse getCounterpartySummary() {
+        LocalDate today = AppTime.today();
+        LocalDate monthEnd = today.withDayOfMonth(today.lengthOfMonth());
+        Map<UUID, List<Lending>> byPerson = new LinkedHashMap<>();
+        for (Lending l : lendingRepository.findAllWithRefs()) {
+            if (l.getCounterparty() != null) {
+                byPerson.computeIfAbsent(l.getCounterparty().getId(), k -> new ArrayList<>()).add(l);
+            }
+        }
+        BigDecimal owedToYou = BigDecimal.ZERO;
+        BigDecimal youOwe = BigDecimal.ZERO;
+        long owedToYouCount = 0;
+        long youOweCount = 0;
+        SummaryBucket due = new SummaryBucket();
+        SummaryBucket back = new SummaryBucket();
+        for (List<Lending> group : byPerson.values()) {
+            BigDecimal net = netOf(group);
+            if (net.signum() == 0) {
+                continue;
+            }
+            LocalDate expected = expectedReturnDateOf(group);
+            boolean inMonth = expected != null && !expected.isAfter(monthEnd);
+            String name = group.get(0).getCounterparty().getName();
+            if (net.signum() > 0) {
+                owedToYou = owedToYou.add(net);
+                owedToYouCount++;
+                if (inMonth) back.add(net, name, expected);
+            } else {
+                youOwe = youOwe.add(net.abs());
+                youOweCount++;
+                if (inMonth) due.add(net.abs(), name, expected);
+            }
+        }
+        return new CounterpartySummaryResponse(owedToYou, owedToYouCount, youOwe, youOweCount,
+                due.toBucket(), back.toBucket());
+    }
+
+    private static final class SummaryBucket {
+        BigDecimal amount = BigDecimal.ZERO;
+        long count;
+        String nextName;
+        LocalDate nextDate;
+
+        void add(BigDecimal value, String name, LocalDate date) {
+            amount = amount.add(value);
+            count++;
+            if (nextDate == null || date.isBefore(nextDate)
+                    || (date.equals(nextDate) && name.compareToIgnoreCase(nextName) < 0)) {
+                nextDate = date;
+                nextName = name;
+            }
+        }
+
+        CounterpartySummaryResponse.Bucket toBucket() {
+            return new CounterpartySummaryResponse.Bucket(amount, count, nextName, nextDate);
+        }
+    }
+
+    /** Money out (lent-direction entries) minus money in (borrowed-direction), every kind: netPosition. */
+    private static BigDecimal netOf(List<Lending> entries) {
+        BigDecimal net = BigDecimal.ZERO;
+        for (Lending l : entries) {
+            net = l.getDirection() == LendingDirection.lent ? net.add(l.getAmount()) : net.subtract(l.getAmount());
+        }
+        return net;
+    }
+
+    /**
+     * The person's expected return date: the earliest one among principal entries in the outstanding
+     * direction, exactly the subject {@link LendingReturnNotificationService#dueObligations} picks for
+     * the "money due back" reminder (asked with no upper date bound). Null when settled or none set.
+     */
+    private static LocalDate expectedReturnDateOf(List<Lending> entries) {
+        return LendingReturnNotificationService.dueObligations(entries, LocalDate.MAX).stream()
+                .findFirst()
+                .map(o -> o.subject().getExpectedReturnDate())
+                .orElse(null);
+    }
+
+    /** Ledger order, oldest first: entry date, then creation time, then id (stable). */
+    private static final Comparator<Lending> CHRONOLOGICAL = Comparator
+            .comparing(Lending::getEntryDate, Comparator.nullsFirst(Comparator.<LocalDate>naturalOrder()))
+            .thenComparing(Lending::getCreatedAt, Comparator.nullsFirst(Comparator.<java.time.Instant>naturalOrder()))
+            .thenComparing(Lending::getId, Comparator.nullsFirst(Comparator.<UUID>naturalOrder()));
+
+    /**
+     * The person's entries newest first, each with the balance right after it (running over every
+     * entry oldest first, then paged), plus totals over all entries. 404 when missing or not the caller's.
+     */
+    @Transactional(readOnly = true)
+    public CounterpartyLedgerResponse getLedger(UUID counterpartyId, Pageable pageable) {
+        getOwnedCounterpartyOr404(counterpartyId);
+        List<Lending> chronological = new ArrayList<>(lendingRepository.findByCounterpartyIdWithRefs(counterpartyId));
+        chronological.sort(CHRONOLOGICAL);
+        BigDecimal lent = BigDecimal.ZERO;
+        BigDecimal received = BigDecimal.ZERO;
+        BigDecimal running = BigDecimal.ZERO;
+        List<LedgerEntryResponse> newestFirst = new ArrayList<>(chronological.size());
+        for (Lending l : chronological) {
+            if (l.getDirection() == LendingDirection.lent) {
+                lent = lent.add(l.getAmount());
+                running = running.add(l.getAmount());
+            } else {
+                received = received.add(l.getAmount());
+                running = running.subtract(l.getAmount());
+            }
+            newestFirst.add(LedgerEntryResponse.from(LendingResponse.from(l), running));
+        }
+        Collections.reverse(newestFirst);
+        List<LedgerEntryResponse> slice = pageable.isUnpaged()
+                ? newestFirst
+                : newestFirst.subList((int) Math.min(pageable.getOffset(), newestFirst.size()),
+                        (int) Math.min(pageable.getOffset() + pageable.getPageSize(), newestFirst.size()));
+        return new CounterpartyLedgerResponse(new PageImpl<>(slice, pageable, newestFirst.size()),
+                new CounterpartyLedgerResponse.Totals(lent, received, lent.subtract(received)));
+    }
+
+    /** Match suggestions for every person that has at least one candidate, name order. */
+    @Transactional(readOnly = true)
+    public List<CounterpartyMatchSuggestionsResponse> getAllMatchSuggestions() {
+        List<CounterpartyMatchSuggestionsResponse> out = new ArrayList<>();
+        for (Counterparty cp : counterpartyRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))) {
+            List<LendingMatchSuggestionsResponse.LendingMatchSuggestion> suggestions =
+                    getMatchSuggestions(cp.getId()).suggestions();
+            if (!suggestions.isEmpty()) {
+                out.add(new CounterpartyMatchSuggestionsResponse(cp.getId(), cp.getName(), suggestions));
+            }
+        }
+        return out;
     }
 
     public CounterpartyResponse updateCounterparty(UUID id, UpdateCounterpartyRequest req) {
@@ -478,7 +639,10 @@ public class LendingService {
                 else totalBorrowed = totalBorrowed.add(l.getAmount());
             }
         }
-        return CounterpartyResponse.from(cp, totalLent, totalBorrowed, repaidToYou, repaidByYou, entries.size());
+        Lending last = entries.stream().max(CHRONOLOGICAL).orElse(null);
+        return CounterpartyResponse.from(cp, totalLent, totalBorrowed, repaidToYou, repaidByYou, entries.size(),
+                last == null ? null : last.getEntryDate(), last == null ? null : last.getDirection(), last == null ? null : last.getKind(),
+                last == null ? null : last.getAmount(), expectedReturnDateOf(entries));
     }
 
     // --- Aggregates & Helper Methods ---

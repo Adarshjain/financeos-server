@@ -2,6 +2,7 @@ package com.financeos.domain.loan;
 
 import com.financeos.core.observability.Events;
 import com.financeos.core.time.AppTime;
+import com.financeos.core.time.FinancialYear;
 import net.logstash.logback.argument.StructuredArguments;
 import com.financeos.api.account.dto.AccountResponse;
 import com.financeos.api.loan.dto.*;
@@ -116,9 +117,24 @@ public class LoanService {
 
     @Transactional(readOnly = true)
     public Page<LoanResponse> getLoans(LoanStatus statusFilter, Pageable pageable) {
-        Page<Loan> loans = (statusFilter != null)
-                ? loanRepository.findByStatus(statusFilter, pageable)
-                : loanRepository.findAll(pageable);
+        return getLoans(statusFilter, null, pageable);
+    }
+
+    /** Loans filtered by status and a case-insensitive contains on name, lender or account number; blank {@code q} is ignored. */
+    @Transactional(readOnly = true)
+    public Page<LoanResponse> getLoans(LoanStatus statusFilter, String q, Pageable pageable) {
+        Page<Loan> loans;
+        if (q != null && !q.isBlank()) {
+            String pattern = "%" + q.trim().toLowerCase(Locale.ROOT)
+                    .replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%";
+            loans = (statusFilter != null)
+                    ? loanRepository.searchByStatus(statusFilter, pattern, pageable)
+                    : loanRepository.search(pattern, pageable);
+        } else {
+            loans = (statusFilter != null)
+                    ? loanRepository.findByStatus(statusFilter, pageable)
+                    : loanRepository.findAll(pageable);
+        }
 
         return loans.map(loan -> {
             List<LoanEvent> events = loanEventRepository.findByLoan_IdOrderByEffectiveDateAscCreatedAtAsc(loan.getId());
@@ -127,6 +143,92 @@ public class LoanService {
             ScheduleResult schedule = scheduleService.compute(loan, events, payments, charges);
             return LoanResponse.from(loan, schedule);
         });
+    }
+
+    /** Totals across all of the user's loans for the summary strip (every loan is borrowed; lent money lives in lendings). */
+    @Transactional(readOnly = true)
+    public LoanTotals getLoanTotals() {
+        LocalDate today = AppTime.today();
+        FinancialYear fy = FinancialYear.containing(today);
+        BigDecimal borrowedPrincipal = BigDecimal.ZERO;
+        BigDecimal monthlyEmiTotal = BigDecimal.ZERO;
+        BigDecimal overdueAmount = BigDecimal.ZERO;
+        BigDecimal interestPaidThisFy = BigDecimal.ZERO;
+        BigDecimal totalOutstanding = BigDecimal.ZERO;
+        long activeCount = 0;
+        long overdueCount = 0;
+        long closedCount = 0;
+        TreeSet<Integer> emiDueDays = new TreeSet<>();
+        for (Loan loan : loanRepository.findAll()) {
+            boolean active = loan.getStatus() == LoanStatus.active;
+            if (loan.getStatus() == LoanStatus.closed || loan.getStatus() == LoanStatus.foreclosed) {
+                closedCount++;
+            }
+            UUID id = loan.getId();
+            ScheduleResult schedule;
+            try {
+                schedule = scheduleService.compute(loan,
+                        loanEventRepository.findByLoan_IdOrderByEffectiveDateAscCreatedAtAsc(id),
+                        loanPaymentRepository.findByLoan_IdOrderByInstallmentSeqAsc(id),
+                        loanChargeRepository.findByLoan_IdOrderByChargeDateAscCreatedAtAsc(id));
+            } catch (RuntimeException e) {
+                log.warn("Loan totals skipped loan {}: schedule could not be computed ({})", id, e.getClass().getSimpleName());
+                continue;
+            }
+            // Same paid definition as ScheduleResult.totalInterestPaid ("settled"), restricted to due dates in the FY.
+            for (InstallmentDto i : schedule.installments()) {
+                if ("settled".equals(i.status()) && !i.dueDate().isBefore(fy.start()) && !i.dueDate().isAfter(fy.end())) {
+                    interestPaidThisFy = interestPaidThisFy.add(i.interest());
+                }
+            }
+            if (!active) {
+                continue;
+            }
+            activeCount++;
+            borrowedPrincipal = borrowedPrincipal.add(loan.getPrincipal());
+            if (schedule.outstandingPrincipal() != null) {
+                totalOutstanding = totalOutstanding.add(schedule.outstandingPrincipal());
+            }
+            // A finished loan (no next due date) adds no EMI and no due day.
+            if (schedule.nextDueDate() != null) {
+                if (schedule.currentEmi() != null) {
+                    monthlyEmiTotal = monthlyEmiTotal.add(schedule.currentEmi());
+                }
+                emiDueDays.add(schedule.nextDueDate().getDayOfMonth());
+            }
+            for (InstallmentDto i : schedule.installments()) {
+                if (!"settled".equals(i.status()) && i.dueDate().isBefore(today)) {
+                    overdueAmount = overdueAmount.add(i.emi());
+                    overdueCount++;
+                }
+            }
+        }
+        return new LoanTotals(totalOutstanding, activeCount, borrowedPrincipal, monthlyEmiTotal, new ArrayList<>(emiDueDays), overdueAmount,
+                overdueCount, interestPaidThisFy, fy.start(), closedCount);
+    }
+
+    public record LoanTotals(BigDecimal totalOutstanding, long activeLoanCount, BigDecimal borrowedPrincipal, BigDecimal monthlyEmiTotal, List<Integer> emiDueDays,
+                             BigDecimal overdueAmount, long overdueCount, BigDecimal interestPaidThisFy,
+                             LocalDate fyStart, long closedLoanCount) {}
+
+    /** Match suggestions for every active loan that has at least one candidate transaction; others are omitted. */
+    @Transactional(readOnly = true)
+    public List<LoanMatchSuggestionsResponse> getAllMatchSuggestions() {
+        List<LoanMatchSuggestionsResponse> result = new ArrayList<>();
+        for (Loan loan : loanRepository.findByStatus(LoanStatus.active)) {
+            MatchSuggestionsResponse r;
+            try {
+                r = getMatchSuggestions(loan.getId());
+            } catch (RuntimeException e) {
+                log.warn("All-loans match suggestions skipped loan {} ({})", loan.getId(), e.getClass().getSimpleName());
+                continue;
+            }
+            boolean any = r.suggestions().stream().anyMatch(sg -> !sg.candidates().isEmpty());
+            if (any) {
+                result.add(new LoanMatchSuggestionsResponse(loan.getId(), loan.getName(), r.suggestions()));
+            }
+        }
+        return result;
     }
 
     @Transactional(readOnly = true)
@@ -603,7 +705,7 @@ public class LoanService {
                     StructuredArguments.keyValue("event", Events.LOAN_MATCH_ATTEMPTED),
                     StructuredArguments.keyValue("loanId", loanId != null ? loanId.toString() : ""),
                     StructuredArguments.keyValue("txnId", ""),
-                    StructuredArguments.keyValue("toleranceUsed", MatchingConstants.MATCH_AMOUNT_TOLERANCE.doubleValue()),
+                    StructuredArguments.keyValue("toleranceUsed", MatchingConstants.LOAN_MATCH_AMOUNT_TOLERANCE_MIN.doubleValue()),
                     StructuredArguments.keyValue("candidateCount", 0),
                     StructuredArguments.keyValue("matched", false),
                     StructuredArguments.keyValue("rejectReason", "no-candidates"));
@@ -619,8 +721,9 @@ public class LoanService {
 
         for (InstallmentDto inst : targetInstallments) {
             BigDecimal expectedAmount = inst.emi().setScale(2, RoundingMode.HALF_UP);
-            BigDecimal minAmount = expectedAmount.subtract(MatchingConstants.MATCH_AMOUNT_TOLERANCE);
-            BigDecimal maxAmount = expectedAmount.add(MatchingConstants.MATCH_AMOUNT_TOLERANCE);
+            BigDecimal tolerance = MatchingConstants.loanAmountTolerance(expectedAmount);
+            BigDecimal minAmount = expectedAmount.subtract(tolerance);
+            BigDecimal maxAmount = expectedAmount.add(tolerance);
             LocalDate minDate = inst.dueDate().minusDays(7);
             LocalDate maxDate = inst.dueDate().plusDays(7);
 
@@ -650,7 +753,7 @@ public class LoanService {
                             StructuredArguments.keyValue("event", Events.LOAN_MATCH_ATTEMPTED),
                             StructuredArguments.keyValue("loanId", loanId != null ? loanId.toString() : ""),
                             StructuredArguments.keyValue("txnId", t.getId().toString()),
-                            StructuredArguments.keyValue("toleranceUsed", MatchingConstants.MATCH_AMOUNT_TOLERANCE.doubleValue()),
+                            StructuredArguments.keyValue("toleranceUsed", MatchingConstants.loanAmountTolerance(inst.emi()).doubleValue()),
                             StructuredArguments.keyValue("candidateCount", candidates.size()),
                             StructuredArguments.keyValue("matched", false),
                             StructuredArguments.keyValue("rejectReason", "already-matched"));
@@ -690,11 +793,16 @@ public class LoanService {
         }
 
         for (Map.Entry<UUID, Integer> entry : txToSeqAssignment.entrySet()) {
+            BigDecimal assignedTolerance = targetInstallments.stream()
+                    .filter(i -> i.seq().equals(entry.getValue()))
+                    .findFirst()
+                    .map(i -> MatchingConstants.loanAmountTolerance(i.emi().setScale(2, RoundingMode.HALF_UP)))
+                    .orElse(MatchingConstants.LOAN_MATCH_AMOUNT_TOLERANCE_MIN);
             log.info("Loan match attempted: loanId={}, txnId={}, matched=true", loanId, entry.getKey(),
                     StructuredArguments.keyValue("event", Events.LOAN_MATCH_ATTEMPTED),
                     StructuredArguments.keyValue("loanId", loanId != null ? loanId.toString() : ""),
                     StructuredArguments.keyValue("txnId", entry.getKey().toString()),
-                    StructuredArguments.keyValue("toleranceUsed", MatchingConstants.MATCH_AMOUNT_TOLERANCE.doubleValue()),
+                    StructuredArguments.keyValue("toleranceUsed", assignedTolerance.doubleValue()),
                     StructuredArguments.keyValue("candidateCount", candidateMap.getOrDefault(entry.getValue(), Collections.emptyList()).size()),
                     StructuredArguments.keyValue("matched", true),
                     StructuredArguments.keyValue("rejectReason", ""));

@@ -2,7 +2,11 @@ package com.financeos.api.lending;
 
 import org.springdoc.core.annotations.ParameterObject;
 
+import com.financeos.api.lending.dto.CounterpartyDirection;
+import com.financeos.api.lending.dto.CounterpartyLedgerResponse;
+import com.financeos.api.lending.dto.CounterpartyMatchSuggestionsResponse;
 import com.financeos.api.lending.dto.CounterpartyResponse;
+import com.financeos.api.lending.dto.CounterpartySummaryResponse;
 import com.financeos.api.lending.dto.CounterpartySuggestionResponse;
 import com.financeos.api.lending.dto.CreateCounterpartyRequest;
 import com.financeos.api.lending.dto.LendingMatchSuggestionsResponse;
@@ -17,6 +21,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -36,12 +41,38 @@ public class CounterpartyController {
      */
     @GetMapping
     @Operation(description = "People with ledger totals, paged. q narrows by name; outstanding=true keeps only "
-            + "nonzero net positions; sort=net orders by absolute net position, largest first (then name).")
+            + "nonzero net positions; direction=OWED_TO_YOU|YOU_OWE|SETTLED filters by net sign; sort=net orders by absolute net position, largest first (then name).")
     public Page<CounterpartyResponse> getCounterparties(
             @RequestParam(required = false) String q,
             @RequestParam(required = false, defaultValue = "false") boolean outstanding,
+            @RequestParam(required = false) CounterpartyDirection direction,
             @ParameterObject @PageableDefault(size = 50, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
-        return lendingService.getCounterparties(q, outstanding, pageable);
+        return lendingService.getCounterparties(q, outstanding, direction, pageable);
+    }
+
+    @GetMapping("/summary")
+    @Operation(operationId = "getCounterpartySummary", description = "Lendings tiles over all people: owedToYou, youOwe "
+            + "(positive), and dueThisMonth / expectedBack buckets by expected return date up to the end of this month.")
+    public CounterpartySummaryResponse getSummary() {
+        return lendingService.getCounterpartySummary();
+    }
+
+    @GetMapping("/match-suggestions")
+    @Operation(operationId = "getAllCounterpartyMatchSuggestions", description = "Match suggestions for every person with at least one candidate.")
+    public List<CounterpartyMatchSuggestionsResponse> getAllMatchSuggestions() {
+        return lendingService.getAllMatchSuggestions();
+    }
+
+    @GetMapping("/{id}")
+    @Operation(operationId = "getCounterparty")
+    public CounterpartyResponse getCounterparty(@PathVariable UUID id) {
+        return lendingService.getCounterparty(id);
+    }
+
+    @GetMapping("/{id}/ledger")
+    @Operation(operationId = "getCounterpartyLedger", description = "The person's entries newest first with a running balance, plus totals.")
+    public CounterpartyLedgerResponse getLedger(@PathVariable UUID id, @ParameterObject @PageableDefault(size = 50) Pageable pageable) {
+        return lendingService.getLedger(id, pageable);
     }
 
     @GetMapping("/suggest")
