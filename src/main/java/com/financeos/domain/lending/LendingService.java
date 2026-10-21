@@ -3,6 +3,7 @@ package com.financeos.domain.lending;
 import com.financeos.api.lending.dto.*;
 import com.financeos.api.obligations.dto.ObligationItemDto;
 import com.financeos.api.transaction.dto.TransactionResponse;
+import com.financeos.core.exception.DuplicateResourceException;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.observability.Events;
@@ -322,23 +323,150 @@ public class LendingService {
     /** Match suggestions for every person that has at least one candidate, name order. */
     @Transactional(readOnly = true)
     public List<CounterpartyMatchSuggestionsResponse> getAllMatchSuggestions() {
+        // referenced ids load lazily, once, on the first person with unlinked entries
+        Set<UUID>[] referenced = new Set[1];
+        return allMatchSuggestions(() -> {
+            if (referenced[0] == null) {
+                referenced[0] = transactionValidator.getAllReferencedTransactionIds();
+            }
+            return referenced[0];
+        });
+    }
+
+    private List<CounterpartyMatchSuggestionsResponse> allMatchSuggestions(java.util.function.Supplier<Set<UUID>> referencedTxIds) {
         List<CounterpartyMatchSuggestionsResponse> out = new ArrayList<>();
-        Set<UUID> referencedTxIds = null; // loaded once, lazily, on the first person with unlinked entries
         for (Counterparty cp : counterpartyRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))) {
             List<Lending> entries = findUnlinkedEntries(cp.getId());
             if (entries.isEmpty()) {
                 continue;
             }
-            if (referencedTxIds == null) {
-                referencedTxIds = transactionValidator.getAllReferencedTransactionIds();
-            }
             List<LendingMatchSuggestionsResponse.LendingMatchSuggestion> suggestions =
-                    computeSuggestions(cp.getId(), entries, referencedTxIds);
+                    computeSuggestions(cp.getId(), entries, referencedTxIds.get());
             if (!suggestions.isEmpty()) {
                 out.add(new CounterpartyMatchSuggestionsResponse(cp.getId(), cp.getName(), suggestions));
             }
         }
         return out;
+    }
+
+    // --- Unrecorded transfers (bank transfers naming a person, no lending entry) ---
+
+    static final int UNRECORDED_WINDOW_DAYS = 90;
+    static final int UNRECORDED_CAP = 50;
+
+    /**
+     * Bank (non-card) transactions of the last 90 days that name exactly one person, are referenced by
+     * nothing, sit in no link (so internal transfers drop out), reduce that person's balance and are not
+     * already an entry candidate for them. Newest first, capped at 50.
+     */
+    @Transactional(readOnly = true)
+    public List<UnrecordedTransferResponse> getUnrecordedTransfers() {
+        UUID userId = UserContext.getCurrentUserId();
+        LocalDate today = AppTime.today();
+        Set<UUID> referenced = transactionValidator.getAllReferencedTransactionIds();
+
+        record Person(UUID id, String name, BigDecimal net) {}
+        List<Person> people = new ArrayList<>();
+        for (Object[] row : counterpartyRepository.findNetPositions(userId)) {
+            UUID id = row[0] instanceof UUID u ? u : UUID.fromString(row[0].toString());
+            BigDecimal net = row[2] instanceof BigDecimal bd ? bd : new BigDecimal(row[2].toString());
+            people.add(new Person(id, row[1] == null ? "" : row[1].toString(), net));
+        }
+        if (people.isEmpty()) {
+            return List.of();
+        }
+
+        record Hit(Person person, Transaction tx, LendingDirection direction) {}
+        List<Hit> hits = new ArrayList<>();
+        int ambiguous = 0;
+        for (Transaction tx : transactionRepository.findBankTransactionsBetween(
+                userId, today.minusDays(UNRECORDED_WINDOW_DAYS), today)) {
+            if (referenced.contains(tx.getId())) {
+                continue;
+            }
+            Set<String> words = new HashSet<>(UnrecordedTransferMatcher.words(tx.getDescription()));
+            words.addAll(UnrecordedTransferMatcher.words(tx.getSourcedDescription()));
+            List<Person> named = people.stream()
+                    .filter(p -> UnrecordedTransferMatcher.matches(p.name(), words)).toList();
+            if (named.isEmpty()) {
+                continue;
+            }
+            if (named.size() > 1) {
+                ambiguous++;
+                continue;
+            }
+            Person p = named.get(0);
+            LendingDirection direction = settlementDirectionOrNull(p.net(), tx);
+            if (direction != null) {
+                hits.add(new Hit(p, tx, direction));
+            }
+        }
+        if (ambiguous > 0) {
+            log.info("Unrecorded transfers: {} transaction(s) name several people and were not offered", ambiguous);
+        }
+        if (hits.isEmpty()) {
+            return List.of();
+        }
+
+        Set<UUID> hitIds = hits.stream().map(h -> h.tx().getId()).collect(Collectors.toSet());
+        Set<UUID> linked = transactionLinkRepository.findDistinctByMembers_Transaction_IdIn(hitIds).stream()
+                .flatMap(link -> link.getMembers().stream())
+                .map(m -> m.getTransaction().getId())
+                .collect(Collectors.toSet());
+        Map<UUID, Set<UUID>> offeredAsCandidate = new HashMap<>();
+        for (CounterpartyMatchSuggestionsResponse s : allMatchSuggestions(() -> referenced)) {
+            Set<UUID> ids = offeredAsCandidate.computeIfAbsent(s.counterpartyId(), k -> new HashSet<>());
+            s.suggestions().forEach(sg -> sg.candidates().forEach(c -> ids.add(c.id())));
+        }
+
+        return hits.stream()
+                .filter(h -> !linked.contains(h.tx().getId()))
+                .filter(h -> !offeredAsCandidate.getOrDefault(h.person().id(), Set.of()).contains(h.tx().getId()))
+                .sorted(Comparator.comparing((Hit h) -> h.tx().getDate(), Comparator.reverseOrder())
+                        .thenComparing(h -> h.tx().getId()))
+                .limit(UNRECORDED_CAP)
+                .map(h -> new UnrecordedTransferResponse(h.person().id(), h.person().name(),
+                        TransactionResponse.from(h.tx()), h.direction()))
+                .toList();
+    }
+
+    /**
+     * The settlement direction when this transaction reduces {@code net} (a credit while they owe you,
+     * a debit while you owe them) and its amount is within |net| plus the match tolerance; else null.
+     */
+    private static LendingDirection settlementDirectionOrNull(BigDecimal net, Transaction tx) {
+        boolean credit = tx.getType() == TransactionType.CREDIT;
+        if (credit ? net.signum() <= 0 : net.signum() >= 0) {
+            return null;
+        }
+        if (tx.getAmount().abs().compareTo(net.abs().add(MatchingConstants.MATCH_AMOUNT_TOLERANCE)) > 0) {
+            return null;
+        }
+        return credit ? LendingDirection.borrowed : LendingDirection.lent;
+    }
+
+    /**
+     * Records the transfer as a settlement entry for the person and links the transaction, through
+     * {@link #createLending}. 404 for a foreign/missing person or transaction, 409 when the transaction
+     * is already referenced or linked, 400 when it would not reduce the balance or exceeds it.
+     */
+    public LendingResponse recordSettlement(UUID counterpartyId, UUID transactionId) {
+        UUID userId = UserContext.getCurrentUserId();
+        Counterparty cp = getOwnedCounterpartyOr404(counterpartyId);
+        Transaction tx = transactionRepository.findById(transactionId)
+                .filter(t -> t.getUser() != null && t.getUser().getId().equals(userId))
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction", transactionId));
+        if (transactionValidator.isTransactionReferenced(transactionId)
+                || !transactionLinkRepository.findDistinctByMembers_Transaction_IdIn(List.of(transactionId)).isEmpty()) {
+            throw new DuplicateResourceException("Transaction " + transactionId + " is already linked to a record");
+        }
+        BigDecimal net = netOf(lendingRepository.findByCounterparty_Id(cp.getId()));
+        LendingDirection direction = settlementDirectionOrNull(net, tx);
+        if (direction == null) {
+            throw new ValidationException("This transaction would not reduce " + cp.getName() + "'s balance");
+        }
+        return createLending(new CreateLendingRequest(cp.getId(), null, direction, LendingKind.settlement,
+                tx.getAmount().abs(), tx.getDate(), null, tx.getId(), null));
     }
 
     public CounterpartyResponse updateCounterparty(UUID id, UpdateCounterpartyRequest req) {
