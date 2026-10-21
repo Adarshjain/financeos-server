@@ -134,6 +134,27 @@ class CounterpartyViewsIntegrationTest {
     }
 
     @Test
+    void firstEntryDateAndLinkedCountPerPersonAndTenantScoped() throws Exception {
+        UUID empty = person(api, "Empty");
+        JsonNode a = api.getJson("/api/v1/counterparties/" + asha, 200);
+        assertEquals("2026-01-10", a.get("firstEntryDate").asText());
+        assertEquals(3, a.get("entryCount").asInt());
+        assertEquals(0, a.get("linkedEntryCount").asInt());
+        JsonNode e = api.getJson("/api/v1/counterparties/" + empty, 200);
+        assertTrue(e.get("firstEntryDate").isNull());
+        assertEquals(0, e.get("linkedEntryCount").asInt());
+        for (JsonNode n : api.getJson("/api/v1/counterparties", 200).get("content")) {
+            if (n.get("name").asText().equals("Chirag")) {
+                assertEquals("2026-01-10", n.get("firstEntryDate").asText());
+                assertEquals(2, n.get("entryCount").asInt());
+            }
+            if (n.get("name").asText().equals("Empty")) assertTrue(n.get("firstEntryDate").isNull());
+        }
+        JsonNode z = other.getJson("/api/v1/counterparties/" + zed, 200);
+        assertEquals(1, z.get("entryCount").asInt());
+    }
+
+    @Test
     void summaryCountsTheLastDayOfTheMonthButNotTheNext() throws Exception {
         JsonNode s = api.getJson("/api/v1/counterparties/summary", 200);
 

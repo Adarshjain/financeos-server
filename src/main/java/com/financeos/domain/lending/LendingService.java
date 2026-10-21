@@ -786,7 +786,9 @@ public class LendingService {
         Lending last = entries.stream().max(CHRONOLOGICAL).orElse(null);
         return CounterpartyResponse.from(cp, totalLent, totalBorrowed, repaidToYou, repaidByYou, entries.size(),
                 last == null ? null : last.getEntryDate(), last == null ? null : last.getDirection(), last == null ? null : last.getKind(),
-                last == null ? null : last.getAmount(), expectedReturnDateOf(entries));
+                last == null ? null : last.getAmount(), expectedReturnDateOf(entries),
+                entries.stream().map(Lending::getEntryDate).filter(java.util.Objects::nonNull).min(Comparator.naturalOrder()).orElse(null),
+                (int) entries.stream().filter(l -> l.getTransaction() != null).count());
     }
 
     // --- Aggregates & Helper Methods ---

@@ -115,6 +115,35 @@ class LendingServiceCounterpartyViewsTest {
     }
 
     @Test
+    void firstEntryDateAndLinkedCountForMixedLinkedAndUnlinkedEntries() {
+        Counterparty cp = person("Asha", USER_ID);
+        Lending a = lent(cp, "100", "2026-03-01", null);
+        Lending b = borrowed(cp, "30", "2026-01-05", null);
+        Lending c = lent(cp, "70", "2026-02-01", null);
+        a.setTransaction(new com.financeos.domain.transaction.Transaction());
+        c.setTransaction(new com.financeos.domain.transaction.Transaction());
+        ledger(cp, a, b, c);
+
+        CounterpartyResponse r = service.getCounterparty(cp.getId());
+
+        assertEquals(3, r.entryCount());
+        assertEquals(2, r.linkedEntryCount());
+        assertEquals(LocalDate.of(2026, 1, 5), r.firstEntryDate());
+    }
+
+    @Test
+    void firstEntryDateIsNullAndLinkedCountZeroWithNoEntries() {
+        Counterparty cp = person("Asha", USER_ID);
+        ledger(cp);
+
+        CounterpartyResponse r = service.getCounterparty(cp.getId());
+
+        assertEquals(0, r.entryCount());
+        assertEquals(0, r.linkedEntryCount());
+        assertNull(r.firstEntryDate());
+    }
+
+    @Test
     void lastEntryKindIsSettlementWhenTheLatestEntryIsARepayment() {
         Counterparty cp = person("Asha", USER_ID);
         ledger(cp, lent(cp, "100", "2026-03-01", null),
