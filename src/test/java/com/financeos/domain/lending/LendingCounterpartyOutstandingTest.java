@@ -43,6 +43,7 @@ class LendingCounterpartyOutstandingTest {
     private final List<Object[]> netRows = new ArrayList<>();
     private final Map<UUID, Counterparty> byId = new HashMap<>();
     private final Map<String, UUID> ids = new HashMap<>();
+    private final Map<UUID, List<Lending>> entriesById = new HashMap<>();
 
     @BeforeEach
     void setUp() {
@@ -60,6 +61,13 @@ class LendingCounterpartyOutstandingTest {
         person("Esha", "0");                                        // no entries
 
         when(counterpartyRepository.findNetPositions(USER_ID)).thenReturn(netRows);
+        when(lendingRepository.findByCounterparty_IdIn(any())).thenAnswer(inv -> {
+            List<Lending> found = new ArrayList<>();
+            for (Object id : (Iterable<?>) inv.getArgument(0)) {
+                found.addAll(entriesById.getOrDefault((UUID) id, List.of()));
+            }
+            return found;
+        });
         when(counterpartyRepository.findAllById(anyIterable())).thenAnswer(inv -> {
             List<Counterparty> found = new ArrayList<>();
             for (Object id : (Iterable<?>) inv.getArgument(0)) {
@@ -102,7 +110,10 @@ class LendingCounterpartyOutstandingTest {
         ids.put(name, cp.getId());
         // ids come back as strings from some drivers, as UUIDs from others
         netRows.add(new Object[]{netRows.size() % 2 == 0 ? cp.getId() : cp.getId().toString(), name, new BigDecimal(net)});
-        when(lendingRepository.findByCounterparty_Id(cp.getId())).thenReturn(List.of(entries));
+        for (Lending l : entries) {
+            l.setCounterparty(cp);
+        }
+        entriesById.put(cp.getId(), List.of(entries));
     }
 
     private List<String> names(Page<CounterpartyResponse> page) {

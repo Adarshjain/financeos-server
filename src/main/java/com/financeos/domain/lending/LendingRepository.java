@@ -22,6 +22,9 @@ public interface LendingRepository extends JpaRepository<Lending, UUID> {
 
     List<Lending> findByCounterparty_Id(UUID counterpartyId, Sort sort);
 
+    /** Batch of {@link #findByCounterparty_Id(UUID)}; callers chunk the ids (Oracle IN limit 1000). */
+    List<Lending> findByCounterparty_IdIn(Collection<UUID> counterpartyIds);
+
     boolean existsByCounterparty_Id(UUID counterpartyId);
 
     /** Whether the user has recorded any lending entry (the lending_balances widget's availability). */
