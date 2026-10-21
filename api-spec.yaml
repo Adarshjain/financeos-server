@@ -1621,8 +1621,9 @@ paths:
   /api/v1/counterparties:
     get:
       description: "People with ledger totals, paged. q narrows by name; outstanding=true\
-        \ keeps only nonzero net positions; sort=net orders by absolute net position,\
-        \ largest first (then name)."
+        \ keeps only nonzero net positions; direction=OWED_TO_YOU|YOU_OWE|SETTLED\
+        \ filters by net sign; sort=net orders by absolute net position, largest first\
+        \ (then name)."
       operationId: getCounterparties
       parameters:
       - in: query
@@ -1636,6 +1637,15 @@ paths:
         schema:
           type: boolean
           default: false
+      - in: query
+        name: direction
+        required: false
+        schema:
+          type: string
+          enum:
+          - OWED_TO_YOU
+          - YOU_OWE
+          - SETTLED
       - description: Zero-based page index (0..N)
         in: query
         name: page
@@ -1701,6 +1711,27 @@ paths:
           description: Error response
       tags:
       - counterparty-controller
+  /api/v1/counterparties/match-suggestions:
+    get:
+      description: Match suggestions for every person with at least one candidate.
+      operationId: getAllCounterpartyMatchSuggestions
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CounterpartyMatchSuggestionsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - counterparty-controller
   /api/v1/counterparties/suggest:
     get:
       operationId: suggestCounterparty
@@ -1716,6 +1747,27 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/CounterpartySuggestionResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - counterparty-controller
+  /api/v1/counterparties/summary:
+    get:
+      description: "Lendings tiles over all people: owedToYou, youOwe (positive),\
+        \ and dueThisMonth / expectedBack buckets by expected return date up to the\
+        \ end of this month."
+      operationId: getCounterpartySummary
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CounterpartySummaryResponse"
           description: OK
         default:
           content:
@@ -1746,6 +1798,30 @@ paths:
           description: Error response
       tags:
       - counterparty-controller
+    get:
+      operationId: getCounterparty
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CounterpartyResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - counterparty-controller
     put:
       operationId: updateCounterparty
       parameters:
@@ -1767,6 +1843,58 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/CounterpartyResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - counterparty-controller
+  /api/v1/counterparties/{id}/ledger:
+    get:
+      description: "The person's entries newest first with a running balance, plus\
+        \ totals."
+      operationId: getCounterpartyLedger
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          default: 50
+          minimum: 1
+      - description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CounterpartyLedgerResponse"
           description: OK
         default:
           content:
@@ -5003,6 +5131,11 @@ paths:
           - active
           - closed
           - foreclosed
+      - in: query
+        name: q
+        required: false
+        schema:
+          type: string
       - description: Zero-based page index (0..N)
         in: query
         name: page
@@ -5059,6 +5192,26 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/LoanResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - loan-controller
+  /api/v1/loans/match-suggestions:
+    get:
+      operationId: getAllMatchSuggestions
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LoanMatchSuggestionsResponse"
           description: OK
         default:
           content:
@@ -8324,6 +8477,26 @@ components:
       - realized
       - totalCharges
       - unrealized
+    Bucket:
+      type: object
+      properties:
+        amount:
+          type: number
+        count:
+          type: integer
+          format: int64
+        nextDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        nextName:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - amount
+      - count
     BuiltinDataRequest:
       type: object
       properties:
@@ -9446,15 +9619,69 @@ components:
       - ratioFrom
       - ratioTo
       - type
+    CounterpartyLedgerResponse:
+      type: object
+      properties:
+        entries:
+          $ref: "#/components/schemas/PageLedgerEntryResponse"
+        totals:
+          $ref: "#/components/schemas/Totals"
+      required:
+      - entries
+      - totals
+    CounterpartyMatchSuggestionsResponse:
+      type: object
+      properties:
+        counterpartyId:
+          type: string
+          format: uuid
+        counterpartyName:
+          type: string
+        suggestions:
+          type: array
+          items:
+            $ref: "#/components/schemas/LendingMatchSuggestion"
+      required:
+      - counterpartyId
+      - counterpartyName
+      - suggestions
     CounterpartyResponse:
       type: object
       properties:
         entryCount:
           type: integer
           format: int64
+        expectedReturnDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         id:
           type: string
           format: uuid
+        lastEntryAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        lastEntryDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        lastEntryKind:
+          type: string
+          enum:
+          - principal
+          - settlement
+          nullable: true
+          x-nullable: true
+        lastEntryType:
+          type: string
+          enum:
+          - lent
+          - borrowed
+          nullable: true
+          x-nullable: true
         name:
           type: string
         netPosition:
@@ -9485,6 +9712,30 @@ components:
       properties:
         counterparty:
           $ref: "#/components/schemas/CounterpartyResponse"
+    CounterpartySummaryResponse:
+      type: object
+      properties:
+        dueThisMonth:
+          $ref: "#/components/schemas/Bucket"
+        expectedBack:
+          $ref: "#/components/schemas/Bucket"
+        owedToYou:
+          type: number
+        owedToYouCount:
+          type: integer
+          format: int64
+        youOwe:
+          type: number
+        youOweCount:
+          type: integer
+          format: int64
+      required:
+      - dueThisMonth
+      - expectedBack
+      - owedToYou
+      - owedToYouCount
+      - youOwe
+      - youOweCount
     CreateAccountIdentifierRequest:
       type: object
       properties:
@@ -12630,6 +12881,72 @@ components:
       - description
       - transactionId
       - type
+    LedgerEntryResponse:
+      type: object
+      properties:
+        amount:
+          type: number
+        counterpartyId:
+          type: string
+          format: uuid
+        counterpartyName:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        direction:
+          type: string
+          enum:
+          - lent
+          - borrowed
+        entryDate:
+          type: string
+          format: date
+        expectedReturnDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          enum:
+          - principal
+          - settlement
+        notes:
+          type: string
+          nullable: true
+          x-nullable: true
+        returnNotifiedKind:
+          type: string
+          nullable: true
+          x-nullable: true
+        returnNotifiedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        runningBalance:
+          type: number
+        transaction:
+          $ref: "#/components/schemas/LendingTransactionSummary"
+        transactionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+      required:
+      - amount
+      - counterpartyId
+      - counterpartyName
+      - createdAt
+      - direction
+      - entryDate
+      - id
+      - kind
+      - runningBalance
     LendingMatchSuggestion:
       type: object
       properties:
@@ -13028,6 +13345,22 @@ components:
       - eventType
       - id
       - loanId
+    LoanMatchSuggestionsResponse:
+      type: object
+      properties:
+        loanId:
+          type: string
+          format: uuid
+        loanName:
+          type: string
+        suggestions:
+          type: array
+          items:
+            $ref: "#/components/schemas/InstallmentMatchSuggestion"
+      required:
+      - loanId
+      - loanName
+      - suggestions
     LoanPaymentResponse:
       type: object
       properties:
@@ -13201,17 +13534,47 @@ components:
           format: int64
         borrowedOutstanding:
           type: number
+        borrowedPrincipal:
+          type: number
+        closedLoanCount:
+          type: integer
+          format: int64
+        emiDueDays:
+          type: array
+          items:
+            type: integer
+            format: int32
+        fyStart:
+          type: string
+          format: date
+        interestPaidThisFy:
+          type: number
         lentOutstanding:
+          type: number
+        monthlyEmiTotal:
           type: number
         netReceivable:
           type: number
+        overdueAmount:
+          type: number
+        overdueCount:
+          type: integer
+          format: int64
         totalOutstanding:
           type: number
       required:
       - activeLoanCount
       - borrowedOutstanding
+      - borrowedPrincipal
+      - closedLoanCount
+      - emiDueDays
+      - fyStart
+      - interestPaidThisFy
       - lentOutstanding
+      - monthlyEmiTotal
       - netReceivable
+      - overdueAmount
+      - overdueCount
       - totalOutstanding
     LoginRequest:
       type: object
@@ -13949,6 +14312,52 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/JobResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
+    PageLedgerEntryResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/LedgerEntryResponse"
         empty:
           type: boolean
         first:
@@ -17416,6 +17825,19 @@ components:
       - level
       - message
       - source
+    Totals:
+      type: object
+      properties:
+        closing:
+          type: number
+        lent:
+          type: number
+        received:
+          type: number
+      required:
+      - closing
+      - lent
+      - received
     TradeSettlementClassificationDto:
       type: object
       properties:
