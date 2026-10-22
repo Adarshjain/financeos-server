@@ -18316,6 +18316,29 @@ components:
       - counterpartyName
       - direction
       - transaction
+    UnverifyRuleRequest:
+      type: object
+      properties:
+        transactionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          maxItems: 500
+          minItems: 0
+          x-required: true
+      required:
+      - transactionIds
+    UnverifyRuleResponse:
+      type: object
+      properties:
+        restoredTransactionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+      required:
+      - restoredTransactionIds
     UpdateBillDetailsRequest:
       type: object
       properties:
@@ -18635,43 +18658,6 @@ components:
           x-required: true
       required:
       - entries
-    UnverifyRuleRequest:
-      type: object
-      properties:
-        transactionIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          maxItems: 500
-          minItems: 0
-          x-required: true
-      required:
-      - transactionIds
-    UnverifyRuleResponse:
-      type: object
-      properties:
-        restoredTransactionIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-      required:
-      - restoredTransactionIds
-    VerifiedRuleChange:
-      type: object
-      properties:
-        clearedTransactionIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-        ruleId:
-          type: string
-          format: uuid
-      required:
-      - clearedTransactionIds
-      - ruleId
     UpdateRuleRequest:
       type: object
       properties:
@@ -18815,6 +18801,20 @@ components:
       - email
       - hasPassword
       - id
+    VerifiedRuleChange:
+      type: object
+      properties:
+        clearedTransactionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        ruleId:
+          type: string
+          format: uuid
+      required:
+      - clearedTransactionIds
+      - ruleId
     WidgetLayout:
       type: object
       properties:
