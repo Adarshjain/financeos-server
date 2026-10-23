@@ -26,7 +26,7 @@ class HibernateFilterAspectTest {
         when(entityManager.unwrap(Session.class)).thenReturn(session);
         when(session.enableFilter("userFilter")).thenReturn(filter);
 
-        aspect = new HibernateFilterAspect(entityManager);
+        aspect = new HibernateFilterAspect(new UserFilterEnabler(entityManager));
     }
 
     @AfterEach

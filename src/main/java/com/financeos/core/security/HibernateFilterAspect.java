@@ -1,21 +1,17 @@
 package com.financeos.core.security;
 
-import jakarta.persistence.EntityManager;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.hibernate.Session;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Aspect
 @Component
 public class HibernateFilterAspect {
 
-    private final EntityManager entityManager;
+    private final UserFilterEnabler userFilterEnabler;
 
-    public HibernateFilterAspect(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public HibernateFilterAspect(UserFilterEnabler userFilterEnabler) {
+        this.userFilterEnabler = userFilterEnabler;
     }
 
     // Advice that runs before any method annotated with @Transactional
@@ -25,10 +21,6 @@ public class HibernateFilterAspect {
     // @Transactional
     @Before("@within(org.springframework.transaction.annotation.Transactional) || @annotation(org.springframework.transaction.annotation.Transactional)")
     public void enableUserFilter() {
-        UUID userId = UserContext.getCurrentUserId();
-        if (userId != null) {
-            Session session = entityManager.unwrap(Session.class);
-            session.enableFilter("userFilter").setParameter("userId", userId.toString());
-        }
+        userFilterEnabler.enable();
     }
 }
