@@ -27,6 +27,10 @@ public interface RewardRuleRepository extends JpaRepository<RewardRule, UUID> {
 
     long countByAccountId(UUID accountId);
 
+    /** Rule counts for several accounts as (accountId, count) rows; accounts without rules are absent (one query, not one per account). */
+    @Query("SELECT r.account.id, COUNT(r) FROM RewardRule r WHERE r.account.id IN :accountIds GROUP BY r.account.id")
+    List<Object[]> countGroupedByAccountId(@Param("accountIds") java.util.Collection<UUID> accountIds);
+
     long countByCardholderId(UUID cardholderId);
 
     @Query("SELECT DISTINCT r.account.id FROM RewardRule r WHERE r.user.id = :userId")

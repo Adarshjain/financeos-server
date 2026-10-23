@@ -101,8 +101,17 @@ public class GetRewardSummaryTool implements ChatTool {
                     }
                 }
             } else {
+                Set<UUID> accountIdsWithRules = new java.util.HashSet<>();
+                if (!userAccounts.isEmpty()) {
+                    for (Object[] row : rewardRuleRepository.countGroupedByAccountId(
+                            userAccounts.stream().map(Account::getId).toList())) {
+                        if (((Number) row[1]).longValue() > 0) {
+                            accountIdsWithRules.add((UUID) row[0]);
+                        }
+                    }
+                }
                 for (Account acct : userAccounts) {
-                    if (acct.getType() == AccountType.credit_card || rewardRuleRepository.countByAccountId(acct.getId()) > 0) {
+                    if (acct.getType() == AccountType.credit_card || accountIdsWithRules.contains(acct.getId())) {
                         candidateAccounts.add(acct);
                     }
                 }
