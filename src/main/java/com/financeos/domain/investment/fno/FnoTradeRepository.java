@@ -70,8 +70,8 @@ public interface FnoTradeRepository extends JpaRepository<FnoTrade, UUID> {
                               @Param("search") String search,
                               Pageable pageable);
 
-    /** Trades dated within the window (oldest first), optionally of one broker account; summary and export input. */
-    @Query("SELECT f FROM FnoTrade f JOIN FETCH f.brokerAccount b WHERE " + TRADE_DATE + " >= :fromDate AND " + TRADE_DATE + " <= :toDate AND " +
+    /** Trades dated within the window (oldest first), optionally of one broker account (a null bound is open-ended); summary and export input. */
+    @Query("SELECT f FROM FnoTrade f JOIN FETCH f.brokerAccount b WHERE (:fromDate IS NULL OR " + TRADE_DATE + " >= :fromDate) AND (:toDate IS NULL OR " + TRADE_DATE + " <= :toDate) AND " +
            "(:brokerAccountId IS NULL OR b.id = :brokerAccountId) ORDER BY " + TRADE_DATE + " ASC, f.createdAt ASC, f.id ASC")
     List<FnoTrade> findInWindow(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate,
                                 @Param("brokerAccountId") UUID brokerAccountId);

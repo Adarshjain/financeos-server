@@ -4581,6 +4581,12 @@ paths:
         schema:
           type: string
           format: uuid
+      - in: query
+        name: allYears
+        required: false
+        schema:
+          type: boolean
+          default: false
       responses:
         "200":
           content:
