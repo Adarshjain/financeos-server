@@ -4772,6 +4772,12 @@ paths:
         required: false
         schema:
           type: string
+      - in: query
+        name: since
+        required: false
+        schema:
+          type: string
+          format: date-time
       - description: Zero-based page index (0..N)
         in: query
         name: page
@@ -13033,6 +13039,15 @@ components:
     JobResponse:
       type: object
       properties:
+        accountId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        accountName:
+          type: string
+          nullable: true
+          x-nullable: true
         attempt:
           type: integer
           format: int32

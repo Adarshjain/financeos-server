@@ -29,9 +29,16 @@ public record JobResponse(
         @Nullable Instant startedAt,
         @Nullable Instant finishedAt,
         /** When the "finished/failed" push for this job went out (user-triggered jobs only). */
-        @Nullable Instant notifiedAt
+        @Nullable Instant notifiedAt,
+        /** The account the job ingests into (statement ingest jobs only; null otherwise or when the account is gone). */
+        @Nullable UUID accountId,
+        @Nullable String accountName
 ) {
     public static JobResponse from(Job job, ObjectMapper mapper) {
+        return from(job, mapper, null, null);
+    }
+
+    public static JobResponse from(Job job, ObjectMapper mapper, @Nullable UUID accountId, @Nullable String accountName) {
         JsonNode resultNode = null;
         if (job.getResult() != null && !job.getResult().isBlank()) {
             try {
@@ -56,7 +63,9 @@ public record JobResponse(
                 job.getCreatedAt(),
                 job.getStartedAt(),
                 job.getFinishedAt(),
-                job.getNotifiedAt()
+                job.getNotifiedAt(),
+                accountId,
+                accountName
         );
     }
 }
