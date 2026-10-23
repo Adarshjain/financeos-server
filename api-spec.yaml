@@ -12439,6 +12439,9 @@ components:
         tradeCount:
           type: integer
           format: int64
+        winCount:
+          type: integer
+          format: int32
         winRate:
           type: number
       required:
@@ -12450,6 +12453,7 @@ components:
       - toDate
       - totalCharges
       - tradeCount
+      - winCount
       - winRate
     FnoTradeListResponse:
       type: object

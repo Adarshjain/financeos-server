@@ -109,7 +109,7 @@ public class FnoReportService {
                 .sorted(Comparator.comparing((FnoSummaryResponse.UnderlyingPnl u) -> u.pnl().abs()).reversed()
                         .thenComparing(FnoSummaryResponse.UnderlyingPnl::underlying))
                 .toList();
-        return new FnoSummaryResponse(year, range.from(), range.to(), total, trades.size(), winRate, charges, byMonth, byUnderlying);
+        return new FnoSummaryResponse(year, range.from(), range.to(), total, trades.size(), winRate, charges, byMonth, byUnderlying, (int) wins);
     }
 
     /** The file name suffix: the financial year, e.g. "2026-27". */
