@@ -144,7 +144,7 @@ class CorporateActionPageAndPreviewIntegrationTest {
         UUID c = stock("Charlie", "CHA", "03");
         trade(alice, broker(alice, "A1"), a, "buy", "10", "100", today.minusDays(100));
         alice.create("/api/v1/instruments/" + a + "/corporate-actions", split(1, 2, today.minusDays(30)));
-        alice.create("/api/v1/instruments/" + b + "/corporate-actions", bonus(1, 1, today.minusDays(20)));
+        alice.create("/api/v1/instruments/" + b + "/corporate-actions", bonus(1, 2, today.minusDays(20)));
         alice.create("/api/v1/instruments/" + c + "/corporate-actions", split(1, 5, today.minusDays(10)));
         return new UUID[]{a, b, c};
     }
@@ -317,6 +317,78 @@ class CorporateActionPageAndPreviewIntegrationTest {
             assertTrue(p.get("quantity").decimalValue().compareTo(new BigDecimal("10")) == 0
                     || p.get("quantity").decimalValue().compareTo(new BigDecimal("4")) == 0, "positions unchanged");
         }
+    }
+
+    @Test
+    void aBonusOrSplitThatChangesNothingIsRejectedOnCreateUpdateAndPreview() throws Exception {
+        UUID s = stock("Meaningless", "MNG", "30");
+        trade(alice, broker(alice, "M1"), s, "buy", "10", "100", today.minusDays(100));
+        String path = "/api/v1/instruments/" + s + "/corporate-actions";
+        for (Map<String, Object> bad : List.of(bonus(1, 1, today.minusDays(50)), bonus(2, 1, today.minusDays(50)))) {
+            assertTrue(alice.postJson(path, bad, 400).toString().contains("1 \u2192 2"), "says how to enter it");
+            preview(s, bad, 400);
+        }
+        alice.postJson(path, split(2, 2, today.minusDays(50)), 400);
+        preview(s, split(3, 3, today.minusDays(50)), 400);
+        assertEquals(0, count("corporate_actions"));
+
+        UUID id = alice.create(path, bonus(1, 2, today.minusDays(50)));
+        alice.putJson(path + "/" + id, bonus(1, 1, today.minusDays(50)), 400);
+        alice.putJson(path + "/" + id, split(4, 4, today.minusDays(50)), 400);
+        assertEquals(1, count("corporate_actions"));
+        // a reverse split (5 -> 1) is valid
+        alice.create(path, split(5, 1, today.minusDays(40)));
+    }
+
+    @Test
+    void editPreviewReplacesTheSavedActionInsteadOfDoubleCounting() throws Exception {
+        UUID s = stock("Edit Co", "EDT", "31");
+        trade(alice, broker(alice, "E1"), s, "buy", "10", "100", today.minusDays(100));
+        String path = "/api/v1/instruments/" + s + "/corporate-actions";
+        UUID saved = alice.create(path, split(1, 2, today.minusDays(50)));
+
+        Map<String, Object> edit = new HashMap<>(split(1, 2, today.minusDays(50)));
+        JsonNode doubled = preview(s, edit, 200).get("holdings").get(0);
+        assertDecimal("20", doubled.get("quantityBefore"));
+        assertDecimal("40", doubled.get("quantityAfter"));
+
+        edit.put("excludeActionId", saved.toString());
+        JsonNode replaced = preview(s, edit, 200).get("holdings").get(0);
+        assertDecimal("10", replaced.get("quantityBefore"));
+        assertDecimal("20", replaced.get("quantityAfter"));
+        assertDecimal("100", replaced.get("avgCostBefore"));
+        assertDecimal("50", replaced.get("avgCostAfter"));
+
+        edit.put("ratioTo", 5);
+        assertDecimal("50", preview(s, edit, 200).get("holdings").get(0).get("quantityAfter"));
+
+        assertEquals(1, count("corporate_actions"), "saved action still there");
+        JsonNode row = alice.getJson("/api/v1/corporate-actions/page?search=" + tag, 200).get("items").get(0);
+        assertEquals("2", row.get("ratioTo").asText(), "saved action unchanged");
+
+        edit.put("excludeActionId", UUID.randomUUID().toString());
+        preview(s, edit, 404);
+        edit.put("excludeActionId", saved.toString());
+        bobPreviewOfAlicesAction(s, edit);
+    }
+
+    private void bobPreviewOfAlicesAction(UUID s, Map<String, Object> edit) throws Exception {
+        bob.postJson("/api/v1/instruments/" + s + "/corporate-actions/preview", edit, 404);
+    }
+
+    @Test
+    void pageRowsCarryTheAverageCostPerUnitBeforeAndAfter() throws Exception {
+        UUID s = stock("Cost Co", "CST", "32");
+        trade(alice, broker(alice, "C1"), s, "buy", "10", "1420", today.minusDays(100));
+        alice.create("/api/v1/instruments/" + s + "/corporate-actions", split(1, 2, today.minusDays(30)));
+        UUID other = stock("Cost Two", "CS2", "33");
+        alice.create("/api/v1/instruments/" + other + "/corporate-actions", split(1, 2, today.minusDays(20)));
+
+        JsonNode held = alice.getJson("/api/v1/corporate-actions/page?search=Cost Co " + tag, 200).get("items").get(0);
+        assertDecimal("1420", held.get("costPerUnitBefore"));
+        assertDecimal("710", held.get("costPerUnitAfter"));
+        JsonNode none = alice.getJson("/api/v1/corporate-actions/page?search=Cost Two " + tag, 200).get("items").get(0);
+        assertTrue(none.get("costPerUnitBefore").isNull() && none.get("costPerUnitAfter").isNull());
     }
 
     @Test

@@ -4,6 +4,7 @@ import com.financeos.api.instrument.dto.CorporateActionPage;
 import com.financeos.api.instrument.dto.CorporateActionPreviewResponse;
 import com.financeos.api.instrument.dto.CorporateActionResponse;
 import com.financeos.api.instrument.dto.CreateCorporateActionRequest;
+import com.financeos.api.instrument.dto.PreviewCorporateActionRequest;
 import com.financeos.api.instrument.dto.UpdateCorporateActionRequest;
 import com.financeos.domain.instrument.corporateaction.CorporateActionPageService;
 import com.financeos.domain.instrument.corporateaction.CorporateActionPreviewService;
@@ -56,8 +57,8 @@ public class CorporateActionController {
     @PostMapping("/api/v1/instruments/{instrumentId}/corporate-actions/preview")
     public CorporateActionPreviewResponse previewCorporateAction(
             @PathVariable UUID instrumentId,
-            @Valid @RequestBody CreateCorporateActionRequest request) {
-        return previewService.preview(instrumentId, request);
+            @Valid @RequestBody PreviewCorporateActionRequest request) {
+        return previewService.preview(instrumentId, request.toCreate(), request.excludeActionId());
     }
 
     @GetMapping("/api/v1/corporate-actions")

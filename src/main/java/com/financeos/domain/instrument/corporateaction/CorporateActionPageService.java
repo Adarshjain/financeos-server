@@ -88,13 +88,13 @@ public class CorporateActionPageService {
         for (CorporateAction ca : found.getContent()) {
             BigDecimal[] e = effects.get(ca.getId());
             items.add(CorporateActionRowResponse.of(CorporateActionResponse.from(ca, overrides),
-                    e == null ? null : e[0], e == null ? null : e[1]));
+                    e == null ? null : e[0], e == null ? null : e[1], e == null ? null : e[2], e == null ? null : e[3]));
         }
         return new CorporateActionPage(items, safePage, safeSize, found.getTotalElements(), found.getTotalPages());
     }
 
     /**
-     * Per action id, {@code [quantityBefore, quantityAfter]} summed over the caller's holdings of the
+     * Per action id, {@code [quantityBefore, quantityAfter, costPerUnitBefore, costPerUnitAfter]} summed over the caller's holdings of the
      * action's instrument; absent when they hold none. One query each for the holdings, trades,
      * intraday classifications, and actions on / into the instruments; the engine then runs in memory.
      */
@@ -157,21 +157,27 @@ public class CorporateActionPageService {
             List<CorporateAction> instrumentActions = actionsByInstrument.getOrDefault(ca.getInstrument().getId(), List.of());
             BigDecimal before = BigDecimal.ZERO;
             BigDecimal after = BigDecimal.ZERO;
+            BigDecimal costBefore = BigDecimal.ZERO;
+            BigDecimal costAfter = BigDecimal.ZERO;
             for (Holding h : held) {
                 List<InvestmentTransaction> t = txns.getOrDefault(h.getId(), List.of());
                 List<TradeSettlementClassification> c = classes.getOrDefault(h.getId(), List.of());
                 List<InvestmentService.SeedLot> s = seeds.get(h.getId());
-                before = before.add(quantity(investmentService.buildOpenLotsBeforeDate(
-                        h, ca.getExDate(), true, null, t, instrumentActions, s, c)));
+                List<InvestmentService.Lot> lotsBefore = investmentService.buildOpenLotsBeforeDate(
+                        h, ca.getExDate(), true, null, t, instrumentActions, s, c);
+                before = before.add(quantity(lotsBefore));
+                costBefore = costBefore.add(cost(lotsBefore));
                 // The engine runs corporate actions before same-day trades, so "after" excludes the ex-date's trades.
                 LocalDate exDate = ca.getExDate();
                 List<InvestmentTransaction> tBefore = t.stream().filter(x -> x.getTradeDate().isBefore(exDate)).toList();
                 List<TradeSettlementClassification> cBefore = c.stream().filter(x -> x.getTradeDate().isBefore(exDate)).toList();
-                after = after.add(quantity(investmentService.buildOpenLotsBeforeDate(
-                        h, exDate, false, null, tBefore, instrumentActions, s, cBefore)));
+                List<InvestmentService.Lot> lotsAfter = investmentService.buildOpenLotsBeforeDate(
+                        h, exDate, false, null, tBefore, instrumentActions, s, cBefore);
+                after = after.add(quantity(lotsAfter));
+                costAfter = costAfter.add(cost(lotsAfter));
             }
             out.put(ca.getId(), new BigDecimal[]{before.setScale(4, RoundingMode.HALF_UP),
-                    after.setScale(4, RoundingMode.HALF_UP)});
+                    after.setScale(4, RoundingMode.HALF_UP), perUnit(costBefore, before), perUnit(costAfter, after)});
         }
         return out;
     }
@@ -182,5 +188,18 @@ public class CorporateActionPageService {
             total = total.add(lot.remainingQty);
         }
         return total.max(BigDecimal.ZERO);
+    }
+
+    private static BigDecimal cost(List<InvestmentService.Lot> lots) {
+        BigDecimal total = BigDecimal.ZERO;
+        for (InvestmentService.Lot lot : lots) {
+            total = total.add(lot.remainingQty.multiply(lot.costPerUnit));
+        }
+        return total;
+    }
+
+    /** Average cost per unit; null when nothing is open. */
+    private static BigDecimal perUnit(BigDecimal cost, BigDecimal qty) {
+        return qty.signum() <= 0 ? null : cost.divide(qty, 4, RoundingMode.HALF_UP);
     }
 }

@@ -161,6 +161,24 @@ class FnoReportIntegrationTest {
     }
 
     @Test
+    void optFilterReturnsAllOptionsAndSearchMatchesSymbolUnderlyingAndNotes() throws Exception {
+        assertEquals(List.of("D", "F", "G", "B"), names(getJson(FNO + "/page?fy=2026&optionType=OPT")));
+        assertEquals(List.of("D"), names(getJson(FNO + "/page?fy=2026&optionType=OPT&search=nifty27")));
+        // part of the trading symbol, any case
+        assertEquals(List.of("C"), names(getJson(FNO + "/page?fy=2026&search=banknifty26apr")));
+        // part of the underlying (RELIANCE trades carry it in the symbol too, so check a partial underlying)
+        assertEquals(List.of("F"), names(getJson(FNO + "/page?search=eliance")));
+        // notes
+        jdbc.update("UPDATE fno_trades SET notes = 'Hedge for earnings' WHERE id = ?", tradeIds.get("C").toString());
+        assertEquals(List.of("C"), names(getJson(FNO + "/page?search=EARNINGS")));
+        // exact underlying filter unchanged, and combines with search
+        assertEquals(0, getJson(FNO + "/page?underlying=NIFT").get("totalElements").asInt());
+        assertEquals(List.of("D"), names(getJson(FNO + "/page?fy=2026&underlying=NIFTY&search=27MAR&optionType=CE")));
+        assertEquals(0, getJson(FNO + "/page?search=zzz-none").get("totalElements").asInt());
+        assertEquals(getJson(FNO + "/page").get("totalElements").asInt(), getJson(FNO + "/page?search=").get("totalElements").asInt(), "blank search = no filter");
+    }
+
+    @Test
     void invalidPagingSortAndOptionTypeAreRejected() throws Exception {
         mockMvc.perform(get(FNO + "/page?sort=bogus").cookie(session)).andExpect(status().isBadRequest());
         mockMvc.perform(get(FNO + "/page?size=0").cookie(session)).andExpect(status().isBadRequest());

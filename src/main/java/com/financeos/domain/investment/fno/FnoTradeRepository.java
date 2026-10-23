@@ -34,7 +34,9 @@ public interface FnoTradeRepository extends JpaRepository<FnoTrade, UUID> {
             "(:brokerAccountId IS NULL OR b.id = :brokerAccountId) AND " +
             "(:underlying IS NULL OR UPPER(COALESCE(NULLIF(TRIM(f.underlyingSymbol), ''), f.tradingSymbol)) = :underlying) AND " +
             "(:contractType IS NULL OR f.contractType = :contractType) AND " +
-            "(:optionType IS NULL OR f.optionType = :optionType)";
+            "(:optionType IS NULL OR f.optionType = :optionType) AND " +
+            "(:search IS NULL OR LOCATE(:search, LOWER(f.tradingSymbol)) > 0 OR LOCATE(:search, LOWER(COALESCE(f.underlyingSymbol, ''))) > 0 " +
+            "OR LOCATE(:search, LOWER(COALESCE(f.notes, ''))) > 0)";
 
     String PAGE_FROM = "SELECT f FROM FnoTrade f JOIN FETCH f.brokerAccount b WHERE " + PAGE_FILTERS;
     String PAGE_COUNT = "SELECT COUNT(f) FROM FnoTrade f JOIN f.brokerAccount b WHERE " + PAGE_FILTERS;
@@ -44,24 +46,28 @@ public interface FnoTradeRepository extends JpaRepository<FnoTrade, UUID> {
     Page<FnoTrade> pageNewest(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate,
                               @Param("brokerAccountId") UUID brokerAccountId, @Param("underlying") String underlying,
                               @Param("contractType") FnoContractType contractType, @Param("optionType") OptionType optionType,
+                              @Param("search") String search,
                               Pageable pageable);
 
     @Query(value = PAGE_FROM + " ORDER BY " + TRADE_DATE + " ASC NULLS LAST" + TIE, countQuery = PAGE_COUNT)
     Page<FnoTrade> pageOldest(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate,
                               @Param("brokerAccountId") UUID brokerAccountId, @Param("underlying") String underlying,
                               @Param("contractType") FnoContractType contractType, @Param("optionType") OptionType optionType,
+                              @Param("search") String search,
                               Pageable pageable);
 
     @Query(value = PAGE_FROM + " ORDER BY f.realizedPnl DESC" + TIE, countQuery = PAGE_COUNT)
     Page<FnoTrade> pagePnlDesc(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate,
                                @Param("brokerAccountId") UUID brokerAccountId, @Param("underlying") String underlying,
                                @Param("contractType") FnoContractType contractType, @Param("optionType") OptionType optionType,
+                              @Param("search") String search,
                                Pageable pageable);
 
     @Query(value = PAGE_FROM + " ORDER BY f.realizedPnl ASC" + TIE, countQuery = PAGE_COUNT)
     Page<FnoTrade> pagePnlAsc(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate,
                               @Param("brokerAccountId") UUID brokerAccountId, @Param("underlying") String underlying,
                               @Param("contractType") FnoContractType contractType, @Param("optionType") OptionType optionType,
+                              @Param("search") String search,
                               Pageable pageable);
 
     /** Trades dated within the window (oldest first), optionally of one broker account; summary and export input. */
