@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -493,6 +494,19 @@ public class TransactionService {
         List<Transaction> toSave = new ArrayList<>();
         List<CategorizationService.RuleVerification> verifiedChanges = new ArrayList<>();
 
+        boolean clearing = reviewType == ReviewType.MANUALLY_REVIEWED || reviewType == ReviewType.AUTO_REVIEWED || reviewType == ReviewType.NA;
+        // Prior state of every row, taken before anything mutates: a rule verify mid-loop can clear a later row's reason.
+        Map<UUID, CategorizationService.ClearedTransaction> prior = new HashMap<>();
+        if (clearing) {
+            for (Transaction t : fetched) {
+                if (t.getUser() != null && t.getUser().getId().equals(currentSessionUserId)) {
+                    prior.put(t.getId(), new CategorizationService.ClearedTransaction(t.getId(), t.getReviewType(),
+                            t.getReviewReasons() == null ? new HashSet<>() : new HashSet<>(t.getReviewReasons()),
+                            t.getReviewedAt(), null));
+                }
+            }
+        }
+
         for (UUID id : transactionIds) {
             Transaction transaction = map.get(id);
             if (transaction == null) {
@@ -543,7 +557,19 @@ public class TransactionService {
         }
 
         if (!toSave.isEmpty()) {
+            // Flush so @PreUpdate has stamped updatedAt on every save of this request; those final stamps go to undo.
             transactionRepository.saveAll(toSave);
+            transactionRepository.flush();
+        }
+
+        List<CategorizationService.ClearedTransaction> approvedTransactions = new ArrayList<>();
+        if (clearing) {
+            for (Transaction t : toSave) {
+                CategorizationService.ClearedTransaction p = prior.get(t.getId());
+                approvedTransactions.add(new CategorizationService.ClearedTransaction(t.getId(), p.previousReviewType(),
+                        p.previousReviewReasons(), p.previousReviewedAt(),
+                        t.getUpdatedAt() == null ? null : t.getUpdatedAt().truncatedTo(java.time.temporal.ChronoUnit.MICROS)));
+            }
         }
 
         // Rows this call approved get their reasons back from the client's undo; every other row a
@@ -552,10 +578,26 @@ public class TransactionService {
         List<com.financeos.api.transaction.dto.VerifiedRuleChange> verifiedRules = verifiedChanges.stream()
                 .map(change -> new com.financeos.api.transaction.dto.VerifiedRuleChange(
                         change.ruleId(),
-                        change.clearedTransactionIds().stream().filter(t -> !approved.contains(t.toString())).toList()))
+                        change.clearedTransactionIds().stream().filter(t -> !approved.contains(t.toString())).toList(),
+                        change.clearedTransactions().stream().filter(t -> !approved.contains(t.transactionId().toString())).toList()))
                 .toList();
 
-        return new com.financeos.api.transaction.dto.BatchReviewResponse(succeededIds, skippedIds, failures, verifiedRules);
+        return new com.financeos.api.transaction.dto.BatchReviewResponse(succeededIds, skippedIds, failures, verifiedRules, approvedTransactions);
+    }
+
+    /** Undo of a clearing batchReview, all or nothing; see {@link CategorizationService#undoApprove}. */
+    @Transactional
+    public com.financeos.api.transaction.dto.UndoApproveResponse undoApprove(com.financeos.api.transaction.dto.UndoApproveRequest request) {
+        List<CategorizationService.ClearedTransaction> approved = request.approved() == null ? List.of() : request.approved();
+        List<CategorizationService.RuleRestore> rules = request.rules() == null ? List.<CategorizationService.RuleRestore>of()
+                : request.rules().stream().map(r -> new CategorizationService.RuleRestore(r.ruleId(),
+                        r.restore() == null ? List.<CategorizationService.ClearedTransaction>of() : r.restore())).toList();
+        long total = rules.stream().mapToLong(r -> r.restore().size()).sum();
+        if (total > 20000) {
+            throw new ValidationException("Restore entries cannot exceed 20000 in total");
+        }
+        CategorizationService.UnverifyResult result = categorizationService.undoApprove(approved, rules, UserContext.getCurrentUserId());
+        return new com.financeos.api.transaction.dto.UndoApproveResponse(result.restoredTransactionIds(), result.skippedTransactionIds());
     }
 
     @Transactional

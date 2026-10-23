@@ -91,6 +91,12 @@ public class TransactionController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/undo-approve")
+    public ResponseEntity<UndoApproveResponse> undoApprove(
+            @Valid @RequestBody UndoApproveRequest request) {
+        return ResponseEntity.ok(transactionService.undoApprove(request));
+    }
+
     @PostMapping("/batch-delete")
     public ResponseEntity<BatchDeleteResponse> batchDelete(
             @Valid @RequestBody BatchDeleteRequest request) {

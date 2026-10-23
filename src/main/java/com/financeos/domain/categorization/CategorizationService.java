@@ -127,7 +127,7 @@ public class CategorizationService {
      * before, and the updatedAt it was left with (a later edit moves updatedAt, so undo can tell).
      */
     public record ClearedTransaction(
-            UUID transactionId,
+            @jakarta.validation.constraints.NotNull(message = "Transaction ID is required") UUID transactionId,
             ReviewType previousReviewType,
             Set<ReviewReason> previousReviewReasons,
             @org.springframework.lang.Nullable Instant previousReviewedAt,
@@ -250,6 +250,105 @@ public class CategorizationService {
         Set<UUID> restoredSet = new HashSet<>(restoredIds);
         List<UUID> skipped = wanted.stream().filter(id -> !restoredSet.contains(id)).toList();
         return new UnverifyResult(restoredIds, skipped);
+    }
+
+    /** Rule entry of {@link #undoApprove}: the rule to unverify and the rows to put back. */
+    public record RuleRestore(UUID ruleId, List<ClearedTransaction> restore) {}
+
+    /**
+     * All-or-nothing undo of a transaction approve (batch-review with a clearing type): every
+     * approved row gets its prior review state back unless edited since (see isUntouchedSinceApprove),
+     * and each rule the approve verified is unverified with its cleared rows restored as unverifyRule
+     * does. Any rule that is unknown or not the user's rejects the whole request before anything changes;
+     * any later failure rolls the transaction back.
+     */
+    @Transactional
+    public UnverifyResult undoApprove(List<ClearedTransaction> approved, List<RuleRestore> rules, UUID userId) {
+        List<UUID> ruleIds = rules.stream().map(RuleRestore::ruleId).distinct().toList();
+        Map<UUID, CategoryRule> ruleById = new HashMap<>();
+        for (int from = 0; from < ruleIds.size(); from += 1000) {
+            categoryRuleRepository.findAllById(ruleIds.subList(from, Math.min(from + 1000, ruleIds.size())))
+                    .forEach(r -> ruleById.put(r.getId(), r));
+        }
+        for (UUID ruleId : ruleIds) {
+            CategoryRule rule = ruleById.get(ruleId);
+            if (rule == null) {
+                throw new com.financeos.core.exception.ResourceNotFoundException("Rule", ruleId);
+            }
+            if (!rule.getUser().getId().equals(userId)) {
+                throw new com.financeos.core.exception.ResourceNotFoundException("Rule", ruleId);
+            }
+        }
+
+        List<UUID> restoredIds = new ArrayList<>();
+        List<UUID> skippedIds = new ArrayList<>();
+
+        Map<UUID, ClearedTransaction> byId = new LinkedHashMap<>();
+        approved.forEach(c -> byId.put(c.transactionId(), c));
+        List<UUID> wanted = new ArrayList<>(byId.keySet());
+        List<Transaction> restored = new ArrayList<>();
+        Set<UUID> found = new HashSet<>();
+        for (int from = 0; from < wanted.size(); from += 1000) {
+            List<UUID> chunk = wanted.subList(from, Math.min(from + 1000, wanted.size()));
+            for (Transaction txn : transactionRepository.findAllByIdInAndUserId(chunk, userId)) {
+                found.add(txn.getId());
+                ClearedTransaction c = byId.get(txn.getId());
+                if (!isUntouchedSinceApprove(txn, c)) {
+                    continue;
+                }
+                applyPrior(txn, c);
+                restored.add(txn);
+            }
+        }
+        if (!restored.isEmpty()) {
+            transactionRepository.saveAll(restored);
+        }
+        restored.forEach(t -> restoredIds.add(t.getId()));
+        Set<UUID> restoredSet = new HashSet<>(restoredIds);
+        wanted.stream().filter(id -> !restoredSet.contains(id)).forEach(skippedIds::add);
+
+        Set<UUID> seenRules = new HashSet<>();
+        for (RuleRestore rr : rules) {
+            if (!seenRules.add(rr.ruleId())) {
+                continue;
+            }
+            // A rule listed twice is handled once, with every restore entry given for it.
+            List<ClearedTransaction> all = rules.stream().filter(x -> x.ruleId().equals(rr.ruleId()))
+                    .flatMap(x -> x.restore().stream())
+                    .filter(c -> !byId.containsKey(c.transactionId())).toList();
+            UnverifyResult r = unverifyRule(ruleById.get(rr.ruleId()), List.of(), all, userId);
+            restoredIds.addAll(r.restoredTransactionIds());
+            skippedIds.addAll(r.skippedTransactionIds());
+        }
+        return new UnverifyResult(restoredIds.stream().distinct().toList(), skippedIds.stream().distinct().toList());
+    }
+
+    private static void applyPrior(Transaction txn, ClearedTransaction c) {
+        txn.setReviewType(c.previousReviewType());
+        txn.getReviewReasons().clear();
+        txn.getReviewReasons().addAll(c.previousReviewReasons());
+        txn.setReviewedAt(c.previousReviewedAt());
+    }
+
+    /**
+     * True when the row is still what an approve left: not edited since (updatedAt within 1
+     * microsecond of the stamp), prior state was NEEDS_REVIEW with reasons, and the current reasons
+     * are a strict subset of the prior ones (approve only removes reasons) with the matching type:
+     * NEEDS_REVIEW while any remain, a cleared type once none do.
+     */
+    private static boolean isUntouchedSinceApprove(Transaction txn, ClearedTransaction c) {
+        Set<ReviewReason> prev = c.previousReviewReasons();
+        if (c.previousReviewType() != ReviewType.NEEDS_REVIEW || prev == null || prev.isEmpty()
+                || c.verifiedUpdatedAt() == null || txn.getUpdatedAt() == null
+                || Math.abs(ChronoUnit.NANOS.between(c.verifiedUpdatedAt(), txn.getUpdatedAt())) > 1000) {
+            return false;
+        }
+        Set<ReviewReason> current = txn.getReviewReasons() == null ? Set.of() : txn.getReviewReasons();
+        if (current.size() >= prev.size() || !prev.containsAll(current)) {
+            return false;
+        }
+        return current.isEmpty() ? txn.getReviewType() != ReviewType.NEEDS_REVIEW
+                : txn.getReviewType() == ReviewType.NEEDS_REVIEW;
     }
 
     /**
