@@ -20,6 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -111,14 +113,27 @@ public class CorporateActionService {
         String childIsin = saved.getTargetInstrument() != null ? saved.getTargetInstrument().getIsin() : "";
         String ratio = saved.getRatioFrom() + ":" + saved.getRatioTo();
 
-        log.info("Corporate action created: type={}, parentIsin={}, childIsin={}, ratio={}",
-                saved.getType(), parentIsin, childIsin, ratio,
-                StructuredArguments.keyValue("event", Events.CA_CREATED),
-                StructuredArguments.keyValue("type", saved.getType().name()),
-                StructuredArguments.keyValue("parentIsin", parentIsin),
-                StructuredArguments.keyValue("childIsin", childIsin),
-                StructuredArguments.keyValue("ratio", ratio),
-                StructuredArguments.keyValue("cashInLieuInr", saved.getFractionalCashInLieu() != null ? saved.getFractionalCashInLieu().toString() : "0"));
+        // After commit only: a rolled-back preview (CorporateActionPreviewService) must log nothing.
+        Runnable emit = () -> {
+            log.info("Corporate action created: type={}, parentIsin={}, childIsin={}, ratio={}",
+                    saved.getType(), parentIsin, childIsin, ratio,
+                    StructuredArguments.keyValue("event", Events.CA_CREATED),
+                    StructuredArguments.keyValue("type", saved.getType().name()),
+                    StructuredArguments.keyValue("parentIsin", parentIsin),
+                    StructuredArguments.keyValue("childIsin", childIsin),
+                    StructuredArguments.keyValue("ratio", ratio),
+                    StructuredArguments.keyValue("cashInLieuInr", saved.getFractionalCashInLieu() != null ? saved.getFractionalCashInLieu().toString() : "0"));
+        };
+        if (TransactionSynchronizationManager.isSynchronizationActive()) {
+            TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    emit.run();
+                }
+            });
+        } else {
+            emit.run();
+        }
 
         return CorporateActionResponse.from(saved, overrideService.overridesForCurrentUser());
     }
