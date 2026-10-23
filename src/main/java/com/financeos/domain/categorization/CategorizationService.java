@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -115,7 +116,25 @@ public class CategorizationService {
     }
 
     /** A rule this call flipped to verified, and the transactions whose CATEGORY_UNVERIFIED it cleared. */
-    public record RuleVerification(UUID ruleId, List<UUID> clearedTransactionIds) {}
+    public record RuleVerification(UUID ruleId, List<UUID> clearedTransactionIds, List<ClearedTransaction> clearedTransactions) {
+        public RuleVerification(UUID ruleId, List<UUID> clearedTransactionIds) {
+            this(ruleId, clearedTransactionIds, List.of());
+        }
+    }
+
+    /**
+     * What verify changed on one transaction, enough to reverse it exactly: the review state it had
+     * before, and the updatedAt it was left with (a later edit moves updatedAt, so undo can tell).
+     */
+    public record ClearedTransaction(
+            UUID transactionId,
+            ReviewType previousReviewType,
+            Set<ReviewReason> previousReviewReasons,
+            @org.springframework.lang.Nullable Instant previousReviewedAt,
+            Instant verifiedUpdatedAt) {}
+
+    /** Outcome of {@link #unverifyRule}: restored ids, and the supplied ones left alone (changed since, moved off the rule or not the user's). */
+    public record UnverifyResult(List<UUID> restoredTransactionIds, List<UUID> skippedTransactionIds) {}
 
     @Transactional
     public List<RuleVerification> verifyRule(CategoryRule rule) {
@@ -144,23 +163,35 @@ public class CategorizationService {
         List<UUID> ruleIds = rules.stream().map(CategoryRule::getId).toList();
         List<Transaction> txns = transactionRepository.findByAppliedRuleIdIn(ruleIds);
         List<Transaction> toSave = new ArrayList<>();
-        Map<UUID, List<UUID>> clearedByRule = new LinkedHashMap<>();
+        Map<UUID, List<Transaction>> clearedByRule = new LinkedHashMap<>();
+        Map<UUID, ClearedTransaction> prior = new HashMap<>();
         wasUnverified.forEach(id -> clearedByRule.put(id, new ArrayList<>()));
         for (Transaction txn : txns) {
             if (txn.getReviewReasons() != null && txn.getReviewReasons().contains(ReviewReason.CATEGORY_UNVERIFIED)) {
+                prior.put(txn.getId(), new ClearedTransaction(txn.getId(), txn.getReviewType(),
+                        new HashSet<>(txn.getReviewReasons()), txn.getReviewedAt(), null));
                 reviewStatusManager.clearReason(txn, ReviewReason.CATEGORY_UNVERIFIED, ReviewType.AUTO_REVIEWED);
                 toSave.add(txn);
-                List<UUID> cleared = clearedByRule.get(txn.getAppliedRule().getId());
+                List<Transaction> cleared = clearedByRule.get(txn.getAppliedRule().getId());
                 if (cleared != null) {
-                    cleared.add(txn.getId());
+                    cleared.add(txn);
                 }
             }
         }
         if (!toSave.isEmpty()) {
-            transactionRepository.saveAll(toSave);
+            // Flush so @PreUpdate has stamped updatedAt; that stamp is what undo compares against.
+            transactionRepository.saveAllAndFlush(toSave);
         }
         List<RuleVerification> result = new ArrayList<>();
-        clearedByRule.forEach((id, cleared) -> result.add(new RuleVerification(id, cleared)));
+        clearedByRule.forEach((id, cleared) -> result.add(new RuleVerification(
+                id,
+                cleared.stream().map(Transaction::getId).toList(),
+                cleared.stream().map(t -> {
+                    ClearedTransaction p = prior.get(t.getId());
+                    return new ClearedTransaction(t.getId(), p.previousReviewType(), p.previousReviewReasons(),
+                            p.previousReviewedAt(),
+                            t.getUpdatedAt() == null ? null : t.getUpdatedAt().truncatedTo(ChronoUnit.MICROS));
+                }).toList())));
         return result;
     }
 
@@ -171,22 +202,77 @@ public class CategorizationService {
      */
     @Transactional
     public List<UUID> unverifyRule(CategoryRule rule, List<UUID> transactionIds, UUID userId) {
+        return unverifyRule(rule, transactionIds, List.of(), userId).restoredTransactionIds();
+    }
+
+    /**
+     * Full undo of {@link #verifyRule}: as the 3-arg form, plus each given {@link ClearedTransaction}
+     * gets its exact prior review type, reasons and reviewedAt back. It is skipped, and the user's
+     * later edit kept, when it is no longer on this rule, is not the user's, or its updatedAt no
+     * longer matches the stamp verify left, or it is not what verify left (see isUntouchedSinceVerify).
+     */
+    @Transactional
+    public UnverifyResult unverifyRule(CategoryRule rule, List<UUID> transactionIds, List<ClearedTransaction> cleared, UUID userId) {
         rule.setVerified(false);
         categoryRuleRepository.save(rule);
+        Map<UUID, ClearedTransaction> exact = new LinkedHashMap<>();
+        cleared.forEach(c -> exact.put(c.transactionId(), c));
+        List<UUID> wanted = new ArrayList<>(exact.keySet());
+        transactionIds.stream().distinct().filter(id -> !exact.containsKey(id)).forEach(wanted::add);
+
         List<Transaction> restored = new ArrayList<>();
-        List<Transaction> candidates = transactionIds.isEmpty()
-                ? List.of()
-                : transactionRepository.findAllByIdInAndUserId(transactionIds.stream().distinct().toList(), userId);
-        for (Transaction txn : candidates) {
-            if (txn.getAppliedRule() != null && rule.getId().equals(txn.getAppliedRule().getId())) {
-                reviewStatusManager.addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
+        // Chunked: Oracle rejects IN lists over 1000 entries (ORA-01795).
+        for (int from = 0; from < wanted.size(); from += 1000) {
+            List<UUID> chunk = wanted.subList(from, Math.min(from + 1000, wanted.size()));
+            for (Transaction txn : transactionRepository.findAllByIdInAndUserId(chunk, userId)) {
+                if (txn.getAppliedRule() == null || !rule.getId().equals(txn.getAppliedRule().getId())) {
+                    continue;
+                }
+                ClearedTransaction c = exact.get(txn.getId());
+                if (c == null) {
+                    reviewStatusManager.addReason(txn, ReviewReason.CATEGORY_UNVERIFIED);
+                } else {
+                    if (!isUntouchedSinceVerify(txn, c)) {
+                        continue;
+                    }
+                    txn.setReviewType(c.previousReviewType());
+                    txn.getReviewReasons().clear();
+                    txn.getReviewReasons().addAll(c.previousReviewReasons());
+                    txn.setReviewedAt(c.previousReviewedAt());
+                }
                 restored.add(txn);
             }
         }
         if (!restored.isEmpty()) {
             transactionRepository.saveAll(restored);
         }
-        return restored.stream().map(Transaction::getId).toList();
+        List<UUID> restoredIds = restored.stream().map(Transaction::getId).toList();
+        Set<UUID> restoredSet = new HashSet<>(restoredIds);
+        List<UUID> skipped = wanted.stream().filter(id -> !restoredSet.contains(id)).toList();
+        return new UnverifyResult(restoredIds, skipped);
+    }
+
+    /**
+     * True when the entry is a state verify could have cleared (it was in review with
+     * CATEGORY_UNVERIFIED) and the row is still exactly what verify left: not edited since
+     * (updatedAt within 1 microsecond, covering the DB rounding the ns Instant), no
+     * CATEGORY_UNVERIFIED, remaining reasons the prior ones minus that one, and the matching type.
+     */
+    private static boolean isUntouchedSinceVerify(Transaction txn, ClearedTransaction c) {
+        Set<ReviewReason> prev = c.previousReviewReasons();
+        if (c.previousReviewType() != ReviewType.NEEDS_REVIEW || prev == null
+                || !prev.contains(ReviewReason.CATEGORY_UNVERIFIED)) {
+            return false;
+        }
+        if (c.verifiedUpdatedAt() == null || txn.getUpdatedAt() == null
+                || Math.abs(ChronoUnit.NANOS.between(c.verifiedUpdatedAt(), txn.getUpdatedAt())) > 1000) {
+            return false;
+        }
+        Set<ReviewReason> expected = new HashSet<>(prev);
+        expected.remove(ReviewReason.CATEGORY_UNVERIFIED);
+        Set<ReviewReason> current = txn.getReviewReasons() == null ? Set.of() : txn.getReviewReasons();
+        ReviewType expectedType = expected.isEmpty() ? ReviewType.AUTO_REVIEWED : ReviewType.NEEDS_REVIEW;
+        return current.equals(expected) && txn.getReviewType() == expectedType;
     }
 
     /**

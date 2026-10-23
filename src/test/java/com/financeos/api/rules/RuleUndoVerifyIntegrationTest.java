@@ -350,4 +350,236 @@ class RuleUndoVerifyIntegrationTest {
 
         unverify(rule, null).andExpect(status().isBadRequest());
     }
+
+    // ---- exact rollback of a rule verify (verify response -> unverify `restore`) ----
+
+    private com.fasterxml.jackson.databind.JsonNode postJson(String url, Object body) throws Exception {
+        return objectMapper.readTree(mockMvc.perform(post(url)
+                        .cookie(session)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(body)))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString());
+    }
+
+    private String reviewType(Transaction txn) {
+        return jdbcTemplate.queryForObject("SELECT review_type FROM transactions WHERE id = ?",
+                String.class, txn.getId().toString());
+    }
+
+    private Object reviewedAt(Transaction txn) {
+        return jdbcTemplate.queryForObject("SELECT reviewed_at FROM transactions WHERE id = ?",
+                Object.class, txn.getId().toString());
+    }
+
+    private Set<String> categoryNames(Transaction txn) {
+        return new HashSet<>(jdbcTemplate.queryForList(
+                "SELECT c.name FROM transaction_categories tc JOIN categories c ON c.id = tc.category_id WHERE tc.transaction_id = ?",
+                String.class, txn.getId().toString()));
+    }
+
+    private Map<String, Object> undoBody(com.fasterxml.jackson.databind.JsonNode cleared) {
+        return Map.of("transactionIds", List.of(), "restore", objectMapper.convertValue(cleared, List.class));
+    }
+
+    @Test
+    void verifyThenUndo_restoresExactPriorStateOfEveryClearedRow() throws Exception {
+        CategoryRule rule = rule(user, food, false);
+        Transaction onlyReason = linkedTransaction(rule, ReviewReason.CATEGORY_UNVERIFIED);
+        Transaction twoReasons = linkedTransaction(rule, ReviewReason.CATEGORY_UNVERIFIED, ReviewReason.UNRECONCILED);
+        Transaction unrelated = linkedTransaction(rule, ReviewReason.UNRECONCILED);
+
+        var verified = postJson("/api/v1/rules/" + rule.getId() + "/verify", Map.of());
+        assertTrue(verified.get("verified").asBoolean());
+        assertEquals(2, verified.get("clearedTransactions").size());
+        assertEquals("AUTO_REVIEWED", reviewType(onlyReason));
+        assertNotNull(reviewedAt(onlyReason));
+        assertEquals(Set.of(ReviewReason.UNRECONCILED.name()), reasons(twoReasons));
+
+        var undone = postJson("/api/v1/rules/" + rule.getId() + "/unverify", undoBody(verified.get("clearedTransactions")));
+        assertEquals(2, undone.get("restoredTransactionIds").size());
+        assertEquals(0, undone.get("skippedTransactionIds").size());
+
+        assertFalse(isVerified(rule));
+        assertEquals("NEEDS_REVIEW", reviewType(onlyReason));
+        assertNull(reviewedAt(onlyReason));
+        assertEquals(Set.of(ReviewReason.CATEGORY_UNVERIFIED.name()), reasons(onlyReason));
+        assertEquals("NEEDS_REVIEW", reviewType(twoReasons));
+        assertEquals(Set.of(ReviewReason.CATEGORY_UNVERIFIED.name(), ReviewReason.UNRECONCILED.name()), reasons(twoReasons));
+        assertEquals(Set.of(ReviewReason.UNRECONCILED.name()), reasons(unrelated));
+        assertEquals(Set.of("Food"), categoryNames(onlyReason));
+    }
+
+    @Test
+    void bulkVerifyThenUndoPerRule_restoresEveryRule() throws Exception {
+        CategoryRule ruleA = rule(user, food, false);
+        CategoryRule ruleB = rule(user, food, false);
+        CategoryRule alreadyVerified = rule(user, food, true);
+        Transaction a = linkedTransaction(ruleA, ReviewReason.CATEGORY_UNVERIFIED);
+        Transaction b = linkedTransaction(ruleB, ReviewReason.CATEGORY_UNVERIFIED, ReviewReason.UNRECONCILED);
+
+        var verified = postJson("/api/v1/rules/verify", Map.of("ruleIds",
+                List.of(ruleA.getId(), ruleB.getId(), alreadyVerified.getId())));
+        assertEquals(2, verified.get("verifiedCount").asInt());
+        assertEquals(2, verified.get("verifiedRules").size());
+        assertTrue(isVerified(ruleA) && isVerified(ruleB));
+        assertEquals("AUTO_REVIEWED", reviewType(a));
+
+        for (var change : verified.get("verifiedRules")) {
+            postJson("/api/v1/rules/" + change.get("ruleId").asText() + "/unverify", undoBody(change.get("clearedTransactions")));
+        }
+
+        assertFalse(isVerified(ruleA));
+        assertFalse(isVerified(ruleB));
+        assertTrue(isVerified(alreadyVerified));
+        assertEquals("NEEDS_REVIEW", reviewType(a));
+        assertEquals(Set.of(ReviewReason.CATEGORY_UNVERIFIED.name()), reasons(a));
+        assertEquals(Set.of(ReviewReason.CATEGORY_UNVERIFIED.name(), ReviewReason.UNRECONCILED.name()), reasons(b));
+    }
+
+    @Test
+    void undo_skipsARowEditedAfterTheVerify_andKeepsTheEdit() throws Exception {
+        CategoryRule rule = rule(user, food, false);
+        Transaction edited = linkedTransaction(rule, ReviewReason.CATEGORY_UNVERIFIED);
+        Transaction untouched = linkedTransaction(rule, ReviewReason.CATEGORY_UNVERIFIED);
+
+        var verified = postJson("/api/v1/rules/" + rule.getId() + "/verify", Map.of());
+
+        Thread.sleep(20);
+        Transaction reloaded = transactionRepository.findById(edited.getId()).orElseThrow();
+        reloaded.setSourcedDescription("edited by the user");
+        transactionRepository.saveAndFlush(reloaded);
+
+        var undone = postJson("/api/v1/rules/" + rule.getId() + "/unverify", undoBody(verified.get("clearedTransactions")));
+        assertEquals(1, undone.get("restoredTransactionIds").size());
+        assertEquals(untouched.getId().toString(), undone.get("restoredTransactionIds").get(0).asText());
+        assertEquals(1, undone.get("skippedTransactionIds").size());
+        assertEquals(edited.getId().toString(), undone.get("skippedTransactionIds").get(0).asText());
+
+        assertFalse(isVerified(rule));
+        assertEquals("AUTO_REVIEWED", reviewType(edited));
+        assertEquals(Set.of(), reasons(edited));
+        assertEquals("NEEDS_REVIEW", reviewType(untouched));
+        assertEquals(Set.of(ReviewReason.CATEGORY_UNVERIFIED.name()), reasons(untouched));
+    }
+
+    @Test
+    void undo_skipsARowMovedOffTheRule() throws Exception {
+        CategoryRule rule = rule(user, food, false);
+        CategoryRule other = rule(user, food, true);
+        Transaction moved = linkedTransaction(rule, ReviewReason.CATEGORY_UNVERIFIED);
+
+        var verified = postJson("/api/v1/rules/" + rule.getId() + "/verify", Map.of());
+        Thread.sleep(20);
+        Transaction reloaded = transactionRepository.findById(moved.getId()).orElseThrow();
+        reloaded.setAppliedRule(other);
+        transactionRepository.saveAndFlush(reloaded);
+
+        var undone = postJson("/api/v1/rules/" + rule.getId() + "/unverify", undoBody(verified.get("clearedTransactions")));
+        assertEquals(0, undone.get("restoredTransactionIds").size());
+        assertEquals(1, undone.get("skippedTransactionIds").size());
+        assertEquals("AUTO_REVIEWED", reviewType(moved));
+    }
+
+    @Test
+    void verifyOfAnAlreadyVerifiedRule_returnsNoClearedRows() throws Exception {
+        CategoryRule rule = rule(user, food, true);
+        linkedTransaction(rule);
+
+        var verified = postJson("/api/v1/rules/" + rule.getId() + "/verify", Map.of());
+        assertEquals(0, verified.get("clearedTransactions").size());
+    }
+
+    private Map<String, Object> entry(Transaction txn, String type, List<String> reasons, Object verifiedUpdatedAt) {
+        return Map.of("transactionId", txn.getId().toString(), "previousReviewType", type,
+                "previousReviewReasons", reasons, "verifiedUpdatedAt", verifiedUpdatedAt);
+    }
+
+    private Object updatedAt(Transaction txn) {
+        return transactionRepository.findById(txn.getId()).orElseThrow().getUpdatedAt().toString();
+    }
+
+    @Test
+    void undo_entryForAnotherUsersTransaction_isSkippedAndLeftAlone() throws Exception {
+        CategoryRule rule = rule(user, food, true);
+        Account otherAccount = new Account();
+        otherAccount.setName("Other");
+        otherAccount.setUser(otherUser);
+        otherAccount.setType(AccountType.bank_account);
+        otherAccount = accountRepository.save(otherAccount);
+        Transaction theirs = new Transaction();
+        theirs.setUser(otherUser);
+        theirs.setAccount(otherAccount);
+        theirs.setAmount(BigDecimal.TEN);
+        theirs.setDate(LocalDate.parse("2026-10-01"));
+        theirs.setSource(TransactionSource.manual);
+        theirs.setType(TransactionType.DEBIT);
+        theirs.setReviewType(ReviewType.AUTO_REVIEWED);
+        theirs.setAppliedRule(rule);
+        theirs = transactionRepository.save(theirs);
+        try {
+            var undone = postJson("/api/v1/rules/" + rule.getId() + "/unverify", Map.of("transactionIds", List.of(),
+                    "restore", List.of(entry(theirs, "NEEDS_REVIEW", List.of("CATEGORY_UNVERIFIED"), updatedAt(theirs)))));
+            assertEquals(0, undone.get("restoredTransactionIds").size());
+            assertEquals(1, undone.get("skippedTransactionIds").size());
+            assertEquals("AUTO_REVIEWED", reviewType(theirs));
+            assertEquals(Set.of(), reasons(theirs));
+        } finally {
+            transactionRepository.deleteById(theirs.getId());
+            accountRepository.deleteById(otherAccount.getId());
+        }
+    }
+
+    @Test
+    void undo_invalidOrNotClearedEntries_areSkippedUnchanged() throws Exception {
+        CategoryRule rule = rule(user, food, true);
+        Transaction stillFlagged = linkedTransaction(rule, ReviewReason.CATEGORY_UNVERIFIED);   // verify never cleared it
+        Transaction badType = linkedTransaction(rule);
+        Transaction emptyReasons = linkedTransaction(rule);
+        Transaction staleStamp = linkedTransaction(rule);
+
+        var undone = postJson("/api/v1/rules/" + rule.getId() + "/unverify", Map.of("transactionIds", List.of(), "restore", List.of(
+                entry(stillFlagged, "NEEDS_REVIEW", List.of("CATEGORY_UNVERIFIED"), updatedAt(stillFlagged)),
+                entry(badType, "AUTO_REVIEWED", List.of("CATEGORY_UNVERIFIED"), updatedAt(badType)),
+                entry(emptyReasons, "NEEDS_REVIEW", List.of(), updatedAt(emptyReasons)),
+                entry(staleStamp, "NEEDS_REVIEW", List.of("CATEGORY_UNVERIFIED"), "2020-01-01T00:00:00Z"))));
+
+        assertEquals(0, undone.get("restoredTransactionIds").size());
+        assertEquals(4, undone.get("skippedTransactionIds").size());
+        assertEquals(Set.of(ReviewReason.CATEGORY_UNVERIFIED.name()), reasons(stillFlagged));
+        for (Transaction t : List.of(badType, emptyReasons, staleStamp)) {
+            assertEquals(Set.of(), reasons(t));
+        }
+        assertFalse(isVerified(rule));
+    }
+
+    @Test
+    void verifyThenUndo_moreThan1000Rows_restoresAll() throws Exception {
+        CategoryRule rule = rule(user, food, false);
+        List<Transaction> batch = new ArrayList<>();
+        for (int i = 0; i < 1001; i++) {
+            Transaction txn = new Transaction();
+            txn.setUser(user);
+            txn.setAccount(account);
+            txn.setAmount(BigDecimal.valueOf(10));
+            txn.setDate(LocalDate.parse("2026-10-01"));
+            txn.setSource(TransactionSource.manual);
+            txn.setType(TransactionType.DEBIT);
+            txn.setReviewType(ReviewType.NEEDS_REVIEW);
+            txn.setReviewReasons(new HashSet<>(Set.of(ReviewReason.CATEGORY_UNVERIFIED)));
+            txn.setAppliedRule(rule);
+            batch.add(txn);
+        }
+        transactionRepository.saveAll(batch).forEach(t -> transactionIds.add(t.getId()));
+
+        var verified = postJson("/api/v1/rules/" + rule.getId() + "/verify", Map.of());
+        assertEquals(1001, verified.get("clearedTransactions").size());
+        var undone = postJson("/api/v1/rules/" + rule.getId() + "/unverify", undoBody(verified.get("clearedTransactions")));
+
+        assertEquals(1001, undone.get("restoredTransactionIds").size());
+        assertEquals(0, undone.get("skippedTransactionIds").size());
+        assertEquals(Integer.valueOf(1001), jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM transactions WHERE applied_rule_id = ? AND review_type = 'NEEDS_REVIEW'",
+                Integer.class, rule.getId().toString()));
+    }
 }
