@@ -27,8 +27,6 @@ import com.financeos.domain.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -116,12 +114,19 @@ public class ImportService {
         int duplicateCount = 0;
         int errorCount = 0;
 
+        // Per-import batches (never one query per row): instruments by ISIN, own and catalog aliases by symbol.
+        ImportLookups lookups = new ImportLookups(brokerAccountId);
+        lookups.loadIsins(parsedRows.stream().filter(r -> r.error() == null)
+                .map(ParsedRow::parsedIsin).filter(i -> i != null && !i.isBlank()).toList());
+        lookups.loadAliases(parsedRows.stream().filter(r -> r.error() == null)
+                .map(ParsedRow::parsedSymbol).filter(sym -> sym != null && !sym.isBlank()).toList());
+
+        // Pass 1 resolves every row's instrument (creating unmatched ones, so later rows can reuse them);
+        // pass 2 checks duplicates against holdings, dividends and transactions loaded once.
+        List<ResolvedRow> resolvedRows = new ArrayList<>();
         for (ParsedRow row : parsedRows) {
             if (row.error() != null) {
-                errorCount++;
-                rowDtos.add(new ImportPreviewResponse.ImportRowPreviewDto(
-                        row.rowIndex(), "unmatched", null, false, row
-                ));
+                resolvedRows.add(new ResolvedRow(row, null));
                 continue;
             }
 
@@ -132,7 +137,7 @@ public class ImportService {
             // Resolve instrument
             Instrument matchedInstrument = null;
             if (row.parsedIsin() != null && !row.parsedIsin().isBlank()) {
-                matchedInstrument = instrumentRepository.findByIsin(row.parsedIsin()).orElse(null);
+                matchedInstrument = lookups.isin(row.parsedIsin());
                 if (matchedInstrument != null) {
                     resolveSource = "isin";
                     resolveOutcome = "matched";
@@ -142,7 +147,7 @@ public class ImportService {
 
             if (matchedInstrument == null && row.parsedSymbol() != null && !row.parsedSymbol().isBlank()) {
                 // The user's own alias (their repointed instrument) beats a catalog symbol match.
-                matchedInstrument = ownAliasInstrument(row.parsedSymbol());
+                matchedInstrument = lookups.ownAlias(row.parsedSymbol());
                 if (matchedInstrument != null) {
                     resolveSource = "name";
                     resolveOutcome = "matched";
@@ -163,9 +168,7 @@ public class ImportService {
                     }
                 }
                 if (matchedInstrument == null && aliasRepository != null) {
-                    matchedInstrument = aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserIdIsNull(row.parsedSymbol().trim())
-                            .map(InstrumentAlias::getInstrument)
-                            .orElse(null);
+                    matchedInstrument = lookups.catalogAlias(row.parsedSymbol());
                     if (matchedInstrument != null) {
                         resolveSource = "name";
                         resolveOutcome = "matched";
@@ -297,6 +300,7 @@ public class ImportService {
 
                     matchedInstrument = instrumentRepository.save(newInst);
                     if (matchedInstrument != null) {
+                        lookups.created(matchedInstrument);
                         resolveSource = "search";
                         resolveOutcome = "created";
                     }
@@ -334,7 +338,7 @@ public class ImportService {
             } else {
                 // However it matched (ISIN, AMFI, Yahoo, ticker, alias, search, created), an instrument the
                 // user moved off stands for the one they moved to — so duplicates are checked there too.
-                matchedInstrument = repointed(matchedInstrument);
+                matchedInstrument = lookups.repointed(matchedInstrument);
             }
 
             log.info("Instrument resolve: isin={}, symbol={}, source={}, outcome={}",
@@ -345,6 +349,32 @@ public class ImportService {
                     StructuredArguments.keyValue("source", resolveSource),
                     StructuredArguments.keyValue("outcome", resolveOutcome),
                     StructuredArguments.keyValue("candidateCount", resolveCandidateCount));
+
+            resolvedRows.add(new ResolvedRow(row, matchedInstrument));
+        }
+
+        Set<UUID> dividendInstrumentIds = new HashSet<>();
+        Set<UUID> tradeInstrumentIds = new HashSet<>();
+        for (ResolvedRow resolved : resolvedRows) {
+            if (resolved.instrument() == null) {
+                continue;
+            }
+            ("dividend".equalsIgnoreCase(resolved.row().kind()) ? dividendInstrumentIds : tradeInstrumentIds)
+                    .add(resolved.instrument().getId());
+        }
+        lookups.ensureDividends(dividendInstrumentIds);
+        lookups.ensureTransactions(tradeInstrumentIds);
+
+        for (ResolvedRow resolved : resolvedRows) {
+            ParsedRow row = resolved.row();
+            Instrument matchedInstrument = resolved.instrument();
+            if (row.error() != null) {
+                errorCount++;
+                rowDtos.add(new ImportPreviewResponse.ImportRowPreviewDto(
+                        row.rowIndex(), "unmatched", null, false, row
+                ));
+                continue;
+            }
 
             String matchStatus;
             ImportPreviewResponse.MatchedInstrumentDto matchedDto = null;
@@ -364,9 +394,9 @@ public class ImportService {
 
                 if ("dividend".equalsIgnoreCase(row.kind())) {
                     // Check duplicate for dividend
-                    Optional<Holding> holdingOpt = holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccountId, matchedInstrument.getId());
-                    if (holdingOpt.isPresent()) {
-                        List<Dividend> existingDivs = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holdingOpt.get().getId());
+                    Holding holding = lookups.holding(matchedInstrument.getId());
+                    if (holding != null) {
+                        List<Dividend> existingDivs = lookups.dividends(holding);
                         BigDecimal divAmt = row.amount() != null ? row.amount() : row.price();
                         for (Dividend existingDiv : existingDivs) {
                             if (row.tradeDate() != null && row.tradeDate().equals(existingDiv.getPayDate())
@@ -382,10 +412,10 @@ public class ImportService {
                     // that alone — the date+type+qty+price heuristic would wrongly flag
                     // legitimate identical fills (e.g. an order split across executions).
                     boolean matchByExternalRefOnly = source == ImportSource.zerodha_tradebook;
-                    Page<InvestmentTransaction> existingTxnsPage = transactionRepository.findFilteredTransactions(
-                            brokerAccountId, matchedInstrument.getId(), null, null, Pageable.unpaged());
+                    Holding txnHolding = lookups.holding(matchedInstrument.getId());
+                    List<InvestmentTransaction> existingTxns = txnHolding != null ? lookups.transactions(txnHolding) : List.of();
 
-                    for (InvestmentTransaction existingTxn : existingTxnsPage.getContent()) {
+                    for (InvestmentTransaction existingTxn : existingTxns) {
                         if (row.externalRef() != null && existingTxn.getExternalRef() != null
                                 && existingTxn.getExternalRef().equalsIgnoreCase(row.externalRef())) {
                             isDuplicate = true;
@@ -462,6 +492,40 @@ public class ImportService {
         List<ImportCommitResponse.SkippedCommitItem> skippedItems = new ArrayList<>();
         Set<UUID> touchedInstrumentIds = new HashSet<>();
 
+        // Per-import batches (never one query per row): picked instruments by id, ISIN / alias matches for new
+        // instruments, then the holdings, dividends and transactions of every instrument those rows land on.
+        ImportLookups lookups = new ImportLookups(brokerAccountId);
+        List<ImportCommitRequest.CommitRowDto> activeRows = rows.stream().filter(r -> !r.skip()).toList();
+        lookups.loadInstrumentsById(activeRows.stream().map(ImportCommitRequest.CommitRowDto::instrumentId)
+                .filter(Objects::nonNull).toList());
+        List<ImportCommitRequest.CreateInstrumentDto> newDtos = activeRows.stream()
+                .filter(r -> r.instrumentId() == null && r.newInstrument() != null)
+                .map(ImportCommitRequest.CommitRowDto::newInstrument).toList();
+        lookups.loadIsins(newDtos.stream().map(ImportCommitRequest.CreateInstrumentDto::isin)
+                .filter(i -> i != null && !i.isBlank()).map(String::trim).toList());
+        lookups.loadAliases(newDtos.stream().map(ImportCommitRequest.CreateInstrumentDto::symbol)
+                .filter(sym -> sym != null && !sym.isBlank()).toList());
+        Set<UUID> likelyInstrumentIds = new HashSet<>();
+        for (ImportCommitRequest.CommitRowDto r : activeRows) {
+            Instrument likely = null;
+            if (r.instrumentId() != null) {
+                likely = lookups.byId(r.instrumentId());
+            } else if (r.newInstrument() != null) {
+                ImportCommitRequest.CreateInstrumentDto d = r.newInstrument();
+                if (d.isin() != null && !d.isin().isBlank()) {
+                    likely = lookups.isin(d.isin().trim());
+                }
+                if (likely == null) {
+                    likely = lookups.ownAlias(d.symbol());
+                }
+            }
+            if (likely != null) {
+                likelyInstrumentIds.add(lookups.repointed(likely).getId());
+            }
+        }
+        lookups.ensureDividends(likelyInstrumentIds);
+        lookups.ensureTransactions(likelyInstrumentIds);
+
         for (ImportCommitRequest.CommitRowDto rowDto : rows) {
             String scripName = extractScrip(rowDto);
             if (rowDto.skip()) {
@@ -475,16 +539,18 @@ public class ImportService {
                 // Resolve or create Instrument
                 Instrument instrument = null;
                 if (rowDto.instrumentId() != null) {
-                    instrument = instrumentRepository.findById(rowDto.instrumentId())
-                            .orElseThrow(() -> new ResourceNotFoundException("Instrument", rowDto.instrumentId()));
+                    instrument = lookups.byId(rowDto.instrumentId());
+                    if (instrument == null) {
+                        throw new ResourceNotFoundException("Instrument", rowDto.instrumentId());
+                    }
                 } else if (rowDto.newInstrument() != null) {
                     ImportCommitRequest.CreateInstrumentDto newInstDto = rowDto.newInstrument();
                     // Idempotent search by ISIN or Symbol+Exchange
                     if (newInstDto.isin() != null && !newInstDto.isin().isBlank()) {
-                        instrument = instrumentRepository.findByIsin(newInstDto.isin().trim()).orElse(null);
+                        instrument = lookups.isin(newInstDto.isin().trim());
                     }
                     if (instrument == null && newInstDto.symbol() != null && !newInstDto.symbol().isBlank()) {
-                        instrument = ownAliasInstrument(newInstDto.symbol());
+                        instrument = lookups.ownAlias(newInstDto.symbol());
                     }
                     if (instrument == null && newInstDto.symbol() != null && !newInstDto.symbol().isBlank()) {
                         List<Instrument> searchResults = instrumentRepository.searchInstruments(newInstDto.symbol().trim(), null);
@@ -497,9 +563,7 @@ public class ImportService {
                             }
                         }
                         if (instrument == null && aliasRepository != null) {
-                            instrument = aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserIdIsNull(newInstDto.symbol().trim())
-                                    .map(InstrumentAlias::getInstrument)
-                                    .orElse(null);
+                            instrument = lookups.catalogAlias(newInstDto.symbol());
                         }
                     }
 
@@ -521,6 +585,7 @@ public class ImportService {
                         newInst.setYahooSymbol(yahooSym);
 
                         instrument = instrumentRepository.save(newInst);
+                        lookups.created(instrument);
                     }
                 }
 
@@ -528,16 +593,19 @@ public class ImportService {
                     throw new ValidationException("Row " + rowDto.rowIndex() + ": No instrument provided or created");
                 }
                 // A row picked (or found) as an instrument the user moved off lands on the one they moved to.
-                instrument = repointed(instrument);
+                instrument = lookups.repointed(instrument);
 
                 // Resolve or create Holding (Note: Multiple folios of the same scheme collapse into one holding for (brokerAccount x instrument))
                 final Instrument finalInstrument = instrument;
-                Holding holding = holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccount.getId(), finalInstrument.getId())
-                        .orElseGet(() -> {
-                            Holding h = new Holding(brokerAccount, finalInstrument, null);
-                            h.setUser(user);
-                            return holdingRepository.save(h);
-                        });
+                lookups.ensureDividends(List.of(finalInstrument.getId()));
+                lookups.ensureTransactions(List.of(finalInstrument.getId()));
+                Holding holding = lookups.holding(finalInstrument.getId());
+                if (holding == null) {
+                    Holding h = new Holding(brokerAccount, finalInstrument, null);
+                    h.setUser(user);
+                    holding = holdingRepository.save(h);
+                    lookups.holdingCreated(finalInstrument.getId(), holding);
+                }
 
                 ImportCommitRequest.ParsedRowData rowData = rowDto.row();
                 if (rowData == null) {
@@ -554,7 +622,7 @@ public class ImportService {
 
                     // Duplicate check for Dividend
                     boolean isDup = false;
-                    List<Dividend> existingDivs = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId());
+                    List<Dividend> existingDivs = lookups.dividends(holding);
                     for (Dividend existingDiv : existingDivs) {
                         if (rowData.tradeDate() != null && rowData.tradeDate().equals(existingDiv.getPayDate())
                                 && divAmount.compareTo(existingDiv.getAmount()) == 0) {
@@ -581,7 +649,7 @@ public class ImportService {
                     dividend.setSource("import");
                     dividend.setNotes(rowData.notes());
 
-                    dividendRepository.save(dividend);
+                    lookups.dividends(holding).add(dividendRepository.save(dividend));
                     committed++;
                     touchedInstrumentIds.add(finalInstrument.getId());
 
@@ -590,10 +658,7 @@ public class ImportService {
                     // (externalRef) only; other sources keep the date+type+qty+price fallback.
                     boolean isDup = false;
                     boolean matchByExternalRefOnly = source == ImportSource.zerodha_tradebook;
-                    Page<InvestmentTransaction> existingTxnsPage = transactionRepository.findFilteredTransactions(
-                            brokerAccountId, finalInstrument.getId(), null, null, Pageable.unpaged());
-
-                    for (InvestmentTransaction existingTxn : existingTxnsPage.getContent()) {
+                    for (InvestmentTransaction existingTxn : lookups.transactions(holding)) {
                         if (rowData.externalRef() != null && existingTxn.getExternalRef() != null
                                 && existingTxn.getExternalRef().equalsIgnoreCase(rowData.externalRef())) {
                             isDup = true;
@@ -630,7 +695,7 @@ public class ImportService {
 
                     applyItemizedCharges(txn, rowData.charges());
 
-                    transactionRepository.save(txn);
+                    lookups.transactions(holding).add(transactionRepository.save(txn));
                     committed++;
                     touchedInstrumentIds.add(finalInstrument.getId());
                 }
@@ -692,14 +757,184 @@ public class ImportService {
         }
     }
 
-    /** The instrument the current user's own alias maps {@code symbol} to (set when they repointed it), or null. */
-    private Instrument ownAliasInstrument(String symbol) {
-        java.util.UUID userId = com.financeos.core.security.UserContext.getCurrentUserId();
-        if (aliasRepository == null || userId == null || symbol == null || symbol.isBlank()) {
-            return null;
+    private record ResolvedRow(ParsedRow row, Instrument instrument) {}
+
+    /** Oracle caps an IN list at 1000 entries; batch lookups go in chunks of this size. */
+    private static final int IN_LIST_CHUNK = 900;
+
+    private static <T> List<List<T>> chunks(Collection<T> items) {
+        List<T> list = List.copyOf(items);
+        List<List<T>> out = new ArrayList<>();
+        for (int from = 0; from < list.size(); from += IN_LIST_CHUNK) {
+            out.add(list.subList(from, Math.min(list.size(), from + IN_LIST_CHUNK)));
         }
-        return aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserId(symbol.trim(), userId)
-                .map(InstrumentAlias::getInstrument)
-                .orElse(null);
+        return out;
+    }
+
+    private static String aliasKey(String symbol) {
+        return symbol.trim().toUpperCase(Locale.ROOT);
+    }
+
+    /**
+     * What one import reads from the database, loaded in batches and then served from maps: instruments by id /
+     * ISIN, aliases by symbol, and the broker account's holdings with their dividends and transactions. Rows
+     * created or saved during the import are registered here so later rows of the same import see them.
+     */
+    private final class ImportLookups {
+        private final UUID brokerAccountId;
+        private final Map<String, Instrument> byIsin = new HashMap<>();
+        private final Map<UUID, Instrument> byId = new HashMap<>();
+        private final Map<String, Instrument> ownAliases = new HashMap<>();
+        private final Map<String, Instrument> catalogAliases = new HashMap<>();
+        private final Map<UUID, Instrument> repointCache = new HashMap<>();
+        private final Set<UUID> holdingsLoaded = new HashSet<>();
+        private final Map<UUID, Holding> holdingByInstrument = new HashMap<>();
+        private final Set<UUID> dividendsLoaded = new HashSet<>();
+        private final Map<UUID, List<Dividend>> dividendsByHolding = new HashMap<>();
+        private final Set<UUID> transactionsLoaded = new HashSet<>();
+        private final Map<UUID, List<InvestmentTransaction>> transactionsByHolding = new HashMap<>();
+
+        ImportLookups(UUID brokerAccountId) {
+            this.brokerAccountId = brokerAccountId;
+        }
+
+        void loadIsins(Collection<String> isins) {
+            for (List<String> chunk : chunks(new LinkedHashSet<>(isins))) {
+                for (Instrument i : instrumentRepository.findByIsinIn(chunk)) {
+                    byIsin.put(i.getIsin(), i);
+                }
+            }
+        }
+
+        void loadInstrumentsById(Collection<UUID> ids) {
+            for (List<UUID> chunk : chunks(new LinkedHashSet<>(ids))) {
+                for (Instrument i : instrumentRepository.findAllById(chunk)) {
+                    byId.put(i.getId(), i);
+                }
+            }
+        }
+
+        void loadAliases(Collection<String> symbols) {
+            Set<String> keys = symbols.stream().map(ImportService::aliasKey).collect(Collectors.toCollection(LinkedHashSet::new));
+            UUID userId = UserContext.getCurrentUserId();
+            if (aliasRepository == null || keys.isEmpty()) {
+                return;
+            }
+            for (List<String> chunk : chunks(keys)) {
+                if (userId != null) {
+                    for (InstrumentAlias a : aliasRepository.findOwnedBySymbolsUpper(userId, chunk)) {
+                        ownAliases.putIfAbsent(aliasKey(a.getOldSymbol()), a.getInstrument());
+                    }
+                }
+                for (InstrumentAlias a : aliasRepository.findCatalogBySymbolsUpper(chunk)) {
+                    catalogAliases.putIfAbsent(aliasKey(a.getOldSymbol()), a.getInstrument());
+                }
+            }
+        }
+
+        Instrument isin(String isin) {
+            return byIsin.get(isin);
+        }
+
+        Instrument byId(UUID id) {
+            return byId.get(id);
+        }
+
+        /** The signed-in user's own alias of {@code symbol} (set when they repointed it), or null. */
+        Instrument ownAlias(String symbol) {
+            if (aliasRepository == null || UserContext.getCurrentUserId() == null || symbol == null || symbol.isBlank()) {
+                return null;
+            }
+            return ownAliases.get(aliasKey(symbol));
+        }
+
+        Instrument catalogAlias(String symbol) {
+            return catalogAliases.get(aliasKey(symbol));
+        }
+
+        /** {@link ImportService#repointed}, asked once per instrument for the whole import. */
+        Instrument repointed(Instrument instrument) {
+            if (instrument == null || instrument.getId() == null) {
+                return ImportService.this.repointed(instrument);
+            }
+            return repointCache.computeIfAbsent(instrument.getId(), k -> ImportService.this.repointed(instrument));
+        }
+
+        /** An instrument saved by this import: findable by its ISIN by later rows, and with no holding yet. */
+        void created(Instrument instrument) {
+            if (instrument.getIsin() != null) {
+                byIsin.put(instrument.getIsin(), instrument);
+            }
+            holdingsLoaded.add(instrument.getId());
+        }
+
+        void ensureHoldings(Collection<UUID> instrumentIds) {
+            Set<UUID> missing = new LinkedHashSet<>(instrumentIds);
+            missing.removeAll(holdingsLoaded);
+            for (List<UUID> chunk : chunks(missing)) {
+                for (Holding h : holdingRepository.findByBrokerAccountIdAndInstrumentIdIn(brokerAccountId, chunk)) {
+                    holdingByInstrument.put(h.getInstrument().getId(), h);
+                }
+            }
+            holdingsLoaded.addAll(missing);
+        }
+
+        void ensureDividends(Collection<UUID> instrumentIds) {
+            ensureHoldings(instrumentIds);
+            List<UUID> holdingIds = new ArrayList<>();
+            for (UUID instrumentId : new LinkedHashSet<>(instrumentIds)) {
+                Holding h = holdingByInstrument.get(instrumentId);
+                if (h != null && dividendsLoaded.add(h.getId())) {
+                    holdingIds.add(h.getId());
+                    dividendsByHolding.put(h.getId(), new ArrayList<>());
+                }
+            }
+            for (List<UUID> chunk : chunks(holdingIds)) {
+                for (Dividend d : dividendRepository.findByHoldingIdInOrderByPayDateDescCreatedAtDesc(chunk)) {
+                    dividendsByHolding.get(d.getHolding().getId()).add(d);
+                }
+            }
+        }
+
+        void ensureTransactions(Collection<UUID> instrumentIds) {
+            ensureHoldings(instrumentIds);
+            List<UUID> holdingIds = new ArrayList<>();
+            for (UUID instrumentId : new LinkedHashSet<>(instrumentIds)) {
+                Holding h = holdingByInstrument.get(instrumentId);
+                if (h != null && transactionsLoaded.add(h.getId())) {
+                    holdingIds.add(h.getId());
+                    transactionsByHolding.put(h.getId(), new ArrayList<>());
+                }
+            }
+            for (List<UUID> chunk : chunks(holdingIds)) {
+                for (InvestmentTransaction t : transactionRepository.findByHoldingIdInOrderByTradeDateAscCreatedAtAsc(chunk)) {
+                    transactionsByHolding.get(t.getHolding().getId()).add(t);
+                }
+            }
+        }
+
+        /** The broker account's holding of the instrument, or null (callers load it with the ensure methods first). */
+        Holding holding(UUID instrumentId) {
+            return holdingByInstrument.get(instrumentId);
+        }
+
+        /** A holding saved by this import: later rows of the same instrument reuse it, with nothing recorded yet. */
+        void holdingCreated(UUID instrumentId, Holding holding) {
+            holdingByInstrument.put(instrumentId, holding);
+            dividendsLoaded.add(holding.getId());
+            dividendsByHolding.put(holding.getId(), new ArrayList<>());
+            transactionsLoaded.add(holding.getId());
+            transactionsByHolding.put(holding.getId(), new ArrayList<>());
+        }
+
+        /** The holding's dividends (mutable: add what the import saves). */
+        List<Dividend> dividends(Holding holding) {
+            return dividendsByHolding.computeIfAbsent(holding.getId(), k -> new ArrayList<>());
+        }
+
+        /** The holding's transactions (mutable: add what the import saves). */
+        List<InvestmentTransaction> transactions(Holding holding) {
+            return transactionsByHolding.computeIfAbsent(holding.getId(), k -> new ArrayList<>());
+        }
     }
 }

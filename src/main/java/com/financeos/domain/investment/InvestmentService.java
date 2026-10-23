@@ -318,14 +318,16 @@ public class InvestmentService {
         List<PositionDto> positions = new ArrayList<>();
 
         LocalDate today = AppTime.today();
-        InstrumentOverrides overrides = holdings.isEmpty() ? InstrumentOverrides.NONE : instrumentOverrides();
+        EngineInputs inputs = engineInputsOfCurrentUser(holdings);
+        InstrumentOverrides overrides = inputs != null ? inputs.overrides()
+                : holdings.isEmpty() ? InstrumentOverrides.NONE : instrumentOverrides();
         Map<UUID, List<DayChange.PricePoint>> closes = latestTwoCloses(holdings);
         Map<OwnedInstrument, List<CorporateAction>> recentActions = recentCorporateActions(holdings, today);
         for (Holding holding : holdings) {
             UUID instrumentId = holding.getInstrument().getId();
             HoldingPosition pos;
             try {
-                pos = calculateHoldingPosition(holding);
+                pos = calculateHoldingPosition(holding, null, null, inputs, null);
             } catch (Exception e) {
                 log.warn("Skipping holding {} ({}) in positions: {}",
                         holding.getId(), holding.getInstrument().getName(), e.getMessage());
@@ -443,7 +445,9 @@ public class InvestmentService {
         List<XirrCalculator.Cashflow> portfolioCashflows = new ArrayList<>();
 
         LocalDate today = AppTime.today();
-        InstrumentOverrides overrides = holdings.isEmpty() ? InstrumentOverrides.NONE : instrumentOverrides();
+        EngineInputs inputs = engineInputsOfCurrentUser(holdings);
+        InstrumentOverrides overrides = inputs != null ? inputs.overrides()
+                : holdings.isEmpty() ? InstrumentOverrides.NONE : instrumentOverrides();
         Map<UUID, List<DayChange.PricePoint>> closes = latestTwoCloses(holdings);
         Map<OwnedInstrument, List<CorporateAction>> recentActions = recentCorporateActions(holdings, today);
         BigDecimal dayChange = null;
@@ -454,7 +458,7 @@ public class InvestmentService {
         for (Holding holding : holdings) {
             HoldingPosition pos;
             try {
-                pos = calculateHoldingPosition(holding);
+                pos = calculateHoldingPosition(holding, null, null, inputs, null);
             } catch (Exception e) {
                 // Skip a holding with inconsistent history rather than failing the whole summary.
                 log.warn("Skipping holding {} ({}) in summary: {}",
@@ -486,8 +490,7 @@ public class InvestmentService {
             }
 
             // Accumulate transaction cashflows for XIRR
-            List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId());
-            for (InvestmentTransaction txn : txns) {
+            for (InvestmentTransaction txn : txnsOf(holding, inputs)) {
                 BigDecimal charges = txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO;
                 if (txn.getType() == InvestmentTransactionType.buy) {
                     BigDecimal outflow = txn.getQuantity().multiply(txn.getPrice()).add(charges);
@@ -499,7 +502,12 @@ public class InvestmentService {
             }
 
             // Accumulate dividend cashflows
-            List<Dividend> dividends = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId());
+            List<Dividend> dividends = inputs != null
+                    ? inputs.dividendsByHolding().getOrDefault(holding.getId(), List.of()).stream()
+                            .sorted(Comparator.comparing(Dividend::getPayDate, Comparator.nullsLast(Comparator.reverseOrder()))
+                                    .thenComparing(Dividend::getCreatedAt, Comparator.nullsLast(Comparator.reverseOrder())))
+                            .toList()
+                    : dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId());
             for (Dividend div : dividends) {
                 portfolioCashflows.add(new XirrCalculator.Cashflow(div.getPayDate(), div.getAmount()));
             }
@@ -725,6 +733,13 @@ public class InvestmentService {
         }
         InstrumentOverrides overrides = overridesOf(userId);
         return new EngineInputs(holdings, txns, actions, actionsByTarget, classifications, latestPrices, dividends, overrides);
+    }
+
+    /** Batch inputs for the signed-in user's {@code holdings}; null (per-holding reads) with no holdings or user. */
+    @Nullable
+    private EngineInputs engineInputsOfCurrentUser(List<Holding> holdings) {
+        UUID userId = UserContext.getCurrentUserId();
+        return holdings.isEmpty() || userId == null ? null : loadEngineInputs(userId, holdings);
     }
 
     private List<InvestmentTransaction> txnsOf(Holding holding, @Nullable EngineInputs in) {
@@ -1442,7 +1457,7 @@ public class InvestmentService {
     }
 
     /** As above, with optional prefetched intraday classifications too (null reads them per holding). */
-    private List<Lot> buildOpenLotsBeforeDate(Holding parentHolding, LocalDate cutoffDate, boolean strictBefore, UUID caToIgnore,
+    public List<Lot> buildOpenLotsBeforeDate(Holding parentHolding, LocalDate cutoffDate, boolean strictBefore, UUID caToIgnore,
             List<InvestmentTransaction> prefetchedTxns, List<CorporateAction> prefetchedCorpActions, List<SeedLot> seedLots,
             @Nullable List<TradeSettlementClassification> prefetchedClassifications) {
         List<InvestmentTransaction> txns = prefetchedTxns != null ? prefetchedTxns
@@ -1655,10 +1670,12 @@ public class InvestmentService {
     public List<com.financeos.domain.investment.dto.RealizedLot> getAllRealizedLots() {
         List<Holding> holdings = holdingRepository.findAllWithDetails();
         List<com.financeos.domain.investment.dto.RealizedLot> lots = new ArrayList<>();
-        InstrumentOverrides overrides = holdings.isEmpty() ? InstrumentOverrides.NONE : instrumentOverrides();
+        EngineInputs inputs = engineInputsOfCurrentUser(holdings);
+        InstrumentOverrides overrides = inputs != null ? inputs.overrides()
+                : holdings.isEmpty() ? InstrumentOverrides.NONE : instrumentOverrides();
         for (Holding holding : holdings) {
             try {
-                calculateHoldingPosition(holding, lot -> lots.add(asSeen(lot, holding.getInstrument(), overrides)), null, null,
+                calculateHoldingPosition(holding, lot -> lots.add(asSeen(lot, holding.getInstrument(), overrides)), null, inputs,
                         overrides.classification(holding.getInstrument()));
             } catch (Exception e) {
                 log.warn("Skipping holding {} ({}) in realized lots: {}",

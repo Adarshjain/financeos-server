@@ -50,7 +50,9 @@ class DividendServiceReceiptFilterTest {
         dividendService = new DividendService(
                 dividendRepository, mock(HoldingRepository.class), mock(UserRepository.class),
                 mock(InvestmentService.class), mock(YahooDividendEventsClient.class), mock(InvestmentTransactionRepository.class),
-                new DividendReceiptStatusResolver(transactionRepository));
+                new DividendReceiptStatusResolver(transactionRepository),
+                mock(com.financeos.domain.instrument.corporateaction.CorporateActionRepository.class),
+                mock(com.financeos.domain.investment.TradeSettlementClassificationRepository.class));
         AppTime.useClock(Clock.fixed(TODAY.atStartOfDay(AppTime.zone()).toInstant(), AppTime.zone()));
     }
 

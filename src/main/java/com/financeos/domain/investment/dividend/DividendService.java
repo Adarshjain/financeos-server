@@ -10,10 +10,14 @@ import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.Instrument;
 import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.instrument.InstrumentType;
+import com.financeos.domain.instrument.corporateaction.CorporateAction;
+import com.financeos.domain.instrument.corporateaction.CorporateActionRepository;
 import com.financeos.domain.instrument.price.YahooDividendEventsClient;
 import com.financeos.domain.investment.InvestmentService;
 import com.financeos.domain.investment.InvestmentTransaction;
 import com.financeos.domain.investment.InvestmentTransactionRepository;
+import com.financeos.domain.investment.TradeSettlementClassification;
+import com.financeos.domain.investment.TradeSettlementClassificationRepository;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import org.springframework.data.domain.Page;
@@ -40,6 +44,11 @@ public class DividendService {
     private final YahooDividendEventsClient yahooClient;
     private final InvestmentTransactionRepository transactionRepository;
     private final DividendReceiptStatusResolver receiptResolver;
+    private final CorporateActionRepository corporateActionRepository;
+    private final TradeSettlementClassificationRepository classificationRepository;
+
+    /** Oracle caps an IN list at 1000 entries; batch lookups go in chunks of this size. */
+    private static final int IN_LIST_CHUNK = 900;
 
     public DividendService(DividendRepository dividendRepository,
                            HoldingRepository holdingRepository,
@@ -47,7 +56,9 @@ public class DividendService {
                            InvestmentService investmentService,
                            YahooDividendEventsClient yahooClient,
                            InvestmentTransactionRepository transactionRepository,
-                           DividendReceiptStatusResolver receiptResolver) {
+                           DividendReceiptStatusResolver receiptResolver,
+                           CorporateActionRepository corporateActionRepository,
+                           TradeSettlementClassificationRepository classificationRepository) {
         this.dividendRepository = dividendRepository;
         this.holdingRepository = holdingRepository;
         this.userRepository = userRepository;
@@ -55,6 +66,8 @@ public class DividendService {
         this.yahooClient = yahooClient;
         this.transactionRepository = transactionRepository;
         this.receiptResolver = receiptResolver;
+        this.corporateActionRepository = corporateActionRepository;
+        this.classificationRepository = classificationRepository;
     }
 
     public DividendResponse createDividend(CreateDividendRequest request) {
@@ -203,6 +216,50 @@ public class DividendService {
                 ? InstrumentOverrides.NONE : InstrumentOverrides.orNone(investmentService.instrumentOverrides());
         int scannedCount = holdingsBySymbol.size();
 
+        // One batch per table instead of per holding / per event: transactions, existing dividends and corporate
+        // actions of every scanned holding (the lot engine then reads them from memory).
+        List<UUID> holdingIds = holdings.stream().map(Holding::getId).distinct().toList();
+        Map<UUID, List<InvestmentTransaction>> txnsByHolding = new HashMap<>();
+        Map<UUID, List<Dividend>> dividendsByHolding = new HashMap<>();
+        for (int from = 0; from < holdingIds.size(); from += IN_LIST_CHUNK) {
+            List<UUID> chunk = holdingIds.subList(from, Math.min(holdingIds.size(), from + IN_LIST_CHUNK));
+            for (InvestmentTransaction t : transactionRepository.findByHoldingIdInOrderByTradeDateAscCreatedAtAsc(chunk)) {
+                txnsByHolding.computeIfAbsent(t.getHolding().getId(), k -> new ArrayList<>()).add(t);
+            }
+            for (Dividend d : dividendRepository.findByHoldingIdInOrderByPayDateDescCreatedAtDesc(chunk)) {
+                dividendsByHolding.computeIfAbsent(d.getHolding().getId(), k -> new ArrayList<>()).add(d);
+            }
+        }
+        Map<UUID, Map<UUID, List<CorporateAction>>> actionsByOwner = new HashMap<>();
+        Map<UUID, Set<UUID>> instrumentsByOwner = new HashMap<>();
+        for (Holding h : holdings) {
+            if (h.getUser() != null) {
+                instrumentsByOwner.computeIfAbsent(h.getUser().getId(), k -> new LinkedHashSet<>()).add(h.getInstrument().getId());
+            }
+        }
+        instrumentsByOwner.forEach((ownerId, instrumentIds) -> {
+            List<UUID> ids = List.copyOf(instrumentIds);
+            Map<UUID, List<CorporateAction>> byInstrument = new HashMap<>();
+            for (int from = 0; from < ids.size(); from += IN_LIST_CHUNK) {
+                for (CorporateAction ca : corporateActionRepository.findOwnedByInstrumentIds(ownerId,
+                        ids.subList(from, Math.min(ids.size(), from + IN_LIST_CHUNK)))) {
+                    byInstrument.computeIfAbsent(ca.getInstrument().getId(), k -> new ArrayList<>()).add(ca);
+                }
+            }
+            actionsByOwner.put(ownerId, byInstrument);
+        });
+
+        // Intraday classifications of the scanned holdings, read once per owner.
+        Set<UUID> holdingIdSet = new HashSet<>(holdingIds);
+        Map<UUID, List<TradeSettlementClassification>> classificationsByHolding = new HashMap<>();
+        for (UUID ownerId : instrumentsByOwner.keySet()) {
+            for (TradeSettlementClassification c : classificationRepository.findByUser_Id(ownerId)) {
+                if (c.getHolding() != null && holdingIdSet.contains(c.getHolding().getId())) {
+                    classificationsByHolding.computeIfAbsent(c.getHolding().getId(), k -> new ArrayList<>()).add(c);
+                }
+            }
+        }
+
         int index = 0;
         for (Map.Entry<String, List<Holding>> entry : holdingsBySymbol.entrySet()) {
             if (index > 0) {
@@ -219,7 +276,7 @@ public class DividendService {
 
             Instant period1 = null;
             for (Holding h : symbolHoldings) {
-                List<InvestmentTransaction> txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(h.getId());
+                List<InvestmentTransaction> txns = txnsByHolding.getOrDefault(h.getId(), List.of());
                 if (!txns.isEmpty()) {
                     Instant txnDate = txns.get(0).getTradeDate().atStartOfDay(AppTime.zone()).toInstant();
                     if (period1 == null || txnDate.isBefore(period1)) {
@@ -236,10 +293,17 @@ public class DividendService {
 
             List<YahooDividendEventsClient.DividendEvent> events = fetchResult.events();
             for (Holding holding : symbolHoldings) {
-                List<Dividend> existingDividends = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId());
+                List<Dividend> existingDividends = dividendsByHolding.getOrDefault(holding.getId(), List.of());
+                List<InvestmentTransaction> holdingTxns = txnsByHolding.getOrDefault(holding.getId(), List.of());
+                List<CorporateAction> holdingActions = holding.getUser() == null ? List.of()
+                        : actionsByOwner.getOrDefault(holding.getUser().getId(), Map.of())
+                                .getOrDefault(holding.getInstrument().getId(), List.of());
+
+                List<TradeSettlementClassification> holdingClassifications =
+                        classificationsByHolding.getOrDefault(holding.getId(), List.of());
 
                 for (YahooDividendEventsClient.DividendEvent event : events) {
-                    BigDecimal qtyHeld = investmentService.openQtyAsOf(holding, event.exDate());
+                    BigDecimal qtyHeld = openQtyAsOf(holding, event.exDate(), holdingTxns, holdingActions, holdingClassifications);
                     if (qtyHeld.compareTo(BigDecimal.ZERO) <= 0) {
                         continue;
                     }
@@ -275,6 +339,16 @@ public class DividendService {
         return new DividendSuggestionsResponse(suggestions, scannedCount, skippedSymbols);
     }
 
+    /** {@link InvestmentService#openQtyAsOf} over already-loaded transactions, corporate actions and classifications. */
+    private BigDecimal openQtyAsOf(Holding holding, LocalDate date, List<InvestmentTransaction> txns, List<CorporateAction> actions,
+                                   List<TradeSettlementClassification> classifications) {
+        BigDecimal total = BigDecimal.ZERO;
+        for (InvestmentService.Lot lot : investmentService.buildOpenLotsBeforeDate(holding, date, true, null, txns, actions, null, classifications)) {
+            total = total.add(lot.remainingQty);
+        }
+        return total.compareTo(BigDecimal.ZERO) > 0 ? total : BigDecimal.ZERO;
+    }
+
     public AcceptSuggestionsResponse acceptSuggestions(AcceptSuggestionsRequest request) {
         UUID currentUserId = UserContext.getCurrentUserId();
         User user = currentUserId != null ? userRepository.getReferenceById(currentUserId) : null;
@@ -283,15 +357,37 @@ public class DividendService {
         int skippedCount = 0;
         DividendReceiptStatusResolver.Context ctx = receiptResolver.context();
 
+        Set<UUID> holdingIds = request.items().stream().map(AcceptSuggestionsRequest.Item::holdingId).collect(Collectors.toCollection(LinkedHashSet::new));
+        List<UUID> holdingIdList = List.copyOf(holdingIds);
+        Map<UUID, Holding> holdingsById = new HashMap<>();
+        Map<UUID, List<Dividend>> existingByHolding = new HashMap<>();
+        for (int from = 0; from < holdingIdList.size(); from += IN_LIST_CHUNK) {
+            List<UUID> chunk = holdingIdList.subList(from, Math.min(holdingIdList.size(), from + IN_LIST_CHUNK));
+            for (Holding h : holdingRepository.findAllById(chunk)) {
+                holdingsById.put(h.getId(), h);
+            }
+            for (Dividend d : dividendRepository.findByHoldingIdInOrderByPayDateDescCreatedAtDesc(chunk)) {
+                existingByHolding.computeIfAbsent(d.getHolding().getId(), k -> new ArrayList<>()).add(d);
+            }
+        }
+
         for (AcceptSuggestionsRequest.Item item : request.items()) {
-            Holding holding = holdingRepository.findById(item.holdingId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Holding", item.holdingId()));
+            Holding holding = holdingsById.get(item.holdingId());
+            if (holding == null) {
+                // The batch is a query, so the user filter hides owner-less legacy holdings that a by-id read still gives.
+                holding = holdingRepository.findById(item.holdingId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Holding", item.holdingId()));
+                holdingsById.put(holding.getId(), holding);
+                existingByHolding.put(holding.getId(),
+                        new ArrayList<>(dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId())));
+            }
 
             if (user != null && holding.getUser() != null && !holding.getUser().getId().equals(currentUserId)) {
                 throw new ResourceNotFoundException("Holding", item.holdingId());
             }
 
-            List<Dividend> existing = dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holding.getId());
+            // Includes dividends accepted earlier in this same request, as the per-item query did.
+            List<Dividend> existing = existingByHolding.computeIfAbsent(holding.getId(), k -> new ArrayList<>());
             boolean duplicate = existing.stream().anyMatch(d -> {
                 LocalDate dDate = d.getExDate() != null ? d.getExDate() : d.getPayDate();
                 return Math.abs(ChronoUnit.DAYS.between(dDate, item.exDate())) <= 7;
@@ -314,6 +410,7 @@ public class DividendService {
             dividend.setNotes(item.notes());
 
             Dividend saved = dividendRepository.save(dividend);
+            existing.add(saved);
             createdResponses.add(receiptResolver.toResponse(saved, ctx));
         }
 

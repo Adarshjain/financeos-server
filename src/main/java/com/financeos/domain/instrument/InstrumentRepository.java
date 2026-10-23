@@ -21,6 +21,9 @@ public interface InstrumentRepository extends JpaRepository<Instrument, UUID> {
     /** The instrument with the ISIN (exact; ISINs are unique in the catalog). */
     Optional<Instrument> findByIsin(String isin);
 
+    /** {@link #findByIsin} for several ISINs at once (exact; callers chunk the list). */
+    List<Instrument> findByIsinIn(java.util.Collection<String> isins);
+
     /** Every instrument with the AMFI code, oldest first (the column is not unique; legacy rows may repeat it). */
     @Query("SELECT i FROM Instrument i WHERE UPPER(i.amfiCode) = UPPER(:amfiCode) ORDER BY i.createdAt ASC, i.id ASC")
     List<Instrument> findAllByAmfiCode(@Param("amfiCode") String amfiCode);
