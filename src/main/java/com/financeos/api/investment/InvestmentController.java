@@ -5,7 +5,9 @@ import org.springdoc.core.annotations.ParameterObject;
 import com.financeos.api.investment.dto.*;
 import com.financeos.domain.instrument.price.PriceRefreshResult;
 import com.financeos.domain.instrument.price.PriceRefreshService;
+import com.financeos.domain.investment.HoldingsService;
 import com.financeos.domain.investment.InvestmentService;
+import com.financeos.domain.investment.InvestmentTransactionType;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,13 +24,16 @@ public class InvestmentController {
 
     private final InvestmentService investmentService;
     private final PriceRefreshService priceRefreshService;
+    private final HoldingsService holdingsService;
     private final com.financeos.domain.job.JobService jobService;
 
     public InvestmentController(InvestmentService investmentService,
                                 PriceRefreshService priceRefreshService,
+                                HoldingsService holdingsService,
                                 com.financeos.domain.job.JobService jobService) {
         this.investmentService = investmentService;
         this.priceRefreshService = priceRefreshService;
+        this.holdingsService = holdingsService;
         this.jobService = jobService;
     }
 
@@ -58,8 +63,33 @@ public class InvestmentController {
             @RequestParam(required = false) UUID instrumentId,
             @RequestParam(required = false) UUID holdingId,
             @RequestParam(required = false) String search,
+            @RequestParam(required = false) InvestmentTransactionType type,
+            @RequestParam(required = false) Integer fy,
             @ParameterObject @PageableDefault(size = 50, sort = "tradeDate") Pageable pageable) {
-        return investmentService.getTransactions(brokerAccountId, instrumentId, holdingId, search, pageable);
+        return investmentService.getTransactions(brokerAccountId, instrumentId, holdingId, search, type, fy, pageable);
+    }
+
+    /** One row per instrument across broker accounts; sort = name (default) | return_pct | return_abs. */
+    @GetMapping("/holdings")
+    public HoldingsResponse getHoldings(
+            @RequestParam(required = false) UUID brokerAccountId,
+            @RequestParam(required = false) String assetType,
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size) {
+        return holdingsService.list(brokerAccountId, assetType, search, sort, page, size);
+    }
+
+    @GetMapping("/holdings/{instrumentId}")
+    public HoldingDetailResponse getHolding(@PathVariable UUID instrumentId) {
+        return holdingsService.detail(instrumentId);
+    }
+
+    @GetMapping("/holdings/{instrumentId}/sell-estimate")
+    public SellEstimateResponse getSellEstimate(@PathVariable UUID instrumentId,
+                                                @RequestParam(required = false) java.math.BigDecimal quantity) {
+        return holdingsService.sellEstimate(instrumentId, quantity);
     }
 
     @GetMapping("/positions")

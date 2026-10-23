@@ -285,6 +285,86 @@ public class InvestmentService {
     }
 
     /**
+     * The tradebook: {@link #getTransactions(UUID, UUID, UUID, String, Pageable)} narrowed by buy/sell and
+     * a financial year (start year: 2026 = 1 Apr 2026 - 31 Mar 2027), each row carrying its
+     * {@code realisedPnl} (sells) and {@code settlement}. The page's holdings run through the lot engine
+     * once (inputs batch-loaded) and their intraday classifications and trades come in one query each.
+     */
+    @Transactional(readOnly = true)
+    public Page<InvestmentTransactionResponse> getTransactions(UUID brokerAccountId, UUID instrumentId, UUID holdingId,
+                                                               String search, @Nullable InvestmentTransactionType type,
+                                                               @Nullable Integer fy, Pageable pageable) {
+        String normalizedSearch = (search != null && !search.isBlank()) ? search.trim() : null;
+        if (fy != null && (fy < 2000 || fy > 2100)) {
+            throw new ValidationException("fy must be a financial year's start year, e.g. " + TaxHarvestService.currentFy(AppTime.today()));
+        }
+        LocalDate from = fy != null ? LocalDate.of(fy, 4, 1) : LocalDate.of(1900, 1, 1);
+        LocalDate to = fy != null ? LocalDate.of(fy + 1, 3, 31) : LocalDate.of(9999, 12, 31);
+        Page<InvestmentTransaction> page = transactionRepository.findFilteredTransactionsBetween(
+                brokerAccountId, instrumentId, holdingId, type, from, to, normalizedSearch, withStableSort(pageable));
+        if (page.isEmpty()) {
+            return page.map(t -> InvestmentTransactionResponse.from(t));
+        }
+        InstrumentOverrides overrides = instrumentOverrides();
+
+        Map<UUID, Holding> holdings = new LinkedHashMap<>();
+        for (InvestmentTransaction t : page.getContent()) {
+            holdings.putIfAbsent(t.getHolding().getId(), t.getHolding());
+        }
+        Map<UUID, TraceSink> sinks = new HashMap<>();
+        if (page.getContent().stream().anyMatch(t -> t.getType() == InvestmentTransactionType.sell)) {
+            List<Holding> pageHoldings = List.copyOf(holdings.values());
+            EngineInputs inputs = engineInputsOfCurrentUser(pageHoldings);
+            for (Holding h : pageHoldings) {
+                TraceSink sink = new TraceSink(new ArrayList<>(), new ArrayList<>());
+                try {
+                    calculateHoldingPosition(h, null, sink, inputs, null);
+                    sinks.put(h.getId(), sink);
+                } catch (Exception e) {
+                    log.warn("No realised P&L for holding {} in the tradebook: {}", h.getId(), e.getMessage());
+                }
+            }
+        }
+        Map<UUID, Map<LocalDate, BigDecimal>> intradayQty = new HashMap<>();
+        for (TradeSettlementClassification c : classificationRepository.findByHoldingIdIn(holdings.keySet())) {
+            if (c.getHolding() != null && c.getIntradayQty() != null) {
+                intradayQty.computeIfAbsent(c.getHolding().getId(), k -> new HashMap<>()).put(c.getTradeDate(), c.getIntradayQty());
+            }
+        }
+        // Per (holding, netted day): the day's sell quantity, to share its realised P&L across its sells.
+        Map<UUID, Map<LocalDate, BigDecimal>> daySellQty = new HashMap<>();
+        if (!intradayQty.isEmpty() && !sinks.isEmpty()) {
+            for (InvestmentTransaction t : transactionRepository.findByHoldingIdInOrderByTradeDateAscCreatedAtAsc(intradayQty.keySet())) {
+                UUID hid = t.getHolding().getId();
+                if (t.getType() == InvestmentTransactionType.sell && intradayQty.get(hid).containsKey(t.getTradeDate())) {
+                    daySellQty.computeIfAbsent(hid, k -> new HashMap<>()).merge(t.getTradeDate(), t.getQuantity(), BigDecimal::add);
+                }
+            }
+        }
+        return page.map(t -> {
+            UUID hid = t.getHolding().getId();
+            BigDecimal dayIntraday = intradayQty.getOrDefault(hid, Map.of()).get(t.getTradeDate());
+            SettlementType settlement = t.getSettlementType() == SettlementType.intraday
+                    || (dayIntraday != null && dayIntraday.signum() > 0 && t.getQuantity().compareTo(dayIntraday) <= 0)
+                    ? SettlementType.intraday : SettlementType.delivery;
+            BigDecimal realised = null;
+            TraceSink sink = sinks.get(hid);
+            if (t.getType() == InvestmentTransactionType.sell && sink != null) {
+                realised = sink.realizedByTxn().get(t.getId());
+                if (realised == null && dayIntraday != null) {
+                    BigDecimal dayQty = daySellQty.getOrDefault(hid, Map.of()).get(t.getTradeDate());
+                    BigDecimal dayTotal = sink.deliveryRealizedByDate().getOrDefault(t.getTradeDate(), BigDecimal.ZERO)
+                            .add(sink.intradayByDate().getOrDefault(t.getTradeDate(), BigDecimal.ZERO));
+                    realised = dayQty == null || dayQty.signum() == 0 ? null
+                            : dayTotal.multiply(t.getQuantity()).divide(dayQty, 4, RoundingMode.HALF_UP);
+                }
+                realised = (realised == null ? BigDecimal.ZERO : realised).setScale(2, RoundingMode.HALF_UP);
+            }
+            return InvestmentTransactionResponse.from(t, overrides, realised, settlement);
+        });
+    }
+
+    /**
      * tradeDate is a day-granularity LocalDate, so many trades tie on it. Sorting by tradeDate
      * alone gives the DB freedom to order tied rows differently per page query, which makes a
      * transaction straddle a page boundary (missing on one page size, visible on another). Append
@@ -668,7 +748,19 @@ public class InvestmentService {
     }
 
     /** Collects the engine trace when {@link #traceHoldingPosition} asks for one. */
-    private record TraceSink(List<HoldingTrace.Event> events, List<HoldingTrace.OpenLot> openLots) {}
+    private record TraceSink(List<HoldingTrace.Event> events, List<HoldingTrace.OpenLot> openLots,
+                             /** Gross realised P&L of each real sell (by transaction id) the engine matched. */
+                             Map<UUID, BigDecimal> realizedByTxn,
+                             /** The same for a netted day's synthetic delivery sell (no transaction), by date. */
+                             Map<LocalDate, BigDecimal> deliveryRealizedByDate,
+                             /** A netted day's intraday realised P&L (sell value - buy value), by date. */
+                             Map<LocalDate, BigDecimal> intradayByDate,
+                             /** Every cashflow behind the holding's XIRR, the terminal value included. */
+                             List<XirrCalculator.Cashflow> cashflows) {
+        TraceSink(List<HoldingTrace.Event> events, List<HoldingTrace.OpenLot> openLots) {
+            this(events, openLots, new HashMap<>(), new HashMap<>(), new HashMap<>(), new ArrayList<>());
+        }
+    }
 
     /**
      * Everything the lot engine reads for the current user's holdings, loaded up front in a fixed
@@ -824,6 +916,9 @@ public class InvestmentService {
 
                 BigDecimal dayIntradayRealized = intradaySellVal.subtract(intradayBuyVal);
                 intradayRealized = intradayRealized.add(dayIntradayRealized);
+                if (trace != null) {
+                    trace.intradayByDate().put(date, dayIntradayRealized);
+                }
                 timeline.add(new IntradayNettingEvent(date, intradayQty));
 
                 BigDecimal dayBuyQty = BigDecimal.ZERO;
@@ -1012,6 +1107,13 @@ public class InvestmentService {
                     // Gross realized P&L (gross proceeds - matched clean cost)
                     BigDecimal txnRealized = grossProceeds.subtract(matchedCost);
                     cumulativeRealized = cumulativeRealized.add(txnRealized);
+                    if (trace != null) {
+                        if (txn.getId() != null) {
+                            trace.realizedByTxn().merge(txn.getId(), txnRealized, BigDecimal::add);
+                        } else {
+                            trace.deliveryRealizedByDate().merge(txn.getTradeDate(), txnRealized, BigDecimal::add);
+                        }
+                    }
 
                     cashflows.add(new XirrCalculator.Cashflow(txn.getTradeDate(), netProceeds));
                 }
@@ -1084,6 +1186,9 @@ public class InvestmentService {
             cashflows.add(new XirrCalculator.Cashflow(AppTime.today(), currentValue));
         }
 
+        if (trace != null) {
+            trace.cashflows().addAll(cashflows);
+        }
         Double xirr = calculateXirrPercentage(cashflows);
 
         BigDecimal absoluteReturnPercent = null;
@@ -1730,6 +1835,60 @@ public class InvestmentService {
             }
         }
         return out;
+    }
+
+    /**
+     * One holding as the holdings pages see it: the engine's position and its positions-page row (day
+     * change included), lots left open and realised, and every cashflow behind its XIRR.
+     */
+    public record HoldingDetail(HoldingPosition position, PositionDto dto, List<HoldingTrace.OpenLot> openLots,
+                                List<com.financeos.domain.investment.dto.RealizedLot> realizedLots,
+                                AssetClassifier.Classification classification,
+                                List<XirrCalculator.Cashflow> cashflows) {
+    }
+
+    /**
+     * The current user's holdings (only those of {@code instrumentId} when given), closed ones included,
+     * from one engine pass each with the reads batch-loaded (as {@link #getAllPositions}); a holding the
+     * engine cannot compute is skipped.
+     */
+    @Transactional(readOnly = true)
+    public List<HoldingDetail> getHoldingDetails(@Nullable UUID instrumentId) {
+        List<Holding> holdings = holdingRepository.findAllWithDetails().stream()
+                .filter(h -> instrumentId == null || instrumentId.equals(h.getInstrument().getId()))
+                .toList();
+        List<HoldingDetail> out = new ArrayList<>();
+        if (holdings.isEmpty()) {
+            return out;
+        }
+        LocalDate today = AppTime.today();
+        EngineInputs inputs = engineInputsOfCurrentUser(holdings);
+        InstrumentOverrides overrides = inputs != null ? inputs.overrides() : instrumentOverrides();
+        Map<UUID, List<DayChange.PricePoint>> closes = latestTwoCloses(holdings);
+        Map<OwnedInstrument, List<CorporateAction>> recentActions = recentCorporateActions(holdings, today);
+        for (Holding holding : holdings) {
+            List<com.financeos.domain.investment.dto.RealizedLot> realized = new ArrayList<>();
+            TraceSink trace = new TraceSink(new ArrayList<>(), new ArrayList<>());
+            AssetClassifier.Classification classification = overrides.classification(holding.getInstrument());
+            try {
+                HoldingPosition position = calculateHoldingPosition(holding,
+                        lot -> realized.add(asSeen(lot, holding.getInstrument(), overrides)), trace, inputs, classification);
+                PositionDto dto = position.toPositionDto(overrides);
+                DayChange change = DayChange.forPosition(dto.quantity(), dto.lastPrice(), dto.lastPriceAsOf(),
+                        closes.get(holding.getInstrument().getId()), today, recentActions.get(OwnedInstrument.of(holding)));
+                out.add(new HoldingDetail(position, dto.withDayChange(change), List.copyOf(trace.openLots()),
+                        List.copyOf(realized), classification, List.copyOf(trace.cashflows())));
+            } catch (Exception e) {
+                log.warn("Skipping holding {} ({}) in holding details: {}",
+                        holding.getId(), holding.getInstrument().getName(), e.getMessage());
+            }
+        }
+        return out;
+    }
+
+    /** The XIRR (percent, 2 dp) of the cashflows; null when it has none. */
+    public Double xirrPercent(List<XirrCalculator.Cashflow> cashflows) {
+        return calculateXirrPercentage(cashflows);
     }
 
     public static class Lot {
