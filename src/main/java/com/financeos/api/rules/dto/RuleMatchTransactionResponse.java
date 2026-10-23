@@ -20,7 +20,12 @@ public record RuleMatchTransactionResponse(
         List<CategoryResponse> categories,
         @Nullable String reviewType,
         @Nullable UUID appliedRuleId,
-        @Nullable String appliedRuleName
+        @Nullable String appliedRuleName,
+        UUID accountId,
+        String accountName,
+        @Nullable String accountBank,
+        @Nullable UUID cardId,
+        @Nullable String cardLast4
 ) {
     public static RuleMatchTransactionResponse from(RuleMatchService.MatchedTransaction match) {
         List<CategoryResponse> categories = match.categories().stream()
@@ -36,7 +41,12 @@ public record RuleMatchTransactionResponse(
                 categories,
                 match.reviewType() != null ? match.reviewType().name() : null,
                 match.appliedRuleId(),
-                match.appliedRuleName()
+                match.appliedRuleName(),
+                match.accountId(),
+                match.accountName(),
+                match.accountBank(),
+                match.cardId(),
+                match.cardLast4()
         );
     }
 }

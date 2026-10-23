@@ -334,6 +334,13 @@ public class TransactionListQueryBuilder {
         if (operator == null) {
             throw new ValidationException("filter.operator is required for '" + filter.field() + "'");
         }
+        if ("category".equals(meta.name()) && "is_empty".equals(operator)) {
+            // "No category": takes no value.
+            if (filter.value() != null && !filter.value().isNull()) {
+                throw new ValidationException("Operator 'is_empty' does not take a value");
+            }
+            return;
+        }
         if (!catalog.operatorsFor(meta.type()).contains(operator)) {
             throw new ValidationException("Operator '" + operator + "' is not valid for field '"
                     + filter.field() + "' (" + meta.type().json() + ")");

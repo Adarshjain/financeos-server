@@ -1617,6 +1617,55 @@ paths:
           description: Error response
       tags:
       - category-controller
+  /api/v1/categories/page:
+    get:
+      operationId: getCategoriesPage
+      parameters:
+      - in: query
+        name: search
+        required: false
+        schema:
+          type: string
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+      - description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageCategoryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - category-controller
   /api/v1/categories/{id}:
     delete:
       operationId: deleteCategory
@@ -14421,6 +14470,52 @@ components:
       - sort
       - totalElements
       - totalPages
+    PageCategoryResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
     PageCounterpartyResponse:
       type: object
       properties:
@@ -17060,6 +17155,15 @@ components:
     RuleMatchTransactionResponse:
       type: object
       properties:
+        accountBank:
+          type: string
+          nullable: true
+          x-nullable: true
+        accountId:
+          type: string
+          format: uuid
+        accountName:
+          type: string
         amount:
           type: number
         appliedRuleId:
@@ -17068,6 +17172,15 @@ components:
           nullable: true
           x-nullable: true
         appliedRuleName:
+          type: string
+          nullable: true
+          x-nullable: true
+        cardId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        cardLast4:
           type: string
           nullable: true
           x-nullable: true
@@ -17090,6 +17203,8 @@ components:
         type:
           type: string
       required:
+      - accountId
+      - accountName
       - amount
       - categories
       - date
