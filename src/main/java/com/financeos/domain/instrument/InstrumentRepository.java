@@ -106,6 +106,40 @@ public interface InstrumentRepository extends JpaRepository<Instrument, UUID> {
                                                                   @Param("dir") String dir,
                                                                   Pageable pageable);
 
+    /** A price the user sees dated on or after {@code :staleCutoff} for instrument {@code i} (see {@link #LIST_FILTERED_FROM}). */
+    String FRESH_PRICE = "SELECT 1 FROM InstrumentPrice fp WHERE fp.instrument.id = i.id "
+            + "AND (fp.userId IS NULL OR fp.userId = :userId) "
+            + "AND NOT (fp.userId IS NULL AND fp.source = com.financeos.domain.instrument.PriceSource.MANUAL AND fp.asOf > :today) "
+            + "AND fp.asOf >= :staleCutoff";
+
+    /**
+     * {@link #LIST_AS_SEEN_FROM} plus the stale and held filters of {@link #listAsSeenFiltered}. Stale = the
+     * user sees no price dated on or after {@code :staleCutoff} (no price at all counts as stale; a legacy
+     * ownerless MANUAL price dated after {@code :today} is not seen, as in the latest-price queries).
+     * {@code :staleMode} 0 = any, 1 = stale only, 2 = fresh only; {@code :heldMode} 0 = any, 1 = only
+     * {@code :heldIds}, 2 = all but {@code :heldIds} (never empty: callers pass a placeholder id).
+     */
+    String LIST_FILTERED_FROM = LIST_AS_SEEN_FROM + " AND "
+            + "(:staleMode = 0 OR (:staleMode = 1 AND NOT EXISTS (" + FRESH_PRICE + ")) "
+            + "OR (:staleMode = 2 AND EXISTS (" + FRESH_PRICE + "))) AND "
+            + "(:heldMode = 0 OR (:heldMode = 1 AND i.id IN :heldIds) OR (:heldMode = 2 AND i.id NOT IN :heldIds))";
+
+    /** {@link #listAsSeenBy} with the stale and held filters of {@link #LIST_FILTERED_FROM}. */
+    @Query(value = "SELECT i " + LIST_FILTERED_FROM
+            + " ORDER BY CASE WHEN :dir = 'desc' THEN LOWER(COALESCE(o.name, i.name)) END DESC, "
+            + "LOWER(COALESCE(o.name, i.name)) ASC, i.id ASC",
+            countQuery = "SELECT COUNT(i) " + LIST_FILTERED_FROM)
+    org.springframework.data.domain.Page<Instrument> listAsSeenFiltered(@Param("userId") UUID userId,
+                                                                        @Param("search") String search,
+                                                                        @Param("type") InstrumentType type,
+                                                                        @Param("dir") String dir,
+                                                                        @Param("staleMode") int staleMode,
+                                                                        @Param("staleCutoff") java.time.LocalDate staleCutoff,
+                                                                        @Param("today") java.time.LocalDate today,
+                                                                        @Param("heldMode") int heldMode,
+                                                                        @Param("heldIds") java.util.Collection<UUID> heldIds,
+                                                                        Pageable pageable);
+
     /** {@link #searchInstruments(String, InstrumentType)} one page at a time, by name then id. */
     @Query("SELECT i FROM Instrument i WHERE " +
            "(:type IS NULL OR i.type = :type) AND " +

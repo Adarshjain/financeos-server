@@ -62,6 +62,22 @@ public interface InstrumentPriceRepository extends JpaRepository<InstrumentPrice
             @Param("from") LocalDate from,
             @Param("to") LocalDate to);
 
+    /**
+     * One page of the prices {@code userId} sees, newest first, one row per date: their own row where a date
+     * has both a feed row and theirs (as {@link PricePrecedence#collapse} does for the unpaged history).
+     */
+    @Query(value = "SELECT p FROM InstrumentPrice p WHERE p.instrument.id = :instrumentId AND "
+            + "(p.userId = :userId OR (p.userId IS NULL AND NOT EXISTS (SELECT 1 FROM InstrumentPrice q "
+            + "WHERE q.instrument.id = :instrumentId AND q.asOf = p.asOf AND q.userId = :userId))) "
+            + "ORDER BY p.asOf DESC, p.id ASC",
+            countQuery = "SELECT COUNT(p) FROM InstrumentPrice p WHERE p.instrument.id = :instrumentId AND "
+            + "(p.userId = :userId OR (p.userId IS NULL AND NOT EXISTS (SELECT 1 FROM InstrumentPrice q "
+            + "WHERE q.instrument.id = :instrumentId AND q.asOf = p.asOf AND q.userId = :userId)))")
+    org.springframework.data.domain.Page<InstrumentPrice> findPriceHistoryPage(
+            @Param("instrumentId") UUID instrumentId,
+            @Param("userId") UUID userId,
+            org.springframework.data.domain.Pageable pageable);
+
     /** Every price {@code userId} sees for several instruments, oldest first. */
     @Query("SELECT p FROM InstrumentPrice p WHERE p.instrument.id IN :ids "
             + "AND (p.userId IS NULL OR p.userId = :userId) ORDER BY p.asOf ASC")

@@ -2,6 +2,7 @@ package com.financeos.api.instrument;
 
 import com.financeos.api.instrument.dto.*;
 import com.financeos.domain.instrument.Instrument;
+import com.financeos.domain.instrument.InstrumentCatalogListService;
 import com.financeos.domain.instrument.InstrumentService;
 import com.financeos.domain.instrument.InstrumentType;
 import com.financeos.domain.instrument.search.InstrumentSearchService;
@@ -22,7 +23,11 @@ public class InstrumentController {
     private final InstrumentService instrumentService;
     private final InstrumentSearchService instrumentSearchService;
 
-    public InstrumentController(InstrumentService instrumentService, InstrumentSearchService instrumentSearchService) {
+    private final InstrumentCatalogListService catalogListService;
+
+    public InstrumentController(InstrumentService instrumentService, InstrumentSearchService instrumentSearchService,
+                                InstrumentCatalogListService catalogListService) {
+        this.catalogListService = catalogListService;
         this.instrumentService = instrumentService;
         this.instrumentSearchService = instrumentSearchService;
     }
@@ -55,16 +60,21 @@ public class InstrumentController {
      * {@code search} matches the name and symbol they see, the catalog name and symbol, ISIN, AMFI code
      * and Yahoo symbol (blank = all); {@code type} is the type they see; {@code sort} is
      * {@code name[,asc|desc]} (the name they see, case-insensitive; default {@code name,asc}; anything
-     * else is a 400); {@code page} from 0, {@code size} default 50, at most 200.
+     * else is a 400); {@code stale} true = only instruments whose latest price they see is more than 4 days
+     * old (or that have none), false = only current ones; {@code held} true = only instruments they hold
+     * an open quantity of, false = only those they do not (each item also says {@code notHeld});
+     * {@code page} from 0, {@code size} default 50, at most 200.
      */
     @GetMapping
     public InstrumentListPage search(
             @RequestParam(required = false) String search,
             @RequestParam(required = false) InstrumentType type,
             @RequestParam(required = false) String sort,
+            @RequestParam(required = false) Boolean stale,
+            @RequestParam(required = false) Boolean held,
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "" + InstrumentService.DEFAULT_PAGE_SIZE) int size) {
-        return instrumentService.listInstruments(search, type, sort, page, size);
+        return catalogListService.list(search, type, sort, stale, held, page, size);
     }
 
     /**
@@ -150,5 +160,18 @@ public class InstrumentController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
         return instrumentService.getPriceHistory(id, from, to);
+    }
+
+    /**
+     * One page of the same history, newest first, one row per date ({@code page} from 0, {@code size}
+     * default 30, at most 200). Each row's {@code source} says feed vs MANUAL and {@code editable} whether
+     * the user may edit or delete it.
+     */
+    @GetMapping("/{id}/prices/page")
+    public PriceHistoryPage getPriceHistoryPage(
+            @PathVariable UUID id,
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "" + InstrumentService.DEFAULT_PRICE_PAGE_SIZE) int size) {
+        return instrumentService.getPriceHistoryPage(id, page, size);
     }
 }
