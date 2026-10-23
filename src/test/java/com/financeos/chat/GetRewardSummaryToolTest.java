@@ -198,4 +198,29 @@ class GetRewardSummaryToolTest {
         assertTrue(json.has("message"));
         assertTrue(json.get("message").asText().contains("No credit cards"));
     }
+
+    @Test
+    @DisplayName("Non-card accounts are included only when they have rules, using one batched count")
+    void nonCardAccountsIncludedByBatchedRuleCount() {
+        Account card = createAccount(UUID.randomUUID(), "Card", AccountType.credit_card);
+        Account bankWithRules = createAccount(UUID.randomUUID(), "Bank With Rules", AccountType.bank_account);
+        Account bankNoRules = createAccount(UUID.randomUUID(), "Bank No Rules", AccountType.bank_account);
+        Account bankZeroRules = createAccount(UUID.randomUUID(), "Bank Zero", AccountType.bank_account);
+
+        when(mockAccountRepository.findByUserId(userId)).thenReturn(List.of(card, bankWithRules, bankNoRules, bankZeroRules));
+        when(mockRewardRuleRepository.countGroupedByAccountId(any()))
+                .thenReturn(List.<Object[]>of(new Object[] {bankWithRules.getId(), 2L}, new Object[] {bankZeroRules.getId(), 0L}));
+        when(mockRewardService.report(any(UUID.class), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(createReport(card.getId(), LocalDate.now(), LocalDate.now()));
+
+        ChatToolResult result = tool.execute(objectMapper.createObjectNode());
+
+        assertTrue(result.success());
+        JsonNode json = result.result();
+        assertEquals(2, json.size());
+        assertEquals("Card", json.get(0).get("accountName").asText());
+        assertEquals("Bank With Rules", json.get(1).get("accountName").asText());
+        verify(mockRewardRuleRepository, times(1)).countGroupedByAccountId(any());
+        verify(mockRewardRuleRepository, never()).countByAccountId(any());
+    }
 }

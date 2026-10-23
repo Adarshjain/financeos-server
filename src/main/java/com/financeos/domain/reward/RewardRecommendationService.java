@@ -31,6 +31,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -78,8 +79,10 @@ public class RewardRecommendationService {
         // 2. Candidate accounts resolution and ownership validation
         List<Account> candidateAccounts = new ArrayList<>();
         if (request.accountIds() != null && !request.accountIds().isEmpty()) {
+            Map<UUID, Account> accountsById = accountRepository.findAllById(request.accountIds()).stream()
+                    .collect(Collectors.toMap(Account::getId, a -> a, (a, b) -> a));
             for (UUID accountId : request.accountIds()) {
-                Account account = accountRepository.findById(accountId)
+                Account account = Optional.ofNullable(accountsById.get(accountId))
                         .orElseThrow(() -> new ValidationException("Account not found: " + accountId));
                 if (!account.getUser().getId().equals(currentUserId)) {
                     throw new ValidationException("You do not have permission to view rewards for this account.");
@@ -88,8 +91,17 @@ public class RewardRecommendationService {
             }
         } else {
             List<Account> userAccounts = accountRepository.findByUserId(currentUserId);
+            Set<UUID> accountIdsWithRules = new java.util.HashSet<>();
+            if (!userAccounts.isEmpty()) {
+                for (Object[] row : rewardRuleRepository.countGroupedByAccountId(
+                        userAccounts.stream().map(Account::getId).toList())) {
+                    if (((Number) row[1]).longValue() > 0) {
+                        accountIdsWithRules.add((UUID) row[0]);
+                    }
+                }
+            }
             for (Account acct : userAccounts) {
-                if (!acct.isClosed(evalDate) && (acct.getType() == AccountType.credit_card || rewardRuleRepository.countByAccountId(acct.getId()) > 0)) {
+                if (!acct.isClosed(evalDate) && (acct.getType() == AccountType.credit_card || accountIdsWithRules.contains(acct.getId()))) {
                     candidateAccounts.add(acct);
                 }
             }
@@ -102,7 +114,7 @@ public class RewardRecommendationService {
 
         for (Account account : candidateAccounts) {
             // Evaluate engine state as of evalDate
-            RewardCalculationService.Evaluation eval = rewardCalculationService.evaluate(account.getId(), evalDate, evalDate, true);
+            RewardCalculationService.Evaluation eval = rewardCalculationService.evaluate(account, evalDate, evalDate, true, "manual");
 
             // Record cap headroom before simulated spend
             Map<UUID, SimulatedCapStatusResponse> ruleCapStatusBefore = new HashMap<>();

@@ -470,4 +470,89 @@ class RewardRecommendationServiceTest {
         assertEquals(new BigDecimal("5.00"), capStatus.usedBefore());
         assertEquals(new BigDecimal("5.00"), capStatus.capRemainingBefore());
     }
+
+    private Account createBankAccount(String name) {
+        Account account = new Account(name, AccountType.bank_account);
+        account.setId(UUID.randomUUID());
+        account.setUser(user);
+        return account;
+    }
+
+    @Test
+    void autoCandidates_batchedRuleCounts_includeNonCardWithRulesOnly() {
+        Account bankWithRules = createBankAccount("Bank With Rules");
+        Account bankNoRules = createBankAccount("Bank No Rules");
+        Account card = createCardAccount("Card", null);
+        when(accountRepository.findByUserId(userId)).thenReturn(List.of(bankWithRules, bankNoRules, card));
+        when(rewardRuleRepository.countGroupedByAccountId(any()))
+                .thenReturn(List.<Object[]>of(new Object[] {bankWithRules.getId(), 3L}));
+        when(rewardRuleRepository.findByAccountIdOrderByPriorityDesc(any())).thenReturn(List.of());
+
+        RewardRecommendationRequest req = new RewardRecommendationRequest(
+                new BigDecimal("1000.00"), LocalDate.now(), null, null, null, null, false, false, null);
+        RewardRecommendationResponse resp = recommendationService.recommend(req);
+
+        Set<UUID> ids = new java.util.HashSet<>();
+        resp.recommendations().forEach(r -> ids.add(r.accountId()));
+        assertEquals(Set.of(bankWithRules.getId(), card.getId()), ids);
+        verify(rewardRuleRepository, times(1)).countGroupedByAccountId(any());
+        verify(rewardRuleRepository, never()).countByAccountId(any());
+        verify(accountRepository, never()).findById(any());
+    }
+
+    @Test
+    void explicitAccountIds_batchedLookup_oneQueryAndUnknownIdRejected() {
+        Account a = createCardAccount("A", null);
+        Account b = createCardAccount("B", null);
+        UUID unknown = UUID.randomUUID();
+        when(accountRepository.findAllById(any())).thenReturn(List.of(b, a));
+        when(rewardRuleRepository.findByAccountIdOrderByPriorityDesc(any())).thenReturn(List.of());
+
+        RewardRecommendationRequest ok = new RewardRecommendationRequest(
+                new BigDecimal("1000.00"), LocalDate.now(), null, null, null, null, false, false, List.of(a.getId(), b.getId()));
+        RewardRecommendationResponse resp = recommendationService.recommend(ok);
+        assertEquals(2, resp.recommendations().size());
+        verify(accountRepository, times(1)).findAllById(any());
+        verify(accountRepository, never()).findById(any());
+        assertEquals(Set.of(a.getId(), b.getId()),
+                Set.of(resp.recommendations().get(0).accountId(), resp.recommendations().get(1).accountId()));
+
+        RewardRecommendationRequest bad = new RewardRecommendationRequest(
+                new BigDecimal("1000.00"), LocalDate.now(), null, null, null, null, false, false, List.of(a.getId(), unknown));
+        ValidationException ex = assertThrows(ValidationException.class, () -> recommendationService.recommend(bad));
+        assertTrue(ex.getMessage().contains("Account not found"));
+    }
+
+    @Test
+    void explicitAccountIds_foreignTenantAmongMany_rejected() {
+        Account mine = createCardAccount("Mine", null);
+        User other = new User();
+        other.setId(UUID.randomUUID());
+        Account foreign = createCardAccount("Foreign", null);
+        foreign.setUser(other);
+        when(accountRepository.findAllById(any())).thenReturn(List.of(mine, foreign));
+
+        RewardRecommendationRequest req = new RewardRecommendationRequest(
+                new BigDecimal("1000.00"), LocalDate.now(), null, null, null, null, false, false, List.of(mine.getId(), foreign.getId()));
+        ValidationException ex = assertThrows(ValidationException.class, () -> recommendationService.recommend(req));
+        assertTrue(ex.getMessage().contains("permission"));
+    }
+
+    @Test
+    void evaluateWithLoadedAccount_skipsLookupButStillChecksOwnership() {
+        User other = new User();
+        other.setId(UUID.randomUUID());
+        Account foreign = createCardAccount("Foreign", null);
+        foreign.setUser(other);
+        LocalDate d = LocalDate.of(2026, 3, 15);
+
+        assertThrows(ValidationException.class,
+                () -> rewardCalculationService.evaluate(foreign, d, d, true, "manual"));
+        verify(accountRepository, never()).findById(any());
+
+        Account mine = createCardAccount("Mine", null);
+        when(rewardRuleRepository.findByAccountIdOrderByPriorityDesc(mine.getId())).thenReturn(List.of());
+        assertNotNull(rewardCalculationService.evaluate(mine, d, d, true, "manual"));
+        verify(accountRepository, never()).findById(any());
+    }
 }

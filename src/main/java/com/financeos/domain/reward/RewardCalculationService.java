@@ -469,16 +469,22 @@ public class RewardCalculationService {
     }
 
     Evaluation evaluate(UUID accountId, LocalDate from, LocalDate to, boolean includeMilestones, String trigger) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new ResourceNotFoundException("Account", accountId));
+        return evaluate(account, from, to, includeMilestones, trigger);
+    }
+
+    /** Same as the id variant for a caller that already holds the account (no per-card lookup); ownership is still checked. */
+    Evaluation evaluate(Account account, LocalDate from, LocalDate to, boolean includeMilestones, String trigger) {
         long startMs = System.currentTimeMillis();
         if (from == null || to == null || from.isAfter(to)) {
             throw new ValidationException("A valid from/to date range is required.");
         }
         UUID currentSessionUserId = UserContext.getCurrentUserId();
-        Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new ResourceNotFoundException("Account", accountId));
         if (!account.getUser().getId().equals(currentSessionUserId)) {
             throw new ValidationException("You do not have permission to view rewards for this account.");
         }
+        UUID accountId = account.getId();
 
         CardInputs inputs = new CardInputs(account,
                 rewardRuleRepository.findByAccountIdOrderByPriorityDesc(accountId),
