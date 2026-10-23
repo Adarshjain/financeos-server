@@ -9739,6 +9739,7 @@ components:
         transactionId:
           type: string
           format: uuid
+          x-required: true
         verifiedUpdatedAt:
           type: string
           format: date-time
