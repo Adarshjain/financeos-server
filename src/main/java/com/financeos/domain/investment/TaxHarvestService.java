@@ -45,6 +45,10 @@ public class TaxHarvestService {
     public static final BigDecimal EXEMPTION_LIMIT = new BigDecimal("125000");
     /** The s.112A exemption before FY 2024-25 (₹1 lakh). */
     public static final BigDecimal EXEMPTION_LIMIT_BEFORE_FY2024 = new BigDecimal("100000");
+    /** Equity LTCG (s.112A) rate from the 2024 budget, charged above the exemption. Cess not included. */
+    public static final BigDecimal LTCG_RATE = new BigDecimal("0.125");
+    /** Equity STCG (s.111A) rate from the 2024 budget. Cess not included. */
+    public static final BigDecimal STCG_RATE = new BigDecimal("0.20");
     public static final int TURNING_LONG_WITHIN_DAYS = 30;
     public static final int DEFAULT_PAGE_SIZE = 20;
     public static final int MAX_PAGE_SIZE = 100;

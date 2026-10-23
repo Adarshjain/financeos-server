@@ -38,7 +38,11 @@ public record InvestmentTransactionResponse(
         @Nullable String source,
         @Nullable String externalRef,
         @Nullable String notes,
-        Instant createdAt
+        Instant createdAt,
+        /** Gross realised P&L of a sell (sale value − FIFO cost); null on buys and on plain listings. */
+        @Nullable BigDecimal realisedPnl,
+        /** delivery | intraday: intraday when the day's intraday netting covers this trade. */
+        @Nullable SettlementType settlement
 ) {
     public record InstrumentInfoDto(
             UUID id,
@@ -53,6 +57,11 @@ public record InvestmentTransactionResponse(
 
     /** The trade with its instrument's name, symbol and type as {@code overrides}' user sees them. */
     public static InvestmentTransactionResponse from(InvestmentTransaction txn, InstrumentOverrides overrides) {
+        return from(txn, overrides, null, txn.getSettlementType());
+    }
+
+    public static InvestmentTransactionResponse from(InvestmentTransaction txn, InstrumentOverrides overrides,
+                                                     @Nullable BigDecimal realisedPnl, @Nullable SettlementType settlement) {
         Holding h = txn.getHolding();
         String provider = h.getBrokerAccount().getBrokerDetails() != null ? h.getBrokerAccount().getBrokerDetails().getProvider() : null;
 
@@ -87,7 +96,9 @@ public record InvestmentTransactionResponse(
                 txn.getSource(),
                 txn.getExternalRef(),
                 txn.getNotes(),
-                txn.getCreatedAt()
+                txn.getCreatedAt(),
+                realisedPnl,
+                settlement
         );
     }
 }

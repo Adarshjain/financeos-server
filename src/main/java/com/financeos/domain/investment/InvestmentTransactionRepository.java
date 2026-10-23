@@ -51,4 +51,43 @@ public interface InvestmentTransactionRepository extends JpaRepository<Investmen
             @Param("holdingId") UUID holdingId,
             @Param("search") String search,
             Pageable pageable);
+
+    /**
+     * {@link #findFilteredTransactions} also narrowed by buy/sell and a trade-date window (inclusive);
+     * a null type matches both. Callers pass real dates for the window (no null date parameters).
+     */
+    @Query(value = "SELECT t FROM InvestmentTransaction t JOIN FETCH t.holding h JOIN FETCH h.instrument i JOIN FETCH h.brokerAccount b LEFT JOIN FETCH b.brokerDetails bd WHERE " +
+                   "(:brokerAccountId IS NULL OR b.id = :brokerAccountId) AND " +
+                   "(:instrumentId IS NULL OR i.id = :instrumentId) AND " +
+                   "(:holdingId IS NULL OR h.id = :holdingId) AND " +
+                   "(:type IS NULL OR t.type = :type) AND " +
+                   "t.tradeDate >= :fromDate AND t.tradeDate <= :toDate AND " +
+                   "(:search IS NULL OR " +
+                   "LOCATE(LOWER(:search), LOWER(i.name)) > 0 OR " +
+                   "LOCATE(LOWER(:search), LOWER(i.symbol)) > 0 OR " +
+                   "LOCATE(LOWER(:search), LOWER(i.yahooSymbol)) > 0 OR " + OWN_NAME_MATCHES + ")",
+           countQuery = "SELECT COUNT(t) FROM InvestmentTransaction t JOIN t.holding h JOIN h.instrument i JOIN h.brokerAccount b WHERE " +
+                        "(:brokerAccountId IS NULL OR b.id = :brokerAccountId) AND " +
+                        "(:instrumentId IS NULL OR i.id = :instrumentId) AND " +
+                        "(:holdingId IS NULL OR h.id = :holdingId) AND " +
+                        "(:type IS NULL OR t.type = :type) AND " +
+                        "t.tradeDate >= :fromDate AND t.tradeDate <= :toDate AND " +
+                        "(:search IS NULL OR " +
+                        "LOCATE(LOWER(:search), LOWER(i.name)) > 0 OR " +
+                        "LOCATE(LOWER(:search), LOWER(i.symbol)) > 0 OR " +
+                        "LOCATE(LOWER(:search), LOWER(i.yahooSymbol)) > 0 OR " + OWN_NAME_MATCHES + ")")
+    Page<InvestmentTransaction> findFilteredTransactionsBetween(
+            @Param("brokerAccountId") UUID brokerAccountId,
+            @Param("instrumentId") UUID instrumentId,
+            @Param("holdingId") UUID holdingId,
+            @Param("type") InvestmentTransactionType type,
+            @Param("fromDate") java.time.LocalDate fromDate,
+            @Param("toDate") java.time.LocalDate toDate,
+            @Param("search") String search,
+            Pageable pageable);
+
+    /** The earliest buy of the instrument across the user's holdings; null with none. */
+    @Query("SELECT MIN(t.tradeDate) FROM InvestmentTransaction t WHERE t.user.id = :userId AND t.holding.instrument.id = :instrumentId "
+            + "AND t.type = com.financeos.domain.investment.InvestmentTransactionType.buy")
+    java.time.LocalDate findFirstBuyDate(@Param("userId") UUID userId, @Param("instrumentId") UUID instrumentId);
 }
