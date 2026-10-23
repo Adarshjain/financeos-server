@@ -3,7 +3,9 @@ package com.financeos.api.investment;
 import org.springdoc.core.annotations.ParameterObject;
 
 import com.financeos.api.investment.dto.*;
+import com.financeos.domain.investment.FinancialYear;
 import com.financeos.domain.investment.dividend.DividendReceiptService;
+import com.financeos.domain.investment.dividend.DividendReportService;
 import com.financeos.domain.investment.dividend.DividendReceiptStatus;
 import com.financeos.domain.investment.dividend.DividendService;
 import com.financeos.domain.investment.dividend.DividendType;
@@ -14,9 +16,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -26,10 +32,13 @@ public class DividendController {
 
     private final DividendService dividendService;
     private final DividendReceiptService dividendReceiptService;
+    private final DividendReportService dividendReportService;
 
-    public DividendController(DividendService dividendService, DividendReceiptService dividendReceiptService) {
+    public DividendController(DividendService dividendService, DividendReceiptService dividendReceiptService,
+                              DividendReportService dividendReportService) {
         this.dividendService = dividendService;
         this.dividendReceiptService = dividendReceiptService;
+        this.dividendReportService = dividendReportService;
     }
 
     @PostMapping
@@ -57,13 +66,42 @@ public class DividendController {
             @RequestParam(required = false) DividendType type,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+            @RequestParam(required = false) Integer fy,
             @RequestParam(required = false) DividendReceiptStatus receipt,
             @ParameterObject @PageableDefault(size = 25)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "payDate", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             }) Pageable pageable) {
-        return dividendService.getDividends(holdingId, brokerAccountId, instrumentId, type, from, to, receipt, pageable);
+        FinancialYear.Range range = FinancialYear.resolve(fy, from, to);
+        return dividendService.getDividends(holdingId, brokerAccountId, instrumentId, type, range.from(), range.to(), receipt, pageable);
+    }
+
+    /** Totals per instrument over the last {@code years} financial years (current one included), biggest net first. */
+    @GetMapping("/by-instrument")
+    public Page<DividendInstrumentTotalResponse> getByInstrument(
+            @RequestParam(defaultValue = "3") int years,
+            @ParameterObject @PageableDefault(size = 25) Pageable pageable) {
+        return dividendReportService.byInstrument(years, pageable);
+    }
+
+    /** Every dividend matching the list filters as a CSV attachment. */
+    @GetMapping("/export.csv")
+    public ResponseEntity<byte[]> exportCsv(
+            @RequestParam(required = false) UUID holdingId,
+            @RequestParam(required = false) UUID brokerAccountId,
+            @RequestParam(required = false) UUID instrumentId,
+            @RequestParam(required = false) DividendType type,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+            @RequestParam(required = false) Integer fy,
+            @RequestParam(required = false) DividendReceiptStatus receipt) {
+        FinancialYear.Range range = FinancialYear.resolve(fy, from, to);
+        byte[] body = dividendReportService.exportCsv(holdingId, brokerAccountId, instrumentId, type, range.from(), range.to(), receipt);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"dividends-" + DividendReportService.exportLabel(fy) + ".csv\"")
+                .contentType(new MediaType("text", "csv", StandardCharsets.UTF_8))
+                .body(body);
     }
 
     @GetMapping("/summary")
@@ -71,8 +109,12 @@ public class DividendController {
             @RequestParam(required = false) UUID holdingId,
             @RequestParam(required = false) UUID brokerAccountId,
             @RequestParam(required = false) UUID instrumentId,
-            @RequestParam(required = false) DividendType type) {
-        return dividendService.getSummary(holdingId, brokerAccountId, instrumentId, type);
+            @RequestParam(required = false) DividendType type,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+            @RequestParam(required = false) Integer fy) {
+        FinancialYear.Range range = FinancialYear.resolve(fy, from, to);
+        return dividendService.getSummary(holdingId, brokerAccountId, instrumentId, type, range.from(), range.to());
     }
 
     @GetMapping("/suggestions")
@@ -114,8 +156,12 @@ public class DividendController {
             @RequestParam(required = false) UUID holdingId,
             @RequestParam(required = false) UUID brokerAccountId,
             @RequestParam(required = false) UUID instrumentId,
-            @RequestParam(required = false) DividendType type) {
-        return dividendReceiptService.getReceiptSummary(holdingId, brokerAccountId, instrumentId, type);
+            @RequestParam(required = false) DividendType type,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+            @RequestParam(required = false) Integer fy) {
+        FinancialYear.Range range = FinancialYear.resolve(fy, from, to);
+        return dividendReceiptService.getReceiptSummary(holdingId, brokerAccountId, instrumentId, type, range.from(), range.to());
     }
 
     /** Unresolved dividends with their candidate bank credits, best first. */

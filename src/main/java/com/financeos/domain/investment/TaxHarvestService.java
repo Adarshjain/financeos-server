@@ -61,7 +61,7 @@ public class TaxHarvestService {
 
     /** The current Indian financial year's start year for {@code today}. */
     public static int currentFy(LocalDate today) {
-        return today.getMonthValue() >= 4 ? today.getYear() : today.getYear() - 1;
+        return FinancialYear.startYear(today);
     }
 
     /** The equity LTCG exemption for the financial year starting in {@code fy}: ₹1.25L from 2024, ₹1L before. */

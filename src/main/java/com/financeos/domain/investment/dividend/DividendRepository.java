@@ -93,6 +93,18 @@ public interface DividendRepository extends JpaRepository<Dividend, UUID> {
             @Param("instrumentId") UUID instrumentId,
             @Param("type") DividendType type);
 
+    /** Per-instrument totals for payouts within the window, biggest net first (the pageable carries no sort). */
+    @Query(value = "SELECT i.id, SUM(d.amount), SUM(COALESCE(d.tds, 0)), COUNT(d) " +
+                   "FROM Dividend d JOIN d.holding h JOIN h.instrument i " +
+                   "WHERE d.payDate >= :fromDate AND d.payDate <= :toDate " +
+                   "GROUP BY i.id ORDER BY SUM(d.amount - COALESCE(d.tds, 0)) DESC, i.id ASC",
+           countQuery = "SELECT COUNT(DISTINCT i.id) FROM Dividend d JOIN d.holding h JOIN h.instrument i " +
+                        "WHERE d.payDate >= :fromDate AND d.payDate <= :toDate")
+    Page<Object[]> findTotalsByInstrument(
+            @Param("fromDate") LocalDate fromDate,
+            @Param("toDate") LocalDate toDate,
+            Pageable pageable);
+
     /** Columns the receipt summary needs to derive a status per row without loading entities. */
     @Query("SELECT d.source, d.exDate, d.payDate, d.receiptStatus, d.amount, d.tds, t.id, t.amount " +
            "FROM Dividend d LEFT JOIN d.transaction t JOIN d.holding h JOIN h.instrument i JOIN h.brokerAccount b WHERE " + BASE_FILTERS)

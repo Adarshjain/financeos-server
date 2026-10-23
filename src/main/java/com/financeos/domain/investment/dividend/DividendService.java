@@ -141,7 +141,16 @@ public class DividendService {
 
     @Transactional(readOnly = true)
     public DividendSummaryResponse getSummary(UUID holdingId, UUID brokerAccountId, UUID instrumentId, DividendType type) {
-        List<Object[]> rows = dividendRepository.findDividendRowsForSummary(holdingId, brokerAccountId, instrumentId, type);
+        return getSummary(holdingId, brokerAccountId, instrumentId, type, null, null);
+    }
+
+    /** {@link #getSummary(UUID, UUID, UUID, DividendType)} for dividends paid within {@code from}..{@code to} (either end open). */
+    @Transactional(readOnly = true)
+    public DividendSummaryResponse getSummary(UUID holdingId, UUID brokerAccountId, UUID instrumentId, DividendType type,
+                                              LocalDate from, LocalDate to) {
+        List<Object[]> rows = dividendRepository.findDividendRowsForSummary(holdingId, brokerAccountId, instrumentId, type).stream()
+                .filter(r -> inRange((LocalDate) r[0], from, to))
+                .toList();
 
         Map<Integer, FyBucketAccumulator> bucketMap = new HashMap<>();
         BigDecimal grandAmount = BigDecimal.ZERO;
@@ -182,6 +191,10 @@ public class DividendService {
                 .toList();
 
         return new DividendSummaryResponse(buckets, grandAmount, grandTds, grandNet, grandCount);
+    }
+
+    static boolean inRange(LocalDate date, LocalDate from, LocalDate to) {
+        return (from == null || !date.isBefore(from)) && (to == null || !date.isAfter(to));
     }
 
     private static class FyBucketAccumulator {
