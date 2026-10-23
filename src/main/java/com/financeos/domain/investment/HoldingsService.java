@@ -399,6 +399,10 @@ public class HoldingsService {
         BigDecimal tax = null;
         BigDecimal exemptionBefore = null;
         BigDecimal exemptionAfter = null;
+        BigDecimal bookedShort = null;
+        BigDecimal bookedEquityLong = null;
+        BigDecimal bookedOtherLong = null;
+        BigDecimal exemptionLimit = null;
         if (equity) {
             LocalDate fyStart = LocalDate.of(fy, 4, 1);
             LocalDate fyEnd = LocalDate.of(fy + 1, 3, 31);
@@ -411,6 +415,25 @@ public class HoldingsService {
                 }
             }
             BigDecimal limit = TaxHarvestService.exemptionLimit(fy);
+            bookedShort = BigDecimal.ZERO;
+            bookedEquityLong = BigDecimal.ZERO;
+            bookedOtherLong = BigDecimal.ZERO;
+            for (RealizedLot lot : booked) {
+                BigDecimal pnl = lot.realizedPnl() != null ? lot.realizedPnl() : BigDecimal.ZERO;
+                if (CapitalGainsTerm.LONG.equals(lot.term())) {
+                    if (lot.taxClass() == TaxClass.EQUITY_ORIENTED) {
+                        bookedEquityLong = bookedEquityLong.add(pnl);
+                    } else {
+                        bookedOtherLong = bookedOtherLong.add(pnl);
+                    }
+                } else {
+                    bookedShort = bookedShort.add(pnl);
+                }
+            }
+            bookedShort = money(bookedShort);
+            bookedEquityLong = money(bookedEquityLong);
+            bookedOtherLong = money(bookedOtherLong);
+            exemptionLimit = money(limit);
             HarvestRealised before = TaxHarvestService.realised(booked, limit);
             List<RealizedLot> withSale = new ArrayList<>(booked);
             withSale.addAll(hypothetical);
@@ -424,6 +447,6 @@ public class HoldingsService {
         return new SellEstimateResponse(instrumentId, sell.stripTrailingZeros(), price, noPrice, money(proceeds), money(cost),
                 money(proceeds.subtract(cost)), money(longGain), money(shortGain), equity, fy,
                 equity ? TaxHarvestService.STCG_RATE : null, equity ? TaxHarvestService.LTCG_RATE : null,
-                stcgTax, ltcgTax, tax, exemptionBefore, exemptionAfter, lots);
+                stcgTax, ltcgTax, tax, exemptionBefore, exemptionAfter, lots, bookedShort, bookedEquityLong, bookedOtherLong, exemptionLimit);
     }
 }
