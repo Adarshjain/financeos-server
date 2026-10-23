@@ -71,4 +71,36 @@ public interface CorporateActionRepository extends JpaRepository<CorporateAction
     @Query("SELECT ca FROM CorporateAction ca LEFT JOIN FETCH ca.instrument LEFT JOIN FETCH ca.targetInstrument "
             + "WHERE ca.user.id = :userId ORDER BY ca.exDate DESC, ca.id ASC")
     List<CorporateAction> findAllOwnedWithInstruments(@Param("userId") UUID userId);
+
+    /**
+     * The filter of {@link #pageOwned}: {@code type} (null = any) and a lowercase {@code search} matched
+     * (LOCATE, so a typed % or _ is no wildcard) against the instrument's name and symbol as the user
+     * sees them ({@code o} = their override row, if any) and the catalog's.
+     */
+    String PAGE_OWNED_WHERE = "WHERE ca.user.id = :userId AND (:type IS NULL OR ca.type = :type) AND "
+            + "(:search IS NULL OR "
+            + "LOCATE(:search, LOWER(COALESCE(o.name, i.name))) > 0 OR "
+            + "LOCATE(:search, LOWER(COALESCE(o.symbol, i.symbol))) > 0 OR "
+            + "LOCATE(:search, LOWER(i.name)) > 0 OR "
+            + "LOCATE(:search, LOWER(i.symbol)) > 0)";
+
+    /**
+     * One page of {@code userId}'s corporate actions (instruments fetched), filtered as
+     * {@link #PAGE_OWNED_WHERE}. {@code sort} is {@code newest} (ex-date desc), {@code oldest} (ex-date asc)
+     * or {@code name} (the instrument name they see, then newest first); ties by id.
+     */
+    @Query(value = "SELECT ca FROM CorporateAction ca JOIN FETCH ca.instrument i LEFT JOIN FETCH ca.targetInstrument t "
+            + "LEFT JOIN UserInstrumentOverride o ON o.instrumentId = i.id AND o.userId = :userId "
+            + PAGE_OWNED_WHERE
+            + " ORDER BY CASE WHEN :sort = 'name' THEN LOWER(COALESCE(o.name, i.name)) END ASC, "
+            + "CASE WHEN :sort = 'oldest' THEN ca.exDate END ASC, "
+            + "CASE WHEN :sort <> 'oldest' THEN ca.exDate END DESC, ca.id ASC",
+            countQuery = "SELECT COUNT(ca) FROM CorporateAction ca JOIN ca.instrument i "
+                    + "LEFT JOIN UserInstrumentOverride o ON o.instrumentId = i.id AND o.userId = :userId "
+                    + PAGE_OWNED_WHERE)
+    org.springframework.data.domain.Page<CorporateAction> pageOwned(@Param("userId") UUID userId,
+                                                                    @Param("type") CorporateActionType type,
+                                                                    @Param("search") String search,
+                                                                    @Param("sort") String sort,
+                                                                    org.springframework.data.domain.Pageable pageable);
 }

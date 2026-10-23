@@ -67,8 +67,27 @@ public record InstrumentResponse(
          * Set with {@code mergedHoldings} when both merged holdings had sells: their trades are now one
          * FIFO history, so realised gains (and the lots still open) may differ from before. Else null.
          */
-        @Nullable String mergeNote
+        @Nullable String mergeNote,
+        /**
+         * Only on GET /instruments items: true when the requesting user has no open quantity of the
+         * instrument in any account. False everywhere else (single reads, edits).
+         */
+        boolean notHeld
 ) {
+    /** An instrument answer that is not a list item ({@code notHeld} false). */
+    public InstrumentResponse(UUID id, InstrumentType type, String name, @Nullable String symbol,
+                              @Nullable String exchange, @Nullable String isin, @Nullable String amfiCode,
+                              @Nullable String yahooSymbol, String currency, @Nullable BigDecimal lastPrice,
+                              @Nullable LocalDate lastPriceAsOf, @Nullable PriceSource lastPriceSource,
+                              Instant createdAt, Instant updatedAt, AssetClass assetClass,
+                              @Nullable AssetClassSource assetClassSource, @Nullable String schemeCategory,
+                              TaxClass taxClass, boolean overridden, List<String> overriddenFields,
+                              boolean mergedHoldings, @Nullable String mergeNote) {
+        this(id, type, name, symbol, exchange, isin, amfiCode, yahooSymbol, currency, lastPrice, lastPriceAsOf,
+                lastPriceSource, createdAt, updatedAt, assetClass, assetClassSource, schemeCategory, taxClass,
+                overridden, overriddenFields, mergedHoldings, mergeNote, false);
+    }
+
     /** The instrument with its global classification (no per-user override). */
     public static InstrumentResponse from(Instrument instrument, Optional<InstrumentPrice> latestPrice) {
         return from(instrument, latestPrice, InstrumentOverrides.NONE);
@@ -110,7 +129,8 @@ public record InstrumentResponse(
                 !fields.isEmpty(),
                 fields,
                 false,
-                null
+                null,
+                false
         );
     }
 
@@ -118,7 +138,13 @@ public record InstrumentResponse(
     public InstrumentResponse withMerge(boolean merged, @Nullable String note) {
         return new InstrumentResponse(id, type, name, symbol, exchange, isin, amfiCode, yahooSymbol, currency,
                 lastPrice, lastPriceAsOf, lastPriceSource, createdAt, updatedAt, assetClass, assetClassSource,
-                schemeCategory, taxClass, overridden, overriddenFields, merged, merged ? note : null);
+                schemeCategory, taxClass, overridden, overriddenFields, merged, merged ? note : null, notHeld);
     }
 
+    /** This response flagged as one the user holds no open quantity of (a list item). */
+    public InstrumentResponse withNotHeld(boolean notHeld) {
+        return new InstrumentResponse(id, type, name, symbol, exchange, isin, amfiCode, yahooSymbol, currency,
+                lastPrice, lastPriceAsOf, lastPriceSource, createdAt, updatedAt, assetClass, assetClassSource,
+                schemeCategory, taxClass, overridden, overriddenFields, mergedHoldings, mergeNote, notHeld);
+    }
 }

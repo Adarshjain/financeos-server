@@ -3,6 +3,7 @@ package com.financeos.domain.instrument;
 import com.financeos.api.instrument.dto.InstrumentListPage;
 import com.financeos.api.instrument.dto.InstrumentPriceResponse;
 import com.financeos.api.instrument.dto.InstrumentRequest;
+import com.financeos.api.instrument.dto.PriceHistoryPage;
 import com.financeos.api.instrument.dto.InstrumentResponse;
 import com.financeos.api.instrument.dto.UpsertPriceRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
@@ -360,5 +361,29 @@ public class InstrumentService {
         return PricePrecedence.collapse(priceRepository.findPriceHistory(instrumentId, userId, from, to)).stream()
                 .map(p -> InstrumentPriceResponse.from(p, userId))
                 .toList();
+    }
+
+    /** Default and largest page of {@link #getPriceHistoryPage}. */
+    public static final int DEFAULT_PRICE_PAGE_SIZE = 30;
+    public static final int MAX_PRICE_PAGE_SIZE = 200;
+
+    /**
+     * One page of the prices the current user sees, newest first, one row per date (their own MANUAL row
+     * in place of the feed's); {@code page} from 0, {@code size} 1..200. Each row says whether the user may
+     * edit or delete it ({@code editable}: only their own MANUAL prices). 404 for an unknown instrument.
+     */
+    @Transactional(readOnly = true)
+    public PriceHistoryPage getPriceHistoryPage(UUID instrumentId, int page, int size) {
+        if (!instrumentRepository.existsById(instrumentId)) {
+            throw new ResourceNotFoundException("Instrument", instrumentId);
+        }
+        UUID userId = UserContext.getCurrentUserId();
+        int safePage = Math.max(0, page);
+        int safeSize = Math.min(MAX_PRICE_PAGE_SIZE, Math.max(1, size));
+        org.springframework.data.domain.Page<InstrumentPrice> found = priceRepository.findPriceHistoryPage(instrumentId,
+                userId, org.springframework.data.domain.PageRequest.of(safePage, safeSize));
+        List<InstrumentPriceResponse> items = found.getContent().stream()
+                .map(p -> InstrumentPriceResponse.from(p, userId)).toList();
+        return new PriceHistoryPage(items, safePage, safeSize, found.getTotalElements(), found.getTotalPages());
     }
 }
