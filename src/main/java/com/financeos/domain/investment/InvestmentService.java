@@ -344,6 +344,7 @@ public class InvestmentService {
         return page.map(t -> {
             UUID hid = t.getHolding().getId();
             BigDecimal dayIntraday = intradayQty.getOrDefault(hid, Map.of()).get(t.getTradeDate());
+            // Heuristic: on a day with netted intraday quantity, any trade no larger than it counts as intraday.
             SettlementType settlement = t.getSettlementType() == SettlementType.intraday
                     || (dayIntraday != null && dayIntraday.signum() > 0 && t.getQuantity().compareTo(dayIntraday) <= 0)
                     ? SettlementType.intraday : SettlementType.delivery;
@@ -1449,6 +1450,11 @@ public class InvestmentService {
     }
 
     /** The seeded lots for a holding, for callers that only need quantities/cost (no XIRR parts). */
+    /** The cash-in-lieu result (proceeds less fractional cost) booked on {@code holding} by the actions that seed it. */
+    public BigDecimal seedFractionalRealized(Holding holding) {
+        return deriveSeeds(holding, null).fractionalRealized();
+    }
+
     public List<SeedLot> seedLotsFor(Holding holding) {
         return deriveSeeds(holding, null).seedLots();
     }

@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -162,8 +163,12 @@ public class CorporateActionPageService {
                 List<InvestmentService.SeedLot> s = seeds.get(h.getId());
                 before = before.add(quantity(investmentService.buildOpenLotsBeforeDate(
                         h, ca.getExDate(), true, null, t, instrumentActions, s, c)));
+                // The engine runs corporate actions before same-day trades, so "after" excludes the ex-date's trades.
+                LocalDate exDate = ca.getExDate();
+                List<InvestmentTransaction> tBefore = t.stream().filter(x -> x.getTradeDate().isBefore(exDate)).toList();
+                List<TradeSettlementClassification> cBefore = c.stream().filter(x -> x.getTradeDate().isBefore(exDate)).toList();
                 after = after.add(quantity(investmentService.buildOpenLotsBeforeDate(
-                        h, ca.getExDate(), false, null, t, instrumentActions, s, c)));
+                        h, exDate, false, null, tBefore, instrumentActions, s, cBefore)));
             }
             out.put(ca.getId(), new BigDecimal[]{before.setScale(4, RoundingMode.HALF_UP),
                     after.setScale(4, RoundingMode.HALF_UP)});

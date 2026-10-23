@@ -196,6 +196,19 @@ class InstrumentCatalogListIntegrationTest {
     }
 
     @Test
+    void anEmptyPageWithoutAHeldFilterIsEmptyAndAPageBeyondTheEndStillFlagsNothing() throws Exception {
+        catalog();
+        JsonNode none = list(alice, "&page=9");
+        assertEquals(0, none.get("items").size());
+        assertEquals(4, none.get("totalElements").asInt());
+        assertEquals(0, list(alice, "&type=etf&search=nosuchname").get("items").size());
+        // a non-empty page without the held filter still flags rows correctly
+        JsonNode all = list(alice, "&size=4");
+        assertFalse(item(all, "Fresh").get("notHeld").asBoolean());
+        assertTrue(item(all, "Edge").get("notHeld").asBoolean());
+    }
+
+    @Test
     void filtersPageAndSortByName() throws Exception {
         catalog();
         assertEquals(List.of("Edge", "Fresh", "None", "Old"), names(list(alice, "&sort=name")));

@@ -478,6 +478,36 @@ class HoldingsEndpointsIntegrationTest {
         assertMoney("0", e.get("exemptionLeftAfter"));
     }
 
+    /** Books a short-term loss of 300 and a long-term loss of 400 in FY 2026 (on top of Gamma's 250 long-term gain). */
+    private void bookLosses() throws Exception {
+        Instrument shortLoss = instrument(InstrumentType.stock, "Short Loss Co");
+        Instrument longLoss = instrument(InstrumentType.stock, "Long Loss Co");
+        trade(brokerA, shortLoss, "buy", "10", "100", "2026-08-01");
+        trade(brokerA, shortLoss, "sell", "10", "70", "2026-09-10");
+        trade(brokerA, longLoss, "buy", "10", "100", "2025-06-01");
+        trade(brokerA, longLoss, "sell", "10", "60", "2026-09-01");
+    }
+
+    @Test
+    void sellEstimateSetsTheYearsBookedLossesOffTheSalesGain() throws Exception {
+        bookLosses();
+        // Big's 300,000 long-term gain: net long term is 300,250 - 400 = 299,850, the 300 short-term loss takes
+        // that to 299,550, less the 125,000 exemption = 174,550 taxable (21,818.75), against 21,906.25 with no losses.
+        JsonNode big = api.getJson("/api/v1/investments/holdings/" + this.big.getId() + "/sell-estimate", 200);
+        assertMoney("300000", big.get("gain"));
+        assertMoney("0", big.get("stcgTax"));
+        assertMoney("21818.75", big.get("ltcgTax"));
+        assertMoney("21818.75", big.get("tax"));
+
+        // Alpha 15: the 150 short-term gain is absorbed by the 300 short-term loss and the long-term gain by the
+        // long-term loss and exemption, so the tax falls from 30 to 0 and never goes below it.
+        JsonNode alphaEstimate = api.getJson("/api/v1/investments/holdings/" + alpha.getId() + "/sell-estimate?quantity=15", 200);
+        assertMoney("650", alphaEstimate.get("gain"));
+        assertMoney("0", alphaEstimate.get("stcgTax"));
+        assertMoney("0", alphaEstimate.get("ltcgTax"));
+        assertMoney("0", alphaEstimate.get("tax"));
+    }
+
     @Test
     void sellEstimateForANonEquityHoldingHasTheGainButNoTax() throws Exception {
         JsonNode e = api.getJson("/api/v1/investments/holdings/" + beta.getId() + "/sell-estimate?quantity=40", 200);
@@ -566,6 +596,48 @@ class HoldingsEndpointsIntegrationTest {
         assertEquals("intraday", txnOf(all, "Iota Ltd", "buy").get("settlement").asText());
         // The netted day's realised P&L (1050 - 1000) goes to its sell.
         assertMoney("50", intradaySell.get("realisedPnl"));
+    }
+
+    @Test
+    void anIntradayNettedDaysPnlIsSharedAcrossItsSellsByQuantity() throws Exception {
+        Instrument kappa = instrument(InstrumentType.stock, "Kappa Ltd");
+        intraday(brokerA, kappa, "buy", "10", "100", "2026-10-21");
+        intraday(brokerA, kappa, "sell", "6", "110", "2026-10-21");
+        intraday(brokerA, kappa, "sell", "4", "105", "2026-10-21");
+        // day P&L: 660 + 420 - 1000 = 80, shared 6/10 and 4/10
+        JsonNode sells = api.getJson("/api/v1/investments/transactions?size=100&instrumentId=" + kappa.getId() + "&type=sell", 200)
+                .get("content");
+        assertEquals(2, sells.size());
+        BigDecimal sum = BigDecimal.ZERO;
+        for (JsonNode t : sells) {
+            assertEquals("intraday", t.get("settlement").asText());
+            assertMoney(t.get("quantity").decimalValue().compareTo(new BigDecimal("6")) == 0 ? "48" : "32", t.get("realisedPnl"));
+            sum = sum.add(t.get("realisedPnl").decimalValue());
+        }
+        assertEquals(0, new BigDecimal("80").compareTo(sum));
+    }
+
+    @Test
+    void aPartiallyNettedDayCallsTradesUpToTheNettedQuantityIntraday() throws Exception {
+        Instrument lambda = instrument(InstrumentType.stock, "Lambda Ltd");
+        trade(brokerA, lambda, "buy", "10", "100", "2026-10-01");
+        intraday(brokerA, lambda, "buy", "4", "100", "2026-10-22");
+        trade(brokerA, lambda, "buy", "10", "100", "2026-10-22");
+        intraday(brokerA, lambda, "sell", "4", "110", "2026-10-22");
+        trade(brokerA, lambda, "sell", "3", "120", "2026-10-22");
+        JsonNode day = api.getJson("/api/v1/investments/transactions?size=100&instrumentId=" + lambda.getId()
+                + "&fy=2026", 200).get("content");
+        // netted quantity 4: the untagged 10-unit buy is bigger than that so it stays delivery; the 4 sell is the netted
+        // one; the delivery-tagged 3 sell is within the netted quantity so the heuristic also calls it intraday
+        for (JsonNode t : day) {
+            if (!"2026-10-22".equals(t.get("tradeDate").asText())) {
+                continue;
+            }
+            boolean buy = "buy".equals(t.get("type").asText());
+            boolean three = !buy && t.get("quantity").decimalValue().compareTo(new BigDecimal("3")) == 0;
+            boolean bigBuy = buy && t.get("quantity").decimalValue().compareTo(new BigDecimal("10")) == 0;
+            assertEquals(bigBuy ? "delivery" : "intraday", t.get("settlement").asText(), (buy ? "buy" : three ? "sell 3" : "sell 4"));
+        }
     }
 
     @Test
