@@ -5,9 +5,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# A newer push cancels the run in flight (tests or deploy) and deploys only the latest commit.
 concurrency:
   group: deploy
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 env:
   # Matches the existing manual layout on the VM — do not change without updating financeos.service.
@@ -187,10 +188,10 @@ jobs:
           ssh -i ~/.ssh/deploy_key "$USER@$HOST" 'sudo journalctl -u financeos -n 80 --no-pager' || true
           exit 1
 
-      # A failure after a successful drain (e.g. the JAR swap) would leave the old server paused.
+      # A failure or cancel after the drain started (e.g. the JAR swap) would leave the old server paused.
       # After a restart this is a no-op: a fresh JVM starts unpaused.
       - name: Resume job worker on failure
-        if: failure() && steps.drain.outcome == 'success'
+        if: (failure() || cancelled()) && (steps.drain.outcome == 'success' || steps.drain.outcome == 'cancelled')
         env:
           HOST: ${{ secrets.DEPLOY_HOST }}
           USER: ${{ secrets.DEPLOY_USER }}
