@@ -278,6 +278,55 @@ class FnoReportIntegrationTest {
         assertEquals(10000, theirs.get("realisedPnl").asInt());
     }
 
+    @Test
+    void summaryAllYearsTotalsEveryFinancialYearWithNoMonths() throws Exception {
+        JsonNode s = getJson(FNO + "/summary?allYears=true");
+        assertEquals(7, s.get("tradeCount").asInt());
+        assertEquals(1470, s.get("realisedPnl").asInt());
+        assertEquals(80, s.get("totalCharges").asInt());
+        assertEquals(5, s.get("winCount").asInt());
+        assertEquals(71.4, s.get("winRate").asDouble(), 0.0001);
+        assertEquals(0, s.get("byMonth").size());
+        JsonNode by = s.get("byUnderlying");
+        assertEquals(3, by.size());
+        assertEquals("RELIANCE", by.get(0).get("underlying").asText());
+        assertEquals("BANKNIFTY", by.get(1).get("underlying").asText());
+        assertEquals("NIFTY", by.get(2).get("underlying").asText());
+        assertEquals(-310, by.get(2).get("pnl").asInt());
+        assertEquals(5, by.get(2).get("trades").asInt());
+    }
+
+    @Test
+    void summaryAllYearsIgnoresFyAndStillFiltersByBroker() throws Exception {
+        assertEquals(7, getJson(FNO + "/summary?allYears=true&fy=2026").get("tradeCount").asInt());
+        JsonNode one = getJson(FNO + "/summary?allYears=true&brokerAccountId=" + broker2);
+        assertEquals(1, one.get("tradeCount").asInt());
+        assertEquals(-200, one.get("realisedPnl").asInt());
+    }
+
+    @Test
+    void summaryAllYearsFalseIsTheSingleYearSummary() throws Exception {
+        JsonNode s = getJson(FNO + "/summary?fy=2026&allYears=false");
+        assertEquals(5, s.get("tradeCount").asInt());
+        assertEquals(1320, s.get("realisedPnl").asInt());
+        assertEquals(12, s.get("byMonth").size());
+    }
+
+    @Test
+    void summaryAllYearsNeverCountsAnotherUsersTrades() throws Exception {
+        Cookie other = authenticate("fno-report-other-" + UUID.randomUUID() + "@example.test");
+        UUID otherBroker = broker(other, "Other Broker");
+        trade(other, "X", otherBroker, "NIFTY25JUN24000CE", "NIFTY", "option", "CE", 24000, "2025-06-01", "2025-06-02", 100, 10100, 0);
+
+        JsonNode mine = getJson(FNO + "/summary?allYears=true");
+        assertEquals(7, mine.get("tradeCount").asInt());
+        assertEquals(1470, mine.get("realisedPnl").asInt());
+        JsonNode theirs = getJson(other, FNO + "/summary?allYears=true");
+        assertEquals(1, theirs.get("tradeCount").asInt());
+        assertEquals(10000, theirs.get("realisedPnl").asInt());
+        assertEquals(0, theirs.get("byMonth").size());
+    }
+
     // --- export ----------------------------------------------------------------------------------------------
 
     @Test

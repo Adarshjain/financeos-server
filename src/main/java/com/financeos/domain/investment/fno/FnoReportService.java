@@ -72,14 +72,17 @@ public class FnoReportService {
         return result.map(FnoTradeResponse::from);
     }
 
-    /** The year's results; {@code fy} defaults to the current financial year. */
-    public FnoSummaryResponse summary(Integer fy, UUID brokerAccountId) {
-        int year = fy != null ? fy : FinancialYear.current();
-        FinancialYear.Range range = FinancialYear.resolve(year, null, null);
+    /**
+     * The year's results; {@code fy} defaults to the current financial year. With {@code allYears}, {@code fy} is
+     * ignored: the figures cover every trade, the month list is empty and fromDate/toDate are null ({@code fy} reports the current year).
+     */
+    public FnoSummaryResponse summary(Integer fy, UUID brokerAccountId, boolean allYears) {
+        int year = allYears || fy == null ? FinancialYear.current() : fy;
+        FinancialYear.Range range = allYears ? new FinancialYear.Range(null, null) : FinancialYear.resolve(year, null, null);
         List<FnoTrade> trades = repository.findInWindow(range.from(), range.to(), brokerAccountId);
 
         Map<YearMonth, BigDecimal> months = new LinkedHashMap<>();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; !allYears && i < 12; i++) {
             months.put(YearMonth.from(range.from()).plusMonths(i), BigDecimal.ZERO);
         }
         Map<String, BigDecimal> pnlByUnderlying = new LinkedHashMap<>();
@@ -94,7 +97,9 @@ public class FnoReportService {
             if (pnl.signum() > 0) {
                 wins++;
             }
-            months.merge(YearMonth.from(tradeDate(t)), pnl, BigDecimal::add);
+            if (!allYears) {
+                months.merge(YearMonth.from(tradeDate(t)), pnl, BigDecimal::add);
+            }
             String key = underlyingOf(t);
             pnlByUnderlying.merge(key, pnl, BigDecimal::add);
             countByUnderlying.merge(key, 1L, Long::sum);

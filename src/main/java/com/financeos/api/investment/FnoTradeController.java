@@ -51,8 +51,9 @@ public class FnoTradeController {
     @GetMapping("/summary")
     public FnoSummaryResponse getFnoSummary(
             @RequestParam(required = false) Integer fy,
-            @RequestParam(required = false) UUID brokerAccountId) {
-        return fnoReportService.summary(fy, brokerAccountId);
+            @RequestParam(required = false) UUID brokerAccountId,
+            @RequestParam(defaultValue = "false") boolean allYears) {
+        return fnoReportService.summary(fy, brokerAccountId, allYears);
     }
 
     /** The financial year's trades as an ITR-ready CSV attachment. */
