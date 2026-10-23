@@ -64,6 +64,9 @@ public class SqlPredicates {
                 params.put(p, textList(v));
                 return "NOT EXISTS (" + inner + "cx.name IN (:" + p + "))";
             }
+            case "is_empty" -> {
+                return "NOT EXISTS (SELECT 1 FROM transaction_categories tcx WHERE tcx.transaction_id = " + txIdRef + ")";
+            }
             default -> throw new IllegalArgumentException("Unsupported category operator: " + op);
         }
     }

@@ -5,6 +5,10 @@ import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.domain.report.engine.SqlPredicates;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +42,16 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Category> searchCategories(String search, Pageable pageable) {
+        UUID userId = UserContext.getCurrentUserId();
+        String pattern = search == null || search.isBlank()
+                ? "%"
+                : "%" + SqlPredicates.escapeLike(search.trim().toLowerCase()) + "%";
+        return categoryRepository.findPage(userId, pattern,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
     }
 
     @Transactional(readOnly = true)

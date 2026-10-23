@@ -65,7 +65,12 @@ public class RuleMatchService {
             Set<Category> categories,
             ReviewType reviewType,
             UUID appliedRuleId,
-            String appliedRuleName) {
+            String appliedRuleName,
+            UUID accountId,
+            String accountName,
+            String accountBank,
+            UUID cardId,
+            String cardLast4) {
     }
 
     /**
@@ -236,7 +241,12 @@ public class RuleMatchService {
                 categories,
                 txn.getReviewType(),
                 appliedRule != null ? appliedRule.getId() : null,
-                appliedRule != null ? ruleName(appliedRule) : null
+                appliedRule != null ? ruleName(appliedRule) : null,
+                txn.getAccount().getId(),
+                txn.getAccount().getName(),
+                txn.getAccount().getBank(),
+                txn.getCard() != null ? txn.getCard().getId() : null,
+                txn.getCard() != null ? txn.getCard().getLast4() : null
         );
     }
 

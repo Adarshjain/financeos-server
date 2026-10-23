@@ -79,6 +79,10 @@ public class RuleMatchServiceTest {
         txn.setUser(testUser);
         txn.setSourcedDescription(sourcedDescription);
         txn.setCategories(new HashSet<>());
+        com.financeos.domain.account.Account account = new com.financeos.domain.account.Account();
+        account.setId(UUID.randomUUID());
+        account.setName("Main Bank");
+        txn.setAccount(account);
         return txn;
     }
 
