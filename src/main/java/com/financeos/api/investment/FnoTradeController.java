@@ -43,8 +43,9 @@ public class FnoTradeController {
             @RequestParam(required = false) FnoReportService.ContractFilter optionType,
             @RequestParam(required = false) UUID brokerAccountId,
             @RequestParam(required = false) String underlying,
-            @RequestParam(required = false) String sort) {
-        return fnoReportService.page(page, size, fy, optionType, brokerAccountId, underlying, sort);
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) String search) {
+        return fnoReportService.page(page, size, fy, optionType, brokerAccountId, underlying, sort, search);
     }
 
     @GetMapping("/summary")

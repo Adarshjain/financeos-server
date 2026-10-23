@@ -17,6 +17,9 @@ import java.util.UUID;
  *                       null when they hold none of it
  * @param quantityAfter  the same quantity once the action (and anything else on that ex-date) applies; null
  *                       when they hold none of it
+ * @param costPerUnitBefore the caller's average cost per unit of that open quantity just before the ex-date;
+ *                          null when they hold none of it
+ * @param costPerUnitAfter  the same average cost once the action applies; null when they hold none of it
  */
 public record CorporateActionRowResponse(
         UUID id,
@@ -35,13 +38,16 @@ public record CorporateActionRowResponse(
         @Nullable BigDecimal fractionalCashInLieu,
         Instant createdAt,
         @Nullable BigDecimal quantityBefore,
-        @Nullable BigDecimal quantityAfter
+        @Nullable BigDecimal quantityAfter,
+        @Nullable BigDecimal costPerUnitBefore,
+        @Nullable BigDecimal costPerUnitAfter
 ) {
     public static CorporateActionRowResponse of(CorporateActionResponse r, @Nullable BigDecimal before,
-                                                @Nullable BigDecimal after) {
+                                                @Nullable BigDecimal after, @Nullable BigDecimal costBefore,
+                                                @Nullable BigDecimal costAfter) {
         return new CorporateActionRowResponse(r.id(), r.instrumentId(), r.instrumentName(), r.instrumentSymbol(),
                 r.type(), r.ratioFrom(), r.ratioTo(), r.exDate(), r.notes(), r.targetInstrumentId(),
                 r.targetInstrumentName(), r.targetInstrumentSymbol(), r.costAllocationPct(),
-                r.fractionalCashInLieu(), r.createdAt(), before, after);
+                r.fractionalCashInLieu(), r.createdAt(), before, after, costBefore, costAfter);
     }
 }

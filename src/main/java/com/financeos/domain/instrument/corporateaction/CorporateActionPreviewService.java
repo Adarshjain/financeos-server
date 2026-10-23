@@ -33,19 +33,30 @@ public class CorporateActionPreviewService {
     private final InvestmentService investmentService;
     private final HoldingRepository holdingRepository;
     private final InstrumentRepository instrumentRepository;
+    private final CorporateActionRepository corporateActionRepository;
 
     public CorporateActionPreviewService(CorporateActionService corporateActionService,
                                          InvestmentService investmentService,
                                          HoldingRepository holdingRepository,
-                                         InstrumentRepository instrumentRepository) {
+                                         InstrumentRepository instrumentRepository,
+                                         CorporateActionRepository corporateActionRepository) {
         this.corporateActionService = corporateActionService;
         this.investmentService = investmentService;
         this.holdingRepository = holdingRepository;
         this.instrumentRepository = instrumentRepository;
+        this.corporateActionRepository = corporateActionRepository;
     }
 
-    @Transactional
     public CorporateActionPreviewResponse preview(UUID instrumentId, CreateCorporateActionRequest request) {
+        return preview(instrumentId, request, null);
+    }
+
+    /**
+     * {@code excludeActionId}: the caller's saved action being edited; it is removed (in the rolled-back
+     * transaction) before "before" is read, so the posted action replaces it instead of adding to it.
+     */
+    @Transactional
+    public CorporateActionPreviewResponse preview(UUID instrumentId, CreateCorporateActionRequest request, UUID excludeActionId) {
         UUID userId = UserContext.getCurrentUserId();
         if (userId == null) {
             throw new ValidationException("A corporate action preview needs a signed-in user");
@@ -57,6 +68,21 @@ public class CorporateActionPreviewService {
         boolean hasChild = (request.type() == CorporateActionType.demerger || request.type() == CorporateActionType.merger)
                 && childId != null;
 
+        boolean replacing = excludeActionId != null;
+        try {
+            if (replacing) {
+                corporateActionService.deleteCorporateAction(instrumentId, excludeActionId);
+                corporateActionRepository.flush();
+            }
+            return previewRows(userId, instrumentId, request, childId, hasChild);
+        } finally {
+            // Always undo: the action and the child holdings it materialised are only for reading the figures.
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+    }
+
+    private CorporateActionPreviewResponse previewRows(UUID userId, UUID instrumentId, CreateCorporateActionRequest request,
+                                                       UUID childId, boolean hasChild) {
         List<Holding> holdings = holdingRepository.findByUser_IdAndInstrument_Id(userId, instrumentId);
         List<HoldingPosition> before = new ArrayList<>();
         List<HoldingPosition> childBefore = new ArrayList<>();
@@ -68,7 +94,7 @@ public class CorporateActionPreviewService {
             fractionalBefore.add(cp == null ? null : investmentService.seedFractionalRealized(cp.holding()));
         }
 
-        try {
+        {
             corporateActionService.createCorporateAction(instrumentId, request);
 
             List<HoldingEffect> rows = new ArrayList<>();
@@ -92,9 +118,6 @@ public class CorporateActionPreviewService {
                         hasChild ? childId : null, childQty, childCost, fractional));
             }
             return new CorporateActionPreviewResponse(rows);
-        } finally {
-            // Always undo: the action and the child holdings it materialised are only for reading the figures.
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
     }
 

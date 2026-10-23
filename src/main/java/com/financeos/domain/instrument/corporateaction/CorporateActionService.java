@@ -80,7 +80,7 @@ public class CorporateActionService {
         Instrument instrument = instrumentRepository.findById(instrumentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Instrument", instrumentId));
 
-        validateRequest(instrumentId, request.type(), request.targetInstrumentId(), request.costAllocationPct(), request.fractionalCashInLieu());
+        validateRequest(instrumentId, request.type(), request.ratioFrom(), request.ratioTo(), request.targetInstrumentId(), request.costAllocationPct(), request.fractionalCashInLieu());
 
         CorporateAction ca = new CorporateAction();
         ca.setUser(userRepository.getReferenceById(userId));
@@ -142,7 +142,7 @@ public class CorporateActionService {
         UUID userId = requireUser();
         CorporateAction ca = ownAction(userId, instrumentId, id);
 
-        validateRequest(instrumentId, request.type(), request.targetInstrumentId(), request.costAllocationPct(), request.fractionalCashInLieu());
+        validateRequest(instrumentId, request.type(), request.ratioFrom(), request.ratioTo(), request.targetInstrumentId(), request.costAllocationPct(), request.fractionalCashInLieu());
 
         ca.setType(request.type());
         ca.setRatioFrom(request.ratioFrom());
@@ -171,9 +171,15 @@ public class CorporateActionService {
         return CorporateActionResponse.from(saved, overrideService.overridesForCurrentUser());
     }
 
-    private void validateRequest(UUID parentInstrumentId, CorporateActionType type, UUID targetInstrumentId, BigDecimal costAllocationPct, BigDecimal fractionalCashInLieu) {
+    private void validateRequest(UUID parentInstrumentId, CorporateActionType type, Integer ratioFrom, Integer ratioTo, UUID targetInstrumentId, BigDecimal costAllocationPct, BigDecimal fractionalCashInLieu) {
         if (fractionalCashInLieu != null && fractionalCashInLieu.compareTo(BigDecimal.ZERO) < 0) {
             throw new ValidationException("Fractional cash-in-lieu amount must be greater than or equal to 0.");
+        }
+        if (type == CorporateActionType.bonus && ratioFrom != null && ratioTo != null && ratioTo <= ratioFrom) {
+            throw new ValidationException("A bonus needs more units after than before: for a 1:1 bonus enter 1 \u2192 2.");
+        }
+        if (type == CorporateActionType.split && ratioFrom != null && ratioTo != null && ratioTo.equals(ratioFrom)) {
+            throw new ValidationException("A split needs different units before and after: for a 1:2 split enter 1 \u2192 2.");
         }
         if (type == CorporateActionType.demerger || type == CorporateActionType.merger) {
             if (targetInstrumentId == null) {

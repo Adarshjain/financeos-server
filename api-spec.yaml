@@ -3633,7 +3633,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateCorporateActionRequest"
+              $ref: "#/components/schemas/PreviewCorporateActionRequest"
         required: true
       responses:
         "200":
@@ -4528,6 +4528,7 @@ paths:
           - CE
           - PE
           - FUT
+          - OPT
       - in: query
         name: brokerAccountId
         required: false
@@ -4541,6 +4542,11 @@ paths:
           type: string
       - in: query
         name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: search
         required: false
         schema:
           type: string
@@ -10631,6 +10637,14 @@ components:
           type: number
           nullable: true
           x-nullable: true
+        costPerUnitAfter:
+          type: number
+          nullable: true
+          x-nullable: true
+        costPerUnitBefore:
+          type: number
+          nullable: true
+          x-nullable: true
         createdAt:
           type: string
           format: date-time
@@ -16586,6 +16600,46 @@ components:
             $ref: "#/components/schemas/PositionDto"
       required:
       - positions
+    PreviewCorporateActionRequest:
+      type: object
+      properties:
+        costAllocationPct:
+          type: number
+        exDate:
+          type: string
+          format: date
+          x-required: true
+        excludeActionId:
+          type: string
+          format: uuid
+        fractionalCashInLieu:
+          type: number
+        notes:
+          type: string
+        ratioFrom:
+          type: integer
+          format: int32
+          x-required: true
+        ratioTo:
+          type: integer
+          format: int32
+          x-required: true
+        targetInstrumentId:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+          - split
+          - bonus
+          - demerger
+          - merger
+          x-required: true
+      required:
+      - exDate
+      - ratioFrom
+      - ratioTo
+      - type
     PreviewMatchesRequest:
       type: object
       properties:

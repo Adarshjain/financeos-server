@@ -33,8 +33,8 @@ public class FnoReportService {
     public static final int DEFAULT_PAGE_SIZE = 25;
     public static final int MAX_PAGE_SIZE = 200;
 
-    /** Contract filter: calls, puts or futures. */
-    public enum ContractFilter { CE, PE, FUT }
+    /** Contract filter: calls, puts, futures, or OPT = all options (calls and puts). */
+    public enum ContractFilter { CE, PE, FUT, OPT }
 
     private static final List<String> EXPORT_HEADER = List.of(
             "Trade date", "Underlying", "Contract", "Strike", "Type", "Quantity", "Buy value", "Sell value",
@@ -47,7 +47,7 @@ public class FnoReportService {
     }
 
     public Page<FnoTradeResponse> page(Integer page, Integer size, Integer fy, ContractFilter contract,
-                                       UUID brokerAccountId, String underlying, String sort) {
+                                       UUID brokerAccountId, String underlying, String sort, String search) {
         int pageNo = page != null ? page : 0;
         int pageSize = size != null ? size : DEFAULT_PAGE_SIZE;
         if (pageNo < 0 || pageSize < 1 || pageSize > MAX_PAGE_SIZE) {
@@ -55,15 +55,18 @@ public class FnoReportService {
         }
         FinancialYear.Range range = FinancialYear.resolve(fy, null, null);
         String underlyingKey = underlying == null || underlying.isBlank() ? null : underlying.trim().toUpperCase(Locale.ROOT);
-        FnoContractType contractType = contract == ContractFilter.FUT ? FnoContractType.future : null;
+        FnoContractType contractType = contract == ContractFilter.FUT ? FnoContractType.future
+                : contract == ContractFilter.OPT ? FnoContractType.option : null;
         OptionType optionType = contract == ContractFilter.CE ? OptionType.CE : contract == ContractFilter.PE ? OptionType.PE : null;
+        String searchKey = search == null || search.isBlank() ? null
+                : search.trim().toLowerCase(Locale.ROOT);
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         String order = sort == null || sort.isBlank() ? "newest" : sort;
         Page<FnoTrade> result = switch (order) {
-            case "newest" -> repository.pageNewest(range.from(), range.to(), brokerAccountId, underlyingKey, contractType, optionType, pageable);
-            case "oldest" -> repository.pageOldest(range.from(), range.to(), brokerAccountId, underlyingKey, contractType, optionType, pageable);
-            case "pnl_desc" -> repository.pagePnlDesc(range.from(), range.to(), brokerAccountId, underlyingKey, contractType, optionType, pageable);
-            case "pnl_asc" -> repository.pagePnlAsc(range.from(), range.to(), brokerAccountId, underlyingKey, contractType, optionType, pageable);
+            case "newest" -> repository.pageNewest(range.from(), range.to(), brokerAccountId, underlyingKey, contractType, optionType, searchKey, pageable);
+            case "oldest" -> repository.pageOldest(range.from(), range.to(), brokerAccountId, underlyingKey, contractType, optionType, searchKey, pageable);
+            case "pnl_desc" -> repository.pagePnlDesc(range.from(), range.to(), brokerAccountId, underlyingKey, contractType, optionType, searchKey, pageable);
+            case "pnl_asc" -> repository.pagePnlAsc(range.from(), range.to(), brokerAccountId, underlyingKey, contractType, optionType, searchKey, pageable);
             default -> throw new ValidationException("sort must be one of newest, oldest, pnl_desc, pnl_asc");
         };
         return result.map(FnoTradeResponse::from);
