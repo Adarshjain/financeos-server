@@ -239,6 +239,13 @@ class FnoReportIntegrationTest {
     }
 
     @Test
+    void summaryWinCountIsTheTradesBehindTheWinRate() throws Exception {
+        assertEquals(3, getJson(FNO + "/summary?fy=2026").get("winCount").asInt());
+        assertEquals(3, getJson(FNO + "/summary?fy=2026&brokerAccountId=" + broker1).get("winCount").asInt());
+        assertEquals(0, getJson(FNO + "/summary?fy=2030").get("winCount").asInt());
+    }
+
+    @Test
     void summaryWithNoTradesIsZeroFilledWithZeroWinRate() throws Exception {
         JsonNode s = getJson(FNO + "/summary?fy=2030");
         assertEquals(0, s.get("tradeCount").asInt());

@@ -20,9 +20,12 @@ import com.financeos.domain.investment.TradeSettlementClassification;
 import com.financeos.domain.investment.TradeSettlementClassificationRepository;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
+import com.financeos.core.tx.SectionRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -46,6 +49,21 @@ public class DividendService {
     private final DividendReceiptStatusResolver receiptResolver;
     private final CorporateActionRepository corporateActionRepository;
     private final TradeSettlementClassificationRepository classificationRepository;
+    private final SectionRunner sectionRunner;
+    private final Map<ScanKey, CachedFetch> fetchCache = new LinkedHashMap<>(16, 0.75f, true) {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<ScanKey, CachedFetch> eldest) {
+            return size() > FETCH_CACHE_MAX;
+        }
+    };
+
+    /** Yahoo results of a scan are reused for a user's repeat scan within this window. */
+    static final java.time.Duration FETCH_CACHE_TTL = java.time.Duration.ofMinutes(10);
+    private static final int FETCH_CACHE_MAX = 500;
+
+    private record ScanKey(UUID userId, String symbol, Instant period1) {}
+
+    private record CachedFetch(YahooDividendEventsClient.FetchResult result, Instant at) {}
 
     /** Oracle caps an IN list at 1000 entries; batch lookups go in chunks of this size. */
     private static final int IN_LIST_CHUNK = 900;
@@ -59,6 +77,22 @@ public class DividendService {
                            DividendReceiptStatusResolver receiptResolver,
                            CorporateActionRepository corporateActionRepository,
                            TradeSettlementClassificationRepository classificationRepository) {
+        this(dividendRepository, holdingRepository, userRepository, investmentService, yahooClient, transactionRepository,
+                receiptResolver, corporateActionRepository, classificationRepository, SectionRunner.DIRECT);
+    }
+
+    @Autowired
+    public DividendService(DividendRepository dividendRepository,
+                           HoldingRepository holdingRepository,
+                           UserRepository userRepository,
+                           InvestmentService investmentService,
+                           YahooDividendEventsClient yahooClient,
+                           InvestmentTransactionRepository transactionRepository,
+                           DividendReceiptStatusResolver receiptResolver,
+                           CorporateActionRepository corporateActionRepository,
+                           TradeSettlementClassificationRepository classificationRepository,
+                           SectionRunner sectionRunner) {
+        this.sectionRunner = sectionRunner;
         this.dividendRepository = dividendRepository;
         this.holdingRepository = holdingRepository;
         this.userRepository = userRepository;
@@ -209,9 +243,20 @@ public class DividendService {
         }
     }
 
-    @Transactional(readOnly = true)
+    /**
+     * Scans in three steps so no database connection is held across the slow Yahoo calls: a short read
+     * transaction finds the symbols and their first trade dates, the fetches run with no transaction, and a
+     * second short read transaction builds the suggestions from fresh data.
+     */
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public DividendSuggestionsResponse scanSuggestions(UUID brokerAccountId) {
-        List<Holding> holdings = holdingRepository.findAllWithDetails().stream()
+        Map<String, Instant> period1BySymbol = sectionRunner.run(() -> period1BySymbol(brokerAccountId));
+        Map<String, YahooDividendEventsClient.FetchResult> fetched = fetchAll(period1BySymbol);
+        return sectionRunner.run(() -> buildSuggestions(brokerAccountId, fetched));
+    }
+
+    private List<Holding> scannableHoldings(UUID brokerAccountId) {
+        return holdingRepository.findAllWithDetails().stream()
                 .filter(h -> brokerAccountId == null || h.getBrokerAccount().getId().equals(brokerAccountId))
                 .filter(h -> {
                     Instrument inst = h.getInstrument();
@@ -219,6 +264,78 @@ public class DividendService {
                             && inst.getYahooSymbol() != null && !inst.getYahooSymbol().isBlank();
                 })
                 .toList();
+    }
+
+    /** Each scanned Yahoo symbol with the earliest trade date over its holdings (null when none has a trade). */
+    private Map<String, Instant> period1BySymbol(UUID brokerAccountId) {
+        List<Holding> holdings = scannableHoldings(brokerAccountId);
+        List<UUID> holdingIds = holdings.stream().map(Holding::getId).distinct().toList();
+        Map<UUID, Instant> firstTradeByHolding = new HashMap<>();
+        for (int from = 0; from < holdingIds.size(); from += IN_LIST_CHUNK) {
+            List<UUID> chunk = holdingIds.subList(from, Math.min(holdingIds.size(), from + IN_LIST_CHUNK));
+            for (InvestmentTransaction t : transactionRepository.findByHoldingIdInOrderByTradeDateAscCreatedAtAsc(chunk)) {
+                firstTradeByHolding.putIfAbsent(t.getHolding().getId(), t.getTradeDate().atStartOfDay(AppTime.zone()).toInstant());
+            }
+        }
+        Map<String, Instant> result = new LinkedHashMap<>();
+        for (Holding h : holdings) {
+            Instant first = firstTradeByHolding.get(h.getId());
+            result.merge(h.getInstrument().getYahooSymbol().trim(), first == null ? Instant.EPOCH : first,
+                    (x, y) -> x.isBefore(y) ? x : y);
+        }
+        result.replaceAll((k, v) -> v.equals(Instant.EPOCH) ? null : v);
+        return result;
+    }
+
+    /** Yahoo fetch per symbol, no transaction held; a user's repeat fetch within the TTL is served from memory. */
+    private Map<String, YahooDividendEventsClient.FetchResult> fetchAll(Map<String, Instant> period1BySymbol) {
+        UUID userId = UserContext.getCurrentUserId();
+        Map<String, YahooDividendEventsClient.FetchResult> fetched = new HashMap<>();
+        boolean calledYahoo = false;
+        for (Map.Entry<String, Instant> entry : period1BySymbol.entrySet()) {
+            ScanKey key = new ScanKey(userId, entry.getKey(), entry.getValue());
+            YahooDividendEventsClient.FetchResult cached = cachedFetch(key);
+            if (cached != null) {
+                fetched.put(entry.getKey(), cached);
+                continue;
+            }
+            if (calledYahoo) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+            calledYahoo = true;
+            YahooDividendEventsClient.FetchResult result =
+                    yahooClient.fetchDividendEventsWithStatus(entry.getKey(), entry.getValue(), Instant.now());
+            fetched.put(entry.getKey(), result);
+            if (result.success()) {
+                synchronized (fetchCache) {
+                    fetchCache.put(key, new CachedFetch(result, Instant.now()));
+                }
+            }
+        }
+        return fetched;
+    }
+
+    private YahooDividendEventsClient.FetchResult cachedFetch(ScanKey key) {
+        synchronized (fetchCache) {
+            CachedFetch c = fetchCache.get(key);
+            if (c == null) {
+                return null;
+            }
+            if (c.at().plus(FETCH_CACHE_TTL).isBefore(Instant.now())) {
+                fetchCache.remove(key);
+                return null;
+            }
+            return c.result();
+        }
+    }
+
+    private DividendSuggestionsResponse buildSuggestions(UUID brokerAccountId,
+                                                         Map<String, YahooDividendEventsClient.FetchResult> fetched) {
+        List<Holding> holdings = scannableHoldings(brokerAccountId);
 
         Map<String, List<Holding>> holdingsBySymbol = holdings.stream()
                 .collect(Collectors.groupingBy(h -> h.getInstrument().getYahooSymbol().trim()));
@@ -273,33 +390,12 @@ public class DividendService {
             }
         }
 
-        int index = 0;
         for (Map.Entry<String, List<Holding>> entry : holdingsBySymbol.entrySet()) {
-            if (index > 0) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-            }
-            index++;
-
             String symbol = entry.getKey();
             List<Holding> symbolHoldings = entry.getValue();
 
-            Instant period1 = null;
-            for (Holding h : symbolHoldings) {
-                List<InvestmentTransaction> txns = txnsByHolding.getOrDefault(h.getId(), List.of());
-                if (!txns.isEmpty()) {
-                    Instant txnDate = txns.get(0).getTradeDate().atStartOfDay(AppTime.zone()).toInstant();
-                    if (period1 == null || txnDate.isBefore(period1)) {
-                        period1 = txnDate;
-                    }
-                }
-            }
-
-            YahooDividendEventsClient.FetchResult fetchResult = yahooClient.fetchDividendEventsWithStatus(symbol, period1, Instant.now());
-            if (!fetchResult.success()) {
+            YahooDividendEventsClient.FetchResult fetchResult = fetched.get(symbol);
+            if (fetchResult == null || !fetchResult.success()) {
                 skippedSymbols.add(symbol);
                 continue;
             }

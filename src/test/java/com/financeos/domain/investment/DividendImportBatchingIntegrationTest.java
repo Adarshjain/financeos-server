@@ -227,6 +227,36 @@ class DividendImportBatchingIntegrationTest {
     }
 
     @Test
+    void scanFetchesFromYahooWithNoTransactionOpen() throws Exception {
+        Instrument a = instrument();
+        buy(a, "10", "100", "2026-01-05");
+        java.util.concurrent.atomic.AtomicBoolean txActive = new java.util.concurrent.atomic.AtomicBoolean(true);
+        when(yahoo.fetchDividendEventsWithStatus(eq(a.getYahooSymbol()), any(), any())).thenAnswer(inv -> {
+            txActive.set(org.springframework.transaction.support.TransactionSynchronizationManager.isActualTransactionActive());
+            return new YahooDividendEventsClient.FetchResult(List.of(ev("2026-03-10", "5")), true);
+        });
+
+        DividendSuggestionsResponse res = scan(null);
+
+        assertEquals(false, txActive.get());
+        assertEquals(1, res.suggestions().size());
+    }
+
+    @Test
+    void repeatScanServesYahooFromCacheButStillSeesNewlyRecordedDividends() throws Exception {
+        Instrument a = instrument();
+        buy(a, "10", "100", "2026-01-05");
+        yahooReturns(a, List.of(ev("2026-03-10", "5")));
+
+        assertEquals(1, scan(null).suggestions().size());
+        dividend(holdingOf(a), "50", LocalDate.parse("2026-03-10"), LocalDate.parse("2026-03-20"));
+        assertEquals(0, scan(null).suggestions().size());
+
+        org.mockito.Mockito.verify(yahoo, org.mockito.Mockito.times(1))
+                .fetchDividendEventsWithStatus(eq(a.getYahooSymbol()), any(), any());
+    }
+
+    @Test
     void scanQueryCountDoesNotGrowWithHoldingsOrEvents() throws Exception {
         List<Instrument> all = new ArrayList<>();
         for (int n = 0; n < 6; n++) {
@@ -247,6 +277,36 @@ class DividendImportBatchingIntegrationTest {
         long many = queries(() -> scan(null));
 
         assertEquals(few, many, "scan statements for 2 vs 6 holdings");
+    }
+
+    @Test
+    void scanNeverReadsAnotherUsersHoldingsOrCallsYahooForThem() throws Exception {
+        Instrument a = instrument();
+        buy(a, "10", "100", "2026-01-05");
+        yahooReturns(a, List.of(ev("2026-03-10", "5")));
+
+        String emailB = "div-import-batch-b-" + UUID.randomUUID() + "@example.test";
+        ApiTestClient apiB = ApiTestClient.signUp(mockMvc, mapper, emailB);
+        UUID userB = userRepository.findByEmail(emailB).orElseThrow().getId();
+        try {
+            UUID brokerB = apiB.create("/api/v1/accounts", Map.of("type", "broker", "name", "B Broker", "provider", "Groww",
+                    "clientId", "CLB", "cashBalance", 5000, "financialPosition", "asset", "excludeFromNetAsset", false));
+            Instrument b = instrument();
+            apiB.create("/api/v1/investments/transactions", Map.of("brokerAccountId", brokerB.toString(),
+                    "instrumentId", b.getId().toString(), "type", "buy", "quantity", "10", "price", "100",
+                    "tradeDate", "2026-01-05"));
+            yahooReturns(b, List.of(ev("2026-03-12", "2")));
+
+            DividendSuggestionsResponse res = scan(null);
+
+            assertEquals(1, res.suggestions().size());
+            assertEquals(holdingOf(a).getId(), res.suggestions().get(0).holdingId());
+            assertEquals(1, res.scannedSymbols());
+            org.mockito.Mockito.verify(yahoo, org.mockito.Mockito.never())
+                    .fetchDividendEventsWithStatus(eq(b.getYahooSymbol()), any(), any());
+        } finally {
+            UserDataCleanup.deleteUsers(jdbc, List.of(userB));
+        }
     }
 
     // ------------------------------------------------------------------ dividend accept

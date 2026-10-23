@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * F&amp;O results of one financial year. {@code winRate} is the percentage (0-100, one decimal) of
- * trades with a positive P&amp;L, 0 with no trades. {@code byMonth} has all 12 months, zero-filled.
+ * trades with a positive P&amp;L, 0 with no trades. {@code winCount} is how many of them that is. {@code byMonth} has all 12 months, zero-filled.
  */
 public record FnoSummaryResponse(
         int fy,
@@ -17,7 +17,8 @@ public record FnoSummaryResponse(
         BigDecimal winRate,
         BigDecimal totalCharges,
         List<MonthPnl> byMonth,
-        List<UnderlyingPnl> byUnderlying
+        List<UnderlyingPnl> byUnderlying,
+        int winCount
 ) {
     /** {@code month} is yyyy-MM. */
     public record MonthPnl(String month, BigDecimal pnl) {}
