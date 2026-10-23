@@ -1833,6 +1833,59 @@ paths:
           description: Error response
       tags:
       - corporate-action-controller
+  /api/v1/corporate-actions/page:
+    get:
+      operationId: getCorporateActionPage
+      parameters:
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+          enum:
+          - split
+          - bonus
+          - demerger
+          - merger
+      - in: query
+        name: search
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 25
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CorporateActionPage"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - corporate-action-controller
   /api/v1/counterparties:
     get:
       description: "People with ledger totals, paged. q narrows by name; outstanding=true\
@@ -3170,6 +3223,16 @@ paths:
         schema:
           type: string
       - in: query
+        name: stale
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: held
+        required: false
+        schema:
+          type: boolean
+      - in: query
         name: page
         required: false
         schema:
@@ -3460,6 +3523,45 @@ paths:
           description: Error response
       tags:
       - instrument-controller
+  /api/v1/instruments/{id}/prices/page:
+    get:
+      operationId: getPriceHistoryPage
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 30
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PriceHistoryPage"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - instrument-controller
   /api/v1/instruments/{instrumentId}/corporate-actions:
     get:
       operationId: getCorporateActions
@@ -3509,6 +3611,37 @@ paths:
               schema:
                 $ref: "#/components/schemas/CorporateActionResponse"
           description: Created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - corporate-action-controller
+  /api/v1/instruments/{instrumentId}/corporate-actions/preview:
+    post:
+      operationId: previewCorporateAction
+      parameters:
+      - in: path
+        name: instrumentId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCorporateActionRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CorporateActionPreviewResponse"
+          description: OK
         default:
           content:
             application/json:
@@ -3687,6 +3820,12 @@ paths:
           type: string
           format: date
       - in: query
+        name: fy
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
         name: receipt
         required: false
         schema:
@@ -3761,6 +3900,134 @@ paths:
           description: Error response
       tags:
       - dividend-controller
+  /api/v1/investments/dividends/by-instrument:
+    get:
+      operationId: getByInstrument
+      parameters:
+      - in: query
+        name: years
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 3
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          default: 25
+          minimum: 1
+      - description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageDividendInstrumentTotalResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - dividend-controller
+  /api/v1/investments/dividends/export.csv:
+    get:
+      operationId: exportCsv
+      parameters:
+      - in: query
+        name: holdingId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: brokerAccountId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: instrumentId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+          enum:
+          - dividend
+          - interest
+          - other
+      - in: query
+        name: from
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: to
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: fy
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: receipt
+        required: false
+        schema:
+          type: string
+          enum:
+          - received
+          - received_untracked
+          - not_received
+          - awaiting
+          - overdue
+          - unverifiable
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - dividend-controller
   /api/v1/investments/dividends/receipts/summary:
     get:
       operationId: getDividendReceiptSummary
@@ -3792,6 +4059,24 @@ paths:
           - dividend
           - interest
           - other
+      - in: query
+        name: from
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: to
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: fy
+        required: false
+        schema:
+          type: integer
+          format: int32
       responses:
         "200":
           content:
@@ -3979,6 +4264,24 @@ paths:
           - dividend
           - interest
           - other
+      - in: query
+        name: from
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: to
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: fy
+        required: false
+        schema:
+          type: integer
+          format: int32
       responses:
         "200":
           content:
@@ -4168,6 +4471,125 @@ paths:
           description: Error response
       tags:
       - fno-trade-controller
+  /api/v1/investments/fno/export.csv:
+    get:
+      operationId: exportFnoCsv
+      parameters:
+      - in: query
+        name: fy
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - fno-trade-controller
+  /api/v1/investments/fno/page:
+    get:
+      operationId: getFnoTradesPage
+      parameters:
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: fy
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: optionType
+        required: false
+        schema:
+          type: string
+          enum:
+          - CE
+          - PE
+          - FUT
+      - in: query
+        name: brokerAccountId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: underlying
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageFnoTradeResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - fno-trade-controller
+  /api/v1/investments/fno/summary:
+    get:
+      operationId: getFnoSummary
+      parameters:
+      - in: query
+        name: fy
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: brokerAccountId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FnoSummaryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - fno-trade-controller
   /api/v1/investments/fno/{id}:
     delete:
       operationId: deleteFnoTrade
@@ -4219,6 +4641,113 @@ paths:
           description: Error response
       tags:
       - fno-trade-controller
+  /api/v1/investments/holdings:
+    get:
+      operationId: getHoldings
+      parameters:
+      - in: query
+        name: brokerAccountId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: assetType
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: search
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/HoldingsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - investment-controller
+  /api/v1/investments/holdings/{instrumentId}:
+    get:
+      operationId: getHolding
+      parameters:
+      - in: path
+        name: instrumentId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/HoldingDetailResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - investment-controller
+  /api/v1/investments/holdings/{instrumentId}/sell-estimate:
+    get:
+      operationId: getSellEstimate
+      parameters:
+      - in: path
+        name: instrumentId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: quantity
+        required: false
+        schema:
+          type: number
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellEstimateResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - investment-controller
   /api/v1/investments/imports/commit:
     post:
       operationId: commit
@@ -4642,6 +5171,20 @@ paths:
         required: false
         schema:
           type: string
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+          enum:
+          - buy
+          - sell
+      - in: query
+        name: fy
+        required: false
+        schema:
+          type: integer
+          format: int32
       - description: Zero-based page index (0..N)
         in: query
         name: page
@@ -8691,6 +9234,26 @@ components:
       required:
       - label
       - op
+    Broker:
+      type: object
+      properties:
+        accountName:
+          type: string
+        avgCost:
+          type: number
+        brokerAccountId:
+          type: string
+          format: uuid
+        currentValue:
+          type: number
+        quantity:
+          type: number
+      required:
+      - accountName
+      - avgCost
+      - brokerAccountId
+      - currentValue
+      - quantity
     BrokerAccountResponse:
       type: object
       properties:
@@ -9959,6 +10522,40 @@ components:
       required:
       - linked
       - skipped
+    CorporateActionPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/CorporateActionRowResponse"
+        page:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    CorporateActionPreviewResponse:
+      type: object
+      properties:
+        holdings:
+          type: array
+          items:
+            $ref: "#/components/schemas/HoldingEffect"
+      required:
+      - holdings
     CorporateActionResponse:
       type: object
       properties:
@@ -9990,6 +10587,82 @@ components:
           x-nullable: true
         notes:
           type: string
+          nullable: true
+          x-nullable: true
+        ratioFrom:
+          type: integer
+          format: int32
+        ratioTo:
+          type: integer
+          format: int32
+        targetInstrumentId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        targetInstrumentName:
+          type: string
+          nullable: true
+          x-nullable: true
+        targetInstrumentSymbol:
+          type: string
+          nullable: true
+          x-nullable: true
+        type:
+          type: string
+          enum:
+          - split
+          - bonus
+          - demerger
+          - merger
+      required:
+      - createdAt
+      - exDate
+      - id
+      - instrumentId
+      - instrumentName
+      - ratioFrom
+      - ratioTo
+      - type
+    CorporateActionRowResponse:
+      type: object
+      properties:
+        costAllocationPct:
+          type: number
+          nullable: true
+          x-nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        exDate:
+          type: string
+          format: date
+        fractionalCashInLieu:
+          type: number
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        instrumentId:
+          type: string
+          format: uuid
+        instrumentName:
+          type: string
+        instrumentSymbol:
+          type: string
+          nullable: true
+          x-nullable: true
+        notes:
+          type: string
+          nullable: true
+          x-nullable: true
+        quantityAfter:
+          type: number
+          nullable: true
+          x-nullable: true
+        quantityBefore:
+          type: number
           nullable: true
           x-nullable: true
         ratioFrom:
@@ -11269,6 +11942,34 @@ components:
       - instrumentId
       - instrumentName
       - nameScore
+    DividendInstrumentTotalResponse:
+      type: object
+      properties:
+        gross:
+          type: number
+        instrumentId:
+          type: string
+          format: uuid
+        instrumentName:
+          type: string
+        net:
+          type: number
+        payouts:
+          type: integer
+          format: int64
+        symbol:
+          type: string
+          nullable: true
+          x-nullable: true
+        tds:
+          type: number
+      required:
+      - gross
+      - instrumentId
+      - instrumentName
+      - net
+      - payouts
+      - tds
     DividendMatchCandidate:
       type: object
       properties:
@@ -11697,6 +12398,45 @@ components:
         value:
           nullable: true
           x-nullable: true
+    FnoSummaryResponse:
+      type: object
+      properties:
+        byMonth:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonthPnl"
+        byUnderlying:
+          type: array
+          items:
+            $ref: "#/components/schemas/UnderlyingPnl"
+        fromDate:
+          type: string
+          format: date
+        fy:
+          type: integer
+          format: int32
+        realisedPnl:
+          type: number
+        toDate:
+          type: string
+          format: date
+        totalCharges:
+          type: number
+        tradeCount:
+          type: integer
+          format: int64
+        winRate:
+          type: number
+      required:
+      - byMonth
+      - byUnderlying
+      - fromDate
+      - fy
+      - realisedPnl
+      - toDate
+      - totalCharges
+      - tradeCount
+      - winRate
     FnoTradeListResponse:
       type: object
       properties:
@@ -12142,6 +12882,24 @@ components:
           type: string
       required:
       - authorizationUrl
+    Group:
+      type: object
+      properties:
+        assetType:
+          type: string
+          enum:
+          - stock
+          - mutual_fund
+          - etf
+        count:
+          type: integer
+          format: int32
+        value:
+          type: number
+      required:
+      - assetType
+      - count
+      - value
     HarvestLosses:
       type: object
       properties:
@@ -12347,6 +13105,221 @@ components:
       - count
       - gain
       - withinDays
+    Header:
+      type: object
+      properties:
+        currentValue:
+          type: number
+        dayChange:
+          type: number
+          nullable: true
+          x-nullable: true
+        dayChangePct:
+          type: number
+          nullable: true
+          x-nullable: true
+        invested:
+          type: number
+        priceAsOf:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        unrealised:
+          type: number
+        unrealisedPct:
+          type: number
+          nullable: true
+          x-nullable: true
+        xirr:
+          type: number
+          format: double
+          nullable: true
+          x-nullable: true
+      required:
+      - currentValue
+      - invested
+      - unrealised
+    HoldingDetailResponse:
+      type: object
+      properties:
+        assetType:
+          type: string
+          enum:
+          - stock
+          - mutual_fund
+          - etf
+        avgCost:
+          type: number
+        brokers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Broker"
+        currentValue:
+          type: number
+        dayChange:
+          type: number
+          nullable: true
+          x-nullable: true
+        dayChangePct:
+          type: number
+          nullable: true
+          x-nullable: true
+        dividends:
+          type: number
+        firstBuyDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        instrumentId:
+          type: string
+          format: uuid
+        invested:
+          type: number
+        ltp:
+          type: number
+          nullable: true
+          x-nullable: true
+        manualPrice:
+          type: boolean
+        mergedIntoDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        mergedIntoName:
+          type: string
+          nullable: true
+          x-nullable: true
+        name:
+          type: string
+        noPrice:
+          type: boolean
+        priceAsOf:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        quantity:
+          type: number
+        realisedPnl:
+          type: number
+        symbol:
+          type: string
+          nullable: true
+          x-nullable: true
+        term:
+          type: string
+          nullable: true
+          x-nullable: true
+        totalCharges:
+          type: number
+        unrealised:
+          type: number
+        unrealisedPct:
+          type: number
+          nullable: true
+          x-nullable: true
+        xirr:
+          type: number
+          format: double
+          nullable: true
+          x-nullable: true
+      required:
+      - assetType
+      - avgCost
+      - brokers
+      - currentValue
+      - dividends
+      - instrumentId
+      - invested
+      - manualPrice
+      - name
+      - noPrice
+      - quantity
+      - realisedPnl
+      - totalCharges
+      - unrealised
+    HoldingEffect:
+      type: object
+      properties:
+        avgCostAfter:
+          type: number
+        avgCostBefore:
+          type: number
+        brokerAccountId:
+          type: string
+          format: uuid
+        brokerAccountName:
+          type: string
+        childCost:
+          type: number
+          nullable: true
+          x-nullable: true
+        childInstrumentId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        childQuantity:
+          type: number
+          nullable: true
+          x-nullable: true
+        fractionalRealized:
+          type: number
+          nullable: true
+          x-nullable: true
+        openCostAfter:
+          type: number
+        openCostBefore:
+          type: number
+        quantityAfter:
+          type: number
+        quantityBefore:
+          type: number
+      required:
+      - avgCostAfter
+      - avgCostBefore
+      - brokerAccountId
+      - brokerAccountName
+      - openCostAfter
+      - openCostBefore
+      - quantityAfter
+      - quantityBefore
+    HoldingsResponse:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: "#/components/schemas/Group"
+        header:
+          $ref: "#/components/schemas/Header"
+        holdings:
+          type: array
+          items:
+            $ref: "#/components/schemas/Row"
+        page:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - groups
+      - header
+      - holdings
+      - page
+      - size
+      - totalElements
+      - totalPages
     ImportCommitRequest:
       type: object
       properties:
@@ -12877,6 +13850,8 @@ components:
           type: boolean
         name:
           type: string
+        notHeld:
+          type: boolean
         overridden:
           type: boolean
         overriddenFields:
@@ -12917,6 +13892,7 @@ components:
       - id
       - mergedHoldings
       - name
+      - notHeld
       - overridden
       - overriddenFields
       - taxClass
@@ -12997,8 +13973,19 @@ components:
           x-nullable: true
         quantity:
           type: number
+        realisedPnl:
+          type: number
+          nullable: true
+          x-nullable: true
         sebiCharges:
           type: number
+          nullable: true
+          x-nullable: true
+        settlement:
+          type: string
+          enum:
+          - delivery
+          - intraday
           nullable: true
           x-nullable: true
         settlementType:
@@ -14023,6 +15010,32 @@ components:
       required:
       - email
       - password
+    Lot:
+      type: object
+      properties:
+        buyDate:
+          type: string
+          format: date
+        cost:
+          type: number
+        costPerUnit:
+          type: number
+        gain:
+          type: number
+        proceeds:
+          type: number
+        quantity:
+          type: number
+        term:
+          type: string
+      required:
+      - buyDate
+      - cost
+      - costPerUnit
+      - gain
+      - proceeds
+      - quantity
+      - term
     MarkBillPaidRequest:
       type: object
       properties:
@@ -14269,6 +15282,16 @@ components:
       - beforeHistory
       - month
       - outflow
+    MonthPnl:
+      type: object
+      properties:
+        month:
+          type: string
+        pnl:
+          type: number
+      required:
+      - month
+      - pnl
     MuteAccountRequest:
       type: object
       properties:
@@ -14648,6 +15671,52 @@ components:
       - sort
       - totalElements
       - totalPages
+    PageDividendInstrumentTotalResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/DividendInstrumentTotalResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
     PageDividendResponse:
       type: object
       properties:
@@ -14655,6 +15724,52 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DividendResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
+    PageFnoTradeResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/FnoTradeResponse"
         empty:
           type: boolean
         first:
@@ -15481,6 +16596,31 @@ components:
           x-required: true
       required:
       - merchantKey
+    PriceHistoryPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/InstrumentPriceResponse"
+        page:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
     PricePreview:
       type: object
       properties:
@@ -17140,6 +18280,83 @@ components:
       - provider
       - providerName
       - trainsOnData
+    Row:
+      type: object
+      properties:
+        assetType:
+          type: string
+          enum:
+          - stock
+          - mutual_fund
+          - etf
+        avgCost:
+          type: number
+        brokerCount:
+          type: integer
+          format: int32
+        currentValue:
+          type: number
+        dayChange:
+          type: number
+          nullable: true
+          x-nullable: true
+        dayChangePct:
+          type: number
+          nullable: true
+          x-nullable: true
+        instrumentId:
+          type: string
+          format: uuid
+        invested:
+          type: number
+        ltp:
+          type: number
+          nullable: true
+          x-nullable: true
+        manualPrice:
+          type: boolean
+        mergedIntoDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        mergedIntoName:
+          type: string
+          nullable: true
+          x-nullable: true
+        name:
+          type: string
+        noPrice:
+          type: boolean
+        priceAsOf:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        quantity:
+          type: number
+        symbol:
+          type: string
+          nullable: true
+          x-nullable: true
+        unrealised:
+          type: number
+        unrealisedPct:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - assetType
+      - avgCost
+      - brokerCount
+      - currentValue
+      - instrumentId
+      - invested
+      - manualPrice
+      - name
+      - noPrice
+      - quantity
+      - unrealised
     RowBreakdownResponse:
       type: object
       properties:
@@ -17396,6 +18613,79 @@ components:
       - datasource
       - definition
       - type
+    SellEstimateResponse:
+      type: object
+      properties:
+        cost:
+          type: number
+        equity:
+          type: boolean
+        exemptionLeftAfter:
+          type: number
+          nullable: true
+          x-nullable: true
+        exemptionLeftBefore:
+          type: number
+          nullable: true
+          x-nullable: true
+        fy:
+          type: integer
+          format: int32
+        gain:
+          type: number
+        instrumentId:
+          type: string
+          format: uuid
+        longTermGain:
+          type: number
+        lots:
+          type: array
+          items:
+            $ref: "#/components/schemas/Lot"
+        ltcgRate:
+          type: number
+          nullable: true
+          x-nullable: true
+        ltcgTax:
+          type: number
+          nullable: true
+          x-nullable: true
+        noPrice:
+          type: boolean
+        price:
+          type: number
+          nullable: true
+          x-nullable: true
+        proceeds:
+          type: number
+        quantity:
+          type: number
+        shortTermGain:
+          type: number
+        stcgRate:
+          type: number
+          nullable: true
+          x-nullable: true
+        stcgTax:
+          type: number
+          nullable: true
+          x-nullable: true
+        tax:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - cost
+      - equity
+      - fy
+      - gain
+      - instrumentId
+      - longTermGain
+      - lots
+      - noPrice
+      - proceeds
+      - quantity
+      - shortTermGain
     SetDividendReceiptStatusRequest:
       type: object
       properties:
@@ -18690,6 +19980,20 @@ components:
       - fieldLabel
       - operator
       - text
+    UnderlyingPnl:
+      type: object
+      properties:
+        pnl:
+          type: number
+        trades:
+          type: integer
+          format: int64
+        underlying:
+          type: string
+      required:
+      - pnl
+      - trades
+      - underlying
     UnderlyingRange:
       type: object
       nullable: true
