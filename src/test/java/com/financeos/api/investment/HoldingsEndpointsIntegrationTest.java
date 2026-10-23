@@ -522,6 +522,47 @@ class HoldingsEndpointsIntegrationTest {
     }
 
     @Test
+    void sellEstimateReturnsTheYearsBookedPoolsAndTheExemptionLimit() throws Exception {
+        // Only Gamma's 250 long-term gain is booked this FY: no short-term P&L at all.
+        JsonNode e = api.getJson("/api/v1/investments/holdings/" + alpha.getId() + "/sell-estimate?quantity=15", 200);
+        assertMoney("0", e.get("bookedShortTermGain"));
+        assertMoney("250", e.get("bookedEquityLongTermGain"));
+        assertMoney("0", e.get("bookedOtherLongTermGain"));
+        assertMoney("125000", e.get("exemptionLimit"));
+    }
+
+    @Test
+    void sellEstimateBookedPoolsIncludeTheYearsLosses() throws Exception {
+        bookLosses();
+        // 300 short-term loss; long term is Gamma's 250 gain less the 400 loss.
+        JsonNode e = api.getJson("/api/v1/investments/holdings/" + alpha.getId() + "/sell-estimate?quantity=15", 200);
+        assertMoney("-300", e.get("bookedShortTermGain"));
+        assertMoney("-150", e.get("bookedEquityLongTermGain"));
+        assertMoney("0", e.get("bookedOtherLongTermGain"));
+        assertMoney("125000", e.get("exemptionLimit"));
+    }
+
+    @Test
+    void sellEstimateBookedPoolsSplitNonEquityLongTermFromEquity() throws Exception {
+        // A non-equity long-term gain of 50 booked this FY goes to the other pool, not the equity one.
+        trade(brokerA, beta, "buy", "10", "10", "2022-01-01");
+        trade(brokerA, beta, "sell", "10", "15", "2026-09-15");
+        JsonNode e = api.getJson("/api/v1/investments/holdings/" + alpha.getId() + "/sell-estimate?quantity=15", 200);
+        assertMoney("0", e.get("bookedShortTermGain"));
+        assertMoney("250", e.get("bookedEquityLongTermGain"));
+        assertMoney("50", e.get("bookedOtherLongTermGain"));
+    }
+
+    @Test
+    void sellEstimateForANonEquityHoldingHasNoBookedPools() throws Exception {
+        JsonNode e = api.getJson("/api/v1/investments/holdings/" + beta.getId() + "/sell-estimate?quantity=40", 200);
+        assertTrue(e.get("bookedShortTermGain").isNull());
+        assertTrue(e.get("bookedEquityLongTermGain").isNull());
+        assertTrue(e.get("bookedOtherLongTermGain").isNull());
+        assertTrue(e.get("exemptionLimit").isNull());
+    }
+
+    @Test
     void sellEstimateWithoutAPriceIsAtCost() throws Exception {
         JsonNode e = api.getJson("/api/v1/investments/holdings/" + epsilon.getId() + "/sell-estimate", 200);
         assertTrue(e.get("noPrice").asBoolean());

@@ -18616,6 +18616,18 @@ components:
     SellEstimateResponse:
       type: object
       properties:
+        bookedEquityLongTermGain:
+          type: number
+          nullable: true
+          x-nullable: true
+        bookedOtherLongTermGain:
+          type: number
+          nullable: true
+          x-nullable: true
+        bookedShortTermGain:
+          type: number
+          nullable: true
+          x-nullable: true
         cost:
           type: number
         equity:
@@ -18625,6 +18637,10 @@ components:
           nullable: true
           x-nullable: true
         exemptionLeftBefore:
+          type: number
+          nullable: true
+          x-nullable: true
+        exemptionLimit:
           type: number
           nullable: true
           x-nullable: true
