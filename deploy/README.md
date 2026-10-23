@@ -130,6 +130,22 @@ update them:
 | `UI_PATH` | `https://financeos-client.vercel.app` | `GmailController`, which still 302s the browser to `/settings/gmail` |
 | `CORS_ORIGINS` | `https://financeos-client.vercel.app` | `SecurityConfig`; vestigial today — `API_BASE_URL` is never exposed as `NEXT_PUBLIC_`, so the browser never calls this API directly |
 
+### App lock (passkeys)
+
+Two more vars in `$APP_DIR/.env` also name the client's host. Browsers bind a passkey to the page
+origin, so the relying party is the UI host, not this API. Changing the UI domain voids every
+enrolled passkey (users sign in with their password and turn app lock on again).
+
+| Var | Value | Used by |
+|---|---|---|
+| `APP_LOCK_RP_ID` | `financeos-client.vercel.app` | `WebAuthnConfig` — the UI's host name (default `localhost`; the prod profile defaults to the prod host) |
+| `APP_LOCK_ORIGINS` | `https://financeos-client.vercel.app` | `WebAuthnConfig` — exact UI origin(s), comma-separated (default `https://localhost:6970`; the prod profile defaults to the prod origin) |
+
+Local E2E uses the defaults when the client is on `https://localhost:6970`; for an `http://` client
+set `APP_LOCK_ORIGINS=http://localhost:6970` (`APP_LOCK_RP_ID=localhost`). Timing and limits
+(`heartbeat-seconds`, `immediate-backstop-seconds`, `max-unlock-failures`, allowed/default "lock after")
+are constants under `app.app-lock` in `application.yml`. Migration `V108__app_lock_devices.sql` is idempotent.
+
 `GOOGLE_OAUTH_REDIRECT_URI` must point at the **client's** callback page, never at
 `/api/v1/auth/google/callback` on this host. Sending the browser here directly sets
 `FINANCEOS_SESSION` on the API's origin, where the Vercel app cannot read it, and every sign-in

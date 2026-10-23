@@ -40,7 +40,9 @@ class AuthServiceGoogleStateTest {
         stateService = new OAuthStateService();
         authService = new AuthService(mock(AuthenticationManager.class), userRepository, mock(PasswordEncoder.class),
                 mock(SecurityContextRepository.class), googleOAuthClient, mock(GmailConnectionRepository.class),
-                mock(InviteCodeService.class), stateService);
+                mock(InviteCodeService.class), stateService,
+                mock(com.financeos.core.applock.AppLockService.class),
+                mock(com.financeos.domain.applock.AppLockDeviceRepository.class));
         when(googleOAuthClient.buildAuthorizationUrl(any())).thenReturn("https://accounts.example/consent");
         // The exchange failing is enough to show it was reached.
         when(googleOAuthClient.exchangeCodeForTokens("code")).thenThrow(new IllegalStateException("exchange reached"));

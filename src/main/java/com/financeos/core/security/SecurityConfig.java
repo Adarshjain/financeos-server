@@ -1,5 +1,6 @@
 package com.financeos.core.security;
 
+import com.financeos.core.applock.AppLockFilter;
 import com.financeos.core.observability.LoggingAccessDeniedHandler;
 import com.financeos.core.observability.LoggingAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +37,7 @@ public class SecurityConfig {
     private final AppConfigProperties appConfig;
     private final UserContextFilter userContextFilter;
     private final OriginValidationFilter originValidationFilter;
+    private final AppLockFilter appLockFilter;
     private final LoggingAuthenticationEntryPoint authEntryPoint;
     private final LoggingAccessDeniedHandler accessDeniedHandler;
     private final boolean openApiDocsEnabled;
@@ -44,12 +46,14 @@ public class SecurityConfig {
             AppConfigProperties appConfig,
             UserContextFilter userContextFilter,
             OriginValidationFilter originValidationFilter,
+            AppLockFilter appLockFilter,
             LoggingAuthenticationEntryPoint authEntryPoint,
             LoggingAccessDeniedHandler accessDeniedHandler,
             @Value("${springdoc.api-docs.enabled:false}") boolean openApiDocsEnabled) {
         this.appConfig = appConfig;
         this.userContextFilter = userContextFilter;
         this.originValidationFilter = originValidationFilter;
+        this.appLockFilter = appLockFilter;
         this.authEntryPoint = authEntryPoint;
         this.accessDeniedHandler = accessDeniedHandler;
         this.openApiDocsEnabled = openApiDocsEnabled;
@@ -92,6 +96,7 @@ public class SecurityConfig {
                 // into a pass-through. AccessLogFilter (@Order(10)) depends on userContextFilter running first.
                 .addFilterBefore(originValidationFilter, SecurityContextHolderFilter.class)
                 .addFilterAfter(userContextFilter, SecurityContextHolderFilter.class)
+                .addFilterAfter(appLockFilter, UserContextFilter.class)
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(authEntryPoint)
                         .accessDeniedHandler(accessDeniedHandler))
@@ -155,6 +160,14 @@ public class SecurityConfig {
     @Bean
     public org.springframework.boot.web.servlet.FilterRegistrationBean<OriginValidationFilter> originValidationFilterRegistration(OriginValidationFilter filter) {
         org.springframework.boot.web.servlet.FilterRegistrationBean<OriginValidationFilter> registration =
+                new org.springframework.boot.web.servlet.FilterRegistrationBean<>(filter);
+        registration.setEnabled(false);
+        return registration;
+    }
+
+    @Bean
+    public org.springframework.boot.web.servlet.FilterRegistrationBean<AppLockFilter> appLockFilterRegistration(AppLockFilter filter) {
+        org.springframework.boot.web.servlet.FilterRegistrationBean<AppLockFilter> registration =
                 new org.springframework.boot.web.servlet.FilterRegistrationBean<>(filter);
         registration.setEnabled(false);
         return registration;

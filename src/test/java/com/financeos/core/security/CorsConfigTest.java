@@ -16,7 +16,8 @@ class CorsConfigTest {
         AppConfigProperties appConfig = new AppConfigProperties();
         appConfig.getCors().setAllowedOrigins("https://app.example");
         SecurityConfig security = new SecurityConfig(appConfig, mock(UserContextFilter.class),
-                mock(OriginValidationFilter.class), mock(LoggingAuthenticationEntryPoint.class),
+                mock(OriginValidationFilter.class), mock(com.financeos.core.applock.AppLockFilter.class),
+                mock(LoggingAuthenticationEntryPoint.class),
                 mock(LoggingAccessDeniedHandler.class), false);
         MockHttpServletRequest request = new MockHttpServletRequest(method, "/api/v1/bills/x/details");
         request.addHeader("Origin", "https://app.example");

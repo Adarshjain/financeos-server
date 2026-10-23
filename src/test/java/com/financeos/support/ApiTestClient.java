@@ -48,6 +48,21 @@ public final class ApiTestClient {
         return new ApiTestClient(mockMvc, mapper, cookie);
     }
 
+    /** Logs in an already signed-up {@code email}, sending {@code extraCookies} (e.g. the app-lock device cookie). */
+    public static ApiTestClient login(MockMvc mockMvc, ObjectMapper mapper, String email, Cookie... extraCookies)
+            throws Exception {
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/api/v1/auth/login");
+        if (extraCookies.length > 0) {
+            request.cookie(extraCookies);
+        }
+        Cookie cookie = mockMvc.perform(request
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(Map.of("email", email, "password", PASSWORD))))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getCookie("FINANCEOS_SESSION");
+        return new ApiTestClient(mockMvc, mapper, cookie);
+    }
+
     /** POSTs {@code body} (null = no body) and returns the raw response, whatever its status. */
     public MockHttpServletResponse post(String path, Object body) throws Exception {
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(path).cookie(session);

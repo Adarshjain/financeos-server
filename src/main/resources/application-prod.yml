@@ -38,3 +38,9 @@ management:
 
 warm-ping:
   enabled: ${WARM_PING_ENABLED:true}
+
+# App lock passkeys belong to the UI's host (not secret); env vars still override.
+app:
+  app-lock:
+    rp-id: ${APP_LOCK_RP_ID:financeos-client.vercel.app}
+    origins: ${APP_LOCK_ORIGINS:https://financeos-client.vercel.app}
