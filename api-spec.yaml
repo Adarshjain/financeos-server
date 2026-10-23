@@ -7631,7 +7631,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/RuleResponse"
+                $ref: "#/components/schemas/VerifyRuleResponse"
           description: OK
         default:
           content:
@@ -9053,8 +9053,13 @@ components:
         verifiedCount:
           type: integer
           format: int32
+        verifiedRules:
+          type: array
+          items:
+            $ref: "#/components/schemas/RuleVerification"
       required:
       - verifiedCount
+      - verifiedRules
     CapStatus:
       type: object
       properties:
@@ -9677,6 +9682,42 @@ components:
           format: int32
       required:
       - cleared
+    ClearedTransaction:
+      type: object
+      properties:
+        previousReviewReasons:
+          type: array
+          items:
+            type: string
+            enum:
+            - UNRECONCILED
+            - CATEGORY_UNVERIFIED
+            - DUPLICATE_SUSPECT
+            - DATE_CORRECTED
+          uniqueItems: true
+        previousReviewType:
+          type: string
+          enum:
+          - NEEDS_REVIEW
+          - AUTO_REVIEWED
+          - MANUALLY_REVIEWED
+          - NA
+        previousReviewedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        transactionId:
+          type: string
+          format: uuid
+        verifiedUpdatedAt:
+          type: string
+          format: date-time
+      required:
+      - previousReviewReasons
+      - previousReviewType
+      - transactionId
+      - verifiedUpdatedAt
     CloseAccountRequest:
       type: object
       properties:
@@ -17272,6 +17313,25 @@ components:
       - merchantKey
       - source
       - verified
+    RuleVerification:
+      type: object
+      properties:
+        clearedTransactionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        clearedTransactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ClearedTransaction"
+        ruleId:
+          type: string
+          format: uuid
+      required:
+      - clearedTransactionIds
+      - clearedTransactions
+      - ruleId
     RunReportRequest:
       type: object
       properties:
@@ -18671,6 +18731,12 @@ components:
     UnverifyRuleRequest:
       type: object
       properties:
+        restore:
+          type: array
+          items:
+            $ref: "#/components/schemas/ClearedTransaction"
+          maxItems: 5000
+          minItems: 0
         transactionIds:
           type: array
           items:
@@ -18689,8 +18755,14 @@ components:
           items:
             type: string
             format: uuid
+        skippedTransactionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
       required:
       - restoredTransactionIds
+      - skippedTransactionIds
     UpdateAppLockSettingsRequest:
       type: object
       properties:
@@ -19176,6 +19248,57 @@ components:
       required:
       - clearedTransactionIds
       - ruleId
+    VerifyRuleResponse:
+      type: object
+      properties:
+        appliedCount:
+          type: integer
+          format: int32
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryResponse"
+        clearedTransactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ClearedTransaction"
+        createdAt:
+          type: string
+          format: date-time
+        displayName:
+          type: string
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        lastAppliedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        matchType:
+          type: string
+        mcc:
+          type: string
+          nullable: true
+          x-nullable: true
+        merchantKey:
+          type: string
+        source:
+          type: string
+        verified:
+          type: boolean
+      required:
+      - appliedCount
+      - categories
+      - clearedTransactions
+      - createdAt
+      - id
+      - matchType
+      - merchantKey
+      - source
+      - verified
     WidgetLayout:
       type: object
       properties:

@@ -12,6 +12,7 @@ import com.financeos.api.rules.dto.RuleMatchTransactionResponse;
 import com.financeos.api.rules.dto.RuleResponse;
 import com.financeos.api.rules.dto.UnverifyRuleRequest;
 import com.financeos.api.rules.dto.UnverifyRuleResponse;
+import com.financeos.api.rules.dto.VerifyRuleResponse;
 import com.financeos.api.rules.dto.UpdateRuleRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
@@ -239,7 +240,7 @@ public class RulesController {
     }
 
     @PostMapping("/{id}/verify")
-    public ResponseEntity<RuleResponse> verifyRule(@PathVariable UUID id) {
+    public ResponseEntity<VerifyRuleResponse> verifyRule(@PathVariable UUID id) {
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 
         CategoryRule rule = categoryRuleRepository.findWithCategoriesById(id)
@@ -250,8 +251,10 @@ public class RulesController {
             throw new ValidationException("You do not have permission to modify this rule.");
         }
 
-        categorizationService.verifyRule(rule);
-        return ResponseEntity.ok(RuleResponse.from(rule));
+        List<CategorizationService.RuleVerification> verified = categorizationService.verifyRule(rule);
+        List<CategorizationService.ClearedTransaction> cleared = verified.isEmpty()
+                ? List.of() : verified.get(0).clearedTransactions();
+        return ResponseEntity.ok(VerifyRuleResponse.from(RuleResponse.from(rule), cleared));
     }
 
     /**
@@ -271,8 +274,9 @@ public class RulesController {
             throw new ValidationException("You do not have permission to modify this rule.");
         }
 
-        List<UUID> restored = categorizationService.unverifyRule(rule, request.transactionIds(), currentSessionUserId);
-        return ResponseEntity.ok(new UnverifyRuleResponse(restored));
+        CategorizationService.UnverifyResult result = categorizationService.unverifyRule(rule, request.transactionIds(),
+                request.restore() == null ? List.of() : request.restore(), currentSessionUserId);
+        return ResponseEntity.ok(new UnverifyRuleResponse(result.restoredTransactionIds(), result.skippedTransactionIds()));
     }
 
     /**
@@ -290,8 +294,8 @@ public class RulesController {
         }
 
         List<CategoryRule> unverified = rules.stream().filter(rule -> !rule.isVerified()).toList();
-        categorizationService.verifyRules(unverified);
-        return ResponseEntity.ok(new BulkVerifyRulesResponse(unverified.size()));
+        List<CategorizationService.RuleVerification> verified = categorizationService.verifyRules(unverified);
+        return ResponseEntity.ok(new BulkVerifyRulesResponse(unverified.size(), verified));
     }
 
     /**
