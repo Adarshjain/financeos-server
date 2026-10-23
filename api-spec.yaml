@@ -7982,6 +7982,30 @@ paths:
           description: Error response
       tags:
       - transaction-controller
+  /api/v1/transactions/undo-approve:
+    post:
+      operationId: undoApprove
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UndoApproveRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UndoApproveResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - transaction-controller
   /api/v1/transactions/{id}:
     delete:
       operationId: deleteTransaction
@@ -8558,6 +8582,10 @@ components:
     BatchReviewResponse:
       type: object
       properties:
+        approvedTransactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ClearedTransaction"
         failures:
           type: array
           items:
@@ -8575,6 +8603,7 @@ components:
           items:
             $ref: "#/components/schemas/VerifiedRuleChange"
       required:
+      - approvedTransactions
       - failures
       - skippedIds
       - succeededIds
@@ -17313,6 +17342,21 @@ components:
       - merchantKey
       - source
       - verified
+    RuleRestore:
+      type: object
+      properties:
+        restore:
+          type: array
+          items:
+            $ref: "#/components/schemas/ClearedTransaction"
+          maxItems: 20000
+          minItems: 0
+        ruleId:
+          type: string
+          format: uuid
+          x-required: true
+      required:
+      - ruleId
     RuleVerification:
       type: object
       properties:
@@ -18672,6 +18716,37 @@ components:
       required:
       - label
       - value
+    UndoApproveRequest:
+      type: object
+      properties:
+        approved:
+          type: array
+          items:
+            $ref: "#/components/schemas/ClearedTransaction"
+          maxItems: 500
+          minItems: 0
+        rules:
+          type: array
+          items:
+            $ref: "#/components/schemas/RuleRestore"
+          maxItems: 50
+          minItems: 0
+    UndoApproveResponse:
+      type: object
+      properties:
+        restoredTransactionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        skippedTransactionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+      required:
+      - restoredTransactionIds
+      - skippedTransactionIds
     UnlockVerifyRequest:
       type: object
       properties:
@@ -19242,11 +19317,16 @@ components:
           items:
             type: string
             format: uuid
+        clearedTransactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ClearedTransaction"
         ruleId:
           type: string
           format: uuid
       required:
       - clearedTransactionIds
+      - clearedTransactions
       - ruleId
     VerifyRuleResponse:
       type: object
