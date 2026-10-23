@@ -287,8 +287,17 @@ public class DividendReceiptService {
 
     @Transactional(readOnly = true)
     public DividendReceiptSummaryResponse getReceiptSummary(UUID holdingId, UUID brokerAccountId, UUID instrumentId, DividendType type) {
+        return getReceiptSummary(holdingId, brokerAccountId, instrumentId, type, null, null);
+    }
+
+    /** {@link #getReceiptSummary(UUID, UUID, UUID, DividendType)} for dividends paid within {@code from}..{@code to} (either end open). */
+    @Transactional(readOnly = true)
+    public DividendReceiptSummaryResponse getReceiptSummary(UUID holdingId, UUID brokerAccountId, UUID instrumentId, DividendType type,
+                                                            LocalDate from, LocalDate to) {
         DividendReceiptStatusResolver.Context ctx = resolver.context();
-        List<Object[]> rows = dividendRepository.findReceiptRowsForSummary(holdingId, brokerAccountId, instrumentId, type);
+        List<Object[]> rows = dividendRepository.findReceiptRowsForSummary(holdingId, brokerAccountId, instrumentId, type).stream()
+                .filter(r -> DividendService.inRange((LocalDate) r[2], from, to))
+                .toList();
 
         Map<DividendReceiptStatus, long[]> counts = new EnumMap<>(DividendReceiptStatus.class);
         Map<DividendReceiptStatus, BigDecimal> expected = new EnumMap<>(DividendReceiptStatus.class);
