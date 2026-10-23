@@ -35,6 +35,14 @@ public final class Events {
     public static final String AUTH_SESSION_ORPHANED = "auth.session.orphaned";
     // Note: JDBC-backed session expiry is unobservable because Spring Session performs a bulk SQL DELETE without publishing per-session events.
 
+    // App lock (passkeys) Events
+    public static final String APP_LOCK_ENROLLED = "auth.app_lock.enrolled";
+    public static final String APP_LOCK_DISABLED = "auth.app_lock.disabled";
+    public static final String APP_LOCK_DENIED = "auth.app_lock.denied";
+    public static final String APP_LOCK_UNLOCKED = "auth.app_lock.unlocked";
+    public static final String APP_LOCK_UNLOCK_FAILED = "auth.app_lock.unlock_failed";
+    public static final String APP_LOCK_SESSION_ENDED = "auth.app_lock.session_ended";
+
     // Google OAuth Events
     public static final String OAUTH_GOOGLE_AUTHORIZE_STARTED = "oauth.google.authorize.started";
     public static final String OAUTH_GOOGLE_CALLBACK_RECEIVED = "oauth.google.callback.received";

@@ -111,6 +111,25 @@ app:
   cors:
     allowed-origins: ${CORS_ORIGINS:http://localhost:3001}
   ui-path: ${UI_PATH:http://localhost:3001}
+  # App lock (passkeys). rp-id must be the UI's host (or a registrable suffix of it): browsers bind
+  # a passkey to the page origin, not to this API. origins are the exact UI origins allowed to
+  # enrol/unlock. Defaults match local dev (client on https://localhost:6970).
+  app-lock:
+    rp-id: ${APP_LOCK_RP_ID:localhost}
+    rp-name: FinanceOS
+    origins: ${APP_LOCK_ORIGINS:https://localhost:6970}
+    # Client heartbeat cadence (only while the app is visible and focused).
+    heartbeat-seconds: 15
+    # "Immediately" locks on leaving; if that beacon is missed, this many seconds without a heartbeat locks.
+    immediate-backstop-seconds: 30
+    # Failed unlocks before the session is ended.
+    max-unlock-failures: 5
+    # POST /lock is ignored this long after an unlock (the lock page's page-leave beacon must not re-lock it).
+    lock-ignore-after-unlock-seconds: 2
+    # Allowed "lock after" values (seconds) and the default for a new device. The DB check
+    # constraint (V108) allows the same set.
+    allowed-lock-after-seconds: [0, 60, 300, 900]
+    default-lock-after-seconds: 60
   # Web Push (VAPID). Both keys unset => push is off: the settings page says so and the bill
   # tick only records markers. Generate with com.financeos.core.push.GenerateVapidKeys.
   push:

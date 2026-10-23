@@ -1052,6 +1052,172 @@ paths:
           description: Error response
       tags:
       - account-insights-controller
+  /api/v1/app-lock:
+    delete:
+      operationId: disable
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - app-lock-controller
+  /api/v1/app-lock/heartbeat:
+    post:
+      operationId: heartbeat
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - app-lock-controller
+  /api/v1/app-lock/lock:
+    post:
+      operationId: lock
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - app-lock-controller
+  /api/v1/app-lock/registration/options:
+    post:
+      operationId: registrationOptions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegistrationOptionsRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: object
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - app-lock-controller
+  /api/v1/app-lock/registration/verify:
+    post:
+      operationId: registrationVerify
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegistrationVerifyRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RegistrationVerifyResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - app-lock-controller
+  /api/v1/app-lock/settings:
+    patch:
+      operationId: updateSettings_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateAppLockSettingsRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - app-lock-controller
+  /api/v1/app-lock/status:
+    get:
+      operationId: status
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AppLockStatusResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - app-lock-controller
+  /api/v1/app-lock/unlock/options:
+    post:
+      operationId: unlockOptions
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: object
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - app-lock-controller
+  /api/v1/app-lock/unlock/verify:
+    post:
+      operationId: unlockVerify
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UnlockVerifyRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - app-lock-controller
   /api/v1/auth/google/callback:
     get:
       operationId: handleGoogleCallback
@@ -7980,6 +8146,28 @@ components:
       - cards
       - statements
       - transactions
+    AppLockStatusResponse:
+      type: object
+      properties:
+        armed:
+          type: boolean
+        heartbeatSeconds:
+          type: integer
+          format: int32
+        lockAfterSeconds:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        locked:
+          type: boolean
+        rpId:
+          type: string
+      required:
+      - armed
+      - heartbeatSeconds
+      - locked
+      - rpId
     AppNotificationResponse:
       type: object
       properties:
@@ -15405,6 +15593,33 @@ components:
           type: string
           nullable: true
           x-nullable: true
+    RegistrationOptionsRequest:
+      type: object
+      properties:
+        lockAfterSeconds:
+          type: integer
+          format: int32
+          x-required: true
+      required:
+      - lockAfterSeconds
+    RegistrationVerifyRequest:
+      type: object
+      properties:
+        credential:
+          x-required: true
+        label:
+          type: string
+          maxLength: 100
+          minLength: 0
+      required:
+      - credential
+    RegistrationVerifyResponse:
+      type: object
+      properties:
+        deviceId:
+          type: string
+      required:
+      - deviceId
     RemovePushSubscriptionRequest:
       type: object
       properties:
@@ -18267,6 +18482,13 @@ components:
       required:
       - label
       - value
+    UnlockVerifyRequest:
+      type: object
+      properties:
+        credential:
+          x-required: true
+      required:
+      - credential
     UnrecordedDividendCredit:
       type: object
       properties:
@@ -18339,6 +18561,15 @@ components:
             format: uuid
       required:
       - restoredTransactionIds
+    UpdateAppLockSettingsRequest:
+      type: object
+      properties:
+        lockAfterSeconds:
+          type: integer
+          format: int32
+          x-required: true
+      required:
+      - lockAfterSeconds
     UpdateBillDetailsRequest:
       type: object
       properties:

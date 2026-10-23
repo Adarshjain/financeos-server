@@ -6,11 +6,15 @@ import com.financeos.core.exception.DuplicateResourceException;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.oauth.GoogleOAuthClient;
+import com.financeos.core.applock.AppLockService;
+import com.financeos.core.applock.AppLockSession;
 import com.financeos.core.oauth.OAuthStateService;
+import com.financeos.domain.applock.AppLockDeviceRepository;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailConnectionRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -54,6 +58,8 @@ public class AuthService {
     private final GmailConnectionRepository gmailConnectionRepository;
     private final InviteCodeService inviteCodeService;
     private final OAuthStateService stateService;
+    private final AppLockService appLockService;
+    private final AppLockDeviceRepository appLockDevices;
 
     public AuthService(AuthenticationManager authenticationManager,
             UserRepository userRepository,
@@ -62,7 +68,11 @@ public class AuthService {
             GoogleOAuthClient googleOAuthClient,
             GmailConnectionRepository gmailConnectionRepository,
             InviteCodeService inviteCodeService,
-            OAuthStateService stateService) {
+            OAuthStateService stateService,
+            AppLockService appLockService,
+            AppLockDeviceRepository appLockDevices) {
+        this.appLockService = appLockService;
+        this.appLockDevices = appLockDevices;
         this.stateService = stateService;
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
@@ -251,6 +261,7 @@ public class AuthService {
 
         if (userId != null) {
             UserContext.setCurrentUserId(userId);
+            armAppLock(request, userId);
         }
 
         String rawSessionId = (request != null && request.getSession(false) != null) ? request.getSession(false).getId() : null;
@@ -258,6 +269,32 @@ public class AuthService {
         log.info("Session created: sessionIdHash={}", sessionIdHash,
                 StructuredArguments.keyValue("event", Events.AUTH_SESSION_CREATED),
                 StructuredArguments.keyValue("sessionIdHash", sessionIdHash));
+    }
+
+    /**
+     * A new session starts with app lock off, then is armed (unlocked: the user just proved who they
+     * are) when the request carries the device cookie of one of this user's enrolled devices. No cookie
+     * means no query at all.
+     */
+    private void armAppLock(HttpServletRequest request, UUID userId) {
+        if (request == null) {
+            return;
+        }
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return;
+        }
+        appLockService.disarm(session);
+        String cookie = AppLockSession.deviceCookie(request);
+        if (cookie == null || cookie.isBlank()) {
+            return;
+        }
+        try {
+            appLockDevices.findByIdAndUserId(UUID.fromString(cookie), userId)
+                    .ifPresent(d -> appLockService.arm(session, d.getId().toString(), d.getLockAfterSeconds()));
+        } catch (IllegalArgumentException ignored) {
+            // A malformed device cookie is just "no device".
+        }
     }
 
     // Overload for existing callers if necessary, or just rely on the main method
