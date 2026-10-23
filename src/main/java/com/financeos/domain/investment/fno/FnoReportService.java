@@ -137,8 +137,8 @@ public class FnoReportService {
             turnover = turnover.add(abs);
             List<String> cells = new ArrayList<>();
             cells.add(tradeDate(t).toString());
-            cells.add(underlyingOf(t));
-            cells.add(t.getTradingSymbol());
+            cells.add(CsvText.text(underlyingOf(t)));
+            cells.add(CsvText.text(t.getTradingSymbol()));
             cells.add(plain(t.getStrikePrice()));
             cells.add(typeOf(t));
             cells.add(plain(t.getQuantity()));

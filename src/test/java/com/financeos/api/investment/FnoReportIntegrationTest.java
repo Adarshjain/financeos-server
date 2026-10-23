@@ -47,6 +47,7 @@ class FnoReportIntegrationTest {
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
     @Autowired private UserRepository userRepository;
+    @Autowired private org.springframework.jdbc.core.JdbcTemplate jdbc;
 
     private final List<String> emails = new ArrayList<>();
     private final Map<Cookie, List<UUID>> accountsBySession = new HashMap<>();
@@ -274,6 +275,28 @@ class FnoReportIntegrationTest {
         assertEquals("2027-03-31,NIFTY,NIFTY27MAR24000CE,24000,CE,1,100,400,10,290,290", lines[5]);
         // turnover is the sum of |P&L| per trade: 550+780+200+1000+290
         assertEquals("Total,,,,,,7700,9100,80,1320,2820", lines[6]);
+    }
+
+    @Test
+    void tradeWithoutUnderlyingIsFoundByItsTradingSymbol() throws Exception {
+        trade("N", broker1, "ZZTEST26APRFUT", "ZZTEST", "future", null, null, "2026-06-01", "2026-06-02", 100, 150, 0);
+        trade("M", broker1, "YYTEST26APRFUT", "YYTEST", "future", null, null, "2026-06-01", "2026-06-02", 100, 150, 0);
+        // the API derives a missing underlying, so blank the stored one directly (as an import can leave it)
+        jdbc.update("UPDATE fno_trades SET underlying_symbol = NULL WHERE id = ?", tradeIds.get("N").toString());
+        jdbc.update("UPDATE fno_trades SET underlying_symbol = '  ' WHERE id = ?", tradeIds.get("M").toString());
+        assertEquals(List.of("N"), names(getJson(FNO + "/page?underlying=zztest26aprfut")));
+        assertEquals(List.of("M"), names(getJson(FNO + "/page?underlying=YYTEST26APRFUT")));
+        // a trade with an underlying is still matched by it, not by its contract
+        assertEquals(0, getJson(FNO + "/page?underlying=NIFTY26APR24000PE").get("totalElements").asInt());
+    }
+
+    @Test
+    void exportDefusesLeadingMinusInTextCellsButNotNumbers() throws Exception {
+        trade("X", broker1, "-CMD26APRFUT", "-NEG", "future", null, null, "2026-06-01", "2026-06-02", 200, 100, 0);
+        String csv = mockMvc.perform(get(FNO + "/export.csv?fy=2026").cookie(session))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        // the loss (-100) is a number and stays bare; the text cells are prefixed
+        assertTrue(csv.contains("2026-06-02,'-NEG,'-CMD26APRFUT,,FUT,1,200,100,0,-100,100\r\n"));
     }
 
     @Test

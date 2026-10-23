@@ -253,6 +253,28 @@ class CorporateActionPageAndPreviewIntegrationTest {
         assertEquals("bonus", legacy.get(0).get("type").asText());
     }
 
+    @Test
+    void thePageQuantityAfterLeavesOutTradesOnTheExDate() throws Exception {
+        UUID bought = stock("Same Day Buy", "SDB", "20");
+        UUID sold = stock("Same Day Sell", "SDS", "21");
+        UUID br = broker(alice, "X1");
+        LocalDate ex = today.minusDays(10);
+        trade(alice, br, bought, "buy", "100", "100", today.minusDays(100));
+        trade(alice, br, sold, "buy", "100", "100", today.minusDays(100));
+        alice.create("/api/v1/instruments/" + bought + "/corporate-actions", bonus(1, 2, ex));
+        alice.create("/api/v1/instruments/" + sold + "/corporate-actions", bonus(1, 2, ex));
+        // the engine applies the action before the day's trades, so the trades do not move before/after
+        trade(alice, br, bought, "buy", "50", "100", ex);
+        trade(alice, br, sold, "sell", "30", "100", ex);
+
+        JsonNode b = alice.getJson("/api/v1/corporate-actions/page?search=Same Day Buy " + tag, 200).get("items").get(0);
+        assertDecimal("100", b.get("quantityBefore"));
+        assertDecimal("200", b.get("quantityAfter"));
+        JsonNode s = alice.getJson("/api/v1/corporate-actions/page?search=Same Day Sell " + tag, 200).get("items").get(0);
+        assertDecimal("100", s.get("quantityBefore"));
+        assertDecimal("200", s.get("quantityAfter"));
+    }
+
     // ------------------------------------------------------------------ preview
 
     @Test
@@ -357,6 +379,25 @@ class CorporateActionPageAndPreviewIntegrationTest {
         // Fraction 0.5 at cost 0.5 * (7 * 100 * 50% / 10.5) = 16.67 against 30 received: +13.33.
         assertEquals(0, new BigDecimal("13.33").compareTo(
                 r2.get("fractionalRealized").decimalValue().setScale(2, java.math.RoundingMode.HALF_UP)));
+    }
+
+    @Test
+    void previewFractionalResultIgnoresTheChildHoldingsOwnEarlierSells() throws Exception {
+        UUID parent = stock("Sells Parent", "SLP", "22");
+        UUID child = stock("Sells Child", "SLC", "23");
+        UUID br = broker(alice, "F3");
+        trade(alice, br, parent, "buy", "7", "100", today.minusDays(100));
+        // the child is already held at that broker, with a realised gain of its own
+        trade(alice, br, child, "buy", "10", "50", today.minusDays(90));
+        trade(alice, br, child, "sell", "4", "80", today.minusDays(80));
+        Map<String, Object> body = new HashMap<>(demerger(child, 2, 3, today.minusDays(50), 50));
+        body.put("fractionalCashInLieu", 30);
+
+        JsonNode r = preview(parent, body, 200).get("holdings").get(0);
+        assertDecimal("10", r.get("childQuantity"));
+        // 0.5 of a share settled for 30, at cost 0.5 * (7 * 100 * 50% / 10.5) = 16.67: +13.33, not the child's +120
+        assertEquals(0, new BigDecimal("13.33").compareTo(
+                r.get("fractionalRealized").decimalValue().setScale(2, java.math.RoundingMode.HALF_UP)));
     }
 
     @Test

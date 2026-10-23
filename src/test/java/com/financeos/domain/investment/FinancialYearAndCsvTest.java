@@ -73,6 +73,20 @@ class FinancialYearAndCsvTest {
     }
 
     @Test
+    void csvTextCellsAlsoDefuseALeadingMinusWhileNumbersStayBare() {
+        assertEquals("'-cmd", CsvText.text("-cmd"));
+        assertEquals("'-1+1", CsvText.text("-1+1"));
+        assertEquals("plain-text", CsvText.text("plain-text"));
+        assertEquals("=x", CsvText.text("=x"), "other formula starters are left to cell()");
+        assertEquals("", CsvText.text(""));
+        assertEquals(null, CsvText.text(null));
+        assertEquals("'=x", CsvText.cell(CsvText.text("=x")));
+        assertEquals("'-cmd", CsvText.cell(CsvText.text("-cmd")));
+        assertEquals("a,'-b\r\n", CsvText.row(Arrays.asList("a", CsvText.text("-b"))));
+        assertEquals("-123.45", CsvText.cell("-123.45"));
+    }
+
+    @Test
     void csvRowJoinsWithCommasAndEndsWithCrlf() {
         assertEquals("a,\"b,c\",,d\r\n", CsvText.row(Arrays.asList("a", "b,c", null, "d")));
     }

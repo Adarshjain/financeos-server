@@ -62,6 +62,7 @@ class DividendReportIntegrationTest {
     private final String nameX = "Alpha, \"Quoted\" Ltd " + UUID.randomUUID().toString().substring(0, 6);
     private final String nameY = "Beta Ltd " + UUID.randomUUID().toString().substring(0, 6);
     private final List<UUID> dividendIds = new ArrayList<>();
+    private final List<UUID> extraInstruments = new ArrayList<>();
 
     @BeforeEach
     void setUp() throws Exception {
@@ -85,7 +86,9 @@ class DividendReportIntegrationTest {
     @AfterEach
     void tearDown() throws Exception {
         dividendRepository.deleteAllById(dividendIds);
-        for (UUID instrumentId : List.of(instrumentX, instrumentY)) {
+        List<UUID> allInstruments = new ArrayList<>(List.of(instrumentX, instrumentY));
+        allInstruments.addAll(extraInstruments);
+        for (UUID instrumentId : allInstruments) {
             holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerId, instrumentId).ifPresent(h -> {
                 investmentTransactionRepository.deleteAll(investmentTransactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(h.getId()));
                 holdingRepository.deleteById(h.getId());
@@ -214,6 +217,21 @@ class DividendReportIntegrationTest {
         assertTrue(lines[2].startsWith(quotedX + ",Report Broker,dividend,," + FinancialYear.start(cur) + ",10,20,200,20,180,"), lines[2]);
         // no linked bank credit: the last two columns are empty
         assertTrue(lines[2].endsWith(",,"), lines[2]);
+    }
+
+    @Test
+    void exportDefusesLeadingMinusInTheInstrumentNameButNotNumbers() throws Exception {
+        String minusName = "-Minus Ltd " + UUID.randomUUID().toString().substring(0, 6);
+        UUID minus = instrument(minusName);
+        extraInstruments.add(minus);
+        dividend(minus, FinancialYear.start(cur).plusDays(5), 300, 30, null);
+        String csv = mockMvc.perform(get(DIV + "/export.csv?instrumentId=" + minus).cookie(session))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        String[] lines = csv.substring(1).split("\r\n");
+        assertEquals(2, lines.length);
+        assertTrue(lines[1].startsWith("'" + minusName + ",Report Broker,dividend,,"), lines[1]);
+        // numbers are never prefixed
+        assertTrue(lines[1].contains(",300,30,270,"), lines[1]);
     }
 
     @Test

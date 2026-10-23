@@ -32,7 +32,7 @@ public interface FnoTradeRepository extends JpaRepository<FnoTrade, UUID> {
             "(:fromDate IS NULL OR " + TRADE_DATE + " >= :fromDate) AND " +
             "(:toDate IS NULL OR " + TRADE_DATE + " <= :toDate) AND " +
             "(:brokerAccountId IS NULL OR b.id = :brokerAccountId) AND " +
-            "(:underlying IS NULL OR UPPER(f.underlyingSymbol) = :underlying) AND " +
+            "(:underlying IS NULL OR UPPER(COALESCE(NULLIF(TRIM(f.underlyingSymbol), ''), f.tradingSymbol)) = :underlying) AND " +
             "(:contractType IS NULL OR f.contractType = :contractType) AND " +
             "(:optionType IS NULL OR f.optionType = :optionType)";
 

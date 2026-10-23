@@ -27,6 +27,11 @@ public final class CsvText {
         return v;
     }
 
+    /** A text cell (name, symbol, description): as {@link #cell}, and a leading minus is also defused. Numbers use plain cells. */
+    public static String text(String value) {
+        return value != null && !value.isEmpty() && value.charAt(0) == '-' ? "'" + value : value;
+    }
+
     /** A row of cells (quoting applied here), with its line end. */
     public static String row(List<String> cells) {
         return cells.stream().map(CsvText::cell).collect(Collectors.joining(",")) + CRLF;

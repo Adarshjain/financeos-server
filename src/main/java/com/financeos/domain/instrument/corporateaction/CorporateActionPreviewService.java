@@ -60,9 +60,12 @@ public class CorporateActionPreviewService {
         List<Holding> holdings = holdingRepository.findByUser_IdAndInstrument_Id(userId, instrumentId);
         List<HoldingPosition> before = new ArrayList<>();
         List<HoldingPosition> childBefore = new ArrayList<>();
+        List<BigDecimal> fractionalBefore = new ArrayList<>();
         for (Holding h : holdings) {
             before.add(investmentService.calculateHoldingPosition(h));
-            childBefore.add(hasChild ? childPosition(h, childId) : null);
+            HoldingPosition cp = hasChild ? childPosition(h, childId) : null;
+            childBefore.add(cp);
+            fractionalBefore.add(cp == null ? null : investmentService.seedFractionalRealized(cp.holding()));
         }
 
         try {
@@ -81,7 +84,8 @@ public class CorporateActionPreviewService {
                     HoldingPosition ca = childPosition(h, childId);
                     childQty = diff(ca == null ? null : ca.openQty(), cb == null ? null : cb.openQty());
                     childCost = diff(ca == null ? null : ca.openCost(), cb == null ? null : cb.openCost());
-                    fractional = diff(ca == null ? null : ca.realized(), cb == null ? null : cb.realized());
+                    fractional = diff(ca == null ? null : investmentService.seedFractionalRealized(ca.holding()),
+                            fractionalBefore.get(i));
                 }
                 rows.add(new HoldingEffect(h.getBrokerAccount().getId(), h.getBrokerAccount().getName(),
                         b.openQty(), a.openQty(), b.avgCost(), a.avgCost(), b.openCost(), a.openCost(),

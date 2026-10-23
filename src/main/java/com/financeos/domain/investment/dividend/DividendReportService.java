@@ -105,8 +105,8 @@ public class DividendReportService {
     static List<String> exportRow(DividendResponse d) {
         BigDecimal tds = d.tds() != null ? d.tds() : BigDecimal.ZERO;
         List<String> cells = new ArrayList<>();
-        cells.add(d.instrumentName());
-        cells.add(d.brokerName());
+        cells.add(CsvText.text(d.instrumentName()));
+        cells.add(CsvText.text(d.brokerName()));
         cells.add(d.type().name());
         cells.add(d.exDate() != null ? d.exDate().toString() : null);
         cells.add(d.payDate().toString());
@@ -116,7 +116,7 @@ public class DividendReportService {
         cells.add(plain(tds));
         cells.add(plain(d.amount().subtract(tds)));
         cells.add(d.receiptStatus().name());
-        cells.add(d.transaction() != null ? d.transaction().description() : null);
+        cells.add(d.transaction() != null ? CsvText.text(d.transaction().description()) : null);
         cells.add(d.transaction() != null ? d.transaction().date().toString() : null);
         return cells;
     }

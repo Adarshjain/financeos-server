@@ -67,13 +67,17 @@ public class InstrumentCatalogListService {
         String needle = search == null || search.isBlank() ? null : search.trim().toLowerCase(Locale.ROOT);
         LocalDate today = AppTime.today();
 
-        Set<UUID> heldIds = heldInstrumentIds(userId);
+        // The engine pass is only needed to filter on held, or to flag the rows actually returned.
+        Set<UUID> heldIds = held != null ? heldInstrumentIds(userId) : Set.of();
         List<UUID> heldList = heldIds.isEmpty() ? List.of(NO_ID) : List.copyOf(heldIds);
         int staleMode = stale == null ? 0 : stale ? 1 : 2;
         int heldMode = held == null ? 0 : held ? 1 : 2;
 
         Page<Instrument> found = instrumentRepository.listAsSeenFiltered(userId, needle, type, dir, staleMode,
                 staleCutoff(today), today, heldMode, heldList, PageRequest.of(safePage, safeSize));
+        if (held == null && !found.isEmpty()) {
+            heldIds = heldInstrumentIds(userId);
+        }
         InstrumentOverrides overrides = found.isEmpty() ? InstrumentOverrides.NONE
                 : InstrumentOverrides.orNone(overrideService.overridesFor(userId));
         Map<UUID, InstrumentPrice> prices = latestPrices(found.getContent(), userId);
