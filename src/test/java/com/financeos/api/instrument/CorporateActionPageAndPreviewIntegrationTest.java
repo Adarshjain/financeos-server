@@ -398,4 +398,26 @@ class CorporateActionPageAndPreviewIntegrationTest {
                 split(1, 2, today.minusDays(5)), 200);
         assertEquals(0, bobs.get("holdings").size());
     }
+
+    @Test
+    void onlyARealCreateLogsCaCreatedNotAPreview() throws Exception {
+        ch.qos.logback.classic.Logger logger = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory.getLogger(
+                com.financeos.domain.instrument.corporateaction.CorporateActionService.class);
+        ch.qos.logback.core.read.ListAppender<ch.qos.logback.classic.spi.ILoggingEvent> appender =
+                new ch.qos.logback.core.read.ListAppender<>();
+        appender.start();
+        logger.addAppender(appender);
+        try {
+            UUID s = stock("Logged", "LOG", "18");
+            trade(alice, broker(alice, "G1"), s, "buy", "10", "100", today.minusDays(100));
+            preview(s, split(1, 2, today.minusDays(5)), 200);
+            assertEquals(0, appender.list.stream().filter(e -> e.getFormattedMessage().startsWith("Corporate action created")).count(),
+                    "a rolled-back preview logs nothing");
+            alice.create("/api/v1/instruments/" + s + "/corporate-actions", split(1, 2, today.minusDays(5)));
+            assertEquals(1, appender.list.stream().filter(e -> e.getFormattedMessage().startsWith("Corporate action created")).count(),
+                    "a real create logs ca.created once");
+        } finally {
+            logger.detachAppender(appender);
+        }
+    }
 }
