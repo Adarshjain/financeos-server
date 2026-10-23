@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.core.time.AppTime;
+import com.financeos.domain.job.JobWorker;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.support.ApiTestClient;
 import com.financeos.support.UserDataCleanup;
@@ -52,6 +53,7 @@ class MatchSuggestionsBatchIntegrationTest {
     @Autowired private JdbcTemplate jdbc;
     @Autowired private UserRepository userRepository;
     @Autowired private EntityManagerFactory emf;
+    @Autowired private JobWorker jobWorker;
     @Autowired private TransactionRepository transactionRepository;
     @Autowired private TransactionTemplate transactionTemplate;
     @jakarta.persistence.PersistenceContext private jakarta.persistence.EntityManager em;
@@ -113,9 +115,15 @@ class MatchSuggestionsBatchIntegrationTest {
     private long queriesFor(String path) throws Exception {
         Statistics stats = emf.unwrap(SessionFactory.class).getStatistics();
         stats.setStatisticsEnabled(true);
-        stats.clear();
-        api.getJson(path, 200);
-        return stats.getPrepareStatementCount();
+        // statistics are global: keep the job worker's poll out of the count
+        jobWorker.pause();
+        try {
+            stats.clear();
+            api.getJson(path, 200);
+            return stats.getPrepareStatementCount();
+        } finally {
+            jobWorker.resume();
+        }
     }
 
     private static Set<String> candidateIds(JsonNode suggestions) {
