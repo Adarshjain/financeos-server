@@ -161,6 +161,31 @@ public class DividendReceiptService {
 
     // --- reconciliation ------------------------------------------------------------------------
 
+    /**
+     * The credits that can be a candidate of any of {@code dividends}, from one query over the
+     * dividends' combined amount band and date window; each dividend then keeps the credits inside
+     * its own band and window (the same set a query per dividend returned).
+     */
+    private List<Transaction> creditPool(List<Dividend> dividends) {
+        if (dividends.isEmpty()) {
+            return List.of();
+        }
+        BigDecimal minAmount = null;
+        BigDecimal maxAmount = null;
+        LocalDate minDate = null;
+        LocalDate maxDate = null;
+        for (Dividend d : dividends) {
+            DividendReceiptWindows.Window window = DividendReceiptWindows.of(d);
+            BigDecimal low = DividendMatcher.bandLow(d.getAmount());
+            BigDecimal high = DividendMatcher.bandHigh(d.getAmount());
+            minAmount = minAmount == null || low.compareTo(minAmount) < 0 ? low : minAmount;
+            maxAmount = maxAmount == null || high.compareTo(maxAmount) > 0 ? high : maxAmount;
+            minDate = minDate == null || window.from().isBefore(minDate) ? window.from() : minDate;
+            maxDate = maxDate == null || window.to().isAfter(maxDate) ? window.to() : maxDate;
+        }
+        return transactionRepository.findCreditCandidates(RECEIVING_ACCOUNT_TYPES, minAmount, maxAmount, minDate, maxDate);
+    }
+
     @Transactional(readOnly = true)
     public DividendReconciliationResponse getReconciliation(UUID brokerAccountId, LocalDate from, LocalDate to) {
         DividendReceiptStatusResolver.Context ctx = resolver.context();
@@ -173,16 +198,22 @@ public class DividendReceiptService {
         Map<UUID, List<DividendMatcher.Scored>> scoredByDividend = new LinkedHashMap<>();
         Map<UUID, Transaction> candidateTxns = new HashMap<>();
 
+        List<Dividend> payable = unresolved.stream()
+                .filter(d -> d.getAmount() != null && d.getAmount().signum() > 0).toList();
+        List<Transaction> pool = creditPool(payable);
+
         for (Dividend d : unresolved) {
             List<DividendMatcher.Scored> scored = new ArrayList<>();
             if (d.getAmount() != null && d.getAmount().signum() > 0) {
                 DividendReceiptWindows.Window window = DividendReceiptWindows.of(d);
                 LocalDate base = DividendReceiptWindows.baseDate(d);
-                List<Transaction> candidates = transactionRepository.findCreditCandidates(
-                        RECEIVING_ACCOUNT_TYPES,
-                        DividendMatcher.bandLow(d.getAmount()), DividendMatcher.bandHigh(d.getAmount()),
-                        window.from(), window.to());
-                for (Transaction t : candidates) {
+                BigDecimal low = DividendMatcher.bandLow(d.getAmount());
+                BigDecimal high = DividendMatcher.bandHigh(d.getAmount());
+                for (Transaction t : pool) {
+                    if (t.getAmount().compareTo(low) < 0 || t.getAmount().compareTo(high) > 0
+                            || t.getDate().isBefore(window.from()) || t.getDate().isAfter(window.to())) {
+                        continue;
+                    }
                     if (referenced.contains(t.getId())) {
                         continue;
                     }

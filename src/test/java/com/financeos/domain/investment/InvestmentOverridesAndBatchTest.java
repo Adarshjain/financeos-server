@@ -131,11 +131,19 @@ class InvestmentOverridesAndBatchTest {
         return t;
     }
 
+    private final List<InvestmentTransaction> pricedTxns = new ArrayList<>();
+    private final List<InstrumentPrice> pricedPrices = new ArrayList<>();
+
     private void priced(Holding h, String qty, LocalDate asOf, String close) {
-        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(h.getId())).thenReturn(List.of(
-                txn(h, InvestmentTransactionType.buy, qty, "90", LocalDate.of(2026, 1, 5))));
-        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(h.getInstrument().getId()), org.mockito.ArgumentMatchers.any())).thenReturn(java.util.List.of(
-                new InstrumentPrice(h.getInstrument(), asOf, d(close), PriceSource.YAHOO)));
+        InvestmentTransaction buy = txn(h, InvestmentTransactionType.buy, qty, "90", LocalDate.of(2026, 1, 5));
+        InstrumentPrice price = new InstrumentPrice(h.getInstrument(), asOf, d(close), PriceSource.YAHOO);
+        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(h.getId())).thenReturn(List.of(buy));
+        when(priceRepository.findLatestVisible(org.mockito.ArgumentMatchers.eq(h.getInstrument().getId()), org.mockito.ArgumentMatchers.any())).thenReturn(java.util.List.of(price));
+        // the list endpoints read the user's transactions and latest prices in batch
+        pricedTxns.add(buy);
+        pricedPrices.add(price);
+        when(transactionRepository.findByUser_IdOrderByTradeDateAscCreatedAtAsc(owner.getId())).thenReturn(pricedTxns);
+        when(priceRepository.findLatestByInstrumentIds(anyCollection(), org.mockito.ArgumentMatchers.any())).thenReturn(pricedPrices);
     }
 
     private static Object[] close(Holding h, LocalDate asOf, String close) {
@@ -165,7 +173,7 @@ class InvestmentOverridesAndBatchTest {
     void realisedLotsUseTheOverrideForTheirTerm() {
         Holding fund = holding(InstrumentType.mutual_fund, "Liquid", LIQUID);
         when(holdingRepository.findAllWithDetails()).thenReturn(List.of(fund));
-        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(fund.getId())).thenReturn(List.of(
+        when(transactionRepository.findByUser_IdOrderByTradeDateAscCreatedAtAsc(owner.getId())).thenReturn(List.of(
                 txn(fund, InvestmentTransactionType.buy, "10", "100", LocalDate.of(2024, 1, 1)),
                 txn(fund, InvestmentTransactionType.sell, "10", "120", LocalDate.of(2025, 6, 1))));
         when(overrides.overridesFor(owner.getId())).thenReturn(overrideOf(fund, AssetClass.EQUITY));

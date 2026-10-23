@@ -135,9 +135,10 @@ class InvestmentInstrumentOverridesTest {
         Holding fund = holding(InstrumentType.mutual_fund, "Catalog Fund");
         renamed(fund, "My Fund", InstrumentType.stock);
         when(holdingRepository.findAllWithDetails()).thenReturn(List.of(fund));
-        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(fund.getId())).thenReturn(List.of(
+        // getAllPositions reads the user's transactions and latest prices in batch
+        when(transactionRepository.findByUser_IdOrderByTradeDateAscCreatedAtAsc(owner.getId())).thenReturn(List.of(
                 txn(fund, InvestmentTransactionType.buy, "10", "10", TODAY.minusDays(30))));
-        when(priceRepository.findLatestVisible(fund.getInstrument().getId(), owner.getId())).thenReturn(List.of(
+        when(priceRepository.findLatestByInstrumentIds(anyCollection(), eq(owner.getId()))).thenReturn(List.of(
                 new InstrumentPrice(fund.getInstrument(), TODAY.minusDays(1), new BigDecimal("12"), PriceSource.AMFI),
                 InstrumentPrice.manual(fund.getInstrument(), owner.getId(), TODAY.minusDays(1), new BigDecimal("15"))));
 
@@ -185,7 +186,7 @@ class InvestmentInstrumentOverridesTest {
         Holding stock = holding(InstrumentType.stock, "Catalog Co");
         renamed(stock, "Mine Co", InstrumentType.etf);
         when(holdingRepository.findAllWithDetails()).thenReturn(List.of(stock));
-        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(stock.getId())).thenReturn(List.of(
+        when(transactionRepository.findByUser_IdOrderByTradeDateAscCreatedAtAsc(owner.getId())).thenReturn(List.of(
                 txn(stock, InvestmentTransactionType.buy, "10", "10", TODAY.minusDays(30)),
                 txn(stock, InvestmentTransactionType.sell, "4", "12", TODAY.minusDays(5))));
 

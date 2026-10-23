@@ -47,7 +47,9 @@ class DividendServiceTest {
         dividendService = new DividendService(
                 dividendRepository, holdingRepository, userRepository,
                 investmentService, yahooClient, transactionRepository,
-                new DividendReceiptStatusResolver(Mockito.mock(com.financeos.domain.transaction.TransactionRepository.class))
+                new DividendReceiptStatusResolver(Mockito.mock(com.financeos.domain.transaction.TransactionRepository.class)),
+                Mockito.mock(com.financeos.domain.instrument.corporateaction.CorporateActionRepository.class),
+                Mockito.mock(com.financeos.domain.investment.TradeSettlementClassificationRepository.class)
         );
     }
 
@@ -64,8 +66,8 @@ class DividendServiceTest {
         when(mockInst.getId()).thenReturn(UUID.randomUUID());
         when(mockInst.getName()).thenReturn("Test Stock");
 
-        when(holdingRepository.findById(holdingId)).thenReturn(Optional.of(mockHolding));
-        when(dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holdingId)).thenReturn(List.of());
+        when(holdingRepository.findAllById(any())).thenReturn(List.of(mockHolding));
+        when(dividendRepository.findByHoldingIdInOrderByPayDateDescCreatedAtDesc(any())).thenReturn(List.of());
 
         Dividend savedDiv = new Dividend();
         savedDiv.setId(UUID.randomUUID());
@@ -100,5 +102,33 @@ class DividendServiceTest {
         assertEquals(1, response.created().size());
         assertEquals("suggested", response.created().get(0).source());
         assertEquals(new BigDecimal("150.00"), response.created().get(0).amount());
+    }
+
+    @Test
+    void testAcceptSuggestionsAcceptsAnOwnerlessLegacyHoldingTheBatchQueryHides() {
+        UUID holdingId = UUID.randomUUID();
+        Holding legacy = Mockito.mock(Holding.class); // getUser() is null
+        when(legacy.getId()).thenReturn(holdingId);
+        Instrument inst = Mockito.mock(Instrument.class);
+        com.financeos.domain.account.Account broker = Mockito.mock(com.financeos.domain.account.Account.class);
+        when(legacy.getInstrument()).thenReturn(inst);
+        when(legacy.getBrokerAccount()).thenReturn(broker);
+        when(broker.getId()).thenReturn(UUID.randomUUID());
+        when(inst.getId()).thenReturn(UUID.randomUUID());
+        when(inst.getName()).thenReturn("Legacy Stock");
+        when(holdingRepository.findAllById(any())).thenReturn(List.of());
+        when(holdingRepository.findById(holdingId)).thenReturn(Optional.of(legacy));
+        when(dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(holdingId)).thenReturn(List.of());
+        when(dividendRepository.save(any(Dividend.class))).thenAnswer(inv -> {
+            Dividend d = inv.getArgument(0);
+            d.setId(UUID.randomUUID());
+            return d;
+        });
+
+        AcceptSuggestionsResponse response = dividendService.acceptSuggestions(new AcceptSuggestionsRequest(List.of(
+                new AcceptSuggestionsRequest.Item(holdingId, LocalDate.of(2026, 2, 1), LocalDate.of(2026, 2, 5),
+                        new BigDecimal("150.00"), new BigDecimal("15.00"), "n"))));
+
+        assertEquals(1, response.created().size());
     }
 }

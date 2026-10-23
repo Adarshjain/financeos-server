@@ -40,7 +40,9 @@ class DividendFySummaryTest {
         dividendService = new DividendService(
                 dividendRepository, holdingRepository, userRepository,
                 investmentService, yahooClient, transactionRepository,
-                new DividendReceiptStatusResolver(Mockito.mock(com.financeos.domain.transaction.TransactionRepository.class))
+                new DividendReceiptStatusResolver(Mockito.mock(com.financeos.domain.transaction.TransactionRepository.class)),
+                Mockito.mock(com.financeos.domain.instrument.corporateaction.CorporateActionRepository.class),
+                Mockito.mock(com.financeos.domain.investment.TradeSettlementClassificationRepository.class)
         );
     }
 

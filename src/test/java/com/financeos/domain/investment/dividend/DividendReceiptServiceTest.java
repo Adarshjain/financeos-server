@@ -412,6 +412,43 @@ class DividendReceiptServiceTest {
     }
 
     @Test
+    void reconciliation_readsTheCreditsOnceAndEachDividendKeepsOnlyItsOwnBandAndWindow() {
+        Instant created = Instant.parse("2026-01-01T00:00:00Z");
+        Dividend recent = dividend("1000", null, "manual", null, TODAY.minusDays(5), created);
+        Dividend nearRecent = dividend("1000", null, "manual", null, TODAY.minusDays(8), created.plusSeconds(1));
+        Dividend old = dividend("2000", null, "manual", null, TODAY.minusDays(300), created.plusSeconds(2));
+        Transaction forRecent = credit("1000", TODAY.minusDays(5), "INFY DIV");     // both recent windows overlap here
+        Transaction forOld = credit("2000", TODAY.minusDays(300), "INFY DIV");
+        Transaction betweenWindows = credit("1000", TODAY.minusDays(150), "INFY DIV");   // inside the combined span, in no window
+        Transaction wrongBand = credit("90000", TODAY.minusDays(5), "BIG");
+        List<Transaction> all = List.of(forRecent, forOld, betweenWindows, wrongBand);
+        when(dividendRepository.findUnresolvedForReconciliation(null, null, null))
+                .thenReturn(List.of(recent, nearRecent, old));
+        // behave like the database: only credits inside the asked band and window come back
+        when(transactionRepository.findCreditCandidates(any(), any(), any(), any(), any())).thenAnswer(inv -> {
+            BigDecimal min = inv.getArgument(1);
+            BigDecimal max = inv.getArgument(2);
+            LocalDate from = inv.getArgument(3);
+            LocalDate to = inv.getArgument(4);
+            return all.stream().filter(t -> t.getAmount().compareTo(min) >= 0 && t.getAmount().compareTo(max) <= 0
+                    && !t.getDate().isBefore(from) && !t.getDate().isAfter(to)).toList();
+        });
+
+        DividendReconciliationResponse r = service.getReconciliation(null, null, null);
+
+        verify(transactionRepository, times(1)).findCreditCandidates(any(), any(), any(), any(), any());
+        assertEquals(3, r.unresolvedCount());
+        assertEquals(2, r.withCandidates());
+        // the credit both recent dividends could take goes to the one dated nearest it, as one query per dividend did
+        assertEquals(List.of(recent.getId(), old.getId()),
+                r.items().stream().map(i -> i.dividend().id()).toList());
+        assertEquals(List.of(forRecent.getId()),
+                r.items().get(0).candidates().stream().map(c -> c.transaction().id()).toList());
+        assertEquals(List.of(forOld.getId()),
+                r.items().get(1).candidates().stream().map(c -> c.transaction().id()).toList());
+    }
+
+    @Test
     void reconciliation_ranksCandidatesBestFirstWithReasonsAndImpliedTds() {
         Dividend d = manualDividend("1000", TODAY.minusDays(5));
         Transaction net = credit("900", TODAY.minusDays(5), "x");

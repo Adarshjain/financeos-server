@@ -153,21 +153,23 @@ class ImportServiceTrustedCandidateTest {
         });
         service.setRepointMap(map);
         parses("SRC", source.getIsin());
-        when(instrumentRepository.findByIsin(source.getIsin())).thenReturn(Optional.of(source));
+        when(instrumentRepository.findByIsinIn(any())).thenReturn(List.of(source));
 
         assertEquals(target.getId(), preview().rows().get(0).matchedInstrument().id());
-        verify(holdingRepository, never()).findByBrokerAccountIdAndInstrumentId(any(), eq(source.getId()));
+        verify(holdingRepository, never()).findByBrokerAccountIdAndInstrumentIdIn(any(), org.mockito.ArgumentMatchers.<java.util.Collection<UUID>>argThat(ids -> ids.contains(source.getId())));
 
-        when(instrumentRepository.findById(source.getId())).thenReturn(Optional.of(source));
+        when(instrumentRepository.findAllById(any())).thenReturn(List.of(source));
         Holding holding = new Holding();
         holding.setId(UUID.randomUUID());
         holding.setInstrument(target);
-        when(holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccountId, target.getId()))
-                .thenReturn(Optional.of(holding));
+        when(holdingRepository.findByBrokerAccountIdAndInstrumentIdIn(eq(brokerAccountId), any()))
+                .thenReturn(List.of(holding));
         service.commit(ImportSource.zerodha_tradebook, brokerAccountId, List.of(new ImportCommitRequest.CommitRowDto(1,
                 false, source.getId(), null, new ImportCommitRequest.ParsedRowData("trade", InvestmentTransactionType.buy,
                 BigDecimal.TEN, BigDecimal.ONE, null, LocalDate.of(2026, 1, 5), null, "ref-1", null))));
-        verify(holdingRepository).findByBrokerAccountIdAndInstrumentId(brokerAccountId, target.getId());
-        verify(holdingRepository, never()).findByBrokerAccountIdAndInstrumentId(brokerAccountId, source.getId());
+        verify(holdingRepository, org.mockito.Mockito.atLeastOnce()).findByBrokerAccountIdAndInstrumentIdIn(eq(brokerAccountId),
+                org.mockito.ArgumentMatchers.<java.util.Collection<UUID>>argThat(ids -> ids.contains(target.getId())));
+        verify(holdingRepository, never()).findByBrokerAccountIdAndInstrumentIdIn(eq(brokerAccountId),
+                org.mockito.ArgumentMatchers.<java.util.Collection<UUID>>argThat(ids -> ids.contains(source.getId())));
     }
 }

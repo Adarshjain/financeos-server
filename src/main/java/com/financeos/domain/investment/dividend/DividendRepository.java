@@ -55,6 +55,9 @@ public interface DividendRepository extends JpaRepository<Dividend, UUID> {
 
     List<Dividend> findByHoldingIdOrderByPayDateDescCreatedAtDesc(UUID holdingId);
 
+    /** {@link #findByHoldingIdOrderByPayDateDescCreatedAtDesc} for several holdings at once (callers chunk the ids). */
+    List<Dividend> findByHoldingIdInOrderByPayDateDescCreatedAtDesc(java.util.Collection<UUID> holdingIds);
+
     /** Every dividend of one user (batch input for the lot engine's XIRR and dividend totals). */
     List<Dividend> findByUser_Id(UUID userId);
 

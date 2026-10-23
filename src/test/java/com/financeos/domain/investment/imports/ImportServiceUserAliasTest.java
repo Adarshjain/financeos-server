@@ -110,7 +110,7 @@ class ImportServiceUserAliasTest {
     void theUsersOwnAliasBeatsTheCatalogSymbol() {
         InstrumentAlias own = new InstrumentAlias(repointed, "OLDS", "Old Co", "USER_EDIT");
         own.setUserId(user);
-        when(aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserId("OLDS", user)).thenReturn(Optional.of(own));
+        when(aliasRepository.findOwnedBySymbolsUpper(eq(user), any())).thenReturn(List.of(own));
 
         assertEquals(repointed.getId(), preview().id());
         verify(instrumentRepository, never()).searchInstruments("OLDS", null);
@@ -118,15 +118,16 @@ class ImportServiceUserAliasTest {
 
     @Test
     void withoutAnOwnAliasTheCatalogSymbolMatches() {
+        when(aliasRepository.findCatalogBySymbolsUpper(any()))
+                .thenReturn(List.of(new InstrumentAlias(repointed, "OLDS", "Old Co", "IMPORT_RESOLVE")));
         assertEquals(catalogMatch.getId(), preview().id());
-        verify(aliasRepository, never()).findFirstByOldSymbolIgnoreCaseAndUserIdIsNull(any());
     }
 
     @Test
     void aCatalogAliasStillBacksUpAnUnmatchedSymbol() {
         when(instrumentRepository.searchInstruments("OLDS", null)).thenReturn(List.of());
-        when(aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserIdIsNull("OLDS"))
-                .thenReturn(Optional.of(new InstrumentAlias(repointed, "OLDS", "Old Co", "IMPORT_RESOLVE")));
+        when(aliasRepository.findCatalogBySymbolsUpper(any()))
+                .thenReturn(List.of(new InstrumentAlias(repointed, "OLDS", "Old Co", "IMPORT_RESOLVE")));
 
         assertEquals(repointed.getId(), preview().id());
     }
@@ -135,7 +136,7 @@ class ImportServiceUserAliasTest {
     void anonymousImportsNeverLookUpAUsersAlias() {
         UserContext.clear();
         assertEquals(catalogMatch.getId(), preview().id());
-        verify(aliasRepository, never()).findFirstByOldSymbolIgnoreCaseAndUserId(any(), any());
+        verify(aliasRepository, never()).findOwnedBySymbolsUpper(any(), any());
     }
 
     @Test

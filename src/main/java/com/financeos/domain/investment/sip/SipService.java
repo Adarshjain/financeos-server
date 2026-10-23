@@ -136,7 +136,34 @@ public class SipService {
     public List<SipResponse> getSips(UUID brokerAccountId, UUID instrumentId, Boolean active) {
         List<Sip> sips = sipRepository.findFilteredSips(brokerAccountId, instrumentId, active);
         InstrumentOverrides overrides = sips.isEmpty() ? InstrumentOverrides.NONE : overrideService.overridesForCurrentUser();
-        return sips.stream().map(sip -> SipResponse.from(sip, computeProgress(sip), overrides)).toList();
+        Map<List<UUID>, List<InvestmentTransaction>> txnsByPair = sips.isEmpty() ? null : transactionsByPair();
+        return sips.stream().map(sip -> SipResponse.from(sip, computeProgress(sip, txnsByPair), overrides)).toList();
+    }
+
+    /**
+     * The current user's transactions grouped by (broker account, instrument) of the holding they
+     * belong to, from two queries however many SIPs there are; a pair without a holding has no key.
+     * Null with no signed-in user, so progress falls back to the per-SIP reads.
+     */
+    private Map<List<UUID>, List<InvestmentTransaction>> transactionsByPair() {
+        UUID userId = UserContext.getCurrentUserId();
+        if (userId == null) {
+            return null;
+        }
+        Map<UUID, List<UUID>> pairByHolding = new HashMap<>();
+        Map<List<UUID>, List<InvestmentTransaction>> byPair = new HashMap<>();
+        for (Holding h : holdingRepository.findAllWithDetailsOfUser(userId)) {
+            List<UUID> pair = List.of(h.getBrokerAccount().getId(), h.getInstrument().getId());
+            pairByHolding.put(h.getId(), pair);
+            byPair.put(pair, new ArrayList<>());
+        }
+        for (InvestmentTransaction t : transactionRepository.findByUser_IdOrderByTradeDateAscCreatedAtAsc(userId)) {
+            List<UUID> pair = t.getHolding() == null ? null : pairByHolding.get(t.getHolding().getId());
+            if (pair != null) {
+                byPair.get(pair).add(t);
+            }
+        }
+        return byPair;
     }
 
     /**
@@ -144,6 +171,11 @@ public class SipService {
      * Execution attribution is by (broker, instrument) in [start_date, min(today, end_date)].
      */
     private SipProgressDto computeProgress(Sip sip) {
+        return computeProgress(sip, null);
+    }
+
+    /** {@code txnsByPair} (nullable) is the batch from {@link #transactionsByPair}; without it the reads run per SIP. */
+    private SipProgressDto computeProgress(Sip sip, Map<List<UUID>, List<InvestmentTransaction>> txnsByPair) {
         LocalDate today = AppTime.today();
         LocalDate cutoffDate = (sip.getEndDate() != null && sip.getEndDate().isBefore(today)) ? sip.getEndDate() : today;
 
@@ -170,23 +202,27 @@ public class SipService {
         BigDecimal investedSoFar = BigDecimal.ZERO;
         BigDecimal unitsAccumulated = BigDecimal.ZERO;
 
-        Optional<Holding> holdingOpt = holdingRepository.findByBrokerAccountIdAndInstrumentId(
-                sip.getBrokerAccount().getId(), sip.getInstrument().getId());
+        List<InvestmentTransaction> txns;
+        if (txnsByPair != null) {
+            txns = txnsByPair.getOrDefault(List.of(sip.getBrokerAccount().getId(), sip.getInstrument().getId()), List.of());
+        } else {
+            Optional<Holding> holdingOpt = holdingRepository.findByBrokerAccountIdAndInstrumentId(
+                    sip.getBrokerAccount().getId(), sip.getInstrument().getId());
+            txns = holdingOpt.isPresent()
+                    ? transactionRepository.findFilteredTransactions(
+                            sip.getBrokerAccount().getId(), sip.getInstrument().getId(), null, null, Pageable.unpaged()).getContent()
+                    : List.of();
+        }
 
-        if (holdingOpt.isPresent()) {
-            Page<InvestmentTransaction> txns = transactionRepository.findFilteredTransactions(
-                    sip.getBrokerAccount().getId(), sip.getInstrument().getId(), null, null, Pageable.unpaged());
-
-            for (InvestmentTransaction txn : txns.getContent()) {
-                if (txn.getType() == InvestmentTransactionType.buy) {
-                    LocalDate tDate = txn.getTradeDate();
-                    if (!tDate.isBefore(sip.getStartDate()) && !tDate.isAfter(cutoffDate)) {
-                        executedInstallments++;
-                        BigDecimal txnCharges = txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO;
-                        BigDecimal cost = txn.getQuantity().multiply(txn.getPrice()).add(txnCharges);
-                        investedSoFar = investedSoFar.add(cost);
-                        unitsAccumulated = unitsAccumulated.add(txn.getQuantity());
-                    }
+        for (InvestmentTransaction txn : txns) {
+            if (txn.getType() == InvestmentTransactionType.buy) {
+                LocalDate tDate = txn.getTradeDate();
+                if (!tDate.isBefore(sip.getStartDate()) && !tDate.isAfter(cutoffDate)) {
+                    executedInstallments++;
+                    BigDecimal txnCharges = txn.getTotalCharges() != null ? txn.getTotalCharges() : BigDecimal.ZERO;
+                    BigDecimal cost = txn.getQuantity().multiply(txn.getPrice()).add(txnCharges);
+                    investedSoFar = investedSoFar.add(cost);
+                    unitsAccumulated = unitsAccumulated.add(txn.getQuantity());
                 }
             }
         }

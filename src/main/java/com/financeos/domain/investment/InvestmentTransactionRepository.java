@@ -15,6 +15,9 @@ public interface InvestmentTransactionRepository extends JpaRepository<Investmen
 
     List<InvestmentTransaction> findByHoldingIdOrderByTradeDateAscCreatedAtAsc(UUID holdingId);
 
+    /** {@link #findByHoldingIdOrderByTradeDateAscCreatedAtAsc} for several holdings at once (callers chunk the ids). */
+    List<InvestmentTransaction> findByHoldingIdInOrderByTradeDateAscCreatedAtAsc(java.util.Collection<UUID> holdingIds);
+
     /** Every investment transaction of one user, in the engine's order (batch input for the lot engine). */
     List<InvestmentTransaction> findByUser_IdOrderByTradeDateAscCreatedAtAsc(UUID userId);
 

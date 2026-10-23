@@ -20,6 +20,9 @@ public interface HoldingRepository extends JpaRepository<Holding, UUID> {
 
     List<Holding> findByBrokerAccountId(UUID brokerAccountId);
 
+    /** The broker account's holdings of several instruments at once (callers chunk the ids). */
+    List<Holding> findByBrokerAccountIdAndInstrumentIdIn(UUID brokerAccountId, java.util.Collection<UUID> instrumentIds);
+
     /**
      * {@code userId}'s holdings of one instrument (one per broker account). A null user matches none:
      * an explicit JPQL equality (a derived query would turn a null owner into {@code IS NULL} and
