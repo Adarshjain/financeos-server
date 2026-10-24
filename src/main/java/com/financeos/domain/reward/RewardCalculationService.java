@@ -66,6 +66,7 @@ public class RewardCalculationService {
             Set.of(LinkType.TRANSFER, LinkType.CC_PAYMENT, LinkType.REVERSAL);
 
     static final String UNIT_RUPEES = "RUPEES";
+    private static final LocalDate NO_DATE = LocalDate.MIN;
     static final String UNIT_POINTS = "POINTS";
 
     private final RewardRuleRepository rewardRuleRepository;
@@ -209,12 +210,85 @@ public class RewardCalculationService {
         List<RewardTotalResponse> totals = new ArrayList<>();
         for (Planned p : planned) {
             run(p.eval(), txnsByCard.getOrDefault(p.card().getId(), List.of()), links);
+            List<Map.Entry<RewardReportResponse.MilestoneStatus, LocalDate>> ms =
+                    evaluateMilestonesWithAchievedOn(p.eval(), p.from(), p.to());
             RewardReportResponse.Summary summary = buildReport(p.eval(), p.from(), p.to()).summary();
             totals.add(new RewardTotalResponse(p.card().getId(), p.from(), p.to(), p.fallback(),
                     summary.points(), summary.grossValueInr(), p.card().getPointValueInr(),
-                    summary.milestonesPts(), summary.milestonesInr()));
+                    summary.milestonesPts(), summary.milestonesInr(),
+                    nearestCap(p.eval(), today),
+                    nextMilestone(ms, today), lastMet(ms, p.from(), p.to().isAfter(today) ? today : p.to())));
         }
         return totals;
+    }
+
+    /**
+     * The period cap closest to exhaustion in its window containing {@code today}, from the already-run
+     * evaluation (no queries). A shared bucket counts once; a per-cardholder cap uses its fullest cardholder.
+     */
+    private RewardTotalResponse.NearestCap nearestCap(Evaluation eval, LocalDate today) {
+        Map<String, RewardRule> ruleByOwner = new LinkedHashMap<>();
+        for (RewardRule rule : eval.rules) {
+            if (rule.hasPeriodCap() && rule.isActiveOn(today)) {
+                ruleByOwner.putIfAbsent(capOwner(rule), rule);
+            }
+        }
+        RewardTotalResponse.NearestCap best = null;
+        BigDecimal bestRatio = null;
+        for (RewardRule rule : ruleByOwner.values()) {
+            BigDecimal cap = effectiveCap(rule);
+            if (cap == null || cap.signum() <= 0) {
+                continue;
+            }
+            Window window = windowContaining(effectiveCapWindow(rule), today, eval, false);
+            BigDecimal used = BigDecimal.ZERO;
+            for (Map.Entry<CounterKey, BigDecimal> e : eval.capUsed.entrySet()) {
+                if (capOwner(rule).equals(e.getKey().owner()) && window.start().equals(e.getKey().windowStart())
+                        && e.getValue().compareTo(used) > 0) {
+                    used = e.getValue();
+                }
+            }
+            BigDecimal ratio = used.divide(cap, 6, RoundingMode.HALF_UP).min(BigDecimal.ONE);
+            boolean better = best == null || ratio.compareTo(bestRatio) > 0
+                    || (ratio.compareTo(bestRatio) == 0 && window.end().isBefore(best.windowEnd()));
+            if (better) {
+                String label = rule.getCapBucket() != null ? rule.getCapBucket().getName() : rule.getName();
+                best = new RewardTotalResponse.NearestCap(label, used, cap, unitOf(rule), window.end());
+                bestRatio = ratio;
+            }
+        }
+        return best;
+    }
+
+    private RewardTotalResponse.NextMilestone nextMilestone(
+            List<Map.Entry<RewardReportResponse.MilestoneStatus, LocalDate>> statuses, LocalDate today) {
+        RewardReportResponse.MilestoneStatus best = null;
+        BigDecimal bestRatio = null;
+        for (Map.Entry<RewardReportResponse.MilestoneStatus, LocalDate> entry : statuses) {
+            RewardReportResponse.MilestoneStatus s = entry.getKey();
+            if (s.achieved() || s.windowEnd().isBefore(today) || s.threshold() == null || s.threshold().signum() <= 0) {
+                continue;
+            }
+            BigDecimal ratio = s.progress().divide(s.threshold(), 6, RoundingMode.HALF_UP);
+            if (best == null || ratio.compareTo(bestRatio) > 0
+                    || (ratio.compareTo(bestRatio) == 0 && s.windowEnd().isBefore(best.windowEnd()))) {
+                best = s;
+                bestRatio = ratio;
+            }
+        }
+        return best == null ? null : new RewardTotalResponse.NextMilestone(
+                best.name(), best.progress(), best.threshold(), best.basis(), best.windowEnd());
+    }
+
+    private RewardTotalResponse.LastMet lastMet(
+            List<Map.Entry<RewardReportResponse.MilestoneStatus, LocalDate>> statuses, LocalDate from, LocalDate until) {
+        RewardTotalResponse.LastMet last = null;
+        for (Map.Entry<RewardReportResponse.MilestoneStatus, LocalDate> e : statuses) {
+            if (!NO_DATE.equals(e.getValue()) && !e.getValue().isBefore(from) && !e.getValue().isAfter(until) && (last == null || e.getValue().isAfter(last.achievedOn()))) {
+                last = new RewardTotalResponse.LastMet(e.getKey().name(), e.getValue());
+            }
+        }
+        return last;
     }
 
     @Transactional(readOnly = true)
@@ -1344,7 +1418,13 @@ public class RewardCalculationService {
     }
 
     List<RewardReportResponse.MilestoneStatus> evaluateMilestones(Evaluation eval, LocalDate from, LocalDate to) {
-        List<RewardReportResponse.MilestoneStatus> statuses = new ArrayList<>();
+        return evaluateMilestonesWithAchievedOn(eval, from, to).stream().map(Map.Entry::getKey).toList();
+    }
+
+    /** Each milestone window status with the date its threshold was reached (null when unmet). */
+    List<Map.Entry<RewardReportResponse.MilestoneStatus, LocalDate>> evaluateMilestonesWithAchievedOn(
+            Evaluation eval, LocalDate from, LocalDate to) {
+        List<Map.Entry<RewardReportResponse.MilestoneStatus, LocalDate>> statuses = new ArrayList<>();
         for (MilestoneWithEligibility entry : eval.milestones) {
             RewardMilestone milestone = entry.milestone();
             MilestoneEligibility eligibility = entry.eligibility();
@@ -1380,7 +1460,7 @@ public class RewardCalculationService {
         return statuses;
     }
 
-    private RewardReportResponse.MilestoneStatus milestoneStatus(
+    private Map.Entry<RewardReportResponse.MilestoneStatus, LocalDate> milestoneStatus(
             RewardMilestone milestone, MilestoneEligibility eligibility,
             LocalDate countStart, LocalDate countEnd, Evaluation eval, LocalDate from, LocalDate to) {
         BigDecimal progress = BigDecimal.ZERO;
@@ -1422,13 +1502,13 @@ public class RewardCalculationService {
         boolean countedInSummary = achieved
                 && milestone.getPayoutType() == MilestonePayoutType.CASH_VALUE
                 && !payoutDate.isBefore(from) && !payoutDate.isAfter(to);
-        return new RewardReportResponse.MilestoneStatus(
+        return Map.entry(new RewardReportResponse.MilestoneStatus(
                 milestone.getId(), milestone.getName(), milestone.getWindowType(),
                 countStart, countEnd,
                 milestone.getBasis(), milestone.getThreshold(), milestone.getMinTxnAmount(),
                 progress, achieved,
                 milestone.getPayoutType(), milestone.getRewardType(), milestone.getPayoutValue(),
-                payoutDate, countedInSummary);
+                payoutDate, countedInSummary), achievedOn == null ? NO_DATE : achievedOn);
     }
 
     boolean milestoneEligible(MilestoneEligibility eligibility, TxnFacts facts) {
