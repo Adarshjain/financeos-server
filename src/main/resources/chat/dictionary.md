@@ -210,6 +210,8 @@ One measure over a primary dimension, optionally grouped into a series dimension
 - Optional shaping: `limit` (1-50) keeps the top N categories by absolute value; `other: true` (needs `limit`) folds the rest into a last "Other" category; `order` is `dimension` (default; `value_desc` for breakdown), `value_desc` or `value_asc`.
 - `comparison` (same object as KPI, `period: "previous_period"`) adds the previous period's values to the chart; needs a date filter and is rejected when the dimension is a date.
 - breakdown only: `subDimension` (a dimension different from `dimension`) and `subLimit` (1-10, default 3) list each category's top sub-categories.
+- breakdown only: `columns` (non-empty, no duplicates, from `amount`, `share`, `count`, `avg`, `change`; `change` needs `comparison` enabled) picks the list's columns; omit for the default.
+- breakdown only: `bars` is `relative_to_largest` (default) or `share_of_total` and sets how the bars are scaled.
 ```json
 {
   "chartType": "bar",

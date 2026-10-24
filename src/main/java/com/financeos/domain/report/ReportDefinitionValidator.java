@@ -10,6 +10,7 @@ import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
 import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.definition.AggregatedTableDefinition;
+import com.financeos.domain.report.definition.BreakdownColumn;
 import com.financeos.domain.report.definition.ChartDefinition;
 import com.financeos.domain.report.definition.ChartType;
 import com.financeos.domain.report.definition.DimensionRef;
@@ -187,6 +188,27 @@ public class ReportDefinitionValidator {
         }
         if (!breakdown && chart.subLimit() != null) {
             throw new ValidationException("subLimit is only valid for a breakdown chart");
+        }
+        if (!breakdown && chart.columns() != null) {
+            throw new ValidationException("columns is only valid for a breakdown chart");
+        }
+        if (!breakdown && chart.bars() != null) {
+            throw new ValidationException("bars is only valid for a breakdown chart");
+        }
+        if (chart.columns() != null) {
+            if (chart.columns().isEmpty()) {
+                throw new ValidationException("columns must not be empty");
+            }
+            if (chart.columns().stream().anyMatch(java.util.Objects::isNull)) {
+                throw new ValidationException("columns must not contain null entries");
+            }
+            if (new java.util.HashSet<>(chart.columns()).size() != chart.columns().size()) {
+                throw new ValidationException("columns must not contain duplicates");
+            }
+            if (chart.columns().contains(BreakdownColumn.CHANGE)
+                    && (chart.comparison() == null || !Boolean.TRUE.equals(chart.comparison().enabled()))) {
+                throw new ValidationException("the change column requires comparison to be enabled");
+            }
         }
         if (chart.subLimit() != null && (chart.subLimit() < 1 || chart.subLimit() > ChartDefinition.MAX_SUB_LIMIT)) {
             throw new ValidationException("subLimit must be between 1 and " + ChartDefinition.MAX_SUB_LIMIT);
