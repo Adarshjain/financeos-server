@@ -118,6 +118,11 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
     }
 
     @Override
+    public boolean managesOwnTransactions() {
+        return true;
+    }
+
+    @Override
     public String name() {
         return "net_worth";
     }

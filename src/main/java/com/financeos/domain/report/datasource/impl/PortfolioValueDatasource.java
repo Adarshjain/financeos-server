@@ -85,7 +85,7 @@ public class PortfolioValueDatasource implements ComputedReportDatasource {
 
     @Override
     public List<Map<String, Object>> rows() {
-        List<Holding> holdings = holdingRepository.findAllWithDetails();
+        List<Holding> holdings = holdingRepository.findAllWithDetailsOfUser(com.financeos.core.security.UserContext.getCurrentUserId());
         if (holdings.isEmpty()) {
             return List.of();
         }

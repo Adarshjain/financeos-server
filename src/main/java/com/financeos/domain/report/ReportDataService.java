@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.tx.SectionRunner;
 import com.financeos.domain.report.datasource.DatasourceRegistry;
 import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.definition.AggregatedTableDefinition;
@@ -20,6 +21,7 @@ import com.financeos.domain.report.engine.KpiReportExecutor;
 import com.financeos.domain.report.engine.ReportData;
 import com.financeos.domain.report.engine.RuntimeSort;
 import com.financeos.domain.report.engine.TableReportExecutor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,11 +45,13 @@ public class ReportDataService {
     private final ChartReportExecutor chartExecutor;
     private final TableReportExecutor tableExecutor;
     private final InMemoryReportExecutor inMemoryExecutor;
+    private final SectionRunner transactions;
 
+    @Autowired
     public ReportDataService(ReportService reportService, ReportDefinitionValidator validator,
             DatasourceRegistry registry, ObjectMapper mapper,
             KpiReportExecutor kpiExecutor, ChartReportExecutor chartExecutor, TableReportExecutor tableExecutor,
-            InMemoryReportExecutor inMemoryExecutor) {
+            InMemoryReportExecutor inMemoryExecutor, SectionRunner transactions) {
         this.reportService = reportService;
         this.validator = validator;
         this.registry = registry;
@@ -56,13 +60,27 @@ public class ReportDataService {
         this.chartExecutor = chartExecutor;
         this.tableExecutor = tableExecutor;
         this.inMemoryExecutor = inMemoryExecutor;
+        this.transactions = transactions;
+    }
+
+    /** Runs SQL executors inline, without their own transaction (plain unit tests). */
+    public ReportDataService(ReportService reportService, ReportDefinitionValidator validator,
+            DatasourceRegistry registry, ObjectMapper mapper,
+            KpiReportExecutor kpiExecutor, ChartReportExecutor chartExecutor, TableReportExecutor tableExecutor,
+            InMemoryReportExecutor inMemoryExecutor) {
+        this(reportService, validator, registry, mapper, kpiExecutor, chartExecutor, tableExecutor,
+                inMemoryExecutor, SectionRunner.DIRECT);
     }
 
     /**
      * Run a saved report the current user owns. {@code sort} is the run-time header sort
      * ({@code <key>,<asc|desc>}, see {@link RuntimeSort}); null or blank keeps the report's own order.
+     *
+     * <p>The run methods hold no transaction of their own: a computed datasource loads its rows through
+     * services that open their own (and run sections in further ones), so an outer transaction would hold
+     * a pool connection while its sections wait for theirs. Everything else gets a short read-only
+     * transaction in {@link #dispatch}.
      */
-    @Transactional(readOnly = true)
     public ReportData runSaved(UUID id, Integer page, Integer size, String sort) {
         SortClause runtimeSort = RuntimeSort.parse(sort).orElse(null);
         ResolvedDefinition resolved = resolveSaved(id);
@@ -70,14 +88,12 @@ public class ReportDataService {
                 UserContext.getCurrentUserId(), page, size);
     }
 
-    @Transactional(readOnly = true)
     public ReportData runAdHoc(ReportType type, String datasourceName, JsonNode definitionNode,
             Integer page, Integer size) {
         return runDefinition(type, datasourceName, definitionNode, page, size);
     }
 
     /** {@link #runDefinition(ReportType, String, JsonNode, Integer, Integer, String)} in the definition's own order. */
-    @Transactional(readOnly = true)
     public ReportData runDefinition(ReportType type, String datasourceName, JsonNode definitionNode,
             Integer page, Integer size) {
         return runDefinition(type, datasourceName, definitionNode, page, size, null);
@@ -89,7 +105,6 @@ public class ReportDataService {
      * server templates); nothing is persisted. {@code sort} is the run-time header sort
      * ({@code <key>,<asc|desc>}, see {@link RuntimeSort}); null or blank keeps the definition's order.
      */
-    @Transactional(readOnly = true)
     public ReportData runDefinition(ReportType type, String datasourceName, JsonNode definitionNode,
             Integer page, Integer size, String sort) {
         SortClause runtimeSort = RuntimeSort.parse(sort).orElse(null);
@@ -145,18 +160,28 @@ public class ReportDataService {
         };
     }
 
-    private ReportData dispatch(ReportDatasource datasource, ReportDefinition definition, UUID userId, Integer page, Integer size) {
-        if (datasource instanceof com.financeos.domain.report.datasource.ComputedReportDatasource) {
-            return switch (definition) {
-                case KpiDefinition kpi -> inMemoryExecutor.execute(kpi, datasource, null);
-                case ChartDefinition chart -> inMemoryExecutor.execute(chart, datasource, null);
-                case TableDefinition table -> inMemoryExecutor.execute(table, datasource, null, page, size);
-            };
-        }
+    private ReportData dispatchComputed(ReportDatasource datasource, ReportDefinition definition, Integer page,
+            Integer size) {
         return switch (definition) {
+            case KpiDefinition kpi -> inMemoryExecutor.execute(kpi, datasource, null);
+            case ChartDefinition chart -> inMemoryExecutor.execute(chart, datasource, null);
+            case TableDefinition table -> inMemoryExecutor.execute(table, datasource, null, page, size);
+        };
+    }
+
+    private ReportData dispatch(ReportDatasource datasource, ReportDefinition definition, UUID userId, Integer page, Integer size) {
+        if (datasource instanceof com.financeos.domain.report.datasource.ComputedReportDatasource computed) {
+            // Computed datasources run in one short read-only transaction (tenant filter on) unless they
+            // open their own section transactions, which an outer transaction would starve of connections.
+            if (computed.managesOwnTransactions()) {
+                return dispatchComputed(datasource, definition, page, size);
+            }
+            return transactions.run(() -> dispatchComputed(datasource, definition, page, size));
+        }
+        return transactions.run(() -> switch (definition) {
             case KpiDefinition kpi -> kpiExecutor.execute(kpi, datasource, userId);
             case ChartDefinition chart -> chartExecutor.execute(chart, datasource, userId);
             case TableDefinition table -> tableExecutor.execute(table, datasource, userId, page, size);
-        };
+        });
     }
 }

@@ -17107,6 +17107,17 @@ components:
       required:
       - datasources
       - operators
+    ReportDashboardRef:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+      required:
+      - id
+      - name
     ReportData:
       type: object
       additionalProperties: true
@@ -17188,6 +17199,10 @@ components:
         createdAt:
           type: string
           format: date-time
+        dashboards:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReportDashboardRef"
         datasource:
           type: string
         description:
@@ -17210,6 +17225,7 @@ components:
           format: date-time
       required:
       - createdAt
+      - dashboards
       - datasource
       - id
       - name

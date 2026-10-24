@@ -97,7 +97,7 @@ class PortfolioValueDatasourceOwnerTest {
         txn.setTradeDate(LocalDate.of(2026, 1, 15));
         txn.setQuantity(BigDecimal.TEN);
         txn.setPrice(new BigDecimal("2000"));
-        when(holdingRepository.findAllWithDetails()).thenReturn(List.of(holding));
+        when(holdingRepository.findAllWithDetailsOfUser(org.mockito.ArgumentMatchers.any())).thenReturn(List.of(holding));
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId())).thenReturn(List.of(txn));
         when(investmentService.seedLotsFor(holding)).thenReturn(List.of());
         when(investmentService.buildOpenLotsBeforeDate(eq(holding), any(LocalDate.class), eq(false), any(), any(), any(), any()))
@@ -122,7 +122,7 @@ class PortfolioValueDatasourceOwnerTest {
         for (int i = 0; i < 901; i++) {
             holdings.add(holding(instrument("I" + i)));
         }
-        when(holdingRepository.findAllWithDetails()).thenReturn(holdings);
+        when(holdingRepository.findAllWithDetailsOfUser(org.mockito.ArgumentMatchers.any())).thenReturn(holdings);
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(any())).thenReturn(List.of());
         when(investmentService.seedLotsFor(any())).thenReturn(List.of());
 

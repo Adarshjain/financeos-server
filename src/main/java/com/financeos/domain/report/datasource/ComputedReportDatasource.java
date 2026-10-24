@@ -30,6 +30,17 @@ public interface ComputedReportDatasource extends ReportDatasource {
     record DateHint(String field, LocalDate from, LocalDate to) {
     }
 
+    /**
+     * True only for a datasource that opens its own transactions per section (a
+     * {@code SectionRunner} or a {@code NOT_SUPPORTED} service). Every other computed datasource is
+     * run inside one short read-only transaction so the tenant filter is on for its repository reads.
+     * An outer transaction around a datasource that returns true would hold a pool connection while
+     * its sections wait for theirs.
+     */
+    default boolean managesOwnTransactions() {
+        return false;
+    }
+
     @Override
     default ReportQueryBuilder queryBuilder() {
         return null;
