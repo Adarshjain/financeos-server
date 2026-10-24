@@ -60,7 +60,7 @@ public class ReportController {
         Map<UUID, List<ReportDashboardRef>> usage = dashboardService == null || reports.isEmpty()
                 ? Map.of() : dashboardService.dashboardsByReport();
         List<ReportSummaryResponse> responses = reports.stream()
-                .map(r -> ReportSummaryResponse.from(r, usage.getOrDefault(r.getId(), List.of())))
+                .map(r -> ReportSummaryResponse.from(r, usage.getOrDefault(r.getId(), List.of()), mapper))
                 .toList();
         return ResponseEntity.ok(responses);
     }
