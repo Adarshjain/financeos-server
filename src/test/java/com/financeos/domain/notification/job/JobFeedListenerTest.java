@@ -93,18 +93,17 @@ class JobFeedListenerTest {
     // ---------------------------------------------------------------- gmail sync
 
     @Test
-    void gmailSyncSuccessNotifiesOnlyWhenTransactionsWereCreated() {
-        Job job = fire(JobType.GMAIL_SYNC, JobStatus.SUCCEEDED, JobTrigger.CRON, "{\"created\":3}", null);
-        recorded(job, AppNotificationKind.GMAIL_SYNC, "Gmail sync", "3 new transactions");
+    void gmailSyncSuccessNeverNotifiesEvenWhenTransactionsWereCreated() {
+        fire(JobType.GMAIL_SYNC, JobStatus.SUCCEEDED, JobTrigger.CRON, "{\"created\":3}", null);
+        nothing();
     }
 
     @Test
-    void gmailSyncSingularAndZero() {
-        Job one = fire(JobType.GMAIL_SYNC, JobStatus.SUCCEEDED, JobTrigger.USER, "{\"created\":1}", null);
-        recorded(one, AppNotificationKind.GMAIL_SYNC, "Gmail sync", "1 new transaction");
+    void gmailSyncSuccessSingularAndZeroNeverNotify() {
+        fire(JobType.GMAIL_SYNC, JobStatus.SUCCEEDED, JobTrigger.USER, "{\"created\":1}", null);
         fire(JobType.GMAIL_SYNC, JobStatus.SUCCEEDED, JobTrigger.CRON, "{\"created\":0}", null);
         fire(JobType.GMAIL_SYNC, JobStatus.SUCCEEDED, JobTrigger.CRON, null, null);
-        verify(feedService, org.mockito.Mockito.times(1)).record(any(), any(), any(), any(), any(), any());
+        nothing();
     }
 
     @Test
@@ -125,10 +124,10 @@ class JobFeedListenerTest {
     }
 
     @Test
-    void gmailSyncSuccessIsNotSuppressedByAPreviousFailure() {
+    void gmailSyncSuccessAfterAFailureStillWritesNothing() {
         previous(JobStatus.FAILED);
-        Job job = fire(JobType.GMAIL_SYNC, JobStatus.SUCCEEDED, JobTrigger.CRON, "{\"created\":2}", null);
-        recorded(job, AppNotificationKind.GMAIL_SYNC, "Gmail sync", "2 new transactions");
+        fire(JobType.GMAIL_SYNC, JobStatus.SUCCEEDED, JobTrigger.CRON, "{\"created\":2}", null);
+        nothing();
     }
 
     // ---------------------------------------------------------------- price refresh
