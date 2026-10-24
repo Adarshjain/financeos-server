@@ -24,7 +24,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 /**
  * Adds finished jobs to the in-app feed once the status change has committed. Independent of push: it
  * runs for every trigger and ignores push settings. Failures always notify; successes only when
- * something changed; a failing recurring job (Gmail sync, price refresh) notifies once until it
+ * something changed (never for Gmail sync); a failing recurring job (Gmail sync, price refresh) notifies once until it
  * succeeds again. Never throws: a feed problem must not fail a job.
  */
 @Component
@@ -91,13 +91,8 @@ public class JobFeedListener {
                     title = "Gmail sync failed";
                     body = JobMessages.failureReason(job);
                 } else {
-                    int created = count(result, "created");
-                    if (created <= 0) {
-                        return;
-                    }
-                    kind = AppNotificationKind.GMAIL_SYNC;
-                    title = "Gmail sync";
-                    body = JobMessages.plural(created, "new transaction");
+                    // Successful syncs never write a feed entry.
+                    return;
                 }
             }
             case PRICE_REFRESH -> {
