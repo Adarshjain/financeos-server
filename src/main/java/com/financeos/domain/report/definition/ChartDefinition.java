@@ -14,7 +14,8 @@ import java.util.List;
  * absolute value, {@code other} folds the rest into a last "Other" category, {@code order} sets
  * the display order, {@code comparison} adds the previous period's values. A
  * {@link ChartType#BREAKDOWN} additionally takes {@code subDimension} / {@code subLimit}: the top
- * sub-categories listed under each category.
+ * sub-categories listed under each category, {@code columns} (which columns the list shows; null =
+ * client default) and {@code bars} (how bars are scaled; null = relative to the largest).
  */
 public record ChartDefinition(
         ChartType chartType,
@@ -27,7 +28,9 @@ public record ChartDefinition(
         @JsonInclude(JsonInclude.Include.NON_NULL) ChartOrder order,
         @JsonInclude(JsonInclude.Include.NON_NULL) Comparison comparison,
         @JsonInclude(JsonInclude.Include.NON_NULL) DimensionRef subDimension,
-        @JsonInclude(JsonInclude.Include.NON_NULL) Integer subLimit
+        @JsonInclude(JsonInclude.Include.NON_NULL) Integer subLimit,
+        @JsonInclude(JsonInclude.Include.NON_NULL) List<BreakdownColumn> columns,
+        @JsonInclude(JsonInclude.Include.NON_NULL) BreakdownBars bars
 ) implements ReportDefinition {
 
     public static final int MAX_LIMIT = 50;
@@ -38,10 +41,18 @@ public record ChartDefinition(
     public ChartDefinition {
     }
 
+    /** A chart without breakdown column / bar options. */
+    public ChartDefinition(ChartType chartType, DimensionRef dimension, DimensionRef series, MeasureRef measure,
+                           List<FilterClause> filters, Integer limit, Boolean other, ChartOrder order,
+                           Comparison comparison, DimensionRef subDimension, Integer subLimit) {
+        this(chartType, dimension, series, measure, filters, limit, other, order, comparison, subDimension, subLimit,
+                null, null);
+    }
+
     /** A plain chart: no limit, comparison or breakdown options. */
     public ChartDefinition(ChartType chartType, DimensionRef dimension, DimensionRef series, MeasureRef measure,
                            List<FilterClause> filters) {
-        this(chartType, dimension, series, measure, filters, null, null, null, null, null, null);
+        this(chartType, dimension, series, measure, filters, null, null, null, null, null, null, null, null);
     }
 
     @Override
