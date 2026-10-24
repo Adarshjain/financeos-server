@@ -205,8 +205,11 @@ A single aggregated metric, optionally with period-over-period comparison.
 #### 2. CHART Report
 One measure over a primary dimension, optionally grouped into a series dimension.
 - `granularity` is **REQUIRED** when the dimension field is a date (`day`, `week`, `month`, `quarter`, `year`, `fy`); null otherwise.
-- `chartType`: `line`, `bar`, `stackedBar`, `area`, `pie`, `donut`.
+- `chartType`: `line`, `bar`, `stackedBar`, `area`, `pie`, `donut`, `breakdown` (a ranked list with value, share, count, average, change and sub-rows; ignores `series`, like pie/donut).
 - `series`: optional/nullable dimension object.
+- Optional shaping: `limit` (1-50) keeps the top N categories by absolute value; `other: true` (needs `limit`) folds the rest into a last "Other" category; `order` is `dimension` (default; `value_desc` for breakdown), `value_desc` or `value_asc`.
+- `comparison` (same object as KPI, `period: "previous_period"`) adds the previous period's values to the chart; needs a date filter and is rejected when the dimension is a date.
+- breakdown only: `subDimension` (a dimension different from `dimension`) and `subLimit` (1-10, default 3) list each category's top sub-categories.
 ```json
 {
   "chartType": "bar",

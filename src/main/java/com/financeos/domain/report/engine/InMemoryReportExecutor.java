@@ -179,22 +179,46 @@ public class InMemoryReportExecutor {
 
     public ChartData execute(ChartDefinition def, ReportDatasource datasource, Map<String, Object> unusedParams) {
         ComputedReportDatasource computedDs = (ComputedReportDatasource) datasource;
-        List<Map<String, Object>> allRows = loadRows(computedDs, def.filters());
-        List<Map<String, Object>> filteredRows = filterRows(allRows, def.filters(), computedDs);
+        KpiPeriods periods = ChartPeriods.resolve(def, periodResolver, dateRangeResolver, datasource,
+                UserContext.getCurrentUserId());
+        // A comparison reads the previous period from the same rows, so the hint spans both.
+        List<Map<String, Object>> allRows = periods.previousAvailable()
+                ? loadRows(computedDs, kpiHint(periods))
+                : loadRows(computedDs, def.filters());
+        List<Map<String, Object>> filteredRows = filterRows(allRows, periods.current().filters(), computedDs);
 
         DimensionRef dim = def.dimension();
-        // Pie/Donut render one dimension as slices; ignore any series split (as the SQL path does).
-        boolean pie = def.chartType() == ChartType.PIE || def.chartType() == ChartType.DONUT;
-        DimensionRef seriesDim = pie ? null : def.series();
+        // Pie/Donut/Breakdown render one dimension as slices; ignore any series split (as the SQL path does).
+        DimensionRef seriesDim = ChartPeriods.ignoresSeries(def) ? null : def.series();
         MeasureRef measure = def.measure();
-        FieldDef dimFieldDef = datasource.field(dim.field());
 
+        ChartShaper.Grouped current = groupChart(filteredRows, dim, seriesDim, measure, datasource);
+        ChartShaper.Grouped previous = null;
+        if (periods.previousAvailable()) {
+            previous = groupChart(filterRows(allRows, periods.previous().filters(), computedDs), dim, seriesDim,
+                    measure, datasource);
+        }
+        Map<String, List<ChartShaper.SubCell>> subCells = def.chartType() == ChartType.BREAKDOWN && def.subDimension() != null
+                ? groupSubCells(filteredRows, dim, def.subDimension(), measure, datasource) : null;
+
+        ChartShaper.Shaped shaped = ChartShaper.shape(def, measure.aggregation(), current, previous, subCells);
+        ChartData.Meta meta = new ChartData.Meta(filteredRows.size(), ChartPeriods.view(periods.current().range()));
+        return ChartPeriods.assemble(def, dim, shaped, meta, periods,
+                ChartReportExecutor.valueLabels(datasource, dim),
+                seriesDim != null ? ChartReportExecutor.valueLabels(datasource, seriesDim) : null,
+                subCells != null ? ChartReportExecutor.valueLabels(datasource, def.subDimension()) : null);
+    }
+
+    /** The chart's grouped cells, categories in dimension order and series sorted. */
+    private ChartShaper.Grouped groupChart(List<Map<String, Object>> rows, DimensionRef dim, DimensionRef seriesDim,
+                                           MeasureRef measure, ReportDatasource datasource) {
+        FieldDef dimFieldDef = datasource.field(dim.field());
         Map<DimensionKey, List<Map<String, Object>>> groups = new LinkedHashMap<>();
         Set<Object> rawSeriesKeys = new LinkedHashSet<>();
 
         // Null dimension values group as "(none)", mirroring the SQL chart and the pivot;
         // a multi-valued field counts the row under each of its values.
-        for (Map<String, Object> row : filteredRows) {
+        for (Map<String, Object> row : rows) {
             for (Object dimRaw : groupValues(row.get(dim.field()))) {
                 Object dimGroupVal = processDimensionValue(dimRaw, dimFieldDef, dim.granularity());
                 List<Object> seriesVals = seriesDim != null ? groupValues(row.get(seriesDim.field())) : nullList();
@@ -202,66 +226,66 @@ public class InMemoryReportExecutor {
                     if (seriesDim != null) {
                         rawSeriesKeys.add(seriesGroupVal);
                     }
-                    DimensionKey key = new DimensionKey(dimGroupVal, seriesGroupVal);
-                    groups.computeIfAbsent(key, k -> new ArrayList<>()).add(row);
+                    groups.computeIfAbsent(new DimensionKey(dimGroupVal, seriesGroupVal), k -> new ArrayList<>()).add(row);
                 }
             }
         }
 
-        List<Object> sortedDimVals = groups.keySet().stream()
-                .map(DimensionKey::dimVal)
-                .distinct()
-                .sorted(comparatorFor(dimFieldDef))
-                .toList();
+        List<Object> sortedDimVals = groups.keySet().stream().map(DimensionKey::dimVal).distinct()
+                .sorted(comparatorFor(dimFieldDef)).toList();
+        List<Object> sortedSeriesVals = seriesDim == null ? nullList()
+                : rawSeriesKeys.stream().sorted(comparatorFor(null)).toList();
 
-        List<Object> sortedSeriesVals = rawSeriesKeys.stream()
-                .sorted(comparatorFor(null))
-                .toList();
-
-        List<String> categories = sortedDimVals.stream()
-                .map(v -> formatDimensionLabel(v, dimFieldDef, dim.granularity()))
-                .toList();
-
-        // Mirror the SQL pivot's missing-cell rule: additive aggregations fill with 0,
-        // AVG/MIN/MAX leave gaps (null) rather than fabricating zero points.
-        BigDecimal missing = (measure.aggregation() == Aggregation.SUM || measure.aggregation() == Aggregation.COUNT)
-                ? BigDecimal.ZERO : null;
-        List<ChartData.Series> seriesList = new ArrayList<>();
-        if (seriesDim == null) {
-            List<BigDecimal> data = new ArrayList<>();
-            for (Object dimVal : sortedDimVals) {
-                List<Map<String, Object>> groupRows = groups.get(new DimensionKey(dimVal, null));
-                BigDecimal aggVal = groupRows != null
-                        ? calculateAggregate(groupRows, measure.field(), measure.aggregation())
-                        : null;
-                data.add(aggVal != null ? aggVal : missing);
-            }
-            seriesList.add(new ChartData.Series(measure.field(), data));
-        } else {
+        ChartShaper.Builder builder = new ChartShaper.Builder();
+        boolean dated = dim.granularity() != null;
+        if (dated) {
+            builder.dated();
+        }
+        for (Object seriesVal : sortedSeriesVals) {
+            builder.series(seriesDim == null ? measure.field() : seriesVal == null ? "(none)" : String.valueOf(seriesVal));
+        }
+        for (Object dimVal : sortedDimVals) {
+            String category = formatDimensionLabel(dimVal, dimFieldDef, dim.granularity());
             for (Object seriesVal : sortedSeriesVals) {
-                String seriesName = seriesVal == null ? "(none)" : String.valueOf(seriesVal);
-                List<BigDecimal> data = new ArrayList<>();
-                for (Object dimVal : sortedDimVals) {
-                    List<Map<String, Object>> groupRows = groups.get(new DimensionKey(dimVal, seriesVal));
-                    BigDecimal aggVal = groupRows != null
-                            ? calculateAggregate(groupRows, measure.field(), measure.aggregation())
-                            : null;
-                    data.add(aggVal != null ? aggVal : missing);
+                List<Map<String, Object>> groupRows = groups.get(new DimensionKey(dimVal, seriesDim == null ? null : seriesVal));
+                if (groupRows == null) {
+                    continue;
                 }
-                seriesList.add(new ChartData.Series(seriesName, data));
+                String seriesName = seriesDim == null ? measure.field() : seriesVal == null ? "(none)" : String.valueOf(seriesVal);
+                builder.put(category, seriesName, new ChartShaper.Cell(
+                        calculateAggregate(groupRows, measure.field(), measure.aggregation()),
+                        groupRows.size(),
+                        groupRows.stream().filter(r -> ResultValues.toBigDecimal(r.get(measure.field())) != null).count(),
+                        calculateAggregate(groupRows, measure.field(), Aggregation.AVG)));
+            }
+            if (dated && dimVal instanceof LocalDate start) {
+                builder.range(category, ChartShaper.bucketRange(start, dim.granularity()));
             }
         }
+        return builder.build();
+    }
 
-        DateRange effRange = dateRangeResolver.effectiveRange(dateRangeResolver.findDateFilter(datasource, def.filters()));
-        ChartData.DateRangeView dateRangeView = effRange.bounded()
-                ? new ChartData.DateRangeView(effRange.from(), effRange.to())
-                : null;
-        ChartData.Meta meta = new ChartData.Meta(filteredRows.size(), dateRangeView);
-        ChartData.MeasureView measureView = new ChartData.MeasureView(measure.field(), measure.aggregation().json());
-
-        return new ChartData("CHART", def.chartType().json(), dim.field(), categories, seriesList, measureView, meta,
-                ChartReportExecutor.valueLabels(datasource, dim),
-                seriesDim != null ? ChartReportExecutor.valueLabels(datasource, seriesDim) : null);
+    /** Every (category, sub-category) cell in one pass over the rows. */
+    private Map<String, List<ChartShaper.SubCell>> groupSubCells(List<Map<String, Object>> rows, DimensionRef dim,
+            DimensionRef subDim, MeasureRef measure, ReportDatasource datasource) {
+        FieldDef dimFieldDef = datasource.field(dim.field());
+        FieldDef subFieldDef = datasource.field(subDim.field());
+        Map<DimensionKey, List<Map<String, Object>>> groups = new LinkedHashMap<>();
+        for (Map<String, Object> row : rows) {
+            for (Object dimRaw : groupValues(row.get(dim.field()))) {
+                Object dimVal = processDimensionValue(dimRaw, dimFieldDef, dim.granularity());
+                for (Object subRaw : groupValues(row.get(subDim.field()))) {
+                    Object subVal = processDimensionValue(subRaw, subFieldDef, subDim.granularity());
+                    groups.computeIfAbsent(new DimensionKey(dimVal, subVal), k -> new ArrayList<>()).add(row);
+                }
+            }
+        }
+        Map<String, List<ChartShaper.SubCell>> out = new LinkedHashMap<>();
+        groups.forEach((key, groupRows) -> out
+                .computeIfAbsent(formatDimensionLabel(key.dimVal(), dimFieldDef, dim.granularity()), k -> new ArrayList<>())
+                .add(new ChartShaper.SubCell(formatDimensionLabel(key.seriesVal(), subFieldDef, subDim.granularity()),
+                        calculateAggregate(groupRows, measure.field(), measure.aggregation()), groupRows.size())));
+        return out;
     }
 
     // ------------------------------------------------------------------
