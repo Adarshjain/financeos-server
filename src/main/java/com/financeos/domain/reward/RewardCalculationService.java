@@ -119,13 +119,26 @@ public class RewardCalculationService {
     }
 
     /**
-     * Every credit card's total for its current anniversary year (calendar year when the card
-     * has no anniversary), using the same report math as {@link #report}.
+     * Every credit card's total, then every other account of the user that has at least one reward
+     * rule, for its current anniversary year (calendar year when it has no anniversary), using the
+     * same report math as {@link #report}.
      */
     @Transactional(readOnly = true)
     public List<RewardTotalResponse> totals() {
         LocalDate today = AppTime.today();
-        List<Account> cards = accountRepository.findByUserIdAndType(UserContext.getCurrentUserId(), AccountType.credit_card);
+        UUID userId = UserContext.getCurrentUserId();
+        List<Account> cards = new ArrayList<>(accountRepository.findByUserIdAndType(userId, AccountType.credit_card));
+        // Other accounts with reward rules: one query for the ids (scoped to the user) and one for the accounts,
+        // re-filtered to the user so a stray id can never surface another user's account.
+        Set<UUID> cardIdSet = cards.stream().map(Account::getId).collect(Collectors.toSet());
+        List<UUID> otherRuleIds = rewardRuleRepository.findDistinctAccountIdsByUserId(userId).stream()
+                .filter(id -> !cardIdSet.contains(id)).toList();
+        if (!otherRuleIds.isEmpty()) {
+            accountRepository.findAllById(otherRuleIds).stream()
+                    .filter(a -> a.getUser() != null && userId.equals(a.getUser().getId()))
+                    .sorted(Comparator.comparing(a -> String.valueOf(a.getName()), String.CASE_INSENSITIVE_ORDER))
+                    .forEach(cards::add);
+        }
         if (cards.isEmpty()) {
             return List.of();
         }
@@ -198,7 +211,7 @@ public class RewardCalculationService {
             run(p.eval(), txnsByCard.getOrDefault(p.card().getId(), List.of()), links);
             RewardReportResponse.Summary summary = buildReport(p.eval(), p.from(), p.to()).summary();
             totals.add(new RewardTotalResponse(p.card().getId(), p.from(), p.to(), p.fallback(),
-                    summary.points(), summary.grossValueInr()));
+                    summary.points(), summary.grossValueInr(), p.card().getPointValueInr()));
         }
         return totals;
     }

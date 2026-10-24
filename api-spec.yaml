@@ -18184,6 +18184,10 @@ components:
           type: number
           nullable: true
           x-nullable: true
+        pointValueInr:
+          type: number
+          nullable: true
+          x-nullable: true
         points:
           type: number
         to:
