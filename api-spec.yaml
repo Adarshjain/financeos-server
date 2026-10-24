@@ -17196,6 +17196,10 @@ components:
     ReportSummaryResponse:
       type: object
       properties:
+        chartType:
+          type: string
+          nullable: true
+          x-nullable: true
         createdAt:
           type: string
           format: date-time
