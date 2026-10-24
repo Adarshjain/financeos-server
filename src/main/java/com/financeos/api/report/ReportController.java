@@ -2,21 +2,25 @@ package com.financeos.api.report;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.api.report.dto.CreateReportRequest;
+import com.financeos.api.report.dto.ReportDashboardRef;
 import com.financeos.api.report.dto.ReportResponse;
 import com.financeos.api.report.dto.ReportSummaryResponse;
 import com.financeos.api.report.dto.RunReportRequest;
 import com.financeos.api.report.dto.UpdateReportRequest;
+import com.financeos.domain.dashboard.DashboardService;
 import com.financeos.domain.report.Report;
 import com.financeos.domain.report.ReportDataService;
 import com.financeos.domain.report.ReportService;
 import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.engine.ReportData;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -26,11 +30,20 @@ public class ReportController {
     private final ReportService reportService;
     private final ReportDataService reportDataService;
     private final ObjectMapper mapper;
+    private final DashboardService dashboardService;
 
-    public ReportController(ReportService reportService, ReportDataService reportDataService, ObjectMapper mapper) {
+    @Autowired
+    public ReportController(ReportService reportService, ReportDataService reportDataService, ObjectMapper mapper,
+            DashboardService dashboardService) {
         this.reportService = reportService;
         this.reportDataService = reportDataService;
         this.mapper = mapper;
+        this.dashboardService = dashboardService;
+    }
+
+    /** A controller whose report list names no dashboards (plain unit tests). */
+    public ReportController(ReportService reportService, ReportDataService reportDataService, ObjectMapper mapper) {
+        this(reportService, reportDataService, mapper, null);
     }
 
     @PostMapping
@@ -42,8 +55,12 @@ public class ReportController {
     @GetMapping
     public ResponseEntity<List<ReportSummaryResponse>> listReports(
             @RequestParam(required = false) ReportType type) {
-        List<ReportSummaryResponse> responses = reportService.list(type).stream()
-                .map(ReportSummaryResponse::from)
+        List<Report> reports = reportService.list(type);
+        // One dashboards read for the whole list, never one per report.
+        Map<UUID, List<ReportDashboardRef>> usage = dashboardService == null || reports.isEmpty()
+                ? Map.of() : dashboardService.dashboardsByReport();
+        List<ReportSummaryResponse> responses = reports.stream()
+                .map(r -> ReportSummaryResponse.from(r, usage.getOrDefault(r.getId(), List.of())))
                 .toList();
         return ResponseEntity.ok(responses);
     }

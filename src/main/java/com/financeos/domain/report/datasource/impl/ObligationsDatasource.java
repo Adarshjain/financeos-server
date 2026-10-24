@@ -54,6 +54,11 @@ public class ObligationsDatasource implements ComputedReportDatasource {
     }
 
     @Override
+    public boolean managesOwnTransactions() {
+        return true;
+    }
+
+    @Override
     public String name() {
         return "obligations";
     }

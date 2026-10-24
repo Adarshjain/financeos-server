@@ -9,6 +9,7 @@ import com.financeos.api.dashboard.dto.DashboardSummaryResponse;
 import com.financeos.api.dashboard.dto.ReportRef;
 import com.financeos.api.dashboard.dto.UpdateDashboardRequest;
 import com.financeos.api.dashboard.dto.WidgetResponse;
+import com.financeos.api.report.dto.ReportDashboardRef;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
@@ -20,6 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -64,6 +68,42 @@ public class DashboardService {
     @Transactional(readOnly = true)
     public List<DashboardResponse> list() {
         return dashboardRepository.findAll().stream().map(this::toResponse).toList();
+    }
+
+    /**
+     * The current user's dashboards that show each report, by report id, each list ordered by
+     * dashboard name. One read of the user's dashboards (scoped by the tenant filter), however many
+     * reports; a report used by several widgets of one dashboard lists that dashboard once. Reports no
+     * dashboard uses are absent.
+     */
+    @Transactional(readOnly = true)
+    public Map<UUID, List<ReportDashboardRef>> dashboardsByReport() {
+        List<Dashboard> dashboards = dashboardRepository.findAll().stream()
+                .sorted(Comparator.comparing(Dashboard::getName, String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(Dashboard::getName)
+                        .thenComparing(Dashboard::getId))
+                .toList();
+        Map<UUID, Set<ReportDashboardRef>> byReport = new LinkedHashMap<>();
+        for (Dashboard dashboard : dashboards) {
+            ReportDashboardRef ref = new ReportDashboardRef(dashboard.getId(), dashboard.getName());
+            List<DashboardWidget> widgets;
+            try {
+                widgets = parse(dashboard.getWidgets());
+            } catch (IllegalStateException e) {
+                // One unreadable dashboard must not break the reports list; its widgets are skipped.
+                log.warn("Skipping dashboard {} in report usage: stored widgets could not be parsed", dashboard.getId());
+                continue;
+            }
+            for (DashboardWidget widget : widgets) {
+                if (widget.usesBuiltin() || widget.usesText() || widget.reportId() == null) {
+                    continue;
+                }
+                byReport.computeIfAbsent(widget.reportId(), k -> new LinkedHashSet<>()).add(ref);
+            }
+        }
+        Map<UUID, List<ReportDashboardRef>> out = new LinkedHashMap<>();
+        byReport.forEach((reportId, refs) -> out.put(reportId, List.copyOf(refs)));
+        return out;
     }
 
     @Transactional(readOnly = true)

@@ -3,6 +3,7 @@ package com.financeos.domain.report.underlying;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
+import com.financeos.core.tx.SectionRunner;
 import com.financeos.domain.report.ReportDataService;
 import com.financeos.domain.report.ReportDataService.ResolvedDefinition;
 import com.financeos.domain.report.ReportDefinitionValidator;
@@ -26,9 +27,9 @@ import com.financeos.domain.report.engine.KpiReportExecutor;
 import com.financeos.domain.report.engine.RuntimeSort;
 import com.financeos.domain.report.engine.TableData;
 import com.financeos.domain.report.engine.TableReportExecutor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -70,10 +71,13 @@ public class KpiUnderlyingService {
     private final InMemoryReportExecutor inMemoryExecutor;
     private final UnderlyingFilterChips filterChips;
     private final RowBreakdownService breakdowns;
+    private final SectionRunner transactions;
 
+    @Autowired
     public KpiUnderlyingService(ReportDataService reportDataService, ReportDefinitionValidator validator,
             KpiPeriodResolver periodResolver, KpiReportExecutor kpiExecutor, TableReportExecutor tableExecutor,
-            InMemoryReportExecutor inMemoryExecutor, UnderlyingFilterChips filterChips, RowBreakdownService breakdowns) {
+            InMemoryReportExecutor inMemoryExecutor, UnderlyingFilterChips filterChips, RowBreakdownService breakdowns,
+            SectionRunner transactions) {
         this.reportDataService = reportDataService;
         this.validator = validator;
         this.periodResolver = periodResolver;
@@ -82,6 +86,15 @@ public class KpiUnderlyingService {
         this.inMemoryExecutor = inMemoryExecutor;
         this.filterChips = filterChips;
         this.breakdowns = breakdowns;
+        this.transactions = transactions;
+    }
+
+    /** Runs SQL reads inline, without their own transaction (plain unit tests). */
+    public KpiUnderlyingService(ReportDataService reportDataService, ReportDefinitionValidator validator,
+            KpiPeriodResolver periodResolver, KpiReportExecutor kpiExecutor, TableReportExecutor tableExecutor,
+            InMemoryReportExecutor inMemoryExecutor, UnderlyingFilterChips filterChips, RowBreakdownService breakdowns) {
+        this(reportDataService, validator, periodResolver, kpiExecutor, tableExecutor, inMemoryExecutor,
+                filterChips, breakdowns, SectionRunner.DIRECT);
     }
 
     /** Where a CSV export is written; opened only once the export is known to be valid. */
@@ -96,14 +109,12 @@ public class KpiUnderlyingService {
      * @param period {@code current} (default) or {@code previous}
      * @param sort   {@code <column>,<asc|desc>} over the listed columns; null for the default order
      */
-    @Transactional(readOnly = true)
     public KpiUnderlyingResponse saved(UUID reportId, String period, Integer page, Integer size, String sort) {
         Request request = request(period, sort);
         return respond(kpi(reportDataService.resolveSaved(reportId)), request, page, size);
     }
 
     /** One page of an unsaved KPI definition's underlying data (ad-hoc reports, built-in widgets). */
-    @Transactional(readOnly = true)
     public KpiUnderlyingResponse adHoc(ReportType type, String datasource, JsonNode definition,
             String period, Integer page, Integer size, String sort) {
         Request request = request(period, sort);
@@ -111,14 +122,12 @@ public class KpiUnderlyingService {
     }
 
     /** Every underlying row of a saved KPI report as CSV (same rows, columns and order as the pages). */
-    @Transactional(readOnly = true)
     public void savedCsv(UUID reportId, String period, String sort, CsvTarget target) {
         Request request = request(period, sort);
         export(kpi(reportDataService.resolveSaved(reportId)), request, target);
     }
 
     /** Every underlying row of an unsaved KPI definition as CSV. */
-    @Transactional(readOnly = true)
     public void adHocCsv(ReportType type, String datasource, JsonNode definition, String period, String sort,
             CsvTarget target) {
         Request request = request(period, sort);
@@ -145,7 +154,22 @@ public class KpiUnderlyingService {
         return new Kpi(resolved.datasource(), kpi);
     }
 
+    /**
+     * Datasources read inside one short read-only transaction (tenant filter on), except those that
+     * manage their own section transactions (net worth, obligations), so their sections' transactions are never nested inside a connection this call already holds.
+     */
     private KpiUnderlyingResponse respond(Kpi kpi, Request request, Integer page, Integer size) {
+        if (managesOwnTransactions(kpi.datasource())) {
+            return buildResponse(kpi, request, page, size);
+        }
+        return transactions.run(() -> buildResponse(kpi, request, page, size));
+    }
+
+    private static boolean managesOwnTransactions(ReportDatasource ds) {
+        return ds instanceof ComputedReportDatasource computed && computed.managesOwnTransactions();
+    }
+
+    private KpiUnderlyingResponse buildResponse(Kpi kpi, Request request, Integer page, Integer size) {
         ReportDatasource ds = kpi.datasource();
         KpiDefinition def = kpi.definition();
         UUID userId = UserContext.getCurrentUserId();
@@ -193,6 +217,17 @@ public class KpiUnderlyingService {
      * The row count is checked against {@link #CSV_MAX_ROWS} before anything is written.
      */
     private void export(Kpi kpi, Request request, CsvTarget target) {
+        if (managesOwnTransactions(kpi.datasource())) {
+            writeCsv(kpi, request, target);
+            return;
+        }
+        transactions.run(() -> {
+            writeCsv(kpi, request, target);
+            return null;
+        });
+    }
+
+    private void writeCsv(Kpi kpi, Request request, CsvTarget target) {
         ReportDatasource ds = kpi.datasource();
         KpiDefinition def = kpi.definition();
         UUID userId = UserContext.getCurrentUserId();

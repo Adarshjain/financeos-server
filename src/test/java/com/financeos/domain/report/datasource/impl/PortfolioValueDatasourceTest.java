@@ -81,7 +81,7 @@ class PortfolioValueDatasourceTest {
         txn.setQuantity(new BigDecimal("10"));
         txn.setPrice(new BigDecimal("2000"));
 
-        when(holdingRepository.findAllWithDetails()).thenReturn(List.of(holding));
+        when(holdingRepository.findAllWithDetailsOfUser(org.mockito.ArgumentMatchers.any())).thenReturn(List.of(holding));
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId()))
                 .thenReturn(List.of(txn));
 
@@ -126,7 +126,7 @@ class PortfolioValueDatasourceTest {
         txn.setQuantity(new BigDecimal("10"));
         txn.setPrice(new BigDecimal("2000"));
 
-        when(holdingRepository.findAllWithDetails()).thenReturn(List.of(holding));
+        when(holdingRepository.findAllWithDetailsOfUser(org.mockito.ArgumentMatchers.any())).thenReturn(List.of(holding));
         when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId()))
                 .thenReturn(List.of(txn));
 

@@ -6,6 +6,7 @@ import com.financeos.domain.report.ReportType;
 import org.springframework.lang.Nullable;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 public record ReportSummaryResponse(
@@ -15,9 +16,11 @@ public record ReportSummaryResponse(
         ReportType type,
         String datasource,
         Instant createdAt,
-        Instant updatedAt
+        Instant updatedAt,
+        List<ReportDashboardRef> dashboards
 ) {
-    public static ReportSummaryResponse from(Report report) {
+    /** {@code dashboards}: the dashboards that use the report, ordered by name (empty when none). */
+    public static ReportSummaryResponse from(Report report, List<ReportDashboardRef> dashboards) {
         return new ReportSummaryResponse(
                 report.getId(),
                 report.getName(),
@@ -25,7 +28,8 @@ public record ReportSummaryResponse(
                 report.getType(),
                 report.getDatasource(),
                 report.getCreatedAt(),
-                report.getUpdatedAt()
+                report.getUpdatedAt(),
+                dashboards
         );
     }
 }
