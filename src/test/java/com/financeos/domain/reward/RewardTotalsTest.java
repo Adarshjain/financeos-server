@@ -217,6 +217,42 @@ class RewardTotalsTest {
     }
 
     @Test
+    void milestoneFiguresEqualReportSummary_andAreZeroWithoutMilestones() {
+        Account plain = card("Plain", LocalDate.of(2024, 6, 1));
+        cards(plain);
+        RewardTotalResponse none = service.totals().get(0);
+        assertThat(none.milestonePoints()).isEqualByComparingTo("0");
+        assertThat(none.milestoneValueInr()).isEqualByComparingTo("0");
+
+        Account c = card("Ms", LocalDate.of(2024, 6, 1));
+        spend(c, LocalDate.of(2026, 7, 10));
+        RewardMilestone m = new RewardMilestone();
+        m.setId(UUID.randomUUID());
+        m.setAccount(c);
+        m.setName("Spend 500");
+        m.setWindowType(MilestoneWindow.ONE_TIME);
+        m.setActiveFrom(LocalDate.of(2026, 6, 1));
+        m.setActiveTo(LocalDate.of(2026, 12, 1));
+        m.setBasis(MilestoneBasis.SPEND);
+        m.setThreshold(new BigDecimal("500.00"));
+        m.setRewardType(RewardType.POINTS);
+        m.setPayoutType(MilestonePayoutType.CASH_VALUE);
+        m.setPayoutValue(new BigDecimal("250"));
+        m.setPayoutTiming(MilestonePayoutTiming.ON_ACHIEVEMENT);
+        lenient().when(rewardMilestoneRepository.findByAccountIdInOrderByCreatedAtAsc(any())).thenReturn(List.of(m));
+        lenient().when(rewardMilestoneRepository.findByAccountIdOrderByCreatedAtAsc(c.getId())).thenReturn(List.of(m));
+        lenient().when(rewardMilestoneService.parseEligibility(m)).thenReturn(MilestoneEligibility.EMPTY);
+        cards(c);
+
+        RewardTotalResponse t = service.totals().get(0);
+        RewardReportResponse.Summary s = service.report(t.accountId(), t.from(), t.to()).summary();
+
+        assertThat(s.milestonesPts()).isEqualByComparingTo("250");
+        assertThat(t.milestonePoints()).isEqualByComparingTo(s.milestonesPts());
+        assertThat(t.milestoneValueInr()).isEqualByComparingTo(s.milestonesInr());
+    }
+
+    @Test
     void spendOutsideTheAnniversaryWindow_isNotCounted() {
         Account c = card("A", LocalDate.of(2024, 6, 1));
         // The repository is asked only for the window (expanded for caps); an empty result models no spend in it.

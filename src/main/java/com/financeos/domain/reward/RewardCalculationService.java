@@ -211,7 +211,8 @@ public class RewardCalculationService {
             run(p.eval(), txnsByCard.getOrDefault(p.card().getId(), List.of()), links);
             RewardReportResponse.Summary summary = buildReport(p.eval(), p.from(), p.to()).summary();
             totals.add(new RewardTotalResponse(p.card().getId(), p.from(), p.to(), p.fallback(),
-                    summary.points(), summary.grossValueInr(), p.card().getPointValueInr()));
+                    summary.points(), summary.grossValueInr(), p.card().getPointValueInr(),
+                    summary.milestonesPts(), summary.milestonesInr()));
         }
         return totals;
     }
