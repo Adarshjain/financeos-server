@@ -7,9 +7,11 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 /**
- * One credit card's reward total over its current anniversary year (calendar year when the
- * card has no anniversary, flagged by calendarYearFallback). points and grossValueInr equal
- * the report summary for the same from/to window.
+ * One account's reward total over its current anniversary year (calendar year when it has no
+ * anniversary, flagged by calendarYearFallback). Covers every credit card plus any other account
+ * with reward rules. points and grossValueInr equal the report summary for the same from/to
+ * window. pointValueInr is the account's configured point value (as GET /reward-config), null
+ * when not set.
  */
 public record RewardTotalResponse(
         UUID accountId,
@@ -17,5 +19,6 @@ public record RewardTotalResponse(
         LocalDate to,
         boolean calendarYearFallback,
         BigDecimal points,
-        @Nullable BigDecimal grossValueInr) {
+        @Nullable BigDecimal grossValueInr,
+        @Nullable BigDecimal pointValueInr) {
 }

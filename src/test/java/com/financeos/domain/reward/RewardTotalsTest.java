@@ -247,4 +247,66 @@ class RewardTotalsTest {
 
         assertThat(service.totals()).isEmpty();
     }
+
+    private Account other(String name, User owner) {
+        Account a = new Account(name, AccountType.bank_account);
+        a.setId(UUID.randomUUID());
+        a.setUser(owner);
+        return a;
+    }
+
+    @Test
+    void pointValueInr_presentWhenConfigured_nullWhenNot() {
+        Account withValue = card("A", null);
+        withValue.setPointValueInr(new BigDecimal("0.50"));
+        Account without = card("B", null);
+        cards(withValue, without);
+
+        List<RewardTotalResponse> totals = service.totals();
+
+        assertThat(totals.get(0).pointValueInr()).isEqualByComparingTo("0.50");
+        assertThat(totals.get(1).pointValueInr()).isNull();
+    }
+
+    @Test
+    void nonCardAccountWithRules_isIncludedAfterCards_inOneBatchedQuery() {
+        Account c = card("Card", null);
+        Account bank = other("Bank", user);
+        bank.setPointValueInr(new BigDecimal("1.00"));
+        spend(bank, LocalDate.of(2026, 3, 10));
+        cards(c);
+        when(rewardRuleRepository.findDistinctAccountIdsByUserId(user.getId())).thenReturn(List.of(bank.getId()));
+        when(accountRepository.findAllById(List.of(bank.getId()))).thenReturn(List.of(bank));
+
+        List<RewardTotalResponse> totals = service.totals();
+
+        assertThat(totals).extracting(RewardTotalResponse::accountId).containsExactly(c.getId(), bank.getId());
+        assertThat(totals.get(1).calendarYearFallback()).isTrue();
+        assertThat(totals.get(1).grossValueInr()).isEqualByComparingTo("20.00");
+        assertThat(totals.get(1).pointValueInr()).isEqualByComparingTo("1.00");
+        verify(rewardRuleRepository, times(1)).findDistinctAccountIdsByUserId(any());
+        verify(accountRepository, times(1)).findAllById(any());
+    }
+
+    @Test
+    void nonCardAccountWithoutRules_isExcluded() {
+        Account c = card("Card", null);
+        cards(c);
+        when(rewardRuleRepository.findDistinctAccountIdsByUserId(user.getId())).thenReturn(List.of());
+
+        assertThat(service.totals()).extracting(RewardTotalResponse::accountId).containsExactly(c.getId());
+        verify(accountRepository, never()).findAllById(any());
+    }
+
+    @Test
+    void anotherUsersAccount_isExcluded() {
+        User stranger = new User();
+        stranger.setId(UUID.randomUUID());
+        Account theirs = other("Theirs", stranger);
+        cards();
+        when(rewardRuleRepository.findDistinctAccountIdsByUserId(user.getId())).thenReturn(List.of(theirs.getId()));
+        when(accountRepository.findAllById(List.of(theirs.getId()))).thenReturn(List.of(theirs));
+
+        assertThat(service.totals()).isEmpty();
+    }
 }
