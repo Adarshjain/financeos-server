@@ -10,7 +10,9 @@ public enum ChartType {
     STACKED_BAR("stackedBar"),
     AREA("area"),
     PIE("pie"),
-    DONUT("donut");
+    DONUT("donut"),
+    /** A ranked list (value, share, count, average, change, sub-rows); like pie/donut it ignores {@code series}. */
+    BREAKDOWN("breakdown");
 
     private final String json;
 

@@ -11,6 +11,7 @@ import com.financeos.domain.report.datasource.FieldType;
 import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.definition.AggregatedTableDefinition;
 import com.financeos.domain.report.definition.ChartDefinition;
+import com.financeos.domain.report.definition.ChartType;
 import com.financeos.domain.report.definition.DimensionRef;
 import com.financeos.domain.report.definition.FilterClause;
 import com.financeos.domain.report.definition.KpiDefinition;
@@ -124,6 +125,7 @@ public class ReportDefinitionValidator {
         if (definition instanceof ChartDefinition chart) {
             if (chart.dimension() != null) out.add(chart.dimension().field());
             if (chart.series() != null) out.add(chart.series().field());
+            if (chart.subDimension() != null) out.add(chart.subDimension().field());
         } else if (definition instanceof RawTableDefinition raw) {
             if (raw.columns() != null) out.addAll(raw.columns());
         } else if (definition instanceof AggregatedTableDefinition aggregated) {
@@ -161,7 +163,40 @@ public class ReportDefinitionValidator {
             throw new ValidationException("measure is required for a Chart report");
         }
         validateMeasureRef(datasource, chart.measure(), ReportType.CHART);
+        validateChartShaping(datasource, chart);
         validateFilters(datasource, chart.filters());
+    }
+
+    /** limit / other / comparison / breakdown sub-rows. */
+    private void validateChartShaping(ReportDatasource datasource, ChartDefinition chart) {
+        if (chart.limit() != null && (chart.limit() < 1 || chart.limit() > ChartDefinition.MAX_LIMIT)) {
+            throw new ValidationException("limit must be between 1 and " + ChartDefinition.MAX_LIMIT);
+        }
+        if (Boolean.TRUE.equals(chart.other()) && chart.limit() == null) {
+            throw new ValidationException("other requires a limit");
+        }
+        if (chart.comparison() != null) {
+            FieldDef dimension = datasource.field(chart.dimension().field());
+            if (dimension != null && dimension.type() == FieldType.DATE) {
+                throw new ValidationException("A chart comparison is not available when the dimension is a date");
+            }
+        }
+        boolean breakdown = chart.chartType() == ChartType.BREAKDOWN;
+        if (!breakdown && chart.subDimension() != null) {
+            throw new ValidationException("subDimension is only valid for a breakdown chart");
+        }
+        if (!breakdown && chart.subLimit() != null) {
+            throw new ValidationException("subLimit is only valid for a breakdown chart");
+        }
+        if (chart.subLimit() != null && (chart.subLimit() < 1 || chart.subLimit() > ChartDefinition.MAX_SUB_LIMIT)) {
+            throw new ValidationException("subLimit must be between 1 and " + ChartDefinition.MAX_SUB_LIMIT);
+        }
+        if (chart.subDimension() != null) {
+            validateDimension(datasource, chart.subDimension(), ReportType.CHART, "subDimension");
+            if (chart.subDimension().field().equals(chart.dimension().field())) {
+                throw new ValidationException("Chart subDimension must differ from the dimension field");
+            }
+        }
     }
 
     // ------------------------------------------------------------------ Table

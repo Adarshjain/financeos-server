@@ -198,12 +198,12 @@ class ReportExecutorValueLabelsTest {
     void sqlChartLabelsItsCategoriesAndSeries() {
         ChartReportExecutor executor = new ChartReportExecutor(new DateRangeResolver(4));
         ReflectionTestUtils.setField(executor, "em", emReturning(List.<Object[]>of(
-                new Object[]{"bank_account", "asset", new BigDecimal("100")})));
+                new Object[]{"bank_account", "asset", new BigDecimal("100"), 1L, 1L, new BigDecimal("100")})));
 
         ChartData chart = executor.execute(new ChartDefinition(ChartType.BAR, new DimensionRef("kind", null),
                 new DimensionRef("side", null), new MeasureRef("value", Aggregation.SUM), List.of()), sqlDatasource(), userId);
         ReflectionTestUtils.setField(executor, "em", emReturning(List.<Object[]>of(
-                new Object[]{java.sql.Date.valueOf(LocalDate.of(2026, 10, 1)), new BigDecimal("100")})));
+                new Object[]{java.sql.Date.valueOf(LocalDate.of(2026, 10, 1)), new BigDecimal("100"), 1L, 1L, new BigDecimal("100")})));
         ChartData byMonth = executor.execute(new ChartDefinition(ChartType.BAR, new DimensionRef("asOf", Granularity.MONTH),
                 null, new MeasureRef("value", Aggregation.SUM), List.of()), sqlDatasource(), userId);
 
