@@ -18184,6 +18184,10 @@ components:
           type: number
           nullable: true
           x-nullable: true
+        milestonePoints:
+          type: number
+        milestoneValueInr:
+          type: number
         pointValueInr:
           type: number
           nullable: true
@@ -18197,6 +18201,8 @@ components:
       - accountId
       - calendarYearFallback
       - from
+      - milestonePoints
+      - milestoneValueInr
       - points
       - to
     RootCause:
