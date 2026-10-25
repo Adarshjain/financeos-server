@@ -52,11 +52,43 @@ public record DayChange(@Nullable BigDecimal previousClose, @Nullable LocalDate 
 
     private static final BigDecimal HUNDRED = BigDecimal.valueOf(100);
 
-    /** One stored close. */
-    public record PricePoint(LocalDate asOf, BigDecimal close, @Nullable Instant at) {
-        public PricePoint(LocalDate asOf, BigDecimal close) {
-            this(asOf, close, null);
+    /**
+     * One stored close. {@code feedPreviousClose} is the prior session's close a Yahoo feed row carries
+     * (instrument_prices.previous_close); null on AMFI and MANUAL rows and on older rows.
+     */
+    public record PricePoint(LocalDate asOf, BigDecimal close, @Nullable Instant at,
+                             @Nullable BigDecimal feedPreviousClose) {
+        public PricePoint(LocalDate asOf, BigDecimal close, @Nullable Instant at) {
+            this(asOf, close, at, null);
         }
+
+        public PricePoint(LocalDate asOf, BigDecimal close) {
+            this(asOf, close, null, null);
+        }
+    }
+
+    /**
+     * The move against the feed's own previous close, when the latest row (the one priced) is a Yahoo
+     * feed row carrying one. The previous row, when there is one, only supplies previousCloseAsOf/At.
+     */
+    @Nullable
+    private static DayChange ofFeedPreviousClose(@Nullable BigDecimal openQty, @Nullable BigDecimal lastPrice,
+                                                 @Nullable LocalDate lastPriceAsOf, @Nullable List<PricePoint> latestFirst) {
+        if (openQty == null || openQty.signum() <= 0 || lastPrice == null || lastPriceAsOf == null
+                || latestFirst == null || latestFirst.isEmpty()
+                || !lastPriceAsOf.equals(latestFirst.get(0).asOf())
+                || latestFirst.get(0).feedPreviousClose() == null) {
+            return null;
+        }
+        BigDecimal previousClose = latestFirst.get(0).feedPreviousClose();
+        BigDecimal move = lastPrice.subtract(previousClose);
+        BigDecimal change = move.multiply(openQty).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal pct = previousClose.signum() == 0
+                ? null
+                : move.multiply(HUNDRED).divide(previousClose, 2, RoundingMode.HALF_UP);
+        PricePoint prior = latestFirst.size() > 1 ? latestFirst.get(1) : null;
+        return new DayChange(previousClose, prior == null ? null : prior.asOf(), change, pct,
+                prior == null ? null : prior.at());
     }
 
     /**
@@ -91,6 +123,17 @@ public record DayChange(@Nullable BigDecimal previousClose, @Nullable LocalDate 
     public static DayChange forPosition(@Nullable BigDecimal openQty, @Nullable BigDecimal lastPrice,
                                         @Nullable LocalDate lastPriceAsOf, @Nullable List<PricePoint> latestFirst,
                                         LocalDate today, @Nullable List<CorporateAction> actions) {
+        if (lastPriceAsOf != null && latestFirst != null && !latestFirst.isEmpty()
+                && latestFirst.get(0).feedPreviousClose() != null
+                && lastPriceAsOf.equals(latestFirst.get(0).asOf())
+                && !hasActionInWindow(actions, latestFirst.size() > 1 ? latestFirst.get(1).asOf()
+                        : lastPriceAsOf.minusDays(PREVIOUS_WITHIN_DAYS), lastPriceAsOf)) {
+            if (lastPriceAsOf.isBefore(today.minusDays(CURRENT_WITHIN_DAYS))) {
+                return NONE;
+            }
+            DayChange feed = ofFeedPreviousClose(openQty, lastPrice, lastPriceAsOf, latestFirst);
+            return feed != null ? feed : NONE;
+        }
         if (lastPriceAsOf == null || latestFirst == null || latestFirst.size() < 2) {
             return NONE;
         }
@@ -123,6 +166,19 @@ public record DayChange(@Nullable BigDecimal previousClose, @Nullable LocalDate 
         PricePoint adjusted = new PricePoint(previous.asOf(),
                 previous.close().multiply(factor).setScale(4, RoundingMode.HALF_UP), previous.at());
         return of(openQty, lastPrice, lastPriceAsOf, List.of(latestFirst.get(0), adjusted));
+    }
+
+    private static boolean hasActionInWindow(@Nullable List<CorporateAction> actions, LocalDate after, LocalDate upTo) {
+        if (actions == null) {
+            return false;
+        }
+        for (CorporateAction ca : actions) {
+            LocalDate ex = ca.getExDate();
+            if (ex != null && ex.isAfter(after) && !ex.isAfter(upTo)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** What the position was worth at the previous close (null when there is no day change). */

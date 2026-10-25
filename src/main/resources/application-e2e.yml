@@ -1,5 +1,8 @@
 price:
   refresh-cron: "-"
+  intraday-cron: "-"
+  amfi-refresh-cron: "-"
+  amfi-retry-cron: "-"
 gmail:
   ingest:
     cron: "-"

@@ -26,8 +26,51 @@ public class PriceSchedulerConfiguration {
     @org.springframework.beans.factory.annotation.Value("${price.timezone:Asia/Kolkata}")
     private String zone;
 
-    public PriceSchedulerConfiguration(com.financeos.domain.job.JobService jobService) {
+    private final PriceRefreshService priceRefreshService;
+    private final AmfiFeedClient amfiFeedClient;
+
+    public PriceSchedulerConfiguration(com.financeos.domain.job.JobService jobService,
+                                       PriceRefreshService priceRefreshService,
+                                       AmfiFeedClient amfiFeedClient) {
         this.jobService = jobService;
+        this.priceRefreshService = priceRefreshService;
+        this.amfiFeedClient = amfiFeedClient;
+    }
+
+    /** Live Yahoo prices during the NSE session; the gate inside the service trims the cron's wider hours. */
+    @Scheduled(cron = "${price.intraday-cron}", zone = "${price.timezone}")
+    public void runIntradayPriceRefresh() {
+        try {
+            int written = priceRefreshService.refreshIntraday();
+            if (written > 0) {
+                log.info("Intraday price refresh wrote {} Yahoo prices", written);
+            }
+        } catch (Exception e) {
+            log.error("Intraday price refresh failed", e);
+        }
+    }
+
+    /** Picks up the night's AMFI NAVs. */
+    @Scheduled(cron = "${price.amfi-refresh-cron}", zone = "${price.timezone}")
+    public void runAmfiRefresh() {
+        refreshAmfi("night");
+    }
+
+    /** Morning retry for NAVs AMFI published late. */
+    @Scheduled(cron = "${price.amfi-retry-cron}", zone = "${price.timezone}")
+    public void runAmfiRetry() {
+        refreshAmfi("retry");
+    }
+
+    private void refreshAmfi(String run) {
+        try {
+            // AmfiFeedClient.ensureLoaded() has no TTL: the explicit load() refreshes the NAV cache.
+            amfiFeedClient.load();
+            int written = priceRefreshService.refreshSource(com.financeos.domain.instrument.PriceSource.AMFI);
+            log.info("AMFI {} refresh wrote {} NAVs", run, written);
+        } catch (Exception e) {
+            log.error("AMFI {} refresh failed", run, e);
+        }
     }
 
     @Scheduled(cron = "${price.refresh-cron}", zone = "${price.timezone}")

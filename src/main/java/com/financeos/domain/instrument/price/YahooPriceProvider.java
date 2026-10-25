@@ -288,6 +288,9 @@ public class YahooPriceProvider implements PriceProvider {
                     JsonNode symbolNode = item.path("symbol");
                     JsonNode priceNode = item.path("regularMarketPrice");
                     JsonNode timeNode = item.path("regularMarketTime");
+                    BigDecimal previousClose = decimalOrNull(item.path("regularMarketPreviousClose"));
+                    JsonNode stateNode = item.path("marketState");
+                    String marketState = stateNode.isTextual() && !stateNode.asText().isBlank() ? stateNode.asText().trim() : null;
 
                     if (!symbolNode.isMissingNode() && !symbolNode.isNull() &&
                         !priceNode.isMissingNode() && !priceNode.isNull()) {
@@ -303,7 +306,7 @@ public class YahooPriceProvider implements PriceProvider {
                             } else {
                                 asOf = LocalDate.now(zoneId);
                             }
-                            quotes.put(symbol, new PriceQuote(price, asOf, at));
+                            quotes.put(symbol, new PriceQuote(price, asOf, at, previousClose, marketState));
                         } catch (NumberFormatException e) {
                             log.warn("Invalid regularMarketPrice for symbol {}: {}", symbolNode.asText(), priceNode.asText());
                         }
@@ -332,25 +335,9 @@ public class YahooPriceProvider implements PriceProvider {
 
                 HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
                 if (response.statusCode() == 200) {
-                    JsonNode root = objectMapper.readTree(response.body());
-                    JsonNode resultNode = root.path("chart").path("result");
-                    if (resultNode.isArray() && !resultNode.isEmpty()) {
-                        JsonNode meta = resultNode.get(0).path("meta");
-                        JsonNode priceNode = meta.path("regularMarketPrice");
-                        JsonNode timeNode = meta.path("regularMarketTime");
-
-                        if (!priceNode.isMissingNode() && !priceNode.isNull()) {
-                            BigDecimal price = new BigDecimal(priceNode.asText());
-                            LocalDate asOf;
-                            Instant at = null;
-                            if (!timeNode.isMissingNode() && !timeNode.isNull() && timeNode.isNumber()) {
-                                at = Instant.ofEpochSecond(timeNode.asLong());
-                                asOf = at.atZone(zoneId).toLocalDate();
-                            } else {
-                                asOf = LocalDate.now(zoneId);
-                            }
-                            return new PriceQuote(price, asOf, at);
-                        }
+                    PriceQuote quote = parseChartResponse(response.body(), zoneId);
+                    if (quote != null) {
+                        return quote;
                     }
                 } else {
                     log.warn("Yahoo Finance query for symbol {} at host {} returned HTTP status {}", symbol, baseUrl, response.statusCode());
@@ -360,6 +347,46 @@ public class YahooPriceProvider implements PriceProvider {
             }
         }
         return null;
+    }
+
+    /** The v8 chart (range=1d) quote from the response meta; null when it has no price. */
+    PriceQuote parseChartResponse(String body, ZoneId zoneId) throws java.io.IOException {
+        JsonNode root = objectMapper.readTree(body);
+        JsonNode resultNode = root.path("chart").path("result");
+        if (resultNode.isArray() && !resultNode.isEmpty()) {
+            JsonNode meta = resultNode.get(0).path("meta");
+            JsonNode priceNode = meta.path("regularMarketPrice");
+            JsonNode timeNode = meta.path("regularMarketTime");
+            // range=1d: chartPreviousClose is the close before the range, i.e. the prior session's.
+            // (meta.previousClose is absent or intraday-range-dependent; not used.)
+            BigDecimal previousClose = decimalOrNull(meta.path("chartPreviousClose"));
+            JsonNode stateNode = meta.path("marketState");
+            String marketState = stateNode.isTextual() && !stateNode.asText().isBlank() ? stateNode.asText().trim() : null;
+            if (!priceNode.isMissingNode() && !priceNode.isNull()) {
+                BigDecimal price = new BigDecimal(priceNode.asText());
+                LocalDate asOf;
+                Instant at = null;
+                if (!timeNode.isMissingNode() && !timeNode.isNull() && timeNode.isNumber()) {
+                    at = Instant.ofEpochSecond(timeNode.asLong());
+                    asOf = at.atZone(zoneId).toLocalDate();
+                } else {
+                    asOf = LocalDate.now(zoneId);
+                }
+                return new PriceQuote(price, asOf, at, previousClose, marketState);
+            }
+        }
+        return null;
+    }
+
+    private static BigDecimal decimalOrNull(JsonNode node) {
+        if (node == null || node.isMissingNode() || node.isNull() || !node.isNumber()) {
+            return null;
+        }
+        try {
+            return new BigDecimal(node.asText());
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
     private static class CrumbExpiredException extends Exception {
