@@ -6,6 +6,7 @@ import com.financeos.api.instrument.dto.InstrumentRequest;
 import com.financeos.api.instrument.dto.PriceHistoryPage;
 import com.financeos.api.instrument.dto.InstrumentResponse;
 import com.financeos.api.instrument.dto.UpsertPriceRequest;
+import com.financeos.core.exception.DuplicateResourceException;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
@@ -332,11 +333,30 @@ public class InstrumentService {
     }
 
     public InstrumentResponse updateManualPrice(UUID instrumentId, UUID priceId, BigDecimal newClose) {
+        return updateManualPrice(instrumentId, priceId, newClose, null);
+    }
+
+    /**
+     * Edits the user's own MANUAL price: the close, and its date when {@code newAsOf} is given (null keeps
+     * it). Like {@link #upsertPrice}, any date is accepted; a date on which the user already has another
+     * price is a 409 (one own price per instrument and date).
+     */
+    public InstrumentResponse updateManualPrice(UUID instrumentId, UUID priceId, BigDecimal newClose,
+                                                @Nullable LocalDate newAsOf) {
         if (newClose == null || newClose.compareTo(BigDecimal.ZERO) < 0) {
             throw new ValidationException("Price must be non-negative");
         }
         UUID userId = requireUser("Editing a price needs a signed-in user");
         InstrumentPrice price = ownManualPrice(instrumentId, priceId, userId);
+        if (newAsOf != null && !newAsOf.equals(price.getAsOf())) {
+            Optional<InstrumentPrice> clash = priceRepository.findByInstrumentIdAndAsOfAndUserId(instrumentId, newAsOf, userId);
+            if (clash.isPresent() && !clash.get().getId().equals(price.getId())) {
+                throw new DuplicateResourceException("A price for "
+                        + newAsOf.format(java.time.format.DateTimeFormatter.ofPattern("d MMM yyyy", java.util.Locale.ENGLISH))
+                        + " already exists. Edit that one instead.");
+            }
+            price.setAsOf(newAsOf);
+        }
         price.setClose(newClose);
         priceRepository.save(price);
         // Positions read the latest visible price dynamically, so nothing else needs recomputing.

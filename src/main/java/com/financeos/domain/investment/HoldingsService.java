@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -58,7 +59,7 @@ public class HoldingsService {
     /** What one instrument's holdings add up to. */
     private record Aggregate(UUID instrumentId, List<HoldingDetail> details, PositionDto first, BigDecimal quantity,
                              BigDecimal invested, BigDecimal currentValue, BigDecimal unrealised,
-                             @Nullable BigDecimal ltp, @Nullable LocalDate priceAsOf, boolean manualPrice,
+                             @Nullable BigDecimal ltp, @Nullable LocalDate priceAsOf, @Nullable OffsetDateTime priceAt, boolean manualPrice,
                              @Nullable BigDecimal dayChange, @Nullable BigDecimal previousValue,
                              @Nullable String mergedIntoName, @Nullable LocalDate mergedIntoDate) {
 
@@ -69,6 +70,7 @@ public class HoldingsService {
             BigDecimal unrealised = BigDecimal.ZERO;
             BigDecimal ltp = null;
             LocalDate asOf = null;
+            OffsetDateTime at = null;
             boolean manual = false;
             BigDecimal day = null;
             BigDecimal previous = null;
@@ -88,6 +90,7 @@ public class HoldingsService {
                         && (asOf == null || p.lastPriceAsOf().isAfter(asOf))))) {
                     ltp = p.lastPrice();
                     asOf = p.lastPriceAsOf();
+                    at = p.lastPriceAt();
                     manual = p.lastPriceSource() == PriceSource.MANUAL;
                 }
                 if (p.dayChange() != null && p.previousClose() != null) {
@@ -100,7 +103,7 @@ public class HoldingsService {
                 }
             }
             return new Aggregate(instrumentId, details, details.get(0).dto(), qty, invested, value, unrealised, ltp, asOf,
-                    manual, day, previous, mergedName, mergedDate);
+                    at, manual, day, previous, mergedName, mergedDate);
         }
 
         boolean open() {
@@ -205,6 +208,7 @@ public class HoldingsService {
         BigDecimal day = null;
         BigDecimal previous = null;
         LocalDate asOf = null;
+        OffsetDateTime asOfAt = null;
         Map<InstrumentType, BigDecimal> groupValue = new EnumMap<>(InstrumentType.class);
         Map<InstrumentType, Integer> groupCount = new EnumMap<>(InstrumentType.class);
         List<XirrCalculator.Cashflow> cashflows = new ArrayList<>();
@@ -222,13 +226,14 @@ public class HoldingsService {
             }
             if (a.priceAsOf() != null && (asOf == null || a.priceAsOf().isAfter(asOf))) {
                 asOf = a.priceAsOf();
+                asOfAt = a.priceAt();
             }
             groupValue.merge(a.assetType(), a.currentValue(), BigDecimal::add);
             groupCount.merge(a.assetType(), 1, Integer::sum);
         }
         HoldingsResponse.Header header = new HoldingsResponse.Header(money(value),
                 day == null ? null : money(day), day == null ? null : pct(day, previous), money(invested), money(unrealised),
-                pct(unrealised, invested), matching.isEmpty() ? null : investmentService.xirrPercent(cashflows), asOf);
+                pct(unrealised, invested), matching.isEmpty() ? null : investmentService.xirrPercent(cashflows), asOf, asOfAt);
         List<HoldingsResponse.Group> groups = new ArrayList<>();
         groupValue.forEach((t, v) -> groups.add(new HoldingsResponse.Group(t, money(v), groupCount.get(t))));
 
@@ -269,7 +274,7 @@ public class HoldingsService {
 
     private static HoldingsResponse.Row row(Aggregate a) {
         return new HoldingsResponse.Row(a.instrumentId(), a.symbol(), a.name(), a.assetType(), a.quantity(), a.avgCost(),
-                a.ltp(), a.priceAsOf(), a.manualPrice(), a.noPrice(), money(a.currentValue()), money(a.invested()),
+                a.ltp(), a.priceAsOf(), a.priceAt(), a.manualPrice(), a.noPrice(), money(a.currentValue()), money(a.invested()),
                 money(a.unrealised()), a.unrealisedPct(), a.dayChange() == null ? null : money(a.dayChange()),
                 a.dayChangePct(), a.brokerCount(), a.mergedIntoName(), a.mergedIntoDate());
     }
@@ -311,7 +316,7 @@ public class HoldingsService {
         String term = terms.isEmpty() ? null : terms.size() == 1 ? terms.get(0) : "mixed";
         LocalDate firstBuy = transactionRepository.findFirstBuyDate(UserContext.getCurrentUserId(), instrumentId);
         return new HoldingDetailResponse(instrumentId, a.symbol(), a.name(), a.assetType(), a.quantity(), a.avgCost(),
-                a.ltp(), a.priceAsOf(), a.manualPrice(), a.noPrice(), money(a.currentValue()), money(a.invested()),
+                a.ltp(), a.priceAsOf(), a.priceAt(), a.manualPrice(), a.noPrice(), money(a.currentValue()), money(a.invested()),
                 money(a.unrealised()), a.unrealisedPct(), a.dayChange() == null ? null : money(a.dayChange()),
                 a.dayChangePct(), a.mergedIntoName(), a.mergedIntoDate(), money(realised), money(charges), money(dividends),
                 investmentService.xirrPercent(cashflows), firstBuy, term, brokers);

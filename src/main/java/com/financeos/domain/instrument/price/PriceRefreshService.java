@@ -121,12 +121,14 @@ public class PriceRefreshService {
                             }
                             ep.setClose(quote.close());
                             ep.setSource(provider.source());
+                            ep.setPriceTime(quote.at());
                             priceRepository.save(ep);
                             refreshedCount++;
                             refreshedItems.add(new PriceRefreshResult.RefreshedItem(
                                     inst.getId(), label(inst), quote.close(), quote.asOf(), provider.source()));
                         } else {
                             InstrumentPrice newPrice = new InstrumentPrice(inst, quote.asOf(), quote.close(), provider.source());
+                            newPrice.setPriceTime(quote.at());
                             priceRepository.save(newPrice);
                             refreshedCount++;
                             refreshedItems.add(new PriceRefreshResult.RefreshedItem(

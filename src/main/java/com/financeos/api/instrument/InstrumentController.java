@@ -141,7 +141,7 @@ public class InstrumentController {
             @PathVariable UUID instrumentId,
             @PathVariable UUID priceId,
             @Valid @RequestBody UpdatePriceRequest request) {
-        return instrumentService.updateManualPrice(instrumentId, priceId, request.price());
+        return instrumentService.updateManualPrice(instrumentId, priceId, request.price(), request.asOf());
     }
 
     /** Deletes one of the signed-in user's own MANUAL prices; 404 for any other price. */

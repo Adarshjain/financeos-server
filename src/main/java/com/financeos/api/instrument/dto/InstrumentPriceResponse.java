@@ -1,5 +1,6 @@
 package com.financeos.api.instrument.dto;
 
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.instrument.InstrumentPrice;
 import com.financeos.domain.instrument.PriceSource;
 
@@ -7,11 +8,14 @@ import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public record InstrumentPriceResponse(
         UUID id,
         LocalDate asOf,
+        /** When the quote was made (Yahoo last-trade time, IST offset); null for AMFI, manual and older prices. */
+        @Nullable OffsetDateTime priceAt,
         BigDecimal close,
         PriceSource source,
         /**
@@ -25,6 +29,7 @@ public record InstrumentPriceResponse(
         return new InstrumentPriceResponse(
                 price.getId(),
                 price.getAsOf(),
+                AppTime.at(price.getPriceTime()),
                 price.getClose(),
                 price.getSource(),
                 price.isOwnManual(userId)
