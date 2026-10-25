@@ -400,7 +400,7 @@ public class BuiltinWidgetRegistry {
         ObjectNode def = mapper.createObjectNode();
         def.put("mode", "raw");
         ArrayNode columns = def.putArray("columns");
-        columns.add("dueDate").add("title").add("amount");
+        columns.add("dueDate").add("kind").add("title").add("amount");
         ArrayNode filters = def.putArray("filters");
         ObjectNode horizon = filters.addObject();
         horizon.put("field", "dueDate");
