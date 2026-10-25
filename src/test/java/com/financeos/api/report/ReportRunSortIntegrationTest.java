@@ -188,8 +188,8 @@ class ReportRunSortIntegrationTest {
 
         assertEquals(List.of("500", "900"), lendingReturns(byDue));
         assertEquals(List.of("900", "500"), lendingReturns(byAmount));
-        assertBadRequest(api.post("/api/v1/dashboards/builtins/upcoming/data?sort=kind,asc", null),
-                "Sort key is not an available column: kind");
+        assertBadRequest(api.post("/api/v1/dashboards/builtins/upcoming/data?sort=accountName,asc", null),
+                "Sort key is not an available column: accountName");
         assertBadRequest(api.post("/api/v1/dashboards/builtins/upcoming/data?sort=amount,sideways", null),
                 "Invalid sort");
     }
