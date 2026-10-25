@@ -125,9 +125,9 @@ class BuiltinWidgetRegistryTest {
 
         JsonNode def = e.templateDefinition();
         assertEquals("raw", def.get("mode").asText());
-        assertEquals(List.of("dueDate", "title", "amount"),
+        assertEquals(List.of("dueDate", "kind", "title", "amount"),
                 List.of(def.get("columns").get(0).asText(), def.get("columns").get(1).asText(),
-                        def.get("columns").get(2).asText()));
+                        def.get("columns").get(2).asText(), def.get("columns").get(3).asText()));
         assertEquals(1, def.get("filters").size());
         assertEquals(BuiltinWidgetRegistry.UPCOMING_DEFAULT_DAYS, horizonDays(def));
         assertEquals("dueDate", def.get("sort").get(0).get("key").asText());
