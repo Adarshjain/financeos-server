@@ -6,6 +6,7 @@ import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -34,9 +35,15 @@ import java.util.List;
  * </ul>
  */
 public record DayChange(@Nullable BigDecimal previousClose, @Nullable LocalDate previousCloseAsOf,
-                        @Nullable BigDecimal dayChange, @Nullable BigDecimal dayChangePct) {
+                        @Nullable BigDecimal dayChange, @Nullable BigDecimal dayChangePct,
+                        @Nullable Instant previousCloseAt) {
 
     public static final DayChange NONE = new DayChange(null, null, null, null);
+
+    public DayChange(@Nullable BigDecimal previousClose, @Nullable LocalDate previousCloseAsOf,
+                     @Nullable BigDecimal dayChange, @Nullable BigDecimal dayChangePct) {
+        this(previousClose, previousCloseAsOf, dayChange, dayChangePct, null);
+    }
 
     /** The latest stored price counts as current when it is at most this many days before today. */
     public static final int CURRENT_WITHIN_DAYS = 4;
@@ -46,7 +53,10 @@ public record DayChange(@Nullable BigDecimal previousClose, @Nullable LocalDate 
     private static final BigDecimal HUNDRED = BigDecimal.valueOf(100);
 
     /** One stored close. */
-    public record PricePoint(LocalDate asOf, BigDecimal close) {
+    public record PricePoint(LocalDate asOf, BigDecimal close, @Nullable Instant at) {
+        public PricePoint(LocalDate asOf, BigDecimal close) {
+            this(asOf, close, null);
+        }
     }
 
     /**
@@ -68,7 +78,7 @@ public record DayChange(@Nullable BigDecimal previousClose, @Nullable LocalDate 
         BigDecimal pct = previous.close().signum() == 0
                 ? null
                 : move.multiply(HUNDRED).divide(previous.close(), 2, RoundingMode.HALF_UP);
-        return new DayChange(previous.close(), previous.asOf(), change, pct);
+        return new DayChange(previous.close(), previous.asOf(), change, pct, previous.at());
     }
 
     /**
@@ -111,7 +121,7 @@ public record DayChange(@Nullable BigDecimal previousClose, @Nullable LocalDate 
         }
         PricePoint previous = latestFirst.get(1);
         PricePoint adjusted = new PricePoint(previous.asOf(),
-                previous.close().multiply(factor).setScale(4, RoundingMode.HALF_UP));
+                previous.close().multiply(factor).setScale(4, RoundingMode.HALF_UP), previous.at());
         return of(openQty, lastPrice, lastPriceAsOf, List.of(latestFirst.get(0), adjusted));
     }
 

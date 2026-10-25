@@ -5,6 +5,7 @@ import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ public record HoldingDetailResponse(
         BigDecimal avgCost,
         @Nullable BigDecimal ltp,
         @Nullable LocalDate priceAsOf,
+        @Nullable OffsetDateTime priceAt,
         boolean manualPrice,
         boolean noPrice,
         BigDecimal currentValue,

@@ -5,6 +5,7 @@ import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,7 +31,8 @@ public record HoldingsResponse(
             BigDecimal unrealised,
             @Nullable BigDecimal unrealisedPct,
             @Nullable Double xirr,
-            @Nullable LocalDate priceAsOf
+            @Nullable LocalDate priceAsOf,
+            @Nullable OffsetDateTime priceAt
     ) {}
 
     /** Current value of the filtered open holdings of one asset type. */
@@ -49,6 +51,7 @@ public record HoldingsResponse(
             BigDecimal avgCost,
             @Nullable BigDecimal ltp,
             @Nullable LocalDate priceAsOf,
+            @Nullable OffsetDateTime priceAt,
             boolean manualPrice,
             boolean noPrice,
             BigDecimal currentValue,

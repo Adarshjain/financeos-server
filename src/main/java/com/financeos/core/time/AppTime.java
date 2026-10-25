@@ -33,6 +33,11 @@ public final class AppTime {
         return LocalDateTime.now(clock);
     }
 
+    /** An instant as an offset date-time in the business zone (IST), for API responses; null stays null. */
+    public static java.time.OffsetDateTime at(java.time.Instant instant) {
+        return instant == null ? null : instant.atZone(clock.getZone()).toOffsetDateTime();
+    }
+
     /** The business zone (for turning a business date into an instant, e.g. its midnight). */
     public static ZoneId zone() {
         return clock.getZone();

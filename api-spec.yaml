@@ -13149,6 +13149,11 @@ components:
           format: date
           nullable: true
           x-nullable: true
+        priceAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
         unrealised:
           type: number
         unrealisedPct:
@@ -13223,6 +13228,11 @@ components:
         priceAsOf:
           type: string
           format: date
+          nullable: true
+          x-nullable: true
+        priceAt:
+          type: string
+          format: date-time
           nullable: true
           x-nullable: true
         quantity:
@@ -13755,6 +13765,11 @@ components:
         id:
           type: string
           format: uuid
+        priceAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
         source:
           type: string
           enum:
@@ -16567,6 +16582,11 @@ components:
           format: date
           nullable: true
           x-nullable: true
+        lastPriceAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
         lastPriceSource:
           type: string
           enum:
@@ -16599,6 +16619,11 @@ components:
         previousCloseAsOf:
           type: string
           format: date
+          nullable: true
+          x-nullable: true
+        previousCloseAt:
+          type: string
+          format: date-time
           nullable: true
           x-nullable: true
         provider:
@@ -18487,6 +18512,11 @@ components:
           format: date
           nullable: true
           x-nullable: true
+        priceAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
         quantity:
           type: number
         symbol:
@@ -19650,9 +19680,19 @@ components:
           format: date
           nullable: true
           x-nullable: true
+        previousPriceAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
         priceAsOf:
           type: string
           format: date
+          nullable: true
+          x-nullable: true
+        priceAt:
+          type: string
+          format: date-time
           nullable: true
           x-nullable: true
         totalCharges:
@@ -20613,6 +20653,9 @@ components:
     UpdatePriceRequest:
       type: object
       properties:
+        asOf:
+          type: string
+          format: date
         price:
           type: number
           x-required: true

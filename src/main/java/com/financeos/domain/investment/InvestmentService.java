@@ -450,7 +450,8 @@ public class InvestmentService {
                 UUID instrumentId = UUID.fromString(row[0].toString());
                 LocalDate asOf = toLocalDate(row[1]);
                 BigDecimal close = row[2] instanceof BigDecimal bd ? bd : new BigDecimal(row[2].toString());
-                result.computeIfAbsent(instrumentId, k -> new ArrayList<>()).add(new DayChange.PricePoint(asOf, close));
+                java.time.Instant at = row.length > 3 ? toInstant(row[3]) : null;
+                result.computeIfAbsent(instrumentId, k -> new ArrayList<>()).add(new DayChange.PricePoint(asOf, close, at));
             }
         }
         result.values().forEach(points -> points.sort(Comparator.comparing(DayChange.PricePoint::asOf).reversed()));
@@ -488,6 +489,48 @@ public class InvestmentService {
             }
         }
         return result;
+    }
+
+    /** A native-query timestamp column (driver-dependent type) as an instant; null for null. */
+    static java.time.Instant toInstant(Object value) {
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof java.time.Instant i) {
+            return i;
+        }
+        if (value instanceof java.time.OffsetDateTime o) {
+            return o.toInstant();
+        }
+        if (value instanceof java.time.ZonedDateTime z) {
+            return z.toInstant();
+        }
+        if (value instanceof java.sql.Timestamp ts) {
+            return ts.toInstant();
+        }
+        if (value instanceof java.time.LocalDateTime ldt) {
+            return ldt.atZone(AppTime.zone()).toInstant();
+        }
+        // Oracle's TIMESTAMP WITH TIME ZONE comes back as oracle.sql.TIMESTAMPTZ (driver is runtime-only, so by
+        // reflection); its connection-free conversions are tried in turn.
+        for (String name : new String[] {"toOffsetDateTime", "toZonedDateTime", "zonedDateTimeValue"}) {
+            try {
+                Object converted = value.getClass().getMethod(name).invoke(value);
+                if (converted instanceof java.time.OffsetDateTime o) {
+                    return o.toInstant();
+                }
+                if (converted instanceof java.time.ZonedDateTime z) {
+                    return z.toInstant();
+                }
+            } catch (ReflectiveOperationException e) {
+                // not this driver type, or this conversion needs a connection: try the next
+            }
+        }
+        try {
+            return java.time.OffsetDateTime.parse(value.toString().replace(' ', 'T')).toInstant();
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
     private static LocalDate toLocalDate(Object value) {
@@ -535,6 +578,8 @@ public class InvestmentService {
         BigDecimal previousValue = BigDecimal.ZERO;
         LocalDate priceAsOf = null;
         LocalDate previousPriceAsOf = null;
+        java.time.Instant priceAt = null;
+        java.time.Instant previousPriceAt = null;
 
         for (Holding holding : holdings) {
             HoldingPosition pos;
@@ -549,6 +594,10 @@ public class InvestmentService {
             if (pos.openQty().signum() > 0 && pos.priceAsOf() != null
                     && (priceAsOf == null || pos.priceAsOf().isAfter(priceAsOf))) {
                 priceAsOf = pos.priceAsOf();
+                priceAt = pos.priceAt();
+            } else if (pos.openQty().signum() > 0 && pos.priceAsOf() != null && pos.priceAsOf().equals(priceAsOf)
+                    && pos.priceAt() != null && (priceAt == null || pos.priceAt().isAfter(priceAt))) {
+                priceAt = pos.priceAt();
             }
             DayChange change = DayChange.forPosition(pos.openQty(), pos.latestPrice(), pos.priceAsOf(),
                     closes.get(holding.getInstrument().getId()), today, recentActions.get(OwnedInstrument.of(holding)));
@@ -557,6 +606,10 @@ public class InvestmentService {
                 previousValue = previousValue.add(change.previousValue(pos.openQty()));
                 if (previousPriceAsOf == null || change.previousCloseAsOf().isAfter(previousPriceAsOf)) {
                     previousPriceAsOf = change.previousCloseAsOf();
+                    previousPriceAt = change.previousCloseAt();
+                } else if (change.previousCloseAsOf().equals(previousPriceAsOf) && change.previousCloseAt() != null
+                        && (previousPriceAt == null || change.previousCloseAt().isAfter(previousPriceAt))) {
+                    previousPriceAt = change.previousCloseAt();
                 }
             }
             totalRealized = totalRealized.add(pos.realized());
@@ -698,7 +751,9 @@ public class InvestmentService {
                         ? null
                         : dayChange.multiply(new BigDecimal("100")).divide(previousValue, 2, RoundingMode.HALF_UP),
                 priceAsOf,
-                previousPriceAsOf
+                previousPriceAsOf,
+                AppTime.at(priceAt),
+                AppTime.at(previousPriceAt)
         );
     }
 
@@ -1143,6 +1198,7 @@ public class InvestmentService {
         BigDecimal priceClose = latestPrice.map(InstrumentPrice::getClose).orElse(null);
         LocalDate priceAsOf = latestPrice.map(InstrumentPrice::getAsOf).orElse(null);
         PriceSource priceSource = latestPrice.map(InstrumentPrice::getSource).orElse(null);
+        java.time.Instant priceAt = latestPrice.map(InstrumentPrice::getPriceTime).orElse(null);
 
         BigDecimal currentValue = null;
         BigDecimal unrealized = null;
@@ -1233,7 +1289,9 @@ public class InvestmentService {
                 xirr,
                 absoluteReturnPercent,
                 mergedIntoName,
-                mergedIntoDate
+                mergedIntoDate,
+                null, null, null, null, null, null, null, null,
+                priceAt
         );
     }
 

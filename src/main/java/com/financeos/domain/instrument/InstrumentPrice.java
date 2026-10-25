@@ -49,6 +49,10 @@ public class InstrumentPrice {
     @Column(name = "user_id", length = 36)
     private UUID userId;
 
+    /** Instant of the quote (Yahoo last-trade time); null for AMFI, MANUAL and older rows. */
+    @Column(name = "price_time")
+    private Instant priceTime;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

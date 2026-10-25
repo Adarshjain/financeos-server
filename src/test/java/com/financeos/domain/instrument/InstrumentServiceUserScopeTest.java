@@ -4,6 +4,7 @@ import com.financeos.api.instrument.dto.InstrumentPriceResponse;
 import com.financeos.api.instrument.dto.InstrumentRequest;
 import com.financeos.api.instrument.dto.InstrumentResponse;
 import com.financeos.api.instrument.dto.UpsertPriceRequest;
+import com.financeos.core.exception.DuplicateResourceException;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
@@ -276,6 +277,101 @@ class InstrumentServiceUserScopeTest {
         assertEquals(0, BigDecimal.TEN.compareTo(mine.getClose()));
         service.deleteManualPrice(instrument.getId(), mine.getId());
         verify(priceRepository).delete(mine);
+    }
+
+    // ------------------------------------------------------------------ editing a manual price's date
+
+    @Test
+    void editingWithANewDateMovesTheRowInPlace() {
+        InstrumentPrice mine = stored(InstrumentPrice.manual(instrument, user, TODAY, BigDecimal.ONE));
+        LocalDate newDate = TODAY.minusDays(3);
+        when(priceRepository.findByInstrumentIdAndAsOfAndUserId(instrument.getId(), newDate, user)).thenReturn(Optional.empty());
+
+        service.updateManualPrice(instrument.getId(), mine.getId(), BigDecimal.TEN, newDate);
+
+        assertEquals(newDate, mine.getAsOf());
+        assertEquals(0, BigDecimal.TEN.compareTo(mine.getClose()));
+        verify(priceRepository).save(mine);
+    }
+
+    @Test
+    void aMissingDateKeepsTheDate() {
+        InstrumentPrice mine = stored(InstrumentPrice.manual(instrument, user, TODAY, BigDecimal.ONE));
+
+        service.updateManualPrice(instrument.getId(), mine.getId(), BigDecimal.TEN, null);
+        service.updateManualPrice(instrument.getId(), mine.getId(), new BigDecimal("11"));
+
+        assertEquals(TODAY, mine.getAsOf());
+        assertEquals(0, new BigDecimal("11").compareTo(mine.getClose()));
+        verify(priceRepository, never()).findByInstrumentIdAndAsOfAndUserId(any(), any(), any());
+    }
+
+    @Test
+    void theSameDateIsNotAClash() {
+        InstrumentPrice mine = stored(InstrumentPrice.manual(instrument, user, TODAY, BigDecimal.ONE));
+
+        service.updateManualPrice(instrument.getId(), mine.getId(), BigDecimal.TEN, TODAY);
+
+        assertEquals(TODAY, mine.getAsOf());
+        verify(priceRepository, never()).findByInstrumentIdAndAsOfAndUserId(any(), any(), any());
+    }
+
+    @Test
+    void aDateWithAnotherOwnPriceIs409AndNothingChanges() {
+        InstrumentPrice mine = stored(InstrumentPrice.manual(instrument, user, TODAY, BigDecimal.ONE));
+        LocalDate taken = LocalDate.of(2026, 10, 3);
+        InstrumentPrice other = stored(InstrumentPrice.manual(instrument, user, taken, BigDecimal.TWO));
+        when(priceRepository.findByInstrumentIdAndAsOfAndUserId(instrument.getId(), taken, user)).thenReturn(Optional.of(other));
+
+        DuplicateResourceException e = assertThrows(DuplicateResourceException.class,
+                () -> service.updateManualPrice(instrument.getId(), mine.getId(), BigDecimal.TEN, taken));
+
+        assertEquals("A price for 3 Oct 2026 already exists. Edit that one instead.", e.getMessage());
+        assertEquals(TODAY, mine.getAsOf());
+        assertEquals(0, BigDecimal.ONE.compareTo(mine.getClose()));
+        verify(priceRepository, never()).save(any());
+    }
+
+    @Test
+    void aFeedPriceOnTheNewDateIsNotAClash() {
+        // The user's own row and a feed row of one date coexist (the own one wins), so only own rows clash.
+        InstrumentPrice mine = stored(InstrumentPrice.manual(instrument, user, TODAY, BigDecimal.ONE));
+        LocalDate d = TODAY.minusDays(1);
+        when(priceRepository.findByInstrumentIdAndAsOfAndUserId(instrument.getId(), d, user)).thenReturn(Optional.empty());
+
+        service.updateManualPrice(instrument.getId(), mine.getId(), BigDecimal.TEN, d);
+
+        assertEquals(d, mine.getAsOf());
+    }
+
+    @Test
+    void aFutureDateIsAcceptedAsOnCreate() {
+        InstrumentPrice mine = stored(InstrumentPrice.manual(instrument, user, TODAY, BigDecimal.ONE));
+        LocalDate future = TODAY.plusDays(5);
+        when(priceRepository.findByInstrumentIdAndAsOfAndUserId(instrument.getId(), future, user)).thenReturn(Optional.empty());
+
+        service.upsertPrice(instrument.getId(), new UpsertPriceRequest(BigDecimal.TEN, future));
+        service.updateManualPrice(instrument.getId(), mine.getId(), BigDecimal.TEN, future);
+
+        assertEquals(future, mine.getAsOf());
+    }
+
+    @Test
+    void anotherUsersPriceIsNotEditableEvenWithADate() {
+        InstrumentPrice theirs = stored(InstrumentPrice.manual(instrument, UUID.randomUUID(), TODAY, BigDecimal.ONE));
+        InstrumentPrice feed = stored(new InstrumentPrice(instrument, TODAY, BigDecimal.ONE, PriceSource.YAHOO));
+
+        for (InstrumentPrice other : List.of(theirs, feed)) {
+            assertThrows(ResourceNotFoundException.class,
+                    () -> service.updateManualPrice(instrument.getId(), other.getId(), BigDecimal.TEN, TODAY.minusDays(1)));
+            assertEquals(TODAY, other.getAsOf());
+        }
+        verify(priceRepository, never()).save(any());
+    }
+
+    @Test
+    void theRequestWithoutADateKeepsLegacyClientsWorking() {
+        assertNull(new com.financeos.api.instrument.dto.UpdatePriceRequest(BigDecimal.TEN).asOf());
     }
 
     @Test

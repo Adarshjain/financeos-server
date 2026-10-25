@@ -6,6 +6,7 @@ import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +32,10 @@ public record SummaryResponse(
         /** The newest price date among open positions. */
         @Nullable LocalDate priceAsOf,
         /** The newest previous-close date among positions with a day change. */
-        @Nullable LocalDate previousPriceAsOf
+        @Nullable LocalDate previousPriceAsOf,
+        /** When the newest open-position price was quoted (IST offset); null when that price has no time. */
+        @Nullable OffsetDateTime priceAt,
+        @Nullable OffsetDateTime previousPriceAt
 ) {
     public SummaryResponse(
             BigDecimal totalInvested,
@@ -49,7 +53,7 @@ public record SummaryResponse(
             List<InstrumentTypeSummaryDto> byInstrumentType,
             BigDecimal totalFnoRealized
     ) {
-        this(totalInvested, totalCurrentValue, totalUnrealized, totalUnrealizedPercent, totalRealized, totalIntradayRealized, totalCharges, totalDividends, totalPnl, xirr, absoluteReturnPercent, byBroker, byInstrumentType, totalFnoRealized, null, null, null, null);
+        this(totalInvested, totalCurrentValue, totalUnrealized, totalUnrealizedPercent, totalRealized, totalIntradayRealized, totalCharges, totalDividends, totalPnl, xirr, absoluteReturnPercent, byBroker, byInstrumentType, totalFnoRealized, null, null, null, null, null, null);
     }
 
     public SummaryResponse(

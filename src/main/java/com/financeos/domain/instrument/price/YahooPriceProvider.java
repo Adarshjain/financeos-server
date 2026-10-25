@@ -277,7 +277,7 @@ public class YahooPriceProvider implements PriceProvider {
         return null;
     }
 
-    private Map<String, PriceQuote> parseBatchQuoteResponse(String body, ZoneId zoneId) {
+    Map<String, PriceQuote> parseBatchQuoteResponse(String body, ZoneId zoneId) {
         Map<String, PriceQuote> quotes = new HashMap<>();
         try {
             JsonNode root = objectMapper.readTree(body);
@@ -296,13 +296,14 @@ public class YahooPriceProvider implements PriceProvider {
                         try {
                             BigDecimal price = new BigDecimal(priceNode.asText());
                             LocalDate asOf;
+                            Instant at = null;
                             if (!timeNode.isMissingNode() && !timeNode.isNull() && timeNode.isNumber()) {
-                                long epochSeconds = timeNode.asLong();
-                                asOf = Instant.ofEpochSecond(epochSeconds).atZone(zoneId).toLocalDate();
+                                at = Instant.ofEpochSecond(timeNode.asLong());
+                                asOf = at.atZone(zoneId).toLocalDate();
                             } else {
                                 asOf = LocalDate.now(zoneId);
                             }
-                            quotes.put(symbol, new PriceQuote(price, asOf));
+                            quotes.put(symbol, new PriceQuote(price, asOf, at));
                         } catch (NumberFormatException e) {
                             log.warn("Invalid regularMarketPrice for symbol {}: {}", symbolNode.asText(), priceNode.asText());
                         }
@@ -341,13 +342,14 @@ public class YahooPriceProvider implements PriceProvider {
                         if (!priceNode.isMissingNode() && !priceNode.isNull()) {
                             BigDecimal price = new BigDecimal(priceNode.asText());
                             LocalDate asOf;
+                            Instant at = null;
                             if (!timeNode.isMissingNode() && !timeNode.isNull() && timeNode.isNumber()) {
-                                long epochSeconds = timeNode.asLong();
-                                asOf = Instant.ofEpochSecond(epochSeconds).atZone(zoneId).toLocalDate();
+                                at = Instant.ofEpochSecond(timeNode.asLong());
+                                asOf = at.atZone(zoneId).toLocalDate();
                             } else {
                                 asOf = LocalDate.now(zoneId);
                             }
-                            return new PriceQuote(price, asOf);
+                            return new PriceQuote(price, asOf, at);
                         }
                     }
                 } else {

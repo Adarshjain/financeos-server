@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public record PositionDto(
@@ -53,8 +54,27 @@ public record PositionDto(
         /** (lastPrice − previousClose) × quantity, 2 dp. */
         @Nullable BigDecimal dayChange,
         /** (lastPrice − previousClose) ÷ previousClose × 100, 2 dp. */
-        @Nullable BigDecimal dayChangePct
+        @Nullable BigDecimal dayChangePct,
+        /** When {@code lastPrice} was quoted (Yahoo last-trade time, IST offset); null for AMFI/manual prices. */
+        @Nullable OffsetDateTime lastPriceAt,
+        /** When {@code previousClose} was quoted; null when that row has no time. */
+        @Nullable OffsetDateTime previousCloseAt
 ) {
+    /** Every field but the price times. */
+    public PositionDto(
+            UUID holdingId, UUID brokerAccountId, String brokerName, String provider, InstrumentInfoDto instrument,
+            BigDecimal quantity, BigDecimal avgCost, BigDecimal invested, BigDecimal lastPrice, LocalDate lastPriceAsOf,
+            PriceSource lastPriceSource, BigDecimal currentValue, BigDecimal unrealizedGainLoss,
+            BigDecimal unrealizedGainLossPercent, BigDecimal realizedGainLoss, BigDecimal intradayRealized,
+            BigDecimal dividends, Double xirr, BigDecimal absoluteReturnPercent, BigDecimal totalCharges, String notes,
+            String mergedIntoName, LocalDate mergedIntoDate, BigDecimal buyQty, BigDecimal buyValue, BigDecimal avgBuy,
+            BigDecimal sellQty, BigDecimal sellValue, BigDecimal avgSell, BigDecimal netQty, Boolean unclosed,
+            AssetClass assetClass, TaxClass taxClass, BigDecimal previousClose, LocalDate previousCloseAsOf,
+            BigDecimal dayChange, BigDecimal dayChangePct
+    ) {
+        this(holdingId, brokerAccountId, brokerName, provider, instrument, quantity, avgCost, invested, lastPrice, lastPriceAsOf, lastPriceSource, currentValue, unrealizedGainLoss, unrealizedGainLossPercent, realizedGainLoss, intradayRealized, dividends, xirr, absoluteReturnPercent, totalCharges, notes, mergedIntoName, mergedIntoDate, buyQty, buyValue, avgBuy, sellQty, sellValue, avgSell, netQty, unclosed, assetClass, taxClass, previousClose, previousCloseAsOf, dayChange, dayChangePct, null, null);
+    }
+
     /** The original shape: no classification and no day change. */
     public PositionDto(
             UUID holdingId,
@@ -95,7 +115,8 @@ public record PositionDto(
     /** This position with its move since the previous stored close. */
     public PositionDto withDayChange(com.financeos.domain.investment.DayChange change) {
         return new PositionDto(holdingId, brokerAccountId, brokerName, provider, instrument, quantity, avgCost, invested, lastPrice, lastPriceAsOf, lastPriceSource, currentValue, unrealizedGainLoss, unrealizedGainLossPercent, realizedGainLoss, intradayRealized, dividends, xirr, absoluteReturnPercent, totalCharges, notes, mergedIntoName, mergedIntoDate, buyQty, buyValue, avgBuy, sellQty, sellValue, avgSell, netQty, unclosed, assetClass, taxClass,
-                change.previousClose(), change.previousCloseAsOf(), change.dayChange(), change.dayChangePct());
+                change.previousClose(), change.previousCloseAsOf(), change.dayChange(), change.dayChangePct(),
+                lastPriceAt, com.financeos.core.time.AppTime.at(change.previousCloseAt()));
     }
 
     public PositionDto(
