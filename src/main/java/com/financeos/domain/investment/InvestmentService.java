@@ -426,6 +426,16 @@ public class InvestmentService {
     /** Oracle caps an IN list at 1000 expressions. */
     private static final int IN_LIST_CHUNK = 900;
 
+    /** A {@code [instrument_id, as_of, close, price_time, previous_close]} native row as a price point (trailing columns optional). */
+    static DayChange.PricePoint pricePoint(Object[] row) {
+        LocalDate asOf = toLocalDate(row[1]);
+        BigDecimal close = row[2] instanceof BigDecimal bd ? bd : new BigDecimal(row[2].toString());
+        java.time.Instant at = row.length > 3 ? toInstant(row[3]) : null;
+        BigDecimal feedPreviousClose = row.length > 4 && row[4] != null
+                ? (row[4] instanceof BigDecimal pb ? pb : new BigDecimal(row[4].toString())) : null;
+        return new DayChange.PricePoint(asOf, close, at, feedPreviousClose);
+    }
+
     /**
      * The latest two closes the holdings' viewer sees for every instrument the holdings reference
      * (their own MANUAL price wins on its date), newest first, from one batch query per
@@ -448,10 +458,7 @@ public class InvestmentService {
             }
             for (Object[] row : rows) {
                 UUID instrumentId = UUID.fromString(row[0].toString());
-                LocalDate asOf = toLocalDate(row[1]);
-                BigDecimal close = row[2] instanceof BigDecimal bd ? bd : new BigDecimal(row[2].toString());
-                java.time.Instant at = row.length > 3 ? toInstant(row[3]) : null;
-                result.computeIfAbsent(instrumentId, k -> new ArrayList<>()).add(new DayChange.PricePoint(asOf, close, at));
+                result.computeIfAbsent(instrumentId, k -> new ArrayList<>()).add(pricePoint(row));
             }
         }
         result.values().forEach(points -> points.sort(Comparator.comparing(DayChange.PricePoint::asOf).reversed()));

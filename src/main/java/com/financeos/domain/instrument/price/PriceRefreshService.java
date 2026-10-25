@@ -8,7 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.financeos.core.time.AppTime;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -24,6 +29,21 @@ public class PriceRefreshService {
     private final List<PriceProvider> priceProviders;
     private final PriceProperties priceProperties;
     private final InstrumentClassificationService classificationService;
+
+    /** Runs the feed writes in one short transaction; null (plain construction) runs them in the caller's context. */
+    private org.springframework.transaction.support.TransactionTemplate writeTx;
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public PriceRefreshService(InstrumentRepository instrumentRepository,
+                               InstrumentPriceRepository priceRepository,
+                               HoldingRepository holdingRepository,
+                               List<PriceProvider> priceProviders,
+                               PriceProperties priceProperties,
+                               InstrumentClassificationService classificationService,
+                               org.springframework.transaction.PlatformTransactionManager transactionManager) {
+        this(instrumentRepository, priceRepository, holdingRepository, priceProviders, priceProperties, classificationService);
+        this.writeTx = new org.springframework.transaction.support.TransactionTemplate(transactionManager);
+    }
 
     public PriceRefreshService(InstrumentRepository instrumentRepository,
                                InstrumentPriceRepository priceRepository,
@@ -122,6 +142,9 @@ public class PriceRefreshService {
                             ep.setClose(quote.close());
                             ep.setSource(provider.source());
                             ep.setPriceTime(quote.at());
+                            if (quote.previousClose() != null) {
+                                ep.setPreviousClose(quote.previousClose());
+                            }
                             priceRepository.save(ep);
                             refreshedCount++;
                             refreshedItems.add(new PriceRefreshResult.RefreshedItem(
@@ -129,6 +152,7 @@ public class PriceRefreshService {
                         } else {
                             InstrumentPrice newPrice = new InstrumentPrice(inst, quote.asOf(), quote.close(), provider.source());
                             newPrice.setPriceTime(quote.at());
+                            newPrice.setPreviousClose(quote.previousClose());
                             priceRepository.save(newPrice);
                             refreshedCount++;
                             refreshedItems.add(new PriceRefreshResult.RefreshedItem(
@@ -153,6 +177,108 @@ public class PriceRefreshService {
         }
 
         return new PriceRefreshResult(refreshedCount, skippedCount, failedList, LocalDate.now(zoneId), refreshedItems, skippedItems);
+    }
+
+    private static final LocalTime INTRADAY_OPEN = LocalTime.of(9, 15);
+    private static final LocalTime INTRADAY_CLOSE = LocalTime.of(15, 35);
+
+    /** Whether {@code istNow} is inside the NSE session the intraday job runs in: Mon-Fri, 09:15 up to 15:35. */
+    static boolean inIntradayWindow(LocalDateTime istNow) {
+        DayOfWeek day = istNow.getDayOfWeek();
+        if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
+            return false;
+        }
+        LocalTime t = istNow.toLocalTime();
+        return !t.isBefore(INTRADAY_OPEN) && t.isBefore(INTRADAY_CLOSE);
+    }
+
+    /**
+     * A quote is live today when Yahoo says the market is REGULAR, or (no market state) its trade time
+     * falls on today's IST date; skips holidays and stale quotes.
+     */
+    static boolean isLiveToday(PriceQuote quote, LocalDate today, ZoneId zone) {
+        LocalDate tradeDate = quote.at() == null ? null : quote.at().atZone(zone).toLocalDate();
+        if (quote.marketState() != null) {
+            return "REGULAR".equals(quote.marketState()) && (tradeDate == null || !tradeDate.isBefore(today));
+        }
+        return tradeDate != null && tradeDate.equals(today);
+    }
+
+    /**
+     * The intraday Yahoo refresh: inside the session window only, fetches every actively held
+     * Yahoo-priced instrument in one batched provider call and upserts the shared feed row of today
+     * (IST) for each live quote. A user's or legacy MANUAL price of today is kept. Returns the number
+     * of rows written (0 outside the window).
+     */
+    @Transactional(propagation = org.springframework.transaction.annotation.Propagation.NOT_SUPPORTED)
+    public int refreshIntraday() {
+        if (!inIntradayWindow(AppTime.now())) {
+            return 0;
+        }
+        return refreshFeed(PriceSource.YAHOO, true);
+    }
+
+    /** Refreshes only the actively held instruments priced by {@code source} (the AMFI crons). */
+    @Transactional(propagation = org.springframework.transaction.annotation.Propagation.NOT_SUPPORTED)
+    public int refreshSource(PriceSource source) {
+        return refreshFeed(source, false);
+    }
+
+    private int refreshFeed(PriceSource source, boolean liveOnly) {
+        PriceProvider provider = priceProviders.stream().filter(p -> p.source() == source).findFirst().orElse(null);
+        if (provider == null) {
+            return 0;
+        }
+        List<UUID> activeIds = holdingRepository.findDistinctActiveInstrumentIdsHeld();
+        List<Instrument> targets = activeIds.isEmpty() ? List.<Instrument>of()
+                : instrumentRepository.findAllById(activeIds).stream().filter(provider::supports).toList();
+        if (targets.isEmpty()) {
+            return 0;
+        }
+        ZoneId zone = AppTime.zone();
+        LocalDate today = AppTime.today();
+        // Fetched with no transaction open (the entry points are NOT_SUPPORTED); only the writes run in one.
+        Map<UUID, PriceQuote> quotes = provider.fetch(targets);
+        if (writeTx == null) {
+            return storeFeed(source, liveOnly, targets, quotes, today, zone);
+        }
+        Integer written = writeTx.execute(status -> storeFeed(source, liveOnly, targets, quotes, today, zone));
+        return written == null ? 0 : written;
+    }
+
+    private int storeFeed(PriceSource source, boolean liveOnly, List<Instrument> targets, Map<UUID, PriceQuote> quotes,
+                          LocalDate today, ZoneId zone) {
+        int written = 0;
+        for (Instrument inst : targets) {
+            PriceQuote quote = quotes.get(inst.getId());
+            if (quote == null || quote.close() == null || quote.asOf() == null) {
+                continue;
+            }
+            LocalDate asOf = quote.asOf();
+            if (liveOnly) {
+                if (!isLiveToday(quote, today, zone)) {
+                    continue;
+                }
+                asOf = today;
+            }
+            try {
+                Optional<InstrumentPrice> existing = priceRepository.findByInstrumentIdAndAsOfAndUserIdIsNull(inst.getId(), asOf);
+                InstrumentPrice row = existing.orElseGet(() -> new InstrumentPrice(inst, quote.asOf(), quote.close(), source));
+                if (existing.isPresent() && row.getSource() == PriceSource.MANUAL) {
+                    continue;
+                }
+                row.setAsOf(asOf);
+                row.setClose(quote.close());
+                row.setSource(source);
+                row.setPriceTime(quote.at());
+                row.setPreviousClose(quote.previousClose());
+                priceRepository.save(row);
+                written++;
+            } catch (Exception e) {
+                log.error("Error storing {} price for instrument {}", source, inst.getName(), e);
+            }
+        }
+        return written;
     }
 
     /**

@@ -53,6 +53,10 @@ public class InstrumentPrice {
     @Column(name = "price_time")
     private Instant priceTime;
 
+    /** The prior session's close as the Yahoo feed reported it; null for AMFI, MANUAL and older rows. */
+    @Column(name = "previous_close", precision = 19, scale = 4)
+    private BigDecimal previousClose;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

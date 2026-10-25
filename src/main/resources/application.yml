@@ -365,6 +365,9 @@ google:
 price:
   enabled: ${PRICE_FEED_ENABLED:true}
   refresh-cron: ${PRICE_REFRESH_CRON:0 0 19 * * *}
+  intraday-cron: ${PRICE_INTRADAY_CRON:0 */5 9-15 * * MON-FRI}
+  amfi-refresh-cron: ${AMFI_REFRESH_CRON:0 30 23 * * *}
+  amfi-retry-cron: ${AMFI_RETRY_CRON:0 0 7 * * *}
   timezone: ${PRICE_TIMEZONE:Asia/Kolkata}
   providers:
     amfi:

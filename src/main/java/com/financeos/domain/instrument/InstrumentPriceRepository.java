@@ -104,15 +104,15 @@ public interface InstrumentPriceRepository extends JpaRepository<InstrumentPrice
 
     /**
      * The latest two closes {@code userId} sees for each instrument, in one query: rows of
-     * {@code [instrument_id, as_of, close, price_time]}, newest first within an instrument. On a date with a feed
+     * {@code [instrument_id, as_of, close, price_time, previous_close]}, newest first within an instrument. On a date with a feed
      * row and the user's own row, the user's row is the close. {@code userId} is a user id string, or
      * any non-id value (e.g. {@code "-"}) for feed prices only.
      */
-    @Query(value = "SELECT x.instrument_id, x.as_of, x.close, x.price_time FROM ( " +
-                   "  SELECT y.instrument_id, y.as_of, y.close, y.price_time, " +
+    @Query(value = "SELECT x.instrument_id, x.as_of, x.close, x.price_time, x.previous_close FROM ( " +
+                   "  SELECT y.instrument_id, y.as_of, y.close, y.price_time, y.previous_close, " +
                    "         ROW_NUMBER() OVER (PARTITION BY y.instrument_id ORDER BY y.as_of DESC) AS rn " +
                    "  FROM ( " +
-                   "    SELECT p.instrument_id, p.as_of, p.close, p.price_time, " +
+                   "    SELECT p.instrument_id, p.as_of, p.close, p.price_time, p.previous_close, " +
                    "           ROW_NUMBER() OVER (PARTITION BY p.instrument_id, p.as_of " +
                    "                              ORDER BY CASE WHEN p.user_id IS NULL THEN 1 ELSE 0 END) AS dr " +
                    "    FROM instrument_prices p WHERE p.instrument_id IN (:instrumentIds) " +
