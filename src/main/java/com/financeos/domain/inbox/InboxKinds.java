@@ -120,7 +120,7 @@ public final class InboxKinds {
             case EMI -> "/loans";
             case LENDING -> "/loans/lendings";
             case STATEMENT_EXPECTED -> "/transactions/import";
-            case STATEMENT_DETAILS_MISSING -> "/ds/accounts";
+            case STATEMENT_DETAILS_MISSING -> "/accounts";
             case GMAIL_RECONNECT -> "/settings/gmail";
             case GMAIL_ATTENTION -> "/settings/gmail?focus=attention";
             case REVIEW -> "/transactions/review";
