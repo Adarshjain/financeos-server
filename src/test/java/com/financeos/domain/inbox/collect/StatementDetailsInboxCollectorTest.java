@@ -98,7 +98,7 @@ class StatementDetailsInboxCollectorTest {
         assertEquals("warning", rowA.severity());
         assertEquals("Statement details missing", rowA.title());
         assertEquals("HDFC Regalia ••1234 · 3 statements", rowA.subtitle());
-        assertEquals("/ds/accounts/" + a.getId() + "/statements?statement=" + newest.getId(), rowA.href());
+        assertEquals("/accounts/" + a.getId() + "/statements?statement=" + newest.getId(), rowA.href());
         assertEquals(newest.getId(), rowA.refs().statementId());
         assertEquals(List.of("open", "snooze"), rowA.actions().stream().map(InboxActionResponse::type).toList());
     }

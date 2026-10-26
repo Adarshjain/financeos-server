@@ -58,7 +58,7 @@ public class StatementDetailsInboxCollector implements InboxCollector {
                     ? label + " · " + monthOf(newest) + " statement · " + MissingDetails.of(newest).stream()
                             .map(MissingDetails::words).collect(Collectors.joining(", "))
                     : label + " · " + missing.size() + " statements";
-            String href = "/ds/accounts/" + card.getId() + "/statements?statement=" + newest.getId();
+            String href = "/accounts/" + card.getId() + "/statements?statement=" + newest.getId();
             rows.add(InboxRows.item(InboxKinds.statementDetailsMissingKey(card.getId()), InboxKinds.STATEMENT_DETAILS_MISSING,
                     SEVERITY_WARNING, SECTION_ACT_NOW, "Statement details missing", subtitle, href, null, null,
                     List.of(InboxRows.open(href), InboxRows.snooze()),
