@@ -106,15 +106,22 @@ public class ReportFieldValuesService {
             Set<String> joins = new HashSet<>();
             Map<String, Object> params = new HashMap<>();
             String expr = queryBuilder.expression(f.name(), joins);
+            String idExpr = f.idField() != null ? queryBuilder.expression(f.idField(), joins) : null;
             String where = queryBuilder.buildWhere(List.of(), userId, params, joins);
-            String sql = "SELECT DISTINCT " + expr + " AS v" + queryBuilder.fromClause(joins, params, userId) + where
-                    + " ORDER BY 1 FETCH FIRST " + MAX_VALUES + " ROWS ONLY";
+            String select = idExpr != null ? idExpr + " AS i, " + expr + " AS v" : expr + " AS v";
+            String sql = "SELECT DISTINCT " + select + queryBuilder.fromClause(joins, params, userId) + where
+                    + " ORDER BY " + (idExpr != null ? "2, 1" : "1") + " FETCH FIRST " + MAX_VALUES + " ROWS ONLY";
             Query query = em.createNativeQuery(sql);
             params.forEach(query::setParameter);
             List<Option> values = new ArrayList<>();
-            for (Object value : query.getResultList()) {
-                if (value != null) {
-                    values.add(new Option(String.valueOf(value), String.valueOf(value)));
+            for (Object row : query.getResultList()) {
+                if (idExpr != null) {
+                    Object[] cols = (Object[]) row;
+                    if (cols[0] != null && cols[1] != null) {
+                        values.add(new Option(String.valueOf(cols[0]), String.valueOf(cols[1])));
+                    }
+                } else if (row != null) {
+                    values.add(new Option(String.valueOf(row), String.valueOf(row)));
                 }
             }
             values.sort(BY_LABEL);

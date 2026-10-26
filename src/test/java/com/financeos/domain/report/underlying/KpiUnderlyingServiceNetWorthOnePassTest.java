@@ -89,7 +89,7 @@ class KpiUnderlyingServiceNetWorthOnePassTest {
         service = new KpiUnderlyingService(reportData, new ReportDefinitionValidator(mock(DatasourceRegistry.class)),
                 new KpiPeriodResolver(resolver, cycles), new KpiReportExecutor(resolver, cycles),
                 new TableReportExecutor(resolver), new InMemoryReportExecutor(resolver, cycles),
-                new UnderlyingFilterChips(mock(ReportFieldValuesService.class)),
+                new UnderlyingFilterChips(emptyValues()),
                 new RowBreakdownService(mock(DatasourceRegistry.class), List.of()));
     }
 
@@ -143,5 +143,11 @@ class KpiUnderlyingServiceNetWorthOnePassTest {
         a.setId(UUID.randomUUID());
         a.setCalculatedBalance(new BigDecimal(balance));
         return a;
+    }
+
+    private static ReportFieldValuesService emptyValues() {
+        ReportFieldValuesService values = mock(ReportFieldValuesService.class);
+        when(values.values(any())).thenReturn(new com.financeos.api.report.dto.ReportFieldValuesResponse(java.util.Map.of(), java.util.Map.of()));
+        return values;
     }
 }

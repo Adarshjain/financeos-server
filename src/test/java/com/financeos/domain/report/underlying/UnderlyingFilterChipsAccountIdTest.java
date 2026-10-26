@@ -55,7 +55,7 @@ class UnderlyingFilterChipsAccountIdTest {
         when(accounts.findAllById(any())).thenReturn(List.of(
                 account(mine, "Main Bank", userId), account(theirs, "Not Yours", UUID.randomUUID())));
         datasource.setAccountRepository(accounts);
-        chips = new UnderlyingFilterChips(mock(ReportFieldValuesService.class));
+        chips = new UnderlyingFilterChips(emptyValues());
     }
 
     @AfterEach
@@ -93,5 +93,11 @@ class UnderlyingFilterChipsAccountIdTest {
         TransactionsDatasource bare = new TransactionsDatasource(new SqlPredicates(dates), dates);
         assertEquals("is " + mine, chips.describe(bare,
                 List.of(new FilterClause("account", "is", JSON.textNode(mine.toString())))).get(0).text());
+    }
+
+    private static ReportFieldValuesService emptyValues() {
+        ReportFieldValuesService values = mock(ReportFieldValuesService.class);
+        when(values.values(any())).thenReturn(new com.financeos.api.report.dto.ReportFieldValuesResponse(java.util.Map.of(), java.util.Map.of()));
+        return values;
     }
 }

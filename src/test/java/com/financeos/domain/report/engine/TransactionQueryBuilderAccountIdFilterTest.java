@@ -74,9 +74,9 @@ class TransactionQueryBuilderAccountIdFilterTest {
 
     @Test
     void negatedIdsExcludeThoseAccounts() {
-        assertEquals(" WHERE t.user_id = :userId AND t.account_id NOT IN (:f0i)", where("not_in", array(A, B)));
+        assertEquals(" WHERE t.user_id = :userId AND (t.account_id NOT IN (:f0i) OR t.account_id IS NULL)", where("not_in", array(A, B)));
         params.clear();
-        assertEquals(" WHERE t.user_id = :userId AND t.account_id NOT IN (:f0i)", where("is_not", JSON.textNode(A)));
+        assertEquals(" WHERE t.user_id = :userId AND (t.account_id NOT IN (:f0i) OR t.account_id IS NULL)", where("is_not", JSON.textNode(A)));
     }
 
     @Test
@@ -91,7 +91,7 @@ class TransactionQueryBuilderAccountIdFilterTest {
     @Test
     void aNegatedMixedListExcludesBoth() {
         String sql = where("not_in", array(A, "Main Bank"));
-        assertEquals(" WHERE t.user_id = :userId AND (t.account_id NOT IN (:f0i) AND (a.name NOT IN (:f0n) OR a.name IS NULL))",
+        assertEquals(" WHERE t.user_id = :userId AND ((t.account_id NOT IN (:f0i) OR t.account_id IS NULL) AND (a.name NOT IN (:f0n) OR a.name IS NULL))",
                 sql);
     }
 

@@ -119,6 +119,30 @@ class ReportFieldValuesServiceTest {
     }
 
     @Test
+    void sqlFieldWithIdFieldOffersIdLabelPairs() {
+        FieldDef account = new FieldDef("account", "Account", FieldType.ENUM, FieldRole.DIMENSION,
+                null, null, true, List.of(), null, "accountId");
+        when(query.getResultList()).thenReturn(List.of(
+                new Object[] {"id-2", "Zeta"}, new Object[] {"id-1", "axis"}, new Object[] {"id-3", "Axis"}));
+
+        var response = service(sqlDatasource(account)).values("transactions");
+
+        ArgumentCaptor<String> sql = ArgumentCaptor.forClass(String.class);
+        verify(em).createNativeQuery(sql.capture());
+        assertEquals("SELECT DISTINCT t.account_id AS i, a.name AS v FROM transactions t"
+                + " LEFT JOIN accounts a ON a.id = t.account_id WHERE t.user_id = :userId"
+                + " ORDER BY 2, 1 FETCH FIRST 500 ROWS ONLY", sql.getValue());
+        assertEquals(List.of(new Option("id-1", "axis"), new Option("id-3", "Axis"), new Option("id-2", "Zeta")),
+                response.options().get("account"));
+    }
+
+    @Test
+    void transactionsAccountFieldStoresTheAccountId() {
+        assertEquals("accountId", DatasourceCatalog.transactionFields().stream()
+                .filter(f -> f.name().equals("account")).findFirst().orElseThrow().idField());
+    }
+
+    @Test
     void sqlDatasourceBindsTheUserScopeParameter() {
         when(query.getResultList()).thenReturn(List.of());
 

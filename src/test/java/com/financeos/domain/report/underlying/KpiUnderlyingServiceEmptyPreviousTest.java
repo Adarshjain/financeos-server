@@ -100,7 +100,7 @@ class KpiUnderlyingServiceEmptyPreviousTest {
         reportData = mock(ReportDataService.class);
         service = new KpiUnderlyingService(reportData, new ReportDefinitionValidator(mock(DatasourceRegistry.class)),
                 new KpiPeriodResolver(resolver, cycles), new KpiReportExecutor(resolver, cycles),
-                new TableReportExecutor(resolver), inMemory, new UnderlyingFilterChips(mock(ReportFieldValuesService.class)),
+                new TableReportExecutor(resolver), inMemory, new UnderlyingFilterChips(emptyValues()),
                 new RowBreakdownService(mock(DatasourceRegistry.class), List.of()));
     }
 
@@ -134,5 +134,11 @@ class KpiUnderlyingServiceEmptyPreviousTest {
     private static FilterClause may() {
         return new FilterClause("date", "between",
                 JsonNodeFactory.instance.objectNode().put("from", "2026-05-01").put("to", "2026-05-31"));
+    }
+
+    private static ReportFieldValuesService emptyValues() {
+        ReportFieldValuesService values = mock(ReportFieldValuesService.class);
+        when(values.values(any())).thenReturn(new com.financeos.api.report.dto.ReportFieldValuesResponse(java.util.Map.of(), java.util.Map.of()));
+        return values;
     }
 }
