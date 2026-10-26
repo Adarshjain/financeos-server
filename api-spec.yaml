@@ -18872,6 +18872,8 @@ components:
           type: string
         name:
           type: string
+        openBill:
+          $ref: "#/components/schemas/SearchOpenBill"
         type:
           type: string
           enum:
@@ -18884,6 +18886,7 @@ components:
       - id
       - last4
       - name
+      - openBill
       - type
     SearchDashboardHit:
       type: object
@@ -18927,6 +18930,21 @@ components:
       - id
       - lender
       - name
+    SearchOpenBill:
+      type: object
+      properties:
+        paymentDueDate:
+          type: string
+          format: date
+        remainingAmount:
+          type: number
+        statementId:
+          type: string
+          format: uuid
+      required:
+      - paymentDueDate
+      - remainingAmount
+      - statementId
     SearchPersonHit:
       type: object
       properties:

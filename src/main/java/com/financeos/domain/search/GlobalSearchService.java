@@ -5,12 +5,16 @@ import com.financeos.api.search.dto.SearchAccountHit;
 import com.financeos.api.search.dto.SearchDashboardHit;
 import com.financeos.api.search.dto.SearchHoldingHit;
 import com.financeos.api.search.dto.SearchLoanHit;
+import com.financeos.api.search.dto.SearchOpenBill;
 import com.financeos.api.search.dto.SearchPersonHit;
 import com.financeos.api.search.dto.SearchReportHit;
 import com.financeos.api.search.dto.SearchTransactionHit;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.AccountType;
+import com.financeos.domain.notification.bill.BillStatus;
+import com.financeos.domain.notification.bill.CardBill;
+import com.financeos.domain.notification.bill.CardBillService;
 import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.engine.SqlPredicates;
 import com.financeos.domain.transaction.TransactionListQueryBuilder;
@@ -21,7 +25,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -84,8 +90,11 @@ public class GlobalSearchService {
 
     private final NamedParameterJdbcTemplate jdbc;
 
-    public GlobalSearchService(NamedParameterJdbcTemplate jdbc) {
+    private final CardBillService cardBillService;
+
+    public GlobalSearchService(NamedParameterJdbcTemplate jdbc, CardBillService cardBillService) {
         this.jdbc = jdbc;
+        this.cardBillService = cardBillService;
     }
 
     public GlobalSearchResponse search(String rawQuery) {
@@ -102,9 +111,9 @@ public class GlobalSearchService {
                 .addValue("q", "%" + escaped + "%")
                 .addValue("prefix", escaped + "%");
 
-        List<SearchAccountHit> accounts = jdbc.query(ACCOUNTS_SQL, params, (rs, n) -> new SearchAccountHit(
+        List<SearchAccountHit> accounts = withOpenBills(jdbc.query(ACCOUNTS_SQL, params, (rs, n) -> new SearchAccountHit(
                 UUID.fromString(rs.getString("id")), rs.getString("name"), rs.getString("bank"),
-                AccountType.valueOf(rs.getString("type")), rs.getString("last4")));
+                AccountType.valueOf(rs.getString("type")), rs.getString("last4"), null)));
 
         List<SearchTransactionHit> transactions = jdbc.query(transactionsSql(text, params), params,
                 (rs, n) -> new SearchTransactionHit(UUID.fromString(rs.getString("id")),
@@ -131,6 +140,30 @@ public class GlobalSearchService {
                 accounts.size(), transactions.size(), holdings.size(), people.size(), loans.size(), reports.size(),
                 dashboards.size(), (System.nanoTime() - started) / 1_000_000);
         return new GlobalSearchResponse(accounts, transactions, holdings, people, loans, reports, dashboards);
+    }
+
+    /**
+     * Attaches each credit card's unpaid bill. The bills come from the same batched read the Inbox and
+     * Upcoming use ({@link CardBillService#listBills}: one live bill per open card), and "unpaid" is
+     * the status the app offers Mark paid for (OPEN, PARTIAL, OVERDUE), so the figures cannot drift.
+     * Skipped entirely when no hit is a credit card.
+     */
+    private List<SearchAccountHit> withOpenBills(List<SearchAccountHit> hits) {
+        if (hits.stream().noneMatch(h -> h.type() == AccountType.credit_card)) {
+            return hits;
+        }
+        Map<UUID, SearchOpenBill> byCard = new HashMap<>();
+        for (CardBill bill : cardBillService.listBills(UserContext.getCurrentUserId())) {
+            boolean unpaid = bill.status() == BillStatus.OPEN || bill.status() == BillStatus.PARTIAL
+                    || bill.status() == BillStatus.OVERDUE;
+            if (unpaid && bill.statementId() != null && bill.remainingAmount() != null) {
+                byCard.put(bill.accountId(),
+                        new SearchOpenBill(bill.statementId(), bill.remainingAmount(), bill.paymentDueDate()));
+            }
+        }
+        return hits.stream().map(h -> h.type() == AccountType.credit_card
+                ? new SearchAccountHit(h.id(), h.name(), h.bank(), h.type(), h.last4(), byCard.get(h.id()))
+                : h).toList();
     }
 
     /** Newest first; a numeric query also matches the amount's digits, as the transactions list search does. */
