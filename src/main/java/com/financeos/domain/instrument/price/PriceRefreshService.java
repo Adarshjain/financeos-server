@@ -238,7 +238,7 @@ public class PriceRefreshService {
         ZoneId zone = AppTime.zone();
         LocalDate today = AppTime.today();
         // Fetched with no transaction open (the entry points are NOT_SUPPORTED); only the writes run in one.
-        Map<UUID, PriceQuote> quotes = provider.fetch(targets);
+        Map<UUID, PriceQuote> quotes = liveOnly ? provider.fetchLive(targets) : provider.fetch(targets);
         if (writeTx == null) {
             return storeFeed(source, liveOnly, targets, quotes, today, zone);
         }

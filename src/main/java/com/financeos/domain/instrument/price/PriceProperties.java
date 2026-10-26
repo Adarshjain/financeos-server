@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,5 +32,7 @@ public class PriceProperties {
         private boolean fallbackEnabled = true;
         private long timeoutMs = 30000L;
         private String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36";
+        /** Default pause after an HTTP 429 when Yahoo sends no usable Retry-After. */
+        private Duration rateLimitCooldown = Duration.ofMinutes(15);
     }
 }
