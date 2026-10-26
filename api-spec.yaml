@@ -8196,6 +8196,30 @@ paths:
           description: Error response
       tags:
       - rules-controller
+  /api/v1/search:
+    get:
+      operationId: globalSearch
+      parameters:
+      - in: query
+        name: q
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/GlobalSearchResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - search-controller
   /api/v1/statements/{statementId}:
     get:
       operationId: getStatementById
@@ -12744,6 +12768,45 @@ components:
       - type
       - updatedAt
       - warnings
+    GlobalSearchResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchAccountHit"
+        dashboards:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchDashboardHit"
+        holdings:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchHoldingHit"
+        loans:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchLoanHit"
+        people:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchPersonHit"
+        reports:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchReportHit"
+        transactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchTransactionHit"
+      required:
+      - accounts
+      - dashboards
+      - holdings
+      - loans
+      - people
+      - reports
+      - transactions
     GmailAttentionItemResponse:
       type: object
       properties:
@@ -18797,6 +18860,127 @@ components:
       - datasource
       - definition
       - type
+    SearchAccountHit:
+      type: object
+      properties:
+        bank:
+          type: string
+        id:
+          type: string
+          format: uuid
+        last4:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - bank_account
+          - credit_card
+          - broker
+          - generic
+      required:
+      - bank
+      - id
+      - last4
+      - name
+      - type
+    SearchDashboardHit:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        isDefault:
+          type: boolean
+        name:
+          type: string
+      required:
+      - id
+      - isDefault
+      - name
+    SearchHoldingHit:
+      type: object
+      properties:
+        instrumentId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        symbol:
+          type: string
+      required:
+      - instrumentId
+      - name
+      - symbol
+    SearchLoanHit:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        lender:
+          type: string
+        name:
+          type: string
+      required:
+      - id
+      - lender
+      - name
+    SearchPersonHit:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+      required:
+      - id
+      - name
+    SearchReportHit:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - KPI
+          - CHART
+          - TABLE
+      required:
+      - id
+      - name
+      - type
+    SearchTransactionHit:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        accountName:
+          type: string
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+        id:
+          type: string
+          format: uuid
+      required:
+      - accountId
+      - accountName
+      - amount
+      - date
+      - description
+      - id
     SellEstimateResponse:
       type: object
       properties:

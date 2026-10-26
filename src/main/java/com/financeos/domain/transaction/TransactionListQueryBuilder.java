@@ -65,6 +65,9 @@ public class TransactionListQueryBuilder {
         this.catalog = catalog;
     }
 
+    /** Oracle TO_CHAR format the amount search compares its digits against. */
+    public static final String AMOUNT_TEXT_FORMAT = "FM99999999999999990.99999999";
+
     public record QueryResult(String sql, Map<String, Object> params) {}
 
     /**
@@ -241,7 +244,7 @@ public class TransactionListQueryBuilder {
             String amountClause = "";
             if (amountDigits != null) {
                 params.put("qAmt", "%" + amountDigits + "%");
-                amountClause = "\n                   OR TO_CHAR(ABS(sub.signed_amount), 'FM99999999999999990.99999999') LIKE :qAmt";
+                amountClause = "\n                   OR TO_CHAR(ABS(sub.signed_amount), '" + AMOUNT_TEXT_FORMAT + "') LIKE :qAmt";
             }
             predicates.add("""
                 (
@@ -268,7 +271,7 @@ public class TransactionListQueryBuilder {
      * If the search text is a plain number (optional leading rupee sign / minus, comma grouping,
      * one decimal point) returns its bare digits (with the decimal point, trailing decimal zeros dropped), else null.
      */
-    static String numericSearchText(String search) {
+    public static String numericSearchText(String search) {
         if (search == null) {
             return null;
         }
