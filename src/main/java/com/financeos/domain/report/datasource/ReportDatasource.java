@@ -51,6 +51,14 @@ public interface ReportDatasource {
     }
 
     /**
+     * The order for a runtime sort over a KPI's underlying rows; the clause itself unless the
+     * datasource orders that column differently (e.g. by a declared order rather than by text).
+     */
+    default List<SortClause> underlyingRuntimeSort(SortClause runtime) {
+        return List.of(runtime);
+    }
+
+    /**
      * The field the client groups a KPI's underlying rows by while the default order applies;
      * null for no grouping.
      */

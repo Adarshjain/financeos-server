@@ -185,6 +185,15 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
         return List.of(new SortClause(GROUP_ORDER_KEY, SortDirection.ASC), new SortClause("value", SortDirection.DESC));
     }
 
+    /** Sorting by Group follows the declared group order (not alphabetical), value descending within a group. */
+    @Override
+    public List<SortClause> underlyingRuntimeSort(SortClause runtime) {
+        if (!"group".equals(runtime.key())) {
+            return List.of(runtime);
+        }
+        return List.of(new SortClause(GROUP_ORDER_KEY, runtime.direction()), new SortClause("value", SortDirection.DESC));
+    }
+
     @Override
     public String underlyingGroupField() {
         return "group";
