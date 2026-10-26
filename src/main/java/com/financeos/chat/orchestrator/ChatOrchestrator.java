@@ -231,7 +231,8 @@ public class ChatOrchestrator {
                 long durationMs = System.currentTimeMillis() - startMs;
                 String resultPreview = stepSuccess ? truncatePreview(resultJson) : null;
                 ChatTraceEntry trace = new ChatTraceEntry(
-                        iteration, "run_sql", "Executed SQL query", sql, rowCount, durationMs, stepSuccess, stepError, resultPreview
+                        iteration, "run_sql", "Executed SQL query", sql, rowCount, durationMs, stepSuccess, stepError, resultPreview,
+                        ChatStepLabels.labelFor("run_sql", null)
                 );
                 traces.add(trace);
                 eventSink.onTrace(trace);
@@ -295,7 +296,8 @@ public class ChatOrchestrator {
                     long durationMs = 0L;
                     ChatTraceEntry trace = new ChatTraceEntry(
                             iteration, "call_tool", "Called compute tool: " + toolName,
-                            "{}", null, durationMs, false, parseError, null
+                            "{}", null, durationMs, false, parseError, null,
+                            ChatStepLabels.labelFor("call_tool", toolName)
                     );
                     traces.add(trace);
                     eventSink.onTrace(trace);
@@ -364,7 +366,8 @@ public class ChatOrchestrator {
 
                 ChatTraceEntry trace = new ChatTraceEntry(
                         iteration, "call_tool", "Called compute tool: " + toolName,
-                        argsNode.toString(), toolRowCount, durationMs, stepSuccess, stepError, resultPreview
+                        argsNode.toString(), toolRowCount, durationMs, stepSuccess, stepError, resultPreview,
+                        ChatStepLabels.labelFor("call_tool", toolName)
                 );
                 traces.add(trace);
                 eventSink.onTrace(trace);

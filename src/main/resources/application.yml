@@ -418,7 +418,6 @@ chat:
     password: ${CHAT_RO_PASSWORD:}
   app-schema: ${DB_USERNAME:ADMIN}
   quota:
-    messages-per-day: 30
     max-concurrent: 2
   loop:
     max-iterations: 6

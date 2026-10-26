@@ -9,7 +9,6 @@ public record ChatTraceEntry(
         Long durationMs,
         boolean success,
         String error,
-        String resultPreview
+        String resultPreview,
+        String label
 ) {}
-
-

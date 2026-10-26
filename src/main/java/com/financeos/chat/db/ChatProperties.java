@@ -84,16 +84,7 @@ public class ChatProperties {
     }
 
     public static class Quota {
-        private int messagesPerDay = 30;
         private int maxConcurrent = 2;
-
-        public int getMessagesPerDay() {
-            return messagesPerDay;
-        }
-
-        public void setMessagesPerDay(int messagesPerDay) {
-            this.messagesPerDay = messagesPerDay;
-        }
 
         public int getMaxConcurrent() {
             return maxConcurrent;
