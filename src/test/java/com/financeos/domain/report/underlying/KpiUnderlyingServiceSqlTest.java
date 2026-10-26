@@ -128,7 +128,7 @@ class KpiUnderlyingServiceSqlTest {
         ReflectionTestUtils.setField(tableExecutor, "em", ReflectionTestUtils.getField(kpiExecutor, "em"));
         return new KpiUnderlyingService(reportData, new ReportDefinitionValidator(mock(DatasourceRegistry.class)),
                 new KpiPeriodResolver(resolver, cycles), kpiExecutor, tableExecutor,
-                new InMemoryReportExecutor(resolver), new UnderlyingFilterChips(mock(ReportFieldValuesService.class)),
+                new InMemoryReportExecutor(resolver), new UnderlyingFilterChips(emptyValues()),
                 rowBreakdowns);
     }
 
@@ -547,5 +547,11 @@ class KpiUnderlyingServiceSqlTest {
         assertThrows(ValidationException.class,
                 () -> service.adHocCsv(ReportType.CHART, "transactions", null, null, null, target));
         assertFalse(target.opened);
+    }
+
+    private static ReportFieldValuesService emptyValues() {
+        ReportFieldValuesService values = mock(ReportFieldValuesService.class);
+        when(values.values(any())).thenReturn(new com.financeos.api.report.dto.ReportFieldValuesResponse(java.util.Map.of(), java.util.Map.of()));
+        return values;
     }
 }

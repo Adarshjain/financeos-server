@@ -222,8 +222,11 @@ class ReportFilterFieldsTest {
         UserContext.setCurrentUserId(UUID.randomUUID());
         EntityManager em = mock(EntityManager.class);
         Query query = mock(Query.class);
-        when(em.createNativeQuery(anyString())).thenReturn(query);
+        Query accountQuery = mock(Query.class);
+        when(em.createNativeQuery(anyString())).thenAnswer(
+                i -> ((String) i.getArgument(0)).contains("t.account_id AS i") ? accountQuery : query);
         when(query.getResultList()).thenReturn(List.of("Priya", "Unattributed"));
+        when(accountQuery.getResultList()).thenReturn(java.util.Collections.singletonList(new Object[] {"a1", "Main Bank"}));
         ReportFieldValuesService service = new ReportFieldValuesService(
                 new DatasourceRegistry(List.of(transactions), new DatasourceCatalog()));
         ReflectionTestUtils.setField(service, "em", em);

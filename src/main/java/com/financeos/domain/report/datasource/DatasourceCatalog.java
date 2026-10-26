@@ -43,9 +43,10 @@ public class DatasourceCatalog {
             List<ReportType> allowedInReports,
             String format,                  // "currency" | "number" | "percent"
             /*
-             * Computed datasources only: the row key holding a stable id for this dynamic enum.
-             * Filters store that id (the dropdown shows the label), so renames and relabels never
-             * break a saved filter; a filter holding the label still matches.
+             * The stable id of this dynamic enum: on a computed datasource the row key holding it,
+             * on a SQL datasource the query-builder mapping that selects it. Filters store that id
+             * (the dropdown shows the label), so renames and relabels never break a saved filter;
+             * a filter holding the label still matches.
              */
             String idField,
             /*
@@ -211,7 +212,8 @@ public class DatasourceCatalog {
             new FieldDef("type", "Type", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("DEBIT", "CREDIT"), null, CHART_TABLE),
             new FieldDef("category", "Category", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
-            new FieldDef("account", "Account", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
+            new FieldDef("account", "Account", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE,
+                    null, "accountId"),
             new FieldDef("accountType", "Account Type", FieldType.ENUM, FieldRole.DIMENSION, null,
                     names(AccountType.values()), null, CHART_TABLE),
             new FieldDef("source", "Source", FieldType.ENUM, FieldRole.DIMENSION, null,

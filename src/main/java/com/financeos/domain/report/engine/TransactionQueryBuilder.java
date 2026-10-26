@@ -92,6 +92,8 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             Map.entry("source", new Mapping("t.source", null)),
             Map.entry("description", new Mapping(DESCRIPTION, null)),
             Map.entry("account", new Mapping("a.name", JOIN_ACCOUNTS)),
+            // Internal: the id behind the "account" field (FieldDef.idField); not a catalog field.
+            Map.entry("accountId", new Mapping("t.account_id", null)),
             Map.entry("accountType", new Mapping("a.type", JOIN_ACCOUNTS)),
             Map.entry(CATEGORY, new Mapping("c.name", JOIN_CATEGORIES)),
             Map.entry("isUnderMonitoring", new Mapping("t.is_under_monitoring", null)),
@@ -207,7 +209,9 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             return null;
         }
         params.put(p + "i", ids);
-        String byId = negated ? "t.account_id NOT IN (:" + p + "i)" : "t.account_id IN (:" + p + "i)";
+        // A missing account is never X, so NULL rows pass the negated operators (as the name predicate does).
+        String byId = negated ? "(t.account_id NOT IN (:" + p + "i) OR t.account_id IS NULL)"
+                : "t.account_id IN (:" + p + "i)";
         if (names.isEmpty()) {
             return byId;
         }

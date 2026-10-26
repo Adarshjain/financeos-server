@@ -57,9 +57,17 @@ public class UnderlyingFilterChips {
     /** One chip per clause of {@code filters}, in order. */
     public List<UnderlyingFilterChip> describe(ReportDatasource datasource, List<FilterClause> filters) {
         List<FilterClause> shown = filters.stream().filter(f -> !UnderlyingOperators.isInternal(f.operator())).toList();
-        Map<String, Map<String, String>> idLabels = idLabels(datasource, shown);
-        List<UnderlyingFilterChip> chips = new ArrayList<>();
+        List<Map<String, String>> datasourceLabels = new ArrayList<>();
         for (FilterClause filter : shown) {
+            FieldDef field = datasource.field(filter.field());
+            datasourceLabels.add(field != null && (field.type() == FieldType.ENUM || field.type() == FieldType.STRING)
+                    && filter.value() != null
+                    ? datasource.filterValueLabels(filter.field(), texts(filter.value())) : Map.of());
+        }
+        Map<String, Map<String, String>> idLabels = idLabels(datasource, shown, datasourceLabels);
+        List<UnderlyingFilterChip> chips = new ArrayList<>();
+        for (int i = 0; i < shown.size(); i++) {
+            FilterClause filter = shown.get(i);
             FieldDef field = datasource.field(filter.field());
             String fieldLabel = field != null ? field.label() : filter.field();
             Map<String, String> labels = new HashMap<>();
@@ -67,10 +75,7 @@ public class UnderlyingFilterChips {
                 labels.putAll(field.valueLabels());
             }
             labels.putAll(idLabels.getOrDefault(filter.field(), Map.of()));
-            if (field != null && (field.type() == FieldType.ENUM || field.type() == FieldType.STRING)
-                    && filter.value() != null) {
-                labels.putAll(datasource.filterValueLabels(filter.field(), texts(filter.value())));
-            }
+            labels.putAll(datasourceLabels.get(i));
             chips.add(new UnderlyingFilterChip(filter.field(), fieldLabel, filter.operator(),
                     text(field, filter, labels)));
         }
@@ -79,11 +84,19 @@ public class UnderlyingFilterChips {
 
     /**
      * Option labels by filter value for the id-backed fields among {@code filters}; the options are
-     * only loaded when such a filter exists.
+     * only loaded when such a filter holds a value the datasource's own {@code filterValueLabels}
+     * did not label (the transactions datasource labels its account ids itself).
      */
-    private Map<String, Map<String, String>> idLabels(ReportDatasource datasource, List<FilterClause> filters) {
-        boolean needed = filters.stream().map(f -> datasource.field(f.field()))
-                .anyMatch(f -> f != null && f.idField() != null);
+    private Map<String, Map<String, String>> idLabels(ReportDatasource datasource, List<FilterClause> filters,
+                                                      List<Map<String, String>> datasourceLabels) {
+        boolean needed = false;
+        for (int i = 0; i < filters.size() && !needed; i++) {
+            FilterClause f = filters.get(i);
+            FieldDef field = datasource.field(f.field());
+            Map<String, String> labelled = datasourceLabels.get(i);
+            needed = field != null && field.idField() != null && f.value() != null
+                    && texts(f.value()).stream().anyMatch(v -> !labelled.containsKey(v));
+        }
         if (!needed) {
             return Map.of();
         }
