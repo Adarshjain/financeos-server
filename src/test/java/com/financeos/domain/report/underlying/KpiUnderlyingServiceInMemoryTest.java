@@ -408,6 +408,45 @@ class KpiUnderlyingServiceInMemoryTest {
                 && csv.indexOf("Card") < csv.indexOf("Zerodha"), csv);
     }
 
+    @Test
+    void netWorthSortByGroupAscFollowsTheDeclaredOrderInListingAndCsv() {
+        NetWorthDatasource ds = netWorthWithRowsArrivingInvestmentsFirst();
+        define(ds, new KpiDefinition("value", Aggregation.SUM, List.of(), null));
+
+        KpiUnderlyingResponse response = run(ds, null, null, null, "group,asc");
+
+        assertEquals("group", response.sortKey());
+        assertEquals(List.of("Savings", "Wallet", "Card", "Zerodha"),
+                ((TableData) response.table()).rows().stream().map(r -> (String) r.get("name")).toList());
+        assertEquals(List.of("Savings", "Wallet", "Card", "Zerodha"), csvNames(ds, "group,asc"));
+    }
+
+    @Test
+    void netWorthSortByGroupDescIsTheReverseGroupOrderWithValueDescendingWithinAGroup() {
+        NetWorthDatasource ds = netWorthWithRowsArrivingInvestmentsFirst();
+        define(ds, new KpiDefinition("value", Aggregation.SUM, List.of(), null));
+
+        KpiUnderlyingResponse response = run(ds, null, null, null, "group,desc");
+
+        assertEquals(List.of("Zerodha", "Card", "Savings", "Wallet"),
+                ((TableData) response.table()).rows().stream().map(r -> (String) r.get("name")).toList());
+        assertEquals(List.of("Zerodha", "Card", "Savings", "Wallet"), csvNames(ds, "group,desc"));
+    }
+
+    @Test
+    void netWorthSortByAnotherColumnAndOtherDatasourcesKeepTheirPlainSort() {
+        NetWorthDatasource ds = netWorthWithRowsArrivingInvestmentsFirst();
+        SortClause clause = new SortClause("value", SortDirection.ASC);
+        assertEquals(List.of(clause), ds.underlyingRuntimeSort(clause));
+        assertEquals(List.of(clause), new Plain().underlyingRuntimeSort(clause));
+    }
+
+    private List<String> csvNames(NetWorthDatasource ds, String sort) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        service.adHocCsv(ReportType.KPI, ds.name(), null, null, sort, () -> out);
+        return out.toString(StandardCharsets.UTF_8).lines().skip(1).map(l -> l.split(",")[0]).toList();
+    }
+
     // ---- CSV ----
 
     @Test

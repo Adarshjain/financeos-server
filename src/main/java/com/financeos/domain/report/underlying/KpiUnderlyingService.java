@@ -355,7 +355,7 @@ public class KpiUnderlyingService {
     private List<SortClause> sort(ReportDatasource ds, List<String> columns, @Nullable SortClause runtime) {
         if (runtime != null) {
             validator.validateRuntimeSort(new RawTableDefinition(TableMode.RAW, columns, List.of(), List.of()), runtime);
-            return List.of(runtime);
+            return ds.underlyingRuntimeSort(runtime);
         }
         return ds.underlyingDefaultSort() != null ? ds.underlyingDefaultSort() : List.of();
     }
