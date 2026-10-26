@@ -383,6 +383,7 @@ price:
       timeout-ms: ${YAHOO_TIMEOUT_MS:30000}
       batch-enabled: ${YAHOO_BATCH_ENABLED:true}
       batch-size: ${YAHOO_BATCH_SIZE:50}
+      rate-limit-cooldown: ${PRICE_YAHOO_RATE_LIMIT_COOLDOWN:15m}
       user-agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
 
 # Background Jobs configuration

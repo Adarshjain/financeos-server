@@ -14,4 +14,9 @@ public interface PriceProvider {
     boolean supports(Instrument instrument);
 
     Map<UUID, PriceQuote> fetch(List<Instrument> instruments);
+
+    /** Quotes for the intraday live job: cheap and best-effort; providers may skip slow fallbacks. */
+    default Map<UUID, PriceQuote> fetchLive(List<Instrument> instruments) {
+        return fetch(instruments);
+    }
 }

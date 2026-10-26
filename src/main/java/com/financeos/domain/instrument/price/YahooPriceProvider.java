@@ -18,10 +18,14 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.*;
 
 @Component
@@ -37,6 +41,20 @@ public class YahooPriceProvider implements PriceProvider {
     private String cachedCrumb = null;
     private Instant crumbFetchedAt = null;
     private static final Duration CRUMB_TTL = Duration.ofMinutes(15);
+    private static final Duration MAX_RATE_LIMIT_COOLDOWN = Duration.ofMinutes(60);
+    private static final Duration DEFAULT_RATE_LIMIT_COOLDOWN = Duration.ofMinutes(15);
+
+    /** Until when Yahoo asked us to stay away (HTTP 429); null when not rate limited. */
+    private final AtomicReference<Instant> rateLimitedUntil = new AtomicReference<>();
+    private volatile Clock clock = Clock.systemUTC();
+
+    void setClock(Clock clock) {
+        this.clock = clock;
+    }
+
+    Instant rateLimitedUntil() {
+        return rateLimitedUntil.get();
+    }
 
     public YahooPriceProvider(PriceProperties priceProperties, ObjectMapper objectMapper) {
         this.priceProperties = priceProperties;
@@ -61,6 +79,16 @@ public class YahooPriceProvider implements PriceProvider {
 
     @Override
     public Map<UUID, PriceQuote> fetch(List<Instrument> instruments) {
+        return doFetch(instruments, false);
+    }
+
+    /** Batch quotes only: no per-symbol fallback, and no HTTP at all while rate limited. */
+    @Override
+    public Map<UUID, PriceQuote> fetchLive(List<Instrument> instruments) {
+        return doFetch(instruments, true);
+    }
+
+    private Map<UUID, PriceQuote> doFetch(List<Instrument> instruments, boolean live) {
         Map<UUID, PriceQuote> result = new HashMap<>();
         List<Instrument> targetInstruments = instruments.stream()
                 .filter(this::supports)
@@ -75,6 +103,14 @@ public class YahooPriceProvider implements PriceProvider {
         if (props != null && !props.isEnabled()) {
             log.info("Yahoo price provider is disabled in configuration.");
             return result;
+        }
+
+        if (live) {
+            Instant until = rateLimitedUntil.get();
+            if (until != null && clock.instant().isBefore(until)) {
+                log.info("Yahoo live fetch skipped: rate limited until {}", until);
+                return result;
+            }
         }
 
         List<String> baseUrls = YahooHosts.getCandidateHosts(props);
@@ -94,14 +130,15 @@ public class YahooPriceProvider implements PriceProvider {
         int batchSize = (props != null && props.getBatchSize() > 0) ? props.getBatchSize() : 50;
 
         if (batchEnabled) {
-            String crumb = getOrFetchCrumb(baseUrls, userAgent, timeoutMs, crumbBaseUrl, crumbFallbackUrl, false);
+            String crumb = getOrFetchCrumb(baseUrls, userAgent, timeoutMs, crumbBaseUrl, crumbFallbackUrl, false, props);
             if (crumb != null) {
                 List<List<Instrument>> chunks = new ArrayList<>();
                 for (int i = 0; i < targetInstruments.size(); i += batchSize) {
                     chunks.add(targetInstruments.subList(i, Math.min(i + batchSize, targetInstruments.size())));
                 }
 
-                for (int i = 0; i < chunks.size(); i++) {
+                boolean rateLimited = false;
+                for (int i = 0; i < chunks.size() && !rateLimited; i++) {
                     if (i > 0) {
                         try {
                             Thread.sleep(100);
@@ -122,16 +159,23 @@ public class YahooPriceProvider implements PriceProvider {
 
                     Map<String, PriceQuote> batchQuotes = null;
                     try {
-                        batchQuotes = fetchBatchChunk(joinedSymbols, crumb, baseUrls, userAgent, timeoutMs, zoneId);
+                        batchQuotes = fetchBatchChunk(joinedSymbols, crumb, baseUrls, userAgent, timeoutMs, zoneId, props);
+                    } catch (RateLimitedException e) {
+                        rateLimited = true;
                     } catch (CrumbExpiredException e) {
                         log.info("Yahoo crumb expired (401), refreshing crumb once...");
-                        crumb = getOrFetchCrumb(baseUrls, userAgent, timeoutMs, crumbBaseUrl, crumbFallbackUrl, true);
+                        crumb = getOrFetchCrumb(baseUrls, userAgent, timeoutMs, crumbBaseUrl, crumbFallbackUrl, true, props);
                         if (crumb != null) {
                             try {
-                                batchQuotes = fetchBatchChunk(joinedSymbols, crumb, baseUrls, userAgent, timeoutMs, zoneId);
+                                batchQuotes = fetchBatchChunk(joinedSymbols, crumb, baseUrls, userAgent, timeoutMs, zoneId, props);
+                            } catch (RateLimitedException ex) {
+                                rateLimited = true;
                             } catch (Exception ex) {
                                 log.warn("Retry Yahoo batch chunk query failed after crumb refresh", ex);
                             }
+                        } else {
+                            // No crumb (refresh failed or rate limited): the remaining chunks can't be queried.
+                            break;
                         }
                     } catch (Exception e) {
                         log.warn("Yahoo batch chunk query failed", e);
@@ -148,8 +192,14 @@ public class YahooPriceProvider implements PriceProvider {
                     }
                 }
             } else {
-                log.warn("Yahoo crumb bootstrap failed; proceeding with per-symbol fallback for all tickers.");
+                log.warn(live
+                        ? "Yahoo crumb bootstrap failed; no live quotes this run."
+                        : "Yahoo crumb bootstrap failed; proceeding with per-symbol fallback for all tickers.");
             }
+        }
+
+        if (live) {
+            return result;
         }
 
         // Graceful fallback to per-symbol endpoint for any instruments missing a quote
@@ -166,20 +216,20 @@ public class YahooPriceProvider implements PriceProvider {
         return result;
     }
 
-    private String getOrFetchCrumb(List<String> baseUrls, String userAgent, long timeoutMs, String crumbBaseUrl, String crumbFallbackUrl, boolean forceRefresh) {
+    private String getOrFetchCrumb(List<String> baseUrls, String userAgent, long timeoutMs, String crumbBaseUrl, String crumbFallbackUrl, boolean forceRefresh, PriceProperties.ProviderProperties props) {
         synchronized (crumbLock) {
             if (!forceRefresh && cachedCrumb != null && crumbFetchedAt != null) {
                 if (Duration.between(crumbFetchedAt, Instant.now()).compareTo(CRUMB_TTL) < 0) {
                     return cachedCrumb;
                 }
             }
-            cachedCrumb = bootstrapCrumb(baseUrls, userAgent, timeoutMs, crumbBaseUrl, crumbFallbackUrl);
+            cachedCrumb = bootstrapCrumb(baseUrls, userAgent, timeoutMs, crumbBaseUrl, crumbFallbackUrl, props);
             crumbFetchedAt = Instant.now();
             return cachedCrumb;
         }
     }
 
-    private String bootstrapCrumb(List<String> baseUrls, String userAgent, long timeoutMs, String crumbBaseUrl, String crumbFallbackUrl) {
+    private String bootstrapCrumb(List<String> baseUrls, String userAgent, long timeoutMs, String crumbBaseUrl, String crumbFallbackUrl, PriceProperties.ProviderProperties props) {
         // 1. Priming GET to seed cookies
         try {
             HttpRequest primeReq = HttpRequest.newBuilder()
@@ -190,7 +240,11 @@ public class YahooPriceProvider implements PriceProvider {
                     .timeout(Duration.ofMillis(timeoutMs))
                     .GET()
                     .build();
-            httpClient.send(primeReq, HttpResponse.BodyHandlers.discarding());
+            HttpResponse<Void> primeResp = httpClient.send(primeReq, HttpResponse.BodyHandlers.discarding());
+            if (primeResp.statusCode() == 429) {
+                noteRateLimited(primeResp, props);
+                return null;
+            }
         } catch (Exception e) {
             try {
                 HttpRequest primeReq2 = HttpRequest.newBuilder()
@@ -201,7 +255,11 @@ public class YahooPriceProvider implements PriceProvider {
                         .timeout(Duration.ofMillis(timeoutMs))
                         .GET()
                         .build();
-                httpClient.send(primeReq2, HttpResponse.BodyHandlers.discarding());
+                HttpResponse<Void> primeResp2 = httpClient.send(primeReq2, HttpResponse.BodyHandlers.discarding());
+                if (primeResp2.statusCode() == 429) {
+                    noteRateLimited(primeResp2, props);
+                    return null;
+                }
             } catch (Exception ex) {
                 log.warn("Priming request to Yahoo failed: {}", ex.getMessage());
             }
@@ -226,6 +284,9 @@ public class YahooPriceProvider implements PriceProvider {
                         log.debug("Successfully bootstrapped Yahoo crumb from host {}", baseUrl);
                         return body;
                     }
+                } else if (response.statusCode() == 429) {
+                    noteRateLimited(response, props);
+                    return null;
                 } else {
                     log.warn("Yahoo getcrumb at host {} returned HTTP status {}", baseUrl, response.statusCode());
                 }
@@ -243,7 +304,8 @@ public class YahooPriceProvider implements PriceProvider {
             List<String> baseUrls,
             String userAgent,
             long timeoutMs,
-            ZoneId zoneId) throws CrumbExpiredException {
+            ZoneId zoneId,
+            PriceProperties.ProviderProperties props) throws CrumbExpiredException, RateLimitedException {
 
         String encodedCrumb = URLEncoder.encode(crumb, StandardCharsets.UTF_8);
 
@@ -265,10 +327,13 @@ public class YahooPriceProvider implements PriceProvider {
                 } else if (response.statusCode() == 401) {
                     log.warn("Yahoo v7 quote returned 401 Invalid Crumb at host {}", baseUrl);
                     throw new CrumbExpiredException("401 Invalid Crumb");
+                } else if (response.statusCode() == 429) {
+                    noteRateLimited(response, props);
+                    throw new RateLimitedException();
                 } else {
                     log.warn("Yahoo Finance batch query at host {} returned HTTP status {}", baseUrl, response.statusCode());
                 }
-            } catch (CrumbExpiredException e) {
+            } catch (CrumbExpiredException | RateLimitedException e) {
                 throw e;
             } catch (Exception e) {
                 log.warn("Failed to fetch Yahoo Finance batch prices at host {}", baseUrl, e);
@@ -386,6 +451,51 @@ public class YahooPriceProvider implements PriceProvider {
             return new BigDecimal(node.asText());
         } catch (NumberFormatException e) {
             return null;
+        }
+    }
+
+    /** Records a 429: cooldown from Retry-After (seconds or HTTP-date) else the configured default, capped at 60 min. */
+    private void noteRateLimited(HttpResponse<?> response, PriceProperties.ProviderProperties props) {
+        Duration fallback = props != null && props.getRateLimitCooldown() != null && !props.getRateLimitCooldown().isZero()
+                && !props.getRateLimitCooldown().isNegative()
+                ? props.getRateLimitCooldown()
+                : DEFAULT_RATE_LIMIT_COOLDOWN;
+        Duration cooldown = response.headers().firstValue("Retry-After").map(v -> parseRetryAfter(v, clock.instant())).orElse(null);
+        if (cooldown == null) {
+            cooldown = fallback;
+        }
+        if (cooldown.compareTo(MAX_RATE_LIMIT_COOLDOWN) > 0) {
+            cooldown = MAX_RATE_LIMIT_COOLDOWN;
+        }
+        Instant until = clock.instant().plus(cooldown);
+        // Never shortens an active cooldown (a later 429 without Retry-After, or a concurrent one).
+        Instant effective = rateLimitedUntil.accumulateAndGet(until, (current, next) -> current == null || next.isAfter(current) ? next : current);
+        log.warn("Yahoo returned HTTP 429; pausing Yahoo requests until {}", effective);
+    }
+
+    /** Positive delta-seconds or an HTTP-date in the future; null when absent or unusable. */
+    static Duration parseRetryAfter(String value, Instant now) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        String v = value.trim();
+        try {
+            long seconds = Long.parseLong(v);
+            return seconds > 0 ? Duration.ofSeconds(seconds) : null;
+        } catch (NumberFormatException ignored) {
+            // not delta-seconds; try an HTTP-date
+        }
+        try {
+            Duration d = Duration.between(now, ZonedDateTime.parse(v, DateTimeFormatter.RFC_1123_DATE_TIME).toInstant());
+            return d.isPositive() ? d : null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static class RateLimitedException extends Exception {
+        RateLimitedException() {
+            super("429 Too Many Requests", null, false, false);
         }
     }
 

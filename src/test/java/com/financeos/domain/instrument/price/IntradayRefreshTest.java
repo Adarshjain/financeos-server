@@ -63,6 +63,8 @@ class IntradayRefreshTest {
         fund.setName("Fund");
         yahoo = mock(PriceProvider.class);
         when(yahoo.source()).thenReturn(PriceSource.YAHOO);
+        // live runs call fetchLive; a plain mock does not run the interface default, so route it to fetch
+        when(yahoo.fetchLive(any())).thenAnswer(i -> yahoo.fetch(i.getArgument(0)));
         when(yahoo.supports(any())).thenAnswer(i -> ((Instrument) i.getArgument(0)).getType() == InstrumentType.stock);
         amfi = mock(PriceProvider.class);
         when(amfi.source()).thenReturn(PriceSource.AMFI);
