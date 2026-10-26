@@ -3,6 +3,13 @@ package com.financeos.api.search;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.core.time.AppTime;
+import com.financeos.domain.account.Account;
+import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.statement.Statement;
+import com.financeos.domain.statement.StatementCreditCardDetails;
+import com.financeos.domain.statement.StatementRepository;
+import com.financeos.domain.statement.StatementSource;
+import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.support.ApiTestClient;
 import com.financeos.support.UserDataCleanup;
@@ -35,6 +42,8 @@ class GlobalSearchIntegrationTest {
     @Autowired private ObjectMapper mapper;
     @Autowired private JdbcTemplate jdbc;
     @Autowired private UserRepository userRepository;
+    @Autowired private AccountRepository accountRepository;
+    @Autowired private StatementRepository statementRepository;
 
     private ApiTestClient api;
     private ApiTestClient other;
@@ -148,6 +157,27 @@ class GlobalSearchIntegrationTest {
     private UUID broker(ApiTestClient c, String name) throws Exception {
         return c.create("/api/v1/accounts", Map.of("type", "broker", "name", name, "provider", "zerodha",
                 "financialPosition", "asset", "excludeFromNetAsset", false));
+    }
+
+    private UUID statement(UUID accountId, String totalDue) {
+        Account account = accountRepository.findById(accountId).orElseThrow();
+        java.time.LocalDate periodEnd = AppTime.today().minusDays(5);
+        Statement st = new Statement();
+        st.setUser(account.getUser());
+        st.setAccount(account);
+        st.setSource(StatementSource.file_upload);
+        st.setStatementType("credit_card");
+        st.setPeriodStart(periodEnd.minusMonths(1).plusDays(1));
+        st.setPeriodEnd(periodEnd);
+        st.setClosingBalance(new java.math.BigDecimal(totalDue));
+        st.setVerdict(StatementVerdict.AUTO_INGEST);
+        StatementCreditCardDetails d = new StatementCreditCardDetails(st);
+        d.setUser(account.getUser());
+        d.setTotalAmountDue(new java.math.BigDecimal(totalDue));
+        d.setMinimumAmountDue(new java.math.BigDecimal("500"));
+        d.setPaymentDueDate(periodEnd.plusDays(18));
+        st.setCreditCardDetails(d);
+        return statementRepository.save(st).getId();
     }
 
     private JsonNode search(ApiTestClient c, String q) throws Exception {
@@ -389,5 +419,37 @@ class GlobalSearchIntegrationTest {
             }
         }
         assertEquals(1, search(other, "shared word acct").get("accounts").size());
+    }
+
+    // ---------- open bill ----------
+
+    @Test
+    void cardWithAnUnpaidBillCarriesItAndPaidOrNonCardAccountsDoNot() throws Exception {
+        UUID card = creditCard(api, "Billcard " + tag, "4321");
+        UUID statementId = statement(card, "44319.00");
+
+        JsonNode hit = search(api, "billcard " + tag).get("accounts").get(0);
+        JsonNode bill = hit.get("openBill");
+        assertEquals(statementId.toString(), bill.get("statementId").asText());
+        assertEquals(0, bill.get("remainingAmount").decimalValue().compareTo(new java.math.BigDecimal("44319.00")));
+        assertEquals(AppTime.today().minusDays(5).plusDays(18).toString(), bill.get("paymentDueDate").asText());
+
+        // a bank account never has one
+        assertTrue(search(api, "zeta savings " + tag).get("accounts").get(0).get("openBill").isNull());
+
+        api.postJson("/api/v1/bills/" + statementId + "/mark-paid", Map.of(), 200);
+        assertTrue(search(api, "billcard " + tag).get("accounts").get(0).get("openBill").isNull(), "fully paid");
+    }
+
+    @Test
+    void cardWithoutAStatementHasNoOpenBillAndAnotherUsersStatementIsNeverAttached() throws Exception {
+        UUID mine = creditCard(api, "Mine card " + tag, "1010");
+        UUID theirs = creditCard(other, "Their card " + tag, "2020");
+        statement(theirs, "999.00");
+
+        assertTrue(search(api, "mine card " + tag).get("accounts").get(0).get("openBill").isNull());
+        assertEquals(0, search(api, "their card " + tag).get("accounts").size());
+        assertEquals(1, search(other, "their card " + tag).get("accounts").size());
+        assertTrue(!search(other, "their card " + tag).get("accounts").get(0).get("openBill").isNull());
     }
 }
