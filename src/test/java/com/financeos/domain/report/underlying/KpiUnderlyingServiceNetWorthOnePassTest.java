@@ -110,7 +110,8 @@ class KpiUnderlyingServiceNetWorthOnePassTest {
         assertEquals(List.of("Savings", "Card"),
                 ((TableData) response.table()).rows().stream().map(r -> r.get("name")).toList());
         assertEquals(List.of(new UnderlyingSummaryLine("Assets", new BigDecimal("1000"), "currency"),
-                new UnderlyingSummaryLine("Liabilities", new BigDecimal("200"), "currency")), response.summaryLines());
+                new UnderlyingSummaryLine("Liabilities", new BigDecimal("200"), "currency"),
+                new UnderlyingSummaryLine("Investments", BigDecimal.ZERO, "currency")), response.summaryLines());
         assertEquals(List.of("Hidden"), response.notCounted().stream().map(UnderlyingExcludedItem::name).toList());
     }
 

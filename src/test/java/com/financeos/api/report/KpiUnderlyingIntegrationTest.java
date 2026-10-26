@@ -405,15 +405,15 @@ class KpiUnderlyingIntegrationTest {
         assertDecimal("95301", body.get("value"));
         assertEquals("signedValue", body.get("measure").asText());
         assertEquals("breakdown", body.get("rowAction").asText());
-        assertEquals("side", body.get("groupField").asText());
-        assertEquals(List.of("name", "kind", "side", "signedValue"), columnKeys(body.get("table")));
+        assertEquals("group", body.get("groupField").asText());
+        assertEquals(List.of("name", "kind", "group", "signedValue"), columnKeys(body.get("table")));
         assertEquals(List.of(bankId, card), rowIds(body.get("table")));
-        assertEquals(List.of("asset", "liability"), column(body.get("table"), "side"));
+        assertEquals(List.of("assets", "liabilities"), column(body.get("table"), "group"));
         assertEquals(2, body.get("rowCount").asLong());
 
         Map<String, BigDecimal> summary = new LinkedHashMap<>();
         body.get("summaryLines").forEach(l -> summary.put(l.get("label").asText(), l.get("value").decimalValue()));
-        assertEquals(List.of("Assets", "Liabilities"), List.copyOf(summary.keySet()));
+        assertEquals(List.of("Assets", "Liabilities", "Investments"), List.copyOf(summary.keySet()));
         assertEquals(0, new BigDecimal("97801").compareTo(summary.get("Assets")));
         assertEquals(0, new BigDecimal("2500").compareTo(summary.get("Liabilities")));
 
@@ -440,7 +440,7 @@ class KpiUnderlyingIntegrationTest {
         assertEquals(List.of(card, bankId), rowIds(sorted.get("table")));
         assertEquals("signedValue", sorted.get("sortKey").asText());
         assertCsvAttachment(csv);
-        assertEquals(List.of("Name,Kind,Side,Net value", "Main Bank,Bank account,Asset,97801.00", "Rewards Card,Credit card,Liability,-2500.00"),
+        assertEquals(List.of("Name,Kind,Group,Net value", "Main Bank,Bank account,Assets,97801.00", "Rewards Card,Credit card,Liabilities,-2500.00"),
                 csvLines(csv));
         assertEquals(400, api.post("/api/v1/dashboards/builtins/net_worth/underlying?sort=value,asc", null).getStatus());
     }

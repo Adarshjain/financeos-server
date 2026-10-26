@@ -178,19 +178,19 @@ class KpiUnderlyingPolishIntegrationTest {
 
         // Bank: 100000 − 800 debits; the card owes 2500 (negative in the Net value column).
         Map<String, BigDecimal> expected = new HashMap<>();
-        all.get("table").get("rows").forEach(r -> expected.merge(r.get("side").asText(),
+        all.get("table").get("rows").forEach(r -> expected.merge(r.get("group").asText(),
                 r.get("signedValue").decimalValue(), BigDecimal::add));
-        assertDecimal("99200", expected.get("asset"));
-        assertDecimal("-2500", expected.get("liability"));
+        assertDecimal("99200", expected.get("assets"));
+        assertDecimal("-2500", expected.get("liabilities"));
         for (JsonNode body : List.of(all, firstPage, sorted)) {
             JsonNode totals = body.get("groupTotals");
             assertEquals(2, totals.size(), totals.toString());
-            assertDecimal("99200", totals.get("asset").decimalValue());
-            assertDecimal("-2500", totals.get("liability").decimalValue());
+            assertDecimal("99200", totals.get("assets").decimalValue());
+            assertDecimal("-2500", totals.get("liabilities").decimalValue());
         }
         assertEquals(1, firstPage.get("table").get("rows").size());
         // Kept for compatibility.
-        assertEquals(2, all.get("summaryLines").size());
+        assertEquals(3, all.get("summaryLines").size());
     }
 
     @Test

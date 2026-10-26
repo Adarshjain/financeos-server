@@ -58,8 +58,9 @@ import java.util.function.Supplier;
  * a whole because of one account. The side/value rules live in {@link NetWorthPlacement}, shared
  * with the net worth row breakdown.
  *
- * <p>KPI underlying data lists name, kind and side, assets first then the largest values, grouped
- * by side, with "Assets"/"Liabilities" totals and the accounts left out ({@link #notCounted()}).
+ * <p>KPI underlying data lists name, kind and group, grouped Assets, Liabilities, Investments (broker
+ * accounts) then the largest values, with a total per group and the accounts left out
+ * ({@link #notCounted()}). The {@code group} field is underlying-only: it is not in the report catalog.
  */
 @Component
 public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingExtras {
@@ -92,6 +93,20 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
             AccountType.generic.name(), "Wallet/Cash",
             KIND_LOAN, "Loan",
             KIND_LENDING, "Lending");
+    /** Underlying-only grouping: broker accounts are investments, other liability-side rows liabilities, the rest assets. */
+    public static final String GROUP_ASSETS = "assets";
+    public static final String GROUP_LIABILITIES = "liabilities";
+    public static final String GROUP_INVESTMENTS = "investments";
+    /** The groups in the order the underlying listing shows them. */
+    static final List<String> GROUP_VALUES = List.of(GROUP_ASSETS, GROUP_LIABILITIES, GROUP_INVESTMENTS);
+    static final Map<String, String> GROUP_LABELS = DatasourceCatalog.valueLabels(
+            GROUP_ASSETS, "Assets",
+            GROUP_LIABILITIES, "Liabilities",
+            GROUP_INVESTMENTS, "Investments");
+    /** Row key holding a row's position in {@link #GROUP_VALUES}; the underlying default sort's first key. */
+    static final String GROUP_ORDER_KEY = "groupOrder";
+    private static final FieldDef GROUP_FIELD = new FieldDef("group", "Group", FieldType.ENUM, FieldRole.DIMENSION, null,
+            GROUP_VALUES, null, TABLE_ONLY).notFilterable().withValueLabels(GROUP_LABELS);
     static final Map<String, String> SIDE_LABELS = DatasourceCatalog.valueLabels(
             FinancialPosition.asset.name(), "Asset",
             FinancialPosition.liability.name(), "Liability");
@@ -137,6 +152,12 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
         return fields;
     }
 
+    /** The catalog's fields plus the underlying-only {@code group}. */
+    @Override
+    public FieldDef field(String name) {
+        return "group".equals(name) ? GROUP_FIELD : ComputedReportDatasource.super.field(name);
+    }
+
     @Override
     public List<Map<String, Object>> rows() {
         return snapshot().rows();
@@ -156,37 +177,32 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
 
     @Override
     public List<String> underlyingColumns() {
-        return List.of("name", "kind", "side");
+        return List.of("name", "kind", "group");
     }
 
     @Override
     public List<SortClause> underlyingDefaultSort() {
-        return List.of(new SortClause("side", SortDirection.ASC), new SortClause("value", SortDirection.DESC));
+        return List.of(new SortClause(GROUP_ORDER_KEY, SortDirection.ASC), new SortClause("value", SortDirection.DESC));
     }
 
     @Override
     public String underlyingGroupField() {
-        return "side";
+        return "group";
     }
 
-    /** "Assets" and "Liabilities": the {@code value} totals of the listed rows on each side. */
+    /** "Assets" (without investments), "Liabilities" and "Investments": the {@code value} totals of the listed rows in each group. */
     @Override
     public List<UnderlyingSummaryLine> summaryLines(List<Map<String, Object>> listedRows) {
-        BigDecimal assets = BigDecimal.ZERO;
-        BigDecimal liabilities = BigDecimal.ZERO;
+        Map<String, BigDecimal> totals = new LinkedHashMap<>();
+        GROUP_VALUES.forEach(g -> totals.put(g, BigDecimal.ZERO));
         for (Map<String, Object> row : listedRows) {
             BigDecimal value = decimal(row.get("value"));
-            if (value == null) {
-                continue;
-            }
-            if (FinancialPosition.asset.name().equals(row.get("side"))) {
-                assets = assets.add(value);
-            } else if (FinancialPosition.liability.name().equals(row.get("side"))) {
-                liabilities = liabilities.add(value);
+            if (value != null && row.get("group") != null && totals.containsKey(String.valueOf(row.get("group")))) {
+                totals.merge(String.valueOf(row.get("group")), value, BigDecimal::add);
             }
         }
-        return List.of(new UnderlyingSummaryLine("Assets", assets, "currency"),
-                new UnderlyingSummaryLine("Liabilities", liabilities, "currency"));
+        return GROUP_VALUES.stream()
+                .map(g -> new UnderlyingSummaryLine(GROUP_LABELS.get(g), totals.get(g), "currency")).toList();
     }
 
     /**
@@ -283,7 +299,17 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
         row.put("value", placement.value());
         row.put("signedValue", placement.signedValue());
         row.put("asOf", asOf);
+        String group = groupOf(kind, placement.side());
+        row.put("group", group);
+        row.put(GROUP_ORDER_KEY, GROUP_VALUES.indexOf(group));
         return row;
+    }
+
+    private static String groupOf(String kind, FinancialPosition side) {
+        if (side == FinancialPosition.liability) {
+            return GROUP_LIABILITIES;
+        }
+        return AccountType.broker.name().equals(kind) ? GROUP_INVESTMENTS : GROUP_ASSETS;
     }
 
     private static String id(UUID id) {
