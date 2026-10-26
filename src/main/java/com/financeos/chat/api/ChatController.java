@@ -28,6 +28,7 @@ public class ChatController {
     private final ChatFeatureState featureState;
     private final ChatQuotaService quotaService;
     private final ChatOrchestrator orchestrator;
+    private final ChatStreamService streamService;
     private final ObjectMapper objectMapper;
     private final com.financeos.chat.db.ChatProperties chatProperties;
 
@@ -37,11 +38,13 @@ public class ChatController {
     public ChatController(ChatFeatureState featureState,
                           ChatQuotaService quotaService,
                           ChatOrchestrator orchestrator,
+                          ChatStreamService streamService,
                           ObjectMapper objectMapper,
                           com.financeos.chat.db.ChatProperties chatProperties) {
         this.featureState = featureState;
         this.quotaService = quotaService;
         this.orchestrator = orchestrator;
+        this.streamService = streamService;
         this.objectMapper = objectMapper;
         this.chatProperties = chatProperties;
     }
@@ -59,16 +62,19 @@ public class ChatController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        if (!quotaService.tryConsumeMessageQuota(userId)) {
-            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                    .header("X-Chat-Error", "CHAT_QUOTA_EXCEEDED")
-                    .build();
-        }
-
         if (!quotaService.tryAcquireConcurrency()) {
             return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
                     .header("X-Chat-Error", "CHAT_BUSY")
                     .build();
+        }
+
+        final ChatStreamService.Prepared prepared;
+        try {
+            streamService.validate(userId, request);
+            prepared = streamService.prepare(userId, request);
+        } catch (RuntimeException e) {
+            quotaService.releaseConcurrency();
+            throw e;
         }
 
         SseEmitter emitter = new SseEmitter(chatProperties.getStream().getEmitterTimeoutSeconds() * 1000L);
@@ -77,12 +83,14 @@ public class ChatController {
         // interrupt the worker on timeout/error, and when a heartbeat fails to send.
         final java.util.concurrent.atomic.AtomicReference<Future<?>> taskRef =
                 new java.util.concurrent.atomic.AtomicReference<>();
+        final java.util.concurrent.atomic.AtomicBoolean disconnected = new java.util.concurrent.atomic.AtomicBoolean(false);
 
         ScheduledFuture<?> heartbeatTask = heartbeatScheduler.scheduleAtFixedRate(() -> {
             try {
                 emitter.send(SseEmitter.event().comment("heartbeat"));
             } catch (Exception e) {
                 log.debug("Heartbeat send failed (client likely gone), cancelling worker: {}", e.getMessage());
+                disconnected.set(true);
                 Future<?> task = taskRef.get();
                 if (task != null) {
                     task.cancel(true);
@@ -91,68 +99,18 @@ public class ChatController {
         }, 15, 15, TimeUnit.SECONDS);
 
         Future<?> workerTask = executorService.submit(() -> {
-            long startTime = System.currentTimeMillis();
-            int msgLength = (request.messages() != null && !request.messages().isEmpty())
-                    ? request.messages().get(request.messages().size() - 1).content().length()
-                    : 0;
-
             try {
                 UserContext.setCurrentUserId(userId);
-
-                ChatEventSink sink = new ChatEventSink() {
-                    @Override
-                    public void onStatus(String statusMessage) {
-                        try {
-                            ObjectNode node = objectMapper.createObjectNode();
-                            node.put("status", statusMessage);
-                            emitter.send(SseEmitter.event().name("status").data(node.toString()));
-                        } catch (IOException e) {
-                            log.debug("Failed to stream status event: {}", e.getMessage());
-                        }
-                    }
-
-                    @Override
-                    public void onTrace(ChatTraceEntry traceEntry) {
-                        try {
-                            String json = objectMapper.writeValueAsString(traceEntry);
-                            emitter.send(SseEmitter.event().name("trace").data(json));
-                        } catch (IOException e) {
-                            log.debug("Failed to stream trace event: {}", e.getMessage());
-                        }
-                    }
-                };
-
-                ChatAnswer answer = orchestrator.run(request.messages(), sink);
-
-                ObjectNode finalNode = objectMapper.createObjectNode();
-                if (answer.answer() != null) {
-                    finalNode.put("answer", answer.answer());
+                ChatStreamService.Outcome outcome = streamService.execute(userId, prepared,
+                        (name, data) -> emitter.send(SseEmitter.event().name(name).data(data)),
+                        disconnected::get);
+                if (outcome == ChatStreamService.Outcome.ERROR) {
+                    emitter.completeWithError(new IllegalStateException("chat execution failed"));
+                } else if (outcome == ChatStreamService.Outcome.DONE) {
+                    emitter.complete();
                 }
-                if (answer.clarify() != null) {
-                    finalNode.put("clarify", answer.clarify());
-                }
-                if (answer.clarifyOptions() != null && !answer.clarifyOptions().isEmpty()) {
-                    finalNode.set("clarifyOptions", objectMapper.valueToTree(answer.clarifyOptions()));
-                }
-                if (answer.blocks() != null) {
-                    finalNode.set("blocks", answer.blocks());
-                }
-
-                emitter.send(SseEmitter.event().name("final").data(finalNode.toString()));
-                emitter.complete();
-
-                long durationMs = System.currentTimeMillis() - startTime;
-                log.info("Chat stream completed: userId={}, msgLength={}, steps={}, durationMs={}",
-                        userId, msgLength, answer.traces().size(), durationMs);
-
             } catch (Exception e) {
-                log.error("Error during chat streaming execution for user {}: {}", userId, e.getMessage(), e);
-                try {
-                    ObjectNode errNode = objectMapper.createObjectNode();
-                    errNode.put("code", "EXECUTION_ERROR");
-                    errNode.put("message", "Something went wrong while answering. Please try again.");
-                    emitter.send(SseEmitter.event().name("error").data(errNode.toString()));
-                } catch (Exception ignored) {}
+                log.error("Chat stream worker failed for user {}: {}", userId, e.getMessage(), e);
                 emitter.completeWithError(e);
             } finally {
                 heartbeatTask.cancel(true);
@@ -161,8 +119,8 @@ public class ChatController {
             }
         });
         taskRef.set(workerTask);
-        emitter.onTimeout(() -> workerTask.cancel(true));
-        emitter.onError((t) -> workerTask.cancel(true));
+        emitter.onTimeout(() -> { disconnected.set(true); workerTask.cancel(true); });
+        emitter.onError((t) -> { disconnected.set(true); workerTask.cancel(true); });
 
         return ResponseEntity.ok(emitter);
     }
@@ -176,10 +134,6 @@ public class ChatController {
         UUID userId = UserContext.getCurrentUserId();
         if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        if (!quotaService.tryConsumeMessageQuota(userId)) {
-            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
         }
 
         if (!quotaService.tryAcquireConcurrency()) {

@@ -849,4 +849,19 @@ class ChatOrchestratorTest {
         assertTrue(prompt.contains("[You asked the user to clarify]:"));
         assertTrue(prompt.contains("do NOT ask to clarify again for the same question"));
     }
+
+    @Test
+    @DisplayName("Every trace carries a plain-words step label")
+    void tracesCarryStepLabels() {
+        when(mockLlmClient.complete(any(LlmRequest.class)))
+                .thenReturn(new LlmResponse("{\"action\":\"run_sql\",\"sql\":\"SELECT 1\"}", "gemini", "m"))
+                .thenReturn(new LlmResponse("{\"action\":\"call_tool\",\"tool\":\"calc\",\"args\":{\"expression\":\"1 + 2\"}}", "gemini", "m"))
+                .thenReturn(new LlmResponse("{\"action\":\"final_answer\",\"answer\":\"Done\"}", "gemini", "m"));
+        when(mockSqlExecutor.execute("SELECT 1")).thenReturn("{\"data\":[]}");
+
+        ChatAnswer answer = orchestrator.run(List.of(new ChatMessage("user", "test")), ChatEventSink.NOOP);
+
+        assertEquals("Queried your data", answer.traces().get(0).label());
+        assertEquals("Did the maths", answer.traces().get(1).label());
+    }
 }

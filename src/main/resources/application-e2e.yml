@@ -12,8 +12,6 @@ jobs:
   retention:
     cron: "-"
 chat:
-  quota:
-    messages-per-day: 3
   loop:
     max-wall-clock-seconds: 20
   stream:

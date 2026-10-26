@@ -4,7 +4,7 @@ import java.util.Map;
 
 public final class LlmTasks {
 
-    private static final Map<String, LlmTaskGroup> GROUPS = Map.of("data-chat", LlmTaskGroup.CHAT);
+    private static final Map<String, LlmTaskGroup> GROUPS = Map.of("data-chat", LlmTaskGroup.CHAT, "data-chat-title", LlmTaskGroup.CHAT);
 
     private LlmTasks() {}
 

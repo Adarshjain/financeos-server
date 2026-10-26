@@ -1789,6 +1789,134 @@ paths:
           description: Error response
       tags:
       - chat-controller
+  /api/v1/chat/conversations:
+    get:
+      operationId: list_1
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConversationSummary"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - chat-conversation-controller
+  /api/v1/chat/conversations/{id}:
+    delete:
+      operationId: delete
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - chat-conversation-controller
+    get:
+      operationId: get_1
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConversationDetail"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - chat-conversation-controller
+    patch:
+      operationId: rename
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RenameRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConversationSummary"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - chat-conversation-controller
+  /api/v1/chat/conversations/{id}/messages/{messageId}:
+    patch:
+      operationId: setDraftResult
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: messageId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DraftResultRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - chat-conversation-controller
   /api/v1/chat/stream:
     post:
       operationId: streamChat
@@ -10244,10 +10372,19 @@ components:
     ChatStreamRequest:
       type: object
       properties:
+        conversationId:
+          type: string
+          format: uuid
         messages:
           type: array
           items:
             $ref: "#/components/schemas/ChatMessage"
+        newConversation:
+          type: boolean
+        persisted:
+          type: boolean
+        retry:
+          type: boolean
     ChatTraceEntry:
       type: object
       properties:
@@ -10259,6 +10396,8 @@ components:
           type: integer
           format: int64
         error:
+          type: string
+        label:
           type: string
         resultPreview:
           type: string
@@ -10277,6 +10416,7 @@ components:
       - detail
       - durationMs
       - error
+      - label
       - resultPreview
       - rowCount
       - step
@@ -10558,6 +10698,53 @@ components:
       required:
       - linked
       - skipped
+    ConversationDetail:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/MessageView"
+        title:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - createdAt
+      - id
+      - messages
+      - title
+      - updatedAt
+    ConversationSummary:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        questionCount:
+          type: integer
+          format: int64
+        title:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - createdAt
+      - id
+      - questionCount
+      - title
+      - updatedAt
     CorporateActionPage:
       type: object
       properties:
@@ -12277,6 +12464,10 @@ components:
       - date
       - id
       - signedAmount
+    DraftResultRequest:
+      type: object
+      properties:
+        draftResult: {}
     EmergencyFundResponse:
       type: object
       properties:
@@ -15288,6 +15479,28 @@ components:
       required:
       - keptId
       - remainingReasons
+    MessageView:
+      type: object
+      properties:
+        answer: {}
+        createdAt:
+          type: string
+          format: date-time
+        draftResult: {}
+        id:
+          type: string
+          format: uuid
+        role:
+          type: string
+        text:
+          type: string
+      required:
+      - answer
+      - createdAt
+      - draftResult
+      - id
+      - role
+      - text
     MilestoneStatus:
       type: object
       properties:
@@ -17155,6 +17368,11 @@ components:
           x-required: true
       required:
       - endpoint
+    RenameRequest:
+      type: object
+      properties:
+        title:
+          type: string
     ReorderRewardRulesRequest:
       type: object
       properties:
