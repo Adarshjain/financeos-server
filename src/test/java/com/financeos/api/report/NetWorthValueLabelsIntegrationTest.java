@@ -88,7 +88,8 @@ class NetWorthValueLabelsIntegrationTest {
 
         JsonNode table = body.get("table");
         assertEquals(KIND_LABELS, labels(column(table, "kind").get("valueLabels")));
-        assertEquals(SIDE_LABELS, labels(column(table, "side").get("valueLabels")));
+        assertEquals(Map.of("assets", "Assets", "liabilities", "Liabilities", "investments", "Investments"),
+                labels(column(table, "group").get("valueLabels")));
         assertFalse(column(table, "name").has("valueLabels"));
         assertFalse(column(table, "signedValue").has("valueLabels"));
         Map<String, String> kinds = new LinkedHashMap<>();
@@ -117,7 +118,7 @@ class NetWorthValueLabelsIntegrationTest {
         assertEquals(wallet.toString(), body.get("table").get("rows").get(0).get("id").asText());
         String[] lines = csv.getContentAsString(StandardCharsets.UTF_8).split("\r\n");
         assertEquals(2, lines.length);
-        assertTrue(lines[1].startsWith("Pocket cash,Wallet/Cash,Asset,"), lines[1]);
+        assertTrue(lines[1].startsWith("Pocket cash,Wallet/Cash,Assets,"), lines[1]);
     }
 
     @Test

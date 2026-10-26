@@ -18,6 +18,7 @@ import com.financeos.domain.account.AccountType;
 import com.financeos.domain.lending.LendingService;
 import com.financeos.domain.loan.LoanService;
 import com.financeos.domain.loan.LoanStatus;
+import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.definition.SortClause;
 import com.financeos.domain.report.definition.SortDirection;
 import com.financeos.domain.report.underlying.UnderlyingExcludedItem;
@@ -67,46 +68,83 @@ class NetWorthDatasourceUnderlyingTest {
     // ------------------------------------------------------------------ hooks
 
     @Test
-    void underlyingRowsShowNameKindAndSideGroupedBySideAssetsFirstLargestFirst() {
-        assertEquals(List.of("name", "kind", "side"), datasource.underlyingColumns());
-        assertEquals(List.of(new SortClause("side", SortDirection.ASC), new SortClause("value", SortDirection.DESC)),
+    void underlyingRowsShowNameKindAndGroupGroupedAssetsLiabilitiesInvestmentsLargestFirst() {
+        assertEquals(List.of("name", "kind", "group"), datasource.underlyingColumns());
+        assertEquals(List.of(new SortClause("groupOrder", SortDirection.ASC), new SortClause("value", SortDirection.DESC)),
                 datasource.underlyingDefaultSort());
-        assertEquals("side", datasource.underlyingGroupField());
+        assertEquals("group", datasource.underlyingGroupField());
+    }
+
+    @Test
+    void theGroupFieldDeclaresTheOrderAndLabelsAndStaysOutOfTheReportCatalog() {
+        FieldDef group = datasource.field("group");
+
+        assertEquals(List.of("assets", "liabilities", "investments"), group.values());
+        assertEquals("Assets", group.valueLabels().get("assets"));
+        assertEquals("Liabilities", group.valueLabels().get("liabilities"));
+        assertEquals("Investments", group.valueLabels().get("investments"));
+        assertTrue(datasource.fields().stream().noneMatch(f -> f.name().equals("group")));
+        assertEquals("side", datasource.field("side").name());
+    }
+
+    @Test
+    void brokersAreInvestmentsOtherAssetsAreAssetsAndLiabilitySideRowsAreLiabilities() {
+        Account broker = account("Zerodha", AccountType.broker, "5000");
+        Account bank = account("Savings", AccountType.bank_account, "100");
+        Account card = account("Card", AccountType.credit_card, "-300");
+        Account overdrawnBroker = account("Margin", AccountType.broker, "-50");
+        when(accountService.getAllAccounts()).thenReturn(List.of(broker, bank, card, overdrawnBroker));
+
+        Map<String, String> groups = new java.util.LinkedHashMap<>();
+        datasource.rows().forEach(r -> groups.put((String) r.get("name"), (String) r.get("group")));
+
+        assertEquals(Map.of("Zerodha", "investments", "Savings", "assets", "Card", "liabilities",
+                "Margin", "liabilities"), groups);
+        assertEquals(Map.of("Zerodha", 2, "Savings", 0, "Card", 1, "Margin", 1),
+                datasource.rows().stream().collect(java.util.stream.Collectors.toMap(r -> (String) r.get("name"),
+                        r -> (Integer) r.get("groupOrder"))));
+        // side and kind are unchanged
+        assertEquals("asset", datasource.rows().get(0).get("side"));
+        assertEquals("broker", datasource.rows().get(0).get("kind"));
     }
 
     // ------------------------------------------------------------------ summary lines
 
     @Test
-    void summaryTotalsTheValueOfTheListedRowsOnEachSide() {
+    void summaryTotalsTheValueOfTheListedRowsInEachGroup() {
         List<UnderlyingSummaryLine> lines = datasource.summaryLines(List.of(
-                row("asset", new BigDecimal("100000")),
-                row("liability", new BigDecimal("20000")),
-                row("asset", new BigDecimal("3000.50")),
-                row("liability", 1500L)));
+                row("assets", new BigDecimal("100000")),
+                row("liabilities", new BigDecimal("20000")),
+                row("investments", new BigDecimal("50000")),
+                row("assets", new BigDecimal("3000.50")),
+                row("liabilities", 1500L)));
 
         assertEquals(List.of(
                 new UnderlyingSummaryLine("Assets", new BigDecimal("103000.50"), "currency"),
-                new UnderlyingSummaryLine("Liabilities", new BigDecimal("21500"), "currency")), lines);
+                new UnderlyingSummaryLine("Liabilities", new BigDecimal("21500"), "currency"),
+                new UnderlyingSummaryLine("Investments", new BigDecimal("50000"), "currency")), lines);
     }
 
     @Test
-    void summaryOfNoRowsIsZeroOnBothSides() {
+    void summaryOfNoRowsIsZeroInEveryGroup() {
         assertEquals(List.of(
                 new UnderlyingSummaryLine("Assets", BigDecimal.ZERO, "currency"),
-                new UnderlyingSummaryLine("Liabilities", BigDecimal.ZERO, "currency")), datasource.summaryLines(List.of()));
+                new UnderlyingSummaryLine("Liabilities", BigDecimal.ZERO, "currency"),
+                new UnderlyingSummaryLine("Investments", BigDecimal.ZERO, "currency")), datasource.summaryLines(List.of()));
     }
 
     @Test
-    void summarySkipsRowsWithoutAValueOrAKnownSide() {
+    void summarySkipsRowsWithoutAValueOrAKnownGroup() {
         Map<String, Object> noValue = new HashMap<>();
-        noValue.put("side", "asset");
+        noValue.put("group", "assets");
         noValue.put("value", null);
 
         List<UnderlyingSummaryLine> lines = datasource.summaryLines(List.of(noValue, row("other", new BigDecimal("5")),
-                row("asset", new BigDecimal("7"))));
+                row("assets", new BigDecimal("7"))));
 
         assertEquals(new BigDecimal("7"), lines.get(0).value());
         assertEquals(BigDecimal.ZERO, lines.get(1).value());
+        assertEquals(BigDecimal.ZERO, lines.get(2).value());
     }
 
     // ------------------------------------------------------------------ not counted
@@ -188,9 +226,9 @@ class NetWorthDatasourceUnderlyingTest {
 
     // ------------------------------------------------------------------ helpers
 
-    private static Map<String, Object> row(String side, Object value) {
+    private static Map<String, Object> row(String group, Object value) {
         Map<String, Object> row = new HashMap<>();
-        row.put("side", side);
+        row.put("group", group);
         row.put("value", value);
         return row;
     }

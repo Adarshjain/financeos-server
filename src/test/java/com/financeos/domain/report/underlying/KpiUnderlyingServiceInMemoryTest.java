@@ -39,6 +39,16 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
 import java.io.ByteArrayOutputStream;
+import com.financeos.domain.account.Account;
+import com.financeos.domain.account.AccountService;
+import com.financeos.domain.account.AccountType;
+import com.financeos.domain.lending.LendingService;
+import com.financeos.domain.loan.LoanService;
+import com.financeos.domain.loan.LoanStatus;
+import com.financeos.domain.report.datasource.impl.NetWorthDatasource;
+import org.springframework.data.domain.PageImpl;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -313,6 +323,33 @@ class KpiUnderlyingServiceInMemoryTest {
     }
 
     @Test
+    void groupTotalsFollowTheGroupFieldsDeclaredValueOrderNotFirstSeen() {
+        Hooked ds = new Hooked();
+        ds.rows = List.of(row("a", LocalDate.of(2026, 5, 3), card, "y", "5"), row("b", LocalDate.of(2026, 5, 4), card, "x", "1"),
+                row("c", LocalDate.of(2026, 5, 5), card, "y", "2"));
+        define(ds, new KpiDefinition("value", Aggregation.SUM, List.of(), null));
+
+        KpiUnderlyingResponse response = run(ds, null, null, null, null);
+
+        assertEquals(List.of("x", "y"), List.copyOf(response.groupTotals().keySet()));
+        assertEquals(new BigDecimal("1"), response.groupTotals().get("x"));
+        assertEquals(new BigDecimal("7"), response.groupTotals().get("y"));
+    }
+
+    @Test
+    void undeclaredGroupsFollowTheDeclaredOnesInFirstSeenOrder() {
+        FieldDef kind = new FieldDef("kind", "Kind", FieldType.ENUM, FieldRole.DIMENSION, null, List.of("x", "y"), null, ALL);
+        Map<String, BigDecimal> totals = new java.util.LinkedHashMap<>();
+        totals.put("z", BigDecimal.ONE);
+        totals.put("y", BigDecimal.TEN);
+        totals.put("w", BigDecimal.ZERO);
+        totals.put("x", BigDecimal.TWO);
+
+        assertEquals(List.of("x", "y", "z", "w"), List.copyOf(KpiUnderlyingService.inDeclaredOrder(totals, kind).keySet()));
+        assertEquals(totals, KpiUnderlyingService.inDeclaredOrder(totals, null));
+    }
+
+    @Test
     void rowsOpenABreakdownWhenTheDatasourceHasAProvider() {
         Plain ds = new Plain();
         define(ds, new KpiDefinition("value", Aggregation.SUM, List.of(), null));
@@ -321,6 +358,54 @@ class KpiUnderlyingServiceInMemoryTest {
         service = service(List.of(provider));
 
         assertEquals("breakdown", run(ds, null, null, null, null).rowAction());
+    }
+
+    // ---- net worth: Assets, Liabilities, Investments ----
+
+    private NetWorthDatasource netWorthWithRowsArrivingInvestmentsFirst() {
+        AccountService accounts = mock(AccountService.class);
+        LoanService loans = mock(LoanService.class);
+        LendingService lendings = mock(LendingService.class);
+        Account broker = new Account("Zerodha", AccountType.broker);
+        broker.setId(UUID.randomUUID());
+        broker.setCalculatedBalance(new BigDecimal("5000"));
+        Account card = new Account("Card", AccountType.credit_card);
+        card.setId(UUID.randomUUID());
+        card.setCalculatedBalance(new BigDecimal("-300"));
+        Account small = new Account("Wallet", AccountType.generic);
+        small.setId(UUID.randomUUID());
+        small.setCalculatedBalance(new BigDecimal("10"));
+        Account big = new Account("Savings", AccountType.bank_account);
+        big.setId(UUID.randomUUID());
+        big.setCalculatedBalance(new BigDecimal("100"));
+        when(accounts.getAllAccounts()).thenReturn(List.of(broker, card, small, big));
+        when(loans.getLoans(eq(LoanStatus.active), any())).thenReturn(new PageImpl<>(List.of()));
+        when(lendings.getCounterparties(isNull(), any())).thenReturn(new PageImpl<>(List.of()));
+        return new NetWorthDatasource(accounts, loans, lendings);
+    }
+
+    @Test
+    void netWorthGroupsAreAssetsLiabilitiesInvestmentsInTotalsListingAndCsvWhateverTheRowOrder() {
+        NetWorthDatasource ds = netWorthWithRowsArrivingInvestmentsFirst();
+        define(ds, new KpiDefinition("value", Aggregation.SUM, List.of(), null));
+
+        KpiUnderlyingResponse response = run(ds, null, null, null, null);
+
+        assertEquals("group", response.groupField());
+        assertEquals(List.of("assets", "liabilities", "investments"), List.copyOf(response.groupTotals().keySet()));
+        assertEquals(new BigDecimal("110"), response.groupTotals().get("assets"));
+        assertEquals(new BigDecimal("300"), response.groupTotals().get("liabilities"));
+        assertEquals(new BigDecimal("5000"), response.groupTotals().get("investments"));
+        assertEquals(List.of("Savings", "Wallet", "Card", "Zerodha"),
+                ((TableData) response.table()).rows().stream().map(r -> (String) r.get("name")).toList());
+        assertEquals(List.of("Assets", "Liabilities", "Investments"),
+                response.summaryLines().stream().map(UnderlyingSummaryLine::label).toList());
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        service.adHocCsv(ReportType.KPI, ds.name(), null, null, null, () -> out);
+        String csv = out.toString(StandardCharsets.UTF_8);
+        assertTrue(csv.indexOf("Savings") < csv.indexOf("Wallet") && csv.indexOf("Wallet") < csv.indexOf("Card")
+                && csv.indexOf("Card") < csv.indexOf("Zerodha"), csv);
     }
 
     // ---- CSV ----

@@ -108,7 +108,7 @@ class NetWorthDatasourceTest {
         assertEquals(new BigDecimal("50000"), row.get("value"));
         assertEquals(new BigDecimal("50000"), row.get("signedValue"));
         assertEquals(TODAY, row.get("asOf"));
-        assertEquals(List.of("id", "name", "kind", "side", "value", "signedValue", "asOf"), List.copyOf(row.keySet()));
+        assertEquals(List.of("id", "name", "kind", "side", "value", "signedValue", "asOf", "group", "groupOrder"), List.copyOf(row.keySet()));
     }
 
     @Test

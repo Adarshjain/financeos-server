@@ -36,6 +36,7 @@ import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -283,7 +284,8 @@ public class KpiUnderlyingService {
                     ? extras.summaryLines(rows.rows()) : List.of();
             String groupField = ds.underlyingGroupField();
             Map<String, BigDecimal> groupTotals = withSummary && groupField != null
-                    ? inMemoryExecutor.groupAggregates(rows.rows(), groupField, def.measure(), def.aggregation())
+                    ? inDeclaredOrder(inMemoryExecutor.groupAggregates(rows.rows(), groupField, def.measure(),
+                            def.aggregation()), ds.field(groupField))
                     : Map.of();
             return new Listing(rows.value(), summary, groupTotals, Math.max(1, rows.rows().size()),
                     (page, size) -> inMemoryExecutor.rawTable(rows.rows(), columns, sort, ds, page, size));
@@ -295,6 +297,24 @@ public class KpiUnderlyingService {
         // No SQL datasource groups its underlying rows, so there are no group totals to compute.
         return new Listing(value, List.of(), Map.of(), CSV_CHUNK,
                 (page, size) -> (TableData) tableExecutor.execute(table, ds, userId, page, size));
+    }
+
+    /**
+     * The group totals in the group field's declared value order (its {@code values}); groups it does
+     * not declare follow in first-seen order. Without declared values the totals are left as they are.
+     */
+    static Map<String, BigDecimal> inDeclaredOrder(Map<String, BigDecimal> totals, @Nullable FieldDef groupField) {
+        if (groupField == null || groupField.values() == null) {
+            return totals;
+        }
+        Map<String, BigDecimal> ordered = new LinkedHashMap<>();
+        for (String value : groupField.values()) {
+            if (totals.containsKey(value)) {
+                ordered.put(value, totals.get(value));
+            }
+        }
+        totals.forEach(ordered::putIfAbsent);
+        return ordered;
     }
 
     // ------------------------------------------------------------------ shape
