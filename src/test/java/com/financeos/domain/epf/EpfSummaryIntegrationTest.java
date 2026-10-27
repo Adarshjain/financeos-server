@@ -240,4 +240,17 @@ class EpfSummaryIntegrationTest extends EpfIntegrationBase {
         assertEquals(0, otherApi.getJson(BASE + "/employers", 200).size());
         assertFalse(otherApi.getJson(BASE + "/summary", 200).get("hasData").asBoolean());
     }
+
+    @Test
+    void fyContributionTotalsFollowTheDueMonthOfALatePostedContribution() throws Exception {
+        UUID e1 = employer("Acme", "2020-04-01", null);
+        // Both credited late on the same day: Feb wage is due March (FY 2025), Mar wage is due April (FY 2026).
+        addEntry(contribution(e1, "2026-02-01", "2026-09-17", 1000, 500, 0));
+        addEntry(contribution(e1, "2026-03-01", "2026-09-17", 3000, 1750, 0));
+
+        JsonNode s = summary();
+
+        assertAmount("3000", s.get("fyEmployee"));
+        assertAmount("1750", s.get("fyEmployer"));
+    }
 }

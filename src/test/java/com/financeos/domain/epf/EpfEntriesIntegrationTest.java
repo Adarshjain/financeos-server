@@ -294,4 +294,16 @@ class EpfEntriesIntegrationTest extends EpfIntegrationBase {
         }
         throw new AssertionError("no employer " + name);
     }
+
+    @Test
+    void theFyFilterAndFyListFollowTheDueMonthOfALatePostedContribution() throws Exception {
+        UUID a = employer("Acme", "2023-01-01", null);
+        addEntry(contribution(a, "2025-02-01", "2026-09-17", 100, 50, 0)); // due Mar 2025: FY 2024
+        addEntry(contribution(a, "2025-03-01", "2026-09-17", 100, 50, 0)); // due Apr 2025: FY 2025
+
+        assertEquals(1, api.getJson(BASE + "/entries?fy=2024", 200).get("totalElements").asInt());
+        assertEquals(1, api.getJson(BASE + "/entries?fy=2025", 200).get("totalElements").asInt());
+        assertEquals(0, api.getJson(BASE + "/entries?fy=2026", 200).get("totalElements").asInt());
+        assertEquals(java.util.List.of(2025, 2024), ints(api.getJson(BASE + "/fys", 200)));
+    }
 }
