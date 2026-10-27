@@ -15,7 +15,7 @@ import java.util.UUID;
 
 /**
  * Pure calculator over a user's EPF entries (no Spring, no I/O). Per employer the entries apply in
- * order of {@code creditedOn}, then {@link EpfEntryType} declaration order (opening balance, contribution,
+ * order of {@link #ledgerDate} (EPFO can post many months late in one go, so a contribution belongs to its due month, not its posting date), then {@link EpfEntryType} declaration order (opening balance, contribution,
  * transfer in, interest, transfer out, withdrawal), then creation time and id.
  *
  * <p>Employee and employer parts of the balance are tracked separately. An opening balance resets the
@@ -42,8 +42,19 @@ public final class EpfLedger {
         }
     }
 
-    private static final Comparator<EpfEntry> LEDGER_ORDER = Comparator
-            .comparing(EpfEntry::getCreditedOn)
+    /**
+     * The date an entry takes its place in the ledger and its financial year: a contribution's due month
+     * (wage month + 1, first day), otherwise {@code creditedOn}.
+     */
+    public static LocalDate ledgerDate(EpfEntry e) {
+        if (e.getType() == EpfEntryType.CONTRIBUTION && e.getWageMonth() != null) {
+            return e.getWageMonth().plusMonths(1);
+        }
+        return e.getCreditedOn();
+    }
+
+    static final Comparator<EpfEntry> ORDER = Comparator
+            .comparing(EpfLedger::ledgerDate)
             .thenComparing(e -> e.getType().ordinal())
             .thenComparing(EpfEntry::getCreatedAt, Comparator.nullsLast(Comparator.naturalOrder()))
             .thenComparing(EpfEntry::getId, Comparator.nullsLast(Comparator.naturalOrder()));
@@ -55,7 +66,7 @@ public final class EpfLedger {
 
     private EpfLedger(Collection<EpfEntry> entries) {
         this.ordered = new ArrayList<>(entries);
-        this.ordered.sort(LEDGER_ORDER);
+        this.ordered.sort(ORDER);
         for (EpfEntry entry : ordered) {
             byEmployer.computeIfAbsent(entry.getEmployer().getId(), k -> new ArrayList<>()).add(entry);
         }
@@ -118,7 +129,7 @@ public final class EpfLedger {
         LocalDate end = month.atEndOfMonth();
         Balance balance = Balance.ZERO;
         for (EpfEntry entry : byEmployer.getOrDefault(employerId, List.of())) {
-            if (entry.getCreditedOn().isAfter(end)) {
+            if (ledgerDate(entry).isAfter(end)) {
                 break;
             }
             balance = apply(balance, entry);

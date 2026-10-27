@@ -378,7 +378,7 @@ public class EpfImportService {
         }
         Integer[] order = new Integer[timeline.size()];
         for (int i = 0; i < order.length; i++) order[i] = i;
-        Arrays.sort(order, Comparator.<Integer, LocalDate>comparing(i -> timeline.get(i).getCreditedOn())
+        Arrays.sort(order, Comparator.<Integer, LocalDate>comparing(i -> EpfLedger.ledgerDate(timeline.get(i)))
                 .thenComparing(i -> timeline.get(i).getType().ordinal()));
         EpfLedger.Balance balance = EpfLedger.Balance.ZERO;
         Set<Planned> dropped = Collections.newSetFromMap(new IdentityHashMap<>());

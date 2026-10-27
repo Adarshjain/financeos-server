@@ -44,6 +44,7 @@ public class EpfPassbookParser {
                     + "(?:(\\d{1,2}[-/]\\d{1,2}[-/]\\d{4})\\s+)?"
                     + "(?:(?i:(CR|DR))\\b\\s*)?(.*)$");
     static final Pattern UPTO = Pattern.compile("(?i)upto\\s+(\\d{1,2}[-/]\\d{1,2}[-/]\\d{4})");
+    static final Pattern FY_HEADER = Pattern.compile("(?i)financial\\s*year\\s*[:\\-\u2013]?\\s*(\\d{4})\\s*[-\u2013/]\\s*\\d{2,4}");
     static final Pattern DUE_MONTH = Pattern.compile("(?i)due[-\\s]*month\\s*[:\\-]?\\s*(\\d{2})(\\d{4})");
     static final Pattern NON_ROW_LABEL = Pattern.compile(
             "(?i)^(?:page\\b|total\\b|grand\\s+total|closing\\b|note\\b|disclaimer|uan\\b|member\\b|establishment\\b|"
@@ -65,6 +66,8 @@ public class EpfPassbookParser {
     public ParsedPassbook parse(byte[] pdf) {
         String text = extractText(pdf);
         String[] lines = text.split("\\r?\\n");
+        Matcher fyHeader = FY_HEADER.matcher(text);
+        LocalDate fyStart = fyHeader.find() ? LocalDate.of(Integer.parseInt(fyHeader.group(1)), 4, 1) : null;
 
         String uan = null, memberId = null, estId = null, estName = null;
         List<Raw> raws = new ArrayList<>();
@@ -186,7 +189,7 @@ public class EpfPassbookParser {
 
         List<ParsedPassbookRow> rows = new ArrayList<>();
         for (Raw r : raws) {
-            ParsedPassbookRow row = classify(rows.size(), r);
+            ParsedPassbookRow row = classify(rows.size(), r, fyStart);
             if (row == null) unrecognised++;
             else rows.add(row);
         }
@@ -205,7 +208,7 @@ public class EpfPassbookParser {
         return p.startsWith("total") || p.startsWith("grand total") || particulars.contains("for the year");
     }
 
-    private ParsedPassbookRow classify(int index, Raw r) {
+    private ParsedPassbookRow classify(int index, Raw r, LocalDate fyStart) {
         String p = r.particulars;
         String pl = r.lead.toLowerCase(Locale.ROOT);
         BigDecimal[] a = map(r.amounts);
@@ -255,7 +258,9 @@ public class EpfPassbookParser {
                 }
             }
             case OPENING_BALANCE -> {
-                if (upto != null) credited = upto.plusDays(1);
+                // The passbook's own financial year start wins: "OB Int. Updated upto 01/04/2024" would give 2 April.
+                if (fyStart != null) credited = fyStart;
+                else if (upto != null) credited = upto.plusDays(1);
             }
             case INTEREST -> {
                 LocalDate ref = upto != null ? upto : r.date;

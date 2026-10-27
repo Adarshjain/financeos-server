@@ -299,4 +299,22 @@ class EpfPassbookParserTest {
                 .isInstanceOfSatisfying(EpfPassbookFormatException.class,
                         e -> assertThat(e.getReason()).isEqualTo(Reason.UNREADABLE));
     }
+
+    @Test
+    void openingBalanceIsCreditedOnTheStartOfThePassbooksFinancialYearEvenWhenUptoSaysFirstApril() throws Exception {
+        ParsedPassbook p = parser.parse(pdf(withHeader(
+                "EPF Passbook [ financial year - 2024-2025 ]",
+                "OB Int. Updated upto 01/04/2024 1,00,000 70,000 0",
+                "Apr-2024 15-05-2024 CR Cont. For Due-Month 052024 60,000 15,000 7,200 5,950 1,250")));
+        assertThat(p.rows().get(0).type()).isEqualTo(PassbookRowType.OPENING_BALANCE);
+        assertThat(p.rows().get(0).creditedOn()).isEqualTo(LocalDate.of(2024, 4, 1));
+    }
+
+    @Test
+    void openingBalanceWithoutAFinancialYearHeaderIsCreditedTheDayAfterUpto() throws Exception {
+        ParsedPassbook p = parser.parse(pdf(withHeader(
+                "OB Int. Updated upto 01/04/2024 1,00,000 70,000 0",
+                "Apr-2024 15-05-2024 CR Cont. For Due-Month 052024 60,000 15,000 7,200 5,950 1,250")));
+        assertThat(p.rows().get(0).creditedOn()).isEqualTo(LocalDate.of(2024, 4, 2));
+    }
 }

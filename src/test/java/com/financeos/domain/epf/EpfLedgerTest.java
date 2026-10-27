@@ -141,4 +141,47 @@ class EpfLedgerTest {
         assertEquals(0, BigDecimal.valueOf(employee).compareTo(balance.employee()), "employee " + balance);
         assertEquals(0, BigDecimal.valueOf(employer).compareTo(balance.employer()), "employer " + balance);
     }
+
+    private EpfEntry contribution(EpfEmployer employer, String wageMonth, String creditedOn, int employee, int employerShare) {
+        EpfEntry e = entry(employer, EpfEntryType.CONTRIBUTION, creditedOn, employee, employerShare);
+        e.setWageMonth(LocalDate.parse(wageMonth));
+        return e;
+    }
+
+    @Test
+    void lateCreditedContributionsOfEarlierWageMonthsApplyBeforeTheNextYearsOpeningBalance() {
+        // EPFO posted Sep-2024..Feb-2025 wages on 17 Sep 2026; the 2025 opening balance already contains them.
+        EpfEntry opening24 = entry(a, EpfEntryType.OPENING_BALANCE, "2024-04-01", 1000, 500);
+        EpfEntry sep24 = contribution(a, "2024-09-01", "2026-09-17", 100, 50);
+        EpfEntry feb25 = contribution(a, "2025-02-01", "2026-09-17", 100, 50);
+        EpfEntry opening25 = entry(a, EpfEntryType.OPENING_BALANCE, "2025-04-01", 1200, 600);
+        EpfEntry apr25 = contribution(a, "2025-04-01", "2025-05-10", 10, 5);
+
+        EpfLedger ledger = EpfLedger.of(List.of(apr25, opening25, feb25, sep24, opening24));
+
+        assertEquals(List.of(opening24, sep24, feb25, opening25, apr25), ledger.ordered(a.getId()));
+        assertBalance(ledger.runningBalance(opening25), 1200, 600);
+        assertBalance(ledger.balance(a.getId()), 1210, 605); // no double count of the late contributions
+    }
+
+    @Test
+    void aMarchWageContributionIsDueInAprilAndAppliesAfterThatYearsOpeningBalance() {
+        EpfEntry march = contribution(a, "2025-03-01", "2025-04-10", 100, 50);
+        EpfEntry opening = entry(a, EpfEntryType.OPENING_BALANCE, "2025-04-01", 1000, 500);
+        EpfEntry feb = contribution(a, "2025-02-01", "2025-03-10", 100, 50);
+
+        EpfLedger ledger = EpfLedger.of(List.of(march, opening, feb));
+
+        assertEquals(LocalDate.parse("2025-04-01"), EpfLedger.ledgerDate(march));
+        assertEquals(List.of(feb, opening, march), ledger.ordered(a.getId()));
+        assertBalance(ledger.balance(a.getId()), 1100, 550);
+    }
+
+    @Test
+    void ledgerDateIsCreditedOnForNonContributionsAndContributionsWithoutWageMonth() {
+        assertEquals(LocalDate.parse("2026-09-17"),
+                EpfLedger.ledgerDate(entry(a, EpfEntryType.INTEREST, "2026-09-17", 1, 1)));
+        assertEquals(LocalDate.parse("2026-09-17"),
+                EpfLedger.ledgerDate(entry(a, EpfEntryType.CONTRIBUTION, "2026-09-17", 1, 1)));
+    }
 }

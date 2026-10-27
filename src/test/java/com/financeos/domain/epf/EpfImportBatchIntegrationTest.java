@@ -369,4 +369,21 @@ class EpfImportBatchIntegrationTest extends EpfIntegrationBase {
         return api.getJson(BASE + "/entries?employerId=" + result.get("employerId").asText() + "&size=100", 200)
                 .get("content");
     }
+
+    @Test
+    void passbooksWhoseContributionsAllPostedLateAfterEveryOpeningBalanceStillMatchAndDoNotDoubleCount() throws Exception {
+        String late24 = "Apr-2024 17-09-2026 CR Cont. For Due-Month 052024 60,000 15,000 7,200 5,950 1,250";
+        String late25 = "Apr-2025 17-09-2026 CR Cont. For Due-Month 052025 60,000 15,000 7,200 5,950 1,250";
+        String late26 = "Apr-2026 17-09-2026 CR Cont. For Due-Month 052026 60,000 15,000 7,200 5,950 1,250";
+        String ob3 = "OB Int. Updated upto 31/03/2026 1,33,400 94,900 0";
+        String i26 = "Int. Updated upto 31/03/2027 11,000 8,000 0";
+        List<String> names = List.of("fy24.pdf", "fy25.pdf", "fy26.pdf");
+        List<byte[]> files = List.of(a(OB_1, late24, I_24), a(OB_2, late25, I_25), a(ob3, late26, i26));
+        JsonNode pv = preview(names, files, List.of(), 200).get("sections").get(0).get("preview");
+        assertEquals(2, pv.get("matchedOpeningCount").asInt());
+        assertEquals(1, count(pv.get("rows"), "OPENING_BALANCE"));
+        JsonNode r = commit(names, files, List.of(), 200);
+        assertAmount("260450", r.get("balance")); // 133400 + 94900 + 13150 contributions + 19000 interest
+        assertEquals(1, count(entries(r.get("results").get(0)), "OPENING_BALANCE"));
+    }
 }

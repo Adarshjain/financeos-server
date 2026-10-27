@@ -158,8 +158,8 @@ public class EpfService {
         BigDecimal fyEmployee = BigDecimal.ZERO;
         BigDecimal fyEmployer = BigDecimal.ZERO;
         for (EpfEntry e : data.entries()) {
-            if (e.getType() == EpfEntryType.CONTRIBUTION && !e.getCreditedOn().isBefore(fyStart)
-                    && !e.getCreditedOn().isAfter(fyEnd)) {
+            if (e.getType() == EpfEntryType.CONTRIBUTION && !EpfLedger.ledgerDate(e).isBefore(fyStart)
+                    && !EpfLedger.ledgerDate(e).isAfter(fyEnd)) {
                 fyEmployee = fyEmployee.add(nz(e.getEmployeeAmount()));
                 fyEmployer = fyEmployer.add(nz(e.getEmployerAmount()));
             }
@@ -233,7 +233,7 @@ public class EpfService {
     private static EpfSummaryResponse.EpfPension pension(Data data, LocalDate today, Map<UUID, Status> statuses) {
         EpfEntry latestWithPension = data.ledger().ordered().stream()
                 .filter(e -> e.getType() == EpfEntryType.CONTRIBUTION && nz(e.getPensionAmount()).signum() > 0)
-                .max(Comparator.comparing(EpfEntry::getCreditedOn)
+                .max(Comparator.comparing(EpfLedger::ledgerDate)
                         .thenComparing(e -> e.getWageMonth() == null ? LocalDate.MIN : e.getWageMonth()))
                 .orElse(null);
         if (latestWithPension == null) {
@@ -327,7 +327,7 @@ public class EpfService {
             List<EpfEntry> entries = perEmployer.getOrDefault(employer.getId(), List.of());
             out.add(employerResponse(employer, entries, data));
             LocalDate date = employer.getJoinedOn() != null ? employer.getJoinedOn()
-                    : entries.stream().map(EpfEntry::getCreditedOn).min(LocalDate::compareTo).orElse(LocalDate.MIN);
+                    : entries.stream().map(EpfLedger::ledgerDate).min(LocalDate::compareTo).orElse(LocalDate.MIN);
             sortDate.put(employer.getId(), date);
         }
         out.sort(Comparator
@@ -421,7 +421,7 @@ public class EpfService {
         TreeSet<Integer> years = new TreeSet<>(Collections.reverseOrder());
         for (EpfEntry e : load().entries()) {
             if (employerId == null || e.getEmployer().getId().equals(employerId)) {
-                years.add(FinancialYear.startYear(e.getCreditedOn()));
+                years.add(FinancialYear.startYear(EpfLedger.ledgerDate(e)));
             }
         }
         return new ArrayList<>(years);
@@ -439,7 +439,7 @@ public class EpfService {
         LocalDate to = fy == null ? null : FinancialYear.end(fy);
         List<EpfEntry> filtered = newestFirst.stream()
                 .filter(e -> employerId == null || e.getEmployer().getId().equals(employerId))
-                .filter(e -> from == null || (!e.getCreditedOn().isBefore(from) && !e.getCreditedOn().isAfter(to)))
+                .filter(e -> from == null || (!EpfLedger.ledgerDate(e).isBefore(from) && !EpfLedger.ledgerDate(e).isAfter(to)))
                 .toList();
         int start = (int) Math.min(pageable.getOffset(), filtered.size());
         int end = Math.min(start + pageable.getPageSize(), filtered.size());
