@@ -13,27 +13,39 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.Clock;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.*;
 
 /**
- * Loads daily price history for an instrument that has just become held, and prunes old feed
- * prices monthly. Inserts shared feed rows only (user_id NULL, no price_time), never overwriting a
- * date that already has one, and never for today (live and intraday rows own today).
+ * Loads daily price history for instruments a trade touched, and prunes old feed prices monthly.
+ * Window per instrument: start = the earlier of (oldest trade by any user - 1 year) and (today - 2 years),
+ * end = yesterday. Each trigger fetches the whole window in one request and upserts shared feed rows only
+ * (user_id NULL): missing dates are inserted, existing feed rows get the fetched close, never a user's
+ * MANUAL row and never today (live and intraday rows own today).
  */
 @Service
 public class PriceHistoryService {
 
     private static final Logger log = LoggerFactory.getLogger(PriceHistoryService.class);
 
-    /** Feed coverage counts as reaching {@code from} when its oldest row is within this many days of it (holidays, weekends). */
-    static final int COVERAGE_TOLERANCE_DAYS = 5;
-    static final int INSERT_BATCH_SIZE = 500;
+    /** An instrument fetched successfully for the same or an earlier start within this time is not fetched again. */
+    static final Duration DEBOUNCE = Duration.ofHours(6);
+    static final int UPSERT_BATCH_SIZE = 500;
     static final int CLEANUP_CHUNK = 20_000;
 
-    private static final String INSERT_SQL = "INSERT INTO instrument_prices (id, instrument_id, as_of, close, source, created_at) "
-            + "SELECT ?, ?, ?, ?, ?, CURRENT_TIMESTAMP FROM dual WHERE NOT EXISTS ("
-            + "SELECT 1 FROM instrument_prices x WHERE x.instrument_id = ? AND x.as_of = ? AND x.user_id IS NULL)";
+    private static final String UPSERT_SQL = "MERGE INTO instrument_prices t "
+            + "USING (SELECT ? AS instrument_id, ? AS as_of, ? AS close, ? AS source FROM dual) s "
+            + "ON (t.instrument_id = s.instrument_id AND t.as_of = s.as_of AND t.user_id IS NULL) "
+            + "WHEN MATCHED THEN UPDATE SET t.close = s.close, t.source = s.source, t.price_time = NULL "
+            + "WHERE t.source <> 'MANUAL' "
+            + "WHEN NOT MATCHED THEN INSERT (id, instrument_id, as_of, close, source, created_at) "
+            + "VALUES (?, s.instrument_id, s.as_of, s.close, s.source, CURRENT_TIMESTAMP)";
+
+    private record Fetched(LocalDate start, Instant at) {}
 
     private final PriceProperties priceProperties;
     private final InstrumentRepository instrumentRepository;
@@ -41,6 +53,8 @@ public class PriceHistoryService {
     private final InvestmentTransactionRepository transactionRepository;
     private final PriceHistoryClient historyClient;
     private final JdbcTemplate jdbcTemplate;
+    private final Map<UUID, Fetched> lastFetched = new ConcurrentHashMap<>();
+    private Clock clock = Clock.systemUTC();
 
     public PriceHistoryService(PriceProperties priceProperties, InstrumentRepository instrumentRepository,
                                InstrumentPriceRepository priceRepository,
@@ -54,45 +68,38 @@ public class PriceHistoryService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    /** For tests: the debounce clock. */
+    void setClock(Clock clock) {
+        this.clock = clock;
+    }
+
     /**
-     * Start of the history window: {@code max(today - maxYears, min(earliestTrade, today - minYears))};
-     * with no trade date, {@code today - minYears}.
+     * Start of the history window: the earlier of {@code earliestTrade - yearsBeforeFirstTrade} and
+     * {@code today - minYears}; with no trade, {@code today - minYears}.
      */
-    static LocalDate windowStart(LocalDate today, LocalDate earliestTrade, int maxYears, int minYears) {
-        LocalDate floor = today.minusYears(maxYears);
+    static LocalDate windowStart(LocalDate today, LocalDate earliestTrade, int minYears, int yearsBeforeFirstTrade) {
         LocalDate minReach = today.minusYears(minYears);
-        LocalDate wanted = earliestTrade == null || earliestTrade.isAfter(minReach) ? minReach : earliestTrade;
-        return wanted.isBefore(floor) ? floor : wanted;
+        if (earliestTrade == null) {
+            return minReach;
+        }
+        LocalDate beforeTrade = earliestTrade.minusYears(yearsBeforeFirstTrade);
+        return beforeTrade.isBefore(minReach) ? beforeTrade : minReach;
     }
 
-    /** What to fetch given the feed's oldest row: null when {@code from} is already covered, else the missing span's last day. */
-    static LocalDate missingSpanEnd(LocalDate from, LocalDate yesterday, LocalDate earliestFeed) {
-        if (earliestFeed == null) {
-            return yesterday;
-        }
-        if (!earliestFeed.isAfter(from.plusDays(COVERAGE_TOLERANCE_DAYS))) {
-            return null;
-        }
-        LocalDate end = earliestFeed.minusDays(1);
-        return end.isAfter(yesterday) ? yesterday : end;
-    }
-
-    /** Backfills each instrument independently; never throws. Returns the rows inserted. */
+    /** Fetches and upserts each instrument's window independently; never throws. Returns the rows written. */
     public int backfill(Collection<UUID> instrumentIds) {
         PriceProperties.History cfg = priceProperties.getHistory();
         if (!cfg.isEnabled() || instrumentIds == null || instrumentIds.isEmpty()) {
             return 0;
         }
-        int inserted = 0;
+        int written = 0;
         try {
             List<Instrument> instruments = instrumentRepository.findAllById(instrumentIds);
             Map<UUID, LocalDate> earliestTrade = toDateMap(transactionRepository.findEarliestTradeDates(instrumentIds));
-            Map<UUID, LocalDate> earliestFeed = toDateMap(priceRepository.findEarliestFeedAsOf(instrumentIds));
             LocalDate today = AppTime.today();
             for (Instrument instrument : instruments) {
                 try {
-                    inserted += backfillOne(instrument, today, earliestTrade.get(instrument.getId()),
-                            earliestFeed.get(instrument.getId()), cfg);
+                    written += backfillOne(instrument, today, earliestTrade.get(instrument.getId()), cfg);
                 } catch (Exception e) {
                     log.warn("Price history backfill failed for instrument {}: {}", instrument.getId(), e.getMessage());
                 }
@@ -100,19 +107,19 @@ public class PriceHistoryService {
         } catch (Exception e) {
             log.warn("Price history backfill failed: {}", e.getMessage());
         }
-        return inserted;
+        return written;
     }
 
-    private int backfillOne(Instrument instrument, LocalDate today, LocalDate firstTrade, LocalDate firstFeed,
-                            PriceProperties.History cfg) {
+    private int backfillOne(Instrument instrument, LocalDate today, LocalDate firstTrade, PriceProperties.History cfg) {
         boolean yahoo = instrument.getYahooSymbol() != null && !instrument.getYahooSymbol().isBlank();
         boolean amfi = instrument.getAmfiCode() != null && !instrument.getAmfiCode().isBlank();
         if (!yahoo && !amfi) {
             return 0;
         }
-        LocalDate from = windowStart(today, firstTrade, cfg.getMaxYears(), cfg.getMinYears());
-        LocalDate to = missingSpanEnd(from, today.minusDays(1), firstFeed);
-        if (to == null || to.isBefore(from)) {
+        LocalDate from = windowStart(today, firstTrade, cfg.getMinYears(), cfg.getYearsBeforeFirstTrade());
+        LocalDate to = today.minusDays(1);
+        Fetched last = lastFetched.get(instrument.getId());
+        if (last != null && !last.start().isAfter(from) && clock.instant().isBefore(last.at().plus(DEBOUNCE))) {
             return 0;
         }
         PriceHistoryClient.Result result;
@@ -128,57 +135,69 @@ public class PriceHistoryService {
             log.info("Price history for instrument {} not loaded ({}); a later trade will retry", instrument.getId(), result.status());
             return 0;
         }
-        Set<LocalDate> existing = new HashSet<>(priceRepository.findFeedDatesBetween(instrument.getId(), from, to));
-        Map<LocalDate, PriceHistoryClient.DailyClose> fresh = new TreeMap<>();
+        Map<LocalDate, PriceHistoryClient.DailyClose> rows = new TreeMap<>();
         for (PriceHistoryClient.DailyClose c : result.closes()) {
-            if (c.date().isBefore(from) || c.date().isAfter(to) || existing.contains(c.date())) {
+            if (c.date().isBefore(from) || c.date().isAfter(to)) {
                 continue;
             }
-            fresh.putIfAbsent(c.date(), c);
+            rows.putIfAbsent(c.date(), c);
         }
-        int n = insert(instrument.getId(), source, new ArrayList<>(fresh.values()));
-        log.info("Price history backfill for instrument {}: {} rows ({} to {})", instrument.getId(), n, from, to);
+        int n = upsert(instrument.getId(), source, new ArrayList<>(rows.values()));
+        lastFetched.put(instrument.getId(), new Fetched(from, clock.instant()));
+        log.info("Price history for instrument {}: {} rows upserted ({} to {})", instrument.getId(), n, from, to);
         return n;
     }
 
-    /** Batched insert; the SQL itself skips a date that already has a feed row, a unique-violation race is ignored. */
-    int insert(UUID instrumentId, PriceSource source, List<PriceHistoryClient.DailyClose> closes) {
-        int inserted = 0;
-        for (int i = 0; i < closes.size(); i += INSERT_BATCH_SIZE) {
-            List<PriceHistoryClient.DailyClose> chunk = closes.subList(i, Math.min(i + INSERT_BATCH_SIZE, closes.size()));
+    /**
+     * Batched MERGE into the shared feed rows: inserts a missing date, overwrites close/source and clears
+     * price_time on an existing feed row, never touches a MANUAL or user row. A unique-violation race is ignored.
+     */
+    int upsert(UUID instrumentId, PriceSource source, List<PriceHistoryClient.DailyClose> closes) {
+        int written = 0;
+        for (int i = 0; i < closes.size(); i += UPSERT_BATCH_SIZE) {
+            List<PriceHistoryClient.DailyClose> chunk = closes.subList(i, Math.min(i + UPSERT_BATCH_SIZE, closes.size()));
             try {
-                int[][] batches = jdbcTemplate.batchUpdate(INSERT_SQL, chunk, chunk.size(), (ps, c) -> {
-                    java.sql.Date date = java.sql.Date.valueOf(c.date());
-                    ps.setString(1, UUID.randomUUID().toString());
-                    ps.setString(2, instrumentId.toString());
-                    ps.setDate(3, date);
-                    ps.setBigDecimal(4, c.close());
-                    ps.setString(5, source.name());
-                    ps.setString(6, instrumentId.toString());
-                    ps.setDate(7, date);
+                int[][] batches = jdbcTemplate.batchUpdate(UPSERT_SQL, chunk, chunk.size(), (ps, c) -> {
+                    ps.setString(1, instrumentId.toString());
+                    ps.setDate(2, java.sql.Date.valueOf(c.date()));
+                    ps.setBigDecimal(3, c.close());
+                    ps.setString(4, source.name());
+                    ps.setString(5, UUID.randomUUID().toString());
                 });
                 int[] counts = batches.length > 0 ? batches[0] : new int[0];
                 for (int count : counts) {
-                    // Oracle may report SUCCESS_NO_INFO for a batched statement: count it as inserted.
-                    inserted += count > 0 ? count : (count == java.sql.Statement.SUCCESS_NO_INFO ? 1 : 0);
+                    // Oracle may report SUCCESS_NO_INFO for a batched statement: count it as written.
+                    written += count > 0 ? count : (count == java.sql.Statement.SUCCESS_NO_INFO ? 1 : 0);
                 }
             } catch (DuplicateKeyException e) {
-                log.info("Price history insert for {} raced with another writer; ignored", instrumentId);
+                log.info("Price history upsert for {} raced with another writer; ignored", instrumentId);
             }
         }
-        return inserted;
+        return written;
     }
 
-    /** Monthly prune: feed rows older than {@code today - maxYears}, keeping each instrument's newest. Returns the rows deleted. */
+    /**
+     * Monthly prune of feed rows (never user/MANUAL rows, every instrument keeps its newest feed row):
+     * instruments with a trade lose rows older than their window start; instruments without one keep only
+     * their newest. Returns the rows deleted.
+     */
     public int cleanup() {
-        LocalDate cutoff = AppTime.today().minusYears(priceProperties.getHistory().getMaxYears());
+        PriceProperties.History cfg = priceProperties.getHistory();
+        LocalDate minStart = AppTime.today().minusYears(cfg.getMinYears());
+        int months = 12 * cfg.getYearsBeforeFirstTrade();
         int total = 0;
         int deleted;
         do {
-            deleted = priceRepository.deleteStaleFeedPrices(cutoff, CLEANUP_CHUNK);
+            deleted = priceRepository.deleteFeedPricesBeforeWindow(minStart, months, CLEANUP_CHUNK);
             total += deleted;
         } while (deleted >= CLEANUP_CHUNK);
-        log.info("Price history cleanup deleted {} feed prices older than {}", total, cutoff);
+        int traded = total;
+        do {
+            deleted = priceRepository.deleteFeedPricesOfUntradedInstruments(CLEANUP_CHUNK);
+            total += deleted;
+        } while (deleted >= CLEANUP_CHUNK);
+        log.info("Price history cleanup deleted {} feed prices of traded instruments and {} of untraded ones",
+                traded, total - traded);
         return total;
     }
 

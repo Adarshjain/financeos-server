@@ -252,6 +252,12 @@ public class InvestmentService {
         }
         validateHoldingFifo(saved.getHolding());
 
+        // A changed trade date can move the instrument's price-history window; reload it once the edit
+        // commits (handled by PriceRefreshEventListener / PriceHistoryBackfillListener).
+        if (oldDate != null && !oldDate.equals(saved.getTradeDate())) {
+            eventPublisher.publishEvent(new PriceRefreshEvent(Set.of(saved.getHolding().getInstrument().getId())));
+        }
+
         return InvestmentTransactionResponse.from(saved, instrumentOverrides());
     }
 

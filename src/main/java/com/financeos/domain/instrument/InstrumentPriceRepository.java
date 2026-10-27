@@ -133,29 +133,35 @@ public interface InstrumentPriceRepository extends JpaRepository<InstrumentPrice
     /** {@code userId}'s own prices of one instrument. */
     List<InstrumentPrice> findByInstrumentIdAndUserId(UUID instrumentId, UUID userId);
 
-    /** Per instrument, the oldest feed (ownerless, non-MANUAL) price date: rows of {@code [instrument_id, min(as_of)]}. */
-    @Query("SELECT p.instrument.id, MIN(p.asOf) FROM InstrumentPrice p WHERE p.instrument.id IN :ids "
-            + "AND p.userId IS NULL AND p.source <> com.financeos.domain.instrument.PriceSource.MANUAL "
-            + "GROUP BY p.instrument.id")
-    List<Object[]> findEarliestFeedAsOf(@Param("ids") Collection<UUID> ids);
-
-    /** Dates in [from, to] on which the instrument already has an ownerless row of any source. */
-    @Query("SELECT p.asOf FROM InstrumentPrice p WHERE p.instrument.id = :instrumentId AND p.userId IS NULL "
-            + "AND p.asOf >= :from AND p.asOf <= :to")
-    List<LocalDate> findFeedDatesBetween(@Param("instrumentId") UUID instrumentId,
-                                         @Param("from") LocalDate from, @Param("to") LocalDate to);
-
     /**
-     * Deletes up to {@code limit} feed rows (ownerless, non-MANUAL) older than {@code cutoff}, keeping the
-     * newest feed row of every instrument (so a delisted instrument keeps a value). Never touches a user's
-     * MANUAL row. Returns the rows deleted; callers loop until it returns less than {@code limit}.
+     * Prunes, for instruments with at least one trade (any user), up to {@code limit} feed rows (ownerless,
+     * non-MANUAL) older than that instrument's window start: {@code LEAST(earliest trade - months, minStart)}.
+     * Keeps the newest feed row of every instrument. Callers loop until it returns less than {@code limit}.
      */
     @org.springframework.data.jpa.repository.Modifying
     @org.springframework.transaction.annotation.Transactional
     @Query(value = "DELETE FROM instrument_prices p WHERE p.user_id IS NULL AND p.source <> 'MANUAL' "
-            + "AND p.as_of < :cutoff AND ROWNUM <= :limit "
+            + "AND ROWNUM <= :limit "
+            + "AND p.as_of < (SELECT LEAST(ADD_MONTHS(MIN(t.trade_date), -:months), :minStart) "
+            + "FROM investment_transactions t JOIN holdings h ON h.id = t.holding_id WHERE h.instrument_id = p.instrument_id) "
             + "AND EXISTS (SELECT 1 FROM instrument_prices n WHERE n.instrument_id = p.instrument_id "
             + "AND n.user_id IS NULL AND n.source <> 'MANUAL' AND n.as_of > p.as_of)",
            nativeQuery = true)
-    int deleteStaleFeedPrices(@Param("cutoff") LocalDate cutoff, @Param("limit") int limit);
+    int deleteFeedPricesBeforeWindow(@Param("minStart") LocalDate minStart, @Param("months") int months,
+                                     @Param("limit") int limit);
+
+    /**
+     * Prunes, for instruments with no trade at all, up to {@code limit} feed rows (ownerless, non-MANUAL), keeping
+     * only the newest feed row. Callers loop until it returns less than {@code limit}.
+     */
+    @org.springframework.data.jpa.repository.Modifying
+    @org.springframework.transaction.annotation.Transactional
+    @Query(value = "DELETE FROM instrument_prices p WHERE p.user_id IS NULL AND p.source <> 'MANUAL' "
+            + "AND ROWNUM <= :limit "
+            + "AND NOT EXISTS (SELECT 1 FROM investment_transactions t JOIN holdings h ON h.id = t.holding_id "
+            + "WHERE h.instrument_id = p.instrument_id) "
+            + "AND EXISTS (SELECT 1 FROM instrument_prices n WHERE n.instrument_id = p.instrument_id "
+            + "AND n.user_id IS NULL AND n.source <> 'MANUAL' AND n.as_of > p.as_of)",
+           nativeQuery = true)
+    int deleteFeedPricesOfUntradedInstruments(@Param("limit") int limit);
 }
