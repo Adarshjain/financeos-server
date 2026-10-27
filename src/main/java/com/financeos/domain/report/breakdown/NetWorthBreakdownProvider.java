@@ -18,7 +18,8 @@ import java.util.UUID;
 import java.util.function.BiFunction;
 
 /**
- * Explains a {@code net_worth} row. The row id is an account, loan or counterparty id; it is
+ * Explains a {@code net_worth} row. The single EPF row (id {@link NetWorthDatasource#EPF_ROW_ID}) is
+ * answered by {@link NetWorthEpfBreakdown}; any other row id is an account, loan or counterparty id; it is
  * resolved by looking it up as each in turn, among the current user's rows of net worth today
  * (an inactive loan or a settled counterparty is no row and answers 404). An account net worth
  * leaves out (excluded or closed) is still explained, flagged {@code notCounted} with its reason,
@@ -31,9 +32,11 @@ public class NetWorthBreakdownProvider implements RowBreakdownProvider {
     static final String DATASOURCE = "net_worth";
 
     private final List<NetWorthItemBreakdown> kinds;
+    private final NetWorthEpfBreakdown epf;
 
     public NetWorthBreakdownProvider(NetWorthAccountBreakdown accounts, NetWorthLoanBreakdown loans,
-                                     NetWorthLendingBreakdown lendings) {
+                                     NetWorthLendingBreakdown lendings, NetWorthEpfBreakdown epf) {
+        this.epf = epf;
         this.kinds = List.of(accounts, loans, lendings);
     }
 
@@ -44,11 +47,18 @@ public class NetWorthBreakdownProvider implements RowBreakdownProvider {
 
     @Override
     public RowBreakdownResponse breakdown(String rowId, int size) {
+        if (NetWorthDatasource.EPF_ROW_ID.equals(rowId)) {
+            return epf.breakdown(size).orElseThrow(() -> new ResourceNotFoundException("Net worth row", rowId));
+        }
         return resolve(rowId, (kind, id) -> kind.breakdown(id, size));
     }
 
     @Override
     public ReportData section(String rowId, String section, int page, int size, @Nullable SortClause sort) {
+        if (NetWorthDatasource.EPF_ROW_ID.equals(rowId)) {
+            return epf.section(section, page, size, sort)
+                    .orElseThrow(() -> new ResourceNotFoundException("Net worth row", rowId));
+        }
         return resolve(rowId, (kind, id) -> sort == null
                 ? kind.section(id, section, page, size)
                 : kind.section(id, section, page, size, sort));

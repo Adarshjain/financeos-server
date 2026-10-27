@@ -37,7 +37,9 @@ public record EpfEntryResponse(
         /** An unlinked withdrawal's likely bank credit. */
         @Nullable EpfLinkedTransaction suggestion,
         /** That employer's EPF balance after this entry. */
-        BigDecimal runningBalance) {
+        BigDecimal runningBalance,
+        /** INTEREST entries: the declared rate (percent) of the financial year; null otherwise or when undeclared. */
+        @Nullable BigDecimal interestRate) {
 
     public record EpfLinkedTransaction(UUID id, LocalDate date, @Nullable String description, @Nullable String accountName,
                                     BigDecimal amount) {

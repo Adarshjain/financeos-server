@@ -66,6 +66,7 @@ class EpfImportIntegrationTest extends EpfIntegrationBase {
         assertEquals(MEMBER, p.get("employer").get("memberId").asText());
         assertEquals("MHBAN0012345000", p.get("employer").get("establishmentId").asText());
         assertEquals("4321", p.get("employer").get("uanLast4").asText());
+        assertEquals("2026-05-01", p.get("employer").get("throughMonth").asText());
         assertEquals(3, p.get("newCount").asInt());
         assertEquals(0, p.get("existsCount").asInt());
         assertEquals(0, p.get("replacesCount").asInt());
@@ -84,6 +85,8 @@ class EpfImportIntegrationTest extends EpfIntegrationBase {
         assertEquals(0, r.get("replaced").asInt());
         assertEquals(0, r.get("skipped").asInt());
         assertEquals("NORTHWIND LABS PRIVATE LIMITED", r.get("employerName").asText());
+        assertAmount("82480", r.get("balance")); // 32410 + 23770 + 2 x (7200 + 5950)
+        assertEquals("2026-05-01", r.get("throughMonth").asText());
         JsonNode employers = api.getJson(BASE + "/employers", 200);
         assertEquals(1, employers.size());
         assertEquals(MEMBER, employers.get(0).get("memberId").asText());
@@ -96,6 +99,17 @@ class EpfImportIntegrationTest extends EpfIntegrationBase {
             assertNotNull(e.get("importedAt").asText());
             assertTrue(e.get("tdsAmount").isNull());
         }
+    }
+
+    @Test
+    void throughMonthIsNullWithoutContributionsAndBalanceCoversAllEmployers() throws Exception {
+        UUID other = employer(api, "Other", "MHBAN00999990000001", "2020-01-01", null);
+        addEntry(body("OPENING_BALANCE", other, "2026-03-31", 1000, 500));
+        byte[] file = standard(INTEREST);
+        assertTrue(preview(file, null, 200).get("employer").get("throughMonth").isNull());
+        JsonNode r = commit(file, null, 200);
+        assertTrue(r.get("throughMonth").isNull());
+        assertAmount("57680", r.get("balance")); // 1500 + 32410 + 23770
     }
 
     @Test

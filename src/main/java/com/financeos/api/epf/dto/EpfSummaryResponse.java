@@ -17,7 +17,16 @@ public record EpfSummaryResponse(
         @Nullable EpfPension pension,
         /** Wage month of the latest contribution when a current employer has gone quiet for 45+ days. */
         @Nullable LocalDate staleThrough,
-        @Nullable String uanLast4) {
+        @Nullable String uanLast4,
+        /** Wage month of the latest CONTRIBUTION across employers; null when there is none. */
+        @Nullable LocalDate throughMonth,
+        /** The latest contribution, to prefill a new one; null when there is none. */
+        @Nullable EpfLatestContribution latestContribution) {
+
+    public record EpfLatestContribution(java.util.UUID employerId, LocalDate wageMonth, LocalDate creditedOn,
+                                        BigDecimal employeeAmount, BigDecimal employerAmount,
+                                        BigDecimal pensionAmount) {
+    }
 
     /** Interest earned so far this financial year, not yet credited: {@code rate} is the percent used, {@code rateFy} the year it was declared for. */
     public record EpfInterestEstimate(int fy, BigDecimal amount, BigDecimal rate, int rateFy) {
