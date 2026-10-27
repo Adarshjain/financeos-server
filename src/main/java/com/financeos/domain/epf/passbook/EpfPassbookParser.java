@@ -56,6 +56,8 @@ public class EpfPassbookParser {
         YearMonth wageMonth;
         LocalDate date;
         String particulars;
+        /** The row's own particulars, before any wrapped lines: what its type is read from. */
+        String lead;
         List<BigDecimal> amounts;
         int continuations;
     }
@@ -99,6 +101,7 @@ public class EpfPassbookParser {
                 String rest = stripAmounts(line, tail);
                 if (tail.size() >= 2 && rest.matches("\\d{0,6}")) {
                     if (!rest.isEmpty()) p.particulars = p.particulars + " " + rest;
+                    p.lead = p.particulars;
                     p.amounts = tail;
                     raws.add(p);
                     last = p;
@@ -143,6 +146,7 @@ public class EpfPassbookParser {
                 r.wageMonth = wm;
                 r.date = date;
                 r.particulars = part;
+                r.lead = part;
                 r.amounts = amounts;
                 raws.add(r);
                 last = r;
@@ -150,7 +154,8 @@ public class EpfPassbookParser {
             }
             if (amounts.isEmpty() && date == null && type == null && wm == null
                     && last != null && last.continuations < 2
-                    && line.length() <= 80 && line.indexOf(':') < 0 && !NON_ROW_LABEL.matcher(line).matches()) {
+                    && line.length() <= 80 && line.indexOf(':') < 0 && !NON_ROW_LABEL.matcher(line).matches()
+                    && !isTableHeader(lower)) {
                 last.particulars = last.particulars + " " + line;
                 last.continuations++;
                 continue;
@@ -189,6 +194,11 @@ public class EpfPassbookParser {
         return new ParsedPassbook(uan, memberId, estId, estName, List.copyOf(rows), unrecognised, closing);
     }
 
+    /** The passbook table's column header ("Transaction / Wages / Contribution …"), sometimes printed under the OB line. */
+    static boolean isTableHeader(String lower) {
+        return lower.contains("wages") && (lower.contains("transaction") || lower.contains("contribution") || lower.contains("particulars"));
+    }
+
     /** "Total Contributions for the year [2025]", "Grand Total …": the passbook's own sums. */
     static boolean isSummary(String particulars) {
         String p = particulars.replaceFirst("^[\\[\\]\\s\\d-]+", "");
@@ -197,7 +207,7 @@ public class EpfPassbookParser {
 
     private ParsedPassbookRow classify(int index, Raw r) {
         String p = r.particulars;
-        String pl = p.toLowerCase(Locale.ROOT);
+        String pl = r.lead.toLowerCase(Locale.ROOT);
         BigDecimal[] a = map(r.amounts);
         LocalDate upto = null;
         Matcher um = UPTO.matcher(p);
@@ -205,10 +215,10 @@ public class EpfPassbookParser {
 
         PassbookRowType type;
         PassbookWithdrawalKind kind = null;
-        if (pl.startsWith("cont") || pl.contains("contribution")) {
-            type = PassbookRowType.CONTRIBUTION;
-        } else if (pl.matches("^ob\\b.*") || pl.contains("opening balance")) {
+        if (pl.matches("^ob\\b.*") || pl.contains("opening balance")) {
             type = PassbookRowType.OPENING_BALANCE;
+        } else if (pl.startsWith("cont") || pl.contains("contribution")) {
+            type = PassbookRowType.CONTRIBUTION;
         } else if (pl.contains("transfer") || pl.matches(".*\\btrf\\b.*") || pl.matches("^trans.*")) {
             if ("CR".equals(r.type)) type = PassbookRowType.TRANSFER_IN;
             else if ("DR".equals(r.type)) type = PassbookRowType.TRANSFER_OUT;
@@ -217,6 +227,8 @@ public class EpfPassbookParser {
             type = PassbookRowType.INTEREST;
         } else if ("DR".equals(r.type)) {
             type = PassbookRowType.WITHDRAWAL;
+            // The kind of claim can be on a wrapped line, so it is read from the whole particulars.
+            pl = p.toLowerCase(Locale.ROOT);
             if (pl.contains("final") || pl.contains("settlement") || pl.contains("69(1)") || pl.contains("para 69")) {
                 kind = PassbookWithdrawalKind.FINAL_SETTLEMENT;
             } else if (pl.contains("10c") || pl.contains("10 c") || pl.contains("pension")) {

@@ -121,6 +121,20 @@ class EpfPassbookParserTest {
     }
 
     @Test
+    void theTableHeaderUnderTheOpeningBalanceNeverMakesItAContribution() throws Exception {
+        ParsedPassbook p = parser.parse(pdf(withHeader(
+                "01-04-2026 CR OB Int. Updated upto 31/03/2026 4,10,000 3,20,000 90,000",
+                "Transaction / Wages / Contribution / Particulars",
+                "Apr-2026 15-05-2026 CR Cont. For Due-Month 052026 60,000 15,000 7,200 5,950 1,250",
+                "Int. Updated upto 31/03/2027 1,410 770 0",
+                "Contribution share")));
+        assertThat(p.rows()).extracting(ParsedPassbookRow::type).containsExactly(
+                PassbookRowType.OPENING_BALANCE, PassbookRowType.CONTRIBUTION, PassbookRowType.INTEREST);
+        assertThat(p.rows().get(0).particulars()).doesNotContain("Wages");
+        assertThat(p.rows().get(0).employee()).isEqualByComparingTo("410000");
+    }
+
+    @Test
     void aWrappedRowWithNoAmountsAfterItIsUnread() throws Exception {
         ParsedPassbook p = parser.parse(pdf(withHeader(
                 "Sep-2026 15-10-2026 CR Cont. for the Due-Month",
