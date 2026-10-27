@@ -191,7 +191,9 @@ public class EpfPassbookParser {
         for (Raw r : raws) {
             ParsedPassbookRow row = classify(rows.size(), r, fyStart);
             if (row == null) unrecognised++;
-            else rows.add(row);
+            // EPFO prints "Int. Updated upto 31/03/…" at 0 before the year's interest is credited: not an entry.
+            else if (!(row.type() == PassbookRowType.INTEREST && row.employee().signum() == 0
+                    && row.employer().signum() == 0)) rows.add(row);
         }
         if (rows.isEmpty()) throw notPassbook();
         return new ParsedPassbook(uan, memberId, estId, estName, List.copyOf(rows), unrecognised, closing);

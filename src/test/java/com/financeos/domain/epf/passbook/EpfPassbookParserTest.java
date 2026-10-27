@@ -145,6 +145,15 @@ class EpfPassbookParserTest {
     }
 
     @Test
+    void aZeroInterestLineIsEpfosPlaceholderNotAnEntry() throws Exception {
+        ParsedPassbook p = parser.parse(pdf(withHeader(
+                "Apr-2026 15-05-2026 CR Cont. For Due-Month 052026 60,000 15,000 7,200 5,950 1,250",
+                "Int. Updated upto 31/03/2027 0 0 0")));
+        assertThat(p.rows()).extracting(ParsedPassbookRow::type).containsExactly(PassbookRowType.CONTRIBUTION);
+        assertThat(p.unrecognisedLines()).isZero();
+    }
+
+    @Test
     void olderSlashedHeader() throws Exception {
         ParsedPassbook p = parser.parse(pdf(List.of(
                 "PF ACCOUNT NUMBER : KN/BNG/0012345/000/1234567",
