@@ -132,4 +132,30 @@ public interface InstrumentPriceRepository extends JpaRepository<InstrumentPrice
 
     /** {@code userId}'s own prices of one instrument. */
     List<InstrumentPrice> findByInstrumentIdAndUserId(UUID instrumentId, UUID userId);
+
+    /** Per instrument, the oldest feed (ownerless, non-MANUAL) price date: rows of {@code [instrument_id, min(as_of)]}. */
+    @Query("SELECT p.instrument.id, MIN(p.asOf) FROM InstrumentPrice p WHERE p.instrument.id IN :ids "
+            + "AND p.userId IS NULL AND p.source <> com.financeos.domain.instrument.PriceSource.MANUAL "
+            + "GROUP BY p.instrument.id")
+    List<Object[]> findEarliestFeedAsOf(@Param("ids") Collection<UUID> ids);
+
+    /** Dates in [from, to] on which the instrument already has an ownerless row of any source. */
+    @Query("SELECT p.asOf FROM InstrumentPrice p WHERE p.instrument.id = :instrumentId AND p.userId IS NULL "
+            + "AND p.asOf >= :from AND p.asOf <= :to")
+    List<LocalDate> findFeedDatesBetween(@Param("instrumentId") UUID instrumentId,
+                                         @Param("from") LocalDate from, @Param("to") LocalDate to);
+
+    /**
+     * Deletes up to {@code limit} feed rows (ownerless, non-MANUAL) older than {@code cutoff}, keeping the
+     * newest feed row of every instrument (so a delisted instrument keeps a value). Never touches a user's
+     * MANUAL row. Returns the rows deleted; callers loop until it returns less than {@code limit}.
+     */
+    @org.springframework.data.jpa.repository.Modifying
+    @org.springframework.transaction.annotation.Transactional
+    @Query(value = "DELETE FROM instrument_prices p WHERE p.user_id IS NULL AND p.source <> 'MANUAL' "
+            + "AND p.as_of < :cutoff AND ROWNUM <= :limit "
+            + "AND EXISTS (SELECT 1 FROM instrument_prices n WHERE n.instrument_id = p.instrument_id "
+            + "AND n.user_id IS NULL AND n.source <> 'MANUAL' AND n.as_of > p.as_of)",
+           nativeQuery = true)
+    int deleteStaleFeedPrices(@Param("cutoff") LocalDate cutoff, @Param("limit") int limit);
 }

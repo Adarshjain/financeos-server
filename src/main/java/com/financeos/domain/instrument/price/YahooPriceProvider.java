@@ -56,6 +56,17 @@ public class YahooPriceProvider implements PriceProvider {
         return rateLimitedUntil.get();
     }
 
+    /** Whether Yahoo asked us to stay away (a recent HTTP 429) and the pause has not ended. */
+    public boolean isRateLimited() {
+        Instant until = rateLimitedUntil.get();
+        return until != null && clock.instant().isBefore(until);
+    }
+
+    /** Records a 429 seen by another Yahoo caller (e.g. the history backfill) so every caller backs off. */
+    public void noteRateLimited(HttpResponse<?> response) {
+        noteRateLimited(response, priceProperties.getProviders().get("yahoo"));
+    }
+
     public YahooPriceProvider(PriceProperties priceProperties, ObjectMapper objectMapper) {
         this.priceProperties = priceProperties;
         this.objectMapper = objectMapper;

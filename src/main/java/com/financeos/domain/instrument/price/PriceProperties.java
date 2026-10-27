@@ -19,6 +19,28 @@ public class PriceProperties {
     private String refreshCron = "0 0 19 * * *";
     private String timezone = "Asia/Kolkata";
     private Map<String, ProviderProperties> providers = new HashMap<>();
+    private History history = new History();
+    private Mfapi mfapi = new Mfapi();
+
+    /** Price-history backfill (on first hold) and the monthly feed-price prune. */
+    @Getter
+    @Setter
+    public static class History {
+        private boolean enabled = true;
+        /** The backfill never reaches further back than this, and the prune drops feed rows older than it. */
+        private int maxYears = 2;
+        /** The backfill reaches back at least this far, even for a recent first trade. */
+        private int minYears = 1;
+        private String cleanupCron = "0 30 3 1 * *";
+    }
+
+    /** mfapi.in: full NAV history per AMFI scheme code. */
+    @Getter
+    @Setter
+    public static class Mfapi {
+        private String baseUrl = "https://api.mfapi.in";
+        private long timeoutMs = 30000L;
+    }
 
     @Getter
     @Setter

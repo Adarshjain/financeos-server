@@ -369,6 +369,14 @@ price:
   amfi-refresh-cron: ${AMFI_REFRESH_CRON:0 30 23 * * *}
   amfi-retry-cron: ${AMFI_RETRY_CRON:0 0 7 * * *}
   timezone: ${PRICE_TIMEZONE:Asia/Kolkata}
+  history:
+    enabled: ${PRICE_HISTORY_ENABLED:true}
+    max-years: 2
+    min-years: 1
+    cleanup-cron: ${PRICE_HISTORY_CLEANUP_CRON:0 30 3 1 * *}
+  mfapi:
+    base-url: ${MFAPI_BASE_URL:https://api.mfapi.in}
+    timeout-ms: ${MFAPI_TIMEOUT_MS:30000}
   providers:
     amfi:
       enabled: true
