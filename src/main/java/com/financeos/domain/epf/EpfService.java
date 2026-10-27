@@ -184,7 +184,7 @@ public class EpfService {
 
     private static EpfSummaryResponse.EpfLastInterest lastInterest(Data data) {
         List<EpfEntry> interest = data.entries().stream()
-                .filter(e -> e.getType() == EpfEntryType.INTEREST && e.getInterestFy() != null).toList();
+                .filter(e -> isCreditedInterest(e)).toList();
         if (interest.isEmpty()) {
             return null;
         }
@@ -202,9 +202,14 @@ public class EpfService {
         return new EpfSummaryResponse.EpfLastInterest(fy, amount, EpfInterestRates.rateFor(fy), creditedOn);
     }
 
+    /** An interest entry with a year and money in it; a 0 one is EPFO's placeholder before the year's credit. */
+    private static boolean isCreditedInterest(EpfEntry e) {
+        return e.getType() == EpfEntryType.INTEREST && e.getInterestFy() != null
+                && (nz(e.getEmployeeAmount()).signum() != 0 || nz(e.getEmployerAmount()).signum() != 0);
+    }
+
     private static EpfSummaryResponse.EpfInterestEstimate interestEstimate(Data data, LocalDate today, int fy, BigDecimal balance) {
-        boolean credited = data.entries().stream()
-                .anyMatch(e -> e.getType() == EpfEntryType.INTEREST && e.getInterestFy() != null && e.getInterestFy() == fy);
+        boolean credited = data.entries().stream().anyMatch(e -> isCreditedInterest(e) && e.getInterestFy() == fy);
         if (credited || balance.signum() <= 0) {
             return null;
         }

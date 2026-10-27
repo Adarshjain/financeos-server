@@ -81,6 +81,17 @@ class EpfSummaryIntegrationTest extends EpfIntegrationBase {
     }
 
     @Test
+    void aZeroInterestEntryIsEpfosPlaceholderNotACredit() throws Exception {
+        UUID e1 = employer("Acme", "2020-04-01", null);
+        addEntry(body("OPENING_BALANCE", e1, "2026-03-31", 1000, 0));
+        addEntry(interest(e1, 2026, "2027-03-31", 0, 0));
+
+        JsonNode s = summary();
+        assertFalse(s.get("interestEstimate").isNull());
+        assertTrue(s.get("lastInterest").isNull());
+    }
+
+    @Test
     void noEstimateInAprilBecauseNoMonthOfTheYearHasClosed() throws Exception {
         UUID e1 = employer("Acme", "2020-04-01", null);
         addEntry(body("OPENING_BALANCE", e1, "2026-03-31", 100000, 0));
