@@ -371,8 +371,8 @@ price:
   timezone: ${PRICE_TIMEZONE:Asia/Kolkata}
   history:
     enabled: ${PRICE_HISTORY_ENABLED:true}
-    max-years: 2
-    min-years: 1
+    min-years: 2
+    years-before-first-trade: 1
     cleanup-cron: ${PRICE_HISTORY_CLEANUP_CRON:0 30 3 1 * *}
   mfapi:
     base-url: ${MFAPI_BASE_URL:https://api.mfapi.in}

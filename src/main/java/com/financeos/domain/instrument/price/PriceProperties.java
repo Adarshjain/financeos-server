@@ -27,10 +27,10 @@ public class PriceProperties {
     @Setter
     public static class History {
         private boolean enabled = true;
-        /** The backfill never reaches further back than this, and the prune drops feed rows older than it. */
-        private int maxYears = 2;
-        /** The backfill reaches back at least this far, even for a recent first trade. */
-        private int minYears = 1;
+        /** The window reaches back at least this many years from today (fetch and prune). */
+        private int minYears = 2;
+        /** The window reaches back this many years before the oldest trade (any user) on the instrument. */
+        private int yearsBeforeFirstTrade = 1;
         private String cleanupCron = "0 30 3 1 * *";
     }
 

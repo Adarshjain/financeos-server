@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Daily closing-price history from Yahoo (stocks/ETFs, one chart request) and mfapi.in (mutual
+ * Daily closing-price history from Yahoo (stocks/ETFs, one chart request, split-adjusted closes turned back into real prices) and mfapi.in (mutual
  * funds, the scheme's whole NAV history). Never throws: a failure or a rate limit comes back as a
  * status so the caller can skip quietly.
  */
@@ -71,10 +71,12 @@ public class PriceHistoryClient {
         }
         ZoneId zone = zone();
         long p1 = from.atStartOfDay(zone).toEpochSecond();
-        long p2 = to.plusDays(1).atStartOfDay(zone).toEpochSecond();
+        // Past the window end so a split dated today (which Yahoo already applies to every close) is in events;
+        // the service drops closes after `to`.
+        long p2 = to.plusDays(3).atStartOfDay(zone).toEpochSecond();
         String base = YahooHosts.getCandidateHosts(props).get(0).replaceAll("/+$", "");
         String url = base + "/v8/finance/chart/" + URLEncoder.encode(symbol, StandardCharsets.UTF_8)
-                + "?interval=1d&period1=" + p1 + "&period2=" + p2;
+                + "?interval=1d&events=split&period1=" + p1 + "&period2=" + p2;
         String userAgent = props != null && props.getUserAgent() != null && !props.getUserAgent().isBlank()
                 ? props.getUserAgent() : "Mozilla/5.0";
         long timeoutMs = props != null && props.getTimeoutMs() > 0 ? props.getTimeoutMs() : 30000L;
@@ -131,7 +133,11 @@ public class PriceHistoryClient {
         }
     }
 
-    /** Chart JSON: {@code result[0].timestamp[]} with {@code indicators.quote[0].close[]}; null closes (holidays) dropped. */
+    /**
+     * Chart JSON: {@code result[0].timestamp[]} with {@code indicators.quote[0].close[]}; null closes (holidays)
+     * dropped. Yahoo's {@code close} is split-adjusted, so each close is multiplied back to the real price of
+     * its day: by numerator/denominator of every split in {@code events.splits} that falls after it (cumulative).
+     */
     List<DailyClose> parseYahoo(String json, ZoneId fallbackZone) {
         try {
             JsonNode result = objectMapper.readTree(json).path("chart").path("result");
@@ -149,24 +155,47 @@ public class PriceHistoryClient {
             if (offset.isNumber()) {
                 zone = java.time.ZoneOffset.ofTotalSeconds(offset.asInt());
             }
+            java.util.TreeMap<LocalDate, BigDecimal> splits = parseSplits(first.path("events").path("splits"), zone);
             List<DailyClose> out = new ArrayList<>();
             for (int i = 0; i < timestamps.size() && i < closes.size(); i++) {
                 JsonNode c = closes.get(i);
                 if (c == null || c.isNull() || !c.isNumber() || !timestamps.get(i).isNumber()) {
                     continue;
                 }
-                BigDecimal close = BigDecimal.valueOf(c.asDouble()).setScale(4, RoundingMode.HALF_UP);
+                BigDecimal close = BigDecimal.valueOf(c.asDouble());
                 if (close.signum() <= 0) {
                     continue;
                 }
                 LocalDate date = Instant.ofEpochSecond(timestamps.get(i).asLong()).atZone(zone).toLocalDate();
-                out.add(new DailyClose(date, close));
+                for (BigDecimal ratio : splits.tailMap(date, false).values()) {
+                    close = close.multiply(ratio);
+                }
+                out.add(new DailyClose(date, close.setScale(4, RoundingMode.HALF_UP)));
             }
             return out;
         } catch (Exception e) {
             log.info("Could not parse Yahoo history: {}", e.getMessage());
             return List.of();
         }
+    }
+
+    /** {@code events.splits}: date (epoch seconds), numerator, denominator; returns split day to ratio (numerator/denominator). */
+    private java.util.TreeMap<LocalDate, BigDecimal> parseSplits(JsonNode splits, ZoneId zone) {
+        java.util.TreeMap<LocalDate, BigDecimal> out = new java.util.TreeMap<>();
+        if (splits == null || !splits.isObject()) {
+            return out;
+        }
+        for (JsonNode split : splits) {
+            double num = split.path("numerator").asDouble(0);
+            double den = split.path("denominator").asDouble(0);
+            if (!split.path("date").isNumber() || num <= 0 || den <= 0) {
+                continue;
+            }
+            LocalDate date = Instant.ofEpochSecond(split.path("date").asLong()).atZone(zone).toLocalDate();
+            out.merge(date, BigDecimal.valueOf(num).divide(BigDecimal.valueOf(den), java.math.MathContext.DECIMAL64),
+                    BigDecimal::multiply);
+        }
+        return out;
     }
 
     /** mfapi JSON {@code {meta, data:[{date:"dd-MM-yyyy", nav:"104.4153"}]}} (newest first), kept within [from, to], oldest first. */
