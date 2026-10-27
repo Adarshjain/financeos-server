@@ -326,9 +326,15 @@ class MatchSuggestionsBatchIntegrationTest {
         windows.addAll(List.copyOf(windows)); // every window twice
         Statistics stats = emf.unwrap(SessionFactory.class).getStatistics();
         stats.setStatisticsEnabled(true);
-        stats.clear();
-        assertEquals(Set.of(hit), candidatesAny(windows));
-        // 451 distinct windows -> 3 chunk queries (plus none for the duplicates)
-        assertEquals(3, stats.getQueryExecutionCount());
+        // statistics are global: keep the job worker's poll out of the count
+        jobWorker.pause();
+        try {
+            stats.clear();
+            assertEquals(Set.of(hit), candidatesAny(windows));
+            // 451 distinct windows -> 3 chunk queries (plus none for the duplicates)
+            assertEquals(3, stats.getQueryExecutionCount());
+        } finally {
+            jobWorker.resume();
+        }
     }
 }
