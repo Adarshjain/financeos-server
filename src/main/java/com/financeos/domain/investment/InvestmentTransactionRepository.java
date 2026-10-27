@@ -90,4 +90,9 @@ public interface InvestmentTransactionRepository extends JpaRepository<Investmen
     @Query("SELECT MIN(t.tradeDate) FROM InvestmentTransaction t WHERE t.user.id = :userId AND t.holding.instrument.id = :instrumentId "
             + "AND t.type = com.financeos.domain.investment.InvestmentTransactionType.buy")
     java.time.LocalDate findFirstBuyDate(@Param("userId") UUID userId, @Param("instrumentId") UUID instrumentId);
+
+    /** Per instrument, the earliest trade date across all users' holdings: rows of {@code [instrument_id, min(trade_date)]}. */
+    @Query("SELECT t.holding.instrument.id, MIN(t.tradeDate) FROM InvestmentTransaction t "
+            + "WHERE t.holding.instrument.id IN :instrumentIds GROUP BY t.holding.instrument.id")
+    java.util.List<Object[]> findEarliestTradeDates(@Param("instrumentIds") java.util.Collection<UUID> instrumentIds);
 }
