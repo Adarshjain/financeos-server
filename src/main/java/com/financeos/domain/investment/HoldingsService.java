@@ -173,14 +173,23 @@ public class HoldingsService {
     }
 
     /**
+     * Rows are ordered by asset-type group first ({@link InstrumentType} declaration order: stock, mutual_fund,
+     * etf, the order the groups are listed in), then by {@code sort} and {@code dir}, then paged.
+     *
      * @param sort name (A-Z, default) | return_pct | return_abs (best first)
+     * @param dir  asc | desc (case-insensitive); absent = the key's own order (name A-Z, returns best first);
+     *             otherwise it flips that order. Nulls stay last either way.
      */
     public HoldingsResponse list(@Nullable UUID brokerAccountId, @Nullable String assetType, @Nullable String search,
-                                 @Nullable String sort, @Nullable Integer page, @Nullable Integer size) {
+                                 @Nullable String sort, @Nullable String dir, @Nullable Integer page, @Nullable Integer size) {
         InstrumentType type = parseType(assetType);
         String sortKey = sort == null || sort.isBlank() ? "name" : sort.trim().toLowerCase(Locale.ROOT);
         if (!List.of("name", "return_pct", "return_abs").contains(sortKey)) {
             throw new ValidationException("sort must be name, return_pct or return_abs");
+        }
+        String dirKey = dir == null || dir.isBlank() ? null : dir.trim().toLowerCase(Locale.ROOT);
+        if (dirKey != null && !dirKey.equals("asc") && !dirKey.equals("desc")) {
+            throw new ValidationException("dir must be asc or desc");
         }
         String needle = search == null || search.isBlank() ? null : search.trim().toLowerCase(Locale.ROOT);
         int pageSize = size == null || size < 1 ? DEFAULT_PAGE_SIZE : Math.min(size, MAX_PAGE_SIZE);
@@ -237,7 +246,7 @@ public class HoldingsService {
         List<HoldingsResponse.Group> groups = new ArrayList<>();
         groupValue.forEach((t, v) -> groups.add(new HoldingsResponse.Group(t, money(v), groupCount.get(t))));
 
-        List<Aggregate> rows = matching.stream().filter(Aggregate::shown).sorted(comparator(sortKey)).toList();
+        List<Aggregate> rows = matching.stream().filter(Aggregate::shown).sorted(comparator(sortKey, dirKey)).toList();
         long total = rows.size();
         int from = (int) Math.min((long) pageNo * pageSize, total);
         int to = (int) Math.min((long) from + pageSize, total);
@@ -261,15 +270,19 @@ public class HoldingsService {
         }
     }
 
-    private static Comparator<Aggregate> comparator(String sortKey) {
+    /** Asset-type group first, then the key in its direction (nulls last), then name and id so paging is stable. */
+    private static Comparator<Aggregate> comparator(String sortKey, @Nullable String dirKey) {
         Comparator<Aggregate> byName = Comparator.comparing((Aggregate a) -> a.name() == null ? "" : a.name().toLowerCase(Locale.ROOT))
                 .thenComparing(a -> a.instrumentId().toString());
-        return switch (sortKey) {
-            case "return_pct" -> Comparator.comparing(Aggregate::unrealisedPct, Comparator.nullsLast(Comparator.<BigDecimal>reverseOrder()))
-                    .thenComparing(byName);
-            case "return_abs" -> Comparator.comparing(Aggregate::unrealised, Comparator.reverseOrder()).thenComparing(byName);
-            default -> byName;
+        // The key's own order: name A-Z, returns best (highest) first.
+        boolean ascending = dirKey == null ? sortKey.equals("name") : dirKey.equals("asc");
+        Comparator<BigDecimal> order = ascending ? Comparator.<BigDecimal>naturalOrder() : Comparator.<BigDecimal>reverseOrder();
+        Comparator<Aggregate> byKey = switch (sortKey) {
+            case "return_pct" -> Comparator.comparing(Aggregate::unrealisedPct, Comparator.nullsLast(order));
+            case "return_abs" -> Comparator.comparing(Aggregate::unrealised, Comparator.nullsLast(order));
+            default -> ascending ? byName : byName.reversed();
         };
+        return Comparator.comparing(Aggregate::assetType).thenComparing(byKey).thenComparing(byName);
     }
 
     private static HoldingsResponse.Row row(Aggregate a) {
