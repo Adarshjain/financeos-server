@@ -1,6 +1,10 @@
 package com.financeos.domain.obligation;
 
 import com.financeos.api.transaction.dto.ObligationRef;
+import com.financeos.domain.epf.EpfEntry;
+import com.financeos.domain.epf.EpfEntryRepository;
+import com.financeos.domain.epf.EpfLedger;
+import com.financeos.domain.epf.EpfWithdrawalKind;
 import com.financeos.domain.instrument.AssetClassOverrideService;
 import com.financeos.domain.instrument.Instrument;
 import com.financeos.domain.instrument.InstrumentOverrides;
@@ -52,6 +56,9 @@ public class ObligationRefService {
     /** The reader's instrument overrides (dividend labels name the instrument); null in unit tests. */
     @Nullable
     private final AssetClassOverrideService overrideService;
+    /** EPF withdrawals linked to a credit; null in unit tests that do not cover them. */
+    @Nullable
+    private final EpfEntryRepository epfEntryRepository;
 
     /** Without instrument overrides (unit tests). */
     public ObligationRefService(LendingRepository lendingRepository,
@@ -63,19 +70,31 @@ public class ObligationRefService {
                 null);
     }
 
-    @Autowired
     public ObligationRefService(LendingRepository lendingRepository,
                                 LoanPaymentRepository loanPaymentRepository,
                                 LoanEventRepository loanEventRepository,
                                 LoanChargeRepository loanChargeRepository,
                                 DividendRepository dividendRepository,
                                 @Nullable AssetClassOverrideService overrideService) {
+        this(lendingRepository, loanPaymentRepository, loanEventRepository, loanChargeRepository, dividendRepository,
+                overrideService, null);
+    }
+
+    @Autowired
+    public ObligationRefService(LendingRepository lendingRepository,
+                                LoanPaymentRepository loanPaymentRepository,
+                                LoanEventRepository loanEventRepository,
+                                LoanChargeRepository loanChargeRepository,
+                                DividendRepository dividendRepository,
+                                @Nullable AssetClassOverrideService overrideService,
+                                @Nullable EpfEntryRepository epfEntryRepository) {
         this.lendingRepository = lendingRepository;
         this.loanPaymentRepository = loanPaymentRepository;
         this.loanEventRepository = loanEventRepository;
         this.loanChargeRepository = loanChargeRepository;
         this.dividendRepository = dividendRepository;
         this.overrideService = overrideService;
+        this.epfEntryRepository = epfEntryRepository;
     }
 
     /** The current user's instrument overrides, loaded only when there are dividends to label. */
@@ -107,6 +126,11 @@ public class ObligationRefService {
         InstrumentOverrides overrides = overrides(dividendRows);
         for (Dividend d : dividendRows) {
             map.computeIfAbsent(d.getTransaction().getId(), k -> new ArrayList<>()).add(toRef(d, overrides));
+        }
+        if (epfEntryRepository != null) {
+            for (EpfEntry e : epfEntryRepository.findWithEmployerByTransactionIdIn(transactionIds)) {
+                map.computeIfAbsent(e.getTransaction().getId(), k -> new ArrayList<>()).add(toRef(e));
+            }
         }
         return map;
     }
@@ -183,6 +207,18 @@ public class ObligationRefService {
         if (!dividends.isEmpty()) {
             dividendRepository.saveAll(dividends);
             dividendRepository.flush();
+        }
+
+        if (epfEntryRepository != null) {
+            List<EpfEntry> epfEntries = epfEntryRepository.findWithEmployerByTransactionIdIn(List.of(from.getId()));
+            for (EpfEntry e : epfEntries) {
+                e.setTransaction(to);
+                moved.add(toRef(e).label());
+            }
+            if (!epfEntries.isEmpty()) {
+                epfEntryRepository.saveAll(epfEntries);
+                epfEntryRepository.flush();
+            }
         }
 
         return moved;
@@ -273,6 +309,12 @@ public class ObligationRefService {
         return new ObligationRef(ObligationKind.DIVIDEND, d.getId(),
                 instrument != null ? instrument.getId() : null,
                 verb + " · " + name, d.getAmount());
+    }
+
+    static ObligationRef toRef(EpfEntry e) {
+        String label = e.getWithdrawalKind() == EpfWithdrawalKind.PENSION ? "EPF pension" : "EPF withdrawal";
+        return new ObligationRef(ObligationKind.EPF_WITHDRAWAL, e.getId(), e.getEmployer().getId(), label,
+                EpfLedger.received(e));
     }
 
     static ObligationRef toRef(LoanPayment p) {

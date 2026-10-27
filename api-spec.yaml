@@ -2827,6 +2827,457 @@ paths:
           description: Error response
       tags:
       - diagnostics-controller
+  /api/v1/epf/employers:
+    get:
+      operationId: listEpfEmployers
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EpfEmployerResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+    post:
+      operationId: createEpfEmployer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EpfEmployerRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EpfEmployerResponse"
+          description: Created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+  /api/v1/epf/employers/{id}:
+    put:
+      operationId: updateEpfEmployer
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EpfEmployerRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EpfEmployerResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+  /api/v1/epf/entries:
+    get:
+      operationId: listEpfEntries
+      parameters:
+      - in: query
+        name: employerId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: fy
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          default: 25
+          minimum: 1
+      - description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageEpfEntryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+    post:
+      operationId: createEpfEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EpfEntryRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EpfEntryResponse"
+          description: Created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+  /api/v1/epf/entries/{id}:
+    delete:
+      operationId: deleteEpfEntry
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+    get:
+      operationId: getEpfEntry
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EpfEntryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+    put:
+      operationId: updateEpfEntry
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EpfEntryRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EpfEntryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+  /api/v1/epf/entries/{id}/suggestion/dismiss:
+    post:
+      operationId: dismissEpfSuggestion
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EpfDismissRequest"
+        required: true
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+  /api/v1/epf/entries/{id}/transaction:
+    delete:
+      operationId: unlinkEpfWithdrawalTransaction
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+    put:
+      operationId: linkEpfWithdrawalTransaction
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EpfLinkRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EpfEntryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+  /api/v1/epf/fys:
+    get:
+      operationId: listEpfFinancialYears
+      parameters:
+      - in: query
+        name: employerId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+  /api/v1/epf/import/commit:
+    post:
+      operationId: commitEpfImport
+      parameters:
+      - in: query
+        name: employerId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EpfImportResultResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-import-controller
+  /api/v1/epf/import/preview:
+    post:
+      operationId: previewEpfImport
+      parameters:
+      - in: query
+        name: employerId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EpfImportPreviewResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-import-controller
+  /api/v1/epf/summary:
+    get:
+      operationId: getEpfSummary
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EpfSummaryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
+  /api/v1/epf/withdrawals:
+    get:
+      operationId: listEpfWithdrawals
+      parameters:
+      - in: query
+        name: forTransactionId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EpfWithdrawalOption"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
   /api/v1/gmail/attention:
     get:
       operationId: getAttentionItems
@@ -12527,6 +12978,539 @@ components:
           format: uuid
       required:
       - jobId
+    EpfDismissRequest:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          format: uuid
+    EpfEmployerOption:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+      required:
+      - id
+      - name
+    EpfEmployerRequest:
+      type: object
+      properties:
+        joinedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        leftOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        memberId:
+          type: string
+          nullable: true
+          x-nullable: true
+        name:
+          type: string
+          x-required: true
+      required:
+      - name
+    EpfEmployerResponse:
+      type: object
+      properties:
+        balance:
+          type: number
+        establishmentId:
+          type: string
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        joinedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        leftOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        memberId:
+          type: string
+          nullable: true
+          x-nullable: true
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+          - CURRENT
+          - LEFT
+          - TRANSFERRED
+          - SETTLED
+        statusDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        uan:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - balance
+      - id
+      - name
+      - status
+    EpfEntryRequest:
+      type: object
+      properties:
+        creditedOn:
+          type: string
+          format: date
+        employeeAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        employerAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        employerId:
+          type: string
+          format: uuid
+        fromEmployerId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        interestFy:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        note:
+          type: string
+          nullable: true
+          x-nullable: true
+        pensionAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        tdsAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        transactionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        type:
+          type: string
+          enum:
+          - OPENING_BALANCE
+          - CONTRIBUTION
+          - TRANSFER_IN
+          - INTEREST
+          - TRANSFER_OUT
+          - WITHDRAWAL
+        wageMonth:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        withdrawalKind:
+          type: string
+          enum:
+          - PARTIAL
+          - FINAL_SETTLEMENT
+          - PENSION
+          nullable: true
+          x-nullable: true
+    EpfEntryResponse:
+      type: object
+      properties:
+        counterpartEmployerId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        counterpartEmployerName:
+          type: string
+          nullable: true
+          x-nullable: true
+        creditedOn:
+          type: string
+          format: date
+        employeeAmount:
+          type: number
+        employerAmount:
+          type: number
+        employerId:
+          type: string
+          format: uuid
+        employerName:
+          type: string
+        grossAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        importedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        interestFy:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        note:
+          type: string
+          nullable: true
+          x-nullable: true
+        particulars:
+          type: string
+          nullable: true
+          x-nullable: true
+        pensionAmount:
+          type: number
+        receivedAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        runningBalance:
+          type: number
+        source:
+          type: string
+          enum:
+          - MANUAL
+          - PASSBOOK
+        suggestion:
+          $ref: "#/components/schemas/EpfLinkedTransaction"
+        tdsAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        transaction:
+          $ref: "#/components/schemas/EpfLinkedTransaction"
+        type:
+          type: string
+          enum:
+          - OPENING_BALANCE
+          - CONTRIBUTION
+          - TRANSFER_IN
+          - INTEREST
+          - TRANSFER_OUT
+          - WITHDRAWAL
+        wageMonth:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        withdrawalKind:
+          type: string
+          enum:
+          - PARTIAL
+          - FINAL_SETTLEMENT
+          - PENSION
+          nullable: true
+          x-nullable: true
+      required:
+      - creditedOn
+      - employeeAmount
+      - employerAmount
+      - employerId
+      - employerName
+      - id
+      - pensionAmount
+      - runningBalance
+      - source
+      - suggestion
+      - type
+    EpfImportEmployer:
+      type: object
+      properties:
+        establishmentId:
+          type: string
+          nullable: true
+          x-nullable: true
+        existingId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        memberId:
+          type: string
+          nullable: true
+          x-nullable: true
+        name:
+          type: string
+        uanLast4:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - name
+    EpfImportPreviewResponse:
+      type: object
+      properties:
+        employer:
+          $ref: "#/components/schemas/EpfImportEmployer"
+        employerOptions:
+          type: array
+          items:
+            $ref: "#/components/schemas/EpfEmployerOption"
+        existsCount:
+          type: integer
+          format: int32
+        newCount:
+          type: integer
+          format: int32
+        replacesCount:
+          type: integer
+          format: int32
+        rows:
+          type: array
+          items:
+            $ref: "#/components/schemas/EpfImportRow"
+        unrecognisedLines:
+          type: integer
+          format: int32
+      required:
+      - employer
+      - employerOptions
+      - existsCount
+      - newCount
+      - replacesCount
+      - rows
+      - unrecognisedLines
+    EpfImportResultResponse:
+      type: object
+      properties:
+        employerId:
+          type: string
+          format: uuid
+        employerName:
+          type: string
+        imported:
+          type: integer
+          format: int32
+        replaced:
+          type: integer
+          format: int32
+        skipped:
+          type: integer
+          format: int32
+      required:
+      - employerId
+      - employerName
+      - imported
+      - replaced
+      - skipped
+    EpfImportRow:
+      type: object
+      properties:
+        creditedOn:
+          type: string
+          format: date
+        employeeAmount:
+          type: number
+        employerAmount:
+          type: number
+        index:
+          type: integer
+          format: int32
+        interestFy:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        particulars:
+          type: string
+          nullable: true
+          x-nullable: true
+        pensionAmount:
+          type: number
+        replacesEntryId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        status:
+          type: string
+          enum:
+          - NEW
+          - EXISTS
+          - REPLACES
+        type:
+          type: string
+          enum:
+          - OPENING_BALANCE
+          - CONTRIBUTION
+          - TRANSFER_IN
+          - INTEREST
+          - TRANSFER_OUT
+          - WITHDRAWAL
+        wageMonth:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        withdrawalKind:
+          type: string
+          enum:
+          - PARTIAL
+          - FINAL_SETTLEMENT
+          - PENSION
+          nullable: true
+          x-nullable: true
+      required:
+      - creditedOn
+      - employeeAmount
+      - employerAmount
+      - index
+      - pensionAmount
+      - status
+      - type
+    EpfInterestEstimate:
+      type: object
+      properties:
+        amount:
+          type: number
+        fy:
+          type: integer
+          format: int32
+        rate:
+          type: number
+        rateFy:
+          type: integer
+          format: int32
+      required:
+      - amount
+      - fy
+      - rate
+      - rateFy
+    EpfLastInterest:
+      type: object
+      properties:
+        amount:
+          type: number
+        creditedOn:
+          type: string
+          format: date
+        fy:
+          type: integer
+          format: int32
+        rate:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - amount
+      - creditedOn
+      - fy
+    EpfLinkRequest:
+      type: object
+      properties:
+        recordTds:
+          type: boolean
+        transactionId:
+          type: string
+          format: uuid
+    EpfLinkedTransaction:
+      type: object
+      properties:
+        accountName:
+          type: string
+          nullable: true
+          x-nullable: true
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+      required:
+      - amount
+      - date
+      - id
+    EpfPension:
+      type: object
+      properties:
+        eligible:
+          type: boolean
+        estimatedMonthlyPension:
+          type: number
+        monthlyContribution:
+          type: number
+        serviceMonths:
+          type: integer
+          format: int32
+      required:
+      - eligible
+      - estimatedMonthlyPension
+      - monthlyContribution
+      - serviceMonths
+    EpfSummaryResponse:
+      type: object
+      properties:
+        balance:
+          type: number
+        fyEmployee:
+          type: number
+        fyEmployer:
+          type: number
+        hasData:
+          type: boolean
+        interestEstimate:
+          $ref: "#/components/schemas/EpfInterestEstimate"
+        lastInterest:
+          $ref: "#/components/schemas/EpfLastInterest"
+        pension:
+          $ref: "#/components/schemas/EpfPension"
+        staleThrough:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        uanLast4:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - balance
+      - fyEmployee
+      - fyEmployer
+      - hasData
+    EpfWithdrawalOption:
+      type: object
+      properties:
+        entry:
+          $ref: "#/components/schemas/EpfEntryResponse"
+        suggested:
+          type: boolean
+        tdsGap:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - entry
+      - suggested
     ErrorResponse:
       type: object
       properties:
@@ -13805,6 +14789,11 @@ components:
           format: uuid
           nullable: true
           x-nullable: true
+        epfEntryId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
         jobId:
           type: string
           format: uuid
@@ -13816,6 +14805,11 @@ components:
           nullable: true
           x-nullable: true
         statementId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        transactionId:
           type: string
           format: uuid
           nullable: true
@@ -15845,6 +16839,7 @@ components:
           - LOAN_EVENT
           - LOAN_CHARGE
           - DIVIDEND
+          - EPF_WITHDRAWAL
         label:
           type: string
         parentId:
@@ -16093,6 +17088,52 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DividendResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
+    PageEpfEntryResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/EpfEntryResponse"
         empty:
           type: boolean
         first:

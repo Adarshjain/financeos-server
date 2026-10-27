@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class NetWorthValueLabelsIntegrationTest {
 
     private static final Map<String, String> KIND_LABELS = Map.of("bank_account", "Bank account", "credit_card", "Credit card",
-            "broker", "Broker", "generic", "Wallet/Cash", "loan", "Loan", "lending", "Lending");
+            "broker", "Broker", "generic", "Wallet/Cash", "loan", "Loan", "lending", "Lending", "epf", "EPF");
     private static final Map<String, String> SIDE_LABELS = Map.of("asset", "Asset", "liability", "Liability");
 
     @Autowired private MockMvc mockMvc;
@@ -76,7 +76,7 @@ class NetWorthValueLabelsIntegrationTest {
             }
         }
         assertEquals(KIND_LABELS, labels(field(fields, "kind").get("valueLabels")));
-        assertEquals(List.of("bank_account", "credit_card", "broker", "generic", "loan", "lending"),
+        assertEquals(List.of("bank_account", "credit_card", "broker", "generic", "loan", "lending", "epf"),
                 names(field(fields, "kind").get("valueLabels")));
         assertEquals(SIDE_LABELS, labels(field(fields, "side").get("valueLabels")));
         assertFalse(field(fields, "name").has("valueLabels"));

@@ -11,5 +11,7 @@ public enum ObligationKind {
     LOAN_PAYMENT,
     LOAN_EVENT,
     LOAN_CHARGE,
-    DIVIDEND
+    DIVIDEND,
+    /** An EPF withdrawal (or pension payout) the credit landed as; one entry per credit. */
+    EPF_WITHDRAWAL
 }

@@ -70,6 +70,9 @@ public class TransactionReferenceValidator {
             return null;
         }
         Transaction transaction = loadOwned(transactionId);
+        if (isReferencedByEpf(transactionId)) {
+            throw new ValidationException("Transaction " + transactionId + " is already linked to an EPF withdrawal");
+        }
         if (isReferencedByDividend(transactionId)) {
             throw new ValidationException("Transaction " + transactionId + " is already linked to a dividend");
         }
@@ -94,6 +97,9 @@ public class TransactionReferenceValidator {
         if (isReferencedByDividend(transactionId)) {
             throw new ValidationException("Transaction " + transactionId + " is already linked to a dividend");
         }
+        if (isReferencedByEpf(transactionId)) {
+            throw new ValidationException("Transaction " + transactionId + " is already linked to an EPF withdrawal");
+        }
         TransactionType expected = expectedTypeFor(direction);
         if (direction != null && transaction.getType() != expected) {
             String want = expected == TransactionType.DEBIT ? "a DEBIT (money out)" : "a CREDIT (money in)";
@@ -116,6 +122,9 @@ public class TransactionReferenceValidator {
         }
         if (isReferencedByLending(transactionId)) {
             throw new ValidationException("Transaction " + transactionId + " is already linked to a lending record");
+        }
+        if (isReferencedByEpf(transactionId)) {
+            throw new ValidationException("Transaction " + transactionId + " is already linked to an EPF withdrawal");
         }
         if (transaction.getType() != TransactionType.CREDIT) {
             throw new ValidationException("A dividend must link a CREDIT (money in) transaction");
@@ -144,8 +153,19 @@ public class TransactionReferenceValidator {
         return transactionId != null && dividendRepository.existsByTransaction_Id(transactionId);
     }
 
+    /** An EPF withdrawal holds this transaction (no EPF repository here: a count query keeps the constructor stable). */
+    public boolean isReferencedByEpf(UUID transactionId) {
+        if (transactionId == null || entityManager == null) {
+            return false;
+        }
+        Number count = (Number) entityManager.createNativeQuery("SELECT COUNT(*) FROM epf_entry WHERE transaction_id = ?1")
+                .setParameter(1, transactionId.toString()).getSingleResult();
+        return count.longValue() > 0;
+    }
+
     public boolean isTransactionReferenced(UUID transactionId) {
-        return isReferencedByLoan(transactionId) || isReferencedByLending(transactionId) || isReferencedByDividend(transactionId);
+        return isReferencedByLoan(transactionId) || isReferencedByLending(transactionId)
+                || isReferencedByDividend(transactionId) || isReferencedByEpf(transactionId);
     }
 
     /**
@@ -159,7 +179,8 @@ public class TransactionReferenceValidator {
                 + "UNION ALL SELECT transaction_id FROM loan_payments WHERE transaction_id IS NOT NULL "
                 + "UNION ALL SELECT transaction_id FROM loan_charges WHERE transaction_id IS NOT NULL "
                 + "UNION ALL SELECT transaction_id FROM lendings WHERE transaction_id IS NOT NULL "
-                + "UNION ALL SELECT transaction_id FROM dividends WHERE transaction_id IS NOT NULL";
+                + "UNION ALL SELECT transaction_id FROM dividends WHERE transaction_id IS NOT NULL "
+                + "UNION ALL SELECT transaction_id FROM epf_entry WHERE transaction_id IS NOT NULL";
 
         List<?> results = entityManager.createNativeQuery(sql).getResultList();
         for (Object res : results) {
