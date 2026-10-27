@@ -27,7 +27,9 @@ public record EpfImportPreviewResponse(
             String name,
             @Nullable String memberId,
             @Nullable String establishmentId,
-            @Nullable String uanLast4) {
+            @Nullable String uanLast4,
+            /** First of the latest CONTRIBUTION wage month among the parsed rows; null when there is none. */
+            @Nullable LocalDate throughMonth) {
     }
 
     public record EpfImportRow(

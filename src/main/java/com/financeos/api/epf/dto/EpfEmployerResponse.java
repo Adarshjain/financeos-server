@@ -18,5 +18,14 @@ public record EpfEmployerResponse(
         EpfEmployerStatus status,
         /** Date of the settlement or transfer-out entry behind a TRANSFERRED / SETTLED status. */
         @Nullable LocalDate statusDate,
-        BigDecimal balance) {
+        BigDecimal balance,
+        /** The employee and employer split of {@code balance}, to prefill a final settlement. */
+        BigDecimal employeeBalance,
+        BigDecimal employerBalance,
+        /** Gross of its TRANSFER_OUT entries; null when there are none. */
+        @Nullable BigDecimal transferredOutAmount,
+        /** Employer on the other side of the latest transfer out that has one. */
+        @Nullable String transferredToEmployerName,
+        /** Whether a pension (EPS) withdrawal is recorded. */
+        boolean pensionWithdrawn) {
 }

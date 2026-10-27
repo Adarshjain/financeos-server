@@ -83,6 +83,8 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
     public static final String KIND_LOAN = "loan";
     public static final String KIND_LENDING = "lending";
     public static final String KIND_EPF = "epf";
+    /** The id of the single EPF row (the balance over all employers). */
+    public static final String EPF_ROW_ID = "epf";
     static final List<String> KIND_VALUES = List.of(
             AccountType.bank_account.name(), AccountType.credit_card.name(), AccountType.broker.name(),
             AccountType.generic.name(), KIND_LOAN, KIND_LENDING, KIND_EPF);
@@ -319,7 +321,7 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
         });
         for (BigDecimal total : balance) {
             try {
-                snapshot.rows().add(row("epf", "EPF", KIND_EPF,
+                snapshot.rows().add(row(EPF_ROW_ID, "EPF", KIND_EPF,
                         new NetWorthPlacement(FinancialPosition.asset, total.max(BigDecimal.ZERO)), today));
             } catch (RuntimeException e) {
                 skipped("epf", "epf", e);

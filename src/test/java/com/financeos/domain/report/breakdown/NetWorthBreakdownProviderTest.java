@@ -49,7 +49,7 @@ class NetWorthBreakdownProviderTest {
         when(accounts.section(any(), any(), anyInt(), anyInt())).thenReturn(Optional.empty());
         when(loans.section(any(), any(), anyInt(), anyInt())).thenReturn(Optional.empty());
         when(lendings.section(any(), any(), anyInt(), anyInt())).thenReturn(Optional.empty());
-        provider = new NetWorthBreakdownProvider(accounts, loans, lendings);
+        provider = new NetWorthBreakdownProvider(accounts, loans, lendings, mock(NetWorthEpfBreakdown.class));
     }
 
     @AfterEach

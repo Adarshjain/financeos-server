@@ -93,7 +93,14 @@ public class EpfImportService {
             }
         }
         entryRepository.saveAll(inserts);
-        return new EpfImportResultResponse(employer.getId(), employer.getName(), imported, replaced, skipped);
+        List<EpfEntry> all = entryRepository.findAllForUser(userId);
+        UUID employerKey = employer.getId();
+        LocalDate throughMonth = all.stream()
+                .filter(e -> e.getType() == EpfEntryType.CONTRIBUTION && e.getWageMonth() != null
+                        && e.getEmployer().getId().equals(employerKey))
+                .map(EpfEntry::getWageMonth).max(LocalDate::compareTo).orElse(null);
+        return new EpfImportResultResponse(employer.getId(), employer.getName(), imported, replaced, skipped,
+                EpfLedger.of(all).total().total(), throughMonth);
     }
 
     // ------------------------------------------------------------------ planning
@@ -139,7 +146,11 @@ public class EpfImportService {
                     employer != null && employer.getMemberId() != null ? employer.getMemberId() : passbook.memberId(),
                     employer != null && employer.getEstablishmentId() != null ? employer.getEstablishmentId()
                             : passbook.establishmentId(),
-                    last4(employer != null && employer.getUan() != null ? employer.getUan() : passbook.uan()));
+                    last4(employer != null && employer.getUan() != null ? employer.getUan() : passbook.uan()),
+                    rows.stream().map(p -> p.row)
+                            .filter(row -> EpfEntryType.valueOf(row.type().name()) == EpfEntryType.CONTRIBUTION
+                                    && row.wageMonth() != null)
+                            .map(row -> row.wageMonth().atDay(1)).max(LocalDate::compareTo).orElse(null));
             return new EpfImportPreviewResponse(emp, out, n, x, r, passbook.unrecognisedLines(), options);
         }
     }

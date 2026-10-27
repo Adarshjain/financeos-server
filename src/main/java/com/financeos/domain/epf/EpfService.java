@@ -165,9 +165,21 @@ public class EpfService {
             }
         }
         BigDecimal balance = data.ledger().total().total();
+        EpfSummaryResponse.EpfLatestContribution latest = latestContribution(data);
         return new EpfSummaryResponse(!data.employers().isEmpty() || !data.entries().isEmpty(), balance, fyEmployee,
                 fyEmployer, interestEstimate(data, today, fy, balance), lastInterest(data), pension(data, today, statuses),
-                staleThrough(data, today, statuses), uanLast4(data));
+                staleThrough(data, today, statuses), uanLast4(data), latest == null ? null : latest.wageMonth(), latest);
+    }
+
+    /** The latest CONTRIBUTION by wage month, then credited date; null when there is none. */
+    private static EpfSummaryResponse.EpfLatestContribution latestContribution(Data data) {
+        return data.entries().stream()
+                .filter(e -> e.getType() == EpfEntryType.CONTRIBUTION && e.getWageMonth() != null)
+                .max(Comparator.comparing(EpfEntry::getWageMonth).thenComparing(EpfEntry::getCreditedOn))
+                .map(e -> new EpfSummaryResponse.EpfLatestContribution(e.getEmployer().getId(), e.getWageMonth(),
+                        e.getCreditedOn(), nz(e.getEmployeeAmount()), nz(e.getEmployerAmount()),
+                        nz(e.getPensionAmount())))
+                .orElse(null);
     }
 
     private static EpfSummaryResponse.EpfLastInterest lastInterest(Data data) {
@@ -313,7 +325,7 @@ public class EpfService {
         Map<UUID, LocalDate> sortDate = new HashMap<>();
         for (EpfEmployer employer : data.employers().values()) {
             List<EpfEntry> entries = perEmployer.getOrDefault(employer.getId(), List.of());
-            out.add(employerResponse(employer, entries, data.ledger()));
+            out.add(employerResponse(employer, entries, data));
             LocalDate date = employer.getJoinedOn() != null ? employer.getJoinedOn()
                     : entries.stream().map(EpfEntry::getCreditedOn).min(LocalDate::compareTo).orElse(LocalDate.MIN);
             sortDate.put(employer.getId(), date);
@@ -325,10 +337,29 @@ public class EpfService {
         return out;
     }
 
-    private static EpfEmployerResponse employerResponse(EpfEmployer e, List<EpfEntry> entries, EpfLedger ledger) {
+    private static EpfEmployerResponse employerResponse(EpfEmployer e, List<EpfEntry> entries, Data data) {
+        EpfLedger ledger = data.ledger();
         Status status = statusOf(e, entries, ledger);
+        EpfLedger.Balance balance = ledger.balance(e.getId());
+        BigDecimal transferredOut = null;
+        String transferredTo = null;
+        boolean pensionWithdrawn = false;
+        for (EpfEntry entry : entries) { // ledger order, oldest first
+            if (entry.getType() == EpfEntryType.TRANSFER_OUT) {
+                transferredOut = (transferredOut == null ? BigDecimal.ZERO : transferredOut).add(EpfLedger.gross(entry));
+                EpfEntry counterpart = entry.getCounterpartEntryId() == null ? null
+                        : data.entriesById().get(entry.getCounterpartEntryId());
+                if (counterpart != null) {
+                    transferredTo = counterpart.getEmployer().getName();
+                }
+            } else if (entry.getType() == EpfEntryType.WITHDRAWAL
+                    && entry.getWithdrawalKind() == EpfWithdrawalKind.PENSION) {
+                pensionWithdrawn = true;
+            }
+        }
         return new EpfEmployerResponse(e.getId(), e.getName(), e.getMemberId(), e.getEstablishmentId(), e.getUan(),
-                e.getJoinedOn(), e.getLeftOn(), status.status(), status.date(), ledger.balance(e.getId()).total());
+                e.getJoinedOn(), e.getLeftOn(), status.status(), status.date(), balance.total(), balance.employee(),
+                balance.employer(), transferredOut, transferredTo, pensionWithdrawn);
     }
 
     public EpfEmployerResponse createEmployer(EpfEmployerRequest request) {
@@ -349,7 +380,7 @@ public class EpfService {
         employerRepository.flush();
         Data data = load();
         EpfEmployer employer = data.employers().get(id);
-        return employerResponse(employer, byEmployer(data).getOrDefault(id, List.of()), data.ledger());
+        return employerResponse(employer, byEmployer(data).getOrDefault(id, List.of()), data);
     }
 
     private void applyEmployer(EpfEmployer employer, EpfEmployerRequest request) {
@@ -447,7 +478,9 @@ public class EpfService {
                 e.getParticulars(), e.getSource(), e.getImportedAt(),
                 counterpartEmployer == null ? null : counterpartEmployer.getId(),
                 counterpartEmployer == null ? null : counterpartEmployer.getName(),
-                linked(e.getTransaction()), linked(suggestion), data.ledger().runningBalance(e).total());
+                linked(e.getTransaction()), linked(suggestion), data.ledger().runningBalance(e).total(),
+                e.getType() == EpfEntryType.INTEREST && e.getInterestFy() != null
+                        ? EpfInterestRates.rateFor(e.getInterestFy()) : null);
     }
 
     private static EpfLinkedTransaction linked(Transaction t) {
