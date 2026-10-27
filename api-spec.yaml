@@ -13424,6 +13424,9 @@ components:
         existsCount:
           type: integer
           format: int32
+        matchedOpeningCount:
+          type: integer
+          format: int32
         newCount:
           type: integer
           format: int32
@@ -13441,6 +13444,7 @@ components:
       - employer
       - employerOptions
       - existsCount
+      - matchedOpeningCount
       - newCount
       - replacesCount
       - rows
@@ -13492,6 +13496,14 @@ components:
     EpfImportRow:
       type: object
       properties:
+        computedEmployeeAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        computedEmployerAmount:
+          type: number
+          nullable: true
+          x-nullable: true
         creditedOn:
           type: string
           format: date

@@ -17,7 +17,9 @@ public record EpfImportPreviewResponse(
         int existsCount,
         int replacesCount,
         int unrecognisedLines,
-        List<EpfEmployerOption> employerOptions) {
+        List<EpfEmployerOption> employerOptions,
+        /** Later opening-balance rows left out because the entries before them already add up to them. */
+        int matchedOpeningCount) {
 
     public enum Status { NEW, EXISTS, REPLACES }
 
@@ -44,7 +46,10 @@ public record EpfImportPreviewResponse(
             BigDecimal pensionAmount,
             @Nullable String particulars,
             Status status,
-            @Nullable UUID replacesEntryId) {
+            @Nullable UUID replacesEntryId,
+            /** On a kept, mismatched later opening balance: what the entries before it add up to. */
+            @Nullable BigDecimal computedEmployeeAmount,
+            @Nullable BigDecimal computedEmployerAmount) {
     }
 
     /** An employer without a member id yet, which the passbook could be added to instead of a new one. */

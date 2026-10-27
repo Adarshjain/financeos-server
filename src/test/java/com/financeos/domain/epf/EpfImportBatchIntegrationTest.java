@@ -279,6 +279,92 @@ class EpfImportBatchIntegrationTest extends EpfIntegrationBase {
         assertTrue(api.getJson(BASE + "/employers", 200).get(0).get("memberId").isNull());
     }
 
+    private static final String OB_1 = "OB Int. Updated upto 31/03/2024 1,00,000 70,000 0";
+    private static final String C_24 = "Apr-2024 15-05-2024 CR Cont. For Due-Month 052024 60,000 15,000 7,200 5,950 1,250";
+    private static final String I_24 = "Int. Updated upto 31/03/2025 9,000 6,000 0";
+    private static final String OB_2 = "OB Int. Updated upto 31/03/2025 1,16,200 81,950 0";
+    private static final String OB_2_OFF = "OB Int. Updated upto 31/03/2025 1,20,000 85,000 0";
+    private static final String C_25 = "Apr-2025 15-05-2025 CR Cont. For Due-Month 052025 60,000 15,000 7,200 5,950 1,250";
+    private static final String I_25 = "Int. Updated upto 31/03/2026 10,000 7,000 0";
+
+    private static int count(JsonNode rows, String type) {
+        int n = 0;
+        for (JsonNode r : rows) if (type.equals(r.get("type").asText())) n++;
+        return n;
+    }
+
+    @Test
+    void aLaterOpeningBalanceThatMatchesTheEntriesBeforeItIsDropped() throws Exception {
+        List<String> names = List.of("fy24.pdf", "fy25.pdf");
+        List<byte[]> files = List.of(a(OB_1, C_24, I_24), a(OB_2, C_25, I_25));
+        JsonNode pv = preview(names, files, List.of(), 200).get("sections").get(0).get("preview");
+        assertEquals(5, pv.get("rows").size());
+        assertEquals(5, pv.get("newCount").asInt());
+        assertEquals(1, pv.get("matchedOpeningCount").asInt());
+        assertEquals(1, count(pv.get("rows"), "OPENING_BALANCE"));
+        JsonNode r = commit(names, files, List.of(), 200);
+        assertEquals(5, r.get("imported").asInt());
+        assertAmount("228300", r.get("balance")); // 133400 + 94900
+        assertEquals(1, count(entries(r.get("results").get(0)), "OPENING_BALANCE"));
+    }
+
+    @Test
+    void aLaterOpeningBalanceThatDiffersIsKeptWithTheComputedAmountsAndActsAsTheCorrection() throws Exception {
+        List<String> names = List.of("fy24.pdf", "fy25.pdf");
+        List<byte[]> files = List.of(a(OB_1, C_24, I_24), a(OB_2_OFF, C_25, I_25));
+        JsonNode pv = preview(names, files, List.of(), 200).get("sections").get(0).get("preview");
+        assertEquals(6, pv.get("rows").size());
+        assertEquals(0, pv.get("matchedOpeningCount").asInt());
+        JsonNode kept = null;
+        for (JsonNode row : pv.get("rows")) {
+            if ("OPENING_BALANCE".equals(row.get("type").asText()) && !row.get("computedEmployeeAmount").isNull()) kept = row;
+            else assertTrue(row.get("computedEmployeeAmount").isNull() && row.get("computedEmployerAmount").isNull());
+        }
+        assertEquals("NEW", kept.get("status").asText());
+        assertAmount("116200", kept.get("computedEmployeeAmount"));
+        assertAmount("81950", kept.get("computedEmployerAmount"));
+        assertAmount("120000", kept.get("employeeAmount"));
+        JsonNode r = commit(names, files, List.of(), 200);
+        assertEquals(6, r.get("imported").asInt());
+        assertAmount("235150", r.get("balance")); // 137200 + 97950
+    }
+
+    @Test
+    void aMatchingOpeningBalanceIsDroppedAgainstEntriesAlreadyInTheDatabase() throws Exception {
+        commit(List.of("fy24.pdf"), List.of(a(OB_1, C_24, I_24)), List.of(), 200);
+        JsonNode pv = preview(List.of("fy25.pdf"), List.of(a(OB_2, C_25, I_25)), List.of(), 200)
+                .get("sections").get(0).get("preview");
+        assertEquals(2, pv.get("rows").size());
+        assertEquals(1, pv.get("matchedOpeningCount").asInt());
+        JsonNode r = commit(List.of("fy25.pdf"), List.of(a(OB_2, C_25, I_25)), List.of(), 200);
+        assertEquals(2, r.get("imported").asInt());
+        assertAmount("228300", r.get("balance"));
+    }
+
+    @Test
+    void aFirstZeroOpeningBalanceIsLeftOutAndANonZeroOneIsKept() throws Exception {
+        String zero = "OB Int. Updated upto 31/03/2024 0 0 0";
+        JsonNode pv = preview(List.of("z.pdf"), List.of(a(zero, C_24)), List.of(), 200).get("sections").get(0).get("preview");
+        assertEquals(1, pv.get("rows").size());
+        assertEquals(0, count(pv.get("rows"), "OPENING_BALANCE"));
+        assertEquals(0, pv.get("matchedOpeningCount").asInt());
+        JsonNode kept = preview(List.of("k.pdf"), List.of(a(OB_1, C_24)), List.of(), 200).get("sections").get(0).get("preview");
+        assertEquals(2, kept.get("rows").size());
+        assertEquals(1, count(kept.get("rows"), "OPENING_BALANCE"));
+        assertTrue(kept.get("rows").get(0).get("computedEmployeeAmount").isNull());
+    }
+
+    @Test
+    void anOpeningBalanceAlreadyImportedStillShowsAsExists() throws Exception {
+        byte[] file = a(OB_1, C_24);
+        commit(List.of("fy24.pdf"), List.of(file), List.of(), 200);
+        JsonNode pv = preview(List.of("fy24.pdf"), List.of(file), List.of(), 200).get("sections").get(0).get("preview");
+        assertEquals(2, pv.get("rows").size());
+        assertEquals(2, pv.get("existsCount").asInt());
+        assertEquals(0, pv.get("matchedOpeningCount").asInt());
+        assertEquals("EXISTS", pv.get("rows").get(0).get("status").asText());
+    }
+
     private JsonNode entries(JsonNode result) throws Exception {
         return api.getJson(BASE + "/entries?employerId=" + result.get("employerId").asText() + "&size=100", 200)
                 .get("content");
