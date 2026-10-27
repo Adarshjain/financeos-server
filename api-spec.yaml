@@ -3161,6 +3161,84 @@ paths:
           description: Error response
       tags:
       - epf-controller
+  /api/v1/epf/import/batch/commit:
+    post:
+      operationId: commitEpfImportBatch
+      parameters:
+      - in: query
+        name: assign
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+              required:
+              - files
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EpfImportBatchResultResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-import-controller
+  /api/v1/epf/import/batch/preview:
+    post:
+      operationId: previewEpfImportBatch
+      parameters:
+      - in: query
+        name: assign
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+              required:
+              - files
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EpfImportBatchPreviewResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-import-controller
   /api/v1/epf/import/commit:
     post:
       operationId: commitEpfImport
@@ -13262,6 +13340,49 @@ components:
       - source
       - suggestion
       - type
+    EpfImportBatchPreviewResponse:
+      type: object
+      properties:
+        refused:
+          type: array
+          items:
+            $ref: "#/components/schemas/EpfImportRefusedFile"
+        sections:
+          type: array
+          items:
+            $ref: "#/components/schemas/EpfImportSection"
+      required:
+      - refused
+      - sections
+    EpfImportBatchResultResponse:
+      type: object
+      properties:
+        balance:
+          type: number
+        imported:
+          type: integer
+          format: int32
+        refused:
+          type: array
+          items:
+            $ref: "#/components/schemas/EpfImportRefusedFile"
+        replaced:
+          type: integer
+          format: int32
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/EpfImportResultResponse"
+        skipped:
+          type: integer
+          format: int32
+      required:
+      - balance
+      - imported
+      - refused
+      - replaced
+      - results
+      - skipped
     EpfImportEmployer:
       type: object
       properties:
@@ -13324,6 +13445,19 @@ components:
       - replacesCount
       - rows
       - unrecognisedLines
+    EpfImportRefusedFile:
+      type: object
+      properties:
+        code:
+          type: string
+        fileName:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - fileName
+      - message
     EpfImportResultResponse:
       type: object
       properties:
@@ -13420,6 +13554,21 @@ components:
       - pensionAmount
       - status
       - type
+    EpfImportSection:
+      type: object
+      properties:
+        fileNames:
+          type: array
+          items:
+            type: string
+        key:
+          type: string
+        preview:
+          $ref: "#/components/schemas/EpfImportPreviewResponse"
+      required:
+      - fileNames
+      - key
+      - preview
     EpfInterestEstimate:
       type: object
       properties:

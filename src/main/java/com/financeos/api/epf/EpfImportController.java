@@ -1,5 +1,7 @@
 package com.financeos.api.epf;
 
+import com.financeos.api.epf.dto.EpfImportBatchPreviewResponse;
+import com.financeos.api.epf.dto.EpfImportBatchResultResponse;
 import com.financeos.api.epf.dto.EpfImportPreviewResponse;
 import com.financeos.api.epf.dto.EpfImportResultResponse;
 import com.financeos.domain.epf.EpfImportService;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -34,5 +38,26 @@ public class EpfImportController {
     public EpfImportResultResponse commitEpfImport(@RequestPart("file") MultipartFile file,
                                           @RequestParam(required = false) UUID employerId) throws IOException {
         return importService.commit(file.getBytes(), employerId);
+    }
+
+    @PostMapping(value = "/batch/preview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public EpfImportBatchPreviewResponse previewEpfImportBatch(@RequestPart("files") List<MultipartFile> files,
+                                            @RequestParam(required = false) List<String> assign) throws IOException {
+        return importService.previewBatch(toBatch(files), assign == null ? List.of() : assign);
+    }
+
+    @PostMapping(value = "/batch/commit", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public EpfImportBatchResultResponse commitEpfImportBatch(@RequestPart("files") List<MultipartFile> files,
+                                            @RequestParam(required = false) List<String> assign) throws IOException {
+        return importService.commitBatch(toBatch(files), assign == null ? List.of() : assign);
+    }
+
+    private static List<EpfImportService.BatchFile> toBatch(List<MultipartFile> files) throws IOException {
+        List<EpfImportService.BatchFile> out = new ArrayList<>();
+        for (MultipartFile f : files) {
+            String name = f.getOriginalFilename();
+            out.add(new EpfImportService.BatchFile(name == null || name.isBlank() ? "passbook.pdf" : name, f.getBytes()));
+        }
+        return out;
     }
 }
