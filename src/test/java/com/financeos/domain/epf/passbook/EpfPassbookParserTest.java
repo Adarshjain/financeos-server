@@ -102,6 +102,35 @@ class EpfPassbookParserTest {
     }
 
     @Test
+    void rowsWhoseDueMonthAndAmountsWrapToTheNextLine() throws Exception {
+        ParsedPassbook p = parser.parse(pdf(withHeader(
+                "Sep-2026 15-10-2026 CR Cont. for the Due-Month",
+                "102026 60,000 15,000 7,200 5,950 1,250",
+                "Oct-2026 14-11-2026 CR Cont. for the Due-Month",
+                "112026 60,000 15,000 7,300 6,050 1,250",
+                "Int. Updated upto 31/03/2027 [ Provisional Interest 1 ]",
+                "0 0 0",
+                "31-03-2027 Total Contributions for the year [2026] 14,500 12,000 2,500")));
+        assertThat(p.rows()).extracting(ParsedPassbookRow::type)
+                .containsExactly(PassbookRowType.CONTRIBUTION, PassbookRowType.CONTRIBUTION);
+        assertThat(p.rows().get(0).wageMonth()).isEqualTo(YearMonth.of(2026, 9));
+        assertThat(p.rows().get(1).employee()).isEqualByComparingTo("7300");
+        assertThat(p.rows().get(1).employer()).isEqualByComparingTo("6050");
+        assertThat(p.rows().get(1).pension()).isEqualByComparingTo("1250");
+        assertThat(p.unrecognisedLines()).isZero();
+    }
+
+    @Test
+    void aWrappedRowWithNoAmountsAfterItIsUnread() throws Exception {
+        ParsedPassbook p = parser.parse(pdf(withHeader(
+                "Sep-2026 15-10-2026 CR Cont. for the Due-Month",
+                "Oct-2026 14-11-2026 CR Cont. for the Due-Month 112026 60,000 15,000 7,300 6,050 1,250",
+                "Nov-2026 15-12-2026 CR Cont. for the Due-Month")));
+        assertThat(p.rows()).hasSize(1);
+        assertThat(p.unrecognisedLines()).isEqualTo(2);
+    }
+
+    @Test
     void olderSlashedHeader() throws Exception {
         ParsedPassbook p = parser.parse(pdf(List.of(
                 "PF ACCOUNT NUMBER : KN/BNG/0012345/000/1234567",

@@ -69,6 +69,8 @@ public class EpfPassbookParser {
         int unrecognised = 0;
         ClosingBalance closing = null;
         Raw last = null;
+        // A row whose particulars wrapped: its due month and amounts come on the next line.
+        Raw pending = null;
 
         for (String rawLine : lines) {
             String line = rawLine.replace(' ', ' ').trim().replaceAll("\\s+", " ");
@@ -90,6 +92,20 @@ public class EpfPassbookParser {
             if (estName == null && (m = EST_NAME_LABEL.matcher(line)).find()) estName = m.group(1).trim();
 
             String lower = line.toLowerCase(Locale.ROOT);
+            if (pending != null) {
+                Raw p = pending;
+                pending = null;
+                List<BigDecimal> tail = new ArrayList<>();
+                String rest = stripAmounts(line, tail);
+                if (tail.size() >= 2 && rest.matches("\\d{0,6}")) {
+                    if (!rest.isEmpty()) p.particulars = p.particulars + " " + rest;
+                    p.amounts = tail;
+                    raws.add(p);
+                    last = p;
+                    continue;
+                }
+                unrecognised++;
+            }
             if (lower.startsWith("total ") || lower.startsWith("grand total")) {
                 last = null;
                 continue;
@@ -139,9 +155,23 @@ public class EpfPassbookParser {
                 last.continuations++;
                 continue;
             }
-            if (date != null && type != null) unrecognised++;
+            if (date != null && type != null) {
+                if (amounts.isEmpty()) {
+                    Raw r = new Raw();
+                    r.type = type;
+                    r.wageMonth = wm;
+                    r.date = date;
+                    r.particulars = part;
+                    pending = r;
+                    last = null;
+                    continue;
+                }
+                unrecognised++;
+            }
             last = null;
         }
+
+        if (pending != null) unrecognised++;
 
         if (memberId == null) {
             Matcher m = MEMBER_ANY.matcher(text);
