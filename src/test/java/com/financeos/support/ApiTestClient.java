@@ -86,6 +86,21 @@ public final class ApiTestClient {
         return json(response, expected, "POST " + path);
     }
 
+    /** POSTs a multipart form with several {@code files} parts (name, bytes) and repeated {@code assign} params. */
+    public JsonNode postMultipartFiles(String path, java.util.List<String> names, java.util.List<byte[]> contents,
+                                       java.util.List<String> assign, int expected) throws Exception {
+        var request = MockMvcRequestBuilders.multipart(path);
+        request.cookie(session);
+        for (int i = 0; i < names.size(); i++) {
+            request.file(new org.springframework.mock.web.MockMultipartFile("files", names.get(i), "application/pdf",
+                    contents.get(i)));
+        }
+        if (!assign.isEmpty()) request.param("assign", assign.toArray(new String[0]));
+        MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        return json(response, expected, "POST " + path);
+    }
+
     /** PATCHes {@code body} as JSON and parses the response, failing unless the status is {@code expected}. */
     public JsonNode patchJson(String path, String jsonBody, int expected) throws Exception {
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.patch(path).cookie(session)
