@@ -115,6 +115,11 @@ public class EpfPassbookParser {
             String part = h.group(5).trim();
             String pl = part.toLowerCase(Locale.ROOT);
             boolean obOrInt = pl.matches("^(ob\\b|opening balance|int\\b|interest).*");
+            // A year's totals can carry a date, wage month or CR/DR before "Total": a summary, never an entry.
+            if (isSummary(pl)) {
+                last = null;
+                continue;
+            }
 
             if (amounts.size() >= 2 && (date != null || type != null || obOrInt)) {
                 Raw r = new Raw();
@@ -152,6 +157,12 @@ public class EpfPassbookParser {
         }
         if (rows.isEmpty()) throw notPassbook();
         return new ParsedPassbook(uan, memberId, estId, estName, List.copyOf(rows), unrecognised, closing);
+    }
+
+    /** "Total Contributions for the year [2025]", "Grand Total …": the passbook's own sums. */
+    static boolean isSummary(String particulars) {
+        String p = particulars.replaceFirst("^[\\[\\]\\s\\d-]+", "");
+        return p.startsWith("total") || p.startsWith("grand total") || particulars.contains("for the year");
     }
 
     private ParsedPassbookRow classify(int index, Raw r) {

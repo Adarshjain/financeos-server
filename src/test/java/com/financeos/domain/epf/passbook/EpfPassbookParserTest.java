@@ -87,6 +87,21 @@ class EpfPassbookParserTest {
     }
 
     @Test
+    void yearTotalsWithADateWageMonthOrTypeInFrontAreNotEntries() throws Exception {
+        ParsedPassbook p = parser.parse(pdf(withHeader(
+                "Apr-2026 15-05-2026 CR Cont. For Due-Month 052026 60,000 15,000 7,200 5,950 1,250",
+                "31-03-2027 Total Contributions for the year [2026] 7,200 5,950 1,250",
+                "Mar-2027 CR Total Transfer-Ins for the year [2026] 0 0 0",
+                "DR Total Withdrawals for the year [ 2026 ] 0 0 0",
+                "31-03-2027 CR Grand Total 7,200 5,950 1,250",
+                "15-04-2027 CR [2026] Contributions for the year 7,200 5,950 1,250",
+                "Int. Updated upto 31/03/2027 1,410 770 0")));
+        assertThat(p.rows()).extracting(ParsedPassbookRow::type)
+                .containsExactly(PassbookRowType.CONTRIBUTION, PassbookRowType.INTEREST);
+        assertThat(p.unrecognisedLines()).isZero();
+    }
+
+    @Test
     void olderSlashedHeader() throws Exception {
         ParsedPassbook p = parser.parse(pdf(List.of(
                 "PF ACCOUNT NUMBER : KN/BNG/0012345/000/1234567",
