@@ -26,6 +26,10 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.IdentityHashMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -166,6 +170,8 @@ public class EpfImportService {
         final ParsedPassbookRow row;
         final Status status;
         final EpfEntry replaces;
+        BigDecimal computedEmployee;
+        BigDecimal computedEmployer;
 
         Planned(ParsedPassbookRow row, Status status, EpfEntry replaces) {
             this.row = row;
@@ -179,6 +185,7 @@ public class EpfImportService {
         EpfEmployer employer; // null = will be created
         String newName;
         List<Planned> rows = new ArrayList<>();
+        int matchedOpeningCount;
         List<EpfEmployerOption> options = new ArrayList<>();
 
         EpfImportPreviewResponse toPreview() {
@@ -195,7 +202,7 @@ public class EpfImportService {
                         row.withdrawalKind() == null ? null : EpfWithdrawalKind.valueOf(row.withdrawalKind().name()),
                         row.wageMonth() == null ? null : row.wageMonth().atDay(1), row.creditedOn(), row.interestFy(),
                         row.employee(), row.employer(), row.pension(), row.particulars(), p.status,
-                        p.replaces == null ? null : p.replaces.getId()));
+                        p.replaces == null ? null : p.replaces.getId(), p.computedEmployee, p.computedEmployer));
             }
             EpfImportPreviewResponse.EpfImportEmployer emp = new EpfImportPreviewResponse.EpfImportEmployer(
                     employer == null ? null : employer.getId(),
@@ -208,7 +215,8 @@ public class EpfImportService {
                             .filter(row -> EpfEntryType.valueOf(row.type().name()) == EpfEntryType.CONTRIBUTION
                                     && row.wageMonth() != null)
                             .map(row -> row.wageMonth().atDay(1)).max(LocalDate::compareTo).orElse(null));
-            return new EpfImportPreviewResponse(emp, out, n, x, r, passbook.unrecognisedLines(), options);
+            return new EpfImportPreviewResponse(emp, out, n, x, r, passbook.unrecognisedLines(), options,
+                    matchedOpeningCount);
         }
     }
 
@@ -335,6 +343,8 @@ public class EpfImportService {
                 plan.rows.add(match != null ? new Planned(row, Status.REPLACES, match)
                         : new Planned(row, Status.NEW, null));
             }
+            settleOpeningBalances(plan, plan.employer == null ? List.of()
+                    : entriesByEmployer.getOrDefault(plan.employer.getId(), List.of()));
             SectionPlan sp = new SectionPlan();
             sp.key = g.key;
             sp.fileNames = g.fileNames;
@@ -342,6 +352,55 @@ public class EpfImportService {
             bp.sections.add(sp);
         }
         return bp;
+    }
+
+    /**
+     * Opening-balance rows are checks, not entries: the earliest one is kept (unless it is 0/0), a later new one is
+     * dropped when the timeline before it already adds up to it, else kept with the amounts the entries come to.
+     */
+    private static void settleOpeningBalances(Plan plan, List<EpfEntry> existing) {
+        Set<EpfEntry> replaced = Collections.newSetFromMap(new IdentityHashMap<>());
+        for (Planned p : plan.rows) if (p.status == Status.REPLACES) replaced.add(p.replaces);
+        Instant now = Instant.EPOCH;
+        List<EpfEntry> timeline = new ArrayList<>();
+        List<Planned> owners = new ArrayList<>();
+        for (EpfEntry e : existing) {
+            if (replaced.contains(e)) continue;
+            timeline.add(e);
+            owners.add(null);
+        }
+        for (Planned p : plan.rows) {
+            if (p.status == Status.EXISTS) continue;
+            EpfEntry unsaved = new EpfEntry();
+            fill(unsaved, p.row, now);
+            timeline.add(unsaved);
+            owners.add(p);
+        }
+        Integer[] order = new Integer[timeline.size()];
+        for (int i = 0; i < order.length; i++) order[i] = i;
+        Arrays.sort(order, Comparator.<Integer, LocalDate>comparing(i -> timeline.get(i).getCreditedOn())
+                .thenComparing(i -> timeline.get(i).getType().ordinal()));
+        EpfLedger.Balance balance = EpfLedger.Balance.ZERO;
+        Set<Planned> dropped = Collections.newSetFromMap(new IdentityHashMap<>());
+        for (int k = 0; k < order.length; k++) {
+            EpfEntry entry = timeline.get(order[k]);
+            Planned p = owners.get(order[k]);
+            if (p != null && p.status == Status.NEW && entry.getType() == EpfEntryType.OPENING_BALANCE) {
+                boolean zero = entry.getEmployeeAmount().signum() == 0 && entry.getEmployerAmount().signum() == 0;
+                if (k == 0) {
+                    if (zero) dropped.add(p);
+                } else if (balance.employee().compareTo(entry.getEmployeeAmount()) == 0
+                        && balance.employer().compareTo(entry.getEmployerAmount()) == 0) {
+                    dropped.add(p);
+                    plan.matchedOpeningCount++;
+                } else {
+                    p.computedEmployee = balance.employee();
+                    p.computedEmployer = balance.employer();
+                }
+            }
+            balance = EpfLedger.apply(balance, entry);
+        }
+        plan.rows.removeAll(dropped);
     }
 
     private static Map<String, UUID> parseAssign(List<String> params) {
