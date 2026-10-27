@@ -69,16 +69,18 @@ public class InvestmentController {
         return investmentService.getTransactions(brokerAccountId, instrumentId, holdingId, search, type, fy, pageable);
     }
 
-    /** One row per instrument across broker accounts; sort = name (default) | return_pct | return_abs. */
+    /** One row per instrument across broker accounts; sort = name (default) | return_pct | return_abs; dir = asc | desc (default: name A-Z, returns best first).
+     *  Always grouped by asset type first (stock, mutual_fund, etf), then sorted, then paged. */
     @GetMapping("/holdings")
     public HoldingsResponse getHoldings(
             @RequestParam(required = false) UUID brokerAccountId,
             @RequestParam(required = false) String assetType,
             @RequestParam(required = false) String search,
             @RequestParam(required = false) String sort,
+            @RequestParam(required = false) String dir,
             @RequestParam(required = false) Integer page,
             @RequestParam(required = false) Integer size) {
-        return holdingsService.list(brokerAccountId, assetType, search, sort, page, size);
+        return holdingsService.list(brokerAccountId, assetType, search, sort, dir, page, size);
     }
 
     @GetMapping("/holdings/{instrumentId}")

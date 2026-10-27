@@ -219,7 +219,7 @@ class HoldingsEndpointsIntegrationTest {
     @Test
     void oneRowPerInstrumentAcrossBrokersWithSoldOutHidden() throws Exception {
         JsonNode r = holdings("");
-        assertEquals(List.of("Alpha Co", "Beta Bond Fund", "Big Corp", "Delta Old", "Epsilon Ltd", "Zeta Corp"), names(r));
+        assertEquals(List.of("Alpha Co", "Big Corp", "Delta Old", "Epsilon Ltd", "Zeta Corp", "Beta Bond Fund"), names(r));
 
         JsonNode a = row(r, "Alpha Co");
         assertEquals(alpha.getId().toString(), a.get("instrumentId").asText());
@@ -333,13 +333,13 @@ class HoldingsEndpointsIntegrationTest {
 
     @Test
     void sortByReturnPercentIsBestFirstWithNoReturnLast() throws Exception {
-        assertEquals(List.of("Big Corp", "Alpha Co", "Beta Bond Fund", "Zeta Corp", "Epsilon Ltd", "Delta Old"),
+        assertEquals(List.of("Big Corp", "Alpha Co", "Zeta Corp", "Epsilon Ltd", "Delta Old", "Beta Bond Fund"),
                 names(holdings("?sort=return_pct")));
     }
 
     @Test
     void sortByReturnAmountIsBestFirst() throws Exception {
-        assertEquals(List.of("Big Corp", "Alpha Co", "Zeta Corp", "Beta Bond Fund", "Delta Old", "Epsilon Ltd"),
+        assertEquals(List.of("Big Corp", "Alpha Co", "Zeta Corp", "Delta Old", "Epsilon Ltd", "Beta Bond Fund"),
                 names(holdings("?sort=return_abs")));
     }
 
@@ -352,7 +352,7 @@ class HoldingsEndpointsIntegrationTest {
     @Test
     void paginationTotalsDescribeTheFilteredSetNotThePage() throws Exception {
         JsonNode p1 = holdings("?size=2&page=1");
-        assertEquals(List.of("Big Corp", "Delta Old"), names(p1));
+        assertEquals(List.of("Delta Old", "Epsilon Ltd"), names(p1));
         assertEquals(6, p1.get("totalElements").asInt());
         assertEquals(3, p1.get("totalPages").asInt());
         assertEquals(1, p1.get("page").asInt());

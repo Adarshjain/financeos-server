@@ -5258,6 +5258,11 @@ paths:
         schema:
           type: string
       - in: query
+        name: dir
+        required: false
+        schema:
+          type: string
+      - in: query
         name: page
         required: false
         schema:
