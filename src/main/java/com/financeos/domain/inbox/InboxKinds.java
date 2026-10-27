@@ -21,10 +21,11 @@ public final class InboxKinds {
     public static final String JOB = "job";
     public static final String REWARD_MILESTONE = "reward_milestone";
     public static final String REWARD_CAP = "reward_cap";
+    public static final String EPF_MATCH = "epf_match";
 
     /** Every kind the inbox can produce, in display order. */
     public static final List<String> ALL = List.of(BILL, EMI, LENDING, STATEMENT_EXPECTED, STATEMENT_DETAILS_MISSING,
-            GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP);
+            GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP, EPF_MATCH);
 
     /** The two summary rows have fixed keys; everything else is keyed by its subject. */
     public static final String KEY_GMAIL_ATTENTION = "gmail-attention";
@@ -84,6 +85,11 @@ public final class InboxKinds {
         return windowStart == null ? "reward-cap:" + ownerId : "reward-cap:" + ownerId + ":" + windowStart;
     }
 
+    /** One per withdrawal and candidate credit, so a dismissed pairing never hides a different one. */
+    public static String epfMatchKey(UUID entryId, UUID transactionId) {
+        return "epf_match:" + entryId + ":" + transactionId;
+    }
+
     /** The push deep link for a row: the inbox, focused on that key. */
     public static String inboxHref(String key) {
         return "/inbox?item=" + key;
@@ -109,6 +115,7 @@ public final class InboxKinds {
             case JOB -> "Finished jobs";
             case REWARD_MILESTONE -> "Reward milestones";
             case REWARD_CAP -> "Reward caps";
+            case EPF_MATCH -> "EPF withdrawals to match";
             default -> kind;
         };
     }
@@ -126,6 +133,7 @@ public final class InboxKinds {
             case REVIEW -> "/transactions/review";
             case JOB -> "/settings/activity";
             case REWARD_MILESTONE, REWARD_CAP -> "/rewards";
+            case EPF_MATCH -> "/investments/epf";
             default -> "/inbox";
         };
     }

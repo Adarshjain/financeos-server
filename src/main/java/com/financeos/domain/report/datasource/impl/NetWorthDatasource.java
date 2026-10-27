@@ -8,6 +8,7 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountService;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.FinancialPosition;
+import com.financeos.domain.epf.EpfService;
 import com.financeos.domain.lending.LendingService;
 import com.financeos.domain.loan.LoanService;
 import com.financeos.domain.loan.LoanStatus;
@@ -81,9 +82,10 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
 
     public static final String KIND_LOAN = "loan";
     public static final String KIND_LENDING = "lending";
+    public static final String KIND_EPF = "epf";
     static final List<String> KIND_VALUES = List.of(
             AccountType.bank_account.name(), AccountType.credit_card.name(), AccountType.broker.name(),
-            AccountType.generic.name(), KIND_LOAN, KIND_LENDING);
+            AccountType.generic.name(), KIND_LOAN, KIND_LENDING, KIND_EPF);
     static final List<String> SIDE_VALUES = List.of(FinancialPosition.asset.name(), FinancialPosition.liability.name());
     /** How each kind reads for people; the generic account type is a wallet or cash account in the app. */
     static final Map<String, String> KIND_LABELS = DatasourceCatalog.valueLabels(
@@ -92,7 +94,8 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
             AccountType.broker.name(), "Broker",
             AccountType.generic.name(), "Wallet/Cash",
             KIND_LOAN, "Loan",
-            KIND_LENDING, "Lending");
+            KIND_LENDING, "Lending",
+            KIND_EPF, "EPF");
     /** Underlying-only grouping: broker accounts are investments, other liability-side rows liabilities, the rest assets. */
     public static final String GROUP_ASSETS = "assets";
     public static final String GROUP_LIABILITIES = "liabilities";
@@ -114,12 +117,20 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
     private final AccountService accountService;
     private final LoanService loanService;
     private final LendingService lendingService;
+    /** Null in plain unit tests that do not cover the EPF row. */
+    private final EpfService epfService;
     private final SectionRunner sectionRunner;
     private final List<FieldDef> fields;
 
-    @Autowired
     public NetWorthDatasource(AccountService accountService, LoanService loanService, LendingService lendingService,
                               SectionRunner sectionRunner) {
+        this(accountService, loanService, lendingService, sectionRunner, null);
+    }
+
+    @Autowired
+    public NetWorthDatasource(AccountService accountService, LoanService loanService, LendingService lendingService,
+                              SectionRunner sectionRunner, EpfService epfService) {
+        this.epfService = epfService;
         this.accountService = accountService;
         this.loanService = loanService;
         this.lendingService = lendingService;
@@ -239,6 +250,7 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
         accountRows(today, snapshot);
         loanRows(today, snapshot);
         lendingRows(today, snapshot);
+        epfRows(today, snapshot);
         return snapshot;
     }
 
@@ -296,6 +308,26 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
         }
     }
 
+    /** One row for the EPF balance over all employers; none when the user has no EPF employers. */
+    private void epfRows(LocalDate today, Snapshot snapshot) {
+        if (epfService == null) {
+            return;
+        }
+        List<BigDecimal> balance = guarded("epf", () -> {
+            BigDecimal total = epfService.getTotalBalanceOrNull();
+            return total == null ? List.of() : List.of(total);
+        });
+        for (BigDecimal total : balance) {
+            try {
+                snapshot.rows().add(row("epf", "EPF", KIND_EPF,
+                        new NetWorthPlacement(FinancialPosition.asset, total.max(BigDecimal.ZERO)), today));
+            } catch (RuntimeException e) {
+                skipped("epf", "epf", e);
+                snapshot.notCounted().add(failed("epf", "EPF", KIND_EPF));
+            }
+        }
+    }
+
     // ------------------------------------------------------------------ helpers
 
     private static Map<String, Object> row(String id, String name, String kind, NetWorthPlacement placement,
@@ -318,7 +350,7 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
         if (side == FinancialPosition.liability) {
             return GROUP_LIABILITIES;
         }
-        return AccountType.broker.name().equals(kind) ? GROUP_INVESTMENTS : GROUP_ASSETS;
+        return AccountType.broker.name().equals(kind) || KIND_EPF.equals(kind) ? GROUP_INVESTMENTS : GROUP_ASSETS;
     }
 
     private static String id(UUID id) {

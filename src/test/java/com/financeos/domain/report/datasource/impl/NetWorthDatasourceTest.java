@@ -77,7 +77,7 @@ class NetWorthDatasourceTest {
         assertEquals("Net worth", datasource.label());
         assertEquals(List.of("id", "name", "kind", "side", "value", "signedValue", "asOf"),
                 datasource.fields().stream().map(FieldDef::name).toList());
-        assertEquals(List.of("bank_account", "credit_card", "broker", "generic", "loan", "lending"),
+        assertEquals(List.of("bank_account", "credit_card", "broker", "generic", "loan", "lending", "epf"),
                 datasource.field("kind").values());
         assertEquals(List.of("asset", "liability"), datasource.field("side").values());
         for (String measure : List.of("value", "signedValue")) {
