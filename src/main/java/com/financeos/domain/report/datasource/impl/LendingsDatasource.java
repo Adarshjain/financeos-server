@@ -8,6 +8,7 @@ import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ComputedReportDatasource;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
+import com.financeos.domain.report.datasource.DatasourceCatalog.FieldGuard;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
 import org.springframework.stereotype.Component;
@@ -104,7 +105,7 @@ public class LendingsDatasource implements ComputedReportDatasource {
                 new FieldDef("counterpartyName", "Counterparty", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("direction", "Direction", FieldType.ENUM, FieldRole.DIMENSION, null, directionValues, null, CHART_TABLE),
                 new FieldDef("kind", "Entry Kind", FieldType.ENUM, FieldRole.DIMENSION, null, kindValues, null, CHART_TABLE),
-                new FieldDef("amount", "Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
+                new FieldDef("amount", "Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency").withGuards(FieldGuard.needs(List.of("direction"), "adds money lent and borrowed together"), FieldGuard.needs(List.of("kind"), "adds new money and repayments together")),
                 new FieldDef("signedAmount", "Signed Amount", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("notes", "Notes", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
                 new FieldDef("isLinked", "Is Linked", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),

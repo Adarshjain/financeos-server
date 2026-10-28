@@ -9,6 +9,7 @@ import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ComputedReportDatasource;
 import com.financeos.domain.report.datasource.DatasourceCatalog;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
+import com.financeos.domain.report.datasource.DatasourceCatalog.FieldGuard;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
 import org.springframework.stereotype.Component;
@@ -124,7 +125,7 @@ public class RealizedLotsDatasource implements ComputedReportDatasource {
                 new FieldDef("realizedPnl", "Realized P&L", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.COUNT, Aggregation.MIN, Aggregation.MAX), null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("buyValue", "Buy Value", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("sellValue", "Sell Value", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, KPI_CHART_TABLE, "currency"),
-                new FieldDef("quantity", "Quantity", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, TABLE_ONLY, "number"),
+                new FieldDef("quantity", "Quantity", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, TABLE_ONLY, "number").withGuards(FieldGuard.needs(List.of("instrument"), "adds up units of different instruments")),
                 new FieldDef("holdingDays", "Holding Days", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, TABLE_ONLY, "number")
         );
     }

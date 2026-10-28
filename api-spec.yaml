@@ -13849,6 +13849,10 @@ components:
           type: boolean
         format:
           type: string
+        guards:
+          type: array
+          items:
+            $ref: "#/components/schemas/FieldGuard"
         idField:
           type: string
         label:
@@ -13884,6 +13888,7 @@ components:
       - dynamic
       - filterable
       - format
+      - guards
       - idField
       - label
       - name
@@ -13891,6 +13896,36 @@ components:
       - type
       - valueLabels
       - values
+    FieldGuard:
+      type: object
+      properties:
+        aggregations:
+          type: array
+          items:
+            type: string
+            enum:
+            - sum
+            - avg
+            - count
+            - min
+            - max
+          uniqueItems: true
+        fields:
+          type: array
+          items:
+            type: string
+        kind:
+          type: string
+          enum:
+          - no_aggregation
+          - needs
+          - avoid
+          - no_filter
+        reason:
+          type: string
+      required:
+      - kind
+      - reason
     FilterClause:
       type: object
       properties:

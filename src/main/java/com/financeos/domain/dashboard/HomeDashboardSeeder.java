@@ -177,7 +177,7 @@ public class HomeDashboardSeeder {
             return null;
         }
 
-        Report report = reportService.create(new CreateReportRequest(SPEND_REPORT_NAME,
+        Report report = reportService.createUnguarded(new CreateReportRequest(SPEND_REPORT_NAME,
                 "Debits this month, by category", ReportType.CHART, datasourceName, definition));
         return report.getId();
     }

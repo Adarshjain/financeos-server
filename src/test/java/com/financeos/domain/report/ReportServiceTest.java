@@ -36,7 +36,7 @@ class ReportServiceTest {
     void setUp() {
         reportRepository = mock(ReportRepository.class);
         service = new ReportService(reportRepository, mock(ReportDefinitionValidator.class),
-                mock(UserRepository.class), new ObjectMapper());
+                mock(ReportCombinationGuard.class), mock(UserRepository.class), new ObjectMapper());
         owner = new User();
         owner.setId(userId);
         UserContext.setCurrentUserId(userId);
@@ -103,5 +103,79 @@ class ReportServiceTest {
 
         assertThrows(ResourceNotFoundException.class, () -> service.duplicate(missing));
         verify(reportRepository, never()).save(any());
+    }
+
+    // ------------------------------------------------------------ combination guards
+
+    private static final String CREATE_KPI = "{\"measure\":\"capLimit\",\"aggregation\":\"sum\",\"filters\":[]}";
+
+    private ReportService guardedService(ReportCombinationGuard guard) {
+        return new ReportService(reportRepository, mock(ReportDefinitionValidator.class), guard,
+                mock(UserRepository.class), new ObjectMapper());
+    }
+
+    @Test
+    void createRejectsABlockedCombination() throws Exception {
+        ReportCombinationGuard guard = mock(ReportCombinationGuard.class);
+        org.mockito.Mockito.doThrow(new ValidationException("Cap limit mixes ₹ and points."))
+                .when(guard).enforce(org.mockito.ArgumentMatchers.eq("reward_caps"), any());
+        ObjectMapper mapper = new ObjectMapper();
+
+        assertThrows(ValidationException.class, () -> guardedService(guard).create(
+                new com.financeos.api.report.dto.CreateReportRequest("Caps", null, ReportType.KPI, "reward_caps",
+                        mapper.readTree(CREATE_KPI))));
+        verify(reportRepository, never()).save(any(Report.class));
+    }
+
+    private Report stored(String definitionJson) {
+        Report r = new Report(owner, "Caps", ReportType.KPI, "reward_caps", definitionJson);
+        r.setId(UUID.randomUUID());
+        when(reportRepository.findById(r.getId())).thenReturn(Optional.of(r));
+        return r;
+    }
+
+    @Test
+    void updateWithAChangedDefinitionIsHeldToTheGuards() throws Exception {
+        ReportCombinationGuard guard = mock(ReportCombinationGuard.class);
+        org.mockito.Mockito.doThrow(new ValidationException("blocked")).when(guard).enforce(
+                org.mockito.ArgumentMatchers.eq("reward_caps"), any());
+        Report r = stored("{\"measure\":\"used\",\"aggregation\":\"count\",\"filters\":[]}");
+
+        assertThrows(ValidationException.class, () -> guardedService(guard).update(r.getId(),
+                new com.financeos.api.report.dto.UpdateReportRequest("Caps", null, new ObjectMapper().readTree(CREATE_KPI))));
+    }
+
+    @Test
+    void renamingAReportWhoseDefinitionIsUnchangedSkipsTheGuards() throws Exception {
+        ReportCombinationGuard guard = mock(ReportCombinationGuard.class);
+        org.mockito.Mockito.doThrow(new ValidationException("blocked")).when(guard).enforce(
+                org.mockito.ArgumentMatchers.eq("reward_caps"), any());
+        ObjectMapper mapper = new ObjectMapper();
+        String canonical = com.financeos.domain.report.definition.ReportDefinitions.toJson(
+                com.financeos.domain.report.definition.ReportDefinitions.parse(
+                        ReportType.KPI, mapper.readTree(CREATE_KPI), mapper), mapper);
+        Report r = stored(canonical);
+
+        Report saved = guardedService(guard).update(r.getId(),
+                new com.financeos.api.report.dto.UpdateReportRequest("Renamed", null, mapper.readTree(CREATE_KPI)));
+
+        assertEquals("Renamed", saved.getName());
+    }
+
+    @Test
+    void renamingAnOldReportWhoseStoredJsonLacksNewerKeysSkipsTheGuards() throws Exception {
+        ReportCombinationGuard guard = mock(ReportCombinationGuard.class);
+        org.mockito.Mockito.doThrow(new ValidationException("blocked")).when(guard).enforce(
+                org.mockito.ArgumentMatchers.eq("reward_caps"), any());
+        // Comparison stored without the later "display" key.
+        String old = "{\"measure\":\"capLimit\",\"aggregation\":\"sum\",\"filters\":[],"
+                + "\"comparison\":{\"enabled\":true,\"period\":\"previous_period\",\"higherIsBetter\":true}}";
+        Report r = stored(old);
+
+        Report saved = guardedService(guard).update(r.getId(),
+                new com.financeos.api.report.dto.UpdateReportRequest("Renamed", null, new ObjectMapper().readTree(old)));
+
+        assertEquals("Renamed", saved.getName());
+        verify(guard, never()).enforce(any(String.class), any());
     }
 }

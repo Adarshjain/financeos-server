@@ -28,20 +28,32 @@ public class ReportService {
 
     private final ReportRepository reportRepository;
     private final ReportDefinitionValidator validator;
+    private final ReportCombinationGuard combinationGuard;
     private final UserRepository userRepository;
     private final ObjectMapper mapper;
 
     public ReportService(ReportRepository reportRepository,
             ReportDefinitionValidator validator,
+            ReportCombinationGuard combinationGuard,
             UserRepository userRepository,
             ObjectMapper mapper) {
         this.reportRepository = reportRepository;
         this.validator = validator;
+        this.combinationGuard = combinationGuard;
         this.userRepository = userRepository;
         this.mapper = mapper;
     }
 
     public Report create(CreateReportRequest req) {
+        return create(req, true);
+    }
+
+    /** {@link #create} without the combination guards: for built-in reports the app seeds itself. */
+    public Report createUnguarded(CreateReportRequest req) {
+        return create(req, false);
+    }
+
+    private Report create(CreateReportRequest req, boolean guarded) {
         ReportDefinition definition = ReportDefinitions.parse(req.type(), req.definition(), mapper);
 
         if (!definition.type().equals(req.type())) {
@@ -50,6 +62,9 @@ public class ReportService {
         }
 
         validator.validate(req.datasource(), definition);
+        if (guarded) {
+            combinationGuard.enforce(req.datasource(), definition);
+        }
 
         String json = ReportDefinitions.toJson(definition, mapper);
 
@@ -99,12 +114,26 @@ public class ReportService {
         validator.validate(report.getDatasource(), definition);
 
         String json = ReportDefinitions.toJson(definition, mapper);
+        // Only a changed definition is held to the combination guards, so a report saved before a
+        // guard existed can still be renamed. Compared as records: older stored JSON lacks keys the
+        // serializer now writes.
+        if (!sameDefinition(report, definition)) {
+            combinationGuard.enforce(report.getDatasource(), definition);
+        }
 
         report.setName(req.name());
         report.setDescription(req.description());
         report.setDefinition(json);
 
         return reportRepository.save(report);
+    }
+
+    private boolean sameDefinition(Report report, ReportDefinition definition) {
+        try {
+            return definition.equals(ReportDefinitions.parse(report.getType(), report.getDefinition(), mapper));
+        } catch (RuntimeException e) {
+            return false;
+        }
     }
 
     /**

@@ -6,6 +6,7 @@ import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ComputedReportDatasource;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
+import com.financeos.domain.report.datasource.DatasourceCatalog.FieldGuard;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
 import com.financeos.domain.reward.CapWindow;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.Map;
 import java.util.UUID;
 
@@ -146,10 +148,10 @@ public class RewardCapsDatasource implements ComputedReportDatasource {
                 new FieldDef("unit", "Unit", FieldType.ENUM, FieldRole.DIMENSION, null, List.of(UNIT_RUPEES, UNIT_POINTS), null, CHART_TABLE),
                 new FieldDef("capHit", "Cap reached", FieldType.ENUM, FieldRole.DIMENSION, null, YES_NO, null, CHART_TABLE),
                 new FieldDef("cycleFallback", "Estimated cycle", FieldType.ENUM, FieldRole.DIMENSION, null, YES_NO, null, CHART_TABLE),
-                new FieldDef("capLimit", "Cap limit", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
-                new FieldDef("used", "Used", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
-                new FieldDef("remaining", "Remaining", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
-                new FieldDef("utilizationPct", "Utilisation (%)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "percent"),
+                new FieldDef("capLimit", "Cap limit", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number").withGuards(FieldGuard.needs(List.of("unit"), "mixes ₹ and points"), FieldGuard.needs(List.of("windowStart", "windowEnd"), "adds up every window's limit")),
+                new FieldDef("used", "Used", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number").withGuards(FieldGuard.needs(List.of("unit"), "mixes ₹ and points")),
+                new FieldDef("remaining", "Remaining", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number").withGuards(FieldGuard.needs(List.of("unit"), "mixes ₹ and points"), FieldGuard.needs(List.of("windowStart", "windowEnd"), "adds up every window's limit")),
+                new FieldDef("utilizationPct", "Utilisation (%)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "percent").withGuards(FieldGuard.noAggregation(Set.of(Aggregation.SUM), "is a percentage, so it can't be summed")),
                 new FieldDef("usedValueInr", "Used value (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency")
         );
     }
