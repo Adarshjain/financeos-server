@@ -13924,6 +13924,8 @@ components:
         reason:
           type: string
       required:
+      - aggregations
+      - fields
       - kind
       - reason
     FilterClause:
