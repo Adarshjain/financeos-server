@@ -17,6 +17,7 @@ import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ComputedReportDatasource;
 import com.financeos.domain.report.datasource.DatasourceCatalog;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
+import com.financeos.domain.report.datasource.DatasourceCatalog.FieldGuard;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
 import com.financeos.domain.report.definition.SortClause;
@@ -409,10 +410,11 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
                 new FieldDef("side", "Side", FieldType.ENUM, FieldRole.DIMENSION, null, SIDE_VALUES, null, CHART_TABLE)
                         .withValueLabels(SIDE_LABELS),
                 new FieldDef("value", "Value", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM), null, null,
-                        KPI_CHART_TABLE, "currency"),
+                        KPI_CHART_TABLE, "currency")
+                        .withGuards(FieldGuard.needs(List.of("side"), "adds assets and liabilities together")),
                 new FieldDef("signedValue", "Net value", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM), null,
                         null, KPI_CHART_TABLE, "currency"),
-                new FieldDef("asOf", "As of", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE)
+                new FieldDef("asOf", "As of", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE).withGuards(FieldGuard.noFilter("is always today"))
         );
     }
 }

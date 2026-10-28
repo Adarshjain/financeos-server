@@ -167,7 +167,8 @@ class ReportChatToolsTest {
                 .thenReturn(mockChartData);
 
         ValidateReportDraftTool tool = new ValidateReportDraftTool(
-                mockRegistry, mockValidator, mockDataService, objectMapper
+                mockRegistry, mockValidator, mock(com.financeos.domain.report.ReportCombinationGuard.class),
+                mockDataService, objectMapper
         );
         assertEquals("validate_report_draft", tool.name());
 
@@ -196,7 +197,8 @@ class ReportChatToolsTest {
         ReportDataService mockDataService = mock(ReportDataService.class);
 
         ValidateReportDraftTool tool = new ValidateReportDraftTool(
-                mockRegistry, mockValidator, mockDataService, objectMapper
+                mockRegistry, mockValidator, mock(com.financeos.domain.report.ReportCombinationGuard.class),
+                mockDataService, objectMapper
         );
 
         // 1. Invalid report type

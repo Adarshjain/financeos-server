@@ -7,6 +7,7 @@ import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ComputedReportDatasource;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
+import com.financeos.domain.report.datasource.DatasourceCatalog.FieldGuard;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
 import com.financeos.domain.reward.AccrualType;
@@ -226,13 +227,13 @@ public class RewardEarningsDatasource implements ComputedReportDatasource {
                 new FieldDef("points", "Points", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
                 new FieldDef("pointsValueInr", "Points value (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("netValueInr", "Net value (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
-                new FieldDef("earned", "Earned (₹ or points)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
-                new FieldDef("spend", "Eligible spend (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
-                new FieldDef("amount", "Transaction amount (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
+                new FieldDef("earned", "Earned (₹ or points)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number").withGuards(FieldGuard.needs(List.of("earnedUnit"), "mixes ₹ and points")),
+                new FieldDef("spend", "Eligible spend (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency").withGuards(FieldGuard.avoid(List.of("rule", "reason", "stacking", "accrualType", "earnedUnit"), "counts once per transaction, on its first reward line")),
+                new FieldDef("amount", "Transaction amount (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency").withGuards(FieldGuard.avoid(List.of("rule", "reason", "stacking", "accrualType", "earnedUnit"), "counts once per transaction, on its first reward line")),
                 new FieldDef("basis", "Rule basis (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
-                new FieldDef("instantDiscount", "Instant discount (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
-                new FieldDef("convenienceFee", "Convenience fee (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency"),
-                new FieldDef("txnCount", "Eligible transactions", FieldType.NUMBER, FieldRole.MEASURE, SUM_ONLY, null, null, KPI_CHART_TABLE, "number").notFilterable()
+                new FieldDef("instantDiscount", "Instant discount (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency").withGuards(FieldGuard.avoid(List.of("rule", "reason", "stacking", "accrualType", "earnedUnit"), "counts once per transaction, on its first reward line")),
+                new FieldDef("convenienceFee", "Convenience fee (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency").withGuards(FieldGuard.avoid(List.of("rule", "reason", "stacking", "accrualType", "earnedUnit"), "counts once per transaction, on its first reward line")),
+                new FieldDef("txnCount", "Eligible transactions", FieldType.NUMBER, FieldRole.MEASURE, SUM_ONLY, null, null, KPI_CHART_TABLE, "number").notFilterable().withGuards(FieldGuard.avoid(List.of("rule", "reason", "stacking", "accrualType", "earnedUnit"), "counts once per transaction, on its first reward line"))
         );
     }
 

@@ -7,6 +7,7 @@ import com.financeos.domain.investment.imports.ImportSource;
 import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
+import com.financeos.domain.report.datasource.DatasourceCatalog.FieldGuard;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
 import com.financeos.domain.report.datasource.ReportDatasource;
@@ -55,7 +56,7 @@ public class InvestmentTradesDatasource implements ReportDatasource {
     private static final List<FieldDef> FIELDS = List.of(
             new FieldDef("tradeValue", "Trade value", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
             new FieldDef("cashflow", "Cash flow", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
-            new FieldDef("quantity", "Quantity", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "number"),
+            new FieldDef("quantity", "Quantity", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "number").withGuards(FieldGuard.needs(List.of("instrument"), "adds up units of different instruments")),
             new FieldDef("price", "Price", FieldType.NUMBER, FieldRole.MEASURE, NON_SUM_AGGS, null, null, TABLE_ONLY, "currency"),
             new FieldDef("totalCharges", "Charges", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
             new FieldDef("brokerage", "Brokerage", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_TABLE, "currency"),

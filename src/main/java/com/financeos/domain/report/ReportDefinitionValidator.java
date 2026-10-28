@@ -101,7 +101,7 @@ public class ReportDefinitionValidator {
         }
     }
 
-    private static List<FilterClause> filtersOf(ReportDefinition definition) {
+    static List<FilterClause> filtersOf(ReportDefinition definition) {
         List<FilterClause> filters = switch (definition) {
             case KpiDefinition kpi -> kpi.filters();
             case ChartDefinition chart -> chart.filters();
@@ -113,7 +113,7 @@ public class ReportDefinitionValidator {
     }
 
     /** One account: "is" (the generic filter check already requires its value) or "in" with one value. */
-    private static boolean isSingleValue(FilterClause f) {
+    static boolean isSingleValue(FilterClause f) {
         if ("is".equals(f.operator())) {
             return !f.value().isArray();
         }
@@ -121,7 +121,7 @@ public class ReportDefinitionValidator {
     }
 
     /** Every field a definition groups or lists by (dimensions, series, rows, columns). */
-    private static List<String> groupedFields(ReportDefinition definition) {
+    static List<String> groupedFields(ReportDefinition definition) {
         List<String> out = new ArrayList<>();
         if (definition instanceof ChartDefinition chart) {
             if (chart.dimension() != null) out.add(chart.dimension().field());

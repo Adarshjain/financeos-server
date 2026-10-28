@@ -6,6 +6,7 @@ import com.financeos.domain.investment.imports.ImportSource;
 import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
+import com.financeos.domain.report.datasource.DatasourceCatalog.FieldGuard;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
 import com.financeos.domain.report.datasource.ReportDatasource;
@@ -52,7 +53,7 @@ public class FnoTradesDatasource implements ReportDatasource {
             new FieldDef("buyValue", "Buy value", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
             new FieldDef("sellValue", "Sell value", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
             new FieldDef("totalCharges", "Charges", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "currency"),
-            new FieldDef("quantity", "Quantity", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "number"),
+            new FieldDef("quantity", "Quantity", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, ALL, "number").withGuards(FieldGuard.needs(List.of("tradingSymbol"), "adds up units of different instruments")),
             new FieldDef("strikePrice", "Strike", FieldType.NUMBER, FieldRole.MEASURE, NON_SUM_AGGS, null, null, TABLE_ONLY, "currency"),
             new FieldDef("exitDate", "Exit date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
             new FieldDef("entryDate", "Entry date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),

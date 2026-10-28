@@ -15,6 +15,7 @@ import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ComputedReportDatasource;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
+import com.financeos.domain.report.datasource.DatasourceCatalog.FieldGuard;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
 import org.springframework.stereotype.Component;
@@ -213,7 +214,7 @@ public class PortfolioValueDatasource implements ComputedReportDatasource {
 
         return List.of(
                 new FieldDef("valueDate", "Value Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),
-                new FieldDef("value", "Portfolio Value", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM), null, null, CHART_TABLE, "currency"),
+                new FieldDef("value", "Portfolio Value", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM), null, null, CHART_TABLE, "currency").withGuards(FieldGuard.needs(List.of("valueDate"), "is a month-end value; adding months together overstates it")),
                 new FieldDef("broker", "Broker", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
                 new FieldDef("instrumentType", "Instrument Type", FieldType.ENUM, FieldRole.DIMENSION, null, instTypeValues, null, CHART_TABLE),
                 new FieldDef("instrument", "Instrument", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, TABLE_ONLY)

@@ -2,6 +2,7 @@ package com.financeos.domain.report.datasource;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.card.CardholderRelationship;
 import com.financeos.domain.account.cycle.CycleOperators;
@@ -12,8 +13,10 @@ import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.link.LinkType;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -65,14 +68,28 @@ public class DatasourceCatalog {
              * "Bank account"); null when the values read as they are. Display only: filters,
              * sorting and grouping keep the stored values.
              */
-            Map<String, String> valueLabels) {
+            Map<String, String> valueLabels,
+            /*
+             * Combination guards: which splits/filters this field needs or avoids when it is
+             * aggregated (see FieldGuard). Enforced when a report is saved, never when it runs;
+             * null when none.
+             */
+            List<FieldGuard> guards) {
+
+        public FieldDef(String name, String label, FieldType type, FieldRole role,
+                        List<Aggregation> aggregations, List<String> values,
+                        Boolean dynamic, List<ReportType> allowedInReports, String format, String idField,
+                        Boolean billingCycle, Boolean filterable, Map<String, String> valueLabels) {
+            this(name, label, type, role, aggregations, values, dynamic, allowedInReports, format, idField,
+                    billingCycle, filterable, valueLabels, null);
+        }
 
         public FieldDef(String name, String label, FieldType type, FieldRole role,
                         List<Aggregation> aggregations, List<String> values,
                         Boolean dynamic, List<ReportType> allowedInReports, String format, String idField,
                         Boolean billingCycle, Boolean filterable) {
             this(name, label, type, role, aggregations, values, dynamic, allowedInReports, format, idField,
-                    billingCycle, filterable, null);
+                    billingCycle, filterable, null, null);
         }
 
         public FieldDef(String name, String label, FieldType type, FieldRole role,
@@ -92,13 +109,22 @@ public class DatasourceCatalog {
         /** This field for grouping and columns only: not offered (or accepted) as a filter. */
         public FieldDef notFilterable() {
             return new FieldDef(name, label, type, role, aggregations, values, dynamic, allowedInReports, format,
-                    idField, billingCycle, false, valueLabels);
+                    idField, billingCycle, false, valueLabels, guards);
         }
 
         /** This field with display labels for its stored values, in the given order. */
         public FieldDef withValueLabels(Map<String, String> labels) {
             return new FieldDef(name, label, type, role, aggregations, values, dynamic, allowedInReports, format,
-                    idField, billingCycle, filterable, Collections.unmodifiableMap(new LinkedHashMap<>(labels)));
+                    idField, billingCycle, filterable, Collections.unmodifiableMap(new LinkedHashMap<>(labels)), guards);
+        }
+
+        /** This field with the given combination guards appended. */
+        public FieldDef withGuards(FieldGuard... g) {
+            List<FieldGuard> all = new ArrayList<>();
+            if (guards != null) all.addAll(guards);
+            all.addAll(Arrays.asList(g));
+            return new FieldDef(name, label, type, role, aggregations, values, dynamic, allowedInReports, format,
+                    idField, billingCycle, filterable, valueLabels, List.copyOf(all));
         }
 
         /** How {@code value} reads for people: its label when it has one, else the value itself. */
@@ -139,6 +165,63 @@ public class DatasourceCatalog {
                         List<Aggregation> aggregations, List<String> values,
                         Boolean dynamic, List<ReportType> allowedInReports) {
             this(name, label, type, role, aggregations, values, dynamic, allowedInReports, null, null, null, null);
+        }
+    }
+
+    public enum GuardKind {
+        NO_AGGREGATION("no_aggregation"),
+        NEEDS("needs"),
+        AVOID("avoid"),
+        NO_FILTER("no_filter");
+
+        private final String json;
+
+        GuardKind(String json) {
+            this.json = json;
+        }
+
+        @JsonValue
+        public String json() {
+            return json;
+        }
+    }
+
+    /**
+     * A combination guard on a field. {@code no_aggregation}: the field can't be aggregated with
+     * {@code aggregations}. {@code needs}: when aggregated, the report must split by or filter
+     * to one value of one of {@code fields}. {@code avoid}: the report must not split or filter by
+     * any of {@code fields}. {@code no_filter}: the field can't be filtered. {@code aggregations}
+     * null = every aggregation.
+     */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public record FieldGuard(GuardKind kind, List<String> fields, Set<Aggregation> aggregations, String reason) {
+
+        private static final Set<Aggregation> NOT_COUNT = Collections.unmodifiableSet(EnumSet.of(
+                Aggregation.SUM, Aggregation.AVG, Aggregation.MIN, Aggregation.MAX));
+
+        public static FieldGuard noAggregation(Set<Aggregation> aggs, String reason) {
+            return new FieldGuard(GuardKind.NO_AGGREGATION, null, aggs, reason);
+        }
+
+        public static FieldGuard needs(List<String> fields, String reason) {
+            return new FieldGuard(GuardKind.NEEDS, fields, NOT_COUNT, reason);
+        }
+
+        public static FieldGuard needs(List<String> fields, Set<Aggregation> aggs, String reason) {
+            return new FieldGuard(GuardKind.NEEDS, fields, aggs, reason);
+        }
+
+        public static FieldGuard avoid(List<String> fields, String reason) {
+            return new FieldGuard(GuardKind.AVOID, fields, null, reason);
+        }
+
+        public static FieldGuard noFilter(String reason) {
+            return new FieldGuard(GuardKind.NO_FILTER, null, null, reason);
+        }
+
+        /** True when this guard applies to {@code aggregation} (null aggregations = all). */
+        public boolean covers(Aggregation aggregation) {
+            return aggregations == null || aggregations.contains(aggregation);
         }
     }
 

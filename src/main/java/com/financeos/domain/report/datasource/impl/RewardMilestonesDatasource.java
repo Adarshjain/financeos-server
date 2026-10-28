@@ -8,6 +8,7 @@ import com.financeos.domain.report.ReportType;
 import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ComputedReportDatasource;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
+import com.financeos.domain.report.datasource.DatasourceCatalog.FieldGuard;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
 import com.financeos.domain.reward.MilestoneBasis;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.Map;
 import java.util.UUID;
 
@@ -151,10 +153,10 @@ public class RewardMilestonesDatasource implements ComputedReportDatasource {
                 new FieldDef("payoutType", "Payout type", FieldType.ENUM, FieldRole.DIMENSION, null, names(MilestonePayoutType.values()), null, CHART_TABLE),
                 new FieldDef("rewardType", "Paid in", FieldType.ENUM, FieldRole.DIMENSION, null, names(RewardType.values()), null, CHART_TABLE),
                 new FieldDef("achieved", "Achieved", FieldType.ENUM, FieldRole.DIMENSION, null, YES_NO, null, CHART_TABLE),
-                new FieldDef("threshold", "Target", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
-                new FieldDef("progress", "Progress", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
-                new FieldDef("progressPct", "Progress (%)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "percent"),
-                new FieldDef("payoutValue", "Payout (raw units)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number"),
+                new FieldDef("threshold", "Target", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number").withGuards(FieldGuard.needs(List.of("basis"), "mixes ₹ targets and transaction counts"), FieldGuard.needs(List.of("windowStart", "windowEnd"), "adds up every window's target")),
+                new FieldDef("progress", "Progress", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number").withGuards(FieldGuard.needs(List.of("basis"), "mixes ₹ targets and transaction counts")),
+                new FieldDef("progressPct", "Progress (%)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "percent").withGuards(FieldGuard.noAggregation(Set.of(Aggregation.SUM), "is a percentage, so it can't be summed")),
+                new FieldDef("payoutValue", "Payout (raw units)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "number").withGuards(FieldGuard.needs(List.of("rewardType"), "mixes ₹ and points")),
                 new FieldDef("payoutValueInr", "Payout value (₹)", FieldType.NUMBER, FieldRole.MEASURE, NUMERIC_AGGS, null, null, KPI_CHART_TABLE, "currency")
         );
     }

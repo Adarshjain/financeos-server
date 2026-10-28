@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.financeos.chat.tool.ChatTool;
 import com.financeos.chat.tool.ChatToolResult;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.domain.report.ReportCombinationGuard;
 import com.financeos.domain.report.ReportDataService;
 import com.financeos.domain.report.ReportDefinitionValidator;
 import com.financeos.domain.report.ReportType;
@@ -32,15 +33,18 @@ public class ValidateReportDraftTool implements ChatTool {
 
     private final DatasourceRegistry datasourceRegistry;
     private final ReportDefinitionValidator reportDefinitionValidator;
+    private final ReportCombinationGuard reportCombinationGuard;
     private final ReportDataService reportDataService;
     private final ObjectMapper objectMapper;
 
     public ValidateReportDraftTool(DatasourceRegistry datasourceRegistry,
                                    ReportDefinitionValidator reportDefinitionValidator,
+                                   ReportCombinationGuard reportCombinationGuard,
                                    ReportDataService reportDataService,
                                    ObjectMapper objectMapper) {
         this.datasourceRegistry = datasourceRegistry;
         this.reportDefinitionValidator = reportDefinitionValidator;
+        this.reportCombinationGuard = reportCombinationGuard;
         this.reportDataService = reportDataService;
         this.objectMapper = objectMapper;
     }
@@ -112,6 +116,7 @@ public class ValidateReportDraftTool implements ChatTool {
             try {
                 parsed = ReportDefinitions.parse(reportType, definitionNode, objectMapper);
                 reportDefinitionValidator.validate(datasource, parsed);
+                reportCombinationGuard.enforce(datasource, parsed);
             } catch (ValidationException | IllegalArgumentException e) {
                 return ChatToolResult.failure(name(), e.getMessage());
             }

@@ -78,7 +78,7 @@ class HomeDashboardSeederTest {
         when(dashboardService.create(any())).thenReturn(created);
         when(reportRepository.findFirstByUser_IdAndNameAndDatasourceOrderByCreatedAtAsc(any(), anyString(), anyString()))
                 .thenReturn(Optional.empty());
-        when(reportService.create(any())).thenAnswer(inv -> {
+        when(reportService.createUnguarded(any())).thenAnswer(inv -> {
             Report r = new Report(null, "Spend this month", ReportType.CHART, "transactions", "{}");
             r.setId(createdReportId);
             return r;
@@ -102,7 +102,7 @@ class HomeDashboardSeederTest {
 
     private CreateReportRequest capturedReport() {
         ArgumentCaptor<CreateReportRequest> captor = ArgumentCaptor.forClass(CreateReportRequest.class);
-        verify(reportService).create(captor.capture());
+        verify(reportService).createUnguarded(captor.capture());
         return captor.getValue();
     }
 
@@ -234,7 +234,7 @@ class HomeDashboardSeederTest {
 
         seeder(registry, realValidator).restore(userId);
 
-        verify(reportService, never()).create(any());
+        verify(reportService, never()).createUnguarded(any());
         verifyNoInteractions(registry);
         DashboardWidget spend = capturedDashboard().widgets().get(4);
         assertEquals(existingId, spend.reportId());
@@ -251,7 +251,7 @@ class HomeDashboardSeederTest {
         seeder.restore(userId);
         seeder.restore(userId);
 
-        verify(reportService, times(1)).create(any());
+        verify(reportService, times(1)).createUnguarded(any());
         ArgumentCaptor<CreateDashboardRequest> captor = ArgumentCaptor.forClass(CreateDashboardRequest.class);
         verify(dashboardService, times(2)).create(captor.capture());
         assertEquals(createdReportId, captor.getAllValues().get(0).widgets().get(4).reportId());
@@ -265,7 +265,7 @@ class HomeDashboardSeederTest {
 
         seeder(empty, new ReportDefinitionValidator(empty)).seedIfNeeded(userId);
 
-        verify(reportService, never()).create(any());
+        verify(reportService, never()).createUnguarded(any());
         List<DashboardWidget> widgets = capturedDashboard().widgets();
         assertEquals(List.of("net_worth", "attention", "bills_due", "upcoming"),
                 widgets.stream().map(DashboardWidget::id).toList());
@@ -279,7 +279,7 @@ class HomeDashboardSeederTest {
 
         seeder(realRegistry, rejecting).seedIfNeeded(userId);
 
-        verify(reportService, never()).create(any());
+        verify(reportService, never()).createUnguarded(any());
         assertEquals(4, capturedDashboard().widgets().size());
         assertTrue(capturedDashboard().isDefault());
     }
@@ -292,7 +292,7 @@ class HomeDashboardSeederTest {
 
         seeder(realRegistry, rejecting).seedIfNeeded(userId);
 
-        verify(reportService, never()).create(any());
+        verify(reportService, never()).createUnguarded(any());
         assertEquals(4, capturedDashboard().widgets().size());
     }
 

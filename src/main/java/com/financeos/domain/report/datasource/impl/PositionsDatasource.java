@@ -10,6 +10,7 @@ import com.financeos.domain.report.datasource.Aggregation;
 import com.financeos.domain.report.datasource.ComputedReportDatasource;
 import com.financeos.domain.report.datasource.DatasourceCatalog;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
+import com.financeos.domain.report.datasource.DatasourceCatalog.FieldGuard;
 import com.financeos.domain.report.datasource.FieldRole;
 import com.financeos.domain.report.datasource.FieldType;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.Map;
 
 @Component
@@ -121,9 +123,9 @@ public class PositionsDatasource implements ComputedReportDatasource {
                 new FieldDef("realizedGainLoss", "Realized P&L", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.COUNT, Aggregation.MIN, Aggregation.MAX), null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("dividends", "Dividends Received", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.COUNT, Aggregation.MIN, Aggregation.MAX), null, null, KPI_CHART_TABLE, "currency"),
                 new FieldDef("totalCharges", "Total Charges", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.COUNT, Aggregation.MIN, Aggregation.MAX), null, null, KPI_CHART_TABLE, "currency"),
-                new FieldDef("quantity", "Quantity", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, TABLE_ONLY, "number"),
-                new FieldDef("xirr", "XIRR", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, TABLE_ONLY, "percent"),
-                new FieldDef("unrealizedPercent", "Unrealized P&L %", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, TABLE_ONLY, "percent"),
+                new FieldDef("quantity", "Quantity", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.SUM, Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, TABLE_ONLY, "number").withGuards(FieldGuard.needs(List.of("instrument"), "adds up units of different instruments")),
+                new FieldDef("xirr", "XIRR", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, TABLE_ONLY, "percent").withGuards(FieldGuard.needs(List.of("instrument"), Set.of(Aggregation.AVG), "averaged across holdings isn't your portfolio's return")),
+                new FieldDef("unrealizedPercent", "Unrealized P&L %", FieldType.NUMBER, FieldRole.MEASURE, List.of(Aggregation.AVG, Aggregation.MIN, Aggregation.MAX), null, null, TABLE_ONLY, "percent").withGuards(FieldGuard.needs(List.of("instrument"), Set.of(Aggregation.AVG), "averaged across holdings isn't your portfolio's return")),
                 new FieldDef("isOpen", "Is Open Holding", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE)
         );
     }
