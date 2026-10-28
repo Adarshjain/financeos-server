@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Gmail Engine - Pure fetch engine.
@@ -65,16 +66,13 @@ public class GmailEngine {
             } while (pageToken != null);
 
             return messageIds;
-        } catch (GoogleJsonResponseException e) {
-            if (e.getStatusCode() == 401 || e.getStatusCode() == 403) {
-                throw new GmailEngineException(GmailError.AUTH_ERROR, "Authentication failed", e);
-            }
-            if (e.getStatusCode() == 429) {
-                throw new GmailEngineException(GmailError.RATE_LIMIT, "Rate limit exceeded", e);
-            }
-            throw new GmailEngineException(GmailError.NETWORK_ERROR, "Google API error: " + e.getMessage(), e);
         } catch (IOException e) {
-            throw handleIOException(e);
+            GmailEngineException classified = classify(e);
+            if (classified.getErrorType() == GmailError.NOT_FOUND) {
+                // A 404 while listing is not a missing message: the request itself is wrong.
+                throw new GmailEngineException(GmailError.PERMANENT, "Gmail listing not found (404)", e);
+            }
+            throw classified;
         }
     }
 
@@ -86,7 +84,7 @@ public class GmailEngine {
             Gmail service = createService(connection);
             return fetchMessageDetails(service, messageId);
         } catch (IOException e) {
-            throw handleIOException(e);
+            throw classify(e);
         }
     }
 
@@ -138,19 +136,12 @@ public class GmailEngine {
 
         } catch (MessageGoneException e) {
             throw e;
-        } catch (GoogleJsonResponseException e) {
-            if (e.getStatusCode() == 404) {
+        } catch (IOException e) {
+            GmailEngineException classified = classify(e);
+            if (classified.getErrorType() == GmailError.NOT_FOUND) {
                 throw new MessageGoneException(messageId);
             }
-            if (e.getStatusCode() == 401 || e.getStatusCode() == 403) {
-                throw new GmailEngineException(GmailError.AUTH_ERROR, "Authentication failed", e);
-            }
-            if (e.getStatusCode() == 429) {
-                throw new GmailEngineException(GmailError.RATE_LIMIT, "Rate limit exceeded", e);
-            }
-            throw new GmailEngineException(GmailError.NETWORK_ERROR, "Google API error: " + e.getMessage(), e);
-        } catch (IOException e) {
-            throw handleIOException(e);
+            throw classified;
         }
     }
 
@@ -161,18 +152,13 @@ public class GmailEngine {
         try {
             Gmail service = createService(connection);
             return gmailApiClient.getAttachment(service, messageId, attachmentId);
-        } catch (GoogleJsonResponseException e) {
-            if (e.getStatusCode() == 404) {
+        } catch (IOException e) {
+            GmailEngineException classified = classify(e);
+            if (classified.getErrorType() == GmailError.NOT_FOUND) {
                 throw new MessageGoneException(messageId);
             }
-            throw handleIOException(e);
-        } catch (IOException e) {
-            throw handleIOException(e);
+            throw classified;
         }
-    }
-
-    private GmailEngineException handleIOException(IOException e) {
-        return classify(e);
     }
 
     /**
@@ -187,16 +173,52 @@ public class GmailEngine {
                     ? tre.getDetails().getError() : "token rejected";
             return new GmailEngineException(GmailError.AUTH_ERROR, "Google rejected the refresh token (" + error + ")", e);
         }
-        String errorMsg = e.getMessage();
-        if (errorMsg != null) {
-            if (errorMsg.contains("401") || errorMsg.contains("403")) {
-                return new GmailEngineException(GmailError.AUTH_ERROR, "Authentication failed", e);
-            }
-            if (errorMsg.contains("429") || errorMsg.contains("rate limit")) {
-                return new GmailEngineException(GmailError.RATE_LIMIT, "Rate limit exceeded", e);
+        if (e instanceof GoogleJsonResponseException gje) {
+            return classifyApiError(gje);
+        }
+        return new GmailEngineException(GmailError.NETWORK_ERROR, "Network error: " + e.getClass().getSimpleName(), e);
+    }
+
+    private static final Set<String> RATE_LIMIT_REASONS = Set.of(
+            "rateLimitExceeded", "userRateLimitExceeded", "quotaExceeded", "dailyLimitExceeded");
+
+    /** Status code plus Google's error reason decide the class; message text is never inspected. */
+    private static GmailEngineException classifyApiError(GoogleJsonResponseException e) {
+        int status = e.getStatusCode();
+        String reason = null;
+        if (e.getDetails() != null && e.getDetails().getErrors() != null) {
+            for (var item : e.getDetails().getErrors()) {
+                if (item.getReason() != null) {
+                    if (RATE_LIMIT_REASONS.contains(item.getReason())) {
+                        reason = item.getReason();
+                        break;
+                    }
+                    if (reason == null) {
+                        reason = item.getReason();
+                    }
+                }
             }
         }
-        return new GmailEngineException(GmailError.NETWORK_ERROR, "Network error during fetch", e);
+        String suffix = " (" + status + (reason != null ? " " + reason : "") + ")";
+        if (status == 429 || (status == 403 && reason != null && RATE_LIMIT_REASONS.contains(reason))) {
+            return new GmailEngineException(GmailError.RATE_LIMIT, "Google rate limit" + suffix, e);
+        }
+        if (status == 401 || status == 403) {
+            return new GmailEngineException(GmailError.AUTH_ERROR, "Google rejected authentication" + suffix, e);
+        }
+        if (status == 404) {
+            return new GmailEngineException(GmailError.NOT_FOUND, "Message no longer exists in Gmail", e);
+        }
+        if (status >= 500) {
+            return new GmailEngineException(GmailError.SERVER_ERROR, "Google server error" + suffix, e);
+        }
+        if (status == 408) {
+            return new GmailEngineException(GmailError.NETWORK_ERROR, "Google request timed out" + suffix, e);
+        }
+        if (status >= 400) {
+            return new GmailEngineException(GmailError.PERMANENT, "Google rejected the request" + suffix, e);
+        }
+        return new GmailEngineException(GmailError.NETWORK_ERROR, "Unexpected Google response" + suffix, e);
     }
 
     private String decodeBase64Url(String base64UrlStr) {

@@ -12,7 +12,16 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.testing.http.MockHttpTransport;
 import com.google.api.client.testing.http.MockLowLevelHttpResponse;
+import com.google.api.client.googleapis.json.GoogleJsonError;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.http.HttpHeaders;
+import com.google.api.client.http.HttpResponseException;
 import java.io.IOException;
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.List;
+import javax.net.ssl.SSLException;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -53,13 +62,82 @@ class GmailEngineClassifyTest {
         assertEquals(GmailError.NETWORK_ERROR, GmailEngine.classify(tokenFailure(503, "server_error")).getErrorType());
     }
 
+    private static GoogleJsonResponseException api(int status, String reason) {
+        GoogleJsonError err = new GoogleJsonError();
+        err.setCode(status);
+        err.setMessage("scripted 401 403 429 rate limit");
+        if (reason != null) {
+            GoogleJsonError.ErrorInfo info = new GoogleJsonError.ErrorInfo();
+            info.setReason(reason);
+            err.setErrors(List.of(info));
+        }
+        return new GoogleJsonResponseException(new HttpResponseException.Builder(status, "scripted", new HttpHeaders()), err);
+    }
+
+    private static GmailError kind(IOException e) {
+        return GmailEngine.classify(e).getErrorType();
+    }
+
     @Test
-    void messageHeuristicsStillApplyToPlainIoExceptions() {
-        assertEquals(GmailError.AUTH_ERROR, GmailEngine.classify(new IOException("401 Unauthorized")).getErrorType());
-        assertEquals(GmailError.AUTH_ERROR, GmailEngine.classify(new IOException("403 Forbidden")).getErrorType());
-        assertEquals(GmailError.RATE_LIMIT, GmailEngine.classify(new IOException("429 Too Many Requests")).getErrorType());
-        assertEquals(GmailError.RATE_LIMIT, GmailEngine.classify(new IOException("rate limit exceeded")).getErrorType());
-        assertEquals(GmailError.NETWORK_ERROR, GmailEngine.classify(new IOException("connection reset")).getErrorType());
-        assertEquals(GmailError.NETWORK_ERROR, GmailEngine.classify(new IOException()).getErrorType());
+    void unauthorizedIsAnAuthError() {
+        assertEquals(GmailError.AUTH_ERROR, kind(api(401, "authError")));
+    }
+
+    @Test
+    void forbiddenWithoutRateReasonIsAnAuthError() {
+        assertEquals(GmailError.AUTH_ERROR, kind(api(403, "insufficientPermissions")));
+        assertEquals(GmailError.AUTH_ERROR, kind(api(403, null)));
+    }
+
+    @Test
+    void forbiddenWithRateOrQuotaReasonIsARateLimit() {
+        for (String reason : List.of("rateLimitExceeded", "userRateLimitExceeded", "quotaExceeded", "dailyLimitExceeded")) {
+            assertEquals(GmailError.RATE_LIMIT, kind(api(403, reason)), reason);
+        }
+    }
+
+    @Test
+    void tooManyRequestsIsARateLimit() {
+        GmailEngineException e = GmailEngine.classify(api(429, null));
+        assertEquals(GmailError.RATE_LIMIT, e.getErrorType());
+        assertTrue(e.getMessage().startsWith("Google rate limit"));
+    }
+
+    @Test
+    void notFoundIsNotFound() {
+        GmailEngineException e = GmailEngine.classify(api(404, "notFound"));
+        assertEquals(GmailError.NOT_FOUND, e.getErrorType());
+        assertEquals("Message no longer exists in Gmail", e.getMessage());
+    }
+
+    @Test
+    void badRequestAndOtherFourXxArePermanent() {
+        GmailEngineException e = GmailEngine.classify(api(400, "invalidArgument"));
+        assertEquals(GmailError.PERMANENT, e.getErrorType());
+        assertTrue(e.getMessage().contains("400"));
+        assertEquals(GmailError.PERMANENT, kind(api(410, null)));
+    }
+
+    @Test
+    void fiveXxIsAServerError() {
+        GmailEngineException e = GmailEngine.classify(api(503, "backendError"));
+        assertEquals(GmailError.SERVER_ERROR, e.getErrorType());
+        assertTrue(e.getMessage().contains("503"));
+    }
+
+    @Test
+    void requestTimeoutIsRetriedNotPermanent() {
+        assertEquals(GmailError.NETWORK_ERROR, kind(api(408, null)));
+    }
+
+    @Test
+    void realIoFailuresAreNetworkErrorsAndMessageTextIsIgnored() {
+        assertEquals(GmailError.NETWORK_ERROR, kind(new SocketTimeoutException("401 Unauthorized")));
+        assertEquals(GmailError.NETWORK_ERROR, kind(new UnknownHostException("rate limit 429")));
+        assertEquals(GmailError.NETWORK_ERROR, kind(new ConnectException("403")));
+        assertEquals(GmailError.NETWORK_ERROR, kind(new SSLException("handshake")));
+        GmailEngineException plain = GmailEngine.classify(new IOException());
+        assertEquals(GmailError.NETWORK_ERROR, plain.getErrorType());
+        assertEquals("Network error: IOException", plain.getMessage());
     }
 }
