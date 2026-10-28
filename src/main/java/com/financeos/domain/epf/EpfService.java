@@ -189,7 +189,7 @@ public class EpfService {
             balanceAsOf = LocalDate.of(periodFy + 1, 3, 31);
         }
         EpfSummaryResponse.EpfInterestEstimate estimate = periodFy != null && periodFy == currentFy
-                ? interestEstimate(data, scoped, scope, today, currentFy, todayBalance) : null;
+                ? interestEstimate(data, scoped, scope, statuses, today, currentFy, todayBalance) : null;
         EpfSummaryResponse.EpfLatestContribution latest = latestContribution(data);
         return new EpfSummaryResponse(!data.employers().isEmpty() || !data.entries().isEmpty(), balance, fyEmployee,
                 fyEmployer, estimate, lastInterest(scoped), pension(data, today, statuses),
@@ -256,7 +256,8 @@ public class EpfService {
     }
 
     private static EpfSummaryResponse.EpfInterestEstimate interestEstimate(Data data, List<EpfEntry> scoped,
-                                                                                   Set<UUID> scope, LocalDate today, int fy,
+                                                                                   Set<UUID> scope, Map<UUID, Status> statuses,
+                                                                                   LocalDate today, int fy,
                                                                                    BigDecimal balance) {
         if (balance.signum() <= 0) {
             return null;
@@ -276,6 +277,11 @@ public class EpfService {
         BigDecimal sum = BigDecimal.ZERO;
         boolean anyLeft = false;
         for (UUID employerId : scope) {
+            // A settled account's money and its interest were paid out: none of it is still earning in EPF.
+            Status status = statuses.get(employerId);
+            if (status != null && status.status() == EpfEmployerStatus.SETTLED) {
+                continue;
+            }
             // An employer whose interest for this year is already credited (e.g. a transferred-out account) keeps
             // the credited amount and is not estimated.
             BigDecimal credited = null;
