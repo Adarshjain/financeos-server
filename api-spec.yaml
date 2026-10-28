@@ -21750,6 +21750,10 @@ components:
           type: number
           nullable: true
           x-nullable: true
+        bankBalance:
+          type: number
+          nullable: true
+          x-nullable: true
         cardId:
           type: string
           format: uuid

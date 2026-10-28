@@ -90,6 +90,10 @@ public class Transaction {
     @Transient
     private BigDecimal balance;
 
+    /** Bank's printed balance; set only on the list row that starts a mismatch with our running balance. */
+    @Transient
+    private BigDecimal bankBalance;
+
     @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
     @org.hibernate.annotations.BatchSize(size = 50)
     private Set<TransactionCategory> categories = new HashSet<>();

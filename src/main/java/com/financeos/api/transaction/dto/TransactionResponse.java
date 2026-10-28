@@ -32,6 +32,8 @@ public record TransactionResponse(
                 Instant updatedAt,
                 @Nullable Instant reviewedAt,
                 @Nullable BigDecimal balance,
+                /** Bank's printed balance; only on the list row that starts a mismatch with our running balance. */
+                @Nullable BigDecimal bankBalance,
                 @Nullable ReviewType reviewType,
                 java.util.List<com.financeos.domain.transaction.ReviewReason> reviewReasons,
                 @Nullable UUID appliedRuleId,
@@ -112,6 +114,7 @@ public record TransactionResponse(
                                 transaction.getUpdatedAt(),
                                 transaction.getReviewedAt(),
                                 balance,
+                                transaction.getBankBalance(),
                                 transaction.getReviewType(),
                                 reviewReasonsList,
                                 transaction.getAppliedRule() != null ? transaction.getAppliedRule().getId() : null,

@@ -243,6 +243,13 @@ public class TransactionService {
                 .collect(Collectors.toMap(
                         TransactionRepository.TransactionBalanceProjection::getId,
                         TransactionRepository.TransactionBalanceProjection::getBalance));
+        // Collectors.toMap rejects null values, so the sparse bank balance is read straight off the page.
+        Map<UUID, java.math.BigDecimal> bankBalanceMap = new java.util.HashMap<>();
+        idPage.getContent().forEach(p -> {
+            if (p.getBankBalance() != null) {
+                bankBalanceMap.put(p.getId(), p.getBankBalance());
+            }
+        });
 
         List<Transaction> orderedTransactions = ids.stream()
                 .map(id -> {
@@ -251,6 +258,7 @@ public class TransactionService {
                             .findFirst()
                             .orElseThrow(() -> new IllegalStateException("Transaction not found for ID: " + id));
                     t.setBalance(balanceMap.get(id));
+                    t.setBankBalance(bankBalanceMap.get(id));
                     return t;
                 })
                 .toList();
