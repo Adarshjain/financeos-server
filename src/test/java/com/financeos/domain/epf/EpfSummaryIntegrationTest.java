@@ -364,12 +364,12 @@ class EpfSummaryIntegrationTest extends EpfIntegrationBase {
     }
 
     @Test
-    void currentFyWithInterestAlreadyCreditedShowsItAndNoEstimate() throws Exception {
+    void currentFyWithOneEmployerCreditedShowsItAndStillEstimatesTheOther() throws Exception {
         UUID[] ids = filterFixture();
         addEntry(interest(ids[1], 2026, "2026-09-01", 10, 0));
 
         JsonNode s = summary();
-        assertTrue(s.get("interestEstimate").isNull());
+        assertFalse(s.get("interestEstimate").isNull()); // Acme is not credited yet, so it is still estimated (plus Beta's 10)
         assertEquals(2026, s.get("periodInterest").get("fy").asInt());
         assertAmount("10", s.get("periodInterest").get("amount"));
         assertTrue(summary("?employerId=" + ids[0]).get("periodInterest").isNull());
@@ -402,5 +402,35 @@ class EpfSummaryIntegrationTest extends EpfIntegrationBase {
         assertEquals(2030, s.get("periodFy").asInt());
         assertTrue(s.get("interestEstimate").isNull());
         assertAmount("0", s.get("fyEmployee"));
+    }
+
+    /** Old employer (left, interest credited 300+200 for FY 2026) and a new one (opening 120000); six closed months Apr..Sep. */
+    private UUID[] oldCreditedNewContributing() throws Exception {
+        UUID old = employer("Old Co", "2018-04-01", "2026-08-31");
+        UUID current = employer("New Co", "2026-09-01", null);
+        addEntry(body("OPENING_BALANCE", old, "2026-03-31", 50000, 0));
+        addEntry(interest(old, 2026, "2026-09-15", 300, 200));
+        addEntry(body("OPENING_BALANCE", current, "2026-03-31", 120000, 0));
+        return new UUID[]{old, current};
+    }
+
+    @Test
+    void anEmployerWithCreditedInterestAddsItWhileOthersAreStillEstimated() throws Exception {
+        oldCreditedNewContributing();
+        JsonNode estimate = summary().get("interestEstimate");
+        assertAmount("5450", estimate.get("amount")); // 500 credited + 6 x 120000 x 8.25 / 1200 = 4950
+    }
+
+    @Test
+    void theEmployerScopeOnlyEstimatesThatEmployer() throws Exception {
+        UUID[] ids = oldCreditedNewContributing();
+        assertAmount("4950", summary("?employerId=" + ids[1]).get("interestEstimate").get("amount"));
+    }
+
+    @Test
+    void noEstimateWhenEveryEmployerIsCreditedForTheCurrentFy() throws Exception {
+        UUID[] ids = oldCreditedNewContributing();
+        addEntry(interest(ids[1], 2026, "2026-09-20", 400, 0));
+        assertTrue(summary().get("interestEstimate").isNull());
     }
 }
