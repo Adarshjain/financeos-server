@@ -264,4 +264,143 @@ class EpfSummaryIntegrationTest extends EpfIntegrationBase {
         assertAmount("3000", s.get("fyEmployee"));
         assertAmount("1750", s.get("fyEmployer"));
     }
+
+    // ---- filters: employerId, fy, allYears
+
+    private JsonNode summary(String query) throws Exception {
+        return api.getJson(BASE + "/summary" + query, 200);
+    }
+
+    /** Acme: opening 100000/50000 at 2024-03-31, FY 2024 interest 6000/3000, contributions Apr..Jun 2025 and Apr..Sep 2026. Beta: opening 1000/0. */
+    private UUID[] filterFixture() throws Exception {
+        UUID acme = employer("Acme", "2020-04-01", null);
+        UUID beta = employer("Beta", "2020-04-01", null);
+        addEntry(body("OPENING_BALANCE", acme, "2024-03-31", 100000, 50000));
+        addEntry(interest(acme, 2024, "2025-03-31", 6000, 3000));
+        for (int m = 4; m <= 6; m++) { // due May..Jul 2025: FY 2025
+            addEntry(contribution(acme, "2025-%02d-01".formatted(m), "2025-%02d-10".formatted(m + 1), 3000, 1750, 1250));
+        }
+        for (int m = 4; m <= 9; m++) { // due May..Oct 2026: FY 2026
+            addEntry(contribution(acme, "2026-%02d-01".formatted(m), "2026-%02d-10".formatted(m + 1), 3000, 1750, 1250));
+        }
+        addEntry(body("OPENING_BALANCE", beta, "2026-03-31", 1000, 0));
+        addEntry(interest(beta, 2025, "2026-03-31", 80, 0));
+        return new UUID[]{acme, beta};
+    }
+
+    @Test
+    void noParamsKeepsTodaysAllEmployersCurrentFyFigures() throws Exception {
+        filterFixture();
+        JsonNode s = summary();
+        assertAmount("18000", s.get("fyEmployee"));
+        assertAmount("10500", s.get("fyEmployer"));
+        assertTrue(s.get("balanceAsOf").isNull());
+        assertEquals(2026, s.get("periodFy").asInt());
+        assertFalse(s.get("interestEstimate").isNull());
+        assertTrue(s.get("periodInterest").isNull()); // nothing credited for FY 2026
+        assertEquals(s.toString(), summary("?allYears=false").toString());
+    }
+
+    @Test
+    void anEmployerScopeLimitsBalanceContributionsLastInterestAndEstimate() throws Exception {
+        UUID[] ids = filterFixture();
+        JsonNode all = summary();
+
+        JsonNode beta = summary("?employerId=" + ids[1]);
+        assertAmount("1080", beta.get("balance"));
+        assertAmount("0", beta.get("fyEmployee"));
+        assertEquals(2025, beta.get("lastInterest").get("fy").asInt());
+        assertAmount("80", beta.get("lastInterest").get("amount"));
+        assertAmount("8.25", beta.get("interestEstimate").get("rate"));
+        assertAmount("45", beta.get("interestEstimate").get("amount")); // 6 x 1080 x 8.25 / 1200 = 44.55
+        assertEquals(all.get("pension").toString(), beta.get("pension").toString());
+        assertEquals(all.get("throughMonth").asText(), beta.get("throughMonth").asText());
+
+        JsonNode acme = summary("?employerId=" + ids[0]);
+        assertAmount("18000", acme.get("fyEmployee"));
+        assertEquals(2024, acme.get("lastInterest").get("fy").asInt());
+    }
+
+    @Test
+    void aPastFyUsesTheBalanceAtThirtyFirstMarchAndThatYearsContributionsAndInterest() throws Exception {
+        filterFixture();
+
+        JsonNode s = summary("?fy=2024");
+        assertAmount("159000", s.get("balance")); // acme at 2025-03-31 incl. interest; beta has no entries yet
+        assertEquals("2025-03-31", s.get("balanceAsOf").asText());
+        assertEquals(2024, s.get("periodFy").asInt());
+        assertAmount("0", s.get("fyEmployee"));
+        assertTrue(s.get("interestEstimate").isNull());
+        JsonNode period = s.get("periodInterest");
+        assertEquals(2024, period.get("fy").asInt());
+        assertAmount("9000", period.get("amount"));
+        assertAmount("8.25", period.get("rate"));
+        assertEquals("2025-03-31", period.get("creditedOn").asText());
+
+        JsonNode fy2025 = summary("?fy=2025");
+        assertAmount("9000", fy2025.get("fyEmployee")); // 3 x 3000 by due month May..Jul 2025
+        assertAmount("5250", fy2025.get("fyEmployer"));
+        assertEquals("2026-03-31", fy2025.get("balanceAsOf").asText());
+        assertAmount("80", fy2025.get("periodInterest").get("amount"));
+        assertTrue(fy2025.get("interestEstimate").isNull());
+    }
+
+    @Test
+    void allYearsSumsEveryContributionAndCreditedInterestWithTodaysBalance() throws Exception {
+        filterFixture();
+
+        JsonNode s = summary("?allYears=true&fy=2024");
+        assertTrue(s.get("periodFy").isNull());
+        assertTrue(s.get("balanceAsOf").isNull());
+        assertAmount(summary().get("balance").asText(), s.get("balance"));
+        assertAmount("27000", s.get("fyEmployee")); // 3 + 6 months x 3000
+        assertAmount("15750", s.get("fyEmployer"));
+        assertTrue(s.get("interestEstimate").isNull());
+        JsonNode period = s.get("periodInterest");
+        assertTrue(period.get("fy").isNull());
+        assertTrue(period.get("rate").isNull());
+        assertAmount("9080", period.get("amount"));
+        assertEquals("2026-03-31", period.get("creditedOn").asText());
+    }
+
+    @Test
+    void currentFyWithInterestAlreadyCreditedShowsItAndNoEstimate() throws Exception {
+        UUID[] ids = filterFixture();
+        addEntry(interest(ids[1], 2026, "2026-09-01", 10, 0));
+
+        JsonNode s = summary();
+        assertTrue(s.get("interestEstimate").isNull());
+        assertEquals(2026, s.get("periodInterest").get("fy").asInt());
+        assertAmount("10", s.get("periodInterest").get("amount"));
+        assertTrue(summary("?employerId=" + ids[0]).get("periodInterest").isNull());
+    }
+
+    @Test
+    void aZeroPlaceholderInterestNeverCountsAsPeriodInterest() throws Exception {
+        UUID e1 = employer("Acme", "2020-04-01", null);
+        addEntry(body("OPENING_BALANCE", e1, "2026-03-31", 1000, 0));
+        addEntry(interest(e1, 2026, "2027-03-31", 0, 0));
+
+        assertTrue(summary().get("periodInterest").isNull());
+        assertTrue(summary("?allYears=true").get("periodInterest").isNull());
+    }
+
+    @Test
+    void aForeignOrUnknownEmployerIsNotFound() throws Exception {
+        UUID mine = employer("Mine", null, null);
+        otherApi.getJson(BASE + "/summary?employerId=" + mine, 404);
+        api.getJson(BASE + "/summary?employerId=" + UUID.randomUUID(), 404);
+    }
+
+    @Test
+    void aFutureFyKeepsTodaysBalanceWithoutAnEstimate() throws Exception {
+        filterFixture();
+
+        JsonNode s = summary("?fy=2030");
+        assertAmount(summary().get("balance").asText(), s.get("balance"));
+        assertTrue(s.get("balanceAsOf").isNull());
+        assertEquals(2030, s.get("periodFy").asInt());
+        assertTrue(s.get("interestEstimate").isNull());
+        assertAmount("0", s.get("fyEmployee"));
+    }
 }

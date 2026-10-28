@@ -8,9 +8,9 @@ import java.time.LocalDate;
 public record EpfSummaryResponse(
         boolean hasData,
         BigDecimal balance,
-        /** Employee share contributed in the current financial year. */
+        /** Employee share contributed in the period. */
         BigDecimal fyEmployee,
-        /** Employer share contributed in the current financial year. */
+        /** Employer share contributed in the period. */
         BigDecimal fyEmployer,
         @Nullable EpfInterestEstimate interestEstimate,
         @Nullable EpfLastInterest lastInterest,
@@ -21,7 +21,13 @@ public record EpfSummaryResponse(
         /** Wage month of the latest CONTRIBUTION across employers; null when there is none. */
         @Nullable LocalDate throughMonth,
         /** The latest contribution, to prefill a new one; null when there is none. */
-        @Nullable EpfLatestContribution latestContribution) {
+        @Nullable EpfLatestContribution latestContribution,
+        /** 31 March closing the period for a past financial year; null when the balance is today's. */
+        @Nullable LocalDate balanceAsOf,
+        /** The financial year (start year) the period figures are for; null = all years. */
+        @Nullable Integer periodFy,
+        /** Credited interest of the scope in the period; null when there is none. */
+        @Nullable EpfPeriodInterest periodInterest) {
 
     public record EpfLatestContribution(java.util.UUID employerId, LocalDate wageMonth, LocalDate creditedOn,
                                         BigDecimal employeeAmount, BigDecimal employerAmount,
@@ -33,6 +39,10 @@ public record EpfSummaryResponse(
     }
 
     public record EpfLastInterest(int fy, BigDecimal amount, @Nullable BigDecimal rate, LocalDate creditedOn) {
+    }
+
+    public record EpfPeriodInterest(@Nullable Integer fy, BigDecimal amount, @Nullable BigDecimal rate,
+                                    @Nullable LocalDate creditedOn) {
     }
 
     public record EpfPension(BigDecimal monthlyContribution, int serviceMonths, BigDecimal estimatedMonthlyPension,
