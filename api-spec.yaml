@@ -22330,6 +22330,10 @@ components:
       properties:
         annualRatePct:
           type: number
+        clearPaymentAccount:
+          type: boolean
+          description: true removes the loan's payment account; null/false keeps it.
+            Cannot be combined with paymentAccountId.
         emiAmount:
           type: number
         firstEmiDate:

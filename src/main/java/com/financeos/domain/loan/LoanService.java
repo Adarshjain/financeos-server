@@ -330,7 +330,13 @@ public class LoanService {
         if (req.loanAccountNumber() != null) loan.setLoanAccountNumber(req.loanAccountNumber());
         if (req.notes() != null) loan.setNotes(req.notes());
 
-        if (req.paymentAccountId() != null) {
+        boolean clearPaymentAccount = Boolean.TRUE.equals(req.clearPaymentAccount());
+        if (clearPaymentAccount && req.paymentAccountId() != null) {
+            throw new ValidationException("Send either paymentAccountId or clearPaymentAccount, not both");
+        }
+        if (clearPaymentAccount) {
+            loan.setPaymentAccount(null);
+        } else if (req.paymentAccountId() != null) {
             UUID userId = UserContext.getCurrentUserId();
             Account paymentAccount = accountRepository.findById(req.paymentAccountId())
                     .orElseThrow(() -> new ValidationException("Payment account not found: " + req.paymentAccountId()));
