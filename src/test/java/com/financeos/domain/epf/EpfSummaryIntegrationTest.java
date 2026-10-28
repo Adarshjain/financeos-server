@@ -428,6 +428,14 @@ class EpfSummaryIntegrationTest extends EpfIntegrationBase {
     }
 
     @Test
+    void aSettledAccountIsLeftOutOfTheEstimateWithItsCreditedInterest() throws Exception {
+        UUID[] ids = oldCreditedNewContributing();
+        addEntry(withdrawal(ids[0], "FINAL_SETTLEMENT", "2026-09-15", 50300, 200, 0, null)); // balance + interest paid out
+        assertAmount("4950", summary().get("interestEstimate").get("amount")); // New Co only: 6 x 120000 x 8.25 / 1200
+        assertTrue(summary("?employerId=" + ids[0]).get("interestEstimate").isNull());
+    }
+
+    @Test
     void noEstimateWhenEveryEmployerIsCreditedForTheCurrentFy() throws Exception {
         UUID[] ids = oldCreditedNewContributing();
         addEntry(interest(ids[1], 2026, "2026-09-20", 400, 0));
