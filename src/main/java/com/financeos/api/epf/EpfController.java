@@ -30,8 +30,11 @@ public class EpfController {
     }
 
     @GetMapping("/summary")
-    public EpfSummaryResponse getEpfSummary() {
-        return epfService.getSummary();
+    public EpfSummaryResponse getEpfSummary(
+            @RequestParam(required = false) UUID employerId,
+            @RequestParam(required = false) Integer fy,
+            @RequestParam(defaultValue = "false") boolean allYears) {
+        return epfService.getSummary(employerId, fy, allYears);
     }
 
     @GetMapping("/employers")

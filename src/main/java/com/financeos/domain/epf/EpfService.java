@@ -142,13 +142,22 @@ public class EpfService {
 
     // ------------------------------------------------------------------ summary
 
+    /**
+     * The summary. {@code employerId} limits the balance, contributions, interest and estimate to one employer
+     * (404 when it is not the user's); {@code allYears} or {@code fy} picks the period, default the current FY.
+     */
     @Transactional(readOnly = true)
-    public EpfSummaryResponse getSummary() {
+    public EpfSummaryResponse getSummary(UUID employerId, Integer fyParam, boolean allYears) {
         Data data = load();
+        if (employerId != null && !data.employers().containsKey(employerId)) {
+            throw new ResourceNotFoundException("EPF employer", employerId);
+        }
         LocalDate today = AppTime.today();
-        int fy = FinancialYear.startYear(today);
-        LocalDate fyStart = FinancialYear.start(fy);
-        LocalDate fyEnd = FinancialYear.end(fy);
+        int currentFy = FinancialYear.startYear(today);
+        Integer periodFy = allYears ? null : (fyParam != null ? fyParam : currentFy);
+        Set<UUID> scope = employerId != null ? Set.of(employerId) : data.employers().keySet();
+        List<EpfEntry> scoped = employerId == null ? data.entries()
+                : data.entries().stream().filter(e -> e.getEmployer().getId().equals(employerId)).toList();
         Map<UUID, List<EpfEntry>> perEmployer = byEmployer(data);
         Map<UUID, Status> statuses = new HashMap<>();
         for (EpfEmployer employer : data.employers().values()) {
@@ -157,18 +166,56 @@ public class EpfService {
 
         BigDecimal fyEmployee = BigDecimal.ZERO;
         BigDecimal fyEmployer = BigDecimal.ZERO;
-        for (EpfEntry e : data.entries()) {
-            if (e.getType() == EpfEntryType.CONTRIBUTION && !EpfLedger.ledgerDate(e).isBefore(fyStart)
-                    && !EpfLedger.ledgerDate(e).isAfter(fyEnd)) {
+        for (EpfEntry e : scoped) {
+            if (e.getType() == EpfEntryType.CONTRIBUTION
+                    && (periodFy == null || FinancialYear.startYear(EpfLedger.ledgerDate(e)) == periodFy)) {
                 fyEmployee = fyEmployee.add(nz(e.getEmployeeAmount()));
                 fyEmployer = fyEmployer.add(nz(e.getEmployerAmount()));
             }
         }
-        BigDecimal balance = data.ledger().total().total();
+        BigDecimal todayBalance;
+        if (employerId == null) {
+            todayBalance = data.ledger().total().total();
+        } else {
+            todayBalance = data.ledger().balance(employerId).total();
+        }
+        BigDecimal balance = todayBalance;
+        LocalDate balanceAsOf = null;
+        if (periodFy != null && periodFy < currentFy) {
+            balance = BigDecimal.ZERO;
+            for (UUID id : scope) {
+                balance = balance.add(data.ledger().balanceAtEndOfMonth(id, YearMonth.of(periodFy + 1, 3)).total());
+            }
+            balanceAsOf = LocalDate.of(periodFy + 1, 3, 31);
+        }
+        EpfSummaryResponse.EpfInterestEstimate estimate = periodFy != null && periodFy == currentFy
+                ? interestEstimate(data, scoped, scope, today, currentFy, todayBalance) : null;
         EpfSummaryResponse.EpfLatestContribution latest = latestContribution(data);
         return new EpfSummaryResponse(!data.employers().isEmpty() || !data.entries().isEmpty(), balance, fyEmployee,
-                fyEmployer, interestEstimate(data, today, fy, balance), lastInterest(data), pension(data, today, statuses),
-                staleThrough(data, today, statuses), uanLast4(data), latest == null ? null : latest.wageMonth(), latest);
+                fyEmployer, estimate, lastInterest(scoped), pension(data, today, statuses),
+                staleThrough(data, today, statuses), uanLast4(data), latest == null ? null : latest.wageMonth(), latest,
+                balanceAsOf, periodFy, periodInterest(scoped, periodFy));
+    }
+
+    /** Credited interest of the scoped entries in the period FY (or all years); null when there is none. */
+    private static EpfSummaryResponse.EpfPeriodInterest periodInterest(List<EpfEntry> scoped, Integer periodFy) {
+        BigDecimal amount = BigDecimal.ZERO;
+        LocalDate creditedOn = null;
+        boolean any = false;
+        for (EpfEntry e : scoped) {
+            if (isCreditedInterest(e) && (periodFy == null || e.getInterestFy().equals(periodFy))) {
+                any = true;
+                amount = amount.add(nz(e.getEmployeeAmount())).add(nz(e.getEmployerAmount()));
+                if (creditedOn == null || e.getCreditedOn().isAfter(creditedOn)) {
+                    creditedOn = e.getCreditedOn();
+                }
+            }
+        }
+        if (!any) {
+            return null;
+        }
+        return new EpfSummaryResponse.EpfPeriodInterest(periodFy, amount,
+                periodFy == null ? null : EpfInterestRates.rateFor(periodFy), creditedOn);
     }
 
     /** The latest CONTRIBUTION by wage month, then credited date; null when there is none. */
@@ -182,8 +229,8 @@ public class EpfService {
                 .orElse(null);
     }
 
-    private static EpfSummaryResponse.EpfLastInterest lastInterest(Data data) {
-        List<EpfEntry> interest = data.entries().stream()
+    private static EpfSummaryResponse.EpfLastInterest lastInterest(List<EpfEntry> scoped) {
+        List<EpfEntry> interest = scoped.stream()
                 .filter(e -> isCreditedInterest(e)).toList();
         if (interest.isEmpty()) {
             return null;
@@ -208,8 +255,10 @@ public class EpfService {
                 && (nz(e.getEmployeeAmount()).signum() != 0 || nz(e.getEmployerAmount()).signum() != 0);
     }
 
-    private static EpfSummaryResponse.EpfInterestEstimate interestEstimate(Data data, LocalDate today, int fy, BigDecimal balance) {
-        boolean credited = data.entries().stream().anyMatch(e -> isCreditedInterest(e) && e.getInterestFy() == fy);
+    private static EpfSummaryResponse.EpfInterestEstimate interestEstimate(Data data, List<EpfEntry> scoped,
+                                                                                   Set<UUID> scope, LocalDate today, int fy,
+                                                                                   BigDecimal balance) {
+        boolean credited = scoped.stream().anyMatch(e -> isCreditedInterest(e) && e.getInterestFy() == fy);
         if (credited || balance.signum() <= 0) {
             return null;
         }
@@ -226,7 +275,7 @@ public class EpfService {
             return null; // April: no month has closed in this financial year yet
         }
         BigDecimal sum = BigDecimal.ZERO;
-        for (UUID employerId : data.employers().keySet()) {
+        for (UUID employerId : scope) {
             for (YearMonth month = YearMonth.of(fy, 4); !month.isAfter(last); month = month.plusMonths(1)) {
                 BigDecimal monthEnd = data.ledger().balanceAtEndOfMonth(employerId, month).total();
                 sum = sum.add(monthEnd.multiply(rate).divide(new BigDecimal("1200"), 10, RoundingMode.HALF_UP));

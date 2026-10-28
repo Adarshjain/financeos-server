@@ -3314,6 +3314,25 @@ paths:
   /api/v1/epf/summary:
     get:
       operationId: getEpfSummary
+      parameters:
+      - in: query
+        name: employerId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: fy
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: allYears
+        required: false
+        schema:
+          type: boolean
+          default: false
       responses:
         "200":
           content:
@@ -13691,11 +13710,37 @@ components:
       - estimatedMonthlyPension
       - monthlyContribution
       - serviceMonths
+    EpfPeriodInterest:
+      type: object
+      properties:
+        amount:
+          type: number
+        creditedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        fy:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        rate:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - amount
     EpfSummaryResponse:
       type: object
       properties:
         balance:
           type: number
+        balanceAsOf:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
         fyEmployee:
           type: number
         fyEmployer:
@@ -13710,6 +13755,13 @@ components:
           $ref: "#/components/schemas/EpfLatestContribution"
         pension:
           $ref: "#/components/schemas/EpfPension"
+        periodFy:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        periodInterest:
+          $ref: "#/components/schemas/EpfPeriodInterest"
         staleThrough:
           type: string
           format: date
