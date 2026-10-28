@@ -531,7 +531,9 @@ public class GmailIngestionService {
                 gpm.setError(truncate(e.getMessage() != null ? e.getMessage() : e.toString(), 2000));
             }
 
-            if (attempts < ingestProperties.getRetryMaxAttempts()) {
+            boolean permanent = e instanceof com.financeos.gmail.internal.GmailEngineException ge
+                    && ge.getErrorType() == com.financeos.gmail.internal.GmailError.PERMANENT;
+            if (!permanent && attempts < ingestProperties.getRetryMaxAttempts()) {
                 gpm.setStatus(GmailProcessedStatus.FAILED_RETRYABLE);
                 long backoffSeconds = Math.min(86400L, 7200L * (1L << (attempts - 1)));
                 gpm.setNextRetryAt(Instant.now().plusSeconds(backoffSeconds));

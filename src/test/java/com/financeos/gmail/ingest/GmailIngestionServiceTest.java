@@ -219,6 +219,50 @@ class GmailIngestionServiceTest {
         assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.SKIPPED_DUPLICATE);
     }
 
+    private GmailProcessedMessage pendingRow(String id) {
+        GmailProcessedMessage row = new GmailProcessedMessage();
+        row.setId(UUID.randomUUID());
+        row.setConnection(connection);
+        row.setUser(user);
+        row.setGmailMessageId(id);
+        row.setStatus(GmailProcessedStatus.DISCOVERED);
+        row.setDiscoveredAt(Instant.now());
+        when(processedMessageRepository.countByConnectionIdAndStatusIn(eq(connection.getId()), anyCollection())).thenReturn(1L, 0L);
+        when(processedMessageRepository.findPendingForDrain(eq(connection.getId()), any(), any())).thenReturn(List.of(row));
+        when(processedMessageRepository.findById(row.getId())).thenReturn(Optional.of(row));
+        return row;
+    }
+
+    @Test
+    void goneMessageIsSkippedNotFailed() {
+        GmailProcessedMessage row = pendingRow("msg-gone");
+        when(gmailEngine.fetchMessageDetails(connection, "msg-gone"))
+                .thenThrow(new com.financeos.gmail.internal.MessageGoneException("msg-gone"));
+        gmailIngestionService.syncConnection(connection);
+        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.SKIPPED_MESSAGE_GONE);
+    }
+
+    @Test
+    void permanentGoogleErrorIsNotRetried() {
+        GmailProcessedMessage row = pendingRow("msg-bad");
+        when(gmailEngine.fetchMessageDetails(connection, "msg-bad")).thenThrow(new com.financeos.gmail.internal.GmailEngineException(
+                com.financeos.gmail.internal.GmailError.PERMANENT, "Google rejected the request (400 invalidArgument)"));
+        gmailIngestionService.syncConnection(connection);
+        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.FAILED_PERMANENT);
+        assertThat(row.getNextRetryAt()).isNull();
+        assertThat(row.getError()).contains("400");
+    }
+
+    @Test
+    void serverErrorIsRetriedLikeNetworkError() {
+        GmailProcessedMessage row = pendingRow("msg-503");
+        when(gmailEngine.fetchMessageDetails(connection, "msg-503")).thenThrow(new com.financeos.gmail.internal.GmailEngineException(
+                com.financeos.gmail.internal.GmailError.SERVER_ERROR, "Google server error (503)"));
+        gmailIngestionService.syncConnection(connection);
+        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.FAILED_RETRYABLE);
+        assertThat(row.getNextRetryAt()).isNotNull();
+    }
+
     @Test
     void testStaleProcessingSweep() {
         GmailProcessedMessage staleRow = new GmailProcessedMessage();
