@@ -22,6 +22,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
         UUID getId();
 
         java.math.BigDecimal getBalance();
+
+        /** The bank's printed balance, only on the row that starts a mismatch with our running balance. */
+        java.math.BigDecimal getBankBalance();
     }
 
     @Override

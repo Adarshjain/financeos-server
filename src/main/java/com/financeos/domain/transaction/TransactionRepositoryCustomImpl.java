@@ -161,7 +161,14 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
                 balance = new BigDecimal(array[1].toString());
             }
 
-            projections.add(new TransactionBalanceProjectionImpl(id, balance));
+            BigDecimal bankBalance = null;
+            if (array[2] instanceof BigDecimal) {
+                bankBalance = (BigDecimal) array[2];
+            } else if (array[2] != null) {
+                bankBalance = new BigDecimal(array[2].toString());
+            }
+
+            projections.add(new TransactionBalanceProjectionImpl(id, balance, bankBalance));
         }
 
         return new PageImpl<>(projections, pageable, total);
@@ -170,10 +177,17 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
     private static class TransactionBalanceProjectionImpl implements TransactionRepository.TransactionBalanceProjection {
         private final UUID id;
         private final BigDecimal balance;
+        private final BigDecimal bankBalance;
 
-        public TransactionBalanceProjectionImpl(UUID id, BigDecimal balance) {
+        public TransactionBalanceProjectionImpl(UUID id, BigDecimal balance, BigDecimal bankBalance) {
             this.id = id;
             this.balance = balance;
+            this.bankBalance = bankBalance;
+        }
+
+        @Override
+        public BigDecimal getBankBalance() {
+            return bankBalance;
         }
 
         @Override

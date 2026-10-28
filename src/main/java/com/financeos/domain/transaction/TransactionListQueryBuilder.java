@@ -81,23 +81,67 @@ public class TransactionListQueryBuilder {
 
         String whereClause = buildWhereClause(criteria, params, joins);
 
+        // Layers: l0 = our running balance + the printed statement line per transaction; l1 adds our end-of-day
+        // balance per account/day; l2 = the day's anchor line (bank's last line) and its mismatch; l3 = mismatch flag per anchor day; the outermost keeps the
+        // first mismatching day of each run (previous compared day matched, or none) as bank_balance.
+        // Printed balances of credit cards state the amount owed, our balance is negative then, so they are negated.
         String innerSql = """
-            SELECT t.id, t.account_id, t.card_id, t.transaction_date, t.created_at, t.type, t.source,
-                   t.amount, t.description, t.sourced_description,
-                   t.is_under_monitoring, t.is_excluded, t.review_type,
-                   (CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END) AS signed_amount,
-                   (COALESCE(abd.opening_balance, 0) +
-                    SUM(CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END)
-                        OVER (PARTITION BY t.account_id
-                              ORDER BY t.transaction_date ASC, t.created_at ASC, t.id ASC)) AS balance
-            FROM transactions t
-            LEFT JOIN account_bank_details abd ON t.account_id = abd.account_id
-            WHERE t.user_id = :userId
+            SELECT l3.*,
+                   (CASE WHEN l3.mismatch = 1 AND (l3.prev_mismatch IS NULL OR l3.prev_mismatch = 0)
+                         THEN l3.printed ELSE NULL END) AS bank_balance
+            FROM (
+              SELECT l2.*,
+                     LAG(l2.mismatch) IGNORE NULLS
+                         OVER (PARTITION BY l2.account_id
+                               ORDER BY l2.transaction_date ASC, l2.created_at ASC, l2.id ASC) AS prev_mismatch
+              FROM (
+                SELECT l1.*,
+                       (CASE WHEN l1.printed IS NOT NULL
+                              AND ROW_NUMBER() OVER (PARTITION BY l1.account_id, l1.transaction_date
+                                    ORDER BY CASE WHEN l1.printed IS NULL THEN 1 ELSE 0 END,
+                                             l1.stmt_end DESC NULLS LAST, l1.stmt_id DESC, l1.line_idx DESC NULLS LAST, l1.id DESC) = 1
+                             THEN (CASE WHEN ABS(l1.day_end - l1.printed) > 0.005 THEN 1 ELSE 0 END)
+                             ELSE NULL END) AS mismatch
+                FROM (
+                 SELECT l0.*,
+                        LAST_VALUE(l0.balance) OVER (PARTITION BY l0.account_id, l0.transaction_date
+                            ORDER BY l0.created_at ASC, l0.id ASC
+                            ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS day_end
+                 FROM (
+                  SELECT t.id, t.account_id, t.card_id, t.transaction_date, t.created_at, t.type, t.source,
+                         t.amount, t.description, t.sourced_description,
+                         t.is_under_monitoring, t.is_excluded, t.review_type,
+                         (CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END) AS signed_amount,
+                         (COALESCE(abd.opening_balance, 0) +
+                          SUM(CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END)
+                              OVER (PARTITION BY t.account_id
+                                    ORDER BY t.transaction_date ASC, t.created_at ASC, t.id ASC)) AS balance,
+                         (CASE WHEN acc.type = 'credit_card' THEN -sl.balance_after ELSE sl.balance_after END) AS printed,
+                         sl.period_end AS stmt_end, sl.statement_id AS stmt_id, sl.line_index AS line_idx
+                  FROM transactions t
+                  JOIN accounts acc ON acc.id = t.account_id
+                  LEFT JOIN account_bank_details abd ON t.account_id = abd.account_id
+                  LEFT JOIN (
+                    SELECT x.transaction_id, x.balance_after, x.line_index, x.statement_id, x.period_end
+                    FROM (
+                      SELECT st.transaction_id, st.balance_after, st.line_index, st.statement_id, s.period_end,
+                             ROW_NUMBER() OVER (PARTITION BY st.transaction_id
+                                                ORDER BY s.period_end DESC NULLS LAST, st.statement_id DESC) AS rn
+                      FROM statement_transactions st
+                      JOIN statements s ON s.id = st.statement_id
+                      WHERE s.user_id = :userId
+                    ) x WHERE x.rn = 1 AND x.balance_after IS NOT NULL
+                  ) sl ON sl.transaction_id = t.id
+                  WHERE t.user_id = :userId
+                 ) l0
+                ) l1
+              ) l2
+            ) l3
             """;
         params.put("userId", userId.toString());
 
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT sub.id, sub.balance FROM ( ").append(innerSql).append(" ) sub");
+        sql.append("SELECT sub.id, sub.balance, sub.bank_balance FROM ( ").append(innerSql).append(" ) sub");
 
         if (joins.contains(Join.ACCOUNTS)) {
             sql.append(" LEFT JOIN accounts a ON a.id = sub.account_id");
