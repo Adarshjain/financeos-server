@@ -1052,9 +1052,15 @@ paths:
           description: Error response
       tags:
       - account-insights-controller
-  /api/v1/app-lock:
-    delete:
+  /api/v1/app-lock/disable:
+    post:
       operationId: disable
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DisableAppLockRequest"
+        required: true
       responses:
         "200":
           description: OK
@@ -12696,6 +12702,13 @@ components:
       - rootCause
       - timeline
       - truncated
+    DisableAppLockRequest:
+      type: object
+      properties:
+        credential:
+          x-required: true
+      required:
+      - credential
     DividendHoldingHint:
       type: object
       properties:

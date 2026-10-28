@@ -97,7 +97,7 @@ class AppLockFilterTest {
     @ParameterizedTest
     @ValueSource(strings = {
             "/api/v1/auth/me", "/api/v1/app-lock/heartbeat", "/api/v1/app-lock/settings",
-            "/api/v1/app-lock/registration/options", "/api/v1/app-lock", "/api/v1/auth/me/delete"})
+            "/api/v1/app-lock/registration/options", "/api/v1/app-lock/disable", "/api/v1/auth/me/delete"})
     void everythingElseIsRefusedWhileLocked(String path) throws Exception {
         armAndLock();
         assertEquals(423, call("GET", path).getStatus());

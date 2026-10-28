@@ -409,8 +409,24 @@ class AppLockFlowIntegrationTest {
     }
 
     @Test
-    void reEnrollingOnTheSameDeviceReplacesItsRow() throws Exception {
+    void reEnrollingWhileArmedIsRefused() throws Exception {
+        enrol(api, authenticator, 60);
+        MockHttpServletResponse r = api.post(BASE + "/registration/options", Map.of("lockAfterSeconds", 900));
+
+        assertEquals(409, r.getStatus());
+        assertEquals("APP_LOCK_ALREADY_ON", body(r).get("code").asText());
+        assertEquals(1, deviceRows(userId));
+        JsonNode status = api.getJson(BASE + "/status", 200);
+        assertTrue(status.get("armed").asBoolean());
+        assertEquals(60, status.get("lockAfterSeconds").asInt());
+        assertEquals(403, disable(api, new TestAuthenticator(RP_ID, ORIGIN), true).getStatus());
+        assertEquals(204, disable(api, authenticator, true).getStatus());
+    }
+
+    @Test
+    void reEnrollingAfterTheRowIsGoneWorks() throws Exception {
         String first = enrol(api, authenticator, 60);
+        jdbc.update("DELETE FROM app_lock_devices WHERE user_id = ?", userId.toString());
         String second = enrol(api, new TestAuthenticator(RP_ID, ORIGIN), 900);
 
         assertNotEquals(first, second);
@@ -418,11 +434,17 @@ class AppLockFlowIntegrationTest {
         assertEquals(900, api.getJson(BASE + "/status", 200).get("lockAfterSeconds").asInt());
     }
 
+    private MockHttpServletResponse disable(ApiTestClient client, TestAuthenticator auth, boolean userVerified)
+            throws Exception {
+        JsonNode options = client.postJson(BASE + "/unlock/options", null, 200);
+        return client.post(BASE + "/disable", Map.of("credential", auth.get(options, userVerified)));
+    }
+
     // (g)
     @Test
-    void disablingRemovesTheRowAndDisarms() throws Exception {
+    void disablingWithAGoodAssertionRemovesTheRowAndDisarms() throws Exception {
         enrol(api, authenticator, 60);
-        api.deleteJson(BASE, 204);
+        assertEquals(204, disable(api, authenticator, true).getStatus());
 
         assertEquals(0, deviceRows(userId));
         assertFalse(api.getJson(BASE + "/status", 200).get("armed").asBoolean());
@@ -434,8 +456,76 @@ class AppLockFlowIntegrationTest {
     void disablingIsRefusedWhileLocked() throws Exception {
         enrol(api, authenticator, 60);
         advance(61);
-        api.deleteJson(BASE, 423);
+        MockHttpServletResponse r = api.post(BASE + "/disable", Map.of("credential", Map.of()));
+        assertEquals(423, r.getStatus());
         assertEquals(1, deviceRows(userId));
+    }
+
+    @Test
+    void disablingWithABadAssertionIsRefusedAndKeepsItArmed() throws Exception {
+        enrol(api, authenticator, 60);
+        MockHttpServletResponse r = disable(api, authenticator, false);
+
+        assertEquals(403, r.getStatus());
+        assertEquals("APP_LOCK_UNLOCK_FAILED", body(r).get("code").asText());
+        assertEquals(1, deviceRows(userId));
+        assertTrue(api.getJson(BASE + "/status", 200).get("armed").asBoolean());
+    }
+
+    @Test
+    void disablingWithoutStartingACeremonyIsRefused() throws Exception {
+        enrol(api, authenticator, 60);
+        JsonNode options = api.postJson(BASE + "/unlock/options", null, 200);
+        JsonNode assertion = authenticator.get(options, true);
+        // Consume the challenge, then answer a ceremony nobody started.
+        assertEquals(204, api.post(BASE + "/unlock/verify", Map.of("credential", assertion)).getStatus());
+        MockHttpServletResponse r = api.post(BASE + "/disable", Map.of("credential", assertion));
+
+        assertEquals(403, r.getStatus());
+        assertEquals(1, deviceRows(userId));
+        assertTrue(api.getJson(BASE + "/status", 200).get("armed").asBoolean());
+    }
+
+    @Test
+    void disablingWithAnotherUsersCredentialIsRefused() throws Exception {
+        enrol(api, authenticator, 60);
+        String otherEmail = "applock-other-" + UUID.randomUUID() + "@example.test";
+        ApiTestClient other = ApiTestClient.signUp(mockMvc, mapper, otherEmail);
+        userIds.add(userRepository.findByEmail(otherEmail).orElseThrow().getId());
+        TestAuthenticator otherAuth = new TestAuthenticator(RP_ID, ORIGIN);
+        enrol(other, otherAuth, 60);
+
+        assertEquals(403, disable(api, otherAuth, true).getStatus());
+        assertEquals(1, deviceRows(userId));
+        assertTrue(api.getJson(BASE + "/status", 200).get("armed").asBoolean());
+    }
+
+    @Test
+    void fifthFailedDisableEndsTheSession() throws Exception {
+        enrol(api, authenticator, 60);
+        for (int i = 1; i <= 4; i++) {
+            assertEquals(403, disable(api, authenticator, false).getStatus(), "attempt " + i);
+        }
+        MockHttpServletResponse fifth = disable(api, authenticator, false);
+        assertEquals(401, fifth.getStatus());
+        assertEquals("UNAUTHORIZED", body(fifth).get("code").asText());
+        assertEquals(401, api.get("/api/v1/accounts").getStatus());
+        assertEquals(1, deviceRows(userId));
+    }
+
+    @Test
+    void disablingAnUnarmedSessionJustSucceeds() throws Exception {
+        assertEquals(204, api.post(BASE + "/disable", Map.of("credential", Map.of())).getStatus());
+        assertFalse(api.getJson(BASE + "/status", 200).get("armed").asBoolean());
+    }
+
+    @Test
+    void disablingWithAMissingDeviceRowDisarms() throws Exception {
+        enrol(api, authenticator, 60);
+        jdbc.update("DELETE FROM app_lock_devices WHERE user_id = ?", userId.toString());
+
+        assertEquals(204, api.post(BASE + "/disable", Map.of("credential", Map.of())).getStatus());
+        assertFalse(api.getJson(BASE + "/status", 200).get("armed").asBoolean());
     }
 
     @Test
