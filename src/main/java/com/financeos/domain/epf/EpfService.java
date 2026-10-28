@@ -258,8 +258,7 @@ public class EpfService {
     private static EpfSummaryResponse.EpfInterestEstimate interestEstimate(Data data, List<EpfEntry> scoped,
                                                                                    Set<UUID> scope, LocalDate today, int fy,
                                                                                    BigDecimal balance) {
-        boolean credited = scoped.stream().anyMatch(e -> isCreditedInterest(e) && e.getInterestFy() == fy);
-        if (credited || balance.signum() <= 0) {
+        if (balance.signum() <= 0) {
             return null;
         }
         BigDecimal declared = EpfInterestRates.rateFor(fy);
@@ -275,11 +274,29 @@ public class EpfService {
             return null; // April: no month has closed in this financial year yet
         }
         BigDecimal sum = BigDecimal.ZERO;
+        boolean anyLeft = false;
         for (UUID employerId : scope) {
+            // An employer whose interest for this year is already credited (e.g. a transferred-out account) keeps
+            // the credited amount and is not estimated.
+            BigDecimal credited = null;
+            for (EpfEntry e : scoped) {
+                if (e.getEmployer().getId().equals(employerId) && isCreditedInterest(e) && e.getInterestFy() == fy) {
+                    credited = (credited == null ? BigDecimal.ZERO : credited)
+                            .add(nz(e.getEmployeeAmount())).add(nz(e.getEmployerAmount()));
+                }
+            }
+            if (credited != null) {
+                sum = sum.add(credited);
+                continue;
+            }
+            anyLeft = true;
             for (YearMonth month = YearMonth.of(fy, 4); !month.isAfter(last); month = month.plusMonths(1)) {
                 BigDecimal monthEnd = data.ledger().balanceAtEndOfMonth(employerId, month).total();
                 sum = sum.add(monthEnd.multiply(rate).divide(new BigDecimal("1200"), 10, RoundingMode.HALF_UP));
             }
+        }
+        if (!anyLeft) {
+            return null; // every employer's interest for this year is credited: nothing left to estimate
         }
         return new EpfSummaryResponse.EpfInterestEstimate(fy, sum.setScale(0, RoundingMode.HALF_UP), rate, rateFy);
     }
