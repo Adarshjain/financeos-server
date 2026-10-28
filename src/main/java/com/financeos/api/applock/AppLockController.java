@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.api.applock.dto.AppLockStatusResponse;
+import com.financeos.api.applock.dto.DisableAppLockRequest;
 import com.financeos.api.applock.dto.RegistrationOptionsRequest;
 import com.financeos.api.applock.dto.RegistrationVerifyRequest;
 import com.financeos.api.applock.dto.RegistrationVerifyResponse;
@@ -19,7 +20,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -84,9 +84,10 @@ public class AppLockController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> disable(HttpServletRequest request) {
-        deviceService.disable(request.getSession(true), UserContext.getCurrentUserId());
+    /** Needs a fresh assertion from {@code /unlock/options}; a locked session is refused by the filter. */
+    @PostMapping("/disable")
+    public ResponseEntity<Void> disable(@Valid @RequestBody DisableAppLockRequest body, HttpServletRequest request) {
+        deviceService.disable(request.getSession(true), UserContext.getCurrentUserId(), body.credential());
         return ResponseEntity.noContent().build();
     }
 

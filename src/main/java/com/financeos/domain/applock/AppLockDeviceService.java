@@ -70,6 +70,7 @@ public class AppLockDeviceService {
     /** Starts enrolment; returns the {@code {publicKey: ...}} JSON for navigator.credentials.create. */
     public String startRegistration(HttpSession session, UUID userId, int lockAfterSeconds) {
         requireAllowed(lockAfterSeconds);
+        refuseWhileArmed(session, userId);
         User user = users.findById(userId).orElseThrow();
         UUID deviceId = UUID.randomUUID();
         byte[] handle = new byte[32];
@@ -132,6 +133,7 @@ public class AppLockDeviceService {
             log.warn("App lock registration rejected: reason={}", e.getClass().getSimpleName());
             throw new ValidationException("Couldn't set up app lock. Try again.");
         }
+        refuseWhileArmed(session, userId);
         return store(session, userId, deviceId, lockAfter, handle, result, label, transports, replacedDeviceCookie);
     }
 
@@ -159,6 +161,17 @@ public class AppLockDeviceService {
         return deviceId;
     }
 
+    /**
+     * An armed session whose device row still exists must turn app lock off (a fresh assertion) before enrolling
+     * another passkey; otherwise re-enrolling would swap the key and sidestep that. A gone row may be re-enrolled.
+     */
+    private void refuseWhileArmed(HttpSession session, UUID userId) {
+        UUID armed = parse(AppLockSession.deviceId(session));
+        if (armed != null && devices.findByIdAndUserId(armed, userId).isPresent()) {
+            throw new ApiStatusException(HttpStatus.CONFLICT, "APP_LOCK_ALREADY_ON", "App lock is already on");
+        }
+    }
+
     /** Re-enrolling on a device that already has a row replaces it (the session's armed device, or the device cookie's). */
     private void replaceExisting(HttpSession session, UUID userId, String deviceCookie) {
         for (String id : new String[] {AppLockSession.deviceId(session), deviceCookie}) {
@@ -178,15 +191,24 @@ public class AppLockDeviceService {
         appLock.setLockAfter(session, lockAfterSeconds);
     }
 
-    /** Turns app lock off for this device: deletes its row and disarms the session. */
-    public void disable(HttpSession session, UUID userId) {
+    /**
+     * Turns app lock off for this device: needs a fresh passkey assertion (from {@link #startUnlock}), then deletes
+     * the row and disarms the session. An unarmed session, or one whose row is already gone, has nothing to protect.
+     */
+    public void disable(HttpSession session, UUID userId, JsonNode credential) {
         UUID deviceId = parse(AppLockSession.deviceId(session));
-        if (deviceId != null) {
-            devices.deleteByIdAndUserId(deviceId, userId);
-            log.info("App lock disabled: deviceId={}", deviceId,
-                    StructuredArguments.keyValue("event", Events.APP_LOCK_DISABLED),
-                    StructuredArguments.keyValue("deviceId", deviceId.toString()));
+        AppLockDevice device = deviceId == null ? null : devices.findByIdAndUserId(deviceId, userId).orElse(null);
+        if (device == null) {
+            appLock.disarm(session);
+            return;
         }
+        if (!verifyAssertion(session, userId, device, credential)) {
+            throw failedVerification(session, device);
+        }
+        devices.delete(device);
+        log.info("App lock disabled: deviceId={}", deviceId,
+                StructuredArguments.keyValue("event", Events.APP_LOCK_DISABLED),
+                StructuredArguments.keyValue("deviceId", deviceId.toString()));
         appLock.disarm(session);
     }
 
@@ -210,25 +232,29 @@ public class AppLockDeviceService {
     public void finishUnlock(HttpSession session, UUID userId, JsonNode credential) {
         AppLockDevice device = armedDevice(session, userId);
         if (!verifyAssertion(session, userId, device, credential)) {
-            int fails = appLock.recordFailure(session);
-            log.warn("App lock unlock failed: deviceId={}, failures={}", device.getId(), fails,
-                    StructuredArguments.keyValue("event", Events.APP_LOCK_UNLOCK_FAILED),
-                    StructuredArguments.keyValue("deviceId", device.getId().toString()),
-                    StructuredArguments.keyValue("failures", fails));
-            if (appLock.failureLimitReached(fails)) {
-                log.warn("App lock ended the session after too many failed unlocks",
-                        StructuredArguments.keyValue("event", Events.APP_LOCK_SESSION_ENDED));
-                session.invalidate();
-                org.springframework.security.core.context.SecurityContextHolder.clearContext();
-                throw new ApiStatusException(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Signed out");
-            }
-            throw new ApiStatusException(HttpStatus.FORBIDDEN, "APP_LOCK_UNLOCK_FAILED",
-                    "Couldn't verify. Try again.");
+            throw failedVerification(session, device);
         }
         appLock.unlock(session);
         log.info("App lock unlocked: deviceId={}", device.getId(),
                 StructuredArguments.keyValue("event", Events.APP_LOCK_UNLOCKED),
                 StructuredArguments.keyValue("deviceId", device.getId().toString()));
+    }
+
+    /** Counts a failed assertion; at the configured limit ends the session (401), otherwise 403. */
+    private ApiStatusException failedVerification(HttpSession session, AppLockDevice device) {
+        int fails = appLock.recordFailure(session);
+        log.warn("App lock unlock failed: deviceId={}, failures={}", device.getId(), fails,
+                StructuredArguments.keyValue("event", Events.APP_LOCK_UNLOCK_FAILED),
+                StructuredArguments.keyValue("deviceId", device.getId().toString()),
+                StructuredArguments.keyValue("failures", fails));
+        if (appLock.failureLimitReached(fails)) {
+            log.warn("App lock ended the session after too many failed unlocks",
+                    StructuredArguments.keyValue("event", Events.APP_LOCK_SESSION_ENDED));
+            session.invalidate();
+            org.springframework.security.core.context.SecurityContextHolder.clearContext();
+            return new ApiStatusException(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Signed out");
+        }
+        return new ApiStatusException(HttpStatus.FORBIDDEN, "APP_LOCK_UNLOCK_FAILED", "Couldn't verify. Try again.");
     }
 
     private boolean verifyAssertion(HttpSession session, UUID userId, AppLockDevice device, JsonNode credential) {
