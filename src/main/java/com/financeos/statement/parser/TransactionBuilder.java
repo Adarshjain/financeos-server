@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
@@ -11,19 +12,24 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 final class TransactionBuilder {
     private static final Set<String> CR_DR_TOKENS = Set.of("Cr", "Dr", "CR", "DR");
     private static final Pattern PRINT_COUNTER = Pattern.compile("\\d+/\\d+");
+    // Widest gap between two words of one narration (a space is ~2.5pt at 9pt).
+    private static final double TEXT_GAP = 5;
 
     private TransactionBuilder() {
     }
 
     static TxnBuild build(List<RawRow> rawRows, String dateFmt, String dateFmt2,
-                           LocalDate periodStart, LocalDate periodEnd, Line headerWords) {
+                           LocalDate periodStart, LocalDate periodEnd, Line headerWords,
+                           NavigableMap<Integer, Line> pageHeaders) {
         double[] refZone = refZone(headerWords);
+        Map<Integer, List<double[]>> sideZones = new HashMap<>();
         List<String> rowFmts = new ArrayList<>();
         for (String f : new String[]{dateFmt, dateFmt2, "%Y/%m/%d", "%Y-%m-%d"}) {
             if (f != null) {
@@ -133,6 +139,10 @@ final class TransactionBuilder {
                         continue;
                     }
                 }
+                if (inSideColumn(sideZones.computeIfAbsent(ln.page(), p -> sideColumns(pageHeaders.floorEntry(p))), w)) {
+                    ci++;
+                    continue;
+                }
                 String tok = Tokens.norm(w.text());
                 String nxt = ci + 1 < words.size() ? Tokens.norm(words.get(ci + 1).text()) : "";
                 Amount amt = Tokens.parseAmount(tok);
@@ -150,13 +160,18 @@ final class TransactionBuilder {
                     String nxt2 = ci + 2 < words.size() ? Tokens.norm(words.get(ci + 2).text()) : "";
                     if (Tokens.parseAmount(nxt) != null || (Tokens.isCurrencyToken(nxt) && Tokens.parseAmount(nxt2) != null)) {
                         pendingSign = tok.equals("+") ? 1 : -1;
+                    } else if (inTextRun(words, ci)) { // "AMAZON.IN - GROCERY"
+                        desc.add(w.text());
+                        descX.add(w.x0());
+                        descX.add(w.x1());
                     }
                 } else if (CR_DR_TOKENS.contains(tok)) {
                     if (!amounts.isEmpty()) { // standalone flag beside the amount cell
                         amounts.get(amounts.size() - 1).sign = tok.toLowerCase(Locale.ROOT).startsWith("c") ? 1 : -1;
                     }
-                } else if (tok.length() == 1 && Character.isLetter(tok.charAt(0))) {
-                    // indicator-column glyphs (dots/bullets extract as a letter)
+                } else if (tok.length() == 1 && Character.isLetter(tok.charAt(0)) && !inTextRun(words, ci)) {
+                    // indicator-column glyphs (dots/bullets extract as a letter) stand
+                    // apart; an initial inside the narration ("K RATHINAVELU") is text
                 } else {
                     desc.add(w.text());
                     descX.add(w.x0());
@@ -220,14 +235,15 @@ final class TransactionBuilder {
                 }
             }
             List<String> words = new ArrayList<>();
-            for (Word w : ln.words()) {
-                String norm = Tokens.norm(w.text());
+            List<Word> lineWords = ln.words();
+            for (int k = 0; k < lineWords.size(); k++) {
+                String norm = Tokens.norm(lineWords.get(k).text());
                 if (Tokens.parseAmount(norm) != null
                         || Tokens.isCurrencyToken(norm)
-                        || (norm.length() == 1 && Character.isLetter(norm.charAt(0)))) {
+                        || (norm.length() == 1 && Character.isLetter(norm.charAt(0)) && !inTextRun(lineWords, k))) {
                     continue;
                 }
-                words.add(w.text());
+                words.add(lineWords.get(k).text());
             }
             if (near.pos > pos) {
                 near.desc.addAll(0, words);
@@ -329,6 +345,45 @@ final class TransactionBuilder {
             words.addAll(block.get(i).words());
         }
         return words;
+    }
+
+    // A word printed right beside another narration word belongs to that text.
+    private static boolean inTextRun(List<Word> words, int i) {
+        Word w = words.get(i);
+        return (i > 0 && isNarrationWord(words.get(i - 1)) && w.x0() - words.get(i - 1).x1() <= TEXT_GAP)
+                || (i + 1 < words.size() && isNarrationWord(words.get(i + 1))
+                        && words.get(i + 1).x0() - w.x1() <= TEXT_GAP);
+    }
+
+    private static boolean isNarrationWord(Word w) {
+        String t = Tokens.norm(w.text());
+        return Tokens.parseAmount(t) == null && !Tokens.isCurrencyToken(t);
+    }
+
+    // Serial-number and reward-point columns (ICICI "SerNo.", "Reward") hold one
+    // short value under the header word; it is not part of the narration.
+    private static List<double[]> sideColumns(Map.Entry<Integer, Line> header) {
+        List<double[]> zones = new ArrayList<>();
+        if (header == null) {
+            return zones;
+        }
+        for (Word w : header.getValue().words()) {
+            String wl = w.text().toLowerCase(Locale.ROOT);
+            if (wl.startsWith("serno") || wl.startsWith("serial") || wl.startsWith("reward")) {
+                zones.add(new double[]{w.x0(), w.x1()});
+            }
+        }
+        return zones;
+    }
+
+    private static boolean inSideColumn(List<double[]> zones, Word w) {
+        double center = (w.x0() + w.x1()) / 2;
+        for (double[] z : zones) {
+            if (z[0] <= center && center <= z[1]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static double[] refZone(Line headerWords) {

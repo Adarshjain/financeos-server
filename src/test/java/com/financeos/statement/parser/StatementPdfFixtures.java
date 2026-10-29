@@ -245,7 +245,10 @@ public final class StatementPdfFixtures {
 	 * a summary box left of the table, a spends-overview chart whose labels ("72%",
 	 * "Travel-16%", "For exclusive") share lines with the rows or sit between them,
 	 * the first row right under the card number, a "22091/50000" print counter in
-	 * the margin, and a footer line that reads like a date ("State Code: 33 the").
+	 * the margin, a SerNo. column between date and details, an indicator glyph
+	 * standing apart, the statement period printed beside the table, a footer line
+	 * that reads like a date ("State Code: 33 the"), and a second page whose table
+	 * sits further left.
 	 */
 	public static byte[] iciciSpendsChartBesideTable() throws Exception {
 		Doc d = new Doc();
@@ -257,30 +260,49 @@ public final class StatementPdfFixtures {
 		d.line(l(205, "STATEMENT SUMMARY"));
 		d.line(l(81, "Total Amount due"), l(220, "Previous Balance"), l(320, "Purchases / Charges"),
 				l(420, "Cash Advances"), l(500, "Payments / Credits"));
-		d.line(l(87, "2,687.93"), l(230, "0.00"), l(330, "2,690.93"), l(430, "0.00"), l(510, "3.00"));
+		d.line(l(87, "2,682.92"), l(230, "0.00"), l(330, "2,690.93"), l(430, "0.00"), l(510, "8.01"));
 		d.line(l(73, "Minimum Amount due"), l(205, "CREDIT SUMMARY"));
 		d.line(l(93, "140.00"));
 		d.line(l(89, "SPENDS OVERVIEW"), l(208, "Date"), l(272, "SerNo."), l(340, "Transaction Details"),
 				l(520, "Amount"));
 		d.line(l(208, "4315XXXXXXXX0005"));
-		d.line(l(208, "24/11/2021"), l(272, "5587103799"), l(340, "UPI Payment Received"), r(560, "1.00 CR"));
-		d.line(l(68, "72%"), l(208, "24/11/2021"), l(272, "5587104134"), l(340, "UPI Payment Received"),
-				r(560, "2.00 CR"));
-		d.line(l(208, "24/11/2021"), l(272, "5589982660"), l(340, "NEARBUY INDIA PVT LTD GURGAON IN"),
+		d.line(l(208, "24/11/2021"), l(260, "5587103799"), l(340, "UPI Payment Received"), r(560, "1.00 CR"));
+		d.line(l(68, "72%"), l(208, "24/11/2021"), l(260, "5587104134"), l(340, "UPI Payment Received"),
+				l(490, "l"), r(560, "2.00 CR"));
+		d.line(l(208, "24/11/2021"), l(260, "5589982660"), l(340, "NEARBUY INDIA PVT LTD GURGAON IN"),
 				r(560, "237.00"));
-		d.line(l(40, "Travel-16%"), l(100, "Apparel/Grocery-7%"), l(208, "26/11/2021"), l(272, "5597503264"),
+		d.line(l(40, "Travel-16%"), l(100, "Apparel/Grocery-7%"), l(208, "26/11/2021"), l(260, "5597503264"),
 				l(340, "Bigtree Entertainment MUMBAI IN"), r(560, "279.21"));
-		d.line(l(67, "22091/50000"), l(208, "05/12/2021"), l(272, "5627673817"),
+		d.line(l(67, "22091/50000"), l(208, "05/12/2021"), l(260, "5627673817"),
 				l(340, "RAZ*RailTel Corporation Delhi IN"), r(560, "1,178.82"));
 		d.line(l(118, "For exclusive"));
-		d.line(l(208, "09/12/2021"), l(272, "5639348021"), l(340, "AMAZON.IN GROCERY HTTP://WWW.AM IN"),
-				r(560, "490.00"));
+		d.line(l(208, "09/12/2021"), l(260, "5639348021"), l(340, "AMAZON.IN - GROCERY"), r(560, "490.00"));
 		d.line(l(122, "offers, visit"));
-		d.line(l(208, "10/12/2021"), l(272, "5645530509"), l(340, "RATHINAVELU MUDALI CHIDAMBARAM IN"),
-				r(560, "505.90"));
+		d.line(l(208, "10/12/2021"), l(260, "5645530509"), l(340, "K RATHINAVELU MUDALI"), r(560, "505.90"));
 		d.line(l(165, "T&C apply"));
 		d.line(l(40, "Statement period : November 13, 2021 to December 12, 2021"));
 		d.line(l(40, "State Code: 33"), l(208, "the transaction amount displayed."));
+		d.newPage();
+		d.line(l(35, "Date"), l(122, "SerNo."), l(181, "Transaction Details"), l(525, "Amount"));
+		d.line(l(35, "12/12/2021"), l(110, "5646188850"), l(181, "Reversal of fuel Surcharge"), r(560, "5.01 CR"));
+		return d.save();
+	}
+
+	/**
+	 * ICICI Amazon Pay card statement (2023+ layout): a Reward column between the
+	 * details and the amount, its points printed close after the narration's "IN".
+	 */
+	public static byte[] iciciRewardColumn() throws Exception {
+		Doc d = new Doc();
+		d.line(l(38, "CREDIT CARD STATEMENT"));
+		d.line(l(40, "Statement period : July 21, 2024 to August 20, 2024"));
+		d.line(l(89, "SPENDS OVERVIEW"), l(208, "Date"), l(266, "SerNo."), l(330, "Transaction Details"),
+				l(470, "Reward"), l(510, "Intl.#"), l(540, "Amount"));
+		d.line(l(208, "4315XXXXXXXX0005"));
+		d.line(l(208, "20/07/2024"), l(258, "9533036320"), l(330, "IND*AMAZON HTTP://WWW.AM IN"), l(477, "416"),
+				r(585, "8,335.74"));
+		d.line(l(208, "01/08/2024"), l(258, "9615560576"), l(330, "UPI Payment Received"), l(480, "0"),
+				r(585, "2,872.55 CR"));
 		return d.save();
 	}
 

@@ -49,7 +49,7 @@ public final class StatementParseEngine {
         }
 
         TxnBuild tb = TransactionBuilder.build(cr.rows(), cr.dateFmt(), cr.dateFmt2(),
-                meta.periodStart, meta.periodEnd, cr.headerWords());
+                meta.periodStart, meta.periodEnd, cr.headerWords(), cr.pageHeaders());
         if (tb.openingFromMarker() != null && meta.openingBalance == null) {
             meta.openingBalance = tb.openingFromMarker();
         }

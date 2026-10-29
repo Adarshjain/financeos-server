@@ -8,7 +8,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
@@ -27,6 +29,8 @@ final class RowCollector {
     // Lines one transaction block may span after a page break (HSBC UPI/NEFT
     // narrations run 6-7 lines before the amount line).
     private static final int CARRY_WINDOW = 10;
+    // ICICI prints "Statement period : ..." beside the table, between its rows.
+    private static final Pattern LABELLED_PERIOD = Pattern.compile("(?:statement|billing)\\s+(?:period|cycle)");
 
     private static int findHeaderRow(List<Line> lines, int firstTxnIdx) {
         int stop = Math.max(firstTxnIdx - 8, -1);
@@ -359,6 +363,24 @@ final class RowCollector {
                 metaZone.add(lines.get(i));
             }
         }
+        for (int i = first + 1; i < last; i++) {
+            if (!txnSet.contains(i) && LABELLED_PERIOD.matcher(lines.get(i).text().toLowerCase(Locale.ROOT)).find()) {
+                metaZone.add(lines.get(i));
+            }
+        }
+
+        // Each page's own column header: tables shift between pages, and a page
+        // without one keeps the previous page's columns.
+        NavigableMap<Integer, Line> pageHeaders = new TreeMap<>();
+        for (int i : txnIdx) {
+            int page = lines.get(i).page();
+            if (!pageHeaders.containsKey(page)) {
+                int h = findHeaderRow(lines, i);
+                if (h >= 0 && lines.get(h).page() == page) {
+                    pageHeaders.put(page, lines.get(h));
+                }
+            }
+        }
 
         // Seed currentCardLast4 from statement header (document-stated number)
         String currentCardLast4 = null;
@@ -432,7 +454,7 @@ final class RowCollector {
                 + nTxn + " txn rows, " + nCont + " continuation lines, header row idx: " + headerIdx);
 
         Line headerWords = headerIdx >= 0 ? lines.get(headerIdx) : null;
-        return new CollectedRows(metaZone, raw, headerWords, dateFmt, dateFmt2, maxTxnPage);
+        return new CollectedRows(metaZone, raw, headerWords, pageHeaders, dateFmt, dateFmt2, maxTxnPage);
     }
 
     private static String extractTrailingLast4(String raw) {
