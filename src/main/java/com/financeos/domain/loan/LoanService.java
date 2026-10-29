@@ -33,6 +33,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.function.Predicate;
 
 @Service
 @Transactional
@@ -883,7 +884,13 @@ public class LoanService {
 
     @Transactional(readOnly = true)
     public List<LoanWithSchedule> getAllLoansWithSchedule() {
-        List<Loan> loans = loanRepository.findAll();
+        return getLoansWithSchedule(loan -> true);
+    }
+
+    /** Like {@link #getAllLoansWithSchedule()} but loads schedule inputs and computes schedules only for loans matching {@code filter}. */
+    @Transactional(readOnly = true)
+    public List<LoanWithSchedule> getLoansWithSchedule(Predicate<Loan> filter) {
+        List<Loan> loans = loanRepository.findAll().stream().filter(filter).toList();
         ScheduleInputs inputs = loadScheduleInputs(loans);
         return loans.stream().map(loan -> new LoanWithSchedule(loan, inputs.compute(scheduleService, loan))).toList();
     }

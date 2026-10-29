@@ -179,6 +179,14 @@ public class AccountService {
         return accounts;
     }
 
+    /** {@link #getAllAccounts()} plus {@link #populateLastTransactionDates}: GET /accounts, in one read-only transaction. */
+    @Transactional(readOnly = true)
+    public List<Account> getAllAccountsWithLastTransactionDates() {
+        List<Account> accounts = getAllAccounts();
+        populateLastTransactionDates(accounts);
+        return accounts;
+    }
+
     /**
      * Fills the balances, effective limits, utilisation and pool usage of {@code accounts} from one
      * batch balance query (plus the pools' own rows): the figures GET /accounts reports. A pooled card's
@@ -463,6 +471,7 @@ public class AccountService {
         }
     }
 
+    @Transactional(readOnly = true)
     public String extractLast4(Account account) {
         if (account.getBankDetails() != null && account.getBankDetails().getLast4() != null) {
             return account.getBankDetails().getLast4();

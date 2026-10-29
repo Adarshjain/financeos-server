@@ -168,4 +168,20 @@ class AccountLastTransactionDateTest {
         assertNull(bank.getLastTransactionDate());
         assertNull(card.getLastTransactionDate());
     }
+
+    @Test
+    void listInOneCallFillsBalancesAndLastDatesInTheOrderOfFindAll() {
+        Account first = account(AccountType.bank_account);
+        Account second = account(AccountType.bank_account);
+        when(accountRepository.findAll()).thenReturn(List.of(first, second));
+        when(transactionRepository.findLastTransactionDatesByAccountIds(anyCollection()))
+                .thenReturn(List.of(row(second.getId(), LocalDate.of(2026, 10, 7))));
+
+        List<Account> result = service.getAllAccountsWithLastTransactionDates();
+
+        assertEquals(List.of(first, second), result);
+        assertNull(first.getLastTransactionDate());
+        assertEquals(LocalDate.of(2026, 10, 7), second.getLastTransactionDate());
+        verify(transactionRepository, times(1)).findLastTransactionDatesByAccountIds(anyCollection());
+    }
 }

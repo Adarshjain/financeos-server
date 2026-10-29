@@ -72,7 +72,11 @@ class EmiInboxCollectorTest {
     private List<InboxItemResponse> collect(List<InstallmentDto> installments) {
         ScheduleResult schedule = new ScheduleResult(installments, BigDecimal.TEN, new BigDecimal("25000"), BigDecimal.ZERO,
                 installments.size(), 3, null, null, BigDecimal.ZERO, BigDecimal.ZERO, null);
-        when(loanService.getAllLoansWithSchedule()).thenReturn(List.of(new LoanService.LoanWithSchedule(loan, schedule)));
+        List<LoanService.LoanWithSchedule> all = List.of(new LoanService.LoanWithSchedule(loan, schedule));
+        org.mockito.Mockito.doAnswer(inv -> {
+            java.util.function.Predicate<Loan> filter = inv.getArgument(0);
+            return all.stream().filter(e -> filter.test(e.loan())).toList();
+        }).when(loanService).getLoansWithSchedule(org.mockito.ArgumentMatchers.any());
         return collector.collect(userId, TODAY);
     }
 
@@ -157,5 +161,37 @@ class EmiInboxCollectorTest {
     void aFullySettledScheduleOrAnUndatedInstallmentHasNothingToShow() {
         assertEquals(List.of(), collect(List.of(installment(1, TODAY.minusMonths(1), "settled"), installment(2, TODAY, "settled"))));
         assertEquals(List.of(), collect(List.of(installment(1, null, "upcoming"))));
+    }
+
+    @Test
+    void asksOnlyForActiveUnmutedLoansAndEmitsTheSameRowsAsFilteringAfterwards() {
+        ScheduleResult schedule = new ScheduleResult(scheduleWithCurrentIn(2), BigDecimal.TEN, new BigDecimal("25000"), BigDecimal.ZERO,
+                12, 3, null, null, BigDecimal.ZERO, BigDecimal.ZERO, null);
+        List<Loan> loans = new ArrayList<>();
+        for (LoanStatus status : LoanStatus.values()) {
+            Loan l = new Loan();
+            l.setId(UUID.randomUUID());
+            l.setName(status.name());
+            l.setStatus(status);
+            l.setCreatedAt(loan.getCreatedAt());
+            loans.add(l);
+        }
+        Loan muted = new Loan();
+        muted.setId(UUID.randomUUID());
+        muted.setName("muted");
+        muted.setStatus(LoanStatus.active);
+        muted.setNotificationsMuted(true);
+        muted.setCreatedAt(loan.getCreatedAt());
+        loans.add(muted);
+        List<LoanService.LoanWithSchedule> all = loans.stream().map(l -> new LoanService.LoanWithSchedule(l, schedule)).toList();
+        org.mockito.Mockito.doAnswer(inv -> {
+            java.util.function.Predicate<Loan> filter = inv.getArgument(0);
+            return all.stream().filter(e -> filter.test(e.loan())).toList();
+        }).when(loanService).getLoansWithSchedule(org.mockito.ArgumentMatchers.any());
+
+        List<InboxItemResponse> rows = collector.collect(userId, TODAY);
+
+        assertEquals(1, rows.size());
+        assertEquals("active: EMI #4", rows.get(0).title());
     }
 }

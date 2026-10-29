@@ -46,8 +46,7 @@ public class AccountController {
 
     @GetMapping
     public ResponseEntity<List<AccountResponse>> getAllAccounts() {
-        List<Account> accounts = accountService.getAllAccounts();
-        accountService.populateLastTransactionDates(accounts);
+        List<Account> accounts = accountService.getAllAccountsWithLastTransactionDates();
         List<AccountResponse> response = accounts.stream()
                 .map(AccountResponse::from)
                 .toList();
