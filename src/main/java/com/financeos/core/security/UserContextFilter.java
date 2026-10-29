@@ -25,6 +25,9 @@ import java.util.Optional;
 @Order(0)
 public class UserContextFilter extends OncePerRequestFilter {
 
+    /** Request attribute holding the user row this filter loaded, so later steps of the same request reuse it. */
+    public static final String CURRENT_USER_ATTRIBUTE = UserContextFilter.class.getName() + ".user";
+
     private final UserRepository userRepository;
 
     public UserContextFilter(UserRepository userRepository) {
@@ -44,6 +47,7 @@ public class UserContextFilter extends OncePerRequestFilter {
                 if (email != null && !email.equals("anonymousUser")) {
                     Optional<User> user = userRepository.findByEmail(email);
                     if (user.isPresent()) {
+                        request.setAttribute(CURRENT_USER_ATTRIBUTE, user.get());
                         UserContext.setCurrentUserId(user.get().getId());
                         MDC.put("userId", String.valueOf(user.get().getId()));
                     } else {

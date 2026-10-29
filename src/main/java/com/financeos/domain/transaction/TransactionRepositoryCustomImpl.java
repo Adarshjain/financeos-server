@@ -116,6 +116,15 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
     }
 
     @Override
+    public long countFiltered(UUID userId, TransactionSearchCriteria criteria) {
+        queryBuilder.validate(criteria, Pageable.unpaged());
+        TransactionListQueryBuilder.QueryResult countResult = queryBuilder.buildCountQuery(userId, criteria);
+        Query countQuery = entityManager.createNativeQuery(countResult.sql());
+        countResult.params().forEach(countQuery::setParameter);
+        return ((Number) countQuery.getSingleResult()).longValue();
+    }
+
+    @Override
     public Page<TransactionRepository.TransactionBalanceProjection> findFiltered(
             UUID userId,
             TransactionSearchCriteria criteria,

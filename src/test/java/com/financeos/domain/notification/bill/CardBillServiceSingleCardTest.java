@@ -117,8 +117,8 @@ class CardBillServiceSingleCardTest {
         List<CardBill> one = service.listBills(user.getId(), target.getId());
 
         assertEquals(List.of(expected), one);
-        verify(statementRepository).findQualifyingCreditCardStatementsIn(List.of(target.getId()));
-        verify(statementRepository).findByAccountIdInOrderByPeriodEndDescNullsLast(List.of(target.getId()));
+        verify(statementRepository).findQualifyingCreditCardStatementKeysIn(List.of(target.getId()));
+        verify(statementRepository).findPeriodsByAccountIdIn(List.of(target.getId()));
         verify(statementRepository, never()).findQualifyingCreditCardStatements(other.getId());
         verify(statementRepository, never()).findByAccountIdOrderByPeriodEndDescNullsLast(other.getId());
         verify(transactionRepository, never()).sumDebitsAfter(org.mockito.ArgumentMatchers.eq(other.getId()), any());
@@ -154,7 +154,7 @@ class CardBillServiceSingleCardTest {
         verify(accountService).populateBalances(populated.capture());
         assertEquals(3, populated.getValue().size());
         assertTrue(populated.getValue().containsAll(List.of(target, sibling, closedMember)));
-        verify(statementRepository).findQualifyingCreditCardStatementsIn(List.of(target.getId()));
+        verify(statementRepository).findQualifyingCreditCardStatementKeysIn(List.of(target.getId()));
         verify(statementRepository, never()).findQualifyingCreditCardStatements(sibling.getId());
         verify(statementRepository, never()).findByAccountIdOrderByPeriodEndDescNullsLast(closedMember.getId());
         verify(transactionRepository, never()).sumDebitsAfter(org.mockito.ArgumentMatchers.eq(sibling.getId()), any());
@@ -175,7 +175,7 @@ class CardBillServiceSingleCardTest {
         assertTrue(service.listBills(user.getId(), closed.getId()).isEmpty());
         assertTrue(service.listBills(user.getId(), bank.getId()).isEmpty());
         assertTrue(service.listBills(user.getId(), UUID.randomUUID()).isEmpty());
-        verify(statementRepository, never()).findQualifyingCreditCardStatementsIn(any());
+        verify(statementRepository, never()).findQualifyingCreditCardStatementKeysIn(any());
         verify(accountService, never()).populateBalances(any());
     }
 }

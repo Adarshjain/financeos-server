@@ -96,8 +96,10 @@ class CardBillBatchTest {
         Statement s2 = statement(billed2, new BigDecimal("2000"));
         when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card))
                 .thenReturn(List.of(billed1, billed2, awaiting));
-        when(statementRepository.findQualifyingCreditCardStatementsIn(any())).thenReturn(List.of(s1, s2));
-        when(statementRepository.findByAccountIdInOrderByPeriodEndDescNullsLast(any())).thenReturn(List.of(s1, s2));
+        when(statementRepository.findQualifyingCreditCardStatementKeysIn(any()))
+                .thenReturn(BatchRepositoryBridge.keysOf(List.of(s1, s2)));
+        when(statementRepository.findWithCreditCardDetailsByIdIn(any())).thenReturn(List.of(s1, s2));
+        when(statementRepository.findPeriodsByAccountIdIn(any())).thenReturn(BatchRepositoryBridge.periodsOf(List.of(s1, s2)));
         when(statementRepository.findLastLineDates(any())).thenReturn(List.of());
         when(transactionRepository.sumsAfterCutoffs(any())).thenReturn(Map.of(
                 billed1.getId(), new TransactionRepositoryCustom.SumsAfter(new BigDecimal("1000"), new BigDecimal("300")),
@@ -119,8 +121,9 @@ class CardBillBatchTest {
                 .filter(b -> b.accountId().equals(awaiting.getId())).findFirst().orElseThrow().status());
 
         verify(accountService, times(1)).populateBalances(any());
-        verify(statementRepository, times(1)).findQualifyingCreditCardStatementsIn(any());
-        verify(statementRepository, times(1)).findByAccountIdInOrderByPeriodEndDescNullsLast(any());
+        verify(statementRepository, times(1)).findQualifyingCreditCardStatementKeysIn(any());
+        verify(statementRepository, times(1)).findWithCreditCardDetailsByIdIn(any());
+        verify(statementRepository, times(1)).findPeriodsByAccountIdIn(any());
         verify(transactionRepository, times(1)).sumsAfterCutoffs(any());
         verify(statementRepository, never()).findQualifyingCreditCardStatements(any());
         verify(statementRepository, never()).findLastLineDate(any());
@@ -129,5 +132,44 @@ class CardBillBatchTest {
         verify(transactionRepository, never()).sumDebitsAfter(any(), any());
         verify(transactionRepository, never()).findTotalTransactionSumByAccountId(any());
         verify(accountService, never()).populateLiveBalance(any());
+    }
+
+    @Test
+    void onlyTheLatestLiveStatementOfEachCardIsLoadedAndTheNextExpectedDateReadsEveryPeriod() {
+        Account c = card("Two statements");
+        Statement older = statement(c, new BigDecimal("500"));
+        older.setPeriodStart(TODAY.minusDays(70));
+        older.setPeriodEnd(TODAY.minusDays(41));
+        older.setCreatedAt(java.time.Instant.parse("2026-08-01T00:00:00Z"));
+        Statement newer = statement(c, new BigDecimal("900"));
+        newer.setCreatedAt(java.time.Instant.parse("2026-09-01T00:00:00Z"));
+        Statement undated = statement(c, new BigDecimal("1"));
+        undated.setPeriodStart(null);
+        undated.setPeriodEnd(null);
+        Statement rejected = statement(c, new BigDecimal("2"));
+        rejected.setPeriodStart(TODAY.minusDays(10));
+        rejected.setPeriodEnd(TODAY.plusDays(20));
+        rejected.setVerdict(com.financeos.domain.statement.StatementVerdict.REJECTED);
+        List<Statement> all = List.of(older, newer, undated, rejected);
+        when(accountRepository.findByUserIdAndType(user.getId(), AccountType.credit_card)).thenReturn(List.of(c));
+        when(statementRepository.findQualifyingCreditCardStatementKeysIn(any()))
+                .thenReturn(BatchRepositoryBridge.keysOf(List.of(older, newer, undated)));
+        when(statementRepository.findWithCreditCardDetailsByIdIn(any())).thenReturn(List.of(newer));
+        when(statementRepository.findPeriodsByAccountIdIn(any())).thenReturn(BatchRepositoryBridge.periodsOf(all));
+        when(statementRepository.findLastLineDates(any())).thenReturn(List.of());
+        when(transactionRepository.sumsAfterCutoffs(any())).thenReturn(Map.of(c.getId(),
+                new TransactionRepositoryCustom.SumsAfter(BigDecimal.ZERO, BigDecimal.ZERO)));
+        when(transactionRepository.findTotalTransactionSumsByAccountIds(any())).thenReturn(List.of());
+
+        List<CardBill> bills = service.listBills(user.getId());
+
+        org.mockito.ArgumentCaptor<java.util.Collection<UUID>> loaded = org.mockito.ArgumentCaptor.forClass(java.util.Collection.class);
+        verify(statementRepository).findWithCreditCardDetailsByIdIn(loaded.capture());
+        assertEquals(List.of(newer.getId()), List.copyOf(loaded.getValue()), "the older and the undated statement are never hydrated");
+        assertEquals(1, bills.size());
+        assertEquals(new BigDecimal("900"), bills.get(0).totalAmountDue());
+        // Next expected = the cycle after the latest valid period end (the rejected one is ignored).
+        assertEquals(com.financeos.domain.account.cycle.BillingCycles.fromStatements(all).containing(TODAY.minusDays(9)).end(),
+                bills.get(0).nextStatementExpectedOn());
     }
 }

@@ -4,6 +4,7 @@ import com.financeos.api.inbox.dto.InboxResponse;
 import com.financeos.api.inbox.dto.InboxSnoozeRequest;
 import com.financeos.api.inbox.dto.InboxSummaryResponse;
 import com.financeos.core.security.UserContext;
+import com.financeos.domain.inbox.InboxMemo;
 import com.financeos.domain.inbox.InboxService;
 import jakarta.validation.Valid;
 import java.util.UUID;
@@ -29,9 +30,11 @@ import org.springframework.web.server.ResponseStatusException;
 public class InboxController {
 
     private final InboxService inboxService;
+    private final InboxMemo inboxMemo;
 
-    public InboxController(InboxService inboxService) {
+    public InboxController(InboxService inboxService, InboxMemo inboxMemo) {
         this.inboxService = inboxService;
+        this.inboxMemo = inboxMemo;
     }
 
     private UUID requireCurrentUserId() {
@@ -44,12 +47,14 @@ public class InboxController {
 
     @GetMapping
     public ResponseEntity<InboxResponse> list() {
-        return ResponseEntity.ok(inboxService.list(requireCurrentUserId()));
+        UUID userId = requireCurrentUserId();
+        return ResponseEntity.ok(inboxMemo.get(userId, () -> inboxService.list(userId)));
     }
 
     @GetMapping("/summary")
     public ResponseEntity<InboxSummaryResponse> summary() {
-        return ResponseEntity.ok(inboxService.summaryOnly(requireCurrentUserId()));
+        UUID userId = requireCurrentUserId();
+        return ResponseEntity.ok(inboxMemo.get(userId, () -> inboxService.list(userId)).summary());
     }
 
     @PostMapping("/{key}/snooze")

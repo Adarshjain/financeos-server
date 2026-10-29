@@ -399,6 +399,44 @@ public class InvestmentService {
         return new PositionsResponse(open);
     }
 
+    /**
+     * The current market value of each broker account's holdings (sum of position currentValue, zero when
+     * none), valued from one batch of engine inputs instead of one engine read-set per holding. A holding
+     * whose valuation fails fails the call, as the per-holding path does.
+     */
+    @Transactional(readOnly = true)
+    public Map<UUID, BigDecimal> brokerMarketValues(java.util.Collection<UUID> brokerIds) {
+        Map<UUID, BigDecimal> values = new HashMap<>();
+        for (UUID id : brokerIds) {
+            values.put(id, BigDecimal.ZERO);
+        }
+        UUID userId = UserContext.getCurrentUserId();
+        if (brokerIds.isEmpty() || userId == null) {
+            for (UUID id : brokerIds) {
+                for (Holding h : holdingRepository.findByBrokerAccountId(id)) {
+                    addCurrentValue(values, id, calculateHoldingPosition(h));
+                }
+            }
+            return values;
+        }
+        // The engine needs every holding of the user (cross-broker demerger/merger parents), not just these brokers'.
+        List<Holding> all = holdingRepository.findAllWithDetailsOfUser(userId);
+        EngineInputs inputs = all.isEmpty() ? null : loadEngineInputs(userId, all);
+        for (Holding h : all) {
+            UUID brokerId = h.getBrokerAccount().getId();
+            if (values.containsKey(brokerId)) {
+                addCurrentValue(values, brokerId, calculateHoldingPosition(h, null, null, inputs, null));
+            }
+        }
+        return values;
+    }
+
+    private static void addCurrentValue(Map<UUID, BigDecimal> values, UUID brokerId, HoldingPosition position) {
+        if (position != null && position.currentValue() != null) {
+            values.merge(brokerId, position.currentValue(), BigDecimal::add);
+        }
+    }
+
     @Transactional(readOnly = true)
     public List<PositionDto> getAllPositions() {
         List<Holding> holdings = holdingRepository.findAllWithDetails();

@@ -6,7 +6,9 @@ import com.financeos.api.inbox.dto.InboxSummaryResponse;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.observability.Events;
 import com.financeos.core.time.AppTime;
+import com.financeos.domain.inbox.collect.ContextAwareInboxCollector;
 import com.financeos.domain.inbox.collect.InboxCollector;
+import com.financeos.domain.inbox.collect.InboxContext;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -59,8 +61,9 @@ public class InboxService {
             states.put(state.getItemKey(), state);
         }
         List<InboxItemResponse> items = new ArrayList<>();
+        InboxContext context = new InboxContext();
         for (InboxCollector collector : collectors) {
-            for (InboxItemResponse item : collector.collect(userId, today)) {
+            for (InboxItemResponse item : collectFrom(collector, userId, today, context)) {
                 InboxItemState state = states.get(item.key());
                 if (state != null && state.hides(today, InboxKinds.isSummaryKey(item.key()) ? item.count() : null)) {
                     continue;
@@ -70,6 +73,10 @@ public class InboxService {
         }
         items.sort(ORDER);
         return new InboxResponse(items, summarise(items), Instant.now());
+    }
+
+    private static List<InboxItemResponse> collectFrom(InboxCollector collector, UUID userId, LocalDate today, InboxContext context) {
+        return collector instanceof ContextAwareInboxCollector aware ? aware.collect(userId, today, context) : collector.collect(userId, today);
     }
 
     /** The badge counts; costs the same as a list today, which is fine for a request-time read. */

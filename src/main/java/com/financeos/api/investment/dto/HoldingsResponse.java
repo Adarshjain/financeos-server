@@ -11,7 +11,9 @@ import java.util.UUID;
 
 /**
  * The holdings list: one row per instrument (its holdings across broker accounts summed), the header
- * and group totals over the whole filtered set, and one page of rows.
+ * and group totals over the whole filtered set, and one page of rows. {@code movers}: the (up to) three
+ * biggest day moves in rupees over the whole filtered set, biggest first; {@code portfolioGroups}: the groups
+ * ignoring the type and search filters (the broker filter kept), for the allocation view.
  */
 public record HoldingsResponse(
         Header header,
@@ -20,8 +22,13 @@ public record HoldingsResponse(
         int page,
         int size,
         long totalElements,
-        int totalPages
+        int totalPages,
+        List<Mover> movers,
+        List<Group> portfolioGroups
 ) {
+    /** One of today's biggest rupee day moves among the filtered holdings (all pages); {@code dayChange} is rounded to paise. */
+    public record Mover(UUID instrumentId, @Nullable String symbol, String name, BigDecimal dayChange) {}
+
     /** Totals over every filtered holding (all pages). {@code xirr} is percent; null when not computable. */
     public record Header(
             BigDecimal currentValue,

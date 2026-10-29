@@ -64,14 +64,15 @@ class RewardInboxCollectorTest {
         holder.getCards().add(plastic);
         card.getCardholders().add(holder);
         when(accountRepository.findByUserIdAndType(userId, AccountType.credit_card)).thenReturn(List.of(card));
-        when(milestoneRepository.findByAccountIdOrderByCreatedAtAsc(card.getId())).thenReturn(milestones);
-        when(bucketRepository.findByAccountIdOrderByCreatedAtAsc(card.getId())).thenReturn(buckets);
-        when(ruleRepository.findByAccountIdOrderByPriorityDesc(card.getId())).thenReturn(rules);
+        when(milestoneRepository.findByAccountIdInOrderByCreatedAtAsc(any())).thenReturn(milestones);
+        when(bucketRepository.findByAccountIdInOrderByCreatedAtAsc(any())).thenReturn(buckets);
+        when(ruleRepository.findByAccountIdInOrderByPriorityDesc(any())).thenReturn(rules);
     }
 
     private RewardMilestone milestone(String kind, LocalDate windowStart, LocalDate notifiedOn) {
         RewardMilestone m = new RewardMilestone();
         m.setId(UUID.randomUUID());
+        m.setAccount(card);
         m.setName("Q4 spend bonus");
         m.setNotifiedKind(kind);
         m.setNotifiedWindowStart(windowStart);
@@ -83,6 +84,7 @@ class RewardInboxCollectorTest {
     private RewardCapBucket bucket(LocalDate windowStart, LocalDate notifiedOn) {
         RewardCapBucket b = new RewardCapBucket();
         b.setId(UUID.randomUUID());
+        b.setAccount(card);
         b.setName("Shared monthly");
         b.setCapNotifiedWindowStart(windowStart);
         b.setCapNotifiedOn(notifiedOn);
@@ -93,6 +95,7 @@ class RewardInboxCollectorTest {
     private RewardRule rule(LocalDate windowStart, LocalDate notifiedOn) {
         RewardRule r = new RewardRule();
         r.setId(UUID.randomUUID());
+        r.setAccount(card);
         r.setName("Dining 5%");
         r.setCapNotifiedWindowStart(windowStart);
         r.setCapNotifiedOn(notifiedOn);
@@ -208,9 +211,9 @@ class RewardInboxCollectorTest {
         milestone("ACHIEVED", WINDOW_START, TODAY);
 
         assertEquals(List.of(), keys());
-        verify(milestoneRepository, never()).findByAccountIdOrderByCreatedAtAsc(any());
-        verify(bucketRepository, never()).findByAccountIdOrderByCreatedAtAsc(any());
-        verify(ruleRepository, never()).findByAccountIdOrderByPriorityDesc(any());
+        verify(milestoneRepository, never()).findByAccountIdInOrderByCreatedAtAsc(any());
+        verify(bucketRepository, never()).findByAccountIdInOrderByCreatedAtAsc(any());
+        verify(ruleRepository, never()).findByAccountIdInOrderByPriorityDesc(any());
     }
 
     @Test

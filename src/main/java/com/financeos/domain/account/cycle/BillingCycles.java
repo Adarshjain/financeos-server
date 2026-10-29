@@ -58,15 +58,28 @@ public final class BillingCycles {
 
     /** Cycles from a card's statements; rejected and date-less statements are ignored. */
     public static BillingCycles fromStatements(List<Statement> statements) {
-        List<Period> raw = new ArrayList<>();
+        List<LocalDate[]> bounds = new ArrayList<>();
         if (statements != null) {
             for (Statement s : statements) {
-                if (s.getVerdict() == StatementVerdict.REJECTED || s.getPeriodStart() == null || s.getPeriodEnd() == null
-                        || s.getPeriodEnd().isBefore(s.getPeriodStart())) {
-                    continue;
+                if (s.getVerdict() != StatementVerdict.REJECTED) {
+                    bounds.add(new LocalDate[] {s.getPeriodStart(), s.getPeriodEnd()});
                 }
-                raw.add(new Period(s.getPeriodStart(), s.getPeriodEnd()));
             }
+        }
+        return fromPeriods(bounds);
+    }
+
+    /**
+     * Cycles from {start, end} pairs of a card's non-rejected statements (what
+     * {@link #fromStatements} reads of them); date-less and inverted periods are ignored.
+     */
+    public static BillingCycles fromPeriods(List<LocalDate[]> bounds) {
+        List<Period> raw = new ArrayList<>();
+        for (LocalDate[] b : bounds) {
+            if (b[0] == null || b[1] == null || b[1].isBefore(b[0])) {
+                continue;
+            }
+            raw.add(new Period(b[0], b[1]));
         }
         return new BillingCycles(withoutOverlaps(raw));
     }

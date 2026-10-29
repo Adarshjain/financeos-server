@@ -57,8 +57,8 @@ public class AuthController {
 
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUser() {
-        User user = authService.getCurrentUser();
-        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user.getId())));
+        User user = authService.getCurrentUserForRead();
+        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user)));
     }
 
     @GetMapping("/google/start")

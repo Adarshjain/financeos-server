@@ -11,4 +11,8 @@ public interface RewardCapBucketRepository extends JpaRepository<RewardCapBucket
 
     @Query("SELECT b FROM RewardCapBucket b WHERE b.account.id = :accountId ORDER BY b.createdAt ASC")
     List<RewardCapBucket> findByAccountIdOrderByCreatedAtAsc(@Param("accountId") UUID accountId);
+
+    /** Buckets of several accounts, oldest first (the inbox reads every card at once). */
+    @Query("SELECT b FROM RewardCapBucket b WHERE b.account.id IN :accountIds ORDER BY b.createdAt ASC")
+    List<RewardCapBucket> findByAccountIdInOrderByCreatedAtAsc(@Param("accountIds") java.util.Collection<UUID> accountIds);
 }

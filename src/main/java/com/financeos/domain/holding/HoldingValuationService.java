@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -34,5 +36,10 @@ public class HoldingValuationService {
         }
 
         return totalMarketValue;
+    }
+
+    /** {@link #getBrokerMarketValue} for several brokers from one batch of engine inputs; every id is a key. */
+    public Map<UUID, BigDecimal> getBrokerMarketValues(Collection<UUID> brokerAccountIds) {
+        return investmentService.brokerMarketValues(brokerAccountIds);
     }
 }

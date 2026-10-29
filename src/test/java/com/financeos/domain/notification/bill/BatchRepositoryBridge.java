@@ -30,7 +30,8 @@ final class BatchRepositoryBridge {
 
     @SuppressWarnings("unchecked")
     static void install(StatementRepository statements, TransactionRepository transactions, AccountService accountService) {
-        lenient().when(statements.findQualifyingCreditCardStatementsIn(any())).thenAnswer(inv -> {
+        Map<UUID, Statement> byId = new HashMap<>();
+        lenient().when(statements.findQualifyingCreditCardStatementKeysIn(any())).thenAnswer(inv -> {
             List<Statement> all = new ArrayList<>();
             for (UUID id : (Collection<UUID>) inv.getArgument(0)) {
                 List<Statement> rows = statements.findQualifyingCreditCardStatements(id);
@@ -38,9 +39,17 @@ final class BatchRepositoryBridge {
                     all.addAll(rows);
                 }
             }
-            return all;
+            all.forEach(st -> byId.put(st.getId(), st));
+            return keysOf(all);
         });
-        lenient().when(statements.findByAccountIdInOrderByPeriodEndDescNullsLast(any())).thenAnswer(inv -> {
+        lenient().when(statements.findWithCreditCardDetailsByIdIn(any())).thenAnswer(inv -> {
+            List<Statement> rows = new ArrayList<>();
+            for (UUID id : (Collection<UUID>) inv.getArgument(0)) {
+                rows.add(byId.get(id));
+            }
+            return rows;
+        });
+        lenient().when(statements.findPeriodsByAccountIdIn(any())).thenAnswer(inv -> {
             List<Statement> all = new ArrayList<>();
             for (UUID id : (Collection<UUID>) inv.getArgument(0)) {
                 List<Statement> rows = statements.findByAccountIdOrderByPeriodEndDescNullsLast(id);
@@ -48,7 +57,7 @@ final class BatchRepositoryBridge {
                     all.addAll(rows);
                 }
             }
-            return all;
+            return periodsOf(all);
         });
         lenient().when(statements.findLastLineDates(any())).thenAnswer(inv -> {
             List<StatementRepository.StatementLastLine> rows = new ArrayList<>();
@@ -105,5 +114,55 @@ final class BatchRepositoryBridge {
             }
             return null;
         }).when(accountService).populateBalances(any());
+    }
+
+    /** The keys of {@code statements}, as the batch key query returns them. */
+    static List<StatementRepository.QualifyingStatementKey> keysOf(List<Statement> statements) {
+        List<StatementRepository.QualifyingStatementKey> keys = new ArrayList<>();
+        for (Statement st : statements) {
+            keys.add(new StatementRepository.QualifyingStatementKey() {
+                public UUID getId() {
+                    return st.getId();
+                }
+
+                public UUID getAccountId() {
+                    return st.getAccount().getId();
+                }
+
+                public LocalDate getPeriodEnd() {
+                    return st.getPeriodEnd();
+                }
+
+                public java.time.Instant getCreatedAt() {
+                    return st.getCreatedAt();
+                }
+            });
+        }
+        return keys;
+    }
+
+    /** The periods of {@code statements}, as the batch period query returns them. */
+    static List<StatementRepository.StatementPeriod> periodsOf(List<Statement> statements) {
+        List<StatementRepository.StatementPeriod> periods = new ArrayList<>();
+        for (Statement st : statements) {
+            periods.add(new StatementRepository.StatementPeriod() {
+                public UUID getAccountId() {
+                    return st.getAccount().getId();
+                }
+
+                public LocalDate getPeriodStart() {
+                    return st.getPeriodStart();
+                }
+
+                public LocalDate getPeriodEnd() {
+                    return st.getPeriodEnd();
+                }
+
+                public com.financeos.domain.statement.StatementVerdict getVerdict() {
+                    return st.getVerdict();
+                }
+            });
+        }
+        return periods;
     }
 }
