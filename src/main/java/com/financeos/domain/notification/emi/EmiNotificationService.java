@@ -73,11 +73,8 @@ public class EmiNotificationService implements NotificationProducer {
         int evaluated = 0;
         int recorded = 0;
         int sent = 0;
-        for (LoanService.LoanWithSchedule entry : loanService.getAllLoansWithSchedule()) {
+        for (LoanService.LoanWithSchedule entry : loanService.getLoansWithSchedule(l -> l.getStatus() == LoanStatus.active)) {
             Loan loan = entry.loan();
-            if (loan.getStatus() != LoanStatus.active) {
-                continue;
-            }
             List<InstallmentDto> installments = entry.schedule().installments();
             InstallmentDto current = currentInstallment(installments);
             if (current == null) {

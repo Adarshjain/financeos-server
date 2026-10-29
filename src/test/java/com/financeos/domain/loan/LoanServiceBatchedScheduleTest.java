@@ -138,4 +138,19 @@ class LoanServiceBatchedScheduleTest {
         assertEquals(List.of(), service.getAllLoansWithSchedule());
         verify(paymentRepository, never()).findByLoan_IdInOrderByInstallmentSeqAsc(any());
     }
+
+    @Test
+    void filteredScheduleLoadsInputsOnlyForMatchingLoansAndMatchesTheUnfilteredSchedules() {
+        List<LoanService.LoanWithSchedule> all = service.getAllLoansWithSchedule();
+        org.mockito.Mockito.clearInvocations(eventRepository, paymentRepository, chargeRepository);
+
+        List<LoanService.LoanWithSchedule> active = service.getLoansWithSchedule(l -> l.getStatus() == LoanStatus.active);
+
+        assertEquals(all.subList(0, 2), active);
+        org.mockito.ArgumentCaptor<java.util.Collection<UUID>> ids = org.mockito.ArgumentCaptor.forClass(java.util.Collection.class);
+        verify(paymentRepository, times(1)).findByLoan_IdInOrderByInstallmentSeqAsc(ids.capture());
+        assertEquals(List.of(loans.get(0).getId(), loans.get(1).getId()), List.copyOf(ids.getValue()));
+        verify(eventRepository, times(1)).findByLoan_IdInOrderByEffectiveDateAscCreatedAtAsc(ids.capture());
+        assertEquals(2, ids.getValue().size());
+    }
 }

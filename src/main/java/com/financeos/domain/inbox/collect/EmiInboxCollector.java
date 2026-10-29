@@ -35,11 +35,9 @@ public class EmiInboxCollector implements InboxCollector {
     @Override
     public List<InboxItemResponse> collect(UUID userId, LocalDate today) {
         List<InboxItemResponse> rows = new ArrayList<>();
-        for (LoanService.LoanWithSchedule entry : loanService.getAllLoansWithSchedule()) {
+        for (LoanService.LoanWithSchedule entry : loanService.getLoansWithSchedule(
+                loan -> loan.getStatus() == LoanStatus.active && !Boolean.TRUE.equals(loan.getNotificationsMuted()))) {
             Loan loan = entry.loan();
-            if (loan.getStatus() != LoanStatus.active || Boolean.TRUE.equals(loan.getNotificationsMuted())) {
-                continue;
-            }
             InstallmentDto current = EmiNotificationService.currentInstallment(entry.schedule().installments());
             if (current == null || current.dueDate() == null) {
                 continue;

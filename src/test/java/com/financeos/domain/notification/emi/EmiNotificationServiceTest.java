@@ -107,7 +107,11 @@ class EmiNotificationServiceTest {
     private void loanWith(List<InstallmentDto> installments) {
         ScheduleResult schedule = new ScheduleResult(installments, BigDecimal.TEN, new BigDecimal("25000"), BigDecimal.ZERO,
                 installments.size(), 3, null, null, BigDecimal.ZERO, BigDecimal.ZERO, null);
-        when(loanService.getAllLoansWithSchedule()).thenReturn(List.of(new LoanService.LoanWithSchedule(loan, schedule)));
+        List<LoanService.LoanWithSchedule> all = List.of(new LoanService.LoanWithSchedule(loan, schedule));
+        org.mockito.Mockito.doAnswer(inv -> {
+            java.util.function.Predicate<Loan> filter = inv.getArgument(0);
+            return all.stream().filter(e -> filter.test(e.loan())).toList();
+        }).when(loanService).getLoansWithSchedule(org.mockito.ArgumentMatchers.any());
     }
 
     private PushMessage delivered() {
@@ -123,7 +127,7 @@ class EmiNotificationServiceTest {
         clockAt(8);
         loanWith(scheduleWithCurrentIn(0));
         assertEquals(NotificationOutcome.NONE, service.evaluate(userId));
-        verify(loanService, never()).getAllLoansWithSchedule();
+        verify(loanService, never()).getLoansWithSchedule(org.mockito.ArgumentMatchers.any());
     }
 
     @Test
