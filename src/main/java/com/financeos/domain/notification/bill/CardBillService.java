@@ -204,7 +204,7 @@ public class CardBillService {
                 sums.put(statementId, new TransactionRepositoryCustom.SumsAfter(credits, debits));
             });
         }
-        Batch batch = new Batch(Map.of(), lastLines, Map.of(), Map.of(accountId, all), Map.of(), sums);
+        Batch batch = new Batch(Map.of(), lastLines, Map.of(), Map.of(accountId, all.stream().map(CardBillService::periodOf).toList()), Map.of(), sums);
         List<CardBill> bills = new ArrayList<>();
         for (Statement s : picked) {
             bills.add(buildEnriched(account, s, today, batch));
@@ -252,9 +252,29 @@ public class CardBillService {
     private record Batch(Map<UUID, Statement> liveStatements,
                          Map<UUID, LocalDate> lastLineDates,
                          Map<UUID, TransactionRepositoryCustom.SumsAfter> sumsAfter,
-                         Map<UUID, List<Statement>> statementsByAccount,
+                         Map<UUID, List<StatementRepository.StatementPeriod>> periodsByAccount,
                          Map<UUID, BigDecimal> signedSums,
                          Map<UUID, TransactionRepositoryCustom.SumsAfter> sumsByStatement) {
+    }
+
+    private static StatementRepository.StatementPeriod periodOf(Statement s) {
+        return new StatementRepository.StatementPeriod() {
+            public UUID getAccountId() {
+                return s.getAccount().getId();
+            }
+
+            public LocalDate getPeriodStart() {
+                return s.getPeriodStart();
+            }
+
+            public LocalDate getPeriodEnd() {
+                return s.getPeriodEnd();
+            }
+
+            public StatementVerdict getVerdict() {
+                return s.getVerdict();
+            }
+        };
     }
 
     private Batch loadBatch(List<Account> allCards, List<Account> openCards) {
@@ -264,15 +284,28 @@ public class CardBillService {
         // Pool usage needs every member's balance, closed cards included.
         accountService.populateBalances(allCards);
         List<UUID> openIds = openCards.stream().map(Account::getId).toList();
+        // Pick each card's latest live statement from keys alone, then load just those entities.
+        Map<UUID, StatementRepository.QualifyingStatementKey> bestKeys = new HashMap<>();
+        for (StatementRepository.QualifyingStatementKey k : statementRepository.findQualifyingCreditCardStatementKeysIn(openIds)) {
+            StatementRepository.QualifyingStatementKey best = bestKeys.get(k.getAccountId());
+            if (best == null || laterThan(k.getPeriodEnd(), k.getCreatedAt(), best.getPeriodEnd(), best.getCreatedAt())) {
+                bestKeys.put(k.getAccountId(), k);
+            }
+        }
         Map<UUID, Statement> live = new HashMap<>();
-        statementRepository.findQualifyingCreditCardStatementsIn(openIds).stream()
-                .collect(Collectors.groupingBy(s -> s.getAccount().getId()))
-                .forEach((accountId, statements) -> {
-                    Statement best = latestLive(statements);
-                    if (best != null) {
-                        live.put(accountId, best);
-                    }
-                });
+        if (!bestKeys.isEmpty()) {
+            Map<UUID, Statement> byId = new HashMap<>();
+            for (Statement s : statementRepository.findWithCreditCardDetailsByIdIn(
+                    bestKeys.values().stream().map(StatementRepository.QualifyingStatementKey::getId).toList())) {
+                byId.put(s.getId(), s);
+            }
+            bestKeys.forEach((accountId, key) -> {
+                Statement statement = byId.get(key.getId());
+                if (statement != null) {
+                    live.put(accountId, statement);
+                }
+            });
+        }
         Map<UUID, LocalDate> lastLineByStatement = new HashMap<>();
         if (!live.isEmpty()) {
             for (StatementRepository.StatementLastLine row : statementRepository.findLastLineDates(
@@ -287,9 +320,9 @@ public class CardBillService {
                 cutoffs.put(accountId, cutoff);
             }
         });
-        Map<UUID, List<Statement>> statementsByAccount = new HashMap<>();
-        statementRepository.findByAccountIdInOrderByPeriodEndDescNullsLast(openIds)
-                .forEach(s -> statementsByAccount.computeIfAbsent(s.getAccount().getId(), k -> new ArrayList<>()).add(s));
+        Map<UUID, List<StatementRepository.StatementPeriod>> periodsByAccount = new HashMap<>();
+        statementRepository.findPeriodsByAccountIdIn(openIds)
+                .forEach(p -> periodsByAccount.computeIfAbsent(p.getAccountId(), k -> new ArrayList<>()).add(p));
         List<UUID> awaitingIds = openIds.stream().filter(id -> !live.containsKey(id)).toList();
         Map<UUID, BigDecimal> signedSums = new HashMap<>();
         if (!awaitingIds.isEmpty()) {
@@ -299,7 +332,7 @@ public class CardBillService {
             }
         }
         return new Batch(live, lastLineByStatement, transactionRepository.sumsAfterCutoffs(cutoffs),
-                statementsByAccount, signedSums, Map.of());
+                periodsByAccount, signedSums, Map.of());
     }
 
     /**
@@ -500,24 +533,35 @@ public class CardBillService {
      * the lateness); null when no non-rejected statement carries both period dates.
      */
     private LocalDate nextStatementExpectedOn(UUID accountId, @Nullable Batch batch) {
-        List<Statement> statements = batch != null
-                ? batch.statementsByAccount().get(accountId)
-                : statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId);
-        if (statements == null || statements.isEmpty()) {
+        // Rejected statements carry no cycle; the statement list and the batch's periods read alike from here on.
+        List<LocalDate[]> bounds = new ArrayList<>();
+        if (batch != null) {
+            for (StatementRepository.StatementPeriod p : batch.periodsByAccount().getOrDefault(accountId, List.of())) {
+                if (p.getVerdict() != StatementVerdict.REJECTED) {
+                    bounds.add(new LocalDate[] {p.getPeriodStart(), p.getPeriodEnd()});
+                }
+            }
+        } else {
+            for (Statement s : statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId)) {
+                if (s.getVerdict() != StatementVerdict.REJECTED) {
+                    bounds.add(new LocalDate[] {s.getPeriodStart(), s.getPeriodEnd()});
+                }
+            }
+        }
+        if (bounds.isEmpty()) {
             return null;
         }
-        BillingCycles cycles = BillingCycles.fromStatements(statements);
+        BillingCycles cycles = BillingCycles.fromPeriods(bounds);
         if (!cycles.hasStatements()) {
             return null;
         }
         LocalDate latestPeriodEnd = null;
-        for (Statement s : statements) {
-            if (s.getVerdict() == StatementVerdict.REJECTED || s.getPeriodStart() == null || s.getPeriodEnd() == null
-                    || s.getPeriodEnd().isBefore(s.getPeriodStart())) {
+        for (LocalDate[] b : bounds) {
+            if (b[0] == null || b[1] == null || b[1].isBefore(b[0])) {
                 continue; // the same statements BillingCycles ignores
             }
-            if (latestPeriodEnd == null || s.getPeriodEnd().isAfter(latestPeriodEnd)) {
-                latestPeriodEnd = s.getPeriodEnd();
+            if (latestPeriodEnd == null || b[1].isAfter(latestPeriodEnd)) {
+                latestPeriodEnd = b[1];
             }
         }
         return latestPeriodEnd == null ? null : cycles.containing(latestPeriodEnd.plusDays(1)).end();
@@ -636,8 +680,11 @@ public class CardBillService {
     }
 
     private static boolean laterThan(Statement a, Statement b) {
-        LocalDate ea = a.getPeriodEnd();
-        LocalDate eb = b.getPeriodEnd();
+        return laterThan(a.getPeriodEnd(), a.getCreatedAt(), b.getPeriodEnd(), b.getCreatedAt());
+    }
+
+    private static boolean laterThan(@Nullable LocalDate ea, @Nullable java.time.Instant createdA,
+                                     @Nullable LocalDate eb, @Nullable java.time.Instant createdB) {
         if (ea != null && eb != null && !ea.equals(eb)) {
             return ea.isAfter(eb);
         }
@@ -647,10 +694,10 @@ public class CardBillService {
         if (ea == null && eb != null) {
             return false;
         }
-        if (a.getCreatedAt() != null && b.getCreatedAt() != null) {
-            return a.getCreatedAt().isAfter(b.getCreatedAt());
+        if (createdA != null && createdB != null) {
+            return createdA.isAfter(createdB);
         }
-        return a.getCreatedAt() != null;
+        return createdA != null;
     }
 
     private static int urgency(BillStatus status) {

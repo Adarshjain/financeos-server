@@ -311,4 +311,21 @@ public class AuthService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User", email));
     }
+
+    /**
+     * The signed-in user for a read-only response: the row {@code UserContextFilter} already loaded for this
+     * request when it is the same account, otherwise a normal {@link #getCurrentUser()} lookup.
+     */
+    public User getCurrentUserForRead() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()
+                && org.springframework.web.context.request.RequestContextHolder.getRequestAttributes()
+                        instanceof org.springframework.web.context.request.ServletRequestAttributes attrs
+                && attrs.getRequest().getAttribute(com.financeos.core.security.UserContextFilter.CURRENT_USER_ATTRIBUTE)
+                        instanceof User loaded
+                && loaded.getEmail() != null && loaded.getEmail().equals(authentication.getName())) {
+            return loaded;
+        }
+        return getCurrentUser();
+    }
 }

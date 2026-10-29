@@ -19,7 +19,9 @@ import com.financeos.domain.reward.RewardRule;
 import com.financeos.domain.reward.RewardRuleRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +31,7 @@ import org.springframework.stereotype.Component;
  * date was kept fall back to the window start). Reads the markers only — never the rewards engine.
  */
 @Component
-public class RewardInboxCollector implements InboxCollector {
+public class RewardInboxCollector implements ContextAwareInboxCollector {
 
     static final int RECENT_DAYS = 30;
 
@@ -50,15 +52,35 @@ public class RewardInboxCollector implements InboxCollector {
 
     @Override
     public List<InboxItemResponse> collect(UUID userId, LocalDate today) {
+        return collect(userId, today, new InboxContext());
+    }
+
+    @Override
+    public List<InboxItemResponse> collect(UUID userId, LocalDate today, InboxContext context) {
         LocalDate since = today.minusDays(RECENT_DAYS);
         List<InboxItemResponse> rows = new ArrayList<>();
-        for (Account card : accountRepository.findByUserIdAndType(userId, AccountType.credit_card)) {
-            if (card.isClosed(today)) {
-                continue;
-            }
+        List<Account> open = context.creditCards(() -> accountRepository.findByUserIdAndType(userId, AccountType.credit_card))
+                .stream().filter(card -> !card.isClosed(today)).toList();
+        if (open.isEmpty()) {
+            return rows;
+        }
+        List<UUID> cardIds = open.stream().map(Account::getId).toList();
+        Map<UUID, List<RewardMilestone>> milestones = new HashMap<>();
+        for (RewardMilestone m : milestoneRepository.findByAccountIdInOrderByCreatedAtAsc(cardIds)) {
+            milestones.computeIfAbsent(m.getAccount().getId(), k -> new ArrayList<>()).add(m);
+        }
+        Map<UUID, List<RewardCapBucket>> buckets = new HashMap<>();
+        for (RewardCapBucket b : bucketRepository.findByAccountIdInOrderByCreatedAtAsc(cardIds)) {
+            buckets.computeIfAbsent(b.getAccount().getId(), k -> new ArrayList<>()).add(b);
+        }
+        Map<UUID, List<RewardRule>> rules = new HashMap<>();
+        for (RewardRule r : ruleRepository.findByAccountIdInOrderByPriorityDesc(cardIds)) {
+            rules.computeIfAbsent(r.getAccount().getId(), k -> new ArrayList<>()).add(r);
+        }
+        for (Account card : open) {
             String cardLabel = InboxRows.cardLabel(card.getName(), card.primaryLast4());
             String href = "/rewards?account=" + card.getId();
-            for (RewardMilestone milestone : milestoneRepository.findByAccountIdOrderByCreatedAtAsc(card.getId())) {
+            for (RewardMilestone milestone : milestones.getOrDefault(card.getId(), List.of())) {
                 if (!RewardAlertNotificationService.KIND_ACHIEVED.equals(milestone.getNotifiedKind()) || !recent(milestone.getNotifiedOn(), milestone.getNotifiedWindowStart(), since)) {
                     continue;
                 }
@@ -66,12 +88,12 @@ public class RewardInboxCollector implements InboxCollector {
                         milestone.getName() + " unlocked", cardLabel + " · window from " + InboxRows.date(milestone.getNotifiedWindowStart()),
                         href, milestone.getNotifiedWindowStart(), card.getId()));
             }
-            for (RewardCapBucket bucket : bucketRepository.findByAccountIdOrderByCreatedAtAsc(card.getId())) {
+            for (RewardCapBucket bucket : buckets.getOrDefault(card.getId(), List.of())) {
                 if (recent(bucket.getCapNotifiedOn(), bucket.getCapNotifiedWindowStart(), since)) {
                     rows.add(cap(bucket.getId(), bucket.getName(), cardLabel, href, bucket.getCapNotifiedWindowStart(), card.getId()));
                 }
             }
-            for (RewardRule rule : ruleRepository.findByAccountIdOrderByPriorityDesc(card.getId())) {
+            for (RewardRule rule : rules.getOrDefault(card.getId(), List.of())) {
                 if (recent(rule.getCapNotifiedOn(), rule.getCapNotifiedWindowStart(), since)) {
                     rows.add(cap(rule.getId(), rule.getName(), cardLabel, href, rule.getCapNotifiedWindowStart(), card.getId()));
                 }

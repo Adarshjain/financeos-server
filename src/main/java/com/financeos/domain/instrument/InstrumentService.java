@@ -374,13 +374,36 @@ public class InstrumentService {
      */
     @Transactional(readOnly = true)
     public List<InstrumentPriceResponse> getPriceHistory(UUID instrumentId, LocalDate from, LocalDate to) {
+        return getPriceHistory(instrumentId, from, to, null);
+    }
+
+    /** {@link #getPriceHistory(UUID, LocalDate, LocalDate)} thinned to at most {@code maxPoints} (null: all, else at least 2). */
+    @Transactional(readOnly = true)
+    public List<InstrumentPriceResponse> getPriceHistory(UUID instrumentId, LocalDate from, LocalDate to, Integer maxPoints) {
+        if (maxPoints != null && maxPoints < 2) {
+            throw new com.financeos.core.exception.ValidationException("maxPoints must be at least 2");
+        }
         if (!instrumentRepository.existsById(instrumentId)) {
             throw new ResourceNotFoundException("Instrument", instrumentId);
         }
         UUID userId = UserContext.getCurrentUserId();
-        return PricePrecedence.collapse(priceRepository.findPriceHistory(instrumentId, userId, from, to)).stream()
+        List<InstrumentPriceResponse> all = PricePrecedence.collapse(priceRepository.findPriceHistory(instrumentId, userId, from, to)).stream()
                 .map(p -> InstrumentPriceResponse.from(p, userId))
                 .toList();
+        return maxPoints == null ? all : downsample(all, maxPoints);
+    }
+
+    /** At most {@code maxPoints} evenly spaced entries of {@code points}, the first and the last always kept. */
+    static <T> List<T> downsample(List<T> points, int maxPoints) {
+        int n = points.size();
+        if (n <= maxPoints) {
+            return points;
+        }
+        List<T> out = new java.util.ArrayList<>(maxPoints);
+        for (int k = 0; k < maxPoints; k++) {
+            out.add(points.get((int) Math.round((double) k * (n - 1) / (maxPoints - 1))));
+        }
+        return out;
     }
 
     /** Default and largest page of {@link #getPriceHistoryPage}. */

@@ -105,7 +105,7 @@ public class RewardCalculationService {
     public RewardReportResponse report(UUID accountId, LocalDate from, LocalDate to) {
         long startMs = System.currentTimeMillis();
         Evaluation eval = evaluate(accountId, from, to, true, "manual");
-        RewardReportResponse response = buildReport(eval, from, to);
+        RewardReportResponse response = buildReport(eval, from, to).withWindow(from, to, false, false);
         long durationMs = System.currentTimeMillis() - startMs;
 
         log.info("Reward report viewed: cardId={}, durationMs={}", accountId, durationMs,
@@ -117,6 +117,34 @@ public class RewardCalculationService {
                 StructuredArguments.keyValue("durationMs", durationMs));
 
         return response;
+    }
+
+    /**
+     * {@link #report} over the card's current reward year (anniversary year, calendar year when it has no
+     * anniversary), the same window {@link #totals()} reports for it; the response says which window it used.
+     */
+    @Transactional(readOnly = true)
+    public RewardReportResponse reportForCurrentRewardYear(UUID accountId) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new ResourceNotFoundException("Account", accountId));
+        RewardYear year = currentRewardYear(account, AppTime.today());
+        Evaluation eval = evaluate(account, year.from(), year.to(), true, "manual");
+        return buildReport(eval, year.from(), year.to()).withWindow(year.from(), year.to(), true, year.fallback());
+    }
+
+    private record RewardYear(LocalDate from, LocalDate to, boolean fallback) {
+    }
+
+    private static RewardYear currentRewardYear(Account card, LocalDate today) {
+        LocalDate anniversary = card.getRewardAnniversaryDate();
+        if (anniversary == null) {
+            return new RewardYear(LocalDate.of(today.getYear(), 1, 1), LocalDate.of(today.getYear(), 12, 31), true);
+        }
+        LocalDate from = anniversaryOnYear(anniversary, today.getYear());
+        if (from.isAfter(today)) {
+            from = anniversaryOnYear(anniversary, today.getYear() - 1);
+        }
+        return new RewardYear(from, anniversaryOnYear(anniversary, from.getYear() + 1).minusDays(1), false);
     }
 
     /**
@@ -162,20 +190,10 @@ public class RewardCalculationService {
         }
         List<Planned> planned = new ArrayList<>();
         for (Account card : cards) {
-            LocalDate anniversary = card.getRewardAnniversaryDate();
-            boolean fallback = anniversary == null;
-            LocalDate from;
-            LocalDate to;
-            if (fallback) {
-                from = LocalDate.of(today.getYear(), 1, 1);
-                to = LocalDate.of(today.getYear(), 12, 31);
-            } else {
-                from = anniversaryOnYear(anniversary, today.getYear());
-                if (from.isAfter(today)) {
-                    from = anniversaryOnYear(anniversary, today.getYear() - 1);
-                }
-                to = anniversaryOnYear(anniversary, from.getYear() + 1).minusDays(1);
-            }
+            RewardYear year = currentRewardYear(card, today);
+            LocalDate from = year.from();
+            LocalDate to = year.to();
+            boolean fallback = year.fallback();
             Evaluation eval = prepare(new CardInputs(card,
                     rulesByCard.getOrDefault(card.getId(), List.of()),
                     milestonesByCard.getOrDefault(card.getId(), List.of()),

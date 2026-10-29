@@ -15,13 +15,15 @@ import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 /** Open cards whose projected statement is past its grace period with nothing imported. */
 @Component
-public class StatementExpectedInboxCollector implements InboxCollector {
+public class StatementExpectedInboxCollector implements ContextAwareInboxCollector {
 
     static final String IMPORT_HREF = "/transactions/import";
 
@@ -35,12 +37,23 @@ public class StatementExpectedInboxCollector implements InboxCollector {
 
     @Override
     public List<InboxItemResponse> collect(UUID userId, LocalDate today) {
+        return collect(userId, today, new InboxContext());
+    }
+
+    @Override
+    public List<InboxItemResponse> collect(UUID userId, LocalDate today, InboxContext context) {
         List<InboxItemResponse> rows = new ArrayList<>();
-        for (Account card : accountRepository.findByUserIdAndType(userId, AccountType.credit_card)) {
-            if (card.isClosed(today)) {
-                continue;
-            }
-            List<Statement> statements = statementRepository.findQualifyingCreditCardStatements(card.getId());
+        List<Account> open = context.creditCards(() -> accountRepository.findByUserIdAndType(userId, AccountType.credit_card))
+                .stream().filter(card -> !card.isClosed(today)).toList();
+        if (open.isEmpty()) {
+            return rows;
+        }
+        Map<UUID, List<Statement>> byCard = new HashMap<>();
+        for (Statement s : statementRepository.findQualifyingCreditCardStatementsIn(open.stream().map(Account::getId).toList())) {
+            byCard.computeIfAbsent(s.getAccount().getId(), k -> new ArrayList<>()).add(s);
+        }
+        for (Account card : open) {
+            List<Statement> statements = byCard.getOrDefault(card.getId(), List.of());
             LocalDate overdueEnd = StatementExpectedNotificationService.overduePeriodEnd(statements, today);
             if (overdueEnd == null) {
                 continue;

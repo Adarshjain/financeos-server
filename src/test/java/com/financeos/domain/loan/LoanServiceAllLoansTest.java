@@ -54,6 +54,8 @@ class LoanServiceAllLoansTest {
     private TransactionRepository transactionRepository;
     private TransactionReferenceValidator validator;
     private LoanService loanService;
+    /** Payments per loan, served by the batched IN query the service now uses. */
+    private final java.util.Map<UUID, List<LoanPayment>> paymentsByLoan = new java.util.HashMap<>();
 
     @BeforeEach
     void setUp() {
@@ -65,6 +67,10 @@ class LoanServiceAllLoansTest {
         transactionRepository = mock(TransactionRepository.class);
         validator = mock(TransactionReferenceValidator.class);
         when(validator.getAllReferencedTransactionIds()).thenReturn(Set.of());
+        when(loanPaymentRepository.findByLoan_IdInOrderByInstallmentSeqAsc(any())).thenAnswer(inv -> {
+            java.util.Collection<UUID> ids = inv.getArgument(0);
+            return ids.stream().flatMap(id -> paymentsByLoan.getOrDefault(id, List.of()).stream()).toList();
+        });
         loanService = new LoanService(loanRepository, loanEventRepository, loanPaymentRepository, loanChargeRepository,
                 mock(AccountRepository.class), transactionRepository, mock(UserRepository.class),
                 new LoanScheduleService(), validator);
@@ -120,8 +126,7 @@ class LoanServiceAllLoansTest {
         Loan closed = loan("C", LoanStatus.closed, "1000", LocalDate.of(2025, 1, 1), 3);
         Loan fore = loan("D", LoanStatus.foreclosed, "1000", LocalDate.of(2025, 1, 1), 3);
         when(loanRepository.findAll()).thenReturn(List.of(a, b, closed, fore));
-        when(loanPaymentRepository.findByLoan_IdOrderByInstallmentSeqAsc(a.getId()))
-                .thenReturn(List.of(paymentFor(a, 1), paymentFor(a, 2)));
+        paymentsByLoan.put(a.getId(), List.of(paymentFor(a, 1), paymentFor(a, 2)));
 
         LoanTotals t = loanService.getLoanTotals();
 
@@ -140,7 +145,7 @@ class LoanServiceAllLoansTest {
         Loan a = loan("A", LoanStatus.active, "120000", LocalDate.of(2025, 12, 20), 12);
         List<LoanPayment> paid = List.of(paymentFor(a, 1), paymentFor(a, 2));
         when(loanRepository.findAll()).thenReturn(List.of(a));
-        when(loanPaymentRepository.findByLoan_IdOrderByInstallmentSeqAsc(a.getId())).thenReturn(paid);
+        paymentsByLoan.put(a.getId(), paid);
 
         LoanTotals t = loanService.getLoanTotals();
 
@@ -156,7 +161,7 @@ class LoanServiceAllLoansTest {
     void interestPaidInAnEarlierFinancialYearIsExcluded() {
         Loan a = loan("A", LoanStatus.active, "120000", LocalDate.of(2025, 1, 5), 3);
         when(loanRepository.findAll()).thenReturn(List.of(a));
-        when(loanPaymentRepository.findByLoan_IdOrderByInstallmentSeqAsc(a.getId())).thenReturn(List.of(paymentFor(a, 1)));
+        paymentsByLoan.put(a.getId(), List.of(paymentFor(a, 1)));
 
         assertEquals(0, BigDecimal.ZERO.compareTo(loanService.getLoanTotals().interestPaidThisFy()));
     }
@@ -261,8 +266,7 @@ class LoanServiceAllLoansTest {
         Loan good = loan("Good", LoanStatus.active, "60000", LocalDate.of(2026, 4, 10), 6);
         Loan bad = loan("Bad", LoanStatus.closed, "1000", LocalDate.of(2025, 1, 1), 3);
         when(loanRepository.findAll()).thenReturn(List.of(bad, good));
-        when(loanEventRepository.findByLoan_IdOrderByEffectiveDateAscCreatedAtAsc(bad.getId()))
-                .thenThrow(new IllegalStateException("bad event"));
+        bad.setFirstEmiDate(null); // schedule computation fails for this loan
 
         LoanTotals t = loanService.getLoanTotals();
 
@@ -276,7 +280,7 @@ class LoanServiceAllLoansTest {
         Loan done = loan("Done", LoanStatus.active, "30000", LocalDate.of(2025, 1, 5), 3);
         List<LoanPayment> all = List.of(paymentFor(done, 1), paymentFor(done, 2), paymentFor(done, 3));
         when(loanRepository.findAll()).thenReturn(List.of(done));
-        when(loanPaymentRepository.findByLoan_IdOrderByInstallmentSeqAsc(done.getId())).thenReturn(all);
+        paymentsByLoan.put(done.getId(), all);
 
         LoanTotals t = loanService.getLoanTotals();
 

@@ -137,13 +137,8 @@ public class LoanService {
                     : loanRepository.findAll(pageable);
         }
 
-        return loans.map(loan -> {
-            List<LoanEvent> events = loanEventRepository.findByLoan_IdOrderByEffectiveDateAscCreatedAtAsc(loan.getId());
-            List<LoanPayment> payments = loanPaymentRepository.findByLoan_IdOrderByInstallmentSeqAsc(loan.getId());
-            List<LoanCharge> charges = loanChargeRepository.findByLoan_IdOrderByChargeDateAscCreatedAtAsc(loan.getId());
-            ScheduleResult schedule = scheduleService.compute(loan, events, payments, charges);
-            return LoanResponse.from(loan, schedule);
-        });
+        ScheduleInputs inputs = loadScheduleInputs(loans.getContent());
+        return loans.map(loan -> LoanResponse.from(loan, inputs.compute(scheduleService, loan)));
     }
 
     /** Totals across all of the user's loans for the summary strip (every loan is borrowed; lent money lives in lendings). */
@@ -160,7 +155,9 @@ public class LoanService {
         long overdueCount = 0;
         long closedCount = 0;
         TreeSet<Integer> emiDueDays = new TreeSet<>();
-        for (Loan loan : loanRepository.findAll()) {
+        List<Loan> allLoans = loanRepository.findAll();
+        ScheduleInputs inputs = loadScheduleInputs(allLoans);
+        for (Loan loan : allLoans) {
             boolean active = loan.getStatus() == LoanStatus.active;
             if (loan.getStatus() == LoanStatus.closed || loan.getStatus() == LoanStatus.foreclosed) {
                 closedCount++;
@@ -168,10 +165,7 @@ public class LoanService {
             UUID id = loan.getId();
             ScheduleResult schedule;
             try {
-                schedule = scheduleService.compute(loan,
-                        loanEventRepository.findByLoan_IdOrderByEffectiveDateAscCreatedAtAsc(id),
-                        loanPaymentRepository.findByLoan_IdOrderByInstallmentSeqAsc(id),
-                        loanChargeRepository.findByLoan_IdOrderByChargeDateAscCreatedAtAsc(id));
+                schedule = inputs.compute(scheduleService, loan);
             } catch (RuntimeException e) {
                 log.warn("Loan totals skipped loan {}: schedule could not be computed ({})", id, e.getClass().getSimpleName());
                 continue;
@@ -219,27 +213,12 @@ public class LoanService {
         if (loans.isEmpty()) {
             return new ArrayList<>();
         }
-        List<UUID> loanIds = loans.stream().map(Loan::getId).toList();
-        Map<UUID, List<LoanEvent>> events = new HashMap<>();
-        Map<UUID, List<LoanPayment>> payments = new HashMap<>();
-        Map<UUID, List<LoanCharge>> charges = new HashMap<>();
-        for (int i = 0; i < loanIds.size(); i += 1000) {
-            List<UUID> chunk = loanIds.subList(i, Math.min(i + 1000, loanIds.size()));
-            loanEventRepository.findByLoan_IdInOrderByEffectiveDateAscCreatedAtAsc(chunk)
-                    .forEach(x -> events.computeIfAbsent(x.getLoan().getId(), k -> new ArrayList<>()).add(x));
-            loanPaymentRepository.findByLoan_IdInOrderByInstallmentSeqAsc(chunk)
-                    .forEach(x -> payments.computeIfAbsent(x.getLoan().getId(), k -> new ArrayList<>()).add(x));
-            loanChargeRepository.findByLoan_IdInOrderByChargeDateAscCreatedAtAsc(chunk)
-                    .forEach(x -> charges.computeIfAbsent(x.getLoan().getId(), k -> new ArrayList<>()).add(x));
-        }
+        ScheduleInputs inputs = loadScheduleInputs(loans);
 
         List<LoanTargets> targets = new ArrayList<>();
         for (Loan loan : loans) {
             try {
-                ScheduleResult schedule = scheduleService.compute(loan,
-                        events.getOrDefault(loan.getId(), List.of()),
-                        payments.getOrDefault(loan.getId(), List.of()),
-                        charges.getOrDefault(loan.getId(), List.of()));
+                ScheduleResult schedule = inputs.compute(scheduleService, loan);
                 targets.add(new LoanTargets(loan, targetInstallments(schedule)));
             } catch (RuntimeException e) {
                 log.warn("All-loans match suggestions skipped loan {} ({})", loan.getId(), e.getClass().getSimpleName());
@@ -905,12 +884,34 @@ public class LoanService {
     @Transactional(readOnly = true)
     public List<LoanWithSchedule> getAllLoansWithSchedule() {
         List<Loan> loans = loanRepository.findAll();
-        return loans.stream().map(loan -> {
-            List<LoanEvent> events = loanEventRepository.findByLoan_IdOrderByEffectiveDateAscCreatedAtAsc(loan.getId());
-            List<LoanPayment> payments = loanPaymentRepository.findByLoan_IdOrderByInstallmentSeqAsc(loan.getId());
-            List<LoanCharge> charges = loanChargeRepository.findByLoan_IdOrderByChargeDateAscCreatedAtAsc(loan.getId());
-            ScheduleResult schedule = scheduleService.compute(loan, events, payments, charges);
-            return new LoanWithSchedule(loan, schedule);
-        }).toList();
+        ScheduleInputs inputs = loadScheduleInputs(loans);
+        return loans.stream().map(loan -> new LoanWithSchedule(loan, inputs.compute(scheduleService, loan))).toList();
+    }
+
+    /** Events, payments and charges of a set of loans, loaded with three IN queries (chunked) instead of three per loan. */
+    private record ScheduleInputs(Map<UUID, List<LoanEvent>> events, Map<UUID, List<LoanPayment>> payments, Map<UUID, List<LoanCharge>> charges) {
+        ScheduleResult compute(LoanScheduleService scheduleService, Loan loan) {
+            return scheduleService.compute(loan,
+                    events.getOrDefault(loan.getId(), List.of()),
+                    payments.getOrDefault(loan.getId(), List.of()),
+                    charges.getOrDefault(loan.getId(), List.of()));
+        }
+    }
+
+    private ScheduleInputs loadScheduleInputs(List<Loan> loans) {
+        Map<UUID, List<LoanEvent>> events = new HashMap<>();
+        Map<UUID, List<LoanPayment>> payments = new HashMap<>();
+        Map<UUID, List<LoanCharge>> charges = new HashMap<>();
+        List<UUID> loanIds = loans.stream().map(Loan::getId).toList();
+        for (int i = 0; i < loanIds.size(); i += 1000) {
+            List<UUID> chunk = loanIds.subList(i, Math.min(i + 1000, loanIds.size()));
+            loanEventRepository.findByLoan_IdInOrderByEffectiveDateAscCreatedAtAsc(chunk)
+                    .forEach(x -> events.computeIfAbsent(x.getLoan().getId(), k -> new ArrayList<>()).add(x));
+            loanPaymentRepository.findByLoan_IdInOrderByInstallmentSeqAsc(chunk)
+                    .forEach(x -> payments.computeIfAbsent(x.getLoan().getId(), k -> new ArrayList<>()).add(x));
+            loanChargeRepository.findByLoan_IdInOrderByChargeDateAscCreatedAtAsc(chunk)
+                    .forEach(x -> charges.computeIfAbsent(x.getLoan().getId(), k -> new ArrayList<>()).add(x));
+        }
+        return new ScheduleInputs(events, payments, charges);
     }
 }

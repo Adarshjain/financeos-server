@@ -54,4 +54,7 @@ public interface TransactionRepositoryCustom {
             TransactionSearchCriteria criteria,
             Pageable pageable
     );
+
+    /** How many transactions match the criteria: the same predicate as {@link #findFiltered}'s total, no balance windows. */
+    long countFiltered(UUID userId, TransactionSearchCriteria criteria);
 }

@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.financeos.core.security.UserContext;
 import com.financeos.core.time.AppTime;
+import com.financeos.domain.holding.HoldingValuationService;
 import com.financeos.domain.instrument.Instrument;
 import com.financeos.domain.instrument.InstrumentPrice;
 import com.financeos.domain.instrument.InstrumentPriceRepository;
@@ -73,6 +75,7 @@ class HoldingsEndpointsIntegrationTest {
     @Autowired private CorporateActionRepository corporateActionRepository;
     @Autowired private EntityManagerFactory emf;
     @Autowired private JobWorker jobWorker;
+    @Autowired private HoldingValuationService holdingValuationService;
 
     private ApiTestClient api;
     private User user;
@@ -719,5 +722,102 @@ class HoldingsEndpointsIntegrationTest {
         }
         assertEquals(listBefore, queriesFor(list), "holdings list");
         assertEquals(sellsBefore, queriesFor(sells), "tradebook sells");
+    }
+
+    // ------------------------------------------------------------------ movers and portfolio groups
+
+    private void withDayMoves() {
+        price(big, TODAY.minusDays(1), "390");    // +10 x 1000 = +10000
+        price(beta, TODAY.minusDays(1), "12.5");  // -0.5 x 100 = -50
+        priceRepository.save(InstrumentPrice.manual(zeta, user.getId(), TODAY.minusDays(1), new BigDecimal("590"))); // +40
+    }
+
+    @Test
+    void moversAreTheThreeBiggestRupeeDayMovesOfTheWholeFilteredSetNotThePage() throws Exception {
+        withDayMoves();
+        JsonNode paged = holdings("?size=2");
+        assertTrue(paged.get("totalPages").asInt() > 1);
+        JsonNode movers = paged.get("movers");
+        assertEquals(3, movers.size());
+        assertEquals(big.getId().toString(), movers.get(0).get("instrumentId").asText());
+        assertEquals("Big Corp", movers.get(0).get("name").asText());
+        assertMoney("10000", movers.get(0).get("dayChange"));
+        assertEquals(alpha.getId().toString(), movers.get(1).get("instrumentId").asText());
+        assertEquals(beta.getId().toString(), movers.get(2).get("instrumentId").asText());
+        assertMoney("-50", movers.get(2).get("dayChange"));
+        assertEquals(movers, holdings("").get("movers"), "same whatever the page");
+
+        // The client's old derivation: rows of the whole filter in name order, |day change| desc, rounding to 0 dropped.
+        List<String> expected = new ArrayList<>();
+        row(holdings("?size=200&sort=name"), "Alpha Co");
+        List<JsonNode> rows = new ArrayList<>();
+        holdings("?size=200&sort=name").get("holdings").forEach(rows::add);
+        rows.stream()
+                .filter(r -> !r.get("dayChange").isNull() && Math.round(r.get("dayChange").asDouble()) != 0
+                        && r.get("mergedIntoName").isNull())
+                .sorted((x, y) -> Double.compare(Math.abs(y.get("dayChange").asDouble()), Math.abs(x.get("dayChange").asDouble())))
+                .limit(3).forEach(r -> expected.add(r.get("instrumentId").asText()));
+        List<String> actual = new ArrayList<>();
+        movers.forEach(m -> actual.add(m.get("instrumentId").asText()));
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void moversFollowTheTypeAndBrokerFiltersAndSkipMergedRows() throws Exception {
+        withDayMoves();
+        JsonNode mf = holdings("?assetType=mutual_fund").get("movers");
+        assertEquals(1, mf.size());
+        assertEquals("Beta Bond Fund", mf.get(0).get("name").asText());
+        JsonNode brokerB = holdings("?brokerAccountId=" + this.brokerB).get("movers");
+        assertEquals(List.of("Alpha Co", "Zeta Corp"), List.of(brokerB.get(0).get("name").asText(), brokerB.get(1).get("name").asText()));
+        assertTrue(holdings("?search=epsilon").get("movers").isEmpty());
+    }
+
+    @Test
+    void portfolioGroupsIgnoreTheTypeAndSearchFiltersButKeepTheBroker() throws Exception {
+        JsonNode all = holdings("");
+        assertEquals(all.get("groups"), all.get("portfolioGroups"));
+        JsonNode mf = holdings("?assetType=mutual_fund");
+        assertEquals(1, mf.get("groups").size());
+        assertEquals(all.get("groups"), mf.get("portfolioGroups"));
+        assertEquals(all.get("groups"), holdings("?search=alpha").get("portfolioGroups"));
+        JsonNode inB = holdings("?brokerAccountId=" + brokerB + "&assetType=mutual_fund");
+        assertEquals(1, inB.get("portfolioGroups").size());
+        assertEquals("stock", inB.get("portfolioGroups").get(0).get("assetType").asText());
+        assertMoney("3900", inB.get("portfolioGroups").get(0).get("value"));
+    }
+
+    // ------------------------------------------------------------------ broker market values
+
+    @Test
+    void brokerMarketValuesMatchThePerHoldingPathForEveryBroker() {
+        UserContext.setCurrentUserId(user.getId());
+        try {
+            Map<UUID, BigDecimal> batched = holdingValuationService.getBrokerMarketValues(List.of(brokerA, brokerB));
+            for (UUID broker : List.of(brokerA, brokerB)) {
+                BigDecimal old = holdingValuationService.getBrokerMarketValue(broker);
+                assertEquals(0, old.compareTo(batched.get(broker)), broker + ": " + old + " vs " + batched.get(broker));
+            }
+            // A: Alpha 10 x 150, Beta 1200, Big 400000, Epsilon at cost 500 (no price), Delta merged out, Gamma sold out.
+            assertEquals(0, new BigDecimal("403200").compareTo(batched.get(brokerA)));
+            assertEquals(0, new BigDecimal("3900").compareTo(batched.get(brokerB)));
+            assertEquals(0, batched.get(brokerA).compareTo(
+                    holdingValuationService.getBrokerMarketValues(List.of(brokerA)).get(brokerA)), "one broker alone is the same");
+        } finally {
+            UserContext.clear();
+        }
+    }
+
+    @Test
+    void aBrokerWithNoHoldingsValuesAtZero() throws Exception {
+        UUID empty = broker(api, "Empty", "Upstox");
+        UserContext.setCurrentUserId(user.getId());
+        try {
+            Map<UUID, BigDecimal> values = holdingValuationService.getBrokerMarketValues(List.of(empty));
+            assertEquals(0, BigDecimal.ZERO.compareTo(values.get(empty)));
+            assertTrue(holdingValuationService.getBrokerMarketValues(List.of()).isEmpty());
+        } finally {
+            UserContext.clear();
+        }
     }
 }

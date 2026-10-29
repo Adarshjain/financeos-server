@@ -184,12 +184,21 @@ public class AccountService {
      * batch balance query (plus the pools' own rows): the figures GET /accounts reports. A pooled card's
      * pool usage is only complete when {@code accounts} holds every member of the pool.
      */
+    @Transactional(readOnly = true)
     public void populateBalances(List<Account> accounts) {
         // Batch compute balances in 1 query for all non-broker accounts
         List<UUID> nonBrokerIds = accounts.stream()
                 .filter(a -> a.getType() != AccountType.broker)
                 .map(Account::getId)
                 .toList();
+
+        List<UUID> brokerIds = accounts.stream()
+                .filter(a -> a.getType() == AccountType.broker)
+                .map(Account::getId)
+                .toList();
+        java.util.Map<UUID, BigDecimal> brokerValues = brokerIds.isEmpty()
+                ? java.util.Map.of()
+                : holdingValuationService.getBrokerMarketValues(brokerIds);
 
         java.util.Map<UUID, AccountRepositoryCustom.AccountBalanceBatch> balanceBatches = nonBrokerIds.isEmpty()
                 ? java.util.Map.of()
@@ -200,7 +209,7 @@ public class AccountService {
                 BigDecimal cash = account.getBrokerDetails() != null && account.getBrokerDetails().getCashBalance() != null
                         ? account.getBrokerDetails().getCashBalance()
                         : BigDecimal.ZERO;
-                BigDecimal marketValue = holdingValuationService.getBrokerMarketValue(account.getId());
+                BigDecimal marketValue = brokerValues.getOrDefault(account.getId(), BigDecimal.ZERO);
                 account.setCalculatedBalance(marketValue.add(cash));
                 account.setBalanceAnchored(false);
                 account.setAnchorDate(null);
@@ -741,7 +750,8 @@ public class AccountService {
             BigDecimal cash = account.getBrokerDetails() != null && account.getBrokerDetails().getCashBalance() != null
                     ? account.getBrokerDetails().getCashBalance()
                     : BigDecimal.ZERO;
-            BigDecimal marketValue = holdingValuationService.getBrokerMarketValue(account.getId());
+            BigDecimal marketValue = holdingValuationService.getBrokerMarketValues(List.of(account.getId()))
+                    .getOrDefault(account.getId(), BigDecimal.ZERO);
             account.setCalculatedBalance(marketValue.add(cash));
             account.setBalanceAnchored(false);
             account.setAnchorDate(null);
@@ -774,6 +784,7 @@ public class AccountService {
      * (the statement-anchor-free balance of {@link #populateBalanceInfo}, cut at that day), in the
      * account's own sign: a credit card's is negative when money is owed.
      */
+    @Transactional(readOnly = true)
     public BigDecimal transactionBalanceAsOf(Account account, LocalDate asOf) {
         TransactionRepository.BalanceAggregatesProjection aggregates =
                 transactionRepository.findBalanceAggregatesByAccountId(account.getId(), asOf);

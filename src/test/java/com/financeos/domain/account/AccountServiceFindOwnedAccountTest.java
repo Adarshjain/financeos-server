@@ -95,7 +95,8 @@ class AccountServiceFindOwnedAccountTest {
     void ownBrokerAccountIsMarketValuePlusCash() {
         Account account = account(USER_ID, AccountType.broker);
         account.setBrokerDetails(new AccountBrokerDetails(account, "zerodha", "AB1", new BigDecimal("250")));
-        when(holdingValuationService.getBrokerMarketValue(account.getId())).thenReturn(new BigDecimal("1000"));
+        when(holdingValuationService.getBrokerMarketValues(java.util.List.of(account.getId())))
+                .thenReturn(java.util.Map.of(account.getId(), new BigDecimal("1000")));
 
         Account found = accountService.findOwnedAccount(account.getId()).orElseThrow();
 

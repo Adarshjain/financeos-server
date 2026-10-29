@@ -26,7 +26,11 @@ public record RewardReportResponse(
         boolean cycleFallback,
         boolean anniversaryFallback,
         List<CardBreakdown> byCard,
-        int perCardAttributionIncomplete) {
+        int perCardAttributionIncomplete,
+        @Nullable LocalDate windowFrom,
+        @Nullable LocalDate windowTo,
+        boolean defaultedWindow,
+        boolean calendarYearFallback) {
 
     public RewardReportResponse(
             Summary summary,
@@ -34,7 +38,29 @@ public record RewardReportResponse(
             List<MilestoneStatus> milestones,
             boolean cycleFallback,
             boolean anniversaryFallback) {
-        this(summary, rules, milestones, cycleFallback, anniversaryFallback, List.of(), 0);
+        this(summary, rules, milestones, cycleFallback, anniversaryFallback, List.of(), 0, null, null, false, false);
+    }
+
+    public RewardReportResponse(
+            Summary summary,
+            List<RuleBreakdown> rules,
+            List<MilestoneStatus> milestones,
+            boolean cycleFallback,
+            boolean anniversaryFallback,
+            List<CardBreakdown> byCard,
+            int perCardAttributionIncomplete) {
+        this(summary, rules, milestones, cycleFallback, anniversaryFallback, byCard, perCardAttributionIncomplete,
+                null, null, false, false);
+    }
+
+    /**
+     * The same report stamped with the window it covers. defaultedWindow is true when the caller gave no
+     * from/to and the server used the card's current reward year (calendarYearFallback: that year is the calendar
+     * year because the card has no anniversary).
+     */
+    public RewardReportResponse withWindow(LocalDate from, LocalDate to, boolean defaulted, boolean calendarFallback) {
+        return new RewardReportResponse(summary, rules, milestones, cycleFallback, anniversaryFallback, byCard,
+                perCardAttributionIncomplete, from, to, defaulted, calendarFallback);
     }
 
     /**

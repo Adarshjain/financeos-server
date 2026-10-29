@@ -4188,6 +4188,12 @@ paths:
         schema:
           type: string
           format: date
+      - in: query
+        name: maxPoints
+        required: false
+        schema:
+          type: integer
+          format: int32
       responses:
         "200":
           content:
@@ -8528,13 +8534,13 @@ paths:
           format: uuid
       - in: query
         name: from
-        required: true
+        required: false
         schema:
           type: string
           format: date
       - in: query
         name: to
-        required: true
+        required: false
         schema:
           type: string
           format: date
@@ -8907,6 +8913,24 @@ paths:
           description: Error response
       tags:
       - search-controller
+  /api/v1/shell/counts:
+    get:
+      operationId: counts
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ShellCountsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - shell-controller
   /api/v1/statements/{statementId}:
     get:
       operationId: getStatementById
@@ -9161,6 +9185,33 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/BulkReattributeResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - transaction-controller
+  /api/v1/transactions/count:
+    post:
+      operationId: countTransactions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransactionSearchRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int64
           description: OK
         default:
           content:
@@ -14906,9 +14957,17 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Row"
+        movers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Mover"
         page:
           type: integer
           format: int32
+        portfolioGroups:
+          type: array
+          items:
+            $ref: "#/components/schemas/Group"
         size:
           type: integer
           format: int32
@@ -14922,7 +14981,9 @@ components:
       - groups
       - header
       - holdings
+      - movers
       - page
+      - portfolioGroups
       - size
       - totalElements
       - totalPages
@@ -16946,6 +17007,24 @@ components:
       required:
       - month
       - pnl
+    Mover:
+      type: object
+      properties:
+        dayChange:
+          type: number
+        instrumentId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        symbol:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - dayChange
+      - instrumentId
+      - name
     MuteAccountRequest:
       type: object
       properties:
@@ -19544,7 +19623,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/CardBreakdown"
+        calendarYearFallback:
+          type: boolean
         cycleFallback:
+          type: boolean
+        defaultedWindow:
           type: boolean
         milestones:
           type: array
@@ -19559,10 +19642,22 @@ components:
             $ref: "#/components/schemas/RuleBreakdown"
         summary:
           $ref: "#/components/schemas/Summary"
+        windowFrom:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        windowTo:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
       required:
       - anniversaryFallback
       - byCard
+      - calendarYearFallback
       - cycleFallback
+      - defaultedWindow
       - milestones
       - perCardAttributionIncomplete
       - rules
@@ -20693,6 +20788,23 @@ components:
           - awaiting
           - overdue
           - unverifiable
+          nullable: true
+          x-nullable: true
+    ShellCountsResponse:
+      type: object
+      properties:
+        appLock:
+          $ref: "#/components/schemas/AppLockStatusResponse"
+        inbox:
+          $ref: "#/components/schemas/InboxSummaryResponse"
+        needsReview:
+          type: integer
+          format: int64
+          nullable: true
+          x-nullable: true
+        notificationsUnread:
+          type: integer
+          format: int64
           nullable: true
           x-nullable: true
     SignupRequest:

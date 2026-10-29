@@ -21,6 +21,7 @@ import com.financeos.core.exception.GlobalExceptionHandler;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.inbox.InboxKinds;
+import com.financeos.domain.inbox.InboxMemo;
 import com.financeos.domain.inbox.InboxService;
 import com.financeos.domain.inbox.collect.InboxRows;
 import java.net.URI;
@@ -49,7 +50,7 @@ class InboxControllerTest {
     @BeforeEach
     void setUp() {
         service = mock(InboxService.class);
-        mvc = MockMvcBuilders.standaloneSetup(new InboxController(service))
+        mvc = MockMvcBuilders.standaloneSetup(new InboxController(service, new InboxMemo(0)))
                 .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
         UserContext.setCurrentUserId(userId);
@@ -85,14 +86,14 @@ class InboxControllerTest {
 
     @Test
     void summaryReturnsTheBadgeCounts() throws Exception {
-        when(service.summaryOnly(userId)).thenReturn(new InboxSummaryResponse(2, 3, 4, 5));
+        when(service.list(userId)).thenReturn(new InboxResponse(List.of(), new InboxSummaryResponse(2, 3, 4, 5), Instant.parse("2026-10-08T05:00:00Z")));
         mvc.perform(get("/api/v1/inbox/summary"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.actNow").value(2))
                 .andExpect(jsonPath("$.needsLook").value(3))
                 .andExpect(jsonPath("$.info").value(4))
                 .andExpect(jsonPath("$.badge").value(5));
-        verify(service).summaryOnly(userId);
+        verify(service).list(userId);
     }
 
     // ---------------------------------------------------------------- snooze

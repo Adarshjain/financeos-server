@@ -61,13 +61,14 @@ class StatementExpectedInboxCollectorTest {
         for (int i = 2; i >= 0; i--) {
             Statement s = new Statement();
             s.setId(UUID.randomUUID());
+            s.setAccount(card);
             LocalDate end = lastEnd.minusMonths(i);
             s.setPeriodEnd(end);
             s.setPeriodStart(end.minusMonths(1).plusDays(1));
             s.setStatementType("credit_card");
             list.add(s);
         }
-        when(statementRepository.findQualifyingCreditCardStatements(card.getId())).thenReturn(list);
+        when(statementRepository.findQualifyingCreditCardStatementsIn(List.of(card.getId()))).thenReturn(list);
     }
 
     @Test
@@ -99,7 +100,7 @@ class StatementExpectedInboxCollectorTest {
         statementsUntil(LocalDate.of(2026, 9, 15)); // next close 15 Oct, grace through 20 Oct
         assertEquals(List.of(), collector.collect(userId, TODAY));
 
-        when(statementRepository.findQualifyingCreditCardStatements(card.getId())).thenReturn(List.of());
+        when(statementRepository.findQualifyingCreditCardStatementsIn(List.of(card.getId()))).thenReturn(List.of());
         assertEquals(List.of(), collector.collect(userId, TODAY));
     }
 
@@ -109,7 +110,7 @@ class StatementExpectedInboxCollectorTest {
         statementsUntil(LocalDate.of(2026, 7, 15));
 
         assertEquals(List.of(), collector.collect(userId, TODAY));
-        verify(statementRepository, never()).findQualifyingCreditCardStatements(any());
+        verify(statementRepository, never()).findQualifyingCreditCardStatementsIn(any());
     }
 
     @Test

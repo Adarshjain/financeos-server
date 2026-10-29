@@ -251,12 +251,16 @@ public class TransactionService {
             }
         });
 
+        Map<UUID, Transaction> transactionById = new java.util.HashMap<>();
+        for (Transaction tx : transactions) {
+            transactionById.putIfAbsent(tx.getId(), tx);
+        }
         List<Transaction> orderedTransactions = ids.stream()
                 .map(id -> {
-                    Transaction t = transactions.stream()
-                            .filter(tx -> tx.getId().equals(id))
-                            .findFirst()
-                            .orElseThrow(() -> new IllegalStateException("Transaction not found for ID: " + id));
+                    Transaction t = transactionById.get(id);
+                    if (t == null) {
+                        throw new IllegalStateException("Transaction not found for ID: " + id);
+                    }
                     t.setBalance(balanceMap.get(id));
                     t.setBankBalance(bankBalanceMap.get(id));
                     return t;
@@ -280,6 +284,16 @@ public class TransactionService {
                 request.filters() != null ? request.filters() : List.of(),
                 request.search());
         return queryTransactions(criteria, pageable);
+    }
+
+    /** Number of transactions matching a search: the search's total without building the page. */
+    @Transactional(readOnly = true)
+    public long countTransactions(TransactionSearchRequest request) {
+        UUID userId = com.financeos.core.security.UserContext.getCurrentUserId();
+        TransactionSearchCriteria criteria = new TransactionSearchCriteria(
+                request.filters() != null ? request.filters() : List.of(),
+                request.search());
+        return transactionRepository.countFiltered(userId, criteria);
     }
 
     /**

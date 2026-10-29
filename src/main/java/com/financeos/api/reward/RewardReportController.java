@@ -35,8 +35,15 @@ public class RewardReportController {
     @GetMapping("/report")
     public ResponseEntity<RewardReportResponse> getReport(
             @RequestParam UUID accountId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+        if (from == null && to == null) {
+            // No window given: the card's current reward year, as /totals reports it.
+            return ResponseEntity.ok(rewardCalculationService.reportForCurrentRewardYear(accountId));
+        }
+        if (from == null || to == null) {
+            throw new com.financeos.core.exception.ValidationException("A valid from/to date range is required.");
+        }
         return ResponseEntity.ok(rewardCalculationService.report(accountId, from, to));
     }
 

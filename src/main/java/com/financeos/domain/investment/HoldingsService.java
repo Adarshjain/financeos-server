@@ -198,9 +198,11 @@ public class HoldingsService {
         List<HoldingDetail> details = investmentService.getHoldingDetails(null).stream()
                 .filter(d -> brokerAccountId == null || brokerAccountId.equals(d.dto().brokerAccountId()))
                 .toList();
+        List<Aggregate> all = new ArrayList<>();
         List<Aggregate> matching = new ArrayList<>();
         for (Map.Entry<UUID, List<HoldingDetail>> e : byInstrument(details).entrySet()) {
             Aggregate a = Aggregate.of(e.getKey(), e.getValue());
+            all.add(a);
             if (type != null && a.assetType() != type) {
                 continue;
             }
@@ -218,8 +220,6 @@ public class HoldingsService {
         BigDecimal previous = null;
         LocalDate asOf = null;
         OffsetDateTime asOfAt = null;
-        Map<InstrumentType, BigDecimal> groupValue = new EnumMap<>(InstrumentType.class);
-        Map<InstrumentType, Integer> groupCount = new EnumMap<>(InstrumentType.class);
         List<XirrCalculator.Cashflow> cashflows = new ArrayList<>();
         for (Aggregate a : matching) {
             a.details().forEach(d -> cashflows.addAll(d.cashflows()));
@@ -237,14 +237,12 @@ public class HoldingsService {
                 asOf = a.priceAsOf();
                 asOfAt = a.priceAt();
             }
-            groupValue.merge(a.assetType(), a.currentValue(), BigDecimal::add);
-            groupCount.merge(a.assetType(), 1, Integer::sum);
         }
         HoldingsResponse.Header header = new HoldingsResponse.Header(money(value),
                 day == null ? null : money(day), day == null ? null : pct(day, previous), money(invested), money(unrealised),
                 pct(unrealised, invested), matching.isEmpty() ? null : investmentService.xirrPercent(cashflows), asOf, asOfAt);
-        List<HoldingsResponse.Group> groups = new ArrayList<>();
-        groupValue.forEach((t, v) -> groups.add(new HoldingsResponse.Group(t, money(v), groupCount.get(t))));
+        List<HoldingsResponse.Group> groups = groupsOf(matching);
+        List<HoldingsResponse.Group> portfolioGroups = type == null && needle == null ? groups : groupsOf(all);
 
         List<Aggregate> rows = matching.stream().filter(Aggregate::shown).sorted(comparator(sortKey, dirKey)).toList();
         long total = rows.size();
@@ -252,7 +250,38 @@ public class HoldingsService {
         int to = (int) Math.min((long) from + pageSize, total);
         int totalPages = total == 0 ? 0 : (int) Math.ceil((double) total / pageSize);
         List<HoldingsResponse.Row> pageRows = rows.subList(from, to).stream().map(HoldingsService::row).toList();
-        return new HoldingsResponse(header, groups, pageRows, pageNo, pageSize, total, totalPages);
+        return new HoldingsResponse(header, groups, pageRows, pageNo, pageSize, total, totalPages,
+                movers(rows.stream().sorted(comparator("name", null)).toList()), portfolioGroups);
+    }
+
+    /** Current value and count of the open holdings of each asset type, in {@link InstrumentType} order. */
+    private static List<HoldingsResponse.Group> groupsOf(List<Aggregate> aggregates) {
+        Map<InstrumentType, BigDecimal> groupValue = new EnumMap<>(InstrumentType.class);
+        Map<InstrumentType, Integer> groupCount = new EnumMap<>(InstrumentType.class);
+        for (Aggregate a : aggregates) {
+            if (a.open()) {
+                groupValue.merge(a.assetType(), a.currentValue(), BigDecimal::add);
+                groupCount.merge(a.assetType(), 1, Integer::sum);
+            }
+        }
+        List<HoldingsResponse.Group> groups = new ArrayList<>();
+        groupValue.forEach((t, v) -> groups.add(new HoldingsResponse.Group(t, money(v), groupCount.get(t))));
+        return groups;
+    }
+
+    /**
+     * The three biggest day moves in rupees (up or down) among {@code byName} (shown rows in name order, so
+     * equal moves keep that order), skipping moves that round to zero rupees and merged-away holdings.
+     */
+    private static List<HoldingsResponse.Mover> movers(List<Aggregate> byName) {
+        BigDecimal half = new BigDecimal("0.5");
+        return byName.stream()
+                .filter(a -> a.dayChange() != null && a.mergedIntoName() == null
+                        && money(a.dayChange()).add(half).setScale(0, RoundingMode.FLOOR).signum() != 0)
+                .sorted(Comparator.comparing((Aggregate a) -> money(a.dayChange()).abs()).reversed())
+                .limit(3)
+                .map(a -> new HoldingsResponse.Mover(a.instrumentId(), a.symbol(), a.name(), money(a.dayChange())))
+                .toList();
     }
 
     private static boolean contains(@Nullable String text, String lowerNeedle) {

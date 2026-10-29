@@ -153,13 +153,18 @@ public class InstrumentController {
         instrumentService.deleteManualPrice(instrumentId, priceId);
     }
 
-    /** Feed prices plus the signed-in user's own MANUAL prices (theirs in place of the feed's on a shared date). */
+    /**
+     * Feed prices plus the signed-in user's own MANUAL prices (theirs in place of the feed's on a shared date).
+     * {@code maxPoints} (at least 2) thins a longer history to that many evenly spaced points, always keeping
+     * the newest and the oldest; absent, the whole history.
+     */
     @GetMapping("/{id}/prices")
     public List<InstrumentPriceResponse> getPriceHistory(
             @PathVariable UUID id,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
-        return instrumentService.getPriceHistory(id, from, to);
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+            @RequestParam(required = false) Integer maxPoints) {
+        return instrumentService.getPriceHistory(id, from, to, maxPoints);
     }
 
     /**

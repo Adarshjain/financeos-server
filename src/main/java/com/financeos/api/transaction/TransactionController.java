@@ -64,6 +64,13 @@ public class TransactionController {
         return ResponseEntity.ok(response);
     }
 
+    /** The total {@code /search} would report for the same body, without loading a page or computing balances. */
+    @PostMapping("/count")
+    public ResponseEntity<java.util.Map<String, Long>> countTransactions(
+            @Valid @RequestBody TransactionSearchRequest request) {
+        return ResponseEntity.ok(java.util.Map.of("count", transactionService.countTransactions(request)));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TransactionResponse> getTransaction(@PathVariable UUID id) {
         return ResponseEntity.ok(toSingleResponse(transactionService.getTransaction(id)));

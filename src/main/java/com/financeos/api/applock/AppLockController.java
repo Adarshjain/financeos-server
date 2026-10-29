@@ -51,7 +51,11 @@ public class AppLockController {
 
     @GetMapping("/status")
     public AppLockStatusResponse status(HttpServletRequest request) {
-        HttpSession session = request.getSession(true);
+        return statusOf(request.getSession(true));
+    }
+
+    /** The status for a session; shared with the shell counts endpoint. */
+    public AppLockStatusResponse statusOf(HttpSession session) {
         boolean armed = appLock.isArmed(session);
         boolean locked = armed && appLock.isLocked(session);
         Integer after = armed

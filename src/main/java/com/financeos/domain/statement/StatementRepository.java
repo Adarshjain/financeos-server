@@ -54,9 +54,38 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     @Query("SELECT s FROM Statement s JOIN FETCH s.creditCardDetails d WHERE s.account.id = :accountId AND s.statementType = 'credit_card' AND s.verdict != com.financeos.domain.statement.StatementVerdict.REJECTED ORDER BY s.periodEnd ASC NULLS LAST, s.createdAt ASC")
     List<Statement> findQualifyingCreditCardStatements(@Param("accountId") UUID accountId);
 
-    /** {@link #findQualifyingCreditCardStatements} for several accounts at once (the bills list). */
+    /** {@link #findQualifyingCreditCardStatements} for several accounts at once (the expected-statement inbox rows). */
     @Query("SELECT s FROM Statement s JOIN FETCH s.creditCardDetails d WHERE s.account.id IN :accountIds AND s.statementType = 'credit_card' AND s.verdict != com.financeos.domain.statement.StatementVerdict.REJECTED ORDER BY s.periodEnd ASC NULLS LAST, s.createdAt ASC")
     List<Statement> findQualifyingCreditCardStatementsIn(@Param("accountIds") java.util.Collection<UUID> accountIds);
+
+    /** What picks the latest live statement of a card: {@link #findQualifyingCreditCardStatements}' rows without their entities. */
+    interface QualifyingStatementKey {
+        UUID getId();
+        UUID getAccountId();
+        LocalDate getPeriodEnd();
+        java.time.Instant getCreatedAt();
+    }
+
+    /** {@link #findQualifyingCreditCardStatements} for several accounts at once, keys only (the bills list), oldest period first. */
+    @Query("SELECT s.id AS id, s.account.id AS accountId, s.periodEnd AS periodEnd, s.createdAt AS createdAt FROM Statement s JOIN s.creditCardDetails d WHERE s.account.id IN :accountIds AND s.statementType = 'credit_card' AND s.verdict != com.financeos.domain.statement.StatementVerdict.REJECTED ORDER BY s.periodEnd ASC NULLS LAST, s.createdAt ASC")
+    List<QualifyingStatementKey> findQualifyingCreditCardStatementKeysIn(@Param("accountIds") java.util.Collection<UUID> accountIds);
+
+    /** The statements with these ids, credit-card details fetched with them. */
+    @EntityGraph(attributePaths = {"creditCardDetails"})
+    @Query("SELECT s FROM Statement s WHERE s.id IN :ids")
+    List<Statement> findWithCreditCardDetailsByIdIn(@Param("ids") java.util.Collection<UUID> ids);
+
+    /** The dates and verdict of a statement: all the billing cycles read of it. */
+    interface StatementPeriod {
+        UUID getAccountId();
+        LocalDate getPeriodStart();
+        LocalDate getPeriodEnd();
+        com.financeos.domain.statement.StatementVerdict getVerdict();
+    }
+
+    /** Every statement's period of several accounts (the bills list's next expected statement), no entities. */
+    @Query("SELECT s.account.id AS accountId, s.periodStart AS periodStart, s.periodEnd AS periodEnd, s.verdict AS verdict FROM Statement s WHERE s.account.id IN :accountIds")
+    List<StatementPeriod> findPeriodsByAccountIdIn(@Param("accountIds") java.util.Collection<UUID> accountIds);
 
     /** Every non-rejected credit-card statement of the user, details (if any) and account fetched, for the missing-details scan. */
     @Query("SELECT s FROM Statement s LEFT JOIN FETCH s.creditCardDetails d JOIN FETCH s.account a WHERE s.user.id = :userId AND s.statementType = 'credit_card' AND (s.verdict IS NULL OR s.verdict <> com.financeos.domain.statement.StatementVerdict.REJECTED) ORDER BY s.periodEnd DESC NULLS LAST, s.createdAt DESC")
