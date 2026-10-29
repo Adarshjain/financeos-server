@@ -240,6 +240,50 @@ public final class StatementPdfFixtures {
 		return d.save();
 	}
 
+	/**
+	 * ICICI Amazon Pay card statement (2021-22 layout): statement and due dates in
+	 * a summary box left of the table, a spends-overview chart whose labels ("72%",
+	 * "Travel-16%", "For exclusive") share lines with the rows or sit between them,
+	 * the first row right under the card number, a "22091/50000" print counter in
+	 * the margin, and a footer line that reads like a date ("State Code: 33 the").
+	 */
+	public static byte[] iciciSpendsChartBesideTable() throws Exception {
+		Doc d = new Doc();
+		d.line(l(38, "CREDIT CARD STATEMENT"));
+		d.line(l(79, "STATEMENT DATE"), l(289, "All communications are being sent to your registered e-mail ID"));
+		d.line(l(61, "December 12, 2021"), l(222, "Service > Service Requests > Credit Card"));
+		d.line(l(75, "PAYMENT DUE DATE"));
+		d.line(l(60, "December 30, 2021"), l(440, "Scan to Pay using"));
+		d.line(l(205, "STATEMENT SUMMARY"));
+		d.line(l(81, "Total Amount due"), l(220, "Previous Balance"), l(320, "Purchases / Charges"),
+				l(420, "Cash Advances"), l(500, "Payments / Credits"));
+		d.line(l(87, "2,687.93"), l(230, "0.00"), l(330, "2,690.93"), l(430, "0.00"), l(510, "3.00"));
+		d.line(l(73, "Minimum Amount due"), l(205, "CREDIT SUMMARY"));
+		d.line(l(93, "140.00"));
+		d.line(l(89, "SPENDS OVERVIEW"), l(208, "Date"), l(272, "SerNo."), l(340, "Transaction Details"),
+				l(520, "Amount"));
+		d.line(l(208, "4315XXXXXXXX0005"));
+		d.line(l(208, "24/11/2021"), l(272, "5587103799"), l(340, "UPI Payment Received"), r(560, "1.00 CR"));
+		d.line(l(68, "72%"), l(208, "24/11/2021"), l(272, "5587104134"), l(340, "UPI Payment Received"),
+				r(560, "2.00 CR"));
+		d.line(l(208, "24/11/2021"), l(272, "5589982660"), l(340, "NEARBUY INDIA PVT LTD GURGAON IN"),
+				r(560, "237.00"));
+		d.line(l(40, "Travel-16%"), l(100, "Apparel/Grocery-7%"), l(208, "26/11/2021"), l(272, "5597503264"),
+				l(340, "Bigtree Entertainment MUMBAI IN"), r(560, "279.21"));
+		d.line(l(67, "22091/50000"), l(208, "05/12/2021"), l(272, "5627673817"),
+				l(340, "RAZ*RailTel Corporation Delhi IN"), r(560, "1,178.82"));
+		d.line(l(118, "For exclusive"));
+		d.line(l(208, "09/12/2021"), l(272, "5639348021"), l(340, "AMAZON.IN GROCERY HTTP://WWW.AM IN"),
+				r(560, "490.00"));
+		d.line(l(122, "offers, visit"));
+		d.line(l(208, "10/12/2021"), l(272, "5645530509"), l(340, "RATHINAVELU MUDALI CHIDAMBARAM IN"),
+				r(560, "505.90"));
+		d.line(l(165, "T&C apply"));
+		d.line(l(40, "Statement period : November 13, 2021 to December 12, 2021"));
+		d.line(l(40, "State Code: 33"), l(208, "the transaction amount displayed."));
+		return d.save();
+	}
+
 	private static void header(Doc d) {
 		d.line(l(DATE, "Date"), l(NARR, "Transaction Details"), l(335, "Deposits"), l(409, "Withdrawals"),
 				l(523, "Balance"));
