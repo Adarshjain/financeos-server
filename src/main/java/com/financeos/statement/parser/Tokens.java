@@ -56,7 +56,8 @@ final class Tokens {
                     + "|\\d{1,2}[/\\-. ][A-Za-z]{3,9}[/\\-. ](?:\\d{2,4}|'\\d{2})"
                     + "|[A-Za-z]{3,9} \\d{1,2} \\d{2,4}"
                     + "|\\d{1,2}[A-Za-z]{3,9}\\d{2,4}"
-                    + "|\\d{1,2}\\s?[A-Za-z]{3,9}"
+                    // year-less "05 Jun" needs a real month: "State Code: 33 the" is no date
+                    + "|\\d{1,2}\\s?(?i:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[A-Za-z]{0,6}"
                     + "|\\d{4}[/-]\\d{2}[/-]\\d{2})$");
 
     static final Pattern TIME = Pattern.compile(

@@ -12,9 +12,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 final class TransactionBuilder {
     private static final Set<String> CR_DR_TOKENS = Set.of("Cr", "Dr", "CR", "DR");
+    private static final Pattern PRINT_COUNTER = Pattern.compile("\\d+/\\d+");
 
     private TransactionBuilder() {
     }
@@ -99,11 +101,12 @@ final class TransactionBuilder {
             LocalDate date = injectYear(parsedDate, periodStart, periodEnd);
 
             List<Word> words = ln.words();
-            // pre-date columns (serial no etc.); chart labels like "62%" overlap rows
+            // pre-date columns (serial no etc.); chart labels like "62%" and print
+            // counters like "22091/50000" in the margin overlap rows
             List<String> desc = new ArrayList<>();
             for (int k = 0; k < Math.min(start, words.size()); k++) {
                 String t = words.get(k).text();
-                if (!t.endsWith("%")) {
+                if (!t.endsWith("%") && !PRINT_COUNTER.matcher(t).matches()) {
                     desc.add(t);
                 }
             }

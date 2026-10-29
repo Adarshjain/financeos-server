@@ -139,14 +139,28 @@ final class RowCollector {
         // sub-transactions); one that turns up mid-block is part of the narration
         // ("2026/02/27 063232 <ref>" on NEFT rows). Left in, those out-vote the
         // real rows in the column and date-format votes, or cut a block in two.
+        // A dated line with the table header right below it (ICICI's due date in
+        // the summary box left of the table) is not a row and sets no column -
+        // unless nothing else on its page could.
+        Set<Integer> aboveHeader = new HashSet<>();
+        for (int c = 0; c + 1 < cand.size(); c++) {
+            if (headerBetween(lines, cand.get(c), cand.get(c + 1))) {
+                aboveHeader.add(cand.get(c));
+            }
+        }
         Map<Integer, Double> dateColX = new LinkedHashMap<>();
         for (int i : cand) {
-            dateColX.merge(lines.get(i).page(), ax(lines, anchors, i), Math::min);
+            if (!aboveHeader.contains(i)) {
+                dateColX.merge(lines.get(i).page(), ax(lines, anchors, i), Math::min);
+            }
+        }
+        for (int i : aboveHeader) {
+            dateColX.putIfAbsent(lines.get(i).page(), ax(lines, anchors, i));
         }
         int inCol = 0;
         int inColAmountless = 0;
         for (int i : cand) {
-            if (ax(lines, anchors, i) - dateColX.get(lines.get(i).page()) <= 15) {
+            if (Math.abs(ax(lines, anchors, i) - dateColX.get(lines.get(i).page())) <= 15) {
                 inCol++;
                 if (!lineHasAmount(lines.get(i))) {
                     inColAmountless++;
