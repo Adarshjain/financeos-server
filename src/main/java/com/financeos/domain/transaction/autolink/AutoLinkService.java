@@ -34,7 +34,7 @@ public class AutoLinkService {
     /**
      * Per suggestion kind: how many pairings were linked and how many suggestions are now stored.
      * {@code ran}: this call did the work (false when another run was in flight and only flagged a rerun).
-     * {@code failed}: some linker or pairing failed, so the run was not clean.
+     * {@code failed}: a linker (or the run) threw, so the run was not clean; a single failed pair is only logged.
      */
     public record RunResult(Map<SuggestionKind, Counts> byKind, boolean ran, boolean failed) {
         /** The call was skipped because a run for the user was already going. */
@@ -141,7 +141,10 @@ public class AutoLinkService {
                         AutoLinkOutcome outcome = passTransaction.execute(status -> linker.link(userId));
                         if (outcome != null) {
                             byKind = AutoLinkOutcome.merge(byKind, outcome.byKind());
-                            failed |= outcome.partial();
+                            if (outcome.partial()) {
+                                // Pair failures are logged by the linker and do not make the run unclean.
+                                log.info("Auto-linker {} skipped some pairs for user {}", linker.getClass().getSimpleName(), userId);
+                            }
                         }
                     } catch (Exception e) {
                         failed = true;
@@ -201,6 +204,18 @@ public class AutoLinkService {
         }
         if (refunds > 0) {
             parts.add(refunds + (refunds == 1 ? " refund" : " refunds"));
+        }
+        int emis = result.byKind().getOrDefault(SuggestionKind.EMI, Counts.ZERO).linked();
+        int lendings = result.byKind().getOrDefault(SuggestionKind.LENDING, Counts.ZERO).linked();
+        int dividends = result.byKind().getOrDefault(SuggestionKind.DIVIDEND, Counts.ZERO).linked();
+        if (emis > 0) {
+            parts.add(emis + (emis == 1 ? " EMI" : " EMIs"));
+        }
+        if (lendings > 0) {
+            parts.add(lendings + (lendings == 1 ? " lending" : " lendings"));
+        }
+        if (dividends > 0) {
+            parts.add(dividends + (dividends == 1 ? " dividend" : " dividends"));
         }
         return String.join(", ", parts);
     }

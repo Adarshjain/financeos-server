@@ -12,9 +12,13 @@ import com.financeos.core.time.AppTime;
 import com.financeos.domain.notification.lending.LendingReturnNotificationService;
 import com.financeos.domain.loan.TransactionReferenceValidator;
 import com.financeos.domain.obligation.MatchingConstants;
+import com.financeos.domain.obligation.MatchRules;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionType;
+import com.financeos.domain.transaction.autolink.AutoLinkStore;
+import com.financeos.domain.transaction.autolink.SuggestionKind;
+import com.financeos.domain.transaction.link.LinkOrigin;
 import com.financeos.domain.transaction.link.TransactionLinkRepository;
 import com.financeos.domain.user.UserRepository;
 import net.logstash.logback.argument.StructuredArguments;
@@ -47,6 +51,13 @@ public class LendingService {
     private final TransactionReferenceValidator transactionValidator;
     private final TransactionRepository transactionRepository;
     private final TransactionLinkRepository transactionLinkRepository;
+
+    private AutoLinkStore autoLinkStore;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setAutoLinkStore(AutoLinkStore autoLinkStore) {
+        this.autoLinkStore = autoLinkStore;
+    }
 
     public LendingService(
             CounterpartyRepository counterpartyRepository,
@@ -582,6 +593,7 @@ public class LendingService {
 
     public void deleteLending(UUID lendingId) {
         Lending lending = getLendingAndVerifyOwnership(lendingId);
+        rememberAutoLinkRemoved(lending);
         lendingRepository.delete(lending);
     }
 
@@ -589,6 +601,23 @@ public class LendingService {
 
     /** Attach or replace the linked bank transaction. Re-sending the current id is a no-op. */
     public LendingResponse linkTransaction(UUID lendingId, UUID transactionId) {
+        return linkTransaction(lendingId, transactionId, LinkOrigin.USER);
+    }
+
+    /** True when the entry exists, is the user's and has no linked transaction (the auto-linker's re-check). */
+    @Transactional(readOnly = true)
+    public boolean isUnlinked(UUID lendingId) {
+        return lendingRepository.findById(lendingId)
+                .filter(l -> l.getUser() != null && l.getUser().getId().equals(UserContext.getCurrentUserId()))
+                .map(l -> l.getTransaction() == null).orElse(false);
+    }
+
+    /** What Confirm does for a suggested match, recorded as an AUTO link. */
+    public LendingResponse autoLinkTransaction(UUID lendingId, UUID transactionId) {
+        return linkTransaction(lendingId, transactionId, LinkOrigin.AUTO);
+    }
+
+    private LendingResponse linkTransaction(UUID lendingId, UUID transactionId, LinkOrigin origin) {
         if (transactionId == null) {
             throw new ValidationException("transactionId is required");
         }
@@ -597,7 +626,9 @@ public class LendingService {
             return LendingResponse.from(lending);
         }
         Transaction transaction = transactionValidator.validateForLending(transactionId, lending.getDirection());
+        rememberAutoLinkRemoved(lending); // a manual replace of an AUTO link forgets nothing
         lending.setTransaction(transaction);
+        lending.setOrigin(origin);
         Lending saved = lendingRepository.save(lending);
         logLinkEvent(Events.LENDING_LINKED, saved, transactionId);
         return LendingResponse.from(saved);
@@ -610,9 +641,32 @@ public class LendingService {
             return;
         }
         UUID previous = lending.getTransaction().getId();
+        rememberAutoLinkRemoved(lending);
         lending.setTransaction(null);
+        lending.setOrigin(LinkOrigin.USER);
         lendingRepository.save(lending);
         logLinkEvent(Events.LENDING_UNLINKED, lending, previous);
+    }
+
+    /** Unlinking or deleting an entry the auto-linker linked is remembered, so the same pair is not linked again. */
+    private void rememberAutoLinkRemoved(Lending lending) {
+        if (autoLinkStore == null || lending.getOrigin() != LinkOrigin.AUTO || lending.getTransaction() == null) {
+            return;
+        }
+        autoLinkStore.addRejections(UserContext.getCurrentUserId(), List.of(new AutoLinkStore.Rejection(
+                SuggestionKind.LENDING, lending.getTransaction().getId(), lending.getId())));
+    }
+
+    /** An entry with no linked transaction: what the auto-linker needs to find its transaction. */
+    public record UnlinkedEntry(UUID id, LendingDirection direction, BigDecimal amount, LocalDate entryDate) {}
+
+    /** Every unlinked entry of every person of the user, in one query. */
+    @Transactional(readOnly = true)
+    public List<UnlinkedEntry> getUnlinkedEntries() {
+        return lendingRepository.findAllWithRefs().stream()
+                .filter(l -> l.getTransaction() == null)
+                .map(l -> new UnlinkedEntry(l.getId(), l.getDirection(), l.getAmount(), l.getEntryDate()))
+                .toList();
     }
 
     // --- Match suggestions (mirrors LoanService#getMatchSuggestions) ---
@@ -720,13 +774,9 @@ public class LendingService {
                     .toList();
             List<Transaction> pool = transactionRepository.findMatchCandidatesAny(group.getKey(), windows);
             for (Lending entry : group.getValue()) {
-                BigDecimal lo = entry.getAmount().subtract(MatchingConstants.MATCH_AMOUNT_TOLERANCE);
-                BigDecimal hi = entry.getAmount().add(MatchingConstants.MATCH_AMOUNT_TOLERANCE);
-                LocalDate from = entry.getEntryDate().minusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS);
-                LocalDate to = entry.getEntryDate().plusDays(MatchingConstants.MATCH_DATE_WINDOW_DAYS);
                 out.put(entry.getId(), pool.stream()
-                        .filter(t -> t.getAmount().compareTo(lo) >= 0 && t.getAmount().compareTo(hi) <= 0)
-                        .filter(t -> !t.getDate().isBefore(from) && !t.getDate().isAfter(to))
+                        .filter(t -> MatchRules.lendingEntryFits(entry.getAmount(), entry.getEntryDate(), t.getAmount(), t.getDate(),
+                                MatchingConstants.MATCH_AMOUNT_TOLERANCE))
                         .toList());
             }
         }

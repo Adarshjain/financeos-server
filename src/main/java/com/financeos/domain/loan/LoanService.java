@@ -15,6 +15,10 @@ import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.lending.LendingRepository;
 import com.financeos.domain.obligation.MatchingConstants;
+import com.financeos.domain.obligation.MatchRules;
+import com.financeos.domain.transaction.autolink.AutoLinkStore;
+import com.financeos.domain.transaction.autolink.SuggestionKind;
+import com.financeos.domain.transaction.link.LinkOrigin;
 import com.financeos.domain.loan.schedule.LoanScheduleService;
 import com.financeos.domain.loan.schedule.ScheduleResult;
 import com.financeos.domain.transaction.Transaction;
@@ -51,6 +55,13 @@ public class LoanService {
     private final UserRepository userRepository;
     private final LoanScheduleService scheduleService;
     private final TransactionReferenceValidator transactionValidator;
+
+    private AutoLinkStore autoLinkStore;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setAutoLinkStore(AutoLinkStore autoLinkStore) {
+        this.autoLinkStore = autoLinkStore;
+    }
 
     public LoanService(
             LoanRepository loanRepository,
@@ -515,6 +526,45 @@ public class LoanService {
     }
 
     public LoanPaymentResponse addPayment(UUID loanId, CreateLoanPaymentRequest req) {
+        return LoanPaymentResponse.from(savePayment(loanId, req, LinkOrigin.USER));
+    }
+
+    /** The unsettled installment of a loan, with what the matchers need; {@code paymentAccountId} is null when the loan has none. */
+    public record UnsettledInstallment(UUID loanId, int seq, LocalDate dueDate, BigDecimal emi, UUID paymentAccountId) {}
+
+    /** Every unsettled installment of every active loan of the user, over all history (the auto-linker's input). */
+    @Transactional(readOnly = true)
+    public List<UnsettledInstallment> getUnsettledInstallments() {
+        List<UnsettledInstallment> out = new ArrayList<>();
+        List<Loan> loans = loanRepository.findAll().stream().filter(l -> l.getStatus() == LoanStatus.active).toList();
+        ScheduleInputs inputs = loadScheduleInputs(loans);
+        for (Loan loan : loans) {
+            ScheduleResult schedule;
+            try {
+                schedule = inputs.compute(scheduleService, loan);
+            } catch (RuntimeException e) {
+                log.warn("Auto-link skipped loan {}: schedule could not be computed ({})", loan.getId(), e.getClass().getSimpleName());
+                continue;
+            }
+            UUID accountId = paymentAccountId(loan);
+            for (InstallmentDto i : schedule.installments()) {
+                if (!"settled".equals(i.status())) {
+                    out.add(new UnsettledInstallment(loan.getId(), i.seq(), i.dueDate(), i.emi(), accountId));
+                }
+            }
+        }
+        return out;
+    }
+
+    /** What Confirm does for a suggested match (the transaction's amount and date), recorded as an AUTO payment. */
+    public LoanPaymentResponse addAutoPayment(UUID loanId, int installmentSeq, UUID transactionId) {
+        Transaction tx = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction", transactionId));
+        return LoanPaymentResponse.from(savePayment(loanId,
+                new CreateLoanPaymentRequest(tx.getDate(), tx.getAmount(), installmentSeq, transactionId), LinkOrigin.AUTO));
+    }
+
+    private LoanPayment savePayment(UUID loanId, CreateLoanPaymentRequest req, LinkOrigin origin) {
         Loan loan = getLoanAndVerifyOwnership(loanId);
         if (req.amount() == null || req.amount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new ValidationException("Payment amount must be greater than zero");
@@ -560,9 +610,9 @@ public class LoanService {
         payment.setPaymentDate(req.paymentDate());
         payment.setAmount(req.amount());
         payment.setTransaction(transaction);
+        payment.setOrigin(origin);
 
-        LoanPayment saved = loanPaymentRepository.save(payment);
-        return LoanPaymentResponse.from(saved);
+        return loanPaymentRepository.save(payment);
     }
 
     public Map<String, Integer> addPaymentsBatch(UUID loanId, BatchLoanPaymentRequest batchReq) {
@@ -660,7 +710,21 @@ public class LoanService {
             throw new ValidationException("Payment does not belong to loan " + loanId);
         }
 
+        if (payment.getOrigin() == LinkOrigin.AUTO && payment.getTransaction() != null && autoLinkStore != null) {
+            // Removing an automatic payment is remembered: the same installment/transaction pair is not linked again.
+            autoLinkStore.addRejections(UserContext.getCurrentUserId(), List.of(new AutoLinkStore.Rejection(
+                    SuggestionKind.EMI, payment.getTransaction().getId(), paymentRef(payment))));
+        }
         loanPaymentRepository.delete(payment);
+    }
+
+    /** An installment has no id of its own; its stable id for rejections (other_ref) is a UUID derived from loan id and seq. */
+    public static UUID installmentRef(UUID loanId, int seq) {
+        return UUID.nameUUIDFromBytes((loanId + "#" + seq).getBytes(java.nio.charset.StandardCharsets.UTF_8));
+    }
+
+    private static UUID paymentRef(LoanPayment payment) {
+        return installmentRef(payment.getLoan().getId(), payment.getInstallmentSeq());
     }
 
     public LoanChargeResponse addCharge(UUID loanId, CreateLoanChargeRequest req) {
@@ -770,17 +834,9 @@ public class LoanService {
 
             Map<Integer, List<Transaction>> candidateMap = new HashMap<>();
             for (InstallmentDto inst : targetInstallments) {
-                BigDecimal expectedAmount = inst.emi().setScale(2, RoundingMode.HALF_UP);
-                BigDecimal tolerance = MatchingConstants.loanAmountTolerance(expectedAmount);
-                BigDecimal minAmount = expectedAmount.subtract(tolerance);
-                BigDecimal maxAmount = expectedAmount.add(tolerance);
-                LocalDate minDate = inst.dueDate().minusDays(7);
-                LocalDate maxDate = inst.dueDate().plusDays(7);
-
                 List<Transaction> candidates = pool.stream()
-                        .filter(t -> accountId == null || (t.getAccount() != null && accountId.equals(t.getAccount().getId())))
-                        .filter(t -> t.getAmount().compareTo(minAmount) >= 0 && t.getAmount().compareTo(maxAmount) <= 0)
-                        .filter(t -> !t.getDate().isBefore(minDate) && !t.getDate().isAfter(maxDate))
+                        .filter(t -> MatchRules.loanInstallmentFits(inst.emi(), inst.dueDate(), accountId,
+                                t.getAccount() != null ? t.getAccount().getId() : null, t.getAmount(), t.getDate()))
                         .toList();
             for (Transaction t : candidates) {
                 if (referencedTxIds.contains(t.getId())) {

@@ -19,6 +19,9 @@ import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.loan.TransactionReferenceValidator;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
+import com.financeos.domain.transaction.autolink.AutoLinkStore;
+import com.financeos.domain.transaction.autolink.SuggestionKind;
+import com.financeos.domain.transaction.link.LinkOrigin;
 import com.financeos.domain.transaction.link.TransactionLinkRepository;
 import net.logstash.logback.argument.StructuredArguments;
 import org.slf4j.Logger;
@@ -74,6 +77,12 @@ public class DividendReceiptService {
     private final HoldingRepository holdingRepository;
     private final TransactionReferenceValidator transactionValidator;
     private final DividendReceiptStatusResolver resolver;
+    private AutoLinkStore autoLinkStore;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setAutoLinkStore(AutoLinkStore autoLinkStore) {
+        this.autoLinkStore = autoLinkStore;
+    }
 
     public DividendReceiptService(DividendRepository dividendRepository,
                                   TransactionRepository transactionRepository,
@@ -93,6 +102,23 @@ public class DividendReceiptService {
 
     /** Attach (or replace) the bank credit. Re-sending the current credit is a no-op. */
     public DividendResponse linkTransaction(UUID dividendId, UUID transactionId, boolean updateTds) {
+        return linkTransaction(dividendId, transactionId, updateTds, LinkOrigin.USER);
+    }
+
+    /** True when the dividend exists, is the user's and has no linked credit (the auto-linker's re-check). */
+    @Transactional(readOnly = true)
+    public boolean isUnlinked(UUID dividendId) {
+        return dividendRepository.findById(dividendId)
+                .filter(d -> d.getUser() != null && d.getUser().getId().equals(UserContext.getCurrentUserId()))
+                .map(d -> d.getTransaction() == null).orElse(false);
+    }
+
+    /** What Confirm does for a suggested match (with the TDS write-back), recorded as an AUTO link. */
+    public DividendResponse autoLinkTransaction(UUID dividendId, UUID transactionId) {
+        return linkTransaction(dividendId, transactionId, true, LinkOrigin.AUTO);
+    }
+
+    private DividendResponse linkTransaction(UUID dividendId, UUID transactionId, boolean updateTds, LinkOrigin origin) {
         if (transactionId == null) {
             throw new ValidationException("transactionId is required");
         }
@@ -101,7 +127,12 @@ public class DividendReceiptService {
             return resolver.toResponse(dividend);
         }
         Transaction transaction = transactionValidator.validateForDividend(transactionId);
+        if (dividend.getTransaction() != null && dividend.getTransactionOrigin() == LinkOrigin.AUTO && autoLinkStore != null) {
+            autoLinkStore.addRejections(UserContext.getCurrentUserId(), List.of(new AutoLinkStore.Rejection(
+                    SuggestionKind.DIVIDEND, dividend.getTransaction().getId(), dividend.getId())));
+        }
         dividend.setTransaction(transaction);
+        dividend.setTransactionOrigin(origin);
         dividend.setReceiptStatus(null); // a linked row IS received; any manual note is stale
         boolean tdsWritten = updateTds && applyTdsFromReceipt(dividend, transaction);
         Dividend saved = dividendRepository.save(dividend);
@@ -116,7 +147,13 @@ public class DividendReceiptService {
             return;
         }
         UUID previous = dividend.getTransaction().getId();
+        if (autoLinkStore != null && dividend.getTransactionOrigin() == LinkOrigin.AUTO) {
+            // An automatic link the user removes is remembered: the same pair is not linked again.
+            autoLinkStore.addRejections(UserContext.getCurrentUserId(), List.of(new AutoLinkStore.Rejection(
+                    SuggestionKind.DIVIDEND, previous, dividend.getId())));
+        }
         dividend.setTransaction(null);
+        dividend.setTransactionOrigin(LinkOrigin.USER);
         dividendRepository.save(dividend);
         logLinkEvent(Events.DIVIDEND_UNLINKED, dividend, previous, false);
     }
@@ -186,14 +223,11 @@ public class DividendReceiptService {
         return transactionRepository.findCreditCandidates(RECEIVING_ACCOUNT_TYPES, minAmount, maxAmount, minDate, maxDate);
     }
 
-    @Transactional(readOnly = true)
-    public DividendReconciliationResponse getReconciliation(UUID brokerAccountId, LocalDate from, LocalDate to) {
-        DividendReceiptStatusResolver.Context ctx = resolver.context();
-        List<Dividend> unresolved = dividendRepository.findUnresolvedForReconciliation(brokerAccountId, from, to);
-        if (unresolved.isEmpty()) {
-            return new DividendReconciliationResponse(List.of(), ctx.coverageEnd(), 0, 0);
-        }
+    /** Every unresolved dividend's scored credits (referenced credits dropped), plus those credits by id. */
+    private record ScoredPool(Map<UUID, List<DividendMatcher.Scored>> scoredByDividend, Map<UUID, Transaction> candidateTxns) {
+    }
 
+    private ScoredPool scoreCandidates(List<Dividend> unresolved) {
         Set<UUID> referenced = transactionValidator.getAllReferencedTransactionIds();
         Map<UUID, List<DividendMatcher.Scored>> scoredByDividend = new LinkedHashMap<>();
         Map<UUID, Transaction> candidateTxns = new HashMap<>();
@@ -225,6 +259,65 @@ public class DividendReceiptService {
             }
             scoredByDividend.put(d.getId(), scored);
         }
+
+        return new ScoredPool(scoredByDividend, candidateTxns);
+    }
+
+    /** One dividend and the one credit that fits it and no other dividend, at the EXACT or NET_OF_TDS tier. */
+    public record UniqueMatch(UUID dividendId, UUID transactionId, DividendMatchTier tier) {
+    }
+
+    /**
+     * The dividend/credit pairs that are unique both ways: over every unresolved dividend (all history), the
+     * dividend has exactly one non-rejected scored credit, that credit is EXACT or NET_OF_TDS, sits in no link
+     * group, and is a scored credit of no other dividend. Uses the same scoring as the reconciliation view.
+     *
+     * @param rejected true when the user already unlinked this (dividend id, transaction id) pair
+     */
+    @Transactional(readOnly = true)
+    public List<UniqueMatch> findUniqueMatches(java.util.function.BiPredicate<UUID, UUID> rejected) {
+        List<Dividend> unresolved = dividendRepository.findUnresolvedForReconciliation(null, null, null);
+        if (unresolved.isEmpty()) {
+            return List.of();
+        }
+        ScoredPool pool = scoreCandidates(unresolved);
+        Set<UUID> inLinkGroups = linkGroupMembers(pool.candidateTxns().keySet());
+
+        Map<UUID, List<DividendMatcher.Scored>> fitsByDividend = new LinkedHashMap<>();
+        Map<UUID, Integer> dividendsOfTxn = new HashMap<>();
+        for (Dividend d : unresolved) {
+            List<DividendMatcher.Scored> fits = pool.scoredByDividend().get(d.getId()).stream()
+                    .filter(sc -> !inLinkGroups.contains(sc.transaction().getId()))
+                    .filter(sc -> !rejected.test(d.getId(), sc.transaction().getId()))
+                    .toList();
+            fitsByDividend.put(d.getId(), fits);
+            fits.forEach(sc -> dividendsOfTxn.merge(sc.transaction().getId(), 1, Integer::sum));
+        }
+        List<UniqueMatch> out = new ArrayList<>();
+        for (Map.Entry<UUID, List<DividendMatcher.Scored>> e : fitsByDividend.entrySet()) {
+            if (e.getValue().size() != 1) {
+                continue;
+            }
+            DividendMatcher.Scored only = e.getValue().get(0);
+            boolean sure = only.tier() == DividendMatchTier.EXACT || only.tier() == DividendMatchTier.NET_OF_TDS;
+            if (sure && dividendsOfTxn.get(only.transaction().getId()) == 1) {
+                out.add(new UniqueMatch(e.getKey(), only.transaction().getId(), only.tier()));
+            }
+        }
+        return out;
+    }
+
+    @Transactional(readOnly = true)
+    public DividendReconciliationResponse getReconciliation(UUID brokerAccountId, LocalDate from, LocalDate to) {
+        DividendReceiptStatusResolver.Context ctx = resolver.context();
+        List<Dividend> unresolved = dividendRepository.findUnresolvedForReconciliation(brokerAccountId, from, to);
+        if (unresolved.isEmpty()) {
+            return new DividendReconciliationResponse(List.of(), ctx.coverageEnd(), 0, 0);
+        }
+
+        ScoredPool pool = scoreCandidates(unresolved);
+        Map<UUID, List<DividendMatcher.Scored>> scoredByDividend = pool.scoredByDividend();
+        Map<UUID, Transaction> candidateTxns = pool.candidateTxns();
 
         Set<UUID> inLinkGroups = linkGroupMembers(candidateTxns.keySet());
 

@@ -112,6 +112,9 @@ public class LinkSuggestionService {
         if (!row.candidateIds().contains(candidateId)) {
             throw new ValidationException("That transaction is not a candidate of this suggestion");
         }
+        if (!store.ownedTransactionIds(userId, List.of(row.transactionId(), candidateId)).isEmpty()) {
+            throw new ValidationException("One of these transactions is already linked to a record");
+        }
         Map<UUID, Transaction> txns = load(userId, List.of(row.transactionId(), candidateId));
         Transaction main = txns.get(row.transactionId());
         Transaction candidate = txns.get(candidateId);

@@ -6,6 +6,7 @@ import com.financeos.domain.investment.dividend.Dividend;
 import com.financeos.domain.investment.dividend.DividendReceiptStatus;
 import com.financeos.domain.investment.dividend.DividendReceiptWindows;
 import com.financeos.domain.investment.dividend.DividendType;
+import com.financeos.domain.transaction.link.LinkOrigin;
 
 import org.springframework.lang.Nullable;
 
@@ -34,7 +35,9 @@ public record DividendResponse(
         /** Derived: see {@link DividendReceiptWindows#derive}. */
         DividendReceiptStatus receiptStatus,
         /** The linked bank credit, when {@code receiptStatus == received}. */
-        @Nullable DividendTransactionSummary transaction
+        @Nullable DividendTransactionSummary transaction,
+        /** Who linked the credit: USER, or AUTO when matched automatically. */
+        LinkOrigin transactionOrigin
 ) {
     public static DividendResponse from(Dividend dividend, LocalDate today, @Nullable LocalDate coverageEnd) {
         return from(dividend, today, coverageEnd, InstrumentOverrides.NONE);
@@ -62,7 +65,8 @@ public record DividendResponse(
                 dividend.getNotes(),
                 dividend.getCreatedAt(),
                 DividendReceiptWindows.derive(dividend, today, coverageEnd),
-                DividendTransactionSummary.from(dividend.getTransaction())
+                DividendTransactionSummary.from(dividend.getTransaction()),
+                dividend.getTransactionOrigin() != null ? dividend.getTransactionOrigin() : LinkOrigin.USER
         );
     }
 }

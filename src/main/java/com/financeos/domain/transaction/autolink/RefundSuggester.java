@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
  * the nearest in date.
  */
 @Component
-@Order(20)
+@Order(50)
 public class RefundSuggester implements AutoLinker {
 
     private static final Logger log = LoggerFactory.getLogger(RefundSuggester.class);

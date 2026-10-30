@@ -1,6 +1,7 @@
 package com.financeos.api.transaction.dto;
 
 import com.financeos.domain.obligation.ObligationKind;
+import com.financeos.domain.transaction.link.LinkOrigin;
 
 import org.springframework.lang.Nullable;
 
@@ -22,5 +23,12 @@ public record ObligationRef(
         UUID id,
         @Nullable UUID parentId,
         String label,
-        @Nullable BigDecimal amount
-) {}
+        @Nullable BigDecimal amount,
+        /** USER, or AUTO when the record's link to the transaction was made automatically. */
+        LinkOrigin origin
+) {
+    /** A user-made reference (loan events and charges, EPF, tests). */
+    public ObligationRef(ObligationKind kind, UUID id, @Nullable UUID parentId, String label, @Nullable BigDecimal amount) {
+        this(kind, id, parentId, label, amount, LinkOrigin.USER);
+    }
+}
