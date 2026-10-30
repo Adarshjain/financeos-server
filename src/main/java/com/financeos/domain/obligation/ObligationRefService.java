@@ -24,6 +24,7 @@ import com.financeos.domain.loan.LoanEventType;
 import com.financeos.domain.loan.LoanPayment;
 import com.financeos.domain.loan.LoanPaymentRepository;
 import com.financeos.domain.transaction.Transaction;
+import com.financeos.domain.transaction.link.LinkOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -286,7 +287,7 @@ public class ObligationRefService {
         String cp = l.getCounterparty() != null ? l.getCounterparty().getName() : "";
         return new ObligationRef(ObligationKind.LENDING, l.getId(),
                 l.getCounterparty() != null ? l.getCounterparty().getId() : null,
-                verb + " · " + cp, l.getAmount());
+                verb + " · " + cp, l.getAmount(), originOf(l.getOrigin()));
     }
 
     static ObligationRef toRef(Dividend d) {
@@ -308,7 +309,7 @@ public class ObligationRefService {
                 : d.getType() == DividendType.other ? "Payout" : "Dividend";
         return new ObligationRef(ObligationKind.DIVIDEND, d.getId(),
                 instrument != null ? instrument.getId() : null,
-                verb + " · " + name, d.getAmount());
+                verb + " · " + name, d.getAmount(), originOf(d.getTransactionOrigin()));
     }
 
     static ObligationRef toRef(EpfEntry e) {
@@ -320,7 +321,7 @@ public class ObligationRefService {
     static ObligationRef toRef(LoanPayment p) {
         String seq = p.getInstallmentSeq() != null ? "EMI #" + p.getInstallmentSeq() : "EMI";
         return new ObligationRef(ObligationKind.LOAN_PAYMENT, p.getId(), p.getLoan().getId(),
-                seq + " · " + p.getLoan().getName(), p.getAmount());
+                seq + " · " + p.getLoan().getName(), p.getAmount(), originOf(p.getOrigin()));
     }
 
     static ObligationRef toRef(LoanEvent e) {
@@ -331,6 +332,10 @@ public class ObligationRefService {
     static ObligationRef toRef(LoanCharge c) {
         return new ObligationRef(ObligationKind.LOAN_CHARGE, c.getId(), c.getLoan().getId(),
                 humanize(c.getChargeType()) + " · " + c.getLoan().getName(), c.getAmount());
+    }
+
+    private static LinkOrigin originOf(LinkOrigin origin) {
+        return origin == LinkOrigin.AUTO ? LinkOrigin.AUTO : LinkOrigin.USER;
     }
 
     private static String humanize(LoanEventType t) {

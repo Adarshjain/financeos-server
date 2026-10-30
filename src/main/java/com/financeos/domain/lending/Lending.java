@@ -1,6 +1,7 @@
 package com.financeos.domain.lending;
 
 import com.financeos.domain.transaction.Transaction;
+import com.financeos.domain.transaction.link.LinkOrigin;
 import com.financeos.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -61,6 +62,11 @@ public class Lending {
     @JoinColumn(name = "transaction_id")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private Transaction transaction;
+
+    /** Who linked {@link #transaction}: USER, or AUTO when the auto-linker did (V116). */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "origin", length = 8)
+    private LinkOrigin origin = LinkOrigin.USER;
 
     @Column(length = 1000)
     private String notes;

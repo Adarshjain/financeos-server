@@ -13075,6 +13075,12 @@ components:
           x-nullable: true
         transaction:
           $ref: "#/components/schemas/DividendTransactionSummary"
+        transactionOrigin:
+          type: string
+          enum:
+          - USER
+          - AUTO
+          - IMPORT
         type:
           type: string
           enum:
@@ -13093,6 +13099,7 @@ components:
       - payDate
       - receiptStatus
       - source
+      - transactionOrigin
       - type
     DividendSuggestionsResponse:
       type: object
@@ -16225,6 +16232,12 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        origin:
+          type: string
+          enum:
+          - USER
+          - AUTO
+          - IMPORT
         returnNotifiedKind:
           type: string
           nullable: true
@@ -16250,6 +16263,7 @@ components:
       - entryDate
       - id
       - kind
+      - origin
     LendingTransactionSummary:
       type: object
       properties:
@@ -16313,6 +16327,9 @@ components:
           - TRANSFER
           - CC_PAYMENT
           - REFUND
+          - EMI
+          - LENDING
+          - DIVIDEND
         transaction:
           $ref: "#/components/schemas/TransactionSummary"
       required:
@@ -16599,6 +16616,12 @@ components:
         loanId:
           type: string
           format: uuid
+        origin:
+          type: string
+          enum:
+          - USER
+          - AUTO
+          - IMPORT
         paymentDate:
           type: string
           format: date
@@ -16612,6 +16635,7 @@ components:
       - createdAt
       - id
       - loanId
+      - origin
       - paymentDate
     LoanResponse:
       type: object
@@ -17359,6 +17383,12 @@ components:
           - EPF_WITHDRAWAL
         label:
           type: string
+        origin:
+          type: string
+          enum:
+          - USER
+          - AUTO
+          - IMPORT
         parentId:
           type: string
           format: uuid
@@ -17368,6 +17398,7 @@ components:
       - id
       - kind
       - label
+      - origin
     ObligationsResponse:
       type: object
       properties:

@@ -1,6 +1,7 @@
 package com.financeos.api.loan.dto;
 
 import com.financeos.domain.loan.LoanPayment;
+import com.financeos.domain.transaction.link.LinkOrigin;
 
 import org.springframework.lang.Nullable;
 
@@ -16,7 +17,9 @@ public record LoanPaymentResponse(
         LocalDate paymentDate,
         BigDecimal amount,
         @Nullable UUID transactionId,
-        Instant createdAt
+        Instant createdAt,
+        /** USER, or AUTO when the payment was matched automatically. */
+        LinkOrigin origin
 ) {
     public static LoanPaymentResponse from(LoanPayment payment) {
         return new LoanPaymentResponse(
@@ -26,7 +29,8 @@ public record LoanPaymentResponse(
                 payment.getPaymentDate(),
                 payment.getAmount(),
                 payment.getTransaction() != null ? payment.getTransaction().getId() : null,
-                payment.getCreatedAt()
+                payment.getCreatedAt(),
+                payment.getOrigin() != null ? payment.getOrigin() : LinkOrigin.USER
         );
     }
 }

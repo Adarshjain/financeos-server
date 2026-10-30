@@ -3,6 +3,7 @@ package com.financeos.api.lending.dto;
 import com.financeos.domain.lending.Lending;
 import com.financeos.domain.lending.LendingDirection;
 import com.financeos.domain.lending.LendingKind;
+import com.financeos.domain.transaction.link.LinkOrigin;
 
 import org.springframework.lang.Nullable;
 
@@ -28,7 +29,9 @@ public record LendingResponse(
         Instant createdAt,
         /** Return-date reminder marker (DUE_0 / OVERDUE) for transparency. */
         @Nullable String returnNotifiedKind,
-        @Nullable LocalDate returnNotifiedOn
+        @Nullable LocalDate returnNotifiedOn,
+        /** Who linked the transaction: USER, or AUTO when matched automatically. */
+        LinkOrigin origin
 ) {
     public static LendingResponse from(Lending lending) {
         return new LendingResponse(
@@ -45,7 +48,8 @@ public record LendingResponse(
                 lending.getNotes(),
                 lending.getCreatedAt(),
                 lending.getReturnNotifiedKind(),
-                lending.getReturnNotifiedOn()
+                lending.getReturnNotifiedOn(),
+                lending.getOrigin() != null ? lending.getOrigin() : LinkOrigin.USER
         );
     }
 }

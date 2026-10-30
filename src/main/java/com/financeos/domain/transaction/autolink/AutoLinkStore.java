@@ -33,6 +33,14 @@ public class AutoLinkStore {
     public record Rejection(SuggestionKind kind, UUID transactionId, UUID otherId) {
     }
 
+    /** True for a transaction a loan event/payment/charge, lending, dividend or EPF row owns (mirrors AutoLinkCandidateLoader.FREE). */
+    private static final String OWNED = "(EXISTS (SELECT 1 FROM loan_events x WHERE x.transaction_id = t.id) "
+            + "OR EXISTS (SELECT 1 FROM loan_payments x WHERE x.transaction_id = t.id) "
+            + "OR EXISTS (SELECT 1 FROM loan_charges x WHERE x.transaction_id = t.id) "
+            + "OR EXISTS (SELECT 1 FROM lendings x WHERE x.transaction_id = t.id) "
+            + "OR EXISTS (SELECT 1 FROM dividends x WHERE x.transaction_id = t.id) "
+            + "OR EXISTS (SELECT 1 FROM epf_entry x WHERE x.transaction_id = t.id))";
+
     private final JdbcTemplate jdbc;
 
     public AutoLinkStore(JdbcTemplate jdbc) {
@@ -94,7 +102,7 @@ public class AutoLinkStore {
         return jdbc.update("DELETE FROM link_suggestions WHERE user_id = ? AND id = ?", userId.toString(), id.toString());
     }
 
-    /** Which of {@code ids} are the user's transactions that sit in no link; chunked, one query per chunk. */
+    /** Which of {@code ids} are the user's transactions that sit in no link and are owned by no loan, lending, dividend or EPF row (same filter as {@code AutoLinkCandidateLoader}); chunked, one query per chunk. */
     public Set<UUID> liveTransactionIds(UUID userId, Collection<UUID> ids) {
         Set<UUID> out = new HashSet<>();
         List<UUID> list = new ArrayList<>(ids);
@@ -105,11 +113,29 @@ public class AutoLinkStore {
             args.add(userId.toString());
             chunk.forEach(id -> args.add(id.toString()));
             jdbc.query("SELECT t.id FROM transactions t WHERE t.user_id = ? AND t.id IN (" + marks + ") "
-                    + "AND NOT EXISTS (SELECT 1 FROM transaction_link_members m WHERE m.transaction_id = t.id)",
+                    + "AND NOT EXISTS (SELECT 1 FROM transaction_link_members m WHERE m.transaction_id = t.id) "
+                    + "AND NOT " + OWNED,
                     rs -> {
                         out.add(UUID.fromString(rs.getString(1)));
                     }, args.toArray());
         }
+        return out;
+    }
+
+    /** Which of {@code ids} are owned by a loan, lending, dividend or EPF row (so no longer free to link). */
+    public Set<UUID> ownedTransactionIds(UUID userId, Collection<UUID> ids) {
+        Set<UUID> out = new HashSet<>();
+        if (ids.isEmpty()) {
+            return out;
+        }
+        String marks = String.join(",", java.util.Collections.nCopies(ids.size(), "?"));
+        List<Object> args = new ArrayList<>();
+        args.add(userId.toString());
+        ids.forEach(id -> args.add(id.toString()));
+        jdbc.query("SELECT t.id FROM transactions t WHERE t.user_id = ? AND t.id IN (" + marks + ") AND " + OWNED,
+                rs -> {
+                    out.add(UUID.fromString(rs.getString(1)));
+                }, args.toArray());
         return out;
     }
 

@@ -51,6 +51,7 @@ public class LinkSuggestionInboxCollector implements InboxCollector {
             case TRANSFER -> n + (n == 1 ? " possible transfer" : " possible transfers");
             case CC_PAYMENT -> n + (n == 1 ? " possible card payment" : " possible card payments");
             case REFUND -> n + (n == 1 ? " possible refund" : " possible refunds");
+            case EMI, LENDING, DIVIDEND -> throw new IllegalArgumentException("No stored suggestions of kind " + kind);
         };
     }
 }
