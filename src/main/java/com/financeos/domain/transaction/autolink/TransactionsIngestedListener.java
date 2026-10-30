@@ -5,7 +5,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.RejectedExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -23,18 +25,26 @@ public class TransactionsIngestedListener {
 
     private final AutoLinkService autoLinkService;
     private final Executor executor;
+    private final boolean enabled;
     /** Users with a run queued but not started; a further event for them adds nothing. */
     private final java.util.Set<UUID> pending = java.util.concurrent.ConcurrentHashMap.newKeySet();
 
-    public TransactionsIngestedListener(AutoLinkService autoLinkService, @Qualifier("jobExecutor") Executor executor) {
+    public TransactionsIngestedListener(AutoLinkService autoLinkService, Executor executor) {
+        this(autoLinkService, executor, true);
+    }
+
+    @Autowired
+    public TransactionsIngestedListener(AutoLinkService autoLinkService, @Qualifier("jobExecutor") Executor executor,
+                                       @Value("${autolink.enabled:true}") boolean enabled) {
         this.autoLinkService = autoLinkService;
         this.executor = executor;
+        this.enabled = enabled;
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT, fallbackExecution = true)
     public void onTransactionsIngested(TransactionsIngestedEvent event) {
         UUID userId = event.userId();
-        if (userId == null) {
+        if (!enabled || userId == null) {
             return;
         }
         // Already queued: that run reads fresh data when it starts. Already running: flag one more run.
