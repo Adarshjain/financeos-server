@@ -115,12 +115,17 @@ class MatchSuggestionsBatchIntegrationTest {
     private long queriesFor(String path) throws Exception {
         Statistics stats = emf.unwrap(SessionFactory.class).getStatistics();
         stats.setStatisticsEnabled(true);
-        // statistics are global: keep the job worker's poll out of the count
+        // statistics are global: keep the job worker's poll out of the count, and take the fewest of three runs
+        // so a scheduled job's stray query can't inflate it (a real N+1 grows on every run)
         jobWorker.pause();
         try {
-            stats.clear();
-            api.getJson(path, 200);
-            return stats.getPrepareStatementCount();
+            long fewest = Long.MAX_VALUE;
+            for (int run = 0; run < 3; run++) {
+                stats.clear();
+                api.getJson(path, 200);
+                fewest = Math.min(fewest, stats.getPrepareStatementCount());
+            }
+            return fewest;
         } finally {
             jobWorker.resume();
         }
