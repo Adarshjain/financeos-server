@@ -16,6 +16,8 @@ import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionCategory;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionType;
+import com.financeos.domain.transaction.autolink.AutoLinkStore;
+import com.financeos.domain.transaction.autolink.SuggestionKind;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +45,14 @@ public class TransactionLinkService {
     private final TransactionLinkRepository transactionLinkRepository;
     private final TransactionRepository transactionRepository;
     private final UserRepository userRepository;
+
+    /** Optional (setter) so tests that build the service by hand need no store; set by Spring. */
+    private AutoLinkStore autoLinkStore;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setAutoLinkStore(AutoLinkStore autoLinkStore) {
+        this.autoLinkStore = autoLinkStore;
+    }
 
     public TransactionLinkService(TransactionLinkRepository transactionLinkRepository,
                                   TransactionRepository transactionRepository,
@@ -283,6 +293,7 @@ public class TransactionLinkService {
 
         boolean isTransfer = link.getType() == LinkType.TRANSFER;
 
+        recordRejectionsForAutoLink(userId, link);
         transactionLinkRepository.delete(link);
 
         log.info("Txn link removed: linkId={}, type={}", linkId, link.getType(),
@@ -291,6 +302,35 @@ public class TransactionLinkService {
                 StructuredArguments.keyValue("linkedId", linkedTxIds),
                 StructuredArguments.keyValue("kind", link.getType() != null ? link.getType().name() : ""),
                 StructuredArguments.keyValue("derivedTransferLeg", isTransfer));
+    }
+
+    /**
+     * Unlinking a link the system made remembers every anchor/counterpart pairing (both directions are
+     * checked by the linkers), so the same pairing is never proposed or linked again.
+     */
+    private void recordRejectionsForAutoLink(UUID userId, TransactionLink link) {
+        if (autoLinkStore == null || link.getCreatedBy() != LinkOrigin.AUTO) {
+            return;
+        }
+        SuggestionKind kind;
+        try {
+            kind = SuggestionKind.valueOf(link.getType().name());
+        } catch (IllegalArgumentException e) {
+            return;
+        }
+        List<UUID> counterparts = link.getMembers().stream().filter(m -> !m.isAnchor())
+                .map(m -> m.getTransaction().getId()).toList();
+        List<AutoLinkStore.Rejection> rejections = new ArrayList<>();
+        for (TransactionLinkMember anchor : link.getMembers()) {
+            if (!anchor.isAnchor()) {
+                continue;
+            }
+            for (UUID other : counterparts) {
+                rejections.add(new AutoLinkStore.Rejection(kind, anchor.getTransaction().getId(), other));
+                rejections.add(new AutoLinkStore.Rejection(kind, other, anchor.getTransaction().getId()));
+            }
+        }
+        autoLinkStore.addRejections(userId, rejections);
     }
 
     public void autoDissolveLinksForDeletedTransactions(Collection<UUID> deletedTxnIds) {

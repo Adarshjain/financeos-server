@@ -29,4 +29,13 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Transactional
     @Query("UPDATE User u SET u.homeSeededAt = :now WHERE u.id = :id AND u.homeSeededAt IS NULL")
     int markHomeSeeded(@Param("id") UUID id, @Param("now") Instant now);
+
+    /** Users whose one-time auto-link history backfill has not run yet. */
+    @Query("SELECT u.id FROM User u WHERE u.autoLinkBackfilledAt IS NULL")
+    java.util.List<UUID> findIdsPendingAutoLinkBackfill();
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE User u SET u.autoLinkBackfilledAt = :now WHERE u.id = :id AND u.autoLinkBackfilledAt IS NULL")
+    int markAutoLinkBackfilled(@Param("id") UUID id, @Param("now") Instant now);
 }

@@ -52,6 +52,13 @@ public class User {
     @Column(name = "home_seeded_at")
     private Instant homeSeededAt;
 
+    /**
+     * When the one-time auto-link backfill of this user's history finished; null = still to run.
+     * Set only by {@link UserRepository#markAutoLinkBackfilled}.
+     */
+    @Column(name = "auto_link_backfilled_at", updatable = false)
+    private Instant autoLinkBackfilledAt;
+
     @PrePersist
     protected void onCreate() {
         if (createdAt == null) {

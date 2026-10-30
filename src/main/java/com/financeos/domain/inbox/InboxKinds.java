@@ -22,10 +22,11 @@ public final class InboxKinds {
     public static final String REWARD_MILESTONE = "reward_milestone";
     public static final String REWARD_CAP = "reward_cap";
     public static final String EPF_MATCH = "epf_match";
+    public static final String LINK_SUGGESTION = "link_suggestion";
 
     /** Every kind the inbox can produce, in display order. */
     public static final List<String> ALL = List.of(BILL, EMI, LENDING, STATEMENT_EXPECTED, STATEMENT_DETAILS_MISSING,
-            GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP, EPF_MATCH);
+            GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP, EPF_MATCH, LINK_SUGGESTION);
 
     /** The two summary rows have fixed keys; everything else is keyed by its subject. */
     public static final String KEY_GMAIL_ATTENTION = "gmail-attention";
@@ -90,6 +91,13 @@ public final class InboxKinds {
         return "epf_match:" + entryId + ":" + transactionId;
     }
 
+    /** One grouped row per suggestion kind (TRANSFER, CC_PAYMENT, REFUND), so the count changes but the key does not. */
+    public static final String KEY_LINK_SUGGESTION_PREFIX = "link-suggestion:";
+
+    public static String linkSuggestionKey(String suggestionKind) {
+        return KEY_LINK_SUGGESTION_PREFIX + suggestionKind;
+    }
+
     /** The push deep link for a row: the inbox, focused on that key. */
     public static String inboxHref(String key) {
         return "/inbox?item=" + key;
@@ -97,7 +105,7 @@ public final class InboxKinds {
 
     /** Summary rows are counts behind one link: they can be dismissed but not snoozed. */
     public static boolean isSummaryKey(String key) {
-        return KEY_GMAIL_ATTENTION.equals(key) || KEY_REVIEW.equals(key);
+        return KEY_GMAIL_ATTENTION.equals(key) || KEY_REVIEW.equals(key) || (key != null && key.startsWith(KEY_LINK_SUGGESTION_PREFIX));
     }
 
     // ---------------------------------------------------------------- labels and landing pages
@@ -116,6 +124,7 @@ public final class InboxKinds {
             case REWARD_MILESTONE -> "Reward milestones";
             case REWARD_CAP -> "Reward caps";
             case EPF_MATCH -> "EPF withdrawals to match";
+            case LINK_SUGGESTION -> "Possible links";
             default -> kind;
         };
     }
@@ -134,6 +143,7 @@ public final class InboxKinds {
             case JOB -> "/settings/activity";
             case REWARD_MILESTONE, REWARD_CAP -> "/rewards";
             case EPF_MATCH -> "/investments/epf";
+            case LINK_SUGGESTION -> "/transactions/review";
             default -> "/inbox";
         };
     }

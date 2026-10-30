@@ -50,6 +50,10 @@ public class GmailIngestionService {
     private final TransactionTemplate transactionTemplate;
     private final ParkedMessageSettler parkedMessageSettler;
 
+    /** Optional so tests that build the service by hand need no publisher. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private org.springframework.context.ApplicationEventPublisher eventPublisher;
+
     public GmailIngestionService(GmailEngine gmailEngine,
                                  GmailSyncCursorService cursorService,
                                  GmailSenderRepository gmailSenderRepository,
@@ -311,7 +315,15 @@ public class GmailIngestionService {
         }
 
         if (!createdTxns.isEmpty()) {
-            categorizationService.batchCategorize(createdTxns);
+            try {
+                categorizationService.batchCategorize(createdTxns);
+            } finally {
+                // Once per batch that wrote transactions, even if categorising failed (no transaction is
+                // open here, so it fires at once).
+                if (eventPublisher != null) {
+                    eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(connection.getUser().getId()));
+                }
+            }
         }
 
         long backlogRemaining = processedMessageRepository.countByConnectionIdAndStatusIn(

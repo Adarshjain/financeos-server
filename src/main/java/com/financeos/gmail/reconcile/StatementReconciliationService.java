@@ -58,6 +58,10 @@ public class StatementReconciliationService {
     private final com.financeos.domain.account.card.CardRepository cardRepository;
     private final ParkedMessageSettler parkedMessageSettler;
 
+    /** Optional so tests that build the service by hand need no publisher. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private org.springframework.context.ApplicationEventPublisher eventPublisher;
+
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
                                           TransactionRepository transactionRepository,
@@ -329,6 +333,9 @@ public class StatementReconciliationService {
         // Categorization is deliberately NOT done here: this method is @Transactional and the
         // categorizer makes a Gemini HTTP call, which must not run while holding a DB connection.
         // The caller (GmailIngestionService) categorizes the returned transactions outside the tx.
+        if (createdCount > 0 && eventPublisher != null) {
+            eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(connection.getUser().getId()));
+        }
         return new ReconSummary(createdCount, matchedCount, 0, createdTxns);
     }
 

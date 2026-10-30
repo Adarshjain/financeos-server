@@ -2,7 +2,10 @@ package com.financeos.domain.ingestion;
 
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
+import com.financeos.domain.transaction.autolink.TransactionsIngestedEvent;
 import org.hibernate.Hibernate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +17,10 @@ import java.util.UUID;
 public class FileIngestionDbHandler {
 
     private final TransactionRepository transactionRepository;
+
+    /** Optional so tests that build the handler by hand need no publisher. */
+    @Autowired(required = false)
+    private ApplicationEventPublisher eventPublisher;
 
     public FileIngestionDbHandler(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
@@ -38,6 +45,10 @@ public class FileIngestionDbHandler {
         }
         if (newTxns != null && !newTxns.isEmpty()) {
             transactionRepository.saveAll(newTxns);
+            // Once per statement import; auto-linking runs after this transaction commits.
+            if (eventPublisher != null && newTxns.get(0).getUser() != null) {
+                eventPublisher.publishEvent(new TransactionsIngestedEvent(newTxns.get(0).getUser().getId()));
+            }
         }
     }
 }
