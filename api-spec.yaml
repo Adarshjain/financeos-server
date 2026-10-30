@@ -1797,7 +1797,7 @@ paths:
       - chat-controller
   /api/v1/chat/conversations:
     get:
-      operationId: list_1
+      operationId: list_2
       responses:
         "200":
           content:
@@ -3751,7 +3751,7 @@ paths:
       - gmail-controller
   /api/v1/inbox:
     get:
-      operationId: list
+      operationId: list_1
       responses:
         "200":
           content:
@@ -6342,6 +6342,78 @@ paths:
           description: Error response
       tags:
       - lending-controller
+  /api/v1/link-suggestions:
+    get:
+      operationId: list
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LinkSuggestionResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - link-suggestion-controller
+  /api/v1/link-suggestions/{id}:
+    delete:
+      operationId: dismiss_1
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - link-suggestion-controller
+  /api/v1/link-suggestions/{id}/accept:
+    post:
+      operationId: accept
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AcceptLinkSuggestionRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TransactionLinkResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - link-suggestion-controller
   /api/v1/llm-keys:
     get:
       operationId: getKeys
@@ -9400,6 +9472,15 @@ paths:
       - transaction-controller
 components:
   schemas:
+    AcceptLinkSuggestionRequest:
+      type: object
+      properties:
+        candidateId:
+          type: string
+          format: uuid
+          x-required: true
+      required:
+      - candidateId
     AcceptSuggestionsRequest:
       type: object
       properties:
@@ -16216,6 +16297,29 @@ components:
           x-required: true
       required:
       - transactionId
+    LinkSuggestionResponse:
+      type: object
+      properties:
+        candidates:
+          type: array
+          items:
+            $ref: "#/components/schemas/TransactionSummary"
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          enum:
+          - TRANSFER
+          - CC_PAYMENT
+          - REFUND
+        transaction:
+          $ref: "#/components/schemas/TransactionSummary"
+      required:
+      - candidates
+      - id
+      - kind
+      - transaction
     LiquidAccount:
       type: object
       properties:
@@ -22062,6 +22166,34 @@ components:
           type: string
           nullable: true
           x-nullable: true
+    TransactionSummary:
+      type: object
+      properties:
+        accountName:
+          type: string
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+          - DEBIT
+          - CREDIT
+      required:
+      - accountName
+      - amount
+      - date
+      - id
+      - type
     UnderlyingExcludedItem:
       type: object
       properties:

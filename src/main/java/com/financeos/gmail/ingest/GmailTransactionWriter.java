@@ -19,6 +19,10 @@ public class GmailTransactionWriter {
     private final GmailProcessedMessageRepository processedMessageRepository;
     private final ReviewStatusManager reviewStatusManager;
 
+    /** Optional so tests that build the writer by hand need no publisher. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private org.springframework.context.ApplicationEventPublisher eventPublisher;
+
     public GmailTransactionWriter(TransactionRepository transactionRepository,
                                   GmailProcessedMessageRepository processedMessageRepository,
                                   ReviewStatusManager reviewStatusManager) {
@@ -80,6 +84,9 @@ public class GmailTransactionWriter {
         txn.setTransactionExcluded(false);
 
         txn = transactionRepository.save(txn);
+        if (eventPublisher != null) {
+            eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(user.getId()));
+        }
 
         // 3. Record in ledger
         GmailProcessedMessage processed = findOrCreateLedgerEntry(connection, gmailMessageId);

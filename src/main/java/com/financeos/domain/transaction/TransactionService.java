@@ -58,6 +58,10 @@ public class TransactionService {
     private final com.financeos.domain.obligation.ObligationRefService obligationRefService;
     private final TransactionService self;
 
+    /** Optional so tests that build the service by hand need no publisher. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private org.springframework.context.ApplicationEventPublisher eventPublisher;
+
     @org.springframework.beans.factory.annotation.Autowired
     public TransactionService(TransactionRepository transactionRepository,
             AccountRepository accountRepository,
@@ -216,6 +220,9 @@ public class TransactionService {
         auditLogger.mutation("Transaction", savedTxn.getId(), "CREATE", "user:" + currentSessionUserId, "manual",
                 List.of("amount", "description", "account", "date"), null, savedTxn.getAmount(), "INR");
 
+        if (eventPublisher != null) {
+            eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(currentSessionUserId));
+        }
         return savedTxn;
     }
 

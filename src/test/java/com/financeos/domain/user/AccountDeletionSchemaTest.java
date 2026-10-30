@@ -105,7 +105,7 @@ class AccountDeletionSchemaTest {
                 "inbox_item_state", "user_instrument_overrides", "instrument_prices", "instrument_aliases",
                 "user_instrument_repoints", "corporate_actions", "credit_limit_pools", "app_notifications",
                 "chat_conversation", "epf_employer", "epf_entry", "epf_link_dismissal",
-                "app_lock_devices"
+                "app_lock_devices", "link_suggestions", "auto_link_rejections"
         );
 
         for (String table : tablesWithUserId) {
