@@ -30,7 +30,7 @@ import org.springframework.test.web.servlet.MockMvc;
  * without them a background run (every ingest triggers one) fails in its first read and links nothing,
  * which keeps every other integration test unaffected.
  */
-@SpringBootTest
+@SpringBootTest(properties = "autolink.enabled=true")
 @AutoConfigureMockMvc
 class AutoLinkIntegrationTest {
 
@@ -49,12 +49,6 @@ class AutoLinkIntegrationTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        jdbc.execute("CREATE TABLE IF NOT EXISTS link_suggestions (id VARCHAR(36) PRIMARY KEY, user_id VARCHAR(36) NOT NULL, "
-                + "kind VARCHAR(20) NOT NULL, transaction_id VARCHAR(36) NOT NULL, candidate_ids VARCHAR(4000) NOT NULL, "
-                + "created_at TIMESTAMP WITH TIME ZONE NOT NULL, UNIQUE (user_id, kind, transaction_id))");
-        jdbc.execute("CREATE TABLE IF NOT EXISTS auto_link_rejections (user_id VARCHAR(36) NOT NULL, kind VARCHAR(20) NOT NULL, "
-                + "transaction_id VARCHAR(36) NOT NULL, other_ref VARCHAR(36) NOT NULL, created_at TIMESTAMP WITH TIME ZONE NOT NULL, "
-                + "PRIMARY KEY (user_id, kind, transaction_id, other_ref))");
         String email = "autolink-" + UUID.randomUUID() + "@example.test";
         api = ApiTestClient.signUp(mockMvc, mapper, email);
         userId = userRepository.findByEmail(email).orElseThrow().getId();
@@ -65,11 +59,9 @@ class AutoLinkIntegrationTest {
 
     @AfterEach
     void tearDown() throws InterruptedException {
-        // Let a background run finish before its tables go away.
+        // Let a background run finish before the user is deleted.
         Thread.sleep(500);
         UserDataCleanup.deleteUsers(jdbc, List.of(userId));
-        jdbc.execute("DROP TABLE IF EXISTS link_suggestions");
-        jdbc.execute("DROP TABLE IF EXISTS auto_link_rejections");
     }
 
     private UUID bank(String name) throws Exception {
