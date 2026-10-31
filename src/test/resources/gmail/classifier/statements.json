@@ -1,0 +1,327 @@
+[
+ {
+  "name": "hdfc cc statement pdf",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "HDFC Bank Credit Card Statement for September 2026",
+  "kind": "STATEMENT",
+  "subtype": "CARD_STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, please find your statement attached.",
+  "attachments": [
+   {
+    "filename": "4821XXXXXXXX1290_Sep2026.pdf",
+    "mimeType": "application/pdf"
+   }
+  ],
+  "bank": "hdfc"
+ },
+ {
+  "name": "icici account statement pdf",
+  "from": "ICICI Bank <credit_cards@icicibank.com>",
+  "subject": "Your ICICI Bank Account Statement",
+  "kind": "STATEMENT",
+  "subtype": "ACCOUNT_STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Your savings account statement for the period is attached.",
+  "attachments": [
+   {
+    "filename": "AccountStatement_Oct2026.pdf",
+    "mimeType": "application/pdf"
+   }
+  ],
+  "bank": "icici"
+ },
+ {
+  "name": "statement xlsx",
+  "from": "Axis Bank <statements@axisbank.com>",
+  "subject": "Axis Bank e-Statement",
+  "kind": "STATEMENT",
+  "subtype": "STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Please find your e-statement attached.",
+  "attachments": [
+   {
+    "filename": "stmt_oct.xlsx",
+    "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+   }
+  ],
+  "bank": "axis"
+ },
+ {
+  "name": "statement xls legacy",
+  "from": "Axis Bank <statements@axisbank.com>",
+  "subject": "Monthly statement",
+  "kind": "STATEMENT",
+  "subtype": "STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Attached.",
+  "attachments": [
+   {
+    "filename": "stmt_oct.xls",
+    "mimeType": "application/vnd.ms-excel"
+   }
+  ],
+  "bank": "axis"
+ },
+ {
+  "name": "statement words only in filename card context",
+  "from": "SBI Card <statements@sbicard.com>",
+  "subject": "Your monthly mail",
+  "kind": "STATEMENT",
+  "subtype": "CARD_STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Please see the attachment.",
+  "attachments": [
+   {
+    "filename": "SBI_Card_Statement_Oct.pdf",
+    "mimeType": "application/pdf"
+   }
+  ],
+  "bank": "sbi"
+ },
+ {
+  "name": "statement words only in filename",
+  "from": "Bank <alerts@unknownbank.example>",
+  "subject": "Your monthly mail",
+  "kind": "STATEMENT",
+  "subtype": "STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Please see the attachment.",
+  "attachments": [
+   {
+    "filename": "Monthly_Statement_Oct.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "statement words only in body",
+  "from": "Bank <alerts@unknownbank.example>",
+  "subject": "Monthly mail",
+  "kind": "STATEMENT",
+  "subtype": "ACCOUNT_STATEMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Your account summary for October is attached.",
+  "attachments": [
+   {
+    "filename": "oct.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "passbook is a statement word",
+  "from": "Bank <alerts@unknownbank.example>",
+  "subject": "Your passbook",
+  "kind": "STATEMENT",
+  "subtype": "STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Your passbook is attached.",
+  "attachments": [
+   {
+    "filename": "passbook.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "transaction history word",
+  "from": "Bank <alerts@unknownbank.example>",
+  "subject": "Transaction history",
+  "kind": "STATEMENT",
+  "subtype": "STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Attached.",
+  "attachments": [
+   {
+    "filename": "history.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "mime type pdf without extension",
+  "from": "Bank <alerts@unknownbank.example>",
+  "subject": "Credit card statement",
+  "kind": "STATEMENT",
+  "subtype": "CARD_STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Attached.",
+  "attachments": [
+   {
+    "filename": "download",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "uppercase extension",
+  "from": "Bank <alerts@unknownbank.example>",
+  "subject": "Statement",
+  "kind": "STATEMENT",
+  "subtype": "STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Attached.",
+  "attachments": [
+   {
+    "filename": "STMT.PDF",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "unknown pdf is low",
+  "from": "Bank <alerts@unknownbank.example>",
+  "subject": "Hello",
+  "kind": "STATEMENT",
+  "subtype": "STATEMENT",
+  "confidence": "LOW",
+  "bodyText": "See attached.",
+  "attachments": [
+   {
+    "filename": "file.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "unknown pdf with known bank is low",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Hello",
+  "kind": "STATEMENT",
+  "subtype": "STATEMENT",
+  "confidence": "LOW",
+  "bodyText": "See attached.",
+  "attachments": [
+   {
+    "filename": "file.pdf",
+    "mimeType": "application/pdf"
+   }
+  ],
+  "bank": "hdfc"
+ },
+ {
+  "name": "current account statement",
+  "from": "Bank <alerts@unknownbank.example>",
+  "subject": "Statement of your current account",
+  "kind": "STATEMENT",
+  "subtype": "ACCOUNT_STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Attached.",
+  "attachments": [
+   {
+    "filename": "x.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "statement wins over otp wording",
+  "from": "Bank <alerts@unknownbank.example>",
+  "subject": "Statement attached",
+  "kind": "STATEMENT",
+  "subtype": "STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Do not share your OTP with anyone.",
+  "attachments": [
+   {
+    "filename": "s.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "insurance policy pdf",
+  "from": "Insurer <care@insurer.example>",
+  "subject": "Your policy document",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Please find your policy attached.",
+  "attachments": [
+   {
+    "filename": "policy.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "tds certificate pdf",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Form 16A TDS certificate",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Attached.",
+  "attachments": [
+   {
+    "filename": "tds.pdf",
+    "mimeType": "application/pdf"
+   }
+  ],
+  "bank": "hdfc"
+ },
+ {
+  "name": "invoice pdf",
+  "from": "Shop <billing@shop.example>",
+  "subject": "Your invoice",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Thanks for shopping.",
+  "attachments": [
+   {
+    "filename": "inv.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "welcome kit pdf",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "Welcome",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Your welcome kit and terms and conditions are attached.",
+  "attachments": [
+   {
+    "filename": "kit.pdf",
+    "mimeType": "application/pdf"
+   }
+  ],
+  "bank": "icici"
+ },
+ {
+  "name": "key fact statement is a statement word",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "Key fact statement",
+  "kind": "STATEMENT",
+  "subtype": "STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Attached.",
+  "attachments": [
+   {
+    "filename": "kfs.pdf",
+    "mimeType": "application/pdf"
+   }
+  ],
+  "bank": "icici"
+ },
+ {
+  "name": "image attachment is not a statement",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Transaction alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Rs. 100.00 has been debited from your HDFC Bank Credit Card ending 4821 towards TEA POINT.",
+  "attachments": [
+   {
+    "filename": "logo.png",
+    "mimeType": "image/png"
+   }
+  ],
+  "bank": "hdfc"
+ }
+]

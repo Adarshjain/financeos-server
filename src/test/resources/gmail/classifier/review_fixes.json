@@ -1,0 +1,268 @@
+[
+ {
+  "name": "executed autopay debit is an alert",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 499.00 was debited from your card ending 1234 towards autopay for STREAMING CO.",
+  "bank": "axis"
+ },
+ {
+  "name": "executed mandate debit is an alert",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 1,499.00 debited from A/c XX7788 for e-mandate FUND HOUSE on 05-11-2026.",
+  "bank": "axis"
+ },
+ {
+  "name": "pure mandate notice stays upcoming",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "UPCOMING_DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Your mandate for INR 499.00 will be debited on 5 Nov.",
+  "bank": "axis"
+ },
+ {
+  "name": "footer failed transactions wording does not decline",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Rs. 725.00 has been debited from your HDFC Bank Credit Card ending 4821 towards BLUE LEAF CAFE. If this was not done by you please call our helpline immediately. In case of failed transactions the amount is refunded within seven days.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "neighbour sentence decline still declines",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "DECLINED",
+  "confidence": "HIGH",
+  "bodyText": "Your HDFC Bank Credit Card ending 4821 was used for Rs. 500.00 at ELECTRONICS CO. The transaction failed. Please try again later.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "limit changed using the app is security",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "Your UPI limit has been changed to INR 1,00,000 using the app.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "bill pay using upi is bill due",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "BILL_DUE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your bill of INR 5,000.00 is ready. Please pay using UPI by 30-10-25.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "pay inr using app before date is bill due",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "BILL_DUE",
+  "confidence": "MEDIUM",
+  "bodyText": "Pay INR 5,000 using HDFC app before 30 Oct",
+  "bank": "hdfc"
+ },
+ {
+  "name": "used without reference is not an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "The service was used for INR 500.00 last month by many customers.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "used with balance cue is not an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "BALANCE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your card ending 4821 was used for INR 5,000.00 and your available balance is INR 100.00.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "successful with reference counts",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Transaction successful for INR 640.00 on card ending 4821.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "thank you for using phrase",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Thank you for using your HDFC Bank Debit Card ending 7710 for Rs 99.00 at TEA POINT.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "has been made phrase",
+  "from": "ICICI Bank <credit_cards@icicibank.com>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "A payment of INR 250.00 was made from your Account XX871 at WATER BOARD.",
+  "bank": "icici"
+ },
+ {
+  "name": "html debit with long save banner",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyHtml": "<div>Save up to 20% on your next order with our partners</div><table><tr><td>Rs. 300.00 has been debited from your account ending 3345 towards BOOK NOOK.</td></tr></table><div>Terms apply</div>",
+  "bank": "hdfc"
+ },
+ {
+  "name": "html debit with short banner before",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyHtml": "<p>Save 20% on dining</p><p>Rs. 300.00 has been debited from your account ending 3345 towards BOOK NOOK.</p>",
+  "bank": "hdfc"
+ },
+ {
+  "name": "html table alert with pin footer",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyHtml": "<table><tr><td>Debit alert</td></tr><tr><td>Amount Debited:</td><td>INR 500.00</td></tr><tr><td>Account:</td><td>XX3345</td></tr><tr><td>We will never ask for your PIN</td></tr></table>",
+  "bank": "hdfc"
+ },
+ {
+  "name": "html br separated promo then alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyHtml": "Exclusive offer: apply now for a pre-approved loan<br>Rs. 300.00 has been debited from your account ending 3345.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "debit then never share otp footer with code-like ref",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Transaction alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Rs. 725.00 has been debited from your HDFC Bank Credit Card ending 4821 towards BLUE LEAF CAFE. Never share your OTP, PIN, CVV with anyone. Ref is 123456 for this txn.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "subject with otp word but not an otp subject",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Never share OTP",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Rs. 725.00 has been debited from your HDFC Bank Credit Card ending 4821 towards BLUE LEAF CAFE.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "otp sentence with transaction verb is not an otp",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "OTP is 123456 and Rs. 99.00 was debited from your card ending 4821.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "cashback credited is a credit",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 50.00 cashback credited to your card ending 1234.",
+  "bank": "icici"
+ },
+ {
+  "name": "get cashback promo stays non transaction",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Get 5% cashback on orders above INR 500.00.",
+  "bank": "icici"
+ },
+ {
+  "name": "short single debit via upi",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Rs 50 debited via UPI",
+  "bank": "hdfc"
+ },
+ {
+  "name": "short lead in then short debit",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Transaction successful. INR 50 debited.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "invoice pdf body mentions statement",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Your invoice",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "You can view your statement online anytime.",
+  "attachments": [
+   {
+    "filename": "invoice_oct.pdf",
+    "mimeType": "application/pdf"
+   }
+  ],
+  "bank": "hdfc"
+ },
+ {
+  "name": "large digits then percent off is not a promo cue",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Reference 1234567890% off",
+  "bank": "hdfc"
+ }
+]

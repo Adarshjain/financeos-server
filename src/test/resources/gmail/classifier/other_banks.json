@@ -1,0 +1,200 @@
+[
+ {
+  "name": "hsbc cc used for transaction",
+  "from": "HSBC <hsbc@mail.hsbc.co.in>",
+  "subject": "Credit Card Transaction Alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Your HSBC Credit Card xx2204 was used for a transaction of INR 319.93 at RIDE CO on 19/09/26. Available limit: INR 537754.83 Amount due: INR 67245.17",
+  "bank": "hsbc"
+ },
+ {
+  "name": "hsbc cc used for payment",
+  "from": "HSBC <hsbc@mail.hsbc.co.in>",
+  "subject": "You have used your HSBC Credit Card ending with 2204",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Your HSBC Credit Card no ending with 2204, has been used for INR 500.00 for payment to FLOWER SHOP on 15 Oct 2026 at 12:30",
+  "bank": "hsbc"
+ },
+ {
+  "name": "amex spent",
+  "from": "American Express <AmericanExpress@welcome.americanexpress.com>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "spent INR 500.00 on your AMEX card **91005 at THEATRE HOUSE on 15 October 2026 at 12:30 PM",
+  "bank": "amex"
+ },
+ {
+  "name": "amex payment received",
+  "from": "American Express <donotreply@aexp.com>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Your payment of INR 12,345.00 was received. Thank you.",
+  "bank": "amex"
+ },
+ {
+  "name": "idfc cc spent",
+  "from": "IDFC FIRST Bank <transaction.alerts@idfcfirstbank.com>",
+  "subject": "Debit Alert: Your IDFC FIRST Bank Credit Card",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 1,499.00 spent on your IDFC FIRST Bank Credit Card XX4410 at ELECTRONICS CO on 22-SEP-2026 at 18:40:00",
+  "bank": "idfc_first"
+ },
+ {
+  "name": "idfc account credit neft",
+  "from": "IDFC FIRST Bank <transaction.alerts@idfcfirstbank.com>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Your A/C XXXXXXX5521 has been credited with INR 23,456.78 on 08-09-2026 17:03:06 vide NEFT. New balance is INR 83,456.78.",
+  "bank": "idfc_first"
+ },
+ {
+  "name": "idfc account upi debit",
+  "from": "IDFC FIRST Bank <transaction.alerts@idfcfirstbank.com>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, INR 250.00 has been debited from your account XXXXXXX5521 towards UPI payment to NOODLE BAR on 25-09-2026. UPI Ref: 526800000555.",
+  "bank": "idfc_first"
+ },
+ {
+  "name": "yes cc spent",
+  "from": "YES BANK <alerts@yesbank.in>",
+  "subject": "Yes bank - Transaction Alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Cardmember, INR 500.00 has been spent on your YES BANK Credit Card ending with 7766 at TOY STORE on 14-10-2026.",
+  "bank": "yes"
+ },
+ {
+  "name": "yes account debited",
+  "from": "YES BANK <alerts@yesbank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, INR 250.00 has been debited from your YES BANK A/c XX7766 on 25-09-2026 for UPI to NOODLE BAR. RRN: 526800000888.",
+  "bank": "yes"
+ },
+ {
+  "name": "indusind debit card used",
+  "from": "IndusInd Bank <transactionalert@indusind.com>",
+  "subject": "Important : Transaction Alert from IndusInd Bank",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Your IndusInd Bank Debit Card ending 5501 is used for INR 640.00 at TEA POINT on 15-10-2026 Time: 12:30:45",
+  "bank": "indusind"
+ },
+ {
+  "name": "scapia txn successful rupee sign",
+  "from": "Scapia <scapiacards@federalbank.co.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Transaction successful Amount ₹ 500.00 Merchant: PIZZA PLACE Card ending 3342 on 15-10-2026 at 12:30 PM Not you? Call support.",
+  "bank": "federal"
+ },
+ {
+  "name": "scapia refund",
+  "from": "Scapia <scapiacards@federalbank.co.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "REVERSAL",
+  "confidence": "HIGH",
+  "bodyText": "Refund processed. Amount ₹ 480.00 Merchant: PIZZA PLACE on 17-10-2026. Card ending 3342",
+  "bank": "federal"
+ },
+ {
+  "name": "scapia repayment received",
+  "from": "Scapia <scapiacards@federalbank.co.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "We have received your payment of ₹ 6,000.00 towards your card ending 3342.",
+  "bank": "federal"
+ },
+ {
+  "name": "equitas debited with balance",
+  "from": "Equitas <alerts@equitasbank.com>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Your account # XXXXXXXX1290 was debited by INR 1,500.00 towards ATM cash on 30-SEP-2026. The available balance is INR 23,456.78.",
+  "bank": "equitas"
+ },
+ {
+  "name": "au account debit upi",
+  "from": "AU Small Finance Bank <noreply@aubank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, INR 250.00 has been debited from your AU Bank A/c XX6620 on 25-09-2026 via UPI to NOODLE BAR. Ref: 526800000999.",
+  "bank": "au"
+ },
+ {
+  "name": "au cc used",
+  "from": "AU Small Finance Bank <noreply@aubank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, Your AU Bank Credit Card XX9012 has been used for INR 1,499.00 at ONLINE STORE on 22-09-2026 18:10:05.",
+  "bank": "au"
+ },
+ {
+  "name": "bob account debit",
+  "from": "Bank of Baroda <alerts@bankofbaroda.co.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, Rs.250.00 has been debited from your A/c XXXXXX4415 on 25-09-2026 for UPI payment to noodle@upi. Ref No: 526800000123.",
+  "bank": "bank_of_baroda"
+ },
+ {
+  "name": "bobcard used",
+  "from": "BOBCARD <alerts@bobfinancial.com>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear BOBCARD User, Your BOBCARD ending 3321 has been used for Rs.1,499.00 at ONLINE STORE on 22-09-2026 18:10:05.",
+  "bank": "bank_of_baroda"
+ },
+ {
+  "name": "niyo spent unknown sender",
+  "from": "NiYO <alerts@goniyo.com>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 500.00 was spent on your NiYO Card XXXXXX1234 at COFFEE BAR on 12-10-26. Account Balance Summary: remaining total balance is INR 2,500.00"
+ },
+ {
+  "name": "cred payment confirmation",
+  "from": "CRED <from@cred.club>",
+  "subject": "your credit card bill payment was successful",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Your credit card payment was successful in 29 seconds. SBI •••• 2190 amount paid Rs.4,840.00 payment date Sep 04, 2026"
+ }
+]

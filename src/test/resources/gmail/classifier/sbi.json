@@ -1,0 +1,62 @@
+[
+ {
+  "name": "sbi card spent",
+  "from": "SBI Card <onlinesbicard@sbicard.com>",
+  "subject": "Transaction Alert from SBI Card",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Cardholder, This is to inform you that, Rs.1,207.58 spent on your SBI Credit Card ending 2190 at FUEL STATION on 10/09/26. Trxn. not done by you? Report at the dispute link.",
+  "bank": "sbi"
+ },
+ {
+  "name": "sbi card thank you for using",
+  "from": "SBI Card <onlinesbicard@sbicard.com>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Cardholder, Thank you for using your SBI Credit Card ending 2190 for Rs. 1,249.00 at BOOK STORE on 22/09/2026.",
+  "bank": "sbi"
+ },
+ {
+  "name": "sbi debit card purchase",
+  "from": "SBI <donotreply.sbiatm@sbi.co.in>",
+  "subject": "Transaction alert for your State Bank of India Debit Card",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Thank you for using your SBI Debit Card XX3301 for a purchase worth Rs 500.00 at CORNER SHOP on 12/10/26. Txn# 4477.",
+  "bank": "sbi"
+ },
+ {
+  "name": "sbi netbanking neft",
+  "from": "SBI <donotreply.sbimb@sbi.co.in>",
+  "subject": "Transaction Alert from SBI",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Thank you for banking with State Bank of India. Your transaction of Rs 4500.00 from A/C no. XXXX3301 for NEFT transfer to ANITA has been completed successfully. TID:8899",
+  "bank": "sbi"
+ },
+ {
+  "name": "sbi account upi debit subdomain",
+  "from": "SBI <donotreply.sbiatm@alerts.sbi.co.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, Your A/C XXXXX3301 has been debited by Rs. 250.00 on 25-09-2026 through UPI. UPI Ref No 526800000321. Beneficiary: NOODLE BAR. Available balance: Rs. 12,090.50.",
+  "bank": "sbi"
+ },
+ {
+  "name": "sbi bank in sender",
+  "from": "SBI <donotreply@sbi.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Your A/C XXXXX3301 has been credited by Rs. 3,000.00 on 25-09-2026 through NEFT.",
+  "bank": "sbi"
+ }
+]

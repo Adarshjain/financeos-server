@@ -1,0 +1,152 @@
+[
+ {
+  "name": "amex label only debit",
+  "from": "American Express <AmericanExpress@welcome.americanexpress.com>",
+  "subject": "Your transaction update",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Card Account ending in 91005 Date: 15 October, 2026 Merchant: THEATRE HOUSE Amount: INR 1,234.00",
+  "bank": "amex"
+ },
+ {
+  "name": "label only credit via type",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "Account update",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Account Number: XX7788 Transaction Type: Credit Amount: INR 2,500.00 Date: 22-10-2026",
+  "bank": "axis"
+ },
+ {
+  "name": "label only credit via type cr",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "Account update",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Txn Amt - INR 900.00 Account: XX7788 Ref No: 4455 Type: Cr",
+  "bank": "axis"
+ },
+ {
+  "name": "label only reversal via subject word",
+  "from": "American Express <AmericanExpress@welcome.americanexpress.com>",
+  "subject": "Reversal notice for your recent card charge",
+  "kind": "ALERT",
+  "subtype": "REVERSAL",
+  "confidence": "MEDIUM",
+  "bodyText": "Card ending in 91005 Merchant: THEATRE HOUSE Amount: INR 1,234.00",
+  "bank": "amex"
+ },
+ {
+  "name": "scapia amount without separator is not a label",
+  "from": "Scapia <scapiacards@federalbank.co.in>",
+  "subject": "Card update",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Amount ₹ 500.00 Merchant: PIZZA PLACE Date: 15-10-2026 Card ending 3342",
+  "bank": "federal"
+ },
+ {
+  "name": "scapia label with colon no verb",
+  "from": "Scapia <scapiacards@federalbank.co.in>",
+  "subject": "Card update",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Amount: ₹ 650.00 At: PIZZA PLACE Card ending 3342",
+  "bank": "federal"
+ },
+ {
+  "name": "axis label only no verb",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "Card update",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Transaction Amount: INR 320 Merchant Name: SNACK SHOP Credit Card No. XX6031 Date & Time: 05-10-2026, 22:57:38 IST",
+  "bank": "axis"
+ },
+ {
+  "name": "transaction value label",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "Card update",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Transaction Value: USD 12.00 Merchant: CLOUD TOOLS Card no. XX6031",
+  "bank": "axis"
+ },
+ {
+  "name": "label only declined",
+  "from": "American Express <AmericanExpress@welcome.americanexpress.com>",
+  "subject": "Transaction update",
+  "kind": "OTHER",
+  "subtype": "DECLINED",
+  "confidence": "MEDIUM",
+  "bodyText": "Card ending in 91005 Merchant: THEATRE HOUSE Amount: INR 1,234.00 Status: Declined",
+  "bank": "amex"
+ },
+ {
+  "name": "bill due labels stay bill due",
+  "from": "American Express <AmericanExpress@welcome.americanexpress.com>",
+  "subject": "Your bill",
+  "kind": "OTHER",
+  "subtype": "BILL_DUE",
+  "confidence": "MEDIUM",
+  "bodyText": "Card ending in 91005 Total Amount Due: INR 12,450.00 Minimum Amount Due: INR 620.00 Payment Due Date: 05-11-2026",
+  "bank": "amex"
+ },
+ {
+  "name": "balance labels stay balance",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "Balance",
+  "kind": "OTHER",
+  "subtype": "BALANCE",
+  "confidence": "MEDIUM",
+  "bodyText": "Account: XX871 Available Balance: INR 9,345.00 Date: 12-10-2026",
+  "bank": "icici"
+ },
+ {
+  "name": "amount label without other label is not an alert",
+  "from": "American Express <AmericanExpress@welcome.americanexpress.com>",
+  "subject": "Update",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Card ending in 91005 Amount: INR 500.00",
+  "bank": "amex"
+ },
+ {
+  "name": "amount and label without reference is not an alert",
+  "from": "American Express <AmericanExpress@welcome.americanexpress.com>",
+  "subject": "Update",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Merchant: THEATRE HOUSE Amount: INR 500.00",
+  "bank": "amex"
+ },
+ {
+  "name": "label only future wording is not an alert",
+  "from": "American Express <AmericanExpress@welcome.americanexpress.com>",
+  "subject": "Update",
+  "kind": "OTHER",
+  "subtype": "UPCOMING_DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Card ending in 91005 Merchant: GYM Amount: INR 500.00 will be charged next month",
+  "bank": "amex"
+ },
+ {
+  "name": "label only cashback sentence is not an alert",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "Offer",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Card ending 5532 Merchant: STORE Amount: INR 500 cashback on your next order",
+  "bank": "icici"
+ }
+]

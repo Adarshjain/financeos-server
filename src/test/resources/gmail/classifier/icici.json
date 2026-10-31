@@ -1,0 +1,82 @@
+[
+ {
+  "name": "cc used for transaction",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "Transaction alert for your ICICI Bank Credit Card",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Your ICICI Bank Credit Card XX5532 has been used for a transaction of INR 640.00 on Oct 15, 2026 at 07:26:54. Info: UPI-123400000555-GROCERY. The Available Credit Limit on your card is INR 2,10,000.00.",
+  "bank": "icici"
+ },
+ {
+  "name": "cc used old sender",
+  "from": "ICICI Bank <credit_cards@icicibank.com>",
+  "subject": "Transaction alert for your ICICI Bank credit card",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, Greetings from ICICI Bank. Your ICICI Bank Credit Card XX5532 has been used for a transaction of INR 99.00 on 15-Oct-26 at 12:30:00. Info: STREAMING CO.",
+  "bank": "icici"
+ },
+ {
+  "name": "cc payment received",
+  "from": "ICICI Bank <credit_cards@icicibank.com>",
+  "subject": "Payment received on your ICICI Bank Credit Card.",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Greetings from ICICI Bank! We have received payment of INR 12,000.00 on your ICICI Bank Credit Card account 4000 XXXX XXXX 5532 on 19-Sep-2026.",
+  "bank": "icici"
+ },
+ {
+  "name": "cc merchant credit refund",
+  "from": "ICICI Bank <credit_cards@icicibank.com>",
+  "subject": "Merchant credit refund on your ICICI Bank Credit Card",
+  "kind": "ALERT",
+  "subtype": "REVERSAL",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, We wish to inform you that we have received merchant credit refund of INR 540.00 for ICICI Bank Credit Card XX5532 from SHOE MART on 12-Oct-2026.",
+  "bank": "icici"
+ },
+ {
+  "name": "debit card purchase",
+  "from": "ICICI Bank <credit_cards@icicibank.com>",
+  "subject": "Transaction alert for your ICICI Bank debit card",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, A purchase of INR 500.00 has been made using your Debit Card linked to ICICI Bank Account XX871 on 15-Oct-26. Info: PHARMACY.",
+  "bank": "icici"
+ },
+ {
+  "name": "account credited interest",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "Transaction alert for your ICICI Bank account",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Your ICICI Bank Account XX871 has been credited with INR 37.00 on 30-Sep-26. Info: XX871:Int.Pd:30-06-2026 to 29-09-2026.",
+  "bank": "icici"
+ },
+ {
+  "name": "account debited upi",
+  "from": "ICICI Bank <credit_cards@icicibank.com>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, We wish to inform you that your ICICI Bank Account XX871 has been debited with INR 240.00 on 23-Sep-26. Info: UPI/526600000111/NOODLE BAR. The Available Balance in your Account is INR 9,345.00.",
+  "bank": "icici"
+ },
+ {
+  "name": "internet banking payment",
+  "from": "ICICI Bank <credit_cards@icicibank.com>",
+  "subject": "Transaction alert for your ICICI Bank Internet Banking",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, You have made an online payment of INR 1,000.00 from your Account XXXXXXXX0871 on 15-Oct-26 at 12:30:00 using net banking towards payee WATER BOARD.",
+  "bank": "icici"
+ }
+]

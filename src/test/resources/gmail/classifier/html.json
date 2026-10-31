@@ -1,0 +1,73 @@
+[
+ {
+  "name": "html only rupee numeric entity",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyHtml": "<html><head><title>x</title><style>.a{color:red} .b::before{content:\"Rs. 1,00,000 credited\"}</style><script>var t=\"debited Rs. 5\";</script></head><body><p>Dear Customer,</p><p>&#8377;&nbsp;725.00 has been debited from your HDFC Bank Credit Card ending 4821 towards BLUE LEAF CAFE.</p></body></html>",
+  "bank": "hdfc"
+ },
+ {
+  "name": "html only rupee hex entity",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyHtml": "<div>Rs&nbsp;&#x20B9; 99.00 spent on your card ending 4821 at TEA POINT</div>",
+  "bank": "hdfc"
+ },
+ {
+  "name": "html entities amp nbsp quot",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Alert",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyHtml": "<table><tr><td>Amount&nbsp;Credited:</td><td>&rupee;&nbsp;1,000.00</td></tr><tr><td>Account&nbsp;Number:</td><td>XX7788</td></tr><tr><td>Info:</td><td>UPI&amp;NEFT &quot;salary&quot;</td></tr></table>",
+  "bank": "hdfc"
+ },
+ {
+  "name": "html alert with promo banner",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyHtml": "<div class=\"promo\"><b>Exclusive offer!</b> 20% off, apply now. <a href=\"#\">Unsubscribe</a></div><p>Rs. 140.00 has been debited from your account ending 3345 towards NOODLE BAR.</p>",
+  "bank": "hdfc"
+ },
+ {
+  "name": "html style content with amount is ignored",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Hello",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyHtml": "<html><head><title>x</title><style>.a{color:red} .b::before{content:\"Rs. 1,00,000 credited\"}</style><script>var t=\"debited Rs. 5\";</script></head><body><p>Thank you for banking with us.</p></body></html>",
+  "bank": "hdfc"
+ },
+ {
+  "name": "html unclosed tag and lone lt",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyHtml": "<p>Rs. 77.00 spent on your card ending 4821 at TEA POINT <b",
+  "bank": "hdfc"
+ },
+ {
+  "name": "text and html both present",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Rs. 300.00 has been debited from your account ending 3345.",
+  "bodyHtml": "<p>Rs. 300.00 has been debited from your account ending 3345.</p>",
+  "bank": "hdfc"
+ }
+]

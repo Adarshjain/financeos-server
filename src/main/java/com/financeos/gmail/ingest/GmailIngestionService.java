@@ -1,11 +1,14 @@
 package com.financeos.gmail.ingest;
 
+import com.financeos.core.observability.ObservabilityMetrics;
 import com.financeos.core.security.UserContextHelper;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.categorization.CategorizationService;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
+import com.financeos.gmail.classify.ClassificationResult;
+import com.financeos.gmail.classify.EmailClassifier;
 import com.financeos.gmail.domain.*;
 import com.financeos.gmail.engine.GmailEngine;
 import com.financeos.gmail.ingest.gemini.GeminiExtractionResult;
@@ -53,6 +56,13 @@ public class GmailIngestionService {
     /** Optional so tests that build the service by hand need no publisher. */
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private org.springframework.context.ApplicationEventPublisher eventPublisher;
+
+    /** Shadow classifier and its metrics: optional so tests that build the service by hand need neither. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private EmailClassifier emailClassifier;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private ObservabilityMetrics observabilityMetrics;
 
     public GmailIngestionService(GmailEngine gmailEngine,
                                  GmailSyncCursorService cursorService,
@@ -455,6 +465,7 @@ public class GmailIngestionService {
             gpm.setSubject(truncate(message.subject(), 500));
             String fromAddress = extractEmailAddress(message.from());
             gpm.setSenderAddress(fromAddress);
+            classifyInShadow(gpm, message);
 
             // Allowlist check
             GmailSender sender = findMatchingSender(enabledSenders, fromAddress);
@@ -475,6 +486,7 @@ public class GmailIngestionService {
 
             // Statement path check
             if (hasStatementAttachment(message)) {
+                recordPipelineKind(gpm, "STATEMENT");
                 ReconSummary recon = statementReconciliationService.reconcile(connection, message);
                 reconOut[0] = recon;
                 if (recon.createdTransactions() != null && !recon.createdTransactions().isEmpty()) {
@@ -489,6 +501,7 @@ public class GmailIngestionService {
                 throw new RuntimeException("Extraction failed: " + extractionResult.failureReason());
             }
 
+            recordPipelineKind(gpm, extractionResult.isTransaction() ? "ALERT" : "OTHER");
             if (!extractionResult.isTransaction()) {
                 gpm.setStatus(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
                 gpm.setError(null);
@@ -555,6 +568,49 @@ public class GmailIngestionService {
             }
             processedMessageRepository.save(gpm);
             return List.of();
+        }
+    }
+
+    /** Shadow run: stores the classifier answer on the row; never changes the outcome, never throws. */
+    void classifyInShadow(GmailProcessedMessage gpm, GmailMessage message) {
+        // A retry must not keep the previous attempt's answer if this one throws.
+        gpm.setPipelineKind(null);
+        gpm.setClassifiedKind(null);
+        gpm.setClassifiedSubtype(null);
+        gpm.setClassifiedConfidence(null);
+        gpm.setClassifiedBank(null);
+        gpm.setClassifiedSignals(null);
+        gpm.setClassifierVersion(null);
+        if (emailClassifier == null) {
+            return;
+        }
+        try {
+            ClassificationResult c = emailClassifier.classify(message);
+            gpm.setClassifiedKind(c.kind().name());
+            gpm.setClassifiedSubtype(c.subtype().name());
+            gpm.setClassifiedConfidence(c.confidence().name());
+            gpm.setClassifiedBank(c.bankId());
+            gpm.setClassifiedSignals(c.signalsJoined(500));
+            gpm.setClassifierVersion(c.version());
+            if (observabilityMetrics != null) {
+                observabilityMetrics.recordGmailClassified(c.kind().name(), c.subtype().name(), c.confidence().name());
+            }
+            log.debug("Classified message {}: kind={} subtype={} confidence={} bank={} signals={}",
+                    gpm.getGmailMessageId(), c.kind(), c.subtype(), c.confidence(), c.bankId(), c.signalsJoined(500));
+        } catch (Exception e) {
+            log.warn("Classifier failed for message {}: {}", gpm.getGmailMessageId(), e.toString());
+        }
+    }
+
+    /** What the existing pipeline decided, for comparison with the classifier; no effect on control flow. */
+    private void recordPipelineKind(GmailProcessedMessage gpm, String pipelineKind) {
+        gpm.setPipelineKind(pipelineKind);
+        if (observabilityMetrics != null && gpm.getClassifiedKind() != null) {
+            try {
+                observabilityMetrics.recordGmailClassifierCompare(gpm.getClassifiedKind(), pipelineKind);
+            } catch (Exception e) {
+                log.warn("Classifier compare metric failed: {}", e.toString());
+            }
         }
     }
 
