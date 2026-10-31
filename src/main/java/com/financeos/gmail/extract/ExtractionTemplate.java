@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 /**
  * One real email layout of one sender, loaded from YAML. {@code direction} is fixed, or null when it is
  * read from the {@code direction} group through {@code directionWords} (lower-case words per direction).
+ * {@code counterpartyDefault} fills the counterparty when there is no counterparty group or it is empty.
  */
 public record ExtractionTemplate(
         String id,
@@ -18,7 +19,8 @@ public record ExtractionTemplate(
         Map<Direction, Set<String>> directionWords,
         List<String> dateFormats,
         String currency,
-        List<Pattern> counterpartyStrip
+        List<Pattern> counterpartyStrip,
+        String counterpartyDefault
 ) {
     /** Whether the From header's domain is one of the template's sender domain fragments. */
     public boolean matchesSender(String domain) {

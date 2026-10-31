@@ -63,7 +63,7 @@ fixtures:
     body: >-
       AutoPay transaction of INR 269.80 for your Subscribe & Save deliveries is successful . Autopay for Total order amount INR 269.80
       Payment method: Amazon Pay ICICI Bank Credit Card ****1234 Auto-payment date: 24 February 2026 Important note This charge is applicable.
-    expect: {amount: '269.80', currency: INR, direction: DEBIT, date: '2026-02-24', counterparty: null, last4: '1234'}
+    expect: {amount: '269.80', currency: INR, direction: DEBIT, date: '2026-02-24', counterparty: Subscribe & Save, last4: '1234'}
 
   - template: amazonpay.autopay.subscribe.v1
     from: 'Amazon Pay <no-reply@amazonpay.in>'
@@ -72,7 +72,7 @@ fixtures:
     body: >-
       AutoPay transaction of INR 284.05 for your Subscribe & Save deliveries is successful . Autopay for Total order amount INR 284.05
       Auto-payment date: 24 January 2026 Important note This charge is applicable.
-    expect: {amount: '284.05', currency: INR, direction: DEBIT, date: '2026-01-24', counterparty: null, last4: null}
+    expect: {amount: '284.05', currency: INR, direction: DEBIT, date: '2026-01-24', counterparty: Subscribe & Save, last4: null}
 
   - template: amazonpay.recharge.v1
     from: 'Amazon Pay <no-reply@amazonpay.in>'
@@ -99,7 +99,7 @@ fixtures:
     body: >-
       Dear Customer, Refund for your Amazon.in Order has been applied to your Amazon Pay balance. Received Amount Amazon Pay eGift Card INR 1,010.00
       Reference ID 6000000000000000 Order Number 1111abc Expiry date 25-Mar-2027 Issued by Sample Labs
-    expect: {amount: '1010.00', currency: INR, direction: CREDIT, date: null, counterparty: null, last4: null}
+    expect: {amount: '1010.00', currency: INR, direction: CREDIT, date: null, counterparty: Amazon.in, last4: null}
 
   - template: amazonpay.refund.card.v1
     from: 'Amazon Pay <no-reply@amazonpay.in>'

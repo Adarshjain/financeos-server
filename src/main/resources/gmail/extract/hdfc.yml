@@ -113,3 +113,11 @@ templates:
     body: 'successfully initiated (?:RTGS|NEFT|IMPS) transaction of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) from your HDFC Bank A/c (?<last4>[X*]*\d+) for a transfer to payee (?<counterparty>.+?) using'
     direction: DEBIT
     dateFormats: [dd-MM-yyyy]
+
+  # "we have processed your request of FCYTTSELL for USD 792.0 @ 88.92 from your account 50100000001234 / Cust ID: 100000000 towards the purpose S0021 - ... on 27/02/2025 received at SAMPLE BRANCH" (foreign amount, not x rate)
+  - id: hdfc.remittance.outward.v1
+    senders: *senders
+    subject: 'Transaction alert'
+    body: 'processed your request of \w+ for (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) @ [\d.]+ from your account (?<last4>\d+) /(?s:.*?) on (?<date>\d\d/\d\d/\d{4}) received at'
+    direction: DEBIT
+    dateFormats: [dd/MM/yyyy]

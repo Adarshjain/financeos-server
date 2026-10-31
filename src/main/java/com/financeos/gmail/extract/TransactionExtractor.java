@@ -79,6 +79,9 @@ public class TransactionExtractor {
         LocalDate date = groups.contains("date") ? ExtractParsing.parseDate(m.group("date"), t.dateFormats(), sentOn) : null;
         String counterparty = groups.contains("counterparty")
                 ? ExtractParsing.cleanCounterparty(m.group("counterparty"), t.counterpartyStrip()) : null;
+        if (counterparty == null) {
+            counterparty = t.counterpartyDefault();
+        }
         String last4 = groups.contains("last4") ? ExtractParsing.parseLast4(m.group("last4")) : null;
         return new ExtractedTransaction(amount, currency, direction, date, counterparty, last4, Tier.TEMPLATE, t.id(),
                 ExtractedTransaction.TEMPLATE_CONFIDENCE);

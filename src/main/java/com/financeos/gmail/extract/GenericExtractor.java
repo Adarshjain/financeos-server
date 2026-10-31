@@ -41,6 +41,10 @@ final class GenericExtractor {
                     + "([A-Za-z0-9][A-Za-z0-9 &'.*/@_\\-]{1,50}?)"
                     + "(?=\\s+(?:on|dated|using|via|ref|for|from|with|ending|has|is|was|through|at)\\b|[.;,(]|\\s*$)", FLAGS);
 
+    /** A "party" that is really an action or an amount ("withdraw INR 101", "INR 5"): try the next match. */
+    private static final Pattern NOT_A_PARTY = Pattern.compile(
+            "^(?:withdraw|pay|paying|spend|spending|transfer|transferring|send|sending|make|making|purchase|buy)\\b|\\b(?:" + CURRENCY_CODES + ")\\s?\\d|[$€£]\\s?\\d", FLAGS);
+
     private static final String MONTH = "(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*";
     private static final Pattern DATE_NUMERIC = Pattern.compile("\\b(\\d{1,2})[-/.](\\d{1,2})[-/.](\\d{4}|\\d{2})\\b");
     private static final Pattern DATE_DMY_TEXT = Pattern.compile(
@@ -133,9 +137,9 @@ final class GenericExtractor {
                 return ExtractParsing.cleanCounterparty(v.group(1), null);
             }
             Matcher m = PARTY.matcher(scope);
-            if (m.find()) {
+            while (m.find()) {
                 String cp = ExtractParsing.cleanCounterparty(m.group(1), null);
-                if (cp != null) {
+                if (cp != null && !NOT_A_PARTY.matcher(cp).find()) {
                     return cp;
                 }
             }

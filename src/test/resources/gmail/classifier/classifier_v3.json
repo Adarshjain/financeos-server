@@ -240,5 +240,14 @@
     "mimeType": "application/pdf"
    }
   ]
+ },
+ {
+  "name": "v3 amazon pay sent you a gift card is a delivery",
+  "from": "Amazon Pay <no-reply@amazonpay.in>",
+  "subject": "Sample sent you an Amazon Pay Gift Card!",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Hi Sample, Thanks for using Amazon Pay Balance. Your payment was successful."
  }
 ]

@@ -145,3 +145,12 @@ fixtures:
       Dear Customer, An amount of INR 12.00 has been deposited to A/c XXXXXXXX1234 Ref on account of Credit Interest Capitalised value 31-MAR-2024 .
       Clear Bal is INR 100.00.
     expect: {amount: '12.00', currency: INR, direction: CREDIT, date: '2024-03-31', counterparty: Credit Interest Capitalised, last4: '1234'}
+
+  - template: axis.cc.cashwithdrawal.v1
+    from: 'alerts@axis.bank.in'
+    subject: 'Transaction alert on Axis Bank Credit Card no. XX1234'
+    sent: '2026-02-23T07:30:00Z'
+    body: >-
+      Dear Sample Name, Thank you for using your Card no. XX1234 to withdraw INR 101.99 on 23-02-26 12:51:40 IST at SAMPLEWALLET.
+      Your available cash withdrawal limit is INR 75600.
+    expect: {amount: '101.99', currency: INR, direction: DEBIT, date: '2026-02-23', counterparty: SAMPLEWALLET, last4: '1234'}

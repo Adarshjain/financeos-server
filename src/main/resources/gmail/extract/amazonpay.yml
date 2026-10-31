@@ -42,7 +42,7 @@ templates:
   # "AutoPay transaction of INR 269.80 for your Subscribe & Save deliveries is successful ... Payment method: Amazon Pay ICICI Bank Credit Card ****1234 Auto-payment date: 24 October 2024" (card line optional)
   - id: amazonpay.autopay.subscribe.v1
     senders: *senders
-    body: 'AutoPay transaction of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) for your Subscribe & Save deliveries is(?s:.*?)Total order amount\s+[A-Z]{3} [\d,.]+\s+(?:Payment method:\s+[^*]*?\*+(?<last4>\d{4})\s+)?Auto-payment date:\s+(?<date>\d{1,2} [A-Za-z]+ \d{4})'
+    body: 'AutoPay transaction of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) for your (?<counterparty>.+?) deliveries is(?s:.*?)Total order amount\s+[A-Z]{3} [\d,.]+\s+(?:Payment method:\s+[^*]*?\*+(?<last4>\d{4})\s+)?Auto-payment date:\s+(?<date>\d{1,2} [A-Za-z]+ \d{4})'
     direction: DEBIT
     dateFormats: [d MMMM yyyy, d MMM yyyy]
 
@@ -56,7 +56,7 @@ templates:
   # "Received Amount Amazon Pay eGift Card INR 432.10 ..." (cashback, refund gift card, monthly card reward points; only an expiry date is stated, so no date)
   - id: amazonpay.egift.credit.v1
     senders: *senders
-    body: 'Received\s+Amount\s+Amazon Pay eGift Card\s+(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)'
+    body: '(?:\A(?=(?s:.*?)Refund for your (?<counterparty>\S+) Order))?(?s:.*?)Received\s+Amount\s+Amazon Pay eGift Card\s+(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)'
     direction: CREDIT
 
   # "the refund of INR 4321.0 for your order: 403-1234567-1234567, paid via credit card has been successfully credited. Your refund has been credited to your ... credit card." (also "paid via UPI ... successfully processed")

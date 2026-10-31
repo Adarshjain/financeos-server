@@ -159,7 +159,7 @@ public class EmailClassifier {
             "^\\s*important (?:update|notice|changes?) (?:on|to|regarding) .{0,40}?\\balerts?\\b|\\bperks are changing\\b|\\bclearing of cheques\\b");
     /** Brand gift card delivery mails carry a face value and a code, but no money moved. */
     private static final Pattern GIFT_CARD_DELIVERY = Pattern.compile(
-            "\\bsent you an? brand gift card\\b|\\breceived an? inr\\s?\\d[\\d,.]*\\s[a-z0-9 ]{0,40}?brand gift card\\b");
+            "\\bsent you an? (?:[a-z0-9&.\\-]+ ){0,3}gift card\\b|\\breceived an? inr\\s?\\d[\\d,.]*\\s[a-z0-9 ]{0,40}?brand gift card\\b");
     /** Amazon Pay AutoPay that went through (no card/account reference in these mails). */
     private static final Pattern AUTOPAY_SUCCESS = Pattern.compile(
             "\\b(?:autopay|auto-pay|auto-payment) transaction of inr\\s?\\d[\\d,.]*.{0,80}?\\bis successful\\b");

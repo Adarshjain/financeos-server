@@ -121,4 +121,11 @@ class EmailTextTest {
         String html = "<td>Amount</td><td>&#8202;</td><td>₹1,813.17</td>";
         assertThat(EmailText.of(msg("", null, html)).text()).contains("Amount").contains("INR 1,813.17").contains(String.valueOf(EmailText.SECTION)).doesNotContain(" ");
     }
+
+    @Test
+    void rsNameTokenIsNotACurrencyButRsAmountIs() {
+        assertThat(EmailText.normalise("Paid to RS PURAM STORES")).isEqualTo("Paid to RS PURAM STORES");
+        assertThat(EmailText.normalise("Rs. 500 and Rs 20 and INR 7 and ₹9"))
+                .isEqualTo("INR 500 and INR 20 and INR 7 and INR 9");
+    }
 }

@@ -92,4 +92,11 @@ class GenericExtractorTest {
         ExtractedTransaction tx = run("Alert", "INR 10 debited from A/c XX1234 on 25-12-2026.").orElseThrow();
         assertThat(tx.date()).isNull();
     }
+
+    @Test
+    void counterpartySkipsVerbAndAmountCandidates() {
+        ExtractedTransaction tx = run("Alert", "Thank you for using your Card no. XX1234 to withdraw INR 101.99 on 23-02-26 12:51:40 IST at SAMPLEWALLET. "
+                + "Your available cash withdrawal limit is INR 75600.").orElseThrow();
+        assertThat(tx.counterparty()).isEqualTo("SAMPLEWALLET");
+    }
 }
