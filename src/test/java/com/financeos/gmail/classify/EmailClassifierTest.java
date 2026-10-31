@@ -113,8 +113,12 @@ class EmailClassifierTest {
 
     @Test
     void referenceAndPercentPatternsStayFastOnLongRunsOfSymbols() {
-        classifier.classify(new GmailMessage("w", null, "a@x.example", "s", null, "warm up INR 5", null, List.of()));
-        for (String run : new String[]{"\u2022".repeat(20_000), "1".repeat(20_000), "*".repeat(20_000), "x".repeat(20_000), "9%".repeat(10_000)}) {
+        String[] runs = {"\u2022".repeat(20_000), "1".repeat(20_000), "*".repeat(20_000), "x".repeat(20_000), "9%".repeat(10_000)};
+        // Warm the JIT on the same inputs: a slow CI runner's cold first pass is not what this guards against.
+        for (String run : runs) {
+            classifier.classify(new GmailMessage("w", null, "a@x.example", "s", null, run + " INR 500 spent", null, List.of()));
+        }
+        for (String run : runs) {
             long start = System.nanoTime();
             classifier.classify(new GmailMessage("m", null, "a@x.example", "s", null, run + " INR 500 spent", null, List.of()));
             assertThat((System.nanoTime() - start) / 1_000_000).as("run of %s", run.substring(0, 1)).isLessThan(200);
