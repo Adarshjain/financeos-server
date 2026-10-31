@@ -43,7 +43,7 @@ final class GenericExtractor {
 
     /** A "party" that is really an action or an amount ("withdraw INR 101", "INR 5"): try the next match. */
     private static final Pattern NOT_A_PARTY = Pattern.compile(
-            "^(?:withdraw|pay|paying|spend|spending|transfer|transferring|send|sending|make|making|purchase|buy)\\b|\\b(?:" + CURRENCY_CODES + ")\\s?\\d|[$€£]\\s?\\d", FLAGS);
+            "^(?:this|that|confirm|inform|you|your|the|us|we)\\b|^(?:withdraw|pay|paying|spend|spending|transfer|transferring|send|sending|make|making|purchase|buy)\\b|\\b(?:" + CURRENCY_CODES + ")\\s?\\d|[$€£]\\s?\\d", FLAGS);
 
     private static final String MONTH = "(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*";
     private static final Pattern DATE_NUMERIC = Pattern.compile("\\b(\\d{1,2})[-/.](\\d{1,2})[-/.](\\d{4}|\\d{2})\\b");

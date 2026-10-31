@@ -29,16 +29,16 @@ templates:
     body: 'amount of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been debited from account #\s*(?<last4>[X*]*\d+)\s*Ref\s*(?:\d+\s*)?towards (?<counterparty>.+?) on (?<date>\d\d-(?:\d\d|[A-Z]{3})-\d{2,4})\.'
     direction: DEBIT
     dateFormats: [dd-MM-yyyy, dd-MM-yy, dd-MMM-yyyy, dd-MMM-yy]
-    counterpartyStrip: ['^PURCHASE \d+\**\d+\s+']
+    counterpartyStrip: ['^PURCHASE \d+\**\d+\s+', '^(?:CASH DEP|CHQ PAID)-SELF.*$']
 
   # "An amount of INR 1,234.00 has been credited to A/c XXXXXXXX1234 Ref on account of UPI REF NO 123 P2P-Some Name-UPI- HEAD OFFICE value 22-SEP-2024 ." (also "Amount of ... debited from A/c" in the oldest layout)
   - id: equitas.account.upi.v1
     senders: *senders
-    body: 'amount of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been (?<direction>debited|credited|deposited) (?:from|to) A/c\s*(?<last4>[X*]*\d+)\s*Ref\s*(?:\d+\s*)?on account of (?:UPI REF NO|REVERSAL UPI) \d+ (?:REV )?[A-Z]2[A-Z]-(?<counterparty>[^-]+)-.*? value (?<date>\d\d-(?:\d\d|[A-Z]{3})-\d{2,4})'
+    body: 'amount of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been (?<direction>debited|credited|deposited) (?:from|to) A/c\s*(?<last4>[X*]*\d+)\s*Ref\s*(?:\d+\s*)?on account of (?:UPI REF NO|REVERSAL UPI) \d+ (?:REV )?[A-Z]2[A-Z]-(?<counterparty>(?<=P2M-).+?(?=(?:-UPI)?(?:-[A-Z]{4}0\w+)?\s*-\s*HEAD OFFICE\s+value)|[^-]+)-.*? value (?<date>\d\d-(?:\d\d|[A-Z]{3})-\d{2,4})'
     direction: FROM_GROUP
     directionWords: {DEBIT: [debited], CREDIT: [credited, deposited]}
     dateFormats: [dd-MM-yyyy, dd-MM-yy, dd-MMM-yyyy, dd-MMM-yy]
-    counterpartyStrip: ['^(?:Mr|Mrs|Ms|Shri|Smt)\.?\s+']
+    counterpartyStrip: ['^(?:Mr|Mrs|Ms|Shri|Smt)\.?\s+', '-\d{6,}.*$']
 
   # "...on account of IMP P2A 123456789012 5010022 - Some Name - Self - BANK0000240 - HEAD OFFICE value 21-01-26 ."
   - id: equitas.account.imps.v1
@@ -63,4 +63,4 @@ templates:
     direction: FROM_GROUP
     directionWords: {DEBIT: [debited], CREDIT: [credited, deposited]}
     dateFormats: [dd-MM-yyyy, dd-MM-yy, dd-MMM-yyyy, dd-MMM-yy]
-    counterpartyStrip: ['^\d+\s*:\s*FT\s*-\s*', '\s*-\s*\d{6,}$']
+    counterpartyStrip: ['^\d+\s*:\s*FT\s*-\s*', '\s*-\s*\d{6,}$', '^(?:CASH DEP|CHQ PAID)-SELF.*$']

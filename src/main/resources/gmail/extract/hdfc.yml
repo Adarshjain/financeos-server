@@ -40,7 +40,7 @@ templates:
     body: '(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) is successfully credited to your account (?<last4>[X*]*\d+) by VPA (?<counterparty>\S+(?: .+?)?) on (?<date>\d\d-\d\d-\d{2,4})'
     direction: CREDIT
     dateFormats: [dd-MM-yy, dd-MM-yyyy]
-    counterpartyStrip: ['^\S+@\S+\s+']
+    counterpartyStrip: ['(?<=@\S{1,40})\s+(?:WEB UPI|UPI|WEB)$', '^\S+@\S+\s+']
 
   # "INR 3730.00 has been successfully credited to your HDFC Bank account ending in 1234. Transaction Details: a. Date: 18-09-26 b. Sender: SOME NAME (VPA: some@okbank) c. UPI Reference No.: 123"
   - id: hdfc.upi.credit.v2
@@ -121,3 +121,10 @@ templates:
     body: 'processed your request of \w+ for (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) @ [\d.]+ from your account (?<last4>\d+) /(?s:.*?) on (?<date>\d\d/\d\d/\d{4}) received at'
     direction: DEBIT
     dateFormats: [dd/MM/yyyy]
+
+  # "Your RTGS transfer has been completed successfully ... Transaction Details: Amount: INR 10,00,000.00 Credited to beneficiary A/c ending: XX5678 Date & Time: 18-07-2026 at 18:15:50" (the beneficiary's account, not the owner's: no last4)
+  - id: hdfc.account.transfer.done.v1
+    senders: *senders
+    body: 'Your (?:RTGS|NEFT|IMPS) transfer has been completed successfully[\s\S]*?Amount:\s*(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)\s*Credited to beneficiary A/c ending:\s*[X*]*\d+\s*Date (?:&|&amp;|and) Time:\s*(?<date>\d\d-\d\d-\d{4})'
+    direction: DEBIT
+    dateFormats: [dd-MM-yyyy]

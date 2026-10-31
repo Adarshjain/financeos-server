@@ -20,6 +20,7 @@ public final class ExtractParsing {
     private static final Pattern NUMBER = Pattern.compile("\\d+(?:\\.\\d+)?");
     private static final Pattern TRAILING_PUNCTUATION = Pattern.compile("[\\s.,;:\\-_/|]+$");
     private static final Pattern LEADING_PUNCTUATION = Pattern.compile("^[\\s,;:\\-_/|]+");
+    private static final Pattern MASKED_NUMBER = Pattern.compile("^(?:a/?c|account)?\\s*(?:#\\s*)?[x*]{2,}\\d{0,6}$", Pattern.CASE_INSENSITIVE);
     private static final Pattern ANY_SPACE = Pattern.compile("[\\s\\p{Zs}" + EmailText.SECTION + "]+");
 
     private ExtractParsing() {}
@@ -90,7 +91,12 @@ public final class ExtractParsing {
                 s = tidy(p.matcher(s).replaceAll(""));
             }
         }
-        return s.isEmpty() ? null : s;
+        return s.isEmpty() || isMasked(s) ? null : s;
+    }
+
+    /** A masked account number ("**2358", "account **5678") is no counterparty; a part-masked name stays as written. */
+    private static boolean isMasked(String s) {
+        return s.indexOf('@') < 0 && MASKED_NUMBER.matcher(s).matches();
     }
 
     private static String tidy(String s) {
