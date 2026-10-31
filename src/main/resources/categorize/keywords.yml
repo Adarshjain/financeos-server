@@ -1,0 +1,252 @@
+# Phrases that decide a category on their own (step KEYWORD), checked top to bottom, first rule wins.
+# A rule matches when every condition it names matches; a condition is a list of regexes, any one hits.
+# Conditions: subject, text (first 1500 chars), counterparty, from (sender address), any (subject + counterparty + text).
+# A rule may also set direction. Words that only describe a kind of shop are matched on the counterparty alone.
+rules:
+  - id: reversal
+    category: Refunds
+    direction: CREDIT
+    subject: ['\brefund(?:ed|s)?\b', '\btransaction reversal\b', '\breversal (?:of|initiated|processed|credit|upi)\b', '\bchargeback\b', '\bcredited back\b', '\btransaction (?:has been )?reversed\b']
+  - id: reversal-counterparty
+    category: Refunds
+    direction: CREDIT
+    counterparty: ['\brefund(?:ed|s)?\b', '\breversal\b']
+  - id: reversal-credited
+    category: Refunds
+    direction: CREDIT
+    text: ['\brefund(?:ed)?\b(?! polic).{0,60}\b(?:credited|processed|initiated)\b', '\breversal (?:of|initiated|processed|credit|upi)\b', '\bmandate refu', '\bcredited back\b', '\btransaction (?:has been )?reversed\b', '\bchargeback\b']
+  - id: mobile-plan
+    category: Mobile
+    counterparty: ['\b(?:prepaid|postpaid)\b']
+  - id: google-play
+    category: Software
+    counterparty: ['\bgoogle play\b']
+  - id: cashback
+    category: Cashback
+    direction: CREDIT
+    subject: ['cash ?back\b', '\breward points? (?:credited|redeemed|encashed)\b', '\begift card credited\b']
+  - id: cashback-counterparty
+    category: Cashback
+    direction: CREDIT
+    counterparty: ['cash ?back\b']
+  - id: cashback-credited
+    category: Cashback
+    direction: CREDIT
+    text: ['cash ?back (?:of )?(?:rs\.?|inr|₹)? ?[\d,.]+ (?:has been |was |is )?(?:successfully )?(?:credited|received)\b', '\bcredited\b(?:(?!\bearn\b).){0,60}cash ?back', '\breward points?\b.{0,80}\badded\b']
+  - id: salary
+    category: Salary
+    direction: CREDIT
+    subject: ['\bsalary\b']
+  - id: salary-any
+    category: Salary
+    direction: CREDIT
+    any: ['\bsalary (?:credit|for|of|from)\b', '\bsal(?:ary)? cr\b', '\bpayroll\b']
+  - id: salary-counterparty
+    category: Salary
+    direction: CREDIT
+    counterparty: ['\bsalary\b', '\bpayroll\b']
+  - id: bonus
+    category: Bonus
+    direction: CREDIT
+    counterparty: ['\bbonus\b', '\bincentive\b']
+  - id: interest
+    category: Interest
+    direction: CREDIT
+    any: ['\binterest (?:credited|credit|paid|payout|capitalised|capitalized)\b', '\bint\.? ?pd\b', '\bcredit interest\b', '\bsavings (?:a/c |account )?interest\b', '\bfd interest\b', '\bquarterly interest\b', '\bint(?:erest)? (?:on|for) (?:fd|fixed deposit|savings|sb)\b']
+  - id: dividend
+    category: Dividends
+    direction: CREDIT
+    any: ['\bdividend\b', '\bach c[- ]?(?:kfin|cams|link intime|mufg)\b', '\b(?:kfin|cams|link intime|mufg intime|bigshare)\b.{0,40}\b(?:ach|payout)\b']
+  - id: rent
+    category: Rent
+    any: ['\brent (?:paid|received|payment)\b', '\bhouse rent\b', '\bhome rent\b', '\bmonthly rent\b', '\brent for (?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)']
+  - id: gift
+    category: Gifts
+    subject: ['\bgift transfer\b']
+  - id: gift-counterparty
+    category: Gifts
+    counterparty: ['\bgift transfer\b', 'gift\b(?! cards?\b)']
+  - id: atm-cash
+    category: Cash
+    any: ['\batm\b.{0,20}\b(?:withdrawal|wdl|cwd)\b', '\bcash withdrawal\b', '\bcash wdl\b', '\bnfs ?cash\b', '\bcash deposit\b', '\bcash dep\b', '\bwithdrawn at atm\b', '\bcash advance\b']
+  - id: emi
+    category: EMI
+    direction: DEBIT
+    subject: ['\bemi\b', '\bloan (?:repayment|instal+ment|emi)\b']
+  - id: emi-counterparty
+    category: EMI
+    direction: DEBIT
+    counterparty: ['\bemi\b', '\bloan\b', '\bbajaj fin(?:ance|serv)?\b', '\btata capital\b', '\bhdb financial\b', '\bhome credit\b', '\bmuthoot\b', '\bmanappuram\b', '\bfullerton\b', '\bpiramal\b', '\bpoonawalla\b', '\bmoneyview\b', '\bkreditbee\b', '\bcholamandalam\b', '\bshriram finance\b', '\bl ?(?:&|and)? ?t fin']
+  - id: emi-nach
+    category: EMI
+    direction: DEBIT
+    any: ['\bnach\b.{0,60}\b(?:loan|lending|finance|finserv|capital|housing)\b', '\bloan (?:repayment|instal+ment)\b', '\bemi (?:of|debit|payment|deducted)\b']
+  - id: bank-charges
+    category: Charges
+    any: ['\b(?:annual|joining|renewal|membership|processing|convenience|foreclosure|overlimit|over limit|late payment|late|sms|debit card|account maintenance|min(?:imum)? balance|cheque return|nach return|ecs return|duplicate statement|cash handling) (?:fee|fees|charge|charges)\b', '\bfinance charges?\b', '\bgst on (?:fee|fees|charge|charges|interest|annual|late|processing|sms|service)\b', '\b(?:igst|cgst|sgst)\b', '\bbank charges?\b', '\bpenal charges?\b', '\bannual maintenance charge\b', '\b(?:amc|sms|atm|dc) ?(?:chg|chgs)\b', '\bdcc ?(?:fee|chg)\b']
+  - id: insurance
+    category: Insurance
+    counterparty: ['\binsurance\b', '\bassurance\b', '\bgeneral insurance\b']
+  - id: insurance-any
+    category: Insurance
+    any: ['\binsurance premium\b', '\bpremium (?:paid|payment)\b', '\bpolicy premium\b', '\bterm plan premium\b']
+  - id: income-tax
+    category: Taxes
+    counterparty: ['\bincome tax\b', '\bproperty tax\b', '\bcbdt\b', '\bmunicipal(?:ity)? tax\b', '\bdirect taxes\b']
+  - id: income-tax-any
+    category: Taxes
+    any: ['\bincome tax\b', '\btds (?:refund|payment|deducted)\b', '\badvance tax\b', '\bself assessment tax\b', '\bproperty tax\b', '\bgst payment\b', '\bcbdt\b', '\bprofessional tax\b', '\bcorporation tax\b']
+  - id: tolls
+    category: Tolls
+    counterparty: ['\btoll\b', '\bparking\b']
+  - id: tolls-any
+    category: Tolls
+    any: ['\bfastag\b', '\bnetc\b', '\bnhai\b']
+  - id: forex
+    category: Forex
+    any: ['\bforex card\b', '\bcurrency (?:purchase|conversion)\b', '\bforex (?:load|reload)\b']
+  - id: mobile-recharge
+    category: Mobile
+    any: ['\bmobile recharge\b', '\bprepaid recharge\b', '\bprepaid mobile\b', '\bpostpaid (?:bill|mobile)\b']
+  - id: electricity
+    category: Electricity
+    counterparty: ['\belectricity\b', '\bpower (?:corp|distribution)\b']
+  - id: electricity-any
+    category: Electricity
+    any: ['\belectricity (?:bill|board|payment)\b', '\bpower (?:bill|distribution|supply)\b', '\bdiscom\b']
+  - id: water
+    category: Water
+    counterparty: ['\bwater (?:board|works|supply)\b']
+  - id: water-any
+    category: Water
+    any: ['\bwater (?:bill|tax|charges?|supply)\b', '\bmetro ?water\b', '\bjal board\b']
+  - id: gas
+    category: Gas
+    counterparty: ['\bgas (?:agency|agencies|service)\b']
+  - id: gas-any
+    category: Gas
+    any: ['\blpg\b', '\bgas (?:cylinder|bill|booking)\b', '\bpiped gas\b']
+  - id: internet
+    category: Internet
+    any: ['\bbroadband\b', '\bfibernet\b', '\binternet (?:bill|plan|recharge)\b']
+  - id: maintenance
+    category: Maintenance
+    counterparty: ['\bresident welfare\b', '\brwa\b', '\bapartment owners?\b', '\bhousing society\b']
+  - id: maintenance-any
+    category: Maintenance
+    any: ['\bsociety maintenance\b', '\bapartment maintenance\b', '\bflat maintenance\b', '\bmaintenance (?:charges?|fee|fees|bill)\b']
+  - id: domestic-help
+    category: Help
+    any: ['\b(?:maid|cook|driver|nanny|housekeeping|house help|domestic help) (?:salary|payment|wages)\b']
+  - id: laundry
+    category: Laundry
+    counterparty: ['\blaundry\b', '\bdry ?clean(?:ing|ers)?\b']
+  - id: education
+    category: Education
+    counterparty: ['\bschool\b', '\bcollege\b', '\buniversity\b', '\bvidyalaya\b', '\bvidyashram\b']
+  - id: education-any
+    category: Education
+    any: ['\b(?:school|tuition|college|university|semester|exam) (?:fee|fees)\b']
+  - id: courses
+    category: Courses
+    counterparty: ['\bacademy\b', '\bcoaching\b', '\btuitions?\b', '\bclasses\b', '\binstitute\b']
+  - id: courses-any
+    category: Courses
+    any: ['\bonline course\b']
+  - id: donation
+    category: Donations
+    counterparty: ['\bcharit(?:y|able)\b', '\bngo\b', '\bfoundation\b', '\borphanage\b', '\bseva\b', '\bsamiti\b']
+  - id: donation-any
+    category: Donations
+    any: ['\bdonation\b', '\bcrowdfund', '\bcm relief fund\b', '\bpm cares\b']
+  - id: religious
+    category: Religious
+    counterparty: ['\btemple\b', '\bmandir\b', '\bgurudwara\b', '\bchurch\b', '\bmosque\b', '\bdargah\b', '\bdevasthanam\b', '\bhundi\b', '\bmutt\b', '\bashram\b', '\biskcon\b']
+  - id: government
+    category: Government
+    counterparty: ['\bpassport\b', '\btraffic police\b', '\bgovt\b', '\bgovernment\b', '\bcorporation of\b', '\bmunicipal corporation\b', '\bregistrar\b', '\bsub registrar\b']
+  - id: government-any
+    category: Government
+    any: ['\bpassport seva\b', '\bchallan\b', '\bstamp duty\b', '\bparivahan\b', '\bdigilocker\b']
+  - id: professional
+    category: Professional
+    counterparty: ['\bconsultan(?:t|ts|cy)\b', '\bchartered accountants?\b', '\badvocates?\b', '\blawyers?\b', '\bassociates\b', '\b(?:ca|auditor)s?\b(?= ?(?:firm|office))', '\btax consultants?\b']
+  - id: medical
+    category: Medical
+    counterparty: ['\bhospitals?\b', '\bclinic\b', '\bdental\b', '\bnursing home\b', '\bdoctors?\b', '\bhealthcare\b', '\bhealth care\b', '\beye care\b', '\bortho', '\bpolyclinic\b', '\bmaternity\b']
+  - id: pharmacy
+    category: Pharmacy
+    counterparty: ['pharmacy\b', '\bmedica\b', '\bpharma\b', '\bpharm\b', '\bmedicals?\b', '\bchemists?\b', '\bmedicines?\b', '\bdrugs?\b', '\bmedico\b']
+  - id: labs
+    category: Labs
+    counterparty: ['\bdiagno',  '\bpathology\b', '\bpath ?labs?\b', '\bscan centre\b', '\bscan center\b', '\blaborator(?:y|ies)\b']
+  - id: resort
+    category: Hotels
+    counterparty: ['\bresorts?\b']
+  - id: grooming
+    category: Grooming
+    counterparty: ['\bsalon\b', '\bbarber\b', '\bspa\b', '\bhair\b', '\bunisex\b', '\bbeauty parlou?r\b', '\bparlou?r\b', '\bmakeover\b']
+  - id: fitness
+    category: Fitness
+    counterparty: ['\bgym\b', '\bfitness\b', '\byoga\b', '\bcrossfit\b', '\bswimming\b', '\bbadminton\b', '\bsports\b']
+  - id: pets
+    category: Pets
+    counterparty: ['\bpets?\b', '\bveterinary\b', '\bvet\b', '\bkennel\b']
+  - id: drinks
+    category: Drinks
+    counterparty: ['\bwine ?shop\b', '\bliquor\b', '\btasmac\b', '\bbrewery\b', '\bbrewing\b', '\bpubs?\b', '\bwines\b', '\bbeers?\b', '\bdistillery\b', '\bbar (?:and|&) restaurant\b', '\bbrewpub\b']
+  - id: dining
+    category: Dining
+    counterparty: ['\bbakery\b', '\bbakers?\b', '\bsweets?\b', '\brestaurants?\b', '\bcafe\b', '\bcafé\b', '\bbiryani\b', '\bbhavan\b', '\bbhavanam\b', '\btiffin\b', '\bdhaba\b', '\bjuice (?:centre|center|bar|shop|corner)\b', '\bice ?creams?\b', '\bgelato\b', '\bcoffee\b', '\bchai\b', '\btea (?:stall|shop|house|centre|center|corner)\b', '\bpizza\b', '\bburgers?\b', '\bkitchen\b', '\bcanteen\b', '\bdineout\b', '\bsnacks?\b', '\bmeals?\b', '\bparotta\b', '\bidli\b', '\bdosa\b', '(?<!swiggy )(?<!zomato )(?<!eatsure )\bfoods?\b', '\bveg\b', 'kaapi\b', 'vilas\b']
+  - id: groceries
+    category: Groceries
+    counterparty: ['\bsupermarket\b', '\bsuper market\b', '\bhyper ?mart\b', '\bhyper(?: ?market)?\b', '\bprovisions?\b', '\bgrocer', '\bfruits?\b', 'mewa\b', '\bmaligai\b', '\bsupermar\b', '\bmandi\b', '\bkirana\b', '\bvegetables?\b', '\bmilk\b', '\bdairy\b', '\bmeat\b', '\bmart\b', '\bmega ?mart\b', '\bsupercenter\b', '\bsuper centre\b']
+  - id: fuel
+    category: Fuel
+    counterparty: ['\bpetrol\b', '\bdiesel\b', '\bfuel(?:s)?\b', '\bpetro(?:l|leum)?\b', '\bfilling station\b', '\bbunk\b', '\boil company\b']
+  - id: vehicle
+    category: Vehicle
+    counterparty: ['\bgarage\b', '\bmotors?\b', '\bauto ?(?:works|care|service|spares|parts|mobiles?)\b', '\bcar (?:wash|care|spa)\b', '\btyres?\b', '\btires?\b', '\bbike (?:service|care)\b', '\bspares?\b', '\bwheels?\b', '\bautomotive\b', '\b(?:honda|yamaha|suzuki|kawasaki)\b']
+  - id: bus-operator
+    category: Buses
+    counterparty: ['(?<!akbar )\btravels\b']
+  - id: travel-agency
+    category: Travel
+    counterparty: ['\btours?\b', '\bholidays\b', '\bvisa\b']
+  - id: hotel-small
+    category: Dining
+    counterparty: ['\bhotel\b']
+    maxAmount: 1500
+  - id: hotels
+    category: Hotels
+    counterparty: ['\bhotels?\b', '\bresidency\b', '\bresorts?\b', '\blodge\b', '\bhomestay\b', '\bguest ?house\b', '\binn\b', '\bsuites?\b']
+  - id: gold-investment
+    category: Investments
+    any: ['\bsovereign gold bonds?\b', '\bdigital gold\b', '\bgold ?bees\b']
+  - id: jewellery
+    category: Jewellery
+    counterparty: ['\bjewell?(?:er|ers|ery|ry)\b', '\bjewels\b', '\bgold (?:palace|house|covering|jewel\w*|mahal|souk)\b']
+  - id: clothing
+    category: Clothing
+    counterparty: ['\bgarments?\b', '\btextiles?\b', '\btex\b', '\bsarees?\b', '\bsilks\b', '\bfashions?\b', '\bapparels?\b', '\bboutique\b', '\btailor(?:s|ing)?\b', '\bfootwear\b', '\bshoes?\b', '\breadymades?\b', '\bclothing\b', '\bclothes\b', '\btrends\b']
+  - id: electronics
+    category: Electronics
+    counterparty: ['\bmobiles?\b', '\belectro(?:nics?)?\b', '\bcomputers?\b', '\blaptops?\b', '\bgadgets?\b', '\bcell ?(?:phones?|point)\b', '\belectricals?\b']
+  - id: furniture
+    category: Furniture
+    counterparty: ['\bfurniture\b', '\bmattress\b', '\binteriors?\b', '\bhome (?:decor|furnishings?)\b', '\bhardware\b', '\bplywood\b', '\bsanitary\b', '\bpaints?\b', '\btiles\b']
+  - id: books
+    category: Books
+    counterparty: ['\bbook ?(?:stall|store|shop|house|world)\b', '\bbooks\b', '\bstationer(?:y|s)\b', '\bxerox\b', '\bphotocopy\b', '\bprinters?\b', '\bprinting\b']
+  - id: services
+    category: Services
+    counterparty: ['\bplumb(?:er|ing)\b', '\belectrician\b', '\bpest control\b', '\bcarpent(?:er|ry)\b', '\bhome services?\b', '\bsecurity services\b']
+  - id: rent-bbps
+    category: Rent
+    counterparty: ['^rental ?bbps']
+  - id: subscribe-and-save
+    category: Shopping
+    counterparty: ['\bsubscribe (?:&|and) save\b']
+  - id: gaming
+    category: Gaming
+    counterparty: ['\bgames?\b']

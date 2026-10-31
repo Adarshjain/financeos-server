@@ -4,6 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.financeos.domain.categorization.builtin.BuiltinCategorizer;
+import com.financeos.domain.categorization.builtin.BuiltinMatch;
+import com.financeos.domain.categorization.builtin.CategorizeInput;
 import com.financeos.gmail.classify.BankSenderDomains;
 import com.financeos.gmail.classify.ClassificationResult;
 import com.financeos.gmail.classify.EmailClassifier;
@@ -11,6 +14,7 @@ import com.financeos.gmail.classify.EmailKind;
 import com.financeos.gmail.classify.EmailText;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailConnectionRepository;
+import com.financeos.gmail.extract.Direction;
 import com.financeos.gmail.extract.ExtractedTransaction;
 import com.financeos.gmail.extract.TransactionExtractor;
 import com.financeos.gmail.engine.GmailEngine;
@@ -34,11 +38,13 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -519,15 +525,95 @@ public class ClassifierEvalRunner implements CommandLineRunner {
         return write(mapper, line);
     }
 
-    /** Spring-free entry point: {@code ClassifierEvalRunner replay <dump.jsonl> <out.jsonl> [extract-out.jsonl]}. */
+    /**
+     * Spring-free entry point: {@code ClassifierEvalRunner replay <dump.jsonl> <out.jsonl> [extract-out.jsonl]} or
+     * {@code ClassifierEvalRunner categorize <dump.jsonl> <extract.jsonl> <out.jsonl>}.
+     */
     public static void main(String[] args) throws IOException {
+        if (args.length == 4 && "categorize".equals(args[0])) {
+            categorizeReplay(Path.of(args[1]), Path.of(args[2]), Path.of(args[3]), new ObjectMapper(), new BuiltinCategorizer());
+            return;
+        }
         if ((args.length != 3 && args.length != 4) || !"replay".equals(args[0])) {
             System.err.println("usage: ClassifierEvalRunner replay <dump.jsonl> <out.jsonl> [extract-out.jsonl]");
+            System.err.println("       ClassifierEvalRunner categorize <dump.jsonl> <extract.jsonl> <out.jsonl>");
             System.exit(2);
         }
         Summary s = replay(Path.of(args[1]), Path.of(args[2]), new EmailClassifier(), new ObjectMapper(),
                 args.length == 4 ? new TransactionExtractor() : null, args.length == 4 ? Path.of(args[3]) : null);
         System.out.println("replayed " + s.total + " message(s), " + s.errors + " error(s), by kind: " + s.byKind);
+    }
+
+    /**
+     * Runs the built-in categoriser over every ALERT row of an extraction file that has an amount, reading the
+     * mail it came from out of the dump. Writes one {@code {id, category, step, key}} line per row (category and
+     * step null when nothing matched); no mail content is written. Returns the rows per step ("NONE" = left to AI).
+     */
+    static Map<String, Integer> categorizeReplay(Path dumpPath, Path extractPath, Path outPath, ObjectMapper mapper,
+                                                 BuiltinCategorizer categorizer) throws IOException {
+        Map<String, GmailMessage> mails = new LinkedHashMap<>();
+        try (BufferedReader reader = Files.newBufferedReader(dumpPath, StandardCharsets.UTF_8)) {
+            String raw;
+            while ((raw = reader.readLine()) != null) {
+                if (!raw.isBlank()) {
+                    GmailMessage m = fromDumpLine(raw, mapper);
+                    mails.put(m.messageId(), m);
+                }
+            }
+        }
+        if (outPath.getParent() != null) {
+            Files.createDirectories(outPath.getParent());
+        }
+        // The account holder's name, as the app would know it: the name most mails greet the reader with.
+        Map<String, Integer> greetings = new HashMap<>();
+        for (GmailMessage m : mails.values()) {
+            BuiltinCategorizer.greetingName(EmailText.of(m).text())
+                    .ifPresent(g -> greetings.merge(g.toLowerCase(java.util.Locale.ROOT), 1, Integer::sum));
+        }
+        String holder = greetings.entrySet().stream().filter(e -> e.getKey().contains(" "))
+                .max(Map.Entry.comparingByValue()).map(Map.Entry::getKey)
+                .or(() -> greetings.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey)).orElse(null);
+        Map<String, Integer> byStep = new TreeMap<>();
+        int rows = 0;
+        try (BufferedReader reader = Files.newBufferedReader(extractPath, StandardCharsets.UTF_8);
+             BufferedWriter writer = Files.newBufferedWriter(outPath, StandardCharsets.UTF_8)) {
+            String raw;
+            while ((raw = reader.readLine()) != null) {
+                if (raw.isBlank()) {
+                    continue;
+                }
+                JsonNode row = mapper.readTree(raw);
+                GmailMessage message = mails.get(text(row, "id"));
+                if (message == null || !"ALERT".equals(text(row, "kind")) || text(row, "amount") == null) {
+                    continue;
+                }
+                BuiltinMatch match;
+                try {
+                    String direction = text(row, "direction");
+                    CategorizeInput input = new CategorizeInput(text(row, "counterparty"),
+                            direction == null ? null : Direction.valueOf(direction), new BigDecimal(text(row, "amount")),
+                            fromAddress(message.from()), message.subject(), EmailText.of(message).text(),
+                            text(row, "templateId"), null, holder);
+                    match = categorizer.categorize(input).orElse(null);
+                } catch (IllegalArgumentException e) {
+                    // a bad direction or amount: count it, never print the value
+                    byStep.merge("ERROR", 1, Integer::sum);
+                    continue;
+                }
+                Map<String, Object> line = new LinkedHashMap<>();
+                line.put("id", message.messageId());
+                line.put("category", match == null ? null : match.category());
+                line.put("step", match == null ? null : match.step().name());
+                line.put("key", match == null ? null : match.key());
+                writer.write(write(mapper, line));
+                writer.write('\n');
+                byStep.merge(match == null ? "NONE" : match.step().name(), 1, Integer::sum);
+                rows++;
+            }
+        }
+        log.info("Categorize replay wrote {} row(s) to {}: by step {}", rows, outPath, byStep);
+        System.out.println("categorized " + rows + " row(s), by step: " + byStep);
+        return byStep;
     }
 
     static String errorLine(String id, Exception e, ObjectMapper mapper) throws JsonProcessingException {

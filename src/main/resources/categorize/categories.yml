@@ -1,0 +1,13 @@
+# The only categories the built-in categoriser may output, by group. "LINK" is a step, not a category.
+groups:
+  Income: [Salary, Bonus, Interest, Dividends, Refunds, Cashback, Rent, Business, Gifts, Other]
+  Food: [Groceries, Dining, Takeout, Drinks]
+  Transport: [Fuel, Cabs, Transit, Tolls, Vehicle]
+  Travel: [Flights, Trains, Buses, Hotels, Travel, Forex]
+  Shopping: [Shopping, Clothing, Electronics, Furniture, Beauty, Books, Jewellery, Kids]
+  Home: [Maintenance, Electricity, Water, Gas, Mobile, Internet, TV, Services, Help, Laundry]
+  Fun: [Streaming, Music, Software, Entertainment, Gaming]
+  Health: [Medical, Pharmacy, Labs, Fitness, Grooming]
+  Learning: [Education, Courses]
+  Money: [EMI, Investments, Insurance, Cash, Charges, Taxes]
+  Others: [People, Donations, Religious, Pets, Government, Professional]
