@@ -75,6 +75,15 @@ public class ObservabilityMetrics {
                 .increment();
     }
 
+    /** Counts whole LLM calls (one per request, however many attempts) by task, so AI use can be tracked per feature. */
+    public void recordLlmCall(String task, String outcome) {
+        Counter.builder("financeos.llm.calls")
+                .tag("task", task != null && !task.isEmpty() ? task : "unknown")
+                .tag("outcome", outcome != null ? outcome : "unknown")
+                .register(registry)
+                .increment();
+    }
+
     /**
      * Increments total LLM token usage.
      * @param provider LLM provider name

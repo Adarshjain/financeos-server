@@ -274,6 +274,7 @@ public class FailoverLlmClient implements LlmClient {
 
                     if (metrics != null) {
                         metrics.recordLlmAttempt(providerId, "success");
+                        metrics.recordLlmCall(task, "success");
                     }
                     return response;
 
@@ -365,6 +366,9 @@ public class FailoverLlmClient implements LlmClient {
                 StructuredArguments.keyValue("totalLatencyMs", totalChainLatency),
                 StructuredArguments.keyValue("failureMessages", String.join("; ", failureMessages)));
 
+        if (metrics != null) {
+            metrics.recordLlmCall(task, "exhausted");
+        }
         String chainMessage = "All providers failed for task '" + task + "': " + String.join("; ", failureMessages) + expiryMsg;
         throw new LlmException(LlmException.Kind.FATAL, "chain", null, null, LlmHttpSupport.truncate(chainMessage, 1500));
     }

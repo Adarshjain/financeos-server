@@ -1,0 +1,25 @@
+# How the PEOPLE step tells an individual from a business: a name is 2-4 alphabetic words, optionally after an
+# honorific, and none of them a business word. Words are lowercase.
+honorifics: [mr, mrs, ms, miss, shri, sri, smt, shree, thiru, selvi, kumari]
+businessWords: [store, stores, traders, trader, trading, enterprises, enterprise, pvt, private, ltd, limited, llp, inc, corp,
+  company, services, service, mart, mall, hotel, hotels, medical, medicals, pharmacy, pharma, agencies, agency, industries,
+  industry, associates, brothers, bros, sons, and, the, of, for, to, shop, shoppe, supermarket, hyper, market, bazaar, bazar,
+  centre, center, point, world, house, palace, restaurant, cafe, bakery, sweets, foods, food, kitchen, mess, tiffin, juice,
+  gelato, cream, ice, cap, coffee, tea, bhavan, bhavanam, vilas, canteen, paper, oil, vegetable, vegetables, milk, dairy,
+  fruits, fruit, meat, chicken, fish, mutton, biryani, tex, textiles, textile, silks, silk, sarees, saree, garments, fashion,
+  fashions, boutique, tailors, jewellers, jewellery, jewels, opticals, optical, mobiles, mobile, electronics, electricals,
+  computers, hardware, paints, furniture, interiors, motors, motor, auto, garage, tyres, travels, tours, cabs, taxi,
+  transport, logistics, courier, solutions, systems, technologies, tech, labs, lab, infra, finance, bank, wholesale,
+  distributors, dealers, stationery, books, school, college, academy, institute, classes, tuition, clinic, hospital, dental,
+  diagnostics, gym, fitness, spa, salon, parlour, parlor, studio, club, trust, foundation, temple, society, association,
+  online, digital, network, networks, enterprise, works, workshop, engineering, constructions, builders, developers, realty,
+  properties, estate, petrol, fuel, bunk, gas, power, electric, energy, water, wine, wines, bar, pub, liquor, beer,
+  gifts, gift, toys, kids, baby, fresh, organic, natural, naturals, retail, general, provisions, kirana, super, mega, big,
+  new, old, pizzeria, safety, mandi, veg, residency, furnishing, furnishings, hardwares, ventures, international, railway, railways, partner,
+  partners,
+  bakes, chat, bhandar, bhandaar, sandwich, burrito, corner, duty, free, shopping, entertainment, entertainments, ent, board,
+  games, game, hub, mini, plaza, plaaza, overseas, state, trans, national, south, north, east, west, life, style, avenue, mens,
+  ladies, express, india, indian, tamilnadu, chennai, mumbai, delhi, bangalore, bengaluru, kerala, kovai, coimbatore, madurai,
+  salem, maritime, web, upi, prs, cdm, lounge, health, healthcare, technology, bill, payment, pay, billpay, bbps, purchase,
+  utility, gpay, bhel, puri, chaat, sandwiches, snacks, bites, delight, treat, treats, hut, corp, multis, multiplex, cinema,
+  cinemas, lifestyle, wear, readymade, readymades, emporium, sagar, bhandhar]
