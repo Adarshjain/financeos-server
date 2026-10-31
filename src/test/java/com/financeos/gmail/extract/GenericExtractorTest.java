@@ -99,4 +99,12 @@ class GenericExtractorTest {
                 + "Your available cash withdrawal limit is INR 75600.").orElseThrow();
         assertThat(tx.counterparty()).isEqualTo("SAMPLEWALLET");
     }
+
+    @Test
+    void counterpartyIsNeverACommonPhrase() {
+        ExtractedTransaction tx = run("Alert", "Rs. 500 credited to your account. We are happy to confirm this for you.").orElseThrow();
+        assertThat(tx.counterparty()).isNull();
+        ExtractedTransaction tx2 = run("Alert", "INR 500 debited from A/c XX1234 on 10-01-2026 to confirm this for you.").orElseThrow();
+        assertThat(tx2.counterparty()).isNull();
+    }
 }

@@ -90,7 +90,7 @@ fixtures:
     body: >-
       Dear Customer, Greetings from Equitas Small Finance Bank! Please note that an amount of INR 1,000.00 has been debited from account # XXXXXXXX1234
       Ref 000000000002 towards CHQ PAID-SELF-SELF - SAMPLE CITY on 30-JAN-2025. The available balance is INR 3,000.00.
-    expect: {amount: '1000.00', currency: INR, direction: DEBIT, date: '2025-01-30', counterparty: CHQ PAID-SELF-SELF - SAMPLE CITY, last4: '1234'}
+    expect: {amount: '1000.00', currency: INR, direction: DEBIT, date: '2025-01-30', counterparty: null, last4: '1234'}
 
   - template: equitas.account.upi.v1
     from: 'alerts@equitasbank.com'

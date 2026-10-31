@@ -96,4 +96,20 @@ class ExtractParsingTest {
         assertThat(ExtractParsing.parseDate(null, List.of("dd-MM-yyyy"), LocalDate.of(2026, 3, 10))).isNull();
         assertThat(ExtractParsing.parseDate("31-02-2026", List.of("dd-MM-yyyy"), LocalDate.of(2026, 3, 10))).isNull();
     }
+
+    @Test
+    void maskedAccountNumbersAreNoCounterparty() {
+        assertThat(ExtractParsing.cleanCounterparty("**2358", null)).isNull();
+        assertThat(ExtractParsing.cleanCounterparty("account **5678", null)).isNull();
+        assertThat(ExtractParsing.cleanCounterparty("A/c XX3006", null)).isNull();
+        assertThat(ExtractParsing.cleanCounterparty("XXXXXXXX1234", null)).isNull();
+    }
+
+    @Test
+    void maskedNamesAndRealNamesStayAsWritten() {
+        assertThat(ExtractParsing.cleanCounterparty("XXXXXXXXXXXXSA M", null)).isEqualTo("XXXXXXXXXXXXSA M");
+        assertThat(ExtractParsing.cleanCounterparty("Xerox Centre", null)).isEqualTo("Xerox Centre");
+        assertThat(ExtractParsing.cleanCounterparty("***1234@okbank", null)).isEqualTo("***1234@okbank");
+        assertThat(ExtractParsing.cleanCounterparty("SAMPLE STORE", null)).isEqualTo("SAMPLE STORE");
+    }
 }

@@ -1,0 +1,86 @@
+# Made-up emails for the engine V3 gaps (long UPI payee, masked parties, self cash/cheque, channel words, new HDFC / Paytm layouts).
+fixtures:
+  - template: equitas.account.upi.v1
+    from: 'alerts@equitasbank.com'
+    subject: 'UPI Debit Alert'
+    sent: '2024-03-06T10:00:00Z'
+    body: >-
+      Dear Customer, Amount of INR 12,345.00 has been debited from A/c XXXXXXXX1234 Ref on account of UPI REF NO 400000000000 P2M-Axis-payment on SAMPLEPAY- HEAD OFFICE value 06-MAR-2024 .
+    expect: {amount: '12345.00', currency: INR, direction: DEBIT, date: '2024-03-06', counterparty: 'Axis-payment on SAMPLEPAY', last4: '1234'}
+
+  - template: equitas.account.upi.v1
+    from: 'Equitas Alerts <esfb-alerts@equitasbank.com>'
+    subject: 'UPI Debit Alert'
+    sent: '2024-03-06T10:00:00Z'
+    body: >-
+      Dear Customer, Amount of INR 5,000.00 has been debited from A/c XXXXXXXX1234 Ref on account of UPI REF NO 400000000001 P2M-SAMPLE BROKING LIMITED-1234567890123456 Sample-UPI- HEAD OFFICE value 06-MAR-2024 .
+    expect: {amount: '5000.00', currency: INR, direction: DEBIT, date: '2024-03-06', counterparty: 'SAMPLE BROKING LIMITED', last4: '1234'}
+
+  - template: equitas.account.upi.v1
+    from: 'alerts@equitasbank.com'
+    subject: 'UPI Debit Alert'
+    sent: '2024-03-06T10:00:00Z'
+    body: >-
+      Dear Customer, Amount of INR 100.00 has been debited from A/c XXXXXXXX1234 Ref on account of UPI REF NO 400000000001 P2A-XXXXXXXXXXXXSA M-UPI- HEAD OFFICE value 06-MAR-2024 .
+    expect: {amount: '100.00', currency: INR, direction: DEBIT, date: '2024-03-06', counterparty: 'XXXXXXXXXXXXSA M', last4: '1234'}
+
+  - template: equitas.account.v1
+    from: 'alerts@equitasbank.com'
+    subject: 'Account Credit Alert'
+    sent: '2026-06-05T10:00:00Z'
+    body: >-
+      Dear Customer, An amount of INR 70,000.00 has been deposited to A/c XXXXXXXX1234 Ref 000000000000 on account of CASH DEP-SELF-CASH_DEP SAMPLETOWN value 05-JUN-2026 .
+    expect: {amount: '70000.00', currency: INR, direction: CREDIT, date: '2026-06-05', counterparty: null, last4: '1234'}
+
+  - template: equitas.debit.v2
+    from: 'alerts@equitasbank.com'
+    subject: 'Account Debit Alert'
+    sent: '2024-12-03T10:00:00Z'
+    body: >-
+      Dear Customer, Greetings from Equitas Small Finance Bank! Please note that an amount of INR 5,000.00 has been debited from account # XXXXXXXX1234 Ref 000000000012 towards CHQ PAID-SELF-SELF - SAMPLETOWN on 03-DEC-2024.
+    expect: {amount: '5000.00', currency: INR, direction: DEBIT, date: '2024-12-03', counterparty: null, last4: '1234'}
+
+  - template: hdfc.upi.credit.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-01-10T05:30:00Z'
+    body: |-
+      Dear Customer,
+      Rs. 2050.00 is successfully credited to your account **1234 by VPA sample-123456@ptybl WEB UPI on 10-01-26.
+      Your UPI transaction reference number is 100000000006.
+    expect: {amount: '2050.00', currency: 'INR', direction: 'CREDIT', date: '2026-01-10', counterparty: 'sample-123456@ptybl', last4: '1234'}
+
+  - template: hdfc.upi.debit.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'You have done a UPI txn. Check details!'
+    sent: '2024-10-02T05:30:00Z'
+    body: |-
+      Dear Customer,
+      Rs.1000.00 has been debited from account **1234 to account **5678 on 02-10-24.Your UPI transaction reference number is 100000000006.
+    expect: {amount: '1000.00', currency: 'INR', direction: 'DEBIT', date: '2024-10-02', counterparty: null, last4: '1234'}
+
+  - template: hdfc.account.transfer.done.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.bank.in>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-07-18T13:00:00Z'
+    body: >-
+      Dear Customer, Greetings from HDFC Bank! Important Note: Your RTGS transfer has been completed successfully. We know timely updates matter, and we are happy to confirm this for you.
+      Transaction Details: Amount: INR 5,00,000.00 Credited to beneficiary A/c ending: XX5678 Date & Time: 18-07-2026 at 18:15:50 Reference Number: HDFCR00000000000000000
+    expect: {amount: '500000.00', currency: INR, direction: DEBIT, date: '2026-07-18', counterparty: null, last4: null}
+
+  - template: hdfc.account.transfer.done.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-07-19T13:00:00Z'
+    body: >-
+      Dear Customer, Greetings from HDFC Bank! Important Note: Your IMPS transfer has been completed successfully. We know timely updates matter.
+      Transaction Details: Amount: INR 2,500.00 Credited to beneficiary A/c ending: XX5678 Date & Time: 19-07-2026 at 10:15:50 Reference Number: 100000000000
+    expect: {amount: '2500.00', currency: INR, direction: DEBIT, date: '2026-07-19', counterparty: null, last4: null}
+
+  - template: paytm.bill.payment.v1
+    from: 'Paytm <noreply@paytm.com>'
+    subject: 'Your Sample Bank Ltd 100000000 for Rs.3456 was Successful'
+    sent: '2024-01-30T14:30:00Z'
+    body: >-
+      Loan Payment Successful INR 3456 For Sample Bank Ltd Loan Account Number 100000000 Paid From Your UPI account 07:56 PM, Jan 30, 2024 Order ID 20000000000
+    expect: {amount: '3456', currency: INR, direction: DEBIT, date: '2024-01-30', counterparty: 'Sample Bank Ltd', last4: null}
