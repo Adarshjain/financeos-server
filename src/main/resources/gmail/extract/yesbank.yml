@@ -1,0 +1,17 @@
+# YES BANK credit-card alerts (spends, payment received).
+bank: yesbank
+templates:
+  # "INR 133.00 has been spent on your YES BANK Credit Card ending with 1234 at UPI_SHOP NAME 12345 on 16-05-2026 at 07:39:25 pm."
+  - id: yesbank.cc.spend.v1
+    senders: &senders [yes.bank.in, yesbank.in]
+    body: '(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been spent on your YES BANK Credit Card ending with (?<last4>\d+) at (?<counterparty>.+?) on (?<date>\d{1,2}-\d{1,2}-\d{2,4})'
+    direction: DEBIT
+    dateFormats: [dd-MM-yyyy, dd-MM-yy]
+    counterpartyStrip: ['^UPI_', '\s+\d+$']
+
+  # "Payment of INR 12,832.94 credited towards your YES BANK Credit Card ending 1234 on 06/05/25."
+  - id: yesbank.cc.payment.v1
+    senders: *senders
+    body: 'Payment of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) credited towards your YES BANK Credit Card ending (?:with )?(?<last4>\d+) on (?<date>\d{1,2}/\d{1,2}/\d{2,4})'
+    direction: CREDIT
+    dateFormats: [dd/MM/yyyy, dd/MM/yy]

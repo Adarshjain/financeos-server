@@ -1,0 +1,209 @@
+# One made-up email per HDFC template layout: everything below is invented (names, amounts, cards).
+fixtures:
+  - template: hdfc.upi.debit.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: '❗ You have done a UPI txn. Check details!'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer, INR 246.04 has been debited from account 1234 to VPA shop@okbank SAMPLE SHOP on 06-05-26. Your UPI transaction reference number is 100000000001.
+    expect: {amount: '246.04', currency: 'INR', direction: 'DEBIT', date: '2026-05-06', counterparty: 'SAMPLE SHOP', last4: '1234'}
+
+  - template: hdfc.upi.debit.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: '❗ You have done a UPI txn. Check details!'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      INR 968.92 has been debited from your HDFC Bank RuPay Credit Card XX1234 to q123456@ybl on 01-05-26. Your UPI transaction reference number is 100000000002.
+    expect: {amount: '968.92', currency: 'INR', direction: 'DEBIT', date: '2026-05-01', counterparty: 'q123456@ybl', last4: '1234'}
+
+  - template: hdfc.upi.debit.v2
+    from: 'HDFC Bank <alerts@hdfcbank.bank.in>'
+    subject: '❗ You have done a UPI txn. Check details!'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      Greetings from HDFC Bank!
+      INR 500.00 is debited from your account ending 1234 towards VPA *************5678@okbank (SAMPLE PERSON) on 22-10-26.
+      UPI transaction reference no.: 100000000003.
+    expect: {amount: '500.00', currency: 'INR', direction: 'DEBIT', date: '2026-10-22', counterparty: 'SAMPLE PERSON', last4: '1234'}
+
+  - template: hdfc.upi.debit.v2
+    from: 'HDFC Bank <alerts@hdfcbank.bank.in>'
+    subject: '❗ You have done a UPI txn. Check details!'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      INR 75.00 is debited from your account ending 1234 towards VPA sample@okbank on 22-10-26.
+    expect: {amount: '75.00', currency: 'INR', direction: 'DEBIT', date: '2026-10-22', counterparty: 'sample@okbank', last4: '1234'}
+
+  - template: hdfc.upi.debit.v3
+    from: 'HDFC Bank <alerts@hdfcbank.bank.in>'
+    subject: '❗ You have done a UPI txn. Check details!'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer ,
+      Greetings from HDFC Bank!
+      Transaction Details:
+      INR 1,870.40 has been debited from your RuPay Credit Card (ending 1234)
+      Paid to SV0000000000@axl
+      Date: 04-10-26
+      UPI Transaction Reference Number: 100000000004
+    expect: {amount: '1870.40', currency: 'INR', direction: 'DEBIT', date: '2026-10-04', counterparty: 'SV0000000000@axl', last4: '1234'}
+
+  - template: hdfc.upi.debit.v4
+    from: 'HDFC Bank <alerts@hdfcbank.bank.in>'
+    subject: '❗ You have done a UPI txn. Check details!'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      Greetings from HDFC Bank!
+      INR 1031.14 is debited from your HDFC Bank RuPay Credit Card ending 1234 and credited to VPA sv000@ybl (SampleApp) on 26 May, 2026.
+      UPI transaction reference no.: 100000000005
+    expect: {amount: '1031.14', currency: 'INR', direction: 'DEBIT', date: '2026-05-26', counterparty: 'SampleApp', last4: '1234'}
+
+  - template: hdfc.upi.credit.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      INR 30000.00 is successfully credited to your account **1234 by VPA sender@okbank SAMPLE SENDER on 12-04-25.
+      Your UPI transaction reference number is 100000000006.
+    expect: {amount: '30000.00', currency: 'INR', direction: 'CREDIT', date: '2025-04-12', counterparty: 'SAMPLE SENDER', last4: '1234'}
+
+  - template: hdfc.upi.credit.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      INR 110.00 is successfully credited to your account **1234 by VPA 9000000000@mbk on 30-04-26.
+    expect: {amount: '110.00', currency: 'INR', direction: 'CREDIT', date: '2026-04-30', counterparty: '9000000000@mbk', last4: '1234'}
+
+  - template: hdfc.upi.credit.v2
+    from: 'HDFC Bank <alerts@hdfcbank.bank.in>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      Greetings from HDFC Bank!
+      We're writing to inform you that INR 3,730.00 has been successfully credited to your HDFC Bank account ending in 1234.
+      Transaction Details:
+      a. Date: 18-09-26
+      b. Sender: SAMPLE SENDER (VPA: sender@okbank)
+      c. UPI Reference No.: 100000000007
+    expect: {amount: '3730.00', currency: 'INR', direction: 'CREDIT', date: '2026-09-18', counterparty: 'SAMPLE SENDER', last4: '1234'}
+
+  - template: hdfc.card.spend.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear CardHolder,
+      Thank you for using your HDFC Bank Debit Card ending 1234 for INR 251.95 at SAMPLE MERCHANT on 04-07-2025 11:10:51.
+      After the above transaction, the available balance on your card is INR 5000.00.
+    expect: {amount: '251.95', currency: 'INR', direction: 'DEBIT', date: '2025-07-04', counterparty: 'SAMPLE MERCHANT', last4: '1234'}
+
+  - template: hdfc.card.spend.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'Alert : Update on your HDFC Bank Credit Card'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Card Member,
+      Thank you for using your HDFC Bank Credit Card ending 1234 for INR 1,754.00 at SAMPLE STORE on 11-06-2025 14:01:45. Authorization code:- 000000
+      After the above transaction, the available balance on your card is INR 9000.00 and the total outstanding is INR 1000.00.
+    expect: {amount: '1754.00', currency: 'INR', direction: 'DEBIT', date: '2025-06-11', counterparty: 'SAMPLE STORE', last4: '1234'}
+
+  - template: hdfc.cc.spend.v2
+    from: 'HDFC Bank <alerts@hdfcbank.bank.in>'
+    subject: 'INR 876.50 debited via Credit Card **1234'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      Greetings from HDFC Bank!
+      INR 876.50 is debited from your HDFC Bank Credit Card ending 1234 towards sample shop on 16 Mar, 2026 at 12:50:56.
+    expect: {amount: '876.50', currency: 'INR', direction: 'DEBIT', date: '2026-03-16', counterparty: 'sample shop', last4: '1234'}
+
+  - template: hdfc.cc.spend.v2
+    from: 'HDFC Bank <alerts@hdfcbank.bank.in>'
+    subject: 'A payment was made using your Credit Card'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      Greetings from HDFC Bank.
+      We would like to inform you that INR 2.00 has been debited from your HDFC Bank Credit Card ending 1234 towards SAMPLE on 02 Oct, 2026 at 13:25:00 .
+    expect: {amount: '2.00', currency: 'INR', direction: 'DEBIT', date: '2026-10-02', counterparty: 'SAMPLE', last4: '1234'}
+
+  - template: hdfc.cc.reversal.v1
+    from: 'HDFC Bank <alerts@hdfcbank.bank.in>'
+    subject: 'Transaction reversal initiated'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      Greetings from HDFC Bank!
+      Transaction reversal of INR 2.00 has been initiated to your HDFC Bank Credit Card ending 1234.
+      From Merchant:A SAMPLE*MERCHANT LTD
+      Date Time: 02 Dec, 2025 at 17:16:19
+      Please allow up to 48 hours for the reversal to reflect.
+    expect: {amount: '2.00', currency: 'INR', direction: 'CREDIT', date: '2025-12-02', counterparty: 'SAMPLE*MERCHANT LTD', last4: '1234'}
+
+  - template: hdfc.account.mandate.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'Account update for your HDFC Bank A / c'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      INR 60.10 has been debited from HDFC Bank Account Number XXXXXXXXXX1234 towards Sample Biller Private Limited/0012345678 with UMRN HDFC0000000000000001 on 27-Apr-2025.
+    expect: {amount: '60.10', currency: 'INR', direction: 'DEBIT', date: '2025-04-27', counterparty: 'Sample Biller Private Limited', last4: '1234'}
+
+  - template: hdfc.account.credit.cash.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      Thank you for choosing HDFC Bank.
+      Your account XX1234 is credited with INR 48,000.00 on 17/06/26 at 16:24:46 at SAMPLE TOWN via Cash Deposit Machine.
+      Your available balance is INR 53,745.76
+    expect: {amount: '48000.00', currency: 'INR', direction: 'CREDIT', date: '2026-06-17', counterparty: null, last4: '1234'}
+
+  - template: hdfc.account.transfer.v2
+    from: 'HDFC Bank <alerts@hdfcbank.bank.in>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      Greetings from HDFC Bank!
+      INR 2,50,000.00 has been debited from your account ending xxxxxxxxxx1234 on 06-06-26 and credited to the account ending xxxxxxxx5678 via IMPS.
+      IMPS Reference No: 100000000008
+    expect: {amount: '250000.00', currency: 'INR', direction: 'DEBIT', date: '2026-06-06', counterparty: null, last4: '1234'}
+
+  - template: hdfc.account.transfer.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      Your A/c xxxxxxxxxx1234 is debited for INR 2,00,000.00 on 03-07-25 and A/c xxxxxxxx5678 is credited.
+      (IMPS Ref No. 100000000009).
+    expect: {amount: '200000.00', currency: 'INR', direction: 'DEBIT', date: '2025-07-03', counterparty: null, last4: '1234'}
+
+  - template: hdfc.account.netbanking.debit.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      This is to inform you that an amount of INR 250,000.00 has been debited from your account No. XXXX1234 on account of National Electronic Funds Transfer transaction using HDFC Bank NetBanking.
+    expect: {amount: '250000.00', currency: 'INR', direction: 'DEBIT', date: null, counterparty: null, last4: '1234'}
+
+  - template: hdfc.account.initiated.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      Thank you for banking with HDFC Bank.
+      You have successfully initiated RTGS transaction of INR 1000000 from your HDFC Bank A/c XX1234 for a transfer to payee Sample Payee using HDFC Bank Online Banking.
+    expect: {amount: '1000000', currency: 'INR', direction: 'DEBIT', date: null, counterparty: 'Sample Payee', last4: '1234'}

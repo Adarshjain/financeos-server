@@ -1,0 +1,101 @@
+# Made-up emails (invented names, amounts, cards) for the HSBC, YES Bank and ICICI templates.
+fixtures:
+  - template: hsbc.cc.purchase.v1
+    from: 'HSBC India <alerts@mail.hsbc.co.in>'
+    subject: 'You have used your HSBC Credit Card ending with 1234 for a purchase transaction'
+    sent: '2026-08-16T14:40:00Z'
+    body: >-
+      Dear Customer, We write to confirm that your Credit card no ending with 1234,has been used for INR 1,338.00
+      for payment to SAMPLE STORE on 16 Aug 2026 at 20:05. If you want to report this as a fraud transaction and block your card,
+      Please call 18000000000.
+    expect: {amount: '1338.00', currency: INR, direction: DEBIT, date: '2026-08-16', counterparty: SAMPLE STORE, last4: '1234'}
+
+  - template: hsbc.dc.purchase.v1
+    from: 'HSBC India <alerts@hsbc.bank.in>'
+    subject: 'You have used your HSBC Debit Card ending with 1234 for a purchase transaction'
+    sent: '2026-06-17T14:00:00Z'
+    body: >-
+      Dear Customer, We write to confirm that you have spent INR 250.50 using your HSBC Debit Card ending with 1234
+      at SAMPLE CAFE on 17JUN2026 at 19:27 hrs. If you want to report this as a fraud transaction and block your card, please call 18000000000.
+    expect: {amount: '250.50', currency: INR, direction: DEBIT, date: '2026-06-17', counterparty: SAMPLE CAFE, last4: '1234'}
+
+  - template: hsbc.cc.transaction.v1
+    from: 'HSBC India <alerts@mail.hsbc.co.in>'
+    subject: 'Credit Card Transaction Alert'
+    sent: '2026-10-30T10:00:00Z'
+    body: >-
+      Dear Customer, We're writing to confirm that your HSBC Credit Card xx1234 was used for a transaction of INR 274.00
+      at SAMPLE MALL on 30/10/26. Available limit: INR 484576.40 Amount due: INR 15423.60 If you did not make this transaction, please contact us.
+    expect: {amount: '274.00', currency: INR, direction: DEBIT, date: '2026-10-30', counterparty: SAMPLE MALL, last4: '1234'}
+
+  - template: hsbc.cc.credit.v1
+    from: 'HSBC India <alerts@mail.hsbc.co.in>'
+    subject: 'We have received credits on your HSBC credit card'
+    sent: '2026-08-27T09:00:00Z'
+    body: >-
+      Dear Customer, We have received credits of INR 4,321.00 on your HSBC credit card ending with 1234 on 27/08/2026.
+      The amount has been adjusted against your outstanding balance. Kindly make the remaining payment of INR 2,141.00 within timeline.
+    expect: {amount: '4321.00', currency: INR, direction: CREDIT, date: '2026-08-27', counterparty: null, last4: '1234'}
+
+  - template: yesbank.cc.spend.v1
+    from: 'YES bank <alerts@yes.bank.in>'
+    subject: 'YES BANK - Transaction Alert'
+    sent: '2026-05-16T14:10:00Z'
+    body: >-
+      YES BANK - Transaction Alert Dear Cardmember, INR 2,133.00 has been spent on your YES BANK Credit Card ending with 1234
+      at UPI_SAMPLE MEDICALS on 16-05-2026 at 07:39:25 pm. Avl Bal INR 394,030.00. In case of suspicious transaction, to block your card, SMS BLKCC.
+    expect: {amount: '2133.00', currency: INR, direction: DEBIT, date: '2026-05-16', counterparty: SAMPLE MEDICALS, last4: '1234'}
+
+  - template: yesbank.cc.spend.v1
+    from: 'YES bank <alerts@yesbank.in>'
+    subject: 'YES BANK - Transaction Alert'
+    sent: '2026-10-31T07:30:00Z'
+    body: >-
+      YES BANK - Transaction Alert Dear Customer, Greetings from YES BANK. INR 60.00 has been spent on your YES BANK Credit Card ending with 1234
+      at UPI_SAMPLE PARKING 3 on 31-10-2026 at 12:53:38 pm. Avl Bal INR 390,437.81.
+    expect: {amount: '60.00', currency: INR, direction: DEBIT, date: '2026-10-31', counterparty: SAMPLE PARKING, last4: '1234'}
+
+  - template: yesbank.cc.payment.v1
+    from: 'YES bank <alerts@yesbank.in>'
+    subject: 'Credit Card payment received'
+    sent: '2025-05-06T08:00:00Z'
+    body: >-
+      Dear Cardmember, Thank you for banking with YES BANK. Payment of INR 12,832.94 credited towards your YES BANK Credit Card ending 1234 on 06/05/25.
+      If you have any queries or need assistance, feel free to contact us.
+    expect: {amount: '12832.94', currency: INR, direction: CREDIT, date: '2025-05-06', counterparty: null, last4: '1234'}
+
+  - template: icici.cc.spend.v1
+    from: 'ICICI Bank <credit_cards@icicibank.com>'
+    subject: 'Transaction alert for your ICICI Bank Credit Card'
+    sent: '2026-09-20T09:15:00Z'
+    body: >-
+      Dear Customer, Your ICICI Bank Credit Card XX1234 has been used for a transaction of INR 899.00 on Sep 20, 2026 at 02:43:26.
+      Info: SAMPLE PAY IN E COMMERCE. The Available Credit Limit on your card is INR 6,69,079.00 and Total Credit Limit is INR 6,70,000.00.
+    expect: {amount: '899.00', currency: INR, direction: DEBIT, date: '2026-09-20', counterparty: SAMPLE PAY IN E COMMERCE, last4: '1234'}
+
+  - template: icici.cc.standing-instruction.v1
+    from: 'ICICI Bank <alerts@icici.bank.in>'
+    subject: 'Transaction Success notification for Standing Instruction on your ICICI Bank Credit Card'
+    sent: '2024-11-24T05:00:00Z'
+    body: >-
+      Dear Customer, We have successfully processed your payment of INR 246.05 towards Sample Shop, with Standing Instruction AbCdEf1234,
+      on 24/11/2024, through your ICICI Bank Credit Card 1234. Click here to manage your Standing Instructions.
+    expect: {amount: '246.05', currency: INR, direction: DEBIT, date: '2024-11-24', counterparty: Sample Shop, last4: '1234'}
+
+  - template: icici.cc.payment.v1
+    from: 'ICICI Bank <credit_cards@icicibank.com>'
+    subject: 'Payment received on your ICICI Bank Credit Card.'
+    sent: '2026-10-02T06:00:00Z'
+    body: >-
+      Payment received on your ICICI Bank Credit Card. Dear Customer, Oct 02,2026 Greetings from ICICI Bank!
+      We have received payment of INR 22.00 on your ICICI Bank Credit Card account 4000 XXXX XXXX 1234 on 02-Oct-2026.
+    expect: {amount: '22.00', currency: INR, direction: CREDIT, date: '2026-10-02', counterparty: null, last4: '1234'}
+
+  - template: icici.cc.payment.v2
+    from: 'ICICI Bank <credit_cards@icicibank.com>'
+    subject: 'Payment of INR 54321.10 received on your ICICI Bank Credit Card XX1234'
+    sent: '2024-09-05T06:00:00Z'
+    body: >-
+      Dear Customer, Greetings from ICICI Bank! Payment of INR 54321.10 towards ICICI Bank Credit Card XX1234 has been received
+      through UPI on September 05, 2024. Thank you.
+    expect: {amount: '54321.10', currency: INR, direction: CREDIT, date: '2024-09-05', counterparty: null, last4: '1234'}

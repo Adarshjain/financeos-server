@@ -1,0 +1,201 @@
+# Made-up emails for the wallet / co-brand templates (Amazon Pay, CRED, Scapia, Jupiter, Paytm): everything is invented.
+fixtures:
+  - template: amazonpay.paid.amazon.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: 'Rs 321.50 was paid on Amazon.in'
+    sent: '2026-03-10T05:30:00Z'
+    body: >-
+      Hi Test, Thanks for using Amazon Pay Balance. Your payment was successful. Paid on Amount Amazon.in INR 321.50
+      To report any unauthorised transaction, please click here Order ID 111-1111111-1111111 Order Date 10 March 2026
+      Updated Amazon Pay Balance INR 100.00 Wallet INR 1.00 Gift Cards INR 99.00
+    expect: {amount: '321.50', currency: INR, direction: DEBIT, date: '2026-03-10', counterparty: Amazon.in, last4: null}
+
+  - template: amazonpay.paid.amazon.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: '₹200.00 was paid on Amazon.in'
+    sent: '2026-03-05T05:30:00Z'
+    body: >-
+      Hi Test, Thanks for using Amazon Voucher. Your payment was successful. Paid on Amount Amazon.in INR 200.00
+      Paid using Amazon Shopping Voucher INR 200.00 Order ID 111-1111111-1111111 Order Date 05 Mar 2026
+    expect: {amount: '200.00', currency: INR, direction: DEBIT, date: '2026-03-05', counterparty: Amazon.in, last4: null}
+
+  - template: amazonpay.paid.upi.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: 'Rs.20.00 was paid to Sample Payee'
+    sent: '2026-03-17T05:30:00Z'
+    body: >-
+      Hi Test, Thanks for using Amazon Pay Balance. Your payment was successful. Paid to Amount Sample Payee INR 20.00
+      To report any unauthorised transaction, please click here UPI Reference ID 123456789012 Order Date 17 March 2026
+      Updated Amazon Pay Balance INR 100.00
+    expect: {amount: '20.00', currency: INR, direction: DEBIT, date: '2026-03-17', counterparty: Sample Payee, last4: null}
+
+  - template: amazonpay.payment.merchant.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: 'Your payment of ₹ 100.0 to Sample Cabs was successful'
+    sent: '2026-03-24T06:29:00Z'
+    body: >-
+      Hi Test, Your payment to Sample Cabs is Approved. Amount: INR 100.0 Payment date: Tuesday, 24 March, 2026 11:59:38 AM IST
+      Terms and Conditions: https://example.test This email was sent from an email address that can't receive emails.
+    expect: {amount: '100.0', currency: INR, direction: DEBIT, date: '2026-03-24', counterparty: Sample Cabs, last4: null}
+
+  - template: amazonpay.refund.merchant.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: 'Your refund of ₹765.40 for Sample Travels is successfully initiated'
+    sent: '2026-03-13T18:08:00Z'
+    body: >-
+      Hi Test, Your refund of INR 765.40 for Sample Travels is Completed Amount: INR 765.40 Payment date: Friday, 13 March, 2026 23:38:26 PM IST
+      Terms and Conditions: https://example.test
+    expect: {amount: '765.40', currency: INR, direction: CREDIT, date: '2026-03-13', counterparty: Sample Travels, last4: null}
+
+  - template: amazonpay.wallet.topup.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: '₹5000.00 added to your Amazon Pay Wallet.'
+    sent: '2026-03-30T08:01:00Z'
+    body: >-
+      Hi Test, Thanks for using Amazon Pay Balance. Your payment was successful. You have added INR 5000.00 successfully to your Amazon Pay Wallet
+      To report any unauthorised transaction, please click here Order ID 111-1111111-1111111 Order Date 30 March 2026
+    expect: {amount: '5000.00', currency: INR, direction: CREDIT, date: '2026-03-30', counterparty: null, last4: null}
+
+  - template: amazonpay.autopay.subscribe.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: 'Your automatic payment for Subscribe & Save is successful'
+    sent: '2026-02-24T01:04:00Z'
+    body: >-
+      AutoPay transaction of INR 269.80 for your Subscribe & Save deliveries is successful . Autopay for Total order amount INR 269.80
+      Payment method: Amazon Pay ICICI Bank Credit Card ****1234 Auto-payment date: 24 February 2026 Important note This charge is applicable.
+    expect: {amount: '269.80', currency: INR, direction: DEBIT, date: '2026-02-24', counterparty: null, last4: '1234'}
+
+  - template: amazonpay.autopay.subscribe.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: 'Your automatic payment for Subscribe & Save is successful'
+    sent: '2026-01-24T01:04:00Z'
+    body: >-
+      AutoPay transaction of INR 284.05 for your Subscribe & Save deliveries is successful . Autopay for Total order amount INR 284.05
+      Auto-payment date: 24 January 2026 Important note This charge is applicable.
+    expect: {amount: '284.05', currency: INR, direction: DEBIT, date: '2026-01-24', counterparty: null, last4: null}
+
+  - template: amazonpay.recharge.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: 'Your Mobile recharge for Rs. 859 is successful'
+    sent: '2026-03-23T15:10:00Z'
+    body: >-
+      Hi Test, Your recharge of pre-paid mobile(Sample) is successful. Paid to Sample Prepaid Payment Details Amount INR 859
+      Convenience fee INR 0 Paid Amount INR 859.00 Order Id 111-1111111-1111111 Subscriber Id 9000000000 Order date 23 March 2026
+    expect: {amount: '859.00', currency: INR, direction: DEBIT, date: '2026-03-23', counterparty: Sample Prepaid, last4: null}
+
+  - template: amazonpay.egift.credit.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: 'Your cashback of ₹432.10 is here!'
+    sent: '2026-03-11T13:22:00Z'
+    body: >-
+      Hi Test, Yay! Here's INR 432.10 cashback! Received Amount Amazon Pay eGift Card INR 432.10 Updated Amazon Pay Balance INR 1832.20
+      Gift Card ID 6000000000000000 Expiry date 11 March 2027
+    expect: {amount: '432.10', currency: INR, direction: CREDIT, date: null, counterparty: null, last4: null}
+
+  - template: amazonpay.egift.credit.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: 'Amazon has added a Refund Gift Card to your Amazon Pay balance'
+    sent: '2026-03-25T15:17:00Z'
+    body: >-
+      Dear Customer, Refund for your Amazon.in Order has been applied to your Amazon Pay balance. Received Amount Amazon Pay eGift Card INR 1,010.00
+      Reference ID 6000000000000000 Order Number 1111abc Expiry date 25-Mar-2027 Issued by Sample Labs
+    expect: {amount: '1010.00', currency: INR, direction: CREDIT, date: null, counterparty: null, last4: null}
+
+  - template: amazonpay.refund.card.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: 'Update on refund processed for your order'
+    sent: '2026-03-31T03:29:00Z'
+    body: >-
+      Dear Customer, We are pleased to inform you that the refund of INR 4321.0 for your order: 111-1111111-1111111, paid via credit card
+      has been successfully credited. Your refund has been credited to your Sample Bank credit card. The refund reference number is: 1234567890.
+    expect: {amount: '4321.0', currency: INR, direction: CREDIT, date: null, counterparty: null, last4: null}
+
+  - template: amazonpay.refund.card.v1
+    from: 'Amazon Pay <no-reply@amazonpay.in>'
+    subject: 'Update on refund processed for your order'
+    sent: '2026-03-17T07:24:00Z'
+    body: >-
+      Dear Customer, We are pleased to inform you that the refund of INR 235.0 for your order: 111-1111111-1111111 paid via UPI
+      has been successfully processed. The refund has been credited back to your bank account.
+    expect: {amount: '235.0', currency: INR, direction: CREDIT, date: null, counterparty: null, last4: null}
+
+  - template: cred.bill.payment.v1
+    from: 'CRED <cred@cred.club>'
+    subject: 'your credit card bill payment was successful'
+    sent: '2026-03-02T08:19:00Z'
+    body: >-
+      Test, here is your payment confirmation Your credit card payment was successful in 20 seconds Sample Bank •••• 1234
+      payment details amount paid INR 6,525.00 payment date Mar 02, 2026 credited to card Mar 02, 2026 transaction summary Order ID: ABC123
+    expect: {amount: '6525.00', currency: INR, direction: CREDIT, date: '2026-03-02', counterparty: null, last4: '1234'}
+
+  - template: cred.bill.payment.v1
+    from: 'CRED <cred@cred.club>'
+    subject: 'your credit card bill payment was successful'
+    sent: '2026-02-02T08:19:00Z'
+    body: >-
+      Test, here is your payment confirmation Your credit card payment was successful Sample Bank •••• 1234
+      payment details amount paid INR 99.00 payment date Feb 02, 2026 credited to card Feb 02, 2026
+    expect: {amount: '99.00', currency: INR, direction: CREDIT, date: '2026-02-02', counterparty: null, last4: '1234'}
+
+  - template: federal.scapia.spend.v1
+    from: 'Scapia <noreply@federalbank.co.in>'
+    subject: 'Your transaction was successful'
+    sent: '2026-03-01T06:09:00Z'
+    body: >-
+      Your transaction was successful! Your payment on 01-03-2026 at 11:39 AM using your Scapia Federal Visa Credit Card ending in 1234
+      has been successfully processed. Amount INR 3,560.69 Merchant Sample Shop Gb Want to convert this spend into EMI? Not you? Head to Support.
+    expect: {amount: '3560.69', currency: INR, direction: DEBIT, date: '2026-03-01', counterparty: Sample Shop Gb, last4: '1234'}
+
+  - template: federal.scapia.spend.v1
+    from: 'Scapia <noreply@federalbank.co.in>'
+    subject: 'Your transaction was successful'
+    sent: '2026-02-26T09:17:00Z'
+    body: >-
+      Your transaction was successful! Your payment on 26-02-2026 at 02:47 PM using your Scapia Federal Visa Credit Card ending in 1234
+      has been successfully processed. Want to convert this spend into EMI? Amount INR 45.10 Merchant Sample App Not you? Head to Support.
+    expect: {amount: '45.10', currency: INR, direction: DEBIT, date: '2026-02-26', counterparty: Sample App, last4: '1234'}
+
+  - template: federal.scapia.reversal.v1
+    from: 'Scapia <noreply@federalbank.co.in>'
+    subject: 'Your transaction has been reversed'
+    sent: '2026-03-13T07:22:00Z'
+    body: >-
+      Your transaction was reversed! A transaction on your Scapia Federal Visa Credit Card ending in 1234 has been reversed.
+      Amount INR 888.31 Merchant Sample Shop Need help? Head to Support on the Scapia app.
+    expect: {amount: '888.31', currency: INR, direction: CREDIT, date: null, counterparty: Sample Shop, last4: '1234'}
+
+  - template: federal.scapia.refund.v1
+    from: 'Scapia <noreply@federalbank.co.in>'
+    subject: 'Your refund is here'
+    sent: '2026-03-30T14:32:00Z'
+    body: >-
+      Refund Received! You've received a refund on your Scapia Federal Visa Credit Card ending in 1234. If this transaction was converted to EMI,
+      please log in. Amount INR 2.00 Merchant Sample Auth Need help? Head to Support on the Scapia app.
+    expect: {amount: '2.00', currency: INR, direction: CREDIT, date: null, counterparty: Sample Auth, last4: '1234'}
+
+  - template: federal.scapia.repayment.v1
+    from: 'Scapia <noreply@federalbank.co.in>'
+    subject: 'Your repayment is successful'
+    sent: '2026-03-02T04:38:00Z'
+    body: >-
+      Repayment successful! We've received your payment of INR 2,660.70 towards your Scapia Federal Credit Card.
+      Check the Scapia app to view your updated balance.
+    expect: {amount: '2660.70', currency: INR, direction: CREDIT, date: null, counterparty: null, last4: null}
+
+  - template: jupiter.card.payment.v1
+    from: 'Jupiter <noreply@jupiter.money>'
+    subject: 'Your RuPay Credit Card payment was successful'
+    sent: '2026-03-17T02:37:00Z'
+    body: >-
+      Hey, Test Your RuPay Credit Card payment was successful Issued by | Powered by You paid INR 2000.00 Paid to Sample Merchant City IN
+      Date Mar 17, 2026 Transaction ID 123456789012 Get instant support
+    expect: {amount: '2000.00', currency: INR, direction: DEBIT, date: '2026-03-17', counterparty: Sample Merchant City IN, last4: null}
+
+  - template: paytm.card.bill.v1
+    from: 'Paytm <noreply@paytm.com>'
+    subject: 'Your Bill Payment of Sample Bank Credit Card XXXX XXXX XXXX 1234 for Rs.2345 was Successful'
+    sent: '2026-01-31T17:34:00Z'
+    body: >-
+      Credit card Payment Successful INR 2345 For Sample Bank Credit Card Number XXXX XXXX XXXX 1234
+      Paid From Test's Wallet linked to 9000000000 11:03 PM, Jan 31, 2026 Order ID 123
+    expect: {amount: '2345', currency: INR, direction: CREDIT, date: '2026-01-31', counterparty: null, last4: '1234'}

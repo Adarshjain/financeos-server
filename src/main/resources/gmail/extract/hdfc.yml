@@ -1,0 +1,115 @@
+# HDFC Bank alerts: UPI (account and RuPay credit card), debit/credit card spends, credit card spends. Specific layouts first.
+bank: hdfc
+templates:
+  # "INR 500.00 is debited from your account ending 1234 towards VPA ***1234@okbank (SOME NAME) on 22-10-26."
+  - id: hdfc.upi.debit.v2
+    senders: &senders [hdfcbank.net, hdfcbank.bank.in, hdfc.bank.in, hdfcbank.com]
+    body: '(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) (?:is|has been) debited from your account ending (?<last4>[X*]*\d+) towards VPA (?<counterparty>\S+(?: \(.*?\))?) on (?<date>\d\d-\d\d-\d{2,4})'
+    direction: DEBIT
+    dateFormats: [dd-MM-yy, dd-MM-yyyy]
+    counterpartyStrip: ['^\S+\s*\(', '\)$']
+
+  # "INR 246.04 has been debited from account 1234 to VPA some@okbank SOME NAME on 06-05-26." (name optional)
+  # "INR 48.00 has been debited from your HDFC Bank RuPay Credit Card XX1234 to some@ybl SOME NAME on 18-04-26."
+  - id: hdfc.upi.debit.v1
+    senders: *senders
+    body: '(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been debited from (?:your HDFC Bank RuPay Credit Card|account) (?<last4>[X*]*\d+) to (?:VPA )?(?<counterparty>\S+(?: .+?)?) on (?<date>\d\d-\d\d-\d{2,4})'
+    direction: DEBIT
+    dateFormats: [dd-MM-yy, dd-MM-yyyy]
+    counterpartyStrip: ['^\S+@\S+\s+']
+
+  # "INR 1031.14 is debited from your HDFC Bank RuPay Credit Card ending 1234 and credited to VPA some@ybl (SomeShop) on 26 May, 2026."
+  - id: hdfc.upi.debit.v4
+    senders: *senders
+    body: '(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) (?:is|has been) debited from your (?:HDFC Bank )?RuPay Credit Card ending (?<last4>[X*]*\d+) and credited to VPA (?<counterparty>\S+(?: \(.*?\))?) on (?<date>\d\d \w{3},? \d{4})'
+    direction: DEBIT
+    dateFormats: ['dd MMM, yyyy', 'dd MMM yyyy']
+    counterpartyStrip: ['^\S+\s*\(', '\)$']
+
+  # "INR 1870.40 has been debited from your RuPay Credit Card (ending 1234) Paid to some@axl Date: 04-10-26 UPI Transaction Reference Number: 123"
+  - id: hdfc.upi.debit.v3
+    senders: *senders
+    body: '(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been debited from your (?:HDFC Bank )?RuPay Credit Card \(ending (?<last4>[X*]*\d+)\)[\s ]+Paid to (?<counterparty>.+?)[\s ]+Date: (?<date>\d\d-\d\d-\d{2,4})'
+    direction: DEBIT
+    dateFormats: [dd-MM-yy, dd-MM-yyyy]
+    counterpartyStrip: ['^\S+@\S+\s+']
+
+  # "INR 30000.00 is successfully credited to your account **1234 by VPA some@okbank SOME NAME on 12-04-25." (name optional)
+  - id: hdfc.upi.credit.v1
+    senders: *senders
+    body: '(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) is successfully credited to your account (?<last4>[X*]*\d+) by VPA (?<counterparty>\S+(?: .+?)?) on (?<date>\d\d-\d\d-\d{2,4})'
+    direction: CREDIT
+    dateFormats: [dd-MM-yy, dd-MM-yyyy]
+    counterpartyStrip: ['^\S+@\S+\s+']
+
+  # "INR 3730.00 has been successfully credited to your HDFC Bank account ending in 1234. Transaction Details: a. Date: 18-09-26 b. Sender: SOME NAME (VPA: some@okbank) c. UPI Reference No.: 123"
+  - id: hdfc.upi.credit.v2
+    senders: *senders
+    body: '(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been successfully credited to your HDFC Bank account ending in (?<last4>[X*]*\d+)\.[\s\S]*?Date: (?<date>\d\d-\d\d-\d{2,4})[\s ]+b\. Sender: (?<counterparty>.+?)[\s ]+c\. UPI'
+    direction: CREDIT
+    dateFormats: [dd-MM-yy, dd-MM-yyyy]
+    counterpartyStrip: ['\s*\(VPA: \S+\)$']
+
+  # "Thank you for using your HDFC Bank Debit Card ending 1234 for INR 251.95 at SHOP on 04-07-2025 11:10:51." (credit card: same sentence)
+  - id: hdfc.card.spend.v1
+    senders: *senders
+    body: 'Thank you for using your HDFC Bank (?:Debit|Credit) Card ending (?<last4>[X*]*\d+) for (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) at (?<counterparty>.+?) on (?<date>\d\d-\d\d-\d{2,4})'
+    direction: DEBIT
+    dateFormats: [dd-MM-yyyy, dd-MM-yy]
+
+  # "INR 876.50 is debited from your HDFC Bank Credit Card ending 1234 towards SHOP on 16 Mar, 2026 at 12:50:56." ("has been debited" in the newer "A payment was made" mail)
+  - id: hdfc.cc.spend.v2
+    senders: *senders
+    body: '(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) (?:is|has been) debited from your HDFC Bank Credit Card ending (?<last4>[X*]*\d+) towards (?<counterparty>.+?) on (?<date>\d\d \w{3},? \d{4})'
+    direction: DEBIT
+    dateFormats: ['dd MMM, yyyy', 'dd MMM yyyy']
+
+  # "Transaction reversal of INR 2.00 has been initiated to your HDFC Bank Credit Card ending 1234. From Merchant: SHOP Date Time: 02 Dec, 2025 at 17:16:19"
+  - id: hdfc.cc.reversal.v1
+    senders: *senders
+    body: 'Transaction reversal of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been initiated to your HDFC Bank Credit Card ending (?<last4>[X*]*\d+)\.[\s\S]*?From Merchant:(?:A )?\s*(?<counterparty>.+?)[\s ]+Date Time: (?<date>\d\d \w{3},? \d{4})'
+    direction: CREDIT
+    dateFormats: ['dd MMM, yyyy', 'dd MMM yyyy']
+
+  # "INR 60.10 has been debited from HDFC Bank Account Number XXXXXXXXXX1234 towards SOME BILLER/0012345678 with UMRN HDFC1234567890123456 on 27-Apr-2025." (NACH / e-mandate)
+  - id: hdfc.account.mandate.v1
+    senders: *senders
+    body: '(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been debited from HDFC Bank Account Number (?<last4>[X*]*\d+) towards (?<counterparty>.+?) with UMRN \S+ on (?<date>\d\d-\w{3}-\d{4})'
+    direction: DEBIT
+    dateFormats: [dd-MMM-yyyy]
+    counterpartyStrip: ['/\w*$']
+
+  # "Your account XX1234 is credited with INR 48,000.00 on 17/06/26 at 16:24:46 at SOME PLACE via Cash Deposit Machine."
+  - id: hdfc.account.credit.cash.v1
+    senders: *senders
+    body: 'Your account (?<last4>[X*]*\d+) is credited with (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) on (?<date>\d\d/\d\d/\d{2,4})'
+    direction: CREDIT
+    dateFormats: [dd/MM/yy, dd/MM/yyyy]
+
+  # "INR 2,50,000.00 has been debited from your account ending xxxxxxxxxx1234 on 06-06-26 and credited to the account ending xxxxxxxx5678 via IMPS."
+  - id: hdfc.account.transfer.v2
+    senders: *senders
+    body: '(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been debited from your account ending (?<last4>[X*]*\d+) on (?<date>\d\d-\d\d-\d{2,4}) and credited to the account ending'
+    direction: DEBIT
+    dateFormats: [dd-MM-yy, dd-MM-yyyy]
+
+  # "Your A/c xxxxxxxxxx1234 is debited for INR 2,00,000.00 on 03-07-25 and A/c xxxxxxxx5678 is credited. (IMPS Ref No. 123)."
+  - id: hdfc.account.transfer.v1
+    senders: *senders
+    body: 'A/c (?<last4>[X*]*\d+) is debited for (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) on (?<date>\d\d-\d\d-\d{2,4}) and A/c'
+    direction: DEBIT
+    dateFormats: [dd-MM-yy, dd-MM-yyyy]
+
+  # "an amount of INR 250,000.00 has been debited from your account No. XXXX1234 on account of National Electronic Funds Transfer transaction using HDFC Bank NetBanking."
+  - id: hdfc.account.netbanking.debit.v1
+    senders: *senders
+    body: 'amount of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been debited from your account No\.? (?<last4>[X*]*\d+) on account of'
+    direction: DEBIT
+    dateFormats: [dd-MM-yyyy]
+
+  # "You have successfully initiated RTGS transaction of INR 1000000 from your HDFC Bank A/c XX1234 for a transfer to payee SOME NAME using HDFC Bank Online Banking."
+  - id: hdfc.account.initiated.v1
+    senders: *senders
+    body: 'successfully initiated (?:RTGS|NEFT|IMPS) transaction of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) from your HDFC Bank A/c (?<last4>[X*]*\d+) for a transfer to payee (?<counterparty>.+?) using'
+    direction: DEBIT
+    dateFormats: [dd-MM-yyyy]

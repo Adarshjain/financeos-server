@@ -1,0 +1,27 @@
+# Federal Bank / Scapia co-branded credit card alerts (spend, reversal, refund, repayment).
+bank: federal
+templates:
+  # "Your payment on 01-12-2025 at 11:39 AM using your Scapia Federal Visa Credit Card ending in 1234 has been successfully processed. Amount INR 3,560.69 Merchant Some Shop"
+  - id: federal.scapia.spend.v1
+    senders: &senders [federalbank.co.in]
+    body: 'Your payment on (?<date>\d{1,2}-\d{1,2}-\d{4}) at [\d:]+ [AP]M using your .{1,50}? ending in (?<last4>\d{4}) has been successfully processed\.(?s:.*?)Amount\s+(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)\s+Merchant\s+(?<counterparty>.+?)\s+(?:Want to convert|Not you|Need help)'
+    direction: DEBIT
+    dateFormats: [dd-MM-yyyy]
+
+  # "A transaction on your Scapia Federal Visa Credit Card ending in 1234 has been reversed. Amount INR 888.31 Merchant Some Shop" (no date stated)
+  - id: federal.scapia.reversal.v1
+    senders: *senders
+    body: 'A transaction on your .{1,50}? ending in (?<last4>\d{4}) has been reversed\.(?s:.*?)Amount\s+(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)\s+Merchant\s+(?<counterparty>.+?)\s+(?:Need help|Not you)'
+    direction: CREDIT
+
+  # "You've received a refund on your Scapia Federal Visa Credit Card ending in 1234. ... Amount INR 2.00 Merchant Some Shop" (no date stated)
+  - id: federal.scapia.refund.v1
+    senders: *senders
+    body: 'received a refund on your .{1,50}? ending in (?<last4>\d{4})\.(?s:.*?)Amount\s+(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)\s+Merchant\s+(?<counterparty>.+?)\s+(?:Need help|Not you)'
+    direction: CREDIT
+
+  # "We've received your payment of INR 2,660.70 towards your Scapia Federal Credit Card." (no card digits, no date)
+  - id: federal.scapia.repayment.v1
+    senders: *senders
+    body: 'received your payment of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) towards your .{1,50}? Credit Card'
+    direction: CREDIT

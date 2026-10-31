@@ -1,0 +1,9 @@
+# Paytm (paytm.com): credit card bill payment from the Paytm wallet (read as a payment received on the paid card).
+bank: paytm
+templates:
+  # "Credit card Payment Successful INR 2345 For Axis Bank Credit Card Number XXXX XXXX XXXX 1234 Paid From <wallet> 11:03 PM, Jan 31, 2024"
+  - id: paytm.card.bill.v1
+    senders: [paytm.com]
+    body: 'Credit card Payment Successful\s+(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)\s+For\s+.{1,40}?Credit Card Number\s+[X\s]*(?<last4>\d{4})\s+Paid From(?s:.*?)\d{1,2}:\d\d [AP]M, (?<date>[A-Za-z]{3} \d{1,2}, \d{4})'
+    direction: CREDIT
+    dateFormats: ['MMM d, yyyy']

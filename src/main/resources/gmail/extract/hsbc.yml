@@ -1,0 +1,30 @@
+# HSBC India card alerts (credit-card and debit-card purchases, credits received on the card).
+bank: hsbc
+templates:
+  # "...your Credit card no ending with 1234,has been used for INR 338.00 for payment to SHOP NAME on 16 Aug 2026 at 20:05."
+  - id: hsbc.cc.purchase.v1
+    senders: &senders [mail.hsbc.co.in, hsbc.bank.in, hsbc.co.in]
+    body: 'Credit card no ending with (?<last4>\d+)\s*,?\s*has been used for (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) for payment to (?<counterparty>.+?) on (?<date>\d{1,2} [A-Z]{3} \d{4})'
+    direction: DEBIT
+    dateFormats: [d MMM yyyy]
+
+  # "...that you have spent INR 1.00 using your HSBC Debit Card ending with 1234 at SHOP NAME on 17JUN2026 at 19:27 hrs."
+  - id: hsbc.dc.purchase.v1
+    senders: *senders
+    body: 'you have spent (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) using your HSBC Debit Card ending with (?<last4>\d+) at (?<counterparty>.+?) on (?<date>\d{1,2}[A-Z]{3}\d{4})'
+    direction: DEBIT
+    dateFormats: [dMMMyyyy]
+
+  # "...that your HSBC Credit Card xx1234 was used for a transaction of INR 274.00 at SHOP NAME on 30/10/26."
+  - id: hsbc.cc.transaction.v1
+    senders: *senders
+    body: 'HSBC Credit Card (?<last4>[x*]*\d+) was used for a transaction of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) at (?<counterparty>.+?) on (?<date>\d{1,2}/\d{1,2}/\d{2,4})'
+    direction: DEBIT
+    dateFormats: [dd/MM/yyyy, dd/MM/yy]
+
+  # "We have received credits of INR 4,321.00 on your HSBC credit card ending with 1234 on 27/08/2026."
+  - id: hsbc.cc.credit.v1
+    senders: *senders
+    body: 'received credits of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) on your HSBC credit card ending with (?<last4>\d+) on (?<date>\d{1,2}/\d{1,2}/\d{2,4})'
+    direction: CREDIT
+    dateFormats: [dd/MM/yyyy, dd/MM/yy]
