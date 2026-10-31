@@ -1,0 +1,66 @@
+# Amazon Pay (amazonpay.in) alerts: Amazon Pay balance / voucher payments, UPI payments, merchant payments, wallet top-ups,
+# Subscribe & Save autopay, recharges and codes, and credits (cashback / refund / reward eGift cards, refunds to a card).
+bank: amazonpay
+templates:
+  # "INR 1450.00 was paid on Amazon.in ... Paid on Amount Amazon.in INR 1450.00 ... Order ID 402-1234567-1234567 Order Date 28 October 2026" (also vouchers, "02 Oct 2026")
+  - id: amazonpay.paid.amazon.v1
+    senders: &senders [amazonpay.in]
+    subject: 'was paid on Amazon\.in'
+    body: 'Paid on\s+Amount\s+(?<counterparty>Amazon\.in)\s+(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)\b(?s:.*?)Order Date\s+(?<date>\d{1,2} [A-Za-z]+ \d{4})'
+    direction: DEBIT
+    dateFormats: [d MMMM yyyy, d MMM yyyy]
+
+  # "INR 20.00 was paid to Some Name ... Paid to Amount Some Name INR 20.00 To report ... UPI Reference ID 123 Order Date 17 September 2026"
+  - id: amazonpay.paid.upi.v1
+    senders: *senders
+    subject: 'was paid to'
+    body: 'Paid to\s+Amount\s+(?<counterparty>.+?)\s+(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)\s(?s:.*?)Order Date\s+(?<date>\d{1,2} [A-Za-z]+ \d{4})'
+    direction: DEBIT
+    dateFormats: [d MMMM yyyy, d MMM yyyy]
+
+  # "Your payment to Some Shop is Approved. Amount: INR 100.0 Payment date: Saturday, 24 October, 2026 11:59:38 AM IST"
+  - id: amazonpay.payment.merchant.v1
+    senders: *senders
+    body: 'Your payment to (?<counterparty>.+?) is Approved\.\s*Amount:\s*(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)\s+Payment date:\s*[A-Za-z]+, (?<date>\d{1,2} [A-Za-z]+, \d{4})'
+    direction: DEBIT
+    dateFormats: ['d MMMM, yyyy']
+
+  # "Your refund of INR 765.40 for Some Shop is Completed Amount: INR 765.40 Payment date: Monday, 13 July, 2026 ..."
+  - id: amazonpay.refund.merchant.v1
+    senders: *senders
+    body: 'Your refund of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) for (?<counterparty>.+?) is Completed\s+Amount:(?s:.*?)Payment date:\s*[A-Za-z]+, (?<date>\d{1,2} [A-Za-z]+, \d{4})'
+    direction: CREDIT
+    dateFormats: ['d MMMM, yyyy']
+
+  # "You have added INR 5000.00 successfully to your Amazon Pay Wallet ... Order Date 30 August 2026"
+  - id: amazonpay.wallet.topup.v1
+    senders: *senders
+    body: 'You have added (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) successfully to your Amazon Pay Wallet(?s:.*?)Order Date\s+(?<date>\d{1,2} [A-Za-z]+ \d{4})'
+    direction: CREDIT
+    dateFormats: [d MMMM yyyy, d MMM yyyy]
+
+  # "AutoPay transaction of INR 269.80 for your Subscribe & Save deliveries is successful ... Payment method: Amazon Pay ICICI Bank Credit Card ****1234 Auto-payment date: 24 October 2024" (card line optional)
+  - id: amazonpay.autopay.subscribe.v1
+    senders: *senders
+    body: 'AutoPay transaction of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) for your Subscribe & Save deliveries is(?s:.*?)Total order amount\s+[A-Z]{3} [\d,.]+\s+(?:Payment method:\s+[^*]*?\*+(?<last4>\d{4})\s+)?Auto-payment date:\s+(?<date>\d{1,2} [A-Za-z]+ \d{4})'
+    direction: DEBIT
+    dateFormats: [d MMMM yyyy, d MMM yyyy]
+
+  # "Your purchase of Google Play recharge code is successful. Paid to Google Play recharge Payment Details Amount INR 200 Convenience fee INR 0 Paid Amount INR 200.00 ... Order date 18 July 2026" (also mobile recharge, App Store code)
+  - id: amazonpay.recharge.v1
+    senders: *senders
+    body: '(?:purchase|recharge) of .{1,60}? is successful\.\s+Paid to\s+(?<counterparty>.+?)\s+Payment Details\s+Amount\s+[A-Z]{3} [\d,.]+\s+Convenience fee\s+[A-Z]{3} [\d,.]+\s+Paid Amount\s+(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)\b(?s:.*?)Order date\s+(?<date>\d{1,2} [A-Za-z]+ \d{4})'
+    direction: DEBIT
+    dateFormats: [d MMMM yyyy, d MMM yyyy]
+
+  # "Received Amount Amazon Pay eGift Card INR 432.10 ..." (cashback, refund gift card, monthly card reward points; only an expiry date is stated, so no date)
+  - id: amazonpay.egift.credit.v1
+    senders: *senders
+    body: 'Received\s+Amount\s+Amazon Pay eGift Card\s+(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)'
+    direction: CREDIT
+
+  # "the refund of INR 4321.0 for your order: 403-1234567-1234567, paid via credit card has been successfully credited. Your refund has been credited to your ... credit card." (also "paid via UPI ... successfully processed")
+  - id: amazonpay.refund.card.v1
+    senders: *senders
+    body: 'the refund of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) for your order: [\d-]+,? paid via .{1,30}? has been successfully (?:credited|processed)'
+    direction: CREDIT

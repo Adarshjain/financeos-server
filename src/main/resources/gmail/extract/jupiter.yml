@@ -1,0 +1,9 @@
+# Jupiter (jupiter.money): RuPay credit card payment confirmations (a spend on the card; the card digits are not shown).
+bank: jupiter
+templates:
+  # "You paid INR 2000.00 Paid to Some Merchant Date Aug 17, 2026 Transaction ID 123"
+  - id: jupiter.card.payment.v1
+    senders: [jupiter.money]
+    body: 'You paid\s+(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)\s+Paid to\s+(?<counterparty>.+?)\s+Date\s+(?<date>[A-Za-z]{3} \d{1,2}, \d{4})'
+    direction: DEBIT
+    dateFormats: ['MMM d, yyyy']

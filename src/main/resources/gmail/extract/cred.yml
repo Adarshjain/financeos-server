@@ -1,0 +1,9 @@
+# CRED (cred.club): credit card bill payment confirmations (credits the paid card).
+bank: cred
+templates:
+  # "your credit card payment was successful in 20 seconds ICICI Bank •••• 1234 payment details amount paid INR 22.00 payment date Oct 02, 2026 credited to card Oct 02, 2026"
+  - id: cred.bill.payment.v1
+    senders: [cred.club]
+    body: 'credit card payment was successful(?: in \d+ seconds)?\s+.{1,40}?\s*[•*Xx.]+\s*(?<last4>\d{4})\s+payment details\s+amount paid\s+(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)\s+payment date\s+(?<date>[A-Za-z]{3} \d{1,2}, \d{4})'
+    direction: CREDIT
+    dateFormats: ['MMM d, yyyy']

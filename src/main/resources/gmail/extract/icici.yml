@@ -1,0 +1,30 @@
+# ICICI Bank credit-card alerts (spends, standing-instruction debits, payment received).
+bank: icici
+templates:
+  # "Your ICICI Bank Credit Card XX1234 has been used for a transaction of INR 899.00 on Sep 20, 2026 at 02:43:26. Info: SHOP NAME."
+  - id: icici.cc.spend.v1
+    senders: &senders [icicibank.com, icici.bank.in]
+    body: 'Credit Card (?<last4>[X*]*\d+) has been used for a transaction of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) on (?<date>[A-Z]{3} \d{1,2}, \d{4}) at [\d:]+\. Info: (?<counterparty>.+?)\.\s'
+    direction: DEBIT
+    dateFormats: ['MMM d, yyyy']
+
+  # "We have successfully processed your payment of INR 246.05 towards Shop, with Standing Instruction AbC123, on 24/11/2024, through your ICICI Bank Credit Card 1234."
+  - id: icici.cc.standing-instruction.v1
+    senders: *senders
+    body: 'processed your payment of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) towards (?<counterparty>.+?), with Standing Instruction \S+, on (?<date>\d{1,2}/\d{1,2}/\d{4}), through your ICICI Bank Credit Card (?<last4>[X*\d ]*\d+)'
+    direction: DEBIT
+    dateFormats: [dd/MM/yyyy]
+
+  # "We have received payment of INR 22.00 on your ICICI Bank Credit Card account 1234 XXXX XXXX 5678 on 02-Oct-2026."
+  - id: icici.cc.payment.v1
+    senders: *senders
+    body: 'received payment of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) on your ICICI Bank Credit Card account (?<last4>[X\d ]*\d+) on (?<date>\d{1,2}-[A-Z]{3}-\d{2,4})'
+    direction: CREDIT
+    dateFormats: [dd-MMM-yyyy, dd-MMM-yy]
+
+  # "Payment of INR 54321.10 towards ICICI Bank Credit Card XX1234 has been received through UPI on September 05, 2024."
+  - id: icici.cc.payment.v2
+    senders: *senders
+    body: 'Payment of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) towards ICICI Bank Credit Card (?<last4>[X*]*\d+) has been received (?:through \w+ )?on (?<date>[A-Z]+ \d{1,2}, \d{4})'
+    direction: CREDIT
+    dateFormats: ['MMMM d, yyyy', 'MMM d, yyyy']
