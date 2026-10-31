@@ -1,0 +1,244 @@
+[
+ {
+  "name": "v3 amazon pay autopay success is a debit",
+  "from": "Amazon Pay <no-reply@amazonpay.in>",
+  "subject": "Your automatic payment for Subscribe & Save is successful",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Hello Asha, AutoPay transaction of ₹349.00 for your Subscribe & Save deliveries is successful. Auto-payment date: 12 Mar 2026. Order ID 111-0000000-0000000."
+ },
+ {
+  "name": "v3 amazon pay autopay scheduled stays upcoming",
+  "from": "Amazon Pay <no-reply@amazonpay.in>",
+  "subject": "Your Subscribe & Save auto-payment is scheduled",
+  "kind": "OTHER",
+  "subtype": "UPCOMING_DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Hello Asha, your Subscribe & Save AutoPay for ₹349.00 is scheduled on 15 Mar 2026."
+ },
+ {
+  "name": "v3 amazon pay wallet top-up is a credit",
+  "from": "Amazon Pay <no-reply@amazonpay.in>",
+  "subject": "₹500.00 added to your Amazon Pay Wallet.",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "MEDIUM",
+  "bodyText": "You have added ₹500.00 successfully to your Amazon Pay Wallet on 10 Mar 2026. Updated Amazon Pay Balance: ₹1,250.00. Explore offers on Amazon Pay."
+ },
+ {
+  "name": "v3 axis card spend in IDR is a debit",
+  "from": "Axis Bank <alerts@axisbank.com>",
+  "subject": "Transaction alert on your Axis Bank Credit Card",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Thank you for using your credit card no. XX1234 for IDR 150000 at SOME SHOP on 22-04-25 11:48:53 IST. If this was not you, SMS BLOCK 1234 to 5676782.",
+  "bank": "axis"
+ },
+ {
+  "name": "v3 axis card IDR reversal",
+  "from": "Axis Bank <alerts@axisbank.com>",
+  "subject": "Transaction reversal on your Axis Bank Credit Card",
+  "kind": "ALERT",
+  "subtype": "REVERSAL",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, the transaction of IDR 150000 on Axis Bank Credit Card no. XX1234 on 30-04-25 06:00:51 IST at SOME MERCHANT has been reversed.",
+  "bank": "axis"
+ },
+ {
+  "name": "v3 arbitrary three capitals are not a currency",
+  "from": "Axis Bank <alerts@axisbank.com>",
+  "subject": "Update",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Hello, the XYZ 150000 plan has been paid for.",
+  "bank": "axis"
+ },
+ {
+  "name": "v3 hdfc forex remittance processed is a debit",
+  "from": "HDFC Bank <alerts@hdfcbank.net>",
+  "subject": "Your forex remittance request has been processed",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, we have processed your request of FCYTTSELL for USD 792.0 @ 88.92 from your account 501234 / Cust ID: 99999 on 27/02/2025.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "v3 axis auto pay activated is service",
+  "from": "Axis Bank <alerts@axisbank.com>",
+  "subject": "Auto Pay facility has been activated",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, Auto Pay facility is activated on your card. Transaction amount INR 299.00. Max limit set INR 5,000.00. Auto Pay ID AP0000001.",
+  "bank": "axis"
+ },
+ {
+  "name": "v3 axis auto pay cancelled is service",
+  "from": "Axis Bank <alerts@axisbank.com>",
+  "subject": "Cancellation of Auto Pay facility",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, your Auto Pay facility is cancelled. Transaction amount INR 299.00. Max limit set INR 5,000.00. Auto Pay ID AP0000001.",
+  "bank": "axis"
+ },
+ {
+  "name": "v3 icici standing instruction registration is service",
+  "from": "ICICI Bank <credit_cards@icicibank.com>",
+  "subject": "Successful registration of Standing Instructions on your ICICI Bank Credit Card",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, your standing instruction is registered on your card XX1234. Maximum Amount: INR. 199.00 Frequency: Monthly Mandate ID: M0000001.",
+  "bank": "icici"
+ },
+ {
+  "name": "v3 icici standing instruction payment processed stays a debit",
+  "from": "ICICI Bank <credit_cards@icicibank.com>",
+  "subject": "Payment processed for your Standing Instruction",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, INR 199.00 has been debited from your ICICI Bank Credit Card XX1234 on 05-Mar-26 towards your standing instruction for ACME STREAMING.",
+  "bank": "icici"
+ },
+ {
+  "name": "v3 icici unable to reach you is security",
+  "from": "ICICI Bank <credit_cards@icicibank.com>",
+  "subject": "Unable to reach you",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, we are unable to reach you to confirm the transaction of INR 1,234.00 paid through ICICI Bank Credit Card XX1234. Please call us.",
+  "bank": "icici"
+ },
+ {
+  "name": "v3 hdfc remittance request received is service",
+  "from": "HDFC Bank <alerts@hdfcbank.net>",
+  "subject": "Foreign remittance request received",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, we have received your request to transfer an amount of USD 792.00 to Acme Inc, through Foreign Outward Remittance. Your request will be processed by end of next working day.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "v3 hdfc UPI alert notice is service",
+  "from": "HDFC Bank <alerts@hdfcbank.net>",
+  "subject": "Important Update on UPI Transaction alerts on SMS",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, you will receive an SMS alert for UPI transactions above ₹100 and an email alert for transactions above ₹500 debited from your account.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "v3 cred perks changing is service",
+  "from": "CRED <noreply@cred.club>",
+  "subject": "your HDFC Bank credit card perks are changing",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Terms and conditions are changing. Spends above ₹10,000 per month will earn rewards."
+ },
+ {
+  "name": "v3 equitas cheque clearing notice is service",
+  "from": "Equitas <info@equitasbank.com>",
+  "subject": "Important update on Clearing of Cheques",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "As per RBI, continuous clearing of cheques starts. Cheques above ₹50,000 need positive pay.",
+  "bank": "equitas"
+ },
+ {
+  "name": "v3 amazon pay brand gift card is not a credit",
+  "from": "Amazon Pay <no-reply@amazonpay.in>",
+  "subject": "Asha sent you a brand gift card for Google Play",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "You have received a ₹65.00 Google Play brand gift card from Asha. Redemption Gift Code: AAAA-BBBB-CCCC. PIN/Voucher Code: 1234."
+ },
+ {
+  "name": "v3 amazon pay cashback credit to balance stays a credit",
+  "from": "Amazon Pay <no-reply@amazonpay.in>",
+  "subject": "Cashback credited",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "₹25.00 cashback has been credited to your Amazon Pay account ending 1234 on 10 Mar 2026."
+ },
+ {
+  "name": "v3 hdfc smart emi amortization schedule is a document",
+  "from": "HDFC Bank <alerts@hdfcbank.net>",
+  "subject": "SMARTEMI LOAN AMORTIZATION SCHEDULE for your card",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, please find your EMI repayment schedule attached.",
+  "bank": "hdfc",
+  "attachments": [
+   {
+    "filename": "schedule_0001.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "v3 hdfc smart emi duplicate schedule is a document",
+  "from": "HDFC Bank <alerts@hdfcbank.net>",
+  "subject": "SMART EMI LOAN DUPLICATE SCHEDULE for your card",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, please find your duplicate schedule attached. Your statement will show the EMI.",
+  "bank": "hdfc",
+  "attachments": [
+   {
+    "filename": "dup_0001.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "v3 scapia welcome kit is a document",
+  "from": "Scapia <scapiacards@federalbank.co.in>",
+  "subject": "Your Scapia Federal Credit Card is ready to be used!",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Your card is ready. Find the card terms attached. Your first statement will arrive next month.",
+  "bank": "federal",
+  "attachments": [
+   {
+    "filename": "MITC_0001.pdf",
+    "mimeType": "application/pdf"
+   },
+   {
+    "filename": "KFS_0001.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "v3 hdfc transaction advices is a document",
+  "from": "HDFC Bank <alerts@hdfcbank.net>",
+  "subject": "Transaction advices for your company ACME LTD",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, please find attached the transaction advice for your outward remittance. See your statement for details.",
+  "bank": "hdfc",
+  "attachments": [
+   {
+    "filename": "advice_0001.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ }
+]

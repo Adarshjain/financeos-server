@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @Component
 public class EmailClassifier {
 
-    public static final int VERSION = 2;
+    public static final int VERSION = 3;
 
     // ---------------------------------------------------------------------------------------------
     // Word lists: extend here. All patterns match against lowercase text, currency already as "INR".
@@ -48,8 +48,11 @@ public class EmailClassifier {
                     + "|\\botp\\b.{0,80}?\\bis\\s+\\d{4,8}\\b"
                     + "|\\b(?:verification code|one[- ]time password)\\s*(?:is|:)?\\s*\\d{4,8}\\b");
 
+    /** Known ISO-4217 codes accepted before an amount; an arbitrary 3-letter word is never a currency. */
+    private static final String CURRENCY_CODES = "inr|usd|eur|gbp|aed|sgd|idr|thb|jpy|aud|cad|chf|myr|lkr|npr|hkd|cny|sar|qar|kwd|omr|bhd|nzd|zar|vnd|krw|php";
+
     private static final Pattern AMOUNT = Pattern.compile(
-            "(?:\\b(?:inr|usd|eur|gbp|aed|sgd|aud|cad|jpy|chf|hkd)|[$€£])\\s?\\d[\\d,]{0,15}(?:\\.\\d{1,2})?");
+            "(?:\\b(?:" + CURRENCY_CODES + ")|[$€£])\\s?\\d[\\d,]{0,15}(?:\\.\\d{1,2})?");
     /** Verbs that alone make a sentence a transaction sentence. "has been made" / "thank you for using" are phrases, not loose words. */
     private static final Pattern TXN_VERB = word("debited|credited|spent|withdrawn|paid|received|deposited|transferred|sent|charged"
             + "|reversed|refunded|reversal|refund|(?:has|have|was|were)(?: been)? made|thank you for using");
@@ -92,12 +95,12 @@ public class EmailClassifier {
     /** Labelled-field alerts (no verb): "Amount: INR 50 Merchant: X Card: XX1234". "Amount due:" is not an amount label. */
     private static final Pattern LABELLED_AMOUNT = Pattern.compile(
             "(?<!total )(?<!minimum )(?<!outstanding )\\b(?:transaction amount|txn amount|txn amt|transaction value|amount|amt)\\s*[:\\-]\\s*"
-                    + "(?:\\(inr\\)\\s*)?(?:\\b(?:inr|usd|eur|gbp|aed|sgd|aud|cad|jpy|chf|hkd)|[$\u20AC\u00A3])\\s?\\d");
+                    + "(?:\\(inr\\)\\s*)?(?:\\b(?:" + CURRENCY_CODES + ")|[$\u20AC\u00A3])\\s?\\d");
     private static final Pattern TRANSACTION_LABEL = Pattern.compile(
             "(?<!due )(?<!statement )\\b(?:merchant name|merchant|at|to|from|transaction date|txn date|date(?: (?:&|and) time)?|card|account|ref no|upi ref|transaction type)\\s*:");
     /** Table labels without a colon: "Amount INR 2.00 Merchant X". Block boundaries (U+2029) count as whitespace. */
     private static final String GAP = "[\\s" + EmailText.SECTION + "]*";
-    private static final String CUR = "(?:\\b(?:inr|usd|eur|gbp|aed|sgd|aud|cad|jpy|chf|hkd)|[$\u20AC\u00A3])\\s?\\d";
+    private static final String CUR = "(?:\\b(?:" + CURRENCY_CODES + ")|[$\u20AC\u00A3])\\s?\\d";
     private static final Pattern LABELLED_AMOUNT_NO_COLON = Pattern.compile(
             "(?:^|[.!?:" + EmailText.SECTION + "])" + GAP + "(?:transaction amount|txn amount|amount|amt)" + GAP + CUR);
     private static final Pattern TRANSACTION_LABEL_NO_COLON = Pattern.compile(
@@ -143,6 +146,34 @@ public class EmailClassifier {
     /** Selling wording that wins over the weak balance/bill cues, but only when no card/account is referenced. */
     private static final Pattern STRONG_PROMO = Pattern.compile(
             "\\blounge\\b|reduce your (?:card )?bill|\\bvoucher\\b|\\bearned\\b.{0,40}?\\bcashback\\b");
+    /** Mandate / standing-instruction set-up or cancellation: the amount is a limit, not a debit. */
+    private static final Pattern MANDATE_SETUP_SUBJECT = Pattern.compile(
+            "\\bauto ?pay facility\\b|\\bcancellation of auto ?pay\\b|\\bregistration of standing instructions?\\b");
+    /** The bank could not reach the customer to confirm a charge: a security notice, not a debit. */
+    private static final Pattern UNCONFIRMED_TXN = Pattern.compile("\\bunable to (?:reach|contact) you\\b.{0,40}?\\bconfirm\\b");
+    /** A foreign remittance request that was only received; the money has not moved yet. */
+    private static final Pattern REMITTANCE_REQUEST_RECEIVED = Pattern.compile(
+            "\\breceived your request to transfer\\b.{0,80}?\\bremittance\\b|\\bremittance\\b.{0,200}?\\bwill be processed\\b");
+    /** Generic bank / card notices (alert thresholds, T&C or clearing changes): the subject says it is an update. */
+    private static final Pattern NOTICE_SUBJECT = Pattern.compile(
+            "^\\s*important (?:update|notice|changes?) (?:on|to|regarding) .{0,40}?\\balerts?\\b|\\bperks are changing\\b|\\bclearing of cheques\\b");
+    /** Brand gift card delivery mails carry a face value and a code, but no money moved. */
+    private static final Pattern GIFT_CARD_DELIVERY = Pattern.compile(
+            "\\bsent you an? brand gift card\\b|\\breceived an? inr\\s?\\d[\\d,.]*\\s[a-z0-9 ]{0,40}?brand gift card\\b");
+    /** Amazon Pay AutoPay that went through (no card/account reference in these mails). */
+    private static final Pattern AUTOPAY_SUCCESS = Pattern.compile(
+            "\\b(?:autopay|auto-pay|auto-payment) transaction of inr\\s?\\d[\\d,.]*.{0,80}?\\bis successful\\b");
+    /** A wallet top-up credits the wallet. */
+    private static final Pattern WALLET_TOPUP = Pattern.compile(
+            "\\byou have added inr\\s?\\d[\\d,.]*\\s(?:successfully )?to your [a-z ]{0,30}wallet\\b");
+    /** HDFC forex outward remittance that was processed from the customer's account. */
+    private static final Pattern REMITTANCE_PROCESSED = Pattern.compile(
+            "\\bprocessed your request of [a-z]+ for (?:" + CURRENCY_CODES + ")\\s?\\d.{0,60}?\\bfrom your account\\b");
+    /** Loan schedules, welcome-kit documents and remittance advices ride on a PDF but are not statements. */
+    private static final Pattern DOCUMENT_HEAD = Pattern.compile(
+            "\\bamortization schedule\\b|\\bduplicate schedule\\b|\\brepayment schedule\\b|\\btransaction advices?\\b");
+    private static final Pattern WELCOME_KIT_FILENAME = Pattern.compile("\\bmitc\\b|\\bkfs\\b");
+
     private static final Pattern PROMOTION = Pattern.compile(
             "\\bunsubscribe\\b|(?<!unsolicited )\\boffers?\\b|\\bview the newsletter\\b|\\bcan.t display\\b|\\bfine print\\b|\\bread more\\b|\\bapply now\\b|\\bpre-?approved\\b|\\blimited period\\b|\\bt&c\\b|\\bterms (?:and|&) conditions\\b|(?<!\\d)\\d{1,3}%\\s*off|\\bexclusive\\b");
 
@@ -207,6 +238,40 @@ public class EmailClassifier {
                 || hasOtpSentence(sentences)) {
             signals.add("otp");
             return result(EmailSubtype.OTP, ClassifierConfidence.HIGH, bankId, signals);
+        }
+
+        // 2b. Named notices and events whose wording the transaction-sentence rules mishandle.
+        if (MANDATE_SETUP_SUBJECT.matcher(subjectLower).find()) {
+            signals.add("kw:mandate");
+            return result(EmailSubtype.SERVICE, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
+        if (UNCONFIRMED_TXN.matcher(lower).find()) {
+            signals.add("kw:unconfirmed");
+            return result(EmailSubtype.SECURITY, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
+        if (REMITTANCE_REQUEST_RECEIVED.matcher(lower).find()) {
+            signals.add("kw:remittance-request");
+            return result(EmailSubtype.SERVICE, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
+        if (NOTICE_SUBJECT.matcher(subjectLower).find()) {
+            signals.add("kw:notice");
+            return result(EmailSubtype.SERVICE, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
+        if (GIFT_CARD_DELIVERY.matcher(lower).find()) {
+            signals.add("kw:gift-card");
+            return result(EmailSubtype.PROMOTION, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
+        if (AUTOPAY_SUCCESS.matcher(lower).find()) {
+            signals.add("autopay");
+            return result(EmailSubtype.DEBIT, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
+        if (REMITTANCE_PROCESSED.matcher(lower).find()) {
+            signals.add("remittance");
+            return result(EmailSubtype.DEBIT, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
+        if (WALLET_TOPUP.matcher(lower).find()) {
+            signals.add("wallet");
+            return result(EmailSubtype.CREDIT, ClassifierConfidence.MEDIUM, bankId, signals);
         }
 
         // 3. Transaction sentence
@@ -296,6 +361,11 @@ public class EmailClassifier {
                                                     String bankId, List<String> signals) {
         String head = subjectLower + attachmentNames(message);
         boolean statementInHead = STATEMENT_WORDS.matcher(head).find();
+        if (DOCUMENT_HEAD.matcher(subjectLower).find()
+                || (WELCOME_KIT_FILENAME.matcher(attachmentNames(message)).find() && !STATEMENT_WORDS.matcher(subjectLower).find())) {
+            signals.add("kw:doc");
+            return result(EmailSubtype.DOCUMENT, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
         boolean statementInBody = !statementInHead && STATEMENT_WORDS.matcher(lower).find();
         if (statementInHead || (statementInBody && !DOCUMENT_WORDS.matcher(head).find())) {
             signals.add("kw:statement");

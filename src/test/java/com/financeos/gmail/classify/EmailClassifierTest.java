@@ -21,7 +21,7 @@ class EmailClassifierTest {
 
     private static final String[] FIXTURE_FILES = {
             "hdfc.json", "icici.json", "axis.json", "sbi.json", "other_banks.json",
-            "statements.json", "negatives.json", "others.json", "html.json", "labelled.json", "review_fixes.json", "inbox_round1.json", "inbox_round2.json", "inbox_round3.json", "inbox_round4.json"};
+            "statements.json", "negatives.json", "others.json", "html.json", "labelled.json", "review_fixes.json", "inbox_round1.json", "inbox_round2.json", "inbox_round3.json", "inbox_round4.json", "classifier_v3.json"};
 
     private final EmailClassifier classifier = new EmailClassifier();
     private final ObjectMapper mapper = new ObjectMapper();
