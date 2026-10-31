@@ -1,0 +1,66 @@
+# Equitas Small Finance Bank account alerts (debit, credit, UPI, IMPS, NEFT, RTGS, FT). Newest layout first.
+bank: equitas
+templates:
+  # "...an amount of INR 1,234.00 has been debited from account # XXXXXXXX1234 Ref towards UPI REF NO 123 P2P-Mr Some Name-UPI-BANK0001- HEAD OFFICE on 31-01-26."
+  - id: equitas.debit.upi.v2
+    senders: &senders [equitasbank.com]
+    body: 'amount of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been debited from account #\s*(?<last4>[X*]*\d+)\s*Ref\s*(?:\d+\s*)?towards (?:UPI REF NO|REVERSAL UPI) \d+ (?:REV )?[A-Z]2[A-Z]-(?<counterparty>[^-]+)-.*? on (?<date>\d\d-(?:\d\d|[A-Z]{3})-\d{2,4})\.'
+    direction: DEBIT
+    dateFormats: [dd-MM-yyyy, dd-MM-yy, dd-MMM-yyyy, dd-MMM-yy]
+    counterpartyStrip: ['^(?:Mr|Mrs|Ms|Shri|Smt)\.?\s+']
+
+  # "...an amount of INR 860.00 has been credited to account # XXXXXXXX1234 Ref towards REVERSAL UPI 123 REV P2P-some name okbank-UPI- HEAD OFFICE on 01-OCT-2024."
+  - id: equitas.credit.upi.reversal.v2
+    senders: *senders
+    body: 'amount of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been credited to account #\s*(?<last4>[X*]*\d+)\s*Ref\s*(?:\d+\s*)?towards REVERSAL UPI \d+ REV P2[A-Z]-(?<counterparty>[^-]+)-.*? on (?<date>\d\d-(?:\d\d|[A-Z]{3})-\d{2,4})\.'
+    direction: CREDIT
+    dateFormats: [dd-MM-yyyy, dd-MM-yy, dd-MMM-yyyy, dd-MMM-yy]
+
+  # "...has been debited from account # XXXXXXXX1234 Ref towards NEFT Dr-ESFBN123-Some Name-BANK0001-HEAD OFFICE-ref text on 01-04-25."
+  - id: equitas.debit.neft.v2
+    senders: *senders
+    body: 'amount of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been debited from account #\s*(?<last4>[X*]*\d+)\s*Ref\s*(?:\d+\s*)?towards (?:NEFT|RTGS) Dr-[A-Z0-9]+-(?<counterparty>[^-]+)-.*? on (?<date>\d\d-(?:\d\d|[A-Z]{3})-\d{2,4})\.'
+    direction: DEBIT
+    dateFormats: [dd-MM-yyyy, dd-MM-yy, dd-MMM-yyyy, dd-MMM-yy]
+
+  # "...has been debited from account # XXXXXXXX1234 Ref 000000000001 towards PURCHASE 123456******1234 SHOP NAME CITY IN on 10-06-25." (also FT / cheque / other free text)
+  - id: equitas.debit.v2
+    senders: *senders
+    body: 'amount of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been debited from account #\s*(?<last4>[X*]*\d+)\s*Ref\s*(?:\d+\s*)?towards (?<counterparty>.+?) on (?<date>\d\d-(?:\d\d|[A-Z]{3})-\d{2,4})\.'
+    direction: DEBIT
+    dateFormats: [dd-MM-yyyy, dd-MM-yy, dd-MMM-yyyy, dd-MMM-yy]
+    counterpartyStrip: ['^PURCHASE \d+\**\d+\s+']
+
+  # "An amount of INR 1,234.00 has been credited to A/c XXXXXXXX1234 Ref on account of UPI REF NO 123 P2P-Some Name-UPI- HEAD OFFICE value 22-SEP-2024 ." (also "Amount of ... debited from A/c" in the oldest layout)
+  - id: equitas.account.upi.v1
+    senders: *senders
+    body: 'amount of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been (?<direction>debited|credited|deposited) (?:from|to) A/c\s*(?<last4>[X*]*\d+)\s*Ref\s*(?:\d+\s*)?on account of (?:UPI REF NO|REVERSAL UPI) \d+ (?:REV )?[A-Z]2[A-Z]-(?<counterparty>[^-]+)-.*? value (?<date>\d\d-(?:\d\d|[A-Z]{3})-\d{2,4})'
+    direction: FROM_GROUP
+    directionWords: {DEBIT: [debited], CREDIT: [credited, deposited]}
+    dateFormats: [dd-MM-yyyy, dd-MM-yy, dd-MMM-yyyy, dd-MMM-yy]
+    counterpartyStrip: ['^(?:Mr|Mrs|Ms|Shri|Smt)\.?\s+']
+
+  # "...on account of IMP P2A 123456789012 5010022 - Some Name - Self - BANK0000240 - HEAD OFFICE value 21-01-26 ."
+  - id: equitas.account.imps.v1
+    senders: *senders
+    body: 'amount of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been (?<direction>debited|credited|deposited) (?:from|to) A/c\s*(?<last4>[X*]*\d+)\s*Ref\s*(?:\d+\s*)?on account of IMP \w+ \d+ \d+ - (?<counterparty>.+?) - .*? value (?<date>\d\d-(?:\d\d|[A-Z]{3})-\d{2,4})'
+    direction: FROM_GROUP
+    directionWords: {DEBIT: [debited], CREDIT: [credited, deposited]}
+    dateFormats: [dd-MM-yyyy, dd-MM-yy, dd-MMM-yyyy, dd-MMM-yy]
+
+  # "...on account of NEFT Cr-BANK0000001-Some Name FOR REMARK-BANKN12025061305929274 value 13-06-25 ."
+  - id: equitas.account.neft.v1
+    senders: *senders
+    body: 'amount of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been (?<direction>debited|credited|deposited) (?:from|to) A/c\s*(?<last4>[X*]*\d+)\s*Ref\s*(?:\d+\s*)?on account of (?:NEFT|RTGS) (?:Cr|Dr)-[A-Z0-9]+-(?<counterparty>.+?)-[A-Z0-9]*\d[A-Z0-9]* value (?<date>\d\d-(?:\d\d|[A-Z]{3})-\d{2,4})'
+    direction: FROM_GROUP
+    directionWords: {DEBIT: [debited], CREDIT: [credited, deposited]}
+    dateFormats: [dd-MM-yyyy, dd-MM-yy, dd-MMM-yyyy, dd-MMM-yy]
+
+  # "...on account of 100012345678:FT -Some Name - 100012345678 value 02-06-25 ." (also any other free-text description)
+  - id: equitas.account.v1
+    senders: *senders
+    body: 'amount of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been (?<direction>debited|credited|deposited) (?:from|to) A/c\s*(?<last4>[X*]*\d+)\s*Ref\s*(?:\d+\s*)?on account of (?<counterparty>.+?) value (?<date>\d\d-(?:\d\d|[A-Z]{3})-\d{2,4})'
+    direction: FROM_GROUP
+    directionWords: {DEBIT: [debited], CREDIT: [credited, deposited]}
+    dateFormats: [dd-MM-yyyy, dd-MM-yy, dd-MMM-yyyy, dd-MMM-yy]
+    counterpartyStrip: ['^\d+\s*:\s*FT\s*-\s*', '\s*-\s*\d{6,}$']

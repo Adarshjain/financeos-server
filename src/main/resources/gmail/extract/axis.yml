@@ -1,0 +1,26 @@
+# Axis Bank credit card alerts. One template per real layout, newest first.
+bank: axis
+templates:
+  # "Here's the summary of your Axis Bank Credit Card Transaction: Transaction Amount: INR 1,234 Merchant Name: SHOP ..."
+  - id: axis.cc.spend.v2
+    senders: &senders [axisbank.com, axis.bank.in]
+    subject: 'spent on credit card'
+    body: 'Transaction Amount:\s*(?<currency>[A-Z]{3})\s*(?<amount>[\d,]+(?:\.\d+)?)\s*Merchant Name:\s*(?<counterparty>.+?)\s*Axis Bank Credit Card No\.?\s*(?<last4>[X*]*\d+)\s*Date\s*&\s*Time:\s*(?<date>\d\d-\d\d-\d{4})'
+    direction: DEBIT
+    dateFormats: [dd-MM-yyyy]
+
+  # "Thank you for using your credit card no. XX1234 for INR 1,234 at SHOP on 31-08-2025 08:27:43 IST." (older: "your Card no.", 2-digit year)
+  - id: axis.cc.spend.v1
+    senders: *senders
+    subject: 'Transaction alert'
+    body: 'Thank you for using your (?:Axis Bank )?(?:credit )?card no\.?\s*(?<last4>[X*]*\d+) for (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) at (?<counterparty>.+?) on (?<date>\d\d-\d\d-\d{2,4})'
+    direction: DEBIT
+    dateFormats: [dd-MM-yyyy, dd-MM-yy]
+
+  # "the transaction of IDR 65000 on Axis Bank Credit Card no. XX1234 on 30-04-25 06:00:51 IST at SHOP has been reversed."
+  - id: axis.cc.reversal.v1
+    senders: *senders
+    subject: 'Transaction alert'
+    body: 'transaction of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) on Axis Bank Credit Card no\.?\s*(?<last4>[X*]*\d+) on (?<date>\d\d-\d\d-\d{2,4})[\d: ]*(?:IST)?\s*at (?<counterparty>.+?) has been reversed'
+    direction: CREDIT
+    dateFormats: [dd-MM-yyyy, dd-MM-yy]
