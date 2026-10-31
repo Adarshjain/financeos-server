@@ -207,3 +207,11 @@ fixtures:
       Thank you for banking with HDFC Bank.
       You have successfully initiated RTGS transaction of INR 1000000 from your HDFC Bank A/c XX1234 for a transfer to payee Sample Payee using HDFC Bank Online Banking.
     expect: {amount: '1000000', currency: 'INR', direction: 'DEBIT', date: null, counterparty: 'Sample Payee', last4: '1234'}
+
+  - template: hdfc.remittance.outward.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.com>'
+    subject: 'HDFC Bank Ltd: Transaction alert. Trans ref - 000000RTT00000'
+    sent: '2025-02-27T09:00:00Z'
+    body: |-
+      Dear SAMPLE NAME , This is to inform you that we have processed your request of FCYTTSELL for USD 792.0 @ 88.92 from your account 50100000001234 / Cust ID: 100000000 towards the purpose S0021 - PAYMENTS MADE ON ACCOUNT OF SALE OF SHARE UNDER EMPLOYEE STOCK OPTION on 27/02/2025 received at SAMPLE BRANCH - code:- 1000 Your transaction reference number is 000000RTT00000.
+    expect: {amount: '792.0', currency: 'USD', direction: 'DEBIT', date: '2025-02-27', counterparty: null, last4: '1234'}

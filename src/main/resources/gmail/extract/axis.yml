@@ -17,6 +17,14 @@ templates:
     direction: DEBIT
     dateFormats: [dd-MM-yyyy, dd-MM-yy]
 
+  # "Thank you for using your Card no. XX1234 to withdraw INR 101.99 on 23-02-26 12:51:40 IST at SHOP. Your available cash withdrawal limit is INR 75600."
+  - id: axis.cc.cashwithdrawal.v1
+    senders: *senders
+    subject: 'Transaction alert'
+    body: 'Thank you for using your (?:Axis Bank )?(?:credit )?card no\.?\s*(?<last4>[X*]*\d+) to withdraw (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) on (?<date>\d\d-\d\d-\d{2,4})[\d: ]*(?:IST)?\s*at (?<counterparty>.+?)\.(?:\s|$)'
+    direction: DEBIT
+    dateFormats: [dd-MM-yy, dd-MM-yyyy]
+
   # "the transaction of IDR 65000 on Axis Bank Credit Card no. XX1234 on 30-04-25 06:00:51 IST at SHOP has been reversed."
   - id: axis.cc.reversal.v1
     senders: *senders

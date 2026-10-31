@@ -33,7 +33,7 @@ public final class ExtractionTemplateLoader {
     static final int FLAGS = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.UNICODE_CHARACTER_CLASS;
 
     private static final Set<String> TEMPLATE_KEYS = Set.of("id", "senders", "subject", "body", "direction",
-            "directionWords", "dateFormats", "currency", "counterpartyStrip");
+            "directionWords", "dateFormats", "currency", "counterpartyStrip", "counterpartyDefault");
     private static final Set<String> GROUPS = Set.of("amount", "currency", "date", "counterparty", "last4", "direction");
 
     private ExtractionTemplateLoader() {}
@@ -141,8 +141,15 @@ public final class ExtractionTemplateLoader {
         for (String s : strings(t.get("counterpartyStrip"))) {
             strip.add(regex(file, id, "counterpartyStrip", s));
         }
+        String counterpartyDefault = null;
+        if (t.get("counterpartyDefault") != null) {
+            counterpartyDefault = string(t.get("counterpartyDefault")).trim();
+            if (counterpartyDefault.isEmpty()) {
+                throw fail(file, id, "counterpartyDefault must not be blank");
+            }
+        }
         return new ExtractionTemplate(id, List.copyOf(senders), subject, body, direction, words, List.copyOf(formats),
-                currency, List.copyOf(strip));
+                currency, List.copyOf(strip), counterpartyDefault);
     }
 
     private static Map<Direction, Set<String>> directionWords(String file, String id, Object raw) {

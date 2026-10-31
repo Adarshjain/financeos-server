@@ -1,5 +1,6 @@
 package com.financeos.gmail.extract;
 
+import com.financeos.gmail.internal.GmailMessage;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -107,5 +108,35 @@ class ExtractionTemplateLoaderTest {
                 templates:
                   - {id: x.v1, senders: [example.com], body: '(?<amount>\\d+)', direction: DEBIT, bogus: 1}
                 """)).hasMessageContaining("unknown key");
+    }
+
+    @Test
+    void counterpartyDefaultFillsWhenThereIsNoCounterpartyGroup() {
+        List<ExtractionTemplate> ts = parse("""
+                templates:
+                  - id: x.v1
+                    senders: [example.com]
+                    body: 'paid (?<amount>\\d+)'
+                    direction: DEBIT
+                    counterpartyDefault: Sample Wallet
+                  - id: y.v1
+                    senders: [example.com]
+                    body: 'paid (?<amount>\\d+)'
+                    direction: DEBIT
+                """);
+        assertThat(ts.get(0).counterpartyDefault()).isEqualTo("Sample Wallet");
+        assertThat(ts.get(1).counterpartyDefault()).isNull();
+        TransactionExtractor ex = new TransactionExtractor(ts.subList(0, 1));
+        ExtractedTransaction tx = ex.extract(new GmailMessage("m", null, "a@example.com", "s", null, "You paid 5", null, List.of()))
+                .orElseThrow();
+        assertThat(tx.counterparty()).isEqualTo("Sample Wallet");
+    }
+
+    @Test
+    void failsFastOnBlankCounterpartyDefault() {
+        assertThatThrownBy(() -> parse("""
+                templates:
+                  - {id: x.v1, senders: [example.com], body: '(?<amount>\\d+)', direction: DEBIT, counterpartyDefault: ' '}
+                """)).hasMessageContaining("counterpartyDefault");
     }
 }

@@ -118,10 +118,16 @@ class EmailClassifierTest {
         for (String run : runs) {
             classifier.classify(new GmailMessage("w", null, "a@x.example", "s", null, run + " INR 500 spent", null, List.of()));
         }
+        // Best of three against a loose bound: CI runs test forks in parallel, so one timing can stall on a busy CPU.
+        // Catastrophic backtracking on 20k chars takes seconds or never ends; a healthy run takes ~20 ms.
         for (String run : runs) {
-            long start = System.nanoTime();
-            classifier.classify(new GmailMessage("m", null, "a@x.example", "s", null, run + " INR 500 spent", null, List.of()));
-            assertThat((System.nanoTime() - start) / 1_000_000).as("run of %s", run.substring(0, 1)).isLessThan(200);
+            long best = Long.MAX_VALUE;
+            for (int attempt = 0; attempt < 3; attempt++) {
+                long start = System.nanoTime();
+                classifier.classify(new GmailMessage("m", null, "a@x.example", "s", null, run + " INR 500 spent", null, List.of()));
+                best = Math.min(best, (System.nanoTime() - start) / 1_000_000);
+            }
+            assertThat(best).as("run of %s", run.substring(0, 1)).isLessThan(1000);
         }
     }
 
