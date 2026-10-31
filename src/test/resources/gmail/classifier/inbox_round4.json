@@ -1,0 +1,22 @@
+[
+ {
+  "name": "scapia hair space cells are a debit alert",
+  "from": "Scapia <scapiacards@federalbank.co.in>",
+  "subject": "Your transaction was successful",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyHtml": "<table><tr><td>Your transaction was successful!</td></tr><tr><td>Your payment on 29-08-2026 at 01:07 PM using your Scapia Federal Visa Credit Card ending in 1234 has been successfully processed.</td></tr></table><table><tr><td>Amount</td><td>&#8202;</td><td>₹1,813.17</td></tr><tr><td>Merchant</td><td>&#8202;</td><td>Php*xyz Bengaluru In</td></tr></table><p>Not you? Call us now.</p>",
+  "bank": "federal"
+ },
+ {
+  "name": "scapia hair space cells with the EMI footer are a debit alert",
+  "from": "Scapia <scapiacards@federalbank.co.in>",
+  "subject": "Your transaction was successful",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyHtml": "<table><tr><td>Your transaction was successful!</td></tr><tr><td>Your payment on 29-08-2026 at 01:07 PM using your Scapia Federal Visa Credit Card ending in 1234 has been successfully processed.</td></tr></table><table><tr><td>Amount</td><td>&#8202;</td><td>₹1,813.17</td></tr><tr><td>Merchant</td><td>&#8202;</td><td>Php*xyz Bengaluru In</td></tr></table><p>Not you? Call us now.</p><p>Want to convert this spend into EMI? Do it in just 3 easy steps on the Scapia app!</p>",
+  "bank": "federal"
+ }
+]

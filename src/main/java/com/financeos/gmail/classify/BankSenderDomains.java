@@ -1,8 +1,10 @@
 package com.financeos.gmail.classify;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Maps a sender address domain to a {@code BankCatalog} id. Matches by suffix, so
@@ -66,6 +68,11 @@ public final class BankSenderDomains {
             }
         }
         return null;
+    }
+
+    /** Every catalog sender domain (for dev tooling such as the classifier eval runner). */
+    public static Set<String> domains() {
+        return Collections.unmodifiableSet(DOMAIN_TO_BANK.keySet());
     }
 
     static Map<String, String> all() {

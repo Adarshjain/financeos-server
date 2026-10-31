@@ -106,4 +106,19 @@ class EmailTextTest {
         String big = "word ".repeat(100_000);
         assertThat(EmailText.of(msg("s", big, big)).text().length()).isLessThanOrEqualTo(EmailText.MAX_CHARS);
     }
+
+    @Test
+    void invisibleCharactersAreWhitespace() {
+        String html = "<td>Amount</td><td>&#8203;</td><td>₹2.00</td>";
+        assertThat(EmailText.of(msg("", null, html)).text()).contains("Amount").contains("INR 2.00").doesNotContain("​");
+        String invisible = "a​b‌c‍d⁠e﻿f­g͏h";
+        assertThat(EmailText.normalise(invisible)).isEqualTo("a b c d e f g h");
+    }
+
+    @Test
+    void unicodeSpaceSeparatorsBecomePlainSpacesButTheBlockMarkerStays() {
+        assertThat(EmailText.normalise("Amount   　INR 5")).isEqualTo("Amount INR 5");
+        String html = "<td>Amount</td><td>&#8202;</td><td>₹1,813.17</td>";
+        assertThat(EmailText.of(msg("", null, html)).text()).contains("Amount").contains("INR 1,813.17").contains(String.valueOf(EmailText.SECTION)).doesNotContain(" ");
+    }
 }

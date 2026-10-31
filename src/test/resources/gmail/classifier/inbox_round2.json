@@ -1,0 +1,72 @@
+[
+ {
+  "name": "scapia html with zero width cells is a debit alert",
+  "from": "Scapia <scapiacards@federalbank.co.in>",
+  "subject": "Your transaction was successful",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyHtml": "<table><tr><td>Your transaction was successful!</td></tr><tr><td>Your payment on 29-08-2026 at 01:07 PM using your Scapia Federal Visa Credit Card ending in 1234 has been successfully processed.</td></tr></table><table><tr><td>Amount</td><td>&#8203;</td><td>₹2.00</td><td>&#8203;</td><td>Merchant</td><td>&#8203;</td><td>Php*xyz Bengaluru In</td></tr></table><p>Not you? Call us now.</p>",
+  "bank": "federal"
+ },
+ {
+  "name": "hdfc rtgs initiated with payee wording is a debit alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "RTGS transaction",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Thank you for banking with HDFC Bank. You have successfully initiated RTGS transaction of INR 50,000 from your HDFC Bank A/c XX1234 for a transfer to payee Self ABC using HDFC Bank Online Banking. Not you? Call us now.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "hdfc payee added without an amount stays security",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Payee added",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "An addition of the payee A KUMAR with Account number ending with XX1234 is done using HDFC Bank Online Banking.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "hdfc two step verification is security",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Two-step verification",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "You've successfully registered for two-step verification on the HDFC Bank App. You can approve or decline NetBanking transactions on the app. When you initiate a transaction on NetBanking, you will get a prompt.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "initiate wording without an amount is not an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Tips",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "When you initiate a transaction on NetBanking, keep your details safe.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "yes excess balance refund without an amount is service",
+  "from": "YES BANK <alerts@yesbank.in>",
+  "subject": "Excess balance refund",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Excess balance refund on your YES BANK Credit Card ending 1234 has been processed.",
+  "bank": "yes"
+ },
+ {
+  "name": "refund with an amount is still an alert",
+  "from": "YES BANK <alerts@yesbank.in>",
+  "subject": "Refund",
+  "kind": "ALERT",
+  "subtype": "REVERSAL",
+  "confidence": "HIGH",
+  "bodyText": "Refund of INR 500.00 on your YES BANK Credit Card ending 1234 has been processed.",
+  "bank": "yes"
+ }
+]

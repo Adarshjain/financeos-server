@@ -144,7 +144,7 @@ class GmailIngestionClassifierShadowTest {
         assertThat(row.getClassifiedConfidence()).isEqualTo("HIGH");
         assertThat(row.getClassifiedBank()).isEqualTo("hdfc");
         assertThat(row.getClassifiedSignals()).contains("verb:debited");
-        assertThat(row.getClassifierVersion()).isEqualTo(1);
+        assertThat(row.getClassifierVersion()).isEqualTo(EmailClassifier.VERSION);
         assertThat(row.getPipelineKind()).isEqualTo("ALERT");
         assertThat(registry.find("financeos.gmail.classified").tag("kind", "ALERT").tag("subtype", "DEBIT").tag("confidence", "HIGH").counter().count()).isEqualTo(1.0);
         assertThat(compare("ALERT", "ALERT")).isEqualTo(1.0);

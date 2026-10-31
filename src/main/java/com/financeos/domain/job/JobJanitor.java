@@ -33,9 +33,16 @@ public class JobJanitor {
         this.failedArtifactDays = failedArtifactDays;
     }
 
+    /** Off only in the local classifier-eval profile; true everywhere else. */
+    @Value("${jobs.janitor.startup-sweep.enabled:true}")
+    private boolean startupSweepEnabled = true;
+
     @EventListener(ApplicationReadyEvent.class)
     @Transactional
     public void markInterruptedOnStartup() {
+        if (!startupSweepEnabled) {
+            return;
+        }
         int count = jobRepository.markInterrupted(
                 JobStatus.RUNNING,
                 JobStatus.FAILED,

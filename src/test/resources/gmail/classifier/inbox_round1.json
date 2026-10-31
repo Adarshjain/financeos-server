@@ -1,0 +1,765 @@
+[
+ {
+  "name": "hdfc card \"we would like to inform you\" debit is an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "A payment was made using your Credit Card",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, Greetings from HDFC Bank. We would like to inform you that INR 1,234.59 has been debited from your HDFC Bank Credit Card ending 1234 towards PHONEPE on 22 Oct, 2026 at 15:56:47 . To check your available balance, outstanding amount, or view recent transactions, you may use: Mycards: https://mycards.hdfc.bank.in Important Note: If you did not authorise this transaction, please act immediately. Report Unauthorised Transaction Call HDFC Bank Helpline 1800 000 0000",
+  "bank": "hdfc"
+ },
+ {
+  "name": "would like to let you know credit still an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Credit alert",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, we would like to let you know that INR 500.00 has been credited to your HDFC Bank account ending 1234 on 01-11-2026.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "would be future wording is still not an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Heads up",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Dear Customer, INR 500.00 would be taken from your HDFC Bank account ending 1234 on 01-11-2026 if you proceed.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "scapia table with no colons is a debit alert",
+  "from": "Scapia <scapiacards@federalbank.co.in>",
+  "subject": "Your transaction was successful",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyHtml": "<html><body><table><tr><td>Your transaction was successful!</td></tr><tr><td>Your payment on 29-08-2026 at 01:07 PM using your Scapia Federal Visa Credit Card ending in 1234 has been successfully processed.</td></tr></table><table><tr><td>Amount</td><td>INR 2.00</td></tr><tr><td>Merchant</td><td>Php*xyz Bengaluru In</td></tr></table><p>Not you? Call us now.</p></body></html>",
+  "bank": "federal"
+ },
+ {
+  "name": "plain text labels without colons are a debit alert",
+  "from": "Federal Bank <alerts@federalbank.co.in>",
+  "subject": "Card payment",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Your payment on 29-08-2026 using your Visa Credit Card ending in 1234 is complete. Amount INR 2.00 Merchant Xyz Store Date 29-08-2026",
+  "bank": "federal"
+ },
+ {
+  "name": "processed with a card reference is a debit alert",
+  "from": "Federal Bank <alerts@federalbank.co.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Your payment of INR 75.00 using your Credit Card ending in 1234 has been processed.",
+  "bank": "federal"
+ },
+ {
+  "name": "amount label with no card reference is not an alert",
+  "from": "Federal Bank <alerts@federalbank.co.in>",
+  "subject": "Order summary",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Amount INR 2.00 Merchant Xyz Store Date 29-08-2026",
+  "bank": "federal"
+ },
+ {
+  "name": "colonless total amount is not a transaction label",
+  "from": "Federal Bank <alerts@federalbank.co.in>",
+  "subject": "Reminder",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Total amount INR 2,000.00 Merchant Xyz Card ending 1234",
+  "bank": "federal"
+ },
+ {
+  "name": "cred fine print explainer with hypothetical amounts is promotion",
+  "from": "CRED <from@cred.club>",
+  "subject": "the fine print, explained",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "the fine print, explained. When you see a no-cost EMI on a INR 50,000 laptop, read the fine print. If the processing fee is added, you paid INR 5,000 more than the cash price. Read more on the CRED app. Click here to unsubscribe"
+ },
+ {
+  "name": "hdfc newsletter with ref only in the subject is not an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Important Update on your HDFC Bank Credit Card ending 0154",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "If your email software can't display HTML emails. You can view the newsletter by clicking here. Customers who paid INR 25,000 using the card last month got extra rewards. Unsubscribe",
+  "bank": "hdfc"
+ },
+ {
+  "name": "swiggy hdfc example earnings are not a transaction",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Update for Your Swiggy HDFC Bank Credit Card!",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, example: A INR 1,000 Swiggy order earns INR 100 Cashback, credited in your monthly statement. T&C apply.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "for instance and e.g. wording is never a transaction",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Tips",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "For instance, INR 500 was spent at a store. You could also imagine INR 700 withdrawn e.g. from an ATM.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "newsletter with the reference in the transaction sentence stays an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Your card alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 725.00 has been debited from your HDFC Bank Credit Card ending 4821 towards CAFE. Read more about offers on our site. Unsubscribe",
+  "bank": "hdfc"
+ },
+ {
+  "name": "newsletter marker with a reference only in the subject stays out of alerts",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Card ending 1234 spends",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Fine print: INR 900 was spent by a typical customer last month. Read more at our site.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "axis upcoming autopay labelled summary is upcoming debit",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "Upcoming AutoPay txn. reminder",
+  "kind": "OTHER",
+  "subtype": "UPCOMING_DEBIT",
+  "confidence": "MEDIUM",
+  "bodyHtml": "<table><tr><td>Here's the summary of your upcoming AutoPay transaction:</td></tr><tr><td>Transaction Amount:</td><td>INR 299.00</td></tr><tr><td>Merchant Name:</td><td>Youtube</td></tr><tr><td>To be debited by:</td><td>20-03-2026</td></tr><tr><td>Max Limit:</td><td>INR 299.00</td></tr><tr><td>Axis Bank Credit card No. XX1234</td></tr><tr><td>AutoPay ID:</td><td>AP12345</td></tr></table>",
+  "bank": "axis"
+ },
+ {
+  "name": "labelled summary with to be debited in the body only is upcoming",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "AutoPay reminder",
+  "kind": "OTHER",
+  "subtype": "UPCOMING_DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Transaction Amount: INR 299.00 Merchant Name: Youtube To be debited by: 20-03-2026 Axis Bank Credit card No. XX1234 AutoPay ID: AP12345",
+  "bank": "axis"
+ },
+ {
+  "name": "executed labelled debit with no future wording stays an alert",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "Transaction alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Transaction Amount: INR 299.00 Merchant Name: Youtube Date: 20-03-2026 Axis Bank Credit card No. XX1234",
+  "bank": "axis"
+ },
+ {
+  "name": "RE: reply quoting a debit is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "RE: Query on my card",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, INR 1,200.00 has been debited from your credit card towards STORE. We are looking into your concern.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "Fwd: subject quoting a credit is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Fwd: refund",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "INR 300.00 has been credited to your account.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "lowercase fw: with a statement word is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "fw: statement of my account",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Please see below.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "auto tag subject is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "<Auto> We got your email",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Refund of INR 500.00 has been initiated to your card.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "service request subject is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Service Request SR12345 raised",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Reversal of INR 450.00 to your card is in progress.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "ticket subject is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Your ticket 778899 has been updated",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "INR 99.00 was charged to your card.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "query reference subject is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Query reference no 123",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your payment of INR 99.00 is acknowledged.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "auto acknowledgement subject is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Auto acknowledgement of your mail",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "INR 10.00 debited from your account.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "escalation subject is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Escalation update",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "INR 10.00 debited from your account.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "bare acknowledgement subject is not a support subject",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Acknowledgement of your complaint",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 10.00 debited from your account ending 1234.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "body acknowledging receipt of the email is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Your concern",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "We acknowledge the receipt of your email. A charge of INR 800.00 was debited from your card.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "body thank you for writing to us is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Your concern",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Thank you for writing to us. INR 800.00 was spent on your card.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "reply with a pdf attached is document",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "RE: Copy request",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Please find the copy attached.",
+  "bank": "hdfc",
+  "attachments": [
+   {
+    "filename": "copy.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "bobcard reply with transaction xlsx is document",
+  "from": "BOBCARD <alerts@bobfinancial.com>",
+  "subject": "RE:'BankOfBaroda=014-123456' Transaction-level MCC Details Request",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Please find the transaction details attached.",
+  "bank": "bank_of_baroda",
+  "attachments": [
+   {
+    "filename": "Transaction details.XLSX",
+    "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+   }
+  ]
+ },
+ {
+  "name": "hsbc plural statements for accounts is a high confidence account statement",
+  "from": "HSBC <hsbc@mail.hsbc.co.in>",
+  "subject": "Statements for Accounts under Customer ID 123456789",
+  "kind": "STATEMENT",
+  "subtype": "ACCOUNT_STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, please find your statements attached.",
+  "bank": "hsbc",
+  "attachments": [
+   {
+    "filename": "Important_Notes.pdf",
+    "mimeType": "application/pdf"
+   },
+   {
+    "filename": "29OCT2026.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "axis cancellation letter pdf is a document",
+  "from": "Axis Bank <communication@axis.bank.in>",
+  "subject": "Important Communication : Cancellation of your Axis Bank Credit Card",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, please find the attached letter about your card.",
+  "bank": "axis",
+  "attachments": [
+   {
+    "filename": "ACCOUNT CANCELLATION.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "axis emi letter pdf is a document",
+  "from": "Axis Bank <communication@axis.bank.in>",
+  "subject": "EMI Letter with Monthly EMI Details",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, your EMI details are attached.",
+  "bank": "axis",
+  "attachments": [
+   {
+    "filename": "EMI_details.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "axis cancellation of emi pdf is a document",
+  "from": "Axis Bank <communication@axis.bank.in>",
+  "subject": "Cancellation of EMI on your Axis Bank Credit Card",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, your request is processed. Your next statement will show the change.",
+  "bank": "axis",
+  "attachments": [
+   {
+    "filename": "details.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "equitas advisory emailer pdf is a document",
+  "from": "Equitas <alerts@equitasbank.com>",
+  "subject": "Important Advisory: Identify Official Calls",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, stay safe from fraud calls. Please see the attached emailer.",
+  "bank": "equitas",
+  "attachments": [
+   {
+    "filename": "1600XX EMailer.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "hsbc application form pdf is a document",
+  "from": "HSBC <hsbc@mail.hsbc.co.in>",
+  "subject": "HSBC:Credit Card",
+  "kind": "OTHER",
+  "subtype": "DOCUMENT",
+  "confidence": "MEDIUM",
+  "bodyText": "Thank you for your interest. Please find your form attached.",
+  "bank": "hsbc",
+  "attachments": [
+   {
+    "filename": "ApplicationForm_CC_123.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "plain statement pdf is still a statement",
+  "from": "HSBC <hsbc@mail.hsbc.co.in>",
+  "subject": "Your credit card statement",
+  "kind": "STATEMENT",
+  "subtype": "CARD_STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Please find your statement attached.",
+  "bank": "hsbc",
+  "attachments": [
+   {
+    "filename": "stmt.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "hdfc email account statement with password text and no attachment is a notice",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Email Account Statement of your HDFC Bank Account ***1234 for the period 01-Apr-2017 TO 31-Mar-2019",
+  "kind": "OTHER",
+  "subtype": "STATEMENT_NOTICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, your SmartStatement is attached in the mail. To open the PDF, use your password, the first four letters of your name in capitals followed by your date of birth.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "hsbc successful log on is security",
+  "from": "HSBC <hsbc@mail.hsbc.co.in>",
+  "subject": "Successful log on to 'HSBC India' Mobile Banking",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "You have successfully logged on 'HSBC India' Mobile Banking using Device ABC. If you suspect any unusual account activity, call us. Never respond to unsolicited offers of money received through emails.",
+  "bank": "hsbc"
+ },
+ {
+  "name": "hdfc biometric enabled is security",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Biometric authentication has been enabled for UPI payments",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "Biometric authentication has been enabled for your UPI payments. Not you? Call us.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "hdfc device set up is security",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Successfully set up device for MobileBanking Access",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "You have successfully set up your device for MobileBanking access.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "hdfc payee added is security",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Payee added",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "An addition of the payee A KUMAR with Account number ending with XX1234 is done using HDFC Bank Online Banking.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "hdfc secure usage tips is security",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Secure usage tips",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "You have successfully read secure usage tips. Unsubscribe from reminders any time.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "mpin change with an unsubscribe footer is security",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "MPIN",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "Your MPIN was updated. If this was not you, call us. Unsubscribe.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "plain promo still promotion",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Special offer",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Exclusive offers for you. Apply now.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "unsolicited offers footer alone is not a promotion",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Notice",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Never respond to unsolicited offers of money received through emails.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "jupiter transaction otp with colon is otp",
+  "from": "Jupiter <noreply@jupiter.money>",
+  "subject": "Transaction OTP",
+  "kind": "OTHER",
+  "subtype": "OTP",
+  "confidence": "HIGH",
+  "bodyText": "Your Edge+ CSB Bank Credit Card OTP is: 123456 Use this to confirm your transaction of INR 2.00 at MERCHANT on your card ending 1234. Do not share. Click here to unsubscribe"
+ },
+ {
+  "name": "otp colon code in body is otp",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Verify",
+  "kind": "OTHER",
+  "subtype": "OTP",
+  "confidence": "HIGH",
+  "bodyText": "OTP: 654321 to confirm INR 10.00 at SHOP.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "subject ending in otp with a code is otp",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Card Transaction OTP",
+  "kind": "OTHER",
+  "subtype": "OTP",
+  "confidence": "HIGH",
+  "bodyText": "Use the OTP 112233 to continue.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "subject ending in otp without a code is not otp",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Credentials reminder OTP",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Keep your credentials safe.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "debit alert with never share otp footer stays alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 725.00 has been debited from your HDFC Bank Credit Card ending 4821 towards CAFE. Never share your OTP with anyone.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "feedback request is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "We want your feedback",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Please share your feedback on your recent experience.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "love to hear from you is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Tell us",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "We would love to hear from you.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "survey is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Quick survey",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Take our survey and help us improve. Unsubscribe",
+  "bank": "hdfc"
+ },
+ {
+  "name": "scheduled maintenance is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Planned downtime",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Due to scheduled maintenance, net banking will be unavailable on Sunday.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "relationship manager missed call is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Missed you",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your relationship manager tried to reach you. You have a missed call from your RM.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "card on its way is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Dispatch update",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your credit card is on its way and will reach you soon.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "thank you for choosing is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Welcome",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Thank you for choosing our bank.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "dedicated point of contact is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Your contact",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your dedicated point of contact is Mr A Kumar.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "query reference registered is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Your request",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Query reference no 556677 has been registered.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "financial results is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Results",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "The bank announced its financial results for the quarter.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "federal lounge access is promotion",
+  "from": "Federal Bank <alerts@federalbank.co.in>",
+  "subject": "Get yourself unlimited domestic lounge access!",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Spend INR 50,000 on your card and enjoy unlimited domestic lounge access. Your available balance is shown in the app.",
+  "bank": "federal"
+ },
+ {
+  "name": "federal days to reduce your card bill is promotion",
+  "from": "Federal Bank <alerts@federalbank.co.in>",
+  "subject": "5 days to reduce your card bill",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Convert your bill of INR 12,000 to EMI. Pay the bill in easy instalments before the due date.",
+  "bank": "federal"
+ },
+ {
+  "name": "jupiter voucher is promotion",
+  "from": "Jupiter <noreply@jupiter.money>",
+  "subject": "Your Amazon Pay Voucher is here!",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Your Amazon Pay Voucher worth INR 100 is here. Redeem it now."
+ },
+ {
+  "name": "cred earned cashback with no card reference is promotion",
+  "from": "CRED <from@cred.club>",
+  "subject": "You've earned ₹50 cashback",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "You've earned ₹50 cashback on your last purchase. Cashback of ₹50 has been credited to your CRED wallet."
+ },
+ {
+  "name": "cashback credited to a card with a reference stays a credit",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Cashback",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 50.00 cashback has been credited to your HDFC Bank Credit Card ending 1234.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "hdfc upi credit stays alert credit",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "You have received a UPI credit",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, INR 2,500.00 has been successfully credited to your HDFC Bank account ending in 1234. Transaction Details: a. Date and time: 01-11-26 10:15:00 b. Sender: A KUMAR (VPA a.kumar@examplebank) c. UPI Reference No 600000000001",
+  "bank": "hdfc"
+ },
+ {
+  "name": "hdfc imps debit stays alert debit",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "IMPS transfer",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 1,60,000.00 has been debited from your account ending xxxxxxxxxx1234 on 05-08-26 and credited to the account ending xxxxxxxxxx5678 via IMPS. Available Balance: INR 2,50,000.00",
+  "bank": "hdfc"
+ },
+ {
+  "name": "yes payment due reminder stays bill due",
+  "from": "YES BANK <alerts@yesbank.in>",
+  "subject": "Payment Due Reminder",
+  "kind": "OTHER",
+  "subtype": "BILL_DUE",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, your Total Outstanding is INR 12,000.00 and the Minimum Amount Due is INR 600.00. Kindly ignore this message if the payment has already been made.",
+  "bank": "yes"
+ },
+ {
+  "name": "cred bill payment success stays alert debit",
+  "from": "CRED <from@cred.club>",
+  "subject": "your credit card bill payment was successful",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Your credit card bill payment was successful. You paid INR 8,000.00 towards your credit card bill."
+ }
+]

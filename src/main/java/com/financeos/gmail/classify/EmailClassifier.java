@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @Component
 public class EmailClassifier {
 
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
 
     // ---------------------------------------------------------------------------------------------
     // Word lists: extend here. All patterns match against lowercase text, currency already as "INR".
@@ -31,16 +31,20 @@ public class EmailClassifier {
             "application/vnd.ms-excel",
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
-    private static final Pattern STATEMENT_WORDS = word("e-?statement|statement|stmt|account summary|passbook|transaction history");
-    private static final Pattern DOCUMENT_WORDS = word("certificate|invoice|receipt|policy|form 16|tds|welcome kit|terms and conditions|terms & conditions|key fact|schedule of charges|tax");
+    private static final Pattern STATEMENT_WORDS = word("e-?statement|statements?|stmt|account summary|passbook|transaction history");
+    private static final Pattern DOCUMENT_WORDS = word("certificate|invoice|receipt|policy|form 16|tds|welcome kit|terms and conditions|terms & conditions|key fact|schedule of charges|tax"
+            + "|letter|cancellation|application ?form|application|advisory|emailer");
     private static final Pattern CARD_CONTEXT = word("credit card|debit card|card|cc");
-    private static final Pattern ACCOUNT_CONTEXT = Pattern.compile("\\b(?:savings|current account|account|a/c)\\b");
+    private static final Pattern ACCOUNT_CONTEXT = Pattern.compile("\\b(?:savings|current accounts?|accounts?|a/c)\\b");
 
     private static final Pattern OTP_SUBJECT = Pattern.compile(
             "\\botp\\b.{0,30}?\\b(?:is|for)\\b|\\b(?:your|the|an?) otp\\b|^\\s*otp\\s*$|\\bone[- ]time password\\b|\\bverification code\\b");
+    /** A subject that ends in "OTP" counts only when the body has a 4-8 digit code right after the otp token. */
+    private static final Pattern OTP_SUBJECT_ENDING = Pattern.compile("\\botp\\s*$");
+    private static final Pattern OTP_CODE_NEARBY = Pattern.compile("\\botp\\b.{0,30}?\\b\\d{4,8}\\b");
     private static final Pattern OTP_BODY = Pattern.compile(
             "\\b\\d{4,8}\\b\\s+is\\s+(?:your|the)\\s+(?:otp|one[- ]time password)"
-                    + "|\\botp\\s*(?:is|:)\\s*\\d{4,8}\\b"
+                    + "|\\botp\\s*(?:is\\s*:?|:)\\s*\\d{4,8}\\b"
                     + "|\\botp\\b.{0,80}?\\bis\\s+\\d{4,8}\\b"
                     + "|\\b(?:verification code|one[- ]time password)\\s*(?:is|:)?\\s*\\d{4,8}\\b");
 
@@ -50,7 +54,7 @@ public class EmailClassifier {
     private static final Pattern TXN_VERB = word("debited|credited|spent|withdrawn|paid|received|deposited|transferred|sent|charged"
             + "|reversed|refunded|reversal|refund|(?:has|have|was|were)(?: been)? made|thank you for using");
     /** Loose verbs: count only with a card/account reference in the same sentence and no security/bill/balance cue. */
-    private static final Pattern LOOSE_VERB = word("used|successful|successfully");
+    private static final Pattern LOOSE_VERB = word("used|successful|successfully|processed|initiated");
     private static final Pattern CREDIT_VERB = word("credited|received|deposited");
     private static final Pattern DEBIT_VERB = word("debited|spent|withdrawn|paid|transferred|sent|used|charged");
     private static final Pattern REVERSAL_WORD = word("reversed|reversal|refunded|refund");
@@ -59,9 +63,18 @@ public class EmailClassifier {
 
     /** A sentence with this wording is about a future, conditional or already-settled amount, not an event. */
     private static final Pattern FUTURE_GUARD = Pattern.compile(
-            "\\bwill\\b|\\bwould\\b|\\bto be (?:debited|charged|deducted)\\b|\\b(?:is|are|was) due\\b|\\bdue (?:on|by|date)\\b"
+            "\\bwill\\b|\\bwould\\b(?! like to)|\\bto be (?:debited|charged|deducted)\\b|\\b(?:is|are|was) due\\b|\\bdue (?:on|by|date)\\b"
                     + "|\\b(?:payment|amount|minimum|total) due\\b|\\bscheduled\\b|\\bupcoming\\b"
                     + "|\\b(?:pay|payable)\\b.{0,60}?\\b(?:by|before)\\b|\\balready (?:paid|made)\\b");
+    /** Hypothetical or illustrative wording: an example amount is never a transaction. */
+    private static final Pattern NON_EVENT_GUARD = Pattern.compile(
+            "\\bexamples?\\b|\\be\\.g\\b|\\bfor instance\\b|\\bimagine\\b");
+    /** Weaker non-event wording, tested only on the comma/semicolon clause around the amount ("... at SWIGGY, you earn 5 points"). */
+    private static final Pattern CLAUSE_NON_EVENT_GUARD = Pattern.compile("\\bearns?\\b|\\byou could\\b");
+    /** Newsletter or explainer furniture. A transaction sentence in such a mail needs its own card/account reference. */
+    private static final Pattern NEWSLETTER = Pattern.compile(
+            "\\bview the newsletter\\b|\\bcan.t display\\b|\\bfine print\\b|\\bread more\\b|\\bunsubscribe\\b");
+    private static final int REF_NEIGHBOUR_CHARS = 200;
     /** A sentence selling something (cashback, offer...) is never the transaction sentence. */
     private static final Pattern PROMO_SENTENCE_GUARD = Pattern.compile(
             "\\b(?:offers?|discount|coupon|voucher|win|save)\\b|(?<!\\d)\\d{1,3}%\\s*off");
@@ -82,6 +95,16 @@ public class EmailClassifier {
                     + "(?:\\(inr\\)\\s*)?(?:\\b(?:inr|usd|eur|gbp|aed|sgd|aud|cad|jpy|chf|hkd)|[$\u20AC\u00A3])\\s?\\d");
     private static final Pattern TRANSACTION_LABEL = Pattern.compile(
             "(?<!due )(?<!statement )\\b(?:merchant name|merchant|at|to|from|transaction date|txn date|date(?: (?:&|and) time)?|card|account|ref no|upi ref|transaction type)\\s*:");
+    /** Table labels without a colon: "Amount INR 2.00 Merchant X". Block boundaries (U+2029) count as whitespace. */
+    private static final String GAP = "[\\s" + EmailText.SECTION + "]*";
+    private static final String CUR = "(?:\\b(?:inr|usd|eur|gbp|aed|sgd|aud|cad|jpy|chf|hkd)|[$\u20AC\u00A3])\\s?\\d";
+    private static final Pattern LABELLED_AMOUNT_NO_COLON = Pattern.compile(
+            "(?:^|[.!?:" + EmailText.SECTION + "])" + GAP + "(?:transaction amount|txn amount|amount|amt)" + GAP + CUR);
+    private static final Pattern TRANSACTION_LABEL_NO_COLON = Pattern.compile(
+            "(?:[.!?:" + EmailText.SECTION + "]|\\d)" + GAP + "(?:merchant name|merchant|transaction date|txn date|date|card)[\\s" + EmailText.SECTION + "]+\\S");
+    /** The future wording that makes a labelled summary a reminder, not an event (subject or body). */
+    private static final Pattern LABELLED_FUTURE_GUARD = Pattern.compile(
+            "\\bto be (?:debited|charged|deducted)\\b|\\bwill be (?:debited|charged|deducted)\\b|\\bupcoming\\b|\\bscheduled\\b");
     private static final Pattern CREDIT_LABEL = Pattern.compile(
             "\\b(?:transaction type|type)\\s*[:\\-]\\s*(?:credit|cr)\\b|\\bcredited\\b|\\breceived\\b|\\bcr\\b");
 
@@ -97,11 +120,31 @@ public class EmailClassifier {
             "\\blogin\\b|\\blog(?:ged)? in\\b|\\bpassword\\b|\\bnew device\\b|\\bregistered device\\b|\\bcard (?:has been )?(?:blocked|locked|hotlisted)\\b"
                     + "|\\blimit (?:has been )?(?:changed|updated|revised)\\b|\\b(?:atm |card |upi |m)?pin (?:has been )?(?:set|reset|changed|generated)\\b"
                     + "|\\b(?:set|reset|change|generate) (?:your )?(?:atm |card |upi |m)?pin\\b|\\bsuspicious\\b");
+    /** Security cues used only in step 4. They do not stop a real transaction sentence from being an alert. */
+    private static final Pattern SECURITY_EXTRA = Pattern.compile(
+            "\\blog(?:ged)? on\\b|\\bbiometric\\b|\\bdevice\\b|\\bpayee\\b|\\bmpin\\b|\\bsecure usage tips\\b|\\btwo[- ]step verification\\b|\\b2[- ]step verification\\b");
     private static final Pattern SERVICE = Pattern.compile(
             "\\bkyc\\b|\\b(?:profile|address|e-?mail|mobile(?: number)?|contact details)\\b[^.]{0,40}?\\b(?:updated|changed|registered|verified)\\b"
-                    + "|\\brequest (?:has been |is )?(?:received|registered|logged)\\b|\\bwelcome (?:to|aboard)\\b");
+                    + "|\\brequest (?:has been |is )?(?:received|registered|logged)\\b|\\bwelcome (?:to|aboard)\\b"
+                    + "|\\bfeedback\\b|would love to hear from you|\\bsurvey\\b|scheduled maintenance|relationship manager|\\bmissed call\\b"
+                    + "|credit card is on its way|thank you for choosing|dedicated point of contact"
+                    + "|query reference.{0,40}?\\bregistered\\b|\\bfinancial results\\b|\\brefund\\b.{0,60}?\\bprocessed\\b");
+    /** Request-style service cues; they never apply when the mail also carries a labelled transaction with a card/account ref. */
+    private static final Pattern SERVICE_REQUEST = Pattern.compile(
+            "\\brequest\\b.{0,80}?\\binitiated\\b|\\bconvert\\b.{0,60}?\\bemi\\b|\\bsip\\b.{0,80}?\\binitiated\\b");
+    /** "initiated" is not a transaction verb in these contexts (EMI conversion, SIP, mandates, requests). */
+    private static final Pattern INITIATED_EXCLUSION = Pattern.compile(
+            "\\b(?:emi|sip|mandate|standing instruction|request|registration|conversion|convert)\\b");
+    private static final Pattern STRONG_PAST_VERB = word("debited|credited|spent|withdrawn|received|refunded|reversed");
+    /** Replies, tickets and auto acknowledgements: whatever amounts they quote, they are never alerts. */
+    private static final Pattern SUPPORT_SUBJECT = Pattern.compile(
+            "^\\s*(?:re|fwd?)\\s*:|^\\s*<auto>|service request|\\bticket\\b|query reference|auto acknowledgement|\\bescalation\\b");
+    private static final Pattern SUPPORT_BODY = Pattern.compile("we acknowledge the receipt of your email|thank you for writing to us");
+    /** Selling wording that wins over the weak balance/bill cues, but only when no card/account is referenced. */
+    private static final Pattern STRONG_PROMO = Pattern.compile(
+            "\\blounge\\b|reduce your (?:card )?bill|\\bvoucher\\b|\\bearned\\b.{0,40}?\\bcashback\\b");
     private static final Pattern PROMOTION = Pattern.compile(
-            "\\bunsubscribe\\b|\\boffers?\\b|\\bapply now\\b|\\bpre-?approved\\b|\\blimited period\\b|\\bt&c\\b|\\bterms (?:and|&) conditions\\b|(?<!\\d)\\d{1,3}%\\s*off|\\bexclusive\\b");
+            "\\bunsubscribe\\b|(?<!unsolicited )\\boffers?\\b|\\bview the newsletter\\b|\\bcan.t display\\b|\\bfine print\\b|\\bread more\\b|\\bapply now\\b|\\bpre-?approved\\b|\\blimited period\\b|\\bt&c\\b|\\bterms (?:and|&) conditions\\b|(?<!\\d)\\d{1,3}%\\s*off|\\bexclusive\\b");
 
     private static final Pattern SENTENCE_SPLIT = Pattern.compile("(?<!(?i:\\b(?:no|ref|txn|amt)\\.))(?<=[.?])\\s+(?=[A-Z])|\\s*" + EmailText.SECTION + "\\s*");
     private static final Pattern FILENAME_SEPARATORS = Pattern.compile("[_.]+");
@@ -132,27 +175,44 @@ public class EmailClassifier {
         String lower = email.lower();
         String subjectLower = message.subject() == null ? "" : message.subject().toLowerCase(Locale.ROOT);
 
-        // 1. Statement attachment
         String attachmentKind = statementAttachmentKind(message.attachments());
+
+        List<String> sentences = sentences(email.text());
+        boolean hasAmount = AMOUNT.matcher(lower).find();
+        String bodyLower = bodyOf(lower, subjectLower);
+        boolean newsletter = NEWSLETTER.matcher(bodyLower).find();
+        String subjectNorm = EmailText.normalise(message.subject()).toLowerCase(Locale.ROOT);
+        TransactionSentence txn = hasAmount ? findTransactionSentence(sentences, newsletter, subjectNorm, bodyLower) : null;
+
+        // 0. Support replies, tickets and acknowledgements: never an alert, never a statement. A real transaction
+        // sentence with its own card/account reference, or a statement attachment with statement words, wins.
+        boolean realTransaction = txn != null && ACCOUNT_REF.matcher(txn.lowerSentence()).find();
+        boolean statementAttachment = attachmentKind != null
+                && STATEMENT_WORDS.matcher(subjectLower + attachmentNames(message)).find();
+        if ((SUPPORT_SUBJECT.matcher(subjectLower).find() || SUPPORT_BODY.matcher(lower).find())
+                && !realTransaction && !statementAttachment) {
+            signals.add("kw:support");
+            return result(attachmentKind != null ? EmailSubtype.DOCUMENT : EmailSubtype.SERVICE, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
+
+        // 1. Statement attachment
         if (attachmentKind != null) {
             signals.add("att:" + attachmentKind);
             return classifyAttachment(message, lower, subjectLower, bankId, signals);
         }
 
-        List<String> sentences = sentences(email.text());
-
         // 2. OTP: a real OTP subject, or the otp token and its digits in one sentence that is no transaction sentence
-        if (OTP_SUBJECT.matcher(subjectLower).find() || hasOtpSentence(sentences)) {
+        if (OTP_SUBJECT.matcher(subjectLower).find()
+                || (OTP_SUBJECT_ENDING.matcher(subjectLower).find() && OTP_CODE_NEARBY.matcher(lower).find())
+                || hasOtpSentence(sentences)) {
             signals.add("otp");
             return result(EmailSubtype.OTP, ClassifierConfidence.HIGH, bankId, signals);
         }
 
         // 3. Transaction sentence
-        boolean hasAmount = AMOUNT.matcher(lower).find();
         if (hasAmount) {
             signals.add("amt");
         }
-        TransactionSentence txn = hasAmount ? findTransactionSentence(sentences) : null;
         boolean declined = DECLINE_WORDS.matcher(lower).find();
         if (txn != null) {
             if (declinedNear(sentences, txn.index())) {
@@ -173,7 +233,10 @@ public class EmailClassifier {
         }
 
         // 3b. Labelled fields only ("Amount: INR 50 Merchant: X"), no verb; decline wording falls through to step 4.
-        if (hasAmount && !declined && ACCOUNT_REF.matcher(lower).find() && hasLabelledTransaction(sentences)) {
+        boolean labelledAllowed = hasAmount && !declined && ACCOUNT_REF.matcher(lower).find()
+                && !labelledFuture(sentences, subjectLower)
+                && !(newsletter && !ACCOUNT_REF.matcher(bodyLower).find());
+        if (labelledAllowed && hasLabelledTransaction(sentences, lower)) {
             signals.add("labels");
             signals.add("ref:card");
             EmailSubtype subtype = REVERSAL_WORD.matcher(lower).find() ? EmailSubtype.REVERSAL
@@ -185,6 +248,10 @@ public class EmailClassifier {
         if (hasAmount && declined) {
             signals.add("decline");
             return result(EmailSubtype.DECLINED, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
+        if (!ACCOUNT_REF.matcher(bodyLower).find() && STRONG_PROMO.matcher(lower).find()) {
+            signals.add("promo");
+            return result(EmailSubtype.PROMOTION, ClassifierConfidence.MEDIUM, bankId, signals);
         }
         if (UPCOMING_DEBIT.matcher(lower).find()) {
             signals.add("future");
@@ -202,11 +269,17 @@ public class EmailClassifier {
             signals.add("kw:balance");
             return result(EmailSubtype.BALANCE, ClassifierConfidence.MEDIUM, bankId, signals);
         }
-        if (SECURITY.matcher(lower).find()) {
+        // Statement words in the subject and no attachment: a notice, even when it talks about the PDF password.
+        if (STATEMENT_WORDS.matcher(subjectLower).find()) {
+            signals.add("kw:statement");
+            return result(EmailSubtype.STATEMENT_NOTICE, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
+        if (SECURITY.matcher(lower).find() || SECURITY_EXTRA.matcher(lower).find()) {
             signals.add("kw:security");
             return result(EmailSubtype.SECURITY, ClassifierConfidence.MEDIUM, bankId, signals);
         }
-        if (SERVICE.matcher(lower).find()) {
+        boolean refTransaction = hasAmount && ACCOUNT_REF.matcher(lower).find() && hasLabelledTransaction(sentences, lower);
+        if (SERVICE.matcher(lower).find() || (!refTransaction && SERVICE_REQUEST.matcher(lower).find())) {
             signals.add("kw:service");
             return result(EmailSubtype.SERVICE, ClassifierConfidence.MEDIUM, bankId, signals);
         }
@@ -221,13 +294,7 @@ public class EmailClassifier {
 
     private ClassificationResult classifyAttachment(GmailMessage message, String lower, String subjectLower,
                                                     String bankId, List<String> signals) {
-        StringBuilder names = new StringBuilder();
-        for (GmailAttachment att : message.attachments()) {
-            if (att != null && att.filename() != null) {
-                names.append(' ').append(FILENAME_SEPARATORS.matcher(att.filename().toLowerCase(Locale.ROOT)).replaceAll(" "));
-            }
-        }
-        String head = subjectLower + names;
+        String head = subjectLower + attachmentNames(message);
         boolean statementInHead = STATEMENT_WORDS.matcher(head).find();
         boolean statementInBody = !statementInHead && STATEMENT_WORDS.matcher(lower).find();
         if (statementInHead || (statementInBody && !DOCUMENT_WORDS.matcher(head).find())) {
@@ -252,6 +319,46 @@ public class EmailClassifier {
         return result(EmailSubtype.STATEMENT, ClassifierConfidence.LOW, bankId, signals);
     }
 
+    private static String attachmentNames(GmailMessage message) {
+        StringBuilder names = new StringBuilder();
+        if (message.attachments() != null) {
+            for (GmailAttachment att : message.attachments()) {
+                if (att != null && att.filename() != null) {
+                    names.append(' ').append(FILENAME_SEPARATORS.matcher(att.filename().toLowerCase(Locale.ROOT)).replaceAll(" "));
+                }
+            }
+        }
+        return names.toString();
+    }
+
+    /**
+     * The future wording that makes a labelled summary a reminder: in the subject, in the sentence holding the
+     * labelled amount or the one before it, or in a following "Label: value" fragment. Not a footer.
+     */
+    private static boolean labelledFuture(List<String> sentences, String subjectLower) {
+        if (LABELLED_FUTURE_GUARD.matcher(subjectLower).find()) {
+            return true;
+        }
+        for (int i = 0; i < sentences.size(); i++) {
+            String own = sentences.get(i).toLowerCase(Locale.ROOT);
+            if (!LABELLED_AMOUNT.matcher(own).find() && !LABELLED_AMOUNT_NO_COLON.matcher(own).find()) {
+                continue;
+            }
+            if (LABELLED_FUTURE_GUARD.matcher(own).find()
+                    || (i > 0 && LABELLED_FUTURE_GUARD.matcher(sentences.get(i - 1).toLowerCase(Locale.ROOT)).find())) {
+                return true;
+            }
+            if (i + 1 < sentences.size()) {
+                String next = sentences.get(i + 1).toLowerCase(Locale.ROOT);
+                int colon = next.indexOf(':');
+                if (colon >= 0 && colon <= 40 && LABELLED_FUTURE_GUARD.matcher(next).find()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /** "pdf" or "xls" when the message carries a statement-like attachment, else null. */
     private static String statementAttachmentKind(List<GmailAttachment> attachments) {
         if (attachments == null) {
@@ -274,8 +381,17 @@ public class EmailClassifier {
 
     private record TransactionSentence(List<String> verbs, String lowerSentence, int index) {}
 
+    /** The text after the subject section; the whole text when the subject is blank. */
+    private static String bodyOf(String lower, String subjectLower) {
+        if (subjectLower.isBlank()) {
+            return lower;
+        }
+        int cut = lower.indexOf(EmailText.SECTION);
+        return cut < 0 ? "" : lower.substring(cut + 1);
+    }
+
     private static boolean isGuarded(String lower) {
-        if (FUTURE_GUARD.matcher(lower).find() || PROMO_SENTENCE_GUARD.matcher(lower).find()) {
+        if (FUTURE_GUARD.matcher(lower).find() || PROMO_SENTENCE_GUARD.matcher(lower).find() || NON_EVENT_GUARD.matcher(lower).find()) {
             return true;
         }
         return CASHBACK.matcher(lower).find() && !CREDIT_VERB.matcher(lower).find();
@@ -335,16 +451,27 @@ public class EmailClassifier {
     }
 
     /** The first sentence holding a currency amount and a past-tense transaction verb within the window. */
-    private static TransactionSentence findTransactionSentence(List<String> sentences) {
+    private static TransactionSentence findTransactionSentence(List<String> sentences, boolean newsletter, String subjectNorm, String bodyLower) {
         for (int index = 0; index < sentences.size(); index++) {
             String lower = sentences.get(index).toLowerCase(Locale.ROOT);
             if (isGuarded(lower)) {
                 continue;
             }
+            // Cashback / reward news without a card or account in the sentence is a promotion, not a credit.
+            if (CASHBACK.matcher(lower).find() && !ACCOUNT_REF.matcher(lower).find()) {
+                continue;
+            }
+            // In a newsletter the sentence needs its own reference (itself or ~200 chars around, subject excluded),
+            // or a strong past verb plus a reference anywhere in the body.
+            boolean refNearby = !newsletter || hasRefNearby(sentences, index, subjectNorm);
+            boolean bodyRef = newsletter && ACCOUNT_REF.matcher(bodyLower).find();
             boolean looseAllowed = ACCOUNT_REF.matcher(lower).find()
                     && !SECURITY.matcher(lower).find() && !BILL_DUE.matcher(lower).find() && !BALANCE.matcher(lower).find();
             Matcher amount = AMOUNT.matcher(lower);
             while (amount.find()) {
+                if (clauseIsNonEvent(lower, amount.start(), amount.end())) {
+                    continue;
+                }
                 int from = Math.max(0, amount.start() - TXN_WINDOW);
                 int to = Math.min(lower.length(), amount.end() + TXN_WINDOW);
                 List<String> verbs = new ArrayList<>();
@@ -352,12 +479,46 @@ public class EmailClassifier {
                 if (looseAllowed) {
                     collectVerbs(LOOSE_VERB, lower, from, to, verbs);
                 }
+                if (verbs.contains("initiated") && INITIATED_EXCLUSION.matcher(lower.substring(from, to)).find()) {
+                    verbs.remove("initiated");
+                }
+                if (newsletter && !refNearby && !(bodyRef && STRONG_PAST_VERB.matcher(String.join(" ", verbs)).find())) {
+                    continue;
+                }
                 if (!verbs.isEmpty()) {
                     return new TransactionSentence(verbs, lower, index);
                 }
             }
         }
         return null;
+    }
+
+    /** The comma/semicolon clause around the amount holds weak non-event wording ("earns", "you could"). */
+    private static boolean clauseIsNonEvent(String lower, int amountStart, int amountEnd) {
+        int start = Math.max(lower.lastIndexOf(',', amountStart), lower.lastIndexOf(';', amountStart)) + 1;
+        int commaEnd = lower.indexOf(',', amountEnd);
+        int semiEnd = lower.indexOf(';', amountEnd);
+        int end = commaEnd < 0 ? (semiEnd < 0 ? lower.length() : semiEnd) : (semiEnd < 0 ? commaEnd : Math.min(commaEnd, semiEnd));
+        return CLAUSE_NON_EVENT_GUARD.matcher(lower.substring(start, end)).find();
+    }
+
+    private static boolean hasRefNearby(List<String> sentences, int index, String subjectNorm) {
+        String own = sentences.get(index).toLowerCase(Locale.ROOT);
+        StringBuilder window = new StringBuilder();
+        if (index > 0) {
+            String before = sentences.get(index - 1).toLowerCase(Locale.ROOT);
+            window.append(before, Math.max(0, before.length() - REF_NEIGHBOUR_CHARS), before.length()).append(' ');
+        }
+        window.append(own).append(' ');
+        if (index + 1 < sentences.size()) {
+            String after = sentences.get(index + 1).toLowerCase(Locale.ROOT);
+            window.append(after, 0, Math.min(after.length(), REF_NEIGHBOUR_CHARS));
+        }
+        String text = window.toString();
+        if (!subjectNorm.isEmpty()) {
+            text = text.replace(subjectNorm, " ");
+        }
+        return ACCOUNT_REF.matcher(text).find();
     }
 
     private static void collectVerbs(Pattern pattern, String lower, int from, int to, List<String> verbs) {
@@ -369,7 +530,10 @@ public class EmailClassifier {
         }
     }
 
-    private static boolean hasLabelledTransaction(List<String> sentences) {
+    private static boolean hasLabelledTransaction(List<String> sentences, String lowerWhole) {
+        if (LABELLED_AMOUNT_NO_COLON.matcher(lowerWhole).find() && TRANSACTION_LABEL_NO_COLON.matcher(lowerWhole).find()) {
+            return true;
+        }
         for (String sentence : sentences) {
             String lower = sentence.toLowerCase(Locale.ROOT);
             if (isGuarded(lower)) {
