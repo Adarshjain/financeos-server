@@ -40,6 +40,10 @@ public class JobWorker {
     // claimed, so running jobs can finish and the queue carries over to the next boot.
     private volatile boolean paused = false;
 
+    /** Off only in the local classifier-eval profile; true everywhere else. */
+    @Value("${jobs.worker.enabled:true}")
+    private boolean enabled = true;
+
     public JobWorker(JobRepository jobRepository,
                      JobService jobService,
                      JobHandlerRegistry handlerRegistry,
@@ -81,11 +85,17 @@ public class JobWorker {
     }
 
     public void poke() {
+        if (!enabled) {
+            return;
+        }
         jobExecutor.execute(this::pollInternal);
     }
 
     @Scheduled(fixedDelayString = "${jobs.worker.poll-delay-ms:2000}")
     public void poll() {
+        if (!enabled) {
+            return;
+        }
         pollInternal();
     }
 

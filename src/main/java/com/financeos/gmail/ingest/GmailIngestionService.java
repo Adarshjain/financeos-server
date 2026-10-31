@@ -614,7 +614,7 @@ public class GmailIngestionService {
         }
     }
 
-    private boolean hasStatementAttachment(GmailMessage message) {
+    public static boolean hasStatementAttachment(GmailMessage message) {
         if (message.attachments() == null) {
             return false;
         }

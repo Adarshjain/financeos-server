@@ -40,12 +40,12 @@
   "bank": "amex"
  },
  {
-  "name": "scapia amount without separator is not a label",
+  "name": "scapia amount without separator is a label too",
   "from": "Scapia <scapiacards@federalbank.co.in>",
   "subject": "Card update",
-  "kind": "OTHER",
-  "subtype": "UNKNOWN",
-  "confidence": "LOW",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
   "bodyText": "Amount ₹ 500.00 Merchant: PIZZA PLACE Date: 15-10-2026 Card ending 3342",
   "bank": "federal"
  },

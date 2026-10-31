@@ -1,0 +1,218 @@
+[
+ {
+  "name": "payment acknowledgement with a received credit is an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Payment acknowledgement",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Rs.5000.00 was received towards your credit card ending 1234.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "acknowledgement of payment received is an alert",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "Acknowledgement of payment received",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Payment of Rs.5000.00 was received on your ICICI Bank Credit Card ending 1234.",
+  "bank": "icici"
+ },
+ {
+  "name": "ticket subject with a real debit and card ref is an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Ticket 12345 update",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 725.00 has been debited from your HDFC Bank Credit Card ending 4821 towards CAFE.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "Re: subject with a real debit and writing footer is an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Re: card alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 725.00 has been debited from your HDFC Bank Credit Card ending 4821 towards CAFE. Thank you for writing to us.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "Fwd: subject with a real credit and card ref is an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Fwd: credit",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 300.00 has been credited to your HDFC Bank account ending 4321.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "statement attachment with ticket in the subject is still a statement",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Ticket 778 your credit card statement",
+  "kind": "STATEMENT",
+  "subtype": "CARD_STATEMENT",
+  "confidence": "HIGH",
+  "bodyText": "Your statement is attached.",
+  "bank": "hdfc",
+  "attachments": [
+   {
+    "filename": "stmt.pdf",
+    "mimeType": "application/pdf"
+   }
+  ]
+ },
+ {
+  "name": "Re: thread quoting statement CR lines without a sentence stays service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Re: Regarding my statement",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, regarding your query. 05-10-2026 PAYMENT RECEIVED INR 179.00 CR. 06-10-2026 STORE INR 100.00 DR.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "upi payment to payee with successful is a debit alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "UPI payment",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "UPI payment of Rs.500.00 to payee RAHUL from A/c XX1234 was successful.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "card used at a device store was successful is a debit alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Card transaction",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Your transaction of Rs.900.00 on card ending 1234 was successful at DEVICE STORE.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "emi conversion request initiated is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "EMI conversion",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your request to convert Rs.5000.00 to EMI on card ending 1234 has been initiated.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "sip initiated is service",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "SIP",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your SIP of Rs.5000.00 from a/c XX1234 has been initiated.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "mandate registration initiated is not an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Mandate",
+  "kind": "OTHER",
+  "subtype": "UPCOMING_DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Registration of mandate for Rs.5000.00 from a/c XX1234 has been initiated.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "rtgs initiated stays a debit alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "RTGS transaction",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "You have successfully initiated RTGS transaction of INR 50,000 from your HDFC Bank A/c XX1234 for a transfer to payee Self ABC using HDFC Bank Online Banking.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "initiated debit with a ref and no exclusion word is a debit alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Transfer",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Transfer of INR 1,000.00 from your A/c XX1234 has been initiated.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "earn reward points after the spend is a debit alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Card spend",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Rs.500.00 spent on card ending 1234 at SWIGGY, you earn 5 reward points.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "earns without an example in the amount clause is not an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Offer",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "A INR 1,000 order earns INR 100 spent as rewards, credited in your statement.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "labelled alert with scheduled maintenance footer stays an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Transaction alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Amount: INR 500.00 Merchant: SWIGGY Card ending 1234. Scheduled maintenance on Sunday.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "labelled alert with upcoming offers footer stays an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Transaction alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Amount: INR 500.00 Merchant: SWIGGY Card ending 1234. Check out our upcoming offers.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "axis upcoming autopay with body label stays upcoming",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "AutoPay",
+  "kind": "OTHER",
+  "subtype": "UPCOMING_DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Here's the summary of your upcoming AutoPay transaction: Transaction Amount: INR 299.00 Merchant Name: Youtube To be debited by: 20-03-2026 Axis Bank Credit card No. XX1234",
+  "bank": "axis"
+ },
+ {
+  "name": "alert with far reference and unsubscribe footer stays an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Card alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "INR 725.00 has been debited towards CAFE. Thank you for being a valued customer of our bank and for trusting us with your daily banking needs. Thank you for being a valued customer of our bank and for trusting us with your daily banking needs. Thank you for being a valued customer of our bank and for trusting us with your daily banking needs. This was on your card ending 1234. Click to unsubscribe",
+  "bank": "hdfc"
+ },
+ {
+  "name": "newsletter with a loose verb and a far reference is not an alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "News",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Your payment of INR 725.00 was successful. Thank you for being a valued customer of our bank and for trusting us with your daily banking needs. Thank you for being a valued customer of our bank and for trusting us with your daily banking needs. Thank you for being a valued customer of our bank and for trusting us with your daily banking needs. Your card ending 1234. Click to unsubscribe",
+  "bank": "hdfc"
+ }
+]

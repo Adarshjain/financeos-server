@@ -20,7 +20,7 @@ public final class EmailText {
     private static final int MAX_RAW_CHARS = 200_000;
 
     private static final Pattern ENTITY = Pattern.compile("&(#[xX][0-9a-fA-F]{1,6}|#[0-9]{1,7}|[a-zA-Z]{2,8});");
-    private static final Pattern WHITESPACE = Pattern.compile("[\\s\\u00A0\\u200B]+");
+    private static final Pattern WHITESPACE = Pattern.compile("[\\s\\p{Zs}\\u00A0\\u200B\\u200C\\u200D\\u2060\\uFEFF\\u00AD\\u034F]+");
     private static final Pattern CURRENCY = Pattern.compile("(?:\\b(?:rs|inr)\\b\\.?|₹)\\s*", Pattern.CASE_INSENSITIVE);
     private static final Pattern SECTION_RUNS = Pattern.compile("(?: ?\u2029)+ ?");
     private static final Set<String> BLOCK_TAGS = Set.of("td", "th", "tr", "div", "p", "br", "li", "table",
