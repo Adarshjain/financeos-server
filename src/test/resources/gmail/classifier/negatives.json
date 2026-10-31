@@ -1,0 +1,172 @@
+[
+ {
+  "name": "alert with never share otp footer",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Transaction alert",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Rs. 725.00 has been debited from your HDFC Bank Credit Card ending 4821 towards BLUE LEAF CAFE on 03 Oct, 2026. Never share your OTP, CVV or PIN with anyone. Bank staff will never ask for it.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "alert with do not share otp footer",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Your ICICI Bank Account XX871 has been debited with INR 240.00 on 23-Sep-26. Info: UPI/526600000111/NOODLE BAR. Do not share OTP, URN or password with anyone.",
+  "bank": "icici"
+ },
+ {
+  "name": "mandate notice will be debited",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Upcoming auto-payment",
+  "kind": "OTHER",
+  "subtype": "UPCOMING_DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, Rs. 1,499.00 will be debited from your account ending 3345 on 05-11-2026 towards your standing instruction for FUND HOUSE.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "autopay to be debited",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "UPCOMING_DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "An amount of INR 499.00 is to be debited from your card ending 6031 for your AUTOPAY subscription on 07-11-2026.",
+  "bank": "axis"
+ },
+ {
+  "name": "bill due with amounts",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "Your credit card bill is due",
+  "kind": "OTHER",
+  "subtype": "BILL_DUE",
+  "confidence": "MEDIUM",
+  "bodyText": "Total Amount Due: INR 12,450.00. Minimum Amount Due: INR 620.00. Payment Due Date: 05-11-2026. If you have already paid, please ignore this mail.",
+  "bank": "icici"
+ },
+ {
+  "name": "bill due only minimum",
+  "from": "SBI Card <onlinesbicard@sbicard.com>",
+  "subject": "Reminder",
+  "kind": "OTHER",
+  "subtype": "BILL_DUE",
+  "confidence": "MEDIUM",
+  "bodyText": "Pay the minimum due of INR 500.00 before the due date.",
+  "bank": "sbi"
+ },
+ {
+  "name": "balance only mail",
+  "from": "Equitas <alerts@equitasbank.com>",
+  "subject": "Balance alert",
+  "kind": "OTHER",
+  "subtype": "BALANCE",
+  "confidence": "MEDIUM",
+  "bodyText": "The balance in A/c No XXXXXXXX1290 at MAIN BRANCH as of 06-OCT-2026 is INR 23,456.78.",
+  "bank": "equitas"
+ },
+ {
+  "name": "available balance only",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "BALANCE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your available balance is INR 9,345.00 as on 12-Oct-2026.",
+  "bank": "icici"
+ },
+ {
+  "name": "declined transaction with verb",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Transaction declined",
+  "kind": "OTHER",
+  "subtype": "DECLINED",
+  "confidence": "HIGH",
+  "bodyText": "Your HDFC Bank Debit Card ending 7710 was used for Rs. 2500.00 at ELECTRONICS CO but the payment was declined due to insufficient balance.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "declined without verb",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Payment unsuccessful HDFC Bank Debit Card xx7710",
+  "kind": "OTHER",
+  "subtype": "DECLINED",
+  "confidence": "MEDIUM",
+  "bodyText": "We would like to update you that the below transaction attempted with your HDFC Bank Debit Card XX7710 for Rs 2500.00 could not be completed.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "failed upi payment",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "DECLINED",
+  "confidence": "MEDIUM",
+  "bodyText": "Your UPI payment of Rs. 300.00 failed. Amount will be refunded if debited.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "promo cashback with amount",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "Festive cashback",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Get cashback of INR 500 on a purchase of INR 5,000 using your card. Apply now. T&C apply. Unsubscribe here.",
+  "bank": "icici"
+ },
+ {
+  "name": "promo banner after alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Rs. 90.00 has been debited from your HDFC Bank Credit Card ending 4821 towards TEA POINT. Exclusive offer: 20% off on dining, apply now. Unsubscribe from offers.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "promo banner before alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Exclusive offer inside",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Exclusive offer: 20% off on dining, apply now. Rs. 90.00 has been debited from your HDFC Bank Credit Card ending 4821 towards TEA POINT.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "already paid is not an event",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "Reminder",
+  "kind": "OTHER",
+  "subtype": "BILL_DUE",
+  "confidence": "MEDIUM",
+  "bodyText": "If you have already paid INR 620.00, please ignore this reminder. Total amount due is shown in your app.",
+  "bank": "icici"
+ },
+ {
+  "name": "amount more than window away from verb",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Your statement balance was updated last week and you have paid your dues on time which we appreciate very much and thank you for the same loyalty over the years, valued customer, and your limit is INR 50000.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "amount before verb far but inside window",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Rs. 45.00 spent on your HDFC Bank Card 4821 at STATIONERY, thank you.",
+  "bank": "hdfc"
+ }
+]

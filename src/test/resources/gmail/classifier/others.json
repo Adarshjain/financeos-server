@@ -1,0 +1,260 @@
+[
+ {
+  "name": "otp subject",
+  "from": "Bank <alerts@unknownbank.example>",
+  "subject": "Your OTP for login",
+  "kind": "OTHER",
+  "subtype": "OTP",
+  "confidence": "HIGH",
+  "bodyText": "Please use it within 5 minutes."
+ },
+ {
+  "name": "otp body code is your otp",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Verification",
+  "kind": "OTHER",
+  "subtype": "OTP",
+  "confidence": "HIGH",
+  "bodyText": "482913 is your OTP for the transaction. Valid for 10 minutes.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "otp body otp is code",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "OTP",
+  "confidence": "HIGH",
+  "bodyText": "OTP is 3391 for your card payment of INR 640.00 at BOOK NOOK. Do not share.",
+  "bank": "icici"
+ },
+ {
+  "name": "otp for txn is code",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "OTP",
+  "confidence": "HIGH",
+  "bodyText": "OTP for the transaction of INR 640.00 at BOOK NOOK is 559201. Do not share.",
+  "bank": "icici"
+ },
+ {
+  "name": "one time password phrase",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "OTP",
+  "confidence": "HIGH",
+  "bodyText": "Your one time password: 774412 expires soon.",
+  "bank": "axis"
+ },
+ {
+  "name": "verification code body",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "Confirm your email",
+  "kind": "OTHER",
+  "subtype": "OTP",
+  "confidence": "HIGH",
+  "bodyText": "Verification code: 120934",
+  "bank": "axis"
+ },
+ {
+  "name": "statement notice no attachment",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Your statement is ready",
+  "kind": "OTHER",
+  "subtype": "STATEMENT_NOTICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your credit card statement for September is now available in NetBanking.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "statement generated notice",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "STATEMENT_NOTICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your e-statement has been generated. Log in to view it.",
+  "bank": "icici"
+ },
+ {
+  "name": "security login alert",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Login alert",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "There was a login to your NetBanking from a new device. If this was not you, contact us.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "security card blocked",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "Your debit card has been blocked as per your request.",
+  "bank": "icici"
+ },
+ {
+  "name": "security limit changed",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "The limit changed on your card is effective immediately.",
+  "bank": "axis"
+ },
+ {
+  "name": "security pin set",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "Your card PIN has been changed successfully.",
+  "bank": "axis"
+ },
+ {
+  "name": "security password reset",
+  "from": "SBI Card <onlinesbicard@sbicard.com>",
+  "subject": "Reset your password",
+  "kind": "OTHER",
+  "subtype": "SECURITY",
+  "confidence": "MEDIUM",
+  "bodyText": "Click the link to reset your password.",
+  "bank": "sbi"
+ },
+ {
+  "name": "service kyc",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "KYC update",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your KYC details are due for a periodic refresh.",
+  "bank": "icici"
+ },
+ {
+  "name": "service email updated",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your email address was updated successfully.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "service mobile updated",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your registered mobile number has been updated.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "service request received",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Your service request has been received. Reference 99881.",
+  "bank": "axis"
+ },
+ {
+  "name": "service welcome",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "Welcome to Axis",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Welcome to Axis Bank. We are glad to have you.",
+  "bank": "axis"
+ },
+ {
+  "name": "promotion unsubscribe",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "Fresh deals",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Click to unsubscribe from these mails.",
+  "bank": "icici"
+ },
+ {
+  "name": "promotion pre approved",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "You have a pre-approved loan waiting.",
+  "bank": "icici"
+ },
+ {
+  "name": "promotion pct off",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Enjoy 25% off this week.",
+  "bank": "icici"
+ },
+ {
+  "name": "promotion limited period",
+  "from": "ICICI Bank <credit_cards@icici.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "PROMOTION",
+  "confidence": "MEDIUM",
+  "bodyText": "Limited period offer on cards.",
+  "bank": "icici"
+ },
+ {
+  "name": "unknown plain text",
+  "from": "Friend <friend@mail.example>",
+  "subject": "Lunch tomorrow?",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Shall we meet at noon at the usual place?"
+ },
+ {
+  "name": "unknown known bank",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "Hello",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "Thank you for banking with us.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "unknown amount without verb",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "The fee schedule shows INR 500 for the plan.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "attachment-less empty mail",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "OTHER",
+  "subtype": "UNKNOWN",
+  "confidence": "LOW",
+  "bodyText": "",
+  "bank": "hdfc"
+ }
+]

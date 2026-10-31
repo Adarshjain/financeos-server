@@ -109,4 +109,21 @@ public class ObservabilityMetrics {
             Counter.builder("financeos.gmail.retried").register(registry).increment(count);
         }
     }
+
+    /** Shadow classifier answer for one message; tags are bounded enums. */
+    public void recordGmailClassified(String kind, String subtype, String confidence) {
+        Counter.builder("financeos.gmail.classified")
+                .tag("kind", kind)
+                .tag("subtype", subtype)
+                .tag("confidence", confidence)
+                .register(registry).increment();
+    }
+
+    /** Classifier answer next to what the existing pipeline decided. */
+    public void recordGmailClassifierCompare(String classified, String pipeline) {
+        Counter.builder("financeos.gmail.classifier.compare")
+                .tag("classified", classified)
+                .tag("pipeline", pipeline)
+                .register(registry).increment();
+    }
 }

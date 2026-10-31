@@ -1,0 +1,182 @@
+[
+ {
+  "name": "cc debit towards merchant",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "A payment was made using your Credit Card",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, Greetings from HDFC Bank. Rs. 725.00 has been debited from your HDFC Bank Credit Card ending 4821 towards BLUE LEAF CAFE on 03 Oct, 2026 at 11:05:12. Call HDFC Bank Helpline.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "cc spent short form",
+  "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Spent Rs.1320.00 On HDFC Bank Card 4821 At KIRANA HUB On 2026-10-04:09:15:00 Not you? Call support.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "cc spent in USD",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Spent USD 18.50 On HDFC Bank Card 4821 At CLOUDHOST On 2026-10-05:08:00:10 Not you? Call support.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "cc spent in EUR",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Spent EUR 42.00 On HDFC Bank Card 4821 At RAIL TICKETS On 2026-10-06:10:00:10 Not you? Call support.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "cc reversal initiated",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "REVERSAL",
+  "confidence": "HIGH",
+  "bodyText": "A transaction reversal of Rs. 725.00 has been initiated to your HDFC Bank Credit Card ending 4821 From Merchant: BLUE LEAF CAFE Date & Time: 04 Oct, 2026 at 10:15:00.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "cc reversal bang title",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "REVERSAL",
+  "confidence": "HIGH",
+  "bodyText": "Transaction Reversed! On HDFC Bank CREDIT Card x4821 Amt: Rs. 300.00 By LIBRARY SHOP On 05 Oct, 2026. Not you? Call support.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "cc refund adjusted",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "REVERSAL",
+  "confidence": "HIGH",
+  "bodyText": "Rs. 410.00 refunded by BOOK NOOK and has been adjusted against your HDFC Bank Credit Card 4821.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "cc payment received caps",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "PAYMENT OF Rs. 9000.00 HAS BEEN RECEIVED TOWARDS YOUR HDFC BANK CREDIT CARD ENDING WITH 4821",
+  "bank": "hdfc"
+ },
+ {
+  "name": "cc payment received old sender",
+  "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Card Member, Payment of Rs. 8,000.00 has been received towards your HDFC Bank Credit Card ending 5678 on 18-09-2026. Thank you.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "debit card purchase",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "View: Account update for your HDFC Bank A/c",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Card Holder, Thank you for using your HDFC Bank Debit Card ending 7710 for Rs 860.00 at CITY MART on 07-10-2026 12:44:06. After the above transaction, the total available balance on your card is Rs 4210.50.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "debit card atm withdrawal",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Card Holder, Thank you for using your HDFC Bank Debit Card ending 7710 for ATM withdrawal for Rs 2000.00 in PUNE at STATION ROAD on 08-10-2026 20:41:35.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "upi debit vpa",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "You have done a UPI txn. Check details!",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, Greetings from HDFC Bank! Rs.130.00 is debited from your account ending 3345 towards VPA tea.stall@okbank (CHAI STALL) on 15-09-26. UPI transaction reference no.: 120000000777.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "upi sent from account",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Sent Rs.250.00 From HDFC Bank A/C *3345 To BOOK NOOK On 15/10/26 Not you? Call support.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "account credit ending in",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "View: Account update for your HDFC Bank A/c",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, Greetings from HDFC Bank! We are writing to inform you that Rs.1000.00 has been successfully credited to your HDFC Bank account ending in 3345. Transaction Details: Date: 08-09-26.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "account credit neft details",
+  "from": "HDFC Bank <alerts@hdfcbank.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "You have received a credit in your HDFC Bank account. Details of the transaction: Amount received: INR 15,000.00 Account: XX3345 Date: 08-Sep-2026 Reference Details: NEFT-ABC123-PAYROLL Available Balance: INR 20,500.00",
+  "bank": "hdfc"
+ },
+ {
+  "name": "netbanking debit",
+  "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Thank you for using HDFC Bank NetBanking. Amount of INR 3,200.00 has been debited from A/c XXXX3345 for payment of ELECTRICITY BOARD on 12-10-26. Available balance is INR 1,000.00.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "ach debit account no",
+  "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Customer, This is to inform you that an amount of Rs. 999.00 has been debited from your account No. XXXX3345 on account of ACH D- FUND HOUSE-998877 on 05-09-2026. The available balance in your account is Rs. 23,410.00.",
+  "bank": "hdfc"
+ },
+ {
+  "name": "imps sent medium without ref",
+  "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "MEDIUM",
+  "bodyText": "Your IMPS transfer: Rs. 5,000.00 sent to RAVI on 05-09-2026.",
+  "bank": "hdfc"
+ }
+]

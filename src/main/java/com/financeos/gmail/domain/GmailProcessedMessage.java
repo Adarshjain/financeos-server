@@ -95,6 +95,29 @@ public class GmailProcessedMessage {
     @Column(name = "archived_at")
     private Instant archivedAt;
 
+    /** Shadow classifier answer (nothing routes on it yet); see com.financeos.gmail.classify. */
+    @Column(name = "classified_kind", length = 16)
+    private String classifiedKind;
+
+    @Column(name = "classified_subtype", length = 24)
+    private String classifiedSubtype;
+
+    @Column(name = "classified_confidence", length = 8)
+    private String classifiedConfidence;
+
+    @Column(name = "classified_bank", length = 32)
+    private String classifiedBank;
+
+    @Column(name = "classified_signals", length = 500)
+    private String classifiedSignals;
+
+    @Column(name = "classifier_version")
+    private Integer classifierVersion;
+
+    /** What the existing pipeline decided: STATEMENT / ALERT / OTHER; null when it never got that far. */
+    @Column(name = "pipeline_kind", length = 16)
+    private String pipelineKind;
+
     /**
      * A status change means the message was retried or reactivated, so an archive no longer applies:
      * if it lands in "needs attention" again it is a fresh outcome and must show.

@@ -1,0 +1,62 @@
+[
+ {
+  "name": "cc spent inr labelled",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "INR 50 spent on credit card no. XX6031",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Transaction Amount: INR 50 Merchant Name: SNACK SHOP Axis Bank Credit Card No. XX6031 Date & Time: 05-10-2026, 22:57:38 IST Available Limit*: INR 174000",
+  "bank": "axis"
+ },
+ {
+  "name": "cc spent card no old sender",
+  "from": "Axis Bank Alerts <alerts@axisbank.com>",
+  "subject": "Transaction alert for Axis Bank Credit Card",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Card no. XX6031 for INR 1,299.00 spent at GADGET HUB on 22-09-2026 18:44:02.",
+  "bank": "axis"
+ },
+ {
+  "name": "cc spent in USD",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "Spent USD 12.00 Axis Bank Card no. XX6031 15-10-26 12:30:45 IST CLOUD TOOLS Avl Limit INR 150000 Not you? Call support.",
+  "bank": "axis"
+ },
+ {
+  "name": "account credited label",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "INR 650.00 was credited to your A/c.",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Amount Credited: INR 650.00 Account Number: XX7788 Date & Time: 22-10-2026, 12:15:00 IST Transaction Info: UPI/P2A/123400000999/FRIEND/HDFC/UPI Feel free to connect with us.",
+  "bank": "axis"
+ },
+ {
+  "name": "account credited with",
+  "from": "Axis Bank <alerts@axis.bank.in>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Your A/c no. XX7788 has been credited with INR 1,000.00 on 22-10-2026 at 12:15:00 IST by SALARY.",
+  "bank": "axis"
+ },
+ {
+  "name": "cc payment received",
+  "from": "Axis Bank Alerts <alerts@axisbank.com>",
+  "subject": "",
+  "kind": "ALERT",
+  "subtype": "CREDIT",
+  "confidence": "HIGH",
+  "bodyText": "Dear Cardholder, Payment of INR 20,000.00 has been received towards your Axis Bank Credit Card XX5678 on 19-09-2026. Thank you.",
+  "bank": "axis"
+ }
+]
