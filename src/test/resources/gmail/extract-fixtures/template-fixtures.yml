@@ -1,0 +1,147 @@
+# One made-up email per template: everything below is invented (names, amounts, cards).
+# `sent` is the email's sent instant; `expect` lists the fields the template must produce.
+fixtures:
+  - template: axis.cc.spend.v2
+    from: 'Axis Bank Alerts <alerts@axis.bank.in>'
+    subject: 'INR 1,234.50 spent on credit card no. XX1234'
+    sent: '2026-03-10T05:30:00Z'
+    body: >-
+      Dear Test User, Here's the summary of your Axis Bank Credit Card Transaction:
+      Transaction Amount: INR 1,234.50 Merchant Name: SAMPLE STORE Axis Bank Credit Card No. XX1234
+      Date & Time: 10-03-2026, 11:00:00 IST Available Limit*: INR 5000 Total Credit Limit*: INR 9000
+    expect: {amount: '1234.50', currency: INR, direction: DEBIT, date: '2026-03-10', counterparty: SAMPLE STORE, last4: '1234'}
+
+  - template: axis.cc.spend.v2
+    from: 'alerts@axisbank.com'
+    subject: 'USD 40 spent on credit card no. XX1234'
+    sent: '2026-03-10T05:30:00Z'
+    body: >-
+      Transaction Amount: USD 40 Merchant Name: SAMPLE APP Axis Bank Credit Card No. XX1234
+      Date & Time: 09-03-2026, 23:10:00 IST
+    expect: {amount: '40', currency: USD, direction: DEBIT, date: '2026-03-09', counterparty: SAMPLE APP, last4: '1234'}
+
+  - template: axis.cc.spend.v1
+    from: 'alerts@axisbank.com'
+    subject: 'Transaction alert on Axis Bank Credit Card no. XX1234'
+    sent: '2025-08-31T03:00:00Z'
+    body: >-
+      Dear Test User, Thank you for using your credit card no. XX1234 for INR 349 at SAMPLE PAYM on 31-08-2025 08:27:43 IST.
+      The total credit limit across all your cards is INR 9000 while the available limit is now INR 5000.
+    expect: {amount: '349', currency: INR, direction: DEBIT, date: '2025-08-31', counterparty: SAMPLE PAYM, last4: '1234'}
+
+  - template: axis.cc.spend.v1
+    from: 'alerts@axisbank.com'
+    subject: 'Transaction alert on Axis Bank Credit Card no. XX1234'
+    sent: '2024-07-09T09:00:00Z'
+    body: >-
+      Thank you for using your Card no. XX1234 for INR 2,163.25 at SAMPLE UTILIT on 09-07-24 13:44:27.
+      The total credit limit on your card is INR 9000, while the available limit is INR 5000.
+    expect: {amount: '2163.25', currency: INR, direction: DEBIT, date: '2024-07-09', counterparty: SAMPLE UTILIT, last4: '1234'}
+
+  - template: axis.cc.reversal.v1
+    from: 'alerts@axisbank.com'
+    subject: 'Transaction alert on Axis Bank Credit Card no. XX1234'
+    sent: '2025-04-30T04:00:00Z'
+    body: >-
+      Thank you for banking with us. We wish to inform you that the transaction of IDR 65000 on Axis Bank Credit Card no. XX1234
+      on 30-04-25 06:00:51 IST at SAMPLE*SHOP has been reversed. If this transaction is not initiated by you, please call us.
+    expect: {amount: '65000', currency: IDR, direction: CREDIT, date: '2025-04-30', counterparty: SAMPLE*SHOP, last4: '1234'}
+
+  - template: equitas.debit.upi.v2
+    from: 'Equitas <alerts@equitasbank.com>'
+    subject: 'UPI Debit Alert'
+    sent: '2026-01-31T10:00:00Z'
+    body: >-
+      Dear Customer, Greetings from Equitas Small Finance Bank! Please note that an amount of INR 360.00 has been debited from account # XXXXXXXX1234
+      Ref towards UPI REF NO 100000000001 P2P-Mr SAMPLE PERSON-UPI-BANK0000001- HEAD OFFICE on 31-01-26. The available balance is INR 111.72.
+    expect: {amount: '360.00', currency: INR, direction: DEBIT, date: '2026-01-31', counterparty: SAMPLE PERSON, last4: '1234'}
+
+  - template: equitas.credit.upi.reversal.v2
+    from: 'alerts@equitasbank.com'
+    subject: 'Account Debit Alert'
+    sent: '2024-10-01T10:00:00Z'
+    body: >-
+      Dear Customer, Greetings from Equitas Small Finance Bank! Please note that an amount of INR 860.00 has been credited to account # XXXXXXXX1234
+      Ref towards REVERSAL UPI 100000000002 REV P2P-sample user okbank-UPI- HEAD OFFICE on 01-OCT-2024. The available balance is INR 6,93,822.28.
+    expect: {amount: '860.00', currency: INR, direction: CREDIT, date: '2024-10-01', counterparty: sample user okbank, last4: '1234'}
+
+  - template: equitas.debit.neft.v2
+    from: 'alerts@equitasbank.com'
+    subject: 'NeftRtgs-Debit Alert'
+    sent: '2025-04-01T10:00:00Z'
+    body: >-
+      Dear Customer, Greetings from Equitas Small Finance Bank! Please note that an amount of INR 1,30,000.00 has been debited from account # XXXXXXXX1234
+      Ref towards NEFT Dr-TESTN52025040100000001-SAMPLE PERSON-BANK0000002-HEAD OFFICE-SAMPLEREF Self transfer on 01-04-25. The available balance is INR 1,25,123.53.
+    expect: {amount: '130000.00', currency: INR, direction: DEBIT, date: '2025-04-01', counterparty: SAMPLE PERSON, last4: '1234'}
+
+  - template: equitas.debit.v2
+    from: 'alerts@equitasbank.com'
+    subject: 'Transaction alert'
+    sent: '2025-06-10T10:00:00Z'
+    body: >-
+      Dear Customer, Greetings from Equitas Small Finance Bank! Please note that an amount of INR 2,24,902.72 has been debited from account # XXXXXXXX1234
+      Ref 000000000001 towards PURCHASE 400000******1234 SAMPLEBILLPAY CITY IN on 10-06-25. The available balance is INR 23,103.65.
+    expect: {amount: '224902.72', currency: INR, direction: DEBIT, date: '2025-06-10', counterparty: SAMPLEBILLPAY CITY IN, last4: '1234'}
+
+  - template: equitas.debit.v2
+    from: 'alerts@equitasbank.com'
+    subject: 'Account Debit Alert'
+    sent: '2025-01-30T10:00:00Z'
+    body: >-
+      Dear Customer, Greetings from Equitas Small Finance Bank! Please note that an amount of INR 1,000.00 has been debited from account # XXXXXXXX1234
+      Ref 000000000002 towards CHQ PAID-SELF-SELF - SAMPLE CITY on 30-JAN-2025. The available balance is INR 3,000.00.
+    expect: {amount: '1000.00', currency: INR, direction: DEBIT, date: '2025-01-30', counterparty: CHQ PAID-SELF-SELF - SAMPLE CITY, last4: '1234'}
+
+  - template: equitas.account.upi.v1
+    from: 'alerts@equitasbank.com'
+    subject: 'UPI Credit Alert'
+    sent: '2026-01-10T10:00:00Z'
+    body: >-
+      Dear Customer, An amount of INR 3,090.00 has been credited to A/c XXXXXXXX1234 Ref on account of UPI REF NO 100000000003 P2A-SAMPLE SHOP-UPI-BANK0000003- HEAD OFFICE value 10-01-26 .
+      Clear Bal is INR 15,490.72.
+    expect: {amount: '3090.00', currency: INR, direction: CREDIT, date: '2026-01-10', counterparty: SAMPLE SHOP, last4: '1234'}
+
+  - template: equitas.account.upi.v1
+    from: 'alerts@equitasbank.com'
+    subject: 'Account Debit Alert'
+    sent: '2024-02-24T10:00:00Z'
+    body: >-
+      Dear Customer, Amount of INR 1,770.00 has been debited from A/c XXXXXXXX1234 Ref on account of UPI REF NO 100000000004 P2P-sampleuser okbank-Snacks- HEAD OFFICE value 24-FEB-2024 .
+      Clear Bal is INR 10,89,920.48.
+    expect: {amount: '1770.00', currency: INR, direction: DEBIT, date: '2024-02-24', counterparty: sampleuser okbank, last4: '1234'}
+
+  - template: equitas.account.imps.v1
+    from: 'alerts@equitasbank.com'
+    subject: 'IMPS Credit Alert'
+    sent: '2026-01-21T10:00:00Z'
+    body: >-
+      Dear Customer, An amount of INR 2,90,000.00 has been credited to A/c XXXXXXXX1234 Ref on account of IMP P2A 100000000005 5010022 - SAMPLE PERSON - Self - BANK0000240 - HEAD OFFICE value 21-01-26 .
+      Clear Bal is INR 3,03,471.72.
+    expect: {amount: '290000.00', currency: INR, direction: CREDIT, date: '2026-01-21', counterparty: SAMPLE PERSON, last4: '1234'}
+
+  - template: equitas.account.neft.v1
+    from: 'alerts@equitasbank.com'
+    subject: 'NeftRtgs-Credit Alert'
+    sent: '2025-06-13T10:00:00Z'
+    body: >-
+      Dear Customer, An amount of INR 4,505.00 has been credited to A/c XXXXXXXX1234 Ref on account of NEFT Cr-BANK0000001-SAMPLE FINTECH PRIV FOR SAMPLE FI-BANKN12025061300000001 value 13-06-25 .
+      Clear Bal is INR 27,390.65.
+    expect: {amount: '4505.00', currency: INR, direction: CREDIT, date: '2025-06-13', counterparty: SAMPLE FINTECH PRIV FOR SAMPLE FI, last4: '1234'}
+
+  - template: equitas.account.v1
+    from: 'alerts@equitasbank.com'
+    subject: 'FT-Credit Alert'
+    sent: '2025-06-02T10:00:00Z'
+    body: >-
+      Dear Customer, An amount of INR 93,350.00 has been credited to A/c XXXXXXXX1234 Ref 000000000002 on account of 100000000006:FT -SAMPLE PERSON - 100000000007 value 02-06-25 .
+      Clear Bal is INR 1,01,770.37.
+    expect: {amount: '93350.00', currency: INR, direction: CREDIT, date: '2025-06-02', counterparty: SAMPLE PERSON, last4: '1234'}
+
+  - template: equitas.account.v1
+    from: 'alerts@equitasbank.com'
+    subject: 'Account Credit Alert'
+    sent: '2024-03-31T10:00:00Z'
+    body: >-
+      Dear Customer, An amount of INR 12.00 has been deposited to A/c XXXXXXXX1234 Ref on account of Credit Interest Capitalised value 31-MAR-2024 .
+      Clear Bal is INR 100.00.
+    expect: {amount: '12.00', currency: INR, direction: CREDIT, date: '2024-03-31', counterparty: Credit Interest Capitalised, last4: '1234'}

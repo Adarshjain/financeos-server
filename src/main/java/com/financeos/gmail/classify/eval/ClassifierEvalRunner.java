@@ -7,9 +7,12 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.financeos.gmail.classify.BankSenderDomains;
 import com.financeos.gmail.classify.ClassificationResult;
 import com.financeos.gmail.classify.EmailClassifier;
+import com.financeos.gmail.classify.EmailKind;
 import com.financeos.gmail.classify.EmailText;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailConnectionRepository;
+import com.financeos.gmail.extract.ExtractedTransaction;
+import com.financeos.gmail.extract.TransactionExtractor;
 import com.financeos.gmail.engine.GmailEngine;
 import com.financeos.gmail.ingest.GmailIngestionService;
 import com.financeos.gmail.ingest.GmailSender;
@@ -82,6 +85,8 @@ public class ClassifierEvalRunner implements CommandLineRunner {
     private final long throttleMs;
     private final String dump;
     private final String replay;
+    private final TransactionExtractor extractor;
+    private final String extractOut;
 
     @org.springframework.beans.factory.annotation.Autowired
     public ClassifierEvalRunner(GmailEngine gmailEngine,
@@ -95,9 +100,11 @@ public class ClassifierEvalRunner implements CommandLineRunner {
                                 @Value("${financeos.classifier-eval.max:3000}") int max,
                                 @Value("${financeos.classifier-eval.connection-id:}") String connectionId,
                                 @Value("${financeos.classifier-eval.dump:}") String dump,
-                                @Value("${financeos.classifier-eval.replay:}") String replay) {
+                                @Value("${financeos.classifier-eval.replay:}") String replay,
+                                TransactionExtractor extractor,
+                                @Value("${financeos.classifier-eval.extract-out:}") String extractOut) {
         this(gmailEngine, classifier, connectionRepository, senderRepository, objectMapper, context, out, days, max,
-                connectionId, THROTTLE_MS, dump, replay);
+                connectionId, THROTTLE_MS, dump, replay, extractor, extractOut);
     }
 
     ClassifierEvalRunner(GmailEngine gmailEngine, EmailClassifier classifier,
@@ -112,6 +119,17 @@ public class ClassifierEvalRunner implements CommandLineRunner {
                          GmailConnectionRepository connectionRepository, GmailSenderRepository senderRepository,
                          ObjectMapper objectMapper, ApplicationContext context, String out, int days, int max,
                          String connectionId, long throttleMs, String dump, String replay) {
+        this(gmailEngine, classifier, connectionRepository, senderRepository, objectMapper, context, out, days, max,
+                connectionId, throttleMs, dump, replay, null, "");
+    }
+
+    ClassifierEvalRunner(GmailEngine gmailEngine, EmailClassifier classifier,
+                         GmailConnectionRepository connectionRepository, GmailSenderRepository senderRepository,
+                         ObjectMapper objectMapper, ApplicationContext context, String out, int days, int max,
+                         String connectionId, long throttleMs, String dump, String replay,
+                         TransactionExtractor extractor, String extractOut) {
+        this.extractor = extractor;
+        this.extractOut = extractOut;
         this.dump = dump;
         this.replay = replay;
         this.gmailEngine = gmailEngine;
@@ -145,7 +163,8 @@ public class ClassifierEvalRunner implements CommandLineRunner {
             throw new IllegalArgumentException("financeos.classifier-eval.out is required");
         }
         if (replay != null && !replay.isBlank()) {
-            return replay(Path.of(replay), Path.of(out), classifier, objectMapper);
+            Path extractPath = extractOut == null || extractOut.isBlank() ? null : Path.of(extractOut);
+            return replay(Path.of(replay), Path.of(out), classifier, objectMapper, extractor, extractPath);
         }
         List<GmailConnection> connections = selectConnections();
         Summary summary = new Summary();
@@ -425,12 +444,22 @@ public class ClassifierEvalRunner implements CommandLineRunner {
     /** Classifies every line of a dump and writes the normal masked output. Malformed lines become error lines. */
     static Summary replay(Path dumpPath, Path outPath, EmailClassifier classifier, ObjectMapper mapper)
             throws IOException {
+        return replay(dumpPath, outPath, classifier, mapper, null, null);
+    }
+
+    /**
+     * As {@link #replay(Path, Path, EmailClassifier, ObjectMapper)}; when {@code extractPath} is set, also writes
+     * one unmasked, local-only line per mail the classifier calls ALERT with what {@code extractor} read from it.
+     */
+    static Summary replay(Path dumpPath, Path outPath, EmailClassifier classifier, ObjectMapper mapper,
+                          TransactionExtractor extractor, Path extractPath) throws IOException {
         Summary summary = new Summary();
         if (outPath.getParent() != null) {
             Files.createDirectories(outPath.getParent());
         }
         try (BufferedReader reader = Files.newBufferedReader(dumpPath, StandardCharsets.UTF_8);
-             BufferedWriter writer = Files.newBufferedWriter(outPath, StandardCharsets.UTF_8)) {
+             BufferedWriter writer = Files.newBufferedWriter(outPath, StandardCharsets.UTF_8);
+             BufferedWriter extractWriter = openExtractWriter(extractor, extractPath)) {
             String raw;
             int lineNo = 0;
             while ((raw = reader.readLine()) != null) {
@@ -444,6 +473,10 @@ public class ClassifierEvalRunner implements CommandLineRunner {
                     ClassificationResult result = classifier.classify(message);
                     line = toLine(message, result, GmailIngestionService.hasStatementAttachment(message), mapper);
                     summary.record(result, fromAddress(message.from()));
+                    if (extractWriter != null && result.kind() == EmailKind.ALERT) {
+                        extractWriter.write(extractLine(message, result, extractor.extract(message).orElse(null), mapper));
+                        extractWriter.write('\n');
+                    }
                 } catch (Exception e) {
                     line = errorLine("line-" + lineNo, e, mapper);
                     summary.recordError();
@@ -457,13 +490,43 @@ public class ClassifierEvalRunner implements CommandLineRunner {
         return summary;
     }
 
-    /** Spring-free entry point: {@code ClassifierEvalRunner replay <dump.jsonl> <out.jsonl>}. */
+    private static BufferedWriter openExtractWriter(TransactionExtractor extractor, Path extractPath) throws IOException {
+        if (extractor == null || extractPath == null) {
+            return null;
+        }
+        if (extractPath.getParent() != null) {
+            Files.createDirectories(extractPath.getParent());
+        }
+        log.warn("Writing UNMASKED extraction results to {}: it must stay local and never be committed or shared", extractPath);
+        return Files.newBufferedWriter(extractPath, StandardCharsets.UTF_8);
+    }
+
+    /** One line of the extraction output: the classifier kind plus the engine's fields (tier NONE when it read nothing). */
+    static String extractLine(GmailMessage message, ClassificationResult result, ExtractedTransaction tx,
+                              ObjectMapper mapper) throws JsonProcessingException {
+        Map<String, Object> line = new LinkedHashMap<>();
+        line.put("id", message.messageId());
+        line.put("kind", result.kind().name());
+        line.put("tier", tx == null ? "NONE" : tx.tier().name());
+        line.put("templateId", tx == null ? null : tx.templateId());
+        line.put("amount", tx == null ? null : tx.amount().toPlainString());
+        line.put("currency", tx == null ? null : tx.currency());
+        line.put("direction", tx == null || tx.direction() == null ? null : tx.direction().name());
+        line.put("date", tx == null || tx.date() == null ? null : tx.date().toString());
+        line.put("counterparty", tx == null ? null : tx.counterparty());
+        line.put("last4", tx == null ? null : tx.last4());
+        line.put("confidence", tx == null ? null : tx.confidence());
+        return write(mapper, line);
+    }
+
+    /** Spring-free entry point: {@code ClassifierEvalRunner replay <dump.jsonl> <out.jsonl> [extract-out.jsonl]}. */
     public static void main(String[] args) throws IOException {
-        if (args.length != 3 || !"replay".equals(args[0])) {
-            System.err.println("usage: ClassifierEvalRunner replay <dump.jsonl> <out.jsonl>");
+        if ((args.length != 3 && args.length != 4) || !"replay".equals(args[0])) {
+            System.err.println("usage: ClassifierEvalRunner replay <dump.jsonl> <out.jsonl> [extract-out.jsonl]");
             System.exit(2);
         }
-        Summary s = replay(Path.of(args[1]), Path.of(args[2]), new EmailClassifier(), new ObjectMapper());
+        Summary s = replay(Path.of(args[1]), Path.of(args[2]), new EmailClassifier(), new ObjectMapper(),
+                args.length == 4 ? new TransactionExtractor() : null, args.length == 4 ? Path.of(args[3]) : null);
         System.out.println("replayed " + s.total + " message(s), " + s.errors + " error(s), by kind: " + s.byKind);
     }
 
