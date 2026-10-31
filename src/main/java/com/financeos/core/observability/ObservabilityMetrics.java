@@ -126,4 +126,27 @@ public class ObservabilityMetrics {
                 .tag("pipeline", pipeline)
                 .register(registry).increment();
     }
+
+    /** Offline extraction engine next to the AI result; all tags bounded (tier, result kind, provider id). */
+    public void recordGmailExtractCompare(String tier, String result, String provider) {
+        Counter.builder("financeos.gmail.extract.compare")
+                .tag("tier", tier)
+                .tag("result", result)
+                .tag("provider", provider)
+                .register(registry).increment();
+    }
+
+    /** One increment per field the engine and the AI disagree on. */
+    public void recordGmailExtractFieldMismatch(String field) {
+        Counter.builder("financeos.gmail.extract.field_mismatch")
+                .tag("field", field)
+                .register(registry).increment();
+    }
+
+    /** A CRED / Paytm / Amazon Pay mail whose twin from the issuer is already a transaction (or the reverse). */
+    public void recordGmailExtractMerge(String kind) {
+        Counter.builder("financeos.gmail.extract.merge")
+                .tag("kind", kind)
+                .register(registry).increment();
+    }
 }

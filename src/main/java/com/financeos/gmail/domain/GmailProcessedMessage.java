@@ -118,6 +118,46 @@ public class GmailProcessedMessage {
     @Column(name = "pipeline_kind", length = 16)
     private String pipelineKind;
 
+    /** Shadow offline-extraction result next to the AI's (nothing routes on it); see com.financeos.gmail.extract. */
+    @Column(name = "extract_tier", length = 10)
+    private String extractTier;
+
+    @Column(name = "extract_template", length = 64)
+    private String extractTemplate;
+
+    @Column(name = "extract_version")
+    private Integer extractVersion;
+
+    @Column(name = "extract_amount", precision = 19, scale = 4)
+    private java.math.BigDecimal extractAmount;
+
+    @Column(name = "extract_currency", length = 3)
+    private String extractCurrency;
+
+    @Column(name = "extract_direction", length = 8)
+    private String extractDirection;
+
+    @Column(name = "extract_date")
+    private java.time.LocalDate extractDate;
+
+    @Column(name = "extract_last4", length = 4)
+    private String extractLast4;
+
+    @Column(name = "extract_counterparty", length = 255)
+    private String extractCounterparty;
+
+    /** Fields where the engine and the AI differ, or ENGINE_ONLY / AI_ONLY / AI_FAILED; null when they agree. */
+    @Column(name = "extract_mismatch", length = 100)
+    private String extractMismatch;
+
+    @Column(name = "extract_ai_provider", length = 64)
+    private String extractAiProvider;
+
+    /** Shadow merge check: an existing transaction that looks like this mail's twin from the other side (issuer vs provider). */
+    @Column(name = "extract_merge_txn", length = 36)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private UUID extractMergeTxn;
+
     /**
      * A status change means the message was retried or reactivated, so an archive no longer applies:
      * if it lands in "needs attention" again it is a fresh outcome and must show.

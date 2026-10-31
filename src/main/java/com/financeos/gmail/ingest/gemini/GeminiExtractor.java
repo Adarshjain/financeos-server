@@ -85,24 +85,25 @@ public class GeminiExtractor {
 
             log.info("Calling Gemini API for message ID: {}", message.messageId());
             LlmResponse response = llmClient.complete(request);
+            String provider = response.providerId() + "/" + response.model();
             String jsonText = response.jsonText();
             log.debug("Gemini returned JSON text: {}", jsonText);
 
             ExtractedTransaction extracted = objectMapper.readValue(jsonText, ExtractedTransaction.class);
             if (!extracted.isTransaction()) {
-                return GeminiExtractionResult.notTransaction();
+                return GeminiExtractionResult.notTransaction().withProvider(provider);
             }
 
             if (extracted.amount() == null) {
                 log.warn("Extracted transaction is missing amount for message: {}", message.messageId());
-                return GeminiExtractionResult.failure("Missing required transaction field: amount");
+                return GeminiExtractionResult.failure("Missing required transaction field: amount").withProvider(provider);
             }
 
             // Parse the raw date string using FlexibleDateParser (tolerates non-ISO formats)
             LocalDate parsedDate;
             if (extracted.date() == null || extracted.date().isBlank()) {
                 log.warn("Extracted transaction is missing date for message: {}", message.messageId());
-                return GeminiExtractionResult.failure("Missing required transaction field: date");
+                return GeminiExtractionResult.failure("Missing required transaction field: date").withProvider(provider);
             }
             try {
                 parsedDate = FlexibleDateParser.parse(extracted.date());
@@ -110,10 +111,10 @@ public class GeminiExtractor {
                 log.warn("Unable to parse date '{}' for message: {} — {}",
                         extracted.date(), message.messageId(), e.getMessage());
                 return GeminiExtractionResult.failure(
-                        "Unparseable date: " + extracted.date());
+                        "Unparseable date: " + extracted.date()).withProvider(provider);
             }
 
-            GeminiExtractionResult result = GeminiExtractionResult.success(extracted, parsedDate);
+            GeminiExtractionResult result = GeminiExtractionResult.success(extracted, parsedDate).withProvider(provider);
             // An alert cannot describe a purchase made after it was sent: a later date is a misread.
             if (sentOn != null && parsedDate.isAfter(sentOn)) {
                 log.warn("Extracted date {} is after the email was sent ({}) for message: {}; using the sent date",

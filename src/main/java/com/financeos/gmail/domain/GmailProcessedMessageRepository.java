@@ -69,4 +69,34 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     /** {@link #findAttentionItems}' rows for one account (the row's resolved account), same filter; archived excluded. */
     @Query("SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.account.id = :accountId AND g.status IN :statuses AND g.archivedAt IS NULL")
     long countAttentionItemsForAccount(@Param("userId") UUID userId, @Param("accountId") UUID accountId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
+
+    /** A Gmail-sourced transaction found by the shadow merge check, with the sender of the mail that made it. */
+    interface MergeCandidate {
+        UUID getTransactionId();
+        String getSenderAddress();
+    }
+
+    /** Twin candidates for the shadow merge check, any account of the user; one query, no per-row loads. */
+    @Query("SELECT g.transaction.id AS transactionId, g.senderAddress AS senderAddress FROM GmailProcessedMessage g " +
+           "WHERE g.user.id = :userId AND g.transaction IS NOT NULL AND g.gmailMessageId <> :gmailMessageId " +
+           "AND g.transaction.amount = :amount AND g.transaction.type = :type " +
+           "AND g.transaction.date BETWEEN :fromDate AND :toDate ORDER BY g.transaction.date ASC, g.transaction.id ASC")
+    List<MergeCandidate> findMergeCandidates(@Param("userId") UUID userId, @Param("gmailMessageId") String gmailMessageId,
+                                             @Param("amount") java.math.BigDecimal amount,
+                                             @Param("type") com.financeos.domain.transaction.TransactionType type,
+                                             @Param("fromDate") java.time.LocalDate fromDate,
+                                             @Param("toDate") java.time.LocalDate toDate);
+
+    /** {@link #findMergeCandidates} limited to one account. */
+    @Query("SELECT g.transaction.id AS transactionId, g.senderAddress AS senderAddress FROM GmailProcessedMessage g " +
+           "WHERE g.user.id = :userId AND g.transaction IS NOT NULL AND g.gmailMessageId <> :gmailMessageId " +
+           "AND g.transaction.account.id = :accountId " +
+           "AND g.transaction.amount = :amount AND g.transaction.type = :type " +
+           "AND g.transaction.date BETWEEN :fromDate AND :toDate ORDER BY g.transaction.date ASC, g.transaction.id ASC")
+    List<MergeCandidate> findMergeCandidatesForAccount(@Param("userId") UUID userId, @Param("accountId") UUID accountId,
+                                                       @Param("gmailMessageId") String gmailMessageId,
+                                                       @Param("amount") java.math.BigDecimal amount,
+                                                       @Param("type") com.financeos.domain.transaction.TransactionType type,
+                                                       @Param("fromDate") java.time.LocalDate fromDate,
+                                                       @Param("toDate") java.time.LocalDate toDate);
 }
