@@ -594,7 +594,10 @@ public class ClassifierEvalRunner implements CommandLineRunner {
                             direction == null ? null : Direction.valueOf(direction), new BigDecimal(text(row, "amount")),
                             fromAddress(message.from()), message.subject(), EmailText.of(message).text(),
                             text(row, "templateId"), null, holder);
-                    match = categorizer.categorize(input).orElse(null);
+                    match = categorizer.categorize(input);
+                    if (match.step() == null) {
+                        match = null;
+                    }
                 } catch (IllegalArgumentException e) {
                     // a bad direction or amount: count it, never print the value
                     byStep.merge("ERROR", 1, Integer::sum);
@@ -602,7 +605,8 @@ public class ClassifierEvalRunner implements CommandLineRunner {
                 }
                 Map<String, Object> line = new LinkedHashMap<>();
                 line.put("id", message.messageId());
-                line.put("category", match == null ? null : match.category());
+                line.put("category", match == null || !match.hasCategory() ? null
+                        : match.subcategoryKey() != null ? match.subcategoryKey() : match.categoryKey());
                 line.put("step", match == null ? null : match.step().name());
                 line.put("key", match == null ? null : match.key());
                 writer.write(write(mapper, line));

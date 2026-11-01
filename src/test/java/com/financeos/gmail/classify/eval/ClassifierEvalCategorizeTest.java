@@ -42,7 +42,7 @@ class ClassifierEvalCategorizeTest {
         Set<String> fields = new TreeSet<>();
         row.fieldNames().forEachRemaining(fields::add);
         assertEquals(Set.of("id", "category", "step", "key"), fields);
-        assertEquals("Dining", row.get("category").asText());
+        assertEquals("food.dining", row.get("category").asText());
         String all = String.join("\n", lines);
         assertFalse(all.toLowerCase().contains("zyxqsecret"), "no counterparty or mail text in the output");
         assertTrue(all.contains("m1"));

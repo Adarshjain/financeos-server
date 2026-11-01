@@ -63,6 +63,10 @@ public class TransactionService {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private org.springframework.context.ApplicationEventPublisher eventPublisher;
 
+    /** Categorise-on-arrival for a manual add without a picked category: optional so hand-built tests need none. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.domain.categorization.CategoryAssigner categoryAssigner;
+
     @org.springframework.beans.factory.annotation.Autowired
     public TransactionService(TransactionRepository transactionRepository,
             AccountRepository accountRepository,
@@ -212,9 +216,12 @@ public class TransactionService {
             transaction.setTags(new java.util.HashSet<>(loadOwnTags(request.tagIds(), currentSessionUserId)));
         }
 
-        // A category in the request is the user's choice; without one the transaction stays uncategorised.
+        // A category in the request is the user's choice; without one the arrival steps (rules, engine) run once.
         if (request.categoryKey() != null) {
             categoryWriter.set(transaction, request.categoryKey(), request.subcategoryKey(), CategorySource.USER, (UUID) null);
+        } else if (categoryAssigner != null) {
+            // No pick: the arrival steps (rules, then the engine) run once, now.
+            categoryAssigner.assignOnArrival(List.of(transaction));
         }
 
         reviewStatusManager.transitionTo(transaction, ReviewType.NA);

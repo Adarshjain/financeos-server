@@ -1,0 +1,10 @@
+# How a credit is read when the engine's data names an out-side (spend) category: a credit that matches a
+# spend merchant, keyword or MCC is a refund unless listed here. "none" = no answer for a credit.
+credit:
+  bills.rent: earnings.rent
+  fees.interest: interest
+  investments: redemption
+  insurance: redemption.insurance_payout
+  cash: cash_deposit
+  services.professional: earnings.freelance
+none: [other.forex, bills.maintenance, bills.house_help, emi, donations, donations.religious]

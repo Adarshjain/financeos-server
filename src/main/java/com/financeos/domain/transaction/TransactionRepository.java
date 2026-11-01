@@ -32,6 +32,20 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     Page<Transaction> findAll(Pageable pageable);
 
 
+    /**
+     * Category backfill: a page of the user's never-categorised rows (no category and no category source, so a
+     * row the user cleared is skipped), in id order, after {@code afterId}.
+     */
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.categoryKey IS NULL AND t.categorySource IS NULL "
+            + "AND t.id > :afterId ORDER BY t.id")
+    List<Transaction> findBackfillPageAfter(@Param("userId") UUID userId, @Param("afterId") UUID afterId,
+                                            org.springframework.data.domain.Pageable page);
+
+    /** First page of {@link #findBackfillPageAfter}. */
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.categoryKey IS NULL AND t.categorySource IS NULL "
+            + "ORDER BY t.id")
+    List<Transaction> findBackfillFirstPage(@Param("userId") UUID userId, org.springframework.data.domain.Pageable page);
+
     @EntityGraph(attributePaths = { "tags.tag", "appliedRule", "account", "card", "card.cardholder", "reviewReasons" })
     List<Transaction> findAllByIdIn(List<UUID> ids);
 

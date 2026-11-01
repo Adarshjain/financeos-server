@@ -38,6 +38,7 @@ public class JobJanitor {
     private boolean startupSweepEnabled = true;
 
     @EventListener(ApplicationReadyEvent.class)
+    @org.springframework.core.annotation.Order(org.springframework.core.Ordered.HIGHEST_PRECEDENCE)
     @Transactional
     public void markInterruptedOnStartup() {
         if (!startupSweepEnabled) {

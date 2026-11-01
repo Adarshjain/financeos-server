@@ -84,6 +84,13 @@ public class DividendReceiptService {
         this.autoLinkStore = autoLinkStore;
     }
 
+    private com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setCategoryLinkHooks(com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks) {
+        this.categoryLinkHooks = categoryLinkHooks;
+    }
+
     public DividendReceiptService(DividendRepository dividendRepository,
                                   TransactionRepository transactionRepository,
                                   TransactionLinkRepository transactionLinkRepository,
@@ -131,11 +138,19 @@ public class DividendReceiptService {
             autoLinkStore.addRejections(UserContext.getCurrentUserId(), List.of(new AutoLinkStore.Rejection(
                     SuggestionKind.DIVIDEND, dividend.getTransaction().getId(), dividend.getId())));
         }
+        Transaction previousTransaction = dividend.getTransaction();
         dividend.setTransaction(transaction);
         dividend.setTransactionOrigin(origin);
         dividend.setReceiptStatus(null); // a linked row IS received; any manual note is stale
         boolean tdsWritten = updateTds && applyTdsFromReceipt(dividend, transaction);
+        Transaction replaced = previousTransaction;
         Dividend saved = dividendRepository.save(dividend);
+        if (categoryLinkHooks != null) {
+            if (replaced != null) {
+                categoryLinkHooks.released(List.of(replaced));
+            }
+            categoryLinkHooks.linked(transaction);
+        }
         logLinkEvent(Events.DIVIDEND_LINKED, saved, transactionId, tdsWritten);
         return resolver.toResponse(saved);
     }
@@ -152,9 +167,13 @@ public class DividendReceiptService {
             autoLinkStore.addRejections(UserContext.getCurrentUserId(), List.of(new AutoLinkStore.Rejection(
                     SuggestionKind.DIVIDEND, previous, dividend.getId())));
         }
+        Transaction released = dividend.getTransaction();
         dividend.setTransaction(null);
         dividend.setTransactionOrigin(LinkOrigin.USER);
         dividendRepository.save(dividend);
+        if (categoryLinkHooks != null) {
+            categoryLinkHooks.released(List.of(released));
+        }
         logLinkEvent(Events.DIVIDEND_UNLINKED, dividend, previous, false);
     }
 

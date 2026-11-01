@@ -70,6 +70,10 @@ public class GmailIngestionService {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private TransactionExtractor transactionExtractor;
 
+    /** Categorise-on-arrival for the rows a sync wrote: optional so tests that build the service by hand need none. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.domain.categorization.CategoryAssigner categoryAssigner;
+
     /** Senders (domain or subdomain) whose mails duplicate the issuer's alert for the same payment. */
     private static final Set<String> PROVIDER_SENDER_DOMAINS = Set.of("cred.club", "paytm.com", "amazonpay.in");
     private static final int MERGE_DATE_WINDOW_DAYS = 2;
@@ -336,8 +340,19 @@ public class GmailIngestionService {
             }
         }
 
-        // New transactions are left uncategorised here; once per batch that wrote transactions (no
-        // transaction is open here, so it fires at once).
+        // New transactions get their category once, on arrival (rules, links, engine), in one batch; then
+        // the link pass runs once per batch that wrote transactions (no transaction is open here, so it fires at once).
+        if (!createdTxns.isEmpty() && categoryAssigner != null) {
+            try {
+                int assigned = categoryAssigner.assignOnArrivalById(connection.getUser().getId(),
+                        createdTxns.stream().map(Transaction::getId).toList());
+                log.info("Categorised {} of {} new Gmail transaction(s) on arrival for connection {}",
+                        assigned, createdTxns.size(), connection.getId());
+            } catch (Exception e) {
+                // Uncategorised rows are fine; the sync itself must not fail over it.
+                log.warn("Categorise-on-arrival failed for connection {}: {}", connection.getId(), e.getMessage());
+            }
+        }
         if (!createdTxns.isEmpty() && eventPublisher != null) {
             eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(connection.getUser().getId()));
         }

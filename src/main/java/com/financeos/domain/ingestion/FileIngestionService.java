@@ -53,6 +53,10 @@ public class FileIngestionService {
     private final TransactionMatcher transactionMatcher;
     private final ReviewStatusManager reviewStatusManager;
     private final CategorizationService categorizationService;
+
+    /** Categorise-on-arrival: optional so tests that build the service by hand need none. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.domain.categorization.CategoryAssigner categoryAssigner;
     private final StatementPersistenceService statementPersistenceService;
     private final com.financeos.domain.account.AccountService accountService;
     private com.financeos.statement.details.StatementDetailsAiFiller detailsAiFiller;
@@ -283,6 +287,16 @@ public class FileIngestionService {
             }
 
             totalDuplicatesFound = duplicateNewTxns.size();
+
+            // Each new row gets its category once, here (rules, links, engine), before it is stored.
+            if (categoryAssigner != null) {
+                try {
+                    int assigned = categoryAssigner.assignOnArrival(newTransactionsToInsert);
+                    log.info("Categorised {} of {} uploaded transaction(s) on arrival", assigned, newTransactionsToInsert.size());
+                } catch (Exception e) {
+                    log.warn("Categorise-on-arrival failed for an upload: {}", e.getMessage());
+                }
+            }
 
             // Persist changes inside a write transaction boundary
             dbHandler.saveTransactions(newTransactionsToInsert, new ArrayList<>(dbTxnsToUpdate));
