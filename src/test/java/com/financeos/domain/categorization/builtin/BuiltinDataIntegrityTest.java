@@ -74,7 +74,8 @@ class BuiltinDataIntegrityTest {
         Set<String> ids = new HashSet<>();
         data.link.forEach(r -> assertTrue(ids.add(r.id()), "duplicate rule id: " + r.id()));
         data.keywords.forEach(r -> assertTrue(ids.add(r.id()), "duplicate rule id: " + r.id()));
-        data.link.forEach(r -> assertEquals(null, r.category()));
+        data.link.forEach(r -> assertTrue(r.category() == null
+                || java.util.Set.of("card_bill", "self_transfer", "top_up").contains(r.category().key()), r.id()));
         data.keywords.forEach(r -> assertTrue(r.category() != null));
     }
 

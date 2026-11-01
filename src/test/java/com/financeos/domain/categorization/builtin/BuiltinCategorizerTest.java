@@ -63,19 +63,19 @@ class BuiltinCategorizerTest {
     @Test
     void cardBillPaymentOnTheBankSideIsALink() {
         BuiltinMatch m = match(in("CRED Club", Direction.DEBIT, "Debit alert", "Rs 5000 debited", null));
-        assertMatch(null, Step.LINK, m);
+        assertMatch("card_bill", Step.LINK, m);
     }
 
     @Test
     void paymentReceivedOnACardIsALink() {
         BuiltinMatch m = match(in(null, Direction.CREDIT, "Payment received on your Example Bank Credit Card.",
                 "We have received payment of INR 500.00 on your Example Bank Credit Card account", null));
-        assertMatch(null, Step.LINK, m);
+        assertMatch("card_bill", Step.LINK, m);
     }
 
     @Test
     void selfTransferAndWalletTopUpAreLinks() {
-        assertMatch(null, Step.LINK, match(in("Asha Rao", Direction.CREDIT, "Credit Alert", "IMPS ref Asha Rao Self transfer", null)));
+        assertMatch("self_transfer", Step.LINK, match(in("Asha Rao", Direction.CREDIT, "Credit Alert", "IMPS ref Asha Rao Self transfer", null)));
         assertMatch(null, Step.LINK, match(in(null, Direction.CREDIT, "Rs 500 added to your Pay Wallet.", "Money added to your Pay wallet", null)));
     }
 
@@ -83,7 +83,7 @@ class BuiltinCategorizerTest {
     void linkBeatsKeywordMerchantAndPeople() {
         // "salary" keyword, a merchant name and a person-like name are all present; the card-bill reading wins
         BuiltinMatch m = match(in("Netflix", Direction.DEBIT, "salary", "your credit card bill payment was successful", null));
-        assertMatch(null, Step.LINK, m);
+        assertMatch("card_bill", Step.LINK, m);
     }
 
     // KEYWORD
@@ -246,10 +246,22 @@ class BuiltinCategorizerTest {
     }
 
     @Test
-    void linkHasNoCategory() {
+    void linkRulesCarryTheirCategoryWhenItFitsTheDirection() {
         BuiltinMatch m = match(in("CRED", Direction.DEBIT, "", "", null));
-        assertNull(m.categoryKey());
+        assertEquals("card_bill", m.categoryKey());
         assertEquals(Step.LINK, m.step());
+        // top_up is out-side only: a wallet load credit is still a LINK but gets no category (and never a refund)
+        BuiltinMatch credit = match(withText(null, Direction.CREDIT, "Money added to your Amazon Pay balance"));
+        assertNull(credit.categoryKey());
+        assertEquals(Step.LINK, credit.step());
+        assertEquals("wallet-topup", credit.key());
+    }
+
+    @Test
+    void cardCreditsReceivedStaysWithoutACategory() {
+        BuiltinMatch m = match(in(null, Direction.CREDIT, "Received credits on your Example Bank Credit Card", "", null));
+        assertEquals(Step.LINK, m.step());
+        assertNull(m.categoryKey());
     }
 
     // V2 rules
@@ -282,10 +294,10 @@ class BuiltinCategorizerTest {
     @Test
     void transfersToTheHolderOwnNameAreLinks() {
         String text = "Dear Zyxq Wvut A, Rs 500 has been debited to VPA zyxqwvut1-1@okhdfcbank on 01-01-26 via UPI";
-        assertMatch(null, Step.LINK, match(withText("ZYXQ WVUT A", Direction.DEBIT, text)));
-        assertMatch(null, Step.LINK, match(withText("A ZYXQ WVUT", Direction.CREDIT, text)));
-        assertMatch(null, Step.LINK, match(withText("zyxqwvut1-1@okhdfcbank", Direction.DEBIT, text)));
-        assertMatch(null, Step.LINK, match(new CategorizeInput("Zyxq Wvut", Direction.DEBIT, null, null, null, "Dear Customer, via UPI", null, null, "Zyxq Wvut")));
+        assertMatch("self_transfer", Step.LINK, match(withText("ZYXQ WVUT A", Direction.DEBIT, text)));
+        assertMatch("self_transfer", Step.LINK, match(withText("A ZYXQ WVUT", Direction.CREDIT, text)));
+        assertMatch("self_transfer", Step.LINK, match(withText("zyxqwvut1-1@okhdfcbank", Direction.DEBIT, text)));
+        assertMatch("self_transfer", Step.LINK, match(new CategorizeInput("Zyxq Wvut", Direction.DEBIT, null, null, null, "Dear Customer, via UPI", null, null, "Zyxq Wvut")));
         assertMatch("PERSON", Step.PEOPLE, match(withText("Bhavna Rao", Direction.DEBIT, text)));
     }
 
@@ -340,9 +352,9 @@ class BuiltinCategorizerTest {
 
     @Test
     void ownImpsMoveAndWalletCardLoadAreLinks() {
-        assertMatch(null, Step.LINK, match(withText(null, Direction.DEBIT,
+        assertMatch("self_transfer", Step.LINK, match(withText(null, Direction.DEBIT,
                 "INR 400 has been debited from your account ending 0001 on 01-08-26 and credited to the account ending 0002 via IMPS")));
-        assertMatch(null, Step.LINK, match(debit("MOBIKWIK")));
+        assertMatch("top_up", Step.LINK, match(debit("MOBIKWIK")));
     }
 
     @Test
@@ -364,7 +376,7 @@ class BuiltinCategorizerTest {
     void creditCardUpiPayeeIsNeverPeople() {
         String text = "Rs.100 has been debited from your RuPay Credit Card (ending 1111) Paid to Zyxq Wvut via UPI";
         assertTrue(categorize(withText("Zyxq Wvut", Direction.DEBIT, text)).isEmpty());
-        assertMatch(null, Step.LINK, match(withText("EXAMPLE BANK CREDIT CARD", Direction.DEBIT,
+        assertMatch("card_bill", Step.LINK, match(withText("EXAMPLE BANK CREDIT CARD", Direction.DEBIT,
                 "Rs.100 debited from account 0001 to VPA billdeskpg.examplecard@bank EXAMPLE BANK CREDIT CARD via UPI")));
     }
 
@@ -373,8 +385,8 @@ class BuiltinCategorizerTest {
         assertMatch("bills.mobile", Step.KEYWORD, match(withText("Zyxq Prepaid", Direction.DEBIT, "Convenience fee Rs 0")));
         assertMatch("refund", Step.KEYWORD, match(withText("ZYXQ WVUT", Direction.CREDIT, "credited on account of REVERSAL UPI 123 REV P2A-ZYXQ WVUT")));
         assertMatch(null, Step.LINK, match(withText(null, Direction.CREDIT, "Hi A, You have added Rs 1000.00 successfully to your Amazon Pay Wallet")));
-        assertMatch(null, Step.LINK, match(debit("IND*Amazon Gift Card")));
-        assertMatch(null, Step.LINK, match(withText(null, Direction.DEBIT, "Rs.1000 has been debited from account **0001 to account **0002 on 02-10-24")));
+        assertMatch("top_up", Step.LINK, match(debit("IND*Amazon Gift Card")));
+        assertMatch("self_transfer", Step.LINK, match(withText(null, Direction.DEBIT, "Rs.1000 has been debited from account **0001 to account **0002 on 02-10-24")));
     }
 
     @Test
@@ -430,7 +442,7 @@ class BuiltinCategorizerTest {
         String text = "Dear Zyxq Wvut, Rs 500 has been debited via UPI";
         assertMatch("PERSON", Step.PEOPLE, match(withText("K Wvut", Direction.DEBIT, text)));
         assertMatch("PERSON", Step.PEOPLE, match(withText("Zyxq Wvut", Direction.DEBIT, "Hi Zyxq, Rs 500 debited via UPI")));
-        assertMatch(null, Step.LINK, match(withText("Zyxq Wvut", Direction.DEBIT, text)));
+        assertMatch("self_transfer", Step.LINK, match(withText("Zyxq Wvut", Direction.DEBIT, text)));
     }
 
     @Test

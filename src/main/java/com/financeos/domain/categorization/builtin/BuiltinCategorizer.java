@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 /**
  * Offline, rule-based categoriser, the engine step of categorise-on-arrival. Steps, first hit wins: LINK (legs
- * of a money move, no category), KEYWORD (phrases that decide alone), MERCHANT (dictionary of well-known brands),
+ * of a money move: transfer, card bill or wallet top-up, with that category when it fits the direction), KEYWORD (phrases that decide alone), MERCHANT (dictionary of well-known brands),
  * MCC, PEOPLE (counterparty is an individual: no category, marked as a person). Output is taxonomy keys, read
  * per direction (a credit that hits a spend entry is a refund unless credit-side.yml says otherwise). The YAML
  * under {@code categorize/} is read once in the constructor.
@@ -88,6 +88,12 @@ public final class BuiltinCategorizer {
         }
     }
 
+    /** A LINK hit: the rule's category when it fits the direction (else none, left to the link). */
+    private static BuiltinMatch linkMatch(BuiltinData.Target t, String ruleId, String name) {
+        return t == null ? new BuiltinMatch(null, null, Step.LINK, ruleId, name, false)
+                : new BuiltinMatch(t.categoryKey(), t.subcategoryKey(), Step.LINK, ruleId, name, false);
+    }
+
     /**
      * Decides a category for one transaction. Always returns a match: {@link BuiltinMatch#hasCategory()} is false
      * when nothing here is sure enough, but the counterparty name is still filled in for grouping.
@@ -100,12 +106,12 @@ public final class BuiltinCategorizer {
         boolean cardSpend = !transfer && CARD.matcher(text).find();
         List<String> holder = holder(in, text);
         if (isSelf(payee, holder)) {
-            return new BuiltinMatch(null, null, Step.LINK, "self-name", name, false);
+            return linkMatch(data.fit(data.selfTransfer, in.direction()), "self-name", name);
         }
 
         for (BuiltinData.Rule r : data.link) {
             if (matches(r, in, text, payee)) {
-                return new BuiltinMatch(null, null, Step.LINK, r.id(), name, false);
+                return linkMatch(data.fit(r.category(), in.direction()), r.id(), name);
             }
         }
         for (BuiltinData.Rule r : data.keywords) {

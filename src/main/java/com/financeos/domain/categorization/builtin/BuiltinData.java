@@ -66,10 +66,12 @@ final class BuiltinData {
     private final Map<String, Target> creditOf;
     private final Set<String> noCredit;
     private final Target refund;
+    /** What the self-name check answers: the user's own accounts moving money. */
+    final Target selfTransfer;
 
     private BuiltinData(Set<String> honorifics, Set<String> businessWords, List<Rule> link, List<Rule> keywords, List<Merchant> merchants, Set<String> undecided,
                         Map<String, Target> mccExact, List<MccRange> mccRanges, Map<String, Target> creditOf,
-                        Set<String> noCredit, Target refund) {
+                        Set<String> noCredit, Target refund, Target selfTransfer) {
         this.honorifics = honorifics;
         this.businessWords = businessWords;
         this.link = link;
@@ -81,6 +83,7 @@ final class BuiltinData {
         this.creditOf = creditOf;
         this.noCredit = noCredit;
         this.refund = refund;
+        this.selfTransfer = selfTransfer;
     }
 
     static BuiltinData load() {
@@ -132,7 +135,7 @@ final class BuiltinData {
         }
         return new BuiltinData(honorifics, businessWords, List.copyOf(link), List.copyOf(keywords), List.copyOf(merchants), Set.copyOf(undecided),
                 Map.copyOf(mccExact), List.copyOf(mccRanges), Map.copyOf(creditOf), Set.copyOf(noCredit),
-                target("credit-side.yml", categories, "refund"));
+                target("credit-side.yml", categories, "refund"), target("builtin", categories, "self_transfer"));
     }
 
     private static Object read(String file) {
@@ -186,6 +189,22 @@ final class BuiltinData {
         return creditOf.getOrDefault(t.key(), refund);
     }
 
+    /**
+     * What a link rule's target means for this direction: the target as written when it fits, else null (no
+     * category). Unlike {@link #resolve} a credit never becomes a refund here: a transfer, card bill or top-up
+     * leg that does not fit is simply left to the link.
+     */
+    Target fit(Target t, Direction direction) {
+        if (t == null) {
+            return null;
+        }
+        if (direction == null) {
+            return t;
+        }
+        CategoryDirection need = direction == Direction.CREDIT ? CategoryDirection.IN : CategoryDirection.OUT;
+        return t.direction() != null && t.direction().fits(need) ? t : null;
+    }
+
     private static List<Rule> rules(String file, Object root, CategoryCatalog categories, boolean categoryRequired) {
         if (!(root instanceof Map<?, ?> m) || !(m.get("rules") instanceof List<?> list)) {
             throw fail(file, "expected a map with a 'rules' list");
@@ -209,8 +228,8 @@ final class BuiltinData {
                 }
             }
             String category = string(r.get("category"));
-            if (categoryRequired != (category != null)) {
-                throw fail(file + " [" + id + "]", categoryRequired ? "category is required" : "a link rule has no category");
+            if (categoryRequired && category == null) {
+                throw fail(file + " [" + id + "]", "category is required");
             }
             Direction direction = null;
             if (r.get("direction") != null) {
