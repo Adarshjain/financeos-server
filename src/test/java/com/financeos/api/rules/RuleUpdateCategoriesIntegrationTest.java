@@ -216,11 +216,11 @@ class RuleUpdateCategoriesIntegrationTest {
 
     @Test
     void patternChange_clearsRowsItNoLongerMatches() throws Exception {
-        CategoryRule rule = rule("swiggy", MatchType.CONTAINS, "food");
-        Transaction stillMatches = ruleSet(rule, "UPI SWIGGY INSTAMART");
-        Transaction noLongerMatches = ruleSet(rule, "UPI SWIGGY DINEOUT");
+        CategoryRule rule = rule("zorbo", MatchType.CONTAINS, "food");
+        Transaction stillMatches = ruleSet(rule, "UPI ZORBO ALPHA");
+        Transaction noLongerMatches = ruleSet(rule, "UPI ZORBO BETA");
 
-        updateRule(rule, Map.of("merchantKey", "instamart", "matchType", "CONTAINS"));
+        updateRule(rule, Map.of("merchantKey", "alpha", "matchType", "CONTAINS"));
 
         assertEquals(rule.getId(), appliedRuleId(stillMatches));
         assertEquals("food", categoryKey(stillMatches));
@@ -231,11 +231,11 @@ class RuleUpdateCategoriesIntegrationTest {
 
     @Test
     void patternAndCategoryChange_newCategoryReachesOnlyRowsStillMatching() throws Exception {
-        CategoryRule rule = rule("swiggy", MatchType.CONTAINS, "food");
-        Transaction stillMatches = ruleSet(rule, "UPI SWIGGY INSTAMART");
-        Transaction noLongerMatches = ruleSet(rule, "UPI SWIGGY DINEOUT");
+        CategoryRule rule = rule("zorbo", MatchType.CONTAINS, "food");
+        Transaction stillMatches = ruleSet(rule, "UPI ZORBO ALPHA");
+        Transaction noLongerMatches = ruleSet(rule, "UPI ZORBO BETA");
 
-        updateRule(rule, Map.of("merchantKey", "instamart", "matchType", "CONTAINS", "categoryKey", "shopping"));
+        updateRule(rule, Map.of("merchantKey", "alpha", "matchType", "CONTAINS", "categoryKey", "shopping"));
 
         assertEquals("shopping", categoryKey(stillMatches));
         assertNull(appliedRuleId(noLongerMatches));
@@ -244,11 +244,11 @@ class RuleUpdateCategoriesIntegrationTest {
 
     @Test
     void matchTypeChange_clearsRowsItNoLongerMatches() throws Exception {
-        CategoryRule rule = rule("swiggy", MatchType.CONTAINS, "food");
-        Transaction startsWith = ruleSet(rule, "SWIGGY ORDER 42");
-        Transaction contains = ruleSet(rule, "UPI SWIGGY ORDER 43");
+        CategoryRule rule = rule("zorbo", MatchType.CONTAINS, "food");
+        Transaction startsWith = ruleSet(rule, "ZORBO ORDER 42");
+        Transaction contains = ruleSet(rule, "UPI ZORBO ORDER 43");
 
-        updateRule(rule, Map.of("merchantKey", "swiggy", "matchType", "STARTS_WITH"));
+        updateRule(rule, Map.of("merchantKey", "zorbo", "matchType", "STARTS_WITH"));
 
         assertEquals(rule.getId(), appliedRuleId(startsWith));
         assertNull(appliedRuleId(contains));
@@ -289,9 +289,9 @@ class RuleUpdateCategoriesIntegrationTest {
 
     @Test
     void deletingTheRule_takesBackWhatItSetAndKeepsTheUsersOwn() throws Exception {
-        CategoryRule rule = rule("swiggy", MatchType.CONTAINS, "food");
-        Transaction byRule = ruleSet(rule, "UPI SWIGGY A");
-        Transaction byUser = ruleSet(rule, "UPI SWIGGY B");
+        CategoryRule rule = rule("zorbo", MatchType.CONTAINS, "food");
+        Transaction byRule = ruleSet(rule, "UPI ZORBO A");
+        Transaction byUser = ruleSet(rule, "UPI ZORBO B");
         byUser.setCategoryKey("shopping");
         byUser.setCategorySource(CategorySource.USER);
         transactionRepository.save(byUser);
@@ -304,5 +304,19 @@ class RuleUpdateCategoriesIntegrationTest {
         assertNull(appliedRuleId(byRule));
         assertEquals("shopping", categoryKey(byUser));
         assertNull(appliedRuleId(byUser));
+    }
+
+    /** A row the rule gives up falls back to the built-in engine (not to null) when the engine knows it. */
+    @Test
+    void deletingTheRule_sendsRowsBackThroughTheBuiltInEngine() throws Exception {
+        CategoryRule rule = rule("swiggy", MatchType.CONTAINS, "shopping");
+        Transaction txn = ruleSet(rule, "UPI SWIGGY A");
+
+        mockMvc.perform(delete("/api/v1/rules/{id}", rule.getId()).cookie(session))
+                .andExpect(status().isNoContent());
+
+        assertEquals("food", categoryKey(txn));
+        assertEquals("AUTO", row(txn).get("category_source"));
+        assertNull(appliedRuleId(txn));
     }
 }
