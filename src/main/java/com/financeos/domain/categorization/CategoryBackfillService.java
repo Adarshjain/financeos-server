@@ -43,7 +43,7 @@ public class CategoryBackfillService {
     static final int PAGE_SIZE = 500;
 
     /** What one run did, for the job result (counts only). */
-    public record Result(int users, int scanned, int categorised) {
+    public record Result(int users, int scanned, int categorised, int failed) {
     }
 
     private final CategoryBackfillProgressRepository progressRepository;
@@ -99,14 +99,24 @@ public class CategoryBackfillService {
         List<UUID> users = userRepository.findAllIds();
         int scanned = 0;
         int categorised = 0;
+        int failed = 0;
         int done = 0;
         for (UUID userId : users) {
             if (ctx != null) {
                 ctx.checkCancelled();
             }
-            int[] counts = runUser(userId, ctx);
+            int[] counts;
+            try {
+                counts = runUser(userId, ctx);
+            } catch (com.financeos.domain.job.JobCancelledException e) {
+                throw e;
+            } catch (RuntimeException e) {
+                log.error("Category backfill user={} skipped: {}", userId, e.toString());
+                counts = new int[]{0, 0, 1};
+            }
             scanned += counts[0];
             categorised += counts[1];
+            failed += counts[2];
             done++;
             if (ctx != null) {
                 ctx.progress(done, users.size(), "Categorising transactions");
@@ -124,57 +134,119 @@ public class CategoryBackfillService {
             marker.setUpdatedAt(AppTime.nowInstant());
             progressRepository.save(marker);
         });
-        log.info("Category backfill finished: users={}, scanned={}, categorised={}", users.size(), scanned, categorised);
-        return new Result(users.size(), scanned, categorised);
+        log.info("Category backfill finished: users={}, scanned={}, categorised={}, failed={}", users.size(), scanned, categorised, failed);
+        return new Result(users.size(), scanned, categorised, failed);
     }
 
-    /** Pages through one user's rows from where the last run stopped. Returns {scanned, categorised} of this run. */
+    /** Pages through one user's rows from where the last run stopped. Returns {scanned, categorised, failed} of this run. */
     public int[] runUser(UUID userId, JobExecutionContext ctx) {
         CategoryBackfillProgress.Key key = new CategoryBackfillProgress.Key(KEY, userId.toString());
         int scanned = 0;
         int categorised = 0;
+        int failed = 0;
         while (true) {
             if (ctx != null) {
                 ctx.checkCancelled();
             }
-            int[] page = tx.execute(s -> {
-                CategoryBackfillProgress progress = progressRepository.findById(key)
-                        .orElseGet(() -> new CategoryBackfillProgress(KEY, userId.toString()));
-                if (progress.isDone()) {
-                    return new int[]{-1, 0};
-                }
-                PageRequest size = PageRequest.of(0, PAGE_SIZE);
-                List<Transaction> rows = progress.getLastTxnId() == null
-                        ? transactionRepository.findBackfillFirstPage(userId, size)
-                        : transactionRepository.findBackfillPageAfter(userId, progress.getLastTxnId(), size);
-                if (rows.isEmpty()) {
-                    progress.setDone(true);
-                    progress.setUpdatedAt(AppTime.nowInstant());
-                    progressRepository.save(progress);
-                    return new int[]{-1, 0};
-                }
-                List<Transaction> changed = assigner.backfill(rows);
-                if (!changed.isEmpty()) {
-                    transactionRepository.saveAll(changed);
-                }
-                progress.setLastTxnId(rows.get(rows.size() - 1).getId());
-                progress.setScanned(progress.getScanned() + rows.size());
-                progress.setCategorised(progress.getCategorised() + changed.size());
-                progress.setUpdatedAt(AppTime.nowInstant());
-                progressRepository.save(progress);
-                return new int[]{rows.size(), changed.size()};
-            });
+            int[] page;
+            try {
+                page = tx.execute(s -> processPage(userId, key));
+            } catch (RuntimeException e) {
+                // The page rolled back as a whole (nothing of it persisted). Retry its rows one by one so
+                // only the bad row is skipped, and always move past the page.
+                log.error("Category backfill user={}: a page failed, retrying its rows one by one: {}", userId, e.toString());
+                page = retryRowByRow(userId, key);
+            }
             if (page == null || page[0] < 0) {
                 break;
             }
             scanned += page[0];
             categorised += page[1];
+            failed += page[2];
         }
         CategoryBackfillProgress finished = scanned == 0 ? null : progressRepository.findById(key).orElse(null);
         if (finished != null) {
-            log.info("Category backfill user={}: scanned={}, categorised={} (all runs: scanned={}, categorised={})",
-                    userId, scanned, categorised, finished.getScanned(), finished.getCategorised());
+            log.info("Category backfill user={}: scanned={}, categorised={}, failed={} (all runs: scanned={}, categorised={})",
+                    userId, scanned, categorised, failed, finished.getScanned(), finished.getCategorised());
         }
-        return new int[]{scanned, categorised};
+        return new int[]{scanned, categorised, failed};
+    }
+
+    /** One page and its progress row, in the caller's transaction. {-1,0,0} when the user is finished. */
+    private int[] processPage(UUID userId, CategoryBackfillProgress.Key key) {
+        CategoryBackfillProgress progress = progressRepository.findById(key)
+                .orElseGet(() -> new CategoryBackfillProgress(KEY, userId.toString()));
+        if (progress.isDone()) {
+            return new int[]{-1, 0, 0};
+        }
+        List<Transaction> rows = nextPage(userId, progress);
+        if (rows.isEmpty()) {
+            progress.setDone(true);
+            progress.setUpdatedAt(AppTime.nowInstant());
+            progressRepository.save(progress);
+            return new int[]{-1, 0, 0};
+        }
+        List<Transaction> changed = assigner.backfill(rows);
+        if (!changed.isEmpty()) {
+            transactionRepository.saveAll(changed);
+        }
+        progress.setLastTxnId(rows.get(rows.size() - 1).getId());
+        progress.setScanned(progress.getScanned() + rows.size());
+        progress.setCategorised(progress.getCategorised() + changed.size());
+        progress.setUpdatedAt(AppTime.nowInstant());
+        progressRepository.save(progress);
+        return new int[]{rows.size(), changed.size(), 0};
+    }
+
+    private List<Transaction> nextPage(UUID userId, CategoryBackfillProgress progress) {
+        PageRequest size = PageRequest.of(0, PAGE_SIZE);
+        return progress.getLastTxnId() == null
+                ? transactionRepository.findBackfillFirstPage(userId, size)
+                : transactionRepository.findBackfillPageAfter(userId, progress.getLastTxnId(), size);
+    }
+
+    /** The failed page, row by row (each in its own transaction), then the progress row moves past it. */
+    private int[] retryRowByRow(UUID userId, CategoryBackfillProgress.Key key) {
+        List<UUID> ids = tx.execute(s -> {
+            CategoryBackfillProgress progress = progressRepository.findById(key)
+                    .orElseGet(() -> new CategoryBackfillProgress(KEY, userId.toString()));
+            return nextPage(userId, progress).stream().map(Transaction::getId).toList();
+        });
+        if (ids == null || ids.isEmpty()) {
+            return new int[]{-1, 0, 0};
+        }
+        int categorised = 0;
+        int failed = 0;
+        for (UUID id : ids) {
+            try {
+                Integer n = tx.execute(s -> {
+                    Transaction row = transactionRepository.findById(id).orElse(null);
+                    if (row == null || !userId.equals(row.getUser().getId())) {
+                        return 0;
+                    }
+                    List<Transaction> changed = assigner.backfill(List.of(row));
+                    if (!changed.isEmpty()) {
+                        transactionRepository.saveAll(changed);
+                    }
+                    return changed.size();
+                });
+                categorised += n == null ? 0 : n;
+            } catch (RuntimeException e) {
+                failed++;
+                log.error("Category backfill user={}: skipped transaction {}: {}", userId, id, e.toString());
+            }
+        }
+        final int pageCategorised = categorised;
+        final UUID last = ids.get(ids.size() - 1);
+        tx.executeWithoutResult(s -> {
+            CategoryBackfillProgress progress = progressRepository.findById(key)
+                    .orElseGet(() -> new CategoryBackfillProgress(KEY, userId.toString()));
+            progress.setLastTxnId(last);
+            progress.setScanned(progress.getScanned() + ids.size());
+            progress.setCategorised(progress.getCategorised() + pageCategorised);
+            progress.setUpdatedAt(AppTime.nowInstant());
+            progressRepository.save(progress);
+        });
+        return new int[]{ids.size(), categorised, failed};
     }
 }

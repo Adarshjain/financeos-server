@@ -236,7 +236,9 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
 
     private static Map<String, Object> transactionRow(Transaction t) {
         return transactionRow(t.getId(), t.getDate(), t.getDescription(), t.getSourcedDescription(),
-                t.getTags().stream().map(tc -> tc.getTag().getName()).toList(),
+                t.getCategoryKey() == null ? List.of()
+                        : List.of(com.financeos.domain.category.CategoryCatalog.shared().category(t.getCategoryKey())
+                                .map(com.financeos.domain.category.CategoryCatalog.Cat::name).orElse(t.getCategoryKey())),
                 t.getType(), t.getAmount(), t.isTransactionExcluded());
     }
 

@@ -20949,6 +20949,8 @@ components:
           x-nullable: true
         pattern:
           type: string
+          maxLength: 255
+          minLength: 0
           x-required: true
       required:
       - pattern

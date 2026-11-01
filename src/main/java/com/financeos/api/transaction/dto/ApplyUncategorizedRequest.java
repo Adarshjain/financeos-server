@@ -18,6 +18,6 @@ public record ApplyUncategorizedRequest(
         @Nullable @Valid Rule rule) {
 
     /** The rule to create (or re-point, when the user has one with this pattern and match type). */
-    public record Rule(@NotBlank String pattern, @Nullable String matchType) {
+    public record Rule(@NotBlank @Size(max = 255) String pattern, @Nullable String matchType) {
     }
 }

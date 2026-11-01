@@ -540,11 +540,9 @@ class NetWorthAccountBreakdownTest {
     @Test
     void transactionsSectionPagesTheBalanceTransactionsSignedAsTheBalanceCountsThem() {
         Account bank = anchored(AccountType.bank_account, "Savings", "0", movements(1, "100", 1, "40", 1), "0");
-        Tag food = category("Food");
-        Tag fuel = category("Fuel");
         Transaction credit = transaction(TransactionType.CREDIT, "100", "Salary", null, false);
         Transaction debit = transaction(TransactionType.DEBIT, "40", null, "UPI/RAW", true);
-        debit.setTags(Set.of(fuel, food));
+        debit.setCategoryKey("food");
         when(transactionRepository.findBalanceTransactions(bank.getId(), ANCHOR, PageRequest.of(2, 2)))
                 .thenReturn(new PageImpl<>(List.of(credit, debit), PageRequest.of(2, 2), 6));
 
@@ -562,7 +560,7 @@ class NetWorthAccountBreakdownTest {
         assertEquals(false, creditRow.get("excluded"));
         Map<String, Object> debitRow = table.rows().get(1);
         assertEquals("UPI/RAW", debitRow.get("description"));
-        assertEquals("Food, Fuel", debitRow.get("category"));
+        assertEquals("Food", debitRow.get("category"));
         assertEquals(new BigDecimal("-40"), debitRow.get("amount"));
         assertEquals(true, debitRow.get("excluded"));
         assertEquals(new TableData.Page(2, 2, 6, 3), table.page());
