@@ -249,9 +249,10 @@ class CategoryArrivalAndBackfillIntegrationTest {
         UUID cleared = uncategorised(bank, -100, "UBER");
         jdbc.update("UPDATE transactions SET category_source = 'USER' WHERE id = ?", cleared.toString());
 
-        CategoryBackfillService.Result result = backfill.run(null);
+        // The startup backfill job may walk this user first, so the counts are read from the
+        // user's progress row (all runs), not from this run's result.
+        backfill.run(null);
 
-        assertTrue(result.scanned() >= 2);
         JsonNode filled = read(old);
         assertEquals("food", key(filled));
         assertEquals("AUTO", source(filled));
@@ -264,6 +265,7 @@ class CategoryArrivalAndBackfillIntegrationTest {
         CategoryBackfillProgress mine = progressRepository
                 .findById(new CategoryBackfillProgress.Key(CategoryBackfillService.KEY, userId.toString())).orElseThrow();
         assertTrue(mine.isDone());
+        assertTrue(mine.getScanned() >= 2);
         assertTrue(mine.getCategorised() >= 1);
     }
 
