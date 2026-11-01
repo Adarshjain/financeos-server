@@ -209,9 +209,6 @@ class InstrumentEditsPerUserIntegrationTest {
         trade(bob, bobBroker, s, "buy", "5", "100", today.minusDays(60));
         alice.create("/api/v1/investments/dividends", Map.of("brokerAccountId", aliceBroker.toString(),
                 "instrumentId", s.toString(), "type", "dividend", "amount", "12", "payDate", today.minusDays(3).toString()));
-        alice.create("/api/v1/investments/sips", Map.of("brokerAccountId", aliceBroker.toString(), "instrumentId",
-                s.toString(), "amount", "1000", "frequency", "monthly", "dayOfMonth", 5,
-                "startDate", today.minusDays(90).toString()));
 
         String myName = "Renamed" + tag;
         JsonNode edited = edit(alice, s, Map.of("name", myName, "symbol", "MYD", "exchange", "BSE", "currency", "USD"), 200);
@@ -235,7 +232,7 @@ class InstrumentEditsPerUserIntegrationTest {
         assertEquals(0, jdbc.queryForObject("SELECT COUNT(*) FROM instrument_aliases WHERE instrument_id = ?",
                 Integer.class, s.toString()), "a display edit writes no alias");
 
-        // Positions, trades, dividends, SIPs, corporate actions.
+        // Positions, trades, dividends, corporate actions.
         assertEquals(myName, position(alice, s).get("instrument").get("name").asText());
         assertEquals("MYD", position(alice, s).get("instrument").get("symbol").asText());
         assertEquals(catalogName, position(bob, s).get("instrument").get("name").asText());
@@ -245,7 +242,6 @@ class InstrumentEditsPerUserIntegrationTest {
         assertEquals(catalogName, bobTrades.get(0).get("instrument").get("name").asText());
         assertEquals(myName, alice.getJson("/api/v1/investments/dividends", 200).get("content").get(0)
                 .get("instrumentName").asText());
-        assertEquals(myName, alice.getJson("/api/v1/investments/sips", 200).get(0).get("instrumentName").asText());
         alice.create("/api/v1/instruments/" + s + "/corporate-actions", Map.of("type", "split", "ratioFrom", 1,
                 "ratioTo", 2, "exDate", today.minusDays(400).toString()));
         assertEquals(myName, alice.getJson("/api/v1/instruments/" + s + "/corporate-actions", 200).get(0)
@@ -391,9 +387,6 @@ class InstrumentEditsPerUserIntegrationTest {
         trade(bob, broker(bob, "Bob Broker"), s, "buy", "3", "100", today.minusDays(30));
         alice.create("/api/v1/investments/dividends", Map.of("brokerAccountId", aliceBroker.toString(),
                 "instrumentId", s.toString(), "type", "dividend", "amount", "7", "payDate", today.minusDays(2).toString()));
-        alice.create("/api/v1/investments/sips", Map.of("brokerAccountId", aliceBroker.toString(), "instrumentId",
-                s.toString(), "amount", "500", "frequency", "monthly", "dayOfMonth", 3,
-                "startDate", today.minusDays(60).toString()));
         alice.postJson("/api/v1/instruments/" + s + "/price", Map.of("price", 130, "asOf", today.minusDays(1).toString()), 200);
         alice.patchJson("/api/v1/instruments/" + s, "{\"assetClass\":\"INTERNATIONAL\"}", 200);
         jdbc.update("INSERT INTO trade_settlement_classifications (id, user_id, broker_account_id, holding_id, instrument_id, "
@@ -430,7 +423,6 @@ class InstrumentEditsPerUserIntegrationTest {
         assertTrue(positions(bob, t).isEmpty());
         assertEquals(t.toString(), alice.getJson("/api/v1/investments/dividends", 200).get("content").get(0)
                 .get("instrumentId").asText());
-        assertEquals(t.toString(), alice.getJson("/api/v1/investments/sips", 200).get(0).get("instrumentId").asText());
         assertEquals(0, alice.getJson("/api/v1/instruments/" + s + "/prices", 200).size());
         JsonNode tPrices = alice.getJson("/api/v1/instruments/" + t + "/prices", 200);
         assertEquals(1, tPrices.size());

@@ -3,7 +3,6 @@ package com.financeos.api.account;
 import com.financeos.api.account.dto.AccountFlowSummaryResponse;
 import com.financeos.api.account.dto.AccountGmailSummaryResponse;
 import com.financeos.api.account.dto.AccountPaymentsFromResponse;
-import com.financeos.api.account.dto.AccountTabCountsResponse;
 import com.financeos.domain.account.AccountInsightsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,11 +22,6 @@ public class AccountInsightsController {
 
     public AccountInsightsController(AccountInsightsService insightsService) {
         this.insightsService = insightsService;
-    }
-
-    @GetMapping("/tab-counts")
-    public ResponseEntity<AccountTabCountsResponse> getTabCounts(@PathVariable UUID id) {
-        return ResponseEntity.ok(insightsService.tabCounts(id));
     }
 
     /** Money in/out over the last {@code days} days (1-366, default 90) ending today; 400 for days out of range. */

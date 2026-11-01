@@ -5,12 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.account.card.Cardholder;
-import com.financeos.domain.account.card.CardholderRepository;
-import com.financeos.domain.account.card.CardholderRole;
-import com.financeos.domain.statement.Statement;
-import com.financeos.domain.statement.StatementRepository;
-import com.financeos.domain.statement.StatementSource;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.domain.GmailConnection;
@@ -54,8 +48,6 @@ class AccountInsightsIntegrationTest {
     @Autowired private JdbcTemplate jdbc;
     @Autowired private UserRepository userRepository;
     @Autowired private AccountRepository accountRepository;
-    @Autowired private StatementRepository statementRepository;
-    @Autowired private CardholderRepository cardholderRepository;
     @Autowired private GmailConnectionRepository connectionRepository;
     @Autowired private GmailProcessedMessageRepository processedMessageRepository;
 
@@ -84,41 +76,6 @@ class AccountInsightsIntegrationTest {
     @AfterEach
     void tearDown() {
         UserDataCleanup.deleteUsers(jdbc, List.of(userId, otherUserId));
-    }
-
-    // ------------------------------------------------------------------ tab counts
-
-    @Test
-    void tabCountsCountStatementsOpenCardholdersAndEveryTransactionTheListShows() throws Exception {
-        txn(bank, today.minusDays(1), 100, "a", List.of());
-        txn(bank, today.minusDays(2), -50, "b", List.of());
-        UUID excluded = txn(bank, today.minusDays(3), -10, "excluded", List.of());
-        jdbc.update("UPDATE transactions SET is_excluded = TRUE WHERE id = ?", excluded.toString());
-        txn(emptyBank, today, 999, "another account", List.of());
-        statement(bank, today.minusDays(40), today.minusDays(10));
-        statement(bank, today.minusDays(70), today.minusDays(41));
-        statement(emptyBank, today.minusDays(40), today.minusDays(10));
-        cardholder(bank, CardholderRole.PRIMARY, null);
-        cardholder(bank, CardholderRole.ADDON, null);
-        cardholder(bank, CardholderRole.ADDON, today.minusDays(5));
-
-        JsonNode counts = api.getJson("/api/v1/accounts/" + bank + "/tab-counts", 200);
-
-        assertEquals(2, counts.get("statements").asLong());
-        assertEquals(2, counts.get("cards").asLong(), "the closed cardholder is not counted");
-        assertEquals(3, counts.get("transactions").asLong(), "the excluded row is in the list, so it is counted");
-        Map<String, Object> search = Map.of("filters", List.of(Map.of("field", "accountId", "operator", "is", "value", bank.toString())));
-        JsonNode listed = api.postJson("/api/v1/transactions/search", search, 200);
-        assertEquals(counts.get("transactions").asLong(), listed.get("totalElements").asLong());
-    }
-
-    @Test
-    void tabCountsOfAnEmptyAccountAreZero() throws Exception {
-        JsonNode counts = api.getJson("/api/v1/accounts/" + emptyBank + "/tab-counts", 200);
-
-        assertEquals(0, counts.get("statements").asLong());
-        assertEquals(0, counts.get("cards").asLong());
-        assertEquals(0, counts.get("transactions").asLong());
     }
 
     // ------------------------------------------------------------------ flow summary
@@ -329,7 +286,7 @@ class AccountInsightsIntegrationTest {
 
     @Test
     void anotherUsersAccountIsNotFoundForEveryRead() throws Exception {
-        for (String path : List.of("tab-counts", "flow-summary", "payments-from", "gmail-summary")) {
+        for (String path : List.of("flow-summary", "payments-from", "gmail-summary")) {
             assertEquals(404, otherApi.get("/api/v1/accounts/" + bank + "/" + path).getStatus(), path);
             assertEquals(404, api.get("/api/v1/accounts/" + UUID.randomUUID() + "/" + path).getStatus(), path);
         }
@@ -400,26 +357,6 @@ class AccountInsightsIntegrationTest {
             body.put("paymentAccountId", paymentAccount.toString());
         }
         return api.create("/api/v1/loans", body);
-    }
-
-    private void statement(UUID account, LocalDate start, LocalDate end) {
-        Statement statement = new Statement();
-        statement.setUser(user);
-        statement.setAccount(accountRepository.findById(account).orElseThrow());
-        statement.setSource(StatementSource.file_upload);
-        statement.setPeriodStart(start);
-        statement.setPeriodEnd(end);
-        statementRepository.save(statement);
-    }
-
-    private void cardholder(UUID account, CardholderRole role, LocalDate closedOn) {
-        Cardholder cardholder = new Cardholder();
-        cardholder.setUser(user);
-        cardholder.setAccount(accountRepository.findById(account).orElseThrow());
-        cardholder.setRole(role);
-        cardholder.setOpenedOn(today.minusDays(100));
-        cardholder.setClosedOn(closedOn);
-        cardholderRepository.save(cardholder);
     }
 
     private void processed(GmailConnection connection, Account account, GmailProcessedStatus status, Instant archivedAt) {

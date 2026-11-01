@@ -7,7 +7,6 @@ import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.core.time.AppTime;
-import com.financeos.domain.account.card.CardholderRepository;
 import com.financeos.domain.loan.Loan;
 import com.financeos.domain.loan.LoanChargeRepository;
 import com.financeos.domain.loan.LoanEventRepository;
@@ -16,7 +15,6 @@ import com.financeos.domain.loan.LoanRepository;
 import com.financeos.domain.loan.LoanStatus;
 import com.financeos.domain.loan.schedule.LoanScheduleService;
 import com.financeos.domain.loan.schedule.ScheduleResult;
-import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.transaction.link.TransactionLinkRepository;
@@ -66,8 +64,8 @@ class AccountInsightsServiceTest {
         balanceSeries = mock(AccountBalanceSeriesService.class);
         loans = mock(LoanRepository.class);
         loanSchedule = mock(LoanScheduleService.class);
-        service = new AccountInsightsService(accounts, transactions, mock(StatementRepository.class),
-                mock(CardholderRepository.class), balanceSeries, loans, mock(LoanEventRepository.class),
+        service = new AccountInsightsService(accounts, transactions,
+                balanceSeries, loans, mock(LoanEventRepository.class),
                 mock(LoanPaymentRepository.class), mock(LoanChargeRepository.class), loanSchedule,
                 mock(TransactionLinkRepository.class), mock(GmailProcessedMessageRepository.class));
         Account account = new Account("Savings", AccountType.bank_account);
@@ -183,7 +181,6 @@ class AccountInsightsServiceTest {
         UUID foreign = UUID.randomUUID();
         when(accounts.findByIdAndUser_Id(foreign, USER_ID)).thenReturn(Optional.empty());
 
-        assertThrows(ResourceNotFoundException.class, () -> service.tabCounts(foreign));
         assertThrows(ResourceNotFoundException.class, () -> service.flowSummary(foreign, 90));
         assertThrows(ResourceNotFoundException.class, () -> service.paymentsFrom(foreign));
         assertThrows(ResourceNotFoundException.class, () -> service.gmailSummary(foreign));

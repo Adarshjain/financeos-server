@@ -7,7 +7,6 @@ import com.financeos.api.epf.dto.EpfImportRefusedFile;
 import com.financeos.api.epf.dto.EpfImportPreviewResponse.EpfEmployerOption;
 import com.financeos.api.epf.dto.EpfImportPreviewResponse.Status;
 import com.financeos.api.epf.dto.EpfImportResultResponse;
-import com.financeos.core.exception.ApiStatusException;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
@@ -17,7 +16,6 @@ import com.financeos.domain.epf.passbook.EpfPassbookParser;
 import com.financeos.domain.epf.passbook.ParsedPassbook;
 import com.financeos.domain.epf.passbook.ParsedPassbookRow;
 import com.financeos.domain.user.UserRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,21 +65,8 @@ public class EpfImportService {
     }
 
     @Transactional(readOnly = true)
-    public EpfImportPreviewResponse preview(byte[] file, @Nullable UUID employerId) {
-        BatchPlan bp = planBatch(List.of(new BatchFile("passbook.pdf", file)), List.of(), employerId);
-        throwIfRefused(bp);
-        return bp.sections.get(0).plan.toPreview();
-    }
-
-    public EpfImportResultResponse commit(byte[] file, @Nullable UUID employerId) {
-        BatchPlan bp = planBatch(List.of(new BatchFile("passbook.pdf", file)), List.of(), employerId);
-        throwIfRefused(bp);
-        return commitPlan(bp).results().get(0);
-    }
-
-    @Transactional(readOnly = true)
     public EpfImportBatchPreviewResponse previewBatch(List<BatchFile> files, List<String> assign) {
-        BatchPlan bp = planBatch(files, assign, null);
+        BatchPlan bp = planBatch(files, assign);
         List<EpfImportBatchPreviewResponse.EpfImportSection> out = new ArrayList<>();
         for (SectionPlan s : bp.sections) {
             out.add(new EpfImportBatchPreviewResponse.EpfImportSection(s.key, s.fileNames, s.plan.toPreview()));
@@ -90,16 +75,9 @@ public class EpfImportService {
     }
 
     public EpfImportBatchResultResponse commitBatch(List<BatchFile> files, List<String> assign) {
-        BatchPlan bp = planBatch(files, assign, null);
+        BatchPlan bp = planBatch(files, assign);
         if (bp.sections.isEmpty()) throw new ValidationException("None of these files could be imported.");
         return commitPlan(bp);
-    }
-
-    private static void throwIfRefused(BatchPlan bp) {
-        if (bp.sections.isEmpty()) {
-            EpfImportRefusedFile r = bp.refused.get(0);
-            throw new ApiStatusException(HttpStatus.BAD_REQUEST, r.code(), r.message());
-        }
     }
 
     private EpfImportBatchResultResponse commitPlan(BatchPlan bp) {
@@ -239,7 +217,7 @@ public class EpfImportService {
         List<ParsedPassbook> passbooks = new ArrayList<>();
     }
 
-    private BatchPlan planBatch(List<BatchFile> files, List<String> assignParams, @Nullable UUID singleEmployerId) {
+    private BatchPlan planBatch(List<BatchFile> files, List<String> assignParams) {
         if (files.isEmpty()) throw new ValidationException("Upload at least one passbook.");
         if (files.size() > MAX_FILES) throw new ValidationException("Upload at most 12 passbooks at once.");
         Map<String, UUID> assign = parseAssign(assignParams);
@@ -301,7 +279,6 @@ public class EpfImportService {
         for (Group g : groups.values()) {
             ParsedPassbook merged = merge(g.passbooks);
             UUID chosenId = assign.get(g.key);
-            if (chosenId == null) chosenId = singleEmployerId;
             Plan plan = new Plan();
             plan.passbook = merged;
             if (chosenId != null) {

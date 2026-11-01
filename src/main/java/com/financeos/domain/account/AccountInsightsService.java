@@ -3,13 +3,11 @@ package com.financeos.domain.account;
 import com.financeos.api.account.dto.AccountFlowSummaryResponse;
 import com.financeos.api.account.dto.AccountGmailSummaryResponse;
 import com.financeos.api.account.dto.AccountPaymentsFromResponse;
-import com.financeos.api.account.dto.AccountTabCountsResponse;
 import com.financeos.api.account.dto.BalancePointResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.core.time.AppTime;
-import com.financeos.domain.account.card.CardholderRepository;
 import com.financeos.domain.loan.Loan;
 import com.financeos.domain.loan.LoanChargeRepository;
 import com.financeos.domain.loan.LoanEventRepository;
@@ -19,7 +17,6 @@ import com.financeos.domain.loan.LoanStatus;
 import com.financeos.domain.loan.schedule.LoanScheduleService;
 import com.financeos.domain.loan.schedule.ScheduleResult;
 import com.financeos.domain.notification.gmail.GmailAttentionNotificationService;
-import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionSource;
@@ -56,8 +53,6 @@ public class AccountInsightsService {
 
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
-    private final StatementRepository statementRepository;
-    private final CardholderRepository cardholderRepository;
     private final AccountBalanceSeriesService balanceSeriesService;
     private final LoanRepository loanRepository;
     private final LoanEventRepository loanEventRepository;
@@ -69,8 +64,6 @@ public class AccountInsightsService {
 
     public AccountInsightsService(AccountRepository accountRepository,
                                   TransactionRepository transactionRepository,
-                                  StatementRepository statementRepository,
-                                  CardholderRepository cardholderRepository,
                                   AccountBalanceSeriesService balanceSeriesService,
                                   LoanRepository loanRepository,
                                   LoanEventRepository loanEventRepository,
@@ -81,8 +74,6 @@ public class AccountInsightsService {
                                   GmailProcessedMessageRepository processedMessageRepository) {
         this.accountRepository = accountRepository;
         this.transactionRepository = transactionRepository;
-        this.statementRepository = statementRepository;
-        this.cardholderRepository = cardholderRepository;
         this.balanceSeriesService = balanceSeriesService;
         this.loanRepository = loanRepository;
         this.loanEventRepository = loanEventRepository;
@@ -91,17 +82,6 @@ public class AccountInsightsService {
         this.loanScheduleService = loanScheduleService;
         this.transactionLinkRepository = transactionLinkRepository;
         this.processedMessageRepository = processedMessageRepository;
-    }
-
-    public AccountTabCountsResponse tabCounts(UUID accountId) {
-        Account account = requireOwned(accountId);
-        long cards = account.getType() == AccountType.bank_account || account.getType() == AccountType.credit_card
-                ? cardholderRepository.countByAccountIdAndClosedOnIsNull(accountId)
-                : 0;
-        return new AccountTabCountsResponse(
-                statementRepository.countByAccount_Id(accountId),
-                cards,
-                transactionRepository.countAllByAccountId(accountId));
     }
 
     public AccountFlowSummaryResponse flowSummary(UUID accountId, int days) {

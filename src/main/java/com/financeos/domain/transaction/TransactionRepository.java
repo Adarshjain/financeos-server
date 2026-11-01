@@ -403,10 +403,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     long countByUserIdAndReviewTypeAndReason(@Param("userId") UUID userId, @Param("reviewType") ReviewType reviewType,
                                              @Param("reason") ReviewReason reason);
 
-    /** Every transaction of the account: what the transactions list returns for an accountId filter (it excludes nothing). */
-    @Query("SELECT COUNT(t) FROM Transaction t WHERE t.account.id = :accountId")
-    long countAllByAccountId(@Param("accountId") UUID accountId);
-
     interface TypeTotalProjection {
         TransactionType getType();
 

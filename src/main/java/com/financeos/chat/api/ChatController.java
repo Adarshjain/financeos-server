@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.*;
 
@@ -27,7 +25,6 @@ public class ChatController {
 
     private final ChatFeatureState featureState;
     private final ChatQuotaService quotaService;
-    private final ChatOrchestrator orchestrator;
     private final ChatStreamService streamService;
     private final ObjectMapper objectMapper;
     private final com.financeos.chat.db.ChatProperties chatProperties;
@@ -37,13 +34,11 @@ public class ChatController {
 
     public ChatController(ChatFeatureState featureState,
                           ChatQuotaService quotaService,
-                          ChatOrchestrator orchestrator,
                           ChatStreamService streamService,
                           ObjectMapper objectMapper,
                           com.financeos.chat.db.ChatProperties chatProperties) {
         this.featureState = featureState;
         this.quotaService = quotaService;
-        this.orchestrator = orchestrator;
         this.streamService = streamService;
         this.objectMapper = objectMapper;
         this.chatProperties = chatProperties;
@@ -123,41 +118,5 @@ public class ChatController {
         emitter.onError((t) -> { disconnected.set(true); workerTask.cancel(true); });
 
         return ResponseEntity.ok(emitter);
-    }
-
-    @PostMapping
-    public ResponseEntity<ChatResponseDto> syncChat(@RequestBody ChatStreamRequest request) {
-        if (!featureState.isEnabled()) {
-            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();
-        }
-
-        UUID userId = UserContext.getCurrentUserId();
-        if (userId == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        if (!quotaService.tryAcquireConcurrency()) {
-            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
-        }
-
-        try {
-            List<ChatTraceEntry> traces = new ArrayList<>();
-            ChatEventSink sink = new ChatEventSink() {
-                @Override
-                public void onStatus(String statusMessage) {}
-
-                @Override
-                public void onTrace(ChatTraceEntry traceEntry) {
-                    traces.add(traceEntry);
-                }
-            };
-
-            ChatAnswer answer = orchestrator.run(request.messages(), sink);
-            ChatResponseDto dto = new ChatResponseDto(answer.answer(), answer.clarify(), answer.clarifyOptions(), answer.blocks(), answer.traces());
-            return ResponseEntity.ok(dto);
-
-        } finally {
-            quotaService.releaseConcurrency();
-        }
     }
 }
