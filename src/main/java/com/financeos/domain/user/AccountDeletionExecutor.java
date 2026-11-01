@@ -102,6 +102,10 @@ public class AccountDeletionExecutor {
         // is still intact, rather than after it is gone.
         List<String> tables = userScopedTables();
 
+        // category_backfill_progress.user_id has no foreign key (a '*' row marks the whole run),
+        // so cascade cannot reach it.
+        jdbcTemplate.update("DELETE FROM category_backfill_progress WHERE user_id = ?", userId.toString());
+
         int deleted = jdbcTemplate.update("DELETE FROM users WHERE id = ?", userId.toString());
         if (deleted != 1) {
             throw new IllegalStateException(

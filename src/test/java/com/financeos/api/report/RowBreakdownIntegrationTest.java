@@ -105,7 +105,7 @@ class RowBreakdownIntegrationTest {
         txn(bank, anchor, "250", "On anchor", TransactionType.DEBIT, false);
         UUID credit = txn(bank, anchor.plusDays(1), "1200", "Refund in", TransactionType.CREDIT, false);
         UUID excluded = txn(bank, anchor.plusDays(2), "300", "Excluded spend", TransactionType.DEBIT, true);
-        UUID food = txn(bank, anchor.plusDays(3), "150", "Lunch", TransactionType.DEBIT, false, "Food");
+        UUID food = txn(bank, anchor.plusDays(3), "150", "Lunch", TransactionType.DEBIT, false, "food");
 
         JsonNode body = api.getJson(NET_WORTH + bank + "/breakdown", 200);
 
@@ -444,15 +444,12 @@ class RowBreakdownIntegrationTest {
     }
 
     private UUID txn(UUID accountId, LocalDate date, String amount, String description, TransactionType type,
-                     boolean excluded, String categoryName) {
+                     boolean excluded, String categoryKey) {
         Account account = accountRepository.findById(accountId).orElseThrow();
         Transaction t = new Transaction(account, date, new BigDecimal(amount), description,
                 TransactionSource.manual, type, false, excluded);
         t.setUser(account.getUser());
-        if (categoryName != null) {
-            Tag category = categoryRepository.save(new Tag(categoryName, account.getUser()));
-            t.getTags().add(new TransactionTag(t, category));
-        }
+        t.setCategoryKey(categoryKey);
         return transactionRepository.save(t).getId();
     }
 

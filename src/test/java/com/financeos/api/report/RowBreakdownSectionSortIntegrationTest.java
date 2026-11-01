@@ -99,9 +99,9 @@ class RowBreakdownSectionSortIntegrationTest {
                 "openingBalance", 0, "financialPosition", "asset", "excludeFromNetAsset", false));
         statement(bank, anchor, "1000");
         UUID before = txn(bank, anchor.minusDays(2), "9999", "Before anchor", TransactionType.DEBIT, false);
-        UUID lunch = txn(bank, anchor.plusDays(1), "150", "lunch", TransactionType.DEBIT, false, "Food");
+        UUID lunch = txn(bank, anchor.plusDays(1), "150", "lunch", TransactionType.DEBIT, false, "food");
         UUID salary = txn(bank, anchor.plusDays(2), "2000", "Salary", TransactionType.CREDIT, false);
-        UUID fuel = txn(bank, anchor.plusDays(3), "75", "Fuel", TransactionType.DEBIT, false, "Fuel", "Travel");
+        UUID fuel = txn(bank, anchor.plusDays(3), "75", "Fuel", TransactionType.DEBIT, false, "travel");
         UUID excluded = txn(bank, anchor.plusDays(4), "300", "Atm", TransactionType.DEBIT, true);
         return new Bank(bank, before, lunch, salary, fuel, excluded);
     }
@@ -140,7 +140,7 @@ class RowBreakdownSectionSortIntegrationTest {
         for (JsonNode row : byDescription.get("rows")) {
             assertEquals(defaultRows.get(row.get("id").asText()), row);
         }
-        assertEquals("Fuel, Travel", defaultRows.get(b.fuel().toString()).get("category").asText());
+        assertEquals("Travel", defaultRows.get(b.fuel().toString()).get("category").asText());
     }
 
     @Test
@@ -368,16 +368,17 @@ class RowBreakdownSectionSortIntegrationTest {
     }
 
     private UUID txn(UUID accountId, LocalDate date, String amount, String description, TransactionType type,
-                     boolean excluded, String... categoryNames) {
+                     boolean excluded) {
+        return txn(accountId, date, amount, description, type, excluded, null);
+    }
+
+    private UUID txn(UUID accountId, LocalDate date, String amount, String description, TransactionType type,
+                     boolean excluded, String categoryKey) {
         Account account = accountRepository.findById(accountId).orElseThrow();
         Transaction t = new Transaction(account, date, new BigDecimal(amount), description,
                 TransactionSource.manual, type, false, excluded);
         t.setUser(account.getUser());
-        for (String name : categoryNames) {
-            Tag category = categories.computeIfAbsent(name,
-                    n -> categoryRepository.save(new Tag(n, account.getUser())));
-            t.getTags().add(new TransactionTag(t, category));
-        }
+        t.setCategoryKey(categoryKey);
         return transactionRepository.save(t).getId();
     }
 
