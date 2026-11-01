@@ -279,6 +279,12 @@ public class UncategorizedService {
             .comparing((Group g) -> g.lastDate, Comparator.nullsLast(Comparator.reverseOrder()))
             .thenComparing(g -> g.key);
 
+    /** True when {@link #summary} would count at least one row; one probe query, no grouping. */
+    @Transactional(readOnly = true)
+    public boolean exists(UUID userId) {
+        return transactionRepository.existsByUser_IdAndCategoryKeyIsNull(userId);
+    }
+
     @Transactional(readOnly = true)
     public UncategorizedSummaryResponse summary(UUID userId) {
         List<Group> all = groups(userId);

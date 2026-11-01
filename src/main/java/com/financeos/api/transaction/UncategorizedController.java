@@ -4,6 +4,7 @@ import com.financeos.api.transaction.dto.ApplyUncategorizedRequest;
 import com.financeos.api.transaction.dto.ApplyUncategorizedResponse;
 import com.financeos.api.transaction.dto.CategoryCountsResponse;
 import com.financeos.api.transaction.dto.CategoryPick;
+import com.financeos.api.transaction.dto.UncategorizedExistsResponse;
 import com.financeos.api.transaction.dto.UncategorizedGroupResponse;
 import com.financeos.api.transaction.dto.UncategorizedSummaryResponse;
 import com.financeos.api.transaction.dto.UncategorizedTransactionResponse;
@@ -57,6 +58,12 @@ public class UncategorizedController {
     @GetMapping("/category-counts")
     public ResponseEntity<CategoryCountsResponse> categoryCounts() {
         return ResponseEntity.ok(service.categoryCounts(UserContext.getCurrentUserId()));
+    }
+
+    /** Whether Sort them has anything to show: one cheap probe, what the page load calls. */
+    @GetMapping("/uncategorized/exists")
+    public ResponseEntity<UncategorizedExistsResponse> exists() {
+        return ResponseEntity.ok(new UncategorizedExistsResponse(service.exists(UserContext.getCurrentUserId())));
     }
 
     @GetMapping("/uncategorized/summary")
