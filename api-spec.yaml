@@ -1027,31 +1027,6 @@ paths:
           description: Error response
       tags:
       - account-controller
-  /api/v1/accounts/{id}/tab-counts:
-    get:
-      operationId: getTabCounts
-      parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          type: string
-          format: uuid
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/AccountTabCountsResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - account-insights-controller
   /api/v1/app-lock/disable:
     post:
       operationId: disable
@@ -1622,30 +1597,6 @@ paths:
           description: Error response
       tags:
       - category-list-controller
-  /api/v1/chat:
-    post:
-      operationId: syncChat
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ChatStreamRequest"
-        required: true
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ChatResponseDto"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - chat-controller
   /api/v1/chat/conversations:
     get:
       operationId: list_2
@@ -2240,24 +2191,6 @@ paths:
           description: Error response
       tags:
       - counterparty-controller
-  /api/v1/dashboard/summary:
-    get:
-      operationId: getSummary_2
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/DashboardSummary"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - dashboard-controller
   /api/v1/dashboards:
     get:
       operationId: listDashboards
@@ -3087,78 +3020,6 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/EpfImportBatchPreviewResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - epf-import-controller
-  /api/v1/epf/import/commit:
-    post:
-      operationId: commitEpfImport
-      parameters:
-      - in: query
-        name: employerId
-        required: false
-        schema:
-          type: string
-          format: uuid
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  format: binary
-              required:
-              - file
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/EpfImportResultResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - epf-import-controller
-  /api/v1/epf/import/preview:
-    post:
-      operationId: previewEpfImport
-      parameters:
-      - in: query
-        name: employerId
-        required: false
-        schema:
-          type: string
-          format: uuid
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  format: binary
-              required:
-              - file
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/EpfImportPreviewResponse"
           description: OK
         default:
           content:
@@ -5509,142 +5370,6 @@ paths:
           description: Error response
       tags:
       - investment-controller
-  /api/v1/investments/sips:
-    get:
-      operationId: getSips
-      parameters:
-      - in: query
-        name: brokerAccountId
-        required: false
-        schema:
-          type: string
-          format: uuid
-      - in: query
-        name: instrumentId
-        required: false
-        schema:
-          type: string
-          format: uuid
-      - in: query
-        name: active
-        required: false
-        schema:
-          type: boolean
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/SipResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - sip-controller
-    post:
-      operationId: createSip
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateSipRequest"
-        required: true
-      responses:
-        "201":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/SipResponse"
-          description: Created
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - sip-controller
-  /api/v1/investments/sips/{id}:
-    delete:
-      operationId: deleteSip
-      parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          type: string
-          format: uuid
-      responses:
-        "204":
-          description: No Content
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - sip-controller
-    get:
-      operationId: getSip
-      parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          type: string
-          format: uuid
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/SipResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - sip-controller
-    put:
-      operationId: updateSip
-      parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          type: string
-          format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateSipRequest"
-        required: true
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/SipResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - sip-controller
   /api/v1/investments/summary:
     get:
       operationId: getSummary
@@ -9786,22 +9511,6 @@ components:
       - $ref: "#/components/schemas/CreditCardAccountResponse"
       - $ref: "#/components/schemas/BrokerAccountResponse"
       - $ref: "#/components/schemas/GenericAccountResponse"
-    AccountTabCountsResponse:
-      type: object
-      properties:
-        cards:
-          type: integer
-          format: int64
-        statements:
-          type: integer
-          format: int64
-        transactions:
-          type: integer
-          format: int64
-      required:
-      - cards
-      - statements
-      - transactions
     AppLockStatusResponse:
       type: object
       properties:
@@ -11249,19 +10958,6 @@ components:
       - key
       - name
       - subs
-    CategoryBreakdown:
-      type: object
-      properties:
-        amount:
-          type: number
-        category:
-          type: string
-        percentage:
-          type: number
-      required:
-      - amount
-      - category
-      - percentage
     CategoryCount:
       type: object
       properties:
@@ -11343,34 +11039,6 @@ components:
           type: string
         role:
           type: string
-    ChatResponseDto:
-      type: object
-      properties:
-        answer:
-          type: string
-          nullable: true
-          x-nullable: true
-        blocks:
-          nullable: true
-          x-nullable: true
-        clarify:
-          type: string
-          nullable: true
-          x-nullable: true
-        clarifyOptions:
-          type: array
-          items:
-            type: string
-            nullable: true
-            x-nullable: true
-          nullable: true
-          x-nullable: true
-        traces:
-          type: array
-          items:
-            $ref: "#/components/schemas/ChatTraceEntry"
-      required:
-      - traces
     ChatStreamRequest:
       type: object
       properties:
@@ -11387,43 +11055,6 @@ components:
           type: boolean
         retry:
           type: boolean
-    ChatTraceEntry:
-      type: object
-      properties:
-        action:
-          type: string
-        detail:
-          type: string
-        durationMs:
-          type: integer
-          format: int64
-        error:
-          type: string
-        label:
-          type: string
-        resultPreview:
-          type: string
-        rowCount:
-          type: integer
-          format: int32
-        step:
-          type: integer
-          format: int32
-        success:
-          type: boolean
-        summary:
-          type: string
-      required:
-      - action
-      - detail
-      - durationMs
-      - error
-      - label
-      - resultPreview
-      - rowCount
-      - step
-      - success
-      - summary
     CleanupPreviewResponse:
       type: object
       properties:
@@ -12618,46 +12249,6 @@ components:
           x-required: true
       required:
       - transactionId
-    CreateSipRequest:
-      type: object
-      properties:
-        active:
-          type: boolean
-        amount:
-          type: number
-          x-required: true
-        brokerAccountId:
-          type: string
-          format: uuid
-          x-required: true
-        dayOfMonth:
-          type: integer
-          format: int32
-        endDate:
-          type: string
-          format: date
-        frequency:
-          type: string
-          enum:
-          - weekly
-          - monthly
-          x-required: true
-        instrumentId:
-          type: string
-          format: uuid
-          x-required: true
-        notes:
-          type: string
-        startDate:
-          type: string
-          format: date
-          x-required: true
-      required:
-      - amount
-      - brokerAccountId
-      - frequency
-      - instrumentId
-      - startDate
     CreateTransactionLinkRequest:
       type: object
       properties:
@@ -12986,33 +12577,6 @@ components:
       - name
       - updatedAt
       - widgets
-    DashboardSummary:
-      type: object
-      properties:
-        categoryBreakdown:
-          type: array
-          items:
-            $ref: "#/components/schemas/CategoryBreakdown"
-        monthlyExpenses:
-          type: number
-        monthlyIncome:
-          type: number
-        netWorth:
-          type: number
-        status:
-          type: string
-        totalAssets:
-          type: number
-        totalLiabilities:
-          type: number
-      required:
-      - categoryBreakdown
-      - monthlyExpenses
-      - monthlyIncome
-      - netWorth
-      - status
-      - totalAssets
-      - totalLiabilities
     DashboardWidget:
       type: object
       properties:
@@ -21598,99 +21162,6 @@ components:
       - fields
       - label
       - name
-    SipProgressDto:
-      type: object
-      properties:
-        avgCost:
-          type: number
-        executedInstallments:
-          type: integer
-          format: int32
-        expectedInstallments:
-          type: integer
-          format: int32
-        investedSoFar:
-          type: number
-        missedInstallments:
-          type: integer
-          format: int32
-        nextDueDate:
-          type: string
-          format: date
-          nullable: true
-          x-nullable: true
-        unitsAccumulated:
-          type: number
-      required:
-      - avgCost
-      - executedInstallments
-      - expectedInstallments
-      - investedSoFar
-      - missedInstallments
-      - unitsAccumulated
-    SipResponse:
-      type: object
-      properties:
-        active:
-          type: boolean
-        amount:
-          type: number
-        brokerAccountId:
-          type: string
-          format: uuid
-        brokerName:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        dayOfMonth:
-          type: integer
-          format: int32
-          nullable: true
-          x-nullable: true
-        endDate:
-          type: string
-          format: date
-          nullable: true
-          x-nullable: true
-        frequency:
-          type: string
-          enum:
-          - weekly
-          - monthly
-        id:
-          type: string
-          format: uuid
-        instrumentId:
-          type: string
-          format: uuid
-        instrumentName:
-          type: string
-        notes:
-          type: string
-          nullable: true
-          x-nullable: true
-        progress:
-          $ref: "#/components/schemas/SipProgressDto"
-        startDate:
-          type: string
-          format: date
-        symbol:
-          type: string
-          nullable: true
-          x-nullable: true
-      required:
-      - active
-      - amount
-      - brokerAccountId
-      - brokerName
-      - createdAt
-      - frequency
-      - id
-      - instrumentId
-      - instrumentName
-      - progress
-      - startDate
     SkippedDividendMatch:
       type: object
       properties:
@@ -23467,38 +22938,6 @@ components:
           type: string
           nullable: true
           x-nullable: true
-    UpdateSipRequest:
-      type: object
-      properties:
-        active:
-          type: boolean
-          x-required: true
-        amount:
-          type: number
-          x-required: true
-        dayOfMonth:
-          type: integer
-          format: int32
-        endDate:
-          type: string
-          format: date
-        frequency:
-          type: string
-          enum:
-          - weekly
-          - monthly
-          x-required: true
-        notes:
-          type: string
-        startDate:
-          type: string
-          format: date
-          x-required: true
-      required:
-      - active
-      - amount
-      - frequency
-      - startDate
     UpdateTransactionRequest:
       type: object
       properties:

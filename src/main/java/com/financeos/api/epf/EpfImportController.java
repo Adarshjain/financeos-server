@@ -2,8 +2,6 @@ package com.financeos.api.epf;
 
 import com.financeos.api.epf.dto.EpfImportBatchPreviewResponse;
 import com.financeos.api.epf.dto.EpfImportBatchResultResponse;
-import com.financeos.api.epf.dto.EpfImportPreviewResponse;
-import com.financeos.api.epf.dto.EpfImportResultResponse;
 import com.financeos.domain.epf.EpfImportService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,18 +24,6 @@ public class EpfImportController {
 
     public EpfImportController(EpfImportService importService) {
         this.importService = importService;
-    }
-
-    @PostMapping(value = "/preview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public EpfImportPreviewResponse previewEpfImport(@RequestPart("file") MultipartFile file,
-                                            @RequestParam(required = false) UUID employerId) throws IOException {
-        return importService.preview(file.getBytes(), employerId);
-    }
-
-    @PostMapping(value = "/commit", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public EpfImportResultResponse commitEpfImport(@RequestPart("file") MultipartFile file,
-                                          @RequestParam(required = false) UUID employerId) throws IOException {
-        return importService.commit(file.getBytes(), employerId);
     }
 
     @PostMapping(value = "/batch/preview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

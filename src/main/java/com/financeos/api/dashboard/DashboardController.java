@@ -23,7 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -162,33 +161,5 @@ public class DashboardController {
                 entry.subtitle(), entry.requires(), entry.view(), unavailableReason, entry.minW(), entry.kind(),
                 entry.templateType() == null ? null : entry.templateType().name(), entry.datasource(),
                 templateWithDefaults, entry.href(), params);
-    }
-
-    @GetMapping("/api/v1/dashboard/summary")
-    public ResponseEntity<DashboardSummary> getSummary() {
-        return ResponseEntity.ok(new DashboardSummary(
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                List.of(),
-                "skeleton"));
-    }
-
-    public record DashboardSummary(
-            BigDecimal netWorth,
-            BigDecimal totalAssets,
-            BigDecimal totalLiabilities,
-            BigDecimal monthlyIncome,
-            BigDecimal monthlyExpenses,
-            List<CategoryBreakdown> categoryBreakdown,
-            String status) {
-    }
-
-    public record CategoryBreakdown(
-            String category,
-            BigDecimal amount,
-            BigDecimal percentage) {
     }
 }
