@@ -24,6 +24,11 @@ public final class BuiltinCategorizer {
     /** Counterparties some banks cut at about 11 characters still match a longer name they are the start of. */
     private static final int TRUNCATED_MIN = 9;
     private static final int COMPACT_MIN = 5;
+    /** Merchant names shorter than this are found in a statement line only as one whole token. */
+    private static final int SCAN_SHORT_MIN = 4;
+    private static final int SCAN_MAX_TOKENS = 5;
+    /** In text that reads as a person's name ("Rose Mary") only a merchant name this long is taken from inside it. */
+    private static final int SCAN_PERSON_MIN = 6;
     /** Run-together handles ("zerodhabroking@..") match a dictionary name by prefix only when it is long enough to be unlikely inside a word. */
     private static final int COMPACT_PREFIX_MIN = 8;
 
@@ -74,9 +79,13 @@ public final class BuiltinCategorizer {
             Pattern.compile("\\btowards (?<name>.{2,50}?) (?:with|on|ref)\\b", Pattern.CASE_INSENSITIVE));
 
     private final BuiltinData data;
+    private final java.util.Map<String, BuiltinData.Merchant> merchantsByName = new java.util.HashMap<>();
 
     public BuiltinCategorizer() {
         this.data = BuiltinData.load();
+        for (BuiltinData.Merchant m : data.merchants) {
+            merchantsByName.put(m.name(), m);
+        }
     }
 
     /**
@@ -107,8 +116,13 @@ public final class BuiltinCategorizer {
                 }
             }
         }
+        // a personal UPI handle or a person-to-person tag: a short brand is no hit as the first word of a name ("Ola Sharma")
+        boolean toPerson = payee.personalHandle || P2P.matcher(text).find();
         for (String candidate : payee.names) {
-            BuiltinData.Merchant m = merchant(candidate);
+            BuiltinData.Merchant m = merchant(candidate, toPerson);
+            if (m == null) {
+                m = scanMerchant(candidate, payee);
+            }
             if (m == null) {
                 continue;
             }
@@ -179,24 +193,16 @@ public final class BuiltinCategorizer {
      * Longest dictionary name the counterparty equals or starts with as whole words; failing that, the one
      * dictionary family a cut-off counterparty is the start of (several categories: no answer).
      */
-    private BuiltinData.Merchant merchant(String rawName) {
-        List<String> names = new ArrayList<>();
-        for (String name : List.of(NameNormalizer.merchant(rawName), NameNormalizer.stripped(rawName))) {
-            if (!name.isEmpty()) {
-                names.add(name);
-            }
-        }
-        for (String name : names) {
-            for (String u : data.undecided) {
-                if (name.equals(u) || name.startsWith(u + " ") || (name.length() >= TRUNCATED_MIN && u.startsWith(name))) {
-                    return null;
-                }
-            }
+    private BuiltinData.Merchant merchant(String rawName, boolean toPerson) {
+        List<String> names = normalisedNames(rawName);
+        if (undecided(names)) {
+            return null;
         }
         for (String name : names) {
             String compact = name.replace(" ", "");
             for (BuiltinData.Merchant m : data.merchants) {
-                if (name.equals(m.name()) || name.startsWith(m.name() + " ")
+                if (name.equals(m.name())
+                        || (name.startsWith(m.name() + " ") && !(toPerson && m.name().length() < SCAN_SHORT_MIN))
                         || (m.compact().length() >= COMPACT_MIN && compact.equals(m.compact()))
                         || (m.compact().length() >= COMPACT_PREFIX_MIN && compact.startsWith(m.compact()))) {
                     return m;
@@ -224,6 +230,64 @@ public final class BuiltinCategorizer {
             }
         }
         return null;
+    }
+
+    private static List<String> normalisedNames(String rawName) {
+        List<String> names = new ArrayList<>();
+        for (String name : List.of(NameNormalizer.merchant(rawName), NameNormalizer.stripped(rawName))) {
+            if (!name.isEmpty()) {
+                names.add(name);
+            }
+        }
+        return names;
+    }
+
+    /** The name is, starts with, or is the cut-off start of a dictionary name that can stand for anything. */
+    private boolean undecided(List<String> names) {
+        for (String name : names) {
+            for (String u : data.undecided) {
+                if (name.equals(u) || name.startsWith(u + " ") || (name.length() >= TRUNCATED_MIN && u.startsWith(name))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * A known merchant named inside a longer statement payee ("tp swiggy instamart order"): the longest
+     * dictionary name found on word boundaries, never inside a longer word. A name shorter than
+     * {@value #SCAN_SHORT_MIN} characters counts only as a whole token, and in what reads as a person's name
+     * ("Ola Sharma") only a name of {@value #SCAN_PERSON_MIN} or more does. A dictionary name that can stand for anything ({@code undecided}) at least as long as the best
+     * merchant leaves no answer. Personal UPI handles are never scanned.
+     */
+    private BuiltinData.Merchant scanMerchant(String candidate, Payee payee) {
+        if (payee.personalHandle || candidate == null || candidate.length() > MAX_COUNTERPARTY) {
+            return null;
+        }
+        List<String> tokens = NameNormalizer.words(candidate);
+        if (tokens.size() < 2 || undecided(normalisedNames(candidate))) {
+            return null;
+        }
+        boolean person = looksLikePerson(candidate);
+        BuiltinData.Merchant best = null;
+        for (int from = 0; from < tokens.size(); from++) {
+            StringBuilder gram = new StringBuilder();
+            for (int to = from; to < Math.min(tokens.size(), from + SCAN_MAX_TOKENS); to++) {
+                gram.append(to == from ? "" : " ").append(tokens.get(to));
+                String g = gram.toString();
+                if (data.undecided.contains(g) && (best == null || g.length() >= best.name().length())) {
+                    return null;
+                }
+                BuiltinData.Merchant m = merchantsByName.get(g);
+                if (m != null && (g.length() >= SCAN_SHORT_MIN || to == from)
+                        && (!person || g.length() >= SCAN_PERSON_MIN)
+                        && (best == null || g.length() > best.name().length())) {
+                    best = m;
+                }
+            }
+        }
+        return best;
     }
 
     private BuiltinData.Target mcc(String mcc, Direction direction) {
@@ -409,6 +473,13 @@ public final class BuiltinCategorizer {
     private static Payee payee(CategorizeInput in, String text) {
         Payee p = new Payee();
         String cp = in.counterparty() == null || in.counterparty().length() > MAX_COUNTERPARTY ? "" : in.counterparty().trim();
+        String rawCounterparty = cp;
+        boolean cleaned = false;
+        if (!cp.isEmpty() && StatementLine.looksLike(cp)) {
+            cleaned = true;
+            // a statement line: rails, card and reference numbers, dates and the city go; a UPI line keeps name + VPA
+            cp = StatementLine.clean(cp).asCounterparty();
+        }
         String handle = null;
         String handleName = null;
         if (cp.isEmpty() || JUNK_COUNTERPARTY.matcher(cp).find()) {
@@ -466,6 +537,9 @@ public final class BuiltinCategorizer {
                 p.personNames.add(cp);
             }
             p.display = cp;
+        }
+        if (cleaned && !p.display.isEmpty()) {
+            p.display = rawCounterparty;
         }
         return p;
     }

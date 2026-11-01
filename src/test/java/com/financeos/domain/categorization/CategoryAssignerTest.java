@@ -231,4 +231,35 @@ class CategoryAssignerTest {
         assertTrue(assigner.suggest(user.getId(), "ZYXQWVUT", TransactionType.DEBIT).isEmpty());
         assertTrue(assigner.suggest(user.getId(), "  ", TransactionType.DEBIT).isEmpty());
     }
+
+    @Test
+    void mailContextFeedsTheEngineOnArrivalById() {
+        TransactionRepository repo = mock(TransactionRepository.class);
+        CategoryAssigner byId = new CategoryAssigner(ruleRepository, linkCategories, new BuiltinCategorizer(),
+                TestCategories.writer(ruleRepository), repo);
+        // the stored description names nobody the engine knows; the mail's extracted counterparty does
+        Transaction withMail = txn("Payment on card ending 1234", TransactionType.DEBIT);
+        Transaction withoutMail = txn("Payment on card ending 1234", TransactionType.DEBIT);
+        when(repo.findAllByIdInAndUserId(any(), org.mockito.ArgumentMatchers.eq(user.getId())))
+                .thenReturn(List.of(withMail, withoutMail));
+        int assigned = byId.assignOnArrivalById(user.getId(), List.of(withMail.getId(), withoutMail.getId()),
+                Map.of(withMail.getId(), new CategoryAssigner.ArrivalContext("SWIGGY", "alerts@examplebank.test",
+                        "Card alert", "Rs 100 spent on your card", "tpl-1")));
+        assertEquals(1, assigned);
+        assertEquals("food.delivery", withMail.getSubcategoryKey());
+        assertEquals(CategorySource.AUTO, withMail.getCategorySource());
+        assertNull(withoutMail.getCategoryKey());
+    }
+
+    @Test
+    void mailContextWithBlankFieldsFallsBackToTheDescription() {
+        TransactionRepository repo = mock(TransactionRepository.class);
+        CategoryAssigner byId = new CategoryAssigner(ruleRepository, linkCategories, new BuiltinCategorizer(),
+                TestCategories.writer(ruleRepository), repo);
+        Transaction t = txn("POS 4111XXXXXXXX1234 SWIGGY BLR", TransactionType.DEBIT);
+        when(repo.findAllByIdInAndUserId(any(), org.mockito.ArgumentMatchers.eq(user.getId()))).thenReturn(List.of(t));
+        byId.assignOnArrivalById(user.getId(), List.of(t.getId()),
+                Map.of(t.getId(), new CategoryAssigner.ArrivalContext(" ", null, null, null, null)));
+        assertEquals("food.delivery", t.getSubcategoryKey());
+    }
 }

@@ -441,4 +441,90 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
 
     /** The account's latest transaction of a source, by date then creation time. */
     Optional<Transaction> findFirstByAccount_IdAndSourceOrderByDateDescCreatedAtDesc(UUID accountId, TransactionSource source);
+
+    /** One uncategorised row, light: what grouping by who was paid needs. */
+    interface UncategorizedRow {
+        UUID getId();
+
+        LocalDate getDate();
+
+        String getSourcedDescription();
+
+        String getDescription();
+
+        TransactionType getType();
+
+        java.math.BigDecimal getAmount();
+
+        String getMcc();
+    }
+
+    /** Every row of the user with no category (a user-cleared row too), no entities loaded. */
+    @Query("SELECT t.id AS id, t.date AS date, t.sourcedDescription AS sourcedDescription, t.description AS description, "
+            + "t.type AS type, t.amount AS amount, t.mcc AS mcc FROM Transaction t "
+            + "WHERE t.user.id = :userId AND t.categoryKey IS NULL")
+    List<UncategorizedRow> findUncategorizedRows(@Param("userId") UUID userId);
+
+    interface CategoryPairRow {
+        String getCategoryKey();
+
+        String getSubcategoryKey();
+    }
+
+    /** The user's own picks of one direction, newest pick first (one row per category/sub pair). */
+    @Query("SELECT t.categoryKey AS categoryKey, t.subcategoryKey AS subcategoryKey FROM Transaction t "
+            + "WHERE t.user.id = :userId AND t.type = :type AND t.categoryKey IS NOT NULL "
+            + "AND t.categorySource = com.financeos.domain.transaction.CategorySource.USER "
+            + "GROUP BY t.categoryKey, t.subcategoryKey ORDER BY MAX(t.categorySetAt) DESC")
+    List<CategoryPairRow> findRecentUserCategories(@Param("userId") UUID userId, @Param("type") TransactionType type,
+                                                   Pageable page);
+
+    interface CategoryCountRow {
+        String getCategoryKey();
+
+        String getSubcategoryKey();
+
+        long getCount();
+    }
+
+    /** Rows of the user per category/sub pair (null keys = uncategorised), whole ledger. */
+    @Query("SELECT t.categoryKey AS categoryKey, t.subcategoryKey AS subcategoryKey, COUNT(t) AS count "
+            + "FROM Transaction t WHERE t.user.id = :userId GROUP BY t.categoryKey, t.subcategoryKey")
+    List<CategoryCountRow> countByCategory(@Param("userId") UUID userId);
+
+    /** A transaction as the Sort-them group list draws it, account and card resolved in the same query. */
+    interface GroupTransactionRow {
+        UUID getId();
+
+        LocalDate getDate();
+
+        String getDescription();
+
+        String getSourcedDescription();
+
+        java.math.BigDecimal getAmount();
+
+        TransactionType getType();
+
+        TransactionSource getSource();
+
+        TransactionChannel getChannel();
+
+        UUID getAccountId();
+
+        String getAccountName();
+
+        String getAccountLast4();
+
+        String getCardLast4();
+
+        String getCardholderName();
+    }
+
+    @Query("SELECT t.id AS id, t.date AS date, t.description AS description, t.sourcedDescription AS sourcedDescription, "
+            + "t.amount AS amount, t.type AS type, t.source AS source, t.channel AS channel, a.id AS accountId, "
+            + "a.name AS accountName, bd.last4 AS accountLast4, c.last4 AS cardLast4, ch.personName AS cardholderName "
+            + "FROM Transaction t JOIN t.account a LEFT JOIN a.bankDetails bd LEFT JOIN t.card c LEFT JOIN c.cardholder ch "
+            + "WHERE t.user.id = :userId AND t.id IN :ids")
+    List<GroupTransactionRow> findGroupTransactionRows(@Param("userId") UUID userId, @Param("ids") Collection<UUID> ids);
 }

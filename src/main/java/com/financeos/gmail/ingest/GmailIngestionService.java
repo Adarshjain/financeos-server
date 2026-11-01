@@ -307,6 +307,7 @@ public class GmailIngestionService {
         int failedPermanentCount = 0;
 
         List<Transaction> createdTxns = new ArrayList<>();
+        Map<UUID, com.financeos.domain.categorization.CategoryAssigner.ArrivalContext> arrivalContexts = new java.util.HashMap<>();
         List<SyncSummary.MessageResult> messageResults = new ArrayList<>();
         Map<GmailProcessedStatus, Integer> statusCounts = new EnumMap<>(GmailProcessedStatus.class);
 
@@ -320,7 +321,7 @@ public class GmailIngestionService {
         for (GmailProcessedMessage row : pendingBatch) {
             processedCount++;
             MergeRequest[] mergeOut = new MergeRequest[1];
-            ProcessedMessage outcome = processSingleMessageInTx(service, connection, row, enabledSenders, mergeOut);
+            ProcessedMessage outcome = processSingleMessageInTx(service, connection, row, enabledSenders, mergeOut, arrivalContexts);
             mergeCheckInShadow(mergeOut[0]);
             if (!outcome.createdTxns().isEmpty()) {
                 createdTxns.addAll(outcome.createdTxns());
@@ -345,7 +346,7 @@ public class GmailIngestionService {
         if (!createdTxns.isEmpty() && categoryAssigner != null) {
             try {
                 int assigned = categoryAssigner.assignOnArrivalById(connection.getUser().getId(),
-                        createdTxns.stream().map(Transaction::getId).toList());
+                        createdTxns.stream().map(Transaction::getId).toList(), arrivalContexts);
                 log.info("Categorised {} of {} new Gmail transaction(s) on arrival for connection {}",
                         assigned, createdTxns.size(), connection.getId());
             } catch (Exception e) {
@@ -409,11 +410,12 @@ public class GmailIngestionService {
     /** One message's created transactions plus its run detail (built inside the transaction, while entities are attached). */
     private record ProcessedMessage(List<Transaction> createdTxns, SyncSummary.MessageResult result) {}
 
-    private ProcessedMessage processSingleMessageInTx(Gmail service, GmailConnection connection, GmailProcessedMessage row, List<GmailSender> enabledSenders, MergeRequest[] mergeOut) {
+    private ProcessedMessage processSingleMessageInTx(Gmail service, GmailConnection connection, GmailProcessedMessage row, List<GmailSender> enabledSenders, MergeRequest[] mergeOut,
+                                                       Map<UUID, com.financeos.domain.categorization.CategoryAssigner.ArrivalContext> arrivalContexts) {
         return transactionTemplate.execute(status -> {
             GmailProcessedMessage gpm = processedMessageRepository.findById(row.getId()).orElse(row);
             ReconSummary[] recon = new ReconSummary[1];
-            List<Transaction> created = processMessage(service, connection, gpm, enabledSenders, recon, mergeOut);
+            List<Transaction> created = processMessage(service, connection, gpm, enabledSenders, recon, mergeOut, arrivalContexts);
             return new ProcessedMessage(created, toMessageResult(gpm, created, recon[0]));
         });
     }
@@ -465,7 +467,8 @@ public class GmailIngestionService {
 
     private List<Transaction> processMessage(Gmail service, GmailConnection connection, GmailProcessedMessage gpm,
                                              List<GmailSender> enabledSenders, ReconSummary[] reconOut,
-                                             MergeRequest[] mergeOut) {
+                                             MergeRequest[] mergeOut,
+                                             Map<UUID, com.financeos.domain.categorization.CategoryAssigner.ArrivalContext> arrivalContexts) {
         gpm.setStatus(GmailProcessedStatus.PROCESSING);
         gpm.setProcessedAt(Instant.now());
         processedMessageRepository.save(gpm);
@@ -567,6 +570,10 @@ public class GmailIngestionService {
             processedMessageRepository.save(gpm);
 
             if (result.getTransaction() != null) {
+                if (result.getTransaction().getId() != null) {
+                    arrivalContexts.put(result.getTransaction().getId(),
+                            arrivalContext(message, fromAddress, extractionResult, shadowEngine));
+                }
                 return List.of(result.getTransaction());
             }
             return List.of();
@@ -596,6 +603,24 @@ public class GmailIngestionService {
             processedMessageRepository.save(gpm);
             return List.of();
         }
+    }
+
+    /**
+     * What the categoriser gets besides the stored row, the fields the offline eval used: the extracted counterparty
+     * (the engine's, else the AI description), sender, subject, the normalised mail text and the template.
+     */
+    private com.financeos.domain.categorization.CategoryAssigner.ArrivalContext arrivalContext(
+            GmailMessage message, String fromAddress, GeminiExtractionResult ai, Optional<ExtractedTransaction> engine) {
+        String counterparty = engine.map(ExtractedTransaction::counterparty).filter(c -> c != null && !c.isBlank())
+                .orElse(ai.description());
+        String text = null;
+        try {
+            text = com.financeos.gmail.classify.EmailText.of(message).text();
+        } catch (Exception e) {
+            log.debug("Mail text unavailable for categorising message {}: {}", message.messageId(), e.toString());
+        }
+        return new com.financeos.domain.categorization.CategoryAssigner.ArrivalContext(counterparty, fromAddress,
+                message.subject(), text, engine.map(ExtractedTransaction::templateId).orElse(null));
     }
 
     /** Shadow run: stores the classifier answer on the row; never changes the outcome, never throws. */
