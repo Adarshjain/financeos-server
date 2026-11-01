@@ -17,9 +17,11 @@ public class ChatSqlValidator {
 
     public static final Set<String> ALLOWED_VIEWS = Set.of(
             "V_CHAT_TRANSACTIONS",
-            "V_CHAT_TRANSACTION_CATEGORIES",
+            "V_CHAT_TRANSACTION_TAGS",
             "V_CHAT_ACCOUNTS",
             "V_CHAT_CATEGORIES",
+            "V_CHAT_SUBCATEGORIES",
+            "V_CHAT_TAGS",
             "V_CHAT_INVESTMENT_TRADES",
             "V_CHAT_HOLDINGS",
             "V_CHAT_DIVIDENDS",

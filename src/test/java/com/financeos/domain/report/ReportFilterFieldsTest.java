@@ -224,7 +224,7 @@ class ReportFilterFieldsTest {
         Query query = mock(Query.class);
         Query accountQuery = mock(Query.class);
         when(em.createNativeQuery(anyString())).thenAnswer(
-                i -> ((String) i.getArgument(0)).contains("t.account_id AS i") ? accountQuery : query);
+                i -> ((String) i.getArgument(0)).contains(" AS i, ") ? accountQuery : query);
         when(query.getResultList()).thenReturn(List.of("Priya", "Unattributed"));
         when(accountQuery.getResultList()).thenReturn(java.util.Collections.singletonList(new Object[] {"a1", "Main Bank"}));
         ReportFieldValuesService service = new ReportFieldValuesService(
@@ -233,7 +233,7 @@ class ReportFilterFieldsTest {
 
         Map<String, List<String>> values = service.values("transactions").values();
 
-        assertEquals(List.of("category", "account", "card", "cardholder"), List.copyOf(values.keySet()));
+        assertEquals(List.of("tag", "category", "subcategory", "account", "card", "cardholder"), List.copyOf(values.keySet()));
         assertEquals(List.of("Priya", "Unattributed"), values.get("cardholder"));
         verify(em).createNativeQuery(org.mockito.ArgumentMatchers.contains("NVL(ch.person_name, 'Unattributed')"));
     }

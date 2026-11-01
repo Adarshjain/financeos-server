@@ -85,8 +85,8 @@ class TransactionQueryBuilderTest {
         assertEquals("a.name", queryBuilder.expression("account", joins));
         assertTrue(joins.contains(TransactionQueryBuilder.JOIN_ACCOUNTS));
 
-        assertEquals("c.name", queryBuilder.expression("category", joins));
-        assertTrue(joins.contains(TransactionQueryBuilder.JOIN_CATEGORIES));
+        assertEquals("c.name", queryBuilder.expression("tag", joins));
+        assertTrue(joins.contains(TransactionQueryBuilder.JOIN_TAGS));
 
         String from = queryBuilder.fromClause(joins);
         assertTrue(from.contains("FROM transactions t"));

@@ -81,7 +81,6 @@ public final class Events {
     public static final String INSTRUMENT_RESOLVE = "instrument.resolve";
 
     // Domain Decisions Events (Phase 5B)
-    public static final String CATEGORIZE_DECISION = "categorize.decision";
     public static final String REWARD_RECOMPUTE_COMPLETED = "reward.recompute.completed";
     public static final String REWARD_REPORT_VIEWED = "reward.report.viewed";
     public static final String REWARD_RULE_SKIPPED = "reward.rule.skipped";

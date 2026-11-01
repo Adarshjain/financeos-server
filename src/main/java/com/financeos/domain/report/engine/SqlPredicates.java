@@ -40,8 +40,9 @@ public class SqlPredicates {
     }
 
     /**
-     * Category is a many-to-many relationship: filter via EXISTS so the join never fans out an aggregate.
-     * Binds category names to parameters.
+     * Tags by name (the reports "tag" field; they were the per-user categories): a many-to-many
+     * relationship, so filter via EXISTS so the join never fans out an aggregate.
+     * Binds tag names to parameters.
      */
     public String category(String op, JsonNode v, Map<String, Object> params, String p, String txIdRef) {
         String inner = "SELECT 1 FROM transaction_tags tcx"
