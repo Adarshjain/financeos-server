@@ -1,42 +1,57 @@
-# Legs of a money move the app pairs with another record: they get no category (step LINK).
+# Legs of a money move the app pairs with another record (step LINK). A rule's `category` (card_bill, self_transfer
+# or top_up) is what the engine writes when it fits the direction, else none; a real link made later overrides it.
 # A rule matches when every condition it names matches (each condition is a list of regexes, any one hits).
 # Conditions: subject, text (first 1500 chars), counterparty, from (sender address), any (subject + counterparty + text).
 rules:
   - id: card-payment-received
+    category: card_bill
     direction: CREDIT
     any: ['\bpayments? (?:of [a-z]{0,3}\.? ?[\d,.]+ )?(?:was |has been )?received\b.{0,60}\bcredit card\b', '\bcredit card payment received\b', '\bwe have received (?:your )?payment\b.{0,60}\bcredit card\b', '\bcredit card\b.{0,40}\b(?:repayment|payment) (?:is |was )?successful\b']
   - id: card-repayment-success
+    category: card_bill
     subject: ['\brepayment is successful\b', '\bpayment received\b.{0,30}\bcredit card\b']
   - id: card-credits-received
     direction: CREDIT
     subject: ['\breceived credits on your .{0,30}credit card\b']
   - id: card-bill-paid
+    category: card_bill
     any: ['\bcredit card bill payment\b', '\bbill payment of .{0,40}credit card\b', '\bcredit card payment (?:of|for)\b', '\bpaid your credit card bill\b']
   - id: card-bill-sender
+    category: card_bill
     from: ['@cred\.club$', '@(?:[a-z]+\.)?paytm\.com$']
     any: ['\bcredit card\b', '\bcard bill\b']
   - id: card-bill-payee
+    category: card_bill
     direction: DEBIT
     counterparty: ['^cred(?: club)?$', '^cred ?cc ?bill ?payment', '^cred\.club@', '^ccbbpsno', '\bcredit ?cards?\b', '^(?:hdfc|icici|axis|sbi|hsbc|yes|idfc|kotak|indusind|au|rbl|equitas|federal|bob)\w*\s?(?:bank )?(?:cc|credit card|card)\s?(?:bill|payment|pay)?\b', '^billdesk\b.*\bcard\b', '^(?:cc|card)\s?(?:bill|payment)\b']
   - id: autopay-card-bill
+    category: card_bill
     any: ['\b(?:autopay|auto pay|auto-debit|standing instruction)\b.{0,60}\bcredit card (?:bill|payment|dues?|outstanding)\b', '\bbilldesk\b.{0,60}\bcredit card (?:bill|payment|dues?|outstanding)\b', '\bcredit card (?:bill|payment|dues?|outstanding)\b.{0,60}\b(?:autopay|billdesk)\b']
   - id: own-account-transfer
+    category: self_transfer
     any: ['\bself[ -]?transfer\b', '\btransfer(?:red)? to (?:your )?own account\b', '\bown account transfer\b', '\bfund transfer between (?:your )?(?:own )?accounts\b', '\bsweep[ -]?in\b', '\bsweep[ -]?out\b']
   - id: wallet-topup
+    category: top_up
     any: ['\badd(?:ed)? money to\b.{0,30}\bwallet\b', '\bwallet (?:top[ -]?up|load|recharge)\b', '\byou have added (?:rs\.? ?|₹ ?|inr ?)?[\d,.]+ (?:successfully )?to your .{0,25}wallet\b', '\b(?:money|amount|funds?) (?:was |has been |is )?(?:added|loaded) to your .{0,25}(?:wallet|pay balance)\b', '\bamazon pay (?:balance|wallet)? ?(?:add money|top[ -]?up|load)\b', '\bpaytm (?:wallet|payments bank)? ?(?:add money|top[ -]?up|load)\b', '\bmoney added to .{0,25}wallet\b']
   - id: wallet-topup-counterparty
+    category: top_up
     counterparty: ['^(?:add money|wallet (?:load|topup|top up))\b', '^(?:amazon pay|paytm|phonepe|mobikwik|freecharge) wallet\b']
   - id: hdfc-billpay-card
+    category: card_bill
     direction: DEBIT
     counterparty: ['^hdfcbillpay\b']
     text: ['(?s)^(?!.*\bdebit card\b)']
   - id: own-imps-move
+    category: self_transfer
     text: ['\bdebited from your account ending \w+ .{0,40}credited to the account ending\b']
   - id: card-at-wallet
+    category: top_up
     direction: DEBIT
     counterparty: ['^(?:mobikwik|freecharge)$']
   - id: amazon-gift-card-purchase
+    category: top_up
     direction: DEBIT
     counterparty: ['\bamazon\b.{0,12}\bgift ?cards?\b']
   - id: own-account-upi
+    category: self_transfer
     text: ['\bdebited from account \W*\d+ to account \W*\d+']
