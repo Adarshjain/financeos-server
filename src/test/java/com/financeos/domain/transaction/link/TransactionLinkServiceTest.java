@@ -654,4 +654,23 @@ class TransactionLinkServiceTest {
         // Link should be dissolved - no anchor remaining
         verify(transactionLinkRepository).delete(link);
     }
+
+    @Test
+    void getLinksForTransaction_returnsEveryLinkInsteadOfFailingOnDuplicates() {
+        UUID txId = UUID.randomUUID();
+        TransactionLink a = new TransactionLink();
+        a.setUser(testUser);
+        a.setType(LinkType.TRANSFER);
+        TransactionLink b = new TransactionLink();
+        b.setUser(testUser);
+        b.setType(LinkType.CC_PAYMENT);
+        User other = new User();
+        other.setId(UUID.randomUUID());
+        TransactionLink foreign = new TransactionLink();
+        foreign.setUser(other);
+        foreign.setType(LinkType.TRANSFER);
+        when(transactionLinkRepository.findAllByMembers_Transaction_Id(txId)).thenReturn(List.of(a, b, foreign));
+
+        assertThat(transactionLinkService.getLinksForTransaction(txId)).hasSize(2);
+    }
 }
