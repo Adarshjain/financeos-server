@@ -40,11 +40,20 @@ public class TransactionCategoryWriter {
     /** As {@link #set(Transaction, String, String, CategorySource, UUID)} with the rule already loaded (bulk callers). */
     public boolean set(Transaction txn, String categoryKey, String subcategoryKey, CategorySource source,
                        CategoryRule rule) {
+        return set(txn, categoryKey, subcategoryKey, source, rule, true);
+    }
+
+    /**
+     * As above; with {@code touchExclusion} false the row's is_excluded is left exactly as it is (the
+     * backfill of pre-existing rows keeps today's totals).
+     */
+    public boolean set(Transaction txn, String categoryKey, String subcategoryKey, CategorySource source,
+                       CategoryRule rule, boolean touchExclusion) {
         Objects.requireNonNull(source, "source");
         if (source != CategorySource.USER && txn.getCategorySource() == CategorySource.USER) {
             return false;
         }
-        apply(txn, categoryKey, subcategoryKey, source, rule, AppTime.nowInstant());
+        apply(txn, categoryKey, subcategoryKey, source, rule, AppTime.nowInstant(), touchExclusion);
         return true;
     }
 
@@ -53,17 +62,22 @@ public class TransactionCategoryWriter {
         return catalog.fits(txn.getType(), categoryKey, subcategoryKey);
     }
 
+    /** As {@link #fits(Transaction, String, String)} for a type with no transaction yet (a suggestion). */
+    public boolean fitsType(TransactionType type, String categoryKey, String subcategoryKey) {
+        return catalog.fits(type, categoryKey, subcategoryKey);
+    }
+
     /**
      * Puts back a category state a user is undoing to (their own action, so it may overwrite USER):
      * the given source, rule and time, or no category at all when {@code source} is null.
      */
     public void restore(Transaction txn, String categoryKey, String subcategoryKey, CategorySource source,
                         UUID ruleId, Instant setAt) {
-        apply(txn, categoryKey, subcategoryKey, source, resolveRule(txn, source, ruleId), setAt);
+        apply(txn, categoryKey, subcategoryKey, source, resolveRule(txn, source, ruleId), setAt, true);
     }
 
     private void apply(Transaction txn, String categoryKey, String subcategoryKey, CategorySource source,
-                       CategoryRule rule, Instant setAt) {
+                       CategoryRule rule, Instant setAt, boolean touchExclusion) {
         if (source == CategorySource.LINK && categoryKey != null) {
             // A refund keeps the original purchase's category, so the direction need not fit.
             catalog.validateKeys(categoryKey, subcategoryKey);
@@ -84,7 +98,7 @@ public class TransactionCategoryWriter {
             txn.setCategorySetAt(source == null ? null : setAt);
             txn.setAppliedRule(source == CategorySource.RULE ? rule : null);
         }
-        if (!txn.isExcludeSetByUser()) {
+        if (touchExclusion && !txn.isExcludeSetByUser()) {
             txn.setTransactionExcluded(categoryKey != null
                     && catalog.category(categoryKey).map(CategoryCatalog.Cat::excludedByDefault).orElse(false));
         }

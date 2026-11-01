@@ -54,6 +54,14 @@ public class TransactionLinkService {
         this.autoLinkStore = autoLinkStore;
     }
 
+    private com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks;
+
+    /** Optional (setter) so tests that build the service by hand need no hooks; set by Spring. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setCategoryLinkHooks(com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks) {
+        this.categoryLinkHooks = categoryLinkHooks;
+    }
+
     private final TransactionCategoryWriter categoryWriter;
 
     public TransactionLinkService(TransactionLinkRepository transactionLinkRepository,
@@ -162,15 +170,24 @@ public class TransactionLinkService {
         // WP5: Refund category alignment
         if (Boolean.TRUE.equals(request.alignRefundCategories()) && request.type() == LinkType.REFUND) {
             // The counterparts take the anchor's category and sub-category (source LINK); a counterpart
-            // whose category the user set keeps it, and an uncategorised anchor changes nothing.
+            // whose category a rule or the user set keeps it, and an uncategorised anchor changes nothing.
             if (anchorTx.getCategoryKey() != null) {
                 for (Transaction counterpart : counterparts) {
+                    if (counterpart.getCategorySource() != null && counterpart.getCategorySource() != CategorySource.AUTO
+                            && counterpart.getCategorySource() != CategorySource.LINK) {
+                        continue;
+                    }
                     if (categoryWriter.set(counterpart, anchorTx.getCategoryKey(), anchorTx.getSubcategoryKey(),
                             CategorySource.LINK, (java.util.UUID) null)) {
                         transactionRepository.save(counterpart);
                     }
                 }
             }
+        }
+
+        // The other link types: members take the category the link implies (never over a rule or the user's).
+        if (categoryLinkHooks != null) {
+            categoryLinkHooks.linked(savedLink, false);
         }
 
         return toResponse(savedLink);
@@ -308,7 +325,11 @@ public class TransactionLinkService {
         boolean isTransfer = link.getType() == LinkType.TRANSFER;
 
         recordRejectionsForAutoLink(userId, link);
+        List<Transaction> released = link.getMembers().stream().map(TransactionLinkMember::getTransaction).toList();
         transactionLinkRepository.delete(link);
+        if (categoryLinkHooks != null) {
+            categoryLinkHooks.released(released);
+        }
 
         log.info("Txn link removed: linkId={}, type={}", linkId, link.getType(),
                 StructuredArguments.keyValue("event", Events.TXN_LINK_REMOVED),
@@ -370,6 +391,9 @@ public class TransactionLinkService {
 
             if (shouldDissolve) {
                 transactionLinkRepository.delete(link);
+                if (categoryLinkHooks != null) {
+                    categoryLinkHooks.released(remainingMembers.stream().map(TransactionLinkMember::getTransaction).toList());
+                }
             }
         }
     }

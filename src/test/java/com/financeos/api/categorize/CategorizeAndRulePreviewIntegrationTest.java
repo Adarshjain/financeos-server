@@ -26,7 +26,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/** POST /categorize (rules only), rule create validation, and preview-matches' matchCount / userSetCount. */
+/** POST /categorize (rules, then the built-in engine), rule create validation, and preview-matches' matchCount / userSetCount. */
 @SpringBootTest
 @AutoConfigureMockMvc
 class CategorizeAndRulePreviewIntegrationTest {
@@ -81,7 +81,7 @@ class CategorizeAndRulePreviewIntegrationTest {
     }
 
     @Test
-    void categorizeSuggestsFromTheUsersRulesAndIsEmptyOtherwise() throws Exception {
+    void categorizeSuggestsFromTheUsersRulesThenTheEngineAndIsEmptyOtherwise() throws Exception {
         api.postJson("/api/v1/rules", rule("swiggy", "CONTAINS", "food", "food.delivery"), 201);
 
         JsonNode hit = api.postJson("/api/v1/categorize", Map.of("description", "UPI SWIGGY ORDER 42"), 200);
@@ -89,10 +89,30 @@ class CategorizeAndRulePreviewIntegrationTest {
         assertEquals("food.delivery", hit.get("subcategoryKey").asText());
         assertEquals("RULE", hit.get("source").asText());
 
-        JsonNode miss = api.postJson("/api/v1/categorize", Map.of("description", "AMAZON PAY"), 200);
+        JsonNode miss = api.postJson("/api/v1/categorize", Map.of("description", "ZYXQ WVUT TRADERS"), 200);
         assertTrue(miss.get("categoryKey").isNull());
         assertTrue(miss.get("subcategoryKey").isNull());
         assertTrue(miss.get("source").isNull());
+    }
+
+    @Test
+    void categorizeFallsBackToTheEngineAndARuleBeatsIt() throws Exception {
+        // no rule: the engine knows the merchant
+        JsonNode auto = api.postJson("/api/v1/categorize", Map.of("description", "SWIGGY"), 200);
+        assertEquals("food", auto.get("categoryKey").asText());
+        assertEquals("food.delivery", auto.get("subcategoryKey").asText());
+        assertEquals("AUTO", auto.get("source").asText());
+
+        // the same text as money in is a refund, not a purchase category
+        JsonNode credit = api.postJson("/api/v1/categorize", Map.of("description", "SWIGGY", "type", "CREDIT"), 200);
+        assertEquals("refund", credit.get("categoryKey").asText());
+        assertEquals("AUTO", credit.get("source").asText());
+
+        // the user's rule wins over the engine
+        api.postJson("/api/v1/rules", rule("swiggy", "CONTAINS", "groceries", null), 201);
+        JsonNode rule = api.postJson("/api/v1/categorize", Map.of("description", "SWIGGY"), 200);
+        assertEquals("groceries", rule.get("categoryKey").asText());
+        assertEquals("RULE", rule.get("source").asText());
     }
 
     @Test
@@ -102,7 +122,10 @@ class CategorizeAndRulePreviewIntegrationTest {
 
         JsonNode res = other.postJson("/api/v1/categorize", Map.of("description", "UPI SWIGGY ORDER 42"), 200);
 
-        assertTrue(res.get("categoryKey").isNull());
+        // not the other user's rule: only the engine answers
+        assertEquals("AUTO", res.get("source").asText());
+        assertEquals("food", res.get("categoryKey").asText());
+        assertEquals("food.delivery", res.get("subcategoryKey").asText());
     }
 
     @Test

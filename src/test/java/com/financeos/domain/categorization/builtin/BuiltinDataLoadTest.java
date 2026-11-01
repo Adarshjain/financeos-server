@@ -15,11 +15,11 @@ class BuiltinDataLoadTest {
 
     private static Map<String, Object> files() {
         Map<String, Object> f = new HashMap<>();
-        f.put("categories.yml", Map.of("groups", Map.of("Food", List.of("Dining", "Groceries"))));
         f.put("link.yml", Map.of("rules", List.of()));
         f.put("keywords.yml", Map.of("rules", List.of()));
-        f.put("merchants.yml", Map.of("merchants", Map.of("Dining", List.of("zyxq cafe"), "Groceries", List.of("zyxq mart"))));
+        f.put("merchants.yml", Map.of("merchants", Map.of("food.dining", List.of("zyxq cafe"), "groceries", List.of("zyxq mart"))));
         f.put("mcc.yml", Map.of("codes", Map.of()));
+        f.put("credit-side.yml", Map.of("credit", Map.of("bills.rent", "earnings.rent"), "none", List.of("emi")));
         f.put("people.yml", Map.of("honorifics", List.of("mr"), "businessWords", List.of("store")));
         return f;
     }
@@ -36,7 +36,7 @@ class BuiltinDataLoadTest {
     @Test
     void unknownCategoryFails() {
         Map<String, Object> f = files();
-        f.put("merchants.yml", Map.of("merchants", Map.of("Nonsense", List.of("zyxq"))));
+        f.put("merchants.yml", Map.of("merchants", Map.of("nonsense", List.of("zyxq"))));
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> load(f));
         assertTrue(e.getMessage().contains("merchants.yml"));
     }
@@ -44,14 +44,14 @@ class BuiltinDataLoadTest {
     @Test
     void duplicateMerchantFails() {
         Map<String, Object> f = files();
-        f.put("merchants.yml", Map.of("merchants", Map.of("Dining", List.of("zyxq cafe"), "Groceries", List.of("Zyxq Cafe"))));
+        f.put("merchants.yml", Map.of("merchants", Map.of("food.dining", List.of("zyxq cafe"), "groceries", List.of("Zyxq Cafe"))));
         assertThrows(IllegalStateException.class, () -> load(f));
     }
 
     @Test
     void badRegexFails() {
         Map<String, Object> f = files();
-        f.put("keywords.yml", Map.of("rules", List.of(Map.of("id", "bad", "category", "Dining", "counterparty", List.of("(unclosed")))));
+        f.put("keywords.yml", Map.of("rules", List.of(Map.of("id", "bad", "category", "food.dining", "counterparty", List.of("(unclosed")))));
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> load(f));
         assertTrue(e.getMessage().contains("bad"));
     }
@@ -59,10 +59,29 @@ class BuiltinDataLoadTest {
     @Test
     void ruleWithUnknownCategoryOrNoConditionFails() {
         Map<String, Object> f = files();
-        f.put("keywords.yml", Map.of("rules", List.of(Map.of("id", "x", "category", "Nope", "counterparty", List.of("a")))));
+        f.put("keywords.yml", Map.of("rules", List.of(Map.of("id", "x", "category", "nope", "counterparty", List.of("a")))));
         assertThrows(IllegalStateException.class, () -> load(f));
         Map<String, Object> g = files();
-        g.put("keywords.yml", Map.of("rules", List.of(Map.of("id", "x", "category", "Dining"))));
+        g.put("keywords.yml", Map.of("rules", List.of(Map.of("id", "x", "category", "food.dining"))));
         assertThrows(IllegalStateException.class, () -> load(g));
+    }
+
+    @Test
+    void unknownSubcategoryAndBadCreditSideFail() {
+        Map<String, Object> f = files();
+        f.put("merchants.yml", Map.of("merchants", Map.of("food.nonsense", List.of("zyxq"))));
+        assertThrows(IllegalStateException.class, () -> load(f));
+        Map<String, Object> g = files();
+        g.put("credit-side.yml", Map.of("credit", Map.of("bills.rent", "earnings.nope"), "none", List.of()));
+        assertThrows(IllegalStateException.class, () -> load(g));
+    }
+
+    @Test
+    void resolveReadsCreditsPerTheCreditSideFile() {
+        BuiltinData d = load(files());
+        BuiltinData.Target food = d.merchants.get(0).category();
+        assertEquals("refund", d.resolve(food, com.financeos.gmail.extract.Direction.CREDIT).key());
+        assertEquals(food, d.resolve(food, com.financeos.gmail.extract.Direction.DEBIT));
+        assertEquals(food, d.resolve(food, null));
     }
 }

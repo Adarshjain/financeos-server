@@ -16,8 +16,7 @@ import java.util.*;
 
 /**
  * Rule matching for single descriptions, rule edits/deletes that keep the rows a rule set in step,
- * and the approve undo. The built-in engine and categorise-on-arrival plug in through
- * {@link #recategorise}.
+ * and the approve undo. Rows that lose their category's source go back through {@link #recategorise}.
  */
 @Service
 @Slf4j
@@ -26,6 +25,14 @@ public class CategorizationService {
     private final CategoryRuleRepository categoryRuleRepository;
     private final TransactionRepository transactionRepository;
     private final TransactionCategoryWriter categoryWriter;
+
+    /** Optional (setter) so tests that build the service by hand fall back to clearing; set by Spring. */
+    private CategoryAssigner categoryAssigner;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setCategoryAssigner(CategoryAssigner categoryAssigner) {
+        this.categoryAssigner = categoryAssigner;
+    }
 
     public CategorizationService(CategoryRuleRepository categoryRuleRepository,
                                  TransactionRepository transactionRepository,
@@ -195,24 +202,36 @@ public class CategorizationService {
         if (!unlink.isEmpty()) {
             transactionRepository.saveAll(unlink);
         }
-        recategorise(clear);
+        recategorise(clear, rule.getId());
         transactionRepository.flush();
         categoryRuleRepository.delete(rule);
     }
 
     /**
-     * Seam for re-running rows through links and the built-in engine after the rule that set their
-     * category went away. For now it only clears the category (never a USER one) and saves.
+     * Re-runs rows through the user's rules, their links and the built-in engine after the thing that set
+     * their category went away (a rule edited or deleted, a link removed); a row nothing answers for loses its
+     * category. Never touches a USER category. Saves the rows that changed.
      */
     @Transactional
     public void recategorise(List<Transaction> txns) {
+        recategorise(txns, null);
+    }
+
+    /** As {@link #recategorise(List)}, ignoring {@code excludeRuleId} (a rule being deleted, still stored). */
+    @Transactional
+    public void recategorise(List<Transaction> txns, UUID excludeRuleId) {
         if (txns == null || txns.isEmpty()) {
             return;
         }
-        List<Transaction> toSave = new ArrayList<>();
-        for (Transaction txn : txns) {
-            if (categoryWriter.set(txn, null, null, CategorySource.AUTO, (CategoryRule) null)) {
-                toSave.add(txn);
+        List<Transaction> toSave;
+        if (categoryAssigner != null) {
+            toSave = categoryAssigner.recategorise(txns, excludeRuleId);
+        } else {
+            toSave = new ArrayList<>();
+            for (Transaction txn : txns) {
+                if (categoryWriter.set(txn, null, null, CategorySource.AUTO, (CategoryRule) null)) {
+                    toSave.add(txn);
+                }
             }
         }
         if (!toSave.isEmpty()) {

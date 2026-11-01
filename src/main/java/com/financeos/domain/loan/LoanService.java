@@ -63,6 +63,13 @@ public class LoanService {
         this.autoLinkStore = autoLinkStore;
     }
 
+    private com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setCategoryLinkHooks(com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks) {
+        this.categoryLinkHooks = categoryLinkHooks;
+    }
+
     public LoanService(
             LoanRepository loanRepository,
             LoanEventRepository loanEventRepository,
@@ -612,7 +619,11 @@ public class LoanService {
         payment.setTransaction(transaction);
         payment.setOrigin(origin);
 
-        return loanPaymentRepository.save(payment);
+        LoanPayment savedPayment = loanPaymentRepository.save(payment);
+        if (categoryLinkHooks != null) {
+            categoryLinkHooks.linked(transaction);
+        }
+        return savedPayment;
     }
 
     public Map<String, Integer> addPaymentsBatch(UUID loanId, BatchLoanPaymentRequest batchReq) {
@@ -698,6 +709,10 @@ public class LoanService {
         }
 
         loanPaymentRepository.saveAll(newPayments);
+        if (categoryLinkHooks != null) {
+            newPayments.stream().map(LoanPayment::getTransaction).filter(java.util.Objects::nonNull)
+                    .forEach(categoryLinkHooks::linked);
+        }
         return Map.of("created", newPayments.size());
     }
 
@@ -715,7 +730,11 @@ public class LoanService {
             autoLinkStore.addRejections(UserContext.getCurrentUserId(), List.of(new AutoLinkStore.Rejection(
                     SuggestionKind.EMI, payment.getTransaction().getId(), paymentRef(payment))));
         }
+        Transaction released = payment.getTransaction();
         loanPaymentRepository.delete(payment);
+        if (categoryLinkHooks != null && released != null) {
+            categoryLinkHooks.released(List.of(released));
+        }
     }
 
     /** An installment has no id of its own; its stable id for rejections (other_ref) is a UUID derived from loan id and seq. */

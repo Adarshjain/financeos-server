@@ -27,6 +27,7 @@ public final class JobMessages {
             case RULE_APPLY -> "Rule apply";
             case GMAIL_SYNC -> "Gmail sync";
             case PRICE_REFRESH -> "Price refresh";
+            case CATEGORY_BACKFILL -> "Category backfill";
         };
     }
 

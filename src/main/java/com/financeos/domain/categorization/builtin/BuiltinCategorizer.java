@@ -10,11 +10,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Offline, rule-based categoriser that runs before the AI one. Steps, first hit wins: LINK (legs of a money
- * move, no category), KEYWORD (phrases that decide alone), MERCHANT (dictionary of well-known brands), MCC,
- * PEOPLE (counterparty is an individual). An empty result means "leave it to the AI". Plain class: the YAML
+ * Offline, rule-based categoriser, the engine step of categorise-on-arrival. Steps, first hit wins: LINK (legs
+ * of a money move, no category), KEYWORD (phrases that decide alone), MERCHANT (dictionary of well-known brands),
+ * MCC, PEOPLE (counterparty is an individual: no category, marked as a person). Output is taxonomy keys, read
+ * per direction (a credit that hits a spend entry is a refund unless credit-side.yml says otherwise). The YAML
  * under {@code categorize/} is read once in the constructor.
  */
+@org.springframework.stereotype.Component
 public final class BuiltinCategorizer {
 
     /** Keyword and link rules look at this much of the email text: past it, footers and marketing take over. */
@@ -77,45 +79,73 @@ public final class BuiltinCategorizer {
         this.data = BuiltinData.load();
     }
 
-    /** Decides a category for one transaction, or returns empty when nothing here is sure enough. */
-    public Optional<BuiltinMatch> categorize(CategorizeInput in) {
+    /**
+     * Decides a category for one transaction. Always returns a match: {@link BuiltinMatch#hasCategory()} is false
+     * when nothing here is sure enough, but the counterparty name is still filled in for grouping.
+     */
+    public BuiltinMatch categorize(CategorizeInput in) {
         String text = in.text() == null ? "" : in.text().length() > TEXT_CHARS ? in.text().substring(0, TEXT_CHARS) : in.text();
         Payee payee = payee(in, text);
+        String name = counterpartyName(payee);
         boolean transfer = TRANSFER.matcher(text).find();
         boolean cardSpend = !transfer && CARD.matcher(text).find();
         List<String> holder = holder(in, text);
         if (isSelf(payee, holder)) {
-            return Optional.of(new BuiltinMatch(null, Step.LINK, "self-name"));
+            return new BuiltinMatch(null, null, Step.LINK, "self-name", name, false);
         }
 
         for (BuiltinData.Rule r : data.link) {
             if (matches(r, in, text, payee)) {
-                return Optional.of(new BuiltinMatch(null, Step.LINK, r.id()));
+                return new BuiltinMatch(null, null, Step.LINK, r.id(), name, false);
             }
         }
         for (BuiltinData.Rule r : data.keywords) {
             if (matches(r, in, text, payee)) {
-                return Optional.of(new BuiltinMatch(r.category(), Step.KEYWORD, r.id()));
+                BuiltinData.Target t = data.resolve(r.category(), in.direction());
+                if (t != null) {
+                    return new BuiltinMatch(t.categoryKey(), t.subcategoryKey(), Step.KEYWORD, r.id(), name, false);
+                }
             }
         }
-        for (String name : payee.names) {
-            BuiltinData.Merchant m = merchant(name);
-            // a credit from a merchant is a refund, cashback or something else: the AI reads the mail for that
-            if (m != null && in.direction() == Direction.CREDIT) {
-                return Optional.empty();
+        for (String candidate : payee.names) {
+            BuiltinData.Merchant m = merchant(candidate);
+            if (m == null) {
+                continue;
             }
-            if (m != null) {
-                return Optional.of(new BuiltinMatch(m.category(), Step.MERCHANT, m.name()));
+            String merchantName = NameNormalizer.stripped(m.name());
+            BuiltinData.Target t = data.resolve(m.category(), in.direction());
+            if (t != null) {
+                return new BuiltinMatch(t.categoryKey(), t.subcategoryKey(), Step.MERCHANT, m.name(), merchantName, false);
             }
+            // a known brand the data has no reading of for this direction: leave it, but group by the brand
+            name = merchantName;
+            break;
         }
-        String byMcc = mcc(in.mcc());
+        BuiltinData.Target byMcc = mcc(in.mcc(), in.direction());
         if (byMcc != null) {
-            return Optional.of(new BuiltinMatch(byMcc, Step.MCC, in.mcc().trim()));
+            return new BuiltinMatch(byMcc.categoryKey(), byMcc.subcategoryKey(), Step.MCC, in.mcc().trim(), name, false);
         }
         if (!cardSpend && !CREDIT_CARD.matcher(text).find() && isPerson(payee, P2P.matcher(text).find())) {
-            return Optional.of(new BuiltinMatch("People", Step.PEOPLE, payee.personalHandle ? "handle" : "name"));
+            return new BuiltinMatch(null, null, Step.PEOPLE, payee.personalHandle ? "handle" : "name", name, true);
         }
-        return Optional.empty();
+        return new BuiltinMatch(null, null, null, null, name, false);
+    }
+
+    /** The normalised payee name: the name the input gives (or a handle's words), null when it names nobody. */
+    private static String counterpartyName(Payee payee) {
+        for (String raw : payee.personNames) {
+            String n = NameNormalizer.stripped(raw);
+            if (!n.isEmpty()) {
+                return n;
+            }
+        }
+        for (String raw : payee.names) {
+            String n = NameNormalizer.stripped(raw);
+            if (!n.isEmpty()) {
+                return n;
+            }
+        }
+        return null;
     }
 
     private boolean matches(BuiltinData.Rule r, CategorizeInput in, String text, Payee payee) {
@@ -181,7 +211,7 @@ public final class BuiltinCategorizer {
             BuiltinData.Merchant found = null;
             for (BuiltinData.Merchant m : data.merchants) {
                 if (m.name().startsWith(name) || m.compact().startsWith(compact)) {
-                    if (found != null && !found.category().equals(m.category())) {
+                    if (found != null && !found.category().key().equals(m.category().key())) {
                         return null;
                     }
                     if (found == null) {
@@ -196,14 +226,14 @@ public final class BuiltinCategorizer {
         return null;
     }
 
-    private String mcc(String mcc) {
+    private BuiltinData.Target mcc(String mcc, Direction direction) {
         if (mcc == null || mcc.isBlank()) {
             return null;
         }
         String code = mcc.trim();
-        String exact = data.mccExact.get(code);
+        BuiltinData.Target exact = data.mccExact.get(code);
         if (exact != null) {
-            return exact;
+            return data.resolve(exact, direction);
         }
         if (!FOUR_DIGITS.matcher(code).matches()) {
             return null;
@@ -211,7 +241,7 @@ public final class BuiltinCategorizer {
         int n = Integer.parseInt(code);
         for (BuiltinData.MccRange r : data.mccRanges) {
             if (n >= r.from() && n <= r.to()) {
-                return r.category();
+                return data.resolve(r.category(), direction);
             }
         }
         return null;

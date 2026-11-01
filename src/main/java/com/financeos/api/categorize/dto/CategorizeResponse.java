@@ -2,7 +2,10 @@ package com.financeos.api.categorize.dto;
 
 import org.springframework.lang.Nullable;
 
-/** The user's rule that matches a description: its category/sub-category, or both null when none does. */
+/**
+ * The suggestion for a description: its category/sub-category and where it came from (RULE = one of the user's
+ * rules, AUTO = the built-in engine), or all null when nothing matches.
+ */
 public record CategorizeResponse(
         @Nullable String categoryKey,
         @Nullable String subcategoryKey,
@@ -12,7 +15,7 @@ public record CategorizeResponse(
         return new CategorizeResponse(null, null, null);
     }
 
-    public static CategorizeResponse rule(String categoryKey, @Nullable String subcategoryKey) {
-        return new CategorizeResponse(categoryKey, subcategoryKey, "RULE");
+    public static CategorizeResponse of(String categoryKey, @Nullable String subcategoryKey, String source) {
+        return new CategorizeResponse(categoryKey, subcategoryKey, source);
     }
 }

@@ -31,6 +31,10 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     int markHomeSeeded(@Param("id") UUID id, @Param("now") Instant now);
 
     /** Users whose one-time auto-link history backfill has not run yet. */
+    /** Every user id, in id order (system jobs that walk all users). */
+    @Query("SELECT u.id FROM User u ORDER BY u.id")
+    java.util.List<UUID> findAllIds();
+
     @Query("SELECT u.id FROM User u WHERE u.autoLinkBackfilledAt IS NULL")
     java.util.List<UUID> findIdsPendingAutoLinkBackfill();
 

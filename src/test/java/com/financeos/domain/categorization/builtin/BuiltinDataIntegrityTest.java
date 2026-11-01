@@ -1,8 +1,12 @@
 package com.financeos.domain.categorization.builtin;
 
+import com.financeos.domain.category.CategoryCatalog;
+import com.financeos.domain.transaction.TransactionType;
+import com.financeos.gmail.extract.Direction;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,19 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BuiltinDataIntegrityTest {
 
-    private static final List<String> EXPECTED_CATEGORIES = List.of(
-            "Salary", "Bonus", "Interest", "Dividends", "Refunds", "Cashback", "Rent", "Business", "Gifts", "Other",
-            "Groceries", "Dining", "Takeout", "Drinks",
-            "Fuel", "Cabs", "Transit", "Tolls", "Vehicle",
-            "Flights", "Trains", "Buses", "Hotels", "Travel", "Forex",
-            "Shopping", "Clothing", "Electronics", "Furniture", "Beauty", "Books", "Jewellery", "Kids",
-            "Maintenance", "Electricity", "Water", "Gas", "Mobile", "Internet", "TV", "Services", "Help", "Laundry",
-            "Streaming", "Music", "Software", "Entertainment", "Gaming",
-            "Medical", "Pharmacy", "Labs", "Fitness", "Grooming",
-            "Education", "Courses",
-            "EMI", "Investments", "Insurance", "Cash", "Charges", "Taxes",
-            "People", "Donations", "Religious", "Pets", "Government", "Professional");
-
     private static BuiltinData data;
 
     @BeforeAll
@@ -33,22 +24,39 @@ class BuiltinDataIntegrityTest {
         data = BuiltinData.load();
     }
 
+    private static final CategoryCatalog CATALOG = CategoryCatalog.shared();
+
     @Test
-    void categoriesAreTheAgreedList() {
-        assertEquals(new HashSet<>(EXPECTED_CATEGORIES), data.groupOf.keySet());
-        assertEquals(EXPECTED_CATEGORIES.size(), data.groupOf.size());
-        assertEquals("Food", data.groupOf.get("Takeout"));
-        assertEquals("Money", data.groupOf.get("EMI"));
+    void everyProducedKeyIsInTheTaxonomy() {
+        Set<String> produced = data.producedCategories();
+        assertFalse(produced.isEmpty());
+        for (String key : produced) {
+            assertTrue(CATALOG.subcategory(key).isPresent() || CATALOG.category(key).isPresent(), "not in the taxonomy: " + key);
+        }
+        // the engine splits transit into metro, local bus and the general category
+        assertTrue(produced.containsAll(Set.of("transport", "transport.metro", "transport.local_bus", "food.delivery")));
     }
 
     @Test
-    void everyProducedCategoryIsInTheList() {
-        Set<String> produced = data.producedCategories();
-        assertFalse(produced.isEmpty());
-        for (String c : produced) {
-            assertTrue(data.groupOf.containsKey(c), "not a known category: " + c);
+    void everyTargetHasAValidDirectionAndCreditReading() {
+        List<BuiltinData.Target> targets = new ArrayList<>();
+        data.keywords.forEach(r -> targets.add(r.category()));
+        data.merchants.forEach(m -> targets.add(m.category()));
+        data.mccExact.values().forEach(targets::add);
+        data.mccRanges.forEach(r -> targets.add(r.category()));
+        for (BuiltinData.Target t : targets) {
+            assertTrue(t.direction() != null, "category and sub-category directions clash: " + t.key());
+            assertEquals(t.subcategoryKey() == null ? t.key() : t.categoryKey(), t.categoryKey());
+            BuiltinData.Target out = data.resolve(t, Direction.DEBIT);
+            if (out != null) {
+                assertTrue(CATALOG.fits(TransactionType.DEBIT, out.categoryKey(), out.subcategoryKey()), "debit: " + t.key());
+            }
+            BuiltinData.Target in = data.resolve(t, Direction.CREDIT);
+            if (in != null) {
+                assertTrue(CATALOG.fits(TransactionType.CREDIT, in.categoryKey(), in.subcategoryKey()), "credit: " + t.key());
+            }
         }
-        assertTrue(data.groupOf.containsKey("People"), "People is produced by code, so it must be listed");
+        data.creditTargets().forEach(t -> assertTrue(CATALOG.fits(TransactionType.CREDIT, t.categoryKey(), t.subcategoryKey()), t.key()));
     }
 
     @Test
@@ -67,7 +75,7 @@ class BuiltinDataIntegrityTest {
         data.link.forEach(r -> assertTrue(ids.add(r.id()), "duplicate rule id: " + r.id()));
         data.keywords.forEach(r -> assertTrue(ids.add(r.id()), "duplicate rule id: " + r.id()));
         data.link.forEach(r -> assertEquals(null, r.category()));
-        data.keywords.forEach(r -> assertTrue(data.groupOf.containsKey(r.category())));
+        data.keywords.forEach(r -> assertTrue(r.category() != null));
     }
 
     @Test

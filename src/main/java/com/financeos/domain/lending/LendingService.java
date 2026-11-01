@@ -59,6 +59,13 @@ public class LendingService {
         this.autoLinkStore = autoLinkStore;
     }
 
+    private com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setCategoryLinkHooks(com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks) {
+        this.categoryLinkHooks = categoryLinkHooks;
+    }
+
     public LendingService(
             CounterpartyRepository counterpartyRepository,
             LendingRepository lendingRepository,
@@ -551,6 +558,9 @@ public class LendingService {
 
         Lending saved = lendingRepository.save(lending);
         if (transaction != null) {
+            if (categoryLinkHooks != null) {
+                categoryLinkHooks.linked(transaction);
+            }
             logLinkEvent(Events.LENDING_LINKED, saved, transaction.getId());
         }
         return LendingResponse.from(saved);
@@ -588,13 +598,20 @@ public class LendingService {
         if (req.notes() != null) lending.setNotes(req.notes());
 
         Lending saved = lendingRepository.save(lending);
+        if (categoryLinkHooks != null && saved.getTransaction() != null && (req.kind() != null || req.direction() != null)) {
+            categoryLinkHooks.linked(saved.getTransaction());
+        }
         return LendingResponse.from(saved);
     }
 
     public void deleteLending(UUID lendingId) {
         Lending lending = getLendingAndVerifyOwnership(lendingId);
         rememberAutoLinkRemoved(lending);
+        Transaction released = lending.getTransaction();
         lendingRepository.delete(lending);
+        if (categoryLinkHooks != null && released != null) {
+            categoryLinkHooks.released(List.of(released));
+        }
     }
 
     // --- Transaction link (PUT/DELETE /lendings/{id}/transaction) ---
@@ -627,9 +644,16 @@ public class LendingService {
         }
         Transaction transaction = transactionValidator.validateForLending(transactionId, lending.getDirection());
         rememberAutoLinkRemoved(lending); // a manual replace of an AUTO link forgets nothing
+        Transaction replaced = lending.getTransaction();
         lending.setTransaction(transaction);
         lending.setOrigin(origin);
         Lending saved = lendingRepository.save(lending);
+        if (categoryLinkHooks != null) {
+            if (replaced != null) {
+                categoryLinkHooks.released(List.of(replaced));
+            }
+            categoryLinkHooks.linked(transaction);
+        }
         logLinkEvent(Events.LENDING_LINKED, saved, transactionId);
         return LendingResponse.from(saved);
     }
@@ -642,9 +666,13 @@ public class LendingService {
         }
         UUID previous = lending.getTransaction().getId();
         rememberAutoLinkRemoved(lending);
+        Transaction released = lending.getTransaction();
         lending.setTransaction(null);
         lending.setOrigin(LinkOrigin.USER);
         lendingRepository.save(lending);
+        if (categoryLinkHooks != null) {
+            categoryLinkHooks.released(List.of(released));
+        }
         logLinkEvent(Events.LENDING_UNLINKED, lending, previous);
     }
 

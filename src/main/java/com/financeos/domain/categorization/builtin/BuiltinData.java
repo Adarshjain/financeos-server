@@ -1,5 +1,8 @@
 package com.financeos.domain.categorization.builtin;
 
+import com.financeos.domain.category.CategoryCatalog;
+import com.financeos.domain.category.CategoryDirection;
+import com.financeos.domain.category.TaxonomyFile;
 import com.financeos.gmail.extract.Direction;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -23,7 +26,7 @@ import java.util.regex.PatternSyntaxException;
 
 /**
  * Loads and validates the YAML under {@code categorize/}. A broken file fails fast with a message naming the
- * file and entry: every regex must compile, every category must be in {@code categories.yml}, rule ids and
+ * file and entry: every regex must compile, every category key must exist in the fixed taxonomy, rule ids and
  * merchant names (after normalising) and MCC codes must be unique.
  */
 final class BuiltinData {
@@ -35,16 +38,21 @@ final class BuiltinData {
     private static final Pattern MCC = Pattern.compile("\\d{4}");
 
     /** A rule matches when every condition it names matches; a condition is a list of regexes, any one hits. */
-    record Rule(String id, String category, Direction direction, List<Pattern> subject, List<Pattern> text,
+    record Rule(String id, Target category, Direction direction, List<Pattern> subject, List<Pattern> text,
                 List<Pattern> counterparty, List<Pattern> from, List<Pattern> any, BigDecimal maxAmount) {}
 
     /** One normalised merchant name; {@code compact} is the same without spaces. */
-    record Merchant(String name, String compact, String category) {}
+    record Merchant(String name, String compact, Target category) {}
 
     /** An inclusive MCC range. */
-    record MccRange(int from, int to, String category) {}
+    record MccRange(int from, int to, Target category) {}
 
-    final Map<String, String> groupOf;
+    /**
+     * A taxonomy key as the data files write it ({@code groceries}, {@code food.delivery}) split into its
+     * category and optional sub-category; {@code direction} is what both of them allow.
+     */
+    record Target(String key, String categoryKey, String subcategoryKey, CategoryDirection direction) {}
+
     final Set<String> honorifics;
     final Set<String> businessWords;
     final List<Rule> link;
@@ -52,12 +60,16 @@ final class BuiltinData {
     final List<Merchant> merchants;
     /** Normalised names that look like a brand but can stand for anything: a match on them is no answer. */
     final Set<String> undecided;
-    final Map<String, String> mccExact;
+    final Map<String, Target> mccExact;
     final List<MccRange> mccRanges;
+    /** Out-side key to the key a credit of it is read as (default refund); see credit-side.yml. */
+    private final Map<String, Target> creditOf;
+    private final Set<String> noCredit;
+    private final Target refund;
 
-    private BuiltinData(Map<String, String> groupOf, Set<String> honorifics, Set<String> businessWords, List<Rule> link, List<Rule> keywords, List<Merchant> merchants, Set<String> undecided,
-                        Map<String, String> mccExact, List<MccRange> mccRanges) {
-        this.groupOf = groupOf;
+    private BuiltinData(Set<String> honorifics, Set<String> businessWords, List<Rule> link, List<Rule> keywords, List<Merchant> merchants, Set<String> undecided,
+                        Map<String, Target> mccExact, List<MccRange> mccRanges, Map<String, Target> creditOf,
+                        Set<String> noCredit, Target refund) {
         this.honorifics = honorifics;
         this.businessWords = businessWords;
         this.link = link;
@@ -66,6 +78,9 @@ final class BuiltinData {
         this.undecided = undecided;
         this.mccExact = mccExact;
         this.mccRanges = mccRanges;
+        this.creditOf = creditOf;
+        this.noCredit = noCredit;
+        this.refund = refund;
     }
 
     static BuiltinData load() {
@@ -74,8 +89,11 @@ final class BuiltinData {
 
     /** Loads from any source of parsed YAML roots by file name; the default reads the classpath. */
     static BuiltinData load(java.util.function.Function<String, Object> source) {
-        Map<String, String> groupOf = categories(source.apply("categories.yml"));
-        Set<String> categories = groupOf.keySet();
+        TaxonomyFile taxonomy = TaxonomyFile.load();
+        return load(source, CategoryCatalog.of(taxonomy.categories(), taxonomy.subcategories()));
+    }
+
+    static BuiltinData load(java.util.function.Function<String, Object> source, CategoryCatalog categories) {
         List<Rule> link = rules("link.yml", source.apply("link.yml"), categories, false);
         List<Rule> keywords = rules("keywords.yml", source.apply("keywords.yml"), categories, true);
         Object merchantRoot = source.apply("merchants.yml");
@@ -86,7 +104,7 @@ final class BuiltinData {
                 undecided.add(NameNormalizer.merchant(name));
             }
         }
-        Map<String, String> mccExact = new HashMap<>();
+        Map<String, Target> mccExact = new HashMap<>();
         List<MccRange> mccRanges = new ArrayList<>();
         mcc(source.apply("mcc.yml"), categories, mccExact, mccRanges);
         Object people = source.apply("people.yml");
@@ -98,8 +116,23 @@ final class BuiltinData {
         if (honorifics.isEmpty() || businessWords.isEmpty()) {
             throw fail("people.yml", "honorifics and businessWords must not be empty");
         }
-        return new BuiltinData(groupOf, honorifics, businessWords, List.copyOf(link), List.copyOf(keywords), List.copyOf(merchants), Set.copyOf(undecided),
-                Map.copyOf(mccExact), List.copyOf(mccRanges));
+        Map<String, Target> creditOf = new HashMap<>();
+        Set<String> noCredit = new HashSet<>();
+        Object creditRoot = source.apply("credit-side.yml");
+        if (!(creditRoot instanceof Map<?, ?> cr) || !(cr.get("credit") instanceof Map<?, ?> credit)) {
+            throw fail("credit-side.yml", "expected a map with a 'credit' map");
+        }
+        for (Map.Entry<?, ?> e : credit.entrySet()) {
+            target("credit-side.yml", categories, String.valueOf(e.getKey()));
+            creditOf.put(String.valueOf(e.getKey()), target("credit-side.yml", categories, String.valueOf(e.getValue())));
+        }
+        for (String k : strings(cr.get("none"))) {
+            target("credit-side.yml", categories, k);
+            noCredit.add(k);
+        }
+        return new BuiltinData(honorifics, businessWords, List.copyOf(link), List.copyOf(keywords), List.copyOf(merchants), Set.copyOf(undecided),
+                Map.copyOf(mccExact), List.copyOf(mccRanges), Map.copyOf(creditOf), Set.copyOf(noCredit),
+                target("credit-side.yml", categories, "refund"));
     }
 
     private static Object read(String file) {
@@ -116,23 +149,44 @@ final class BuiltinData {
         }
     }
 
-    /** Category name to its group, in file order. */
-    private static Map<String, String> categories(Object root) {
-        if (!(root instanceof Map<?, ?> m) || !(m.get("groups") instanceof Map<?, ?> groups)) {
-            throw fail("categories.yml", "expected a map with a 'groups' map");
+    /** Looks a taxonomy key up (a sub-category key or a category key) or fails naming the file. */
+    private static Target target(String where, CategoryCatalog categories, String key) {
+        var sub = categories.subcategory(key);
+        if (sub.isPresent()) {
+            var cat = categories.category(sub.get().categoryKey()).orElseThrow();
+            return new Target(key, cat.key(), key, both(cat.direction(), sub.get().direction()));
         }
-        Map<String, String> out = new LinkedHashMap<>();
-        for (Map.Entry<?, ?> g : groups.entrySet()) {
-            for (String c : strings(g.getValue())) {
-                if (out.put(c, String.valueOf(g.getKey())) != null) {
-                    throw fail("categories.yml", "category listed twice: " + c);
-                }
-            }
+        var cat = categories.category(key);
+        if (cat.isEmpty()) {
+            throw fail(where, "unknown category '" + key + "'");
         }
-        return out;
+        return new Target(key, key, null, cat.get().direction());
     }
 
-    private static List<Rule> rules(String file, Object root, Set<String> categories, boolean categoryRequired) {
+    private static CategoryDirection both(CategoryDirection cat, CategoryDirection sub) {
+        return cat == CategoryDirection.BOTH ? sub : sub == CategoryDirection.BOTH ? cat : cat == sub ? cat : null;
+    }
+
+    /**
+     * What the data's target means for a transaction of this direction, or null for no answer: a target that
+     * fits is used as written; a credit that hits a spend target becomes its credit-side reading (a refund
+     * unless credit-side.yml says otherwise); a debit that hits an income-only target has no answer.
+     */
+    Target resolve(Target t, Direction direction) {
+        if (direction == null) {
+            return t;
+        }
+        CategoryDirection need = direction == Direction.CREDIT ? CategoryDirection.IN : CategoryDirection.OUT;
+        if (t.direction() != null && t.direction().fits(need)) {
+            return t;
+        }
+        if (direction == Direction.DEBIT || noCredit.contains(t.key())) {
+            return null;
+        }
+        return creditOf.getOrDefault(t.key(), refund);
+    }
+
+    private static List<Rule> rules(String file, Object root, CategoryCatalog categories, boolean categoryRequired) {
         if (!(root instanceof Map<?, ?> m) || !(m.get("rules") instanceof List<?> list)) {
             throw fail(file, "expected a map with a 'rules' list");
         }
@@ -158,9 +212,6 @@ final class BuiltinData {
             if (categoryRequired != (category != null)) {
                 throw fail(file + " [" + id + "]", categoryRequired ? "category is required" : "a link rule has no category");
             }
-            if (category != null && !categories.contains(category)) {
-                throw fail(file + " [" + id + "]", "unknown category '" + category + "'");
-            }
             Direction direction = null;
             if (r.get("direction") != null) {
                 try {
@@ -169,7 +220,7 @@ final class BuiltinData {
                     throw fail(file + " [" + id + "]", "direction must be DEBIT or CREDIT");
                 }
             }
-            Rule rule = new Rule(id, category, direction, patterns(file, id, r, "subject"), patterns(file, id, r, "text"),
+            Rule rule = new Rule(id, category == null ? null : target(file + " [" + id + "]", categories, category), direction, patterns(file, id, r, "subject"), patterns(file, id, r, "text"),
                     patterns(file, id, r, "counterparty"), patterns(file, id, r, "from"), patterns(file, id, r, "any"), maxAmount(file, id, r));
             if (rule.subject.isEmpty() && rule.text.isEmpty() && rule.counterparty.isEmpty() && rule.from.isEmpty()
                     && rule.any.isEmpty()) {
@@ -204,16 +255,13 @@ final class BuiltinData {
         return List.copyOf(out);
     }
 
-    private static List<Merchant> merchants(Object root, Set<String> categories) {
+    private static List<Merchant> merchants(Object root, CategoryCatalog categories) {
         if (!(root instanceof Map<?, ?> m) || !(m.get("merchants") instanceof Map<?, ?> byCategory)) {
             throw fail("merchants.yml", "expected a map with a 'merchants' map");
         }
         Map<String, Merchant> out = new LinkedHashMap<>();
         for (Map.Entry<?, ?> e : byCategory.entrySet()) {
-            String category = String.valueOf(e.getKey());
-            if (!categories.contains(category)) {
-                throw fail("merchants.yml", "unknown category '" + category + "'");
-            }
+            Target category = target("merchants.yml", categories, String.valueOf(e.getKey()));
             for (String name : strings(e.getValue())) {
                 String key = NameNormalizer.merchant(name);
                 if (key.isEmpty()) {
@@ -221,7 +269,7 @@ final class BuiltinData {
                 }
                 Merchant previous = out.put(key, new Merchant(key, key.replace(" ", ""), category));
                 if (previous != null) {
-                    throw fail("merchants.yml", "merchant '" + key + "' listed twice (" + previous.category() + ", " + category + ")");
+                    throw fail("merchants.yml", "merchant '" + key + "' listed twice (" + previous.category().key() + ", " + category.key() + ")");
                 }
             }
         }
@@ -230,16 +278,13 @@ final class BuiltinData {
         return sorted;
     }
 
-    private static void mcc(Object root, Set<String> categories, Map<String, String> exact, List<MccRange> ranges) {
+    private static void mcc(Object root, CategoryCatalog categories, Map<String, Target> exact, List<MccRange> ranges) {
         if (!(root instanceof Map<?, ?> m) || !(m.get("codes") instanceof Map<?, ?> byCategory)) {
             throw fail("mcc.yml", "expected a map with a 'codes' map");
         }
-        Map<Integer, String> taken = new TreeMap<>();
+        Map<Integer, Target> taken = new TreeMap<>();
         for (Map.Entry<?, ?> e : byCategory.entrySet()) {
-            String category = String.valueOf(e.getKey());
-            if (!categories.contains(category)) {
-                throw fail("mcc.yml", "unknown category '" + category + "'");
-            }
+            Target category = target("mcc.yml", categories, String.valueOf(e.getKey()));
             for (String code : strings(e.getValue())) {
                 String[] parts = code.split("-");
                 if (parts.length > 2 || !MCC.matcher(parts[0]).matches()
@@ -270,13 +315,20 @@ final class BuiltinData {
         }
     }
 
-    /** Every category any data file can produce. */
+    /** Every taxonomy key any data file can produce, as written (before the credit-side reading). */
     Set<String> producedCategories() {
         Set<String> out = new LinkedHashSet<>();
-        keywords.forEach(r -> out.add(r.category()));
-        merchants.forEach(x -> out.add(x.category()));
-        out.addAll(mccExact.values());
-        mccRanges.forEach(r -> out.add(r.category()));
+        keywords.forEach(r -> out.add(r.category().key()));
+        merchants.forEach(x -> out.add(x.category().key()));
+        mccExact.values().forEach(t -> out.add(t.key()));
+        mccRanges.forEach(r -> out.add(r.category().key()));
+        return out;
+    }
+
+    /** Every credit-side target the data can resolve to. */
+    Set<Target> creditTargets() {
+        Set<Target> out = new LinkedHashSet<>(creditOf.values());
+        out.add(refund);
         return out;
     }
 

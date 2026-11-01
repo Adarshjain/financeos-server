@@ -41,6 +41,12 @@ import java.util.stream.Collectors;
 public class DividendService {
 
     private final DividendRepository dividendRepository;
+    private com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setCategoryLinkHooks(com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks) {
+        this.categoryLinkHooks = categoryLinkHooks;
+    }
     private final HoldingRepository holdingRepository;
     private final UserRepository userRepository;
     private final InvestmentService investmentService;
@@ -156,7 +162,11 @@ public class DividendService {
             throw new ResourceNotFoundException("Dividend", id);
         }
 
+        com.financeos.domain.transaction.Transaction released = dividend.getTransaction();
         dividendRepository.delete(dividend);
+        if (categoryLinkHooks != null && released != null) {
+            categoryLinkHooks.released(java.util.List.of(released));
+        }
     }
 
     @Transactional(readOnly = true)

@@ -10952,6 +10952,11 @@ components:
         description:
           type: string
           x-required: true
+        type:
+          type: string
+          enum:
+          - DEBIT
+          - CREDIT
       required:
       - description
     CategorizeResponse:
@@ -15982,6 +15987,7 @@ components:
           - INVESTMENT_IMPORT_COMMIT
           - BROKER_RECONCILE_COMMIT
           - RULE_APPLY
+          - CATEGORY_BACKFILL
       required:
       - attempt
       - cancelRequested
