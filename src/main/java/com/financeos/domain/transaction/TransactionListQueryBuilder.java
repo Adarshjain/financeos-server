@@ -43,7 +43,13 @@ public class TransactionListQueryBuilder {
             Map.entry("accountType", new FieldMetadata("accountType", FieldType.ENUM, "a.type", Join.ACCOUNTS, Set.of("bank_account", "credit_card", "broker", "generic"))),
             Map.entry("cardId", new FieldMetadata("cardId", FieldType.ENUM, "sub.card_id", null, null)),
             Map.entry("card", new FieldMetadata("card", FieldType.ENUM, "ch.person_name", Join.CARDS, null)),
-            Map.entry("category", new FieldMetadata("category", FieldType.ENUM, null, null, null)),
+            // category keys (a key includes its sub-categories) and sub-category keys; "uncategorized" = no category;
+            // tag ids; "untagged" = no tag. The old tag-name meaning of "category" moved to "tag".
+            Map.entry("category", new FieldMetadata("category", FieldType.ENUM, "sub.category_key", null, null)),
+            Map.entry("subcategory", new FieldMetadata("subcategory", FieldType.ENUM, "sub.subcategory_key", null, null)),
+            Map.entry("uncategorized", new FieldMetadata("uncategorized", FieldType.BOOLEAN, null, null, null)),
+            Map.entry("tag", new FieldMetadata("tag", FieldType.ENUM, null, null, null)),
+            Map.entry("untagged", new FieldMetadata("untagged", FieldType.BOOLEAN, null, null, null)),
             Map.entry("reviewType", new FieldMetadata("reviewType", FieldType.ENUM, "sub.review_type", null, Set.of("NEEDS_REVIEW", "AUTO_REVIEWED", "MANUALLY_REVIEWED", "NA"))),
             Map.entry("reviewReason", new FieldMetadata("reviewReason", FieldType.ENUM, null, null, java.util.Arrays.stream(ReviewReason.values()).map(Enum::name).collect(java.util.stream.Collectors.toUnmodifiableSet()))),
             Map.entry("isUnderMonitoring", new FieldMetadata("isUnderMonitoring", FieldType.BOOLEAN, "sub.is_under_monitoring", null, null)),
@@ -90,7 +96,7 @@ public class TransactionListQueryBuilder {
         String innerSql = """
             WITH big AS (
               SELECT t.id, t.account_id, t.card_id, t.transaction_date, t.created_at, t.type, t.source,
-                     t.amount, t.description, t.sourced_description,
+                     t.amount, t.description, t.sourced_description, t.category_key, t.subcategory_key,
                      t.is_under_monitoring, t.is_excluded, t.review_type,
                      (CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END) AS signed_amount,
                      (COALESCE(abd.opening_balance, 0) +
@@ -216,7 +222,7 @@ public class TransactionListQueryBuilder {
 
         String innerSql = """
             SELECT t.id, t.account_id, t.card_id, t.transaction_date, t.type, t.source,
-                   t.description, t.sourced_description,
+                   t.description, t.sourced_description, t.category_key, t.subcategory_key,
                    t.is_under_monitoring, t.is_excluded, t.review_type,
                    (CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END) AS signed_amount
             FROM transactions t
@@ -255,8 +261,19 @@ public class TransactionListQueryBuilder {
                     joins.add(meta.join());
                 }
 
-                if ("category".equals(fieldName)) {
-                    predicates.add(sqlPredicates.category(op, value, params, p, "sub.id"));
+                if ("tag".equals(fieldName)) {
+                    predicates.add(sqlPredicates.tag(op, value, params, p, "sub.id"));
+                } else if ("uncategorized".equals(fieldName) || "untagged".equals(fieldName)) {
+                    requireBooleanIs(fieldName, op, value);
+                    boolean on = value.asBoolean();
+                    if ("uncategorized".equals(fieldName)) {
+                        predicates.add(on ? "sub.category_key IS NULL" : "sub.category_key IS NOT NULL");
+                    } else {
+                        predicates.add((on ? "NOT EXISTS" : "EXISTS")
+                                + " (SELECT 1 FROM transaction_tags tgx WHERE tgx.transaction_id = sub.id)");
+                    }
+                } else if ("category".equals(fieldName) && "is_empty".equals(op)) {
+                    predicates.add("sub.category_key IS NULL");
                 } else if ("reviewReason".equals(fieldName)) {
                     String inner = "SELECT 1 FROM transaction_review_reasons r WHERE r.transaction_id = sub.id AND ";
                     switch (op) {
@@ -400,6 +417,10 @@ public class TransactionListQueryBuilder {
         if (operator == null) {
             throw new ValidationException("filter.operator is required for '" + filter.field() + "'");
         }
+        if ("uncategorized".equals(meta.name()) || "untagged".equals(meta.name())) {
+            requireBooleanIs(meta.name(), operator, filter.value());
+            return;
+        }
         if ("category".equals(meta.name()) && "is_empty".equals(operator)) {
             // "No category": takes no value.
             if (filter.value() != null && !filter.value().isNull()) {
@@ -412,6 +433,16 @@ public class TransactionListQueryBuilder {
                     + filter.field() + "' (" + meta.type().json() + ")");
         }
         validateFilterValue(meta, operator, filter.value());
+    }
+
+    /** The flag fields take {@code is} and a boolean. */
+    private static void requireBooleanIs(String field, String operator, JsonNode value) {
+        if (!"is".equals(operator)) {
+            throw new ValidationException("Operator '" + operator + "' is not valid for field '" + field + "'");
+        }
+        if (value == null || !value.isBoolean()) {
+            throw new ValidationException("'" + field + "' requires a boolean value");
+        }
     }
 
     private void validateFilterValue(FieldMetadata meta, String operator, JsonNode value) {

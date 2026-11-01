@@ -71,6 +71,30 @@ public class SqlPredicates {
         }
     }
 
+    /** Tags by id, the same shape as {@link #category}: EXISTS so nothing fans out. */
+    public String tag(String op, JsonNode v, Map<String, Object> params, String p, String txIdRef) {
+        String inner = "SELECT 1 FROM transaction_tags tgx WHERE tgx.transaction_id = " + txIdRef + " AND ";
+        switch (op) {
+            case "is" -> {
+                params.put(p, v.asText());
+                return "EXISTS (" + inner + "tgx.tag_id = :" + p + ")";
+            }
+            case "is_not" -> {
+                params.put(p, v.asText());
+                return "NOT EXISTS (" + inner + "tgx.tag_id = :" + p + ")";
+            }
+            case "in" -> {
+                params.put(p, textList(v));
+                return "EXISTS (" + inner + "tgx.tag_id IN (:" + p + "))";
+            }
+            case "not_in" -> {
+                params.put(p, textList(v));
+                return "NOT EXISTS (" + inner + "tgx.tag_id IN (:" + p + "))";
+            }
+            default -> throw new IllegalArgumentException("Unsupported tag operator: " + op);
+        }
+    }
+
     private String numberPredicate(String expr, String op, JsonNode v, Map<String, Object> params, String p) {
         switch (op) {
             case "equals" -> {

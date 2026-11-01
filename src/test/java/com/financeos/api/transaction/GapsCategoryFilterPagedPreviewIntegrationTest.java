@@ -75,11 +75,12 @@ class GapsCategoryFilterPagedPreviewIntegrationTest {
         return api.postJson("/api/v1/transactions/search", Map.of("filters", filters), 200);
     }
 
+    /** "No tag": the category filter now means the fixed category list, so the tag-less rows are found with untagged. */
     private static Map<String, Object> isEmpty() {
         Map<String, Object> f = new LinkedHashMap<>();
-        f.put("field", "category");
-        f.put("operator", "is_empty");
-        f.put("value", null);
+        f.put("field", "untagged");
+        f.put("operator", "is");
+        f.put("value", true);
         return f;
     }
 

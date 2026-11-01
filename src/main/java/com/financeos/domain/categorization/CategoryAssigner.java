@@ -65,9 +65,25 @@ public class CategoryAssigner {
         return run(txns, Mode.ARRIVAL, true, null).size();
     }
 
-    /** {@link #assignOnArrival} for rows already saved (a Gmail sync batch): loads them by id for the user and saves. */
+    /**
+     * What an alert mail adds on top of the stored row for the engine: the extracted counterparty, the sender,
+     * the subject, the mail text (normalised) and the extraction template. Every field may be null.
+     */
+    public record ArrivalContext(String counterparty, String fromAddress, String subject, String text, String templateId) {
+    }
+
+    /** {@link #assignOnArrivalById(UUID, Collection, Map)} without mail context: the description alone. */
     @Transactional
     public int assignOnArrivalById(UUID userId, Collection<UUID> ids) {
+        return assignOnArrivalById(userId, ids, Map.of());
+    }
+
+    /**
+     * {@link #assignOnArrival} for rows already saved (a Gmail sync batch): loads them by id for the user and saves.
+     * {@code contexts} (by transaction id) carries what the mail knew; rows without one use the description.
+     */
+    @Transactional
+    public int assignOnArrivalById(UUID userId, Collection<UUID> ids, Map<UUID, ArrivalContext> contexts) {
         if (ids == null || ids.isEmpty()) {
             return 0;
         }
@@ -76,7 +92,7 @@ public class CategoryAssigner {
         for (int from = 0; from < all.size(); from += 500) {
             rows.addAll(transactionRepository.findAllByIdInAndUserId(all.subList(from, Math.min(from + 500, all.size())), userId));
         }
-        List<Transaction> changed = run(rows, Mode.ARRIVAL, true, null);
+        List<Transaction> changed = run(rows, Mode.ARRIVAL, true, null, contexts);
         if (!changed.isEmpty()) {
             transactionRepository.saveAll(changed);
         }
@@ -116,10 +132,18 @@ public class CategoryAssigner {
                 return Optional.of(new Suggestion(rule.get().getCategoryKey(), rule.get().getSubcategoryKey(), CategorySource.RULE));
             }
         }
-        BuiltinMatch m = engine.categorize(engineInput(description, type, null, null));
+        BuiltinMatch m = engine.categorize(engineInput(description, type, null, null, null));
         return m.hasCategory()
                 ? Optional.of(new Suggestion(m.categoryKey(), m.subcategoryKey(), CategorySource.AUTO))
                 : Optional.empty();
+    }
+
+    /**
+     * What the engine says about a stored row's text (a statement line or description): used to group
+     * uncategorised rows by who was paid. Pure, no rules or links.
+     */
+    public BuiltinMatch analyse(String text, TransactionType type, java.math.BigDecimal amount, String mcc) {
+        return engine.categorize(engineInput(text, type, amount, mcc, null));
     }
 
     // ------------------------------------------------------------------ core
@@ -127,6 +151,11 @@ public class CategoryAssigner {
     private enum Mode { ARRIVAL, BACKFILL, RECATEGORISE }
 
     private List<Transaction> run(List<Transaction> txns, Mode mode, boolean touchExclusion, UUID excludeRuleId) {
+        return run(txns, mode, touchExclusion, excludeRuleId, Map.of());
+    }
+
+    private List<Transaction> run(List<Transaction> txns, Mode mode, boolean touchExclusion, UUID excludeRuleId,
+                                  Map<UUID, ArrivalContext> contexts) {
         List<Transaction> todo = new ArrayList<>();
         if (txns != null) {
             for (Transaction t : txns) {
@@ -172,7 +201,8 @@ public class CategoryAssigner {
                     sub = link.subcategoryKey();
                     source = CategorySource.LINK;
                 } else {
-                    BuiltinMatch m = engine.categorize(engineInput(text(t), t.getType(), t.getAmount(), t.getMcc()));
+                    ArrivalContext mail = t.getId() == null || contexts == null ? null : contexts.get(t.getId());
+                    BuiltinMatch m = engine.categorize(engineInput(text(t), t.getType(), t.getAmount(), t.getMcc(), mail));
                     if (m.hasCategory() && writer.fits(t, m.categoryKey(), m.subcategoryKey())) {
                         cat = m.categoryKey();
                         sub = m.subcategoryKey();
@@ -230,8 +260,16 @@ public class CategoryAssigner {
     }
 
     /** The description plays both counterparty and text: a statement line has no separate mail around it. */
-    private static CategorizeInput engineInput(String description, TransactionType type, java.math.BigDecimal amount, String mcc) {
+    private static CategorizeInput engineInput(String description, TransactionType type, java.math.BigDecimal amount, String mcc,
+                                               ArrivalContext mail) {
         Direction direction = type == null ? null : type == TransactionType.CREDIT ? Direction.CREDIT : Direction.DEBIT;
-        return new CategorizeInput(description, direction, amount, null, null, description, null, mcc);
+        if (mail == null) {
+            return new CategorizeInput(description, direction, amount, null, null, description, null, mcc);
+        }
+        // the mail's own fields, as the offline eval fed them; the description fills what the mail did not give
+        String counterparty = mail.counterparty() == null || mail.counterparty().isBlank() ? description : mail.counterparty();
+        String text = mail.text() == null || mail.text().isBlank() ? description : mail.text();
+        return new CategorizeInput(counterparty, direction, amount, mail.fromAddress(), mail.subject(), text,
+                mail.templateId(), mcc);
     }
 }

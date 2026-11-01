@@ -3620,7 +3620,7 @@ paths:
       - inbox-controller
   /api/v1/inbox/summary:
     get:
-      operationId: summary
+      operationId: summary_1
       responses:
         "200":
           content:
@@ -9217,6 +9217,50 @@ paths:
           description: Error response
       tags:
       - transaction-controller
+  /api/v1/transactions/category-counts:
+    get:
+      operationId: categoryCounts
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CategoryCountsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - uncategorized-controller
+  /api/v1/transactions/category-recent:
+    get:
+      operationId: categoryRecent
+      parameters:
+      - in: query
+        name: direction
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryPick"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - uncategorized-controller
   /api/v1/transactions/count:
     post:
       operationId: countTransactions
@@ -9322,6 +9366,141 @@ paths:
           description: Error response
       tags:
       - transaction-controller
+  /api/v1/transactions/uncategorized/apply:
+    post:
+      operationId: apply
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApplyUncategorizedRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ApplyUncategorizedResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - uncategorized-controller
+  /api/v1/transactions/uncategorized/groups:
+    get:
+      operationId: groups
+      parameters:
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+      - description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageUncategorizedGroupResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - uncategorized-controller
+  /api/v1/transactions/uncategorized/groups/{groupKey}/transactions:
+    get:
+      operationId: groupTransactions
+      parameters:
+      - in: path
+        name: groupKey
+        required: true
+        schema:
+          type: string
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          default: 50
+          minimum: 1
+      - description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageUncategorizedTransactionResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - uncategorized-controller
+  /api/v1/transactions/uncategorized/summary:
+    get:
+      operationId: summary
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UncategorizedSummaryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - uncategorized-controller
   /api/v1/transactions/undo-approve:
     post:
       operationId: undoApprove
@@ -9673,6 +9852,46 @@ components:
           items:
             type: string
             format: uuid
+    ApplyUncategorizedRequest:
+      type: object
+      properties:
+        categoryKey:
+          type: string
+          x-required: true
+        rule:
+          $ref: "#/components/schemas/Rule"
+        subcategoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
+        transactionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          maxItems: 10000
+          minItems: 0
+          x-required: true
+      required:
+      - categoryKey
+      - transactionIds
+    ApplyUncategorizedResponse:
+      type: object
+      properties:
+        ruleId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        skipped:
+          type: integer
+          format: int32
+        updated:
+          type: integer
+          format: int32
+      required:
+      - skipped
+      - updated
     AssignAttentionRequest:
       type: object
       properties:
@@ -11025,6 +11244,35 @@ components:
       - amount
       - category
       - percentage
+    CategoryCount:
+      type: object
+      properties:
+        categoryKey:
+          type: string
+        count:
+          type: integer
+          format: int64
+        subs:
+          type: array
+          items:
+            $ref: "#/components/schemas/SubcategoryCount"
+      required:
+      - categoryKey
+      - count
+      - subs
+    CategoryCountsResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryCount"
+        uncategorized:
+          type: integer
+          format: int64
+      required:
+      - categories
+      - uncategorized
     CategoryListResponse:
       type: object
       properties:
@@ -11034,6 +11282,17 @@ components:
             $ref: "#/components/schemas/Category"
       required:
       - categories
+    CategoryPick:
+      type: object
+      properties:
+        categoryKey:
+          type: string
+        subcategoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - categoryKey
     CategoryRef:
       type: object
       properties:
@@ -18265,6 +18524,98 @@ components:
       - sort
       - totalElements
       - totalPages
+    PageUncategorizedGroupResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/UncategorizedGroupResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
+    PageUncategorizedTransactionResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/UncategorizedTransactionResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
     PageableObject:
       type: object
       properties:
@@ -20589,6 +20940,18 @@ components:
       - title
       - total
       - totalLabel
+    Rule:
+      type: object
+      properties:
+        matchType:
+          type: string
+          nullable: true
+          x-nullable: true
+        pattern:
+          type: string
+          x-required: true
+      required:
+      - pattern
     RuleBreakdown:
       type: object
       properties:
@@ -21719,6 +22082,17 @@ components:
       - key
       - name
       - sortOrder
+    SubcategoryCount:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        subcategoryKey:
+          type: string
+      required:
+      - count
+      - subcategoryKey
     SubcategoryRef:
       type: object
       properties:
@@ -22105,6 +22479,17 @@ components:
       - level
       - message
       - source
+    TopGroup:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        label:
+          type: string
+      required:
+      - count
+      - label
     Totals:
       type: object
       properties:
@@ -22419,6 +22804,124 @@ components:
       - amount
       - date
       - id
+      - type
+    UncategorizedGroupResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        direction:
+          type: string
+        firstDate:
+          type: string
+          format: date
+        groupKey:
+          type: string
+        label:
+          type: string
+        lastDate:
+          type: string
+          format: date
+        oneOff:
+          type: boolean
+        person:
+          type: boolean
+        total:
+          type: number
+      required:
+      - count
+      - direction
+      - firstDate
+      - groupKey
+      - label
+      - lastDate
+      - oneOff
+      - person
+      - total
+    UncategorizedSummaryResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        groupCount:
+          type: integer
+          format: int64
+        topGroups:
+          type: array
+          items:
+            $ref: "#/components/schemas/TopGroup"
+      required:
+      - count
+      - groupCount
+      - topGroups
+    UncategorizedTransactionResponse:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        accountLast4:
+          type: string
+          nullable: true
+          x-nullable: true
+        accountName:
+          type: string
+        amount:
+          type: number
+        cardLabel:
+          type: string
+          nullable: true
+          x-nullable: true
+        cardLast4:
+          type: string
+          nullable: true
+          x-nullable: true
+        channel:
+          type: string
+          enum:
+          - ONLINE
+          - POS
+          - UPI
+          - CONTACTLESS
+          - ATM
+          - OTHER
+          nullable: true
+          x-nullable: true
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        source:
+          type: string
+          enum:
+          - gmail_transaction_alert
+          - gmail_statement
+          - manual
+          - file_upload
+        sourcedDescription:
+          type: string
+          nullable: true
+          x-nullable: true
+        type:
+          type: string
+          enum:
+          - DEBIT
+          - CREDIT
+      required:
+      - accountId
+      - accountName
+      - amount
+      - date
+      - id
+      - source
       - type
     UnderlyingExcludedItem:
       type: object
