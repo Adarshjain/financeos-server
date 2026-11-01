@@ -606,4 +606,104 @@ class UncategorizedAndCategoryFiltersIntegrationTest {
                     Map.of("filters", List.of(filter(field, "is", "yes")))).getStatus());
         }
     }
+
+    // ------------------------------------------------------------------ OR within a dimension, AND across
+
+    private Map<String, UUID> orSeed() throws Exception {
+        Map<String, UUID> m = new LinkedHashMap<>();
+        m.put("delivery", out("ZYXQ A TRADERS", 1, "2026-10-01"));
+        m.put("dining", out("ZYXQ B TRADERS", 1, "2026-10-01"));
+        m.put("groceries", out("ZYXQ C TRADERS", 1, "2026-10-01"));
+        m.put("cabs", out("ZYXQ D TRADERS", 1, "2026-10-01"));
+        m.put("shopping", out("ZYXQ E TRADERS", 1, "2026-10-01"));
+        m.put("none", out("ZYXQ F TRADERS", 1, "2026-10-01"));
+        pick(api, m.get("delivery"), "food", "food.delivery");
+        pick(api, m.get("dining"), "food", "food.dining");
+        pick(api, m.get("groceries"), "groceries", null);
+        pick(api, m.get("cabs"), "transport", "transport.cabs");
+        pick(api, m.get("shopping"), "shopping", null);
+        return m;
+    }
+
+    private List<String> idsOf(Map<String, UUID> m, String... names) {
+        return java.util.Arrays.stream(names).map(n -> m.get(n).toString()).sorted().toList();
+    }
+
+    private List<String> found(List<Map<String, Object>> filters) throws Exception {
+        return ids(search(filters)).stream().sorted().toList();
+    }
+
+    @Test
+    void uncategorizedOrCategoryWidens() throws Exception {
+        Map<String, UUID> m = orSeed();
+        assertEquals(idsOf(m, "none", "groceries"),
+                found(List.of(filter("uncategorized", "is", true), filter("category", "is", "groceries"))));
+        assertEquals(idsOf(m, "none", "groceries", "shopping"),
+                found(List.of(filter("uncategorized", "is", true), filter("category", "in", List.of("groceries", "shopping")))));
+    }
+
+    @Test
+    void categoryOrAnotherCategorysSubWidens() throws Exception {
+        Map<String, UUID> m = orSeed();
+        assertEquals(idsOf(m, "groceries", "cabs"),
+                found(List.of(filter("category", "is", "groceries"), filter("subcategory", "is", "transport.cabs"))));
+    }
+
+    @Test
+    void aSubOfAChosenCategoryNarrowsIt() throws Exception {
+        Map<String, UUID> m = orSeed();
+        assertEquals(idsOf(m, "delivery"),
+                found(List.of(filter("category", "is", "food"), filter("subcategory", "is", "food.delivery"))));
+        // narrowing one category leaves the other whole, and other sub still widens
+        assertEquals(idsOf(m, "delivery", "groceries", "cabs"),
+                found(List.of(filter("category", "in", List.of("food", "groceries")),
+                        filter("subcategory", "in", List.of("food.delivery", "transport.cabs")))));
+    }
+
+    @Test
+    void untaggedOrTagWidens() throws Exception {
+        UUID tagA = api.create("/api/v1/tags", Map.of("name", "Trip"));
+        UUID tagB = api.create("/api/v1/tags", Map.of("name", "Work"));
+        UUID withA = tagged("ZYXQ A TRADERS", List.of(tagA));
+        tagged("ZYXQ B TRADERS", List.of(tagB));
+        UUID bare = out("ZYXQ C TRADERS", 1, "2026-10-01");
+
+        assertEquals(List.of(withA, bare).stream().map(UUID::toString).sorted().toList(),
+                found(List.of(filter("untagged", "is", true), filter("tag", "in", List.of(tagA.toString())))));
+        // two tag clauses are OR as well
+        UUID withB = jdbc.queryForObject("SELECT id FROM transactions WHERE user_id = (SELECT user_id FROM transactions WHERE id = ?)"
+                + " AND description = 'ZYXQ B TRADERS'", UUID.class, withA.toString());
+        assertEquals(List.of(withA, withB).stream().map(UUID::toString).sorted().toList(),
+                found(List.of(filter("tag", "is", tagA.toString()), filter("tag", "is", tagB.toString()))));
+    }
+
+    @Test
+    void categoryAndTagStillAnd() throws Exception {
+        UUID tagA = api.create("/api/v1/tags", Map.of("name", "Trip"));
+        UUID foodTagged = tagged("ZYXQ A TRADERS", List.of(tagA));
+        UUID groceriesTagged = tagged("ZYXQ B TRADERS", List.of(tagA));
+        UUID foodBare = out("ZYXQ C TRADERS", 1, "2026-10-01");
+        pick(api, foodTagged, "food", null);
+        pick(api, groceriesTagged, "groceries", null);
+        pick(api, foodBare, "food", null);
+
+        assertEquals(List.of(foodTagged.toString()),
+                found(List.of(filter("category", "is", "food"), filter("tag", "is", tagA.toString()))));
+        // OR inside each dimension, AND between them
+        assertEquals(List.of(foodTagged, groceriesTagged, foodBare).stream().map(UUID::toString).sorted().toList(),
+                found(List.of(filter("category", "in", List.of("food", "groceries")), filter("untagged", "is", true),
+                        filter("tag", "is", tagA.toString()))));
+        assertEquals(List.of(foodTagged, groceriesTagged).stream().map(UUID::toString).sorted().toList(),
+                found(List.of(filter("category", "in", List.of("food", "groceries")), filter("tag", "is", tagA.toString()))));
+    }
+
+    @Test
+    void orGroupsStayScopedToTheUser() throws Exception {
+        orSeed();
+        UUID theirs = txn(other, otherBank, -1, "THEIRS TRADERS", "2026-10-01");
+        pick(other, theirs, "food", null);
+        txn(other, otherBank, -1, "THEIRS BARE TRADERS", "2026-10-01");
+        assertEquals(3, search(List.of(filter("uncategorized", "is", true), filter("category", "is", "food")))
+                .get("totalElements").asInt(), "mine only: none + delivery + dining");
+    }
 }

@@ -250,7 +250,19 @@ public class TransactionListQueryBuilder {
 
         if (criteria.filters() != null) {
             int idx = 0;
+            Set<FilterClause> grouped = Collections.newSetFromMap(new IdentityHashMap<>());
+            String categoryOr = categoryOrPredicate(criteria.filters(), params, grouped);
+            if (categoryOr != null) {
+                predicates.add(categoryOr);
+            }
+            String tagOr = tagOrPredicate(criteria.filters(), params, grouped);
+            if (tagOr != null) {
+                predicates.add(tagOr);
+            }
             for (FilterClause filter : criteria.filters()) {
+                if (grouped.contains(filter)) {
+                    continue;
+                }
                 String fieldName = filter.field();
                 FieldMetadata meta = FIELDS.get(fieldName);
                 String op = filter.operator();
@@ -433,6 +445,104 @@ public class TransactionListQueryBuilder {
                     + filter.field() + "' (" + meta.type().json() + ")");
         }
         validateFilterValue(meta, operator, filter.value());
+    }
+
+    private static boolean positive(FilterClause f, String field, String... ops) {
+        return field.equals(f.field()) && List.of(ops).contains(f.operator());
+    }
+
+    private static List<String> texts(JsonNode value) {
+        List<String> out = new ArrayList<>();
+        if (value == null || value.isNull()) {
+            return out;
+        }
+        if (value.isArray()) {
+            value.forEach(n -> out.add(n.asText()));
+        } else {
+            out.add(value.asText());
+        }
+        return out;
+    }
+
+    /**
+     * The positive category clauses (uncategorized=true, category is_empty/is/in, subcategory is/in) widen each other:
+     * (no category) OR (category in keys) OR (subcategory in subs). A sub-category whose category is also chosen
+     * narrows that category to the sub instead. Clauses used are added to {@code grouped}; the negated ones stay ANDed.
+     */
+    private String categoryOrPredicate(List<FilterClause> filters, Map<String, Object> params, Set<FilterClause> grouped) {
+        boolean none = false;
+        Set<String> cats = new LinkedHashSet<>();
+        Set<String> subs = new LinkedHashSet<>();
+        for (FilterClause f : filters) {
+            if (positive(f, "uncategorized", "is") && f.value() != null && f.value().isBoolean() && f.value().asBoolean()) {
+                none = true;
+            } else if (positive(f, "category", "is_empty")) {
+                none = true;
+            } else if (positive(f, "category", "is", "in")) {
+                cats.addAll(texts(f.value()));
+            } else if (positive(f, "subcategory", "is", "in")) {
+                subs.addAll(texts(f.value()));
+            } else {
+                continue;
+            }
+            grouped.add(f);
+        }
+        if (grouped.stream().noneMatch(f -> f.field().equals("uncategorized") || f.field().equals("category")
+                || f.field().equals("subcategory"))) {
+            return null;
+        }
+        com.financeos.domain.category.CategoryCatalog cc = com.financeos.domain.category.CategoryCatalog.shared();
+        Set<String> narrowed = new HashSet<>();
+        for (String sub : subs) {
+            String owner = cc.subcategory(sub).map(com.financeos.domain.category.CategoryCatalog.Sub::categoryKey)
+                    .orElse(sub.contains(".") ? sub.substring(0, sub.indexOf('.')) : null);
+            if (owner != null && cats.contains(owner)) {
+                narrowed.add(owner);
+            }
+        }
+        List<String> parts = new ArrayList<>();
+        if (none) {
+            parts.add("sub.category_key IS NULL");
+        }
+        List<String> whole = cats.stream().filter(c -> !narrowed.contains(c)).toList();
+        if (!whole.isEmpty()) {
+            params.put("gc", whole);
+            parts.add("sub.category_key IN (:gc)");
+        }
+        if (!subs.isEmpty()) {
+            params.put("gs", new ArrayList<>(subs));
+            parts.add("sub.subcategory_key IN (:gs)");
+        }
+        if (parts.isEmpty()) {
+            return null;
+        }
+        return "(" + String.join(" OR ", parts) + ")";
+    }
+
+    /** untagged=true with tag is/in: (no tags) OR (has any of the tags); negated tag clauses stay ANDed. */
+    private String tagOrPredicate(List<FilterClause> filters, Map<String, Object> params, Set<FilterClause> grouped) {
+        boolean none = false;
+        Set<String> tags = new LinkedHashSet<>();
+        List<FilterClause> used = new ArrayList<>();
+        for (FilterClause f : filters) {
+            if (positive(f, "untagged", "is") && f.value() != null && f.value().isBoolean() && f.value().asBoolean()) {
+                none = true;
+            } else if (positive(f, "tag", "is", "in")) {
+                tags.addAll(texts(f.value()));
+            } else {
+                continue;
+            }
+            used.add(f);
+        }
+        if (used.size() < 2 || (tags.isEmpty())) {
+            return null; // a single positive clause keeps its own predicate
+        }
+        grouped.addAll(used);
+        params.put("gt", new ArrayList<>(tags));
+        String has = "EXISTS (SELECT 1 FROM transaction_tags tgy WHERE tgy.transaction_id = sub.id AND tgy.tag_id IN (:gt))";
+        return none
+                ? "(NOT EXISTS (SELECT 1 FROM transaction_tags tgn WHERE tgn.transaction_id = sub.id) OR " + has + ")"
+                : has;
     }
 
     /** The flag fields take {@code is} and a boolean. */
