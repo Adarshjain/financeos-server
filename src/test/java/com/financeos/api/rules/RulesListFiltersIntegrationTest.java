@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.domain.categorization.CategoryRule;
 import com.financeos.domain.categorization.CategoryRuleRepository;
 import com.financeos.domain.categorization.MatchType;
-import com.financeos.domain.category.Category;
-import com.financeos.domain.category.CategoryRepository;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import jakarta.servlet.http.Cookie;
@@ -22,7 +20,6 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,7 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * GET /rules filters (source, matchType, applied, categoryId) and the sort whitelist, run through
+ * GET /rules filters (matchType, applied, categoryKey) and the sort whitelist, run through
  * the real JPQL so a broken clause fails here rather than only on Oracle.
  */
 @SpringBootTest
@@ -44,21 +41,18 @@ class RulesListFiltersIntegrationTest {
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
     @Autowired private UserRepository userRepository;
-    @Autowired private CategoryRepository categoryRepository;
     @Autowired private CategoryRuleRepository categoryRuleRepository;
 
     private Cookie session;
     private User user;
-    private Category food;
-    private Category travel;
     private final List<UUID> ruleIds = new ArrayList<>();
 
-    // llmFood: LLM, MERCHANT_KEY, food, applied 5x
-    // userTravel: USER, REGEX, travel, never applied
-    // userBoth: USER, CONTAINS, food+travel, applied 1x
-    private CategoryRule llmFood;
-    private CategoryRule userTravel;
-    private CategoryRule userBoth;
+    // containsFood: CONTAINS, food, applied 5x
+    // regexTravel: REGEX, travel, never applied
+    // startsFood: STARTS_WITH, food (with a sub-category), applied 1x
+    private CategoryRule containsFood;
+    private CategoryRule regexTravel;
+    private CategoryRule startsFood;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -66,19 +60,15 @@ class RulesListFiltersIntegrationTest {
         session = authenticate(email, "rulesPass123!");
         user = userRepository.findByEmail(email).orElseThrow();
 
-        food = categoryRepository.save(new Category("Food", user));
-        travel = categoryRepository.save(new Category("Travel", user));
-
-        llmFood = rule("ZOMATO", MatchType.MERCHANT_KEY, "LLM", 5, Instant.parse("2026-10-01T00:00:00Z"), food);
-        userTravel = rule("IRCTC.*", MatchType.REGEX, "USER", 0, null, travel);
-        userBoth = rule("UBER", MatchType.CONTAINS, "USER", 1, Instant.parse("2026-09-01T00:00:00Z"), food, travel);
+        containsFood = rule("ZOMATO", MatchType.CONTAINS, "food", null, 5, Instant.parse("2026-10-01T00:00:00Z"));
+        regexTravel = rule("IRCTC.*", MatchType.REGEX, "travel", null, 0, null);
+        startsFood = rule("UBER", MatchType.STARTS_WITH, "food", "food.delivery", 1, Instant.parse("2026-09-01T00:00:00Z"));
     }
 
     /** Shared H2 across @SpringBootTest classes — remove every row this test created. */
     @AfterEach
     void tearDown() {
         categoryRuleRepository.deleteAllById(ruleIds);
-        categoryRepository.deleteAllById(List.of(food.getId(), travel.getId()));
         userRepository.deleteById(user.getId());
     }
 
@@ -101,17 +91,16 @@ class RulesListFiltersIntegrationTest {
                 .getCookie("FINANCEOS_SESSION");
     }
 
-    private CategoryRule rule(String key, MatchType matchType, String source, int appliedCount,
-                              Instant lastAppliedAt, Category... categories) {
+    private CategoryRule rule(String key, MatchType matchType, String categoryKey, String subcategoryKey,
+                              int appliedCount, Instant lastAppliedAt) {
         CategoryRule rule = new CategoryRule();
         rule.setUser(user);
         rule.setMerchantKey(key);
         rule.setMatchType(matchType);
-        rule.setSource(source);
-        rule.setVerified(false);
+        rule.setCategoryKey(categoryKey);
+        rule.setSubcategoryKey(subcategoryKey);
         rule.setAppliedCount(appliedCount);
         rule.setLastAppliedAt(lastAppliedAt);
-        rule.setCategories(new HashSet<>(Set.of(categories)));
         CategoryRule saved = categoryRuleRepository.save(rule);
         ruleIds.add(saved.getId());
         return saved;
@@ -135,80 +124,69 @@ class RulesListFiltersIntegrationTest {
 
     @Test
     void noFilters_returnsAllRules() throws Exception {
-        assertEquals(Set.of(llmFood.getId(), userTravel.getId(), userBoth.getId()), Set.copyOf(list(rules())));
-    }
-
-    @Test
-    void sourceFilter_isCaseInsensitive() throws Exception {
-        assertEquals(List.of(llmFood.getId()), list(rules().param("source", "llm")));
-        assertEquals(Set.of(userTravel.getId(), userBoth.getId()), Set.copyOf(list(rules().param("source", "USER"))));
+        assertEquals(Set.of(containsFood.getId(), regexTravel.getId(), startsFood.getId()), Set.copyOf(list(rules())));
     }
 
     @Test
     void matchTypeFilter() throws Exception {
-        assertEquals(List.of(userTravel.getId()), list(rules().param("matchType", "REGEX")));
-        assertEquals(List.of(llmFood.getId()), list(rules().param("matchType", "MERCHANT_KEY")));
+        assertEquals(List.of(regexTravel.getId()), list(rules().param("matchType", "REGEX")));
+        assertEquals(List.of(containsFood.getId()), list(rules().param("matchType", "contains")));
     }
 
     @Test
     void appliedFilter_splitsUsedFromNeverUsed() throws Exception {
-        assertEquals(Set.of(llmFood.getId(), userBoth.getId()), Set.copyOf(list(rules().param("applied", "true"))));
-        assertEquals(List.of(userTravel.getId()), list(rules().param("applied", "false")));
+        assertEquals(Set.of(containsFood.getId(), startsFood.getId()), Set.copyOf(list(rules().param("applied", "true"))));
+        assertEquals(List.of(regexTravel.getId()), list(rules().param("applied", "false")));
     }
 
     @Test
-    void categoryFilter_matchesRulesHavingThatCategoryAmongOthers() throws Exception {
-        assertEquals(Set.of(llmFood.getId(), userBoth.getId()),
-                Set.copyOf(list(rules().param("categoryId", food.getId().toString()))));
-        assertEquals(Set.of(userTravel.getId(), userBoth.getId()),
-                Set.copyOf(list(rules().param("categoryId", travel.getId().toString()))));
+    void categoryFilter_matchesRulesOfThatCategory() throws Exception {
+        assertEquals(Set.of(containsFood.getId(), startsFood.getId()),
+                Set.copyOf(list(rules().param("categoryKey", "food"))));
+        assertEquals(List.of(regexTravel.getId()), list(rules().param("categoryKey", "travel")));
+        assertEquals(List.of(), list(rules().param("categoryKey", "salary")));
     }
 
     @Test
-    void categoryFilter_keepsAllCategoriesOnMatchedRules() throws Exception {
-        String body = mockMvc.perform(rules().param("categoryId", food.getId().toString())
-                        .param("matchType", "CONTAINS").cookie(session))
+    void response_carriesCategoryAndSubcategory() throws Exception {
+        String body = mockMvc.perform(rules().param("matchType", "STARTS_WITH").cookie(session))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        JsonNode categories = objectMapper.readTree(body).get("content").get(0).get("categories");
-        assertEquals(2, categories.size(), "filtering by one category must not trim the rule's other categories");
+        JsonNode rule = objectMapper.readTree(body).get("content").get(0);
+        assertEquals("food", rule.get("category").get("key").asText());
+        assertEquals("Food", rule.get("category").get("name").asText());
+        assertEquals("food.delivery", rule.get("subcategory").get("key").asText());
+        assertTrue(rule.get("subcategory").get("name").asText().length() > 0);
     }
 
     @Test
     void filtersCombine() throws Exception {
-        assertEquals(List.of(userBoth.getId()), list(rules()
-                .param("source", "USER")
+        assertEquals(List.of(startsFood.getId()), list(rules()
+                .param("matchType", "STARTS_WITH")
                 .param("applied", "true")
-                .param("categoryId", food.getId().toString())));
-        assertEquals(List.of(), list(rules().param("source", "LLM").param("applied", "false")));
+                .param("categoryKey", "food")));
+        assertEquals(List.of(), list(rules().param("matchType", "REGEX").param("applied", "true")));
     }
 
     // search isn't covered here: H2's Oracle mode reads Hibernate's `escape ''` as ESCAPE NULL, so
     // LIKE never matches in this database (Oracle's dialect doesn't emit the clause).
     @Test
-    void filtersCombineWithVerified() throws Exception {
-        assertEquals(List.of(), list(rules().param("verified", "true").param("source", "USER")));
-        assertEquals(List.of(userTravel.getId()), list(rules().param("verified", "false").param("source", "USER")
-                .param("applied", "false")));
-    }
-
-    @Test
     void sortByAppliedCountDesc() throws Exception {
-        assertEquals(List.of(llmFood.getId(), userBoth.getId(), userTravel.getId()),
+        assertEquals(List.of(containsFood.getId(), startsFood.getId(), regexTravel.getId()),
                 list(rules().param("sort", "appliedCount,desc")));
     }
 
     @Test
     void sortByLastAppliedAt_keepsNeverAppliedLastInBothDirections() throws Exception {
-        assertEquals(List.of(llmFood.getId(), userBoth.getId(), userTravel.getId()),
+        assertEquals(List.of(containsFood.getId(), startsFood.getId(), regexTravel.getId()),
                 list(rules().param("sort", "lastAppliedAt,desc")));
-        assertEquals(List.of(userBoth.getId(), llmFood.getId(), userTravel.getId()),
+        assertEquals(List.of(startsFood.getId(), containsFood.getId(), regexTravel.getId()),
                 list(rules().param("sort", "lastAppliedAt,asc")));
     }
 
     @Test
     void sortByMerchantKeyAsc() throws Exception {
-        assertEquals(List.of(userTravel.getId(), userBoth.getId(), llmFood.getId()),
+        assertEquals(List.of(regexTravel.getId(), startsFood.getId(), containsFood.getId()),
                 list(rules().param("sort", "merchantKey,asc")));
     }
 
@@ -218,12 +196,7 @@ class RulesListFiltersIntegrationTest {
     }
 
     @Test
-    void unknownSource_is400() throws Exception {
-        mockMvc.perform(rules().param("source", "SYSTEM").cookie(session)).andExpect(status().isBadRequest());
-    }
-
-    @Test
     void unknownMatchType_is400() throws Exception {
-        mockMvc.perform(rules().param("matchType", "FUZZY").cookie(session)).andExpect(status().isBadRequest());
+        mockMvc.perform(rules().param("matchType", "MERCHANT_KEY").cookie(session)).andExpect(status().isBadRequest());
     }
 }

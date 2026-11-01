@@ -5,15 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.category.Category;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.Tag;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.statement.StatementSource;
 import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.domain.transaction.Transaction;
-import com.financeos.domain.transaction.TransactionCategory;
+import com.financeos.domain.transaction.TransactionTag;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
@@ -64,13 +64,13 @@ class RowBreakdownSectionSortIntegrationTest {
     @Autowired private AccountRepository accountRepository;
     @Autowired private TransactionRepository transactionRepository;
     @Autowired private StatementRepository statementRepository;
-    @Autowired private CategoryRepository categoryRepository;
+    @Autowired private TagRepository categoryRepository;
     @Autowired private HoldingRepository holdingRepository;
 
     private ApiTestClient api;
     private UUID userId;
     private final List<UUID> instrumentIds = new ArrayList<>();
-    private final Map<String, Category> categories = new HashMap<>();
+    private final Map<String, Tag> categories = new HashMap<>();
     private LocalDate today;
 
     @BeforeEach
@@ -374,9 +374,9 @@ class RowBreakdownSectionSortIntegrationTest {
                 TransactionSource.manual, type, false, excluded);
         t.setUser(account.getUser());
         for (String name : categoryNames) {
-            Category category = categories.computeIfAbsent(name,
-                    n -> categoryRepository.save(new Category(n, account.getUser())));
-            t.getCategories().add(new TransactionCategory(t, category));
+            Tag category = categories.computeIfAbsent(name,
+                    n -> categoryRepository.save(new Tag(n, account.getUser())));
+            t.getTags().add(new TransactionTag(t, category));
         }
         return transactionRepository.save(t).getId();
     }

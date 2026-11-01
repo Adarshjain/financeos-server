@@ -336,16 +336,10 @@ public class GmailIngestionService {
             }
         }
 
-        if (!createdTxns.isEmpty()) {
-            try {
-                categorizationService.batchCategorize(createdTxns);
-            } finally {
-                // Once per batch that wrote transactions, even if categorising failed (no transaction is
-                // open here, so it fires at once).
-                if (eventPublisher != null) {
-                    eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(connection.getUser().getId()));
-                }
-            }
+        // New transactions are left uncategorised here; once per batch that wrote transactions (no
+        // transaction is open here, so it fires at once).
+        if (!createdTxns.isEmpty() && eventPublisher != null) {
+            eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(connection.getUser().getId()));
         }
 
         long backlogRemaining = processedMessageRepository.countByConnectionIdAndStatusIn(

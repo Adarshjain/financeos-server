@@ -1,7 +1,7 @@
 package com.financeos.domain.reward;
 
 import com.financeos.domain.account.Account;
-import com.financeos.domain.category.Category;
+import com.financeos.domain.category.Tag;
 import com.financeos.domain.transaction.TransactionChannel;
 import com.financeos.domain.user.User;
 
@@ -87,7 +87,7 @@ public class RewardRule {
             joinColumns = @JoinColumn(name = "rule_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<Category> categories = new HashSet<>();
+    private Set<Tag> categories = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "reward_rule_mccs", joinColumns = @JoinColumn(name = "rule_id"))

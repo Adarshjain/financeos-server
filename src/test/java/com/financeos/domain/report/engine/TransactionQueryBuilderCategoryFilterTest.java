@@ -25,8 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class TransactionQueryBuilderCategoryFilterTest {
 
     private static final JsonNodeFactory JSON = JsonNodeFactory.instance;
-    private static final String SEMI = "SELECT 1 FROM transaction_categories tcx JOIN categories cx"
-            + " ON cx.id = tcx.category_id WHERE tcx.transaction_id = t.id AND ";
+    private static final String SEMI = "SELECT 1 FROM transaction_tags tcx JOIN tags cx"
+            + " ON cx.id = tcx.tag_id WHERE tcx.transaction_id = t.id AND ";
 
     private final UUID userId = UUID.randomUUID();
     private TransactionQueryBuilder queryBuilder;
@@ -60,7 +60,7 @@ class TransactionQueryBuilderCategoryFilterTest {
         assertEquals(" WHERE t.user_id = :userId AND EXISTS (" + SEMI + "cx.name = :f0)", where);
         assertEquals("Food", params.get("f0"));
         assertFalse(joins.contains(TransactionQueryBuilder.JOIN_CATEGORIES));
-        assertFalse(queryBuilder.fromClause(joins).contains("categories"));
+        assertFalse(queryBuilder.fromClause(joins).contains("tags"));
     }
 
     @Test

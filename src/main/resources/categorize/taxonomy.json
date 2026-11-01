@@ -1,0 +1,1285 @@
+{
+ "categories": [
+  {
+   "key": "food",
+   "name": "Food",
+   "icon": "cat-fork-knife",
+   "outOrder": 1,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "food.dining",
+     "name": "Dining",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "food.delivery",
+     "name": "Delivery",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "food.cafes",
+     "name": "Cafés",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "food.drinks",
+     "name": "Drinks",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "food.snacks",
+     "name": "Snacks",
+     "order": 5,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "groceries",
+   "name": "Groceries",
+   "icon": "cat-shopping-cart",
+   "outOrder": 2,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "groceries.supermarket",
+     "name": "Supermarket",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "groceries.fruits_veg",
+     "name": "Fruits & veg",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "groceries.meat_fish",
+     "name": "Meat & fish",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "groceries.dairy",
+     "name": "Dairy",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "groceries.bakery",
+     "name": "Bakery",
+     "order": 5,
+     "direction": "OUT"
+    },
+    {
+     "key": "groceries.household",
+     "name": "Household",
+     "order": 6,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "transport",
+   "name": "Transport",
+   "icon": "cat-taxi",
+   "outOrder": 3,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "transport.cabs",
+     "name": "Cabs",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "transport.autos",
+     "name": "Autos",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "transport.metro",
+     "name": "Metro",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "transport.local_bus",
+     "name": "Local bus",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "transport.fuel",
+     "name": "Fuel",
+     "order": 5,
+     "direction": "OUT"
+    },
+    {
+     "key": "transport.parking",
+     "name": "Parking",
+     "order": 6,
+     "direction": "OUT"
+    },
+    {
+     "key": "transport.tolls",
+     "name": "Tolls",
+     "order": 7,
+     "direction": "OUT"
+    },
+    {
+     "key": "transport.vehicle_service",
+     "name": "Vehicle service",
+     "order": 8,
+     "direction": "OUT"
+    },
+    {
+     "key": "transport.fines",
+     "name": "Fines",
+     "order": 9,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "travel",
+   "name": "Travel",
+   "icon": "cat-airplane-tilt",
+   "outOrder": 4,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "travel.flights",
+     "name": "Flights",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "travel.trains",
+     "name": "Trains",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "travel.buses",
+     "name": "Buses",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "travel.hotels",
+     "name": "Hotels",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "travel.activities",
+     "name": "Activities",
+     "order": 5,
+     "direction": "OUT"
+    },
+    {
+     "key": "travel.visa",
+     "name": "Visa",
+     "order": 6,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "shopping",
+   "name": "Shopping",
+   "icon": "cat-shopping-bag",
+   "outOrder": 5,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "shopping.general",
+     "name": "General",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "shopping.clothes",
+     "name": "Clothes",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "shopping.electronics",
+     "name": "Electronics",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "shopping.home",
+     "name": "Home",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "shopping.beauty",
+     "name": "Beauty",
+     "order": 5,
+     "direction": "OUT"
+    },
+    {
+     "key": "shopping.books",
+     "name": "Books",
+     "order": 6,
+     "direction": "OUT"
+    },
+    {
+     "key": "shopping.jewellery",
+     "name": "Jewellery",
+     "order": 7,
+     "direction": "OUT"
+    },
+    {
+     "key": "shopping.kids",
+     "name": "Kids",
+     "order": 8,
+     "direction": "OUT"
+    },
+    {
+     "key": "shopping.eyewear",
+     "name": "Eyewear",
+     "order": 9,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "bills",
+   "name": "Bills",
+   "icon": "cat-receipt",
+   "outOrder": 6,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "bills.rent",
+     "name": "Rent",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "bills.maintenance",
+     "name": "Maintenance",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "bills.electricity",
+     "name": "Electricity",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "bills.water",
+     "name": "Water",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "bills.gas",
+     "name": "Gas",
+     "order": 5,
+     "direction": "OUT"
+    },
+    {
+     "key": "bills.mobile",
+     "name": "Mobile",
+     "order": 6,
+     "direction": "OUT"
+    },
+    {
+     "key": "bills.internet",
+     "name": "Internet",
+     "order": 7,
+     "direction": "OUT"
+    },
+    {
+     "key": "bills.tv",
+     "name": "TV",
+     "order": 8,
+     "direction": "OUT"
+    },
+    {
+     "key": "bills.house_help",
+     "name": "House help",
+     "order": 9,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "subscriptions",
+   "name": "Subscriptions",
+   "icon": "cat-repeat",
+   "outOrder": 7,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "subscriptions.streaming",
+     "name": "Streaming",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "subscriptions.music",
+     "name": "Music",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "subscriptions.software",
+     "name": "Software",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "subscriptions.cloud",
+     "name": "Cloud",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "subscriptions.news",
+     "name": "News",
+     "order": 5,
+     "direction": "OUT"
+    },
+    {
+     "key": "subscriptions.memberships",
+     "name": "Memberships",
+     "order": 6,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "health",
+   "name": "Health",
+   "icon": "cat-first-aid-kit",
+   "outOrder": 8,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "health.doctor",
+     "name": "Doctor",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "health.hospital",
+     "name": "Hospital",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "health.medicines",
+     "name": "Medicines",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "health.lab_tests",
+     "name": "Lab tests",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "health.dental",
+     "name": "Dental",
+     "order": 5,
+     "direction": "OUT"
+    },
+    {
+     "key": "health.eye_care",
+     "name": "Eye care",
+     "order": 6,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "fitness",
+   "name": "Fitness",
+   "icon": "cat-barbell",
+   "outOrder": 9,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "fitness.gym",
+     "name": "Gym",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "fitness.sports",
+     "name": "Sports",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "fitness.classes",
+     "name": "Classes",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "fitness.equipment",
+     "name": "Equipment",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "fitness.nutrition",
+     "name": "Nutrition",
+     "order": 5,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "personal",
+   "name": "Personal",
+   "icon": "cat-sparkle",
+   "outOrder": 10,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "personal.salon",
+     "name": "Salon",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "personal.spa",
+     "name": "Spa",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "personal.hobbies",
+     "name": "Hobbies",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "personal.therapy",
+     "name": "Therapy",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "personal.vices",
+     "name": "Vices",
+     "order": 5,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "services",
+   "name": "Services",
+   "icon": "cat-wrench",
+   "outOrder": 11,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "services.laundry",
+     "name": "Laundry",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "services.repairs",
+     "name": "Repairs",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "services.cleaning",
+     "name": "Cleaning",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "services.courier",
+     "name": "Courier",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "services.printing",
+     "name": "Printing",
+     "order": 5,
+     "direction": "OUT"
+    },
+    {
+     "key": "services.professional",
+     "name": "Professional",
+     "order": 6,
+     "direction": "OUT"
+    },
+    {
+     "key": "services.government",
+     "name": "Government",
+     "order": 7,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "entertainment",
+   "name": "Entertainment",
+   "icon": "cat-film-slate",
+   "outOrder": 12,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "entertainment.movies",
+     "name": "Movies",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "entertainment.events",
+     "name": "Events",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "entertainment.gaming",
+     "name": "Gaming",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "entertainment.outings",
+     "name": "Outings",
+     "order": 4,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "education",
+   "name": "Education",
+   "icon": "cat-graduation-cap",
+   "outOrder": 13,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "education.school",
+     "name": "School",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "education.college",
+     "name": "College",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "education.courses",
+     "name": "Courses",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "education.coaching",
+     "name": "Coaching",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "education.exams",
+     "name": "Exams",
+     "order": 5,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "pets",
+   "name": "Pets",
+   "icon": "cat-paw-print",
+   "outOrder": 14,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "pets.pet_food",
+     "name": "Pet food",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "pets.vet",
+     "name": "Vet",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "pets.pet_care",
+     "name": "Pet care",
+     "order": 3,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "family",
+   "name": "Family",
+   "icon": "cat-users-three",
+   "outOrder": 15,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "family.parents",
+     "name": "Parents",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "family.spouse",
+     "name": "Spouse",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "family.kids",
+     "name": "Kids",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "family.pocket_money",
+     "name": "Pocket money",
+     "order": 4,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "gifts",
+   "name": "Gifts",
+   "icon": "gift",
+   "outOrder": 16,
+   "inOrder": 8,
+   "excludedByDefault": false,
+   "subs": [],
+   "direction": "BOTH"
+  },
+  {
+   "key": "donations",
+   "name": "Donations",
+   "icon": "cat-hand-heart",
+   "outOrder": 17,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "donations.charity",
+     "name": "Charity",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "donations.religious",
+     "name": "Religious",
+     "order": 2,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "emi",
+   "name": "EMI",
+   "icon": "cat-bank",
+   "outOrder": 18,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "emi.home_loan",
+     "name": "Home loan",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "emi.car_loan",
+     "name": "Car loan",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "emi.bike_loan",
+     "name": "Bike loan",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "emi.personal_loan",
+     "name": "Personal loan",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "emi.education_loan",
+     "name": "Education loan",
+     "order": 5,
+     "direction": "OUT"
+    },
+    {
+     "key": "emi.consumer_emi",
+     "name": "Consumer EMI",
+     "order": 6,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "insurance",
+   "name": "Insurance",
+   "icon": "cat-shield-check",
+   "outOrder": 19,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "insurance.health",
+     "name": "Health",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "insurance.life",
+     "name": "Life",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "insurance.vehicle",
+     "name": "Vehicle",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "insurance.home",
+     "name": "Home",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "insurance.travel",
+     "name": "Travel",
+     "order": 5,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "taxes",
+   "name": "Taxes",
+   "icon": "cat-scales",
+   "outOrder": 20,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "taxes.income_tax",
+     "name": "Income tax",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "taxes.property_tax",
+     "name": "Property tax",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "taxes.gst",
+     "name": "GST",
+     "order": 3,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "investments",
+   "name": "Investments",
+   "icon": "chart-line-up",
+   "outOrder": 21,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "investments.mutual_funds",
+     "name": "Mutual funds",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "investments.stocks",
+     "name": "Stocks",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "investments.fixed_deposit",
+     "name": "Fixed deposit",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "investments.recurring_deposit",
+     "name": "Recurring deposit",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "investments.ppf",
+     "name": "PPF",
+     "order": 5,
+     "direction": "OUT"
+    },
+    {
+     "key": "investments.nps",
+     "name": "NPS",
+     "order": 6,
+     "direction": "OUT"
+    },
+    {
+     "key": "investments.gold",
+     "name": "Gold",
+     "order": 7,
+     "direction": "OUT"
+    },
+    {
+     "key": "investments.bonds",
+     "name": "Bonds",
+     "order": 8,
+     "direction": "OUT"
+    },
+    {
+     "key": "investments.crypto",
+     "name": "Crypto",
+     "order": 9,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "savings",
+   "name": "Savings",
+   "icon": "cat-piggy-bank",
+   "outOrder": 22,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [],
+   "direction": "OUT"
+  },
+  {
+   "key": "lent",
+   "name": "Lent",
+   "icon": "cat-hand-coins",
+   "outOrder": 23,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [],
+   "direction": "OUT"
+  },
+  {
+   "key": "repaid",
+   "name": "Repaid",
+   "icon": "cat-arrow-counter-clockwise",
+   "outOrder": 24,
+   "inOrder": 10,
+   "excludedByDefault": false,
+   "subs": [],
+   "direction": "BOTH"
+  },
+  {
+   "key": "cash",
+   "name": "Cash",
+   "icon": "cat-money",
+   "outOrder": 25,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [],
+   "direction": "OUT"
+  },
+  {
+   "key": "fees",
+   "name": "Fees",
+   "icon": "cat-coins",
+   "outOrder": 26,
+   "inOrder": null,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "fees.bank_charges",
+     "name": "Bank charges",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "fees.card_fees",
+     "name": "Card fees",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "fees.late_fees",
+     "name": "Late fees",
+     "order": 3,
+     "direction": "OUT"
+    },
+    {
+     "key": "fees.interest",
+     "name": "Interest",
+     "order": 4,
+     "direction": "OUT"
+    },
+    {
+     "key": "fees.forex_markup",
+     "name": "Forex markup",
+     "order": 5,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "self_transfer",
+   "name": "Self transfer",
+   "icon": "cat-arrows-left-right",
+   "outOrder": 27,
+   "inOrder": 12,
+   "excludedByDefault": true,
+   "subs": [],
+   "direction": "BOTH"
+  },
+  {
+   "key": "card_bill",
+   "name": "Card bill",
+   "icon": "cat-credit-card",
+   "outOrder": 28,
+   "inOrder": 13,
+   "excludedByDefault": true,
+   "subs": [
+    {
+     "key": "card_bill.credit_card",
+     "name": "Credit card",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "card_bill.pay_later",
+     "name": "Pay later",
+     "order": 2,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "BOTH"
+  },
+  {
+   "key": "top_up",
+   "name": "Top-up",
+   "icon": "wallet",
+   "outOrder": 29,
+   "inOrder": null,
+   "excludedByDefault": true,
+   "subs": [
+    {
+     "key": "top_up.upi_lite",
+     "name": "UPI Lite",
+     "order": 1,
+     "direction": "OUT"
+    },
+    {
+     "key": "top_up.wallet",
+     "name": "Wallet",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "top_up.gift_card",
+     "name": "Gift card",
+     "order": 3,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "OUT"
+  },
+  {
+   "key": "other",
+   "name": "Other",
+   "icon": "cat-dots-three-outline",
+   "outOrder": 30,
+   "inOrder": 14,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "other.verification",
+     "name": "Verification",
+     "order": 1,
+     "direction": "BOTH"
+    },
+    {
+     "key": "other.tips",
+     "name": "Tips",
+     "order": 2,
+     "direction": "OUT"
+    },
+    {
+     "key": "other.forex",
+     "name": "Forex",
+     "order": 3,
+     "direction": "OUT"
+    }
+   ],
+   "direction": "BOTH"
+  },
+  {
+   "key": "salary",
+   "name": "Salary",
+   "icon": "cat-briefcase",
+   "outOrder": null,
+   "inOrder": 1,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "salary.salary",
+     "name": "Salary",
+     "order": 1,
+     "direction": "IN"
+    },
+    {
+     "key": "salary.bonus",
+     "name": "Bonus",
+     "order": 2,
+     "direction": "IN"
+    },
+    {
+     "key": "salary.reimbursement",
+     "name": "Reimbursement",
+     "order": 3,
+     "direction": "IN"
+    }
+   ],
+   "direction": "IN"
+  },
+  {
+   "key": "earnings",
+   "name": "Earnings",
+   "icon": "cat-storefront",
+   "outOrder": null,
+   "inOrder": 2,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "earnings.freelance",
+     "name": "Freelance",
+     "order": 1,
+     "direction": "IN"
+    },
+    {
+     "key": "earnings.business",
+     "name": "Business",
+     "order": 2,
+     "direction": "IN"
+    },
+    {
+     "key": "earnings.rent",
+     "name": "Rent",
+     "order": 3,
+     "direction": "IN"
+    }
+   ],
+   "direction": "IN"
+  },
+  {
+   "key": "interest",
+   "name": "Interest",
+   "icon": "cat-percent",
+   "outOrder": null,
+   "inOrder": 3,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "interest.savings_account",
+     "name": "Savings account",
+     "order": 1,
+     "direction": "IN"
+    },
+    {
+     "key": "interest.deposits",
+     "name": "Deposits",
+     "order": 2,
+     "direction": "IN"
+    },
+    {
+     "key": "interest.bonds",
+     "name": "Bonds",
+     "order": 3,
+     "direction": "IN"
+    }
+   ],
+   "direction": "IN"
+  },
+  {
+   "key": "dividends",
+   "name": "Dividends",
+   "icon": "cat-chart-pie-slice",
+   "outOrder": null,
+   "inOrder": 4,
+   "excludedByDefault": false,
+   "subs": [],
+   "direction": "IN"
+  },
+  {
+   "key": "redemption",
+   "name": "Redemption",
+   "icon": "cat-arrow-circle-down",
+   "outOrder": null,
+   "inOrder": 5,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "redemption.mutual_funds",
+     "name": "Mutual funds",
+     "order": 1,
+     "direction": "IN"
+    },
+    {
+     "key": "redemption.stocks",
+     "name": "Stocks",
+     "order": 2,
+     "direction": "IN"
+    },
+    {
+     "key": "redemption.deposits",
+     "name": "Deposits",
+     "order": 3,
+     "direction": "IN"
+    },
+    {
+     "key": "redemption.insurance_payout",
+     "name": "Insurance payout",
+     "order": 4,
+     "direction": "IN"
+    }
+   ],
+   "direction": "IN"
+  },
+  {
+   "key": "refund",
+   "name": "Refund",
+   "icon": "cat-arrow-u-up-left",
+   "outOrder": null,
+   "inOrder": 6,
+   "excludedByDefault": false,
+   "subs": [],
+   "direction": "IN"
+  },
+  {
+   "key": "cashback",
+   "name": "Cashback",
+   "icon": "cat-confetti",
+   "outOrder": null,
+   "inOrder": 7,
+   "excludedByDefault": false,
+   "subs": [
+    {
+     "key": "cashback.card_cashback",
+     "name": "Card cashback",
+     "order": 1,
+     "direction": "IN"
+    },
+    {
+     "key": "cashback.app_cashback",
+     "name": "App cashback",
+     "order": 2,
+     "direction": "IN"
+    }
+   ],
+   "direction": "IN"
+  },
+  {
+   "key": "borrowed",
+   "name": "Borrowed",
+   "icon": "cat-hand-arrow-down",
+   "outOrder": null,
+   "inOrder": 9,
+   "excludedByDefault": false,
+   "subs": [],
+   "direction": "IN"
+  },
+  {
+   "key": "cash_deposit",
+   "name": "Cash deposit",
+   "icon": "cat-money",
+   "outOrder": null,
+   "inOrder": 11,
+   "excludedByDefault": false,
+   "subs": [],
+   "direction": "IN"
+  }
+ ],
+ "linkSources": {
+  "self_transfer": "TRANSFER link",
+  "card_bill": "CC_PAYMENT link",
+  "emi": "EMI link",
+  "lent": "lending entry (money out)",
+  "borrowed": "lending entry (money in)",
+  "repaid": "lending repayment",
+  "dividends": "dividend entry",
+  "refund": "REFUND link inherits the original (refund keeps original category)"
+ }
+}

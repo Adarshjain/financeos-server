@@ -44,8 +44,8 @@ public class SqlPredicates {
      * Binds category names to parameters.
      */
     public String category(String op, JsonNode v, Map<String, Object> params, String p, String txIdRef) {
-        String inner = "SELECT 1 FROM transaction_categories tcx"
-                + " JOIN categories cx ON cx.id = tcx.category_id"
+        String inner = "SELECT 1 FROM transaction_tags tcx"
+                + " JOIN tags cx ON cx.id = tcx.tag_id"
                 + " WHERE tcx.transaction_id = " + txIdRef + " AND ";
         switch (op) {
             case "is" -> {
@@ -65,7 +65,7 @@ public class SqlPredicates {
                 return "NOT EXISTS (" + inner + "cx.name IN (:" + p + "))";
             }
             case "is_empty" -> {
-                return "NOT EXISTS (SELECT 1 FROM transaction_categories tcx WHERE tcx.transaction_id = " + txIdRef + ")";
+                return "NOT EXISTS (SELECT 1 FROM transaction_tags tcx WHERE tcx.transaction_id = " + txIdRef + ")";
             }
             default -> throw new IllegalArgumentException("Unsupported category operator: " + op);
         }

@@ -55,13 +55,13 @@ class TransactionGetByIdIntegrationTest {
 
         UUID bank = api.create("/api/v1/accounts", Map.of("type", "bank_account", "name", "Lookup Bank", "last4", "1234",
                 "openingBalance", 1000, "financialPosition", "asset", "excludeFromNetAsset", false));
-        UUID category = api.create("/api/v1/categories", Map.of("name", "Lent out"));
+        UUID category = api.create("/api/v1/tags", Map.of("name", "Lent out"));
         Map<String, Object> txn = new LinkedHashMap<>();
         txn.put("accountId", bank.toString());
         txn.put("date", AppTime.today().minusDays(2).toString());
         txn.put("amount", -5000);
         txn.put("description", "Transfer to Ravi");
-        txn.put("categoryIds", List.of(category.toString()));
+        txn.put("tagIds", List.of(category.toString()));
         transactionId = api.create("/api/v1/transactions", txn);
         // A lending entry linked to the transaction gives it an obligation ref.
         Map<String, Object> lending = new LinkedHashMap<>();
@@ -91,7 +91,7 @@ class TransactionGetByIdIntegrationTest {
         assertTrue(listRow != null, "the transaction is listed");
         assertTrue(single.get("balance").isNull(), "no running balance on a single transaction");
         assertTrue(single.get("obligationRefs").size() > 0, "the lending ref is mapped: " + single);
-        assertEquals("Lent out", single.get("categories").get(0).get("name").asText());
+        assertEquals("Lent out", single.get("tags").get(0).get("name").asText());
         ObjectNode expected = ((ObjectNode) listRow.deepCopy());
         ObjectNode actual = ((ObjectNode) single.deepCopy());
         expected.remove("balance");

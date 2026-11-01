@@ -25,17 +25,17 @@ public class ReviewStatusManagerTest {
         Transaction txn = new Transaction();
         txn.setReviewReasons(new HashSet<>());
         txn.getReviewReasons().add(ReviewReason.UNRECONCILED);
-        txn.getReviewReasons().add(ReviewReason.CATEGORY_UNVERIFIED);
+        txn.getReviewReasons().add(ReviewReason.DUPLICATE_SUSPECT);
         txn.setReviewType(ReviewType.NEEDS_REVIEW);
 
         // Clear one reason, still has another, should remain NEEDS_REVIEW
         reviewStatusManager.clearReason(txn, ReviewReason.UNRECONCILED, ReviewType.AUTO_REVIEWED);
         assertEquals(ReviewType.NEEDS_REVIEW, txn.getReviewType());
         assertFalse(txn.getReviewReasons().contains(ReviewReason.UNRECONCILED));
-        assertTrue(txn.getReviewReasons().contains(ReviewReason.CATEGORY_UNVERIFIED));
+        assertTrue(txn.getReviewReasons().contains(ReviewReason.DUPLICATE_SUSPECT));
 
         // Clear last reason, should promote to AUTO_REVIEWED
-        reviewStatusManager.clearReason(txn, ReviewReason.CATEGORY_UNVERIFIED, ReviewType.AUTO_REVIEWED);
+        reviewStatusManager.clearReason(txn, ReviewReason.DUPLICATE_SUSPECT, ReviewType.AUTO_REVIEWED);
         assertEquals(ReviewType.AUTO_REVIEWED, txn.getReviewType());
         assertTrue(txn.getReviewReasons().isEmpty());
     }

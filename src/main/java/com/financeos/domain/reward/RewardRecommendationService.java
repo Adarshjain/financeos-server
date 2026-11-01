@@ -13,8 +13,8 @@ import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
-import com.financeos.domain.category.Category;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.Tag;
+import com.financeos.domain.category.TagRepository;
 
 import com.financeos.core.observability.Events;
 import net.logstash.logback.argument.StructuredArguments;
@@ -45,16 +45,16 @@ public class RewardRecommendationService {
     public static final BigDecimal DEFAULT_POINT_VALUE_INR = new BigDecimal("0.25");
 
     private final AccountRepository accountRepository;
-    private final CategoryRepository categoryRepository;
+    private final TagRepository tagRepository;
     private final RewardRuleRepository rewardRuleRepository;
     private final RewardCalculationService rewardCalculationService;
 
     public RewardRecommendationService(AccountRepository accountRepository,
-                                       CategoryRepository categoryRepository,
+                                       TagRepository tagRepository,
                                        RewardRuleRepository rewardRuleRepository,
                                        RewardCalculationService rewardCalculationService) {
         this.accountRepository = accountRepository;
-        this.categoryRepository = categoryRepository;
+        this.tagRepository = tagRepository;
         this.rewardRuleRepository = rewardRuleRepository;
         this.rewardCalculationService = rewardCalculationService;
     }
@@ -65,9 +65,9 @@ public class RewardRecommendationService {
 
         // 1. Category ownership validation
         if (request.categoryIds() != null && !request.categoryIds().isEmpty()) {
-            List<Category> userCategories = categoryRepository.findByUserId(currentUserId);
+            List<Tag> userCategories = tagRepository.findByUserId(currentUserId);
             Set<UUID> ownedCategoryIds = userCategories.stream()
-                    .map(Category::getId)
+                    .map(Tag::getId)
                     .collect(Collectors.toSet());
             if (!ownedCategoryIds.containsAll(request.categoryIds())) {
                 throw new ValidationException("One or more category IDs are invalid or do not belong to the current user.");

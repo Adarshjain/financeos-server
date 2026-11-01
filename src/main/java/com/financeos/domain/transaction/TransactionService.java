@@ -10,8 +10,8 @@ import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.category.Category;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.Tag;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.categorization.CategorizationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -46,7 +46,7 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountRepository;
-    private final CategoryRepository categoryRepository;
+    private final TagRepository tagRepository;
     private final UserRepository userRepository;
     private final ReviewStatusManager reviewStatusManager;
     private final CategorizationService categorizationService;
@@ -56,6 +56,7 @@ public class TransactionService {
     private final com.financeos.core.observability.AuditLogger auditLogger;
     private final com.financeos.domain.account.card.CardRepository cardRepository;
     private final com.financeos.domain.obligation.ObligationRefService obligationRefService;
+    private final TransactionCategoryWriter categoryWriter;
     private final TransactionService self;
 
     /** Optional so tests that build the service by hand need no publisher. */
@@ -65,7 +66,7 @@ public class TransactionService {
     @org.springframework.beans.factory.annotation.Autowired
     public TransactionService(TransactionRepository transactionRepository,
             AccountRepository accountRepository,
-            CategoryRepository categoryRepository,
+            TagRepository tagRepository,
             UserRepository userRepository,
             ReviewStatusManager reviewStatusManager,
             CategorizationService categorizationService,
@@ -75,10 +76,11 @@ public class TransactionService {
             com.financeos.core.observability.AuditLogger auditLogger,
             com.financeos.domain.account.card.CardRepository cardRepository,
             @org.springframework.context.annotation.Lazy com.financeos.domain.obligation.ObligationRefService obligationRefService,
+            TransactionCategoryWriter categoryWriter,
             @org.springframework.context.annotation.Lazy TransactionService self) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
-        this.categoryRepository = categoryRepository;
+        this.tagRepository = tagRepository;
         this.userRepository = userRepository;
         this.reviewStatusManager = reviewStatusManager;
         this.categorizationService = categorizationService;
@@ -88,13 +90,14 @@ public class TransactionService {
         this.auditLogger = auditLogger;
         this.cardRepository = cardRepository;
         this.obligationRefService = obligationRefService;
+        this.categoryWriter = categoryWriter;
         this.self = self != null ? self : this;
     }
 
     /** Test convenience (12-arg form used by existing tests): no obligation-ref service. */
     public TransactionService(TransactionRepository transactionRepository,
             AccountRepository accountRepository,
-            CategoryRepository categoryRepository,
+            TagRepository tagRepository,
             UserRepository userRepository,
             ReviewStatusManager reviewStatusManager,
             CategorizationService categorizationService,
@@ -104,22 +107,22 @@ public class TransactionService {
             com.financeos.core.observability.AuditLogger auditLogger,
             com.financeos.domain.account.card.CardRepository cardRepository,
             TransactionService self) {
-        this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, transactionLinkService, transactionLinkRepository, statementTransactionRepository, auditLogger, cardRepository, null, self);
+        this(transactionRepository, accountRepository, tagRepository, userRepository, reviewStatusManager, categorizationService, transactionLinkService, transactionLinkRepository, statementTransactionRepository, auditLogger, cardRepository, null, null, self);
     }
 
     public TransactionService(TransactionRepository transactionRepository,
             AccountRepository accountRepository,
-            CategoryRepository categoryRepository,
+            TagRepository tagRepository,
             UserRepository userRepository,
             ReviewStatusManager reviewStatusManager,
             CategorizationService categorizationService,
             TransactionService self) {
-        this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, null, null, null, null, null, self);
+        this(transactionRepository, accountRepository, tagRepository, userRepository, reviewStatusManager, categorizationService, null, null, null, null, null, self);
     }
 
     public TransactionService(TransactionRepository transactionRepository,
             AccountRepository accountRepository,
-            CategoryRepository categoryRepository,
+            TagRepository tagRepository,
             UserRepository userRepository,
             ReviewStatusManager reviewStatusManager,
             CategorizationService categorizationService,
@@ -128,7 +131,7 @@ public class TransactionService {
             StatementTransactionRepository statementTransactionRepository,
             com.financeos.core.observability.AuditLogger auditLogger,
             TransactionService self) {
-        this(transactionRepository, accountRepository, categoryRepository, userRepository, reviewStatusManager, categorizationService, transactionLinkService, transactionLinkRepository, statementTransactionRepository, auditLogger, null, self);
+        this(transactionRepository, accountRepository, tagRepository, userRepository, reviewStatusManager, categorizationService, transactionLinkService, transactionLinkRepository, statementTransactionRepository, auditLogger, null, self);
     }
 
 
@@ -205,13 +208,13 @@ public class TransactionService {
         User currentUser = userRepository.getReferenceById(currentSessionUserId);
         transaction.setUser(currentUser);
 
-        // Restore Categories Relationship
-        if (request.categoryIds() != null && !request.categoryIds().isEmpty()) {
-            java.util.List<Category> foundCategories = categoryRepository.findAllById(request.categoryIds());
-            if (foundCategories.size() != request.categoryIds().size()) {
-                throw new com.financeos.core.exception.ResourceNotFoundException("One or more categories not found");
-            }
-            transaction.setCategories(new java.util.HashSet<>(foundCategories));
+        if (request.tagIds() != null && !request.tagIds().isEmpty()) {
+            transaction.setTags(new java.util.HashSet<>(loadOwnTags(request.tagIds(), currentSessionUserId)));
+        }
+
+        // A category in the request is the user's choice; without one the transaction stays uncategorised.
+        if (request.categoryKey() != null) {
+            categoryWriter.set(transaction, request.categoryKey(), request.subcategoryKey(), CategorySource.USER, (UUID) null);
         }
 
         reviewStatusManager.transitionTo(transaction, ReviewType.NA);
@@ -224,6 +227,18 @@ public class TransactionService {
             eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(currentSessionUserId));
         }
         return savedTxn;
+    }
+
+    /** The given tags, which must all be the user's (unknown and foreign ids are indistinguishable). */
+    private List<Tag> loadOwnTags(List<UUID> tagIds, UUID userId) {
+        Set<UUID> wanted = new HashSet<>(tagIds);
+        List<Tag> found = tagRepository.findAllById(List.copyOf(wanted)).stream()
+                .filter(t -> t.getUser() != null && t.getUser().getId().equals(userId))
+                .toList();
+        if (found.size() != wanted.size()) {
+            throw new com.financeos.core.exception.ResourceNotFoundException("One or more tags not found");
+        }
+        return found;
     }
 
     private Page<Transaction> queryTransactions(TransactionSearchCriteria criteria, Pageable pageable) {
@@ -379,6 +394,10 @@ public class TransactionService {
             transaction.setMonitoringReason(null);
         }
         if (request.isTransactionExcluded() != null) {
+            if (request.isTransactionExcluded() != transaction.isTransactionExcluded()) {
+                // The user chose it; the category's default no longer drives it.
+                transaction.setExcludeSetByUser(true);
+            }
             transaction.setTransactionExcluded(request.isTransactionExcluded());
         }
         if (request.mcc() != null) {
@@ -389,32 +408,11 @@ public class TransactionService {
         // explicit status change apart from the client merely echoing the current value.
         ReviewType originalReviewType = transaction.getReviewType();
 
-        // Feedback loop
-        boolean categoriesEqual = false;
-        if (request.categoryIds() != null) {
-            Set<UUID> currentCategoryIds = transaction.getCategories().stream()
-                    .map(tc -> tc.getCategory().getId())
-                    .collect(Collectors.toSet());
-            Set<UUID> requestCatIds = new java.util.HashSet<>(request.categoryIds());
-            categoriesEqual = currentCategoryIds.equals(requestCatIds);
-        }
-
-        if (request.categoryIds() != null && !categoriesEqual) {
-            reviewStatusManager.clearReason(transaction, ReviewReason.CATEGORY_UNVERIFIED, ReviewType.MANUALLY_REVIEWED);
-        }
         // The user setting the date themselves settles a date the server capped from an email alert.
         if (request.date() != null && !request.date().equals(dateBefore)
                 && transaction.getReviewReasons() != null
                 && transaction.getReviewReasons().contains(ReviewReason.DATE_CORRECTED)) {
             reviewStatusManager.clearReason(transaction, ReviewReason.DATE_CORRECTED, ReviewType.MANUALLY_REVIEWED);
-        }
-
-        if (transaction.getAppliedRule() != null && request.categoryIds() != null) {
-            if (categoriesEqual) {
-                categorizationService.verifyRule(transaction.getAppliedRule());
-            } else {
-                transaction.setAppliedRule(null);
-            }
         }
 
         if (request.reviewType() == ReviewType.NEEDS_REVIEW && request.reviewReasons() != null) {
@@ -434,24 +432,65 @@ public class TransactionService {
         transaction.setAmount(absoluteAmount);
         transaction.setType(type);
 
-        // Update Categories (Clears if null)
-        if (request.categoryIds() != null) {
-            java.util.List<Category> foundCategories = categoryRepository.findAllById(request.categoryIds());
-            if (foundCategories.size() != request.categoryIds().size()) {
-                throw new com.financeos.core.exception.ResourceNotFoundException("One or more categories not found");
-            }
-            transaction.setCategories(new java.util.HashSet<>(foundCategories));
+        // Update tags (clears if null)
+        if (request.tagIds() != null) {
+            transaction.setTags(new java.util.HashSet<>(loadOwnTags(request.tagIds(), currentSessionUserId)));
         } else {
-            transaction.setCategories(new java.util.HashSet<>());
+            transaction.setTags(new java.util.HashSet<>());
+        }
+
+        // Category: only a changed one is written (as the user's choice); editing description, amount
+        // or account never re-categorises. Clearing goes through setCategory.
+        if (request.categoryKey() != null
+                && (!request.categoryKey().equals(transaction.getCategoryKey())
+                        || !java.util.Objects.equals(request.subcategoryKey(), transaction.getSubcategoryKey()))) {
+            categoryWriter.set(transaction, request.categoryKey(), request.subcategoryKey(), CategorySource.USER, (UUID) null);
         }
 
         Transaction saved = transactionRepository.save(transaction);
         if (auditLogger != null) {
             auditLogger.mutation("Transaction", saved.getId(), "UPDATE", "user:" + currentSessionUserId, "manual",
-                    List.of("amount", "description", "date", "categories"), amountBefore, saved.getAmount(), "INR");
+                    List.of("amount", "description", "date", "category", "tags"), amountBefore, saved.getAmount(), "INR");
         }
         org.hibernate.Hibernate.initialize(saved.getReviewReasons());
+        org.hibernate.Hibernate.initialize(saved.getAppliedRule());
         return saved;
+    }
+
+    /** What setCategory changed: the transaction as it is now, and its category state before. */
+    public record CategoryChange(Transaction transaction, String previousCategoryKey, String previousSubcategoryKey,
+                                 CategorySource previousSource, UUID previousRuleId, java.time.Instant previousSetAt) {
+    }
+
+    /** A category state to put back when undoing a setCategory. */
+    public record CategoryRestore(CategorySource source, UUID ruleId, java.time.Instant setAt) {
+    }
+
+    /**
+     * Sets (or clears, with null keys) the category of one of the user's transactions as the user's
+     * choice, or, with {@code restore}, puts back the state an undo is returning to. Returns the
+     * previous state so the caller can undo this in turn.
+     */
+    public CategoryChange setCategory(UUID id, String categoryKey, String subcategoryKey, CategoryRestore restore) {
+        UUID userId = UserContext.getCurrentUserId();
+        Transaction transaction = transactionRepository.findAllByIdInAndUserId(List.of(id), userId).stream()
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction", id));
+        String prevKey = transaction.getCategoryKey();
+        String prevSub = transaction.getSubcategoryKey();
+        CategorySource prevSource = transaction.getCategorySource();
+        UUID prevRuleId = transaction.getAppliedRule() != null ? transaction.getAppliedRule().getId() : null;
+        java.time.Instant prevSetAt = transaction.getCategorySetAt();
+
+        if (restore == null) {
+            categoryWriter.set(transaction, categoryKey, subcategoryKey, CategorySource.USER, (UUID) null);
+        } else {
+            categoryWriter.restore(transaction, categoryKey, subcategoryKey, restore.source(), restore.ruleId(),
+                    restore.setAt());
+        }
+        Transaction saved = transactionRepository.save(transaction);
+        org.hibernate.Hibernate.initialize(saved.getAppliedRule());
+        return new CategoryChange(saved, prevKey, prevSub, prevSource, prevRuleId, prevSetAt);
     }
 
     public void deleteTransaction(UUID id) {
@@ -521,10 +560,9 @@ public class TransactionService {
         List<String> skippedIds = new ArrayList<>();
         List<com.financeos.api.transaction.dto.BatchFailure> failures = new ArrayList<>();
         List<Transaction> toSave = new ArrayList<>();
-        List<CategorizationService.RuleVerification> verifiedChanges = new ArrayList<>();
 
         boolean clearing = reviewType == ReviewType.MANUALLY_REVIEWED || reviewType == ReviewType.AUTO_REVIEWED || reviewType == ReviewType.NA;
-        // Prior state of every row, taken before anything mutates: a rule verify mid-loop can clear a later row's reason.
+        // Prior state of every row, taken before anything mutates.
         Map<UUID, CategorizationService.ClearedTransaction> prior = new HashMap<>();
         if (clearing) {
             for (Transaction t : fetched) {
@@ -566,12 +604,6 @@ public class TransactionService {
                 for (ReviewReason r : reviewReasons) {
                     reviewStatusManager.clearReason(transaction, r, reviewType);
                 }
-
-                if (transaction.getReviewType() == ReviewType.MANUALLY_REVIEWED) {
-                    if (transaction.getAppliedRule() != null && !transaction.getAppliedRule().isVerified()) {
-                        verifiedChanges.addAll(categorizationService.verifyRule(transaction.getAppliedRule()));
-                    }
-                }
             } else if (reviewType == ReviewType.NEEDS_REVIEW && reviewReasons != null && !reviewReasons.isEmpty()) {
                 // Re-entering review (e.g. undoing an approve): put the given reasons back
                 for (ReviewReason r : reviewReasons) {
@@ -601,31 +633,14 @@ public class TransactionService {
             }
         }
 
-        // Rows this call approved get their reasons back from the client's undo; every other row a
-        // verified rule cleared (a skipped row of this request included) is reported for unverify.
-        Set<String> approved = new HashSet<>(succeededIds);
-        List<com.financeos.api.transaction.dto.VerifiedRuleChange> verifiedRules = verifiedChanges.stream()
-                .map(change -> new com.financeos.api.transaction.dto.VerifiedRuleChange(
-                        change.ruleId(),
-                        change.clearedTransactionIds().stream().filter(t -> !approved.contains(t.toString())).toList(),
-                        change.clearedTransactions().stream().filter(t -> !approved.contains(t.transactionId().toString())).toList()))
-                .toList();
-
-        return new com.financeos.api.transaction.dto.BatchReviewResponse(succeededIds, skippedIds, failures, verifiedRules, approvedTransactions);
+        return new com.financeos.api.transaction.dto.BatchReviewResponse(succeededIds, skippedIds, failures, approvedTransactions);
     }
 
     /** Undo of a clearing batchReview, all or nothing; see {@link CategorizationService#undoApprove}. */
     @Transactional
     public com.financeos.api.transaction.dto.UndoApproveResponse undoApprove(com.financeos.api.transaction.dto.UndoApproveRequest request) {
         List<CategorizationService.ClearedTransaction> approved = request.approved() == null ? List.of() : request.approved();
-        List<CategorizationService.RuleRestore> rules = request.rules() == null ? List.<CategorizationService.RuleRestore>of()
-                : request.rules().stream().map(r -> new CategorizationService.RuleRestore(r.ruleId(),
-                        r.restore() == null ? List.<CategorizationService.ClearedTransaction>of() : r.restore())).toList();
-        long total = rules.stream().mapToLong(r -> r.restore().size()).sum();
-        if (total > 20000) {
-            throw new ValidationException("Restore entries cannot exceed 20000 in total");
-        }
-        CategorizationService.UnverifyResult result = categorizationService.undoApprove(approved, rules, UserContext.getCurrentUserId());
+        CategorizationService.UndoApproveResult result = categorizationService.undoApprove(approved, UserContext.getCurrentUserId());
         return new com.financeos.api.transaction.dto.UndoApproveResponse(result.restoredTransactionIds(), result.skippedTransactionIds());
     }
 
@@ -703,15 +718,18 @@ public class TransactionService {
         }
 
         // --- CARRY-OVER ---
-        if (kept.getCategories().isEmpty() && !deleted.getCategories().isEmpty()) {
-            Set<Category> deletedCats = deleted.getCategories().stream()
-                    .map(TransactionCategory::getCategory)
+        if (kept.getTags().isEmpty() && !deleted.getTags().isEmpty()) {
+            Set<Tag> deletedTags = deleted.getTags().stream()
+                    .map(TransactionTag::getTag)
                     .collect(Collectors.toSet());
-            kept.setCategories(deletedCats);
-
-            if (kept.getAppliedRule() == null && deleted.getAppliedRule() != null) {
-                kept.setAppliedRule(deleted.getAppliedRule());
-            }
+            kept.setTags(deletedTags);
+        }
+        if (kept.getCategoryKey() == null && deleted.getCategoryKey() != null) {
+            kept.setCategoryKey(deleted.getCategoryKey());
+            kept.setSubcategoryKey(deleted.getSubcategoryKey());
+            kept.setCategorySource(deleted.getCategorySource());
+            kept.setCategorySetAt(deleted.getCategorySetAt());
+            kept.setAppliedRule(deleted.getAppliedRule());
         }
 
         if (kept.getChannel() == null && deleted.getChannel() != null) {
@@ -840,12 +858,6 @@ public class TransactionService {
         if (hasClearableReason) {
             reviewStatusManager.clearReason(kept, ReviewReason.UNRECONCILED, ReviewType.MANUALLY_REVIEWED);
             reviewStatusManager.clearReason(kept, ReviewReason.DUPLICATE_SUSPECT, ReviewType.MANUALLY_REVIEWED);
-        }
-
-        if (kept.getReviewType() == ReviewType.MANUALLY_REVIEWED) {
-            if (kept.getAppliedRule() != null && !kept.getAppliedRule().isVerified()) {
-                categorizationService.verifyRule(kept.getAppliedRule());
-            }
         }
 
         Transaction savedKept = transactionRepository.save(kept);

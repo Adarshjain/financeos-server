@@ -16,7 +16,7 @@ import com.financeos.domain.account.card.Cardholder;
 import com.financeos.domain.account.card.CardholderRelationship;
 import com.financeos.domain.account.card.CardholderRepository;
 import com.financeos.domain.account.card.CardholderRole;
-import com.financeos.domain.category.Category;
+import com.financeos.domain.category.Tag;
 import com.financeos.domain.reward.RewardCalculationService.CapUsage;
 import com.financeos.domain.reward.RewardCalculationService.ReportLine;
 import com.financeos.domain.statement.Statement;
@@ -181,8 +181,8 @@ class RewardReportsEngineTest {
         return r;
     }
 
-    private Category category(String name) {
-        Category c = new Category(name, user);
+    private Tag category(String name) {
+        Tag c = new Tag(name, user);
         c.setId(UUID.randomUUID());
         return c;
     }
@@ -502,7 +502,7 @@ class RewardReportsEngineTest {
     void reportLines_categoriesAreDistinctSortedIgnoringCase() {
         rules(rule("Base 1%", RuleStacking.EXCLUSIVE, "1"));
         Transaction t = txn("1000.00", primaryCard, MAR_15);
-        t.setCategories(Set.of(category("travel"), category("Dining"), category("Travel-2")));
+        t.setTags(Set.of(category("travel"), category("Dining"), category("Travel-2")));
         txns(t);
 
         assertThat(reportLines(MAR_1, MAR_31).get(0).categories()).containsExactly("Dining", "travel", "Travel-2");
@@ -512,7 +512,7 @@ class RewardReportsEngineTest {
     void reportLines_sameCategoryNameOnTwoCategoryRowsIsDeduplicated() {
         rules(rule("Base 1%", RuleStacking.EXCLUSIVE, "1"));
         Transaction t = txn("1000.00", primaryCard, MAR_15);
-        t.setCategories(new HashSet<>(Set.of(category("Dining"), category("Dining"))));
+        t.setTags(new HashSet<>(Set.of(category("Dining"), category("Dining"))));
         txns(t);
 
         assertThat(reportLines(MAR_1, MAR_31).get(0).categories()).containsExactly("Dining");
@@ -699,10 +699,10 @@ class RewardReportsEngineTest {
         grocery.setCapBucket(bucket);
         // dining only matches Dining-categorised spend; grocery catches the rest
         grocery.setPriority(50);
-        Category dine = dining.getCategories().iterator().next();
+        Tag dine = dining.getCategories().iterator().next();
         rules(dining, grocery);
         Transaction t1 = txn("1000.00", primaryCard, MAR_15);
-        t1.setCategories(Set.of(dine));
+        t1.setTags(Set.of(dine));
         Transaction t2 = txn("1000.00", primaryCard, MAR_15);
         txns(t1, t2);
 

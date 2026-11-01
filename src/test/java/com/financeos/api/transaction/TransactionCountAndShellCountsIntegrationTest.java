@@ -48,7 +48,7 @@ class TransactionCountAndShellCountsIntegrationTest {
         txn(api, account, "2026-03-07", 500, "salary");
         txn(api, account, "2026-03-08", -20, "coffee again");
         api.postJson("/api/v1/transactions/batch-review", Map.of("transactionIds", List.of(t1, t2),
-                "reviewType", "NEEDS_REVIEW", "reviewReasons", List.of("CATEGORY_UNVERIFIED")), 200);
+                "reviewType", "NEEDS_REVIEW", "reviewReasons", List.of("DUPLICATE_SUSPECT")), 200);
     }
 
     @AfterEach

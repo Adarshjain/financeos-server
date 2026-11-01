@@ -5,8 +5,8 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.FinancialPosition;
-import com.financeos.domain.category.Category;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.Tag;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.transaction.*;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
@@ -30,10 +30,16 @@ public class DevDataSeeder implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
-    private final CategoryRepository categoryRepository;
+    private final TagRepository tagRepository;
     private final TransactionRepository transactionRepository;
     private final ReviewStatusManager reviewStatusManager;
     private final Random random = new Random();
+
+    /** Seed tag name to the fixed-list category a few of its transactions get. */
+    private static final Map<String, String> CATEGORY_KEY_BY_TAG = Map.of(
+            "Salary", "salary", "Freelance", "earnings", "Interest", "interest",
+            "Dining", "food", "Shopping", "shopping", "Groceries", "groceries",
+            "Utilities", "bills", "Travel", "travel", "Subscriptions", "subscriptions");
 
     @Override
     @Transactional
@@ -50,8 +56,8 @@ public class DevDataSeeder implements CommandLineRunner {
 
         log.info("Starting robust data seeding for user: {}", admin.getEmail());
 
-        // 1. Seed Categories
-        Map<String, Category> categories = seedCategories(admin);
+        // 1. Seed tags
+        Map<String, Tag> categories = seedTags(admin);
 
         // 2. Seed Accounts
         List<Account> accounts = seedAccounts(admin);
@@ -62,8 +68,8 @@ public class DevDataSeeder implements CommandLineRunner {
         log.info("Data seeding completed successfully!");
     }
 
-    private Map<String, Category> seedCategories(User user) {
-        Map<String, Category> categoryMap = new HashMap<>();
+    private Map<String, Tag> seedTags(User user) {
+        Map<String, Tag> categoryMap = new HashMap<>();
         List<String> categoryNames = List.of(
                 "Salary", "Freelance", "Interest", // Income
                 "Rent", "Utilities", "Groceries", "Healthcare", // Essential
@@ -73,8 +79,8 @@ public class DevDataSeeder implements CommandLineRunner {
         );
 
         for (String name : categoryNames) {
-            Category category = new Category(name, user);
-            categoryMap.put(name, categoryRepository.save(category));
+            Tag tag = new Tag(name, user);
+            categoryMap.put(name, tagRepository.save(tag));
         }
         return categoryMap;
     }
@@ -104,7 +110,7 @@ public class DevDataSeeder implements CommandLineRunner {
         return accountRepository.save(account);
     }
 
-    private void seedTransactions(User user, List<Account> accounts, Map<String, Category> categories) {
+    private void seedTransactions(User user, List<Account> accounts, Map<String, Tag> categories) {
         LocalDate end = AppTime.today();
         LocalDate start = end.minusYears(5);
 
@@ -132,7 +138,7 @@ public class DevDataSeeder implements CommandLineRunner {
     }
 
     private Transaction generateRandomTransaction(User user, Account account, LocalDate date,
-            Map<String, Category> categories) {
+            Map<String, Tag> categories) {
         boolean isAutomated = random.nextDouble() < 0.9;
         TransactionSource source = isAutomated ? TransactionSource.gmail_transaction_alert : TransactionSource.manual;
 
@@ -140,7 +146,7 @@ public class DevDataSeeder implements CommandLineRunner {
         BigDecimal amount;
         String description;
         String sourcedDescription = null;
-        Category category;
+        Tag category;
 
         String tempDescription;
         if (random.nextDouble() < 0.05) { // 5% chance of being income
@@ -182,9 +188,17 @@ public class DevDataSeeder implements CommandLineRunner {
             transaction.setMonitoringReason("Flagged for monitoring (seeded)");
         }
 
-        Set<Category> cats = new HashSet<>();
-        cats.add(category);
-        transaction.setCategories(cats);
+        Set<Tag> tags = new HashSet<>();
+        tags.add(category);
+        transaction.setTags(tags);
+
+        // A few seeded rows also carry a category from the fixed list (the rest stay uncategorised).
+        String categoryKey = CATEGORY_KEY_BY_TAG.get(category.getName());
+        if (categoryKey != null && random.nextDouble() < 0.3) {
+            transaction.setCategoryKey(categoryKey);
+            transaction.setCategorySource(CategorySource.AUTO);
+            transaction.setCategorySetAt(AppTime.nowInstant());
+        }
 
         // Mirror the real write paths so review state stays internally consistent:
         // GmailTransactionWriter always flags automated transactions UNRECONCILED,

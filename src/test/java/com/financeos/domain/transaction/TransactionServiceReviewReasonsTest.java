@@ -8,7 +8,7 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.categorization.CategorizationService;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
@@ -31,7 +31,7 @@ class TransactionServiceReviewReasonsTest {
     void setUp() {
         transactionRepository = mock(TransactionRepository.class);
         service = new TransactionService(transactionRepository, mock(AccountRepository.class),
-                mock(CategoryRepository.class), mock(UserRepository.class), new ReviewStatusManager(),
+                mock(TagRepository.class), mock(UserRepository.class), new ReviewStatusManager(),
                 mock(CategorizationService.class), null);
         UUID uid = UUID.randomUUID();
         UserContext.setCurrentUserId(uid);
@@ -58,7 +58,7 @@ class TransactionServiceReviewReasonsTest {
     }
 
     private UpdateTransactionRequest req(ReviewType type, Set<ReviewReason> reasons) {
-        return new UpdateTransactionRequest(null, null, LocalDate.now(), new BigDecimal("-10.00"), "Desc", null,
+        return new UpdateTransactionRequest(null, null, LocalDate.now(), new BigDecimal("-10.00"), "Desc", null, null, null,
                 null, null, type, null, null, null, reasons);
     }
 
@@ -74,9 +74,9 @@ class TransactionServiceReviewReasonsTest {
     void reviewedTransactionMovedToNeedsReviewWithReasons() {
         txn.setReviewType(ReviewType.MANUALLY_REVIEWED);
         txn.setReviewReasons(new HashSet<>());
-        service.updateTransaction(txn.getId(), req(ReviewType.NEEDS_REVIEW, Set.of(ReviewReason.CATEGORY_UNVERIFIED)));
+        service.updateTransaction(txn.getId(), req(ReviewType.NEEDS_REVIEW, Set.of(ReviewReason.DUPLICATE_SUSPECT)));
         assertEquals(ReviewType.NEEDS_REVIEW, txn.getReviewType());
-        assertEquals(Set.of(ReviewReason.CATEGORY_UNVERIFIED), txn.getReviewReasons());
+        assertEquals(Set.of(ReviewReason.DUPLICATE_SUSPECT), txn.getReviewReasons());
         assertNull(txn.getReviewedAt());
     }
 

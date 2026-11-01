@@ -159,7 +159,7 @@ class GmailIngestionServiceTest {
         assertThat(summary.discovered()).isEqualTo(1);
         assertThat(summary.processed()).isEqualTo(1);
         assertThat(summary.created()).isEqualTo(1);
-        verify(categorizationService).batchCategorize(anyList());
+        verifyNoInteractions(categorizationService); // categorising is not done at ingest any more
     }
 
     @Test
@@ -323,9 +323,7 @@ class GmailIngestionServiceTest {
 
         gmailIngestionService.syncConnection(connection);
 
-        ArgumentCaptor<List<Transaction>> captor = ArgumentCaptor.forClass(List.class);
-        verify(categorizationService).batchCategorize(captor.capture());
-        assertThat(captor.getValue()).containsExactly(t1, t2, t3);
+        verifyNoInteractions(categorizationService); // categorising is not done at ingest any more
     }
 
     @Test

@@ -13,7 +13,7 @@ import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionChannel;
 import com.financeos.domain.transaction.TransactionRepository;
@@ -37,7 +37,7 @@ import java.util.UUID;
 class RewardRecommendationServiceTest {
 
     private AccountRepository accountRepository;
-    private CategoryRepository categoryRepository;
+    private TagRepository categoryRepository;
     private RewardRuleRepository rewardRuleRepository;
     private RewardMilestoneRepository rewardMilestoneRepository;
     private RewardMilestoneService rewardMilestoneService;
@@ -60,7 +60,7 @@ class RewardRecommendationServiceTest {
         UserContext.setCurrentUserId(userId);
 
         accountRepository = mock(AccountRepository.class);
-        categoryRepository = mock(CategoryRepository.class);
+        categoryRepository = mock(TagRepository.class);
         rewardRuleRepository = mock(RewardRuleRepository.class);
         rewardMilestoneRepository = mock(RewardMilestoneRepository.class);
         rewardMilestoneService = mock(RewardMilestoneService.class);

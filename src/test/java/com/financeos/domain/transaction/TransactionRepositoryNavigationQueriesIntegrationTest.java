@@ -64,7 +64,7 @@ class TransactionRepositoryNavigationQueriesIntegrationTest {
     @Test
     void reviewCount_countsOnlyTheUsersNeedsReviewRows() {
         review(card, ReviewType.NEEDS_REVIEW, Set.of(ReviewReason.UNRECONCILED));
-        review(card, ReviewType.NEEDS_REVIEW, Set.of(ReviewReason.CATEGORY_UNVERIFIED, ReviewReason.DUPLICATE_SUSPECT));
+        review(card, ReviewType.NEEDS_REVIEW, Set.of(ReviewReason.UNRECONCILED, ReviewReason.DUPLICATE_SUSPECT));
         review(otherCard, ReviewType.NEEDS_REVIEW, Set.of());
         review(card, ReviewType.AUTO_REVIEWED, Set.of());
         review(card, ReviewType.MANUALLY_REVIEWED, Set.of());
@@ -88,10 +88,10 @@ class TransactionRepositoryNavigationQueriesIntegrationTest {
     @Test
     void reasonCount_countsATransactionWithSeveralReasonsOnce() {
         review(card, ReviewType.NEEDS_REVIEW,
-                Set.of(ReviewReason.CATEGORY_UNVERIFIED, ReviewReason.UNRECONCILED, ReviewReason.DUPLICATE_SUSPECT));
-        review(card, ReviewType.NEEDS_REVIEW, Set.of(ReviewReason.CATEGORY_UNVERIFIED));
+                Set.of(ReviewReason.UNRECONCILED, ReviewReason.DUPLICATE_SUSPECT));
+        review(card, ReviewType.NEEDS_REVIEW, Set.of(ReviewReason.DUPLICATE_SUSPECT));
 
-        assertEquals(2, reasonCount(user, ReviewReason.CATEGORY_UNVERIFIED));
+        assertEquals(2, reasonCount(user, ReviewReason.DUPLICATE_SUSPECT));
         assertEquals(1, reasonCount(user, ReviewReason.UNRECONCILED));
     }
 
@@ -99,11 +99,11 @@ class TransactionRepositoryNavigationQueriesIntegrationTest {
     void reasonCount_skipsRowsWithoutTheReason_notNeedingReview_orOfAnotherUser() {
         review(card, ReviewType.NEEDS_REVIEW, Set.of(ReviewReason.UNRECONCILED));
         review(card, ReviewType.NEEDS_REVIEW, Set.of());
-        review(card, ReviewType.AUTO_REVIEWED, Set.of(ReviewReason.CATEGORY_UNVERIFIED));
-        review(otherUsersCard, ReviewType.NEEDS_REVIEW, Set.of(ReviewReason.CATEGORY_UNVERIFIED));
+        review(card, ReviewType.AUTO_REVIEWED, Set.of(ReviewReason.DUPLICATE_SUSPECT));
+        review(otherUsersCard, ReviewType.NEEDS_REVIEW, Set.of(ReviewReason.DUPLICATE_SUSPECT));
 
-        assertEquals(0, reasonCount(user, ReviewReason.CATEGORY_UNVERIFIED));
-        assertEquals(1, reasonCount(otherUser, ReviewReason.CATEGORY_UNVERIFIED));
+        assertEquals(0, reasonCount(user, ReviewReason.DUPLICATE_SUSPECT));
+        assertEquals(1, reasonCount(otherUser, ReviewReason.DUPLICATE_SUSPECT));
     }
 
     // ------------------------------------------------------------------ sumDebitsAfter

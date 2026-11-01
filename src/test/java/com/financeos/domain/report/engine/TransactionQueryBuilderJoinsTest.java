@@ -72,7 +72,7 @@ class TransactionQueryBuilderJoinsTest {
         String from = queryBuilder.fromClause(Set.of(TransactionQueryBuilder.JOIN_CARDS,
                 TransactionQueryBuilder.JOIN_CATEGORIES));
         assertTrue(from.contains("LEFT JOIN cards cd ON cd.id = t.card_id"));
-        assertTrue(from.contains("LEFT JOIN categories c ON c.id = tc.category_id"));
+        assertTrue(from.contains("LEFT JOIN tags c ON c.id = tc.tag_id"));
         assertFalse(from.contains("cards c ON"), "cards must not take the categories alias");
         assertEquals(1, from.split(" c ON ", -1).length - 1, "alias c is bound exactly once");
     }
@@ -85,7 +85,7 @@ class TransactionQueryBuilderJoinsTest {
         queryBuilder.expression("linkType", joins);
         String from = queryBuilder.fromClause(joins);
         assertTrue(from.contains("cards cd"));
-        assertTrue(from.contains("categories c "));
+        assertTrue(from.contains("tags c "));
         assertTrue(from.endsWith(LINKS_JOIN));
     }
 

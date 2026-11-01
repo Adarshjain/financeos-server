@@ -1,6 +1,6 @@
 package com.financeos.domain.transaction;
 
-import com.financeos.domain.category.Category;
+import com.financeos.domain.category.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -13,50 +13,50 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Transaction.setCategories diffs by category id. Callers pass categories loaded in a different
  * persistence context than the transaction's own (lazy proxy) categories, so these tests always use
- * a separate Category instance with the same id. Instance equality would never match those, so a
+ * a separate Tag instance with the same id. Instance equality would never match those, so a
  * kept category would be deleted and re-inserted.
  */
 class TransactionSetCategoriesTest {
 
-    private static Category category(UUID id, String name) {
-        Category c = new Category();
+    private static Tag category(UUID id, String name) {
+        Tag c = new Tag();
         c.setId(id);
         c.setName(name);
         return c;
     }
 
     /** A different instance with the same id — what another persistence context hands back. */
-    private static Category copyOf(Category c) {
+    private static Tag copyOf(Tag c) {
         return category(c.getId(), c.getName());
     }
 
-    private static Transaction transactionWith(Category... categories) {
+    private static Transaction transactionWith(Tag... categories) {
         Transaction txn = new Transaction();
-        txn.setCategories(new HashSet<>(Set.of(categories)));
+        txn.setTags(new HashSet<>(Set.of(categories)));
         return txn;
     }
 
     private static Set<UUID> categoryIds(Transaction txn) {
-        return txn.getCategories().stream()
-                .map(tc -> tc.getCategory().getId())
+        return txn.getTags().stream()
+                .map(tc -> tc.getTag().getId())
                 .collect(Collectors.toSet());
     }
 
-    private static TransactionCategory rowFor(Transaction txn, UUID categoryId) {
-        return txn.getCategories().stream()
-                .filter(tc -> tc.getCategory().getId().equals(categoryId))
+    private static TransactionTag rowFor(Transaction txn, UUID categoryId) {
+        return txn.getTags().stream()
+                .filter(tc -> tc.getTag().getId().equals(categoryId))
                 .findFirst()
                 .orElseThrow();
     }
 
     @Test
     void removingOneCategory_keepsTheExistingRowForTheOtherByIdentity() {
-        Category food = category(UUID.randomUUID(), "Food");
-        Category travel = category(UUID.randomUUID(), "Travel");
+        Tag food = category(UUID.randomUUID(), "Food");
+        Tag travel = category(UUID.randomUUID(), "Travel");
         Transaction txn = transactionWith(food, travel);
-        TransactionCategory keptRow = rowFor(txn, food.getId());
+        TransactionTag keptRow = rowFor(txn, food.getId());
 
-        txn.setCategories(Set.of(copyOf(food)));
+        txn.setTags(Set.of(copyOf(food)));
 
         assertEquals(Set.of(food.getId()), categoryIds(txn));
         assertSame(keptRow, rowFor(txn, food.getId()), "kept category must not be deleted and re-inserted");
@@ -64,53 +64,53 @@ class TransactionSetCategoriesTest {
 
     @Test
     void addingACategory_keepsTheExistingRowAndAddsOneRow() {
-        Category food = category(UUID.randomUUID(), "Food");
-        Category travel = category(UUID.randomUUID(), "Travel");
+        Tag food = category(UUID.randomUUID(), "Food");
+        Tag travel = category(UUID.randomUUID(), "Travel");
         Transaction txn = transactionWith(food);
-        TransactionCategory keptRow = rowFor(txn, food.getId());
+        TransactionTag keptRow = rowFor(txn, food.getId());
 
-        txn.setCategories(Set.of(copyOf(food), travel));
+        txn.setTags(Set.of(copyOf(food), travel));
 
         assertEquals(Set.of(food.getId(), travel.getId()), categoryIds(txn));
-        assertEquals(2, txn.getCategories().size());
+        assertEquals(2, txn.getTags().size());
         assertSame(keptRow, rowFor(txn, food.getId()));
     }
 
     @Test
     void sameCategories_asOtherInstances_changeNothing() {
-        Category food = category(UUID.randomUUID(), "Food");
-        Category travel = category(UUID.randomUUID(), "Travel");
+        Tag food = category(UUID.randomUUID(), "Food");
+        Tag travel = category(UUID.randomUUID(), "Travel");
         Transaction txn = transactionWith(food, travel);
-        Set<TransactionCategory> before = Set.copyOf(txn.getCategories());
+        Set<TransactionTag> before = Set.copyOf(txn.getTags());
 
-        txn.setCategories(Set.of(copyOf(food), copyOf(travel)));
+        txn.setTags(Set.of(copyOf(food), copyOf(travel)));
 
-        assertEquals(2, txn.getCategories().size());
-        for (TransactionCategory row : before) {
-            assertSame(row, rowFor(txn, row.getCategory().getId()));
+        assertEquals(2, txn.getTags().size());
+        for (TransactionTag row : before) {
+            assertSame(row, rowFor(txn, row.getTag().getId()));
         }
     }
 
     @Test
     void replacingAllCategories_dropsOldRowsAndAddsNewOnes() {
-        Category food = category(UUID.randomUUID(), "Food");
-        Category travel = category(UUID.randomUUID(), "Travel");
+        Tag food = category(UUID.randomUUID(), "Food");
+        Tag travel = category(UUID.randomUUID(), "Travel");
         Transaction txn = transactionWith(food);
 
-        txn.setCategories(Set.of(travel));
+        txn.setTags(Set.of(travel));
 
         assertEquals(Set.of(travel.getId()), categoryIds(txn));
-        assertEquals(1, txn.getCategories().size());
+        assertEquals(1, txn.getTags().size());
     }
 
     @Test
     void twoInstancesOfOneNewCategory_addASingleRow() {
-        Category travel = category(UUID.randomUUID(), "Travel");
+        Tag travel = category(UUID.randomUUID(), "Travel");
         Transaction txn = new Transaction();
 
-        txn.setCategories(new HashSet<>(Set.of(travel, copyOf(travel))));
+        txn.setTags(new HashSet<>(Set.of(travel, copyOf(travel))));
 
-        assertEquals(1, txn.getCategories().size());
+        assertEquals(1, txn.getTags().size());
         assertEquals(Set.of(travel.getId()), categoryIds(txn));
     }
 
@@ -118,17 +118,17 @@ class TransactionSetCategoriesTest {
     void emptySet_clearsAllCategories() {
         Transaction txn = transactionWith(category(UUID.randomUUID(), "Food"));
 
-        txn.setCategories(Set.of());
+        txn.setTags(Set.of());
 
-        assertTrue(txn.getCategories().isEmpty());
+        assertTrue(txn.getTags().isEmpty());
     }
 
     @Test
     void nullSet_clearsAllCategories() {
         Transaction txn = transactionWith(category(UUID.randomUUID(), "Food"));
 
-        txn.setCategories(null);
+        txn.setTags(null);
 
-        assertTrue(txn.getCategories().isEmpty());
+        assertTrue(txn.getTags().isEmpty());
     }
 }

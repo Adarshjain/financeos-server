@@ -25,13 +25,13 @@ public class CategorizeController {
         this.categorizationService = categorizationService;
     }
 
+    /** Suggest-as-you-type: what the user's own rules say about this description; empty when none match. */
     @PostMapping
     public ResponseEntity<CategorizeResponse> categorize(@Valid @RequestBody CategorizeRequest request) {
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 
-        CategorizationService.SuggestionResult result =
-                categorizationService.suggestForDescription(currentSessionUserId, request.description());
-
-        return ResponseEntity.ok(CategorizeResponse.from(result));
+        return ResponseEntity.ok(categorizationService.suggestFromRules(currentSessionUserId, request.description())
+                .map(s -> CategorizeResponse.rule(s.categoryKey(), s.subcategoryKey()))
+                .orElseGet(CategorizeResponse::empty));
     }
 }

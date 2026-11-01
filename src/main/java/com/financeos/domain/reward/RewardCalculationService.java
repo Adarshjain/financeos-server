@@ -382,9 +382,9 @@ public class RewardCalculationService {
             boolean primary = seen.add(l.transactionId());
             EligibleTxn e = eligibleById.get(l.transactionId());
             Transaction txn = eval.txnById.get(l.transactionId());
-            List<String> categories = txn == null || txn.getCategories() == null ? List.of()
-                    : txn.getCategories().stream()
-                            .map(tc -> tc.getCategory().getName())
+            List<String> categories = txn == null || txn.getTags() == null ? List.of()
+                    : txn.getTags().stream()
+                            .map(tc -> tc.getTag().getName())
                             .filter(Objects::nonNull)
                             .distinct()
                             .sorted(String.CASE_INSENSITIVE_ORDER)
@@ -540,8 +540,8 @@ public class RewardCalculationService {
             UUID cardholderId) {
 
         static TxnFacts from(Transaction txn, BigDecimal basis, LocalDate effectiveDate) {
-            Set<UUID> catIds = txn.getCategories() != null ? txn.getCategories().stream()
-                    .map(tc -> tc.getCategory().getId())
+            Set<UUID> catIds = txn.getTags() != null ? txn.getTags().stream()
+                    .map(tc -> tc.getTag().getId())
                     .collect(Collectors.toSet()) : Set.of();
             UUID cardholderId = (txn.getCard() != null && txn.getCard().getCardholder() != null)
                     ? txn.getCard().getCardholder().getId()
@@ -817,8 +817,8 @@ public class RewardCalculationService {
             eval.lines.add(zeroLine(txn, effectiveDate, BigDecimal.ZERO, RewardLineReason.FULLY_REFUNDED, eval));
             return;
         }
-        Set<UUID> categoryIds = txn.getCategories() != null ? txn.getCategories().stream()
-                .map(tc -> tc.getCategory().getId())
+        Set<UUID> categoryIds = txn.getTags() != null ? txn.getTags().stream()
+                .map(tc -> tc.getTag().getId())
                 .collect(Collectors.toSet()) : Set.of();
         UUID txnCardholderId = (txn.getCard() != null && txn.getCard().getCardholder() != null)
                 ? txn.getCard().getCardholder().getId()

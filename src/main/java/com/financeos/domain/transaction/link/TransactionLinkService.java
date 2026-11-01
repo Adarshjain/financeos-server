@@ -11,9 +11,9 @@ import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.AccountType;
-import com.financeos.domain.category.Category;
 import com.financeos.domain.transaction.Transaction;
-import com.financeos.domain.transaction.TransactionCategory;
+import com.financeos.domain.transaction.CategorySource;
+import com.financeos.domain.transaction.TransactionCategoryWriter;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.transaction.autolink.AutoLinkStore;
@@ -54,12 +54,23 @@ public class TransactionLinkService {
         this.autoLinkStore = autoLinkStore;
     }
 
+    private final TransactionCategoryWriter categoryWriter;
+
     public TransactionLinkService(TransactionLinkRepository transactionLinkRepository,
                                   TransactionRepository transactionRepository,
                                   UserRepository userRepository) {
+        this(transactionLinkRepository, transactionRepository, userRepository, null);
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public TransactionLinkService(TransactionLinkRepository transactionLinkRepository,
+                                  TransactionRepository transactionRepository,
+                                  UserRepository userRepository,
+                                  TransactionCategoryWriter categoryWriter) {
         this.transactionLinkRepository = transactionLinkRepository;
         this.transactionRepository = transactionRepository;
         this.userRepository = userRepository;
+        this.categoryWriter = categoryWriter;
     }
 
     public static String roleLabel(LinkType type, boolean isAnchor) {
@@ -150,12 +161,15 @@ public class TransactionLinkService {
 
         // WP5: Refund category alignment
         if (Boolean.TRUE.equals(request.alignRefundCategories()) && request.type() == LinkType.REFUND) {
-            Set<Category> anchorCategories = anchorTx.getCategories().stream()
-                    .map(TransactionCategory::getCategory)
-                    .collect(Collectors.toSet());
-            for (Transaction counterpart : counterparts) {
-                counterpart.setCategories(anchorCategories);
-                transactionRepository.save(counterpart);
+            // The counterparts take the anchor's category and sub-category (source LINK); a counterpart
+            // whose category the user set keeps it, and an uncategorised anchor changes nothing.
+            if (anchorTx.getCategoryKey() != null) {
+                for (Transaction counterpart : counterparts) {
+                    if (categoryWriter.set(counterpart, anchorTx.getCategoryKey(), anchorTx.getSubcategoryKey(),
+                            CategorySource.LINK, (java.util.UUID) null)) {
+                        transactionRepository.save(counterpart);
+                    }
+                }
             }
         }
 

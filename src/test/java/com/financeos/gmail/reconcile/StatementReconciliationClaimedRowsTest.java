@@ -118,7 +118,7 @@ class StatementReconciliationClaimedRowsTest {
         t.setType(TransactionType.DEBIT);
         t.setSourcedDescription("Ramesh Kumar");
         if (reviewType == ReviewType.NEEDS_REVIEW) {
-            t.setReviewReasons(new HashSet<>(Set.of(ReviewReason.UNRECONCILED, ReviewReason.CATEGORY_UNVERIFIED)));
+            t.setReviewReasons(new HashSet<>(Set.of(ReviewReason.UNRECONCILED, ReviewReason.DUPLICATE_SUSPECT)));
         }
         return t;
     }

@@ -252,13 +252,13 @@ class GlobalSearchIntegrationTest {
 
     @Test
     void transactionsDoNotMatchAccountOrCategoryNames() throws Exception {
-        UUID category = api.create("/api/v1/categories", Map.of("name", "Catname" + tag));
+        UUID category = api.create("/api/v1/tags", Map.of("name", "Catname" + tag));
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("accountId", bank.toString());
         body.put("date", AppTime.today().toString());
         body.put("amount", -5);
         body.put("description", "Unrelated words");
-        body.put("categoryIds", List.of(category.toString()));
+        body.put("tagIds", List.of(category.toString()));
         api.create("/api/v1/transactions", body);
 
         JsonNode byAccount = search(api, "zeta savings " + tag);

@@ -162,7 +162,7 @@ class TransactionSearchTest {
         assertTrue(dataQuery.sql().contains("LOWER(sub.description)        LIKE :q"));
         assertTrue(dataQuery.sql().contains("LOWER(sub.sourced_description) LIKE :q"));
         assertTrue(dataQuery.sql().contains("LOWER(a.name)                 LIKE :q"));
-        assertTrue(dataQuery.sql().contains("EXISTS (SELECT 1 FROM transaction_categories tcx"));
+        assertTrue(dataQuery.sql().contains("EXISTS (SELECT 1 FROM transaction_tags tcx"));
         assertEquals("%coffee%", dataQuery.params().get("q"));
     }
 

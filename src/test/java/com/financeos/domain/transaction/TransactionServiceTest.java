@@ -4,7 +4,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.categorization.CategorizationService;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
@@ -25,7 +25,7 @@ class TransactionServiceTest {
 
     private TransactionRepository transactionRepository;
     private AccountRepository accountRepository;
-    private CategoryRepository categoryRepository;
+    private TagRepository categoryRepository;
     private UserRepository userRepository;
     private ReviewStatusManager reviewStatusManager;
     private CategorizationService categorizationService;
@@ -38,7 +38,7 @@ class TransactionServiceTest {
     void setUp() {
         transactionRepository = mock(TransactionRepository.class);
         accountRepository = mock(AccountRepository.class);
-        categoryRepository = mock(CategoryRepository.class);
+        categoryRepository = mock(TagRepository.class);
         userRepository = mock(UserRepository.class);
         reviewStatusManager = mock(ReviewStatusManager.class);
         categorizationService = mock(CategorizationService.class);
@@ -114,7 +114,7 @@ class TransactionServiceTest {
         UUID idNotFound = UUID.randomUUID();
 
         Transaction success = ownedTxn(idSuccess, Set.of(ReviewReason.UNRECONCILED));
-        Transaction skipped = ownedTxn(idSkipped, Set.of(ReviewReason.CATEGORY_UNVERIFIED));
+        Transaction skipped = ownedTxn(idSkipped, Set.of(ReviewReason.DUPLICATE_SUSPECT));
         Transaction notOwned = txnForUser(idNotOwned, UUID.randomUUID(), Set.of(ReviewReason.UNRECONCILED));
 
         List<UUID> ids = List.of(idSuccess, idSkipped, idNotOwned, idNotFound);

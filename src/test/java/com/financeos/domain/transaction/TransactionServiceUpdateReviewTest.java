@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.financeos.api.transaction.dto.UpdateTransactionRequest;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.category.Category;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.Tag;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.categorization.CategorizationService;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.user.User;
@@ -29,7 +29,7 @@ class TransactionServiceUpdateReviewTest {
 
     private TransactionRepository transactionRepository;
     private AccountRepository accountRepository;
-    private CategoryRepository categoryRepository;
+    private TagRepository categoryRepository;
     private UserRepository userRepository;
     private CategorizationService categorizationService;
 
@@ -39,7 +39,7 @@ class TransactionServiceUpdateReviewTest {
     void setUp() {
         transactionRepository = mock(TransactionRepository.class);
         accountRepository = mock(AccountRepository.class);
-        categoryRepository = mock(CategoryRepository.class);
+        categoryRepository = mock(TagRepository.class);
         userRepository = mock(UserRepository.class);
         categorizationService = mock(CategorizationService.class);
 
@@ -62,9 +62,8 @@ class TransactionServiceUpdateReviewTest {
     @Test
     void editingUnrelatedField_keepsNeedsReviewWhenCategoriesUnchanged() {
         // Editing an unrelated field (monitoring flag) on a NEEDS_REVIEW txn whose only
-        // reason is CATEGORY_UNVERIFIED must not clear that reason. The client round-trips
-        // the existing categoryIds unchanged, so gating the clear on presence alone used to
-        // wipe the reason and then fail to re-apply NEEDS_REVIEW.
+        // reason is DUPLICATE_SUSPECT must not clear that reason. The client round-trips
+        // the existing tagIds unchanged.
         UUID currentUserId = UUID.randomUUID();
         UserContext.setCurrentUserId(currentUserId);
         User user = new User();
@@ -73,7 +72,7 @@ class TransactionServiceUpdateReviewTest {
         Account account = new Account();
         account.setId(UUID.randomUUID());
 
-        Category cat = new Category("Groceries", user);
+        Tag cat = new Tag("Groceries", user);
         cat.setId(UUID.randomUUID());
 
         Transaction txn = new Transaction();
@@ -82,15 +81,15 @@ class TransactionServiceUpdateReviewTest {
         txn.setAccount(account);
         txn.setDate(LocalDate.now());
         txn.setAmount(new BigDecimal("-10.00"));
-        txn.setCategories(new HashSet<>(List.of(cat)));
+        txn.setTags(new HashSet<>(List.of(cat)));
         txn.setReviewType(ReviewType.NEEDS_REVIEW);
-        txn.setReviewReasons(new HashSet<>(List.of(ReviewReason.CATEGORY_UNVERIFIED)));
+        txn.setReviewReasons(new HashSet<>(List.of(ReviewReason.DUPLICATE_SUSPECT)));
 
         when(transactionRepository.findById(txn.getId())).thenReturn(Optional.of(txn));
         when(transactionRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
         when(categoryRepository.findAllById(List.of(cat.getId()))).thenReturn(List.of(cat));
 
-        // Toggle monitoring on; resend the unchanged categoryIds and current reviewType,
+        // Toggle monitoring on; resend the unchanged tagIds and current reviewType,
         // exactly as the client does.
         UpdateTransactionRequest request = new UpdateTransactionRequest(
                 LocalDate.now(),
@@ -106,14 +105,13 @@ class TransactionServiceUpdateReviewTest {
 
         assertDoesNotThrow(() -> transactionService.updateTransaction(txn.getId(), request));
         assertEquals(ReviewType.NEEDS_REVIEW, txn.getReviewType());
-        assertTrue(txn.getReviewReasons().contains(ReviewReason.CATEGORY_UNVERIFIED));
+        assertTrue(txn.getReviewReasons().contains(ReviewReason.DUPLICATE_SUSPECT));
         assertTrue(txn.isTransactionUnderMonitoring());
     }
 
     @Test
-    void changingCategories_clearsCategoryUnverifiedAndPromotes() {
-        // When the categories genuinely change, CATEGORY_UNVERIFIED should still be cleared
-        // and (being the only reason) the txn promoted out of NEEDS_REVIEW.
+    void changingTags_leavesTheReviewStateAlone() {
+        // Tags are plain labels: changing them says nothing about whether the row was reviewed.
         UUID currentUserId = UUID.randomUUID();
         UserContext.setCurrentUserId(currentUserId);
         User user = new User();
@@ -122,9 +120,9 @@ class TransactionServiceUpdateReviewTest {
         Account account = new Account();
         account.setId(UUID.randomUUID());
 
-        Category oldCat = new Category("Groceries", user);
+        Tag oldCat = new Tag("Groceries", user);
         oldCat.setId(UUID.randomUUID());
-        Category newCat = new Category("Dining", user);
+        Tag newCat = new Tag("Dining", user);
         newCat.setId(UUID.randomUUID());
 
         Transaction txn = new Transaction();
@@ -133,9 +131,9 @@ class TransactionServiceUpdateReviewTest {
         txn.setAccount(account);
         txn.setDate(LocalDate.now());
         txn.setAmount(new BigDecimal("-10.00"));
-        txn.setCategories(new HashSet<>(List.of(oldCat)));
+        txn.setTags(new HashSet<>(List.of(oldCat)));
         txn.setReviewType(ReviewType.NEEDS_REVIEW);
-        txn.setReviewReasons(new HashSet<>(List.of(ReviewReason.CATEGORY_UNVERIFIED)));
+        txn.setReviewReasons(new HashSet<>(List.of(ReviewReason.DUPLICATE_SUSPECT)));
 
         when(transactionRepository.findById(txn.getId())).thenReturn(Optional.of(txn));
         when(transactionRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
@@ -154,8 +152,9 @@ class TransactionServiceUpdateReviewTest {
         , null);
 
         transactionService.updateTransaction(txn.getId(), request);
-        assertEquals(ReviewType.MANUALLY_REVIEWED, txn.getReviewType());
-        assertFalse(txn.getReviewReasons().contains(ReviewReason.CATEGORY_UNVERIFIED));
+        assertEquals(ReviewType.NEEDS_REVIEW, txn.getReviewType());
+        assertTrue(txn.getReviewReasons().contains(ReviewReason.DUPLICATE_SUSPECT));
+        assertEquals(Set.of(newCat.getId()), txn.getTags().stream().map(tt -> tt.getTag().getId()).collect(java.util.stream.Collectors.toSet()));
     }
 
     @Test
@@ -174,7 +173,7 @@ class TransactionServiceUpdateReviewTest {
 
         Transaction txn = baseTxn(user);
         txn.setReviewType(ReviewType.NEEDS_REVIEW);
-        txn.setReviewReasons(new HashSet<>(List.of(ReviewReason.CATEGORY_UNVERIFIED)));
+        txn.setReviewReasons(new HashSet<>(List.of(ReviewReason.DUPLICATE_SUSPECT)));
 
         when(transactionRepository.findById(txn.getId())).thenReturn(Optional.of(txn));
         when(transactionRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
@@ -203,7 +202,7 @@ class TransactionServiceUpdateReviewTest {
 
         Transaction txn = baseTxn(user);
         txn.setReviewType(ReviewType.NEEDS_REVIEW);
-        txn.setReviewReasons(new HashSet<>(List.of(ReviewReason.CATEGORY_UNVERIFIED)));
+        txn.setReviewReasons(new HashSet<>(List.of(ReviewReason.DUPLICATE_SUSPECT)));
 
         when(transactionRepository.findById(txn.getId())).thenReturn(Optional.of(txn));
         when(transactionRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));

@@ -21,10 +21,13 @@ public class TransactionController {
     private final TransactionService transactionService;
     private final com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService;
     private final com.financeos.domain.obligation.ObligationRefService obligationRefService;
+    private final com.financeos.domain.category.CategoryCatalog categoryCatalog;
 
     public TransactionController(TransactionService transactionService,
                                  com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService,
-                                 com.financeos.domain.obligation.ObligationRefService obligationRefService) {
+                                 com.financeos.domain.obligation.ObligationRefService obligationRefService,
+                                 com.financeos.domain.category.CategoryCatalog categoryCatalog) {
+        this.categoryCatalog = categoryCatalog;
         this.transactionService = transactionService;
         this.transactionLinkService = transactionLinkService;
         this.obligationRefService = obligationRefService;
@@ -82,6 +85,19 @@ public class TransactionController {
             @Valid @RequestBody UpdateTransactionRequest request) {
         Transaction transaction = transactionService.updateTransaction(id, request);
         return ResponseEntity.ok(toSingleResponse(transaction));
+    }
+
+    /** Sets (null keys clear) or, with {@code restore}, puts back the category of one transaction; returns the previous state for Undo. */
+    @PutMapping("/{id}/category")
+    public ResponseEntity<SetCategoryResponse> setCategory(
+            @PathVariable UUID id,
+            @Valid @RequestBody SetCategoryRequest request) {
+        SetCategoryRequest.Restore restore = request.restore();
+        TransactionService.CategoryChange change = transactionService.setCategory(id, request.categoryKey(),
+                request.subcategoryKey(),
+                restore == null ? null
+                        : new TransactionService.CategoryRestore(restore.source(), restore.ruleId(), restore.setAt()));
+        return ResponseEntity.ok(SetCategoryResponse.from(change, categoryCatalog));
     }
 
     @DeleteMapping("/{id}")

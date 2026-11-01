@@ -1,25 +1,18 @@
 package com.financeos.api.categorize.dto;
 
-import com.financeos.api.category.dto.CategoryResponse;
-import com.financeos.domain.categorization.CategorizationService;
-
 import org.springframework.lang.Nullable;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
-
+/** The user's rule that matches a description: its category/sub-category, or both null when none does. */
 public record CategorizeResponse(
-        List<CategoryResponse> categories,
-        @Nullable UUID ruleId,
-        boolean fromRule,
-        @Nullable String mcc
+        @Nullable String categoryKey,
+        @Nullable String subcategoryKey,
+        @Nullable String source
 ) {
-    public static CategorizeResponse from(CategorizationService.SuggestionResult result) {
-        List<CategoryResponse> categoryResponses = result.categories().stream()
-                .map(CategoryResponse::from)
-                .sorted(Comparator.comparing(CategoryResponse::name))
-                .toList();
-        return new CategorizeResponse(categoryResponses, result.ruleId(), result.fromRule(), result.mcc());
+    public static CategorizeResponse empty() {
+        return new CategorizeResponse(null, null, null);
+    }
+
+    public static CategorizeResponse rule(String categoryKey, @Nullable String subcategoryKey) {
+        return new CategorizeResponse(categoryKey, subcategoryKey, "RULE");
     }
 }

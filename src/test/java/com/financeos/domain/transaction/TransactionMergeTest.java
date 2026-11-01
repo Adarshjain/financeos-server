@@ -9,8 +9,8 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.category.Category;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.Tag;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.categorization.CategorizationService;
 import com.financeos.domain.statement.StatementTransaction;
 import com.financeos.domain.statement.StatementTransactionRepository;
@@ -32,7 +32,7 @@ class TransactionMergeTest {
 
     private TransactionRepository transactionRepository;
     private AccountRepository accountRepository;
-    private CategoryRepository categoryRepository;
+    private TagRepository categoryRepository;
     private UserRepository userRepository;
     private ReviewStatusManager reviewStatusManager;
     private CategorizationService categorizationService;
@@ -49,7 +49,7 @@ class TransactionMergeTest {
     void setUp() {
         transactionRepository = mock(TransactionRepository.class);
         accountRepository = mock(AccountRepository.class);
-        categoryRepository = mock(CategoryRepository.class);
+        categoryRepository = mock(TagRepository.class);
         userRepository = mock(UserRepository.class);
         reviewStatusManager = new ReviewStatusManager();
         categorizationService = mock(CategorizationService.class);
@@ -162,9 +162,9 @@ class TransactionMergeTest {
         deleted.setIsEmi(true);
         deleted.setConvenienceFee(new BigDecimal("15.00"));
 
-        Category cat = new Category("Food", currentUser);
+        Tag cat = new Tag("Food", currentUser);
         cat.setId(UUID.randomUUID());
-        deleted.setCategories(Set.of(cat));
+        deleted.setTags(Set.of(cat));
 
         when(transactionRepository.findById(keepId)).thenReturn(Optional.of(kept));
         when(transactionRepository.findById(deleteId)).thenReturn(Optional.of(deleted));
@@ -177,7 +177,7 @@ class TransactionMergeTest {
         assertEquals(TransactionChannel.POS, kept.getChannel());
         assertTrue(kept.getIsEmi());
         assertEquals(new BigDecimal("15.00"), kept.getConvenienceFee());
-        assertEquals(1, kept.getCategories().size());
+        assertEquals(1, kept.getTags().size());
         assertEquals(ReviewType.MANUALLY_REVIEWED, response.reviewType());
         assertTrue(response.remainingReasons().isEmpty());
         verify(transactionRepository).delete(deleted);
@@ -189,14 +189,14 @@ class TransactionMergeTest {
         UUID deleteId = UUID.randomUUID();
 
         Transaction kept = createTestTxn(keepId, testAccount, TransactionSource.gmail_statement);
-        Category keptCat = new Category("Shopping", currentUser);
+        Tag keptCat = new Tag("Shopping", currentUser);
         keptCat.setId(UUID.randomUUID());
-        kept.setCategories(Set.of(keptCat));
+        kept.setTags(Set.of(keptCat));
 
         Transaction deleted = createTestTxn(deleteId, testAccount, TransactionSource.gmail_transaction_alert);
-        Category deletedCat = new Category("Food", currentUser);
+        Tag deletedCat = new Tag("Food", currentUser);
         deletedCat.setId(UUID.randomUUID());
-        deleted.setCategories(Set.of(deletedCat));
+        deleted.setTags(Set.of(deletedCat));
 
         when(transactionRepository.findById(keepId)).thenReturn(Optional.of(kept));
         when(transactionRepository.findById(deleteId)).thenReturn(Optional.of(deleted));
@@ -204,8 +204,8 @@ class TransactionMergeTest {
 
         transactionService.mergeTransactions(keepId, deleteId);
 
-        assertEquals(1, kept.getCategories().size());
-        assertEquals(keptCat.getId(), kept.getCategories().iterator().next().getCategory().getId());
+        assertEquals(1, kept.getTags().size());
+        assertEquals(keptCat.getId(), kept.getTags().iterator().next().getTag().getId());
     }
 
     @Test
@@ -214,7 +214,7 @@ class TransactionMergeTest {
         UUID deleteId = UUID.randomUUID();
 
         Transaction kept = createTestTxn(keepId, testAccount, TransactionSource.gmail_statement);
-        kept.getReviewReasons().add(ReviewReason.CATEGORY_UNVERIFIED);
+        kept.getReviewReasons().add(ReviewReason.DATE_CORRECTED);
 
         Transaction deleted = createTestTxn(deleteId, testAccount, TransactionSource.gmail_transaction_alert);
 
@@ -225,7 +225,7 @@ class TransactionMergeTest {
         MergeTransactionsResponse response = transactionService.mergeTransactions(keepId, deleteId);
 
         assertEquals(ReviewType.NEEDS_REVIEW, response.reviewType());
-        assertEquals(Set.of(ReviewReason.CATEGORY_UNVERIFIED), response.remainingReasons());
+        assertEquals(Set.of(ReviewReason.DATE_CORRECTED), response.remainingReasons());
     }
 
     private TransactionLink createLink(LinkType type, TransactionLinkMember... members) {

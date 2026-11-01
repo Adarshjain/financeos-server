@@ -13,7 +13,7 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.card.CardholderRepository;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 
@@ -31,7 +31,7 @@ class RewardRuleServiceTest {
     private RewardRuleRepository rewardRuleRepository;
     private RewardCapBucketRepository rewardCapBucketRepository;
     private AccountRepository accountRepository;
-    private CategoryRepository categoryRepository;
+    private TagRepository categoryRepository;
     private UserRepository userRepository;
     private CardholderRepository cardholderRepository;
     private ObjectMapper objectMapper;
@@ -52,7 +52,7 @@ class RewardRuleServiceTest {
         rewardRuleRepository = mock(RewardRuleRepository.class);
         rewardCapBucketRepository = mock(RewardCapBucketRepository.class);
         accountRepository = mock(AccountRepository.class);
-        categoryRepository = mock(CategoryRepository.class);
+        categoryRepository = mock(TagRepository.class);
         userRepository = mock(UserRepository.class);
         cardholderRepository = mock(CardholderRepository.class);
         objectMapper = new ObjectMapper();

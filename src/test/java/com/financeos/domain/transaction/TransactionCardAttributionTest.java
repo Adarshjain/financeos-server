@@ -17,7 +17,7 @@ import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.card.Card;
 import com.financeos.domain.account.card.CardRepository;
 import com.financeos.domain.categorization.CategorizationService;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.statement.StatementTransactionRepository;
 import com.financeos.domain.transaction.link.TransactionLinkRepository;
 import com.financeos.domain.user.User;
@@ -45,7 +45,7 @@ class TransactionCardAttributionTest {
     @Mock
     private CardRepository cardRepository;
     @Mock
-    private CategoryRepository categoryRepository;
+    private TagRepository categoryRepository;
     @Mock
     private UserRepository userRepository;
     @Mock
@@ -122,6 +122,8 @@ class TransactionCardAttributionTest {
                 LocalDate.now(),
                 new BigDecimal("-500.00"),
                 "Spend",
+                null,
+                null,
                 null,
                 null,
                 null,

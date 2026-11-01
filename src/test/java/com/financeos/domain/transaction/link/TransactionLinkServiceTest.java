@@ -9,7 +9,7 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountType;
-import com.financeos.domain.category.Category;
+import com.financeos.domain.transaction.CategorySource;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionSource;
@@ -58,7 +58,8 @@ class TransactionLinkServiceTest {
         transactionLinkService = new TransactionLinkService(
                 transactionLinkRepository,
                 transactionRepository,
-                userRepository
+                userRepository,
+                com.financeos.support.TestCategories.writer()
         );
 
         userId = UUID.randomUUID();
@@ -200,9 +201,9 @@ class TransactionLinkServiceTest {
         Transaction t1 = createTestTx(id1, account1, TransactionType.DEBIT, BigDecimal.valueOf(1000));
         Transaction t2 = createTestTx(id2, account1, TransactionType.CREDIT, BigDecimal.valueOf(200));
 
-        Category cat = new Category("Shopping", null);
-        cat.setId(UUID.randomUUID());
-        t1.setCategories(Set.of(cat));
+        t1.setCategoryKey("shopping");
+        t1.setSubcategoryKey("shopping.electronics");
+        t1.setCategorySource(CategorySource.AUTO);
 
         when(transactionRepository.findAllByIdIn(List.of(id1, id2))).thenReturn(List.of(t1, t2));
         when(transactionLinkRepository.findByMembers_Transaction_Id(any())).thenReturn(Optional.empty());
@@ -219,7 +220,46 @@ class TransactionLinkServiceTest {
 
         assertThat(response.type()).isEqualTo(LinkType.REFUND);
         verify(transactionRepository).save(t2);
-        assertThat(t2.getCategories()).hasSize(1);
+        assertThat(t2.getCategoryKey()).isEqualTo("shopping");
+        assertThat(t2.getSubcategoryKey()).isEqualTo("shopping.electronics");
+        assertThat(t2.getCategorySource()).isEqualTo(CategorySource.LINK);
+        assertThat(t2.getCategorySetAt()).isNotNull();
+    }
+
+    @Test
+    void createLink_refund_alignmentKeepsAUserSetCategoryAndSkipsAnUncategorisedAnchor() {
+        UUID id1 = UUID.randomUUID();
+        UUID id2 = UUID.randomUUID();
+        UUID id3 = UUID.randomUUID();
+
+        Transaction anchor = createTestTx(id1, account1, TransactionType.DEBIT, BigDecimal.valueOf(1000));
+        anchor.setCategoryKey("shopping");
+        Transaction byUser = createTestTx(id2, account1, TransactionType.CREDIT, BigDecimal.valueOf(200));
+        byUser.setCategoryKey("cashback");
+        byUser.setCategorySource(CategorySource.USER);
+        Transaction plain = createTestTx(id3, account1, TransactionType.CREDIT, BigDecimal.valueOf(300));
+
+        when(transactionRepository.findAllByIdIn(List.of(id1, id2, id3))).thenReturn(List.of(anchor, byUser, plain));
+        when(transactionLinkRepository.findByMembers_Transaction_Id(any())).thenReturn(Optional.empty());
+        when(transactionLinkRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        transactionLinkService.createLink(new CreateTransactionLinkRequest(LinkType.REFUND, "Refund", true,
+                List.of(new MemberRef(id1, true), new MemberRef(id2, false), new MemberRef(id3, false))), LinkOrigin.USER);
+
+        assertThat(byUser.getCategoryKey()).isEqualTo("cashback");
+        assertThat(byUser.getCategorySource()).isEqualTo(CategorySource.USER);
+        assertThat(plain.getCategoryKey()).isEqualTo("shopping");
+        assertThat(plain.getCategorySource()).isEqualTo(CategorySource.LINK);
+        verify(transactionRepository, never()).save(byUser);
+
+        // An uncategorised anchor changes nothing.
+        anchor.setCategoryKey(null);
+        plain.setCategoryKey(null);
+        plain.setCategorySource(null);
+        when(transactionRepository.findAllByIdIn(List.of(id1, id3))).thenReturn(List.of(anchor, plain));
+        transactionLinkService.createLink(new CreateTransactionLinkRequest(LinkType.REFUND, "Refund", true,
+                List.of(new MemberRef(id1, true), new MemberRef(id3, false))), LinkOrigin.USER);
+        assertThat(plain.getCategoryKey()).isNull();
     }
 
     @Test
@@ -506,9 +546,7 @@ class TransactionLinkServiceTest {
         Transaction t2 = createTestTx(id2, account1, TransactionType.CREDIT, BigDecimal.valueOf(1000));
         t2.setTransactionExcluded(false);
 
-        Category cat = new Category("Purchase", null);
-        cat.setId(UUID.randomUUID());
-        t1.setCategories(Set.of(cat));
+        t1.setCategoryKey("shopping");
 
         when(transactionRepository.findAllByIdIn(List.of(id1, id2))).thenReturn(List.of(t1, t2));
         when(transactionLinkRepository.findByMembers_Transaction_Id(any())).thenReturn(Optional.empty());
@@ -523,8 +561,8 @@ class TransactionLinkServiceTest {
 
         transactionLinkService.createLink(request, LinkOrigin.USER);
 
-        // Verify categories were aligned
-        assertThat(t2.getCategories()).hasSize(1);
+        // Verify the category was aligned
+        assertThat(t2.getCategoryKey()).isEqualTo("shopping");
         // Verify is_excluded was NOT changed
         assertThat(t2.isTransactionExcluded()).isFalse();
         verify(transactionRepository).save(t2);

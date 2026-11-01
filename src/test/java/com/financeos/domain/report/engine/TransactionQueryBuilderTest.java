@@ -91,7 +91,7 @@ class TransactionQueryBuilderTest {
         String from = queryBuilder.fromClause(joins);
         assertTrue(from.contains("FROM transactions t"));
         assertTrue(from.contains("LEFT JOIN accounts a ON a.id = t.account_id"));
-        assertTrue(from.contains("LEFT JOIN transaction_categories tc ON tc.transaction_id = t.id"));
-        assertTrue(from.contains("LEFT JOIN categories c ON c.id = tc.category_id"));
+        assertTrue(from.contains("LEFT JOIN transaction_tags tc ON tc.transaction_id = t.id"));
+        assertTrue(from.contains("LEFT JOIN tags c ON c.id = tc.tag_id"));
     }
 }

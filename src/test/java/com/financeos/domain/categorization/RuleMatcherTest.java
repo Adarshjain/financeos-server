@@ -12,22 +12,10 @@ public class RuleMatcherTest {
     }
 
     @Test
-    public void merchantKeyMatchesNormalizedDescription() {
-        // Normalizer uppercases, strips punctuation, drops 3+-digit tokens and noise words.
-        assertTrue(matches(MatchType.MERCHANT_KEY, "STARBUCKS COFFEE", "STARBUCKS COFFEE #1234 UPI PAYMENT"));
-        // Punctuation becomes a token boundary, so the key can span it as a space.
-        assertTrue(matches(MatchType.MERCHANT_KEY, "STAR BUCKS", "STAR-BUCKS COFFEE"));
-        assertTrue(matches(MatchType.MERCHANT_KEY, "SWIGGY", "upi/swiggy/9834721/order"));
-        assertFalse(matches(MatchType.MERCHANT_KEY, "AMAZON", "SWIGGY ORDER"));
-        // Keys shorter than 3 chars never match.
-        assertFalse(matches(MatchType.MERCHANT_KEY, "SW", "SW BANGALORE"));
-    }
-
-    @Test
     public void containsMatchesRawCaseInsensitive() {
         assertTrue(matches(MatchType.CONTAINS, "upi-autopay/042", "UPI-AUTOPAY/042/NETFLIX"));
         assertTrue(matches(MatchType.CONTAINS, "NetFlix", "upi-autopay/042/netflix"));
-        // Raw match: punctuation is significant, unlike MERCHANT_KEY.
+        // Raw match: punctuation is significant.
         assertFalse(matches(MatchType.CONTAINS, "UPI AUTOPAY 042", "UPI-AUTOPAY/042/NETFLIX"));
     }
 
@@ -77,15 +65,8 @@ public class RuleMatcherTest {
     }
 
     @Test
-    public void nullMatchTypeFallsBackToMerchantKey() {
+    public void nullMatchTypeFallsBackToContains() {
         assertTrue(matches(null, "SWIGGY", "UPI SWIGGY BANGALORE"));
-    }
-
-    @Test
-    public void canonicalizeMerchantKeyNormalizes() {
-        assertEquals("SWIGGY INSTAMART", RuleMatcher.canonicalizePattern(MatchType.MERCHANT_KEY, "Swiggy*Instamart-9938"));
-        assertThrows(ValidationException.class,
-                () -> RuleMatcher.canonicalizePattern(MatchType.MERCHANT_KEY, "UPI 123456")); // normalizes to nothing
     }
 
     @Test

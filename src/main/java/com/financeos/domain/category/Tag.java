@@ -11,15 +11,16 @@ import org.hibernate.annotations.Filter;
 
 import java.util.UUID;
 
+/** A per-user free-form label on transactions (formerly the user's "categories"; ids unchanged). */
 @Entity
-@Table(name = "categories", uniqueConstraints = {
+@Table(name = "tags", uniqueConstraints = {
         @UniqueConstraint(name = "uc_categories_user_name", columnNames = { "user_id", "name" })
 })
 @Getter
 @Setter
 @NoArgsConstructor
 @Filter(name = "userFilter", condition = "user_id = :userId")
-public class Category {
+public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -35,7 +36,7 @@ public class Category {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private User user;
 
-    public Category(String name, User user) {
+    public Tag(String name, User user) {
         this.name = name;
         this.user = user;
     }

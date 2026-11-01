@@ -32,7 +32,8 @@ class TransactionControllerGetByIdTest {
         transactionService = mock(TransactionService.class);
         linkService = mock(TransactionLinkService.class);
         obligationRefService = mock(ObligationRefService.class);
-        controller = new TransactionController(transactionService, linkService, obligationRefService);
+        controller = new TransactionController(transactionService, linkService, obligationRefService,
+                com.financeos.domain.category.CategoryCatalog.shared());
     }
 
     @Test

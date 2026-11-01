@@ -1,7 +1,6 @@
 package com.financeos.domain.categorization;
 
 import com.financeos.domain.user.User;
-import com.financeos.domain.category.Category;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,8 +11,6 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -42,7 +39,7 @@ public class CategoryRule {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "match_type", nullable = false, length = 20)
-    private MatchType matchType = MatchType.MERCHANT_KEY;
+    private MatchType matchType = MatchType.CONTAINS;
 
     @Column(name = "display_name")
     private String displayName;
@@ -50,11 +47,13 @@ public class CategoryRule {
     @Column(name = "mcc", length = 4)
     private String mcc;
 
-    @Column(nullable = false)
-    private boolean verified;
+    /** The category (key into txn_categories) this rule gives matching transactions. */
+    @Column(name = "category_key", nullable = false, length = 40)
+    private String categoryKey;
 
-    @Column(nullable = false)
-    private String source;
+    /** Optional sub-category of {@link #categoryKey}. */
+    @Column(name = "subcategory_key", length = 80)
+    private String subcategoryKey;
 
     @Column(name = "applied_count", nullable = false)
     private int appliedCount = 0;
@@ -67,14 +66,6 @@ public class CategoryRule {
 
     @Column(name = "updated_at")
     private Instant updatedAt;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "category_rule_categories",
-            joinColumns = @JoinColumn(name = "rule_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private Set<Category> categories = new HashSet<>();
 
     @PrePersist
     protected void onCreate() {

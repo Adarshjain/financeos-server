@@ -170,7 +170,7 @@ class AccountInsightsIntegrationTest {
     @Test
     void interestIsTheInterestCreditsOfThePreviousCalendarQuarterOnly() throws Exception {
         UUID interest = category("Interest");
-        jdbc.update("UPDATE categories SET name = ? WHERE id = ?", "  InTeReSt ", interest.toString());
+        jdbc.update("UPDATE tags SET name = ? WHERE id = ?", "  InTeReSt ", interest.toString());
         UUID salary = category("Salary");
         LocalDate currentQuarterStart = LocalDate.of(today.getYear(), ((today.getMonthValue() - 1) / 3) * 3 + 1, 1);
         LocalDate from = currentQuarterStart.minusMonths(3);
@@ -359,7 +359,7 @@ class AccountInsightsIntegrationTest {
     }
 
     private UUID category(String name) throws Exception {
-        return api.create("/api/v1/categories", Map.of("name", name));
+        return api.create("/api/v1/tags", Map.of("name", name));
     }
 
     /** Positive amount is a credit, negative a debit. */
@@ -369,7 +369,7 @@ class AccountInsightsIntegrationTest {
         body.put("date", date.toString());
         body.put("amount", amount);
         body.put("description", description);
-        body.put("categoryIds", categories.stream().map(UUID::toString).toList());
+        body.put("tagIds", categories.stream().map(UUID::toString).toList());
         return api.create("/api/v1/transactions", body);
     }
 

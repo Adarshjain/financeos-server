@@ -1,17 +1,17 @@
 package com.financeos.domain.transaction;
 
-import com.financeos.domain.category.Category;
+import com.financeos.domain.category.Tag;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "transaction_categories")
+@Table(name = "transaction_tags")
 @Getter
 @Setter
 @NoArgsConstructor
-public class TransactionCategory {
+public class TransactionTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,19 +22,19 @@ public class TransactionCategory {
     private Transaction transaction;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    @JoinColumn(name = "tag_id", nullable = false)
+    private Tag tag;
 
-    public TransactionCategory(Transaction transaction, Category category) {
+    public TransactionTag(Transaction transaction, Tag tag) {
         this.transaction = transaction;
-        this.category = category;
+        this.tag = tag;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TransactionCategory that = (TransactionCategory) o;
+        TransactionTag that = (TransactionTag) o;
         if (id != null && that.id != null) {
             return id.equals(that.id);
         }
@@ -42,8 +42,8 @@ public class TransactionCategory {
                 transaction != null ? transaction.getId() : null,
                 that.transaction != null ? that.transaction.getId() : null
         ) && java.util.Objects.equals(
-                category != null ? category.getId() : null,
-                that.category != null ? that.category.getId() : null
+                tag != null ? tag.getId() : null,
+                that.tag != null ? that.tag.getId() : null
         );
     }
 
@@ -51,7 +51,7 @@ public class TransactionCategory {
     public int hashCode() {
         return java.util.Objects.hash(
                 transaction != null ? transaction.getId() : null,
-                category != null ? category.getId() : null
+                tag != null ? tag.getId() : null
         );
     }
 }

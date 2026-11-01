@@ -9,7 +9,6 @@ import static org.mockito.Mockito.when;
 
 import com.financeos.api.inbox.dto.InboxActionResponse;
 import com.financeos.api.inbox.dto.InboxItemResponse;
-import com.financeos.domain.transaction.ReviewReason;
 import com.financeos.domain.transaction.ReviewType;
 import com.financeos.domain.transaction.TransactionRepository;
 import java.time.LocalDate;
@@ -25,21 +24,20 @@ class ReviewInboxCollectorTest {
     private final ReviewInboxCollector collector = new ReviewInboxCollector(repository);
     private final UUID userId = UUID.randomUUID();
 
-    private void queue(long total, long category) {
+    private void queue(long total) {
         when(repository.countByUserIdAndReviewType(userId, ReviewType.NEEDS_REVIEW)).thenReturn(total);
-        when(repository.countByUserIdAndReviewTypeAndReason(userId, ReviewType.NEEDS_REVIEW, ReviewReason.CATEGORY_UNVERIFIED)).thenReturn(category);
     }
 
     @Test
-    void anEmptyQueueHasNoRowAndSkipsTheCategoryCount() {
-        queue(0, 0);
+    void anEmptyQueueHasNoRowAndSkipsTheReasonCount() {
+        queue(0);
         assertEquals(List.of(), collector.collect(userId, TODAY));
         verify(repository, never()).countByUserIdAndReviewTypeAndReason(any(), any(), any());
     }
 
     @Test
     void theQueueIsOneSummaryRowLinkingToReview() {
-        queue(5, 0);
+        queue(5);
 
         List<InboxItemResponse> rows = collector.collect(userId, TODAY);
 
@@ -51,21 +49,9 @@ class ReviewInboxCollectorTest {
         assertEquals("warning", row.severity());
         assertEquals("needs_look", row.section());
         assertEquals("Transactions to review", row.title());
-        assertEquals("5 waiting for review", row.subtitle(), "nothing flagged for category: a plain count");
+        assertEquals("5 waiting for review", row.subtitle());
         assertEquals("/transactions/review", row.href());
         assertEquals(5, row.count());
         assertEquals(List.of(InboxActionResponse.navigate("review", "Review", "/transactions/review"), InboxRows.dismiss()), row.actions());
-    }
-
-    @Test
-    void categoryFlagsAreCalledOutWithTheRemainderAsOther() {
-        queue(5, 2);
-        assertEquals("2 flagged for category · 3 other", collector.collect(userId, TODAY).get(0).subtitle());
-    }
-
-    @Test
-    void whenEveryRowIsACategoryFlagThereIsNoOtherPart() {
-        queue(5, 5);
-        assertEquals("5 flagged for category", collector.collect(userId, TODAY).get(0).subtitle());
     }
 }
