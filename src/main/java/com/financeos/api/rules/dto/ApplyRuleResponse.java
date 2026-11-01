@@ -16,16 +16,19 @@ public record ApplyRuleResponse(
         String ruleName,
         MatchType matchType,
         String pattern,
-        List<String> categories,
+        String categoryKey,
+        String subcategoryKey,
         // true = every transaction the pattern matches; false = the transactions the user picked.
         boolean allMatches,
         int requested,
-        int skippedManuallyReviewed,
+        // Skipped: rows whose category the user set, rows the pattern no longer matches, rows whose direction the category does not fit.
+        int skippedUserSet,
         int skippedNoLongerMatching,
+        int skippedWrongDirection,
         int notFound,
         List<RuleMatchService.AppliedTransaction> transactions) {
 
     public ApplyRuleResponse(int appliedCount) {
-        this(appliedCount, null, null, null, null, List.of(), false, 0, 0, 0, 0, List.of());
+        this(appliedCount, null, null, null, null, null, null, false, 0, 0, 0, 0, 0, List.of());
     }
 }

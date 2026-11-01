@@ -176,9 +176,9 @@ class ReportFieldValuesServiceTest {
         ArgumentCaptor<String> sql = ArgumentCaptor.forClass(String.class);
         verify(em, times(2)).createNativeQuery(sql.capture());
         assertTrue(sql.getAllValues().get(0).startsWith("SELECT DISTINCT a.name AS v FROM transactions t LEFT JOIN accounts a"));
-        assertTrue(sql.getAllValues().get(0).contains("LEFT JOIN accounts a") && !sql.getAllValues().get(0).contains("categories"));
+        assertTrue(sql.getAllValues().get(0).contains("LEFT JOIN accounts a") && !sql.getAllValues().get(0).contains("tags"));
         assertTrue(sql.getAllValues().get(1).startsWith("SELECT DISTINCT c.name AS v FROM transactions t"));
-        assertTrue(sql.getAllValues().get(1).contains("LEFT JOIN categories c ON c.id = tc.category_id"));
+        assertTrue(sql.getAllValues().get(1).contains("LEFT JOIN tags c ON c.id = tc.tag_id"));
         assertEquals(List.of("account", "category"), List.copyOf(values.keySet()));
     }
 

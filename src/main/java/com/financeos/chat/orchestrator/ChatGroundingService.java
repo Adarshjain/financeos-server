@@ -4,8 +4,8 @@ import com.financeos.core.security.UserContext;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.category.Category;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.Tag;
+import com.financeos.domain.category.TagRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,14 +17,14 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChatGroundingService {
 
     private final AccountRepository accountRepository;
-    private final CategoryRepository categoryRepository;
+    private final TagRepository tagRepository;
 
     private final Map<UUID, CachedGrounding> cache = new ConcurrentHashMap<>();
     private static final long CACHE_TTL_MS = 5 * 60 * 1000L; // 5 minutes
 
-    public ChatGroundingService(AccountRepository accountRepository, CategoryRepository categoryRepository) {
+    public ChatGroundingService(AccountRepository accountRepository, TagRepository tagRepository) {
         this.accountRepository = accountRepository;
-        this.categoryRepository = categoryRepository;
+        this.tagRepository = tagRepository;
     }
 
     public String buildGroundingBlock() {
@@ -63,10 +63,10 @@ public class ChatGroundingService {
               .append(", type: ").append(acct.getType()).append(")\n");
         }
 
-        List<Category> categories = categoryRepository.findByUserId(userId);
+        List<Tag> categories = tagRepository.findByUserId(userId);
         sb.append("\nUser Categories (max 60):\n");
         int count = 0;
-        for (Category cat : categories) {
+        for (Tag cat : categories) {
             count++;
             if (count > 60) {
                 sb.append("... [truncated ").append(categories.size() - 60).append(" additional categories]\n");

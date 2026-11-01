@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.category.Category;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.Tag;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.transaction.Transaction;
-import com.financeos.domain.transaction.TransactionCategory;
+import com.financeos.domain.transaction.TransactionTag;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
@@ -59,11 +59,11 @@ class ReportCategoryFilterIntegrationTest {
     @Autowired private UserRepository userRepository;
     @Autowired private AccountRepository accountRepository;
     @Autowired private TransactionRepository transactionRepository;
-    @Autowired private CategoryRepository categoryRepository;
+    @Autowired private TagRepository categoryRepository;
 
     private ApiTestClient api;
     private UUID userId;
-    private final Map<String, Category> categories = new HashMap<>();
+    private final Map<String, Tag> categories = new HashMap<>();
 
     private UUID foodFuel;
     private UUID food;
@@ -80,7 +80,7 @@ class ReportCategoryFilterIntegrationTest {
                 "openingBalance", 1000, "financialPosition", "asset", "excludeFromNetAsset", false));
         Account account = accountRepository.findById(bank).orElseThrow();
         for (String name : List.of("Food", "Fuel", "Travel", "Shopping")) {
-            categories.put(name, categoryRepository.save(new Category(name, account.getUser())));
+            categories.put(name, categoryRepository.save(new Tag(name, account.getUser())));
         }
         foodFuel = txn(account, "100", "Fuel and snacks", "Food", "Fuel");
         food = txn(account, "50", "Lunch", "Food");
@@ -217,7 +217,7 @@ class ReportCategoryFilterIntegrationTest {
                 TransactionSource.manual, TransactionType.DEBIT, false, false);
         t.setUser(owner);
         for (String name : categoryNames) {
-            t.getCategories().add(new TransactionCategory(t, categories.get(name)));
+            t.getTags().add(new TransactionTag(t, categories.get(name)));
         }
         return transactionRepository.save(t).getId();
     }

@@ -28,24 +28,24 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     }
 
     @Override
-    @EntityGraph(attributePaths = { "categories.category", "account" })
+    @EntityGraph(attributePaths = { "tags.tag", "appliedRule", "account" })
     Page<Transaction> findAll(Pageable pageable);
 
 
-    @EntityGraph(attributePaths = { "categories.category", "account", "card", "card.cardholder", "reviewReasons" })
+    @EntityGraph(attributePaths = { "tags.tag", "appliedRule", "account", "card", "card.cardholder", "reviewReasons" })
     List<Transaction> findAllByIdIn(List<UUID> ids);
 
-    @EntityGraph(attributePaths = { "categories.category", "account", "card", "card.cardholder", "reviewReasons" })
+    @EntityGraph(attributePaths = { "tags.tag", "appliedRule", "account", "card", "card.cardholder", "reviewReasons" })
     List<Transaction> findAllByIdInAndUserId(List<UUID> ids, UUID userId);
 
-    @EntityGraph(attributePaths = { "categories.category", "account" })
+    @EntityGraph(attributePaths = { "tags.tag", "appliedRule", "account" })
     Page<Transaction> findByAccountId(UUID accountId, Pageable pageable);
 
     @Query("SELECT t FROM Transaction t WHERE t.date BETWEEN :startDate AND :endDate ORDER BY t.date DESC")
     List<Transaction> findByDateRange(@Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
 
-    @Query("SELECT t FROM Transaction t JOIN t.categories tc JOIN tc.category c WHERE c.name = :category ORDER BY t.date DESC")
+    @Query("SELECT t FROM Transaction t JOIN t.tags tc JOIN tc.tag c WHERE c.name = :category ORDER BY t.date DESC")
     List<Transaction> findByCategory(@Param("category") String category);
 
     boolean existsBySourceMessageId(String sourceMessageId);
@@ -74,7 +74,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("endDate") LocalDate endDate);
 
     /** Reward engine: fetch by effective date (settlement date when present, else transaction date). */
-    @EntityGraph(attributePaths = { "categories.category", "card.cardholder" })
+    @EntityGraph(attributePaths = { "tags.tag", "card.cardholder" })
     @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId " +
             "AND COALESCE(t.settlementDate, t.date) BETWEEN :startDate AND :endDate")
     List<Transaction> findForRewardEvaluation(
@@ -83,7 +83,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("endDate") LocalDate endDate);
 
     /** {@link #findForRewardEvaluation} for several accounts at once (batched totals). */
-    @EntityGraph(attributePaths = { "categories.category", "card.cardholder" })
+    @EntityGraph(attributePaths = { "tags.tag", "card.cardholder" })
     @Query("SELECT t FROM Transaction t WHERE t.account.id IN :accountIds " +
             "AND COALESCE(t.settlementDate, t.date) BETWEEN :startDate AND :endDate")
     List<Transaction> findForRewardEvaluationIn(
@@ -99,20 +99,21 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
         UUID getId();
 
         String getSourcedDescription();
+
+        /** Who set the category now (USER rows are matched but never overwritten); null when uncategorised. */
+        CategorySource getCategorySource();
     }
 
     /**
      * Candidates for category-rule matching: only ingested transactions (rules never match
-     * manual descriptions) that aren't manually reviewed. Lightweight projection because the
-     * rule predicate runs in Java — MERCHANT_KEY normalization and REGEX can't be pushed to SQL.
+     * manual descriptions). Lightweight projection because the rule predicate runs in Java
+     * (REGEX can't be pushed to SQL).
      */
-    @Query("SELECT t.id AS id, t.sourcedDescription AS sourcedDescription FROM Transaction t " +
-           "WHERE t.user.id = :userId AND t.sourcedDescription IS NOT NULL " +
-           "AND (t.reviewType IS NULL OR t.reviewType <> :excludedReviewType) " +
-           "ORDER BY t.date DESC, t.createdAt DESC")
-    List<RuleMatchCandidate> findRuleMatchCandidates(
-            @Param("userId") UUID userId,
-            @Param("excludedReviewType") ReviewType excludedReviewType);
+    @Query("SELECT t.id AS id, t.sourcedDescription AS sourcedDescription, t.categorySource AS categorySource "
+           + "FROM Transaction t "
+           + "WHERE t.user.id = :userId AND t.sourcedDescription IS NOT NULL "
+           + "ORDER BY t.date DESC, t.createdAt DESC")
+    List<RuleMatchCandidate> findRuleMatchCandidates(@Param("userId") UUID userId);
 
     @Query("SELECT COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END), 0) FROM Transaction t WHERE t.account.id = :accountId")
     java.math.BigDecimal findTotalTransactionSumByAccountId(@Param("accountId") UUID accountId);
@@ -233,7 +234,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     }
 
     /** The category names of every transaction {@link #findBalanceTransactionRows} lists. */
-    @Query("SELECT tc.transaction.id AS transactionId, c.name AS name FROM TransactionCategory tc JOIN tc.category c " +
+    @Query("SELECT tc.transaction.id AS transactionId, c.name AS name FROM TransactionTag tc JOIN tc.tag c " +
            "WHERE tc.transaction.account.id = :accountId " +
            "AND (:afterDate IS NULL OR tc.transaction.date > :afterDate)")
     List<BalanceTransactionCategoryRow> findBalanceTransactionCategoryNames(@Param("accountId") UUID accountId,
@@ -382,7 +383,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     @Query("SELECT COUNT(t) FROM Transaction t WHERE t.user.id = :userId AND t.reviewType = :reviewType")
     long countByUserIdAndReviewType(@Param("userId") UUID userId, @Param("reviewType") ReviewType reviewType);
 
-    /** Inbox: of those, how many carry one review reason (e.g. CATEGORY_UNVERIFIED). */
+    /** Inbox: of those, how many carry one review reason (e.g. UNRECONCILED). */
     @Query("SELECT COUNT(DISTINCT t.id) FROM Transaction t JOIN t.reviewReasons r WHERE t.user.id = :userId AND t.reviewType = :reviewType AND r = :reason")
     long countByUserIdAndReviewTypeAndReason(@Param("userId") UUID userId, @Param("reviewType") ReviewType reviewType,
                                              @Param("reason") ReviewReason reason);
@@ -410,7 +411,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     }
 
     /** Per category name, the account's totals of one direction for dates in {@code from}..{@code to}; uncategorised rows have no row here. */
-    @Query("SELECT c.name AS name, SUM(t.amount) AS total FROM Transaction t JOIN t.categories tc JOIN tc.category c "
+    @Query("SELECT c.name AS name, SUM(t.amount) AS total FROM Transaction t JOIN t.tags tc JOIN tc.tag c "
             + "WHERE t.account.id = :accountId AND t.type = :type AND t.date BETWEEN :from AND :to GROUP BY c.name")
     List<CategoryTotalProjection> sumByCategoryBetween(@Param("accountId") UUID accountId,
                                                        @Param("type") TransactionType type,
@@ -419,7 +420,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     /** Credits in the window that carry a category named "Interest" (case-insensitive, trimmed). */
     @Query("SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t WHERE t.account.id = :accountId "
             + "AND t.type = com.financeos.domain.transaction.TransactionType.CREDIT AND t.date BETWEEN :from AND :to "
-            + "AND EXISTS (SELECT 1 FROM TransactionCategory tc JOIN tc.category c WHERE tc.transaction = t "
+            + "AND EXISTS (SELECT 1 FROM TransactionTag tc JOIN tc.tag c WHERE tc.transaction = t "
             + "AND LOWER(TRIM(c.name)) = 'interest')")
     java.math.BigDecimal sumInterestCreditsBetween(@Param("accountId") UUID accountId,
                                                    @Param("from") LocalDate from, @Param("to") LocalDate to);

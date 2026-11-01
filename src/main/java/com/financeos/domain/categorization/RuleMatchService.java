@@ -1,10 +1,8 @@
 package com.financeos.domain.categorization;
 
-import com.financeos.domain.category.Category;
-import com.financeos.domain.transaction.ReviewReason;
-import com.financeos.domain.transaction.ReviewStatusManager;
-import com.financeos.domain.transaction.ReviewType;
+import com.financeos.domain.transaction.CategorySource;
 import com.financeos.domain.transaction.Transaction;
+import com.financeos.domain.transaction.TransactionCategoryWriter;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionType;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +16,6 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,8 +26,8 @@ import java.util.stream.Collectors;
 /**
  * Runs a rule's predicate across a user's transactions: paginated preview of what a
  * (possibly unsaved) pattern would match, and bulk application of a saved rule to
- * selected or all matches. Matching is against sourcedDescription only and always
- * skips MANUALLY_REVIEWED transactions — those are settled.
+ * selected or all matches. Matching is against sourcedDescription only; applying always
+ * skips transactions whose category the user set (source USER) — those are settled.
  */
 @Service
 @Slf4j
@@ -42,19 +39,18 @@ public class RuleMatchService {
 
     private final TransactionRepository transactionRepository;
     private final CategoryRuleRepository categoryRuleRepository;
-    private final ReviewStatusManager reviewStatusManager;
+    private final TransactionCategoryWriter categoryWriter;
 
     public RuleMatchService(TransactionRepository transactionRepository,
                             CategoryRuleRepository categoryRuleRepository,
-                            ReviewStatusManager reviewStatusManager) {
+                            TransactionCategoryWriter categoryWriter) {
         this.transactionRepository = transactionRepository;
         this.categoryRuleRepository = categoryRuleRepository;
-        this.reviewStatusManager = reviewStatusManager;
+        this.categoryWriter = categoryWriter;
     }
 
     /**
-     * Detached snapshot of a matched transaction, safe to use after the transaction
-     * closes (categories are copied out of the lazy collection).
+     * Detached snapshot of a matched transaction, safe to use after the transaction closes.
      */
     public record MatchedTransaction(
             UUID id,
@@ -62,8 +58,9 @@ public class RuleMatchService {
             BigDecimal amount,
             TransactionType type,
             String sourcedDescription,
-            Set<Category> categories,
-            ReviewType reviewType,
+            String categoryKey,
+            String subcategoryKey,
+            CategorySource categorySource,
             UUID appliedRuleId,
             String appliedRuleName,
             UUID accountId,
@@ -80,8 +77,9 @@ public class RuleMatchService {
     public record ApplyOutcome(
             int requested,
             int applied,
-            int skippedManuallyReviewed,
+            int skippedUserSet,
             int skippedNoLongerMatching,
+            int skippedWrongDirection,
             int notFound,
             List<AppliedTransaction> appliedSample) {
     }
@@ -94,9 +92,15 @@ public class RuleMatchService {
             String description) {
     }
 
+    /** A page of matches plus the totals the rule editor shows: all matches, and those the user categorised. */
+    public record MatchPage(Page<MatchedTransaction> matches, long matchCount, long userSetCount) {
+    }
+
     @Transactional(readOnly = true)
-    public Page<MatchedTransaction> findMatches(UUID userId, MatchType matchType, String pattern, Pageable pageable) {
-        List<UUID> matchedIds = matchingTransactionIds(userId, matchType, pattern);
+    public MatchPage findMatches(UUID userId, MatchType matchType, String pattern, Pageable pageable) {
+        List<TransactionRepository.RuleMatchCandidate> matched = matchingCandidates(userId, matchType, pattern);
+        long userSet = matched.stream().filter(c -> c.getCategorySource() == CategorySource.USER).count();
+        List<UUID> matchedIds = matched.stream().map(TransactionRepository.RuleMatchCandidate::getId).toList();
 
         int from = (int) Math.min(pageable.getOffset(), matchedIds.size());
         int to = (int) Math.min(pageable.getOffset() + pageable.getPageSize(), matchedIds.size());
@@ -112,15 +116,14 @@ public class RuleMatchService {
                     .map(RuleMatchService::snapshot)
                     .toList();
         }
-        return new PageImpl<>(content, pageable, matchedIds.size());
+        return new MatchPage(new PageImpl<>(content, pageable, matchedIds.size()), matchedIds.size(), userSet);
     }
 
     /**
-     * Applies the rule to the given transactions: sets the rule's categories and
-     * applied_rule_id, propagates MCC, and clears any CATEGORY_UNVERIFIED review flag
-     * (promoting to AUTO_REVIEWED so the transaction keeps following the rule).
-     * Transactions that don't belong to the rule's user, are manually reviewed, or no
-     * longer match the pattern are silently skipped. Returns the number applied.
+     * Applies the rule to the given transactions: sets the rule's category/sub-category (source
+     * RULE) and applied_rule_id through the shared writer, and propagates MCC. Transactions that
+     * don't belong to the rule's user, whose category the user set, or that no longer match the
+     * pattern are skipped. Returns the number applied.
      */
     @Transactional
     public int applyToTransactions(UUID ruleId, List<UUID> transactionIds) {
@@ -143,23 +146,24 @@ public class RuleMatchService {
     @Transactional
     public ApplyOutcome applyToAllMatchesDetailed(UUID ruleId) {
         CategoryRule rule = loadRule(ruleId);
-        List<UUID> matchedIds = matchingTransactionIds(rule.getUser().getId(), rule.getMatchType(), rule.getMerchantKey());
+        List<UUID> matchedIds = matchingCandidates(rule.getUser().getId(), rule.getMatchType(), rule.getMerchantKey())
+                .stream().map(TransactionRepository.RuleMatchCandidate::getId).toList();
         return apply(rule, matchedIds);
     }
 
     private CategoryRule loadRule(UUID ruleId) {
-        return categoryRuleRepository.findWithCategoriesById(ruleId)
+        return categoryRuleRepository.findById(ruleId)
                 .orElseThrow(() -> new com.financeos.core.exception.ResourceNotFoundException("Rule", ruleId));
     }
 
-    private List<UUID> matchingTransactionIds(UUID userId, MatchType matchType, String pattern) {
-        List<TransactionRepository.RuleMatchCandidate> candidates =
-                transactionRepository.findRuleMatchCandidates(userId, ReviewType.MANUALLY_REVIEWED);
-        List<UUID> matched = new ArrayList<>();
+    private List<TransactionRepository.RuleMatchCandidate> matchingCandidates(UUID userId, MatchType matchType,
+                                                                               String pattern) {
+        List<TransactionRepository.RuleMatchCandidate> candidates = transactionRepository.findRuleMatchCandidates(userId);
+        List<TransactionRepository.RuleMatchCandidate> matched = new ArrayList<>();
         for (TransactionRepository.RuleMatchCandidate candidate : candidates) {
             RuleMatcher.MatchContext ctx = RuleMatcher.MatchContext.of(candidate.getSourcedDescription());
             if (RuleMatcher.matches(matchType, pattern, ctx)) {
-                matched.add(candidate.getId());
+                matched.add(candidate);
             }
         }
         return matched;
@@ -167,11 +171,11 @@ public class RuleMatchService {
 
     private ApplyOutcome apply(CategoryRule rule, List<UUID> transactionIds) {
         UUID ruleUserId = rule.getUser().getId();
-        Set<Category> ruleCategories = new HashSet<>(rule.getCategories());
 
         int applied = 0;
         int found = 0;
-        int skippedManuallyReviewed = 0;
+        int skippedUserSet = 0;
+        int skippedWrongDirection = 0;
         int skippedNoLongerMatching = 0;
         List<AppliedTransaction> appliedSample = new ArrayList<>();
         for (int start = 0; start < transactionIds.size(); start += APPLY_CHUNK_SIZE) {
@@ -181,8 +185,8 @@ public class RuleMatchService {
             found += txns.size();
 
             for (Transaction txn : txns) {
-                if (txn.getReviewType() == ReviewType.MANUALLY_REVIEWED) {
-                    skippedManuallyReviewed++;
+                if (txn.getCategorySource() == CategorySource.USER) {
+                    skippedUserSet++;
                     continue;
                 }
                 // Re-verify the predicate so a stale or hand-crafted id can't attach the rule
@@ -192,13 +196,13 @@ public class RuleMatchService {
                     continue;
                 }
 
-                txn.setCategories(ruleCategories);
-                txn.setAppliedRule(rule);
+                if (!categoryWriter.fits(txn, rule.getCategoryKey(), rule.getSubcategoryKey())) {
+                    skippedWrongDirection++;
+                    continue;
+                }
+                categoryWriter.set(txn, rule.getCategoryKey(), rule.getSubcategoryKey(), CategorySource.RULE, rule);
                 if ((txn.getMcc() == null || txn.getMcc().isBlank()) && rule.getMcc() != null && !rule.getMcc().isBlank()) {
                     txn.setMcc(rule.getMcc());
-                }
-                if (txn.getReviewReasons() != null && txn.getReviewReasons().contains(ReviewReason.CATEGORY_UNVERIFIED)) {
-                    reviewStatusManager.clearReason(txn, ReviewReason.CATEGORY_UNVERIFIED, ReviewType.AUTO_REVIEWED);
                 }
                 toSave.add(txn);
                 applied++;
@@ -223,14 +227,11 @@ public class RuleMatchService {
             categoryRuleRepository.save(rule);
         }
         log.info("Applied rule {} ({}) to {} transaction(s)", rule.getId(), rule.getMerchantKey(), applied);
-        return new ApplyOutcome(transactionIds.size(), applied, skippedManuallyReviewed, skippedNoLongerMatching,
+        return new ApplyOutcome(transactionIds.size(), applied, skippedUserSet, skippedNoLongerMatching, skippedWrongDirection,
                 transactionIds.size() - found, appliedSample);
     }
 
     private static MatchedTransaction snapshot(Transaction txn) {
-        Set<Category> categories = txn.getCategories().stream()
-                .map(tc -> tc.getCategory())
-                .collect(Collectors.toSet());
         CategoryRule appliedRule = txn.getAppliedRule();
         return new MatchedTransaction(
                 txn.getId(),
@@ -238,8 +239,9 @@ public class RuleMatchService {
                 txn.getAmount(),
                 txn.getType(),
                 txn.getSourcedDescription(),
-                categories,
-                txn.getReviewType(),
+                txn.getCategoryKey(),
+                txn.getSubcategoryKey(),
+                txn.getCategorySource(),
                 appliedRule != null ? appliedRule.getId() : null,
                 appliedRule != null ? ruleName(appliedRule) : null,
                 txn.getAccount().getId(),

@@ -7,7 +7,7 @@ import com.financeos.core.observability.AuditLogger;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.categorization.CategorizationService;
 import com.financeos.domain.obligation.ObligationKind;
 import com.financeos.domain.obligation.ObligationRefService;
@@ -36,7 +36,7 @@ class TransactionServiceObligationRefTest {
 
     private TransactionRepository transactionRepository;
     private AccountRepository accountRepository;
-    private CategoryRepository categoryRepository;
+    private TagRepository categoryRepository;
     private UserRepository userRepository;
     private ReviewStatusManager reviewStatusManager;
     private CategorizationService categorizationService;
@@ -56,7 +56,7 @@ class TransactionServiceObligationRefTest {
     void setUp() {
         transactionRepository = mock(TransactionRepository.class);
         accountRepository = mock(AccountRepository.class);
-        categoryRepository = mock(CategoryRepository.class);
+        categoryRepository = mock(TagRepository.class);
         userRepository = mock(UserRepository.class);
         reviewStatusManager = new ReviewStatusManager();
         categorizationService = mock(CategorizationService.class);
@@ -79,6 +79,7 @@ class TransactionServiceObligationRefTest {
                 auditLogger,
                 cardRepository,
                 obligationRefService,
+                null,
                 null);
 
         currentUserId = UUID.randomUUID();

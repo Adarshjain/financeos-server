@@ -284,9 +284,6 @@ public class FileIngestionService {
 
             totalDuplicatesFound = duplicateNewTxns.size();
 
-            // Categorize transactions before persisting
-            categorizationService.batchCategorize(newTransactionsToInsert);
-
             // Persist changes inside a write transaction boundary
             dbHandler.saveTransactions(newTransactionsToInsert, new ArrayList<>(dbTxnsToUpdate));
 

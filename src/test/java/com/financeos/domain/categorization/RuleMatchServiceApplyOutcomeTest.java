@@ -1,8 +1,6 @@
 package com.financeos.domain.categorization;
 
-import com.financeos.domain.category.Category;
-import com.financeos.domain.transaction.ReviewStatusManager;
-import com.financeos.domain.transaction.ReviewType;
+import com.financeos.domain.transaction.CategorySource;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionType;
@@ -13,10 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,23 +36,21 @@ class RuleMatchServiceApplyOutcomeTest {
     void setUp() {
         transactionRepository = mock(TransactionRepository.class);
         categoryRuleRepository = mock(CategoryRuleRepository.class);
-        ruleMatchService = new RuleMatchService(transactionRepository, categoryRuleRepository, mock(ReviewStatusManager.class));
+        ruleMatchService = new RuleMatchService(transactionRepository, categoryRuleRepository,
+                com.financeos.support.TestCategories.writer(categoryRuleRepository));
 
         userId = UUID.randomUUID();
         user = new User();
         user.setId(userId);
-
-        Category food = new Category("Food & Dining", user);
-        food.setId(UUID.randomUUID());
 
         rule = new CategoryRule();
         rule.setId(UUID.randomUUID());
         rule.setUser(user);
         rule.setMerchantKey("SWIGGY");
         rule.setMatchType(MatchType.CONTAINS);
-        rule.setCategories(Set.of(food));
+        rule.setCategoryKey("food");
 
-        when(categoryRuleRepository.findWithCategoriesById(rule.getId())).thenReturn(Optional.of(rule));
+        when(categoryRuleRepository.findById(rule.getId())).thenReturn(Optional.of(rule));
         when(categoryRuleRepository.save(any(CategoryRule.class))).thenAnswer(inv -> inv.getArgument(0));
     }
 
@@ -65,7 +59,6 @@ class RuleMatchServiceApplyOutcomeTest {
         txn.setId(UUID.randomUUID());
         txn.setUser(user);
         txn.setSourcedDescription(sourcedDescription);
-        txn.setCategories(new HashSet<>());
         txn.setDate(LocalDate.of(2026, 10, 1));
         txn.setAmount(new BigDecimal("249.00"));
         txn.setType(TransactionType.DEBIT);
@@ -76,7 +69,8 @@ class RuleMatchServiceApplyOutcomeTest {
     void everyRequestedTransactionIsAccountedFor() {
         Transaction applies = txn("UPI SWIGGY ORDER");
         Transaction reviewed = txn("SWIGGY DINEOUT");
-        reviewed.setReviewType(ReviewType.MANUALLY_REVIEWED);
+        reviewed.setCategoryKey("shopping");
+        reviewed.setCategorySource(CategorySource.USER);
         Transaction drifted = txn("AMAZON PAY");
         UUID missing = UUID.randomUUID();
         List<UUID> ids = List.of(applies.getId(), reviewed.getId(), drifted.getId(), missing);
@@ -86,7 +80,7 @@ class RuleMatchServiceApplyOutcomeTest {
 
         assertThat(outcome.requested()).isEqualTo(4);
         assertThat(outcome.applied()).isEqualTo(1);
-        assertThat(outcome.skippedManuallyReviewed()).isEqualTo(1);
+        assertThat(outcome.skippedUserSet()).isEqualTo(1);
         assertThat(outcome.skippedNoLongerMatching()).isEqualTo(1);
         assertThat(outcome.notFound()).isEqualTo(1);
         assertThat(outcome.appliedSample()).containsExactly(new RuleMatchService.AppliedTransaction(
@@ -123,7 +117,7 @@ class RuleMatchServiceApplyOutcomeTest {
     void applyToAllMatchesRequestsEveryCurrentMatch() {
         Transaction a = txn("SWIGGY ONE");
         Transaction b = txn("swiggy two");
-        when(transactionRepository.findRuleMatchCandidates(userId, ReviewType.MANUALLY_REVIEWED))
+        when(transactionRepository.findRuleMatchCandidates(userId))
                 .thenReturn(List.of(candidate(a), candidate(b), candidate(txn("ZOMATO"))));
         when(transactionRepository.findAllByIdInAndUserId(eq(List.of(a.getId(), b.getId())), eq(userId))).thenReturn(List.of(a, b));
 
@@ -152,6 +146,11 @@ class RuleMatchServiceApplyOutcomeTest {
             @Override
             public String getSourcedDescription() {
                 return txn.getSourcedDescription();
+            }
+
+            @Override
+            public CategorySource getCategorySource() {
+                return txn.getCategorySource();
             }
         };
     }

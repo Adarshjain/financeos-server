@@ -10,8 +10,8 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.category.Category;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.Tag;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.transaction.TransactionChannel;
 import com.financeos.domain.user.UserRepository;
 
@@ -44,7 +44,7 @@ public class RewardRuleService {
     private final RewardRuleRepository rewardRuleRepository;
     private final RewardCapBucketRepository rewardCapBucketRepository;
     private final AccountRepository accountRepository;
-    private final CategoryRepository categoryRepository;
+    private final TagRepository tagRepository;
     private final UserRepository userRepository;
     private final ObjectMapper objectMapper;
 
@@ -53,13 +53,13 @@ public class RewardRuleService {
     public RewardRuleService(RewardRuleRepository rewardRuleRepository,
                              RewardCapBucketRepository rewardCapBucketRepository,
                              AccountRepository accountRepository,
-                             CategoryRepository categoryRepository,
+                             TagRepository tagRepository,
                              UserRepository userRepository,
                              ObjectMapper objectMapper,
                              com.financeos.domain.account.card.CardholderRepository cardholderRepository) {
         this.rewardRuleRepository = rewardRuleRepository;
         this.rewardCapBucketRepository = rewardCapBucketRepository;
-        this.categoryRepository = categoryRepository;
+        this.tagRepository = tagRepository;
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.objectMapper = objectMapper;
@@ -203,11 +203,11 @@ public class RewardRuleService {
 
     private void applyPredicates(RewardRule rule, RewardRuleRequest request, UUID currentSessionUserId) {
         if (request.categoryIds() != null && !request.categoryIds().isEmpty()) {
-            List<Category> categories = categoryRepository.findAllById(request.categoryIds());
+            List<Tag> categories = tagRepository.findAllById(request.categoryIds());
             if (categories.size() != request.categoryIds().size()) {
                 throw new ResourceNotFoundException("One or more categories not found");
             }
-            for (Category category : categories) {
+            for (Tag category : categories) {
                 if (!category.getUser().getId().equals(currentSessionUserId)) {
                     throw new ValidationException("You do not have permission to use category: " + category.getName());
                 }

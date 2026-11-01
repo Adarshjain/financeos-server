@@ -1580,173 +1580,6 @@ paths:
           description: Error response
       tags:
       - bill-controller
-  /api/v1/categories:
-    get:
-      operationId: getAllCategories
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CategoryResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - category-controller
-    post:
-      operationId: createCategory
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CategoryRequest"
-        required: true
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/CategoryResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - category-controller
-  /api/v1/categories/page:
-    get:
-      operationId: getCategoriesPage
-      parameters:
-      - in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Zero-based page index (0..N)
-        in: query
-        name: page
-        required: false
-        schema:
-          type: integer
-          default: 0
-          minimum: 0
-      - description: The size of the page to be returned
-        in: query
-        name: size
-        required: false
-        schema:
-          type: integer
-          default: 20
-          minimum: 1
-      - description: "Sorting criteria in the format: property,(asc|desc). Default\
-          \ sort order is ascending. Multiple sort criteria are supported."
-        in: query
-        name: sort
-        required: false
-        schema:
-          type: array
-          items:
-            type: string
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/PageCategoryResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - category-controller
-  /api/v1/categories/{id}:
-    delete:
-      operationId: deleteCategory
-      parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          type: string
-          format: uuid
-      responses:
-        "200":
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - category-controller
-    get:
-      operationId: getCategory
-      parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          type: string
-          format: uuid
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/CategoryResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - category-controller
-    put:
-      operationId: updateCategory
-      parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          type: string
-          format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CategoryRequest"
-        required: true
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/CategoryResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - category-controller
   /api/v1/categorize:
     post:
       operationId: categorize
@@ -1771,6 +1604,24 @@ paths:
           description: Error response
       tags:
       - categorize-controller
+  /api/v1/category-list:
+    get:
+      operationId: getCategoryList
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CategoryListResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - category-list-controller
   /api/v1/chat:
     post:
       operationId: syncChat
@@ -8656,17 +8507,7 @@ paths:
       operationId: getRules
       parameters:
       - in: query
-        name: verified
-        required: false
-        schema:
-          type: boolean
-      - in: query
         name: search
-        required: false
-        schema:
-          type: string
-      - in: query
-        name: source
         required: false
         schema:
           type: string
@@ -8681,11 +8522,10 @@ paths:
         schema:
           type: boolean
       - in: query
-        name: categoryId
+        name: categoryKey
         required: false
         schema:
           type: string
-          format: uuid
       - description: Zero-based page index (0..N)
         in: query
         name: page
@@ -8789,31 +8629,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageRuleMatchTransactionResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - rules-controller
-  /api/v1/rules/verify:
-    post:
-      operationId: verifyRules
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/BulkVerifyRulesRequest"
-        required: true
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BulkVerifyRulesResponse"
+                $ref: "#/components/schemas/PreviewMatchesResponse"
           description: OK
         default:
           content:
@@ -8905,62 +8721,6 @@ paths:
           description: Error response
       tags:
       - rules-controller
-  /api/v1/rules/{id}/unverify:
-    post:
-      operationId: unverifyRule
-      parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          type: string
-          format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UnverifyRuleRequest"
-        required: true
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/UnverifyRuleResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - rules-controller
-  /api/v1/rules/{id}/verify:
-    post:
-      operationId: verifyRule
-      parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          type: string
-          format: uuid
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/VerifyRuleResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - rules-controller
   /api/v1/search:
     get:
       operationId: globalSearch
@@ -9028,6 +8788,197 @@ paths:
           description: Error response
       tags:
       - statement-controller
+  /api/v1/tags:
+    get:
+      operationId: getAllTags
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TagResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - tag-controller
+    post:
+      operationId: createTag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TagRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TagResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - tag-controller
+  /api/v1/tags/bulk-add:
+    post:
+      operationId: bulkAdd
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BulkAddTagsRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BulkAddTagsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - tag-controller
+  /api/v1/tags/page:
+    get:
+      operationId: getTagsPage
+      parameters:
+      - in: query
+        name: search
+        required: false
+        schema:
+          type: string
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+      - description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageTagResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - tag-controller
+  /api/v1/tags/{id}:
+    delete:
+      operationId: deleteTag
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - tag-controller
+    get:
+      operationId: getTag
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TagResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - tag-controller
+    put:
+      operationId: updateTag
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TagRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TagResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - tag-controller
   /api/v1/transaction-links:
     get:
       operationId: getLinks
@@ -9461,6 +9412,37 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/TransactionResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - transaction-controller
+  /api/v1/transactions/{id}/category:
+    put:
+      operationId: setCategory
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetCategoryRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SetCategoryResponse"
           description: OK
         default:
           content:
@@ -9955,7 +9937,6 @@ components:
             type: string
             enum:
             - UNRECONCILED
-            - CATEGORY_UNVERIFIED
             - DUPLICATE_SUSPECT
             - DATE_CORRECTED
         reviewType:
@@ -9996,16 +9977,11 @@ components:
           type: array
           items:
             type: string
-        verifiedRules:
-          type: array
-          items:
-            $ref: "#/components/schemas/VerifiedRuleChange"
       required:
       - approvedTransactions
       - failures
       - skippedIds
       - succeededIds
-      - verifiedRules
     BillDigestResponse:
       type: object
       properties:
@@ -10452,6 +10428,40 @@ components:
       - label
       - minW
       - params
+    BulkAddTagsRequest:
+      type: object
+      properties:
+        tagIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          maxItems: 50
+          minItems: 0
+          x-required: true
+        transactionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          maxItems: 5000
+          minItems: 0
+          x-required: true
+      required:
+      - tagIds
+      - transactionIds
+    BulkAddTagsResponse:
+      type: object
+      properties:
+        tagsAdded:
+          type: integer
+          format: int32
+        transactionsFound:
+          type: integer
+          format: int32
+      required:
+      - tagsAdded
+      - transactionsFound
     BulkReattributeCardRequest:
       type: object
       properties:
@@ -10481,32 +10491,6 @@ components:
           format: int32
       required:
       - updatedCount
-    BulkVerifyRulesRequest:
-      type: object
-      properties:
-        ruleIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          maxItems: 500
-          minItems: 0
-          x-required: true
-      required:
-      - ruleIds
-    BulkVerifyRulesResponse:
-      type: object
-      properties:
-        verifiedCount:
-          type: integer
-          format: int32
-        verifiedRules:
-          type: array
-          items:
-            $ref: "#/components/schemas/RuleVerification"
-      required:
-      - verifiedCount
-      - verifiedRules
     CapStatus:
       type: object
       properties:
@@ -10973,24 +10957,56 @@ components:
     CategorizeResponse:
       type: object
       properties:
-        categories:
+        categoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
+        source:
+          type: string
+          nullable: true
+          x-nullable: true
+        subcategoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
+    Category:
+      type: object
+      properties:
+        direction:
+          type: string
+          enum:
+          - OUT
+          - IN
+          - BOTH
+        excludedByDefault:
+          type: boolean
+        icon:
+          type: string
+        inOrder:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        key:
+          type: string
+        name:
+          type: string
+        outOrder:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        subs:
           type: array
           items:
-            $ref: "#/components/schemas/CategoryResponse"
-        fromRule:
-          type: boolean
-        mcc:
-          type: string
-          nullable: true
-          x-nullable: true
-        ruleId:
-          type: string
-          format: uuid
-          nullable: true
-          x-nullable: true
+            $ref: "#/components/schemas/Sub"
       required:
-      - categories
-      - fromRule
+      - direction
+      - excludedByDefault
+      - icon
+      - key
+      - name
+      - subs
     CategoryBreakdown:
       type: object
       properties:
@@ -11004,17 +11020,29 @@ components:
       - amount
       - category
       - percentage
-    CategoryRequest:
+    CategoryListResponse:
       type: object
       properties:
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"
+      required:
+      - categories
+    CategoryRef:
+      type: object
+      properties:
+        icon:
+          type: string
+        key:
+          type: string
         name:
           type: string
-          maxLength: 100
-          minLength: 1
-          x-required: true
       required:
+      - icon
+      - key
       - name
-    CategoryResponse:
+    CategoryRuleRef:
       type: object
       properties:
         id:
@@ -11022,9 +11050,10 @@ components:
           format: uuid
         name:
           type: string
+          nullable: true
+          x-nullable: true
       required:
       - id
-      - name
     ChatMessage:
       type: object
       properties:
@@ -11150,7 +11179,6 @@ components:
             type: string
             enum:
             - UNRECONCILED
-            - CATEGORY_UNVERIFIED
             - DUPLICATE_SUSPECT
             - DATE_CORRECTED
           uniqueItems: true
@@ -12278,11 +12306,8 @@ components:
     CreateRuleRequest:
       type: object
       properties:
-        categoryIds:
-          type: array
-          items:
-            type: string
-            format: uuid
+        categoryKey:
+          type: string
           x-required: true
         displayName:
           type: string
@@ -12295,8 +12320,12 @@ components:
         merchantKey:
           type: string
           x-required: true
+        subcategoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
       required:
-      - categoryIds
+      - categoryKey
       - merchantKey
     CreateSettlementRequest:
       type: object
@@ -12385,11 +12414,8 @@ components:
         cardId:
           type: string
           format: uuid
-        categoryIds:
-          type: array
-          items:
-            type: string
-            format: uuid
+        categoryKey:
+          type: string
         date:
           type: string
           format: date
@@ -12406,6 +12432,13 @@ components:
           type: string
         rewardDetails:
           $ref: "#/components/schemas/RewardDetailsRequest"
+        subcategoryKey:
+          type: string
+        tagIds:
+          type: array
+          items:
+            type: string
+            format: uuid
       required:
       - accountId
       - amount
@@ -16980,7 +17013,6 @@ components:
             type: string
             enum:
             - UNRECONCILED
-            - CATEGORY_UNVERIFIED
             - DUPLICATE_SUSPECT
             - DATE_CORRECTED
           uniqueItems: true
@@ -17452,52 +17484,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/AppNotificationResponse"
-        empty:
-          type: boolean
-        first:
-          type: boolean
-        last:
-          type: boolean
-        number:
-          type: integer
-          format: int32
-        numberOfElements:
-          type: integer
-          format: int32
-        pageable:
-          $ref: "#/components/schemas/PageableObject"
-        size:
-          type: integer
-          format: int32
-        sort:
-          type: array
-          items:
-            $ref: "#/components/schemas/SortObject"
-        totalElements:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int32
-      required:
-      - content
-      - empty
-      - first
-      - last
-      - number
-      - numberOfElements
-      - pageable
-      - size
-      - sort
-      - totalElements
-      - totalPages
-    PageCategoryResponse:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: "#/components/schemas/CategoryResponse"
         empty:
           type: boolean
         first:
@@ -18181,6 +18167,52 @@ components:
       - sort
       - totalElements
       - totalPages
+    PageTagResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/TagResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
     PageTransactionResponse:
       type: object
       properties:
@@ -18604,6 +18636,51 @@ components:
           x-required: true
       required:
       - merchantKey
+    PreviewMatchesResponse:
+      type: object
+      properties:
+        matchCount:
+          type: integer
+          format: int64
+        matches:
+          $ref: "#/components/schemas/PageRuleMatchTransactionResponse"
+        userSetCount:
+          type: integer
+          format: int64
+      required:
+      - matchCount
+      - matches
+      - userSetCount
+    Previous:
+      type: object
+      properties:
+        categoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
+        ruleId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        setAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        source:
+          type: string
+          enum:
+          - AUTO
+          - LINK
+          - RULE
+          - USER
+          nullable: true
+          x-nullable: true
+        subcategoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
     PriceHistoryPage:
       type: object
       properties:
@@ -19211,6 +19288,28 @@ components:
       required:
       - name
       - type
+    Restore:
+      type: object
+      properties:
+        ruleId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        setAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        source:
+          type: string
+          enum:
+          - AUTO
+          - LINK
+          - RULE
+          - USER
+          nullable: true
+          x-nullable: true
     RewardAccountConfigRequest:
       type: object
       properties:
@@ -19971,7 +20070,7 @@ components:
         categories:
           type: array
           items:
-            $ref: "#/components/schemas/CategoryResponse"
+            $ref: "#/components/schemas/TagResponse"
         channels:
           type: array
           items:
@@ -20557,29 +20656,33 @@ components:
           type: string
           nullable: true
           x-nullable: true
-        categories:
-          type: array
-          items:
-            $ref: "#/components/schemas/CategoryResponse"
+        category:
+          $ref: "#/components/schemas/CategoryRef"
+        categorySource:
+          type: string
+          enum:
+          - AUTO
+          - LINK
+          - RULE
+          - USER
+          nullable: true
+          x-nullable: true
         date:
           type: string
           format: date
         id:
           type: string
           format: uuid
-        reviewType:
-          type: string
-          nullable: true
-          x-nullable: true
         sourcedDescription:
           type: string
+        subcategory:
+          $ref: "#/components/schemas/SubcategoryRef"
         type:
           type: string
       required:
       - accountId
       - accountName
       - amount
-      - categories
       - date
       - id
       - sourcedDescription
@@ -20590,10 +20693,8 @@ components:
         appliedCount:
           type: integer
           format: int32
-        categories:
-          type: array
-          items:
-            $ref: "#/components/schemas/CategoryResponse"
+        category:
+          $ref: "#/components/schemas/CategoryRef"
         createdAt:
           type: string
           format: date-time
@@ -20617,53 +20718,15 @@ components:
           x-nullable: true
         merchantKey:
           type: string
-        source:
-          type: string
-        verified:
-          type: boolean
+        subcategory:
+          $ref: "#/components/schemas/SubcategoryRef"
       required:
       - appliedCount
-      - categories
+      - category
       - createdAt
       - id
       - matchType
       - merchantKey
-      - source
-      - verified
-    RuleRestore:
-      type: object
-      properties:
-        restore:
-          type: array
-          items:
-            $ref: "#/components/schemas/ClearedTransaction"
-          maxItems: 20000
-          minItems: 0
-        ruleId:
-          type: string
-          format: uuid
-          x-required: true
-      required:
-      - ruleId
-    RuleVerification:
-      type: object
-      properties:
-        clearedTransactionIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-        clearedTransactions:
-          type: array
-          items:
-            $ref: "#/components/schemas/ClearedTransaction"
-        ruleId:
-          type: string
-          format: uuid
-      required:
-      - clearedTransactionIds
-      - clearedTransactions
-      - ruleId
     RunReportRequest:
       type: object
       properties:
@@ -20911,6 +20974,56 @@ components:
       - proceeds
       - quantity
       - shortTermGain
+    SetCategoryRequest:
+      type: object
+      properties:
+        categoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
+        restore:
+          $ref: "#/components/schemas/Restore"
+        subcategoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
+    SetCategoryResponse:
+      type: object
+      properties:
+        category:
+          $ref: "#/components/schemas/CategoryRef"
+        categoryRuleId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        categorySetAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        categorySource:
+          type: string
+          enum:
+          - AUTO
+          - LINK
+          - RULE
+          - USER
+          nullable: true
+          x-nullable: true
+        isTransactionExcluded:
+          type: boolean
+        previous:
+          $ref: "#/components/schemas/Previous"
+        subcategory:
+          $ref: "#/components/schemas/SubcategoryRef"
+        transactionId:
+          type: string
+          format: uuid
+      required:
+      - isTransactionExcluded
+      - previous
+      - transactionId
     SetDividendReceiptStatusRequest:
       type: object
       properties:
@@ -21579,6 +21692,37 @@ components:
       - id
       - missingDetails
       - source
+    Sub:
+      type: object
+      properties:
+        direction:
+          type: string
+          enum:
+          - OUT
+          - IN
+          - BOTH
+        key:
+          type: string
+        name:
+          type: string
+        sortOrder:
+          type: integer
+          format: int32
+      required:
+      - direction
+      - key
+      - name
+      - sortOrder
+    SubcategoryRef:
+      type: object
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+      required:
+      - key
+      - name
     Suggestion:
       type: object
       properties:
@@ -21808,6 +21952,32 @@ components:
       - totalExecutions
       - unresolvedInstruments
       - warningsCount
+    TagRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          x-required: true
+      required:
+      - name
+    TagResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        transactionCount:
+          type: integer
+          format: int64
+          nullable: true
+          x-nullable: true
+      required:
+      - id
+      - name
     TaxHarvestResponse:
       type: object
       properties:
@@ -22064,10 +22234,24 @@ components:
           type: string
           nullable: true
           x-nullable: true
-        categories:
-          type: array
-          items:
-            $ref: "#/components/schemas/CategoryResponse"
+        category:
+          $ref: "#/components/schemas/CategoryRef"
+        categoryRule:
+          $ref: "#/components/schemas/CategoryRuleRef"
+        categorySetAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        categorySource:
+          type: string
+          enum:
+          - AUTO
+          - LINK
+          - RULE
+          - USER
+          nullable: true
+          x-nullable: true
         channel:
           type: string
           enum:
@@ -22134,7 +22318,6 @@ components:
             type: string
             enum:
             - UNRECONCILED
-            - CATEGORY_UNVERIFIED
             - DUPLICATE_SUSPECT
             - DATE_CORRECTED
         reviewType:
@@ -22167,13 +22350,18 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        subcategory:
+          $ref: "#/components/schemas/SubcategoryRef"
+        tags:
+          type: array
+          items:
+            $ref: "#/components/schemas/TagResponse"
         updatedAt:
           type: string
           format: date-time
       required:
       - accountId
       - amount
-      - categories
       - createdAt
       - date
       - id
@@ -22183,6 +22371,7 @@ components:
       - obligationRefs
       - reviewReasons
       - source
+      - tags
       - updatedAt
     TransactionSearchRequest:
       type: object
@@ -22314,12 +22503,6 @@ components:
             $ref: "#/components/schemas/ClearedTransaction"
           maxItems: 500
           minItems: 0
-        rules:
-          type: array
-          items:
-            $ref: "#/components/schemas/RuleRestore"
-          maxItems: 50
-          minItems: 0
     UndoApproveResponse:
       type: object
       properties:
@@ -22392,41 +22575,6 @@ components:
       - counterpartyName
       - direction
       - transaction
-    UnverifyRuleRequest:
-      type: object
-      properties:
-        restore:
-          type: array
-          items:
-            $ref: "#/components/schemas/ClearedTransaction"
-          maxItems: 5000
-          minItems: 0
-        transactionIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          maxItems: 500
-          minItems: 0
-          x-required: true
-      required:
-      - transactionIds
-    UnverifyRuleResponse:
-      type: object
-      properties:
-        restoredTransactionIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-        skippedTransactionIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-      required:
-      - restoredTransactionIds
-      - skippedTransactionIds
     UpdateAppLockSettingsRequest:
       type: object
       properties:
@@ -22765,11 +22913,10 @@ components:
     UpdateRuleRequest:
       type: object
       properties:
-        categoryIds:
-          type: array
-          items:
-            type: string
-            format: uuid
+        categoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
         displayName:
           type: string
         matchType:
@@ -22780,6 +22927,10 @@ components:
           x-nullable: true
         merchantKey:
           type: string
+        subcategoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
     UpdateSipRequest:
       type: object
       properties:
@@ -22824,11 +22975,8 @@ components:
         cardId:
           type: string
           format: uuid
-        categoryIds:
-          type: array
-          items:
-            type: string
-            format: uuid
+        categoryKey:
+          type: string
         date:
           type: string
           format: date
@@ -22849,7 +22997,6 @@ components:
             type: string
             enum:
             - UNRECONCILED
-            - CATEGORY_UNVERIFIED
             - DUPLICATE_SUSPECT
             - DATE_CORRECTED
           uniqueItems: true
@@ -22862,6 +23009,13 @@ components:
           - NA
         rewardDetails:
           $ref: "#/components/schemas/RewardDetailsRequest"
+        subcategoryKey:
+          type: string
+        tagIds:
+          type: array
+          items:
+            type: string
+            format: uuid
       required:
       - amount
       - date
@@ -22905,76 +23059,6 @@ components:
       - email
       - hasPassword
       - id
-    VerifiedRuleChange:
-      type: object
-      properties:
-        clearedTransactionIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-        clearedTransactions:
-          type: array
-          items:
-            $ref: "#/components/schemas/ClearedTransaction"
-        ruleId:
-          type: string
-          format: uuid
-      required:
-      - clearedTransactionIds
-      - clearedTransactions
-      - ruleId
-    VerifyRuleResponse:
-      type: object
-      properties:
-        appliedCount:
-          type: integer
-          format: int32
-        categories:
-          type: array
-          items:
-            $ref: "#/components/schemas/CategoryResponse"
-        clearedTransactions:
-          type: array
-          items:
-            $ref: "#/components/schemas/ClearedTransaction"
-        createdAt:
-          type: string
-          format: date-time
-        displayName:
-          type: string
-          nullable: true
-          x-nullable: true
-        id:
-          type: string
-          format: uuid
-        lastAppliedAt:
-          type: string
-          format: date-time
-          nullable: true
-          x-nullable: true
-        matchType:
-          type: string
-        mcc:
-          type: string
-          nullable: true
-          x-nullable: true
-        merchantKey:
-          type: string
-        source:
-          type: string
-        verified:
-          type: boolean
-      required:
-      - appliedCount
-      - categories
-      - clearedTransactions
-      - createdAt
-      - id
-      - matchType
-      - merchantKey
-      - source
-      - verified
     WidgetLayout:
       type: object
       properties:

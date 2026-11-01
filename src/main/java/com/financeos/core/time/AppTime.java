@@ -28,6 +28,11 @@ public final class AppTime {
         return LocalDate.now(clock);
     }
 
+    /** The current instant from the business clock (pinned in tests). */
+    public static java.time.Instant nowInstant() {
+        return clock.instant();
+    }
+
     /** The current wall-clock time in the business zone (for send-hour gates). */
     public static LocalDateTime now() {
         return LocalDateTime.now(clock);

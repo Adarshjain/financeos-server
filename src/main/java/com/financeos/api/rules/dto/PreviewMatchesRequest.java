@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 /**
  * A rule definition to test against the user's transactions — usable before the rule
- * is saved. matchType defaults to MERCHANT_KEY when omitted.
+ * is saved. matchType defaults to CONTAINS when omitted.
  */
 public record PreviewMatchesRequest(
         @NotBlank String merchantKey,

@@ -3,16 +3,11 @@ package com.financeos.api.rules;
 import org.springdoc.core.annotations.ParameterObject;
 
 import com.financeos.api.rules.dto.ApplyRuleRequest;
-import com.financeos.api.rules.dto.ApplyRuleResponse;
-import com.financeos.api.rules.dto.BulkVerifyRulesRequest;
-import com.financeos.api.rules.dto.BulkVerifyRulesResponse;
 import com.financeos.api.rules.dto.CreateRuleRequest;
 import com.financeos.api.rules.dto.PreviewMatchesRequest;
+import com.financeos.api.rules.dto.PreviewMatchesResponse;
 import com.financeos.api.rules.dto.RuleMatchTransactionResponse;
 import com.financeos.api.rules.dto.RuleResponse;
-import com.financeos.api.rules.dto.UnverifyRuleRequest;
-import com.financeos.api.rules.dto.UnverifyRuleResponse;
-import com.financeos.api.rules.dto.VerifyRuleResponse;
 import com.financeos.api.rules.dto.UpdateRuleRequest;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
@@ -23,10 +18,7 @@ import com.financeos.domain.categorization.CategorizationService;
 import com.financeos.domain.categorization.MatchType;
 import com.financeos.domain.categorization.RuleMatchService;
 import com.financeos.domain.categorization.RuleMatcher;
-import com.financeos.domain.categorization.RuleMatchService.MatchedTransaction;
-import com.financeos.domain.category.Category;
-import com.financeos.domain.category.CategoryRepository;
-import com.financeos.domain.user.User;
+import com.financeos.domain.category.CategoryCatalog;
 import com.financeos.domain.user.UserRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -40,8 +32,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
@@ -52,23 +42,23 @@ import java.util.UUID;
 public class RulesController {
 
     private final CategoryRuleRepository categoryRuleRepository;
-    private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final CategorizationService categorizationService;
     private final RuleMatchService ruleMatchService;
+    private final CategoryCatalog categoryCatalog;
     private final com.financeos.domain.job.JobService jobService;
 
     public RulesController(CategoryRuleRepository categoryRuleRepository,
-                           CategoryRepository categoryRepository,
                            UserRepository userRepository,
                            CategorizationService categorizationService,
                            RuleMatchService ruleMatchService,
+                           CategoryCatalog categoryCatalog,
                            com.financeos.domain.job.JobService jobService) {
         this.categoryRuleRepository = categoryRuleRepository;
-        this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.categorizationService = categorizationService;
         this.ruleMatchService = ruleMatchService;
+        this.categoryCatalog = categoryCatalog;
         this.jobService = jobService;
     }
 
@@ -77,7 +67,7 @@ public class RulesController {
 
     private static MatchType parseMatchType(String value) {
         if (value == null || value.isBlank()) {
-            return MatchType.MERCHANT_KEY;
+            return MatchType.CONTAINS;
         }
         try {
             return MatchType.valueOf(value.trim().toUpperCase(Locale.ROOT));
@@ -88,19 +78,17 @@ public class RulesController {
 
     @GetMapping
     public ResponseEntity<Page<RuleResponse>> getRules(
-            @RequestParam(required = false) Boolean verified,
             @RequestParam(required = false) String search,
-            @RequestParam(required = false) String source,
             @RequestParam(required = false) String matchType,
             @RequestParam(required = false) Boolean applied,
-            @RequestParam(required = false) UUID categoryId,
+            @RequestParam(required = false) String categoryKey,
             @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
 
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 
         Sort sort;
         if (pageable.getSort().isUnsorted()) {
-            sort = Sort.by(Sort.Order.asc("verified"), Sort.Order.desc("lastAppliedAt"));
+            sort = Sort.by(Sort.Order.desc("lastAppliedAt"));
         } else {
             for (Sort.Order order : pageable.getSort()) {
                 if (!SORTABLE_FIELDS.contains(order.getProperty())) {
@@ -121,18 +109,15 @@ public class RulesController {
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
                 sort.and(Sort.by("id")));
 
-        String sourceFilter = source == null || source.isBlank() ? null : source.trim().toUpperCase(Locale.ROOT);
-        if (sourceFilter != null && !sourceFilter.equals("LLM") && !sourceFilter.equals("USER")) {
-            throw new ValidationException("Unknown rule source: " + source);
-        }
         MatchType matchTypeFilter = matchType == null || matchType.isBlank() ? null : parseMatchType(matchType);
         // applied=true → used at least once, applied=false → never used
         Integer minApplied = Boolean.TRUE.equals(applied) ? 1 : null;
         Integer maxApplied = Boolean.FALSE.equals(applied) ? 0 : null;
+        String categoryKeyFilter = categoryKey == null || categoryKey.isBlank() ? null : categoryKey.trim();
 
-        Page<CategoryRule> rules = categoryRuleRepository.findRules(currentSessionUserId, verified, search,
-                sourceFilter, matchTypeFilter, minApplied, maxApplied, categoryId, sortedPageable);
-        Page<RuleResponse> response = rules.map(RuleResponse::from);
+        Page<CategoryRule> rules = categoryRuleRepository.findRules(currentSessionUserId, search,
+                matchTypeFilter, minApplied, maxApplied, categoryKeyFilter, sortedPageable);
+        Page<RuleResponse> response = rules.map(r -> RuleResponse.from(r, categoryCatalog));
         return ResponseEntity.ok(response);
     }
 
@@ -148,30 +133,19 @@ public class RulesController {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
-        // Validate categories exist and belong to user
-        List<Category> categories = categoryRepository.findAllById(request.categoryIds());
-        if (categories.size() != request.categoryIds().size()) {
-            throw new ResourceNotFoundException("One or more categories not found");
-        }
-
-        for (Category category : categories) {
-            if (!category.getUser().getId().equals(currentSessionUserId)) {
-                throw new ValidationException("You do not have permission to use category: " + category.getName());
-            }
-        }
+        categoryCatalog.validateKeys(request.categoryKey(), request.subcategoryKey());
 
         CategoryRule rule = new CategoryRule();
         rule.setUser(userRepository.getReferenceById(currentSessionUserId));
         rule.setMerchantKey(canonicalKey);
         rule.setMatchType(matchType);
         rule.setDisplayName(request.displayName() != null && !request.displayName().isBlank() ? request.displayName() : request.merchantKey());
-        rule.setVerified(true);
-        rule.setSource("USER");
-        rule.setCategories(new HashSet<>(categories));
+        rule.setCategoryKey(request.categoryKey());
+        rule.setSubcategoryKey(request.subcategoryKey());
         rule.setMcc(request.mcc());
 
         CategoryRule saved = categoryRuleRepository.save(rule);
-        return ResponseEntity.status(HttpStatus.CREATED).body(RuleResponse.from(saved));
+        return ResponseEntity.status(HttpStatus.CREATED).body(RuleResponse.from(saved, categoryCatalog));
     }
 
     @PutMapping("/{id}")
@@ -181,7 +155,7 @@ public class RulesController {
 
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 
-        CategoryRule rule = categoryRuleRepository.findWithCategoriesById(id)
+        CategoryRule rule = categoryRuleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rule", id));
 
         // SECURITY: verify ownership
@@ -217,85 +191,19 @@ public class RulesController {
             rule.setMcc(request.mcc().isBlank() ? null : request.mcc());
         }
 
-        Set<Category> newCategories = null;
-        if (request.categoryIds() != null) {
-            List<Category> categories = categoryRepository.findAllById(request.categoryIds());
-            if (categories.size() != request.categoryIds().size()) {
-                throw new ResourceNotFoundException("One or more categories not found");
-            }
-            for (Category category : categories) {
-                if (!category.getUser().getId().equals(currentSessionUserId)) {
-                    throw new ValidationException("You do not have permission to use category: " + category.getName());
-                }
-            }
-
-            newCategories = new HashSet<>(categories);
+        boolean categoryChanged = false;
+        if (request.categoryKey() != null) {
+            categoryCatalog.validateKeys(request.categoryKey(), request.subcategoryKey());
+            categoryChanged = !request.categoryKey().equals(rule.getCategoryKey())
+                    || !java.util.Objects.equals(request.subcategoryKey(), rule.getSubcategoryKey());
+            rule.setCategoryKey(request.categoryKey());
+            rule.setSubcategoryKey(request.subcategoryKey());
         }
 
-        // Linked transactions only: unlinks those a changed pattern no longer matches, then
-        // re-applies categories to the rest.
-        categorizationService.saveEditedRule(rule, patternChanged, newCategories);
+        // Rows this rule set: clears those a changed pattern no longer matches, re-categorises the rest.
+        categorizationService.saveEditedRule(rule, patternChanged, categoryChanged);
 
-        return ResponseEntity.ok(RuleResponse.from(rule));
-    }
-
-    @PostMapping("/{id}/verify")
-    public ResponseEntity<VerifyRuleResponse> verifyRule(@PathVariable UUID id) {
-        UUID currentSessionUserId = UserContext.getCurrentUserId();
-
-        CategoryRule rule = categoryRuleRepository.findWithCategoriesById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Rule", id));
-
-        // SECURITY: verify ownership
-        if (!rule.getUser().getId().equals(currentSessionUserId)) {
-            throw new ValidationException("You do not have permission to modify this rule.");
-        }
-
-        List<CategorizationService.RuleVerification> verified = categorizationService.verifyRule(rule);
-        List<CategorizationService.ClearedTransaction> cleared = verified.isEmpty()
-                ? List.of() : verified.get(0).clearedTransactions();
-        return ResponseEntity.ok(VerifyRuleResponse.from(RuleResponse.from(rule), cleared));
-    }
-
-    /**
-     * Undo of a verify: marks the rule unverified and puts CATEGORY_UNVERIFIED back on the given
-     * transactions that are the caller's and still use this rule; others are skipped silently.
-     */
-    @PostMapping("/{id}/unverify")
-    public ResponseEntity<UnverifyRuleResponse> unverifyRule(@PathVariable UUID id,
-                                                             @Valid @RequestBody UnverifyRuleRequest request) {
-        UUID currentSessionUserId = UserContext.getCurrentUserId();
-
-        CategoryRule rule = categoryRuleRepository.findWithCategoriesById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Rule", id));
-
-        // SECURITY: verify ownership
-        if (!rule.getUser().getId().equals(currentSessionUserId)) {
-            throw new ValidationException("You do not have permission to modify this rule.");
-        }
-
-        CategorizationService.UnverifyResult result = categorizationService.unverifyRule(rule, request.transactionIds(),
-                request.restore() == null ? List.of() : request.restore(), currentSessionUserId);
-        return ResponseEntity.ok(new UnverifyRuleResponse(result.restoredTransactionIds(), result.skippedTransactionIds()));
-    }
-
-    /**
-     * Verifies several rules at once. All-or-nothing: if any id is unknown or belongs to another
-     * user, nothing is verified. Already-verified rules are accepted and left as they are.
-     */
-    @PostMapping("/verify")
-    public ResponseEntity<BulkVerifyRulesResponse> verifyRules(@Valid @RequestBody BulkVerifyRulesRequest request) {
-        UUID currentSessionUserId = UserContext.getCurrentUserId();
-
-        Set<UUID> requestedIds = new HashSet<>(request.ruleIds());
-        List<CategoryRule> rules = categoryRuleRepository.findByUserIdAndIdIn(currentSessionUserId, requestedIds);
-        if (rules.size() != requestedIds.size()) {
-            throw new ResourceNotFoundException("One or more rules not found");
-        }
-
-        List<CategoryRule> unverified = rules.stream().filter(rule -> !rule.isVerified()).toList();
-        List<CategorizationService.RuleVerification> verified = categorizationService.verifyRules(unverified);
-        return ResponseEntity.ok(new BulkVerifyRulesResponse(unverified.size(), verified));
+        return ResponseEntity.ok(RuleResponse.from(rule, categoryCatalog));
     }
 
     /**
@@ -304,7 +212,7 @@ public class RulesController {
      * POST because patterns (especially regex) don't travel well in query strings.
      */
     @PostMapping("/preview-matches")
-    public ResponseEntity<Page<RuleMatchTransactionResponse>> previewMatches(
+    public ResponseEntity<PreviewMatchesResponse> previewMatches(
             @Valid @RequestBody PreviewMatchesRequest request,
             @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
 
@@ -313,15 +221,16 @@ public class RulesController {
         MatchType matchType = parseMatchType(request.matchType());
         String canonicalKey = RuleMatcher.canonicalizePattern(matchType, request.merchantKey());
 
-        Page<MatchedTransaction> matches = ruleMatchService.findMatches(
+        RuleMatchService.MatchPage result = ruleMatchService.findMatches(
                 currentSessionUserId, matchType, canonicalKey, pageable);
-        return ResponseEntity.ok(matches.map(RuleMatchTransactionResponse::from));
+        return ResponseEntity.ok(new PreviewMatchesResponse(result.matchCount(), result.userSetCount(),
+                result.matches().map(m -> RuleMatchTransactionResponse.from(m, categoryCatalog))));
     }
 
     /**
      * Applies a rule to the selected transactions (or all current matches with all=true):
-     * they get the rule's categories and stay linked to the rule, so later edits to the
-     * rule's categories keep propagating to them.
+     * they get the rule's category (source RULE) and stay linked to the rule, so later edits to the
+     * rule's category keep propagating to them. Transactions whose category the user set are skipped.
      */
     @PostMapping("/{id}/apply")
     public ResponseEntity<com.financeos.api.job.dto.EnqueueResponse> applyRule(
@@ -330,7 +239,7 @@ public class RulesController {
 
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 
-        CategoryRule rule = categoryRuleRepository.findWithCategoriesById(id)
+        CategoryRule rule = categoryRuleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rule", id));
 
         // SECURITY: verify ownership
@@ -359,7 +268,7 @@ public class RulesController {
     public ResponseEntity<Void> deleteRule(@PathVariable UUID id) {
         UUID currentSessionUserId = UserContext.getCurrentUserId();
 
-        CategoryRule rule = categoryRuleRepository.findWithCategoriesById(id)
+        CategoryRule rule = categoryRuleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rule", id));
 
         // SECURITY: verify ownership
@@ -367,7 +276,7 @@ public class RulesController {
             throw new ValidationException("You do not have permission to delete this rule.");
         }
 
-        categoryRuleRepository.delete(rule);
+        categorizationService.deleteRule(rule);
         return ResponseEntity.noContent().build();
     }
 }

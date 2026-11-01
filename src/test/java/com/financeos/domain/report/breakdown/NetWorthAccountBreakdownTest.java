@@ -23,7 +23,7 @@ import com.financeos.domain.account.AccountService;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.BalanceMath;
 import com.financeos.domain.account.FinancialPosition;
-import com.financeos.domain.category.Category;
+import com.financeos.domain.category.Tag;
 import com.financeos.domain.holding.Holding;
 import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.Instrument;
@@ -540,11 +540,11 @@ class NetWorthAccountBreakdownTest {
     @Test
     void transactionsSectionPagesTheBalanceTransactionsSignedAsTheBalanceCountsThem() {
         Account bank = anchored(AccountType.bank_account, "Savings", "0", movements(1, "100", 1, "40", 1), "0");
-        Category food = category("Food");
-        Category fuel = category("Fuel");
+        Tag food = category("Food");
+        Tag fuel = category("Fuel");
         Transaction credit = transaction(TransactionType.CREDIT, "100", "Salary", null, false);
         Transaction debit = transaction(TransactionType.DEBIT, "40", null, "UPI/RAW", true);
-        debit.setCategories(Set.of(fuel, food));
+        debit.setTags(Set.of(fuel, food));
         when(transactionRepository.findBalanceTransactions(bank.getId(), ANCHOR, PageRequest.of(2, 2)))
                 .thenReturn(new PageImpl<>(List.of(credit, debit), PageRequest.of(2, 2), 6));
 
@@ -710,8 +710,8 @@ class NetWorthAccountBreakdownTest {
         return row;
     }
 
-    private static Category category(String name) {
-        Category c = new Category();
+    private static Tag category(String name) {
+        Tag c = new Tag();
         c.setId(UUID.randomUUID());
         c.setName(name);
         return c;

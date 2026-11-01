@@ -7,7 +7,7 @@ import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.categorization.CategorizationService;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.user.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ class TransactionServiceGetByIdTest {
     void setUp() {
         transactionRepository = mock(TransactionRepository.class);
         transactionService = new TransactionService(transactionRepository, mock(AccountRepository.class),
-                mock(CategoryRepository.class), mock(UserRepository.class), mock(ReviewStatusManager.class),
+                mock(TagRepository.class), mock(UserRepository.class), mock(ReviewStatusManager.class),
                 mock(CategorizationService.class), null);
         userId = UUID.randomUUID();
         UserContext.setCurrentUserId(userId);

@@ -17,7 +17,13 @@ public record UpdateTransactionRequest(
         @NotNull(message = "Date is required") LocalDate date,
         @NotNull(message = "Amount is required") BigDecimal amount,
         String description,
-        List<UUID> categoryIds,
+        List<UUID> tagIds,
+        /**
+         * The category to set when present; changing it from the stored one makes it the user's choice.
+         * Absent (null) leaves the stored category alone; clear it with PUT /transactions/{id}/category.
+         */
+        String categoryKey,
+        String subcategoryKey,
         Boolean isTransactionUnderMonitoring,
         Boolean isTransactionExcluded,
         ReviewType reviewType,
@@ -32,40 +38,40 @@ public record UpdateTransactionRequest(
             LocalDate date,
             BigDecimal amount,
             String description,
-            List<UUID> categoryIds,
+            List<UUID> tagIds,
             Boolean isTransactionUnderMonitoring,
             Boolean isTransactionExcluded,
             ReviewType reviewType,
             String monitoringReason,
             String mcc,
             RewardDetailsRequest rewardDetails) {
-        this(accountId, cardId, date, amount, description, categoryIds, isTransactionUnderMonitoring, isTransactionExcluded, reviewType, monitoringReason, mcc, rewardDetails, null);
+        this(accountId, cardId, date, amount, description, tagIds, null, null, isTransactionUnderMonitoring, isTransactionExcluded, reviewType, monitoringReason, mcc, rewardDetails, null);
     }
 
     public UpdateTransactionRequest(
             LocalDate date,
             BigDecimal amount,
             String description,
-            List<UUID> categoryIds,
+            List<UUID> tagIds,
             Boolean isTransactionUnderMonitoring,
             Boolean isTransactionExcluded,
             ReviewType reviewType,
             String monitoringReason,
             String mcc,
             RewardDetailsRequest rewardDetails) {
-        this(null, null, date, amount, description, categoryIds, isTransactionUnderMonitoring, isTransactionExcluded, reviewType, monitoringReason, mcc, rewardDetails, null);
+        this(null, null, date, amount, description, tagIds, null, null, isTransactionUnderMonitoring, isTransactionExcluded, reviewType, monitoringReason, mcc, rewardDetails, null);
     }
 
     public UpdateTransactionRequest(
             LocalDate date,
             BigDecimal amount,
             String description,
-            List<UUID> categoryIds,
+            List<UUID> tagIds,
             Boolean isTransactionUnderMonitoring,
             Boolean isTransactionExcluded,
             ReviewType reviewType,
             String monitoringReason,
             String mcc) {
-        this(null, null, date, amount, description, categoryIds, isTransactionUnderMonitoring, isTransactionExcluded, reviewType, monitoringReason, mcc, null, null);
+        this(null, null, date, amount, description, tagIds, null, null, isTransactionUnderMonitoring, isTransactionExcluded, reviewType, monitoringReason, mcc, null, null);
     }
 }

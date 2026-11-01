@@ -1,11 +1,13 @@
 package com.financeos.api.rules.dto;
 
-import com.financeos.api.category.dto.CategoryResponse;
+import com.financeos.api.category.dto.CategoryRef;
+import com.financeos.api.category.dto.SubcategoryRef;
 import com.financeos.domain.categorization.CategoryRule;
+import com.financeos.domain.categorization.MatchType;
+import com.financeos.domain.category.CategoryCatalog;
 import org.springframework.lang.Nullable;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.UUID;
 
 public record RuleResponse(
@@ -13,26 +15,25 @@ public record RuleResponse(
         String merchantKey,
         String matchType,
         @Nullable String displayName,
-        List<CategoryResponse> categories,
-        boolean verified,
-        String source,
+        CategoryRef category,
+        @Nullable SubcategoryRef subcategory,
         int appliedCount,
         @Nullable Instant lastAppliedAt,
         Instant createdAt,
         @Nullable String mcc
 ) {
     public static RuleResponse from(CategoryRule rule) {
-        List<CategoryResponse> categoryResponses = rule.getCategories().stream()
-                .map(CategoryResponse::from)
-                .toList();
+        return from(rule, CategoryCatalog.shared());
+    }
+
+    public static RuleResponse from(CategoryRule rule, CategoryCatalog catalog) {
         return new RuleResponse(
                 rule.getId(),
                 rule.getMerchantKey(),
-                rule.getMatchType() != null ? rule.getMatchType().name() : "MERCHANT_KEY",
+                rule.getMatchType() != null ? rule.getMatchType().name() : MatchType.CONTAINS.name(),
                 rule.getDisplayName(),
-                categoryResponses,
-                rule.isVerified(),
-                rule.getSource(),
+                CategoryRef.of(catalog, rule.getCategoryKey()),
+                SubcategoryRef.of(catalog, rule.getSubcategoryKey()),
                 rule.getAppliedCount(),
                 rule.getLastAppliedAt(),
                 rule.getCreatedAt(),

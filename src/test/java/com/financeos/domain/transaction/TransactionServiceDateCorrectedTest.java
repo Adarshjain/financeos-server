@@ -4,7 +4,7 @@ import com.financeos.api.transaction.dto.UpdateTransactionRequest;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
-import com.financeos.domain.category.CategoryRepository;
+import com.financeos.domain.category.TagRepository;
 import com.financeos.domain.categorization.CategorizationService;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
@@ -36,7 +36,7 @@ class TransactionServiceDateCorrectedTest {
     void setUp() {
         transactionRepository = mock(TransactionRepository.class);
         transactionService = new TransactionService(transactionRepository, mock(AccountRepository.class),
-                mock(CategoryRepository.class), mock(UserRepository.class), new ReviewStatusManager(),
+                mock(TagRepository.class), mock(UserRepository.class), new ReviewStatusManager(),
                 mock(CategorizationService.class), null);
 
         UUID userId = UUID.randomUUID();

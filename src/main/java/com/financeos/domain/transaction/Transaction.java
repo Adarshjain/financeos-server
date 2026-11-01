@@ -11,7 +11,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.annotations.Filter;
 import com.financeos.domain.user.User;
-import com.financeos.domain.category.Category;
+import com.financeos.domain.category.Tag;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -96,37 +96,55 @@ public class Transaction {
 
     @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
     @org.hibernate.annotations.BatchSize(size = 50)
-    private Set<TransactionCategory> categories = new HashSet<>();
+    private Set<TransactionTag> tags = new HashSet<>();
 
-    public void setCategories(Set<Category> newCategories) {
-        if (newCategories == null) {
-            this.categories.clear();
+    public void setTags(Set<Tag> newTags) {
+        if (newTags == null) {
+            this.tags.clear();
             return;
         }
 
-        // Compare by id, never by instance: callers pass categories loaded in another persistence
-        // context while ours are lazy proxies, so instance equality never matches. A kept category
+        // Compare by id, never by instance: callers pass tags loaded in another persistence
+        // context while ours are lazy proxies, so instance equality never matches. A kept tag
         // would then be deleted and re-inserted, and Hibernate flushes the insert first, tripping
         // UC_TRANSACTION_CATEGORY (prod 409 on PUT /rules/{id}, request 6f8e1b6753f840659b60).
-        java.util.Set<UUID> newIds = newCategories.stream()
-                .map(Category::getId)
+        java.util.Set<UUID> newIds = newTags.stream()
+                .map(Tag::getId)
                 .collect(java.util.stream.Collectors.toSet());
 
-        // 1. Remove categories that are no longer present
-        this.categories.removeIf(tc -> !newIds.contains(tc.getCategory().getId()));
+        // 1. Remove tags that are no longer present
+        this.tags.removeIf(tt -> !newIds.contains(tt.getTag().getId()));
 
-        // 2. Identify categories already present to avoid redundant inserts
-        java.util.Set<UUID> existingIds = this.categories.stream()
-                .map(tc -> tc.getCategory().getId())
+        // 2. Identify tags already present to avoid redundant inserts
+        java.util.Set<UUID> existingIds = this.tags.stream()
+                .map(tt -> tt.getTag().getId())
                 .collect(java.util.stream.Collectors.toSet());
 
-        // 3. Add only the newly associated categories
-        for (Category category : newCategories) {
-            if (existingIds.add(category.getId())) {
-                this.categories.add(new TransactionCategory(this, category));
+        // 3. Add only the newly associated tags
+        for (Tag tag : newTags) {
+            if (existingIds.add(tag.getId())) {
+                this.tags.add(new TransactionTag(this, tag));
             }
         }
     }
+
+    /** The transaction's one category (key into txn_categories); null = uncategorised. */
+    @Column(name = "category_key", length = 40)
+    private String categoryKey;
+
+    @Column(name = "subcategory_key", length = 80)
+    private String subcategoryKey;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category_source", length = 10)
+    private CategorySource categorySource;
+
+    @Column(name = "category_set_at")
+    private Instant categorySetAt;
+
+    /** True once the user chose is_excluded by hand; the category then stops driving it. */
+    @Column(name = "exclude_set_by_user", nullable = false)
+    private boolean excludeSetByUser = false;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

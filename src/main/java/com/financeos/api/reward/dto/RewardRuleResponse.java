@@ -1,6 +1,6 @@
 package com.financeos.api.reward.dto;
 
-import com.financeos.api.category.dto.CategoryResponse;
+import com.financeos.api.tag.dto.TagResponse;
 import com.financeos.domain.reward.AccrualType;
 import com.financeos.domain.reward.CapExhaustedBehavior;
 import com.financeos.domain.reward.CapWindow;
@@ -35,7 +35,7 @@ public record RewardRuleResponse(
         RuleStacking stacking,
         @Nullable LocalDate activeFrom,
         @Nullable LocalDate activeTo,
-        List<CategoryResponse> categories,
+        List<TagResponse> categories,
         List<String> mccs,
         List<TransactionChannel> channels,
         List<DayOfWeek> daysOfWeek,
@@ -68,8 +68,8 @@ public record RewardRuleResponse(
 
     /** tiers must be pre-parsed by the service (the entity stores them as JSON text). */
     public static RewardRuleResponse from(RewardRule rule, List<RewardTier> tiers) {
-        List<CategoryResponse> categoryResponses = rule.getCategories().stream()
-                .map(CategoryResponse::from)
+        List<TagResponse> categoryResponses = rule.getCategories().stream()
+                .map(TagResponse::from)
                 .toList();
 
         UUID cardholderId = rule.getCardholder() != null ? rule.getCardholder().getId() : null;

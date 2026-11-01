@@ -8,8 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.domain.categorization.CategoryRule;
 import com.financeos.domain.categorization.CategoryRuleRepository;
 import com.financeos.domain.categorization.MatchType;
-import com.financeos.domain.category.Category;
-import com.financeos.domain.category.CategoryRepository;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import jakarta.servlet.http.Cookie;
@@ -25,10 +23,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,8 +33,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * GET /rules pages in SQL and loads categories for the page only — the fetch-joined paged query
- * used to make Hibernate load every rule and page in memory (HHH90003004).
+ * GET /rules pages in SQL — a fetch-joined paged query used to make Hibernate load every rule
+ * and page in memory (HHH90003004).
  */
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -47,16 +43,13 @@ class RulesListPagingIntegrationTest {
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
     @Autowired private UserRepository userRepository;
-    @Autowired private CategoryRepository categoryRepository;
     @Autowired private CategoryRuleRepository categoryRuleRepository;
 
     private Cookie session;
     private User user;
-    private Category food;
-    private Category travel;
     private final List<UUID> ruleIds = new ArrayList<>();
 
-    // Sorted by appliedCount desc: busiest (food) → both (food+travel) → idle (travel)
+    // Sorted by appliedCount desc: busiest (food) → both (travel) → idle (salary)
     private CategoryRule busiest;
     private CategoryRule both;
     private CategoryRule idle;
@@ -67,19 +60,15 @@ class RulesListPagingIntegrationTest {
         session = authenticate(email, "rulesPass123!");
         user = userRepository.findByEmail(email).orElseThrow();
 
-        food = categoryRepository.save(new Category("Food", user));
-        travel = categoryRepository.save(new Category("Travel", user));
-
-        busiest = rule("ZOMATO", 9, food);
-        both = rule("UBER", 5, food, travel);
-        idle = rule("IRCTC", 0, travel);
+        busiest = rule("ZOMATO", 9, "food");
+        both = rule("UBER", 5, "travel");
+        idle = rule("PAYROLL", 0, "salary");
     }
 
     /** Shared H2 across @SpringBootTest classes — remove every row this test created. */
     @AfterEach
     void tearDown() {
         categoryRuleRepository.deleteAllById(ruleIds);
-        categoryRepository.deleteAllById(List.of(food.getId(), travel.getId()));
         userRepository.deleteById(user.getId());
     }
 
@@ -102,15 +91,13 @@ class RulesListPagingIntegrationTest {
                 .getCookie("FINANCEOS_SESSION");
     }
 
-    private CategoryRule rule(String key, int appliedCount, Category... categories) {
+    private CategoryRule rule(String key, int appliedCount, String categoryKey) {
         CategoryRule rule = new CategoryRule();
         rule.setUser(user);
         rule.setMerchantKey(key);
-        rule.setMatchType(MatchType.MERCHANT_KEY);
-        rule.setSource("USER");
-        rule.setVerified(false);
+        rule.setMatchType(MatchType.CONTAINS);
+        rule.setCategoryKey(categoryKey);
         rule.setAppliedCount(appliedCount);
-        rule.setCategories(new HashSet<>(Set.of(categories)));
         CategoryRule saved = categoryRuleRepository.save(rule);
         ruleIds.add(saved.getId());
         return saved;
@@ -135,13 +122,11 @@ class RulesListPagingIntegrationTest {
         return ids;
     }
 
-    /** Rule id → its category names, for every rule on the page. */
-    private static Map<UUID, Set<String>> categoriesById(JsonNode page) {
-        Map<UUID, Set<String>> out = new HashMap<>();
+    /** Rule id → its category key, for every rule on the page. */
+    private static Map<UUID, String> categoryKeysById(JsonNode page) {
+        Map<UUID, String> out = new HashMap<>();
         for (JsonNode node : page.get("content")) {
-            Set<String> names = new HashSet<>();
-            node.get("categories").forEach(c -> names.add(c.get("name").asText()));
-            out.put(UUID.fromString(node.get("id").asText()), names);
+            out.put(UUID.fromString(node.get("id").asText()), node.get("category").get("key").asText());
         }
         return out;
     }
@@ -158,10 +143,9 @@ class RulesListPagingIntegrationTest {
     }
 
     @Test
-    void everyRuleOnEachPageCarriesAllItsCategories() throws Exception {
-        assertEquals(Map.of(busiest.getId(), Set.of("Food"), both.getId(), Set.of("Food", "Travel")),
-                categoriesById(page(0, 2)));
-        assertEquals(Map.of(idle.getId(), Set.of("Travel")), categoriesById(page(1, 2)));
+    void everyRuleOnEachPageCarriesItsCategory() throws Exception {
+        assertEquals(Map.of(busiest.getId(), "food", both.getId(), "travel"), categoryKeysById(page(0, 2)));
+        assertEquals(Map.of(idle.getId(), "salary"), categoryKeysById(page(1, 2)));
     }
 
     @Test

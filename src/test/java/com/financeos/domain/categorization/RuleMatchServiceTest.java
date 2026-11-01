@@ -1,15 +1,12 @@
 package com.financeos.domain.categorization;
 
-import com.financeos.domain.category.Category;
-import com.financeos.domain.transaction.ReviewReason;
-import com.financeos.domain.transaction.ReviewStatusManager;
-import com.financeos.domain.transaction.ReviewType;
+import com.financeos.domain.transaction.CategorySource;
+import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.*;
@@ -23,44 +20,48 @@ public class RuleMatchServiceTest {
 
     private TransactionRepository transactionRepository;
     private CategoryRuleRepository categoryRuleRepository;
-    private ReviewStatusManager reviewStatusManager;
     private RuleMatchService ruleMatchService;
 
     private User testUser;
     private UUID userId;
-    private Category foodCategory;
     private CategoryRule rule;
 
     @BeforeEach
     public void setUp() {
         transactionRepository = mock(TransactionRepository.class);
         categoryRuleRepository = mock(CategoryRuleRepository.class);
-        reviewStatusManager = mock(ReviewStatusManager.class);
-        ruleMatchService = new RuleMatchService(transactionRepository, categoryRuleRepository, reviewStatusManager);
+        ruleMatchService = new RuleMatchService(transactionRepository, categoryRuleRepository,
+                com.financeos.support.TestCategories.writer(categoryRuleRepository));
 
         userId = UUID.randomUUID();
         testUser = new User();
         testUser.setId(userId);
-
-        foodCategory = new Category("Food & Dining", testUser);
-        foodCategory.setId(UUID.randomUUID());
 
         rule = new CategoryRule();
         rule.setId(UUID.randomUUID());
         rule.setUser(testUser);
         rule.setMerchantKey("SWIGGY");
         rule.setMatchType(MatchType.CONTAINS);
-        rule.setSource("USER");
-        rule.setVerified(true);
-        rule.setCategories(Set.of(foodCategory));
+        rule.setCategoryKey("food");
+        rule.setSubcategoryKey("food.delivery");
         rule.setAppliedCount(0);
 
-        when(categoryRuleRepository.findWithCategoriesById(rule.getId())).thenReturn(Optional.of(rule));
+        when(categoryRuleRepository.findById(rule.getId())).thenReturn(Optional.of(rule));
         when(categoryRuleRepository.save(any(CategoryRule.class))).thenAnswer(inv -> inv.getArgument(0));
     }
 
     private static TransactionRepository.RuleMatchCandidate candidate(UUID id, String sourcedDescription) {
+        return candidate(id, sourcedDescription, null);
+    }
+
+    private static TransactionRepository.RuleMatchCandidate candidate(UUID id, String sourcedDescription,
+                                                                      CategorySource categorySource) {
         return new TransactionRepository.RuleMatchCandidate() {
+            @Override
+            public CategorySource getCategorySource() {
+                return categorySource;
+            }
+
             @Override
             public UUID getId() {
                 return id;
@@ -78,7 +79,7 @@ public class RuleMatchServiceTest {
         txn.setId(id);
         txn.setUser(testUser);
         txn.setSourcedDescription(sourcedDescription);
-        txn.setCategories(new HashSet<>());
+        txn.setType(TransactionType.DEBIT);
         com.financeos.domain.account.Account account = new com.financeos.domain.account.Account();
         account.setId(UUID.randomUUID());
         account.setName("Main Bank");
@@ -91,7 +92,7 @@ public class RuleMatchServiceTest {
         UUID match1 = UUID.randomUUID();
         UUID match2 = UUID.randomUUID();
         UUID miss = UUID.randomUUID();
-        when(transactionRepository.findRuleMatchCandidates(userId, ReviewType.MANUALLY_REVIEWED))
+        when(transactionRepository.findRuleMatchCandidates(userId))
                 .thenReturn(List.of(
                         candidate(match1, "UPI SWIGGY ORDER 1"),
                         candidate(miss, "AMAZON PAY"),
@@ -100,12 +101,13 @@ public class RuleMatchServiceTest {
         Transaction txn1 = txn(match1, "UPI SWIGGY ORDER 1");
         when(transactionRepository.findAllByIdInAndUserId(List.of(match1), userId)).thenReturn(List.of(txn1));
 
-        Page<RuleMatchService.MatchedTransaction> page =
+        RuleMatchService.MatchPage result =
                 ruleMatchService.findMatches(userId, MatchType.CONTAINS, "SWIGGY", PageRequest.of(0, 1));
 
-        assertEquals(2, page.getTotalElements());
-        assertEquals(1, page.getContent().size());
-        assertEquals(match1, page.getContent().get(0).id());
+        assertEquals(2, result.matches().getTotalElements());
+        assertEquals(2, result.matchCount());
+        assertEquals(1, result.matches().getContent().size());
+        assertEquals(match1, result.matches().getContent().get(0).id());
     }
 
     @Test
@@ -121,7 +123,7 @@ public class RuleMatchServiceTest {
         UUID linkedHere = UUID.randomUUID();
         UUID linkedElsewhere = UUID.randomUUID();
         UUID unlinked = UUID.randomUUID();
-        when(transactionRepository.findRuleMatchCandidates(userId, ReviewType.MANUALLY_REVIEWED))
+        when(transactionRepository.findRuleMatchCandidates(userId))
                 .thenReturn(List.of(
                         candidate(linkedHere, "UPI SWIGGY ORDER"),
                         candidate(linkedElsewhere, "SWIGGY INSTAMART"),
@@ -137,7 +139,7 @@ public class RuleMatchServiceTest {
 
         List<RuleMatchService.MatchedTransaction> content = ruleMatchService
                 .findMatches(userId, MatchType.CONTAINS, "SWIGGY", PageRequest.of(0, 10))
-                .getContent();
+                .matches().getContent();
 
         assertEquals(rule.getId(), content.get(0).appliedRuleId());
         assertEquals("Food delivery", content.get(0).appliedRuleName());
@@ -148,71 +150,91 @@ public class RuleMatchServiceTest {
     }
 
     @Test
-    public void applyToTransactionsSetsRuleCategoriesAndLink() {
+    public void findMatchesCountsTheOnesTheUserCategorised() {
+        UUID byUser = UUID.randomUUID();
+        UUID byRule = UUID.randomUUID();
+        UUID plain = UUID.randomUUID();
+        when(transactionRepository.findRuleMatchCandidates(userId))
+                .thenReturn(List.of(
+                        candidate(byUser, "SWIGGY A", CategorySource.USER),
+                        candidate(byRule, "SWIGGY B", CategorySource.RULE),
+                        candidate(plain, "SWIGGY C"),
+                        candidate(UUID.randomUUID(), "AMAZON PAY", CategorySource.USER)));
+        when(transactionRepository.findAllByIdInAndUserId(anyList(), eq(userId))).thenReturn(List.of());
+
+        RuleMatchService.MatchPage result =
+                ruleMatchService.findMatches(userId, MatchType.CONTAINS, "SWIGGY", PageRequest.of(0, 10));
+
+        assertEquals(3, result.matchCount());
+        assertEquals(1, result.userSetCount(), "only matching rows count, and only the user's");
+    }
+
+    @Test
+    public void applyToTransactionsSetsRuleCategoryAndLink() {
         UUID txnId = UUID.randomUUID();
         Transaction txn = txn(txnId, "UPI SWIGGY ORDER");
-        txn.setReviewType(ReviewType.NEEDS_REVIEW);
-        txn.getReviewReasons().add(ReviewReason.CATEGORY_UNVERIFIED);
 
         when(transactionRepository.findAllByIdInAndUserId(anyList(), eq(userId))).thenReturn(List.of(txn));
 
         int applied = ruleMatchService.applyToTransactions(rule.getId(), List.of(txnId));
 
         assertEquals(1, applied);
-        assertEquals(1, txn.getCategories().size());
-        assertTrue(txn.getCategories().stream().anyMatch(tc -> tc.getCategory().equals(foodCategory)));
+        assertEquals("food", txn.getCategoryKey());
+        assertEquals("food.delivery", txn.getSubcategoryKey());
+        assertEquals(CategorySource.RULE, txn.getCategorySource());
+        assertNotNull(txn.getCategorySetAt());
         assertEquals(rule, txn.getAppliedRule());
         assertEquals(1, rule.getAppliedCount());
         assertNotNull(rule.getLastAppliedAt());
-        verify(reviewStatusManager).clearReason(txn, ReviewReason.CATEGORY_UNVERIFIED, ReviewType.AUTO_REVIEWED);
         verify(transactionRepository).saveAll(List.of(txn));
     }
 
     @Test
-    public void applySkipsManuallyReviewedAndNonMatching() {
-        Transaction manuallyReviewed = txn(UUID.randomUUID(), "UPI SWIGGY ORDER");
-        manuallyReviewed.setReviewType(ReviewType.MANUALLY_REVIEWED);
+    public void applySkipsUserSetAndNonMatching() {
+        Transaction userSet = txn(UUID.randomUUID(), "UPI SWIGGY ORDER");
+        userSet.setCategoryKey("shopping");
+        userSet.setCategorySource(CategorySource.USER);
 
         Transaction nonMatching = txn(UUID.randomUUID(), "AMAZON PAY");
         Transaction manualOnly = txn(UUID.randomUUID(), null); // manual txn: no sourcedDescription
         manualOnly.setDescription("SWIGGY DINNER");
 
         when(transactionRepository.findAllByIdInAndUserId(anyList(), eq(userId)))
-                .thenReturn(List.of(manuallyReviewed, nonMatching, manualOnly));
+                .thenReturn(List.of(userSet, nonMatching, manualOnly));
 
-        int applied = ruleMatchService.applyToTransactions(rule.getId(),
-                List.of(manuallyReviewed.getId(), nonMatching.getId(), manualOnly.getId()));
+        RuleMatchService.ApplyOutcome outcome = ruleMatchService.applyToTransactionsDetailed(rule.getId(),
+                List.of(userSet.getId(), nonMatching.getId(), manualOnly.getId()));
 
-        assertEquals(0, applied);
-        assertTrue(manuallyReviewed.getCategories().isEmpty());
-        assertTrue(nonMatching.getCategories().isEmpty());
-        assertTrue(manualOnly.getCategories().isEmpty());
+        assertEquals(0, outcome.applied());
+        assertEquals(1, outcome.skippedUserSet());
+        assertEquals(2, outcome.skippedNoLongerMatching());
+        assertEquals("shopping", userSet.getCategoryKey(), "the user's category is never overwritten");
+        assertEquals(CategorySource.USER, userSet.getCategorySource());
+        assertNull(nonMatching.getCategoryKey());
+        assertNull(manualOnly.getCategoryKey());
         assertEquals(0, rule.getAppliedCount());
         verify(transactionRepository, never()).saveAll(anyList());
         verify(categoryRuleRepository, never()).save(any());
     }
 
     @Test
-    public void applyDoesNotTouchReviewStateWithoutCategoryUnverifiedFlag() {
-        // A transaction with some other review reason (or none) keeps its review state;
-        // apply only ever clears CATEGORY_UNVERIFIED.
-        Transaction txn = txn(UUID.randomUUID(), "SWIGGY ORDER");
-        txn.setReviewType(ReviewType.NEEDS_REVIEW);
-        txn.getReviewReasons().add(ReviewReason.UNRECONCILED);
+    public void applySkipsRowsWhoseDirectionTheCategoryDoesNotFit() {
+        Transaction credit = txn(UUID.randomUUID(), "SWIGGY REFUND");
+        credit.setType(TransactionType.CREDIT); // food is money-out only
+        when(transactionRepository.findAllByIdInAndUserId(anyList(), eq(userId))).thenReturn(List.of(credit));
 
-        when(transactionRepository.findAllByIdInAndUserId(anyList(), eq(userId))).thenReturn(List.of(txn));
+        RuleMatchService.ApplyOutcome outcome =
+                ruleMatchService.applyToTransactionsDetailed(rule.getId(), List.of(credit.getId()));
 
-        int applied = ruleMatchService.applyToTransactions(rule.getId(), List.of(txn.getId()));
-
-        assertEquals(1, applied);
-        assertEquals(rule, txn.getAppliedRule());
-        verify(reviewStatusManager, never()).clearReason(any(), any(), any());
+        assertEquals(0, outcome.applied());
+        assertEquals(1, outcome.skippedWrongDirection());
+        assertNull(credit.getCategoryKey());
     }
 
     @Test
     public void applyToAllMatchesRecomputesMatchesServerSide() {
         UUID matchId = UUID.randomUUID();
-        when(transactionRepository.findRuleMatchCandidates(userId, ReviewType.MANUALLY_REVIEWED))
+        when(transactionRepository.findRuleMatchCandidates(userId))
                 .thenReturn(List.of(
                         candidate(matchId, "SWIGGY ORDER"),
                         candidate(UUID.randomUUID(), "AMAZON PAY")));

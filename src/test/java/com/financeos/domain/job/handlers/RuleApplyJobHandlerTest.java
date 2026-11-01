@@ -2,7 +2,6 @@ package com.financeos.domain.job.handlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.api.rules.dto.ApplyRuleResponse;
-import com.financeos.domain.category.Category;
 import com.financeos.domain.categorization.CategoryRule;
 import com.financeos.domain.categorization.CategoryRuleRepository;
 import com.financeos.domain.categorization.MatchType;
@@ -18,7 +17,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,16 +42,15 @@ class RuleApplyJobHandlerTest {
         userId = UUID.randomUUID();
         User user = new User();
         user.setId(userId);
-        Category travel = new Category("travel", user);
-        Category food = new Category("Food", user);
 
         rule = new CategoryRule();
         rule.setId(UUID.randomUUID());
         rule.setUser(user);
         rule.setMerchantKey("UBER");
         rule.setMatchType(MatchType.STARTS_WITH);
-        rule.setCategories(Set.of(travel, food));
-        when(categoryRuleRepository.findWithCategoriesById(rule.getId())).thenReturn(Optional.of(rule));
+        rule.setCategoryKey("transport");
+        rule.setSubcategoryKey("transport.cabs");
+        when(categoryRuleRepository.findById(rule.getId())).thenReturn(Optional.of(rule));
     }
 
     private JobExecutionContext ctx(RuleApplyPayload payload) throws Exception {
@@ -66,7 +63,7 @@ class RuleApplyJobHandlerTest {
         RuleMatchService.AppliedTransaction sample = new RuleMatchService.AppliedTransaction(
                 UUID.randomUUID(), LocalDate.of(2026, 10, 2), new BigDecimal("310"), TransactionType.DEBIT, "UBER TRIP");
         when(ruleMatchService.applyToAllMatchesDetailed(rule.getId()))
-                .thenReturn(new RuleMatchService.ApplyOutcome(5, 3, 1, 1, 0, List.of(sample)));
+                .thenReturn(new RuleMatchService.ApplyOutcome(5, 3, 1, 1, 0, 0, List.of(sample)));
 
         ApplyRuleResponse result = (ApplyRuleResponse) handler.execute(ctx(new RuleApplyPayload(rule.getId(), true, null)));
 
@@ -75,10 +72,11 @@ class RuleApplyJobHandlerTest {
         assertThat(result.ruleName()).isEqualTo("UBER");
         assertThat(result.matchType()).isEqualTo(MatchType.STARTS_WITH);
         assertThat(result.pattern()).isEqualTo("UBER");
-        assertThat(result.categories()).containsExactly("Food", "travel");
+        assertThat(result.categoryKey()).isEqualTo("transport");
+        assertThat(result.subcategoryKey()).isEqualTo("transport.cabs");
         assertThat(result.allMatches()).isTrue();
         assertThat(result.requested()).isEqualTo(5);
-        assertThat(result.skippedManuallyReviewed()).isEqualTo(1);
+        assertThat(result.skippedUserSet()).isEqualTo(1);
         assertThat(result.skippedNoLongerMatching()).isEqualTo(1);
         assertThat(result.notFound()).isZero();
         assertThat(result.transactions()).containsExactly(sample);
@@ -89,7 +87,7 @@ class RuleApplyJobHandlerTest {
         rule.setDisplayName("Cab rides");
         List<UUID> picked = List.of(UUID.randomUUID(), UUID.randomUUID());
         when(ruleMatchService.applyToTransactionsDetailed(rule.getId(), picked))
-                .thenReturn(new RuleMatchService.ApplyOutcome(2, 1, 0, 0, 1, List.of()));
+                .thenReturn(new RuleMatchService.ApplyOutcome(2, 1, 0, 0, 0, 1, List.of()));
 
         ApplyRuleResponse result = (ApplyRuleResponse) handler.execute(ctx(new RuleApplyPayload(rule.getId(), false, picked)));
 
@@ -103,7 +101,7 @@ class RuleApplyJobHandlerTest {
     void aBlankDisplayNameFallsBackToThePattern() throws Exception {
         rule.setDisplayName("   ");
         when(ruleMatchService.applyToAllMatchesDetailed(rule.getId()))
-                .thenReturn(new RuleMatchService.ApplyOutcome(0, 0, 0, 0, 0, List.of()));
+                .thenReturn(new RuleMatchService.ApplyOutcome(0, 0, 0, 0, 0, 0, List.of()));
 
         ApplyRuleResponse result = (ApplyRuleResponse) handler.execute(ctx(new RuleApplyPayload(rule.getId(), true, null)));
 

@@ -58,7 +58,7 @@ class GapsCategoryFilterPagedPreviewIntegrationTest {
     }
 
     private UUID category(String name) throws Exception {
-        return api.create("/api/v1/categories", Map.of("name", name));
+        return api.create("/api/v1/tags", Map.of("name", name));
     }
 
     private UUID txn(UUID account, int amount, String description, List<UUID> categories) throws Exception {
@@ -67,7 +67,7 @@ class GapsCategoryFilterPagedPreviewIntegrationTest {
         body.put("date", today.minusDays(1).toString());
         body.put("amount", amount);
         body.put("description", description);
-        body.put("categoryIds", categories.stream().map(UUID::toString).toList());
+        body.put("tagIds", categories.stream().map(UUID::toString).toList());
         return api.create("/api/v1/transactions", body);
     }
 
@@ -147,8 +147,8 @@ class GapsCategoryFilterPagedPreviewIntegrationTest {
         category("cherry");
         category("Date");
 
-        JsonNode first = api.getJson("/api/v1/categories/page?size=3&page=0", 200);
-        JsonNode second = api.getJson("/api/v1/categories/page?size=3&page=1", 200);
+        JsonNode first = api.getJson("/api/v1/tags/page?size=3&page=0", 200);
+        JsonNode second = api.getJson("/api/v1/tags/page?size=3&page=1", 200);
 
         assertEquals(4, first.get("totalElements").asLong());
         assertEquals(2, first.get("totalPages").asInt());
@@ -166,20 +166,20 @@ class GapsCategoryFilterPagedPreviewIntegrationTest {
         category("a_b");
         category("axb");
 
-        JsonNode hit = api.getJson("/api/v1/categories/page?search=GRO", 200);
+        JsonNode hit = api.getJson("/api/v1/tags/page?search=GRO", 200);
         assertEquals(1, hit.get("totalElements").asLong());
         assertEquals("Groceries", hit.get("content").get(0).get("name").asText());
 
-        assertEquals(1, api.getJson("/api/v1/categories/page?search=a_b", 200).get("totalElements").asLong(),
+        assertEquals(1, api.getJson("/api/v1/tags/page?search=a_b", 200).get("totalElements").asLong(),
                 "an underscore is literal, not a LIKE wildcard");
-        assertEquals(0, api.getJson("/api/v1/categories/page?search=zzz", 200).get("totalElements").asLong());
-        assertEquals(4, api.getJson("/api/v1/categories/page?search=", 200).get("totalElements").asLong());
+        assertEquals(0, api.getJson("/api/v1/tags/page?search=zzz", 200).get("totalElements").asLong());
+        assertEquals(4, api.getJson("/api/v1/tags/page?search=", 200).get("totalElements").asLong());
     }
 
     @Test
     void unpagedCategoryListIsUnchangedAndOtherUsersCategoriesAreNotInThePage() throws Exception {
         category("Mine");
-        JsonNode list = api.getJson("/api/v1/categories", 200);
+        JsonNode list = api.getJson("/api/v1/tags", 200);
         assertTrue(list.isArray());
         assertEquals(1, list.size());
 
@@ -187,8 +187,8 @@ class GapsCategoryFilterPagedPreviewIntegrationTest {
         ApiTestClient other = ApiTestClient.signUp(mockMvc, mapper, otherEmail);
         UUID otherId = userRepository.findByEmail(otherEmail).orElseThrow().getId();
         try {
-            other.create("/api/v1/categories", Map.of("name", "Theirs"));
-            assertEquals(1, api.getJson("/api/v1/categories/page", 200).get("totalElements").asLong());
+            other.create("/api/v1/tags", Map.of("name", "Theirs"));
+            assertEquals(1, api.getJson("/api/v1/tags/page", 200).get("totalElements").asLong());
         } finally {
             UserDataCleanup.deleteUsers(jdbc, List.of(otherId));
         }
@@ -204,7 +204,7 @@ class GapsCategoryFilterPagedPreviewIntegrationTest {
         jdbc.update("UPDATE transactions SET sourced_description = description WHERE user_id = ?", userId.toString());
 
         JsonNode page = api.postJson("/api/v1/rules/preview-matches",
-                Map.of("merchantKey", "SWIGGY", "matchType", "CONTAINS"), 200);
+                Map.of("merchantKey", "SWIGGY", "matchType", "CONTAINS"), 200).get("matches");
 
         assertEquals(2, page.get("totalElements").asLong());
         Map<String, JsonNode> byId = new LinkedHashMap<>();

@@ -14,7 +14,10 @@ public record CreateTransactionRequest(
         @NotNull(message = "Date is required") LocalDate date,
         @NotNull(message = "Amount is required") BigDecimal amount,
         String description,
-        List<UUID> categoryIds,
+        List<UUID> tagIds,
+        /** Optional category from the fixed list; given, it is stored as the user's choice. */
+        String categoryKey,
+        String subcategoryKey,
         Boolean isTransactionUnderMonitoring,
         Boolean isTransactionExcluded,
         String monitoringReason,
@@ -26,12 +29,12 @@ public record CreateTransactionRequest(
             LocalDate date,
             BigDecimal amount,
             String description,
-            List<UUID> categoryIds,
+            List<UUID> tagIds,
             Boolean isTransactionUnderMonitoring,
             Boolean isTransactionExcluded,
             String monitoringReason,
             String mcc,
             RewardDetailsRequest rewardDetails) {
-        this(accountId, null, date, amount, description, categoryIds, isTransactionUnderMonitoring, isTransactionExcluded, monitoringReason, mcc, rewardDetails);
+        this(accountId, null, date, amount, description, tagIds, null, null, isTransactionUnderMonitoring, isTransactionExcluded, monitoringReason, mcc, rewardDetails);
     }
 }

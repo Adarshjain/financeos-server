@@ -28,7 +28,7 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
 
     public static final String CATEGORY_LISTAGG =
             "(SELECT LISTAGG(cx.name, ', ') WITHIN GROUP (ORDER BY cx.name)"
-            + " FROM transaction_categories tcx JOIN categories cx ON cx.id = tcx.category_id"
+            + " FROM transaction_tags tcx JOIN tags cx ON cx.id = tcx.tag_id"
             + " WHERE tcx.transaction_id = t.id)";
 
     public static final String IS_TRANSFER_LEG =
@@ -294,8 +294,8 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             sb.append(" LEFT JOIN cards cd ON cd.id = t.card_id LEFT JOIN cardholders ch ON ch.id = cd.cardholder_id");
         }
         if (joins.contains(JOIN_CATEGORIES)) {
-            sb.append(" LEFT JOIN transaction_categories tc ON tc.transaction_id = t.id")
-              .append(" LEFT JOIN categories c ON c.id = tc.category_id");
+            sb.append(" LEFT JOIN transaction_tags tc ON tc.transaction_id = t.id")
+              .append(" LEFT JOIN tags c ON c.id = tc.tag_id");
         }
         if (joins.contains(JOIN_LINKS)) {
             // One link per transaction is the product rule; MIN keeps the join 1:1 regardless.

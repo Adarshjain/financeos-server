@@ -314,8 +314,8 @@ public class TransactionListQueryBuilder {
                       LOWER(sub.description)        LIKE :q ESCAPE '\\'
                    OR LOWER(sub.sourced_description) LIKE :q ESCAPE '\\'
                    OR LOWER(a.name)                 LIKE :q ESCAPE '\\'
-                   OR EXISTS (SELECT 1 FROM transaction_categories tcx
-                                 JOIN categories cx ON cx.id = tcx.category_id
+                   OR EXISTS (SELECT 1 FROM transaction_tags tcx
+                                 JOIN tags cx ON cx.id = tcx.tag_id
                                 WHERE tcx.transaction_id = sub.id
                                   AND LOWER(cx.name) LIKE :q ESCAPE '\\')"""
                 + amountClause + """

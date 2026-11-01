@@ -1,14 +1,15 @@
 package com.financeos.api.rules.dto;
 
-import com.financeos.api.category.dto.CategoryResponse;
+import com.financeos.api.category.dto.CategoryRef;
+import com.financeos.api.category.dto.SubcategoryRef;
 import com.financeos.domain.categorization.RuleMatchService;
+import com.financeos.domain.category.CategoryCatalog;
+import com.financeos.domain.transaction.CategorySource;
 
 import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.List;
 import java.util.UUID;
 
 public record RuleMatchTransactionResponse(
@@ -17,8 +18,9 @@ public record RuleMatchTransactionResponse(
         BigDecimal amount,
         String type,
         String sourcedDescription,
-        List<CategoryResponse> categories,
-        @Nullable String reviewType,
+        @Nullable CategoryRef category,
+        @Nullable SubcategoryRef subcategory,
+        @Nullable CategorySource categorySource,
         @Nullable UUID appliedRuleId,
         @Nullable String appliedRuleName,
         UUID accountId,
@@ -27,19 +29,16 @@ public record RuleMatchTransactionResponse(
         @Nullable UUID cardId,
         @Nullable String cardLast4
 ) {
-    public static RuleMatchTransactionResponse from(RuleMatchService.MatchedTransaction match) {
-        List<CategoryResponse> categories = match.categories().stream()
-                .map(CategoryResponse::from)
-                .sorted(Comparator.comparing(CategoryResponse::name))
-                .toList();
+    public static RuleMatchTransactionResponse from(RuleMatchService.MatchedTransaction match, CategoryCatalog catalog) {
         return new RuleMatchTransactionResponse(
                 match.id(),
                 match.date(),
                 match.amount(),
                 match.type() != null ? match.type().name() : null,
                 match.sourcedDescription(),
-                categories,
-                match.reviewType() != null ? match.reviewType().name() : null,
+                CategoryRef.of(catalog, match.categoryKey()),
+                SubcategoryRef.of(catalog, match.subcategoryKey()),
+                match.categorySource(),
                 match.appliedRuleId(),
                 match.appliedRuleName(),
                 match.accountId(),

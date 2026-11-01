@@ -41,7 +41,6 @@ public final class RuleMatcher {
     public static final class MatchContext {
         private final String raw;
         private final String upper;
-        private String normalized; // lazy: only MERCHANT_KEY rules need it
 
         private MatchContext(String raw) {
             this.raw = raw;
@@ -55,13 +54,6 @@ public final class RuleMatcher {
         public boolean isBlank() {
             return raw.isBlank();
         }
-
-        private String normalized() {
-            if (normalized == null) {
-                normalized = DescriptionNormalizer.normalize(raw);
-            }
-            return normalized;
-        }
     }
 
     public static boolean matches(CategoryRule rule, MatchContext ctx) {
@@ -72,9 +64,8 @@ public final class RuleMatcher {
         if (pattern == null || pattern.isBlank() || ctx.isBlank()) {
             return false;
         }
-        MatchType effectiveType = type == null ? MatchType.MERCHANT_KEY : type;
+        MatchType effectiveType = type == null ? MatchType.CONTAINS : type;
         return switch (effectiveType) {
-            case MERCHANT_KEY -> pattern.length() >= MIN_PATTERN_LENGTH && ctx.normalized().contains(pattern);
             case CONTAINS -> ctx.upper.contains(pattern.toUpperCase(Locale.ROOT));
             case STARTS_WITH -> ctx.upper.startsWith(pattern.trim().toUpperCase(Locale.ROOT));
             case EXACT -> ctx.upper.equals(pattern.trim().toUpperCase(Locale.ROOT));
@@ -84,8 +75,7 @@ public final class RuleMatcher {
 
     /**
      * Validates a user-entered pattern for the given type and returns the canonical
-     * form to store in merchantKey (normalized for MERCHANT_KEY, trimmed as-typed
-     * otherwise). Throws ValidationException with a user-facing message when invalid.
+     * form to store in merchantKey (trimmed as-typed). Throws ValidationException with a user-facing message when invalid.
      */
     public static String canonicalizePattern(MatchType type, String rawPattern) {
         if (rawPattern == null || rawPattern.isBlank()) {
@@ -96,14 +86,6 @@ public final class RuleMatcher {
             throw new ValidationException("Pattern must be at most " + MAX_PATTERN_LENGTH + " characters.");
         }
         switch (type) {
-            case MERCHANT_KEY -> {
-                String normalized = DescriptionNormalizer.normalize(trimmed);
-                if (normalized.length() < MIN_PATTERN_LENGTH) {
-                    throw new ValidationException("Merchant key length must be at least "
-                            + MIN_PATTERN_LENGTH + " characters after normalization.");
-                }
-                return normalized;
-            }
             case CONTAINS, STARTS_WITH -> {
                 if (trimmed.length() < MIN_PATTERN_LENGTH) {
                     throw new ValidationException("Pattern must be at least " + MIN_PATTERN_LENGTH + " characters.");

@@ -23,7 +23,15 @@ public record TransactionResponse(
                 BigDecimal amount,
                 @Nullable String description,
                 @Nullable String sourcedDescription,
-                java.util.List<com.financeos.api.category.dto.CategoryResponse> categories,
+                /** The transaction's one category; null = uncategorised. */
+                @Nullable com.financeos.api.category.dto.CategoryRef category,
+                @Nullable com.financeos.api.category.dto.SubcategoryRef subcategory,
+                /** Who set the category (AUTO, LINK, RULE, USER); null when uncategorised. */
+                @Nullable com.financeos.domain.transaction.CategorySource categorySource,
+                /** The rule that set the category, when categorySource is RULE. */
+                @Nullable CategoryRuleRef categoryRule,
+                @Nullable Instant categorySetAt,
+                java.util.List<com.financeos.api.tag.dto.TagResponse> tags,
                 TransactionSource source,
                 boolean isTransactionUnderMonitoring,
                 @Nullable String monitoringReason,
@@ -70,10 +78,15 @@ public record TransactionResponse(
                                 ? transaction.getAmount().negate()
                                 : transaction.getAmount();
 
-                java.util.List<com.financeos.api.category.dto.CategoryResponse> categoryResponses = transaction
-                                .getCategories().stream()
-                                .map(tc -> com.financeos.api.category.dto.CategoryResponse.from(tc.getCategory()))
+                java.util.List<com.financeos.api.tag.dto.TagResponse> tagResponses = transaction
+                                .getTags().stream()
+                                .map(tt -> com.financeos.api.tag.dto.TagResponse.from(tt.getTag()))
                                 .toList();
+                com.financeos.domain.category.CategoryCatalog catalog = com.financeos.domain.category.CategoryCatalog.shared();
+                CategoryRuleRef categoryRule = transaction.getCategorySource() == com.financeos.domain.transaction.CategorySource.RULE
+                                && transaction.getAppliedRule() != null
+                                                ? CategoryRuleRef.from(transaction.getAppliedRule())
+                                                : null;
 
                 java.util.List<com.financeos.domain.transaction.ReviewReason> reviewReasonsList = transaction.getReviewReasons() != null
                                 ? new java.util.ArrayList<>(transaction.getReviewReasons())
@@ -105,7 +118,12 @@ public record TransactionResponse(
                                 signedAmount, // Return signed amount
                                 transaction.getDescription(),
                                 transaction.getSourcedDescription(),
-                                categoryResponses,
+                                com.financeos.api.category.dto.CategoryRef.of(catalog, transaction.getCategoryKey()),
+                                com.financeos.api.category.dto.SubcategoryRef.of(catalog, transaction.getSubcategoryKey()),
+                                transaction.getCategorySource(),
+                                categoryRule,
+                                transaction.getCategorySetAt(),
+                                tagResponses,
                                 transaction.getSource(),
                                 transaction.isTransactionUnderMonitoring(),
                                 transaction.getMonitoringReason(),
@@ -127,5 +145,18 @@ public record TransactionResponse(
                                 transaction.getIsInternational(),
                                 transactionLinks,
                                 refs);
+        }
+
+        /** The rule behind a RULE category: its id and what the rules page calls it (display name, else pattern). */
+        public record CategoryRuleRef(UUID id, @Nullable String name) {
+                static CategoryRuleRef from(com.financeos.domain.categorization.CategoryRule rule) {
+                        // The name needs the rule loaded; a bare reference (not fetched with the row) gives the id only.
+                        String name = null;
+                        if (org.hibernate.Hibernate.isInitialized(rule)) {
+                                String display = rule.getDisplayName();
+                                name = display != null && !display.isBlank() ? display : rule.getMerchantKey();
+                        }
+                        return new CategoryRuleRef(rule.getId(), name);
+                }
         }
 }
