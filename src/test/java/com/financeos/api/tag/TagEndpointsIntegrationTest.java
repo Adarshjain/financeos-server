@@ -98,7 +98,7 @@ class TagEndpointsIntegrationTest {
         assertEquals("Holiday", renamed.get("name").asText());
         assertEquals(2, renamed.get("transactionCount").asInt());
         assertEquals(2, api.getJson("/api/v1/tags/" + trip, 200).get("transactionCount").asInt());
-        api.putJson("/api/v1/tags/" + gift, Map.of("name", "Holiday"), 400);
+        api.putJson("/api/v1/tags/" + gift, Map.of("name", "Holiday"), 409);
 
         api.deleteJson("/api/v1/tags/" + gift, 204);
         assertEquals(404, api.get("/api/v1/tags/" + gift).getStatus());
@@ -191,5 +191,15 @@ class TagEndpointsIntegrationTest {
         JsonNode after = api.getJson("/api/v1/transactions/" + id, 200);
         assertEquals(1, after.get("tags").size());
         assertEquals("Gift", after.get("tags").get(0).get("name").asText());
+    }
+
+    @Test
+    void renamingOntoAnExistingNameIsAConflict() throws Exception {
+        tag(api, "Trip");
+        UUID gift = tag(api, "Gift");
+        JsonNode err = api.putJson("/api/v1/tags/" + gift, Map.of("name", " Trip "), 409);
+        assertEquals("CONFLICT", err.get("code").asText());
+        // Renaming to its own name is not a conflict.
+        api.putJson("/api/v1/tags/" + gift, Map.of("name", "Gift"), 200);
     }
 }

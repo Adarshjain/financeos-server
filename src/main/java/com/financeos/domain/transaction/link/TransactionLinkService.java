@@ -293,15 +293,10 @@ public class TransactionLinkService {
     @Transactional(readOnly = true)
     public List<TransactionLinkResponse> getLinksForTransaction(UUID transactionId) {
         UUID userId = UserContext.getCurrentUserId();
-        Optional<TransactionLink> linkOpt = transactionLinkRepository.findByMembers_Transaction_Id(transactionId);
-        if (linkOpt.isEmpty()) {
-            return List.of();
-        }
-        TransactionLink link = linkOpt.get();
-        if (link.getUser() == null || !link.getUser().getId().equals(userId)) {
-            return List.of();
-        }
-        return List.of(toResponse(link));
+        return transactionLinkRepository.findAllByMembers_Transaction_Id(transactionId).stream()
+                .filter(link -> link.getUser() != null && link.getUser().getId().equals(userId))
+                .map(this::toResponse)
+                .toList();
     }
 
     public void deleteLink(UUID linkId) {

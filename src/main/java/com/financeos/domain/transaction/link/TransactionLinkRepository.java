@@ -12,7 +12,20 @@ import java.util.UUID;
 
 public interface TransactionLinkRepository extends JpaRepository<TransactionLink, UUID> {
 
-    Optional<TransactionLink> findByMembers_Transaction_Id(UUID transactionId);
+    /**
+     * One link per transaction is only an application invariant (no DB constraint), so a race can leave
+     * two; this never throws on that, it returns the oldest. Use {@link #findAllByMembers_Transaction_Id}
+     * to see them all.
+     */
+    default Optional<TransactionLink> findByMembers_Transaction_Id(UUID transactionId) {
+        return findAllByMembers_Transaction_Id(transactionId).stream().findFirst();
+    }
+
+    List<TransactionLink> findAllByMembers_Transaction_IdOrderByCreatedAtAsc(UUID transactionId);
+
+    default List<TransactionLink> findAllByMembers_Transaction_Id(UUID transactionId) {
+        return findAllByMembers_Transaction_IdOrderByCreatedAtAsc(transactionId);
+    }
 
     @Query("SELECT DISTINCT l FROM TransactionLink l JOIN FETCH l.members m WHERE m.transaction.id IN :transactionIds")
     List<TransactionLink> findDistinctByMembers_Transaction_IdIn(@Param("transactionIds") Collection<UUID> transactionIds);

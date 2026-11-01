@@ -109,7 +109,8 @@ public class TagService {
         tagRepository.findByNameAndUser(trimmedName, tag.getUser())
                 .ifPresent(existing -> {
                     if (!existing.getId().equals(id)) {
-                        throw new ValidationException("A tag with this name already exists.");
+                        throw new com.financeos.core.exception.ApiStatusException(
+                                org.springframework.http.HttpStatus.CONFLICT, "CONFLICT", "A tag with this name already exists.");
                     }
                 });
 
