@@ -294,7 +294,13 @@ public class DatasourceCatalog {
             FieldDef.cycleDate("date", "Date", CHART_TABLE),
             new FieldDef("type", "Type", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("DEBIT", "CREDIT"), null, CHART_TABLE),
-            new FieldDef("category", "Category", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
+            // The old per-user categories, now tags: filters hold tag names.
+            new FieldDef("tag", "Tag", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
+            // The fixed category list: filters hold keys (food, food.delivery), the dropdown shows labels.
+            new FieldDef("category", "Category", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE,
+                    null, "categoryKey"),
+            new FieldDef("subcategory", "Sub-category", FieldType.ENUM, FieldRole.DIMENSION, null, null, true,
+                    CHART_TABLE, null, "subcategoryKey"),
             new FieldDef("account", "Account", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE,
                     null, "accountId"),
             new FieldDef("accountType", "Account Type", FieldType.ENUM, FieldRole.DIMENSION, null,

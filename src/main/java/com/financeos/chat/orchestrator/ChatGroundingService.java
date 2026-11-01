@@ -64,12 +64,12 @@ public class ChatGroundingService {
         }
 
         List<Tag> categories = tagRepository.findByUserId(userId);
-        sb.append("\nUser Categories (max 60):\n");
+        sb.append("\nUser Tags (max 60):\n");
         int count = 0;
         for (Tag cat : categories) {
             count++;
             if (count > 60) {
-                sb.append("... [truncated ").append(categories.size() - 60).append(" additional categories]\n");
+                sb.append("... [truncated ").append(categories.size() - 60).append(" additional tags]\n");
                 break;
             }
             sb.append("- ").append(cat.getName()).append(" (id: ").append(cat.getId()).append(")\n");

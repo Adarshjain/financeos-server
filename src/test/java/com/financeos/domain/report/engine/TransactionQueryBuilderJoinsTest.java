@@ -70,7 +70,7 @@ class TransactionQueryBuilderJoinsTest {
     @Test
     void cardAndCategoryInOneQueryUseDistinctAliases() {
         String from = queryBuilder.fromClause(Set.of(TransactionQueryBuilder.JOIN_CARDS,
-                TransactionQueryBuilder.JOIN_CATEGORIES));
+                TransactionQueryBuilder.JOIN_TAGS));
         assertTrue(from.contains("LEFT JOIN cards cd ON cd.id = t.card_id"));
         assertTrue(from.contains("LEFT JOIN tags c ON c.id = tc.tag_id"));
         assertFalse(from.contains("cards c ON"), "cards must not take the categories alias");
@@ -81,7 +81,7 @@ class TransactionQueryBuilderJoinsTest {
     void cardCategoryAndLinkJoinsCombine() {
         Set<String> joins = new HashSet<>();
         queryBuilder.expression("card", joins);
-        queryBuilder.expression("category", joins);
+        queryBuilder.expression("tag", joins);
         queryBuilder.expression("linkType", joins);
         String from = queryBuilder.fromClause(joins);
         assertTrue(from.contains("cards cd"));

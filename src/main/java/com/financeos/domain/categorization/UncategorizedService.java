@@ -32,6 +32,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -58,6 +59,8 @@ public class UncategorizedService {
     /** Recent picks are read this deep before direction filtering. */
     private static final int RECENT_SCAN = 40;
     private static final int APPLY_CHUNK = 500;
+    /** How many distinct (text, direction, mcc) analyses the memo keeps; ~100 bytes of key each. */
+    static final int MEMO_MAX = 50_000;
 
     private final TransactionRepository transactionRepository;
     private final CategoryAssigner assigner;
@@ -66,6 +69,21 @@ public class UncategorizedService {
     private final CategoryRuleRepository ruleRepository;
     private final CategorizationService categorizationService;
     private final UserRepository userRepository;
+
+    /**
+     * Least-recently-used memo of the engine's analysis (about 0.2 ms each, ~4 s for 20k distinct lines).
+     * The analysis is a pure function of its key (text, direction, mcc): the engine reads no rules, links
+     * or user data, so entries are the same for every user and sharing them across users leaks nothing
+     * (a user only ever gets the analysis of text they sent themselves). Bounded, and thread-safe: the
+     * synchronized wrapper also covers the access-order reordering done by a read.
+     */
+    private final Map<TextKey, Analysis> memo = Collections.synchronizedMap(
+            new LinkedHashMap<>(1024, 0.75f, true) {
+                @Override
+                protected boolean removeEldestEntry(Map.Entry<TextKey, Analysis> eldest) {
+                    return size() > MEMO_MAX;
+                }
+            });
 
     public UncategorizedService(TransactionRepository transactionRepository, CategoryAssigner assigner,
                                 CategoryCatalog catalog, TransactionCategoryWriter writer,
@@ -163,7 +181,7 @@ public class UncategorizedService {
             String text = row.getSourcedDescription() != null && !row.getSourcedDescription().isBlank()
                     ? row.getSourcedDescription() : row.getDescription();
             TransactionType type = row.getType();
-            Analysis a = analysed.computeIfAbsent(new TextKey(text, type, row.getMcc()), k -> analyse(k));
+            Analysis a = analysed.computeIfAbsent(new TextKey(text, type, row.getMcc()), this::memoised);
             String direction = type == TransactionType.CREDIT ? "IN" : "OUT";
             String key = groupKey(a.basis(), direction);
             Group g = byKey.computeIfAbsent(key, k -> new Group(k, a.label(), direction));
@@ -185,6 +203,15 @@ public class UncategorizedService {
         log.debug("Grouped {} uncategorised row(s) into {} group(s) in {} ms", rows.size(), out.size(),
                 (System.nanoTime() - started) / 1_000_000);
         return out;
+    }
+
+    private Analysis memoised(TextKey k) {
+        Analysis hit = memo.get(k);
+        if (hit == null) {
+            hit = analyse(k);
+            memo.put(k, hit);
+        }
+        return hit;
     }
 
     private Analysis analyse(TextKey k) {

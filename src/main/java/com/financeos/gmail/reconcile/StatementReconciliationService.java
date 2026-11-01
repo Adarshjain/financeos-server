@@ -330,9 +330,8 @@ public class StatementReconciliationService {
         updateLastStatementDate(resolvedAccount, result);
         recordLedger(connection, message.messageId(), resolvedAccount, GmailProcessedStatus.RECONCILED, null);
 
-        // Categorization is deliberately NOT done here: this method is @Transactional and the
-        // categorizer makes a Gemini HTTP call, which must not run while holding a DB connection.
-        // The caller (GmailIngestionService) categorizes the returned transactions outside the tx.
+        // Categorization is not done here: the caller (GmailIngestionService) categorizes the
+        // returned transactions after this transaction commits.
         if (createdCount > 0 && eventPublisher != null) {
             eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(connection.getUser().getId()));
         }

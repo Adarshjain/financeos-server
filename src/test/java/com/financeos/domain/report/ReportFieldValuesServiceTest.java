@@ -38,6 +38,8 @@ class ReportFieldValuesServiceTest {
 
     private static final FieldDef ACCOUNT = new FieldDef("account", "Account", FieldType.ENUM, FieldRole.DIMENSION,
             null, null, true, List.of());
+    private static final FieldDef TAG = new FieldDef("tag", "Tag", FieldType.ENUM, FieldRole.DIMENSION,
+            null, null, true, List.of(ReportType.CHART, ReportType.TABLE));
     private static final FieldDef CATEGORY = new FieldDef("category", "Category", FieldType.ENUM, FieldRole.DIMENSION,
             null, null, true, List.of());
     private static final FieldDef TYPE = new FieldDef("type", "Type", FieldType.ENUM, FieldRole.DIMENSION,
@@ -171,7 +173,7 @@ class ReportFieldValuesServiceTest {
     void sqlDatasourceRunsOneQueryPerDynamicFieldWithItsOwnJoins() {
         when(query.getResultList()).thenReturn(List.of("x"));
 
-        Map<String, List<String>> values = service(sqlDatasource(ACCOUNT, CATEGORY)).values("transactions").values();
+        Map<String, List<String>> values = service(sqlDatasource(ACCOUNT, TAG)).values("transactions").values();
 
         ArgumentCaptor<String> sql = ArgumentCaptor.forClass(String.class);
         verify(em, times(2)).createNativeQuery(sql.capture());
@@ -179,7 +181,7 @@ class ReportFieldValuesServiceTest {
         assertTrue(sql.getAllValues().get(0).contains("LEFT JOIN accounts a") && !sql.getAllValues().get(0).contains("tags"));
         assertTrue(sql.getAllValues().get(1).startsWith("SELECT DISTINCT c.name AS v FROM transactions t"));
         assertTrue(sql.getAllValues().get(1).contains("LEFT JOIN tags c ON c.id = tc.tag_id"));
-        assertEquals(List.of("account", "category"), List.copyOf(values.keySet()));
+        assertEquals(List.of("account", "tag"), List.copyOf(values.keySet()));
     }
 
     // ---------- computed datasources ----------

@@ -55,11 +55,11 @@ class TransactionQueryBuilderCategoryFilterTest {
         Set<String> joins = new HashSet<>();
         Map<String, Object> params = new HashMap<>();
 
-        String where = where(new FilterClause("category", "is", JSON.textNode("Food")), joins, params);
+        String where = where(new FilterClause("tag", "is", JSON.textNode("Food")), joins, params);
 
         assertEquals(" WHERE t.user_id = :userId AND EXISTS (" + SEMI + "cx.name = :f0)", where);
         assertEquals("Food", params.get("f0"));
-        assertFalse(joins.contains(TransactionQueryBuilder.JOIN_CATEGORIES));
+        assertFalse(joins.contains(TransactionQueryBuilder.JOIN_TAGS));
         assertFalse(queryBuilder.fromClause(joins).contains("tags"));
     }
 
@@ -67,7 +67,7 @@ class TransactionQueryBuilderCategoryFilterTest {
     void isNotMatchesThroughNotExists() {
         Map<String, Object> params = new HashMap<>();
 
-        String where = where(new FilterClause("category", "is_not", JSON.textNode("Food")), new HashSet<>(), params);
+        String where = where(new FilterClause("tag", "is_not", JSON.textNode("Food")), new HashSet<>(), params);
 
         assertEquals(" WHERE t.user_id = :userId AND NOT EXISTS (" + SEMI + "cx.name = :f0)", where);
         assertEquals("Food", params.get("f0"));
@@ -78,8 +78,8 @@ class TransactionQueryBuilderCategoryFilterTest {
         Map<String, Object> inParams = new HashMap<>();
         Map<String, Object> notInParams = new HashMap<>();
 
-        String in = where(new FilterClause("category", "in", array("Food", "Fuel")), new HashSet<>(), inParams);
-        String notIn = where(new FilterClause("category", "not_in", array("Food", "Fuel")), new HashSet<>(), notInParams);
+        String in = where(new FilterClause("tag", "in", array("Food", "Fuel")), new HashSet<>(), inParams);
+        String notIn = where(new FilterClause("tag", "not_in", array("Food", "Fuel")), new HashSet<>(), notInParams);
 
         assertEquals(" WHERE t.user_id = :userId AND EXISTS (" + SEMI + "cx.name IN (:f0))", in);
         assertEquals(" WHERE t.user_id = :userId AND NOT EXISTS (" + SEMI + "cx.name IN (:f0))", notIn);
@@ -90,10 +90,10 @@ class TransactionQueryBuilderCategoryFilterTest {
     @Test
     void whenTheQueryGroupsByCategoryTheJoinedCategoryMustMatchToo() {
         Set<String> joins = new HashSet<>();
-        queryBuilder.expression("category", joins);
+        queryBuilder.expression("tag", joins);
         Map<String, Object> params = new HashMap<>();
 
-        String in = where(new FilterClause("category", "in", array("Food", "Fuel")), joins, params);
+        String in = where(new FilterClause("tag", "in", array("Food", "Fuel")), joins, params);
 
         assertEquals(" WHERE t.user_id = :userId AND (EXISTS (" + SEMI + "cx.name IN (:f0)) AND c.name IN (:f0r))", in);
         assertEquals(List.of("Food", "Fuel"), params.get("f0"));
@@ -103,10 +103,10 @@ class TransactionQueryBuilderCategoryFilterTest {
     @Test
     void groupedNegationKeepsUncategorisedRowsLikeTheEnumNegation() {
         Set<String> joins = new HashSet<>();
-        queryBuilder.expression("category", joins);
+        queryBuilder.expression("tag", joins);
         Map<String, Object> params = new HashMap<>();
 
-        String isNot = where(new FilterClause("category", "is_not", JSON.textNode("Food")), joins, params);
+        String isNot = where(new FilterClause("tag", "is_not", JSON.textNode("Food")), joins, params);
 
         assertEquals(" WHERE t.user_id = :userId AND (NOT EXISTS (" + SEMI + "cx.name = :f0)"
                 + " AND (c.name <> :f0r OR c.name IS NULL))", isNot);
@@ -116,8 +116,8 @@ class TransactionQueryBuilderCategoryFilterTest {
     void eachCategoryFilterBindsItsOwnParameters() {
         Map<String, Object> params = new HashMap<>();
 
-        String where = queryBuilder.buildWhere(List.of(new FilterClause("category", "is", JSON.textNode("Food")),
-                new FilterClause("category", "is_not", JSON.textNode("Fuel"))), userId, params, new HashSet<>());
+        String where = queryBuilder.buildWhere(List.of(new FilterClause("tag", "is", JSON.textNode("Food")),
+                new FilterClause("tag", "is_not", JSON.textNode("Fuel"))), userId, params, new HashSet<>());
 
         assertEquals(" WHERE t.user_id = :userId AND EXISTS (" + SEMI + "cx.name = :f0) AND NOT EXISTS ("
                 + SEMI + "cx.name = :f1)", where);

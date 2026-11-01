@@ -149,7 +149,7 @@ class ReportCategoryFilterIntegrationTest {
     void rawTableListsEachMatchingTransactionOnceAndCountsThemOnce() throws Exception {
         Map<String, Object> def = new LinkedHashMap<>();
         def.put("mode", "raw");
-        def.put("columns", List.of("description", "category", "spend"));
+        def.put("columns", List.of("description", "tag", "spend"));
         def.put("filters", List.of(filter("in", List.of("Food", "Fuel", "Travel"))));
         def.put("sort", List.of());
 
@@ -164,7 +164,7 @@ class ReportCategoryFilterIntegrationTest {
         assertEquals(List.of(foodFuel, food, travelShopping, foodTravel).stream().sorted().toList(), sorted(ids));
         for (JsonNode row : all.get("rows")) {
             if (row.get("id").asText().equals(foodFuel.toString())) {
-                assertEquals("Food, Fuel", row.get("category").asText());
+                assertEquals("Food, Fuel", row.get("tag").asText());
             }
         }
     }
@@ -179,11 +179,11 @@ class ReportCategoryFilterIntegrationTest {
 
     @Test
     void pivotGroupedByCategoryShowsOnlyTheFilteredCategoriesEachTransactionUnderEachOfThem() throws Exception {
-        JsonNode in = api.postJson("/api/v1/reports/data", pivot("category", filter("in", List.of("Food", "Fuel"))), 200);
-        JsonNode isNot = api.postJson("/api/v1/reports/data", pivot("category", filter("is_not", "Food")), 200);
+        JsonNode in = api.postJson("/api/v1/reports/data", pivot("tag", filter("in", List.of("Food", "Fuel"))), 200);
+        JsonNode isNot = api.postJson("/api/v1/reports/data", pivot("tag", filter("is_not", "Food")), 200);
 
-        assertEquals(Map.of("Food", "190", "Fuel", "100"), pivotSums(in, "category"));
-        assertEquals(Map.of("Travel", "30", "Shopping", "30", "(none)", "20"), pivotSums(isNot, "category"));
+        assertEquals(Map.of("Food", "190", "Fuel", "100"), pivotSums(in, "tag"));
+        assertEquals(Map.of("Travel", "30", "Shopping", "30", "(none)", "20"), pivotSums(isNot, "tag"));
     }
 
     @Test
@@ -197,7 +197,7 @@ class ReportCategoryFilterIntegrationTest {
 
     @Test
     void chartGroupedByCategoryShowsOnlyTheFilteredCategories() throws Exception {
-        JsonNode chart = api.postJson("/api/v1/reports/data", chart("category", filter("in", List.of("Food", "Travel"))), 200);
+        JsonNode chart = api.postJson("/api/v1/reports/data", chart("tag", filter("in", List.of("Food", "Travel"))), 200);
 
         Map<String, String> byCategory = new HashMap<>();
         List<String> names = texts(chart.get("categories"));
@@ -223,7 +223,7 @@ class ReportCategoryFilterIntegrationTest {
     }
 
     private static Map<String, Object> filter(String operator, Object value) {
-        return Map.of("field", "category", "operator", operator, "value", value);
+        return Map.of("field", "tag", "operator", operator, "value", value);
     }
 
     private static Map<String, Object> kpi(String aggregation, Map<String, Object> filter) {

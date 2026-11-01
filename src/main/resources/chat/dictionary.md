@@ -37,14 +37,16 @@ Individual financial transactions (bank debits/credits, credit card swipes, manu
 - `is_excluded`: Boolean flag (1/0) if user explicitly excluded this row from budget/summary analyses.
 - `instant_discount`: Checkout discount amount not charged to card.
 - `convenience_fee`: Labeled surcharge/fee included inside `amount`.
-- `category_names`: Comma-separated names of ALL categories on this transaction (nullable). This view has EXACTLY ONE row per transaction, so SUM(amount) here is always safe.
+- `category_key` / `category_name`: The transaction's ONE category from the fixed list (e.g. `food` / 'Food'); NULL = uncategorized. See `v_chat_categories`.
+- `subcategory_key` / `subcategory_name`: Its sub-category within that category (e.g. `food.delivery` / 'Delivery'), nullable. Group by `category_key` for category totals and by `subcategory_key` for sub-category totals (sub-category names repeat across categories).
+- `tag_names`: Comma-separated names of the user's own TAGS on this transaction (nullable; tags are free-form labels, separate from the category). This view has EXACTLY ONE row per transaction, so SUM(amount) here is always safe.
 - `account_id` / `account_name` / `account_type`: Associated account details.
 - `card_id` / `card_last4` / `card_holder` / `card_relationship`: the plastic and its cardholder (nullable when unattributed). There is no `card_label` column.
 
-### 1b. `v_chat_transaction_categories`
-Transaction↔category mapping (a transaction can have multiple categories).
-- `transaction_id`, `category_id`, `category_name`.
-- Use THIS view (joined to `v_chat_transactions` on `transaction_id = id`) for accurate per-category grouping. Note: a multi-category transaction contributes its full amount to each of its categories.
+### 1b. `v_chat_transaction_tags`
+Transaction↔tag mapping (a transaction can have multiple tags).
+- `transaction_id`, `tag_id`, `tag_name`.
+- Use THIS view (joined to `v_chat_transactions` on `transaction_id = id`) for accurate per-tag grouping. Note: a multi-tag transaction contributes its full amount to each of its tags. Categories do NOT need this view: a transaction has one category, read it from `v_chat_transactions.category_key`.
 
 ### 2. `v_chat_accounts`
 User accounts (bank accounts, credit cards, investment broker accounts).
@@ -80,10 +82,16 @@ User accounts (bank accounts, credit cards, investment broker accounts).
 
 **Rule:** to report on spend per person, group by `cardholder_id`. When a card is replaced (lost/expired), `cardholder_id` stays invariant.
 
-### 3. `v_chat_categories`
-User transaction categories.
-- `id`: Category UUID.
-- `name`: Category name (e.g. "Groceries", "Salary", "Transfers").
+### 3. `v_chat_categories`, `v_chat_subcategories` & `v_chat_tags`
+`v_chat_categories`: the fixed list every transaction's category comes from (same for every user).
+- `category_key`: Stable key (e.g. `food`, `groceries`, `salary`, `self_transfer`, `card_bill`).
+- `name`: Label (e.g. "Food"). `direction`: `'OUT'`, `'IN'` or `'BOTH'` (which side of money it applies to).
+
+`v_chat_subcategories`: the sub-categories of each category.
+- `subcategory_key` (e.g. `food.delivery`), `category_key` (its parent), `name` (e.g. "Delivery"), `direction`.
+
+`v_chat_tags`: the user's own tags.
+- `id`: Tag UUID. `name`: Tag name.
 
 ### 4. `v_chat_investment_trades`
 Raw trade ledger for stocks and mutual funds.
@@ -137,8 +145,8 @@ Reference instruments and their price history points. Names, symbols, exchange, 
 
 ## Canonical Definitions & Business Rules
 
-1. **Spend**: Transactions where `direction = 'DEBIT'` AND `is_excluded = 0` AND `(category_names IS NULL OR category_names NOT LIKE '%Transfer%')`.
-2. **Income**: Transactions where `direction = 'CREDIT'` AND `is_excluded = 0` AND `(category_names IS NULL OR category_names NOT LIKE '%Transfer%')`.
+1. **Spend**: Transactions where `direction = 'DEBIT'` AND `is_excluded = 0` AND `(category_key IS NULL OR category_key NOT IN ('self_transfer', 'card_bill', 'top_up'))`.
+2. **Income**: Transactions where `direction = 'CREDIT'` AND `is_excluded = 0` AND `(category_key IS NULL OR category_key NOT IN ('self_transfer', 'card_bill', 'top_up'))`.
 3. **Indian Financial Year (FY)**: Runs from April 1 of year Y to March 31 of year Y+1 (e.g. FY 2025-26 = 2025-04-01 to 2026-03-31).
 4. **Net worth recipe** (there is no single tool for this — assemble it): bank balances = `bank_opening_balance` + (CREDITs − DEBITs) per bank account from `v_chat_transactions`; broker value = `get_portfolio_value` total + `broker_cash_balance` per broker account; respect `exclude_from_net_asset = 0`; combine the pieces with `calc`. State your assumptions in the answer.
 
@@ -269,7 +277,7 @@ Filters in an array are combined with logical `AND`. Operators are per FIELD TYP
 | **Date (relative, valueless)** | `today`, `yesterday`, `this_week`, `this_month`, `this_year`, `previous_week`, `previous_month`, `previous_year`, `current_fy`, `prev_fy`, `all_time` | *Omit `value` property* | `{"field": "date", "operator": "this_month"}` |
 | **String** | `exact`, `starts_with`, `ends_with`, `contains`, `in` | Scalar string (`in`: array) | `{"field": "description", "operator": "contains", "value": "uber"}` |
 | **Number** | `equals`, `greater_than`, `less_than`, `between` | Scalar number (`between`: `{"from": N, "to": N}`) | `{"field": "amount", "operator": "greater_than", "value": 1000}` |
-| **Enum** | `is`, `is_not`, `in`, `not_in` | Scalar string (`in`/`not_in`: array) | `{"field": "category", "operator": "in", "value": ["Dining", "Groceries"]}` |
+| **Enum** | `is`, `is_not`, `in`, `not_in` | Scalar string (`in`/`not_in`: array) | `{"field": "category", "operator": "in", "value": ["food", "groceries"]}`. Dimension values: `category` and `subcategory` filter by KEY (`food`, `food.delivery`; a category key includes its sub-categories) and group as labels ("Uncategorized" = none); `tag` filters by the tag NAME and a transaction with several tags counts under each |
 | **Boolean** | `is` | `true` / `false` | `{"field": "isExcluded", "operator": "is", "value": false}` |
 
 There is no `not_equals`, `last_month`, `this_quarter`, or `previous_fy` operator — use `is_not`, `previous_month`, and `prev_fy`.

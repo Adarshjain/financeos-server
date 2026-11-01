@@ -105,8 +105,15 @@ public class TableReportExecutor {
     }
 
     private String rawColumnExpr(String field, ReportDatasource datasource, ReportQueryBuilder queryBuilder, Set<String> joins) {
+        if ("transactions".equals(datasource.name()) && "tag".equals(field)) {
+            return TransactionQueryBuilder.TAG_LISTAGG;
+        }
+        // A raw column shows the plain label (empty when none); only a grouping labels "Uncategorized".
         if ("transactions".equals(datasource.name()) && "category".equals(field)) {
-            return TransactionQueryBuilder.CATEGORY_LISTAGG;
+            return queryBuilder.expression(TransactionQueryBuilder.CATEGORY_LABEL, joins);
+        }
+        if ("transactions".equals(datasource.name()) && "subcategory".equals(field)) {
+            return queryBuilder.expression(TransactionQueryBuilder.SUBCATEGORY_LABEL, joins);
         }
         return queryBuilder.expression(field, joins);
     }

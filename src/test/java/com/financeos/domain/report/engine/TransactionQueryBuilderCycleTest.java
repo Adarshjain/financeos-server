@@ -205,8 +205,8 @@ class TransactionQueryBuilderCycleTest {
     @Test
     void bindingFromClauseKeepsOtherJoins() {
         when(cycles.cycleTable(eq(userId), any(LocalDate.class))).thenReturn(List.of());
-        Set<String> joins = new HashSet<>(Set.of(TransactionQueryBuilder.JOIN_BILLING_CYCLES, TransactionQueryBuilder.JOIN_CATEGORIES));
+        Set<String> joins = new HashSet<>(Set.of(TransactionQueryBuilder.JOIN_BILLING_CYCLES, TransactionQueryBuilder.JOIN_TAGS));
         String from = qb.fromClause(joins, new HashMap<>(), userId);
-        assertTrue(from.contains(" categories "), from);
+        assertTrue(from.contains(" tags "), from);
     }
 }
