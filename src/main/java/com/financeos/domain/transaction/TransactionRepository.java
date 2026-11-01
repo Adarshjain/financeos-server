@@ -240,17 +240,18 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     List<BalanceTransactionRow> findBalanceTransactionRows(@Param("accountId") UUID accountId,
                                                            @Param("afterDate") LocalDate afterDate);
 
-    /** One category of one transaction, by name. */
+    /** The category of one transaction, by its fixed-list name. */
     interface BalanceTransactionCategoryRow {
         UUID getTransactionId();
 
         String getName();
     }
 
-    /** The category names of every transaction {@link #findBalanceTransactionRows} lists. */
-    @Query("SELECT tc.transaction.id AS transactionId, c.name AS name FROM TransactionTag tc JOIN tc.tag c " +
-           "WHERE tc.transaction.account.id = :accountId " +
-           "AND (:afterDate IS NULL OR tc.transaction.date > :afterDate)")
+    /** The category name of every categorised transaction {@link #findBalanceTransactionRows} lists. */
+    @Query("SELECT t.id AS transactionId, c.name AS name FROM Transaction t "
+            + "JOIN com.financeos.domain.category.TxnCategory c ON c.key = t.categoryKey "
+            + "WHERE t.account.id = :accountId "
+            + "AND (:afterDate IS NULL OR t.date > :afterDate)")
     List<BalanceTransactionCategoryRow> findBalanceTransactionCategoryNames(@Param("accountId") UUID accountId,
                                                                            @Param("afterDate") LocalDate afterDate);
 
@@ -424,18 +425,18 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
         java.math.BigDecimal getTotal();
     }
 
-    /** Per category name, the account's totals of one direction for dates in {@code from}..{@code to}; uncategorised rows have no row here. */
-    @Query("SELECT c.name AS name, SUM(t.amount) AS total FROM Transaction t JOIN t.tags tc JOIN tc.tag c "
+    /** Per category name (the fixed list), the account's totals of one direction for dates in {@code from}..{@code to}; uncategorised rows have no row here. */
+    @Query("SELECT c.name AS name, SUM(t.amount) AS total FROM Transaction t "
+            + "JOIN com.financeos.domain.category.TxnCategory c ON c.key = t.categoryKey "
             + "WHERE t.account.id = :accountId AND t.type = :type AND t.date BETWEEN :from AND :to GROUP BY c.name")
     List<CategoryTotalProjection> sumByCategoryBetween(@Param("accountId") UUID accountId,
                                                        @Param("type") TransactionType type,
                                                        @Param("from") LocalDate from, @Param("to") LocalDate to);
 
-    /** Credits in the window that carry a category named "Interest" (case-insensitive, trimmed). */
+    /** Credits in the window whose category is the fixed-list "interest" category. */
     @Query("SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t WHERE t.account.id = :accountId "
             + "AND t.type = com.financeos.domain.transaction.TransactionType.CREDIT AND t.date BETWEEN :from AND :to "
-            + "AND EXISTS (SELECT 1 FROM TransactionTag tc JOIN tc.tag c WHERE tc.transaction = t "
-            + "AND LOWER(TRIM(c.name)) = 'interest')")
+            + "AND t.categoryKey = 'interest'")
     java.math.BigDecimal sumInterestCreditsBetween(@Param("accountId") UUID accountId,
                                                    @Param("from") LocalDate from, @Param("to") LocalDate to);
 

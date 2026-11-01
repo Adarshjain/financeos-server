@@ -216,6 +216,11 @@ public class TransactionService {
             transaction.setTags(new java.util.HashSet<>(loadOwnTags(request.tagIds(), currentSessionUserId)));
         }
 
+        // An explicit exclusion choice is the user's; the category's default must not overwrite it.
+        if (request.isTransactionExcluded() != null) {
+            transaction.setExcludeSetByUser(true);
+        }
+
         // A category in the request is the user's choice; without one the arrival steps (rules, engine) run once.
         if (request.categoryKey() != null) {
             categoryWriter.set(transaction, request.categoryKey(), request.subcategoryKey(), CategorySource.USER, (UUID) null);

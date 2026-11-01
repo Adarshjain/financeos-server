@@ -125,34 +125,27 @@ class AccountInsightsIntegrationTest {
 
     @Test
     void flowSplitsInAndOutAndRanksCategoriesWithinTheWindow() throws Exception {
-        UUID salary = category("Salary");
-        UUID bonus = category("Bonus");
-        UUID gift = category("Gift");
-        UUID rent = category("Rent");
-        UUID food = category("Food");
-        UUID fuel = category("Fuel");
-        UUID misc = category("Misc");
-        txn(bank, today.minusDays(1), 5000, "pay", List.of(salary));
-        txn(bank, today.minusDays(2), 200, "bonus", List.of(bonus));
-        txn(bank, today.minusDays(3), 200, "gift", List.of(gift));
+        txnIn(bank, today.minusDays(1), 5000, "pay", "salary");
+        txnIn(bank, today.minusDays(2), 200, "refund", "refund");
+        txnIn(bank, today.minusDays(3), 150, "cashback", "cashback");
         txn(bank, today.minusDays(4), 700, "no category", List.of());
         txn(bank, today.minusDays(89), 40, "first day of the window", List.of());
-        txn(bank, today.minusDays(90), 9999, "just outside", List.of(salary));
-        txn(bank, today.minusDays(1), -1000, "rent", List.of(rent));
-        txn(bank, today.minusDays(2), -500, "food", List.of(food));
-        txn(bank, today.minusDays(3), -300, "fuel", List.of(fuel));
-        txn(bank, today.minusDays(4), -100, "misc", List.of(misc));
+        txnIn(bank, today.minusDays(90), 9999, "just outside", "salary");
+        txnIn(bank, today.minusDays(1), -1000, "rent", "bills");
+        txnIn(bank, today.minusDays(2), -500, "food", "food");
+        txnIn(bank, today.minusDays(3), -300, "fuel", "transport");
+        txnIn(bank, today.minusDays(4), -100, "misc", "other");
         txn(bank, today.minusDays(5), -50, "no category", List.of());
-        txn(emptyBank, today.minusDays(1), 123456, "another account", List.of(salary));
+        txnIn(emptyBank, today.minusDays(1), 123456, "another account", "salary");
 
         JsonNode flow = api.getJson("/api/v1/accounts/" + bank + "/flow-summary", 200);
 
         assertEquals(today.toString(), flow.get("to").asText());
         assertEquals(today.minusDays(89).toString(), flow.get("from").asText());
-        assertEquals(0, new BigDecimal("6140").compareTo(flow.get("moneyIn").decimalValue()));
+        assertEquals(0, new BigDecimal("6090").compareTo(flow.get("moneyIn").decimalValue()));
         assertEquals(0, new BigDecimal("1950").compareTo(flow.get("moneyOut").decimalValue()));
-        assertEquals(List.of("Salary", "Bonus"), names(flow.get("topInCategories")));
-        assertEquals(List.of("Rent", "Food", "Fuel"), names(flow.get("topOutCategories")));
+        assertEquals(List.of("Salary", "Refund"), names(flow.get("topInCategories")));
+        assertEquals(List.of("Bills", "Food", "Transport"), names(flow.get("topOutCategories")));
     }
 
     @Test
@@ -169,18 +162,15 @@ class AccountInsightsIntegrationTest {
 
     @Test
     void interestIsTheInterestCreditsOfThePreviousCalendarQuarterOnly() throws Exception {
-        UUID interest = category("Interest");
-        jdbc.update("UPDATE tags SET name = ? WHERE id = ?", "  InTeReSt ", interest.toString());
-        UUID salary = category("Salary");
         LocalDate currentQuarterStart = LocalDate.of(today.getYear(), ((today.getMonthValue() - 1) / 3) * 3 + 1, 1);
         LocalDate from = currentQuarterStart.minusMonths(3);
         LocalDate to = currentQuarterStart.minusDays(1);
-        txn(bank, from, 40, "first day of the quarter", List.of(interest));
-        txn(bank, to, 60, "last day of the quarter", List.of(interest));
-        txn(bank, from.plusDays(10), 500, "salary in the quarter", List.of(salary));
-        txn(bank, from.plusDays(11), -25, "interest-named debit", List.of(interest));
-        txn(bank, from.minusDays(1), 7, "the quarter before", List.of(interest));
-        txn(bank, currentQuarterStart, 11, "this quarter", List.of(interest));
+        txnIn(bank, from, 40, "first day of the quarter", "interest");
+        txnIn(bank, to, 60, "last day of the quarter", "interest");
+        txnIn(bank, from.plusDays(10), 500, "salary in the quarter", "salary");
+        txnIn(bank, from.plusDays(11), -25, "interest-named debit", "fees");
+        txnIn(bank, from.minusDays(1), 7, "the quarter before", "interest");
+        txnIn(bank, currentQuarterStart, 11, "this quarter", "interest");
 
         JsonNode flow = api.getJson("/api/v1/accounts/" + bank + "/flow-summary", 200);
 
@@ -370,6 +360,17 @@ class AccountInsightsIntegrationTest {
         body.put("amount", amount);
         body.put("description", description);
         body.put("tagIds", categories.stream().map(UUID::toString).toList());
+        return api.create("/api/v1/transactions", body);
+    }
+
+    /** Like {@link #txn} but with the fixed-list category key (positive amount is a credit). */
+    private UUID txnIn(UUID account, LocalDate date, int amount, String description, String categoryKey) throws Exception {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("accountId", account.toString());
+        body.put("date", date.toString());
+        body.put("amount", amount);
+        body.put("description", description);
+        body.put("categoryKey", categoryKey);
         return api.create("/api/v1/transactions", body);
     }
 

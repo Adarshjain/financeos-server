@@ -69,6 +69,8 @@ public class UncategorizedService {
     private final CategoryRuleRepository ruleRepository;
     private final CategorizationService categorizationService;
     private final UserRepository userRepository;
+    /** Runs the rule insert in its own transaction so a duplicate-key failure cannot roll back the category writes. */
+    private final org.springframework.transaction.support.TransactionTemplate isolatedTx;
 
     /**
      * Least-recently-used memo of the engine's analysis (about 0.2 ms each, ~4 s for 20k distinct lines).
@@ -85,10 +87,28 @@ public class UncategorizedService {
                 }
             });
 
+    /** Without a transaction manager (plain unit tests) the rule insert joins the caller's transaction. */
     public UncategorizedService(TransactionRepository transactionRepository, CategoryAssigner assigner,
                                 CategoryCatalog catalog, TransactionCategoryWriter writer,
                                 CategoryRuleRepository ruleRepository, CategorizationService categorizationService,
                                 UserRepository userRepository) {
+        this(transactionRepository, assigner, catalog, writer, ruleRepository, categorizationService,
+                userRepository, null);
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public UncategorizedService(TransactionRepository transactionRepository, CategoryAssigner assigner,
+                                CategoryCatalog catalog, TransactionCategoryWriter writer,
+                                CategoryRuleRepository ruleRepository, CategorizationService categorizationService,
+                                UserRepository userRepository,
+                                org.springframework.transaction.PlatformTransactionManager transactionManager) {
+        if (transactionManager != null) {
+            this.isolatedTx = new org.springframework.transaction.support.TransactionTemplate(transactionManager);
+            this.isolatedTx.setPropagationBehavior(
+                    org.springframework.transaction.TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+        } else {
+            this.isolatedTx = null;
+        }
         this.transactionRepository = transactionRepository;
         this.assigner = assigner;
         this.catalog = catalog;
@@ -380,15 +400,41 @@ public class UncategorizedService {
         CategoryRule existing = ruleRepository.findByUserIdAndMerchantKeyAndMatchType(userId, canonicalPattern, matchType)
                 .orElse(null);
         if (existing == null) {
-            CategoryRule rule = new CategoryRule();
-            rule.setUser(userRepository.getReferenceById(userId));
-            rule.setMerchantKey(canonicalPattern);
-            rule.setMatchType(matchType);
-            rule.setDisplayName(request.rule().pattern().trim());
-            rule.setCategoryKey(request.categoryKey());
-            rule.setSubcategoryKey(request.subcategoryKey());
-            return ruleRepository.save(rule).getId();
+            UUID inserted = insertRule(userId, canonicalPattern, matchType, request);
+            if (inserted != null) {
+                return inserted;
+            }
+            // A concurrent request created the same rule first: re-read it and update that one.
+            existing = ruleRepository.findByUserIdAndMerchantKeyAndMatchType(userId, canonicalPattern, matchType)
+                    .orElseThrow(() -> new ValidationException("The rule could not be saved, try again"));
         }
+        return updateRule(existing, request);
+    }
+
+    /** The new rule's id, or null when the (user, pattern, match type) already exists. */
+    private UUID insertRule(UUID userId, String canonicalPattern, MatchType matchType, ApplyUncategorizedRequest request) {
+        try {
+            if (isolatedTx == null) {
+                return buildAndSaveRule(userId, canonicalPattern, matchType, request);
+            }
+            return isolatedTx.execute(status -> buildAndSaveRule(userId, canonicalPattern, matchType, request));
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            return null;
+        }
+    }
+
+    private UUID buildAndSaveRule(UUID userId, String canonicalPattern, MatchType matchType, ApplyUncategorizedRequest request) {
+        CategoryRule rule = new CategoryRule();
+        rule.setUser(userRepository.getReferenceById(userId));
+        rule.setMerchantKey(canonicalPattern);
+        rule.setMatchType(matchType);
+        rule.setDisplayName(request.rule().pattern().trim());
+        rule.setCategoryKey(request.categoryKey());
+        rule.setSubcategoryKey(request.subcategoryKey());
+        return ruleRepository.saveAndFlush(rule).getId();
+    }
+
+    private UUID updateRule(CategoryRule existing, ApplyUncategorizedRequest request) {
         boolean changed = !request.categoryKey().equals(existing.getCategoryKey())
                 || !java.util.Objects.equals(request.subcategoryKey(), existing.getSubcategoryKey());
         if (changed) {
