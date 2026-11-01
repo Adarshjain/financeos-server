@@ -9390,6 +9390,24 @@ paths:
           description: Error response
       tags:
       - uncategorized-controller
+  /api/v1/transactions/uncategorized/exists:
+    get:
+      operationId: exists
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UncategorizedExistsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - uncategorized-controller
   /api/v1/transactions/uncategorized/groups:
     get:
       operationId: groups
@@ -22807,6 +22825,13 @@ components:
       - date
       - id
       - type
+    UncategorizedExistsResponse:
+      type: object
+      properties:
+        exists:
+          type: boolean
+      required:
+      - exists
     UncategorizedGroupResponse:
       type: object
       properties:

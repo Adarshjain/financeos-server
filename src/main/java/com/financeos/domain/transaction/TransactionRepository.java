@@ -466,6 +466,12 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             + "WHERE t.user.id = :userId AND t.categoryKey IS NULL")
     List<UncategorizedRow> findUncategorizedRows(@Param("userId") UUID userId);
 
+    /**
+     * Whether the user has any row with no category: the same condition as {@link #findUncategorizedRows}
+     * (so exactly the rows Sort them lists), as one cheap EXISTS-style probe.
+     */
+    boolean existsByUser_IdAndCategoryKeyIsNull(UUID userId);
+
     interface CategoryPairRow {
         String getCategoryKey();
 
