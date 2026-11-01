@@ -7,6 +7,7 @@ import com.financeos.domain.category.CategoryCatalog;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -77,7 +78,9 @@ public class TransactionCategoryWriter {
     }
 
     private void apply(Transaction txn, String categoryKey, String subcategoryKey, CategorySource source,
-                       CategoryRule rule, Instant setAt, boolean touchExclusion) {
+                       CategoryRule rule, Instant rawSetAt, boolean touchExclusion) {
+        // The column keeps microseconds; truncating here makes the response match what a later read returns.
+        Instant setAt = rawSetAt == null ? null : rawSetAt.truncatedTo(ChronoUnit.MICROS);
         if (source == CategorySource.LINK && categoryKey != null) {
             // A refund keeps the original purchase's category, so the direction need not fit.
             catalog.validateKeys(categoryKey, subcategoryKey);
