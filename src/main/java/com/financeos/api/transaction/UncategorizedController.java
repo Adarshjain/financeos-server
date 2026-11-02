@@ -65,7 +65,12 @@ public class UncategorizedController {
     /** Whether Sort them has anything to show: one cheap probe, what the page load calls. */
     @GetMapping("/uncategorized/exists")
     public ResponseEntity<UncategorizedExistsResponse> exists() {
-        return ResponseEntity.ok(new UncategorizedExistsResponse(service.exists(UserContext.getCurrentUserId())));
+        java.util.UUID userId = UserContext.getCurrentUserId();
+        boolean exists = service.exists(userId);
+        if (exists) {
+            service.prewarm(userId); // background, so Sort them opens warm
+        }
+        return ResponseEntity.ok(new UncategorizedExistsResponse(exists));
     }
 
     @GetMapping("/uncategorized/summary")

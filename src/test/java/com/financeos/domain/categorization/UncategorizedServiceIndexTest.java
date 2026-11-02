@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.timeout;
+import com.financeos.api.transaction.dto.UncategorizedSummaryResponse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
@@ -133,5 +136,64 @@ class UncategorizedServiceIndexTest {
         assertEquals(2, service.groupPage(user, "SWIG", PageRequest.of(0, 10)).getTotalElements());
         assertEquals(1, service.groupPage(user, "mato", PageRequest.of(0, 10)).getTotalElements());
         assertEquals(3, service.groupPage(user, "  ", PageRequest.of(0, 10)).getTotalElements());
+    }
+
+    @Test
+    void prewarmBuildsInTheBackgroundWithoutBlockingAndLaterCallsAreWarm() throws Exception {
+        UUID user = UUID.randomUUID();
+        when(transactions.uncategorizedFingerprint(user)).thenReturn(fp(2, 1000));
+        when(transactions.findUncategorizedRows(user)).thenAnswer(i -> {
+            Thread.sleep(600);
+            return List.of(row("A"), row("A"));
+        });
+
+        long t0 = System.nanoTime();
+        service.prewarm(user);
+        long ms = (System.nanoTime() - t0) / 1_000_000;
+        assertTrue(ms < 300, "prewarm must not wait for the build, took " + ms);
+
+        verify(transactions, timeout(5000).times(1)).findUncategorizedRows(user);
+        long deadline = System.currentTimeMillis() + 5000;
+        UncategorizedSummaryResponse s = service.summary(user); // joins the running build or hits the cache
+        assertEquals(2, s.count());
+        verify(transactions, times(1)).findUncategorizedRows(user);
+        assertTrue(System.currentTimeMillis() < deadline);
+    }
+
+    @Test
+    void concurrentCallsAndPrewarmBuildOnce() throws Exception {
+        UUID user = UUID.randomUUID();
+        java.util.concurrent.CountDownLatch release = new java.util.concurrent.CountDownLatch(1);
+        when(transactions.uncategorizedFingerprint(user)).thenReturn(fp(2, 1000));
+        when(transactions.findUncategorizedRows(user)).thenAnswer(i -> {
+            release.await(10, java.util.concurrent.TimeUnit.SECONDS);
+            return List.of(row("A"), row("A"));
+        });
+        var pool = java.util.concurrent.Executors.newFixedThreadPool(6);
+        List<java.util.concurrent.Future<UncategorizedSummaryResponse>> results = new java.util.ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            results.add(pool.submit(() -> service.summary(user)));
+        }
+        service.prewarm(user);
+        Thread.sleep(300);
+        release.countDown();
+        for (var f : results) {
+            assertEquals(2, f.get(10, java.util.concurrent.TimeUnit.SECONDS).count());
+        }
+        pool.shutdownNow();
+        verify(transactions, times(1)).findUncategorizedRows(user);
+    }
+
+    @Test
+    void aFailedPrewarmIsSwallowedAndTheNextCallStillWorks() {
+        UUID user = UUID.randomUUID();
+        when(transactions.uncategorizedFingerprint(user)).thenReturn(fp(1, 1000));
+        when(transactions.findUncategorizedRows(user)).thenThrow(new IllegalStateException("db down"))
+                .thenReturn(List.of(row("A")));
+
+        service.prewarm(user);
+        verify(transactions, timeout(5000).times(1)).findUncategorizedRows(user);
+
+        assertEquals(1, service.summary(user).count());
     }
 }
