@@ -287,4 +287,64 @@ class UncategorizedServiceIndexTest {
 
         assertEquals(1, service.cachedUsers(), "a expired and was removed, not left until it is read again");
     }
+
+    @Test
+    void aUserAboveTheBudgetIsServedUncachedWithoutEvictingOthers() {
+        service.maxCachedRows = 5;
+        UUID small = UUID.randomUUID();
+        UUID big = UUID.randomUUID();
+        when(transactions.uncategorizedFingerprint(small)).thenReturn(fp(2, 1000));
+        when(transactions.findUncategorizedRows(small)).thenReturn(List.of(row("A"), row("A")));
+        when(transactions.uncategorizedFingerprint(big)).thenReturn(fp(6, 1000));
+        when(transactions.findUncategorizedRows(big)).thenReturn(
+                List.of(row("B"), row("B"), row("B"), row("B"), row("B"), row("B")));
+
+        service.summary(small);
+        assertEquals(6, service.summary(big).count());
+        assertEquals(1, service.cachedUsers(), "big was not cached and small was not evicted");
+        service.summary(small);
+        verify(transactions, times(1)).findUncategorizedRows(small);
+        service.summary(big);
+        verify(transactions, times(2)).findUncategorizedRows(big);
+    }
+
+    @Test
+    void groupTransactionsPagesFromTheCompactIdsNewestFirst() {
+        UUID user = UUID.randomUUID();
+        List<UncategorizedRow> rows = new java.util.ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            rows.add(datedRow("A", LocalDate.of(2026, 10, 1 + i)));
+        }
+        when(transactions.uncategorizedFingerprint(user)).thenReturn(fp(5, 1000));
+        when(transactions.findUncategorizedRows(user)).thenReturn(rows);
+        when(transactions.findGroupTransactionRows(any(), any())).thenAnswer(i -> List.of());
+        String key = service.groupPage(user, PageRequest.of(0, 10)).getContent().get(0).groupKey();
+        List<UUID> newestFirst = new java.util.ArrayList<>();
+        for (int i = 4; i >= 0; i--) {
+            newestFirst.add(rows.get(i).getId());
+        }
+
+        for (int[] p : new int[][] {{0, 0, 2}, {1, 2, 4}, {2, 4, 5}}) { // first, middle, last page of 2
+            service.groupTransactions(user, key, PageRequest.of(p[0], 2));
+        }
+
+        var captor = org.mockito.ArgumentCaptor.forClass(java.util.Collection.class);
+        verify(transactions, times(3)).findGroupTransactionRows(any(), captor.capture());
+        assertEquals(newestFirst.subList(0, 2), List.copyOf(captor.getAllValues().get(0)));
+        assertEquals(newestFirst.subList(2, 4), List.copyOf(captor.getAllValues().get(1)));
+        assertEquals(newestFirst.subList(4, 5), List.copyOf(captor.getAllValues().get(2)));
+    }
+
+    private static UncategorizedRow datedRow(String text, LocalDate date) {
+        UncategorizedRow base = row(text);
+        return new UncategorizedRow() {
+            public UUID getId() { return base.getId(); }
+            public LocalDate getDate() { return date; }
+            public String getSourcedDescription() { return text; }
+            public String getDescription() { return null; }
+            public TransactionType getType() { return TransactionType.DEBIT; }
+            public BigDecimal getAmount() { return BigDecimal.TEN; }
+            public String getMcc() { return null; }
+        };
+    }
 }
