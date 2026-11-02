@@ -36,6 +36,12 @@ class AccountDeletionSchemaTest {
             Pattern.CASE_INSENSITIVE
     );
 
+    /** Flyway order: by the numeric version, so V124 follows V38 (a filename sort would put it first). */
+    private static int versionOf(Path p) {
+        Matcher m = Pattern.compile("^V(\\d+)__").matcher(p.getFileName().toString());
+        return m.find() ? Integer.parseInt(m.group(1)) : Integer.MAX_VALUE;
+    }
+
     @Test
     void testAllUserScopedTablesAreKnownAndAccountedFor() throws IOException {
         Path migrationDir = Paths.get("src/main/resources/db/migration");
@@ -49,7 +55,7 @@ class AccountDeletionSchemaTest {
         try (Stream<Path> paths = Files.list(migrationDir)) {
             List<Path> sqlFiles = paths
                     .filter(p -> p.toString().endsWith(".sql"))
-                    .sorted(Comparator.comparing(Path::getFileName))
+                    .sorted(Comparator.comparingInt(AccountDeletionSchemaTest::versionOf))
                     .toList();
 
             for (Path sqlFile : sqlFiles) {
@@ -96,7 +102,7 @@ class AccountDeletionSchemaTest {
                 "accounts", "account_bank_details", "account_credit_card_details", "account_broker_details",
                 "account_identifiers",
                 "cardholders", "cards", "transactions", "categories", "statements", "statement_credit_card_details",
-                "transaction_links", "holdings", "investment_transactions", "dividends", "sips",
+                "transaction_links", "holdings", "investment_transactions", "dividends",
                 "trade_settlement_classifications", "loans", "loan_events", "loan_payments", "loan_charges",
                 "counterparties", "lendings", "reward_rules", "reward_milestones", "reward_cap_buckets",
                 "jobs", "gmail_processed_messages", "gmail_sync_cursors", "dashboards", "reports",

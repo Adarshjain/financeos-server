@@ -195,7 +195,7 @@ public class InstrumentService {
      * <ul>
      *   <li>Identifiers (ISIN, AMFI code, Yahoo symbol) choose the price feed, so a change never touches
      *   the shared row: the catalog instrument with the new identifiers is found (or added) and only
-     *   this user's holdings, trades, dividends, SIPs, manual prices, aliases and own corporate actions
+     *   this user's holdings, trades, dividends, manual prices, aliases and own corporate actions
      *   move to it — merged into their existing holding of it at the same broker. The answer is that
      *   instrument (a new id).</li>
      *   <li>Display fields (name, symbol, exchange, currency, type) become the user's overrides wherever
