@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -77,7 +78,9 @@ public class UnderlyingFilterChips {
             labels.putAll(idLabels.getOrDefault(filter.field(), Map.of()));
             labels.putAll(datasourceLabels.get(i));
             chips.add(new UnderlyingFilterChip(filter.field(), fieldLabel, filter.operator(),
-                    text(field, filter, labels)));
+                    text(field, filter, labels), valueType(field).name().toLowerCase(Locale.ROOT),
+                    field != null && field.type() == FieldType.NUMBER ? field.format() : null,
+                    datePreset(field, filter), values(field, filter, labels)));
         }
         return chips;
     }
@@ -115,6 +118,65 @@ public class UnderlyingFilterChips {
             out.add(value.asText());
         }
         return out;
+    }
+
+    private enum ValueType { DATE, NUMBER, BOOLEAN, TEXT }
+
+    private static ValueType valueType(FieldDef field) {
+        return switch (field != null ? field.type() : FieldType.STRING) {
+            case DATE -> ValueType.DATE;
+            case NUMBER -> ValueType.NUMBER;
+            case BOOLEAN -> ValueType.BOOLEAN;
+            case STRING, ENUM -> ValueType.TEXT;
+        };
+    }
+
+    private static String datePreset(FieldDef field, FilterClause filter) {
+        if (field == null || field.type() != FieldType.DATE) {
+            return null;
+        }
+        String op = filter.operator();
+        return NAMED_DATE_RANGES.containsKey(op) || CycleOperators.isCycle(op) ? op : null;
+    }
+
+    /** The clause's values as typed data; see {@link UnderlyingFilterChip#values()}. */
+    private static List<Object> values(FieldDef field, FilterClause filter, Map<String, String> labels) {
+        JsonNode value = filter.value();
+        String op = filter.operator();
+        if (value == null || value.isNull()) {
+            return List.of();
+        }
+        return switch (valueType(field)) {
+            case BOOLEAN -> List.of(value.asBoolean());
+            case NUMBER -> value.isObject()
+                    ? List.of(plain(value.get("from")), plain(value.get("to"))) : List.of(plain(value));
+            case TEXT -> value.isArray()
+                    ? StreamSupport.stream(value.spliterator(), false).map(v -> (Object) label(v, labels)).toList()
+                    : List.of(isLabelled(op) ? label(value, labels) : value.asText());
+            case DATE -> {
+                if (NAMED_DATE_RANGES.containsKey(op)) {
+                    yield List.of();
+                }
+                if (CycleOperators.isCycle(op)) {
+                    yield CycleOperators.CYCLES_AGO.equals(op) ? List.of(CycleOperators.cyclesAgo(op, value)) : List.of();
+                }
+                if (value.isObject() && value.has("amount")) {
+                    yield List.of(value.get("amount").asInt());
+                }
+                yield value.isObject()
+                        ? List.of(value.get("from").asText(), value.get("to").asText())
+                        : List.of(value.asText());
+            }
+        };
+    }
+
+    private static boolean isLabelled(String op) {
+        return "is".equals(op) || "exact".equals(op) || "is_not".equals(op);
+    }
+
+    private static Object plain(JsonNode value) {
+        java.math.BigDecimal n = value.decimalValue().stripTrailingZeros();
+        return n.scale() < 0 ? n.setScale(0) : n;
     }
 
     private static String text(FieldDef field, FilterClause filter, Map<String, String> labels) {

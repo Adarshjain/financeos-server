@@ -79,6 +79,13 @@ class UnderlyingFilterChipsAccountIdTest {
     }
 
     @Test
+    void valuesCarryTheAccountNamesNotIds() {
+        var ids = JSON.arrayNode().add(mine.toString()).add("Wallet");
+        var chip = chips.describe(datasource, List.of(new FilterClause("account", "in", ids))).get(0);
+        assertEquals(List.of("Main Bank", "Wallet"), chip.values());
+    }
+
+    @Test
     void namesAndOtherFieldsAreLeftAsTheyAre() {
         assertEquals("is Wallet", text(new FilterClause("account", "is", JSON.textNode("Wallet"))));
         assertEquals("is " + mine, text(new FilterClause("description", "exact", JSON.textNode(mine.toString()))));
