@@ -10,6 +10,7 @@ import com.financeos.api.transaction.dto.UncategorizedTransactionResponse;
 import com.financeos.api.transaction.dto.UndoUncategorizedRequest;
 import com.financeos.api.transaction.dto.UndoUncategorizedResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
+import com.financeos.core.time.AppTime;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.categorization.builtin.BuiltinMatch;
 import com.financeos.domain.category.CategoryCatalog;
@@ -67,6 +68,9 @@ public class UncategorizedService {
     /** Users whose group index is kept; the least recently used is dropped beyond this. */
     static final int INDEX_MAX_USERS = 100;
     static final java.time.Duration INDEX_TTL = java.time.Duration.ofMinutes(10);
+    /** Total transaction ids the cache may hold across users. */
+    static final long INDEX_MAX_ROWS = 2_000_000;
+    static final long JOIN_TIMEOUT_MILLIS = 5_000;
     /** Cold analysis of at least this many distinct lines runs on the common pool. */
     private static final int PARALLEL_FROM = 400;
 
@@ -211,13 +215,16 @@ public class UncategorizedService {
     private static final class GroupIndex {
         final Fingerprint fingerprint;
         final long builtAtMillis = System.currentTimeMillis();
+        /** Order in which builds started; an older build never replaces a newer one in the cache. */
+        final long seq;
         /** Groups of two or more by count then total, then the one-offs newest first. */
         final List<Group> ordered;
         final int multiCount;
         final long rowCount;
         final Map<String, Group> byKey;
 
-        GroupIndex(Fingerprint fingerprint, List<Group> ordered, int multiCount, long rowCount) {
+        GroupIndex(long seq, Fingerprint fingerprint, List<Group> ordered, int multiCount, long rowCount) {
+            this.seq = seq;
             this.fingerprint = fingerprint;
             this.ordered = ordered;
             this.multiCount = multiCount;
@@ -242,6 +249,16 @@ public class UncategorizedService {
                 }
             });
 
+    // tunable in tests
+    long indexTtlMillis = INDEX_TTL.toMillis();
+    long maxCachedRows = INDEX_MAX_ROWS;
+    long joinTimeoutMillis = JOIN_TIMEOUT_MILLIS;
+    private final java.util.concurrent.atomic.AtomicLong buildSeq = new java.util.concurrent.atomic.AtomicLong();
+
+    int cachedUsers() {
+        return indexes.size();
+    }
+
     private final Map<UUID, InFlight> inFlight = new java.util.concurrent.ConcurrentHashMap<>();
 
     /** Small, bounded: two workers, eight waiting; beyond that a prewarm is dropped. */
@@ -264,7 +281,7 @@ public class UncategorizedService {
         Fingerprint current = new Fingerprint(probe.getCount(), probe.getMaxUpdatedAt());
         GroupIndex cached = indexes.get(userId);
         if (cached != null && current.equals(cached.fingerprint)
-                && System.currentTimeMillis() - cached.builtAtMillis < INDEX_TTL.toMillis()) {
+                && System.currentTimeMillis() - cached.builtAtMillis < indexTtlMillis) {
             return cached;
         }
         return buildShared(userId, current);
@@ -285,15 +302,18 @@ public class UncategorizedService {
         });
         if (!mine[0]) {
             try {
-                return flight.future().join();
-            } catch (java.util.concurrent.CompletionException e) {
-                // the other build failed (its caller sees the error); try once on our own
+                return flight.future().get(joinTimeoutMillis, java.util.concurrent.TimeUnit.MILLISECONDS);
+            } catch (java.util.concurrent.ExecutionException | java.util.concurrent.TimeoutException e) {
+                // the other build failed or is taking too long: build on our own rather than hold this request
+                return build(userId, current);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 return build(userId, current);
             }
         }
         try {
             GroupIndex built = build(userId, current);
-            indexes.put(userId, built);
+            remember(userId, built);
             flight.future().complete(built);
             return built;
         } catch (RuntimeException | Error e) {
@@ -301,6 +321,31 @@ public class UncategorizedService {
             throw e;
         } finally {
             inFlight.remove(userId, flight);
+        }
+    }
+
+    /**
+     * Keeps a built index unless a newer-started build already stored one; drops expired entries and, beyond the
+     * row-id budget, the least recently used ones.
+     */
+    private void remember(UUID userId, GroupIndex built) {
+        synchronized (indexes) {
+            long now = System.currentTimeMillis();
+            indexes.values().removeIf(e -> now - e.builtAtMillis >= indexTtlMillis);
+            GroupIndex current = indexes.get(userId);
+            if (current == null || current.seq < built.seq) {
+                indexes.put(userId, built);
+            }
+            long total = 0;
+            for (GroupIndex e : indexes.values()) {
+                total += e.rowCount;
+            }
+            var it = indexes.entrySet().iterator();
+            while (total > maxCachedRows && it.hasNext()) {
+                var eldest = it.next();
+                total -= eldest.getValue().rowCount;
+                it.remove();
+            }
         }
     }
 
@@ -328,6 +373,7 @@ public class UncategorizedService {
     }
 
     private GroupIndex build(UUID userId, Fingerprint fingerprint) {
+        long seq = buildSeq.incrementAndGet();
         long started = System.nanoTime();
         List<TransactionRepository.UncategorizedRow> rows = transactionRepository.findUncategorizedRows(userId);
         Map<TextKey, Analysis> analysed = analyseAll(rows);
@@ -369,7 +415,7 @@ public class UncategorizedService {
         ordered.addAll(oneOffs);
         log.debug("Grouped {} uncategorised row(s) into {} group(s) in {} ms", rows.size(), ordered.size(),
                 (System.nanoTime() - started) / 1_000_000);
-        return new GroupIndex(fingerprint, ordered, multi.size(), rows.size());
+        return new GroupIndex(seq, fingerprint, ordered, multi.size(), rows.size());
     }
 
     private static String textOf(TransactionRepository.UncategorizedRow row) {
@@ -542,15 +588,20 @@ public class UncategorizedService {
         Set<UUID> wanted = new HashSet<>(request.transactionIds());
         List<UUID> ids = new ArrayList<>(wanted);
         List<Transaction> toSave = new ArrayList<>();
+        List<UUID> userCleared = new ArrayList<>();
         Set<UUID> found = new HashSet<>();
         int skipped = 0;
         for (int from = 0; from < ids.size(); from += APPLY_CHUNK) {
             List<UUID> chunk = ids.subList(from, Math.min(from + APPLY_CHUNK, ids.size()));
             for (Transaction t : transactionRepository.findAllByIdInAndUserId(chunk, userId)) {
                 found.add(t.getId());
+                boolean wasUserCleared = t.getCategorySource() == CategorySource.USER;
                 if (t.getCategoryKey() == null && writer.fits(t, request.categoryKey(), request.subcategoryKey())
                         && writer.set(t, request.categoryKey(), request.subcategoryKey(), CategorySource.USER, (UUID) null)) {
                     toSave.add(t);
+                    if (wasUserCleared) {
+                        userCleared.add(t.getId());
+                    }
                 } else {
                     skipped++;
                 }
@@ -565,7 +616,8 @@ public class UncategorizedService {
         List<UUID> updatedIds = toSave.stream().map(Transaction::getId).toList();
         return new ApplyUncategorizedResponse(toSave.size(), skipped, rule == null ? null : rule.id(), updatedIds,
                 rule != null && rule.created(), rule == null ? null : rule.previousCategoryKey(),
-                rule == null ? null : rule.previousSubcategoryKey());
+                rule == null ? null : rule.previousSubcategoryKey(), userCleared,
+                rule == null ? null : canonicalPattern, rule == null ? null : matchType.name());
     }
 
     /** What the rule step did: the rule, whether it is new, and the target an existing one had before. */
@@ -633,6 +685,11 @@ public class UncategorizedService {
      */
     @Transactional
     public UndoUncategorizedResponse undo(UUID userId, UndoUncategorizedRequest request) {
+        boolean restoresRule = request.ruleId() != null && !request.ruleCreated();
+        if (restoresRule && (request.previousRuleCategoryKey() != null || request.previousRuleSubcategoryKey() != null)) {
+            catalog.validateKeys(request.previousRuleCategoryKey(), request.previousRuleSubcategoryKey());
+        }
+        Set<UUID> userCleared = request.userClearedIds() == null ? Set.of() : new HashSet<>(request.userClearedIds());
         List<UUID> ids = new ArrayList<>(new HashSet<>(request.transactionIds()));
         List<Transaction> toSave = new ArrayList<>();
         for (int from = 0; from < ids.size(); from += APPLY_CHUNK) {
@@ -641,7 +698,10 @@ public class UncategorizedService {
                 if (request.categoryKey().equals(t.getCategoryKey())
                         && java.util.Objects.equals(request.subcategoryKey(), t.getSubcategoryKey())
                         && t.getCategorySource() == CategorySource.USER) {
-                    writer.restore(t, null, null, null, null, null);
+                    boolean hadCleared = userCleared.contains(t.getId());
+                    // a row the user had cleared by hand goes back to that state, any other to never-categorised
+                    writer.restore(t, null, null, hadCleared ? CategorySource.USER : null, null,
+                            hadCleared ? AppTime.nowInstant() : null);
                     toSave.add(t);
                 }
             }
@@ -657,7 +717,9 @@ public class UncategorizedService {
             CategoryRule rule = ruleRepository.findByUserIdAndIdIn(userId, List.of(request.ruleId())).stream()
                     .findFirst().orElse(null);
             boolean untouched = rule != null && request.categoryKey().equals(rule.getCategoryKey())
-                    && java.util.Objects.equals(request.subcategoryKey(), rule.getSubcategoryKey());
+                    && java.util.Objects.equals(request.subcategoryKey(), rule.getSubcategoryKey())
+                    && (request.ruleMerchantKey() == null || request.ruleMerchantKey().equals(rule.getMerchantKey()))
+                    && (request.ruleMatchType() == null || request.ruleMatchType().equalsIgnoreCase(rule.getMatchType().name()));
             if (untouched && request.ruleCreated()) {
                 categorizationService.deleteRule(rule);
                 deleted = true;

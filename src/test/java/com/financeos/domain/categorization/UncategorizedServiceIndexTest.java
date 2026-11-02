@@ -196,4 +196,95 @@ class UncategorizedServiceIndexTest {
 
         assertEquals(1, service.summary(user).count());
     }
+
+    @Test
+    void aCallJoiningASlowBuildGivesUpAfterTheTimeoutAndBuildsItself() throws Exception {
+        UUID user = UUID.randomUUID();
+        service.joinTimeoutMillis = 150;
+        java.util.concurrent.CountDownLatch release = new java.util.concurrent.CountDownLatch(1);
+        java.util.concurrent.atomic.AtomicInteger reads = new java.util.concurrent.atomic.AtomicInteger();
+        when(transactions.uncategorizedFingerprint(user)).thenReturn(fp(1, 1000));
+        when(transactions.findUncategorizedRows(user)).thenAnswer(i -> {
+            if (reads.incrementAndGet() == 1) {
+                release.await(10, java.util.concurrent.TimeUnit.SECONDS); // the stuck first build
+            }
+            return List.of(row("A"));
+        });
+        var pool = java.util.concurrent.Executors.newSingleThreadExecutor();
+        var first = pool.submit(() -> service.summary(user));
+        verify(transactions, timeout(5000).times(1)).findUncategorizedRows(user);
+
+        long t0 = System.nanoTime();
+        assertEquals(1, service.summary(user).count());
+        long ms = (System.nanoTime() - t0) / 1_000_000;
+
+        assertTrue(ms < 5000, "did not wait for the stuck build, took " + ms);
+        verify(transactions, times(2)).findUncategorizedRows(user);
+        release.countDown();
+        first.get(10, java.util.concurrent.TimeUnit.SECONDS);
+        pool.shutdownNow();
+    }
+
+    @Test
+    void anOlderBuildNeverOverwritesANewerIndex() throws Exception {
+        UUID user = UUID.randomUUID();
+        java.util.concurrent.CountDownLatch release = new java.util.concurrent.CountDownLatch(1);
+        java.util.concurrent.atomic.AtomicInteger reads = new java.util.concurrent.atomic.AtomicInteger();
+        when(transactions.uncategorizedFingerprint(user)).thenReturn(fp(1, 1000));
+        when(transactions.findUncategorizedRows(user)).thenAnswer(i -> {
+            if (reads.incrementAndGet() == 1) {
+                release.await(10, java.util.concurrent.TimeUnit.SECONDS); // old build, started first, finishes last
+                return List.of(row("OLD"));
+            }
+            return List.of(row("NEW"), row("NEW"));
+        });
+        var pool = java.util.concurrent.Executors.newSingleThreadExecutor();
+        var old = pool.submit(() -> service.summary(user));
+        verify(transactions, timeout(5000).times(1)).findUncategorizedRows(user);
+
+        when(transactions.uncategorizedFingerprint(user)).thenReturn(fp(2, 2000)); // the set changed meanwhile
+        assertEquals(2, service.summary(user).count());
+        release.countDown();
+        old.get(10, java.util.concurrent.TimeUnit.SECONDS);
+
+        assertEquals(2, service.summary(user).count(), "still the newer index");
+        verify(transactions, times(2)).findUncategorizedRows(user);
+        pool.shutdownNow();
+    }
+
+    @Test
+    void theCacheIsBoundedByTotalRowIdsEvictingTheLeastRecentlyUsed() {
+        service.maxCachedRows = 5;
+        UUID a = UUID.randomUUID();
+        UUID b = UUID.randomUUID();
+        for (UUID u : List.of(a, b)) {
+            when(transactions.uncategorizedFingerprint(u)).thenReturn(fp(3, 1000));
+            when(transactions.findUncategorizedRows(u)).thenReturn(List.of(row("A"), row("A"), row("A")));
+        }
+        service.summary(a);
+        service.summary(b); // 3 + 3 > 5: a is dropped
+        assertEquals(1, service.cachedUsers());
+        service.summary(b);
+        verify(transactions, times(1)).findUncategorizedRows(b);
+        service.summary(a);
+        verify(transactions, times(2)).findUncategorizedRows(a);
+    }
+
+    @Test
+    void expiredEntriesAreDroppedWhenAnotherIndexIsStored() throws Exception {
+        service.indexTtlMillis = 50;
+        UUID a = UUID.randomUUID();
+        UUID b = UUID.randomUUID();
+        for (UUID u : List.of(a, b)) {
+            when(transactions.uncategorizedFingerprint(u)).thenReturn(fp(1, 1000));
+            when(transactions.findUncategorizedRows(u)).thenReturn(List.of(row("A")));
+        }
+        service.summary(a);
+        assertEquals(1, service.cachedUsers());
+        Thread.sleep(120);
+
+        service.summary(b);
+
+        assertEquals(1, service.cachedUsers(), "a expired and was removed, not left until it is read again");
+    }
 }
