@@ -68,8 +68,12 @@ public class UncategorizedService {
     /** Users whose group index is kept; the least recently used is dropped beyond this. */
     static final int INDEX_MAX_USERS = 100;
     static final java.time.Duration INDEX_TTL = java.time.Duration.ofMinutes(10);
-    /** Total transaction ids the cache may hold across users. */
-    static final long INDEX_MAX_ROWS = 2_000_000;
+    /**
+     * Total transaction ids the cache may hold across users. Ids are stored as two longs (16 B each), so the worst
+     * case is ~4 MB of ids plus a few hundred bytes of overhead per group; the heap is only 512 MB. A user above
+     * this alone is served uncached.
+     */
+    static final long INDEX_MAX_ROWS = 250_000;
     static final long JOIN_TIMEOUT_MILLIS = 5_000;
     /** Cold analysis of at least this many distinct lines runs on the common pool. */
     private static final int PARALLEL_FROM = 400;
@@ -191,8 +195,8 @@ public class UncategorizedService {
         LocalDate lastDate;
         /** Only while building; replaced by {@link #sortedIds}. */
         List<TransactionRepository.UncategorizedRow> rows = new ArrayList<>();
-        /** The group's transaction ids, newest first (date, then id), fixed once the index is built. */
-        List<UUID> sortedIds = List.of();
+        /** The group's transaction ids, newest first (date, then id), as (mostSigBits, leastSigBits) pairs; fixed once built. */
+        long[] sortedIds = new long[0];
 
         Group(String key, String label, String direction) {
             this.key = key;
@@ -330,6 +334,14 @@ public class UncategorizedService {
      */
     private void remember(UUID userId, GroupIndex built) {
         synchronized (indexes) {
+            if (built.rowCount > maxCachedRows) {
+                // one user alone over the budget: serve uncached instead of evicting everyone else
+                GroupIndex old = indexes.get(userId);
+                if (old != null && old.seq < built.seq) {
+                    indexes.remove(userId);
+                }
+                return;
+            }
             long now = System.currentTimeMillis();
             indexes.values().removeIf(e -> now - e.builtAtMillis >= indexTtlMillis);
             GroupIndex current = indexes.get(userId);
@@ -404,7 +416,14 @@ public class UncategorizedService {
             g.rows.sort(Comparator.comparing(TransactionRepository.UncategorizedRow::getDate,
                     Comparator.nullsLast(Comparator.reverseOrder())).thenComparing(
                     TransactionRepository.UncategorizedRow::getId, Comparator.reverseOrder()));
-            g.sortedIds = g.rows.stream().map(TransactionRepository.UncategorizedRow::getId).toList();
+            long[] packed = new long[g.rows.size() * 2];
+            int i = 0;
+            for (TransactionRepository.UncategorizedRow row : g.rows) {
+                UUID id = row.getId();
+                packed[i++] = id.getMostSignificantBits();
+                packed[i++] = id.getLeastSignificantBits();
+            }
+            g.sortedIds = packed;
             g.rows = null;
             (g.count >= 2 ? multi : oneOffs).add(g);
         }
@@ -544,10 +563,14 @@ public class UncategorizedService {
         if (group == null) {
             throw new ResourceNotFoundException("Group", groupKey);
         }
-        List<UUID> all = group.sortedIds;
-        int from = (int) Math.min((long) pageable.getPageNumber() * pageable.getPageSize(), all.size());
-        int to = Math.min(from + pageable.getPageSize(), all.size());
-        List<UUID> ids = all.subList(from, to);
+        long[] packed = group.sortedIds;
+        int total = packed.length / 2;
+        int from = (int) Math.min((long) pageable.getPageNumber() * pageable.getPageSize(), total);
+        int to = Math.min(from + pageable.getPageSize(), total);
+        List<UUID> ids = new ArrayList<>(to - from);
+        for (int i = from; i < to; i++) {
+            ids.add(new UUID(packed[2 * i], packed[2 * i + 1]));
+        }
         Map<UUID, TransactionRepository.GroupTransactionRow> details = new HashMap<>();
         if (!ids.isEmpty()) {
             for (TransactionRepository.GroupTransactionRow r : transactionRepository.findGroupTransactionRows(userId, ids)) {
@@ -565,7 +588,7 @@ public class UncategorizedService {
                     r.getSourcedDescription(), r.getAccountId(), r.getAccountName(), r.getAccountLast4(),
                     r.getCardholderName(), r.getCardLast4(), r.getSource(), r.getChannel(), signed, r.getType()));
         }
-        return new PageImpl<>(content, pageable, all.size());
+        return new PageImpl<>(content, pageable, total);
     }
 
     // ------------------------------------------------------------------ apply
