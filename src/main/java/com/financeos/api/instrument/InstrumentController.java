@@ -96,7 +96,7 @@ public class InstrumentController {
      * Edits the instrument for the signed-in user's account only. Display fields (name, symbol,
      * exchange, currency, type) become their own overrides where they differ from the shared catalog.
      * A changed ISIN / AMFI code / Yahoo symbol switches only this user's holdings, trades, dividends,
-     * SIPs and manual prices to the catalog instrument with those identifiers (added when none has
+     * and manual prices to the catalog instrument with those identifiers (added when none has
      * them) — the answer is then that instrument, with a different id. 400 when the identifiers lead
      * back to this same instrument (its price feed is shared), are all cleared, or would turn one of the
      * user's demergers / mergers into one from an instrument into itself. The user's own corporate

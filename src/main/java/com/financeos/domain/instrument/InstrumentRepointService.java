@@ -27,7 +27,7 @@ import java.util.UUID;
  * code, Yahoo symbol) that pick its price feed. The shared rows stay as they are for every other user;
  * only this user's references follow: holdings (merged into their existing holding of the target at
  * the same broker, trades, dividends and intraday classifications moving with them), intraday
- * classifications without a holding, SIPs, their own MANUAL prices, their own import aliases and their
+ * classifications without a holding, their own MANUAL prices, their own import aliases and their
  * asset-class override, and their own corporate actions (as the instrument they apply to and as the
  * demerger child / merger acquirer), so their positions and cost are the same on the target as on the
  * source. The move is recorded ({@link InstrumentRepointMap}) so the user's later imports of the source
@@ -396,7 +396,7 @@ public class InstrumentRepointService {
     }
 
     /** What a repoint moved, for the log. */
-    record Moved(int holdingsMoved, int holdingsMerged, Set<String> mergedBrokers, int sips, int prices,
+    record Moved(int holdingsMoved, int holdingsMerged, Set<String> mergedBrokers, int prices,
                  int aliases, int corporateActions) {
     }
 
@@ -438,8 +438,6 @@ public class InstrumentRepointService {
         // Intraday classifications recorded before a holding existed.
         moveClassifications("holding_id IS NULL AND user_id = ? AND instrument_id = ?", new Object[]{user, from}, to, null);
 
-        int sips = jdbc.update("UPDATE sips SET instrument_id = ? WHERE user_id = ? AND instrument_id = ?", to, user, from);
-
         // The user's own corporate actions follow (as the instrument and as the child / acquirer), so
         // their splits, bonuses, demergers and mergers apply to the moved lots exactly as before.
         int corporateActions = jdbc.update("UPDATE corporate_actions SET instrument_id = ? WHERE user_id = ? "
@@ -472,7 +470,7 @@ public class InstrumentRepointService {
                 aliases++;
             }
         }
-        return new Moved(movedHoldings, mergedHoldings, mergedBrokers, sips, prices, aliases, corporateActions);
+        return new Moved(movedHoldings, mergedHoldings, mergedBrokers, prices, aliases, corporateActions);
     }
 
     /**
