@@ -242,6 +242,20 @@ public class UncategorizedService {
                 }
             });
 
+    private final Map<UUID, InFlight> inFlight = new java.util.concurrent.ConcurrentHashMap<>();
+
+    /** Small, bounded: two workers, eight waiting; beyond that a prewarm is dropped. */
+    private final java.util.concurrent.ThreadPoolExecutor prewarmPool = new java.util.concurrent.ThreadPoolExecutor(
+            2, 2, 30, java.util.concurrent.TimeUnit.SECONDS, new java.util.concurrent.ArrayBlockingQueue<>(8),
+            r -> {
+                Thread t = new Thread(r, "sort-them-prewarm");
+                t.setDaemon(true);
+                return t;
+            }, new java.util.concurrent.ThreadPoolExecutor.AbortPolicy());
+    {
+        prewarmPool.allowCoreThreadTimeOut(true);
+    }
+
     private GroupIndex index(UUID userId) {
         TransactionRepository.UncategorizedFingerprint probe = transactionRepository.uncategorizedFingerprint(userId);
         if (probe == null) {
@@ -253,9 +267,64 @@ public class UncategorizedService {
                 && System.currentTimeMillis() - cached.builtAtMillis < INDEX_TTL.toMillis()) {
             return cached;
         }
-        GroupIndex built = build(userId, current);
-        indexes.put(userId, built);
-        return built;
+        return buildShared(userId, current);
+    }
+
+    private record InFlight(Fingerprint fingerprint, java.util.concurrent.CompletableFuture<GroupIndex> future) {
+    }
+
+    /** One build at a time per user and fingerprint: a concurrent caller waits for the running build instead of repeating it. */
+    private GroupIndex buildShared(UUID userId, Fingerprint current) {
+        boolean[] mine = {false};
+        InFlight flight = inFlight.compute(userId, (k, existing) -> {
+            if (existing != null && existing.fingerprint().equals(current)) {
+                return existing;
+            }
+            mine[0] = true;
+            return new InFlight(current, new java.util.concurrent.CompletableFuture<>());
+        });
+        if (!mine[0]) {
+            try {
+                return flight.future().join();
+            } catch (java.util.concurrent.CompletionException e) {
+                // the other build failed (its caller sees the error); try once on our own
+                return build(userId, current);
+            }
+        }
+        try {
+            GroupIndex built = build(userId, current);
+            indexes.put(userId, built);
+            flight.future().complete(built);
+            return built;
+        } catch (RuntimeException | Error e) {
+            flight.future().completeExceptionally(e);
+            throw e;
+        } finally {
+            inFlight.remove(userId, flight);
+        }
+    }
+
+    /**
+     * Builds the user's group index in the background when it is not fresh, so a later Sort them call is warm.
+     * Never blocks and never throws: a full queue skips it, a failed build is logged.
+     */
+    public void prewarm(UUID userId) {
+        try {
+            prewarmPool.execute(() -> {
+                try {
+                    index(userId);
+                } catch (RuntimeException | Error e) {
+                    log.warn("Sort them prewarm failed for a user: {}", e.toString());
+                }
+            });
+        } catch (java.util.concurrent.RejectedExecutionException e) {
+            log.debug("Sort them prewarm skipped, queue full");
+        }
+    }
+
+    @jakarta.annotation.PreDestroy
+    void shutdownPrewarm() {
+        prewarmPool.shutdownNow();
     }
 
     private GroupIndex build(UUID userId, Fingerprint fingerprint) {
