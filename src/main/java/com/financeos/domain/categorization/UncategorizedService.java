@@ -7,6 +7,8 @@ import com.financeos.api.transaction.dto.CategoryPick;
 import com.financeos.api.transaction.dto.UncategorizedGroupResponse;
 import com.financeos.api.transaction.dto.UncategorizedSummaryResponse;
 import com.financeos.api.transaction.dto.UncategorizedTransactionResponse;
+import com.financeos.api.transaction.dto.UndoUncategorizedRequest;
+import com.financeos.api.transaction.dto.UndoUncategorizedResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.categorization.builtin.BuiltinMatch;
@@ -30,6 +32,7 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,6 +64,11 @@ public class UncategorizedService {
     private static final int APPLY_CHUNK = 500;
     /** How many distinct (text, direction, mcc) analyses the memo keeps; ~100 bytes of key each. */
     static final int MEMO_MAX = 50_000;
+    /** Users whose group index is kept; the least recently used is dropped beyond this. */
+    static final int INDEX_MAX_USERS = 100;
+    static final java.time.Duration INDEX_TTL = java.time.Duration.ofMinutes(10);
+    /** Cold analysis of at least this many distinct lines runs on the common pool. */
+    private static final int PARALLEL_FROM = 400;
 
     private final TransactionRepository transactionRepository;
     private final CategoryAssigner assigner;
@@ -177,7 +185,10 @@ public class UncategorizedService {
         BigDecimal total = BigDecimal.ZERO;
         LocalDate firstDate;
         LocalDate lastDate;
-        final List<TransactionRepository.UncategorizedRow> rows = new ArrayList<>();
+        /** Only while building; replaced by {@link #sortedIds}. */
+        List<TransactionRepository.UncategorizedRow> rows = new ArrayList<>();
+        /** The group's transaction ids, newest first (date, then id), fixed once the index is built. */
+        List<UUID> sortedIds = List.of();
 
         Group(String key, String label, String direction) {
             this.key = key;
@@ -192,16 +203,69 @@ public class UncategorizedService {
     private record TextKey(String text, TransactionType type, String mcc) {
     }
 
-    private List<Group> groups(UUID userId) {
+    /** What the uncategorised set looked like when an index was built; any add, remove or edit moves it. */
+    private record Fingerprint(long count, Instant maxUpdatedAt) {
+    }
+
+    /** Every group of one user, in the order Sort them lists them, with the rows reduced to ids. */
+    private static final class GroupIndex {
+        final Fingerprint fingerprint;
+        final long builtAtMillis = System.currentTimeMillis();
+        /** Groups of two or more by count then total, then the one-offs newest first. */
+        final List<Group> ordered;
+        final int multiCount;
+        final long rowCount;
+        final Map<String, Group> byKey;
+
+        GroupIndex(Fingerprint fingerprint, List<Group> ordered, int multiCount, long rowCount) {
+            this.fingerprint = fingerprint;
+            this.ordered = ordered;
+            this.multiCount = multiCount;
+            this.rowCount = rowCount;
+            Map<String, Group> m = new HashMap<>();
+            ordered.forEach(g -> m.put(g.key, g));
+            this.byKey = m;
+        }
+    }
+
+    /**
+     * Per-user cache of the group index, least recently used out beyond {@link #INDEX_MAX_USERS} and dropped after
+     * {@link #INDEX_TTL}. Every call checks the entry against a cheap freshness probe (count and newest update of the
+     * user's uncategorised rows, one index-only query), so a categorisation, an ingest, a rule run or an edit made by
+     * any code path or any instance shows on the next call without each write path having to invalidate anything.
+     */
+    private final Map<UUID, GroupIndex> indexes = Collections.synchronizedMap(
+            new LinkedHashMap<>(64, 0.75f, true) {
+                @Override
+                protected boolean removeEldestEntry(Map.Entry<UUID, GroupIndex> eldest) {
+                    return size() > INDEX_MAX_USERS;
+                }
+            });
+
+    private GroupIndex index(UUID userId) {
+        TransactionRepository.UncategorizedFingerprint probe = transactionRepository.uncategorizedFingerprint(userId);
+        if (probe == null) {
+            return build(userId, null);
+        }
+        Fingerprint current = new Fingerprint(probe.getCount(), probe.getMaxUpdatedAt());
+        GroupIndex cached = indexes.get(userId);
+        if (cached != null && current.equals(cached.fingerprint)
+                && System.currentTimeMillis() - cached.builtAtMillis < INDEX_TTL.toMillis()) {
+            return cached;
+        }
+        GroupIndex built = build(userId, current);
+        indexes.put(userId, built);
+        return built;
+    }
+
+    private GroupIndex build(UUID userId, Fingerprint fingerprint) {
         long started = System.nanoTime();
         List<TransactionRepository.UncategorizedRow> rows = transactionRepository.findUncategorizedRows(userId);
-        Map<TextKey, Analysis> analysed = new HashMap<>();
+        Map<TextKey, Analysis> analysed = analyseAll(rows);
         Map<String, Group> byKey = new LinkedHashMap<>();
         for (TransactionRepository.UncategorizedRow row : rows) {
-            String text = row.getSourcedDescription() != null && !row.getSourcedDescription().isBlank()
-                    ? row.getSourcedDescription() : row.getDescription();
             TransactionType type = row.getType();
-            Analysis a = analysed.computeIfAbsent(new TextKey(text, type, row.getMcc()), this::memoised);
+            Analysis a = analysed.get(new TextKey(textOf(row), type, row.getMcc()));
             String direction = type == TransactionType.CREDIT ? "IN" : "OUT";
             String key = groupKey(a.basis(), direction);
             Group g = byKey.computeIfAbsent(key, k -> new Group(k, a.label(), direction));
@@ -219,19 +283,59 @@ public class UncategorizedService {
             }
             g.rows.add(row);
         }
-        List<Group> out = new ArrayList<>(byKey.values());
-        log.debug("Grouped {} uncategorised row(s) into {} group(s) in {} ms", rows.size(), out.size(),
+        List<Group> multi = new ArrayList<>();
+        List<Group> oneOffs = new ArrayList<>();
+        for (Group g : byKey.values()) {
+            g.rows.sort(Comparator.comparing(TransactionRepository.UncategorizedRow::getDate,
+                    Comparator.nullsLast(Comparator.reverseOrder())).thenComparing(
+                    TransactionRepository.UncategorizedRow::getId, Comparator.reverseOrder()));
+            g.sortedIds = g.rows.stream().map(TransactionRepository.UncategorizedRow::getId).toList();
+            g.rows = null;
+            (g.count >= 2 ? multi : oneOffs).add(g);
+        }
+        multi.sort(GROUP_ORDER);
+        oneOffs.sort(ONE_OFF_ORDER);
+        List<Group> ordered = new ArrayList<>(multi.size() + oneOffs.size());
+        ordered.addAll(multi);
+        ordered.addAll(oneOffs);
+        log.debug("Grouped {} uncategorised row(s) into {} group(s) in {} ms", rows.size(), ordered.size(),
                 (System.nanoTime() - started) / 1_000_000);
-        return out;
+        return new GroupIndex(fingerprint, ordered, multi.size(), rows.size());
     }
 
-    private Analysis memoised(TextKey k) {
-        Analysis hit = memo.get(k);
-        if (hit == null) {
-            hit = analyse(k);
-            memo.put(k, hit);
+    private static String textOf(TransactionRepository.UncategorizedRow row) {
+        return row.getSourcedDescription() != null && !row.getSourcedDescription().isBlank()
+                ? row.getSourcedDescription() : row.getDescription();
+    }
+
+    /**
+     * The analysis of every distinct (text, direction, mcc) in the rows. Lines not in the memo yet are analysed across
+     * cores when there are many, then remembered in row order so the memo's recency stays deterministic.
+     */
+    private Map<TextKey, Analysis> analyseAll(List<TransactionRepository.UncategorizedRow> rows) {
+        Set<TextKey> distinct = new java.util.LinkedHashSet<>();
+        for (TransactionRepository.UncategorizedRow row : rows) {
+            distinct.add(new TextKey(textOf(row), row.getType(), row.getMcc()));
         }
-        return hit;
+        Map<TextKey, Analysis> out = new HashMap<>(distinct.size() * 2);
+        List<TextKey> missing = new ArrayList<>();
+        for (TextKey k : distinct) {
+            Analysis hit = memo.get(k);
+            if (hit != null) {
+                out.put(k, hit);
+            } else {
+                missing.add(k);
+            }
+        }
+        Map<TextKey, Analysis> computed = new java.util.concurrent.ConcurrentHashMap<>();
+        (missing.size() >= PARALLEL_FROM ? missing.parallelStream() : missing.stream())
+                .forEach(k -> computed.put(k, analyse(k)));
+        for (TextKey k : missing) {
+            Analysis a = computed.get(k);
+            memo.put(k, a);
+            out.put(k, a);
+        }
+        return out;
     }
 
     private Analysis analyse(TextKey k) {
@@ -287,34 +391,28 @@ public class UncategorizedService {
 
     @Transactional(readOnly = true)
     public UncategorizedSummaryResponse summary(UUID userId) {
-        List<Group> all = groups(userId);
-        long count = 0;
-        List<Group> multi = new ArrayList<>();
-        for (Group g : all) {
-            count += g.count;
-            if (g.count >= 2) {
-                multi.add(g);
-            }
-        }
-        multi.sort(GROUP_ORDER);
-        List<UncategorizedSummaryResponse.TopGroup> top = multi.stream().limit(TOP_GROUPS)
+        GroupIndex idx = index(userId);
+        List<UncategorizedSummaryResponse.TopGroup> top = idx.ordered.stream().limit(Math.min(TOP_GROUPS, idx.multiCount))
                 .map(g -> new UncategorizedSummaryResponse.TopGroup(g.label, g.count)).toList();
-        return new UncategorizedSummaryResponse(count, multi.size(), top);
+        return new UncategorizedSummaryResponse(idx.rowCount, idx.multiCount, top);
     }
 
-    /** Groups of two or more by count then total, then the one-offs newest first; one page of that sequence. */
     @Transactional(readOnly = true)
     public Page<UncategorizedGroupResponse> groupPage(UUID userId, Pageable pageable) {
-        List<Group> multi = new ArrayList<>();
-        List<Group> oneOffs = new ArrayList<>();
-        for (Group g : groups(userId)) {
-            (g.count >= 2 ? multi : oneOffs).add(g);
+        return groupPage(userId, null, pageable);
+    }
+
+    /**
+     * Groups of two or more by count then total, then the one-offs newest first; one page of that sequence. With
+     * {@code q} (case-insensitive, contains, on the group label) only matching groups are listed and counted.
+     */
+    @Transactional(readOnly = true)
+    public Page<UncategorizedGroupResponse> groupPage(UUID userId, String q, Pageable pageable) {
+        List<Group> ordered = index(userId).ordered;
+        String needle = q == null ? "" : q.trim().toLowerCase(Locale.ROOT);
+        if (!needle.isEmpty()) {
+            ordered = ordered.stream().filter(g -> g.label.toLowerCase(Locale.ROOT).contains(needle)).toList();
         }
-        multi.sort(GROUP_ORDER);
-        oneOffs.sort(ONE_OFF_ORDER);
-        List<Group> ordered = new ArrayList<>(multi.size() + oneOffs.size());
-        ordered.addAll(multi);
-        ordered.addAll(oneOffs);
         int from = (int) Math.min((long) pageable.getPageNumber() * pageable.getPageSize(), ordered.size());
         int to = Math.min(from + pageable.getPageSize(), ordered.size());
         List<UncategorizedGroupResponse> content = ordered.subList(from, to).stream()
@@ -327,15 +425,14 @@ public class UncategorizedService {
     /** One group's transactions, newest first. 404 when the key matches no group of the user's right now. */
     @Transactional(readOnly = true)
     public Page<UncategorizedTransactionResponse> groupTransactions(UUID userId, String groupKey, Pageable pageable) {
-        Group group = groups(userId).stream().filter(g -> g.key.equals(groupKey)).findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Group", groupKey));
-        List<TransactionRepository.UncategorizedRow> rows = new ArrayList<>(group.rows);
-        rows.sort(Comparator.comparing(TransactionRepository.UncategorizedRow::getDate,
-                Comparator.nullsLast(Comparator.reverseOrder())).thenComparing(TransactionRepository.UncategorizedRow::getId,
-                Comparator.reverseOrder()));
-        int from = (int) Math.min((long) pageable.getPageNumber() * pageable.getPageSize(), rows.size());
-        int to = Math.min(from + pageable.getPageSize(), rows.size());
-        List<UUID> ids = rows.subList(from, to).stream().map(TransactionRepository.UncategorizedRow::getId).toList();
+        Group group = index(userId).byKey.get(groupKey);
+        if (group == null) {
+            throw new ResourceNotFoundException("Group", groupKey);
+        }
+        List<UUID> all = group.sortedIds;
+        int from = (int) Math.min((long) pageable.getPageNumber() * pageable.getPageSize(), all.size());
+        int to = Math.min(from + pageable.getPageSize(), all.size());
+        List<UUID> ids = all.subList(from, to);
         Map<UUID, TransactionRepository.GroupTransactionRow> details = new HashMap<>();
         if (!ids.isEmpty()) {
             for (TransactionRepository.GroupTransactionRow r : transactionRepository.findGroupTransactionRows(userId, ids)) {
@@ -353,7 +450,7 @@ public class UncategorizedService {
                     r.getSourcedDescription(), r.getAccountId(), r.getAccountName(), r.getAccountLast4(),
                     r.getCardholderName(), r.getCardLast4(), r.getSource(), r.getChannel(), signed, r.getType()));
         }
-        return new PageImpl<>(content, pageable, rows.size());
+        return new PageImpl<>(content, pageable, all.size());
     }
 
     // ------------------------------------------------------------------ apply
@@ -395,26 +492,32 @@ public class UncategorizedService {
             transactionRepository.saveAll(toSave);
         }
 
-        UUID ruleId = null;
-        if (request.rule() != null) {
-            ruleId = upsertRule(userId, canonicalPattern, matchType, request);
-        }
-        return new ApplyUncategorizedResponse(toSave.size(), skipped, ruleId);
+        RuleOutcome rule = request.rule() == null ? null : upsertRule(userId, canonicalPattern, matchType, request);
+        List<UUID> updatedIds = toSave.stream().map(Transaction::getId).toList();
+        return new ApplyUncategorizedResponse(toSave.size(), skipped, rule == null ? null : rule.id(), updatedIds,
+                rule != null && rule.created(), rule == null ? null : rule.previousCategoryKey(),
+                rule == null ? null : rule.previousSubcategoryKey());
     }
 
-    private UUID upsertRule(UUID userId, String canonicalPattern, MatchType matchType, ApplyUncategorizedRequest request) {
+    /** What the rule step did: the rule, whether it is new, and the target an existing one had before. */
+    private record RuleOutcome(UUID id, boolean created, String previousCategoryKey, String previousSubcategoryKey) {
+    }
+
+    private RuleOutcome upsertRule(UUID userId, String canonicalPattern, MatchType matchType, ApplyUncategorizedRequest request) {
         CategoryRule existing = ruleRepository.findByUserIdAndMerchantKeyAndMatchType(userId, canonicalPattern, matchType)
                 .orElse(null);
         if (existing == null) {
             UUID inserted = insertRule(userId, canonicalPattern, matchType, request);
             if (inserted != null) {
-                return inserted;
+                return new RuleOutcome(inserted, true, null, null);
             }
             // A concurrent request created the same rule first: re-read it and update that one.
             existing = ruleRepository.findByUserIdAndMerchantKeyAndMatchType(userId, canonicalPattern, matchType)
                     .orElseThrow(() -> new ValidationException("The rule could not be saved, try again"));
         }
-        return updateRule(existing, request);
+        String previousCategory = existing.getCategoryKey();
+        String previousSub = existing.getSubcategoryKey();
+        return new RuleOutcome(updateRule(existing, request), false, previousCategory, previousSub);
     }
 
     /** The new rule's id, or null when the (user, pattern, match type) already exists. */
@@ -450,6 +553,53 @@ public class UncategorizedService {
             categorizationService.saveEditedRule(existing, false, true);
         }
         return existing.getId();
+    }
+
+    // ------------------------------------------------------------------ undo
+
+    /**
+     * Takes back an apply: the user's rows in {@code transactionIds} that still carry exactly the pick that apply gave
+     * them (as USER) go back to no category; a rule apply created is deleted, one it re-pointed gets its previous target
+     * back. A rule the user has edited since (its target is no longer the pick) is left alone.
+     */
+    @Transactional
+    public UndoUncategorizedResponse undo(UUID userId, UndoUncategorizedRequest request) {
+        List<UUID> ids = new ArrayList<>(new HashSet<>(request.transactionIds()));
+        List<Transaction> toSave = new ArrayList<>();
+        for (int from = 0; from < ids.size(); from += APPLY_CHUNK) {
+            List<UUID> chunk = ids.subList(from, Math.min(from + APPLY_CHUNK, ids.size()));
+            for (Transaction t : transactionRepository.findAllByIdInAndUserId(chunk, userId)) {
+                if (request.categoryKey().equals(t.getCategoryKey())
+                        && java.util.Objects.equals(request.subcategoryKey(), t.getSubcategoryKey())
+                        && t.getCategorySource() == CategorySource.USER) {
+                    writer.restore(t, null, null, null, null, null);
+                    toSave.add(t);
+                }
+            }
+        }
+        int skipped = ids.size() - toSave.size();
+        if (!toSave.isEmpty()) {
+            transactionRepository.saveAll(toSave);
+        }
+
+        boolean deleted = false;
+        boolean restored = false;
+        if (request.ruleId() != null) {
+            CategoryRule rule = ruleRepository.findByUserIdAndIdIn(userId, List.of(request.ruleId())).stream()
+                    .findFirst().orElse(null);
+            boolean untouched = rule != null && request.categoryKey().equals(rule.getCategoryKey())
+                    && java.util.Objects.equals(request.subcategoryKey(), rule.getSubcategoryKey());
+            if (untouched && request.ruleCreated()) {
+                categorizationService.deleteRule(rule);
+                deleted = true;
+            } else if (untouched && request.previousRuleCategoryKey() != null) {
+                rule.setCategoryKey(request.previousRuleCategoryKey());
+                rule.setSubcategoryKey(request.previousRuleSubcategoryKey());
+                categorizationService.saveEditedRule(rule, false, true);
+                restored = true;
+            }
+        }
+        return new UndoUncategorizedResponse(toSave.size(), skipped, deleted, restored);
     }
 
     private static MatchType parseMatchType(String value) {

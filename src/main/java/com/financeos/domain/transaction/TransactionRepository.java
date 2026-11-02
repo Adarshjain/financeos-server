@@ -468,6 +468,17 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
      */
     boolean existsByUser_IdAndCategoryKeyIsNull(UUID userId);
 
+    /** Cheap freshness token of the user's uncategorised set: how many rows, and the newest edit among them. */
+    interface UncategorizedFingerprint {
+        long getCount();
+
+        java.time.Instant getMaxUpdatedAt();
+    }
+
+    @Query("SELECT COUNT(t) AS count, MAX(t.updatedAt) AS maxUpdatedAt FROM Transaction t "
+            + "WHERE t.user.id = :userId AND t.categoryKey IS NULL")
+    UncategorizedFingerprint uncategorizedFingerprint(@Param("userId") UUID userId);
+
     interface CategoryPairRow {
         String getCategoryKey();
 

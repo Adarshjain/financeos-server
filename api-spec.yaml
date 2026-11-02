@@ -9137,6 +9137,11 @@ paths:
     get:
       operationId: groups
       parameters:
+      - in: query
+        name: q
+        required: false
+        schema:
+          type: string
       - description: Zero-based page index (0..N)
         in: query
         name: page
@@ -9235,6 +9240,30 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/UncategorizedSummaryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - uncategorized-controller
+  /api/v1/transactions/uncategorized/undo:
+    post:
+      operationId: undo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UndoUncategorizedRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UndoUncategorizedResponse"
           description: OK
         default:
           content:
@@ -9605,6 +9634,16 @@ components:
     ApplyUncategorizedResponse:
       type: object
       properties:
+        previousRuleCategoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
+        previousRuleSubcategoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
+        ruleCreated:
+          type: boolean
         ruleId:
           type: string
           format: uuid
@@ -9616,9 +9655,16 @@ components:
         updated:
           type: integer
           format: int32
+        updatedIds:
+          type: array
+          items:
+            type: string
+            format: uuid
       required:
+      - ruleCreated
       - skipped
       - updated
+      - updatedIds
     AssignAttentionRequest:
       type: object
       properties:
@@ -22550,6 +22596,60 @@ components:
       required:
       - restoredTransactionIds
       - skippedTransactionIds
+    UndoUncategorizedRequest:
+      type: object
+      properties:
+        categoryKey:
+          type: string
+          x-required: true
+        previousRuleCategoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
+        previousRuleSubcategoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
+        ruleCreated:
+          type: boolean
+        ruleId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        subcategoryKey:
+          type: string
+          nullable: true
+          x-nullable: true
+        transactionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          maxItems: 10000
+          minItems: 0
+          x-required: true
+      required:
+      - categoryKey
+      - transactionIds
+    UndoUncategorizedResponse:
+      type: object
+      properties:
+        restored:
+          type: integer
+          format: int32
+        ruleDeleted:
+          type: boolean
+        ruleRestored:
+          type: boolean
+        skipped:
+          type: integer
+          format: int32
+      required:
+      - restored
+      - ruleDeleted
+      - ruleRestored
+      - skipped
     UnlockVerifyRequest:
       type: object
       properties:
