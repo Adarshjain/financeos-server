@@ -1,5 +1,8 @@
 package com.financeos.domain.report.underlying;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.List;
 
 /**
@@ -25,7 +28,8 @@ import java.util.List;
  */
 public record UnderlyingFilterChip(String field, String fieldLabel, String operator, String text,
                                    String valueType, String valueFormat, String datePreset,
-                                   List<Object> values) {
+                                   @ArraySchema(schema = @Schema(oneOf = {String.class, java.math.BigDecimal.class,
+                                           Boolean.class, Integer.class})) List<Object> values) {
 
     /** A chip with no structured parts (text only). */
     public UnderlyingFilterChip(String field, String fieldLabel, String operator, String text) {
