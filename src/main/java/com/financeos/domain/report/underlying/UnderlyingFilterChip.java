@@ -3,6 +3,8 @@ package com.financeos.domain.report.underlying;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import org.springframework.lang.Nullable;
+
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ import java.util.List;
  *                    {@code billing_cycles_ago} hold their count; empty for a bare preset
  */
 public record UnderlyingFilterChip(String field, String fieldLabel, String operator, String text,
-                                   String valueType, String valueFormat, String datePreset,
+                                   String valueType, @Nullable String valueFormat, @Nullable String datePreset,
                                    @ArraySchema(schema = @Schema(oneOf = {String.class, java.math.BigDecimal.class,
                                            Boolean.class, Integer.class})) List<Object> values) {
 
