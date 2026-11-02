@@ -53,9 +53,8 @@ final class SignAssigner {
     }
 
     static OracleOutcome runBalanceOracle(List<TxnDraft> txns, int nCols, Double openingBalance,
-                                           Consumer<String> debug) {
-        Integer bestCol = null;
-        double bestScore = 0.0;
+                                           Double closingBalance, Line headerWords, Consumer<String> debug) {
+        double[] scores = new double[nCols];
         for (int col = 0; col < nCols; col++) {
             Double prev = openingBalance;
             int checked = 0;
@@ -96,12 +95,103 @@ final class SignAssigner {
                 debug.accept(String.format("[debug] oracle: col %d as balance -> %d/%d rows validate",
                         col, validated, checked));
             }
-            if (score > bestScore) {
-                bestCol = col;
-                bestScore = score;
+            scores[col] = score;
+        }
+        double bestScore = 0.0;
+        for (double sc : scores) {
+            bestScore = Math.max(bestScore, sc);
+        }
+        if (bestScore <= 0.0) {
+            return new OracleOutcome(null, 0.0);
+        }
+        List<Integer> tied = new ArrayList<>();
+        for (int col = 0; col < nCols; col++) {
+            if (scores[col] >= bestScore - 1e-9) {
+                tied.add(col);
             }
         }
+        int bestCol = tied.get(0);
+        if (tied.size() > 1) {
+            bestCol = breakTie(txns, tied, closingBalance, headerWords, debug);
+        }
         return new OracleOutcome(bestCol, bestScore);
+    }
+
+    /**
+     * |balance - previous| == amount holds with the two columns swapped for any debit
+     * row, so a single row (or rows that all sit in one column) validates both ways.
+     * Decide with evidence that does not depend on row-to-row variation: the header
+     * labels, then the closing balance, then the convention that balance is rightmost.
+     */
+    private static int breakTie(List<TxnDraft> txns, List<Integer> tied, Double closing, Line headerWords,
+                                Consumer<String> debug) {
+        Map<Integer, double[]> centre = new HashMap<>();
+        for (TxnDraft t : txns) {
+            for (AmountCell a : t.amounts) {
+                double[] c = centre.computeIfAbsent(a.col, k -> new double[2]);
+                c[0] += a.x1;
+                c[1] += 1;
+            }
+        }
+        if (headerWords != null) {
+            List<Integer> labelled = new ArrayList<>();
+            for (int col : tied) {
+                double[] c = centre.get(col);
+                if (c == null) {
+                    continue;
+                }
+                double x = c[0] / c[1];
+                double balDist = Double.MAX_VALUE;
+                double flowDist = Double.MAX_VALUE;
+                for (Word w : headerWords.words()) {
+                    String wl = w.text().toLowerCase(Locale.ROOT);
+                    double d = Math.abs(w.x1() - x);
+                    if (wl.contains("balance")) {
+                        balDist = Math.min(balDist, d);
+                    } else if (wl.contains("debit") || wl.contains("withdraw") || wl.contains("paid out")
+                            || wl.contains("credit") || wl.contains("deposit") || wl.contains("paid in")) {
+                        flowDist = Math.min(flowDist, d);
+                    }
+                }
+                if (balDist < 40 && balDist < flowDist) {
+                    labelled.add(col);
+                }
+            }
+            if (labelled.size() == 1) {
+                if (debug != null) {
+                    debug.accept("[debug] oracle tie broken by header label: col " + labelled.get(0));
+                }
+                return labelled.get(0);
+            }
+        }
+        if (closing != null && !txns.isEmpty()) {
+            TxnDraft last = txns.get(txns.size() - 1);
+            List<Integer> closes = new ArrayList<>();
+            for (int col : tied) {
+                for (AmountCell a : last.amounts) {
+                    if (a.col == col && Math.abs(a.value - closing) < Tokens.EPS) {
+                        closes.add(col);
+                        break;
+                    }
+                }
+            }
+            if (closes.size() == 1) {
+                if (debug != null) {
+                    debug.accept("[debug] oracle tie broken by closing balance: col " + closes.get(0));
+                }
+                return closes.get(0);
+            }
+        }
+        int rightmost = tied.get(0);
+        for (int col : tied) {
+            if (col > rightmost) {
+                rightmost = col;
+            }
+        }
+        if (debug != null) {
+            debug.accept("[debug] oracle tie broken by position: rightmost col " + rightmost);
+        }
+        return rightmost;
     }
 
     private record ChainHit(double bal, double amount, int col) {

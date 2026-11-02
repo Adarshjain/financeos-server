@@ -73,7 +73,8 @@ public final class StatementParseEngine {
         }
 
         int nCols = SignAssigner.clusterAmountColumns(tb.txns());
-        OracleOutcome oracle = SignAssigner.runBalanceOracle(tb.txns(), nCols, meta.openingBalance, dbg);
+        OracleOutcome oracle = SignAssigner.runBalanceOracle(tb.txns(), nCols, meta.openingBalance,
+                meta.closingBalance, cr.headerWords(), dbg);
 
         StringBuilder ftb = new StringBuilder();
         for (Line ln : lines) {
