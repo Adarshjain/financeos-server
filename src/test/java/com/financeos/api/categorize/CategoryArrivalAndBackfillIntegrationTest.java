@@ -250,7 +250,9 @@ class CategoryArrivalAndBackfillIntegrationTest {
         jdbc.update("UPDATE transactions SET category_source = 'USER' WHERE id = ?", cleared.toString());
 
         // The startup backfill job may walk this user first, so the counts are read from the
-        // user's progress row (all runs), not from this run's result.
+        // user's progress row (all runs), not from this run's result. If that job walked the user before
+        // these rows existed it marked the user done, so drop the user's progress to walk the rows here.
+        jdbc.update("DELETE FROM category_backfill_progress WHERE user_id = ?", userId.toString());
         backfill.run(null);
 
         JsonNode filled = read(old);
