@@ -22449,6 +22449,8 @@ components:
       properties:
         datePreset:
           type: string
+          nullable: true
+          x-nullable: true
         field:
           type: string
         fieldLabel:
@@ -22459,6 +22461,8 @@ components:
           type: string
         valueFormat:
           type: string
+          nullable: true
+          x-nullable: true
         valueType:
           type: string
         values:
@@ -22474,12 +22478,10 @@ components:
               format: int32
             x-any-json: true
       required:
-      - datePreset
       - field
       - fieldLabel
       - operator
       - text
-      - valueFormat
       - valueType
       - values
     UnderlyingPnl:
