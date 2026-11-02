@@ -20,5 +20,8 @@ public record UndoUncategorizedRequest(
         @Nullable UUID ruleId,
         boolean ruleCreated,
         @Nullable String previousRuleCategoryKey,
-        @Nullable String previousRuleSubcategoryKey) {
+        @Nullable String previousRuleSubcategoryKey,
+        @Nullable List<@NotNull UUID> userClearedIds,
+        @Nullable String ruleMerchantKey,
+        @Nullable String ruleMatchType) {
 }

@@ -112,6 +112,9 @@ class UncategorizedIndexSearchUndoIntegrationTest {
                 : applied.get("previousRuleCategoryKey").asText());
         b.put("previousRuleSubcategoryKey", applied.get("previousRuleSubcategoryKey").isNull() ? null
                 : applied.get("previousRuleSubcategoryKey").asText());
+        b.put("userClearedIds", mapper.convertValue(applied.get("userClearedIds"), List.class));
+        b.put("ruleMerchantKey", applied.get("ruleMerchantKey").isNull() ? null : applied.get("ruleMerchantKey").asText());
+        b.put("ruleMatchType", applied.get("ruleMatchType").isNull() ? null : applied.get("ruleMatchType").asText());
         return b;
     }
 
@@ -307,5 +310,100 @@ class UncategorizedIndexSearchUndoIntegrationTest {
     void undoValidatesTheBody() throws Exception {
         assertEquals(400, api.post(BASE + "/undo", Map.of("transactionIds", List.of(), "categoryKey", "food")).getStatus());
         assertEquals(400, api.post(BASE + "/undo", Map.of("transactionIds", List.of(UUID.randomUUID().toString()))).getStatus());
+    }
+
+    @Test
+    void undoGivesBackTheHandClearedStateOfRowsTheUserHadCleared() throws Exception {
+        UUID cleared = out("ZYXQ TRADERS", 100, "2026-10-01");
+        UUID plain = out("ZYXQ TRADERS", 100, "2026-10-02");
+        api.putJson("/api/v1/transactions/" + cleared + "/category", Map.of("categoryKey", "food"), 200);
+        Map<String, Object> clear = new HashMap<>();
+        clear.put("categoryKey", null);
+        clear.put("subcategoryKey", null);
+        api.putJson("/api/v1/transactions/" + cleared + "/category", clear, 200);
+        assertEquals("USER", api.getJson("/api/v1/transactions/" + cleared, 200).get("categorySource").asText());
+
+        JsonNode applied = api.postJson(BASE + "/apply", applyBody(List.of(cleared, plain), "shopping", null, null), 200);
+        assertEquals(List.of(cleared.toString()), mapper.convertValue(applied.get("userClearedIds"), List.class));
+        api.postJson(BASE + "/undo", undoBody(applied, "shopping", null), 200);
+
+        JsonNode c = api.getJson("/api/v1/transactions/" + cleared, 200);
+        assertTrue(c.get("category").isNull());
+        assertEquals("USER", c.get("categorySource").asText(), "still a decision of the user's");
+        JsonNode p = api.getJson("/api/v1/transactions/" + plain, 200);
+        assertTrue(p.get("category").isNull());
+        assertTrue(p.get("categorySource") == null || p.get("categorySource").isNull(), "never categorised");
+    }
+
+    @Test
+    void undoWithoutUserClearedIdsClearsEverythingToNeverCategorised() throws Exception {
+        UUID cleared = out("ZYXQ TRADERS", 100, "2026-10-01");
+        api.putJson("/api/v1/transactions/" + cleared + "/category", Map.of("categoryKey", "food"), 200);
+        Map<String, Object> clear = new HashMap<>();
+        clear.put("categoryKey", null);
+        clear.put("subcategoryKey", null);
+        api.putJson("/api/v1/transactions/" + cleared + "/category", clear, 200);
+        JsonNode applied = api.postJson(BASE + "/apply", applyBody(List.of(cleared), "shopping", null, null), 200);
+        Map<String, Object> body = undoBody(applied, "shopping", null);
+        body.remove("userClearedIds");
+
+        api.postJson(BASE + "/undo", body, 200);
+
+        JsonNode c = api.getJson("/api/v1/transactions/" + cleared, 200);
+        assertTrue(c.get("categorySource") == null || c.get("categorySource").isNull());
+    }
+
+    @Test
+    void undoRejectsPreviousRuleKeysThatAreNotAValidTarget() throws Exception {
+        UUID a = out("ZYXQ TRADERS", 100, "2026-10-01");
+        JsonNode applied = api.postJson(BASE + "/apply",
+                applyBody(List.of(a), "shopping", null, Map.of("pattern", "zyxq traders")), 200);
+        Map<String, Object> subWithoutCategory = undoBody(applied, "shopping", null);
+        subWithoutCategory.put("ruleCreated", false);
+        subWithoutCategory.put("previousRuleCategoryKey", null);
+        subWithoutCategory.put("previousRuleSubcategoryKey", "groceries.supermarket");
+        assertEquals(400, api.post(BASE + "/undo", subWithoutCategory).getStatus());
+
+        Map<String, Object> unknown = undoBody(applied, "shopping", null);
+        unknown.put("ruleCreated", false);
+        unknown.put("previousRuleCategoryKey", "nope");
+        assertEquals(400, api.post(BASE + "/undo", unknown).getStatus());
+
+        Map<String, Object> mismatched = undoBody(applied, "shopping", null);
+        mismatched.put("ruleCreated", false);
+        mismatched.put("previousRuleCategoryKey", "food");
+        mismatched.put("previousRuleSubcategoryKey", "groceries.supermarket");
+        assertEquals(400, api.post(BASE + "/undo", mismatched).getStatus());
+        assertEquals("shopping", api.getJson("/api/v1/transactions/" + a, 200).get("category").get("key").asText(),
+                "a rejected undo changes nothing");
+    }
+
+    @Test
+    void undoLeavesARuleWhoseMatchTypeChangedAfterTheApply() throws Exception {
+        UUID a = out("ZYXQ TRADERS", 100, "2026-10-01");
+        JsonNode applied = api.postJson(BASE + "/apply",
+                applyBody(List.of(a), "shopping", null, Map.of("pattern", "zyxq traders")), 200);
+        assertEquals("CONTAINS", applied.get("ruleMatchType").asText());
+        api.putJson("/api/v1/rules/" + applied.get("ruleId").asText(), Map.of("merchantKey", "zyxq traders",
+                "matchType", "EXACT", "categoryKey", "shopping"), 200);
+
+        JsonNode r = api.postJson(BASE + "/undo", undoBody(applied, "shopping", null), 200);
+
+        assertEquals(false, r.get("ruleDeleted").asBoolean());
+        assertEquals(1, api.getJson("/api/v1/rules", 200).get("totalElements").asInt());
+    }
+
+    @Test
+    void undoLeavesARuleWhosePatternChangedAfterTheApply() throws Exception {
+        UUID a = out("ZYXQ TRADERS", 100, "2026-10-01");
+        JsonNode applied = api.postJson(BASE + "/apply",
+                applyBody(List.of(a), "shopping", null, Map.of("pattern", "zyxq traders")), 200);
+        api.putJson("/api/v1/rules/" + applied.get("ruleId").asText(), Map.of("merchantKey", "zyxq",
+                "matchType", "CONTAINS", "categoryKey", "shopping"), 200);
+
+        JsonNode r = api.postJson(BASE + "/undo", undoBody(applied, "shopping", null), 200);
+
+        assertEquals(false, r.get("ruleDeleted").asBoolean());
+        assertEquals(1, api.getJson("/api/v1/rules", 200).get("totalElements").asInt());
     }
 }

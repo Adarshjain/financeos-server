@@ -9649,6 +9649,14 @@ components:
           format: uuid
           nullable: true
           x-nullable: true
+        ruleMatchType:
+          type: string
+          nullable: true
+          x-nullable: true
+        ruleMerchantKey:
+          type: string
+          nullable: true
+          x-nullable: true
         skipped:
           type: integer
           format: int32
@@ -9660,11 +9668,17 @@ components:
           items:
             type: string
             format: uuid
+        userClearedIds:
+          type: array
+          items:
+            type: string
+            format: uuid
       required:
       - ruleCreated
       - skipped
       - updated
       - updatedIds
+      - userClearedIds
     AssignAttentionRequest:
       type: object
       properties:
@@ -22617,6 +22631,14 @@ components:
           format: uuid
           nullable: true
           x-nullable: true
+        ruleMatchType:
+          type: string
+          nullable: true
+          x-nullable: true
+        ruleMerchantKey:
+          type: string
+          nullable: true
+          x-nullable: true
         subcategoryKey:
           type: string
           nullable: true
@@ -22629,6 +22651,15 @@ components:
           maxItems: 10000
           minItems: 0
           x-required: true
+        userClearedIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+            nullable: true
+            x-nullable: true
+          nullable: true
+          x-nullable: true
       required:
       - categoryKey
       - transactionIds
