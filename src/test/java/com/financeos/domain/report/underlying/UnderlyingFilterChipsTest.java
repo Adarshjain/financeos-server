@@ -2,6 +2,7 @@ package com.financeos.domain.report.underlying;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.financeos.api.report.dto.ReportFieldValuesResponse;
 import com.financeos.api.report.dto.ReportFieldValuesResponse.Option;
 import com.financeos.domain.report.ReportFieldValuesService;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -98,8 +100,57 @@ class UnderlyingFilterChipsTest {
                 f("date", "this_month", null)));
 
         assertEquals(List.of(
-                new UnderlyingFilterChip("category", "Category", "is", "is Food"),
-                new UnderlyingFilterChip("date", "Date", "this_month", "This month")), out);
+                new UnderlyingFilterChip("category", "Category", "is", "is Food", "text", null, null, List.of("Food")),
+                new UnderlyingFilterChip("date", "Date", "this_month", "This month", "date", null, "this_month",
+                        List.of())), out);
+    }
+
+    @Test
+    void dateRangeAndSingleDatesCarryIsoValues() {
+        ObjectNode range = JSON.objectNode().put("from", "2026-09-01").put("to", "2026-09-30");
+        List<UnderlyingFilterChip> out = chips.describe(ds, List.of(
+                f("date", "between", range), f("date", "after", JSON.textNode("2026-10-13"))));
+
+        assertEquals(List.of("2026-09-01", "2026-09-30"), out.get(0).values());
+        assertEquals("date", out.get(0).valueType());
+        assertNull(out.get(0).datePreset());
+        assertEquals(List.of("2026-10-13"), out.get(1).values());
+    }
+
+    @Test
+    void relativeDatesCarryPresetOrCount() {
+        List<UnderlyingFilterChip> out = chips.describe(ds, List.of(
+                f("date", "current_fy", null),
+                f("date", "last_x_days", JSON.objectNode().put("amount", 30)),
+                f("date", "billing_cycles_ago", JSON.objectNode().put("amount", 2)),
+                f("date", "previous_billing_cycle", null)));
+
+        assertEquals("current_fy", out.get(0).datePreset());
+        assertNull(out.get(1).datePreset());
+        assertEquals(List.of(30), out.get(1).values());
+        assertEquals("billing_cycles_ago", out.get(2).datePreset());
+        assertEquals(List.of(2), out.get(2).values());
+        assertEquals("previous_billing_cycle", out.get(3).datePreset());
+        assertEquals(List.of(), out.get(3).values());
+    }
+
+    @Test
+    void numbersBooleansAndListsAreTyped() {
+        ObjectNode range = JSON.objectNode().put("from", 100).put("to", 500.5);
+        List<UnderlyingFilterChip> out = chips.describe(ds, List.of(
+                f("amount", "between", range),
+                f("isExcluded", "is", JSON.booleanNode(false)),
+                f("category", "in", JSON.arrayNode().add("Food").add("Fuel")),
+                f("description", "contains", JSON.textNode("HDFC"))));
+
+        assertEquals(List.of(new java.math.BigDecimal("100"), new java.math.BigDecimal("500.5")), out.get(0).values());
+        assertEquals("number", out.get(0).valueType());
+        assertEquals("currency", out.get(0).valueFormat());
+        assertEquals(List.of(false), out.get(1).values());
+        assertEquals("boolean", out.get(1).valueType());
+        assertEquals(List.of("Food", "Fuel"), out.get(2).values());
+        assertEquals(List.of("HDFC"), out.get(3).values());
+        assertNull(out.get(3).valueFormat());
     }
 
     @Test

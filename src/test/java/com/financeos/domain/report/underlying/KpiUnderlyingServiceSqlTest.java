@@ -385,8 +385,9 @@ class KpiUnderlyingServiceSqlTest {
         assertEquals("transaction", response.rowAction());
         assertNull(response.groupField());
         assertEquals(List.of(
-                new UnderlyingFilterChip("category", "Category", "is", "is Food"),
-                new UnderlyingFilterChip("date", "Date", "between", "Between 01/05/2026 and 31/05/2026")),
+                new UnderlyingFilterChip("category", "Category", "is", "is Food", "text", null, null, List.of("Food")),
+                new UnderlyingFilterChip("date", "Date", "between", "Between 01/05/2026 and 31/05/2026", "date", null, null,
+                        List.of("2026-05-01", "2026-05-31"))),
                 response.filters());
     }
 

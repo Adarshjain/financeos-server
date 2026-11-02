@@ -22447,6 +22447,8 @@ components:
     UnderlyingFilterChip:
       type: object
       properties:
+        datePreset:
+          type: string
         field:
           type: string
         fieldLabel:
@@ -22455,11 +22457,25 @@ components:
           type: string
         text:
           type: string
+        valueFormat:
+          type: string
+        valueType:
+          type: string
+        values:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+            x-any-json: true
       required:
+      - datePreset
       - field
       - fieldLabel
       - operator
       - text
+      - valueFormat
+      - valueType
+      - values
     UnderlyingPnl:
       type: object
       properties:
