@@ -8,6 +8,8 @@ import com.financeos.api.transaction.dto.UncategorizedExistsResponse;
 import com.financeos.api.transaction.dto.UncategorizedGroupResponse;
 import com.financeos.api.transaction.dto.UncategorizedSummaryResponse;
 import com.financeos.api.transaction.dto.UncategorizedTransactionResponse;
+import com.financeos.api.transaction.dto.UndoUncategorizedRequest;
+import com.financeos.api.transaction.dto.UndoUncategorizedResponse;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.categorization.UncategorizedService;
@@ -71,11 +73,12 @@ public class UncategorizedController {
         return ResponseEntity.ok(service.summary(UserContext.getCurrentUserId()));
     }
 
-    /** Groups of two or more by count then total, then the one-offs; one page of that sequence. */
+    /** Groups of two or more by count then total, then the one-offs; one page of that sequence. {@code q} filters by label. */
     @GetMapping("/uncategorized/groups")
     public ResponseEntity<Page<UncategorizedGroupResponse>> groups(
+            @RequestParam(required = false) String q,
             @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
-        return ResponseEntity.ok(service.groupPage(UserContext.getCurrentUserId(), unsorted(pageable)));
+        return ResponseEntity.ok(service.groupPage(UserContext.getCurrentUserId(), q, unsorted(pageable)));
     }
 
     @GetMapping("/uncategorized/groups/{groupKey}/transactions")
@@ -88,6 +91,12 @@ public class UncategorizedController {
     @PostMapping("/uncategorized/apply")
     public ResponseEntity<ApplyUncategorizedResponse> apply(@Valid @RequestBody ApplyUncategorizedRequest request) {
         return ResponseEntity.ok(service.apply(UserContext.getCurrentUserId(), request));
+    }
+
+    /** Takes back one apply: the rows it categorised and the rule it created or re-pointed. */
+    @PostMapping("/uncategorized/undo")
+    public ResponseEntity<UndoUncategorizedResponse> undo(@Valid @RequestBody UndoUncategorizedRequest request) {
+        return ResponseEntity.ok(service.undo(UserContext.getCurrentUserId(), request));
     }
 
     /** The order is fixed by the server; the size is capped. */
