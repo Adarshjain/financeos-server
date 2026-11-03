@@ -167,7 +167,7 @@ public class GmailEngine {
      * contains neither 401 nor 403), so it is matched by type first: it is an auth failure the
      * user must fix by reconnecting, not a transient network error to retry forever.
      */
-    static GmailEngineException classify(IOException e) {
+    public static GmailEngineException classify(IOException e) {
         if (e instanceof TokenResponseException tre && tre.getStatusCode() >= 400 && tre.getStatusCode() < 500) {
             String error = tre.getDetails() != null && tre.getDetails().getError() != null
                     ? tre.getDetails().getError() : "token rejected";

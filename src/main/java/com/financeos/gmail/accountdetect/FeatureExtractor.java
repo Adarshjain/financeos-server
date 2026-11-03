@@ -473,11 +473,20 @@ public final class FeatureExtractor {
                     + "balance (?:in|of) (?:your )?(?:a/c|acct|account)|account statement|statement of account|\\bbal(?:ance)?\\s*[:\\-]?\\s*(?:rs|inr|₹)");
 
     public static MailDerived derive(MailFeature m) {
+        return derive(m, SALT);
+    }
+
+    /**
+     * {@link #derive(MailFeature)} with a caller-held salt for cluster and slot keys: features derived in different
+     * runs (e.g. a background job storing one user's features across restarts) share keys only when they share a salt.
+     */
+    public static MailDerived derive(MailFeature m, String salt) {
+        if (salt == null) salt = SALT;
         String domain = m.senderDomain() == null ? "" : m.senderDomain().toLowerCase(Locale.ROOT);
         String bank = BankDirectory.bankForDomain(domain);
         if (bank == null) bank = "?" + domain;
         String sk = skeleton(m.subject());
-        String clusterId = hash(domain + "|" + sk);
+        String clusterId = hash(salt, domain + "|" + sk);
         Role vote = roleVote(m);
         Kind clusterKind = kindOfSkeleton(fullSkeleton(m.subject()));
 
@@ -499,7 +508,7 @@ public final class FeatureExtractor {
             List<Num> nums = numbersIn(seg);
             Set<String> own = new LinkedHashSet<>();
             for (Num n : nums) {
-                String key = hash(clusterId + "|" + e.getValue() + "|" + String.join(" ", n.labelTokens()));
+                String key = hash(salt, clusterId + "|" + e.getValue() + "|" + String.join(" ", n.labelTokens()));
                 if (slotSeen.add(key + n.last4())) slots.add(new Slot(key, n.last4(), n.label()));
                 if (!n.label().rejected()) own.add(n.last4());
             }
@@ -536,9 +545,18 @@ public final class FeatureExtractor {
      */
     private static final String SALT = Long.toHexString(new java.security.SecureRandom().nextLong());
 
+    /** A fresh random salt for {@link #derive(MailFeature, String)}. */
+    public static String newSalt() {
+        return Long.toHexString(new java.security.SecureRandom().nextLong());
+    }
+
     static String hash(String s) {
+        return hash(SALT, s);
+    }
+
+    private static String hash(String salt, String s) {
         try {
-            byte[] d = MessageDigest.getInstance("SHA-256").digest((SALT + "|" + s).getBytes(StandardCharsets.UTF_8));
+            byte[] d = MessageDigest.getInstance("SHA-256").digest((salt + "|" + s).getBytes(StandardCharsets.UTF_8));
             return HexFormat.of().formatHex(d, 0, 6);
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalStateException(e);
