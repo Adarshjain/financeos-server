@@ -79,6 +79,7 @@ public class AccountService {
 
     public Account createAccount(CreateAccountRequest request) {
         validateBank(request);
+        validateExtraCards(request);
         UUID userId = UserContext.getCurrentUserId();
         User user = userRepository.getReferenceById(userId);
 
@@ -115,6 +116,8 @@ public class AccountService {
                 // No extra details to update
             }
         }
+
+        addExtraCards(account, request);
 
         Account saved = accountRepository.save(account);
         populateBalanceInfo(saved);
@@ -505,6 +508,125 @@ public class AccountService {
         }
 
         return accountRepository.save(account);
+    }
+
+    private static String last4Of(String last4) {
+        return last4 == null ? "" : last4.trim();
+    }
+
+    private static void requireLast4(String last4, String what) {
+        if (!last4Of(last4).matches("[0-9]{4}")) {
+            throw new ValidationException(what + " last 4 digits must be exactly 4 digits");
+        }
+    }
+
+    /**
+     * Validates the cards sent with a new account (add-ons, earlier numbers, debit cards) before anything is
+     * built: shape, relationship, and no last 4 repeated across the request.
+     */
+    private static void validateExtraCards(CreateAccountRequest request) {
+        java.util.Set<String> seen = new java.util.HashSet<>();
+        switch (request) {
+            case CreateAccountRequest.CreditCardRequest cc -> {
+                if (last4Of(cc.last4()).length() > 0) {
+                    seen.add(last4Of(cc.last4()));
+                }
+                for (CreateAccountRequest.AddonCardRequest a : cc.addonCards() == null ? List.<CreateAccountRequest.AddonCardRequest>of() : cc.addonCards()) {
+                    requireLast4(a.last4(), "Add-on card");
+                    if (a.relationship() == null || a.relationship() == CardholderRelationship.SELF) {
+                        throw new ValidationException("Add-on card " + a.last4() + " needs a relationship other than SELF");
+                    }
+                    if (!seen.add(last4Of(a.last4()))) {
+                        throw new ValidationException("Last 4 digits " + a.last4() + " appear more than once in the cards");
+                    }
+                }
+                for (CreateAccountRequest.EarlierCardRequest e : cc.earlierCards() == null ? List.<CreateAccountRequest.EarlierCardRequest>of() : cc.earlierCards()) {
+                    requireLast4(e.last4(), "Earlier card");
+                    if (!seen.add(last4Of(e.last4()))) {
+                        throw new ValidationException("Last 4 digits " + e.last4() + " appear more than once in the cards");
+                    }
+                }
+            }
+            case CreateAccountRequest.BankAccountRequest bank -> {
+                if (bank.debitCard() != null) {
+                    requireLast4(bank.debitCard().last4(), "Debit card");
+                    seen.add(last4Of(bank.debitCard().last4()));
+                }
+                for (CreateAccountRequest.EarlierCardRequest e : bank.earlierCards() == null ? List.<CreateAccountRequest.EarlierCardRequest>of() : bank.earlierCards()) {
+                    requireLast4(e.last4(), "Earlier card");
+                    if (!seen.add(last4Of(e.last4()))) {
+                        throw new ValidationException("Last 4 digits " + e.last4() + " appear more than once in the cards");
+                    }
+                }
+            }
+            default -> { }
+        }
+    }
+
+    /**
+     * Adds the extra cards of a create request to the still-transient account, persisted by the same save (one
+     * transaction) through the cardholders cascade: add-ons as ADDON holders, earlier numbers as closed cards of
+     * the primary holder, debit cards on the bank account's primary holder (created with the first card).
+     */
+    private void addExtraCards(Account account, CreateAccountRequest request) {
+        switch (request) {
+            case CreateAccountRequest.CreditCardRequest cc -> {
+                if (cc.addonCards() != null) {
+                    for (CreateAccountRequest.AddonCardRequest a : cc.addonCards()) {
+                        Cardholder holder = new Cardholder();
+                        holder.setUser(account.getUser());
+                        holder.setAccount(account);
+                        holder.setRole(CardholderRole.ADDON);
+                        holder.setPersonName(a.holderName() == null || a.holderName().isBlank() ? null : a.holderName().trim());
+                        holder.setRelationship(a.relationship());
+                        holder.setOpenedOn(AppTime.today());
+                        account.getCardholders().add(holder);
+                        newCard(account, holder, a.last4().trim(), AppTime.today());
+                    }
+                }
+                if (cc.earlierCards() != null && !cc.earlierCards().isEmpty()) {
+                    Cardholder primary = account.getCardholders().stream().filter(Cardholder::isPrimary).findFirst()
+                            .orElseThrow(() -> new ValidationException("Earlier cards need a primary card"));
+                    for (CreateAccountRequest.EarlierCardRequest e : cc.earlierCards()) {
+                        Card card = newCard(account, primary, e.last4().trim(), null);
+                        card.close(e.closedOn());
+                    }
+                }
+            }
+            case CreateAccountRequest.BankAccountRequest bank -> {
+                boolean hasEarlier = bank.earlierCards() != null && !bank.earlierCards().isEmpty();
+                if (bank.debitCard() == null && !hasEarlier) {
+                    return;
+                }
+                Cardholder primary = new Cardholder();
+                primary.setUser(account.getUser());
+                primary.setAccount(account);
+                primary.setRole(CardholderRole.PRIMARY);
+                primary.setRelationship(CardholderRelationship.SELF);
+                primary.setOpenedOn(AppTime.today());
+                account.getCardholders().add(primary);
+                if (bank.debitCard() != null) {
+                    newCard(account, primary, bank.debitCard().last4().trim(), AppTime.today());
+                }
+                if (hasEarlier) {
+                    for (CreateAccountRequest.EarlierCardRequest e : bank.earlierCards()) {
+                        newCard(account, primary, e.last4().trim(), null).close(e.closedOn());
+                    }
+                }
+            }
+            default -> { }
+        }
+    }
+
+    private static Card newCard(Account account, Cardholder holder, String last4, LocalDate issuedOn) {
+        Card card = new Card();
+        card.setUser(account.getUser());
+        card.setAccount(account);
+        card.setCardholder(holder);
+        card.setLast4(last4);
+        card.setIssuedOn(issuedOn);
+        holder.getCards().add(card);
+        return card;
     }
 
     public Account addCreditCardDetails(Account account, CreateAccountRequest.CreditCardRequest request) {
