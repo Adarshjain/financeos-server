@@ -52,19 +52,20 @@ class AccountSuggestionNotifierTest {
     void laterRunsSayFoundNAccountsAndCards() {
         when(prefsLoader.load(userId)).thenReturn(prefs(true, true));
         notifier.notifyFound(userId, 3, false, ranAt);
-        verify(feed).record(userId, AppNotificationKind.ACCOUNTS_FOUND, "Found 3 accounts and cards in your email", null,
+        verify(feed).record(userId, AppNotificationKind.ACCOUNTS_FOUND, "We found 3 accounts", "Add them to see your transactions.",
                 AppNotificationRefs.NONE, "account-suggestions:" + ranAt.toEpochMilli());
         ArgumentCaptor<PushMessage> push = ArgumentCaptor.forClass(PushMessage.class);
         verify(settings).deliver(any(), push.capture());
-        assertThat(push.getValue().title()).isEqualTo("Found 3 accounts and cards in your email");
+        assertThat(push.getValue().title()).isEqualTo("We found 3 accounts");
+        assertThat(push.getValue().body()).isEqualTo("Add them to see your transactions.");
     }
 
     @Test
     void theFirstScanSaysDone() {
         when(prefsLoader.load(userId)).thenReturn(prefs(true, true));
         notifier.notifyFound(userId, 5, true, ranAt);
-        verify(feed).record(eq(userId), eq(AppNotificationKind.ACCOUNTS_FOUND), eq("Done finding your accounts: 5 found"), any(), any(), any());
-        assertThat(AccountSuggestionNotifier.title(1, false)).isEqualTo("Found 1 account or card in your email");
+        verify(feed).record(eq(userId), eq(AppNotificationKind.ACCOUNTS_FOUND), eq("We found 5 accounts"), any(), any(), any());
+        assertThat(AccountSuggestionNotifier.title(1, false)).isEqualTo("We found 1 account");
     }
 
     @Test
@@ -89,7 +90,7 @@ class AccountSuggestionNotifierTest {
     @Test
     void aFirstScanThatFoundNothingStillSaysItIsDone() {
         notifier.notifyFound(userId, 0, true, ranAt);
-        verify(feed).record(userId, AppNotificationKind.ACCOUNTS_FOUND, "Done finding your accounts: none found", null,
+        verify(feed).record(userId, AppNotificationKind.ACCOUNTS_FOUND, "We didn't find any accounts in your email", null,
                 AppNotificationRefs.NONE, "account-suggestions:" + ranAt.toEpochMilli());
     }
 
