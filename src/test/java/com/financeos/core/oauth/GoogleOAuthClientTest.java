@@ -106,6 +106,17 @@ class GoogleOAuthClientTest {
     }
 
     @Test
+    void birthdayScopeIsAskedOnlyWhenEnabled() {
+        GoogleOAuthClient on = new GoogleOAuthClient("cid", "csecret", "http://localhost:6970/auth/google/callback",
+                new GoogleOAuthProperties(), new ObjectMapper(), true);
+        String scope = "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuser.birthday.read";
+        assertTrue(on.buildAuthorizationUrl("s").contains(scope));
+        assertTrue(on.getSsoScopes().contains("https://www.googleapis.com/auth/user.birthday.read"));
+        assertTrue(!client(new GoogleOAuthProperties()).buildAuthorizationUrl("s").contains("birthday"));
+        assertTrue(!client(new GoogleOAuthProperties()).getSsoScopes().contains("https://www.googleapis.com/auth/user.birthday.read"));
+    }
+
+    @Test
     void authorizationUrlHonoursOverride() {
         String url = client(localUrls()).buildAuthorizationUrl("s");
         assertTrue(url.startsWith(base + "/google/o/oauth2/v2/auth?client_id=cid&"), url);

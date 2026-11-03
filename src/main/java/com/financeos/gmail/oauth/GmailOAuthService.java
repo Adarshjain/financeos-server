@@ -3,6 +3,7 @@ package com.financeos.gmail.oauth;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.oauth.OAuthStateService;
+import com.financeos.domain.user.GoogleBirthdayService;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.accountdetect.job.AccountDetectTriggers;
@@ -40,6 +41,8 @@ public class GmailOAuthService {
     private final OAuthStateService stateService;
     /** Background account detection: enqueued on connect, cleared on disconnect (null in unit tests). */
     private final AccountDetectTriggers accountDetectTriggers;
+    /** Optional birth date fill (null in unit tests). */
+    private final GoogleBirthdayService googleBirthdayService;
 
     public GmailOAuthService(GmailApiClient gmailApiClient,
             GmailConnectionRepository connectionRepository,
@@ -48,12 +51,22 @@ public class GmailOAuthService {
         this(gmailApiClient, connectionRepository, userRepository, stateService, null);
     }
 
-    @Autowired
     public GmailOAuthService(GmailApiClient gmailApiClient,
             GmailConnectionRepository connectionRepository,
             UserRepository userRepository,
             OAuthStateService stateService,
             AccountDetectTriggers accountDetectTriggers) {
+        this(gmailApiClient, connectionRepository, userRepository, stateService, accountDetectTriggers, null);
+    }
+
+    @Autowired
+    public GmailOAuthService(GmailApiClient gmailApiClient,
+            GmailConnectionRepository connectionRepository,
+            UserRepository userRepository,
+            OAuthStateService stateService,
+            AccountDetectTriggers accountDetectTriggers,
+            GoogleBirthdayService googleBirthdayService) {
+        this.googleBirthdayService = googleBirthdayService;
         this.gmailApiClient = gmailApiClient;
         this.connectionRepository = connectionRepository;
         this.userRepository = userRepository;
@@ -171,6 +184,9 @@ public class GmailOAuthService {
                     StructuredArguments.keyValue("event", "oauth.gmail.connected"),
                     StructuredArguments.keyValue("email", email),
                     StructuredArguments.keyValue("userId", userId));
+            if (googleBirthdayService != null) {
+                googleBirthdayService.fillFromGoogle(userId, tokenResponse.accessToken(), tokenResponse.scope());
+            }
             return savedConnection;
         } catch (Exception e) {
             log.warn("Gmail OAuth callback failed: flowId={}, error={}", flowId, e.getMessage(),

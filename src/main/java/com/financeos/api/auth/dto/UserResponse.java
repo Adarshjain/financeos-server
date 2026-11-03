@@ -17,8 +17,7 @@ public record UserResponse(
         boolean admin,
         @Nullable String birthDate,
         @Nullable String birthDateSource,
-        boolean helloDone,
-        boolean googleBirthdayAvailable) {
+        boolean helloDone) {
     public static UserResponse from(User user) {
         return from(user, false);
     }
@@ -34,13 +33,6 @@ public record UserResponse(
                 admin,
                 user.getBirthDate(),
                 user.getBirthDateSource() != null ? user.getBirthDateSource().name() : null,
-                user.getHelloDoneAt() != null,
-                false);
-    }
-
-    /** Only GET /me tells the client whether "Fill from Google" is configured. */
-    public UserResponse withGoogleBirthdayAvailable(boolean available) {
-        return new UserResponse(id, email, displayName, pictureUrl, hasPassword, createdAt, admin,
-                birthDate, birthDateSource, helloDone, available);
+                user.getHelloDoneAt() != null);
     }
 }

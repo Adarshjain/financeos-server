@@ -5,6 +5,8 @@ import com.financeos.api.auth.dto.GoogleTokenResponse;
 import com.financeos.api.auth.dto.GoogleUserInfo;
 import com.financeos.core.exception.ValidationException;
 import com.google.api.services.gmail.GmailScopes;
+import com.financeos.domain.user.GoogleBirthdayService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +26,7 @@ import java.util.List;
 public class GoogleOAuthClient {
 
     // Combined scopes for SSO and Gmail access
-    private static final List<String> SSO_SCOPES = List.of(
+    private static final List<String> BASE_SSO_SCOPES = List.of(
             "openid",
             "email",
             "profile",
@@ -36,13 +38,24 @@ public class GoogleOAuthClient {
     private final GoogleOAuthProperties urls;
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
+    private final List<String> ssoScopes;
 
+    public GoogleOAuthClient(String clientId, String clientSecret, String redirectUri,
+            GoogleOAuthProperties urls, ObjectMapper objectMapper) {
+        this(clientId, clientSecret, redirectUri, urls, objectMapper, false);
+    }
+
+    @Autowired
     public GoogleOAuthClient(
             @Value("${google.oauth.client-id}") String clientId,
             @Value("${google.oauth.client-secret}") String clientSecret,
             @Value("${google.oauth.redirect-uri}") String redirectUri,
             GoogleOAuthProperties urls,
-            ObjectMapper objectMapper) {
+            ObjectMapper objectMapper,
+            @Value("${financeos.google-birthday.enabled:false}") boolean birthdayEnabled) {
+        this.ssoScopes = birthdayEnabled
+                ? java.util.stream.Stream.concat(BASE_SSO_SCOPES.stream(), java.util.stream.Stream.of(GoogleBirthdayService.SCOPE)).toList()
+                : BASE_SSO_SCOPES;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
@@ -56,14 +69,14 @@ public class GoogleOAuthClient {
     }
 
     public List<String> getSsoScopes() {
-        return SSO_SCOPES;
+        return ssoScopes;
     }
 
     /**
      * Build Authorization URL for SSO flow.
      */
     public String buildAuthorizationUrl(String state) {
-        String scope = String.join(" ", SSO_SCOPES);
+        String scope = String.join(" ", ssoScopes);
         return String.format(
                 "%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s&access_type=offline&prompt=consent",
                 urls.getAuthorizationUrl(),
@@ -74,34 +87,15 @@ public class GoogleOAuthClient {
     }
 
     /**
-     * Authorization URL asking for one extra scope on top of what the user already granted
-     * (incremental authorization), with its own redirect URI.
-     */
-    public String buildIncrementalAuthorizationUrl(String state, String scope, String callbackUri) {
-        return String.format(
-                "%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s&include_granted_scopes=true",
-                urls.getAuthorizationUrl(),
-                URLEncoder.encode(clientId, StandardCharsets.UTF_8),
-                URLEncoder.encode(callbackUri, StandardCharsets.UTF_8),
-                URLEncoder.encode(scope, StandardCharsets.UTF_8),
-                URLEncoder.encode(state, StandardCharsets.UTF_8));
-    }
-
-    /**
      * Exchange auth code for tokens.
      */
     public GoogleTokenResponse exchangeCodeForTokens(String code) {
-        return exchangeCodeForTokens(code, redirectUri);
-    }
-
-    /** Exchange an auth code that was issued for {@code callbackUri}. */
-    public GoogleTokenResponse exchangeCodeForTokens(String code, String callbackUri) {
         String requestBody = String.format(
                 "code=%s&client_id=%s&client_secret=%s&redirect_uri=%s&grant_type=authorization_code",
                 URLEncoder.encode(code, StandardCharsets.UTF_8),
                 URLEncoder.encode(clientId, StandardCharsets.UTF_8),
                 URLEncoder.encode(clientSecret, StandardCharsets.UTF_8),
-                URLEncoder.encode(callbackUri, StandardCharsets.UTF_8));
+                URLEncoder.encode(redirectUri, StandardCharsets.UTF_8));
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(urls.getTokenUrl()))

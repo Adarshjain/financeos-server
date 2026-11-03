@@ -17,6 +17,14 @@ class GmailApiClientTest {
     }
 
     @Test
+    void birthdayScopeIsAskedOnlyWhenEnabled() {
+        GmailClientProperties props = new GmailClientProperties();
+        GmailApiClient on = new GmailApiClient("cid", "secret", "http://localhost:6969/cb", props, true);
+        assertTrue(on.buildAuthorizationUrl("s").contains("user.birthday.read"));
+        assertFalse(client(props).buildAuthorizationUrl("s").contains("birthday"));
+    }
+
+    @Test
     void defaultsAreGoogleProductionEndpoints() throws IOException {
         GmailClientProperties props = new GmailClientProperties();
         assertEquals("https://accounts.google.com/o/oauth2/v2/auth", props.getOauth().getAuthorizationUrl());

@@ -9,7 +9,9 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.gmail.Gmail;
+import com.financeos.domain.user.GoogleBirthdayService;
 import com.google.api.services.gmail.GmailScopes;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.google.api.services.gmail.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
@@ -28,7 +30,6 @@ import java.util.List;
 public class GmailApiClient {
 
     private static final String APPLICATION_NAME = "FinanceOS";
-    private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_READONLY);
     private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     private static final GsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
@@ -36,12 +37,21 @@ public class GmailApiClient {
     private final String clientSecret;
     private final String redirectUri;
     private final GmailClientProperties endpoints;
+    private final List<String> scopes;
 
+    public GmailApiClient(String clientId, String clientSecret, String redirectUri, GmailClientProperties endpoints) {
+        this(clientId, clientSecret, redirectUri, endpoints, false);
+    }
+
+    @Autowired
     public GmailApiClient(
             @Value("${gmail.oauth.client-id:}") String clientId,
             @Value("${gmail.oauth.client-secret:}") String clientSecret,
             @Value("${gmail.oauth.redirect-uri:}") String redirectUri,
-            GmailClientProperties endpoints) {
+            GmailClientProperties endpoints,
+            @Value("${financeos.google-birthday.enabled:false}") boolean birthdayEnabled) {
+        this.scopes = birthdayEnabled ? List.of(GmailScopes.GMAIL_READONLY, GoogleBirthdayService.SCOPE)
+                : List.of(GmailScopes.GMAIL_READONLY);
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
@@ -75,7 +85,8 @@ public class GmailApiClient {
         return new TokenResponse(
                 tokenResponse.getAccessToken(),
                 tokenResponse.getRefreshToken(),
-                tokenResponse.getExpiresInSeconds());
+                tokenResponse.getExpiresInSeconds(),
+                tokenResponse.getScope());
     }
 
     /**
@@ -157,7 +168,7 @@ public class GmailApiClient {
                 JSON_FACTORY,
                 clientId,
                 clientSecret,
-                SCOPES)
+                scopes)
                 .setAuthorizationServerEncodedUrl(endpoints.getOauth().getAuthorizationUrl())
                 .setTokenServerUrl(new GenericUrl(endpoints.getOauth().getTokenUrl()))
                 .setAccessType("offline")
@@ -175,6 +186,10 @@ public class GmailApiClient {
         return credential;
     }
 
-    public record TokenResponse(String accessToken, @Nullable String refreshToken, Long expiresInSeconds) {
+    public record TokenResponse(String accessToken, @Nullable String refreshToken, Long expiresInSeconds,
+            @Nullable String scope) {
+        public TokenResponse(String accessToken, @Nullable String refreshToken, Long expiresInSeconds) {
+            this(accessToken, refreshToken, expiresInSeconds, null);
+        }
     }
 }
