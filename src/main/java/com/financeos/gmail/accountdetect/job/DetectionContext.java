@@ -7,8 +7,9 @@ import java.util.UUID;
  * About the run that produced a detection.
  *
  * @param firstScan   this run finished (or resumed) the user's first full-mailbox scan
+ * @param firstScanCompleted this run is the one that set the first-scan-done marker (true on one run only)
  * @param mailsStored the user's stored mails the detection ran over
  * @param newMails    mails read and stored by this run
  * @param statements  statement-content rows used (mail PDFs and app-parsed statements)
  */
-public record DetectionContext(UUID connectionId, boolean firstScan, int mailsStored, int newMails, int statements, Instant ranAt) {}
+public record DetectionContext(UUID connectionId, boolean firstScan, boolean firstScanCompleted, int mailsStored, int newMails, int statements, Instant ranAt) {}

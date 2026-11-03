@@ -94,6 +94,11 @@ public final class Detection {
             this.last4 = last4;
         }
 
+        /** An empty entity for a caller outside the detector (the e2e seed); the caller sets the facts it has. */
+        public static Entity of(String bank, String last4) {
+            return new Entity(bank, last4);
+        }
+
         public String key() {
             return bank + ":" + last4;
         }
