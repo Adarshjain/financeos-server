@@ -344,4 +344,87 @@ class SuggestionPlannerTest {
         assertThat(only(entity("hdfc", "1111", Kind.ACCOUNT, Conf.HIGH), of(one, two)).candidates()).containsExactlyInAnyOrder(one.id(), two.id());
         assertThat(only(entity("hdfc", "1111", Kind.DEBIT_CARD, Conf.HIGH), of(one, two)).candidates()).isEmpty();
     }
+
+    // ---------------------------------------------------------------- older number of an existing card
+
+    private static Detection.Entity lifecycle(Detection.Entity e, Lifecycle l, Conf conf, String linkedTo) {
+        e.lifecycle = l;
+        e.lifecycleConf = conf;
+        e.linkedTo = linkedTo;
+        return e;
+    }
+
+    @Test
+    void anExistingCardsReplacementLinkingThisNumberMakesItAnOlderNumberOfThatAccount() {
+        Acc card = cardAcc("hdfc", "2222");
+        Detection.Entity newer = lifecycle(entity("hdfc", "2222", Kind.CREDIT_CARD, Conf.HIGH), Lifecycle.REPLACEMENT, Conf.MEDIUM, "hdfc:1111");
+        Detection.Entity old = entity("hdfc", "1111", Kind.CREDIT_CARD, Conf.HIGH);
+        List<SuggestionPlanner.Plan> plans = SuggestionPlanner.plan(detection(newer, old), of(card), TODAY);
+
+        SuggestionPlanner.Plan p = find(plans, "hdfc:CREDIT_CARD:1111");
+        assertThat(p.parentAccountId()).isEqualTo(card.id());
+        assertThat(p.band()).isEqualTo(Band.OLDER);
+        assertThat(p.kind()).isEqualTo(AccountSuggestion.Kind.CREDIT_CARD);
+    }
+
+    @Test
+    void thisNumberReplacedOrUpgradedIntoAnExistingCardIsAnOlderNumberToo() {
+        Acc card = cardAcc("hdfc", "2222");
+        for (Lifecycle l : new Lifecycle[]{Lifecycle.REPLACED, Lifecycle.UPGRADED}) {
+            Detection.Entity old = lifecycle(entity("hdfc", "1111", Kind.CREDIT_CARD, Conf.HIGH), l, Conf.HIGH, "hdfc:2222");
+            SuggestionPlanner.Plan p = only(old, of(card));
+            assertThat(p.parentAccountId()).as(l.name()).isEqualTo(card.id());
+            assertThat(p.band()).as(l.name()).isEqualTo(Band.OLDER);
+        }
+    }
+
+    @Test
+    void aLowLifecycleNeverLinks() {
+        Acc card = cardAcc("hdfc", "2222");
+        Detection.Entity newer = lifecycle(entity("hdfc", "2222", Kind.CREDIT_CARD, Conf.HIGH), Lifecycle.REPLACEMENT, Conf.LOW, "hdfc:1111");
+        Detection.Entity old = entity("hdfc", "1111", Kind.CREDIT_CARD, Conf.HIGH);
+        SuggestionPlanner.Plan p = find(SuggestionPlanner.plan(detection(newer, old), of(card), TODAY), "hdfc:CREDIT_CARD:1111");
+        assertThat(p.parentAccountId()).isNull();
+        assertThat(p.band()).isEqualTo(Band.FOUND);
+
+        Detection.Entity replaced = lifecycle(entity("hdfc", "1111", Kind.CREDIT_CARD, Conf.HIGH), Lifecycle.REPLACED, Conf.LOW, "hdfc:2222");
+        assertThat(only(replaced, of(card)).parentAccountId()).isNull();
+    }
+
+    @Test
+    void noLinkWhenTheSuccessorIsNotAnExistingCardOrAtAnotherBankOrNotACreditCardAccount() {
+        Detection.Entity old = lifecycle(entity("hdfc", "1111", Kind.CREDIT_CARD, Conf.HIGH), Lifecycle.REPLACED, Conf.HIGH, "hdfc:2222");
+        assertThat(only(old, ExistingAccounts.NONE).parentAccountId()).isNull();
+        assertThat(only(old, of(cardAcc("icici", "2222"))).parentAccountId()).isNull();
+        Acc debit = new Acc(UUID.randomUUID(), "Savings", AccountType.bank_account, "hdfc", true, "9999",
+                List.of(new CardRef(UUID.randomUUID(), "2222")), List.of());
+        assertThat(only(old, of(debit)).parentAccountId()).isNull();
+    }
+
+    @Test
+    void aMaybeRowStaysMaybeEvenWhenLinked() {
+        Acc card = cardAcc("hdfc", "2222");
+        Detection.Entity old = lifecycle(entity("hdfc", "1111", Kind.CREDIT_CARD, Conf.LOW), Lifecycle.REPLACED, Conf.HIGH, "hdfc:2222");
+        SuggestionPlanner.Plan p = only(old, of(card));
+        assertThat(p.band()).isEqualTo(Band.MAYBE);
+    }
+
+    @Test
+    void aDeclinedLinkIsNeverMadeAgain() {
+        Acc card = cardAcc("hdfc", "2222");
+        Detection.Entity old = lifecycle(entity("hdfc", "1111", Kind.CREDIT_CARD, Conf.HIGH), Lifecycle.REPLACED, Conf.HIGH, "hdfc:2222");
+        SuggestionPlanner.Plan p = SuggestionPlanner.plan(detection(old), of(card), TODAY, java.util.Set.of("hdfc:CREDIT_CARD:1111")).get(0);
+        assertThat(p.parentAccountId()).isNull();
+        assertThat(p.band()).isEqualTo(Band.OLDER);   // REPLACED is OLDER on its own
+    }
+
+    @Test
+    void anAddonKeepsItsKindAndParentInsteadOfTheOlderLink() {
+        Acc card = cardAcc("hdfc", "2222");
+        Detection.Entity addon = lifecycle(entity("hdfc", "8888", Kind.CREDIT_CARD, Conf.HIGH), Lifecycle.ADD_ON, Conf.HIGH, "hdfc:2222");
+        SuggestionPlanner.Plan p = only(addon, of(card));
+        assertThat(p.kind()).isEqualTo(AccountSuggestion.Kind.ADDON_CARD);
+        assertThat(p.parentAccountId()).isEqualTo(card.id());
+        assertThat(p.band()).isEqualTo(Band.FOUND);
+    }
 }

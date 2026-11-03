@@ -70,9 +70,13 @@ public class AccountSuggestionService {
     @Transactional
     public int apply(UUID userId, Detection detection) {
         LocalDate today = AppTime.today();
-        List<SuggestionPlanner.Plan> plans = SuggestionPlanner.plan(detection, existingLoader.load(userId), today);
         Map<String, AccountSuggestion> byKey = new HashMap<>();
-        for (AccountSuggestion s : repository.findByUserId(userId)) byKey.put(s.getKey(), s);
+        Set<String> declinedParents = new HashSet<>();
+        for (AccountSuggestion s : repository.findByUserId(userId)) {
+            byKey.put(s.getKey(), s);
+            if (s.isParentDeclined()) declinedParents.add(s.getKey());
+        }
+        List<SuggestionPlanner.Plan> plans = SuggestionPlanner.plan(detection, existingLoader.load(userId), today, declinedParents);
 
         List<SuggestionPlanner.Plan> live = new ArrayList<>();
         Set<String> liveKeys = new HashSet<>();
@@ -187,6 +191,22 @@ public class AccountSuggestionService {
         AccountSuggestion s = owned(userId, id);
         if (s.getState() != State.NEW) throw new ValidationException("Only a new suggestion can be marked not mine.");
         s.setState(State.NOT_MINE);
+        repository.save(s);
+    }
+
+    /**
+     * "Not part of that account": the user refuses the "Older number on X?" link. The parent account is cleared and the
+     * row is never linked to an account as an older number again; it stays NEW and standalone.
+     */
+    @Transactional
+    public void notPart(UUID userId, UUID id) {
+        AccountSuggestion s = owned(userId, id);
+        if (s.getState() != State.NEW) throw new ValidationException("Only a new suggestion can be marked not part of an account.");
+        if (s.getParentAccountId() == null || s.getKind() != AccountSuggestion.Kind.CREDIT_CARD) {
+            throw new ValidationException("This suggestion is not linked to an account as an older number.");
+        }
+        s.setParentDeclined(true);
+        s.setParentAccountId(null);
         repository.save(s);
     }
 

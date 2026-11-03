@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -24,6 +25,11 @@ import java.util.UUID;
  *       the primary's bank:last4) → ADDON_CARD under the primary's account or the primary's suggestion; REPLACEMENT
  *       (linkedTo = the old number) whose old number is an existing card → REPLACEMENT_CARD under that card's account.
  *       Both only at lifecycle confidence MEDIUM or better, else the base kind with no parent.</li>
+ *   <li>Older number: a plain credit card (no other parent) whose number is the OLD number
+ *       of a card the user already has on a credit-card account gets that account as its parent and band OLDER (the client
+ *       asks "Older number on X?"). Evidence, at lifecycle confidence MEDIUM or better: the existing card's own entity is a
+ *       REPLACEMENT linked to this number, or this entity is REPLACED / UPGRADED and linked to the existing card's number.
+ *       Never for a row the user answered "not part" ({@code declinedParentKeys}), and a MAYBE row stays MAYBE.</li>
  *   <li>Band: MAYBE when existsConf or kindConf is below MEDIUM (checked first: a LOW guess is never a confident row);
  *       else OLDER when CLOSED / REPLACED / UPGRADED at MEDIUM+ or last seen over 12 months ago; else FOUND.</li>
  * </ul>
@@ -49,8 +55,18 @@ public final class SuggestionPlanner {
                        boolean debitNeedsBank, List<UUID> candidates, String variant, String variantCandidatesJson) {}
 
     public static List<Plan> plan(Detection detection, ExistingAccounts existing, LocalDate today) {
+        return plan(detection, existing, today, Set.of());
+    }
+
+    /** @param declinedParentKeys suggestion keys whose "older number of that account" link the user refused */
+    public static List<Plan> plan(Detection detection, ExistingAccounts existing, LocalDate today, Set<String> declinedParentKeys) {
         Map<String, Detection.Entity> byDetectionKey = new HashMap<>();
-        for (Detection.Entity e : detection.entities) byDetectionKey.put(e.key(), e);
+        // old number (bank:last4) -> the entity that says it replaced that number
+        Map<String, Detection.Entity> replacementOf = new HashMap<>();
+        for (Detection.Entity e : detection.entities) {
+            byDetectionKey.put(e.key(), e);
+            if (e.lifecycle == Lifecycle.REPLACEMENT && e.linkedTo != null && sure(e)) replacementOf.put(e.linkedTo, e);
+        }
         List<Plan> out = new ArrayList<>();
         for (Detection.Entity e : detection.entities) {
             if (!suggestible(e)) continue;
@@ -64,7 +80,7 @@ public final class SuggestionPlanner {
             boolean debitNeedsBank = false;
             List<UUID> candidates = List.of();
             if (match == null) {
-                boolean linkSure = e.lifecycleConf != null && e.lifecycleConf.atLeast(Conf.MEDIUM);
+                boolean linkSure = sure(e);
                 if (linkSure && e.lifecycle == Lifecycle.ADD_ON && e.linkedTo != null && base != AccountSuggestion.Kind.BANK_ACCOUNT) {
                     String[] p = split(e.linkedTo);
                     ExistingAccounts.Match primary = p == null ? null : existing.matchCard(p[0], p[1]);
@@ -84,7 +100,17 @@ public final class SuggestionPlanner {
                         parentAccount = old.accountId();
                     }
                 }
-                if (kind == AccountSuggestion.Kind.DEBIT_CARD) {
+                boolean olderLinked = false;
+                if (kind == base && parentAccount == null && parentKey == null && base == AccountSuggestion.Kind.CREDIT_CARD
+                        && !declinedParentKeys.contains(key)) {
+                    UUID older = olderNumberOf(e, existing, replacementOf);
+                    if (older != null) {
+                        parentAccount = older;
+                        olderLinked = true;
+                        if (band != Band.MAYBE) band = Band.OLDER;
+                    }
+                }
+                if (kind == AccountSuggestion.Kind.DEBIT_CARD && !olderLinked) {
                     List<ExistingAccounts.Acc> banks = existing.openBankAccountsAt(e.bank);
                     if (banks.size() == 1) parentAccount = banks.get(0).id();
                     else if (banks.isEmpty()) debitNeedsBank = true;
@@ -96,6 +122,24 @@ public final class SuggestionPlanner {
                     truncate(e.variant, AccountSuggestion.VARIANT_MAX), candidatesJson(e.variantCandidates)));
         }
         return out;
+    }
+
+    private static boolean sure(Detection.Entity e) {
+        return e.lifecycleConf != null && e.lifecycleConf.atLeast(Conf.MEDIUM);
+    }
+
+    /**
+     * The credit-card account whose card has this entity's number as its OLD number, or null: the existing card's own
+     * entity is a REPLACEMENT linked to this number, or this entity is REPLACED / UPGRADED into an existing card.
+     */
+    private static UUID olderNumberOf(Detection.Entity e, ExistingAccounts existing, Map<String, Detection.Entity> replacementOf) {
+        Detection.Entity successor = replacementOf.get(e.key());
+        ExistingAccounts.Match m = successor == null || !e.bank.equals(successor.bank) ? null : existing.matchCard(successor.bank, successor.last4);
+        if (m == null && (e.lifecycle == Lifecycle.REPLACED || e.lifecycle == Lifecycle.UPGRADED) && sure(e) && e.linkedTo != null) {
+            String[] p = split(e.linkedTo);
+            m = p == null || !e.bank.equals(p[0]) ? null : existing.matchCard(p[0], p[1]);
+        }
+        return m != null && existing.isCreditCardAccount(m.accountId()) ? m.accountId() : null;
     }
 
     /** A reported own number we can store: a kind, a known bank (never "?" + sender domain) and values that fit. */

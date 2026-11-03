@@ -139,6 +139,10 @@ public class AccountSuggestion implements Persistable<UUID> {
     @Column(name = "is_this_declined", nullable = false)
     private boolean thisDeclined;
 
+    /** The user answered "not part of that account" to "Older number on X?": never linked to an account as an older number again. */
+    @Column(name = "parent_declined", nullable = false)
+    private boolean parentDeclined;
+
     @Column(name = "notified_at")
     private Instant notifiedAt;
 
