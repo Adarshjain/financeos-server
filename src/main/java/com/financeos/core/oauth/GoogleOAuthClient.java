@@ -26,11 +26,12 @@ import java.util.List;
 public class GoogleOAuthClient {
 
     // Combined scopes for SSO and Gmail access
-    private static final List<String> BASE_SSO_SCOPES = List.of(
+    private static final List<String> SSO_SCOPES = List.of(
             "openid",
             "email",
             "profile",
-            GmailScopes.GMAIL_READONLY);
+            GmailScopes.GMAIL_READONLY,
+            GoogleBirthdayService.SCOPE);
 
     private final String clientId;
     private final String clientSecret;
@@ -38,12 +39,6 @@ public class GoogleOAuthClient {
     private final GoogleOAuthProperties urls;
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
-    private final List<String> ssoScopes;
-
-    public GoogleOAuthClient(String clientId, String clientSecret, String redirectUri,
-            GoogleOAuthProperties urls, ObjectMapper objectMapper) {
-        this(clientId, clientSecret, redirectUri, urls, objectMapper, false);
-    }
 
     @Autowired
     public GoogleOAuthClient(
@@ -51,11 +46,7 @@ public class GoogleOAuthClient {
             @Value("${google.oauth.client-secret}") String clientSecret,
             @Value("${google.oauth.redirect-uri}") String redirectUri,
             GoogleOAuthProperties urls,
-            ObjectMapper objectMapper,
-            @Value("${financeos.google-birthday.enabled:false}") boolean birthdayEnabled) {
-        this.ssoScopes = birthdayEnabled
-                ? java.util.stream.Stream.concat(BASE_SSO_SCOPES.stream(), java.util.stream.Stream.of(GoogleBirthdayService.SCOPE)).toList()
-                : BASE_SSO_SCOPES;
+            ObjectMapper objectMapper) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
@@ -69,14 +60,14 @@ public class GoogleOAuthClient {
     }
 
     public List<String> getSsoScopes() {
-        return ssoScopes;
+        return SSO_SCOPES;
     }
 
     /**
      * Build Authorization URL for SSO flow.
      */
     public String buildAuthorizationUrl(String state) {
-        String scope = String.join(" ", ssoScopes);
+        String scope = String.join(" ", SSO_SCOPES);
         return String.format(
                 "%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s&access_type=offline&prompt=consent",
                 urls.getAuthorizationUrl(),

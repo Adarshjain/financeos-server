@@ -39,19 +39,13 @@ public class GmailApiClient {
     private final GmailClientProperties endpoints;
     private final List<String> scopes;
 
-    public GmailApiClient(String clientId, String clientSecret, String redirectUri, GmailClientProperties endpoints) {
-        this(clientId, clientSecret, redirectUri, endpoints, false);
-    }
-
     @Autowired
     public GmailApiClient(
             @Value("${gmail.oauth.client-id:}") String clientId,
             @Value("${gmail.oauth.client-secret:}") String clientSecret,
             @Value("${gmail.oauth.redirect-uri:}") String redirectUri,
-            GmailClientProperties endpoints,
-            @Value("${financeos.google-birthday.enabled:false}") boolean birthdayEnabled) {
-        this.scopes = birthdayEnabled ? List.of(GmailScopes.GMAIL_READONLY, GoogleBirthdayService.SCOPE)
-                : List.of(GmailScopes.GMAIL_READONLY);
+            GmailClientProperties endpoints) {
+        this.scopes = List.of(GmailScopes.GMAIL_READONLY, GoogleBirthdayService.SCOPE);
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;

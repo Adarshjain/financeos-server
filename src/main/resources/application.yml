@@ -365,12 +365,6 @@ google:
     revoke-url: ${GOOGLE_REVOKE_URL:https://oauth2.googleapis.com/revoke}
     people-url: ${GOOGLE_PEOPLE_URL:https://people.googleapis.com/v1/people/me?personFields=birthdays}
 
-# Optional birth date from Google: when enabled, user.birthday.read is added to the Google sign-in and Gmail
-# connect requests and read after the callback. Off by default: the scope needs Google verification.
-financeos:
-  google-birthday:
-    enabled: ${GOOGLE_BIRTHDAY_ENABLED:false}
-
 # Price Feed configuration
 price:
   enabled: ${PRICE_FEED_ENABLED:true}

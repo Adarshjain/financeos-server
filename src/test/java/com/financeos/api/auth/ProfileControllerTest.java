@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestPropertySource(properties = {"app.invite.code=test-invite-code", "financeos.google-birthday.enabled=false"})
+@TestPropertySource(properties = {"app.invite.code=test-invite-code"})
 class ProfileControllerTest {
 
     @TestConfiguration

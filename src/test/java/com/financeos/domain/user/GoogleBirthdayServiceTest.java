@@ -39,35 +39,28 @@ class GoogleBirthdayServiceTest {
         when(google.getPeopleBirthdays("at")).thenReturn(PEOPLE);
     }
 
-    private GoogleBirthdayService service(boolean enabled) {
-        return new GoogleBirthdayService(google, profiles, users, new ObjectMapper(), enabled);
+    private GoogleBirthdayService service() {
+        return new GoogleBirthdayService(google, profiles, users, new ObjectMapper());
     }
 
     @Test
     void grantedScopeAndNoBirthDateSavesThePickedDate() {
         when(profiles.saveGoogleBirthDate(userId, "1990-04-05")).thenReturn(true);
-        assertTrue(service(true).fillFromGoogle(userId, "at", GRANTED));
+        assertTrue(service().fillFromGoogle(userId, "at", GRANTED));
         verify(profiles).saveGoogleBirthDate(userId, "1990-04-05");
     }
 
     @Test
     void aScopeThatWasNotGrantedNeverCallsThePeopleApi() {
-        assertFalse(service(true).fillFromGoogle(userId, "at", "openid email"));
-        assertFalse(service(true).fillFromGoogle(userId, "at", null));
+        assertFalse(service().fillFromGoogle(userId, "at", "openid email"));
+        assertFalse(service().fillFromGoogle(userId, "at", null));
         verify(google, never()).getPeopleBirthdays(any());
-    }
-
-    @Test
-    void flagOffDoesNothing() {
-        assertFalse(service(false).fillFromGoogle(userId, "at", GRANTED));
-        verify(google, never()).getPeopleBirthdays(any());
-        verify(profiles, never()).saveGoogleBirthDate(any(), any());
     }
 
     @Test
     void anExistingBirthDateIsLeftAlone() {
         user.setBirthDate("1985-01-01");
-        assertFalse(service(true).fillFromGoogle(userId, "at", GRANTED));
+        assertFalse(service().fillFromGoogle(userId, "at", GRANTED));
         verify(google, never()).getPeopleBirthdays(any());
         verify(profiles, never()).saveGoogleBirthDate(any(), any());
     }
@@ -75,7 +68,7 @@ class GoogleBirthdayServiceTest {
     @Test
     void aPeopleApiFailureIsSwallowed() {
         when(google.getPeopleBirthdays("at")).thenThrow(new RuntimeException("boom"));
-        assertFalse(service(true).fillFromGoogle(userId, "at", GRANTED));
+        assertFalse(service().fillFromGoogle(userId, "at", GRANTED));
         verify(profiles, never()).saveGoogleBirthDate(any(), any());
     }
     @Test
@@ -84,7 +77,7 @@ class GoogleBirthdayServiceTest {
                 "{\"year\":2999,\"month\":1,\"day\":1}"}) {
             when(google.getPeopleBirthdays("at")).thenReturn(
                     "{\"birthdays\":[{\"metadata\":{\"source\":{\"type\":\"ACCOUNT\"}},\"date\":" + date + "}]}");
-            assertFalse(service(true).fillFromGoogle(userId, "at", GRANTED));
+            assertFalse(service().fillFromGoogle(userId, "at", GRANTED));
         }
         verify(profiles, never()).saveGoogleBirthDate(any(), any());
     }
