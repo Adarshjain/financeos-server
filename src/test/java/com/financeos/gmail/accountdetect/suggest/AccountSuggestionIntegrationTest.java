@@ -228,7 +228,7 @@ class AccountSuggestionIntegrationTest {
         assertThat(card.get("caption").asText()).isEqualTo("Regalia Gold or Regalia · 1 add-on · 64 emails since Mar 2022");
         assertThat(card.get("children")).hasSize(1);
         assertThat(card.get("children").get(0).get("kind").asText()).isEqualTo("ADDON_CARD");
-        assertThat(card.get("children").get(0).get("parentSuggestionId").asText()).isEqualTo(card.get("id").asText());
+        assertThat(card.get("children").get(0).get("id").asText()).isNotBlank();
         assertThat(bank.get("children").get(0).get("kind").asText()).isEqualTo("DEBIT_CARD");
         assertThat(bank.get("caption").asText()).isEqualTo("1 debit card · 12 emails since Mar 2024");
     }

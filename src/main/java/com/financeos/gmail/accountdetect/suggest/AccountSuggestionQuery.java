@@ -90,8 +90,11 @@ public class AccountSuggestionQuery {
 
     private Item item(AccountSuggestion s, Map<UUID, List<AccountSuggestion>> children, Map<UUID, ExistingAccounts.Acc> accounts,
                       Set<UUID> freshIds) {
-        List<Item> kids = new ArrayList<>();
-        for (AccountSuggestion c : children.getOrDefault(s.getId(), List.of())) kids.add(item(c, children, accounts, freshIds));
+        List<AccountSuggestionsResponse.Child> kids = new ArrayList<>();
+        for (AccountSuggestion c : children.getOrDefault(s.getId(), List.of())) {
+            kids.add(new AccountSuggestionsResponse.Child(c.getId(), c.getKind().name(), c.getBand().name(), c.getLast4(),
+                    c.getLifecycle(), c.getLifecycleConf(), c.getFirstSeenOn(), c.getLastSeenOn(), c.getEvidenceMails()));
+        }
         List<String> candidates = AccountSuggestionService.readCandidates(s.getVariantCandidates());
         ExistingAccounts.Acc parent = s.getParentAccountId() == null ? null : accounts.get(s.getParentAccountId());
         ExistingAccounts.Acc candidate = s.getCandidateAccountId() == null ? null : accounts.get(s.getCandidateAccountId());
