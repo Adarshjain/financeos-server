@@ -28,5 +28,10 @@ public record AccountSuggestionsResponse(Scan scan, List<Item> items) {
                        String limitBucket, String limitConf, String lifecycle, String lifecycleConf,
                        LocalDate firstSeenOn, LocalDate lastSeenOn, int evidenceMails,
                        ParentAccount parentAccount, UUID parentSuggestionId, CandidateAccount candidateAccount,
-                       List<Item> children, String caption) {}
+                       List<Child> children, String caption) {}
+
+    /** A card that comes with its parent suggestion (an add-on or debit card); one level only. */
+    @Schema(name = "AccountSuggestionChild")
+    public record Child(UUID id, String kind, String band, String last4, String lifecycle, String lifecycleConf,
+                        LocalDate firstSeenOn, LocalDate lastSeenOn, int evidenceMails) {}
 }

@@ -9750,6 +9750,41 @@ components:
       required:
       - id
       - name
+    AccountSuggestionChild:
+      type: object
+      properties:
+        band:
+          type: string
+        evidenceMails:
+          type: integer
+          format: int32
+        firstSeenOn:
+          type: string
+          format: date
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+        last4:
+          type: string
+        lastSeenOn:
+          type: string
+          format: date
+        lifecycle:
+          type: string
+        lifecycleConf:
+          type: string
+      required:
+      - band
+      - evidenceMails
+      - firstSeenOn
+      - id
+      - kind
+      - last4
+      - lastSeenOn
+      - lifecycle
+      - lifecycleConf
     AccountSuggestionItem:
       type: object
       properties:
@@ -9761,6 +9796,10 @@ components:
           $ref: "#/components/schemas/AccountSuggestionCandidateAccount"
         caption:
           type: string
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/AccountSuggestionChild"
         evidenceMails:
           type: integer
           format: int32
@@ -9805,6 +9844,7 @@ components:
       - bank
       - candidateAccount
       - caption
+      - children
       - evidenceMails
       - firstSeenOn
       - id
