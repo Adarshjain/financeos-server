@@ -67,13 +67,40 @@ public class GmailOAuthService {
      */
     @Transactional(readOnly = true)
     public String buildAuthorizationUrl(UUID userId) {
-        String flowId = UUID.randomUUID().toString().substring(0, 8);
+        return buildAuthorizationUrl(userId, null);
+    }
+
+    /** Where the callback sends the browser after connecting. */
+    public static final String RETURN_SETTINGS = "settings";
+    public static final String RETURN_HOME = "home";
+    private static final String HOME_FLOW_SUFFIX = "_home";
+
+    /**
+     * Like {@link #buildAuthorizationUrl(UUID)} with a return target: {@code home} or {@code settings}
+     * (the default). The target rides in the signed flow id, so a callback can't be pointed elsewhere.
+     */
+    @Transactional(readOnly = true)
+    public String buildAuthorizationUrl(UUID userId, @org.springframework.lang.Nullable String returnTo) {
+        if (returnTo != null && !returnTo.isBlank() && !RETURN_HOME.equals(returnTo) && !RETURN_SETTINGS.equals(returnTo)) {
+            throw new ValidationException("returnTo must be home or settings");
+        }
+        String flowId = UUID.randomUUID().toString().substring(0, 8)
+                + (RETURN_HOME.equals(returnTo) ? HOME_FLOW_SUFFIX : "");
         String state = stateService.issue(OAuthStateService.Purpose.GMAIL_CONNECT, flowId, userId);
         log.info("Gmail OAuth authorize started: flowId={}, userId={}", flowId, userId,
                 StructuredArguments.keyValue("event", Events.OAUTH_GMAIL_AUTHORIZE_STARTED),
                 StructuredArguments.keyValue("flowId", flowId),
                 StructuredArguments.keyValue("userId", userId));
         return gmailApiClient.buildAuthorizationUrl(state);
+    }
+
+    /** The return target of a state this server issued to {@code userId}; settings for anything else. */
+    public String returnTarget(UUID userId, String state) {
+        if (!stateService.isValid(OAuthStateService.Purpose.GMAIL_CONNECT, state, userId)) {
+            return RETURN_SETTINGS;
+        }
+        String flowId = state.substring(0, state.indexOf('.'));
+        return flowId.endsWith(HOME_FLOW_SUFFIX) ? RETURN_HOME : RETURN_SETTINGS;
     }
 
     /**

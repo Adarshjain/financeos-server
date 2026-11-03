@@ -363,6 +363,14 @@ google:
     token-url: ${GOOGLE_TOKEN_URL:https://oauth2.googleapis.com/token}
     user-info-url: ${GOOGLE_USERINFO_URL:https://www.googleapis.com/oauth2/v2/userinfo}
     revoke-url: ${GOOGLE_REVOKE_URL:https://oauth2.googleapis.com/revoke}
+    people-url: ${GOOGLE_PEOPLE_URL:https://people.googleapis.com/v1/people/me?personFields=birthdays}
+
+# Optional "Fill from Google" for the birth date (incremental OAuth, user.birthday.read). Off by default:
+# the scope needs Google verification. The redirect URI must be registered verbatim in the Google console.
+financeos:
+  google-birthday:
+    enabled: ${GOOGLE_BIRTHDAY_ENABLED:false}
+    redirect-uri: ${GOOGLE_BIRTHDAY_REDIRECT_URI:http://localhost:6969/api/v1/me/google-birthday/callback}
 
 # Price Feed configuration
 price:
