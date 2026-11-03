@@ -77,6 +77,11 @@ public record ExistingAccounts(List<Acc> accounts) {
         return alias.kind() == AccountIdentifierKind.ACCOUNT_NUMBER && v.length() > 4 && v.endsWith(last4);
     }
 
+    /** The account is a credit-card account. */
+    public boolean isCreditCardAccount(UUID accountId) {
+        return accounts.stream().anyMatch(a -> a.id().equals(accountId) && a.type() == AccountType.credit_card);
+    }
+
     /** Open bank accounts at exactly this bank. */
     public List<Acc> openBankAccountsAt(String bank) {
         List<Acc> out = new ArrayList<>();

@@ -27,6 +27,13 @@ public interface AccountSuggestionRepository extends JpaRepository<AccountSugges
             + "AND s.state = com.financeos.gmail.accountdetect.suggest.AccountSuggestion.State.NEW")
     int claimNew(@Param("id") UUID id, @Param("userId") UUID userId, @Param("now") java.time.Instant now);
 
+    /** The atomic claim for "belongs to an account": NEW to BELONGS for exactly this user's row, same locking as {@link #claimNew}. */
+    @Modifying
+    @Query("UPDATE AccountSuggestion s SET s.state = com.financeos.gmail.accountdetect.suggest.AccountSuggestion.State.BELONGS, "
+            + "s.updatedAt = :now WHERE s.id = :id AND s.userId = :userId "
+            + "AND s.state = com.financeos.gmail.accountdetect.suggest.AccountSuggestion.State.NEW")
+    int claimBelongs(@Param("id") UUID id, @Param("userId") UUID userId, @Param("now") java.time.Instant now);
+
     /** The user's suggestions, all of them (e2e reset). */
     @Modifying
     @Query("DELETE FROM AccountSuggestion s WHERE s.userId = :userId")

@@ -33,9 +33,22 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     @Query("SELECT g FROM GmailProcessedMessage g WHERE g.connection.id = :connectionId AND g.status = com.financeos.gmail.domain.GmailProcessedStatus.PROCESSING AND (g.processedAt <= :cutoff OR (g.processedAt IS NULL AND g.discoveredAt <= :cutoff))")
     List<GmailProcessedMessage> findStaleProcessing(@Param("connectionId") UUID connectionId, @Param("cutoff") Instant cutoff);
 
+    /**
+     * Inbox rows a NEW account suggestion stands for: an UNRESOLVED_ACCOUNT mail whose last4 (and bank, when the
+     * classifier named one) is that of one of the user's NEW suggestions. With no bank on the mail, the last4 alone counts
+     * only when exactly one NEW suggestion has it. One subquery per statement, never a query per row. Append to a WHERE
+     * clause over {@code g}.
+     */
+    String NOT_STANDING_FOR_SUGGESTION = " AND NOT (g.status = com.financeos.gmail.domain.GmailProcessedStatus.UNRESOLVED_ACCOUNT"
+            + " AND g.extractedLast4 IS NOT NULL AND EXISTS (SELECT 1 FROM AccountSuggestion sg WHERE sg.userId = :userId"
+            + " AND sg.state = com.financeos.gmail.accountdetect.suggest.AccountSuggestion.State.NEW AND sg.last4 = g.extractedLast4"
+            + " AND ((g.classifiedBank IS NOT NULL AND sg.bank = g.classifiedBank) OR (g.classifiedBank IS NULL AND"
+            + " (SELECT COUNT(sg2) FROM AccountSuggestion sg2 WHERE sg2.userId = :userId"
+            + " AND sg2.state = com.financeos.gmail.accountdetect.suggest.AccountSuggestion.State.NEW AND sg2.last4 = g.extractedLast4) = 1))))";
+
     /** Active (not archived) attention items, with the mailbox email and account name for the list's detail fields. */
-    @Query(value = "SELECT new com.financeos.gmail.domain.GmailAttentionRow(g, c.email, a.id, a.name) FROM GmailProcessedMessage g JOIN g.connection c LEFT JOIN g.account a WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL",
-           countQuery = "SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL")
+    @Query(value = "SELECT new com.financeos.gmail.domain.GmailAttentionRow(g, c.email, a.id, a.name) FROM GmailProcessedMessage g JOIN g.connection c LEFT JOIN g.account a WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL" + NOT_STANDING_FOR_SUGGESTION,
+           countQuery = "SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL" + NOT_STANDING_FOR_SUGGESTION)
     Page<GmailAttentionRow> findAttentionItems(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses, Pageable pageable);
 
     /** Attention items the user archived, same shape as {@link #findAttentionItems}. */
@@ -58,12 +71,12 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
 
     Optional<GmailProcessedMessage> findByTransactionId(UUID transactionId);
 
-    /** Inbox: every attention item for the user, notified or not; archived items are excluded. */
-    @Query("SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL")
+    /** Inbox: every attention item for the user, notified or not; archived items and mail a NEW suggestion stands for are excluded. */
+    @Query("SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL" + NOT_STANDING_FOR_SUGGESTION)
     long countByUserIdAndStatusIn(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
 
-    /** Attention items the user has not been told about yet (the GMAIL_ATTENTION digest input); archived items are excluded. */
-    @Query("SELECT g FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.attentionNotifiedAt IS NULL AND g.archivedAt IS NULL ORDER BY g.discoveredAt ASC")
+    /** Attention items the user has not been told about yet (the GMAIL_ATTENTION digest input); archived items and mail a NEW suggestion stands for are excluded. */
+    @Query("SELECT g FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.attentionNotifiedAt IS NULL AND g.archivedAt IS NULL" + NOT_STANDING_FOR_SUGGESTION + " ORDER BY g.discoveredAt ASC")
     List<GmailProcessedMessage> findUnnotifiedAttentionItems(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
 
     /** {@link #findAttentionItems}' rows for one account (the row's resolved account), same filter; archived excluded. */

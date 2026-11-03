@@ -26,6 +26,33 @@ paths:
           description: Error response
       tags:
       - account-suggestion-controller
+  /api/v1/account-suggestions/{id}/belongs:
+    post:
+      operationId: belongs
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BelongsRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-suggestion-controller
   /api/v1/account-suggestions/{id}/is-this:
     post:
       operationId: isThis
@@ -56,6 +83,27 @@ paths:
   /api/v1/account-suggestions/{id}/not-mine:
     post:
       operationId: notMine
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-suggestion-controller
+  /api/v1/account-suggestions/{id}/not-part:
+    post:
+      operationId: notPart
       parameters:
       - in: path
         name: id
@@ -10393,6 +10441,38 @@ components:
       - failures
       - skippedIds
       - succeededIds
+    BelongsRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          x-required: true
+        as:
+          type: string
+          enum:
+          - OLDER_NUMBER
+          - ADDON
+          - OPEN_CARD
+          - DEBIT_CARD
+          - ALIAS
+          x-required: true
+        holderName:
+          type: string
+          maxLength: 200
+          minLength: 0
+        relationship:
+          type: string
+          enum:
+          - SELF
+          - SPOUSE
+          - PARENT
+          - CHILD
+          - SIBLING
+          - OTHER
+      required:
+      - accountId
+      - as
     BillDigestResponse:
       type: object
       properties:
