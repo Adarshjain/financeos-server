@@ -90,4 +90,26 @@ class AccountDetectStoreIntegrationTest {
         assertThat(store.state(bob)).isPresent();
         assertThat(store.facts(bob)).hasSize(1);
     }
+
+    @Test
+    void aPartialMailIsReplacedWhenReadAgainAndCountsItsFailedRuns() {
+        ScannedMail ok = mail("m-1", Instant.parse("2025-01-05T06:30:00Z"), false);
+        ScannedMail partial = new ScannedMail(ok.messageId(), ok.internalDate(), ok.senderDomain(), ok.role(), ok.derived(), false,
+                List.of(), List.of(), Role.OTHER, true);
+        store.saveAll(alice, List.of(partial, ScannedMail.headersMissing("m-2")));
+        assertThat(store.facts(alice)).extracting(f -> f.facts().incompleteRuns()).containsExactlyInAnyOrder(1, 1);
+
+        // read again: m-1 now complete, m-2 failed once more
+        store.saveAll(alice, List.of(ok, ScannedMail.headersMissing("m-2")), java.util.Map.of("m-1", 1, "m-2", 1));
+
+        List<AccountDetectStore.StoredFact> back = store.facts(alice);
+        assertThat(back).hasSize(2);
+        AccountDetectStore.StoredFact m1 = back.stream().filter(f -> f.messageId().equals("m-1")).findFirst().orElseThrow();
+        assertThat(m1.facts().incompleteRuns()).isZero();
+        assertThat(m1.facts().bodyFetched()).isTrue();
+        AccountDetectStore.StoredFact m2 = back.stream().filter(f -> f.messageId().equals("m-2")).findFirst().orElseThrow();
+        assertThat(m2.facts().incompleteRuns()).isEqualTo(2);
+        assertThat(m2.facts().derived()).isNull();
+        assertThat(m2.internalDate()).isNull();
+    }
 }

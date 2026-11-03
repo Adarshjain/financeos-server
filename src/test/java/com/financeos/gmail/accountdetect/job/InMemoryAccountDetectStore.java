@@ -51,11 +51,13 @@ class InMemoryAccountDetectStore extends AccountDetectStore {
     }
 
     @Override
-    public void saveAll(UUID userId, List<ScannedMail> mails) {
+    public void saveAll(UUID userId, List<ScannedMail> mails, Map<String, Integer> incompleteRunsBefore) {
+        List<AccountDetectFact> mine = rows.computeIfAbsent(userId, k -> new ArrayList<>());
+        mine.removeIf(f -> incompleteRunsBefore.containsKey(f.getMessageId()) && mails.stream().anyMatch(m -> m.messageId().equals(f.getMessageId())));
         Set<String> have = messageIds(userId);
         for (ScannedMail m : mails) {
             if (!have.add(m.messageId())) throw new IllegalStateException("duplicate (user_id, message_id)");
-            rows.computeIfAbsent(userId, k -> new ArrayList<>()).add(toRow(userId, m));
+            mine.add(toRow(userId, m, incompleteRuns(m, incompleteRunsBefore)));
         }
     }
 

@@ -49,6 +49,32 @@ class FactsCodecTest {
     }
 
     @Test
+    void headerVoteAndFailedRunsRoundTripAndAMailWithoutHeadersHasNoFeatures() {
+        MailDerived m = new MailDerived("hdfc", "c1", Role.STATEMENT, LocalDate.of(2025, 3, 4), null, List.of(), List.of(), List.of(), List.of());
+
+        FactsCodec.Facts f = FactsCodec.decode(FactsCodec.encode(m, List.of(), true, Role.OTHER, 2));
+        assertThat(f.derived()).isEqualTo(m);
+        assertThat(f.headerVote()).isEqualTo(Role.OTHER);
+        assertThat(f.incompleteRuns()).isEqualTo(2);
+        assertThat(f.pending()).isTrue();
+        assertThat(f.givenUp()).isFalse();
+
+        FactsCodec.Facts plain = FactsCodec.decode(FactsCodec.encode(m, List.of(), true));
+        assertThat(plain.headerVote()).isEqualTo(Role.STATEMENT);   // same as the derived vote when not stored apart
+        assertThat(plain.incompleteRuns()).isZero();
+        assertThat(plain.pending()).isFalse();
+
+        FactsCodec.Facts gaveUp = FactsCodec.decode(FactsCodec.encode(m, List.of(), false, null, FactsCodec.GIVE_UP_AFTER_RUNS));
+        assertThat(gaveUp.givenUp()).isTrue();
+        assertThat(gaveUp.pending()).isFalse();
+
+        FactsCodec.Facts noHeaders = FactsCodec.decode(FactsCodec.encode(null, List.of(), false, null, 1));
+        assertThat(noHeaders.derived()).isNull();
+        assertThat(noHeaders.headerVote()).isNull();
+        assertThat(noHeaders.pending()).isTrue();
+    }
+
+    @Test
     void rejectedNumberShapesOtherThanPrepaidAreNotStoredLikeTheCache() {
         LabelKind otherReject = null;
         for (LabelKind k : LabelKind.values()) if (k.rejected() && k != LabelKind.REJECT_PREPAID) otherReject = k;

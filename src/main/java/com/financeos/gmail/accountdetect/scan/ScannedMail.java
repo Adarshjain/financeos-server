@@ -14,13 +14,27 @@ import java.util.List;
  * @param role         the role of the mail's layout cluster at scan time
  * @param bodyFetched  the full body was read (not only headers)
  * @param pdfs         statement-role PDFs seen on this mail, in attachment order
+ * @param headerVote   the mail's role vote from its headers alone (what the scan's cluster-role vote counts)
+ * @param incomplete   a read failed (headers, a wanted body, or a statement PDF download): the facts are partial
  */
 public record ScannedMail(String messageId, Instant internalDate, String senderDomain, Role role, MailDerived derived,
-                          boolean bodyFetched, List<StatementContent> statements, List<Pdf> pdfs) {
+                          boolean bodyFetched, List<StatementContent> statements, List<Pdf> pdfs, Role headerVote, boolean incomplete) {
 
     public ScannedMail {
         statements = statements == null ? List.of() : List.copyOf(statements);
         pdfs = pdfs == null ? List.of() : List.copyOf(pdfs);
+        if (headerVote == null && derived != null) headerVote = derived.roleVote();
+    }
+
+    /** A complete mail whose header vote is its derived vote. */
+    public ScannedMail(String messageId, Instant internalDate, String senderDomain, Role role, MailDerived derived,
+                       boolean bodyFetched, List<StatementContent> statements, List<Pdf> pdfs) {
+        this(messageId, internalDate, senderDomain, role, derived, bodyFetched, statements, pdfs, null, false);
+    }
+
+    /** A listed mail whose headers could not be read: nothing is known of it but its id. */
+    public static ScannedMail headersMissing(String messageId) {
+        return new ScannedMail(messageId, null, null, null, null, false, List.of(), List.of(), null, true);
     }
 
     /**
