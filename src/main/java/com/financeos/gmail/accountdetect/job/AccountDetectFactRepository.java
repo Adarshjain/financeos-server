@@ -23,4 +23,9 @@ public interface AccountDetectFactRepository extends JpaRepository<AccountDetect
     @Modifying
     @Query("delete from AccountDetectFact f where f.userId = :userId")
     int deleteForUser(@Param("userId") UUID userId);
+
+    /** Drops these rows of the user (a partial mail about to be stored again). */
+    @Modifying
+    @Query("delete from AccountDetectFact f where f.userId = :userId and f.messageId in :messageIds")
+    int deleteForUserAndMessageIds(@Param("userId") UUID userId, @Param("messageIds") java.util.Collection<String> messageIds);
 }

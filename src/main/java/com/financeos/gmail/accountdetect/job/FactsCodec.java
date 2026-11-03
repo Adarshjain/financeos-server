@@ -22,8 +22,9 @@ import java.util.List;
 /**
  * JSON of one mail's stored facts: exactly what {@link com.financeos.gmail.accountdetect.FeatureCache} keeps per mail
  * (bank, hashed cluster and slot keys, role vote, date, cluster kind, own-candidate slots, dictionary variants,
- * events, app hits, layout flags, limit buckets) plus the statement-content rows read from its open PDFs, and whether
- * its body was read. Like the cache, rejected number shapes other than prepaid never get here.
+ * events, app hits, layout flags, limit buckets) plus the statement-content rows read from its open PDFs, whether
+ * its body was read, its header-only role vote, and how many runs in a row a read of it failed. Like the cache,
+ * rejected number shapes other than prepaid never get here. A mail whose headers could not be read has no features.
  */
 public final class FactsCodec {
 
@@ -32,13 +33,36 @@ public final class FactsCodec {
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public static final int VERSION = 1;
+    /** After this many runs in a row with a failed read, a mail is kept as it is (flagged) and no longer re-read. */
+    public static final int GIVE_UP_AFTER_RUNS = 3;
 
     private FactsCodec() {}
 
-    /** Decoded facts of one mail. */
-    public record Facts(MailDerived derived, List<StatementContent> statements, boolean bodyFetched) {}
+    /**
+     * Decoded facts of one mail.
+     *
+     * @param derived         null when the mail's headers could not be read
+     * @param headerVote      the header-only role vote (what the scan's cluster vote counts)
+     * @param incompleteRuns  0 = complete; 1..{@link #GIVE_UP_AFTER_RUNS}-1 = partial, re-read next run;
+     *                        {@link #GIVE_UP_AFTER_RUNS} = partial for good (flagged, not re-read)
+     */
+    public record Facts(MailDerived derived, List<StatementContent> statements, boolean bodyFetched, Role headerVote, int incompleteRuns) {
+        public Facts(MailDerived derived, List<StatementContent> statements, boolean bodyFetched) {
+            this(derived, statements, bodyFetched, derived == null ? null : derived.roleVote(), 0);
+        }
 
-    record J(int v, boolean body, M mail, List<S> statements) {}
+        /** A read failed and the next run reads the mail again. */
+        public boolean pending() {
+            return incompleteRuns > 0 && incompleteRuns < GIVE_UP_AFTER_RUNS;
+        }
+
+        /** Reads kept failing: stored as it is and no longer re-read. */
+        public boolean givenUp() {
+            return incompleteRuns >= GIVE_UP_AFTER_RUNS;
+        }
+    }
+
+    record J(int v, boolean body, M mail, List<S> statements, String hv, Integer inc) {}
 
     record M(String bank, String cluster, String role, String date, String clusterKind, List<SlotJ> slots, List<VarJ> variants,
              List<EvJ> events, List<AppJ> apps, int layout, List<LimJ> limits) {}
@@ -57,7 +81,11 @@ public final class FactsCodec {
              List<String> addOns, boolean closure, String periodEnd, String originCluster, String originDate) {}
 
     public static String encode(MailDerived m, List<StatementContent> statements, boolean bodyFetched) {
-        M mail = new M(m.bank(), m.clusterId(), m.roleVote().name(), str(m.date()), m.clusterKind() == null ? null : m.clusterKind().name(),
+        return encode(m, statements, bodyFetched, null, 0);
+    }
+
+    public static String encode(MailDerived m, List<StatementContent> statements, boolean bodyFetched, Role headerVote, int incompleteRuns) {
+        M mail = m == null ? null : new M(m.bank(), m.clusterId(), m.roleVote().name(), str(m.date()), m.clusterKind() == null ? null : m.clusterKind().name(),
                 m.slots().stream().filter(s -> !s.label().rejected() || s.label() == LabelKind.REJECT_PREPAID)
                         .map(s -> new SlotJ(s.slotKey(), s.last4(), s.label().name())).toList(),
                 m.variants().stream().map(v -> new VarJ(v.name(), v.last4())).toList(),
@@ -69,7 +97,8 @@ public final class FactsCodec {
                 s.kind() == null ? null : s.kind().name(), s.period() == null ? null : s.period().toString(), s.variant(), s.limitBucket(),
                 s.addOnLast4(), s.mentionsClosure(), str(s.periodEnd()), s.originCluster(), str(s.originDate()))).toList();
         try {
-            return MAPPER.writeValueAsString(new J(VERSION, bodyFetched, mail, ss));
+            String hv = headerVote == null || (m != null && headerVote == m.roleVote()) ? null : headerVote.name();
+            return MAPPER.writeValueAsString(new J(VERSION, bodyFetched, mail, ss, hv, incompleteRuns > 0 ? incompleteRuns : null));
         } catch (Exception e) {
             throw new IllegalStateException("could not encode account-detect facts", e);
         }
@@ -83,7 +112,7 @@ public final class FactsCodec {
             throw new IllegalStateException("could not decode account-detect facts", e);
         }
         M m = j.mail();
-        MailDerived d = new MailDerived(m.bank(), m.cluster(), Role.valueOf(m.role()), date(m.date()),
+        MailDerived d = m == null ? null : new MailDerived(m.bank(), m.cluster(), Role.valueOf(m.role()), date(m.date()),
                 m.clusterKind() == null ? null : Kind.valueOf(m.clusterKind()),
                 list(m.slots()).stream().map(s -> new Slot(s.key(), s.last4(), LabelKind.valueOf(s.label()))).toList(),
                 list(m.variants()).stream().map(v -> new VariantHit(v.name(), v.last4())).toList(),
@@ -94,7 +123,8 @@ public final class FactsCodec {
         List<StatementContent> ss = list(j.statements()).stream().map(s -> new StatementContent(s.source(), s.bank(), s.last4(),
                 s.kind() == null ? null : Kind.valueOf(s.kind()), s.period() == null ? null : YearMonth.parse(s.period()), s.variant(),
                 s.limitBucket(), list(s.addOns()), s.closure(), date(s.periodEnd()), s.originCluster(), date(s.originDate()))).toList();
-        return new Facts(d, ss, j.body());
+        Role hv = j.hv() != null ? Role.valueOf(j.hv()) : d == null ? null : d.roleVote();
+        return new Facts(d, ss, j.body(), hv, j.inc() == null ? 0 : j.inc());
     }
 
     private static <T> List<T> list(List<T> l) {

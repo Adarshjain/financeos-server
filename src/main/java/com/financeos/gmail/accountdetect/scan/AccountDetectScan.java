@@ -46,8 +46,15 @@ public final class AccountDetectScan {
     public static final Set<Role> FULL_ROLES = Set.of(Role.STATEMENT, Role.DUE_REMINDER, Role.CARD_SERVICE, Role.ACCOUNT_SERVICE);
     private static final ZoneId IST = ZoneId.of("Asia/Kolkata");
 
-    /** An already stored mail: its features and whether its body was read. */
-    public record Prior(MailDerived derived, boolean bodyFetched) {}
+    /**
+     * An already stored mail: its features, whether its body was read, and its header-only role vote. The cluster-role
+     * vote counts header votes only, so a cluster votes the same in a first scan and in any later run.
+     */
+    public record Prior(MailDerived derived, boolean bodyFetched, Role headerVote) {
+        public Prior(MailDerived derived, boolean bodyFetched) {
+            this(derived, bodyFetched, null);
+        }
+    }
 
     public interface ChunkSink {
         void accept(List<ScannedMail> chunk) throws Exception;
@@ -62,11 +69,20 @@ public final class AccountDetectScan {
      * @param mails      every newly scanned mail, in listing order
      * @param statements statement content read from their PDFs (completion order)
      * @param pdfHashes  SHA-256 of every downloaded mail PDF (in memory only)
+     * @param headersMissing listed ids whose headers could not be read (after the source's retries); not in {@code mails}
      */
-    public record Result(List<ScannedMail> mails, List<StatementContent> statements, Set<String> pdfHashes, int listed, int skippedKnown) {
+    public record Result(List<ScannedMail> mails, List<StatementContent> statements, Set<String> pdfHashes, int listed, int skippedKnown,
+                         List<String> headersMissing) {
         /** The newest internal date among the scanned mails, or null. */
         public Instant newest() {
             return mails.stream().map(ScannedMail::internalDate).filter(java.util.Objects::nonNull).max(Comparator.naturalOrder()).orElse(null);
+        }
+
+        /** Every id a read failed for: headers missing, then scanned mails with a failed body or PDF read. */
+        public List<String> incompleteIds() {
+            List<String> out = new ArrayList<>(headersMissing);
+            for (ScannedMail m : mails) if (m.incomplete()) out.add(m.messageId());
+            return out;
         }
     }
 
@@ -110,7 +126,7 @@ public final class AccountDetectScan {
         List<MailDerived> voters = new ArrayList<>();
         Map<String, Integer> priorBodies = new HashMap<>();
         for (Prior p : priors) {
-            voters.add(p.derived());
+            voters.add(withVote(p.derived(), p.headerVote()));
             if (p.bodyFetched()) priorBodies.merge(p.derived().clusterId(), 1, Integer::sum);
         }
         voters.addAll(headerDerived.values());
@@ -146,7 +162,7 @@ public final class AccountDetectScan {
                 long d0 = System.currentTimeMillis();
                 List<ScannedMail> chunk = new ArrayList<>();
                 for (String id : headerOnly.subList(i, Math.min(headerOnly.size(), i + 500))) {
-                    ScannedMail sm = scanned(id, headers.get(id), headerDerived.get(id), roles, false, List.of(), List.of(), salt, null);
+                    ScannedMail sm = scanned(id, headers.get(id), headerDerived.get(id), roles, false, List.of(), List.of(), salt, null, false);
                     done.put(id, sm);
                     chunk.add(sm);
                 }
@@ -239,8 +255,11 @@ public final class AccountDetectScan {
             List<ScannedMail> chunk = new ArrayList<>();
             for (String id : chunkIds) {
                 GmailMessage m = full.get(id);
+                List<ScannedMail.Pdf> pdfs = pdfsByMail.getOrDefault(id, List.of());
+                // a wanted body or a statement PDF that could not be read leaves the mail incomplete
+                boolean incomplete = m == null || pdfs.stream().anyMatch(p -> ScannedMail.DOWNLOAD_FAILED.equals(p.status()));
                 ScannedMail sm = scanned(id, headers.get(id), headerDerived.get(id), roles, m != null,
-                        pdfsByMail.getOrDefault(id, List.of()), contentByMail.getOrDefault(id, List.of()), salt, m);
+                        pdfs, contentByMail.getOrDefault(id, List.of()), salt, m, incomplete);
                 done.put(id, sm);
                 chunk.add(sm);
             }
@@ -259,23 +278,32 @@ public final class AccountDetectScan {
         List<ScannedMail> mails = new ArrayList<>();
         for (String id : order) {
             ScannedMail sm = done.get(id);
-            if (sm == null) sm = scanned(id, headers.get(id), headerDerived.get(id), roles, false, List.of(), List.of(), salt, null);
+            if (sm == null) sm = scanned(id, headers.get(id), headerDerived.get(id), roles, false, List.of(), List.of(), salt, null, false);
             mails.add(sm);
         }
         timings.put("6 derive", deriveMs + System.currentTimeMillis() - d0);
         if (sink == null && progress != null) progress.update(mails.size(), total);
-        return new Result(mails, new ArrayList<>(statements), mailPdfHashes, listing.ids().size(), skipped);
+        List<String> headersMissing = ids.stream().filter(id -> !headers.containsKey(id)).toList();
+        return new Result(mails, new ArrayList<>(statements), mailPdfHashes, listing.ids().size(), skipped, headersMissing);
+    }
+
+    /** The mail's features with another role vote (the stored header vote of a mail whose body was read). */
+    static MailDerived withVote(MailDerived d, Role vote) {
+        if (vote == null || vote == d.roleVote()) return d;
+        return new MailDerived(d.bank(), d.clusterId(), vote, d.date(), d.clusterKind(), d.slots(), d.variants(), d.events(),
+                d.appHits(), d.layout(), d.limits());
     }
 
     private static ScannedMail scanned(String id, MailFeature h, MailDerived headerOnly, Map<String, Role> roles, boolean bodyFetched,
-                                       List<ScannedMail.Pdf> pdfs, List<StatementContent> contents, String salt, GmailMessage full) {
+                                       List<ScannedMail.Pdf> pdfs, List<StatementContent> contents, String salt, GmailMessage full,
+                                       boolean incomplete) {
         MailDerived d = headerOnly;
         if (full != null) {
             List<String> names = full.attachments() == null ? List.of() : full.attachments().stream().map(GmailAttachment::filename).toList();
             d = FeatureExtractor.derive(new MailFeature(h.senderDomain(), h.date(), h.subject(), h.snippet(), full.getStrippedText(), names), salt);
         }
         return new ScannedMail(id, h.date(), h.senderDomain(), roles.get(headerOnly.clusterId()), d, bodyFetched,
-                new ArrayList<>(contents), new ArrayList<>(pdfs));
+                new ArrayList<>(contents), new ArrayList<>(pdfs), headerOnly.roleVote(), incomplete);
     }
 
     private static String metaNote(MailSource src) {

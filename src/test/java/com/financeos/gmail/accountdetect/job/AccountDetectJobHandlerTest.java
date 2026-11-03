@@ -5,6 +5,7 @@ import com.financeos.domain.user.User;
 import com.financeos.gmail.accountdetect.BankDirectory;
 import com.financeos.gmail.accountdetect.Detection;
 import com.financeos.gmail.accountdetect.DetectionReport;
+import com.financeos.gmail.accountdetect.FeatureExtractor;
 import com.financeos.gmail.accountdetect.MailDerived;
 import com.financeos.gmail.accountdetect.Stability;
 import com.financeos.gmail.accountdetect.StatementContent;
@@ -55,6 +56,7 @@ class AccountDetectJobHandlerTest {
     private final List<DetectionContext> contexts = new ArrayList<>();
     private AccountDetectJobHandler handler;
     private JobExecutionContext ctx;
+    private GmailConnectionRepository connections;
 
     static class CapturingGuard extends FirstScanGuard {
         final List<Runnable> later = new ArrayList<>();
@@ -76,7 +78,7 @@ class AccountDetectJobHandlerTest {
         connection.setUser(user);
         connection.setIsConnected(true);
         connection.setIsPrimary(true);
-        GmailConnectionRepository connections = mock(GmailConnectionRepository.class);
+        connections = mock(GmailConnectionRepository.class);
         when(connections.findById(connectionId)).thenReturn(Optional.of(connection));
         GmailSenderRepository senders = mock(GmailSenderRepository.class);
         when(senders.findByUserId(userId)).thenReturn(List.of());
@@ -304,5 +306,272 @@ class AccountDetectJobHandlerTest {
         connection.setIsConnected(false);
         assertThat(run().get("status")).isEqualTo("SKIPPED_DISCONNECTED");
         assertThat(opened.get()).isZero();
+    }
+
+    // ---- partial reads: a mail is never stored as complete, nor passed by the marker, while a read of it failed
+
+    private FactsCodec.Facts facts(String messageId) {
+        return store.rows(userId).stream().filter(f -> f.getMessageId().equals(messageId)).findFirst()
+                .map(f -> FactsCodec.decode(f.getFacts())).orElseThrow();
+    }
+
+    private static AccountDetectScan.Result memScan(FixtureMailSource src, String salt, int alertSample) throws Exception {
+        return new AccountDetectScan(alertSample, Integer.MAX_VALUE).run(src, tokens(), null, Set.of(), List.of(), salt, null, null, l -> {}, new HashMap<>());
+    }
+
+    private static Detection inMemoryDetection(AccountDetectScan.Result mem) {
+        List<ScannedMail> ordered = new ArrayList<>(mem.mails());
+        ordered.sort(Comparator.comparing(ScannedMail::internalDate).thenComparing(ScannedMail::messageId));
+        return Stability.detectStable(ordered.stream().map(ScannedMail::derived).toList(),
+                ordered.stream().flatMap(m -> m.statements().stream()).toList(), 42L).detection();
+    }
+
+    /** A statement mail of the box whose open PDF yields statement content (the middle one by date). */
+    private static ScannedMail statementMailWithOpenPdf() throws Exception {
+        List<ScannedMail> c = memScan(FixtureMailSource.of(BOX, m -> true), FeatureExtractor.newSalt(), 12).mails().stream()
+                .filter(m -> m.bodyFetched() && !m.statements().isEmpty())
+                .sorted(Comparator.comparing(ScannedMail::internalDate)).toList();
+        assertThat(c).isNotEmpty();
+        return c.get(c.size() / 2);
+    }
+
+    @Test
+    void aMailWhoseBodyCouldNotBeReadIsStoredPartialKeepsTheMarkerBeforeItAndIsReadAgainNextRun() throws Exception {
+        ScannedMail x = statementMailWithOpenPdf();
+        source = FixtureMailSource.of(BOX, m -> true);
+        Set<String> listed = listedIds(source);
+        source.failFull.add(x.messageId());
+
+        assertThat(run().get("status")).isEqualTo("DONE");
+        AccountDetectState s1 = store.state(userId).orElseThrow();
+        assertThat(s1.getFirstScanDoneAt()).isNull();   // not done while a mail is partial
+        assertThat(s1.getMarkerAt()).isEqualTo(x.internalDate().minusMillis(1));
+        FactsCodec.Facts partial = facts(x.messageId());
+        assertThat(partial.pending()).isTrue();
+        assertThat(partial.incompleteRuns()).isEqualTo(1);
+        assertThat(partial.bodyFetched()).isFalse();
+        assertThat(store.messageIds(userId)).isEqualTo(listed);
+
+        // Gmail is fine again: the first scan resumes, reads only the partial mail, and finishes
+        source = FixtureMailSource.of(BOX, m -> true);
+        source.listedAfter.clear();
+        assertThat(run().get("status")).isEqualTo("DONE");
+        assertThat(source.listedAfter).containsExactly(Instant.EPOCH);
+        assertThat(source.metadataRequested).containsExactly(x.messageId());
+        assertThat(source.fullRequested).containsExactly(x.messageId());
+        FactsCodec.Facts complete = facts(x.messageId());
+        assertThat(complete.incompleteRuns()).isZero();
+        assertThat(complete.bodyFetched()).isTrue();
+        assertThat(complete.statements()).isNotEmpty();
+        assertThat(store.rows(userId)).hasSize(listed.size());
+        AccountDetectState s2 = store.state(userId).orElseThrow();
+        assertThat(s2.getFirstScanDoneAt()).isNotNull();
+        Instant newest = source.mails.stream().filter(m -> listed.contains(m.id())).map(FixtureMailSource.Mail::date).max(Comparator.naturalOrder()).orElseThrow();
+        assertThat(s2.getMarkerAt()).isEqualTo(newest);
+
+        // and the detection equals a scan that never failed
+        Detection expected = inMemoryDetection(memScan(FixtureMailSource.of(BOX, m -> true), s2.getKeySalt(), 12));
+        assertThat(summary(detections.get(1))).isEqualTo(summary(expected));
+    }
+
+    @Test
+    void aMailWhoseHeadersCouldNotBeReadHoldsTheMarkerUntilARunReadsIt() throws Exception {
+        List<FixtureMailSource.Mail> all = FixtureMailSource.load(BOX);
+        List<Instant> dates = all.stream().map(FixtureMailSource.Mail::date).sorted().toList();
+        Instant cutoff = dates.get(dates.size() - 25);
+        source = new FixtureMailSource(all.stream().filter(m -> m.date().isBefore(cutoff)).toList());
+        run();
+        Instant marker1 = store.state(userId).orElseThrow().getMarkerAt();
+
+        source = new FixtureMailSource(all);
+        Set<String> listedAll = listedIds(source);
+        FixtureMailSource.Mail newestMail = all.stream().filter(m -> listedAll.contains(m.id()))
+                .max(Comparator.comparing(FixtureMailSource.Mail::date)).orElseThrow();
+        source.failMetadata.add(newestMail.id());
+        assertThat(run().get("status")).isEqualTo("DONE");
+        assertThat(store.state(userId).orElseThrow().getMarkerAt()).isEqualTo(marker1);   // no date known: the marker stays
+        FactsCodec.Facts missing = facts(newestMail.id());
+        assertThat(missing.derived()).isNull();
+        assertThat(missing.pending()).isTrue();
+
+        source = new FixtureMailSource(all);
+        source.listedAfter.clear();
+        assertThat(run().get("status")).isEqualTo("DONE");
+        assertThat(source.listedAfter).containsExactly(marker1.minus(Duration.ofDays(2)));
+        assertThat(source.metadataRequested).containsExactly(newestMail.id());
+        assertThat(facts(newestMail.id()).derived()).isNotNull();
+        assertThat(facts(newestMail.id()).incompleteRuns()).isZero();
+        assertThat(store.state(userId).orElseThrow().getMarkerAt()).isEqualTo(newestMail.date());
+        assertThat(store.messageIds(userId)).isEqualTo(listedAll);
+    }
+
+    @Test
+    void aStatementPdfThatFailsThreeRunsInARowIsKeptFlaggedAndNoLongerHoldsTheMarker() throws Exception {
+        ScannedMail x = statementMailWithOpenPdf();
+        for (int runNo = 1; runNo <= 3; runNo++) {
+            source = FixtureMailSource.of(BOX, m -> true);
+            source.failAttachment.add(x.messageId());
+            assertThat(run().get("status")).isEqualTo("DONE");
+            assertThat(facts(x.messageId()).incompleteRuns()).as("run " + runNo).isEqualTo(runNo);
+            AccountDetectState st = store.state(userId).orElseThrow();
+            if (runNo < 3) {
+                assertThat(facts(x.messageId()).pending()).isTrue();
+                assertThat(st.getFirstScanDoneAt()).isNull();
+                assertThat(st.getMarkerAt()).isEqualTo(x.internalDate().minusMillis(1));
+            } else {
+                assertThat(facts(x.messageId()).givenUp()).isTrue();
+                assertThat(facts(x.messageId()).bodyFetched()).isTrue();
+                assertThat(st.getFirstScanDoneAt()).isNotNull();
+                assertThat(st.getMarkerAt()).isAfter(x.internalDate());
+            }
+        }
+        assertThat(store.rows(userId).stream().filter(f -> f.getMessageId().equals(x.messageId()))).hasSize(1);
+
+        // given up: later runs leave it alone
+        source = FixtureMailSource.of(BOX, m -> true);
+        run();
+        assertThat(source.metadataRequested).doesNotContain(x.messageId());
+        assertThat(facts(x.messageId()).givenUp()).isTrue();
+    }
+
+    @Test
+    void disconnectingDuringTheScanStopsItWithoutSavingAnythingMore() throws Exception {
+        source = FixtureMailSource.of(BOX, m -> true);
+        source.beforeFull = () -> {
+            // what the disconnect endpoint does: connection off, state and facts deleted
+            connection.setIsConnected(false);
+            store.deleteForUser(userId);
+        };
+
+        assertThat(run().get("status")).isEqualTo("ABORTED_DISCONNECTED");
+        assertThat(store.state(userId)).isEmpty();
+        assertThat(store.rows(userId)).isEmpty();
+        assertThat(detections).isEmpty();
+        assertThat(guard.isHeld()).isFalse();
+    }
+
+    @Test
+    void stateDeletedDuringTheScanAlsoStopsIt() throws Exception {
+        source = FixtureMailSource.of(BOX, m -> true);
+        source.beforeFull = () -> store.deleteForUser(userId);
+
+        assertThat(run().get("status")).isEqualTo("ABORTED_DISCONNECTED");
+        assertThat(store.state(userId)).isEmpty();
+        assertThat(store.rows(userId)).isEmpty();
+        assertThat(detections).isEmpty();
+    }
+
+    // ---- role votes: one header-level vote in first scans and later runs
+
+    /**
+     * Every held-out dev mailbox: in a first scan of the older mail followed by an incremental run, the incremental run
+     * gives each new mail the cluster role one scan of all the mail gives it (both count header votes only), and the
+     * detection over the stored facts equals the same two scans done in memory.
+     */
+    @Test
+    void aFirstScanThenAnIncrementalRunVotesLikeOneScanAndDetectsLikeTheInMemoryPath() throws Exception {
+        List<java.nio.file.Path> files;
+        try (var st = java.nio.file.Files.list(FixtureMailSource.DEV)) {
+            files = st.filter(p -> p.toString().endsWith(".json")).sorted().toList();
+        }
+        int split = 0;
+        for (java.nio.file.Path f : files) {
+            String box = f.getFileName().toString();
+            List<FixtureMailSource.Mail> all = FixtureMailSource.load(box);
+            List<Instant> dates = all.stream().map(FixtureMailSource.Mail::date).distinct().sorted().toList();
+            if (dates.size() < 6) continue;
+            Instant cutoff = dates.get(dates.size() * 2 / 3);
+            List<FixtureMailSource.Mail> older = all.stream().filter(m -> m.date().isBefore(cutoff)).toList();
+            store = new InMemoryAccountDetectStore();
+            detections.clear();
+            handler = new AccountDetectJobHandler(connections, mock(GmailSenderRepository.class), store, c -> source, new FirstScanGuard(),
+                    triggers, (u, d, c) -> detections.add(d), mock(JdbcTemplate.class), 12, 50, 120);
+
+            source = new FixtureMailSource(older);
+            run();
+            Set<String> firstIds = store.messageIds(userId);
+            source = new FixtureMailSource(all);
+            assertThat(run().get("status")).as(box).isEqualTo("DONE");
+            if (source.metadataRequested.isEmpty()) continue;
+            split++;
+            String salt = store.state(userId).orElseThrow().getKeySalt();
+
+            // roles of the incremental run's mails = roles of one scan of everything
+            AccountDetectScan.Result one = memScan(new FixtureMailSource(all), salt, 12);
+            Map<String, String> roleOne = new HashMap<>();
+            for (ScannedMail m : one.mails()) if (!firstIds.contains(m.messageId())) roleOne.put(m.messageId(), String.valueOf(m.role()));
+            Map<String, String> roleSplit = new HashMap<>();
+            for (AccountDetectFact r : store.rows(userId)) if (!firstIds.contains(r.getMessageId())) roleSplit.put(r.getMessageId(), r.getRole());
+            assertThat(roleSplit).as(box).isNotEmpty().isEqualTo(roleOne);
+
+            // facts -> detector equals the same two scans in memory
+            AccountDetectScan.Result mem1 = memScan(new FixtureMailSource(older), salt, 12);
+            List<AccountDetectScan.Prior> prior = mem1.mails().stream()
+                    .map(m -> new AccountDetectScan.Prior(m.derived(), m.bodyFetched(), m.headerVote())).toList();
+            Set<String> known = new HashSet<>();
+            for (ScannedMail m : mem1.mails()) known.add(m.messageId());
+            AccountDetectScan.Result mem2 = new AccountDetectScan(12, Integer.MAX_VALUE).run(new FixtureMailSource(all), tokens(), null, known,
+                    prior, salt, null, null, l -> {}, new HashMap<>());
+            List<ScannedMail> both = new ArrayList<>(mem1.mails());
+            both.addAll(mem2.mails());
+            assertThat(summary(detections.get(1))).as(box).isEqualTo(summary(inMemoryDetection(
+                    new AccountDetectScan.Result(both, List.of(), Set.of(), 0, 0, List.of()))));
+        }
+        assertThat(split).isGreaterThan(5);
+    }
+
+    /**
+     * A stored mail whose body-read vote differs from its header vote still votes with its header vote, so an
+     * incremental run's cluster roles equal one scan's even when every stored body voted otherwise.
+     */
+    @Test
+    void storedMailsVoteWithTheirHeaderVoteNotTheirBodyVote() throws Exception {
+        String salt = FeatureExtractor.newSalt();
+        List<FixtureMailSource.Mail> all = FixtureMailSource.load(BOX);
+        List<Instant> dates = all.stream().map(FixtureMailSource.Mail::date).distinct().sorted().toList();
+        Instant cutoff = dates.get(dates.size() * 2 / 3);
+        AccountDetectScan.Result one = memScan(new FixtureMailSource(all), salt, 12);
+        AccountDetectScan.Result older = memScan(new FixtureMailSource(all.stream().filter(m -> m.date().isBefore(cutoff)).toList()), salt, 12);
+
+        // every stored mail's body "voted" MARKETING; its header vote is what it voted in the first scan
+        List<AccountDetectScan.Prior> prior = new ArrayList<>();
+        Set<String> known = new HashSet<>();
+        for (ScannedMail m : older.mails()) {
+            MailDerived d = m.derived();
+            MailDerived bodyVote = new MailDerived(d.bank(), d.clusterId(), com.financeos.gmail.accountdetect.Vocab.Role.MARKETING, d.date(),
+                    d.clusterKind(), d.slots(), d.variants(), d.events(), d.appHits(), d.layout(), d.limits());
+            prior.add(new AccountDetectScan.Prior(bodyVote, m.bodyFetched(), m.headerVote()));
+            known.add(m.messageId());
+        }
+        AccountDetectScan.Result later = new AccountDetectScan(12, Integer.MAX_VALUE).run(new FixtureMailSource(all), tokens(), null, known,
+                prior, salt, null, null, l -> {}, new HashMap<>());
+
+        Map<String, Object> roleOne = new HashMap<>();
+        for (ScannedMail m : one.mails()) if (!known.contains(m.messageId())) roleOne.put(m.messageId(), m.role());
+        Map<String, Object> roleLater = new HashMap<>();
+        for (ScannedMail m : later.mails()) roleLater.put(m.messageId(), m.role());
+        assertThat(roleLater).isNotEmpty().isEqualTo(roleOne);
+    }
+
+    // ---- which mailbox
+
+    @Test
+    void onlyTheScannedMailboxRunsWhileThePrimaryIsConnected() throws Exception {
+        source = FixtureMailSource.of(BOX, m -> true);
+        connection.setIsPrimary(false);
+        GmailConnection primary = new GmailConnection();
+        primary.setId(UUID.randomUUID());
+        primary.setUser(connection.getUser());
+        primary.setIsConnected(true);
+        primary.setIsPrimary(true);
+        when(connections.findByUserId(userId)).thenReturn(List.of(primary, connection));
+
+        assertThat(run().get("status")).isEqualTo("SKIPPED_NOT_SCANNED_MAILBOX");
+        assertThat(opened.get()).isZero();
+
+        // the primary is disconnected: the other connected mailbox is the one scanned
+        primary.setIsConnected(false);
+        assertThat(run().get("status")).isEqualTo("DONE");
+        assertThat(store.state(userId).orElseThrow().getConnectionId()).isEqualTo(connectionId);
     }
 }

@@ -57,6 +57,12 @@ class FixtureMailSource implements MailSource {
     final List<String> attachmentRequested = new CopyOnWriteArrayList<>();
     /** "metadata" or "full": throw an auth error there (an expired Gmail grant). */
     String failAuthAt;
+    /** Ids whose headers / full body / statement PDFs fail to read (after retries), as a flaky Gmail would. */
+    final java.util.Set<String> failMetadata = new java.util.HashSet<>();
+    final java.util.Set<String> failFull = new java.util.HashSet<>();
+    final java.util.Set<String> failAttachment = new java.util.HashSet<>();
+    /** Runs before the first full-body read (e.g. the user disconnects mid-scan). */
+    Runnable beforeFull;
     private final Map<String, byte[]> pdfCache = new HashMap<>();
 
     static List<Mail> load(String file) throws IOException {
@@ -121,7 +127,7 @@ class FixtureMailSource implements MailSource {
         Map<String, MailFeature> r = new LinkedHashMap<>();
         for (String id : ids) {
             Mail m = mail(id);
-            if (m == null) continue;
+            if (m == null || failMetadata.contains(id)) continue;
             String snippet = m.body().replaceAll("\\s+", " ").trim();
             if (snippet.length() > 150) snippet = snippet.substring(0, 150);
             r.put(id, new MailFeature(domainOf(m.from()), m.date(), m.subject(), snippet, null, List.of()));
@@ -133,11 +139,16 @@ class FixtureMailSource implements MailSource {
     @Override
     public Map<String, GmailMessage> full(List<String> ids, Consumer<String> out) {
         if ("full".equals(failAuthAt) && !ids.isEmpty()) throw new GmailEngineException(GmailError.AUTH_ERROR, "Google rejected authentication (401)");
+        if (beforeFull != null && !ids.isEmpty()) {
+            Runnable once = beforeFull;
+            beforeFull = null;
+            once.run();
+        }
         fullRequested.addAll(ids);
         Map<String, GmailMessage> r = new LinkedHashMap<>();
         for (String id : ids) {
             Mail m = mail(id);
-            if (m == null) continue;
+            if (m == null || failFull.contains(id)) continue;
             List<GmailAttachment> atts = m.attachments().stream()
                     .map(a -> new GmailAttachment(a.attachmentId(), a.filename(), a.filename().toLowerCase(Locale.ROOT).endsWith(".pdf") ? "application/pdf" : "application/octet-stream", null))
                     .toList();
@@ -153,7 +164,7 @@ class FixtureMailSource implements MailSource {
         return (messageId, attachmentId) -> {
             attachmentRequested.add(attachmentId);
             Mail m = mail(messageId);
-            if (m == null) return null;
+            if (m == null || failAttachment.contains(messageId)) return null;
             for (Att a : m.attachments()) {
                 if (!a.attachmentId().equals(attachmentId)) continue;
                 synchronized (pdfCache) {

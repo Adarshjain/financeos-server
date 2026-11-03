@@ -18,6 +18,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -57,6 +58,7 @@ class AccountDetectTriggersTest {
         connection.setIsConnected(true);
         connection.setIsPrimary(true);
         when(connections.findById(connectionId)).thenReturn(Optional.of(connection));
+        when(connections.findByUserId(userId)).thenReturn(List.of(connection));
         Job sync = new Job();
         sync.setId(syncJobId);
         sync.setUserId(userId);
@@ -103,14 +105,49 @@ class AccountDetectTriggersTest {
     }
 
     @Test
-    void onlyThePrimaryConnectedMailboxIsScanned() {
+    void onlyTheScannedMailboxEnqueuesWhileThePrimaryIsConnected() {
         connection.setIsPrimary(false);
+        GmailConnection primary = new GmailConnection();
+        primary.setId(UUID.randomUUID());
+        primary.setUser(connection.getUser());
+        primary.setIsConnected(true);
+        primary.setIsPrimary(true);
+        when(connections.findByUserId(userId)).thenReturn(List.of(primary, connection));
         triggers(true).onJobFinished(syncFinished(JobStatus.SUCCEEDED));
         triggers(true).onConnected(userId, connection);
         connection.setIsPrimary(true);
+        primary.setIsPrimary(false);
         connection.setIsConnected(false);
         triggers(true).onJobFinished(syncFinished(JobStatus.SUCCEEDED));
         verify(jobService, never()).enqueue(any(), any(), any(), any(), any(), anyString());
+    }
+
+    @Test
+    void withThePrimaryDisconnectedTheOldestOtherConnectedMailboxIsScanned() {
+        connection.setIsPrimary(false);
+        GmailConnection primary = new GmailConnection();
+        primary.setId(UUID.randomUUID());
+        primary.setUser(connection.getUser());
+        primary.setIsConnected(false);
+        primary.setIsPrimary(true);
+        GmailConnection newer = new GmailConnection();
+        newer.setId(UUID.randomUUID());
+        newer.setIsConnected(true);
+        connection.setCreatedAt(java.time.Instant.parse("2025-01-01T00:00:00Z"));
+        newer.setCreatedAt(java.time.Instant.parse("2025-06-01T00:00:00Z"));
+        when(connections.findByUserId(userId)).thenReturn(List.of(primary, newer, connection));
+
+        assertThat(AccountDetectTriggers.scanTarget(List.of(primary, newer, connection))).isSameAs(connection);
+        triggers(true).onJobFinished(syncFinished(JobStatus.SUCCEEDED));
+        verifyEnqueued(1);
+
+        primary.setIsConnected(true);
+        assertThat(AccountDetectTriggers.scanTarget(List.of(primary, newer, connection))).isSameAs(primary);
+        assertThat(AccountDetectTriggers.scanTarget(List.of(newer))).isSameAs(newer);
+        newer.setIsConnected(false);
+        connection.setIsConnected(false);
+        primary.setIsConnected(false);
+        assertThat(AccountDetectTriggers.scanTarget(List.of(primary, newer, connection))).isNull();
     }
 
     @Test

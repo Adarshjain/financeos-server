@@ -23,13 +23,15 @@ import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * When ACCOUNT_DETECT runs and what clears it. Enqueued (at most one queued per user, by dedup key) after a successful
  * Gmail sync and when a Gmail connection is connected or reconnected, both gated by
- * {@code financeos.account-detect.enabled}; only the user's primary connection (the one Gmail sync and the scan read)
- * counts. Disconnecting Gmail deletes the user's stored state and facts. Never throws into the caller.
+ * {@code financeos.account-detect.enabled}; only the mailbox the scan reads ({@link #scanTarget}) counts.
+ * Disconnecting that mailbox deletes the user's stored state and facts. Never throws into the caller.
  */
 @Component
 public class AccountDetectTriggers {
@@ -61,7 +63,21 @@ public class AccountDetectTriggers {
         return "account-detect:" + userId;
     }
 
-    /** After a successful Gmail sync of the user's primary connection. Runs after the job's status has committed. */
+    /**
+     * The mailbox the scan reads: the user's primary connection while it is connected, otherwise the oldest other
+     * connected one (the app never moves the primary flag on disconnect). Null when none is connected.
+     */
+    public static GmailConnection scanTarget(List<GmailConnection> connections) {
+        if (connections == null) return null;
+        List<GmailConnection> connected = connections.stream().filter(c -> Boolean.TRUE.equals(c.getIsConnected())).toList();
+        return connected.stream().filter(c -> Boolean.TRUE.equals(c.getIsPrimary())).findFirst()
+                .orElseGet(() -> connected.stream()
+                        .min(Comparator.comparing(GmailConnection::getCreatedAt, Comparator.nullsLast(Comparator.naturalOrder()))
+                                .thenComparing(GmailConnection::getId, Comparator.nullsLast(Comparator.naturalOrder())))
+                        .orElse(null));
+    }
+
+    /** After a successful Gmail sync of the mailbox the scan reads. Runs after the job's status has committed. */
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT, fallbackExecution = true)
     public void onJobFinished(JobFinishedEvent event) {
         if (!enabled || event.type() != JobType.GMAIL_SYNC || event.status() != JobStatus.SUCCEEDED || event.userId() == null) {
@@ -84,14 +100,13 @@ public class AccountDetectTriggers {
      * sees the saved connection, and a failure here can never roll the connect back).
      */
     public void onConnected(UUID userId, GmailConnection connection) {
-        if (!enabled || userId == null || connection == null || connection.getId() == null
-                || !Boolean.TRUE.equals(connection.getIsPrimary())) {
+        if (!enabled || userId == null || connection == null || connection.getId() == null) {
             return;
         }
         UUID connectionId = connection.getId();
         Runnable enqueue = () -> {
             try {
-                newTransaction.executeWithoutResult(s -> enqueue(userId, connectionId));
+                newTransaction.executeWithoutResult(s -> enqueueForConnection(userId, connectionId));
             } catch (Exception e) {
                 log.warn("Account detect enqueue after Gmail connect failed: {}", e.getClass().getSimpleName());
             }
@@ -131,7 +146,11 @@ public class AccountDetectTriggers {
     private void enqueueForConnection(UUID userId, UUID connectionId) {
         GmailConnection connection = connectionRepository.findById(connectionId).orElse(null);
         if (connection == null || connection.getUser() == null || !userId.equals(connection.getUser().getId())
-                || !Boolean.TRUE.equals(connection.getIsPrimary()) || !Boolean.TRUE.equals(connection.getIsConnected())) {
+                || !Boolean.TRUE.equals(connection.getIsConnected())) {
+            return;
+        }
+        GmailConnection target = scanTarget(connectionRepository.findByUserId(userId));
+        if (target == null || !connectionId.equals(target.getId())) {
             return;
         }
         enqueue(userId, connectionId);

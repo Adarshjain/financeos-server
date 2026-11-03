@@ -15,6 +15,7 @@ import com.financeos.gmail.accountdetect.StatementContent;
 import com.financeos.gmail.accountdetect.scan.AccountDetectScan;
 import com.financeos.gmail.accountdetect.scan.DbStatements;
 import com.financeos.gmail.accountdetect.scan.MailSource;
+import com.financeos.gmail.accountdetect.scan.ScannedMail;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailConnectionRepository;
 import com.financeos.gmail.ingest.GmailSender;
@@ -31,6 +32,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -49,6 +51,10 @@ import java.util.UUID;
  *   <li>First scan (no state, or never finished): the whole mailbox, resuming past already stored ids; one at a time
  *       per server ({@link FirstScanGuard}), others are re-queued after a delay.</li>
  *   <li>Later runs: mail newer than the marker minus two days, skipping stored ids; then the marker advances.</li>
+ *   <li>A mail whose headers, wanted body or statement PDF could not be read is stored as partial and read again by
+ *       the next run: the marker stays before it and a first scan is not done while one is partial. After
+ *       {@link FactsCodec#GIVE_UP_AFTER_RUNS} failed runs in a row it is kept as it is (flagged) and the marker moves.</li>
+ *   <li>The mailbox disconnected mid-run (connection off or state deleted): the run stops without saving anything.</li>
  *   <li>Gmail access expired: state PAUSED_AUTH, everything stored is kept, the job ends cleanly (no retry).</li>
  *   <li>Protected statement PDFs are recorded as LOCKED; no password is ever tried.</li>
  * </ul>
@@ -114,6 +120,11 @@ public class AccountDetectJobHandler implements JobHandler {
         if (!Boolean.TRUE.equals(connection.getIsConnected())) {
             return result("SKIPPED_DISCONNECTED", 0, 0, 0);
         }
+        GmailConnection target = AccountDetectTriggers.scanTarget(connectionRepository.findByUserId(userId));
+        if (target != null && !connection.getId().equals(target.getId())) {
+            // the scan reads one mailbox: the connected primary, else the oldest connected one
+            return result("SKIPPED_NOT_SCANNED_MAILBOX", 0, 0, 0);
+        }
 
         AccountDetectState state = store.state(userId).orElseGet(() -> new AccountDetectState(userId));
         if (state.getConnectionId() != null && !state.getConnectionId().equals(connection.getId())) {
@@ -160,19 +171,32 @@ public class AccountDetectJobHandler implements JobHandler {
         List<AccountDetectStore.StoredFact> stored = store.facts(userId);
         Set<String> known = new HashSet<>();
         List<AccountDetectScan.Prior> prior = new ArrayList<>();
+        // partial mails are listed and read again (their rows get replaced); their failed runs so far
+        Map<String, Integer> partialRuns = new HashMap<>();
         for (AccountDetectStore.StoredFact f : stored) {
+            if (f.facts().pending()) {
+                partialRuns.put(f.messageId(), f.facts().incompleteRuns());
+                continue;
+            }
             known.add(f.messageId());
-            prior.add(new AccountDetectScan.Prior(f.facts().derived(), f.facts().bodyFetched()));
+            if (f.facts().derived() != null) {
+                prior.add(new AccountDetectScan.Prior(f.facts().derived(), f.facts().bodyFetched(), f.facts().headerVote()));
+            }
         }
         Instant after = firstScan || state[0].getMarkerAt() == null ? null : state[0].getMarkerAt().minus(MARKER_OVERLAP);
+        UUID connectionId = connection.getId();
 
         Map<String, Long> timings = new LinkedHashMap<>();
         AccountDetectScan.Result scan;
         try {
             MailSource source = sources.open(connection);
             scan = new AccountDetectScan(alertSample, chunkSize).run(source, tokens(userId), after, known, prior, salt,
-                    chunk -> store.saveAll(userId, chunk),
+                    chunk -> {
+                        requireStillScanned(userId, connectionId);
+                        store.saveAll(userId, chunk, partialRuns);
+                    },
                     (seen, total) -> {
+                        requireStillScanned(userId, connectionId);
                         state[0].setMailsSeen(seen);
                         state[0].setMailsTotal(total);
                         state[0] = store.save(state[0]);
@@ -180,27 +204,51 @@ public class AccountDetectJobHandler implements JobHandler {
                         ctx.checkCancelled();
                     },
                     line -> log.debug("Account detect {}", line), timings);
+        } catch (MailboxGone e) {
+            return mailboxGone();
         } catch (GmailEngineException e) {
             if (e.getErrorType() == GmailError.AUTH_ERROR) {
+                if (!stillScanned(userId, connectionId)) return mailboxGone();
                 pausedForAuth(state[0], connection.getId());
                 return result(AccountDetectState.Status.PAUSED_AUTH.name(), 0, stored.size(), 0);
             }
-            failed(state[0], "GMAIL_" + e.getErrorType().name());
+            if (stillScanned(userId, connectionId)) failed(state[0], "GMAIL_" + e.getErrorType().name());
             throw e;
         } catch (JobCancelledException e) {
-            state[0].setStatus(AccountDetectState.Status.IDLE);
-            store.save(state[0]);
+            if (stillScanned(userId, connectionId)) {
+                state[0].setStatus(AccountDetectState.Status.IDLE);
+                store.save(state[0]);
+            }
             throw e;
         } catch (Exception e) {
-            failed(state[0], e.getClass().getSimpleName());
+            if (stillScanned(userId, connectionId)) failed(state[0], e.getClass().getSimpleName());
             throw e;
         }
 
-        Instant newest = scan.newest();
+        // listed mails whose headers could not be read: stored without features, read again next run
+        List<ScannedMail> headersMissing = scan.headersMissing().stream().map(ScannedMail::headersMissing).toList();
+        if (!headersMissing.isEmpty()) {
+            if (!stillScanned(userId, connectionId)) return mailboxGone();
+            store.saveAll(userId, headersMissing, partialRuns);
+        }
+        Incomplete incomplete = incomplete(scan, headersMissing, partialRuns);
+
         AccountDetectState s = state[0];
-        if (newest != null && (s.getMarkerAt() == null || newest.isAfter(s.getMarkerAt()))) s.setMarkerAt(newest);
+        List<AccountDetectStore.StoredFact> all;
+        try {
+            all = store.facts(userId);
+        } catch (Exception e) {
+            if (stillScanned(userId, connectionId)) failed(s, "DETECT_" + e.getClass().getSimpleName());
+            throw e;
+        }
+        // the newest stored mail (earlier runs may have stored newer mail while a partial one held the marker back)
+        Instant newest = scan.newest();
+        for (AccountDetectStore.StoredFact f : all) {
+            if (f.internalDate() != null && !f.facts().pending() && (newest == null || f.internalDate().isAfter(newest))) newest = f.internalDate();
+        }
+        s.setMarkerAt(nextMarker(s.getMarkerAt(), newest, incomplete));
         Instant now = AppTime.nowInstant();
-        if (firstScan) s.setFirstScanDoneAt(now);
+        if (firstScan && incomplete.partial().isEmpty()) s.setFirstScanDoneAt(now);
         s.setLastRunAt(now);
         s.setMailsSeen(scan.mails().size());
         s.setMailsTotal(scan.mails().size());
@@ -209,26 +257,82 @@ public class AccountDetectJobHandler implements JobHandler {
         int mailsStored;
         int statementCount;
         try {
-            List<AccountDetectStore.StoredFact> all = store.facts(userId);
             Detected d = detect(all, DbStatements.load(jdbc, userId).statements());
             detection = d.detection();
             mailsStored = all.size();
             statementCount = d.statements();
         } catch (Exception e) {
-            failed(s, "DETECT_" + e.getClass().getSimpleName());
+            if (stillScanned(userId, connectionId)) failed(s, "DETECT_" + e.getClass().getSimpleName());
             throw e;
         }
         s.setStatus(AccountDetectState.Status.IDLE);
+        if (!stillScanned(userId, connectionId)) return mailboxGone();
         store.save(s);
 
         sink.accept(userId, detection, new DetectionContext(connection.getId(), firstScan, mailsStored, scan.mails().size(), statementCount, now));
-        log.info("Account detect finished: firstScan={}, listed={}, alreadyStored={}, newMails={}, mailsStored={}, entities={}, durationMs={}, stageMs={}",
-                firstScan, scan.listed(), scan.skippedKnown(), scan.mails().size(), mailsStored, detection.entities.size(),
-                System.currentTimeMillis() - started, timings);
+        log.info("Account detect finished: firstScan={}, firstScanDone={}, listed={}, alreadyStored={}, newMails={}, partialMails={}, givenUpMails={}, mailsStored={}, entities={}, durationMs={}, stageMs={}",
+                firstScan, s.getFirstScanDoneAt() != null, scan.listed(), scan.skippedKnown(), scan.mails().size(), incomplete.partial().size(),
+                incomplete.givenUp(), mailsStored, detection.entities.size(), System.currentTimeMillis() - started, timings);
         return result("DONE", scan.mails().size(), mailsStored, detection.entities.size());
     }
 
     record Detected(Detection detection, int statements) {}
+
+    /**
+     * Mails of this run a read failed for. {@code partial}: still to be read again, with their internal dates (null when
+     * the headers were not read); {@code givenUp}: failed {@link FactsCodec#GIVE_UP_AFTER_RUNS} runs in a row, kept as is.
+     */
+    record Incomplete(List<Instant> partial, int givenUp) {}
+
+    static Incomplete incomplete(AccountDetectScan.Result scan, List<ScannedMail> headersMissing, Map<String, Integer> partialRuns) {
+        List<Instant> partial = new ArrayList<>();
+        int givenUp = 0;
+        List<ScannedMail> all = new ArrayList<>(scan.mails());
+        all.addAll(headersMissing);
+        for (ScannedMail m : all) {
+            if (!m.incomplete()) continue;
+            if (AccountDetectStore.incompleteRuns(m, partialRuns) >= FactsCodec.GIVE_UP_AFTER_RUNS) givenUp++;
+            else partial.add(m.internalDate());
+        }
+        return new Incomplete(partial, givenUp);
+    }
+
+    /**
+     * The marker never passes a mail still to be read again: it stays below the oldest one's date (and does not move
+     * when one has no date), so the next run's listing (marker minus the overlap) still holds it. It never goes back.
+     */
+    static Instant nextMarker(Instant marker, Instant newest, Incomplete incomplete) {
+        Instant next = newest;
+        if (!incomplete.partial().isEmpty()) {
+            if (incomplete.partial().stream().anyMatch(java.util.Objects::isNull)) return marker;
+            Instant cap = incomplete.partial().stream().min(Instant::compareTo).orElseThrow().minusMillis(1);
+            if (next == null || cap.isBefore(next)) next = cap;
+        }
+        if (next == null) return marker;
+        return marker == null || next.isAfter(marker) ? next : marker;
+    }
+
+    /** The mailbox stopped being the scanned one mid-run (disconnected, or its stored data deleted). */
+    static final class MailboxGone extends RuntimeException {
+        MailboxGone() {
+            super(null, null, false, false);
+        }
+    }
+
+    /** True while the connection is still connected and the user's state row still exists (fresh reads). */
+    private boolean stillScanned(UUID userId, UUID connectionId) {
+        GmailConnection c = connectionRepository.findById(connectionId).orElse(null);
+        return c != null && Boolean.TRUE.equals(c.getIsConnected()) && store.state(userId).isPresent();
+    }
+
+    private void requireStillScanned(UUID userId, UUID connectionId) {
+        if (!stillScanned(userId, connectionId)) throw new MailboxGone();
+    }
+
+    private Map<String, Object> mailboxGone() {
+        log.info("Account detect stopped: the mailbox was disconnected during the run, nothing more saved");
+        return result("ABORTED_DISCONNECTED", 0, 0, 0);
+    }
 
     /**
      * The detector over stored facts, in their stored order (internal date, then message id): mail statement content
@@ -238,6 +342,7 @@ public class AccountDetectJobHandler implements JobHandler {
         List<MailDerived> derived = new ArrayList<>(facts.size());
         List<StatementContent> statements = new ArrayList<>();
         for (AccountDetectStore.StoredFact f : facts) {
+            if (f.facts().derived() == null) continue;   // headers never read: nothing to detect from
             derived.add(f.facts().derived());
             statements.addAll(f.facts().statements());
         }
