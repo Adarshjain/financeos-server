@@ -97,8 +97,10 @@ public class ProfileService {
                 user.setBirthDateSource(null);
             } else {
                 birthChanged = !normalized.equals(user.getBirthDate());
-                user.setBirthDate(normalized);
-                user.setBirthDateSource(BirthDateSource.TYPED);
+                if (birthChanged) {
+                    user.setBirthDate(normalized);
+                    user.setBirthDateSource(BirthDateSource.TYPED);
+                }
             }
         }
         return new boolean[] {nameChanged, birthChanged};
