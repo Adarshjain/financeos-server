@@ -1,0 +1,2196 @@
+{
+ "mailbox": "hsbc-sc-dbs-closure",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 128.67 spent on your DBS Vantage Credit Card at UBER INDIA on 06-Sep-2024.\n\n",
+   "date": "2024-09-06",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "DBS Bank Credit Card Statement - Sep 2024",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Aug-2024 to 09-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-09-10",
+   "attachments": [
+    {
+     "filename": "DBS_CC_Sep2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "HSBC TravelOne Credit Card xx7436: purchase of INR 84.02 at IRCTC on 10-Sep-2024 09:37:37. Available limit INR 60,229.57.\n\nOpt for e-statements and go green.",
+   "date": "2024-09-10",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "HSBC Credit Card XX7436: purchase of INR 2,245.53 at ZOMATO on 17-Sep-2024 03:17:18. Available limit INR 8,212.56.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-09-17",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m005",
+   "subject": "DBS Bank Account Statement - Sep 2024",
+   "body": "Dear Farhan,\nPlease find attached your DBS Bank xx5681 statement for the period 18-Aug-2024 to 17-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-09-18",
+   "attachments": [
+    {
+     "filename": "5681_17092024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Your HSBC TravelOne Credit Card statement - Sep 2024",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card XX7436 statement for the period 23-Aug-2024 to 22-Sep-2024. Total amount due Rs.44,350.19, due 08-Oct-2024.\n\nOpt for e-statements and go green.",
+   "date": "2024-09-23",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Sep2024.pdf",
+     "protected": false,
+     "pdfText": "HSBC Credit Card Statement\nFARHAN IYER\nFLAT 321, SUNRISE APARTMENTS\n21TH CROSS, BANJARA HILLS\nKOCHI - 623490\nCard Name: HSBC TravelOne Credit Card\nCredit Card Number: 466294XXXXXX7436\nStatement Period: 23/08/24 - 22/09/24\nStatement Date: 22/09/24\nPayment Summary\nTotal Amount Due: Rs.44,350.19\nMinimum Amount Due: Rs.2,217.51\nPayment Due Date: 08/10/24\nAccount Summary\nCredit Limit: Rs.2,50,000.00\nAvailable Credit Limit: Rs.2,20,791.70\nAvailable Cash Limit: Rs.50,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n26/08/24 SODEXO JAIPUR 1,687.81 Dr\n30/08/24 BIGBASKET BENGALURU 17,504.00 Dr\n30/08/24 TATA PLAY BENGALURU 1,138.02 Dr\n02/09/24 PHONEPE KOCHI 135.59 Dr\n05/09/24 AIRTEL PREPAID BENGALURU 8,414.10 Dr\n06/09/24 GOOGLE PLAY KOLKATA 1,574.75 Dr\n07/09/24 JIO RECHARGE GURUGRAM 13,287.43 Dr\n11/09/24 BLINKIT PUNE 362.00 Dr\n13/09/24 SPOTIFY KOCHI 246.49 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 272.15 spent on your Standard Chartered Smart Credit Card XX6158 at DOMINOS on 23-Sep-2024 00:18:14.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-09-23",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Farhan,\nConvert big spends to EMI at low interest.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-09-23",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Standard Chartered Credit Card Statement - Sep 2024",
+   "body": "Dear Farhan,\nYour Standard Chartered Smart Credit Card ending 6158 statement for Sep 2024 is ready. Total amount due Rs.2,300.00, minimum amount due Rs.200.00, payable by 11-Oct-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-09-24",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 857.74 spent on your HSBC TravelOne Credit Card XX7436 at TATA POWER on 06-Oct-2024 09:03:29.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-06",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "DBS Bank Credit Card Statement - Oct 2024",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Sep-2024 to 09-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-10-10",
+   "attachments": [
+    {
+     "filename": "DBS_CC_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Standard Chartered Credit Card xx6158: purchase of INR 1,035.30 at AIRTEL PREPAID on 22-Oct-2024 04:58:53. Available limit INR 34,683.11.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-22",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Your HSBC TravelOne Credit Card statement - Oct 2024",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card xx7436 statement for the period 23-Sep-2024 to 22-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202410.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m014",
+   "subject": "Standard Chartered Credit Card Statement - Oct 2024",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card ending 6158 statement for the period 24-Sep-2024 to 23-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-10-24",
+   "attachments": [
+    {
+     "filename": "6158_23102024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "OTP for your transaction",
+   "body": "234858 is the OTP for your transaction of Rs.805.37 at RELIANCE DIGITAL. Valid for 10 minutes. Do not share.",
+   "date": "2024-10-25",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 1,392.25 spent at AMAZON PAY INDIA on 28-Oct-2024 using your DBS Vantage Credit Card.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-10-28",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 12,198.85 was spent on your HSBC Credit Card xx7436 at APOLLO PHARMACY on 29-Oct-2024.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-29",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "DBS Bank Credit Card Statement - Nov 2024",
+   "body": "Dear Farhan,\nYour DBS Vantage Credit Card statement for Nov 2024 is ready. Total amount due Rs.509.66, minimum amount due Rs.200.00, payable by 27-Nov-2024.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2024-11-10",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Ganesh Maid Service (A/c XXXXXX1777, ICICI Bank) has been added to your account XX5681. It will be active after 30 minutes.",
+   "date": "2024-11-15",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "DBS Bank Account Statement - Nov 2024",
+   "body": "Dear Farhan,\nYour DBS Bank XX5681 account statement for Nov 2024 is ready. Closing balance Rs.54,479.17.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-18",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 164.79 spent on your HSBC Credit Card XX7436 at DECATHLON on 18-Nov-2024 14:11:20.",
+   "date": "2024-11-18",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "Your HSBC TravelOne Credit Card statement - Nov 2024",
+   "body": "Hi Farhan,\nYour HSBC TravelOne Credit Card ending 7436 e-statement for Nov 2024 is now available. Pay Rs.869.60 by 10-Dec-2024 to avoid late fees.",
+   "date": "2024-11-23",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "Standard Chartered Credit Card Statement - Nov 2024",
+   "body": "Dear Farhan,\nStatement generated for Standard Chartered Smart Credit Card xx6158: amount payable Rs.1,372.34, last date 11-Dec-2024. Sign in to download.",
+   "date": "2024-11-24",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 142.43 was spent on your Standard Chartered Credit Card XX6158 at INDIGO AIRLINES on 26-Nov-2024.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-26",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "DBS Bank festive offers",
+   "body": "Dear Farhan,\nConvert big spends to EMI at low interest.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-30",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Earn more with your card",
+   "body": "Dear Farhan,\nUse your card on UPI and earn extra rewards.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-06",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m027",
+   "subject": "DBS Bank Credit Card Statement - Dec 2024",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Nov-2024 to 09-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-12-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 6,018.03 was spent on your HSBC Credit Card XX7436 at URBAN COMPANY on 15-Dec-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-12-15",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,500.00 transferred from xx5681 to Ganesh Maid Service A/c XX1777 on 15-Dec-2024. Rent for the month.",
+   "date": "2024-12-15",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Your HSBC TravelOne Credit Card statement - Dec 2024",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card XX7436 statement for the period 23-Nov-2024 to 22-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-23",
+   "attachments": [
+    {
+     "filename": "7436_22122024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "Standard Chartered Credit Card Statement - Dec 2024",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card XX6158 statement for the period 24-Nov-2024 to 23-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-12-24",
+   "attachments": [
+    {
+     "filename": "Standard_Statement_Dec2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Card alert | INR 102.27 | SWIGGY | 24-Dec-2024 | Standard Chartered Smart Credit Card ending 6158\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-12-24",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Card alert | INR 2,951.50 | OLA CABS | 30-Dec-2024 | HSBC Credit Card XX7436\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-30",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m034",
+   "subject": "DBS digibank: debit alert",
+   "body": "INR debit alert: INR 191.14 debited from account *5681 on 04-Jan-2025. Narration: IMPS/IRCTC. Available balance INR 35,564.04.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-04",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 9,937.12 was spent on your Standard Chartered Smart Credit Card xx6158 at PAYTM on 05-Jan-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-05",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "DBS digibank: credit alert",
+   "body": "Your A/c XXXXXX5681 is credited with INR 372.75 on 09-Jan-2025 - NEFT. Bal INR 1,12,812.11. -DBS Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-01-09",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "DBS Bank Credit Card Statement - Jan 2025",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Dec-2024 to 09-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-10",
+   "attachments": [
+    {
+     "filename": "DBS_CC_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,547.37 spent on your HSBC Credit Card XX7436 at TATA POWER on 15-Jan-2025 07:03:01.",
+   "date": "2025-01-15",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from *5681 to Ganesh Maid Service A/c XX1777 on 15-Jan-2025. Rent for the month.",
+   "date": "2025-01-15",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 3,126.10 spent on your HSBC TravelOne Credit Card XX7436 at BLINKIT on 16-Jan-2025 01:57:40.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-01-16",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "DBS Bank Account Statement - Jan 2025",
+   "body": "Dear Farhan,\nPlease find attached your DBS Bank XX5681 statement for the period 18-Dec-2024 to 17-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-01-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202501.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 14,950.81 spent at ZOMATO on 19-Jan-2025 using your DBS Vantage Credit Card.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-19",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 274.97 spent at IRCTC on 21-Jan-2025 using your DBS Vantage Credit Card.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-01-21",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "DBS digibank: debit alert",
+   "body": "Dear Customer,\nINR 156.58 has been debited from your DBS Bank A/c *5681 on 22-Jan-2025 (ECOM UBER INDIA). Avl bal INR 58,208.46.",
+   "date": "2025-01-22",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 149.76 spent on your DBS Vantage Credit Card at UBER INDIA on 22-Jan-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-22",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Your HSBC TravelOne Credit Card statement - Jan 2025",
+   "body": "Dear Farhan,\nYour HSBC TravelOne Credit Card XX7436 statement for Jan 2025 is ready. Total amount due Rs.9,815.59, minimum amount due Rs.490.78, payable by 09-Feb-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-23",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m047",
+   "subject": "Standard Chartered Credit Card Statement - Jan 2025",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card XX6158 statement for the period 24-Dec-2024 to 23-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-24",
+   "attachments": [
+    {
+     "filename": "eStatement_202501.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Payment of INR 523.72 has been received towards your Standard Chartered Smart Credit Card XX6158 on 24-Jan-2025. Thank you for the payment.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-24",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "DBS Bank Credit Card Statement - Feb 2025",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Jan-2025 to 09-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-02-10",
+   "attachments": [
+    {
+     "filename": "DBS_CC_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from xx5681 to Ganesh Maid Service A/c XX1777 on 15-Feb-2025. Rent for the month.",
+   "date": "2025-02-15",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 380.84 spent at BESCOM on 17-Feb-2025 using your DBS Vantage Credit Card.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-17",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "DBS digibank: debit alert",
+   "body": "Alert: DBS Bank A/c XXXXXX5681 debited INR 140.99 on 21-Feb-2025. Mode: NEFT. Details: EASEMYTRIP. Balance INR 8,308.30.\n\nOpt for e-statements and go green.",
+   "date": "2025-02-21",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your DBS Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-02-21",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "DBS digibank: debit alert",
+   "body": "Alert: DBS Bank A/c *5681 debited INR 1,668.57 on 22-Feb-2025. Mode: ECOM. Details: HPCL PETROL. Balance INR 23,318.68.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-22",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Your HSBC TravelOne Credit Card statement - Feb 2025",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card ending 7436 statement for the period 23-Jan-2025 to 22-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-23",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m056",
+   "subject": "Standard Chartered Credit Card Statement - Feb 2025",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card XX6158 statement for the period 24-Jan-2025 to 23-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-02-24",
+   "attachments": [
+    {
+     "filename": "6158_23022025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,372.11 was spent on your Standard Chartered Credit Card XX6158 at LENSKART on 24-Feb-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-02-24",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 582.60 spent on your DBS Vantage Credit Card at URBAN COMPANY on 25-Feb-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-02-25",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "DBS Bank Credit Card Statement - Mar 2025",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Feb-2025 to 09-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 6,135.95 was spent on your HSBC Credit Card XX7436 at OLA CABS on 11-Mar-2025.",
+   "date": "2025-03-11",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Card alert | INR 4,501.56 | OLA CABS | 16-Mar-2025 | Standard Chartered Credit Card XX6158\n\nOpt for e-statements and go green.",
+   "date": "2025-03-16",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "HSBC TravelOne Credit Card XX7436: purchase of INR 5,452.22 at ZEPTO on 17-Mar-2025 00:34:31. Available limit INR 1,18,943.15.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-03-17",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "DBS Bank Account Statement - Mar 2025",
+   "body": "Dear Farhan,\nYour DBS Bank XX5681 account statement for Mar 2025 is ready. Closing balance Rs.41,156.93.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-18",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Your HSBC TravelOne Credit Card statement - Mar 2025",
+   "body": "Dear Farhan,\nYour HSBC TravelOne Credit Card xx7436 statement for Mar 2025 is ready. Total amount due Rs.591.83, minimum amount due Rs.200.00, payable by 09-Apr-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-03-23",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "DBS digibank: debit alert",
+   "body": "INR 156.24 withdrawn from xx5681 on 23-Mar-2025 via ECOM to MAKEMYTRIP. Closing balance INR 13,093.61.",
+   "date": "2025-03-23",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Standard Chartered Credit Card Statement - Mar 2025",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card XX6158 statement for the period 24-Feb-2025 to 23-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-24",
+   "attachments": [
+    {
+     "filename": "Standard_CC_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.846.49 has been transferred from your A/c XX5681 to Ramesh Kumar A/c XX4114 (HDFC Bank) via IMPS on 02-Apr-2025. Ref no 835977291783.",
+   "date": "2025-04-02",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "DBS Bank Credit Card Statement - Apr 2025",
+   "body": "Hi Farhan,\nYour DBS Vantage Credit Card e-statement for Apr 2025 is now available. Pay Rs.27,013.14 by 27-Apr-2025 to avoid late fees.",
+   "date": "2025-04-10",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Farhan,\nPlease find attached the updated MITC for your DBS Bank credit cards.\n\n",
+   "date": "2025-04-21",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "DBS BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Your HSBC TravelOne Credit Card statement - Apr 2025",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card ending 7436 statement for the period 23-Mar-2025 to 22-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-04-23",
+   "attachments": [
+    {
+     "filename": "7436_22042025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "Standard Chartered Credit Card Statement - Apr 2025",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card XX6158 statement for the period 24-Mar-2025 to 23-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-24",
+   "attachments": [
+    {
+     "filename": "6158_23042025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "OTP for your transaction",
+   "body": "795004 is the OTP for your transaction of Rs.987.52 at SPOTIFY. Valid for 10 minutes. Do not share.",
+   "date": "2025-04-25",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 4,620.39 spent on your HSBC Credit Card XX7436 at ZEPTO on 26-Apr-2025 20:20:03.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-26",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Farhan,\nYour order #281-1194186-4428108 is confirmed. Total Rs.2,186.04. Estimated delivery in 2 days.",
+   "date": "2025-04-28",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 283694443997. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-05-06",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "DBS Bank Credit Card Statement - May 2025",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Apr-2025 to 09-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-10",
+   "attachments": [
+    {
+     "filename": "DBS_CC_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Farhan,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m078",
+   "subject": "DBS Bank Account Statement - May 2025",
+   "body": "Dear Farhan,\nPlease find attached your DBS Bank XX5681 statement for the period 18-Apr-2025 to 17-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "HSBC Credit Card ending 7436: purchase of INR 16,163.07 at MEDPLUS on 21-May-2025 23:43:29. Available limit INR 56,893.14.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Your HSBC TravelOne Credit Card statement - May 2025",
+   "body": "Hi Farhan,\nYour HSBC TravelOne Credit Card xx7436 e-statement for May 2025 is now available. Pay Rs.2,543.61 by 09-Jun-2025 to avoid late fees.",
+   "date": "2025-05-23",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "Standard Chartered Credit Card Statement - May 2025",
+   "body": "Hi Farhan,\nYour Standard Chartered Smart Credit Card XX6158 e-statement for May 2025 is now available. Pay Rs.452.77 by 10-Jun-2025 to avoid late fees.",
+   "date": "2025-05-24",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "HSBC festive offers",
+   "body": "Dear Farhan,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-26",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Card alert | INR 11,936.27 | BPCL FUEL | 28-May-2025 | HSBC TravelOne Credit Card XX7436\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-28",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m084",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Card alert | INR 7,122.39 | NETFLIX | 02-Jun-2025 | HSBC Credit Card XX7436",
+   "date": "2025-06-02",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Card alert | INR 167.05 | PHONEPE | 04-Jun-2025 | HSBC Credit Card XX7436\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-04",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m086",
+   "subject": "DBS Bank Credit Card Statement - Jun 2025",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-May-2025 to 09-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-10",
+   "attachments": [
+    {
+     "filename": "DBS_CC_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Payment confirmation: INR 19,379.67 posted to HSBC TravelOne Credit Card XX7436 on 10-Jun-2025.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-06-10",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "DBS digibank: credit alert",
+   "body": "Dear Customer,\nINR 1,994.26 credited to your DBS Bank A/c XX5681 on 19-Jun-2025 by SALARY NEFT. Ref 894833648425.\nThank you for banking with us.",
+   "date": "2025-06-19",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "HSBC TravelOne Credit Card xx7436: purchase of INR 4,973.52 at LENSKART on 21-Jun-2025 23:13:34. Available limit INR 8,165.62.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "Your HSBC TravelOne Credit Card statement - Jun 2025",
+   "body": "Dear Farhan,\nStatement generated for HSBC TravelOne Credit Card XX7436: amount payable Rs.766.87, last date 10-Jul-2025. Sign in to download.",
+   "date": "2025-06-23",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m091",
+   "subject": "Standard Chartered Credit Card Statement - Jun 2025",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card XX6158 statement for the period 24-May-2025 to 23-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-24",
+   "attachments": [
+    {
+     "filename": "Standard_Statement_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 17,424.10 spent on your Standard Chartered Credit Card xx6158 at APPLE SERVICES on 01-Jul-2025 06:33:25.",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "DBS digibank: debit alert",
+   "body": "Your A/c xx5681 is debited for INR 85.62 on 01-Jul-2025 - NEFT MCDONALDS. Bal INR 46,496.25. -DBS Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Payment confirmation: INR 2,844.58 posted to Standard Chartered Smart Credit Card XX6158 on 08-Jul-2025.",
+   "date": "2025-07-08",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "DBS Bank Credit Card Statement - Jul 2025",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Jun-2025 to 09-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-07-10",
+   "attachments": [
+    {
+     "filename": "DBS_Statement_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "DBS digibank: debit alert",
+   "body": "Your A/c XX5681 is debited for INR 28,744.87 on 11-Jul-2025 - NEFT FLIPKART. Bal INR 5,652.33. -DBS Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-11",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "HSBC TravelOne Credit Card xx7436: purchase of INR 5,541.57 at STARBUCKS on 13-Jul-2025 11:56:24. Available limit INR 34,162.16.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 5,196.77 spent at SWIGGY on 16-Jul-2025 using your DBS Vantage Credit Card.\n\nOpt for e-statements and go green.",
+   "date": "2025-07-16",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "DBS Bank Account Statement - Jul 2025",
+   "body": "Dear Farhan,\nYour DBS Bank XXXXXX5681 account statement for Jul 2025 is ready. Closing balance Rs.3,902.55.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-18",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Your HSBC TravelOne Credit Card statement - Jul 2025",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card xx7436 statement for the period 23-Jun-2025 to 22-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-07-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your DBS Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Standard Chartered Credit Card Statement - Jul 2025",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card XX6158 statement for the period 24-Jun-2025 to 23-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-24",
+   "attachments": [
+    {
+     "filename": "Standard_CC_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Standard Chartered Smart Credit Card ending 6158: purchase of INR 11,825.90 at MAKEMYTRIP on 29-Jul-2025 02:46:21. Available limit INR 82,386.90.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-29",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Payment received on your DBS Credit Card",
+   "body": "Payment of INR 11,942.52 has been received towards your DBS Vantage Credit Card on 01-Aug-2025. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "DBS Bank: funds transferred",
+   "body": "Dear Customer,\nRs.2,382.70 has been transferred from your A/c *5681 to Anil Traders A/c XX1846 (Bank of India) via IMPS on 06-Aug-2025. Ref no 997651585817.",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "DBS Bank Credit Card Statement - Aug 2025",
+   "body": "Dear Farhan,\nStatement generated for DBS Vantage Credit Card: amount payable Rs.3,959.61, last date 27-Aug-2025. Sign in to download.",
+   "date": "2025-08-10",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 18,827.41 spent on your HSBC Credit Card XX7436 at BPCL FUEL on 14-Aug-2025 09:02:11.",
+   "date": "2025-08-14",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 8,358.63 spent on your DBS Vantage Credit Card at FLIPKART on 18-Aug-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-18",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "DBS digibank: debit alert",
+   "body": "Alert: DBS Bank A/c XXXXXX5681 debited INR 2,864.52 on 22-Aug-2025. Mode: NEFT. Details: INDIAN OIL. Balance INR 11,911.64.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Your HSBC TravelOne Credit Card statement - Aug 2025",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card XX7436 statement for the period 23-Jul-2025 to 22-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-23",
+   "attachments": [
+    {
+     "filename": "7436_22082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m111",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 2,838.27 spent at URBAN COMPANY on 23-Aug-2025 using your DBS Vantage Credit Card.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-23",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Standard Chartered Credit Card Statement - Aug 2025",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card XX6158 statement for the period 24-Jul-2025 to 23-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-08-24",
+   "attachments": [
+    {
+     "filename": "Standard_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Standard Chartered Credit Card XX6158: purchase of INR 3,172.17 at INDIAN OIL on 28-Aug-2025 20:39:57. Available limit INR 94,693.58.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-28",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Standard Chartered Credit Card xx6158: purchase of INR 1,793.53 at OLA CABS on 01-Sep-2025 06:18:07. Available limit INR 96,536.36.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 3,079.71 spent on your Standard Chartered Credit Card XX6158 at IXIGO on 07-Sep-2025 10:06:58.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "DBS Bank Credit Card Statement - Sep 2025",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Aug-2025 to 09-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202509.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Thank you! We have credited INR 3,954.95 to your Standard Chartered Credit Card xx6158 on 12-Sep-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "DBS digibank: credit alert",
+   "body": "DBS Bank: XX5681 credited with INR 114.30 on 13-Sep-2025. Source: REFUND. Balance INR 1,74,993.88.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-13",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 6,648.57 spent at JIO RECHARGE on 17-Sep-2025 using your DBS Vantage Credit Card.\n\n",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "DBS Bank Account Statement - Sep 2025",
+   "body": "Dear Farhan,\nPlease find attached your DBS Bank XX5681 statement for the period 18-Aug-2025 to 17-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-18",
+   "attachments": [
+    {
+     "filename": "DBS_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Your HSBC TravelOne Credit Card statement - Sep 2025",
+   "body": "Hi Farhan,\nYour HSBC TravelOne Credit Card XX7436 e-statement for Sep 2025 is now available. Pay Rs.12,820.44 by 10-Oct-2025 to avoid late fees.",
+   "date": "2025-09-23",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m122",
+   "subject": "Standard Chartered Credit Card Statement - Sep 2025",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card XX6158 statement for the period 24-Aug-2025 to 23-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-24",
+   "attachments": [
+    {
+     "filename": "eStatement_202509.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 19,675.23 was spent on your HSBC TravelOne Credit Card XX7436 at STARBUCKS on 27-Sep-2025.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Refer and earn",
+   "body": "Dear Farhan,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your HSBC relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-30",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "Your credit limit has been increased",
+   "body": "Dear Farhan Iyer,\nWe have revised the limit on your HSBC TravelOne Credit Card XX7436. Your new credit limit is Rs.4,50,000.00 from 02-Oct-2025.",
+   "date": "2025-10-02",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "DBS digibank: credit alert",
+   "body": "Dear Customer,\nINR 1,789.48 credited to your DBS Bank A/c XXXXXX5681 on 06-Oct-2025 by IMPS. Ref 298908198455.\nThank you for banking with us.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "DBS Bank Credit Card Statement - Oct 2025",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Sep-2025 to 09-Oct-2025. Total amount due Rs.43,428.28, due 29-Oct-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-10",
+   "attachments": [
+    {
+     "filename": "DBS_CC_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "DBS Bank Credit Card Statement\nFARHAN IYER\nFLAT 558, LAKESHORE APARTMENTS\n9TH CROSS, INDIRANAGAR\nHYDERABAD - 597355\nCard Name: DBS Vantage Credit Card\nCredit Card Number: 453213XXXXXX8302\nStatement Period: 10/09/25 - 09/10/25\nStatement Date: 09/10/25\nPayment Summary\nTotal Amount Due: Rs.43,428.28\nMinimum Amount Due: Rs.2,171.41\nPayment Due Date: 29/10/25\nAccount Summary\nCredit Limit: Rs.2,90,000.00\nAvailable Credit Limit: Rs.2,76,998.24\nAvailable Cash Limit: Rs.58,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n16/09/25 HPCL PETROL PUNE 1,233.42 Dr\n16/09/25 OLA CABS HYDERABAD 6,745.72 Dr\n17/09/25 SPOTIFY JAIPUR 3,235.81 Dr\n20/09/25 RELIANCE DIGITAL BENGALURU 1,144.79 Dr\n23/09/25 MYNTRA BENGALURU 283.89 Dr\n24/09/25 RELIANCE DIGITAL CHENNAI 965.00 Dr\n25/09/25 AIRTEL PREPAID GURUGRAM 16,939.13 Dr\n04/10/25 OLA CABS PUNE 196.20 Dr\n06/10/25 TATA POWER JAIPUR 12,566.05 Dr\n09/10/25 HPCL PETROL CHENNAI 118.27 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 1,910.50 spent at TATA POWER on 12-Oct-2025 using your DBS Vantage Credit Card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Farhan,\nYour order #329-3910764-7939248 is confirmed. Total Rs.1,288.38. Estimated delivery in 2 days.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "OTP for your transaction",
+   "body": "913283 is the OTP for your transaction of Rs.722.28 at DMART. Valid for 10 minutes. Do not share.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "DBS digibank: credit alert",
+   "body": "Your A/c *5681 is credited with INR 6,362.77 on 21-Oct-2025 - NEFT. Bal INR 5,314.97. -DBS Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Your HSBC TravelOne Credit Card statement - Oct 2025",
+   "body": "Dear Farhan,\nStatement generated for HSBC TravelOne Credit Card XX7436: amount payable Rs.6,070.33, last date 09-Nov-2025. Sign in to download.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m134",
+   "subject": "Standard Chartered Credit Card Statement - Oct 2025",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card ending 6158 statement for the period 24-Sep-2025 to 23-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-24",
+   "attachments": [
+    {
+     "filename": "6158_23102025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Card alert | INR 547.57 | HPCL PETROL | 30-Oct-2025 | Standard Chartered Credit Card XX6158\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-30",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "DBS digibank: debit alert",
+   "body": "Dear Customer,\nINR 17,239.08 has been debited from your DBS Bank A/c XX5681 on 30-Oct-2025 (NEFT PVR INOX). Avl bal INR 47,260.20.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-30",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Payment received on your DBS Credit Card",
+   "body": "Payment of INR 1,231.70 has been received towards your DBS Vantage Credit Card on 31-Oct-2025. Thank you.\n\n",
+   "date": "2025-10-31",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "DBS digibank: credit alert",
+   "body": "Dear Customer,\nINR 757.56 credited to your DBS Bank A/c *5681 on 03-Nov-2025 by IMPS. Ref 144863263717.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-03",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 257.25 spent at PVR INOX on 05-Nov-2025 using your DBS Vantage Credit Card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Farhan,\nUse your card on UPI and earn extra rewards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "DBS digibank: debit alert",
+   "body": "Alert: DBS Bank A/c XXXXXX5681 debited INR 473.96 on 08-Nov-2025. Mode: ECOM. Details: BATA INDIA. Balance INR 9,894.48.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "DBS Bank Credit Card Statement - Nov 2025",
+   "body": "Dear Farhan,\nStatement generated for DBS Vantage Credit Card: amount payable Rs.1,519.40, last date 27-Nov-2025. Sign in to download.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.2,405.46 has been transferred from your A/c XX5681 to Lata Tutor A/c XX2774 (Canara Bank) via IMPS on 11-Nov-2025. Ref no 775086361097.",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "DBS Bank Account Statement - Nov 2025",
+   "body": "Dear Farhan,\nYour DBS Bank XXXXXX5681 account statement for Nov 2025 is ready. Closing balance Rs.7,369.97.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 17,035.42 spent at NETFLIX on 18-Nov-2025 using your DBS Vantage Credit Card.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.976.99 has been transferred from your A/c XXXXXX5681 to Ramesh Kumar A/c XX4114 (HDFC Bank) via IMPS on 18-Nov-2025. Ref no 515409952433.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Payment confirmation: INR 7,335.71 posted to HSBC Credit Card xx7436 on 21-Nov-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m148",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 12,239.92 spent on your DBS Vantage Credit Card at BESCOM on 21-Nov-2025.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-21",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Your HSBC TravelOne Credit Card statement - Nov 2025",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card ending 7436 statement for the period 23-Oct-2025 to 22-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m150",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 1,699.63 spent on your DBS Vantage Credit Card at OLA CABS on 23-Nov-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Standard Chartered Credit Card Statement - Nov 2025",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card XX6158 statement for the period 24-Oct-2025 to 23-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-24",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Refer and earn",
+   "body": "Dear Farhan,\nGet up to 10% cashback on partner brands.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m153",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 218.80 spent on your HSBC Credit Card XX7436 at RELIANCE DIGITAL on 29-Nov-2025 07:21:07.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-29",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m154",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Card alert | INR 3,818.59 | IRCTC | 06-Dec-2025 | Standard Chartered Smart Credit Card XX6158\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Standard Chartered Smart Credit Card xx6158: purchase of INR 539.37 at NYKAA on 08-Dec-2025 18:55:44. Available limit INR 7,802.17.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "DBS Bank Credit Card Statement - Dec 2025",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Nov-2025 to 09-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Standard Chartered Credit Card Statement - Dec 2025",
+   "body": "Dear Farhan,\nPlease find attached your Standard Chartered Smart Credit Card ending 6158 statement for the period 21-Nov-2025 to 20-Dec-2025. Total amount due Rs.9,336.27, due 06-Jan-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-21",
+   "attachments": [
+    {
+     "filename": "Standard_CC_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "STANDARD CHARTERED CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nFARHAN IYER\nFLAT 102, SUNRISE APARTMENTS\n13TH CROSS, BANJARA HILLS\nKOCHI - 590686\nCARD TYPE: Standard Chartered Smart Credit Card\nCREDIT CARD NO: 453620XXXXXX6158\nStatement Period : 21-Nov-2025 to 20-Dec-2025\nStatement Date : 20-Dec-2025\nPayment Due Date : 06-Jan-2026\nTotal Amount Due : Rs.9,336.27\nMinimum Amount Due : Rs.466.81\nCredit Limit (Including cash) : Rs.1,55,000.00\nAvailable Credit Limit (Including cash) : Rs.1,53,048.09\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n25-11-2025 6672674386 BESCOM PUNE 10 1,534.30\n27-11-2025 8966418003 BPCL FUEL KOCHI 28 90.36\n02-12-2025 2237006356 LENSKART HYDERABAD 28 3,141.32\n10-12-2025 4773924699 BIGBASKET KOCHI 50 1,245.68\n11-12-2025 9923450754 PAYTM PUNE 6 192.71\n15-12-2025 8728725962 IRCTC MUMBAI 28 433.63\n17-12-2025 9506115495 TATA PLAY BENGALURU 42 2,698.27\n\nCard Status: CLOSED as on 20-Dec-2025\nYour Standard Chartered Smart Credit Card has been closed. Closing balance Rs.0.00. No further statements will be generated.\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Your HSBC TravelOne Credit Card statement - Dec 2025",
+   "body": "Dear Farhan,\nYour HSBC TravelOne Credit Card XX7436 statement for Dec 2025 is ready. Total amount due Rs.738.71, minimum amount due Rs.200.00, payable by 09-Jan-2026.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m159",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your HSBC relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m160",
+   "subject": "DBS digibank: debit alert",
+   "body": "INR 3,113.18 withdrawn from *5681 on 27-Dec-2025 via UPI to TATA POWER. Closing balance INR 6,156.41.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 3,114.60 spent on your DBS Vantage Credit Card at JIO RECHARGE on 28-Dec-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "DBS digibank: debit alert",
+   "body": "INR debit alert: INR 7,827.79 debited from account XX5681 on 02-Jan-2026. Narration: IMPS/DMART. Available balance INR 4,720.63.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-02",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "DBS Bank Credit Card Statement - Jan 2026",
+   "body": "Dear Farhan,\nStatement generated for DBS Vantage Credit Card: amount payable Rs.13,117.02, last date 27-Jan-2026. Sign in to download.",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 177.68 spent on your DBS Vantage Credit Card at AIRTEL PREPAID on 12-Jan-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Thank you! We have credited INR 12,370.31 to your HSBC Credit Card xx7436 on 17-Jan-2026.",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m166",
+   "subject": "DBS Bank Account Statement - Jan 2026",
+   "body": "Dear Farhan,\nYour DBS Bank *5681 account statement for Jan 2026 is ready. Closing balance Rs.901.85.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 1,265.26 spent on your DBS Vantage Credit Card at IKEA on 18-Jan-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Your HSBC TravelOne Credit Card statement - Jan 2026",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card XX7436 statement for the period 23-Dec-2025 to 22-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-23",
+   "attachments": [
+    {
+     "filename": "7436_22012026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m169",
+   "subject": "DBS Bank Credit Card Statement - Feb 2026",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Jan-2026 to 09-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-02-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Card alert | INR 671.10 | MCDONALDS | 10-Feb-2026 | HSBC Credit Card XX7436",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m171",
+   "subject": "Your HSBC TravelOne Credit Card statement - Feb 2026",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card XX7436 statement for the period 23-Jan-2026 to 22-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-23",
+   "attachments": [
+    {
+     "filename": "7436_22022026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m172",
+   "subject": "DBS Bank Credit Card Statement - Mar 2026",
+   "body": "Dear Farhan,\nYour DBS Vantage Credit Card statement for Mar 2026 is ready. Total amount due Rs.6,115.74, minimum amount due Rs.305.79, payable by 27-Mar-2026.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "DBS Bank Account Statement - Mar 2026",
+   "body": "Dear Farhan,\nPlease find attached your DBS Bank XX5681 statement for the period 18-Feb-2026 to 17-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-18",
+   "attachments": [
+    {
+     "filename": "DBS_Acct_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Your HSBC TravelOne Credit Card statement - Mar 2026",
+   "body": "Dear Farhan,\nYour HSBC TravelOne Credit Card ending 7436 statement for Mar 2026 is ready. Total amount due Rs.10,437.58, minimum amount due Rs.521.88, payable by 09-Apr-2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m175",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your DBS Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "DBS digibank: debit alert",
+   "body": "INR 830.57 withdrawn from XXXXXX5681 on 28-Mar-2026 via POS to IXIGO. Closing balance INR 3,900.69.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-28",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 176.34 spent on your DBS Vantage Credit Card at BIG BAZAAR on 01-Apr-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 241.07 spent on your DBS Vantage Credit Card at PVR INOX on 03-Apr-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 316.77 spent at HPCL PETROL on 07-Apr-2026 using your DBS Vantage Credit Card.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX6808 has been updated on 02-Oct-2025. If not requested by you, call customer care.",
+   "date": "2026-04-08",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "DBS Bank Credit Card Statement - Apr 2026",
+   "body": "Dear Farhan,\nYour DBS Vantage Credit Card statement for Apr 2026 is ready. Total amount due Rs.766.58, minimum amount due Rs.200.00, payable by 27-Apr-2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Farhan,\nGet up to 10% cashback on partner brands.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your Standard Chartered relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Your HSBC TravelOne Credit Card statement - Apr 2026",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card XX7436 statement for the period 23-Mar-2026 to 22-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-04-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m185",
+   "subject": "DBS digibank: debit alert",
+   "body": "INR debit alert: INR 273.66 debited from account xx5681 on 27-Apr-2026. Narration: ECOM/INDIGO AIRLINES. Available balance INR 13,063.07.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "DBS digibank: debit alert",
+   "body": "Dear Customer,\nINR 7,086.08 has been debited from your DBS Bank A/c XXXXXX5681 on 07-May-2026 (IMPS DOMINOS). Avl bal INR 54,334.18.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "DBS Bank Credit Card Statement - May 2026",
+   "body": "Dear Farhan,\nStatement generated for DBS Vantage Credit Card: amount payable Rs.14,598.65, last date 27-May-2026. Sign in to download.",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "DBS Bank Account Statement - May 2026",
+   "body": "Dear Farhan,\nPlease find attached your DBS Bank XXXXXX5681 statement for the period 18-Apr-2026 to 17-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-18",
+   "attachments": [
+    {
+     "filename": "5681_17052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Payment successful",
+   "body": "Hi Farhan,\nYou paid Rs.8,480.36 to Bandhan Bank Credit Card ending 0918 (of Manoj Iyer) on 18-May-2026. Ref 1946934694.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m190",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 976.42 spent on your DBS Vantage Credit Card at MAKEMYTRIP on 21-May-2026.\n\n",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Your HSBC TravelOne Credit Card statement - May 2026",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card XX7436 statement for the period 23-Apr-2026 to 22-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-23",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m192",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 279.81 spent on your HSBC Credit Card xx7436 at JIO RECHARGE on 25-May-2026 10:28:44.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m193",
+   "subject": "DBS digibank: debit alert",
+   "body": "Your A/c *5681 is debited for INR 4,407.31 on 25-May-2026 - POS BLINKIT. Bal INR 1,46,190.65. -DBS Bank",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "DBS digibank: debit alert",
+   "body": "INR debit alert: INR 329.62 debited from account XX5681 on 25-May-2026. Narration: UPI/IXIGO. Available balance INR 28,772.14.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "DBS Bank Credit Card Statement - Jun 2026",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-May-2026 to 09-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 16,240.39 spent at INDIAN OIL on 10-Jun-2026 using your DBS Vantage Credit Card.\n\n",
+   "date": "2026-06-10",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "DBS digibank: credit alert",
+   "body": "Dear Customer,\nINR 1,060.15 credited to your DBS Bank A/c XXXXXX5681 on 14-Jun-2026 by UPI. Ref 743316565500.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Card alert | INR 8,642.02 | PVR INOX | 18-Jun-2026 | HSBC TravelOne Credit Card xx7436\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-18",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m199",
+   "subject": "Your HSBC TravelOne Credit Card statement - Jun 2026",
+   "body": "Dear Farhan,\nYour HSBC TravelOne Credit Card xx7436 statement for Jun 2026 is ready. Total amount due Rs.6,640.89, minimum amount due Rs.332.04, payable by 10-Jul-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-23",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m200",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 188761895408. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-06-30",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "DBS digibank: credit alert",
+   "body": "Deposit alert - INR 263.30 received in account xx5681 on 01-Jul-2026 (IMPS) Ref 307114360270.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "DBS Bank Credit Card Statement - Jul 2026",
+   "body": "Dear Farhan,\nStatement generated for DBS Vantage Credit Card: amount payable Rs.1,345.52, last date 27-Jul-2026. Sign in to download.",
+   "date": "2026-07-10",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "DBS digibank: debit alert",
+   "body": "INR 19,187.61 withdrawn from xx5681 on 10-Jul-2026 via ECOM to MAKEMYTRIP. Closing balance INR 8,949.47.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-10",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "HSBC Credit Card XX7436: purchase of INR 2,565.29 at EASEMYTRIP on 11-Jul-2026 05:34:43. Available limit INR 5,572.03.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-11",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m205",
+   "subject": "DBS digibank: credit alert",
+   "body": "Deposit alert - INR 9,947.76 received in account XX5681 on 15-Jul-2026 (INTEREST CREDIT) Ref 613957849524.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "DBS Bank Account Statement - Jul 2026",
+   "body": "Dear Farhan,\nYour DBS Bank xx5681 account statement for Jul 2026 is ready. Closing balance Rs.11,192.12.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Farhan,\nYour order #368-2235957-9258524 is confirmed. Total Rs.16,358.90. Estimated delivery in 2 days.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m208",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Card alert | INR 23,108.21 | ZOMATO | 21-Jul-2026 | HSBC Credit Card ending 7436\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m209",
+   "subject": "Your HSBC TravelOne Credit Card statement - Jul 2026",
+   "body": "Hi Farhan,\nYour HSBC TravelOne Credit Card XX7436 e-statement for Jul 2026 is now available. Pay Rs.1,006.06 by 09-Aug-2026 to avoid late fees.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m210",
+   "subject": "Standard Chartered: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 9021 has been successfully linked/verified for your Standard Chartered relationship. If this was not you, contact us.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Transaction alert: INR 5,197.61 spent at HPCL PETROL on 08-Aug-2026 using your DBS Vantage Credit Card.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "DBS Bank Credit Card Statement - Aug 2026",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Jul-2026 to 09-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-08-10",
+   "attachments": [
+    {
+     "filename": "DBS_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "DBS digibank: credit alert",
+   "body": "Credit alert: INR 1,316.14 has been credited to account XXXXXX5681 on 11-Aug-2026 (IMPS). Avl bal INR 3,381.67.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-11",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Your HSBC TravelOne Credit Card statement - Aug 2026",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card XX7436 statement for the period 23-Jul-2026 to 22-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-23",
+   "attachments": [
+    {
+     "filename": "7436_22082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m215",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Farhan,\nYour order #573-9671087-4828921 is confirmed. Total Rs.15,034.57. Estimated delivery in 2 days.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Thank you! We have credited INR 467.32 to your HSBC Credit Card XX7436 on 30-Aug-2026.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-30",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m217",
+   "subject": "DBS Bank: funds transferred",
+   "body": "Dear Customer,\nRs.4,638.71 has been transferred from your A/c XX5681 to Ramesh Kumar A/c XX4114 (HDFC Bank) via IMPS on 03-Sep-2026. Ref no 596515639400.",
+   "date": "2026-09-03",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "DBS digibank: debit alert",
+   "body": "INR debit alert: INR 230.12 debited from account xx5681 on 05-Sep-2026. Narration: UPI/BATA INDIA. Available balance INR 30,575.17.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "DBS Bank Credit Card Statement - Sep 2026",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Aug-2026 to 09-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Farhan,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "DBS Bank Account Statement - Sep 2026",
+   "body": "Dear Farhan,\nPlease find attached your DBS Bank *5681 statement for the period 18-Aug-2026 to 17-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Your HSBC TravelOne Credit Card statement - Sep 2026",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card XX7436 statement for the period 23-Aug-2026 to 22-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m223",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 1,867.36 spent on your DBS Vantage Credit Card at BESCOM on 23-Sep-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "DBS digibank: debit alert",
+   "body": "Alert: DBS Bank A/c XXXXXX5681 debited INR 219.21 on 26-Sep-2026. Mode: UPI. Details: BOOKMYSHOW. Balance INR 2,640.13.\n\nOpt for e-statements and go green.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 9,373.68 spent on your DBS Vantage Credit Card at MAKEMYTRIP on 01-Oct-2026.\n\n",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "DBS Bank Credit Card Statement - Oct 2026",
+   "body": "Dear Farhan,\nPlease find attached your DBS Vantage Credit Card statement for the period 10-Sep-2026 to 09-Oct-2026. Total amount due Rs.36,419.64, due 29-Oct-2026.\n\n",
+   "date": "2026-10-10",
+   "attachments": [
+    {
+     "filename": "DBS_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "DBS Bank Credit Card Statement\nFARHAN IYER\nFLAT 679, LAKESHORE APARTMENTS\n22TH CROSS, KOTHRUD\nMUMBAI - 447784\nCard Name: DBS Vantage Credit Card\nCredit Card Number: 453213XXXXXX8302\nStatement Period: 10/09/26 - 09/10/26\nStatement Date: 09/10/26\nPayment Summary\nTotal Amount Due: Rs.36,419.64\nMinimum Amount Due: Rs.1,820.98\nPayment Due Date: 29/10/26\nAccount Summary\nCredit Limit: Rs.2,90,000.00\nAvailable Credit Limit: Rs.2,62,341.82\nAvailable Cash Limit: Rs.58,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n10/09/26 TATA PLAY PUNE 213.26 Dr\n20/09/26 BIG BAZAAR JAIPUR 16,286.13 Dr\n23/09/26 APPLE SERVICES KOLKATA 5,540.22 Dr\n30/09/26 APPLE SERVICES CHENNAI 788.00 Dr\n30/09/26 HPCL PETROL KOLKATA 5,481.97 Dr\n30/09/26 MEDPLUS JAIPUR 6,553.05 Dr\n03/10/26 PHONEPE JAIPUR 1,557.01 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 13,444.45 spent on your DBS Vantage Credit Card at SPOTIFY on 18-Oct-2026.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Your HSBC TravelOne Credit Card statement - Oct 2026",
+   "body": "Dear Farhan,\nPlease find attached your HSBC TravelOne Credit Card ending 7436 statement for the period 23-Sep-2026 to 22-Oct-2026. Total amount due Rs.37,236.64, due 08-Nov-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-23",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "HSBC Credit Card Statement\nFARHAN IYER\nFLAT 138, ORCHID APARTMENTS\n29TH CROSS, INDIRANAGAR\nPUNE - 635651\nCard Name: HSBC TravelOne Credit Card\nCredit Card Number: 466294XXXXXX7436\nStatement Period: 23/09/26 - 22/10/26\nStatement Date: 22/10/26\nPayment Summary\nTotal Amount Due: Rs.37,236.64\nMinimum Amount Due: Rs.1,861.83\nPayment Due Date: 08/11/26\nAccount Summary\nCredit Limit: Rs.4,50,000.00\nAvailable Credit Limit: Rs.4,41,126.67\nAvailable Cash Limit: Rs.90,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n26/09/26 MCDONALDS KOLKATA 6,426.31 Dr\n02/10/26 JIO RECHARGE CHENNAI 7,089.13 Dr\n08/10/26 APOLLO PHARMACY KOLKATA 6,988.91 Dr\n09/10/26 STARBUCKS KOLKATA 2,547.61 Dr\n10/10/26 MCDONALDS CHENNAI 91.77 Dr\n22/10/26 PVR INOX CHENNAI 14,092.91 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "7436",
+    "kind": "CREDIT_CARD",
+    "variant": "TravelOne",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "3-5L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sc.com",
+    "last4": "6158",
+    "kind": "CREDIT_CARD",
+    "variant": "Smart",
+    "lifecycle": "CLOSED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "dbs.com",
+    "last4": "5681",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "dbs.com",
+    "last4": "8302",
+    "kind": "CREDIT_CARD",
+    "variant": "Vantage",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "1846",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "2774",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "4114",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "1777",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "sc.com",
+    "last4": "9021",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "dbs.com",
+    "last4": "6808",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "dbs.com",
+    "last4": "5408",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "dbs.com",
+    "last4": "3997",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "0918",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

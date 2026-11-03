@@ -1,0 +1,1045 @@
+{
+ "mailbox": "onecard-slice-uni",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.239.59 to PVR INOX from your OneCard Credit Card XX1857. \n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m002",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nyou spent Rs.21,113.97 at MCDONALDS using your OneCard Credit Card XX1857. 5X coins on partner brands.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m003",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nyou spent Rs.8,974.28 at BIGBASKET using your OneCard Credit Card XX1857. ",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m004",
+   "subject": "Refer and earn",
+   "body": "Dear Rahul,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "Uni Cards <hello@uni.club>"
+  },
+  {
+   "id": "m005",
+   "subject": "Your OneCard statement for Nov 2025",
+   "body": "Dear Rahul,\nPlease find attached your OneCard Credit Card xx1857 statement for the period 24-Oct-2025 to 23-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-11-24",
+   "attachments": [
+    {
+     "filename": "1857_23112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m006",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX8117 has been updated on 03-May-2026. If not requested by you, call customer care.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m007",
+   "subject": "Payment received on your OneCard",
+   "body": "Dear Customer,\nWe have received your payment of Rs.201.71 on 27-Nov-2025 for your OneCard Credit Card XX1857. Available credit limit has been updated.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m008",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rahul,\nYour order #249-2018334-2946569 is confirmed. Total Rs.981.99. Estimated delivery in 2 days.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "Your slice statement for Nov 2025",
+   "body": "Dear Rahul,\nPlease find attached your slice Super Card ending 1011 statement for the period 28-Oct-2025 to 27-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-28",
+   "attachments": [
+    {
+     "filename": "slice_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.471.00 to ZEPTO from your OneCard Credit Card XX1857. Pay in 3 instalments from the app.",
+   "date": "2025-12-02",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m011",
+   "subject": "Payment received on your OneCard",
+   "body": "Dear Customer,\nWe have received your payment of Rs.155.85 on 05-Dec-2025 for your OneCard Credit Card XX1857. Available credit limit has been updated.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m012",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rahul,\nYour order #563-5975586-9368823 is confirmed. Total Rs.2,245.78. Estimated delivery in 2 days.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Your OneCard statement for Dec 2025",
+   "body": "Dear Rahul,\nYour OneCard Credit Card XX1857 statement for Dec 2025 is ready. Total amount due Rs.29,839.11, minimum amount due Rs.1,491.96, payable by 10-Jan-2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-24",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m014",
+   "subject": "Your slice statement for Dec 2025",
+   "body": "Dear Rahul,\nYour slice Super Card XX1011 statement for Dec 2025 is ready. Total amount due Rs.574.79, minimum amount due Rs.200.00, payable by 14-Jan-2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.800.03 to HPCL PETROL from your OneCard Credit Card ending 1857. \n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-29",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m016",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rahul,\nYour order #986-8173901-4133220 is confirmed. Total Rs.122.86. Estimated delivery in 2 days.",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.2,585.86 to DECATHLON from your OneCard Credit Card xx1857. 5X coins on partner brands.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m018",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nyou spent Rs.287.79 at STARBUCKS using your OneCard Credit Card XX1857. ",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m019",
+   "subject": "You spent Rs.Rs.228.97 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.228.97 to BIGBASKET from your slice Super Card xx1011. 5X coins on partner brands.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "You spent Rs.Rs.246.88 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.246.88 to APOLLO PHARMACY from your slice Super Card xx1011. \n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Your OneCard statement for Jan 2026",
+   "body": "Dear Rahul,\nPlease find attached your OneCard Credit Card xx1857 statement for the period 24-Dec-2025 to 23-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-24",
+   "attachments": [
+    {
+     "filename": "OneCard_CC_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m022",
+   "subject": "Your slice statement for Jan 2026",
+   "body": "Dear Rahul,\nYour slice Super Card XX1011 statement for Jan 2026 is ready. Total amount due Rs.7,615.26, minimum amount due Rs.380.76, payable by 14-Feb-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "You spent Rs.Rs.4,739.29 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.4,739.29 to INDIGO AIRLINES from your slice Super Card xx1011. 5X coins on partner brands.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-29",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "slice: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 6585 has been successfully linked/verified for your slice relationship. If this was not you, contact us.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 361683144313. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "Uni Cards <hello@uni.club>"
+  },
+  {
+   "id": "m026",
+   "subject": "Payment received on slice",
+   "body": "Payment of Rs.103.95 has been received towards your slice Super Card XX1011 on 12-Feb-2026. Thank you for the payment.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Payment received on your OneCard",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,015.34 on 14-Feb-2026 for your OneCard Credit Card XX1857. Available credit limit has been updated.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m028",
+   "subject": "Your OneCard statement for Feb 2026",
+   "body": "Dear Rahul,\nYour OneCard Credit Card xx1857 statement for Feb 2026 is ready. Total amount due Rs.1,803.09, minimum amount due Rs.200.00, payable by 13-Mar-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m029",
+   "subject": "You spent Rs.Rs.16,416.61 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.16,416.61 to BPCL FUEL from your slice Super Card XX1011. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Your slice statement for Feb 2026",
+   "body": "Dear Rahul,\nPlease find attached your slice Super Card xx1011 statement for the period 28-Jan-2026 to 27-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-28",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 917726550588. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m032",
+   "subject": "Payment received on your OneCard",
+   "body": "Payment of Rs.2,118.08 has been received towards your OneCard Credit Card XX1857 on 12-Mar-2026. Thank you for the payment.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-12",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m033",
+   "subject": "You spent Rs.Rs.986.19 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.986.19 to OLA CABS from your slice Super Card ending 1011. Rewards are on the way.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.5,943.58 to STARBUCKS from your OneCard Credit Card ending 1857. Check your cashback in the app.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m035",
+   "subject": "Your OneCard statement for Mar 2026",
+   "body": "Dear Rahul,\nYour OneCard Credit Card XX1857 statement for Mar 2026 is ready. Total amount due Rs.404.00, minimum amount due Rs.200.00, payable by 10-Apr-2026.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m036",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nyou spent Rs.1,245.49 at BLINKIT using your OneCard Credit Card XX1857. Pay in 3 instalments from the app.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m037",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 189044941301. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m038",
+   "subject": "Your slice statement for Mar 2026",
+   "body": "Dear Rahul,\nPlease find attached your slice Super Card ending 1011 statement for the period 28-Feb-2026 to 27-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-28",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "You spent Rs.Rs.101.22 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.101.22 to MYNTRA from your slice Super Card ending 1011. ",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nyou spent Rs.1,257.44 at IRCTC using your OneCard Credit Card XX1857. Pay in 3 instalments from the app.",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m041",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.1,555.51 to BIGBASKET from your OneCard Credit Card XX1857. Rewards are on the way.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m042",
+   "subject": "You spent Rs.Rs.767.34 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.767.34 to STARBUCKS from your slice Super Card ending 1011. \n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.21,836.73 to LENSKART from your OneCard Credit Card XX1857. Rewards are on the way.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m044",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.12,258.64 to MEDPLUS from your OneCard Credit Card ending 1857. \n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m045",
+   "subject": "You spent Rs.Rs.1,910.60 using slice",
+   "body": "Hey Rahul,\nyou spent Rs.1,910.60 at EAZYDINER using your slice Super Card XX1011. ",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.144.82 to MYNTRA from your OneCard Credit Card ending 1857. 5X coins on partner brands.",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m047",
+   "subject": "Your OneCard statement for Apr 2026",
+   "body": "Dear Rahul,\nYour OneCard Credit Card XX1857 statement for Apr 2026 is ready. Total amount due Rs.17,769.22, minimum amount due Rs.888.46, payable by 11-May-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m048",
+   "subject": "You spent Rs.Rs.123.82 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.123.82 to URBAN COMPANY from your slice Super Card xx1011. Rewards are on the way.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "OTP for your transaction",
+   "body": "129010 is the OTP for your transaction of Rs.395.74 at BLINKIT. Valid for 10 minutes. Do not share.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Your slice statement for Apr 2026",
+   "body": "Dear Rahul,\nYour slice Super Card XX1011 statement for Apr 2026 is ready. Total amount due Rs.1,638.49, minimum amount due Rs.200.00, payable by 15-May-2026.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "You spent Rs.Rs.7,700.04 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.7,700.04 to SWIGGY from your slice Super Card XX1011. Pay in 3 instalments from the app.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Payment received on your OneCard",
+   "body": "Dear Customer,\nWe have received your payment of Rs.166.35 on 05-May-2026 for your OneCard Credit Card XX1857. Available credit limit has been updated.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m053",
+   "subject": "You spent Rs.Rs.2,728.00 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.2,728.00 to BATA INDIA from your slice Super Card XX1011. Pay in 3 instalments from the app.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "You spent Rs.Rs.511.55 using slice",
+   "body": "Hey Rahul,\nyou spent Rs.511.55 at JIO RECHARGE using your slice Super Card ending 1011. 5X coins on partner brands.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.2,193.71 to TATA POWER from your OneCard Credit Card xx1857. Pay in 3 instalments from the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m056",
+   "subject": "Payment received on slice",
+   "body": "Payment of Rs.2,013.08 has been received towards your slice Super Card xx1011 on 12-May-2026. Thank you for the payment.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "You spent Rs.Rs.18,176.26 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.18,176.26 to BPCL FUEL from your slice Super Card XX1011. \n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Payment received on your OneCard",
+   "body": "Dear Customer,\nWe have received your payment of Rs.160.72 on 21-May-2026 for your OneCard Credit Card ending 1857. Available credit limit has been updated.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m059",
+   "subject": "You spent Rs.Rs.4,365.24 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.4,365.24 to URBAN COMPANY from your slice Super Card ending 1011. Pay in 3 instalments from the app.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Rahul,\nPlease find attached the updated MITC for your Uni credit cards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-23",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "UNI CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "Uni Cards <statements@uni.club>"
+  },
+  {
+   "id": "m061",
+   "subject": "Your OneCard statement for May 2026",
+   "body": "Dear Rahul,\nPlease find attached your OneCard Credit Card ending 1857 statement for the period 24-Apr-2026 to 23-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-05-24",
+   "attachments": [
+    {
+     "filename": "OneCard_CC_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m062",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nyou spent Rs.985.23 at STARBUCKS using your OneCard Credit Card XX1857. 5X coins on partner brands.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m063",
+   "subject": "Your slice statement for May 2026",
+   "body": "Dear Rahul,\nPlease find attached your slice Super Card ending 1011 statement for the period 28-Apr-2026 to 27-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-28",
+   "attachments": [
+    {
+     "filename": "eStatement_202605.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "You spent Rs.Rs.94.32 using slice",
+   "body": "Hey Rahul,\nyou spent Rs.94.32 at PAYTM using your slice Super Card XX1011. 5X coins on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "You spent Rs.Rs.315.33 using slice",
+   "body": "Hey Rahul,\nyou spent Rs.315.33 at FLIPKART using your slice Super Card xx1011. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Payment successful",
+   "body": "Hi Rahul,\nYou paid Rs.34,930.72 to IDFC FIRST Bank Credit Card ending 0597 (of Harsh Nair) on 09-Jun-2026. Ref 6287678226.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m067",
+   "subject": "You spent Rs.Rs.1,537.07 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.1,537.07 to BATA INDIA from your slice Super Card XX1011. \n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-17",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "You spent Rs.Rs.9,029.78 using slice",
+   "body": "Hey Rahul,\nyou spent Rs.9,029.78 at IXIGO using your slice Super Card xx1011. 5X coins on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "You spent Rs.Rs.1,499.64 using slice",
+   "body": "Hey Rahul,\nyou spent Rs.1,499.64 at AIRTEL PREPAID using your slice Super Card xx1011. Check your cashback in the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-22",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Your OneCard statement for Jun 2026",
+   "body": "Dear Rahul,\nYour OneCard Credit Card ending 1857 statement for Jun 2026 is ready. Total amount due Rs.15,887.74, minimum amount due Rs.794.39, payable by 11-Jul-2026.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m071",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nyou spent Rs.2,665.50 at EASEMYTRIP using your OneCard Credit Card xx1857. ",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m072",
+   "subject": "Your slice statement for Jun 2026",
+   "body": "Dear Rahul,\nPlease find attached your slice Super Card XX1011 statement for the period 28-May-2026 to 27-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-28",
+   "attachments": [
+    {
+     "filename": "1011_27062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Payment received on slice",
+   "body": "Payment of Rs.295.32 has been received towards your slice Super Card xx1011 on 29-Jun-2026. Thank you for the payment.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-29",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.802.35 to BATA INDIA from your OneCard Credit Card xx1857. Pay in 3 instalments from the app.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m075",
+   "subject": "You spent Rs.Rs.18,751.34 using slice",
+   "body": "Hey Rahul,\nyou spent Rs.18,751.34 at PAYTM using your slice Super Card XX1011. Check your cashback in the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nyou spent Rs.159.73 at SWIGGY using your OneCard Credit Card xx1857. \n\nOpt for e-statements and go green.",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m077",
+   "subject": "Your OneCard statement for Jul 2026",
+   "body": "Dear Rahul,\nPlease find attached your OneCard Credit Card xx1857 statement for the period 24-Jun-2026 to 23-Jul-2026. Total amount due Rs.23,110.05, due 11-Aug-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-24",
+   "attachments": [
+    {
+     "filename": "OneCard_CC_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "OneCard Credit Card Statement\nRAHUL NAIR\nFLAT 829, GREEN VALLEY APARTMENTS\n10TH CROSS, SECTOR 21\nKOCHI - 575003\nCard Name: OneCard Credit Card\nCredit Card Number: 481584XXXXXX1857\nBilling Cycle: 24/06/26 - 23/07/26\nStatement Date: 23/07/26\nPayment Summary\nTotal Amount Due: Rs.23,110.05\nMinimum Amount Due: Rs.1,155.50\nDue Date: 11/08/26\nAccount Summary\nCredit Limit: Rs.2,05,000.00\nAvailable Credit Limit: Rs.1,90,384.57\nAvailable Cash Limit: Rs.41,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n25/06/26 CROMA CHENNAI 173.57 Dr\n25/06/26 CROMA HYDERABAD 886.80 Dr\n26/06/26 BPCL FUEL BENGALURU 7,603.82 Dr\n29/06/26 FLIPKART MUMBAI 897.91 Dr\n02/07/26 EASEMYTRIP KOCHI 2,974.92 Dr\n02/07/26 ZOMATO BENGALURU 189.70 Dr\n03/07/26 AIRTEL PREPAID KOLKATA 230.37 Dr\n10/07/26 MAKEMYTRIP HYDERABAD 987.55 Dr\n16/07/26 JIO RECHARGE HYDERABAD 7,693.11 Dr\n20/07/26 EASEMYTRIP GURUGRAM 1,472.30 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m078",
+   "subject": "Your slice statement for Jul 2026",
+   "body": "Dear Rahul,\nPlease find attached your slice Super Card ending 1011 statement for the period 28-Jun-2026 to 27-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-28",
+   "attachments": [
+    {
+     "filename": "slice_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nyou spent Rs.8,940.22 at MAKEMYTRIP using your OneCard Credit Card XX1857. Check your cashback in the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-29",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m080",
+   "subject": "You spent Rs.Rs.149.41 on Uni card",
+   "body": "Hey Rahul,\nYou paid Rs.149.41 to BIG BAZAAR from your Uni Pay 1/3rd Card xx7973. Pay in 3 instalments from the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-29",
+   "attachments": [],
+   "from": "Uni Cards <hello@uni.club>"
+  },
+  {
+   "id": "m081",
+   "subject": "You spent Rs.Rs.1,804.47 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.1,804.47 to ZEPTO from your slice Super Card xx1011. ",
+   "date": "2026-08-02",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "You spent Rs.Rs.156.61 using slice",
+   "body": "Hey Rahul,\nyou spent Rs.156.61 at DECATHLON using your slice Super Card XX1011. Check your cashback in the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-03",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nyou spent Rs.93.56 at MAKEMYTRIP using your OneCard Credit Card XX1857. Pay in 3 instalments from the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-09",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m084",
+   "subject": "Payment received on slice",
+   "body": "Dear Customer,\nWe have received your payment of Rs.174.17 on 11-Aug-2026 for your slice Super Card XX1011. Available credit limit has been updated.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-11",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Earn more with your card",
+   "body": "Dear Rahul,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-20",
+   "attachments": [],
+   "from": "Uni Cards <hello@uni.club>"
+  },
+  {
+   "id": "m086",
+   "subject": "OTP for your transaction",
+   "body": "847786 is the OTP for your transaction of Rs.2,002.89 at MYNTRA. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m087",
+   "subject": "Your OneCard statement for Aug 2026",
+   "body": "Dear Rahul,\nYour OneCard Credit Card XX1857 statement for Aug 2026 is ready. Total amount due Rs.919.65, minimum amount due Rs.200.00, payable by 10-Sep-2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m088",
+   "subject": "Payment received on slice",
+   "body": "Dear Customer,\nWe have received your payment of Rs.21,040.99 on 27-Aug-2026 for your slice Super Card ending 1011. Available credit limit has been updated.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "You spent Rs.Rs.455.19 using slice",
+   "body": "Hey Rahul,\nyou spent Rs.455.19 at MYNTRA using your slice Super Card ending 1011. Rewards are on the way.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Your slice statement for Aug 2026",
+   "body": "Dear Rahul,\nPlease find attached your slice Super Card XX1011 statement for the period 28-Jul-2026 to 27-Aug-2026. Total amount due Rs.44,819.97, due 12-Sep-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-28",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": false,
+     "pdfText": "slice Credit Card Statement\nRAHUL NAIR\nFLAT 722, GREEN VALLEY APARTMENTS\n10TH CROSS, ADYAR\nAHMEDABAD - 519966\nCard Name: slice Super Card\nCredit Card Number: 688220XXXXXX1011\nBilling Cycle: 28/07/26 - 27/08/26\nStatement Date: 27/08/26\nPayment Summary\nTotal Amount Due: Rs.44,819.97\nMinimum Amount Due: Rs.2,241.00\nDue Date: 12/09/26\nAccount Summary\nCredit Limit: Rs.35,000.00\nAvailable Credit Limit: Rs.13,990.68\nAvailable Cash Limit: Rs.7,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n07/08/26 INDIGO AIRLINES AHMEDABAD 480.02 Dr\n08/08/26 BIGBASKET HYDERABAD 9,250.93 Dr\n10/08/26 SWIGGY BENGALURU 236.62 Dr\n11/08/26 UBER INDIA KOLKATA 15,563.45 Dr\n12/08/26 INDIGO AIRLINES KOCHI 17,148.14 Dr\n14/08/26 BESCOM BENGALURU 436.79 Dr\n16/08/26 JIO RECHARGE AHMEDABAD 844.18 Dr\n20/08/26 BATA INDIA CHENNAI 859.84 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "You spent Rs.Rs.1,459.36 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.1,459.36 to DOMINOS from your slice Super Card xx1011. Check your cashback in the app.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Payment received on your OneCard",
+   "body": "Payment of Rs.274.75 has been received towards your OneCard Credit Card xx1857 on 06-Sep-2026. Thank you for the payment.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m093",
+   "subject": "You spent Rs.Rs.18,516.08 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.18,516.08 to PVR INOX from your slice Super Card XX1011. Rewards are on the way.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Your OneCard statement for Sep 2026",
+   "body": "Dear Rahul,\nPlease find attached your OneCard Credit Card XX1857 statement for the period 24-Aug-2026 to 23-Sep-2026. Total amount due Rs.66,333.91, due 10-Oct-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-24",
+   "attachments": [
+    {
+     "filename": "OneCard_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "OneCard Credit Card Statement\nRAHUL NAIR\nFLAT 348, SUNRISE APARTMENTS\n27TH CROSS, KOTHRUD\nJAIPUR - 444372\nCard Name: OneCard Credit Card\nCredit Card Number: 481584XXXXXX1857\nBilling Cycle: 24/08/26 - 23/09/26\nStatement Date: 23/09/26\nPayment Summary\nTotal Amount Due: Rs.66,333.91\nMinimum Amount Due: Rs.3,316.70\nDue Date: 10/10/26\nAccount Summary\nCredit Limit: Rs.2,05,000.00\nAvailable Credit Limit: Rs.1,43,579.02\nAvailable Cash Limit: Rs.41,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n26/08/26 NETFLIX MUMBAI 326.63 Dr\n26/08/26 SODEXO AHMEDABAD 16,026.63 Dr\n26/08/26 TATA POWER KOLKATA 1,312.89 Dr\n27/08/26 EAZYDINER CHENNAI 7,259.62 Dr\n02/09/26 MAKEMYTRIP JAIPUR 175.80 Dr\n08/09/26 IXIGO BENGALURU 12,278.02 Dr\n11/09/26 BIGBASKET JAIPUR 2,505.13 Dr\n11/09/26 BPCL FUEL BENGALURU 755.04 Dr\n13/09/26 FLIPKART PUNE 16,774.12 Dr\n13/09/26 INDIGO AIRLINES MUMBAI 8,815.38 Dr\n22/09/26 BIG BAZAAR CHENNAI 104.65 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m095",
+   "subject": "OTP for your transaction",
+   "body": "531794 is the OTP for your transaction of Rs.139.79 at NYKAA. Valid for 10 minutes. Do not share.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rahul,\nYour order #693-9495101-1123878 is confirmed. Total Rs.247.78. Estimated delivery in 2 days.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "You spent Rs.Rs.116.12 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.116.12 to HPCL PETROL from your slice Super Card XX1011. Pay in 3 instalments from the app.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Your slice statement for Sep 2026",
+   "body": "Dear Rahul,\nYour slice Super Card ending 1011 statement for Sep 2026 is ready. Total amount due Rs.1,807.58, minimum amount due Rs.200.00, payable by 15-Oct-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Uni festive offers",
+   "body": "Dear Rahul,\nGet up to 10% cashback on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "Uni Cards <hello@uni.club>"
+  },
+  {
+   "id": "m100",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nyou spent Rs.608.20 at IXIGO using your OneCard Credit Card xx1857. Check your cashback in the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m101",
+   "subject": "Payment received on your OneCard",
+   "body": "Payment of Rs.756.67 has been received towards your OneCard Credit Card xx1857 on 13-Oct-2026. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m102",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nyou spent Rs.1,333.70 at PHONEPE using your OneCard Credit Card xx1857. Check your cashback in the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m103",
+   "subject": "Payment received on your OneCard",
+   "body": "Dear Customer,\nWe have received your payment of Rs.533.11 on 15-Oct-2026 for your OneCard Credit Card XX1857. Available credit limit has been updated.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m104",
+   "subject": "OTP for your transaction",
+   "body": "460593 is the OTP for your transaction of Rs.5,254.92 at NETFLIX. Valid for 10 minutes. Do not share.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "Uni Cards <hello@uni.club>"
+  },
+  {
+   "id": "m105",
+   "subject": "You spent Rs.Rs.3,109.51 using slice",
+   "body": "Hey Rahul,\nYou paid Rs.3,109.51 to INDIAN OIL from your slice Super Card xx1011. Check your cashback in the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "You spent Rs.Rs.6,103.24 using slice",
+   "body": "Hey Rahul,\nyou spent Rs.6,103.24 at NYKAA using your slice Super Card ending 1011. ",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.765.96 to EASEMYTRIP from your OneCard Credit Card xx1857. Check your cashback in the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m108",
+   "subject": "Your OneCard statement for Oct 2026",
+   "body": "Dear Rahul,\nYour OneCard Credit Card ending 1857 statement for Oct 2026 is ready. Total amount due Rs.2,130.96, minimum amount due Rs.200.00, payable by 10-Nov-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m109",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rahul,\nYour order #887-4279494-4967465 is confirmed. Total Rs.2,106.29. Estimated delivery in 2 days.",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rahul,\nYou paid Rs.426.97 to HPCL PETROL from your OneCard Credit Card ending 1857. Rewards are on the way.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m111",
+   "subject": "Your slice statement for Oct 2026",
+   "body": "Dear Rahul,\nPlease find attached your slice Super Card xx1011 statement for the period 28-Sep-2026 to 27-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-28",
+   "attachments": [
+    {
+     "filename": "eStatement_202610.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "You spent Rs.Rs.1,877.25 using slice",
+   "body": "Hey Rahul,\nyou spent Rs.1,877.25 at PVR INOX using your slice Super Card XX1011. 5X coins on partner brands.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "getonecard.app",
+    "last4": "1857",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sliceit.com",
+    "last4": "1011",
+    "kind": "CREDIT_CARD",
+    "variant": "Super",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "<1L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "uni.club",
+    "last4": "7973",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "WEAK",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "sliceit.com",
+    "last4": "6585",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "getonecard.app",
+    "last4": "8117",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "getonecard.app",
+    "last4": "1301",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "uni.club",
+    "last4": "4313",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "getonecard.app",
+    "last4": "0588",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "0597",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

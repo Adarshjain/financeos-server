@@ -1,0 +1,736 @@
+{
+ "mailbox": "solo-suryoday-savings",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.2,486.71 has been credited to account *2556 on 11-Apr-2026 (UPI). Avl bal Rs.1,53,478.42.",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Suryoday Small Finance Bank Account Statement - Apr 2026",
+   "body": "Dear Farhan,\nYour Suryoday Small Finance Bank XX2556 account statement for Apr 2026 is ready. Closing balance Rs.2,940.98.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-12",
+   "attachments": [],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.23,712.74 has been debited from your Suryoday Small Finance Bank A/c xx2556 on 12-Apr-2026 (POS HPCL PETROL). Avl bal Rs.3,133.31.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-12",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your Suryoday Small Finance Bank relationship. Visit a branch or use the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Alert: Suryoday Small Finance Bank A/c XXXXXX2556 debited Rs.363.78 on 16-Apr-2026. Mode: UPI. Details: MCDONALDS. Balance Rs.25,299.55.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Sita Devi (A/c XXXXXX6613, Canara Bank) has been added to your account *2556. It will be active after 30 minutes.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.239.65 has been credited to account *2556 on 19-Apr-2026 (SALARY NEFT). Avl bal Rs.36,613.73.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.1,696.87 credited to your Suryoday Small Finance Bank A/c *2556 on 22-Apr-2026 by REFUND. Ref 891100984249.\nThank you for banking with us.",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Suryoday Small Finance Bank festive offers",
+   "body": "Dear Farhan,\nGet up to 10% cashback on partner brands.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Suryoday Small Finance Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 9274 has been successfully linked/verified for your Suryoday Small Finance Bank relationship. If this was not you, contact us.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.4,598.83 has been debited from your Suryoday Small Finance Bank A/c xx2556 on 03-May-2026 (IMPS MYNTRA). Avl bal Rs.1,02,940.87.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Rs.15,104.43 withdrawn from xx2556 on 04-May-2026 via IMPS to IRCTC. Closing balance Rs.1,98,162.38.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "OTP for your transaction",
+   "body": "538867 is the OTP for your transaction of Rs.235.77 at FLIPKART. Valid for 10 minutes. Do not share.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.1,322.78 credited to your Suryoday Small Finance Bank A/c XX2556 on 05-May-2026 by INTEREST CREDIT. Ref 333430447182.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.361.81 has been credited to account XX2556 on 11-May-2026 (IMPS). Avl bal Rs.1,70,942.62.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Suryoday Small Finance Bank Account Statement - May 2026",
+   "body": "Dear Farhan,\nPlease find attached your Suryoday Small Finance Bank xx2556 statement for the period 12-Apr-2026 to 11-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202605.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Your A/c *2556 is debited for Rs.114.44 on 12-May-2026 - ECOM NYKAA. Bal Rs.54,417.29. -Suryoday Small Finance Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Your A/c *2556 is credited with Rs.884.36 on 16-May-2026 - SALARY NEFT. Bal Rs.83,403.89. -Suryoday Small Finance Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from XX2556 to Sita Devi A/c XX6613 on 16-May-2026. Rent for the month.",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.25,994.35 debited from account xx2556 on 26-May-2026. Narration: IMPS/PAYTM. Available balance Rs.2,198.27.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX2556 is debited for Rs.32,340.31 on 26-May-2026 - UPI EASEMYTRIP. Bal Rs.3,016.38. -Suryoday Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,490.07 has been debited from your Suryoday Small Finance Bank A/c XX2556 on 27-May-2026 (POS GOOGLE PLAY). Avl bal Rs.7,553.95.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.2,568.40 credited to your Suryoday Small Finance Bank A/c xx2556 on 29-May-2026 by SALARY NEFT. Ref 506157651982.\nThank you for banking with us.",
+   "date": "2026-05-29",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.12,016.10 has been debited from your Suryoday Small Finance Bank A/c XX2556 on 30-May-2026 (ECOM DOMINOS). Avl bal Rs.21,992.03.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-30",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,532.24 has been debited from your Suryoday Small Finance Bank A/c XXXXXX2556 on 02-Jun-2026 (IMPS SPOTIFY). Avl bal Rs.9,503.64.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-02",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.7,086.20 has been debited from your Suryoday Small Finance Bank A/c *2556 on 03-Jun-2026 (POS NETFLIX). Avl bal Rs.1,06,330.11.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.295.19 has been credited to account XX2556 on 03-Jun-2026 (UPI). Avl bal Rs.2,333.12.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Alert: Suryoday Small Finance Bank A/c XX2556 debited Rs.2,322.91 on 05-Jun-2026. Mode: IMPS. Details: GOOGLE PLAY. Balance Rs.82,123.32.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.5,549.76 for YES BANK Credit Card ending 4930 (cardholder: DIVYA KHAN) was successful from your A/c *2556 on 05-Jun-2026.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.2,854.17 has been debited from your Suryoday Small Finance Bank A/c *2556 on 06-Jun-2026 (POS SWIGGY). Avl bal Rs.3,575.58.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-06",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX2556 is debited for Rs.993.89 on 06-Jun-2026 - NEFT BLINKIT. Bal Rs.79,448.54. -Suryoday Small Finance Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-06",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "OTP for your transaction",
+   "body": "217231 is the OTP for your transaction of Rs.173.31 at INDIGO AIRLINES. Valid for 10 minutes. Do not share.",
+   "date": "2026-06-08",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XX2556 is debited for Rs.434.04 on 09-Jun-2026 - POS BIGBASKET. Bal Rs.5,678.42. -Suryoday Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Suryoday Small Finance Bank Account Statement - Jun 2026",
+   "body": "Dear Farhan,\nPlease find attached your Suryoday Small Finance Bank *2556 statement for the period 12-May-2026 to 11-Jun-2026. \n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "Suryoday_Acct_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "SURYODAY SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : FARHAN KHAN\nFLAT 756, LAKESHORE APARTMENTS\n5TH CROSS, KOTHRUD\nBENGALURU - 592132\nCustomer ID : 47106300\nAccount Number : XX2556\nAccount Type : SAVINGS ACCOUNT\nIFSC : SURY0857376\nStatement Period : 12-05-2026 to 11-06-2026\nOpening Balance : Rs.61,595.21\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n15-05-2026 NEFT DR/BPCL FUEL 244046915 18,924.21 - 42,671.00\n16-05-2026 INTEREST 815114011 - 107.16 42,778.16\n16-05-2026 IMPS/CR 289928650 - 6,284.91 49,063.07\n18-05-2026 UPI/HPCL PETROL 863930988 200.67 - 48,862.40\n20-05-2026 UPI/CR 906498605 - 2,812.18 51,674.58\n23-05-2026 NEFT DR/PVR INOX 529618975 305.68 - 51,368.90\n25-05-2026 POS/EASEMYTRIP 547825438 16,803.56 - 34,565.34\n26-05-2026 INTEREST 355824874 - 220.76 34,786.10\n29-05-2026 NEFT DR/CROMA 332893141 6,189.26 - 28,596.84\n29-05-2026 UPI/CR 672402487 - 545.48 29,142.32\n30-05-2026 UPI/BLINKIT 221290286 142.70 - 28,999.62\n30-05-2026 NEFT DR/AMAZON PAY INDIA 370156802 19,924.14 - 9,075.48\nClosing Balance : Rs.9,075.48\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.154.94 has been debited from your Suryoday Small Finance Bank A/c XX2556 on 13-Jun-2026 (IMPS MEDPLUS). Avl bal Rs.42,936.76.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from xx2556 to Sita Devi A/c XX6613 on 16-Jun-2026. Rent for the month.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Your A/c xx2556 is debited for Rs.7,489.67 on 20-Jun-2026 - NEFT PVR INOX. Bal Rs.44,552.01. -Suryoday Small Finance Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.14,798.45 has been credited to account XX2556 on 23-Jun-2026 (UPI). Avl bal Rs.2,877.00.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-23",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Your A/c xx2556 is debited for Rs.6,606.42 on 25-Jun-2026 - NEFT DECATHLON. Bal Rs.17,124.18. -Suryoday Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Alert: Suryoday Small Finance Bank A/c XX2556 debited Rs.1,566.25 on 25-Jun-2026. Mode: ECOM. Details: FLIPKART. Balance Rs.4,224.94.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.151.65 has been debited from your Suryoday Small Finance Bank A/c xx2556 on 26-Jun-2026 (POS FLIPKART). Avl bal Rs.15,664.66.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 167276288805. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Rs.361.61 withdrawn from XX2556 on 29-Jun-2026 via NEFT to MAKEMYTRIP. Closing balance Rs.1,60,073.91.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-29",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.33,681.68 debited from account XXXXXX2556 on 30-Jun-2026. Narration: UPI/MCDONALDS. Available balance Rs.11,271.14.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-30",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Suryoday Small Finance Bank: *2556 credited with Rs.179.14 on 04-Jul-2026. Source: REFUND. Balance Rs.82,687.20.",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Suryoday Small Finance Bank Account Statement - Jul 2026",
+   "body": "Dear Farhan,\nPlease find attached your Suryoday Small Finance Bank XXXXXX2556 statement for the period 12-Jun-2026 to 11-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "Suryoday_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.12,305.28 debited from account xx2556 on 15-Jul-2026. Narration: UPI/SPOTIFY. Available balance Rs.21,404.80.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from XX2556 to Sita Devi A/c XX6613 on 16-Jul-2026. Rent for the month.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Your A/c xx2556 is debited for Rs.1,543.14 on 22-Jul-2026 - UPI DMART. Bal Rs.1,58,738.49. -Suryoday Small Finance Bank",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Farhan,\nConvert big spends to EMI at low interest.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.1,879.33 credited to your Suryoday Small Finance Bank A/c *2556 on 25-Jul-2026 by SALARY NEFT. Ref 280463769078.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Suryoday Small Finance Bank: *2556 credited with Rs.1,215.24 on 09-Aug-2026. Source: IMPS. Balance Rs.4,849.54.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-09",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.30,937.94 debited from account XX2556 on 10-Aug-2026. Narration: ECOM/RELIANCE DIGITAL. Available balance Rs.6,714.17.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.88.80 credited to your Suryoday Small Finance Bank A/c xx2556 on 10-Aug-2026 by IMPS. Ref 925647507955.\nThank you for banking with us.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Suryoday Small Finance Bank Account Statement - Aug 2026",
+   "body": "Dear Farhan,\nPlease find attached your Suryoday Small Finance Bank xx2556 statement for the period 12-Jul-2026 to 11-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "Suryoday_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Your A/c XX2556 is credited with Rs.10,272.76 on 14-Aug-2026 - NEFT. Bal Rs.6,237.21. -Suryoday Small Finance Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-14",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Rs.189.17 withdrawn from XXXXXX2556 on 15-Aug-2026 via POS to MEDPLUS. Closing balance Rs.7,924.77.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from XXXXXX2556 to Sita Devi A/c XX6613 on 16-Aug-2026. Rent for the month.",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "OTP for your transaction",
+   "body": "522190 is the OTP for your transaction of Rs.4,649.21 at IXIGO. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,449.84 has been debited from your Suryoday Small Finance Bank A/c xx2556 on 25-Aug-2026 (ECOM ZOMATO). Avl bal Rs.1,58,287.91.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.1,876.64 has been transferred from your A/c XXXXXX2556 to S K Enterprises A/c XX5677 (IDBI Bank) via IMPS on 25-Aug-2026. Ref no 999342141305.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Suryoday Small Finance Bank: XX2556 credited with Rs.14,084.61 on 27-Aug-2026. Source: REFUND. Balance Rs.1,01,533.45.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX7176 has been updated on 18-Jul-2026. If not requested by you, call customer care.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Rs.315.10 withdrawn from *2556 on 01-Sep-2026 via ECOM to AIRTEL PREPAID. Closing balance Rs.4,840.72.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Suryoday Small Finance Bank Account Statement - Sep 2026",
+   "body": "Dear Farhan,\nPlease find attached your Suryoday Small Finance Bank *2556 statement for the period 12-Aug-2026 to 11-Sep-2026. \n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": false,
+     "pdfText": "SURYODAY SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : FARHAN KHAN\nFLAT 436, ORCHID APARTMENTS\n10TH CROSS, KOTHRUD\nPUNE - 574562\nCustomer ID : 96962114\nAccount Number : XXXXXX2556\nAccount Type : SAVINGS ACCOUNT\nIFSC : SURY0445458\nStatement Period : 12-08-2026 to 11-09-2026\nOpening Balance : Rs.20,266.91\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n15-08-2026 NEFT DR/BIG BAZAAR 976950935 187.70 - 20,079.21\n15-08-2026 SALARY NEFT 386628744 - 180.04 20,259.25\n17-08-2026 POS/FLIPKART 722825586 7,648.22 - 12,611.03\n17-08-2026 SALARY NEFT 915288980 - 204.44 12,815.47\n18-08-2026 NEFT DR/BPCL FUEL 191180164 2,909.39 - 9,906.08\n21-08-2026 POS/OLA CABS 149217748 8,710.23 - 1,195.85\n24-08-2026 ATM WDL/MCDONALDS 155115245 13,072.34 - -11,876.49\n25-08-2026 IMPS/CR 265610017 - 584.59 -11,291.90\n27-08-2026 UPI/IRCTC 900502651 13,124.78 - -24,416.68\n28-08-2026 ATM WDL/DECATHLON 393022009 16,493.14 - -40,909.82\n30-08-2026 NEFT DR/BPCL FUEL 330011654 12,454.15 - -53,363.97\n31-08-2026 SALARY NEFT 579437275 - 2,762.36 -50,601.61\nClosing Balance : -Rs.50,601.61\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.14,078.08 credited to your Suryoday Small Finance Bank A/c XXXXXX2556 on 16-Sep-2026 by UPI. Ref 290686871617.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-16",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,080.48 debited from account xx2556 on 17-Sep-2026. Narration: POS/BIG BAZAAR. Available balance Rs.42,924.12.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XX2556 is debited for Rs.816.73 on 21-Sep-2026 - POS IRCTC. Bal Rs.71,794.82. -Suryoday Small Finance Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX2556 is debited for Rs.217.21 on 22-Sep-2026 - IMPS DECATHLON. Bal Rs.8,956.22. -Suryoday Small Finance Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.6,864.27 debited from account *2556 on 26-Sep-2026. Narration: UPI/CROMA. Available balance Rs.1,38,641.52.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Suryoday Small Finance Bank festive offers",
+   "body": "Dear Farhan,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.13,013.77 has been debited from your Suryoday Small Finance Bank A/c xx2556 on 29-Sep-2026 (POS RELIANCE DIGITAL). Avl bal Rs.2,470.00.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 936869373517. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Suryoday Small Finance Bank Account Statement - Oct 2026",
+   "body": "Dear Farhan,\nPlease find attached your Suryoday Small Finance Bank xx2556 statement for the period 12-Sep-2026 to 11-Oct-2026. \n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "Suryoday_Acct_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "SURYODAY SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : FARHAN KHAN\nFLAT 899, ORCHID APARTMENTS\n8TH CROSS, SECTOR 21\nJAIPUR - 599185\nCustomer ID : 11898658\nAccount Number : XX2556\nAccount Type : SAVINGS ACCOUNT\nIFSC : SURY0825624\nStatement Period : 12-09-2026 to 11-10-2026\nOpening Balance : Rs.58,519.88\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n13-09-2026 NEFT DR/AMAZON PAY INDIA 448173188 1,539.40 - 56,980.48\n14-09-2026 POS/EASEMYTRIP 628150117 1,444.49 - 55,535.99\n17-09-2026 INTEREST 742630765 - 151.71 55,687.70\n19-09-2026 NEFT DR/DECATHLON 263911544 282.67 - 55,405.03\n20-09-2026 SALARY NEFT 670166938 - 1,117.24 56,522.27\n23-09-2026 ATM WDL/BESCOM 117017100 107.55 - 56,414.72\n23-09-2026 POS/SODEXO 395218026 3,137.89 - 53,276.83\n23-09-2026 NEFT DR/BATA INDIA 189290252 5,767.53 - 47,509.30\n25-09-2026 POS/EASEMYTRIP 800629385 472.68 - 47,036.62\n27-09-2026 IMPS/CR 211869752 - 9,036.36 56,072.98\n28-09-2026 IMPS/CR 730114241 - 4,481.96 60,554.94\nClosing Balance : Rs.60,554.94\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Suryoday Small Finance Bank: XXXXXX2556 credited with Rs.7,493.54 on 12-Oct-2026. Source: NEFT. Balance Rs.2,496.65.",
+   "date": "2026-10-12",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your Suryoday Small Finance Bank relationship. Visit a branch or use the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.20,417.77 has been credited to account *2556 on 19-Oct-2026 (SALARY NEFT). Avl bal Rs.1,59,869.28.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.7,249.07 received in account XX2556 on 22-Oct-2026 (SALARY NEFT) Ref 104102053903.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.15,091.38 has been transferred from your A/c XX2556 to S K Enterprises A/c XX8113 (ICICI Bank) via IMPS on 22-Oct-2026. Ref no 531737243127.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.171.08 has been debited from your Suryoday Small Finance Bank A/c XX2556 on 28-Oct-2026 (IMPS SWIGGY). Avl bal Rs.39,933.55.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "suryodaybank.com",
+    "last4": "2556",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "8113",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "5677",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "6613",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "suryodaybank.com",
+    "last4": "9274",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "suryodaybank.com",
+    "last4": "7176",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "suryodaybank.com",
+    "last4": "3517",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "suryodaybank.com",
+    "last4": "8805",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "yesbank.in",
+    "last4": "4930",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

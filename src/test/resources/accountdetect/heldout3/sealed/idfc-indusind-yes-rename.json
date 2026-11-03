@@ -1,0 +1,2595 @@
+{
+ "mailbox": "idfc-indusind-yes-rename",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Card alert | INR 243.28 | OLA CABS | 06-05-2024 | IndusInd Bank Credit Card XX4609\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-05-06",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "IndusInd Bank Credit Card Statement - May 2024",
+   "body": "Dear Divya,\nYour IndusInd Bank Iconia Credit Card xx4609 statement for May 2024 is ready. Total amount due Rs.1,959.77, minimum amount due Rs.200.00, payable by 25-May-2024.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-08",
+   "attachments": [],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 5,526.51 spent on your YES BANK Credit Card ending 3310 at APPLE SERVICES on 08-May-2024 10:04:44.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-05-08",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Divya,\nConvert big spends to EMI at low interest.\n\nOpt for e-statements and go green.",
+   "date": "2024-05-10",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,508.31 was spent on your IndusInd Bank Credit Card ending 4609 at BATA INDIA on 13-05-2024.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-05-13",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Card alert | INR 6,991.28 | PAYTM | 15-May-2024 | YES BANK ELITE Credit Card XX3310",
+   "date": "2024-05-15",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "YES BANK Credit Card Statement - May 2024",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE Credit Card xx3310 statement for the period 18-Apr-2024 to 17-May-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-05-18",
+   "attachments": [
+    {
+     "filename": "YES_Statement_May2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 166.20 | DECATHLON | 19-May-2024 | IDFC FIRST Bank Credit Card XX8814\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-05-19",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,283.02 was spent on your IndusInd Bank Credit Card XX4609 at BIGBASKET on 21-05-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-21",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 1,973.95 | DMART | 22-May-2024 | IDFC FIRST Wealth Credit Card ending 8814",
+   "date": "2024-05-22",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Bank Credit Card ending 8814: purchase of INR 183.02 at PHONEPE on 23-May-2024 22:07:41. Available limit INR 1,16,604.15.\n\nOpt for e-statements and go green.",
+   "date": "2024-05-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 11,558.27 | TATA POWER | 23-May-2024 | IDFC FIRST Wealth Credit Card XX8814\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-05-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Your IDFC FIRST Bank Credit Card XX8814 was used for INR 3,544.36 at PHONEPE on 25-May-2024.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-05-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Divya,\nYour order #544-6517526-5677058 is confirmed. Total Rs.3,530.38. Estimated delivery in 2 days.",
+   "date": "2024-05-26",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - May 2024",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card XX8814 statement for the period 27-Apr-2024 to 26-May-2024. Total amount due Rs.33,180.17, due 13-Jun-2024.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-05-27",
+   "attachments": [
+    {
+     "filename": "8814_26052024_stmt.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST Bank Credit Card Statement\nDIVYA IYER\nFLAT 250, SUNRISE APARTMENTS\n12TH CROSS, INDIRANAGAR\nMUMBAI - 509669\nCard Name: IDFC FIRST Wealth Credit Card\nCredit Card Number: 499691XXXXXX8814\nStatement Period: 27/04/24 - 26/05/24\nStatement Date: 26/05/24\nPayment Summary\nTotal Amount Due: Rs.33,180.17\nMinimum Amount Due: Rs.1,659.01\nPayment Due Date: 13/06/24\nAccount Summary\nCredit Limit: Rs.3,50,000.00\nAvailable Credit Limit: Rs.3,37,381.62\nCash Limit: Rs.70,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n28/04/24 JIO RECHARGE MUMBAI 7,346.28 Dr\n28/04/24 PHONEPE PUNE 3,662.22 Dr\n30/04/24 LENSKART HYDERABAD 159.81 Dr\n07/05/24 MCDONALDS KOCHI 316.74 Dr\n07/05/24 NETFLIX GURUGRAM 109.98 Dr\n07/05/24 NYKAA KOLKATA 1,037.12 Dr\n08/05/24 NETFLIX KOLKATA 111.08 Dr\n09/05/24 BPCL FUEL CHENNAI 370.22 Dr\n15/05/24 DOMINOS CHENNAI 14,253.52 Dr\n16/05/24 MEDPLUS HYDERABAD 1,108.43 Dr\n20/05/24 BATA INDIA AHMEDABAD 3,839.79 Dr\n21/05/24 NETFLIX PUNE 864.98 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Bank Credit Card ending 8814: purchase of INR 15,723.68 at MEDPLUS on 30-May-2024 03:05:09. Available limit INR 95,445.28.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-05-30",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 2,713.90 | AIRTEL PREPAID | 03-Jun-2024 | IDFC FIRST Bank Credit Card XX8814\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-06-03",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Card alert | INR 816.03 | AMAZON PAY INDIA | 03-Jun-2024 | YES BANK Credit Card xx3310",
+   "date": "2024-06-03",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Divya,\nYour order #867-3746334-4688750 is confirmed. Total Rs.305.00. Estimated delivery in 2 days.",
+   "date": "2024-06-03",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "IndusInd Bank Credit Card Statement - Jun 2024",
+   "body": "Dear Divya,\nYour IndusInd Bank Iconia Credit Card XX4609 statement for Jun 2024 is ready. Total amount due Rs.19,543.03, minimum amount due Rs.977.15, payable by 25-Jun-2024.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-06-08",
+   "attachments": [],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 985.86 | SODEXO | 11-Jun-2024 | IDFC FIRST Bank Credit Card XX8814\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-06-11",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "IndusInd Bank Credit Card XX4609: purchase of INR 5,263.28 at AMAZON PAY INDIA on 13-06-2024 22:29:58. Available limit INR 61,197.34.",
+   "date": "2024-06-13",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "YES BANK Credit Card Statement - Jun 2024",
+   "body": "Dear Divya,\nStatement generated for YES BANK ELITE Credit Card xx3310: amount payable Rs.1,023.12, last date 05-Jul-2024. Sign in to download.",
+   "date": "2024-06-18",
+   "attachments": [],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 649355187448. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2024-06-22",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 2,746.15 was spent on your IndusInd Bank Credit Card XX4609 at MAKEMYTRIP on 26-06-2024.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-06-26",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Jun 2024",
+   "body": "Hi Divya,\nYour IDFC FIRST Wealth Credit Card ending 8814 e-statement for Jun 2024 is now available. Pay Rs.21,045.37 by 14-Jul-2024 to avoid late fees.",
+   "date": "2024-06-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,459.06 was spent on your YES BANK Credit Card ending 3310 at DMART on 07-Jul-2024.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-07",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m028",
+   "subject": "IndusInd Bank Credit Card Statement - Jul 2024",
+   "body": "Dear Divya,\nYour IndusInd Bank Iconia Credit Card XX4609 statement for Jul 2024 is ready. Total amount due Rs.2,312.79, minimum amount due Rs.200.00, payable by 25-Jul-2024.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-07-08",
+   "attachments": [],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "YES BANK Credit Card XX3310: purchase of INR 86.71 at BOOKMYSHOW on 12-Jul-2024 16:10:39. Available limit INR 2,686.97.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-07-12",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "Payment received on your YES BANK Credit Card",
+   "body": "Payment of INR 2,979.81 has been received towards your YES BANK ELITE Credit Card ending 3310 on 15-Jul-2024. Thank you for the payment.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-07-15",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "YES BANK Credit Card Statement - Jul 2024",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE Credit Card ending 3310 statement for the period 18-Jun-2024 to 17-Jul-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-07-18",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Jul2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 11,624.69 was spent on your IndusInd Bank Iconia Credit Card XX4609 at DECATHLON on 26-07-2024.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-07-26",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Jul 2024",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card XX8814 statement for the period 27-Jun-2024 to 26-Jul-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-07-27",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Jul2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 93.68 spent on your YES BANK ELITE Credit Card XX3310 at CROMA on 29-Jul-2024 13:27:03.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-29",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Bank Credit Card XX8814: purchase of INR 346.07 at CROMA on 31-Jul-2024 05:01:04. Available limit INR 1,06,878.16.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-07-31",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 125.17 was spent on your YES BANK Credit Card xx3310 at PHONEPE on 02-Aug-2024.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-08-02",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "IndusInd Bank Credit Card Statement - Aug 2024",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card XX4609 statement for the period 08-Jul-2024 to 07-Aug-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-08-08",
+   "attachments": [
+    {
+     "filename": "4609_07082024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "OTP for your transaction",
+   "body": "467155 is the OTP for your transaction of Rs.5,648.97 at SWIGGY. Valid for 10 minutes. Do not share.",
+   "date": "2024-08-16",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "YES BANK Credit Card Statement - Aug 2024",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE Credit Card xx3310 statement for the period 18-Jul-2024 to 17-Aug-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-08-18",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Aug2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Aug 2024",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card ending 8814 statement for the period 27-Jul-2024 to 26-Aug-2024. Total amount due Rs.32,824.24, due 15-Sep-2024.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-08-27",
+   "attachments": [
+    {
+     "filename": "8814_26082024_stmt.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST Bank Credit Card Statement\nDIVYA IYER\nFLAT 360, ORCHID APARTMENTS\n16TH CROSS, INDIRANAGAR\nHYDERABAD - 449810\nCard Name: IDFC FIRST Wealth Credit Card\nCredit Card Number: 499691XXXXXX8814\nStatement Period: 27/07/24 - 26/08/24\nStatement Date: 26/08/24\nPayment Summary\nTotal Amount Due: Rs.32,824.24\nMinimum Amount Due: Rs.1,641.21\nPayment Due Date: 15/09/24\nAccount Summary\nCredit Limit: Rs.3,50,000.00\nAvailable Credit Limit: Rs.3,31,117.05\nCash Limit: Rs.70,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n30/07/24 MAKEMYTRIP PUNE 197.49 Dr\n03/08/24 NETFLIX GURUGRAM 3,781.71 Dr\n05/08/24 MAKEMYTRIP GURUGRAM 1,813.56 Dr\n08/08/24 INDIGO AIRLINES PUNE 7,412.46 Dr\n08/08/24 MEDPLUS HYDERABAD 253.88 Dr\n11/08/24 TATA POWER JAIPUR 2,397.73 Dr\n18/08/24 LENSKART MUMBAI 1,267.99 Dr\n20/08/24 BESCOM HYDERABAD 15,132.11 Dr\n22/08/24 LENSKART HYDERABAD 98.48 Dr\n23/08/24 URBAN COMPANY MUMBAI 310.85 Dr\n25/08/24 BIGBASKET HYDERABAD 157.98 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Divya,\nGet up to 10% cashback on partner brands.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-02",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m042",
+   "subject": "IndusInd Bank Credit Card Statement - Sep 2024",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card XX4609 statement for the period 08-Aug-2024 to 07-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-08",
+   "attachments": [
+    {
+     "filename": "IndusInd_Statement_Sep2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Card alert | INR 4,330.36 | GOOGLE PLAY | 16-09-2024 | IndusInd Bank Credit Card XX4609",
+   "date": "2024-09-16",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "YES BANK Credit Card Statement - Sep 2024",
+   "body": "Dear Divya,\nYour YES BANK ELITE Credit Card XX3310 statement for Sep 2024 is ready. Total amount due Rs.23,933.24, minimum amount due Rs.1,196.66, payable by 05-Oct-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-09-18",
+   "attachments": [],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 9,036.91 spent on your YES BANK Credit Card xx3310 at DMART on 18-Sep-2024 19:29:54.",
+   "date": "2024-09-18",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m046",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 157.51 was spent on your IndusInd Bank Credit Card XX4609 at IKEA on 19-09-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-19",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "IndusInd Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 6050 has been successfully linked/verified for your IndusInd Bank relationship. If this was not you, contact us.",
+   "date": "2024-09-20",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Card alert | INR 801.87 | AMAZON PAY INDIA | 21-Sep-2024 | YES BANK ELITE Credit Card XX3310\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-09-21",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 2,009.64 was spent on your YES BANK Credit Card XX3310 at UBER INDIA on 22-Sep-2024.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-09-22",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m050",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 275.27 | PVR INOX | 25-Sep-2024 | IDFC FIRST Wealth Credit Card XX8814\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-09-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Wealth Credit Card ending 8814: purchase of INR 21,450.95 at NYKAA on 26-Sep-2024 02:20:45. Available limit INR 75,787.31.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-09-26",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Sep 2024",
+   "body": "Hi Divya,\nYour IDFC FIRST Wealth Credit Card ending 8814 e-statement for Sep 2024 is now available. Pay Rs.34,186.00 by 14-Oct-2024 to avoid late fees.",
+   "date": "2024-09-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "IndusInd Bank Credit Card ending 4609: purchase of INR 113.31 at SPOTIFY on 06-10-2024 22:22:16. Available limit INR 37,147.04.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-06",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Divya,\nPlease find attached the updated MITC for your IDFC FIRST Bank credit cards.\n\n",
+   "date": "2024-10-07",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "IndusInd Bank Credit Card Statement - Oct 2024",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card XX4609 statement for the period 08-Sep-2024 to 07-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-10-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202410.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nINR 7,449.88 spent on your IDFC FIRST Bank Credit Card XX8814 at BOOKMYSHOW on 08-Oct-2024 19:20:46. Available limit INR 7,649.99.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-10-08",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 8,328.05 was spent on your YES BANK Credit Card ending 3310 at PHONEPE on 08-Oct-2024.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-08",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your IndusInd Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2024-10-13",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "YES BANK Credit Card Statement - Oct 2024",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE Credit Card XX3310 statement for the period 18-Sep-2024 to 17-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-10-18",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Oct 2024",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card xx8814 statement for the period 27-Sep-2024 to 26-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-10-27",
+   "attachments": [
+    {
+     "filename": "IDFC_CC_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "IndusInd Bank Credit Card Statement - Nov 2024",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card ending 4609 statement for the period 08-Oct-2024 to 07-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-08",
+   "attachments": [
+    {
+     "filename": "IndusInd_CC_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Bank Credit Card xx8814: purchase of INR 1,290.40 at DMART on 09-Nov-2024 11:08:03. Available limit INR 1,89,590.30.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-09",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 2,229.26 was spent on your YES BANK Credit Card XX3310 at APOLLO PHARMACY on 10-Nov-2024.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-10",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Divya,\nYour order #462-3075513-8643417 is confirmed. Total Rs.11,060.79. Estimated delivery in 2 days.",
+   "date": "2024-11-11",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Wealth Credit Card XX8814: purchase of INR 180.53 at IRCTC on 12-Nov-2024 03:55:22. Available limit INR 28,194.37.",
+   "date": "2024-11-12",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,119.72 was spent on your YES BANK Credit Card xx3310 at AMAZON PAY INDIA on 12-Nov-2024.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-12",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Card alert | INR 21,847.18 | BPCL FUEL | 17-11-2024 | IndusInd Bank Iconia Credit Card xx4609\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-17",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "YES BANK Credit Card Statement - Nov 2024",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE Credit Card xx3310 statement for the period 18-Oct-2024 to 17-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-18",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 2,008.86 was spent on your IndusInd Bank Iconia Credit Card XX4609 at CROMA on 19-11-2024.",
+   "date": "2024-11-19",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Payment received on your YES BANK Credit Card",
+   "body": "Payment of INR 1,953.70 has been received towards your YES BANK ELITE Credit Card XX3310 on 26-Nov-2024. Thank you for the payment.",
+   "date": "2024-11-26",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Nov 2024",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card XX8814 statement for the period 27-Oct-2024 to 26-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-27",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "YES BANK ELITE Credit Card XX3310: purchase of INR 113.20 at MAKEMYTRIP on 06-Dec-2024 17:09:48. Available limit INR 2,566.19.",
+   "date": "2024-12-06",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m073",
+   "subject": "IndusInd Bank Credit Card Statement - Dec 2024",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card XX4609 statement for the period 08-Nov-2024 to 07-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-12-08",
+   "attachments": [
+    {
+     "filename": "4609_07122024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,183.26 spent on your YES BANK ELITE Credit Card ending 3310 at STARBUCKS on 11-Dec-2024 00:53:11.",
+   "date": "2024-12-11",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 232.23 | TATA POWER | 12-Dec-2024 | IDFC FIRST Wealth Credit Card ending 8814",
+   "date": "2024-12-12",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "YES BANK Credit Card Statement - Dec 2024",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE Credit Card XX3310 statement for the period 18-Nov-2024 to 17-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-12-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 185.08 spent on your IndusInd Bank Iconia Credit Card xx4609 at SWIGGY on 19-12-2024 17:24:31.",
+   "date": "2024-12-19",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Dec 2024",
+   "body": "Dear Divya,\nYour IDFC FIRST Wealth Credit Card XX8814 statement for Dec 2024 is ready. Total amount due Rs.8,513.81, minimum amount due Rs.425.69, payable by 13-Jan-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-12-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Payment received on your YES BANK Credit Card",
+   "body": "Payment confirmation: INR 101.72 posted to YES BANK Credit Card xx3310 on 28-Dec-2024.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-12-28",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "IndusInd Bank Credit Card Statement - Jan 2025",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card xx4609 statement for the period 08-Dec-2024 to 07-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-01-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202501.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 7,618.41 was spent on your IndusInd Bank Credit Card ending 4609 at MEDPLUS on 10-01-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-10",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "IndusInd Bank Iconia Credit Card XX4609: purchase of INR 151.83 at IRCTC on 12-01-2025 09:09:57. Available limit INR 3,389.68.\n\nOpt for e-statements and go green.",
+   "date": "2025-01-12",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "IndusInd Bank Iconia Credit Card XX4609: purchase of INR 765.20 at MYNTRA on 16-01-2025 21:40:03. Available limit INR 2,819.99.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-16",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 140.11 was spent on your YES BANK ELITE Credit Card ending 3310 at AIRTEL PREPAID on 16-Jan-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-16",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "YES BANK Credit Card Statement - Jan 2025",
+   "body": "Dear Divya,\nStatement generated for YES BANK ELITE Credit Card xx3310: amount payable Rs.443.97, last date 04-Feb-2025. Sign in to download.",
+   "date": "2025-01-18",
+   "attachments": [],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m086",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 550.02 was spent on your YES BANK ELITE Credit Card XX3310 at SODEXO on 21-Jan-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-21",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Your IDFC FIRST Bank Credit Card XX8814 was used for INR 568.61 at HPCL PETROL on 26-Jan-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-26",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Jan 2025",
+   "body": "Dear Divya,\nStatement generated for IDFC FIRST Wealth Credit Card XX8814: amount payable Rs.8,968.26, last date 13-Feb-2025. Sign in to download.",
+   "date": "2025-01-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 86.44 | INDIGO AIRLINES | 28-Jan-2025 | IDFC FIRST Bank Credit Card XX8814\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-01-28",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 484.93 spent on your YES BANK ELITE Credit Card xx3310 at MYNTRA on 02-Feb-2025 02:47:17.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-02",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m091",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 688059382760. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-02-03",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Divya,\nYour order #540-4655709-4223632 is confirmed. Total Rs.123.33. Estimated delivery in 2 days.",
+   "date": "2025-02-05",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 117.90 | AMAZON PAY INDIA | 06-Feb-2025 | IDFC FIRST Bank Credit Card ending 8814\n\nOpt for e-statements and go green.",
+   "date": "2025-02-06",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "IndusInd Bank Credit Card Statement - Feb 2025",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card ending 4609 statement for the period 08-Jan-2025 to 07-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-08",
+   "attachments": [
+    {
+     "filename": "IndusInd_Statement_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 1,511.96 | EASEMYTRIP | 10-Feb-2025 | IDFC FIRST Bank Credit Card XX8814\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 568.20 was spent on your IndusInd Bank Iconia Credit Card XX4609 at INDIAN OIL on 12-02-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-12",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "YES BANK Credit Card Statement - Feb 2025",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE Credit Card XX3310 statement for the period 18-Jan-2025 to 17-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-02-18",
+   "attachments": [
+    {
+     "filename": "3310_17022025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Card alert | INR 490.57 | LENSKART | 18-Feb-2025 | YES BANK Credit Card XX3310",
+   "date": "2025-02-18",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m099",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 5,515.69 was spent on your YES BANK ELITE Credit Card XX3310 at ZEPTO on 23-Feb-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-23",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Feb 2025",
+   "body": "Dear Divya,\nYour IDFC FIRST Wealth Credit Card xx8814 statement for Feb 2025 is ready. Total amount due Rs.12,923.11, minimum amount due Rs.646.16, payable by 16-Mar-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Bank Credit Card XX8814: purchase of INR 594.86 at UBER INDIA on 27-Feb-2025 05:41:29. Available limit INR 41,014.04.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-02-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Payment received on your IndusInd Bank Credit Card",
+   "body": "Thank you! We have credited INR 1,468.52 to your IndusInd Bank Credit Card ending 4609 on 28-02-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-28",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Card alert | INR 101.94 | IRCTC | 28-02-2025 | IndusInd Bank Credit Card XX4609\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-28",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 4,303.95 | ZEPTO | 02-Mar-2025 | IDFC FIRST Wealth Credit Card xx8814\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-02",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "YES BANK ELITE Credit Card XX3310: purchase of INR 19,503.73 at PVR INOX on 05-Mar-2025 05:39:11. Available limit INR 35,278.46.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-05",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nINR 8,972.96 spent on your IDFC FIRST Bank Credit Card XX8814 at TATA POWER on 06-Mar-2025 23:04:13. Available limit INR 3,067.93.\n\nOpt for e-statements and go green.",
+   "date": "2025-03-06",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "IndusInd Bank Credit Card Statement - Mar 2025",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card XX4609 statement for the period 08-Feb-2025 to 07-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-08",
+   "attachments": [
+    {
+     "filename": "4609_07032025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,030.33 spent on your IndusInd Bank Iconia Credit Card ending 4609 at SPOTIFY on 10-03-2025 05:14:11.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-03-10",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 460.82 spent on your IndusInd Bank Iconia Credit Card xx4609 at RELIANCE DIGITAL on 12-03-2025 03:44:11.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-12",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "YES BANK Credit Card Statement - Mar 2025",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE Credit Card ending 3310 statement for the period 18-Feb-2025 to 17-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-18",
+   "attachments": [
+    {
+     "filename": "3310_17032025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m111",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 4,783.45 was spent on your YES BANK Credit Card XX3310 at TATA PLAY on 25-Mar-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-25",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Mar 2025",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card ending 8814 statement for the period 27-Feb-2025 to 26-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-27",
+   "attachments": [
+    {
+     "filename": "IDFC_CC_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 143.23 was spent on your IndusInd Bank Credit Card XX4609 at DOMINOS on 27-03-2025.",
+   "date": "2025-03-27",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "IndusInd Bank Credit Card XX4609: purchase of INR 2,861.20 at GOOGLE PLAY on 28-03-2025 18:30:37. Available limit INR 1,06,955.53.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-28",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "IndusInd Bank Credit Card Statement - Apr 2025",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card xx4609 statement for the period 08-Mar-2025 to 07-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-04-08",
+   "attachments": [
+    {
+     "filename": "4609_07042025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your YES BANK relationship. Visit a branch or use the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-13",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 94.02 spent on your YES BANK Credit Card XX3310 at SODEXO on 15-Apr-2025 09:54:58.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-04-15",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nINR 1,577.13 spent on your IDFC FIRST Wealth Credit Card xx8814 at PVR INOX on 17-Apr-2025 03:56:26. Available limit INR 20,063.81.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-17",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "YES BANK Credit Card Statement - Apr 2025",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE Credit Card XX3310 statement for the period 18-Mar-2025 to 17-Apr-2025. Total amount due Rs.27,133.71, due 03-May-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202504.pdf",
+     "protected": false,
+     "pdfText": "YES BANK Credit Card Statement\nDIVYA IYER\nFLAT 508, SUNRISE APARTMENTS\n12TH CROSS, ADYAR\nAHMEDABAD - 619046\nCard Name: YES BANK ELITE Credit Card\nCredit Card Number: 459950XXXXXX3310\nStatement Period: 18/03/25 - 17/04/25\nStatement Date: 17/04/25\nPayment Summary\nTotal Amount Due: Rs.27,133.71\nMinimum Amount Due: Rs.1,356.69\nPayment Due Date: 03/05/25\nAccount Summary\nCredit Limit: Rs.2,20,000.00\nAvailable Credit Limit: Rs.2,13,320.32\nAvailable Cash Limit: Rs.44,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n22/03/25 DOMINOS GURUGRAM 158.30 Dr\n28/03/25 RELIANCE DIGITAL PUNE 462.72 Dr\n07/04/25 TATA PLAY MUMBAI 16,717.86 Dr\n09/04/25 LENSKART MUMBAI 4,118.53 Dr\n10/04/25 CROMA JAIPUR 5,506.74 Dr\n13/04/25 AMAZON PAY INDIA MUMBAI 169.56 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m120",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your YES BANK relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-22",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m121",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nINR 415.59 spent on your IDFC FIRST Bank Credit Card xx8814 at INDIAN OIL on 25-Apr-2025 08:40:32. Available limit INR 7,005.67.",
+   "date": "2025-04-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Apr 2025",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card XX8814 statement for the period 27-Mar-2025 to 26-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-04-27",
+   "attachments": [
+    {
+     "filename": "eStatement_202504.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Wealth Credit Card XX8814: purchase of INR 4,043.51 at HPCL PETROL on 27-Apr-2025 01:03:38. Available limit INR 42,110.48.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your IndusInd Bank relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-29",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 223.02 was spent on your YES BANK Credit Card xx3310 at NYKAA on 01-May-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-01",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "IndusInd Bank festive offers",
+   "body": "Dear Divya,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-05",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Card alert | INR 86.82 | HPCL PETROL | 06-05-2025 | IndusInd Bank Iconia Credit Card XX4609\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-06",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "IndusInd Bank Credit Card Statement - May 2025",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card XX4609 statement for the period 08-Apr-2025 to 07-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Bank Credit Card XX8814: purchase of INR 378.05 at DMART on 17-May-2025 11:27:25. Available limit INR 7,981.58.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "YES BANK Credit Card Statement - May 2025",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE Credit Card XX3310 statement for the period 18-Apr-2025 to 17-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m131",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 1,047.68 | BLINKIT | 23-May-2025 | IDFC FIRST Wealth Credit Card XX8814\n\nOpt for e-statements and go green.",
+   "date": "2025-05-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Card alert | INR 1,889.36 | MCDONALDS | 23-05-2025 | IndusInd Bank Credit Card ending 4609",
+   "date": "2025-05-23",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - May 2025",
+   "body": "Hi Divya,\nYour IDFC FIRST Wealth Credit Card xx8814 e-statement for May 2025 is now available. Pay Rs.22,967.03 by 13-Jun-2025 to avoid late fees.",
+   "date": "2025-05-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 315.29 | BESCOM | 28-May-2025 | IDFC FIRST Bank Credit Card xx8814\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-28",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Payment received on your IndusInd Bank Credit Card",
+   "body": "Payment confirmation: INR 107.58 posted to IndusInd Bank Iconia Credit Card xx4609 on 29-05-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-29",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Card alert | INR 1,365.32 | DMART | 30-May-2025 | YES BANK ELITE Credit Card XX3310\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-30",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m137",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Wealth Credit Card XX8814: purchase of INR 4,573.03 at NETFLIX on 01-Jun-2025 05:38:59. Available limit INR 23,408.26.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-01",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Card alert | INR 1,467.45 | HPCL PETROL | 01-Jun-2025 | YES BANK Credit Card xx3310\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-06-01",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m139",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 86.19 spent on your YES BANK Credit Card xx3310 at STARBUCKS on 02-Jun-2025 23:27:24.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-06-02",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Divya,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m141",
+   "subject": "IndusInd Bank Credit Card Statement - Jun 2025",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card xx4609 statement for the period 08-May-2025 to 07-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-08",
+   "attachments": [
+    {
+     "filename": "IndusInd_CC_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Payment received on your IndusInd Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 12,417.00 on 13-06-2025 for your IndusInd Bank Iconia Credit Card XX4609. Available credit limit has been updated.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-06-13",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 302.26 | ZOMATO | 14-Jun-2025 | IDFC FIRST Wealth Credit Card XX8814",
+   "date": "2025-06-14",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 20,596.55 spent on your YES BANK Credit Card XX3310 at STARBUCKS on 14-Jun-2025 05:17:11.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-14",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m145",
+   "subject": "Update: your YES BANK Credit Card has a new name",
+   "body": "Dear Divya Iyer,\nYour YES BANK ELITE Credit Card XX3310 is now the YES BANK ELITE+ Credit Card. Your card number, limit and dues are unchanged; the card continues to work as before. New benefits are effective from 18-Jun-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-18",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m146",
+   "subject": "YES BANK Credit Card Statement - Jun 2025",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE Credit Card XX3310 statement for the period 18-May-2025 to 17-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-18",
+   "attachments": [
+    {
+     "filename": "3310_17062025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m147",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 107.15 spent on your IndusInd Bank Credit Card xx4609 at FLIPKART on 19-06-2025 22:30:33.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-19",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "YES BANK Credit Card XX3310: purchase of INR 10,052.60 at CROMA on 19-Jun-2025 19:40:19. Available limit INR 72,757.79.",
+   "date": "2025-06-19",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m149",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "IndusInd Bank Iconia Credit Card xx4609: purchase of INR 8,789.39 at DMART on 20-06-2025 03:57:48. Available limit INR 3,480.02.",
+   "date": "2025-06-20",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Card alert | INR 1,963.25 | LENSKART | 22-06-2025 | IndusInd Bank Credit Card XX4609\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-22",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Earn more with your card",
+   "body": "Dear Divya,\nUse your card on UPI and earn extra rewards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-26",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Jun 2025",
+   "body": "Hi Divya,\nYour IDFC FIRST Wealth Credit Card ending 8814 e-statement for Jun 2025 is now available. Pay Rs.442.57 by 14-Jul-2025 to avoid late fees.",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Payment received: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 7,713.32 on 29-Jun-2025 for your IDFC FIRST Wealth Credit Card XX8814. Available credit limit has been updated.",
+   "date": "2025-06-29",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 441951954339. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-06-29",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "IndusInd Bank Credit Card ending 4609: purchase of INR 716.08 at PVR INOX on 30-06-2025 14:29:59. Available limit INR 12,375.06.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-30",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 130.42 was spent on your YES BANK ELITE+ Credit Card ending 3310 at STARBUCKS on 01-Jul-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m157",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 142.56 spent on your IndusInd Bank Credit Card ending 4609 at PHONEPE on 02-07-2025 08:53:06.",
+   "date": "2025-07-02",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "IndusInd Bank Credit Card Statement - Jul 2025",
+   "body": "Dear Divya,\nStatement generated for IndusInd Bank Iconia Credit Card XX4609: amount payable Rs.1,698.57, last date 25-Jul-2025. Sign in to download.",
+   "date": "2025-07-08",
+   "attachments": [],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "YES BANK Credit Card Statement - Jul 2025",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE+ Credit Card XX3310 statement for the period 18-Jun-2025 to 17-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-18",
+   "attachments": [
+    {
+     "filename": "3310_17072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m160",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 4,021.79 was spent on your IndusInd Bank Iconia Credit Card ending 4609 at PHONEPE on 20-07-2025.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-20",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Your IDFC FIRST Wealth Credit Card ending 8814 was used for INR 1,317.80 at EAZYDINER on 23-Jul-2025.",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 597.06 was spent on your YES BANK Credit Card ending 3310 at ZEPTO on 23-Jul-2025.",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m163",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Wealth Credit Card XX8814: purchase of INR 14,777.01 at ZEPTO on 25-Jul-2025 15:34:03. Available limit INR 42,996.64.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Jul 2025",
+   "body": "Dear Divya,\nYour IDFC FIRST Wealth Credit Card ending 8814 statement for Jul 2025 is ready. Total amount due Rs.708.94, minimum amount due Rs.200.00, payable by 13-Aug-2025.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your IndusInd Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-07-31",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Your credit limit has been increased",
+   "body": "Dear Divya Iyer,\nWe have revised the limit on your IDFC FIRST Wealth Credit Card ending 8814. Your new credit limit is Rs.7,00,000.00 from 02-Aug-2025.",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your IDFC FIRST Bank relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 8,964.53 spent on your IndusInd Bank Iconia Credit Card ending 4609 at EAZYDINER on 04-08-2025 18:36:55.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-04",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "IndusInd Bank Credit Card Statement - Aug 2025",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card XX4609 statement for the period 08-Jul-2025 to 07-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-08-08",
+   "attachments": [
+    {
+     "filename": "IndusInd_CC_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Wealth Credit Card XX8814: purchase of INR 20,270.96 at PVR INOX on 08-Aug-2025 12:15:37. Available limit INR 30,451.16.",
+   "date": "2025-08-08",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 698.20 spent on your YES BANK Credit Card XX3310 at OLA CABS on 09-Aug-2025 12:11:11.",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m172",
+   "subject": "YES BANK Credit Card Statement - Aug 2025",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE+ Credit Card XX3310 statement for the period 18-Jul-2025 to 17-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202508.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m173",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Divya,\nConvert big spends to EMI at low interest.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Divya,\nConvert big spends to EMI at low interest.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "IndusInd Bank Iconia Credit Card xx4609: purchase of INR 6,011.91 at BATA INDIA on 21-08-2025 12:18:22. Available limit INR 86,701.36.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-21",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Aug 2025",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card XX8814 statement for the period 27-Jul-2025 to 26-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-08-27",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Divya,\nConvert big spends to EMI at low interest.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-31",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your YES BANK relationship. Visit a branch or use the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m179",
+   "subject": "IndusInd Bank Credit Card Statement - Sep 2025",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card ending 4609 statement for the period 08-Aug-2025 to 07-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-08",
+   "attachments": [
+    {
+     "filename": "IndusInd_CC_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "YES BANK Credit Card xx3310: purchase of INR 1,963.26 at ZOMATO on 15-Sep-2025 15:36:27. Available limit INR 2,329.70.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-15",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m181",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Card alert | INR 93.56 | PAYTM | 17-Sep-2025 | YES BANK Credit Card XX3310\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m182",
+   "subject": "YES BANK Credit Card Statement - Sep 2025",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE+ Credit Card xx3310 statement for the period 18-Aug-2025 to 17-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-18",
+   "attachments": [
+    {
+     "filename": "YES_CC_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m183",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Card alert | INR 435.14 | IRCTC | 19-09-2025 | IndusInd Bank Iconia Credit Card xx4609",
+   "date": "2025-09-19",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 11,073.78 spent on your YES BANK ELITE+ Credit Card XX3310 at GOOGLE PLAY on 20-Sep-2025 23:41:16.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-09-20",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m185",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Wealth Credit Card XX8814: purchase of INR 3,913.90 at BIG BAZAAR on 23-Sep-2025 13:51:28. Available limit INR 16,187.48.",
+   "date": "2025-09-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Sep 2025",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card xx8814 statement for the period 27-Aug-2025 to 26-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-27",
+   "attachments": [
+    {
+     "filename": "eStatement_202509.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 19,727.44 spent on your YES BANK ELITE+ Credit Card xx3310 at DOMINOS on 27-Sep-2025 11:50:19.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m188",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "YES BANK Credit Card ending 3310: purchase of INR 10,027.53 at BPCL FUEL on 29-Sep-2025 11:21:59. Available limit INR 1,90,260.17.",
+   "date": "2025-09-29",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m189",
+   "subject": "Payment received on your IndusInd Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 1,310.67 on 06-10-2025 for your IndusInd Bank Credit Card xx4609. Available credit limit has been updated.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "IndusInd Bank Credit Card Statement - Oct 2025",
+   "body": "Dear Divya,\nStatement generated for IndusInd Bank Iconia Credit Card xx4609: amount payable Rs.9,720.61, last date 25-Oct-2025. Sign in to download.",
+   "date": "2025-10-08",
+   "attachments": [],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "YES BANK Credit Card Statement - Oct 2025",
+   "body": "Dear Divya,\nStatement generated for YES BANK ELITE+ Credit Card xx3310: amount payable Rs.12,781.39, last date 04-Nov-2025. Sign in to download.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m192",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Card alert | INR 12,999.97 | APOLLO PHARMACY | 20-10-2025 | IndusInd Bank Iconia Credit Card ending 4609\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your YES BANK relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m194",
+   "subject": "Payment received: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 11,638.77 on 24-Oct-2025 for your IDFC FIRST Wealth Credit Card XX8814. Available credit limit has been updated.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Oct 2025",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card XX8814 statement for the period 27-Sep-2025 to 26-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-10-27",
+   "attachments": [
+    {
+     "filename": "eStatement_202510.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "IndusInd Bank Credit Card transaction alert",
+   "body": "Card alert | INR 381.33 | APPLE SERVICES | 27-10-2025 | IndusInd Bank Iconia Credit Card XX4609\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 23,946.31 was spent on your YES BANK Credit Card xx3310 at GOOGLE PLAY on 27-Oct-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m198",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 412.12 was spent on your YES BANK ELITE+ Credit Card ending 3310 at SWIGGY on 01-Nov-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m199",
+   "subject": "IndusInd Bank Credit Card Statement - Nov 2025",
+   "body": "Dear Divya,\nPlease find attached your IndusInd Bank Iconia Credit Card XX4609 statement for the period 02-Oct-2025 to 01-Nov-2025. Total amount due Rs.9,328.69, due 17-Nov-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-02",
+   "attachments": [
+    {
+     "filename": "4609_01112025_stmt.pdf",
+     "protected": false,
+     "pdfText": "IndusInd Bank Credit Card Statement\nDIVYA IYER\nFLAT 215, GREEN VALLEY APARTMENTS\n9TH CROSS, KOTHRUD\nMUMBAI - 435401\nCard Name: IndusInd Bank Iconia Credit Card\nCredit Card Number: 415299XXXXXX4609\nStatement Period: 02/10/25 - 01/11/25\nStatement Date: 01/11/25\nPayment Summary\nTotal Amount Due: Rs.9,328.69\nMinimum Amount Due: Rs.466.43\nPayment Due Date: 17/11/25\nAccount Summary\nCredit Limit: Rs.5,25,000.00\nAvailable Limit: Rs.5,19,123.92\nAvailable Cash Limit: Rs.1,05,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n02/10/25 MEDPLUS PUNE 404.86 Dr\n04/10/25 TATA PLAY PUNE 3,224.00 Dr\n09/10/25 STARBUCKS KOLKATA 2,744.49 Dr\n12/10/25 MAKEMYTRIP CHENNAI 150.58 Dr\n21/10/25 AIRTEL PREPAID PUNE 117.64 Dr\n25/10/25 MYNTRA MUMBAI 268.68 Dr\n26/10/25 IXIGO CHENNAI 1,271.55 Dr\n27/10/25 LENSKART HYDERABAD 1,146.89 Dr\n\nCard Status: CLOSED as on 01-Nov-2025\nYour IndusInd Bank Iconia Credit Card has been closed. Closing balance Rs.0.00. No further statements will be generated.\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "IndusInd Bank <eStatement@indusind.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Divya,\nYour order #891-2185975-7553007 is confirmed. Total Rs.319.13. Estimated delivery in 2 days.",
+   "date": "2025-11-03",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m201",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nINR 424.65 spent on your IDFC FIRST Wealth Credit Card ending 8814 at BESCOM on 05-Nov-2025 03:40:18. Available limit INR 1,89,186.27.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nINR 2,074.26 spent on your IDFC FIRST Bank Credit Card ending 8814 at ZOMATO on 06-Nov-2025 14:08:39. Available limit INR 22,687.67.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 12,463.98 | DECATHLON | 06-Nov-2025 | IDFC FIRST Bank Credit Card XX8814\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "YES BANK Credit Card Statement - Nov 2025",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE+ Credit Card xx3310 statement for the period 18-Oct-2025 to 17-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-11-18",
+   "attachments": [
+    {
+     "filename": "YES_CC_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m205",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "YES BANK ELITE+ Credit Card XX3310: purchase of INR 121.65 at AIRTEL PREPAID on 18-Nov-2025 08:11:33. Available limit INR 3,705.07.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m206",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 136.49 was spent on your YES BANK Credit Card xx3310 at DMART on 19-Nov-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m207",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Nov 2025",
+   "body": "Hi Divya,\nYour IDFC FIRST Wealth Credit Card XX8814 e-statement for Nov 2025 is now available. Pay Rs.772.35 by 14-Dec-2025 to avoid late fees.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "YES BANK Credit Card xx3310: purchase of INR 679.70 at BOOKMYSHOW on 29-Nov-2025 06:41:58. Available limit INR 22,052.57.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-29",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m209",
+   "subject": "Payment received: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 1,896.87 on 03-Dec-2025 for your IDFC FIRST Bank Credit Card ending 8814. Available credit limit has been updated.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Divya,\nYour order #835-7941641-8287735 is confirmed. Total Rs.337.55. Estimated delivery in 2 days.",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m211",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nINR 141.11 spent on your IDFC FIRST Wealth Credit Card xx8814 at BPCL FUEL on 16-Dec-2025 22:42:01. Available limit INR 6,185.16.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-16",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "YES BANK Credit Card Statement - Dec 2025",
+   "body": "Hi Divya,\nYour YES BANK ELITE+ Credit Card XX3310 e-statement for Dec 2025 is now available. Pay Rs.1,854.70 by 04-Jan-2026 to avoid late fees.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m213",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Divya,\nYour order #255-1728735-5845115 is confirmed. Total Rs.193.60. Estimated delivery in 2 days.",
+   "date": "2025-12-26",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Dec 2025",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card XX8814 statement for the period 27-Nov-2025 to 26-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-27",
+   "attachments": [
+    {
+     "filename": "8814_26122025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Divya,\nYour order #411-2907560-8897665 is confirmed. Total Rs.1,159.36. Estimated delivery in 2 days.",
+   "date": "2025-12-31",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Your IDFC FIRST Wealth Credit Card xx8814 was used for INR 640.51 at MEDPLUS on 05-Jan-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "YES BANK Credit Card Statement - Jan 2026",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE+ Credit Card XX3310 statement for the period 18-Dec-2025 to 17-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202601.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m218",
+   "subject": "Payment successful",
+   "body": "Hi Divya,\nYou paid Rs.16,710.73 to HDFC Bank Credit Card ending 6897 (of Vikram Iyer) on 18-Jan-2026. Ref 4373371634.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m219",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nINR 12,895.08 spent on your IDFC FIRST Wealth Credit Card XX8814 at PHONEPE on 25-Jan-2026 00:05:53. Available limit INR 8,661.03.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Jan 2026",
+   "body": "Dear Divya,\nStatement generated for IDFC FIRST Wealth Credit Card XX8814: amount payable Rs.14,162.41, last date 13-Feb-2026. Sign in to download.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Your IDFC FIRST Wealth Credit Card xx8814 was used for INR 238.91 at APPLE SERVICES on 30-Jan-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-30",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Wealth Credit Card ending 8814: purchase of INR 1,010.41 at CROMA on 08-Feb-2026 10:01:27. Available limit INR 1,32,972.85.",
+   "date": "2026-02-08",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 588.19 | NETFLIX | 17-Feb-2026 | IDFC FIRST Wealth Credit Card XX8814\n\nOpt for e-statements and go green.",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "YES BANK Credit Card Statement - Feb 2026",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE+ Credit Card XX3310 statement for the period 18-Jan-2026 to 17-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-02-18",
+   "attachments": [
+    {
+     "filename": "YES_CC_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m225",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Feb 2026",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card ending 8814 statement for the period 27-Jan-2026 to 26-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-27",
+   "attachments": [
+    {
+     "filename": "IDFC_CC_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nINR 384.21 spent on your IDFC FIRST Wealth Credit Card ending 8814 at BATA INDIA on 06-Mar-2026 09:49:09. Available limit INR 1,05,560.63.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 5,298.41 | GOOGLE PLAY | 07-Mar-2026 | IDFC FIRST Bank Credit Card xx8814\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 468.31 spent on your YES BANK Credit Card ending 3310 at MCDONALDS on 09-Mar-2026 07:24:33.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m229",
+   "subject": "YES BANK Credit Card Statement - Mar 2026",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE+ Credit Card ending 3310 statement for the period 18-Feb-2026 to 17-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-18",
+   "attachments": [
+    {
+     "filename": "YES_CC_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m230",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nINR 680.74 spent on your IDFC FIRST Wealth Credit Card XX8814 at PAYTM on 26-Mar-2026 03:15:28. Available limit INR 1,21,606.25.",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Mar 2026",
+   "body": "Dear Divya,\nYour IDFC FIRST Wealth Credit Card XX8814 statement for Mar 2026 is ready. Total amount due Rs.23,649.48, minimum amount due Rs.1,182.47, payable by 13-Apr-2026.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 4,522.80 spent on your YES BANK ELITE+ Credit Card ending 3310 at APPLE SERVICES on 29-Mar-2026 07:12:12.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m233",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,164.42 spent on your YES BANK Credit Card ending 3310 at SODEXO on 01-Apr-2026 13:38:47.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m234",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,023.35 was spent on your YES BANK ELITE+ Credit Card XX3310 at BIG BAZAAR on 02-Apr-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m235",
+   "subject": "YES BANK Credit Card Statement - Apr 2026",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE+ Credit Card XX3310 statement for the period 18-Mar-2026 to 17-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-04-18",
+   "attachments": [
+    {
+     "filename": "YES_CC_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m236",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "YES BANK ELITE+ Credit Card XX3310: purchase of INR 9,921.23 at URBAN COMPANY on 23-Apr-2026 10:39:22. Available limit INR 8,189.81.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m237",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 114.50 was spent on your YES BANK Credit Card xx3310 at BLINKIT on 23-Apr-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m238",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nINR 5,394.88 spent on your IDFC FIRST Wealth Credit Card xx8814 at PVR INOX on 26-Apr-2026 21:46:44. Available limit INR 7,808.82.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Apr 2026",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card xx8814 statement for the period 27-Mar-2026 to 26-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-04-27",
+   "attachments": [
+    {
+     "filename": "8814_26042026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Payment received on your YES BANK Credit Card",
+   "body": "Thank you! We have credited INR 570.94 to your YES BANK Credit Card xx3310 on 03-May-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m241",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Divya,\nYour order #609-6764593-6599982 is confirmed. Total Rs.3,877.02. Estimated delivery in 2 days.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m242",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 191.77 was spent on your YES BANK Credit Card ending 3310 at ZEPTO on 07-May-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m243",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Dear Customer,\nINR 2,331.52 spent on your IDFC FIRST Bank Credit Card XX8814 at HPCL PETROL on 12-May-2026 16:14:00. Available limit INR 1,94,650.66.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "YES BANK Credit Card Statement - May 2026",
+   "body": "Dear Divya,\nYour YES BANK ELITE+ Credit Card xx3310 statement for May 2026 is ready. Total amount due Rs.466.38, minimum amount due Rs.200.00, payable by 04-Jun-2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m245",
+   "subject": "Payment received on your YES BANK Credit Card",
+   "body": "Thank you! We have credited INR 222.87 to your YES BANK Credit Card XX3310 on 21-May-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m246",
+   "subject": "Payment received on your YES BANK Credit Card",
+   "body": "Thank you! We have credited INR 5,472.39 to your YES BANK Credit Card ending 3310 on 26-May-2026.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m247",
+   "subject": "Payment received on your YES BANK Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 1,484.08 on 26-May-2026 for your YES BANK Credit Card ending 3310. Available credit limit has been updated.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m248",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - May 2026",
+   "body": "Dear Divya,\nYour IDFC FIRST Wealth Credit Card XX8814 statement for May 2026 is ready. Total amount due Rs.16,051.88, minimum amount due Rs.802.59, payable by 13-Jun-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 394.26 spent on your YES BANK Credit Card XX3310 at NETFLIX on 02-Jun-2026 07:47:28.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-02",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m250",
+   "subject": "OTP for your transaction",
+   "body": "856112 is the OTP for your transaction of Rs.6,998.33 at IKEA. Valid for 10 minutes. Do not share.",
+   "date": "2026-06-06",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your IndusInd Bank relationship. Visit a branch or use the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "IndusInd Bank <credit.cards@indusind.com>"
+  },
+  {
+   "id": "m252",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX7296 has been updated on 02-Aug-2025. If not requested by you, call customer care.",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m253",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Wealth Credit Card XX8814: purchase of INR 1,054.26 at AMAZON PAY INDIA on 16-Jun-2026 17:59:58. Available limit INR 4,664.59.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m254",
+   "subject": "YES BANK Credit Card Statement - Jun 2026",
+   "body": "Dear Divya,\nStatement generated for YES BANK ELITE+ Credit Card XX3310: amount payable Rs.3,975.21, last date 05-Jul-2026. Sign in to download.",
+   "date": "2026-06-18",
+   "attachments": [],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m255",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 2,572.43 | LENSKART | 22-Jun-2026 | IDFC FIRST Wealth Credit Card xx8814\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-22",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m256",
+   "subject": "Payment received on your YES BANK Credit Card",
+   "body": "Payment confirmation: INR 16,884.52 posted to YES BANK ELITE+ Credit Card ending 3310 on 22-Jun-2026.",
+   "date": "2026-06-22",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m257",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Jun 2026",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card ending 8814 statement for the period 27-May-2026 to 26-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-27",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m258",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Bank Credit Card XX8814: purchase of INR 498.86 at BIG BAZAAR on 29-Jun-2026 05:21:26. Available limit INR 1,52,079.12.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-29",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m259",
+   "subject": "Payment received: IDFC FIRST Bank Credit Card",
+   "body": "Payment of INR 1,993.20 has been received towards your IDFC FIRST Bank Credit Card XX8814 on 09-Jul-2026. Thank you for the payment.",
+   "date": "2026-07-09",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m260",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 88.66 | FLIPKART | 13-Jul-2026 | IDFC FIRST Bank Credit Card ending 8814\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m261",
+   "subject": "YES BANK Credit Card Statement - Jul 2026",
+   "body": "Hi Divya,\nYour YES BANK ELITE+ Credit Card xx3310 e-statement for Jul 2026 is now available. Pay Rs.4,267.43 by 04-Aug-2026 to avoid late fees.",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m262",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Card alert | INR 783.20 | MAKEMYTRIP | 19-Jul-2026 | YES BANK Credit Card ending 3310\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m263",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Jul 2026",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card XX8814 statement for the period 27-Jun-2026 to 26-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-27",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m264",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Your IDFC FIRST Bank Credit Card ending 8814 was used for INR 218.05 at DOMINOS on 28-Jul-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m265",
+   "subject": "OTP for your transaction",
+   "body": "600084 is the OTP for your transaction of Rs.304.96 at DECATHLON. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m266",
+   "subject": "YES BANK Credit Card Statement - Aug 2026",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE+ Credit Card ending 3310 statement for the period 18-Jul-2026 to 17-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-18",
+   "attachments": [
+    {
+     "filename": "3310_17082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m267",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Wealth Credit Card XX8814: purchase of INR 1,113.48 at BPCL FUEL on 23-Aug-2026 12:33:08. Available limit INR 2,786.73.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m268",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 483.90 was spent on your YES BANK Credit Card ending 3310 at OLA CABS on 24-Aug-2026.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m269",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Aug 2026",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card XX8814 statement for the period 27-Jul-2026 to 26-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-27",
+   "attachments": [
+    {
+     "filename": "IDFC_CC_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m270",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 2,260.43 | BIGBASKET | 13-Sep-2026 | IDFC FIRST Bank Credit Card ending 8814\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m271",
+   "subject": "YES BANK Credit Card Statement - Sep 2026",
+   "body": "Hi Divya,\nYour YES BANK ELITE+ Credit Card ending 3310 e-statement for Sep 2026 is now available. Pay Rs.7,240.21 by 05-Oct-2026 to avoid late fees.",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m272",
+   "subject": "Payment received: IDFC FIRST Bank Credit Card",
+   "body": "Payment confirmation: INR 12,181.87 posted to IDFC FIRST Bank Credit Card XX8814 on 19-Sep-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m273",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "YES BANK ELITE+ Credit Card xx3310: purchase of INR 2,449.57 at MYNTRA on 20-Sep-2026 15:51:04. Available limit INR 41,324.62.",
+   "date": "2026-09-20",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m274",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "YES BANK Credit Card XX3310: purchase of INR 262.48 at BIGBASKET on 21-Sep-2026 18:12:29. Available limit INR 14,319.36.",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m275",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "IDFC FIRST Bank Credit Card XX8814: purchase of INR 85.02 at URBAN COMPANY on 24-Sep-2026 22:06:04. Available limit INR 1,81,118.98.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m276",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Sep 2026",
+   "body": "Dear Divya,\nYour IDFC FIRST Wealth Credit Card XX8814 statement for Sep 2026 is ready. Total amount due Rs.12,360.88, minimum amount due Rs.618.04, payable by 14-Oct-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m277",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Your IDFC FIRST Wealth Credit Card XX8814 was used for INR 1,999.01 at APPLE SERVICES on 07-Oct-2026.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m278",
+   "subject": "Transaction alert: IDFC FIRST Bank Credit Card",
+   "body": "Card alert | INR 3,707.13 | SWIGGY | 09-Oct-2026 | IDFC FIRST Bank Credit Card XX8814\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m279",
+   "subject": "YES BANK Credit Card transaction alert",
+   "body": "YES BANK Credit Card XX3310: purchase of INR 289.40 at HPCL PETROL on 17-Oct-2026 02:31:13. Available limit INR 35,411.32.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m280",
+   "subject": "YES BANK Credit Card Statement - Oct 2026",
+   "body": "Dear Divya,\nPlease find attached your YES BANK ELITE+ Credit Card XX3310 statement for the period 18-Sep-2026 to 17-Oct-2026. Total amount due Rs.27,952.49, due 05-Nov-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-18",
+   "attachments": [
+    {
+     "filename": "YES_CC_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "YES BANK Credit Card Statement\nDIVYA IYER\nFLAT 107, LAKESHORE APARTMENTS\n28TH CROSS, ADYAR\nJAIPUR - 454936\nCard Name: YES BANK ELITE+ Credit Card\nCredit Card Number: 459950XXXXXX3310\nStatement Period: 18/09/26 - 17/10/26\nStatement Date: 17/10/26\nPayment Summary\nTotal Amount Due: Rs.27,952.49\nMinimum Amount Due: Rs.1,397.62\nPayment Due Date: 05/11/26\nAccount Summary\nCredit Limit: Rs.2,20,000.00\nAvailable Credit Limit: Rs.1,94,792.69\nAvailable Cash Limit: Rs.44,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n18/09/26 MCDONALDS KOCHI 4,108.83 Dr\n19/09/26 NYKAA AHMEDABAD 3,557.57 Dr\n20/09/26 LENSKART JAIPUR 1,714.27 Dr\n30/09/26 SPOTIFY HYDERABAD 104.11 Dr\n02/10/26 BESCOM CHENNAI 377.57 Dr\n02/10/26 ZEPTO CHENNAI 13,621.66 Dr\n07/10/26 TATA POWER CHENNAI 3,518.83 Dr\n10/10/26 PVR INOX KOLKATA 176.51 Dr\n11/10/26 BATA INDIA MUMBAI 526.49 Dr\n13/10/26 AIRTEL PREPAID HYDERABAD 132.57 Dr\n13/10/26 AMAZON PAY INDIA JAIPUR 114.08 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "YES BANK <estatement@yesbank.in>"
+  },
+  {
+   "id": "m281",
+   "subject": "Your IDFC FIRST Bank Credit Card Statement - Oct 2026",
+   "body": "Dear Divya,\nPlease find attached your IDFC FIRST Wealth Credit Card XX8814 statement for the period 27-Sep-2026 to 26-Oct-2026. Total amount due Rs.14,928.57, due 10-Nov-2026.\n\n",
+   "date": "2026-10-27",
+   "attachments": [
+    {
+     "filename": "8814_26102026_stmt.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST Bank Credit Card Statement\nDIVYA IYER\nFLAT 840, LAKESHORE APARTMENTS\n15TH CROSS, KOTHRUD\nJAIPUR - 474931\nCard Name: IDFC FIRST Wealth Credit Card\nCredit Card Number: 499691XXXXXX8814\nStatement Period: 27/09/26 - 26/10/26\nStatement Date: 26/10/26\nPayment Summary\nTotal Amount Due: Rs.14,928.57\nMinimum Amount Due: Rs.746.43\nPayment Due Date: 10/11/26\nAccount Summary\nCredit Limit: Rs.7,00,000.00\nAvailable Credit Limit: Rs.6,96,015.48\nCash Limit: Rs.1,40,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n27/09/26 SODEXO JAIPUR 165.91 Dr\n28/09/26 MEDPLUS GURUGRAM 261.01 Dr\n07/10/26 BIG BAZAAR HYDERABAD 323.83 Dr\n07/10/26 INDIGO AIRLINES BENGALURU 1,598.64 Dr\n11/10/26 SODEXO KOCHI 303.27 Dr\n20/10/26 UBER INDIA PUNE 694.32 Dr\n21/10/26 NETFLIX PUNE 9,947.16 Dr\n22/10/26 HPCL PETROL KOLKATA 1,634.43 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "8814",
+    "kind": "CREDIT_CARD",
+    "variant": "Wealth",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "5-10L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "4609",
+    "kind": "CREDIT_CARD",
+    "variant": "Iconia",
+    "lifecycle": "CLOSED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "5-10L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "yesbank.in",
+    "last4": "3310",
+    "kind": "CREDIT_CARD",
+    "variant": "Elite+",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "6050",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "yesbank.in",
+    "last4": "7296",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "7448",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "4339",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "yesbank.in",
+    "last4": "2760",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "6897",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

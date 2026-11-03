@@ -1,0 +1,1420 @@
+{
+ "mailbox": "bobcard-eterna-snapdeal",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,065.49 spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 at SNAPDEAL on 07-05-2025 06:20:51.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-07",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - May 2025",
+   "body": "Dear Nikhil,\nYour Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for May 2025 is ready. Total amount due Rs.589.99, minimum amount due Rs.200.00, payable by 28-May-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-11",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - May 2025",
+   "body": "Dear Nikhil,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for the period 17-Apr-2025 to 16-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-17",
+   "attachments": [
+    {
+     "filename": "BOBCARD_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Nikhil,\nConvert big spends to EMI at low interest.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-24",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 5,235.80 was spent on your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 at NYKAA on 26-05-2025.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-26",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Punjab National Bank Account Statement - Jun 2025",
+   "body": "Dear Nikhil,\nYour Punjab National Bank xx1121 account statement for Jun 2025 is ready. Closing balance Rs.419.35.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.2,373.00 has been transferred from your A/c XX1121 to Mohan Landlord A/c XX9308 (IDBI Bank) via IMPS on 09-06-2025. Ref no 303215114545.",
+   "date": "2025-06-09",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Jun 2025",
+   "body": "Dear Nikhil,\nYour Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for Jun 2025 is ready. Total amount due Rs.466.82, minimum amount due Rs.200.00, payable by 28-Jun-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-11",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 228.76 spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 at INDIAN OIL on 13-06-2025 01:17:44.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-13",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Add-on card issued",
+   "body": "Dear Nikhil Verma,\nAs requested, an add-on card for AARAV VERMA has been issued on your BOBCARD ETERNA Credit Card (primary card XXXX XXXX XXXX 4896). The add-on card XXXX XXXX XXXX 9755 will reach the address on record. Spends on the add-on card are billed to your primary statement.\n\n",
+   "date": "2025-06-14",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Jun 2025",
+   "body": "Dear Nikhil,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for Jun 2025 is ready. Total amount due Rs.6,227.75, minimum amount due Rs.311.39, payable by 04-Jul-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-06-17",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "OTP for your transaction",
+   "body": "741965 is the OTP for your transaction of Rs.1,750.57 at CROMA. Valid for 10 minutes. Do not share.",
+   "date": "2025-06-25",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 5,360.18 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 9755 at INDIGO AIRLINES on 27-06-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX7224 has been updated on 01-02-2026. If not requested by you, call customer care.",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 18,502.42 was spent on your BOBCARD Credit Card XXXX XXXX XXXX 2741 at BIGBASKET on 28-06-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-06-28",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 6,077.56 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 at SNAPDEAL on 29-06-2025.",
+   "date": "2025-06-29",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Jul 2025",
+   "body": "Dear Nikhil,\nYour Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for Jul 2025 is ready. Total amount due Rs.461.47, minimum amount due Rs.200.00, payable by 28-Jul-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-07-11",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Anil Traders (A/c XXXXXX7685, IDFC FIRST Bank) has been added to your account XXXXXX1121. It will be active after 30 minutes.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Jul 2025",
+   "body": "Dear Nikhil,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for the period 17-Jun-2025 to 16-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-07-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 21,352.91 spent on your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 at BATA INDIA on 04-08-2025 22:01:08.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-04",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Punjab National Bank Account Statement - Aug 2025",
+   "body": "Dear Nikhil,\nPlease find attached your Punjab National Bank xx1121 statement for the period 05-Jul-2025 to 04-Aug-2025. \n\n",
+   "date": "2025-08-05",
+   "attachments": [
+    {
+     "filename": "eStatement_202508.pdf",
+     "protected": false,
+     "pdfText": "PUNJAB NATIONAL BANK\nSTATEMENT OF ACCOUNT\nAccount Name : NIKHIL VERMA\nFLAT 617, ORCHID APARTMENTS\n7TH CROSS, BANJARA HILLS\nKOCHI - 465517\nAccount Number : XX1121\nAccount Type : SAVINGS ACCOUNT\nIFSC : PNBX0205687\nStatement Period : 05-07-2025 to 04-08-2025\nOpening Balance : Rs.78,681.98\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n07-07-2025 POS/TATA PLAY 166651362 9,804.13 - 68,877.85\n07-07-2025 ATM WDL/INDIGO AIRLINES 945363675 542.15 - 68,335.70\n08-07-2025 NEFT DR/UBER INDIA 746881153 3,217.21 - 65,118.49\n08-07-2025 NEFT DR/BESCOM 759680701 928.52 - 64,189.97\n09-07-2025 UPI/CR 446805553 - 492.97 64,682.94\n10-07-2025 NEFT DR/DOMINOS 479470335 1,301.90 - 63,381.04\n11-07-2025 NEFT DR/PAYTM 268276930 349.29 - 63,031.75\n11-07-2025 UPI/DECATHLON 114420555 1,026.23 - 62,005.52\n13-07-2025 NEFT DR/IKEA 463943711 2,635.43 - 59,370.09\n13-07-2025 SALARY NEFT 769513990 - 118.71 59,488.80\n15-07-2025 NEFT DR/EASEMYTRIP 927210065 10,893.42 - 48,595.38\nClosing Balance : Rs.48,595.38\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 19,732.11 was spent on your BOBCARD Credit Card XXXX XXXX XXXX 4896 at SNAPDEAL on 07-08-2025.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-07",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Aug 2025",
+   "body": "Dear Nikhil,\nPlease find attached your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for the period 11-Jul-2025 to 10-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-08-11",
+   "attachments": [
+    {
+     "filename": "BOBCARD_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from *1121 to Anil Traders A/c XX7685 on 13-08-2025. Rent for the month.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m025",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c xx1121 is debited for Rs.748.02 on 15-08-2025 - UPI URBAN COMPANY. Bal Rs.28,518.73. -Punjab National Bank",
+   "date": "2025-08-15",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Aug 2025",
+   "body": "Dear Nikhil,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for the period 17-Jul-2025 to 16-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-08-17",
+   "attachments": [
+    {
+     "filename": "BOBCARD_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 577.59 spent on your BOBCARD Credit Card XXXX XXXX XXXX 4896 at DMART on 17-08-2025 07:41:16.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-17",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Earn more with your card",
+   "body": "Dear Nikhil,\nGet up to 10% cashback on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-18",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 487.89 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 9755 at SNAPDEAL on 22-08-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 8,882.12 spent on your BOBCARD Credit Card XXXX XXXX XXXX 9755 at MYNTRA on 26-08-2025 01:03:45.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 93.23 spent on your BOBCARD Credit Card XXXX XXXX XXXX 9755 at SNAPDEAL on 28-08-2025 12:26:27.",
+   "date": "2025-08-28",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 3,092.08 spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 at MYNTRA on 03-09-2025 02:03:42.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 214.36 was spent on your BOBCARD Credit Card XXXX XXXX XXXX 2741 at BPCL FUEL on 05-09-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-05",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Sep 2025",
+   "body": "Dear Nikhil,\nPlease find attached your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for the period 11-Aug-2025 to 10-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-09-11",
+   "attachments": [
+    {
+     "filename": "BOBCARD_CC_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.156.06 debited from account XX1121 on 13-09-2025. Narration: ECOM/IKEA. Available balance Rs.65,971.84.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-09-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m036",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from *1121 to Anil Traders A/c XX7685 on 13-09-2025. Rent for the month.",
+   "date": "2025-09-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Sep 2025",
+   "body": "Dear Nikhil,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for Sep 2025 is ready. Total amount due Rs.7,920.63, minimum amount due Rs.396.03, payable by 04-Oct-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.520.80 has been transferred from your A/c XXXXXX1121 to Mohan Landlord A/c XX9308 (IDBI Bank) via IMPS on 18-09-2025. Ref no 423275925116.",
+   "date": "2025-09-18",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 6,169.33 spent on your BOBCARD Credit Card XXXX XXXX XXXX 2741 at NETFLIX on 02-10-2025 21:57:46.",
+   "date": "2025-10-02",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Punjab National Bank Account Statement - Oct 2025",
+   "body": "Dear Nikhil,\nYour Punjab National Bank XXXXXX1121 account statement for Oct 2025 is ready. Closing balance Rs.4,864.75.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Oct 2025",
+   "body": "Dear Nikhil,\nYour Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for Oct 2025 is ready. Total amount due Rs.636.50, minimum amount due Rs.200.00, payable by 28-Oct-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 617686776839. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from XX1121 to Anil Traders A/c XX7685 on 13-10-2025. Rent for the month.",
+   "date": "2025-10-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Oct 2025",
+   "body": "Dear Nikhil,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for Oct 2025 is ready. Total amount due Rs.2,584.71, minimum amount due Rs.200.00, payable by 03-Nov-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Payment received on your BOBCARD",
+   "body": "Payment of INR 188.92 has been received towards your BOBCARD Credit Card XXXX XXXX XXXX 9755 on 21-10-2025. Thank you for the payment.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 3,157.57 was spent on your BOBCARD Credit Card XXXX XXXX XXXX 9755 at SWIGGY on 28-10-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-28",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 419.08 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 9755 at MCDONALDS on 30-10-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-30",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Nikhil,\nYour order #717-3914827-4967465 is confirmed. Total Rs.1,214.15. Estimated delivery in 2 days.",
+   "date": "2025-11-02",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Nikhil,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Nov 2025",
+   "body": "Dear Nikhil,\nYour Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for Nov 2025 is ready. Total amount due Rs.13,037.44, minimum amount due Rs.651.87, payable by 28-Nov-2025.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.26,927.41 has been debited from your Punjab National Bank A/c XXXXXX1121 on 11-11-2025 (ECOM EAZYDINER). Avl bal Rs.88,229.05.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.1,158.90 has been transferred from your A/c xx1121 to Ramesh Kumar A/c XX5230 (Canara Bank) via IMPS on 11-11-2025. Ref no 344608113030.",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m053",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from xx1121 to Anil Traders A/c XX7685 on 13-11-2025. Rent for the month.",
+   "date": "2025-11-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m054",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Nov 2025",
+   "body": "Dear Nikhil,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for Nov 2025 is ready. Total amount due Rs.1,256.22, minimum amount due Rs.200.00, payable by 04-Dec-2025.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 84.14 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 9755 at SPOTIFY on 27-11-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.7,890.10 has been transferred from your A/c xx1121 to Ramesh Kumar A/c XX5230 (Canara Bank) via IMPS on 01-12-2025. Ref no 274709884148.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m057",
+   "subject": "Punjab National Bank Account Statement - Dec 2025",
+   "body": "Dear Nikhil,\nPlease find attached your Punjab National Bank *1121 statement for the period 05-Nov-2025 to 04-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-12-05",
+   "attachments": [
+    {
+     "filename": "Punjab_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.7,388.68 has been debited from your Punjab National Bank A/c xx1121 on 07-12-2025 (ECOM ZEPTO). Avl bal Rs.45,818.34.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 97.88 spent on your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 at AMAZON PAY INDIA on 10-12-2025 05:45:04.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Dec 2025",
+   "body": "Dear Nikhil,\nPlease find attached your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for the period 11-Nov-2025 to 10-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-12-11",
+   "attachments": [
+    {
+     "filename": "BOBCARD_CC_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Payment received on your BOBCARD",
+   "body": "Dear Customer,\nWe have received your payment of INR 15,671.82 on 13-12-2025 for your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 9755. Available credit limit has been updated.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Dear Customer,\nRs.16,459.52 credited to your Punjab National Bank A/c XXXXXX1121 on 13-12-2025 by INTEREST CREDIT. Ref 744262020913.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Dear Customer,\nRs.654.95 credited to your Punjab National Bank A/c xx1121 on 14-12-2025 by UPI. Ref 526052912954.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.234.39 has been debited from your Punjab National Bank A/c xx1121 on 16-12-2025 (POS BATA INDIA). Avl bal Rs.24,256.71.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-16",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Nikhil,\nYour order #289-8107323-5691697 is confirmed. Total Rs.1,522.73. Estimated delivery in 2 days.",
+   "date": "2025-12-16",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Dec 2025",
+   "body": "Dear Nikhil,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for the period 17-Nov-2025 to 16-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-17",
+   "attachments": [
+    {
+     "filename": "4896_16122025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 223.89 was spent on your BOBCARD Credit Card XXXX XXXX XXXX 9755 at BATA INDIA on 18-12-2025.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 5,279.06 was spent on your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 at MCDONALDS on 18-12-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Payment received on your BOBCARD",
+   "body": "Payment of INR 608.08 has been received towards your BOBCARD Credit Card XXXX XXXX XXXX 4896 on 19-12-2025. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-19",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Payment received on your BOBCARD",
+   "body": "Dear Customer,\nWe have received your payment of INR 795.24 on 25-12-2025 for your BOBCARD Credit Card XXXX XXXX XXXX 2741. Available credit limit has been updated.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Payment received on your BOBCARD",
+   "body": "Payment of INR 2,544.39 has been received towards your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 on 27-12-2025. Thank you for the payment.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.1,627.33 has been debited from your Punjab National Bank A/c XXXXXX1121 on 27-12-2025 (NEFT MYNTRA). Avl bal Rs.19,417.76.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m073",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 14,866.12 spent on your BOBCARD Credit Card XXXX XXXX XXXX 2741 at PAYTM on 28-12-2025 11:56:34.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Nikhil,\nYour order #454-7883762-4240559 is confirmed. Total Rs.501.54. Estimated delivery in 2 days.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "BOBCARD: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 3939 has been successfully linked/verified for your BOBCARD relationship. If this was not you, contact us.",
+   "date": "2026-01-07",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Jan 2026",
+   "body": "Dear Nikhil,\nYour Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for Jan 2026 is ready. Total amount due Rs.9,232.71, minimum amount due Rs.461.64, payable by 28-Jan-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,492.92 spent on your BOBCARD Credit Card XXXX XXXX XXXX 9755 at SODEXO on 11-01-2026 17:29:49.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 827.94 spent on your BOBCARD Credit Card XXXX XXXX XXXX 2741 at AMAZON PAY INDIA on 11-01-2026 03:40:48.",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Update your KYC",
+   "body": "Dear Nikhil,\nAs per RBI guidelines please complete re-KYC for your Punjab National Bank relationship. Visit a branch or use the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Jan 2026",
+   "body": "Dear Nikhil,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for the period 17-Dec-2025 to 16-Jan-2026. Total amount due Rs.66,784.27, due 01-Feb-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-17",
+   "attachments": [
+    {
+     "filename": "4896_16012026_stmt.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD Credit Card Statement\nFor Statement Period 17-Dec-2025 to 16-Jan-2026\nNIKHIL VERMA\nFLAT 567, GREEN VALLEY APARTMENTS\n18TH CROSS, ADYAR\nHYDERABAD - 549862\nCard Product: BOBCARD ETERNA Credit Card\nCredit Card Number XXXX XXXX XXXX 4896\nStatement Date: 16-Jan-2026\nPayment Due Date: 01-Feb-2026\nTotal Amount Due: Rs.66,784.27\nMinimum Amount Due: Rs.3,339.21\nCredit Limit: Rs.2,10,000.00\nAvailable Credit Limit: Rs.1,67,971.28\nAvailable Cash Limit: Rs.42,000.00\nTRANSACTIONS FOR NIKHIL VERMA\nDate Transaction Details Amount\n18-Dec-2025 SODEXO HYDERABAD 14,992.71 D\n19-Dec-2025 UBER INDIA GURUGRAM 833.14 D\n28-Dec-2025 OLA CABS BENGALURU 971.01 D\n31-Dec-2025 DECATHLON PUNE 801.01 D\n31-Dec-2025 IKEA JAIPUR 881.06 D\n01-Jan-2026 DMART GURUGRAM 9,213.28 D\n03-Jan-2026 BOOKMYSHOW KOLKATA 538.12 D\n03-Jan-2026 DMART HYDERABAD 15,905.55 D\n03-Jan-2026 INDIAN OIL AHMEDABAD 112.76 D\n04-Jan-2026 UBER INDIA KOLKATA 962.03 D\n12-Jan-2026 PHONEPE HYDERABAD 12,411.46 D\n12-Jan-2026 ZOMATO JAIPUR 9,162.14 D\n\nAdd-on Card Transactions\nAARAV VERMA - XXXX XXXX XXXX 9755\n23/12/25 APOLLO PHARMACY HYDERABAD 1,840.36\n24/12/25 BOOKMYSHOW PUNE 1,321.57\n27/12/25 INDIAN OIL MUMBAI 2,052.41\n06/01/26 PHONEPE HYDERABAD 90.26\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.2,203.38 has been debited from your Punjab National Bank A/c XX1121 on 23-01-2026 (ECOM SNAPDEAL). Avl bal Rs.95,419.20.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Nikhil,\nYour order #614-3276589-1506369 is confirmed. Total Rs.293.26. Estimated delivery in 2 days.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Punjab National Bank Account Statement - Feb 2026",
+   "body": "Dear Nikhil,\nPlease find attached your Punjab National Bank *1121 statement for the period 05-Jan-2026 to 04-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-05",
+   "attachments": [
+    {
+     "filename": "1121_04022026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m084",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,462.76 spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 9755 at BESCOM on 07-02-2026 15:19:10.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Feb 2026",
+   "body": "Dear Nikhil,\nYour Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for Feb 2026 is ready. Total amount due Rs.59,349.17, minimum amount due Rs.2,967.46, payable by 28-Feb-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-02-11",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Nikhil,\nPlease find attached the updated MITC for your BOBCARD credit cards.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-13",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Nikhil,\nYour order #511-8437342-6096957 is confirmed. Total Rs.180.93. Estimated delivery in 2 days.",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Feb 2026",
+   "body": "Dear Nikhil,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for Feb 2026 is ready. Total amount due Rs.1,253.80, minimum amount due Rs.200.00, payable by 06-Mar-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Update your KYC",
+   "body": "Dear Nikhil,\nAs per RBI guidelines please complete re-KYC for your BOBCARD relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Earn more with your card",
+   "body": "Dear Nikhil,\nGet up to 10% cashback on partner brands.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-02",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 167.12 spent on your BOBCARD Credit Card XXXX XXXX XXXX 4896 at NETFLIX on 05-03-2026 21:16:01.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Mar 2026",
+   "body": "Dear Nikhil,\nPlease find attached your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for the period 11-Feb-2026 to 10-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-11",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Mar 2026",
+   "body": "Dear Nikhil,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for the period 17-Feb-2026 to 16-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-17",
+   "attachments": [
+    {
+     "filename": "BOBCARD_CC_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.31,021.28 debited from account XXXXXX1121 on 19-03-2026. Narration: UPI/TATA POWER. Available balance Rs.26,659.68.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 5,370.50 spent on your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 at BLINKIT on 23-03-2026 03:36:18.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 463.29 was spent on your BOBCARD Credit Card XXXX XXXX XXXX 4896 at JIO RECHARGE on 27-03-2026.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Punjab National Bank Account Statement - Apr 2026",
+   "body": "Dear Nikhil,\nPlease find attached your Punjab National Bank XX1121 statement for the period 05-Mar-2026 to 04-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-05",
+   "attachments": [
+    {
+     "filename": "Punjab_Acct_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 5,101.45 was spent on your BOBCARD Credit Card XXXX XXXX XXXX 9755 at PHONEPE on 05-04-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Apr 2026",
+   "body": "Dear Nikhil,\nPlease find attached your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for the period 11-Mar-2026 to 10-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-04-11",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 522437007051. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-04-14",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 23,220.48 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 at BLINKIT on 15-04-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.2,755.39 has been credited to account XXXXXX1121 on 15-04-2026 (SALARY NEFT). Avl bal Rs.19,886.84.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Apr 2026",
+   "body": "Dear Nikhil,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for the period 17-Mar-2026 to 16-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-17",
+   "attachments": [
+    {
+     "filename": "BOBCARD_CC_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.6,441.31 for Axis Bank Credit Card ending 8932 (cardholder: LAKSHMI VERMA) was successful from your A/c XXXXXX1121 on 07-05-2026.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "BOBCARD festive offers",
+   "body": "Dear Nikhil,\nConvert big spends to EMI at low interest.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - May 2026",
+   "body": "Dear Nikhil,\nPlease find attached your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for the period 11-Apr-2026 to 10-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-11",
+   "attachments": [
+    {
+     "filename": "BOBCARD_CC_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 416.56 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 at TATA POWER on 13-05-2026.",
+   "date": "2026-05-13",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 127.74 spent on your BOBCARD Credit Card XXXX XXXX XXXX 2741 at EASEMYTRIP on 16-05-2026 07:02:35.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - May 2026",
+   "body": "Dear Nikhil,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for the period 17-Apr-2026 to 16-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202605.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Your A/c *1121 is credited with Rs.663.48 on 18-05-2026 - IMPS. Bal Rs.32,170.60. -Punjab National Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m111",
+   "subject": "Punjab National Bank Account Statement - Jun 2026",
+   "body": "Dear Nikhil,\nPlease find attached your Punjab National Bank *1121 statement for the period 05-May-2026 to 04-Jun-2026. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-05",
+   "attachments": [
+    {
+     "filename": "Punjab_Acct_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "PUNJAB NATIONAL BANK\nSTATEMENT OF ACCOUNT\nAccount Name : NIKHIL VERMA\nFLAT 787, ORCHID APARTMENTS\n2TH CROSS, KOTHRUD\nBENGALURU - 406242\nAccount Number : xx1121\nAccount Type : SAVINGS ACCOUNT\nIFSC : PNBX0636972\nStatement Period : 05-05-2026 to 04-06-2026\nOpening Balance : Rs.15,325.13\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n06-05-2026 POS/PHONEPE 904675388 15,629.64 - -304.51\n09-05-2026 POS/BIGBASKET 174648082 156.18 - -460.69\n11-05-2026 NEFT DR/BLINKIT 871725129 572.63 - -1,033.32\n14-05-2026 NEFT DR/MYNTRA 834539871 835.12 - -1,868.44\n15-05-2026 ATM WDL/OLA CABS 863689081 2,700.13 - -4,568.57\n15-05-2026 UPI/NETFLIX 297970601 271.35 - -4,839.92\n17-05-2026 ATM WDL/EASEMYTRIP 435647554 560.51 - -5,400.43\n19-05-2026 IMPS/CR 971955684 - 1,031.07 -4,369.36\n21-05-2026 POS/AMAZON PAY INDIA 525826801 1,595.51 - -5,964.87\nClosing Balance : -Rs.5,964.87\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 2,677.09 was spent on your BOBCARD Credit Card XXXX XXXX XXXX 2741 at APPLE SERVICES on 05-06-2026.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.571.62 debited from account XX1121 on 10-06-2026. Narration: NEFT/SNAPDEAL. Available balance Rs.5,010.29.",
+   "date": "2026-06-10",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Jun 2026",
+   "body": "Dear Nikhil,\nPlease find attached your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for the period 11-May-2026 to 10-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-11",
+   "attachments": [
+    {
+     "filename": "BOBCARD_CC_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Jun 2026",
+   "body": "Dear Nikhil,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for the period 17-May-2026 to 16-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-17",
+   "attachments": [
+    {
+     "filename": "BOBCARD_CC_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 9,802.19 spent on your BOBCARD Credit Card XXXX XXXX XXXX 2741 at FLIPKART on 26-06-2026 00:52:39.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 2,710.63 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 at TATA PLAY on 27-06-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 22,192.76 spent on your BOBCARD Credit Card XXXX XXXX XXXX 2741 at AMAZON PAY INDIA on 02-07-2026 19:10:47.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-02",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Nikhil,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Jul 2026",
+   "body": "Dear Nikhil,\nPlease find attached your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for the period 11-Jun-2026 to 10-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-11",
+   "attachments": [
+    {
+     "filename": "BOBCARD_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Jul 2026",
+   "body": "Dear Nikhil,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for Jul 2026 is ready. Total amount due Rs.28,419.96, minimum amount due Rs.1,420.100, payable by 03-Aug-2026.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-17",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.2,122.33 debited from account XX1121 on 21-07-2026. Narration: POS/URBAN COMPANY. Available balance Rs.84,115.12.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m123",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 316.14 spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 9755 at SNAPDEAL on 27-07-2026 21:58:14.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.154.20 debited from account xx1121 on 28-07-2026. Narration: ECOM/SODEXO. Available balance Rs.1,97,891.07.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 819.52 spent on your BOBCARD Credit Card XXXX XXXX XXXX 4896 at SNAPDEAL on 01-08-2026 07:16:58.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Punjab National Bank Account Statement - Aug 2026",
+   "body": "Dear Nikhil,\nPlease find attached your Punjab National Bank XX1121 statement for the period 05-Jul-2026 to 04-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-05",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "Payment received on your BOBCARD",
+   "body": "Payment of INR 267.19 has been received towards your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 9755 on 08-08-2026. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Aug 2026",
+   "body": "Dear Nikhil,\nYour Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for Aug 2026 is ready. Total amount due Rs.1,146.21, minimum amount due Rs.200.00, payable by 28-Aug-2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-11",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,469.84 spent on your BOBCARD Credit Card XXXX XXXX XXXX 4896 at IRCTC on 15-08-2026 12:37:17.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Aug 2026",
+   "body": "Dear Nikhil,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for Aug 2026 is ready. Total amount due Rs.6,171.84, minimum amount due Rs.308.59, payable by 03-Sep-2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-17",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 137.68 was spent on your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 at BLINKIT on 25-08-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.8,624.96 has been transferred from your A/c xx1121 to Lata Tutor A/c XX5009 (IndusInd Bank) via IMPS on 04-09-2026. Ref no 562785147622.",
+   "date": "2026-09-04",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m133",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c *1121 is debited for Rs.874.78 on 08-09-2026 - IMPS APOLLO PHARMACY. Bal Rs.1,58,879.47. -Punjab National Bank",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m134",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 175.91 was spent on your BOBCARD Credit Card XXXX XXXX XXXX 9755 at BESCOM on 10-09-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Sep 2026",
+   "body": "Dear Nikhil,\nYour Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for Sep 2026 is ready. Total amount due Rs.12,560.24, minimum amount due Rs.628.01, payable by 28-Sep-2026.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Sep 2026",
+   "body": "Dear Nikhil,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for the period 17-Aug-2026 to 16-Sep-2026. Total amount due Rs.24,776.47, due 01-Oct-2026.\n\n",
+   "date": "2026-09-17",
+   "attachments": [
+    {
+     "filename": "BOBCARD_CC_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD Credit Card Statement\nFor Statement Period 17-Aug-2026 to 16-Sep-2026\nNIKHIL VERMA\nFLAT 298, SUNRISE APARTMENTS\n26TH CROSS, SECTOR 21\nMUMBAI - 597805\nCard Product: BOBCARD ETERNA Credit Card\nCredit Card Number XXXX XXXX XXXX 4896\nStatement Date: 16-Sep-2026\nPayment Due Date: 01-Oct-2026\nTotal Amount Due: Rs.24,776.47\nMinimum Amount Due: Rs.1,238.82\nCredit Limit: Rs.2,10,000.00\nAvailable Credit Limit: Rs.2,03,713.58\nAvailable Cash Limit: Rs.42,000.00\nTRANSACTIONS FOR NIKHIL VERMA\nDate Transaction Details Amount\n20-Aug-2026 BESCOM MUMBAI 260.54 D\n21-Aug-2026 EASEMYTRIP KOCHI 4,378.54 D\n21-Aug-2026 MCDONALDS CHENNAI 708.02 D\n26-Aug-2026 FLIPKART CHENNAI 835.68 D\n27-Aug-2026 IKEA CHENNAI 7,194.84 D\n31-Aug-2026 INDIGO AIRLINES JAIPUR 1,136.93 D\n07-Sep-2026 AIRTEL PREPAID BENGALURU 947.88 D\n07-Sep-2026 CROMA GURUGRAM 151.55 D\n09-Sep-2026 APOLLO PHARMACY JAIPUR 909.68 D\n12-Sep-2026 APOLLO PHARMACY MUMBAI 8,252.81 D\n\nAdd-on Card Transactions\nAARAV VERMA - XXXX XXXX XXXX 9755\n18/08/26 MYNTRA PUNE 2,938.04\n23/08/26 MEDPLUS PUNE 239.47\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 2,240.96 was spent on your BOBCARD Credit Card XXXX XXXX XXXX 9755 at URBAN COMPANY on 01-10-2026.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Payment received on your BOBCARD",
+   "body": "Payment of INR 21,070.90 has been received towards your BOBCARD Credit Card XXXX XXXX XXXX 4896 on 04-10-2026. Thank you for the payment.",
+   "date": "2026-10-04",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Punjab National Bank Account Statement - Oct 2026",
+   "body": "Dear Nikhil,\nYour Punjab National Bank *1121 account statement for Oct 2026 is ready. Closing balance Rs.466.06.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "Snapdeal BOBCARD Credit Card Monthly Statement - Oct 2026",
+   "body": "Dear Nikhil,\nPlease find attached your Snapdeal BOBCARD Credit Card XXXX XXXX XXXX 2741 statement for the period 11-Sep-2026 to 10-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-11",
+   "attachments": [
+    {
+     "filename": "2741_10102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 87.16 spent on your BOBCARD Credit Card XXXX XXXX XXXX 4896 at EAZYDINER on 11-10-2026 05:36:07.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.116.10 has been debited from your Punjab National Bank A/c xx1121 on 15-10-2026 (IMPS SWIGGY). Avl bal Rs.6,579.67.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m143",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Oct 2026",
+   "body": "Dear Nikhil,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 4896 statement for Oct 2026 is ready. Total amount due Rs.797.92, minimum amount due Rs.200.00, payable by 03-Nov-2026.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c *1121 is debited for Rs.3,210.48 on 18-10-2026 - ECOM MCDONALDS. Bal Rs.14,699.07. -Punjab National Bank",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m145",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Nikhil,\nYour order #417-5865460-1029872 is confirmed. Total Rs.6,505.26. Estimated delivery in 2 days.",
+   "date": "2026-10-20",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,156.86 spent on your BOBCARD Credit Card XXXX XXXX XXXX 2741 at PVR INOX on 26-10-2026 22:01:57.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 542.41 spent on your BOBCARD Credit Card XXXX XXXX XXXX 2741 at IRCTC on 27-10-2026 14:22:34.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 23,386.71 was spent on your BOBCARD Credit Card XXXX XXXX XXXX 4896 at BIG BAZAAR on 28-10-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "4896",
+    "kind": "CREDIT_CARD",
+    "variant": "Eterna",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "9755",
+    "kind": "CREDIT_CARD",
+    "variant": "Eterna",
+    "lifecycle": "ADDON",
+    "lifecyclePartnerLast4": "4896",
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": "4896"
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "2741",
+    "kind": "CREDIT_CARD",
+    "variant": "Snapdeal",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "1121",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "9308",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "5230",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "5009",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "7685",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "3939",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "7224",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "6839",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "7051",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "8932",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

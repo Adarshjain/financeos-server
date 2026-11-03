@@ -1,0 +1,2384 @@
+{
+ "mailbox": "amex-hsbc-travelone",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Your HSBC TravelOne Credit Card statement - Sep 2024",
+   "body": "Dear Aarav,\nPlease find attached your HSBC TravelOne Credit Card XX3174 statement for the period 08-Aug-2024 to 07-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-09-08",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Sep2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "American Express festive offers",
+   "body": "Dear Aarav,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2024-09-13",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -29806 statement for Sep 2024 is ready. Total amount due Rs.7,098.67, minimum amount due Rs.354.93, payable by 02-Oct-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-09-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "HSBC Account Statement - Sep 2024",
+   "body": "Dear Aarav,\nYour HSBC xx3600 account statement for Sep 2024 is ready. Closing balance Rs.33,930.60.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-09-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m005",
+   "subject": "HSBC: debit alert",
+   "body": "Your A/c XXXXXX3600 is debited for INR 6,280.15 on 21-Sep-2024 - POS EASEMYTRIP. Bal INR 94,212.81. -HSBC",
+   "date": "2024-09-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m006",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 1,148.22 was made on your American Express Credit Card -50292 at APPLE SERVICES on 24 September 2024.\nTo view this transaction, log in to your account.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-24",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "HSBC: debit alert",
+   "body": "Your A/c xx3600 is debited for INR 20,526.98 on 29-Sep-2024 - NEFT BPCL FUEL. Bal INR 8,246.66. -HSBC\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-09-29",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "HSBC: credit alert",
+   "body": "Your A/c XX3600 is credited with INR 243.70 on 30-Sep-2024 - UPI. Bal INR 1,02,423.54. -HSBC",
+   "date": "2024-09-30",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -80292 statement for the period 05-Sep-2024 to 04-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-10-05",
+   "attachments": [
+    {
+     "filename": "0292_04102024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 3,308.70 spent on your HSBC Credit Card XX3174 at DMART on 07-Oct-2024 09:03:53.",
+   "date": "2024-10-07",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "Your HSBC TravelOne Credit Card statement - Oct 2024",
+   "body": "Dear Aarav,\nPlease find attached your HSBC TravelOne Credit Card xx3174 statement for the period 08-Sep-2024 to 07-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-08",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 697.67 spent on your HSBC Credit Card ending 3174 at ZOMATO on 08-Oct-2024 11:57:04.\n\nOpt for e-statements and go green.",
+   "date": "2024-10-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 248.15 charged at MAKEMYTRIP on 9 October 2024 with your American Express Credit Card -79806.",
+   "date": "2024-10-09",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -29806 statement for the period 15-Sep-2024 to 14-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-15",
+   "attachments": [
+    {
+     "filename": "9806_14102024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 130.03 was spent on your HSBC TravelOne Credit Card XX3174 at BIG BAZAAR on 15-Oct-2024.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-15",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "HSBC Account Statement - Oct 2024",
+   "body": "Dear Aarav,\nPlease find attached your HSBC *3600 statement for the period 16-Sep-2024 to 15-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202410.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m017",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Sunil Plumber (A/c XXXXXX9007, IDBI Bank) has been added to your account xx3600. It will be active after 30 minutes.",
+   "date": "2024-10-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "Payment received - American Express",
+   "body": "Payment of INR 17,950.19 has been received towards your American Express Credit Card -59806 on 20 October 2024. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-10-20",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 13,523.50 was made on your American Express Gold Card -39806 at AIRTEL PREPAID on 20 October 2024.\nTo view this transaction, log in to your account.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-10-20",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 990.63 charged at MYNTRA on 23 October 2024 with your American Express Credit Card -90292.",
+   "date": "2024-10-23",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 24,460.07 was spent on your HSBC TravelOne Credit Card ending 3174 at BESCOM on 23-Oct-2024.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-10-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "HSBC: credit alert",
+   "body": "Dear Customer,\nINR 107.60 credited to your HSBC A/c XXXXXX3600 on 27-Oct-2024 by INTEREST CREDIT. Ref 235951663376.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "HSBC: debit alert",
+   "body": "Dear Customer,\nINR 210.41 has been debited from your HSBC A/c XXXXXX3600 on 29-Oct-2024 (NEFT HPCL PETROL). Avl bal INR 3,833.52.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-29",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "OTP for your transaction",
+   "body": "828026 is the OTP for your transaction of Rs.310.63 at AMAZON PAY INDIA. Valid for 10 minutes. Do not share.",
+   "date": "2024-10-29",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 1,099.02 was made on your American Express Credit Card -60292 at TATA POWER on 1 November 2024.\nTo view this transaction, log in to your account.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-01",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -80292 statement for the period 05-Oct-2024 to 04-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-11-05",
+   "attachments": [
+    {
+     "filename": "eStatement_202411.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Your HSBC TravelOne Credit Card statement - Nov 2024",
+   "body": "Dear Aarav,\nYour HSBC TravelOne Credit Card xx3174 statement for Nov 2024 is ready. Total amount due Rs.3,628.12, minimum amount due Rs.200.00, payable by 25-Nov-2024.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-11-08",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m028",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 234.03 spent on your HSBC TravelOne Credit Card ending 3174 at BIGBASKET on 09-Nov-2024 01:35:24.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-09",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "OTP for your transaction",
+   "body": "160833 is the OTP for your transaction of Rs.690.49 at STARBUCKS. Valid for 10 minutes. Do not share.",
+   "date": "2024-11-14",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -49806 statement for Nov 2024 is ready. Total amount due Rs.23,791.97, minimum amount due Rs.1,189.60, payable by 02-Dec-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-11-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "HSBC Account Statement - Nov 2024",
+   "body": "Dear Aarav,\nPlease find attached your HSBC *3600 statement for the period 16-Oct-2024 to 15-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-16",
+   "attachments": [
+    {
+     "filename": "HSBC_Acct_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from *3600 to Sunil Plumber A/c XX9007 on 19-Nov-2024. Rent for the month.",
+   "date": "2024-11-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -80292 statement for the period 05-Nov-2024 to 04-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-12-05",
+   "attachments": [
+    {
+     "filename": "0292_04122024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Your HSBC TravelOne Credit Card statement - Dec 2024",
+   "body": "Dear Aarav,\nYour HSBC TravelOne Credit Card XX3174 statement for Dec 2024 is ready. Total amount due Rs.3,148.96, minimum amount due Rs.200.00, payable by 25-Dec-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-12-08",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "Payment received - American Express",
+   "body": "Dear Customer,\nWe have received your payment of INR 183.88 on 8 December 2024 for your American Express Platinum Travel Credit Card -40292. Available credit limit has been updated.",
+   "date": "2024-12-08",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 467.06 was spent on your HSBC Credit Card ending 3174 at BOOKMYSHOW on 08-Dec-2024.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "HSBC: funds transferred",
+   "body": "Dear Customer,\nRs.37,963.96 has been transferred from your A/c *3600 to Priya Tailors A/c XX1999 (IndusInd Bank) via IMPS on 09-Dec-2024. Ref no 980270399358.",
+   "date": "2024-12-09",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 280.24 spent on your HSBC TravelOne Credit Card XX3174 at DECATHLON on 11-Dec-2024 02:53:00.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-12-11",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "HSBC: debit alert",
+   "body": "INR debit alert: INR 111.97 debited from account XXXXXX3600 on 11-Dec-2024. Narration: POS/FLIPKART. Available balance INR 2,803.38.",
+   "date": "2024-12-11",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -99806 statement for the period 15-Nov-2024 to 14-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-12-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "HSBC Account Statement - Dec 2024",
+   "body": "Dear Aarav,\nPlease find attached your HSBC XX3600 statement for the period 16-Nov-2024 to 15-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m042",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from *3600 to Sunil Plumber A/c XX9007 on 19-Dec-2024. Rent for the month.",
+   "date": "2024-12-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Payment of INR 2,161.48 has been received towards your HSBC Credit Card xx3174 on 21-Dec-2024. Thank you for the payment.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-12-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.5,249.97 has been transferred from your A/c *3600 to Priya Tailors A/c XX1999 (IndusInd Bank) via IMPS on 24-Dec-2024. Ref no 108531763233.",
+   "date": "2024-12-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 6,425.30 was made on your American Express Credit Card -20292 at INDIAN OIL on 3 January 2025.\nTo view this transaction, log in to your account.\n\nOpt for e-statements and go green.",
+   "date": "2025-01-03",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Your HSBC TravelOne Credit Card statement - Jan 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC TravelOne Credit Card xx3174 statement for the period 08-Dec-2024 to 07-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-01-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202501.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m047",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 5,380.50 charged at DMART on 9 January 2025 with your American Express Platinum Travel Credit Card -80292.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-09",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -69806 statement for Jan 2025 is ready. Total amount due Rs.8,466.63, minimum amount due Rs.423.33, payable by 01-Feb-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "HSBC Account Statement - Jan 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC xx3600 statement for the period 16-Dec-2024 to 15-Jan-2025. \n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-01-16",
+   "attachments": [
+    {
+     "filename": "HSBC_Acct_Jan2025.pdf",
+     "protected": false,
+     "pdfText": "HSBC\nSTATEMENT OF ACCOUNT\nAccount Name : AARAV KULKARNI\nFLAT 784, GREEN VALLEY APARTMENTS\n29TH CROSS, BANJARA HILLS\nJAIPUR - 572027\nAccount Number : XX3600\nAccount Type : SAVINGS ACCOUNT\nIFSC : HSBC0900001\nStatement Period : 16-12-2024 to 15-01-2025\nOpening Balance : Rs.81,377.51\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n16-12-2024 SALARY NEFT 635472713 - 737.90 82,115.41\n19-12-2024 UPI/PVR INOX 239578392 3,224.86 - 78,890.55\n22-12-2024 INTEREST 755743623 - 5,907.44 84,797.99\n23-12-2024 UPI/IXIGO 875894730 327.36 - 84,470.63\n25-12-2024 POS/APPLE SERVICES 487732514 4,602.26 - 79,868.37\n25-12-2024 ATM WDL/OLA CABS 232222061 2,068.81 - 77,799.56\n27-12-2024 NEFT DR/CROMA 654999337 1,339.34 - 76,460.22\n27-12-2024 SALARY NEFT 578029011 - 16,742.72 93,202.94\nClosing Balance : Rs.93,202.94\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m050",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX7367 has been updated on 2 October 2025. If not requested by you, call customer care.",
+   "date": "2025-01-17",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 226.10 charged at APPLE SERVICES on 19 January 2025 with your American Express Credit Card -20292.",
+   "date": "2025-01-19",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from xx3600 to Sunil Plumber A/c XX9007 on 19-Jan-2025. Rent for the month.",
+   "date": "2025-01-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m053",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 1,814.98 was made on your American Express Credit Card -59806 at APOLLO PHARMACY on 21 January 2025.\nTo view this transaction, log in to your account.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-21",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -50292 statement for the period 05-Jan-2025 to 04-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-05",
+   "attachments": [
+    {
+     "filename": "eStatement_202502.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 2,348.11 was made on your American Express Platinum Travel Credit Card -60292 at RELIANCE DIGITAL on 6 February 2025.\nTo view this transaction, log in to your account.",
+   "date": "2025-02-06",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Your HSBC TravelOne Credit Card statement - Feb 2025",
+   "body": "Dear Aarav,\nYour HSBC TravelOne Credit Card ending 3174 statement for Feb 2025 is ready. Total amount due Rs.482.41, minimum amount due Rs.200.00, payable by 25-Feb-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-02-08",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m057",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 85.17 spent on your HSBC Credit Card xx3174 at TATA POWER on 08-Feb-2025 22:24:56.",
+   "date": "2025-02-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 872220350674. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "Refer and earn",
+   "body": "Dear Aarav,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2025-02-13",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -49806 statement for the period 15-Jan-2025 to 14-Feb-2025. Total amount due Rs.21,336.32, due 01-Mar-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-15",
+   "attachments": [
+    {
+     "filename": "American_Statement_Feb2025.pdf",
+     "protected": false,
+     "pdfText": "American Express\nStatement of Account\nAARAV KULKARNI\nFLAT 480, LAKESHORE APARTMENTS\n19TH CROSS, BANJARA HILLS\nMUMBAI - 475510\nCard Account ending 1-49806 (American Express Gold Card)\nClosing Date 14-Feb-2025\nStatement Period 15-Jan-2025 to 14-Feb-2025\nNew Balance Rs.21,336.32\nMinimum Payment Due Rs.1,066.82\nPayment Due Date 01-Mar-2025\nSpending limit: No Pre-set Spending Limit (charge card)\nDate Description Amount\n16-Jan-2025 BIGBASKET BENGALURU 3,378.70\n18-Jan-2025 AIRTEL PREPAID KOLKATA 1,158.44\n19-Jan-2025 NYKAA KOLKATA 1,154.54\n20-Jan-2025 INDIAN OIL KOCHI 237.14\n22-Jan-2025 PVR INOX BENGALURU 10,941.22\n25-Jan-2025 DMART BENGALURU 234.88\n27-Jan-2025 IKEA KOCHI 695.21\n30-Jan-2025 DOMINOS KOCHI 2,049.53\n14-Feb-2025 BESCOM KOLKATA 1,486.66\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "HSBC Account Statement - Feb 2025",
+   "body": "Dear Aarav,\nYour HSBC XXXXXX3600 account statement for Feb 2025 is ready. Closing balance Rs.1,687.79.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-02-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m062",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 13,978.39 charged at AIRTEL PREPAID on 18 February 2025 with your American Express Credit Card -90292.",
+   "date": "2025-02-18",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from XX3600 to Sunil Plumber A/c XX9007 on 19-Feb-2025. Rent for the month.",
+   "date": "2025-02-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Update your KYC",
+   "body": "Dear Aarav,\nAs per RBI guidelines please complete re-KYC for your HSBC relationship. Visit a branch or use the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-02-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Aarav,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-01",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 243.67 charged at TATA POWER on 2 March 2025 with your American Express Credit Card -30292.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-03-02",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -70292 statement for the period 05-Feb-2025 to 04-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-05",
+   "attachments": [
+    {
+     "filename": "0292_04032025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Your HSBC TravelOne Credit Card statement - Mar 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC TravelOne Credit Card ending 3174 statement for the period 08-Feb-2025 to 07-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 4,216.69 was made on your American Express Credit Card -60292 at BPCL FUEL on 10 March 2025.\nTo view this transaction, log in to your account.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-10",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -69806 statement for the period 15-Feb-2025 to 14-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-15",
+   "attachments": [
+    {
+     "filename": "American_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "HSBC Account Statement - Mar 2025",
+   "body": "Dear Aarav,\nYour HSBC XX3600 account statement for Mar 2025 is ready. Closing balance Rs.5,836.23.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from XXXXXX3600 to Sunil Plumber A/c XX9007 on 19-Mar-2025. Rent for the month.",
+   "date": "2025-03-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m073",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 749.87 was spent on your HSBC TravelOne Credit Card xx3174 at UBER INDIA on 20-Mar-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 421.45 was made on your American Express Credit Card -20292 at NETFLIX on 23 March 2025.\nTo view this transaction, log in to your account.\n\nOpt for e-statements and go green.",
+   "date": "2025-03-23",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "HSBC: credit alert",
+   "body": "Your A/c *3600 is credited with INR 88.81 on 25-Mar-2025 - NEFT. Bal INR 8,838.58. -HSBC\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Aarav,\nPlease find attached the updated MITC for your American Express credit cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-28",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -40292 statement for the period 05-Mar-2025 to 04-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-04-05",
+   "attachments": [
+    {
+     "filename": "American_CC_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "HSBC: credit alert",
+   "body": "Your A/c XX3600 is credited with INR 532.89 on 06-Apr-2025 - NEFT. Bal INR 93,725.14. -HSBC\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-04-06",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m079",
+   "subject": "Your HSBC TravelOne Credit Card statement - Apr 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC TravelOne Credit Card xx3174 statement for the period 08-Mar-2025 to 07-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-04-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202504.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Payment received - American Express",
+   "body": "Dear Customer,\nWe have received your payment of INR 192.46 on 9 April 2025 for your American Express Credit Card -29806. Available credit limit has been updated.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-04-09",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 22,896.76 spent on your HSBC Credit Card XX3174 at MYNTRA on 10-Apr-2025 20:47:18.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-10",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "OTP for your transaction",
+   "body": "428681 is the OTP for your transaction of Rs.196.92 at INDIGO AIRLINES. Valid for 10 minutes. Do not share.",
+   "date": "2025-04-13",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -19806 statement for Apr 2025 is ready. Total amount due Rs.813.39, minimum amount due Rs.200.00, payable by 02-May-2025.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-04-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "HSBC Account Statement - Apr 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC XXXXXX3600 statement for the period 16-Mar-2025 to 15-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202504.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 11,307.52 spent on your HSBC TravelOne Credit Card XX3174 at PVR INOX on 16-Apr-2025 20:58:04.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-16",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m086",
+   "subject": "Update your KYC",
+   "body": "Dear Aarav,\nAs per RBI guidelines please complete re-KYC for your American Express relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-16",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from *3600 to Sunil Plumber A/c XX9007 on 19-Apr-2025. Rent for the month.",
+   "date": "2025-04-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 2,679.72 charged at APOLLO PHARMACY on 20 April 2025 with your American Express Credit Card -70292.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-04-20",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "HSBC: debit alert",
+   "body": "INR debit alert: INR 19,493.83 debited from account *3600 on 01-May-2025. Narration: IMPS/TATA PLAY. Available balance INR 20,483.17.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-01",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -50292 statement for the period 05-Apr-2025 to 04-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-05",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Your HSBC TravelOne Credit Card statement - May 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC TravelOne Credit Card ending 3174 statement for the period 08-Apr-2025 to 07-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-08",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -29806 statement for the period 15-Apr-2025 to 14-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-15",
+   "attachments": [
+    {
+     "filename": "American_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "HSBC Account Statement - May 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC *3600 statement for the period 16-Apr-2025 to 15-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-05-16",
+   "attachments": [
+    {
+     "filename": "HSBC_Acct_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 218.50 was spent on your HSBC Credit Card XX3174 at EASEMYTRIP on 23-May-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 16,005.69 spent on your HSBC TravelOne Credit Card ending 3174 at AIRTEL PREPAID on 25-May-2025 04:25:36.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m096",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -30292 statement for the period 05-May-2025 to 04-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-06-05",
+   "attachments": [
+    {
+     "filename": "American_Statement_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Your HSBC TravelOne Credit Card statement - Jun 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC TravelOne Credit Card xx3174 statement for the period 08-May-2025 to 07-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 186.78 spent on your HSBC TravelOne Credit Card XX3174 at JIO RECHARGE on 13-Jun-2025 00:53:40.",
+   "date": "2025-06-13",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m099",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -89806 statement for the period 15-May-2025 to 14-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-15",
+   "attachments": [
+    {
+     "filename": "American_Statement_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "HSBC Account Statement - Jun 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC xx3600 statement for the period 16-May-2025 to 15-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Aarav,\nYour order #103-1221599-2367414 is confirmed. Total Rs.686.39. Estimated delivery in 2 days.",
+   "date": "2025-06-20",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m102",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Aarav,\nYour order #938-5099773-7729563 is confirmed. Total Rs.1,750.42. Estimated delivery in 2 days.",
+   "date": "2025-06-22",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 291.73 was made on your American Express Credit Card -20292 at EASEMYTRIP on 25 June 2025.\nTo view this transaction, log in to your account.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-25",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 150.34 charged at UBER INDIA on 29 June 2025 with your American Express Gold Card -19806.",
+   "date": "2025-06-29",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "HSBC: debit alert",
+   "body": "Dear Customer,\nINR 7,511.77 has been debited from your HSBC A/c xx3600 on 02-Jul-2025 (ECOM APPLE SERVICES). Avl bal INR 5,056.89.",
+   "date": "2025-07-02",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "HSBC: debit alert",
+   "body": "Your A/c XXXXXX3600 is debited for INR 156.77 on 04-Jul-2025 - NEFT FLIPKART. Bal INR 8,625.08. -HSBC",
+   "date": "2025-07-04",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -50292 statement for the period 05-Jun-2025 to 04-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-05",
+   "attachments": [
+    {
+     "filename": "0292_04072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 476.66 charged at NYKAA on 7 July 2025 with your American Express Platinum Travel Credit Card -80292.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-07",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Your HSBC TravelOne Credit Card statement - Jul 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC TravelOne Credit Card XX3174 statement for the period 08-Jun-2025 to 07-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-08",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Payment of INR 1,722.46 has been received towards your HSBC TravelOne Credit Card XX3174 on 08-Jul-2025. Thank you for the payment.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m111",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -89806 statement for Jul 2025 is ready. Total amount due Rs.4,420.30, minimum amount due Rs.221.02, payable by 01-Aug-2025.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-07-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "HSBC Account Statement - Jul 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC *3600 statement for the period 16-Jun-2025 to 15-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m113",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 8,162.66 was spent on your HSBC TravelOne Credit Card XX3174 at JIO RECHARGE on 31-Jul-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-31",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 901.78 was made on your American Express Credit Card -80292 at PHONEPE on 4 August 2025.\nTo view this transaction, log in to your account.",
+   "date": "2025-08-04",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Your HSBC TravelOne Credit Card statement - Aug 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC TravelOne Credit Card ending 3174 statement for the period 08-Jul-2025 to 07-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-08-08",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m116",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 1,444.83 charged at SWIGGY on 9 August 2025 with your American Express Credit Card -29806.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 23,780.33 was spent on your HSBC TravelOne Credit Card XX3174 at IRCTC on 09-Aug-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 3,133.75 charged at LENSKART on 13 August 2025 with your American Express Credit Card -59806.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "HSBC: debit alert",
+   "body": "INR debit alert: INR 7,558.93 debited from account *3600 on 13-Aug-2025. Narration: UPI/NETFLIX. Available balance INR 31,235.54.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m120",
+   "subject": "OTP for your transaction",
+   "body": "181912 is the OTP for your transaction of Rs.11,746.91 at LENSKART. Valid for 10 minutes. Do not share.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 840.11 was spent on your HSBC Credit Card XX3174 at AMAZON PAY INDIA on 14-Aug-2025.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-14",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m122",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -39806 statement for the period 15-Jul-2025 to 14-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-15",
+   "attachments": [
+    {
+     "filename": "American_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "HSBC Account Statement - Aug 2025",
+   "body": "Dear Aarav,\nYour HSBC XXXXXX3600 account statement for Aug 2025 is ready. Closing balance Rs.5,439.64.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-08-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 2,654.15 charged at STARBUCKS on 22 August 2025 with your American Express Gold Card -79806.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,869.26 spent on your HSBC Credit Card XX3174 at MAKEMYTRIP on 22-Aug-2025 20:23:00.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 305.80 charged at ZOMATO on 25 August 2025 with your American Express Credit Card -59806.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 11,513.04 was made on your American Express Credit Card -50292 at SWIGGY on 27 August 2025.\nTo view this transaction, log in to your account.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Earn more with your card",
+   "body": "Dear Aarav,\nUse your card on UPI and earn extra rewards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-28",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m129",
+   "subject": "HSBC: credit alert",
+   "body": "Credit alert: INR 12,939.98 has been credited to account XX3600 on 30-Aug-2025 (SALARY NEFT). Avl bal INR 32,027.12.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-30",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m130",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 3,108.51 was made on your American Express Platinum Travel Credit Card -90292 at NETFLIX on 3 September 2025.\nTo view this transaction, log in to your account.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Platinum Travel Credit Card -40292 statement for Sep 2025 is ready. Total amount due Rs.2,831.31, minimum amount due Rs.200.00, payable by 22-Sep-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-09-05",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Update your KYC",
+   "body": "Dear Aarav,\nAs per RBI guidelines please complete re-KYC for your HSBC relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-09-05",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m133",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 101.27 was made on your American Express Gold Card -89806 at AIRTEL PREPAID on 7 September 2025.\nTo view this transaction, log in to your account.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -69806 statement for Sep 2025 is ready. Total amount due Rs.54,724.88, minimum amount due Rs.2,736.24, payable by 02-Oct-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "HSBC Account Statement - Sep 2025",
+   "body": "Dear Aarav,\nYour HSBC XXXXXX3600 account statement for Sep 2025 is ready. Closing balance Rs.4,954.91.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m136",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 1,524.74 charged at AMAZON PAY INDIA on 17 September 2025 with your American Express Gold Card -59806.",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "HSBC: debit alert",
+   "body": "INR debit alert: INR 154.52 debited from account *3600 on 23-Sep-2025. Narration: UPI/APOLLO PHARMACY. Available balance INR 14,741.83.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m138",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 6,765.19 charged at AIRTEL PREPAID on 25 September 2025 with your American Express Credit Card -59806.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Platinum Travel Credit Card -10292 statement for Oct 2025 is ready. Total amount due Rs.1,209.00, minimum amount due Rs.200.00, payable by 22-Oct-2025.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Your HSBC TravelOne Credit Card statement - Oct 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC TravelOne Credit Card XX3174 statement for the period 08-Sep-2025 to 07-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-10-08",
+   "attachments": [
+    {
+     "filename": "3174_07102025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m141",
+   "subject": "Payment successful",
+   "body": "Hi Aarav,\nYou paid Rs.7,523.16 to ICICI Bank Credit Card ending 1734 (of Priya Kulkarni) on 12-Oct-2025. Ref 3882400498.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m142",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -99806 statement for Oct 2025 is ready. Total amount due Rs.8,061.46, minimum amount due Rs.403.07, payable by 01-Nov-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-10-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "HSBC: debit alert",
+   "body": "Dear Customer,\nINR 17,978.17 has been debited from your HSBC A/c xx3600 on 15-Oct-2025 (NEFT INDIGO AIRLINES). Avl bal INR 17,350.29.",
+   "date": "2025-10-15",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m144",
+   "subject": "HSBC Account Statement - Oct 2025",
+   "body": "Dear Aarav,\nYour HSBC XX3600 account statement for Oct 2025 is ready. Closing balance Rs.1,553.70.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m145",
+   "subject": "HSBC: debit alert",
+   "body": "Your A/c XXXXXX3600 is debited for INR 1,053.05 on 17-Oct-2025 - IMPS SWIGGY. Bal INR 40,012.56. -HSBC",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m146",
+   "subject": "Payment received - American Express",
+   "body": "Dear Customer,\nWe have received your payment of INR 406.21 on 21 October 2025 for your American Express Credit Card -60292. Available credit limit has been updated.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 15,703.06 was spent on your HSBC TravelOne Credit Card xx3174 at UBER INDIA on 24-Oct-2025.",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m148",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -30292 statement for the period 05-Oct-2025 to 04-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-05",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Your HSBC TravelOne Credit Card statement - Nov 2025",
+   "body": "Dear Aarav,\nYour HSBC TravelOne Credit Card xx3174 statement for Nov 2025 is ready. Total amount due Rs.1,468.51, minimum amount due Rs.200.00, payable by 25-Nov-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m150",
+   "subject": "HSBC: debit alert",
+   "body": "INR debit alert: INR 33,459.75 debited from account XX3600 on 14-Nov-2025. Narration: POS/PAYTM. Available balance INR 1,12,496.60.",
+   "date": "2025-11-14",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m151",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -29806 statement for Nov 2025 is ready. Total amount due Rs.1,469.80, minimum amount due Rs.200.00, payable by 02-Dec-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-11-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "HSBC Account Statement - Nov 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC XX3600 statement for the period 16-Oct-2025 to 15-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-16",
+   "attachments": [
+    {
+     "filename": "3600_15112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m153",
+   "subject": "American Express: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 1529 has been successfully linked/verified for your American Express relationship. If this was not you, contact us.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Aarav,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2025-11-20",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 7,430.61 was made on your American Express Credit Card -69806 at IRCTC on 26 November 2025.\nTo view this transaction, log in to your account.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "HSBC: debit alert",
+   "body": "INR debit alert: INR 13,611.44 debited from account XX3600 on 04-Dec-2025. Narration: ECOM/PHONEPE. Available balance INR 52,682.85.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-04",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m157",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -70292 statement for the period 05-Nov-2025 to 04-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-05",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "HSBC: debit alert",
+   "body": "Dear Customer,\nINR 85.47 has been debited from your HSBC A/c XX3600 on 05-Dec-2025 (POS TATA PLAY). Avl bal INR 1,49,746.81.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m159",
+   "subject": "Refer and earn",
+   "body": "Dear Aarav,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.2,177.52 has been transferred from your A/c XXXXXX3600 to Sunil Plumber A/c XX2978 (SBI Card) via IMPS on 07-Dec-2025. Ref no 857000335439.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m161",
+   "subject": "Your HSBC TravelOne Credit Card statement - Dec 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC TravelOne Credit Card ending 3174 statement for the period 08-Nov-2025 to 07-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-08",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m162",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Aarav,\nYour order #563-3695578-2286268 is confirmed. Total Rs.487.14. Estimated delivery in 2 days.",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m163",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -59806 statement for the period 15-Nov-2025 to 14-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-15",
+   "attachments": [
+    {
+     "filename": "9806_14122025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "HSBC Account Statement - Dec 2025",
+   "body": "Dear Aarav,\nPlease find attached your HSBC XXXXXX3600 statement for the period 16-Nov-2025 to 15-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m165",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 100.72 charged at ZEPTO on 17 December 2025 with your American Express Platinum Travel Credit Card -20292.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-17",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "HSBC: credit alert",
+   "body": "Dear Customer,\nINR 338.95 credited to your HSBC A/c XXXXXX3600 on 22-Dec-2025 by UPI. Ref 500936850699.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m167",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 18,568.41 was made on your American Express Gold Card -69806 at DECATHLON on 28 December 2025.\nTo view this transaction, log in to your account.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -80292 statement for the period 05-Dec-2025 to 04-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-05",
+   "attachments": [
+    {
+     "filename": "0292_04012026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Your HSBC TravelOne Credit Card statement - Jan 2026",
+   "body": "Dear Aarav,\nPlease find attached your HSBC TravelOne Credit Card xx3174 statement for the period 08-Dec-2025 to 07-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-08",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m170",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 13,130.72 was made on your American Express Gold Card -59806 at DOMINOS on 8 January 2026.\nTo view this transaction, log in to your account.",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "HSBC: credit alert",
+   "body": "Credit alert: INR 12,285.91 has been credited to account *3600 on 09-Jan-2026 (IMPS). Avl bal INR 96,611.12.",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m172",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -39806 statement for the period 15-Dec-2025 to 14-Jan-2026. Total amount due Rs.17,676.41, due 03-Feb-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-15",
+   "attachments": [
+    {
+     "filename": "9806_14012026_stmt.pdf",
+     "protected": false,
+     "pdfText": "American Express\nStatement of Account\nAARAV KULKARNI\nFLAT 555, GREEN VALLEY APARTMENTS\n10TH CROSS, SECTOR 21\nKOLKATA - 536307\nCard Account ending 1-49806 (American Express Gold Card)\nClosing Date 14-Jan-2026\nStatement Period 15-Dec-2025 to 14-Jan-2026\nNew Balance Rs.17,676.41\nMinimum Payment Due Rs.883.82\nPayment Due Date 03-Feb-2026\nSpending limit: No Pre-set Spending Limit (charge card)\nDate Description Amount\n21-Dec-2025 EAZYDINER PUNE 412.03\n24-Dec-2025 DECATHLON KOCHI 271.16\n24-Dec-2025 TATA PLAY KOLKATA 130.00\n05-Jan-2026 ZEPTO CHENNAI 872.35\n11-Jan-2026 BIGBASKET BENGALURU 897.27\n12-Jan-2026 BATA INDIA KOCHI 15,093.60\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "HSBC Account Statement - Jan 2026",
+   "body": "Dear Aarav,\nPlease find attached your HSBC *3600 statement for the period 16-Dec-2025 to 15-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202601.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m174",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 6,443.44 charged at MCDONALDS on 29 January 2026 with your American Express Credit Card -50292.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-29",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "HSBC: credit alert",
+   "body": "Dear Customer,\nINR 5,825.09 credited to your HSBC A/c *3600 on 02-Feb-2026 by INTEREST CREDIT. Ref 172889309263.\nThank you for banking with us.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m176",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Platinum Travel Credit Card -90292 statement for Feb 2026 is ready. Total amount due Rs.1,945.09, minimum amount due Rs.200.00, payable by 22-Feb-2026.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "HSBC: debit alert",
+   "body": "Dear Customer,\nINR 379.58 has been debited from your HSBC A/c XX3600 on 07-Feb-2026 (ECOM GOOGLE PLAY). Avl bal INR 11,489.99.",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m178",
+   "subject": "Your HSBC TravelOne Credit Card statement - Feb 2026",
+   "body": "Dear Aarav,\nYour HSBC TravelOne Credit Card XX3174 statement for Feb 2026 is ready. Total amount due Rs.14,165.97, minimum amount due Rs.708.30, payable by 25-Feb-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-02-08",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m179",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -69806 statement for Feb 2026 is ready. Total amount due Rs.1,733.73, minimum amount due Rs.200.00, payable by 04-Mar-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-02-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "HSBC Account Statement - Feb 2026",
+   "body": "Dear Aarav,\nPlease find attached your HSBC XX3600 statement for the period 16-Jan-2026 to 15-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-16",
+   "attachments": [
+    {
+     "filename": "3600_15022026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m181",
+   "subject": "HSBC: debit alert",
+   "body": "Dear Customer,\nINR 910.71 has been debited from your HSBC A/c *3600 on 18-Feb-2026 (ECOM BOOKMYSHOW). Avl bal INR 18,160.12.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-18",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m182",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 8,884.62 spent on your HSBC Credit Card XX3174 at EASEMYTRIP on 19-Feb-2026 01:24:54.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-02-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m183",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 88.22 charged at DOMINOS on 24 February 2026 with your American Express Gold Card -19806.",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 102.81 charged at STARBUCKS on 27 February 2026 with your American Express Gold Card -59806.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "HSBC: debit alert",
+   "body": "Your A/c XXXXXX3600 is debited for INR 183.31 on 02-Mar-2026 - POS RELIANCE DIGITAL. Bal INR 1,74,995.09. -HSBC",
+   "date": "2026-03-02",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m186",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -10292 statement for the period 05-Feb-2026 to 04-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-05",
+   "attachments": [
+    {
+     "filename": "American_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Your HSBC Credit Card has been closed",
+   "body": "Dear Aarav Kulkarni,\nThis is to confirm that your HSBC TravelOne Credit Card xx3174 has been closed on 08-Mar-2026 at your request. No dues are pending.\nThank you for banking with us.",
+   "date": "2026-03-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m188",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -99806 statement for Mar 2026 is ready. Total amount due Rs.34,396.24, minimum amount due Rs.1,719.81, payable by 01-Apr-2026.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "HSBC Account Statement - Mar 2026",
+   "body": "Dear Aarav,\nPlease find attached your HSBC XXXXXX3600 statement for the period 16-Feb-2026 to 15-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-16",
+   "attachments": [
+    {
+     "filename": "HSBC_Acct_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m190",
+   "subject": "HSBC: debit alert",
+   "body": "INR debit alert: INR 2,034.06 debited from account XX3600 on 16-Mar-2026. Narration: POS/INDIAN OIL. Available balance INR 40,203.64.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m191",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 3,242.53 charged at BIG BAZAAR on 17 March 2026 with your American Express Credit Card -19806.",
+   "date": "2026-03-17",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Aarav,\nYour order #217-6690192-5943030 is confirmed. Total Rs.6,778.72. Estimated delivery in 2 days.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "OTP for your transaction",
+   "body": "316809 is the OTP for your transaction of Rs.253.58 at ZOMATO. Valid for 10 minutes. Do not share.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Platinum Travel Credit Card -60292 statement for Apr 2026 is ready. Total amount due Rs.4,864.25, minimum amount due Rs.243.21, payable by 22-Apr-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 750.46 was made on your American Express Gold Card -99806 at STARBUCKS on 7 April 2026.\nTo view this transaction, log in to your account.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -59806 statement for Apr 2026 is ready. Total amount due Rs.3,698.14, minimum amount due Rs.200.00, payable by 02-May-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "HSBC Account Statement - Apr 2026",
+   "body": "Dear Aarav,\nPlease find attached your HSBC *3600 statement for the period 16-Mar-2026 to 15-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-16",
+   "attachments": [
+    {
+     "filename": "HSBC_Acct_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m198",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 928.29 was made on your American Express Credit Card -70292 at EASEMYTRIP on 16 April 2026.\nTo view this transaction, log in to your account.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Aarav,\nUse your card on UPI and earn extra rewards.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m200",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 101.96 charged at BLINKIT on 2 May 2026 with your American Express Credit Card -39806.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "OTP for your transaction",
+   "body": "789971 is the OTP for your transaction of Rs.1,090.31 at NYKAA. Valid for 10 minutes. Do not share.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m202",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 364.21 was made on your American Express Credit Card -19806 at BPCL FUEL on 9 May 2026.\nTo view this transaction, log in to your account.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -39806 statement for May 2026 is ready. Total amount due Rs.661.52, minimum amount due Rs.200.00, payable by 01-Jun-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "OTP for your transaction",
+   "body": "413711 is the OTP for your transaction of Rs.626.30 at BPCL FUEL. Valid for 10 minutes. Do not share.",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "OTP for your transaction",
+   "body": "788304 is the OTP for your transaction of Rs.608.34 at EAZYDINER. Valid for 10 minutes. Do not share.",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m206",
+   "subject": "HSBC Account Statement - May 2026",
+   "body": "Dear Aarav,\nYour HSBC XXXXXX3600 account statement for May 2026 is ready. Closing balance Rs.2,780.10.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m207",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 725.58 charged at DECATHLON on 18 May 2026 with your American Express Platinum Travel Credit Card -50292.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "HSBC: debit alert",
+   "body": "INR debit alert: INR 4,575.57 debited from account XXXXXX3600 on 30-May-2026. Narration: UPI/APOLLO PHARMACY. Available balance INR 1,04,638.54.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-30",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m209",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -90292 statement for the period 05-May-2026 to 04-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-06-05",
+   "attachments": [
+    {
+     "filename": "American_CC_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 590.68 was made on your American Express Credit Card -40292 at IKEA on 12 June 2026.\nTo view this transaction, log in to your account.",
+   "date": "2026-06-12",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 1,497.44 charged at AMAZON PAY INDIA on 12 June 2026 with your American Express Credit Card -79806.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-12",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -19806 statement for the period 15-May-2026 to 14-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "HSBC Account Statement - Jun 2026",
+   "body": "Dear Aarav,\nYour HSBC xx3600 account statement for Jun 2026 is ready. Closing balance Rs.10,726.92.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m214",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 1,103.15 was made on your American Express Credit Card -39806 at ZEPTO on 28 June 2026.\nTo view this transaction, log in to your account.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 2,938.91 charged at ZOMATO on 29 June 2026 with your American Express Credit Card -40292.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-29",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 1,520.92 was made on your American Express Platinum Travel Credit Card -70292 at HPCL PETROL on 2 July 2026.\nTo view this transaction, log in to your account.",
+   "date": "2026-07-02",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "HSBC: credit alert",
+   "body": "Dear Customer,\nINR 204.20 credited to your HSBC A/c XX3600 on 05-Jul-2026 by REFUND. Ref 572063011815.\nThank you for banking with us.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m218",
+   "subject": "HSBC: debit alert",
+   "body": "Your A/c xx3600 is debited for INR 156.78 on 08-Jul-2026 - UPI EASEMYTRIP. Bal INR 3,676.92. -HSBC",
+   "date": "2026-07-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m219",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 3,601.51 was made on your American Express Credit Card -10292 at DECATHLON on 11 July 2026.\nTo view this transaction, log in to your account.",
+   "date": "2026-07-11",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 9,162.81 was made on your American Express Credit Card -60292 at GOOGLE PLAY on 12 July 2026.\nTo view this transaction, log in to your account.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Gold Card -59806 statement for Jul 2026 is ready. Total amount due Rs.669.53, minimum amount due Rs.200.00, payable by 01-Aug-2026.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "HSBC Account Statement - Jul 2026",
+   "body": "Dear Aarav,\nPlease find attached your HSBC *3600 statement for the period 16-Jun-2026 to 15-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-16",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m223",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 3,242.52 charged at ZEPTO on 19 July 2026 with your American Express Gold Card -59806.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 24,493.59 was made on your American Express Gold Card -99806 at BLINKIT on 23 July 2026.\nTo view this transaction, log in to your account.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "HSBC: credit alert",
+   "body": "Credit alert: INR 1,951.79 has been credited to account *3600 on 29-Jul-2026 (IMPS). Avl bal INR 15,221.84.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-29",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m226",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -40292 statement for the period 05-Jul-2026 to 04-Aug-2026. Total amount due Rs.33,473.21, due 20-Aug-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-05",
+   "attachments": [
+    {
+     "filename": "American_CC_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "American Express\nStatement of Account\nAARAV KULKARNI\nFLAT 525, ORCHID APARTMENTS\n28TH CROSS, ADYAR\nKOCHI - 586417\nCard Account ending 1-70292 (American Express Platinum Travel Credit Card)\nClosing Date 04-Aug-2026\nStatement Period 05-Jul-2026 to 04-Aug-2026\nNew Balance Rs.33,473.21\nMinimum Payment Due Rs.1,673.66\nPayment Due Date 20-Aug-2026\nCredit Limit Rs.3,80,000.00\nAvailable Credit Rs.3,52,018.72\nDate Description Amount\n06-Jul-2026 EAZYDINER HYDERABAD 198.72\n13-Jul-2026 TATA POWER BENGALURU 1,116.66\n14-Jul-2026 SPOTIFY BENGALURU 2,227.56\n16-Jul-2026 BLINKIT HYDERABAD 21,863.87\n23-Jul-2026 AMAZON PAY INDIA GURUGRAM 1,468.70\n25-Jul-2026 NYKAA KOCHI 447.18\n26-Jul-2026 RELIANCE DIGITAL JAIPUR 2,957.44\n03-Aug-2026 PHONEPE PUNE 2,981.58\n04-Aug-2026 INDIAN OIL HYDERABAD 211.50\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 265.78 was made on your American Express Credit Card -70292 at TATA PLAY on 13 August 2026.\nTo view this transaction, log in to your account.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-13",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -49806 statement for the period 15-Jul-2026 to 14-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-15",
+   "attachments": [
+    {
+     "filename": "American_CC_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "HSBC Account Statement - Aug 2026",
+   "body": "Dear Aarav,\nPlease find attached your HSBC xx3600 statement for the period 16-Jul-2026 to 15-Aug-2026. \n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-16",
+   "attachments": [
+    {
+     "filename": "HSBC_Acct_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "HSBC\nSTATEMENT OF ACCOUNT\nAccount Name : AARAV KULKARNI\nFLAT 184, LAKESHORE APARTMENTS\n9TH CROSS, KOTHRUD\nBENGALURU - 669923\nAccount Number : XX3600\nAccount Type : SAVINGS ACCOUNT\nIFSC : HSBC0803925\nStatement Period : 16-07-2026 to 15-08-2026\nOpening Balance : Rs.42,804.23\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n16-07-2026 UPI/AMAZON PAY INDIA 172691374 690.69 - 42,113.54\n16-07-2026 UPI/JIO RECHARGE 130971270 5,978.44 - 36,135.10\n17-07-2026 ATM WDL/ZEPTO 315847877 110.75 - 36,024.35\n20-07-2026 UPI/MYNTRA 336547415 5,043.53 - 30,980.82\n22-07-2026 UPI/CROMA 405144918 425.95 - 30,554.87\n24-07-2026 ATM WDL/APPLE SERVICES 784415023 1,011.77 - 29,543.10\n26-07-2026 UPI/RELIANCE DIGITAL 510572138 1,802.62 - 27,740.48\n29-07-2026 UPI/CR 604179712 - 1,990.04 29,730.52\nClosing Balance : Rs.29,730.52\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m230",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Aarav,\nUse your card on UPI and earn extra rewards.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 108.96 was made on your American Express Credit Card -70292 at IKEA on 18 August 2026.\nTo view this transaction, log in to your account.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-18",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "HSBC: debit alert",
+   "body": "Your A/c *3600 is debited for INR 643.61 on 22-Aug-2026 - UPI MCDONALDS. Bal INR 13,818.99. -HSBC\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m233",
+   "subject": "Update your KYC",
+   "body": "Dear Aarav,\nAs per RBI guidelines please complete re-KYC for your American Express relationship. Visit a branch or use the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 2,267.84 charged at DMART on 30 August 2026 with your American Express Credit Card -79806.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-30",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 1,202.00 charged at RELIANCE DIGITAL on 31 August 2026 with your American Express Gold Card -29806.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-31",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nYour American Express Platinum Travel Credit Card -50292 statement for Sep 2026 is ready. Total amount due Rs.23,459.21, minimum amount due Rs.1,172.96, payable by 22-Sep-2026.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 6,626.11 charged at LENSKART on 5 September 2026 with your American Express Gold Card -19806.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m238",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 1,037.10 charged at NYKAA on 13 September 2026 with your American Express Platinum Travel Credit Card -40292.",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -19806 statement for the period 15-Aug-2026 to 14-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-15",
+   "attachments": [
+    {
+     "filename": "9806_14092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "HSBC Account Statement - Sep 2026",
+   "body": "Dear Aarav,\nPlease find attached your HSBC XXXXXX3600 statement for the period 16-Aug-2026 to 15-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-16",
+   "attachments": [
+    {
+     "filename": "3600_15092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m241",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 103.97 was made on your American Express Credit Card -19806 at BPCL FUEL on 20 September 2026.\nTo view this transaction, log in to your account.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-20",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 259.51 charged at IKEA on 1 October 2026 with your American Express Credit Card -50292.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Platinum Travel Credit Card -70292 statement for the period 05-Sep-2026 to 04-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-05",
+   "attachments": [
+    {
+     "filename": "American_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "OTP for your transaction",
+   "body": "253648 is the OTP for your transaction of Rs.195.85 at RELIANCE DIGITAL. Valid for 10 minutes. Do not share.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m245",
+   "subject": "Your American Express Statement is ready",
+   "body": "Dear Aarav,\nPlease find attached your American Express Gold Card -79806 statement for the period 15-Sep-2026 to 14-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-10-15",
+   "attachments": [
+    {
+     "filename": "American_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "American Express <statement@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "HSBC Account Statement - Oct 2026",
+   "body": "Dear Aarav,\nYour HSBC xx3600 account statement for Oct 2026 is ready. Closing balance Rs.13,500.18.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m247",
+   "subject": "Card Alert: Charge",
+   "body": "Alert: A charge of INR 7,938.71 was made on your American Express Credit Card -89806 at TATA PLAY on 16 October 2026.\nTo view this transaction, log in to your account.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "HSBC: debit alert",
+   "body": "Your A/c xx3600 is debited for INR 408.79 on 16-Oct-2026 - IMPS AIRTEL PREPAID. Bal INR 1,58,726.96. -HSBC\n\nOpt for e-statements and go green.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m249",
+   "subject": "Card Alert: Charge",
+   "body": "Card Alert: INR 1,295.15 charged at INDIAN OIL on 30 October 2026 with your American Express Credit Card -79806.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-30",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "americanexpress.com",
+    "last4": "0292",
+    "kind": "CREDIT_CARD",
+    "variant": "Platinum Travel",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "3-5L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "americanexpress.com",
+    "last4": "9806",
+    "kind": "CREDIT_CARD",
+    "variant": "Gold",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "3174",
+    "kind": "CREDIT_CARD",
+    "variant": "TravelOne",
+    "lifecycle": "CLOSED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "3600",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "1999",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "2978",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "9007",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "americanexpress.com",
+    "last4": "1529",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "americanexpress.com",
+    "last4": "7367",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "0674",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "1734",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

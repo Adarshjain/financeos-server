@@ -1,0 +1,2850 @@
+{
+ "mailbox": "icici-amazon-mmt-rubyx",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Rubyx Credit Card XX8568 has been used for a transaction of INR 177.98 on 05-May-2024 at 15:56:17. Info: AMAZON PAY INDIA.\nIf you did not do this, please call customer care.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Dear Customer,\nINR 902.26 has been debited from your ICICI Bank A/c XX2903 on 07-May-2024 (IMPS URBAN COMPANY). Avl bal INR 1,25,268.47.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-05-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "ICICI Bank Account Statement - May 2024",
+   "body": "Dear Gaurav,\nYour ICICI Bank xx2903 account statement for May 2024 is ready. Closing balance Rs.742.51.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Dear Customer,\nINR 34,460.20 has been debited from your ICICI Bank A/c XXXXXX2903 on 12-May-2024 (POS GOOGLE PLAY). Avl bal INR 45,618.15.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-05-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX7683 has been used for a transaction of INR 5,346.79 on 14-May-2024 at 21:17:22. Info: ZOMATO.\nIf you did not do this, please call customer care.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Apr-2024 to 16-May-2024",
+   "body": "Dear Gaurav,\nPlease find attached your Amazon Pay ICICI Bank Credit Card XX7683 statement for the period 17-Apr-2024 to 16-May-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-05-17",
+   "attachments": [
+    {
+     "filename": "7683_16052024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Apr-2024 to 16-May-2024",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card XX8568 statement for the period 17-Apr-2024 to 16-May-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-05-17",
+   "attachments": [
+    {
+     "filename": "8568_16052024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour Amazon Pay ICICI Bank Credit Card XX7683 has been used for a transaction of INR 361.15 on 18-May-2024 at 11:51:08. Info: TATA PLAY.\nIf you did not do this, please call customer care.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-05-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 23,164.09 done on your MakeMyTrip ICICI Bank Signature Credit Card ending 0591 at PAYTM on 21-May-2024. Available credit limit is INR 70,307.42.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-05-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Dear Customer,\nINR 115.36 has been debited from your ICICI Bank A/c XX2903 on 21-May-2024 (POS LENSKART). Avl bal INR 8,336.31.\n\nOpt for e-statements and go green.",
+   "date": "2024-05-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour Amazon Pay ICICI Bank Credit Card xx7683 has been used for a transaction of INR 13,856.37 on 24-May-2024 at 00:16:50. Info: MYNTRA.\nIf you did not do this, please call customer care.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-05-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Apr-2024 to 26-May-2024",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card ending 0591 statement for the period 27-Apr-2024 to 26-May-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-05-27",
+   "attachments": [
+    {
+     "filename": "eStatement_202405.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "OTP for your transaction",
+   "body": "978406 is the OTP for your transaction of Rs.249.43 at APPLE SERVICES. Valid for 10 minutes. Do not share.",
+   "date": "2024-05-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Rubyx Credit Card xx8568 has been used for a transaction of INR 277.34 on 01-Jun-2024 at 10:50:24. Info: TATA PLAY.\nIf you did not do this, please call customer care.",
+   "date": "2024-06-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour MakeMyTrip ICICI Bank Signature Credit Card XX0591 has been used for a transaction of INR 1,313.30 on 02-Jun-2024 at 14:29:40. Info: HPCL PETROL.\nIf you did not do this, please call customer care.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-06-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 2,495.69 done on your ICICI Bank Credit Card XX7683 at DOMINOS on 03-Jun-2024. Available credit limit is INR 12,694.93.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-06-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 695.68 done on your ICICI Bank Credit Card XX8568 at BOOKMYSHOW on 08-Jun-2024. Available credit limit is INR 46,883.75.",
+   "date": "2024-06-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Credit Alert: ICICI Bank Account",
+   "body": "Your A/c *2903 is credited with INR 1,091.67 on 08-Jun-2024 - NEFT. Bal INR 45,657.01. -ICICI Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-06-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "ICICI Bank Account Statement - Jun 2024",
+   "body": "Dear Gaurav,\nYour ICICI Bank *2903 account statement for Jun 2024 is ready. Closing balance Rs.4,905.70.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-06-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Your A/c XXXXXX2903 is debited for INR 3,290.44 on 14-Jun-2024 - IMPS MAKEMYTRIP. Bal INR 6,321.29. -ICICI Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-06-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-May-2024 to 16-Jun-2024",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card ending 8568 statement for the period 17-May-2024 to 16-Jun-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-06-17",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Jun2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-May-2024 to 16-Jun-2024",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card xx7683 statement for Jun 2024 is ready. Total amount due Rs.2,928.78, minimum amount due Rs.200.00, payable by 04-Jul-2024.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-06-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 3,473.24 done on your ICICI Bank Credit Card xx0591 at ZEPTO on 20-Jun-2024. Available credit limit is INR 9,386.48.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-06-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-May-2024 to 26-Jun-2024",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card ending 0591 statement for the period 27-May-2024 to 26-Jun-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-06-27",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Jun2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Dear Customer,\nINR 25,905.75 has been debited from your ICICI Bank A/c *2903 on 30-Jun-2024 (UPI MAKEMYTRIP). Avl bal INR 3,324.84.",
+   "date": "2024-06-30",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Gaurav,\nYour order #216-1046089-8044103 is confirmed. Total Rs.3,198.62. Estimated delivery in 2 days.",
+   "date": "2024-07-03",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m027",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour Amazon Pay ICICI Bank Credit Card XX7683 has been used for a transaction of INR 3,882.37 on 05-Jul-2024 at 17:56:35. Info: IXIGO.\nIf you did not do this, please call customer care.",
+   "date": "2024-07-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Rubyx Credit Card ending 8568 has been used for a transaction of INR 10,358.21 on 07-Jul-2024 at 06:33:40. Info: PVR INOX.\nIf you did not do this, please call customer care.",
+   "date": "2024-07-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "ICICI Bank Account Statement - Jul 2024",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank XX2903 statement for the period 09-Jun-2024 to 08-Jul-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-09",
+   "attachments": [
+    {
+     "filename": "eStatement_202407.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 94.49 done on your ICICI Bank Credit Card xx7683 at IKEA on 11-Jul-2024. Available credit limit is INR 1,39,164.83.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-07-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 304.33 done on your ICICI Bank Credit Card XX7683 at FLIPKART on 16-Jul-2024. Available credit limit is INR 5,647.43.",
+   "date": "2024-07-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Jun-2024 to 16-Jul-2024",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card ending 8568 statement for the period 17-Jun-2024 to 16-Jul-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-07-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202407.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Jun-2024 to 16-Jul-2024",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card XX7683 statement for Jul 2024 is ready. Total amount due Rs.1,689.86, minimum amount due Rs.200.00, payable by 03-Aug-2024.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-07-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Your A/c xx2903 is debited for INR 11,484.17 on 21-Jul-2024 - UPI EAZYDINER. Bal INR 2,995.84. -ICICI Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-07-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Credit Alert: ICICI Bank Account",
+   "body": "Dear Customer,\nINR 16,100.25 credited to your ICICI Bank A/c xx2903 on 23-Jul-2024 by NEFT. Ref 844436020435.\nThank you for banking with us.",
+   "date": "2024-07-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "ICICI Bank festive offers",
+   "body": "Dear Gaurav,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-07-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Jun-2024 to 26-Jul-2024",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card XX0591 statement for the period 27-Jun-2024 to 26-Jul-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-07-27",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Jul2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour MakeMyTrip ICICI Bank Signature Credit Card XX0591 has been used for a transaction of INR 833.68 on 29-Jul-2024 at 18:01:47. Info: AIRTEL PREPAID.\nIf you did not do this, please call customer care.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 7683 has been used for a transaction of INR 344.02 on 31-Jul-2024 at 00:00:19. Info: EAZYDINER.\nIf you did not do this, please call customer care.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-07-31",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX8568 has been used for a transaction of INR 4,757.13 on 31-Jul-2024 at 22:53:33. Info: AMAZON PAY INDIA.\nIf you did not do this, please call customer care.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-31",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx7683 has been used for a transaction of INR 581.85 on 03-Aug-2024 at 14:00:33. Info: BOOKMYSHOW.\nIf you did not do this, please call customer care.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-08-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "ICICI Bank Account Statement - Aug 2024",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank xx2903 statement for the period 09-Jul-2024 to 08-Aug-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-08-09",
+   "attachments": [
+    {
+     "filename": "ICICI_Acct_Aug2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Jul-2024 to 16-Aug-2024",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card ending 8568 statement for the period 17-Jul-2024 to 16-Aug-2024. Total amount due Rs.49,637.54, due 04-Sep-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-08-17",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Aug2024.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nGAURAV DESAI\nFLAT 720, GREEN VALLEY APARTMENTS\n11TH CROSS, ADYAR\nCHENNAI - 591522\nCARD TYPE: ICICI Bank Rubyx Credit Card\nCREDIT CARD NO: 536572XXXXXX8568\nStatement Period : 17-Jul-2024 to 16-Aug-2024\nStatement Date : 16-Aug-2024\nPayment Due Date : 04-Sep-2024\nTotal Amount due : Rs.49,637.54\nMinimum Amount due : Rs.2,481.88\nCredit Limit (Including cash) : Rs.2,00,000.00\nAvailable Credit Limit (Including cash) : Rs.1,63,468.31\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n17-07-2024 7970587499 MCDONALDS KOCHI 11 10,418.29\n28-07-2024 8706957850 HPCL PETROL CHENNAI 38 14,675.73\n07-08-2024 6931059778 SODEXO CHENNAI 28 869.74\n08-08-2024 3294950143 BOOKMYSHOW CHENNAI 5 1,788.46\n08-08-2024 4215941857 INDIAN OIL AHMEDABAD 24 14,206.31\n08-08-2024 4695129915 INDIGO AIRLINES HYDERABAD 60 7,406.47\n09-08-2024 3988505159 SPOTIFY HYDERABAD 45 272.54\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Jul-2024 to 16-Aug-2024",
+   "body": "Dear Gaurav,\nPlease find attached your Amazon Pay ICICI Bank Credit Card XX7683 statement for the period 17-Jul-2024 to 16-Aug-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-08-17",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Aug2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 0591 has been used for a transaction of INR 1,745.56 on 18-Aug-2024 at 20:37:38. Info: BIGBASKET.\nIf you did not do this, please call customer care.",
+   "date": "2024-08-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Jul-2024 to 26-Aug-2024",
+   "body": "Dear Gaurav,\nYour MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for Aug 2024 is ready. Total amount due Rs.452.19, minimum amount due Rs.200.00, payable by 13-Sep-2024.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-08-27",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "ICICI Bank Account Statement - Sep 2024",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank xx2903 statement for the period 09-Aug-2024 to 08-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-09-09",
+   "attachments": [
+    {
+     "filename": "eStatement_202409.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Aug-2024 to 16-Sep-2024",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card xx8568 statement for the period 17-Aug-2024 to 16-Sep-2024. Total amount due Rs.44,322.79, due 02-Oct-2024.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-09-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202409.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nGAURAV DESAI\nFLAT 606, SUNRISE APARTMENTS\n22TH CROSS, ADYAR\nHYDERABAD - 654010\nCARD TYPE: ICICI Bank Rubyx Credit Card\nCREDIT CARD NO: 536572XXXXXX8568\nStatement Period : 17-Aug-2024 to 16-Sep-2024\nStatement Date : 16-Sep-2024\nPayment Due Date : 02-Oct-2024\nTotal Amount due : Rs.44,322.79\nMinimum Amount due : Rs.2,216.14\nCredit Limit (Including cash) : Rs.2,00,000.00\nAvailable Credit Limit (Including cash) : Rs.1,59,867.78\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n21-08-2024 2142763541 SWIGGY MUMBAI 2 197.05\n23-08-2024 6194578586 AIRTEL PREPAID AHMEDABAD 32 98.59\n23-08-2024 4597629933 CROMA GURUGRAM 29 9,001.80\n25-08-2024 7546766362 NYKAA CHENNAI 31 92.25\n27-08-2024 3043831740 IXIGO KOLKATA 41 8,003.43\n02-09-2024 5263244908 STARBUCKS CHENNAI 25 12,388.88\n08-09-2024 8600519641 APPLE SERVICES CHENNAI 9 126.79\n11-09-2024 4963197227 FLIPKART GURUGRAM 39 718.08\n11-09-2024 5655791844 ZOMATO GURUGRAM 27 12,315.18\n16-09-2024 3857274712 MYNTRA MUMBAI 59 1,380.74\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Aug-2024 to 16-Sep-2024",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card xx7683 statement for Sep 2024 is ready. Total amount due Rs.1,211.53, minimum amount due Rs.200.00, payable by 04-Oct-2024.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-09-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Gaurav,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Aug-2024 to 26-Sep-2024",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card ending 0591 statement for the period 27-Aug-2024 to 26-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-09-27",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Sep2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX0591 has been used for a transaction of INR 1,083.29 on 03-Oct-2024 at 11:00:38. Info: BLINKIT.\nIf you did not do this, please call customer care.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "ICICI Bank Account Statement - Oct 2024",
+   "body": "Dear Gaurav,\nYour ICICI Bank *2903 account statement for Oct 2024 is ready. Closing balance Rs.39,763.77.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Sep-2024 to 16-Oct-2024",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card xx8568 statement for the period 17-Sep-2024 to 16-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-17",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Sep-2024 to 16-Oct-2024",
+   "body": "Dear Gaurav,\nPlease find attached your Amazon Pay ICICI Bank Credit Card XX7683 statement for the period 17-Sep-2024 to 16-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-17",
+   "attachments": [
+    {
+     "filename": "7683_16102024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Dear Customer,\nINR 1,038.52 has been debited from your ICICI Bank A/c XX2903 on 18-Oct-2024 (UPI BIG BAZAAR). Avl bal INR 5,541.13.\n\nOpt for e-statements and go green.",
+   "date": "2024-10-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "ICICI Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 8448 has been successfully linked/verified for your ICICI Bank relationship. If this was not you, contact us.",
+   "date": "2024-10-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Sep-2024 to 26-Oct-2024",
+   "body": "Dear Gaurav,\nYour MakeMyTrip ICICI Bank Signature Credit Card ending 0591 statement for Oct 2024 is ready. Total amount due Rs.23,065.59, minimum amount due Rs.1,153.28, payable by 13-Nov-2024.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-27",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Anil Traders (A/c XXXXXX2698, Bank of India) has been added to your account xx2903. It will be active after 30 minutes.",
+   "date": "2024-10-31",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX0591 has been used for a transaction of INR 1,052.43 on 02-Nov-2024 at 16:25:26. Info: EAZYDINER.\nIf you did not do this, please call customer care.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 13,232.45 done on your ICICI Bank Rubyx Credit Card XX8568 at HPCL PETROL on 02-Nov-2024. Available credit limit is INR 43,310.18.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-11-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX8568 has been used for a transaction of INR 3,767.26 on 06-Nov-2024 at 21:01:45. Info: ZOMATO.\nIf you did not do this, please call customer care.",
+   "date": "2024-11-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "ICICI Bank Account Statement - Nov 2024",
+   "body": "Dear Gaurav,\nYour ICICI Bank XXXXXX2903 account statement for Nov 2024 is ready. Closing balance Rs.57,675.36.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-11-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX0591 has been used for a transaction of INR 824.49 on 15-Nov-2024 at 11:09:49. Info: EASEMYTRIP.\nIf you did not do this, please call customer care.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 10,118.78 on 16-Nov-2024 for your Amazon Pay ICICI Bank Credit Card XX7683. Available credit limit has been updated.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Oct-2024 to 16-Nov-2024",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card ending 7683 statement for Nov 2024 is ready. Total amount due Rs.58,699.13, minimum amount due Rs.2,934.96, payable by 04-Dec-2024.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Oct-2024 to 16-Nov-2024",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card ending 8568 statement for the period 17-Oct-2024 to 16-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-11-17",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Oct-2024 to 26-Nov-2024",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card XX0591 statement for the period 27-Oct-2024 to 26-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-27",
+   "attachments": [
+    {
+     "filename": "0591_26112024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from xx2903 to Anil Traders A/c XX2698 on 28-Nov-2024. Rent for the month.",
+   "date": "2024-11-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Update your KYC",
+   "body": "Dear Gaurav,\nAs per RBI guidelines please complete re-KYC for your ICICI Bank relationship. Visit a branch or use the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 441.85 done on your ICICI Bank Rubyx Credit Card XX8568 at MAKEMYTRIP on 04-Dec-2024. Available credit limit is INR 8,798.82.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour Amazon Pay ICICI Bank Credit Card xx7683 has been used for a transaction of INR 12,144.79 on 06-Dec-2024 at 10:40:48. Info: PVR INOX.\nIf you did not do this, please call customer care.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "ICICI Bank Account Statement - Dec 2024",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank XXXXXX2903 statement for the period 09-Nov-2024 to 08-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-09",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Dec2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Rubyx Credit Card xx8568 has been used for a transaction of INR 361.45 on 09-Dec-2024 at 15:24:09. Info: BPCL FUEL.\nIf you did not do this, please call customer care.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "OTP for your transaction",
+   "body": "966046 is the OTP for your transaction of Rs.11,522.58 at CROMA. Valid for 10 minutes. Do not share.",
+   "date": "2024-12-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Nov-2024 to 16-Dec-2024",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card ending 8568 statement for the period 17-Nov-2024 to 16-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-12-17",
+   "attachments": [
+    {
+     "filename": "8568_16122024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Refer and earn",
+   "body": "Dear Gaurav,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2024-12-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Nov-2024 to 26-Dec-2024",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for the period 27-Nov-2024 to 26-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-12-27",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Dec2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,500.00 transferred from XX2903 to Anil Traders A/c XX2698 on 28-Dec-2024. Rent for the month.",
+   "date": "2024-12-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 801.82 on 30-Dec-2024 for your ICICI Bank Credit Card XX0591. Available credit limit has been updated.",
+   "date": "2024-12-30",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 318.07 done on your ICICI Bank Credit Card xx0591 at GOOGLE PLAY on 02-Jan-2025. Available credit limit is INR 43,298.39.",
+   "date": "2025-01-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "ICICI Bank Account Statement - Jan 2025",
+   "body": "Dear Gaurav,\nYour ICICI Bank *2903 account statement for Jan 2025 is ready. Closing balance Rs.28,355.38.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-01-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 17,468.59 on 12-Jan-2025 for your Amazon Pay ICICI Bank Credit Card XX7683. Available credit limit has been updated.",
+   "date": "2025-01-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Dec-2024 to 16-Jan-2025",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card XX8568 statement for the period 17-Dec-2024 to 16-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-17",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Dec-2024 to 16-Jan-2025",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card xx7683 statement for Jan 2025 is ready. Total amount due Rs.5,436.49, minimum amount due Rs.271.82, payable by 03-Feb-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-01-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Dec-2024 to 26-Jan-2025",
+   "body": "Dear Gaurav,\nYour MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for Jan 2025 is ready. Total amount due Rs.561.45, minimum amount due Rs.200.00, payable by 13-Feb-2025.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-01-27",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from xx2903 to Anil Traders A/c XX2698 on 28-Jan-2025. Rent for the month.",
+   "date": "2025-01-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "ICICI Bank Account Statement - Feb 2025",
+   "body": "Dear Gaurav,\nYour ICICI Bank XXXXXX2903 account statement for Feb 2025 is ready. Closing balance Rs.622.17.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-02-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Jan-2025 to 16-Feb-2025",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card XX7683 statement for Feb 2025 is ready. Total amount due Rs.30,451.89, minimum amount due Rs.1,522.59, payable by 06-Mar-2025.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-02-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour MakeMyTrip ICICI Bank Signature Credit Card XX0591 has been used for a transaction of INR 527.14 on 20-Feb-2025 at 11:34:24. Info: TATA PLAY.\nIf you did not do this, please call customer care.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-02-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Dear Customer,\nINR 768.13 has been debited from your ICICI Bank A/c *2903 on 23-Feb-2025 (UPI MAKEMYTRIP). Avl bal INR 60,759.14.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Jan-2025 to 26-Feb-2025",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for the period 27-Jan-2025 to 26-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-27",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from XX2903 to Anil Traders A/c XX2698 on 28-Feb-2025. Rent for the month.",
+   "date": "2025-02-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 19,969.31 done on your ICICI Bank Credit Card XX8568 at DOMINOS on 03-Mar-2025. Available credit limit is INR 2,551.49.",
+   "date": "2025-03-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Your A/c xx2903 is debited for INR 1,770.52 on 04-Mar-2025 - UPI IXIGO. Bal INR 14,149.26. -ICICI Bank\n\nOpt for e-statements and go green.",
+   "date": "2025-03-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "ICICI Bank Account Statement - Mar 2025",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank *2903 statement for the period 09-Feb-2025 to 08-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-09",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Feb-2025 to 16-Mar-2025",
+   "body": "Dear Gaurav,\nYour ICICI Bank Rubyx Credit Card xx8568 statement for Mar 2025 is ready. Total amount due Rs.3,521.61, minimum amount due Rs.200.00, payable by 03-Apr-2025.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Feb-2025 to 16-Mar-2025",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card xx7683 statement for Mar 2025 is ready. Total amount due Rs.912.17, minimum amount due Rs.200.00, payable by 03-Apr-2025.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 939232196322. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-03-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Your A/c XX2903 is debited for INR 1,167.70 on 22-Mar-2025 - UPI AMAZON PAY INDIA. Bal INR 3,826.03. -ICICI Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Feb-2025 to 26-Mar-2025",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card XX0591 statement for the period 27-Feb-2025 to 26-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-03-27",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from xx2903 to Anil Traders A/c XX2698 on 28-Mar-2025. Rent for the month.",
+   "date": "2025-03-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 339.92 done on your MakeMyTrip ICICI Bank Signature Credit Card XX0591 at IXIGO on 29-Mar-2025. Available credit limit is INR 6,233.50.",
+   "date": "2025-03-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Update your KYC",
+   "body": "Dear Gaurav,\nAs per RBI guidelines please complete re-KYC for your ICICI Bank relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Credit Alert: ICICI Bank Account",
+   "body": "Credit alert: INR 26,460.74 has been credited to account XXXXXX2903 on 07-Apr-2025 (UPI). Avl bal INR 1,58,386.10.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "ICICI Bank Account Statement - Apr 2025",
+   "body": "Dear Gaurav,\nYour ICICI Bank XX2903 account statement for Apr 2025 is ready. Closing balance Rs.1,610.54.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-04-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Credit Alert: ICICI Bank Account",
+   "body": "Dear Customer,\nINR 12,625.48 credited to your ICICI Bank A/c XX2903 on 10-Apr-2025 by INTEREST CREDIT. Ref 641799649755.\nThank you for banking with us.",
+   "date": "2025-04-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Mar-2025 to 16-Apr-2025",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card XX8568 statement for the period 17-Mar-2025 to 16-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-04-17",
+   "attachments": [
+    {
+     "filename": "8568_16042025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Mar-2025 to 16-Apr-2025",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card xx7683 statement for Apr 2025 is ready. Total amount due Rs.1,007.77, minimum amount due Rs.200.00, payable by 04-May-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-04-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 569.45 on 22-Apr-2025 for your ICICI Bank Rubyx Credit Card XX8568. Available credit limit has been updated.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-04-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.2,692.47 has been transferred from your A/c *2903 to Mohan Landlord A/c XX6755 (IndusInd Bank) via IMPS on 24-Apr-2025. Ref no 587587987721.",
+   "date": "2025-04-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Mar-2025 to 26-Apr-2025",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for the period 27-Mar-2025 to 26-Apr-2025. Total amount due Rs.32,671.40, due 12-May-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-04-27",
+   "attachments": [
+    {
+     "filename": "0591_26042025_stmt.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nGAURAV DESAI\nFLAT 409, GREEN VALLEY APARTMENTS\n6TH CROSS, BANJARA HILLS\nBENGALURU - 423681\nCARD TYPE: MakeMyTrip ICICI Bank Signature Credit Card\nCREDIT CARD NO: 585337XXXXXX0591\nStatement Period : 27-Mar-2025 to 26-Apr-2025\nStatement Date : 26-Apr-2025\nPayment Due Date : 12-May-2025\nTotal Amount due : Rs.32,671.40\nMinimum Amount due : Rs.1,633.57\nCredit Limit (Including cash) : Rs.4,40,000.00\nAvailable Credit Limit (Including cash) : Rs.4,12,221.53\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n29-03-2025 8265976292 AIRTEL PREPAID HYDERABAD 52 2,939.12\n08-04-2025 9091397532 IXIGO KOCHI 22 173.18\n09-04-2025 1867050893 TATA POWER AHMEDABAD 60 203.62\n11-04-2025 2701298683 HPCL PETROL GURUGRAM 2 19,409.04\n13-04-2025 5460443712 IXIGO KOCHI 56 1,063.65\n13-04-2025 7035914799 ZEPTO JAIPUR 9 4,223.66\n19-04-2025 3509387634 TATA POWER JAIPUR 25 293.69\n22-04-2025 9802069778 SPOTIFY HYDERABAD 37 3,415.46\n24-04-2025 7230901100 DMART CHENNAI 44 678.44\n26-04-2025 4856535655 URBAN COMPANY KOCHI 19 271.54\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Gaurav,\nYour order #264-1953599-1933989 is confirmed. Total Rs.272.89. Estimated delivery in 2 days.",
+   "date": "2025-04-28",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour Amazon Pay ICICI Bank Credit Card XX7683 has been used for a transaction of INR 3,624.15 on 03-May-2025 at 08:55:09. Info: BLINKIT.\nIf you did not do this, please call customer care.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 472.00 done on your ICICI Bank Credit Card XX0591 at APOLLO PHARMACY on 03-May-2025. Available credit limit is INR 11,454.02.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 9,571.28 done on your ICICI Bank Rubyx Credit Card XX8568 at MAKEMYTRIP on 04-May-2025. Available credit limit is INR 15,008.29.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Gaurav,\nYour order #901-8337793-5575450 is confirmed. Total Rs.2,092.13. Estimated delivery in 2 days.",
+   "date": "2025-05-08",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "ICICI Bank Account Statement - May 2025",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank XXXXXX2903 statement for the period 09-Apr-2025 to 08-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-09",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour Amazon Pay ICICI Bank Credit Card xx7683 has been used for a transaction of INR 224.97 on 13-May-2025 at 10:12:21. Info: BPCL FUEL.\nIf you did not do this, please call customer care.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX8568 has been used for a transaction of INR 801.39 on 13-May-2025 at 02:16:00. Info: BATA INDIA.\nIf you did not do this, please call customer care.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 2,865.83 on 14-May-2025 for your ICICI Bank Rubyx Credit Card ending 8568. Available credit limit has been updated.",
+   "date": "2025-05-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Credit Alert: ICICI Bank Account",
+   "body": "Credit alert: INR 36,639.37 has been credited to account XXXXXX2903 on 15-May-2025 (IMPS). Avl bal INR 18,382.23.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Apr-2025 to 16-May-2025",
+   "body": "Dear Gaurav,\nYour ICICI Bank Rubyx Credit Card XX8568 statement for May 2025 is ready. Total amount due Rs.1,355.66, minimum amount due Rs.200.00, payable by 03-Jun-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Apr-2025 to 16-May-2025",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card ending 7683 statement for May 2025 is ready. Total amount due Rs.1,608.80, minimum amount due Rs.200.00, payable by 03-Jun-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour Amazon Pay ICICI Bank Credit Card ending 7683 has been used for a transaction of INR 821.91 on 20-May-2025 at 13:58:49. Info: DOMINOS.\nIf you did not do this, please call customer care.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Apr-2025 to 26-May-2025",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for the period 27-Apr-2025 to 26-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-27",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 7683 has been used for a transaction of INR 1,303.99 on 28-May-2025 at 13:49:39. Info: BESCOM.\nIf you did not do this, please call customer care.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "INR debit alert: INR 233.19 debited from account xx2903 on 01-Jun-2025. Narration: IMPS/URBAN COMPANY. Available balance INR 16,222.92.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "INR debit alert: INR 5,588.03 debited from account XX2903 on 01-Jun-2025. Narration: NEFT/NETFLIX. Available balance INR 56,317.22.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 252.40 done on your ICICI Bank Credit Card XX0591 at BESCOM on 02-Jun-2025. Available credit limit is INR 2,577.01.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX7683 has been used for a transaction of INR 606.62 on 09-Jun-2025 at 11:16:07. Info: BATA INDIA.\nIf you did not do this, please call customer care.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 1,362.90 done on your MakeMyTrip ICICI Bank Signature Credit Card XX0591 at CROMA on 16-Jun-2025. Available credit limit is INR 96,819.48.",
+   "date": "2025-06-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-May-2025 to 16-Jun-2025",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card xx8568 statement for the period 17-May-2025 to 16-Jun-2025. Total amount due Rs.13,665.76, due 01-Jul-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-17",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jun2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nGAURAV DESAI\nFLAT 251, LAKESHORE APARTMENTS\n17TH CROSS, ADYAR\nKOLKATA - 488478\nCARD TYPE: ICICI Bank Rubyx Credit Card\nCREDIT CARD NO: 536572XXXXXX8568\nStatement Period : 17-May-2025 to 16-Jun-2025\nStatement Date : 16-Jun-2025\nPayment Due Date : 01-Jul-2025\nTotal Amount due : Rs.13,665.76\nMinimum Amount due : Rs.683.29\nCredit Limit (Including cash) : Rs.2,00,000.00\nAvailable Credit Limit (Including cash) : Rs.1,88,823.69\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n19-05-2025 5517627270 MYNTRA KOCHI 26 365.34\n29-05-2025 7833245945 GOOGLE PLAY HYDERABAD 20 12,098.11\n02-06-2025 5971024670 APPLE SERVICES MUMBAI 47 127.18\n02-06-2025 1101722552 BOOKMYSHOW JAIPUR 58 129.47\n03-06-2025 1521337976 APOLLO PHARMACY CHENNAI 38 749.23\n13-06-2025 2720047150 BATA INDIA HYDERABAD 7 93.04\n14-06-2025 5692831369 INDIAN OIL KOCHI 55 103.39\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-May-2025 to 16-Jun-2025",
+   "body": "Dear Gaurav,\nPlease find attached your Amazon Pay ICICI Bank Credit Card XX7683 statement for the period 17-May-2025 to 16-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "ICICI Bank: funds transferred",
+   "body": "Dear Customer,\nRs.795.27 has been transferred from your A/c xx2903 to Sunil Plumber A/c XX9358 (SBI Card) via IMPS on 19-Jun-2025. Ref no 208181159826.",
+   "date": "2025-06-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Gaurav,\nPlease find attached the updated MITC for your ICICI Bank credit cards.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-21",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour MakeMyTrip ICICI Bank Signature Credit Card xx0591 has been used for a transaction of INR 234.91 on 22-Jun-2025 at 17:01:30. Info: SODEXO.\nIf you did not do this, please call customer care.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Rubyx Credit Card xx8568 has been used for a transaction of INR 2,577.36 on 22-Jun-2025 at 00:39:24. Info: PVR INOX.\nIf you did not do this, please call customer care.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Rubyx Credit Card xx8568 has been used for a transaction of INR 737.12 on 23-Jun-2025 at 19:57:47. Info: OLA CABS.\nIf you did not do this, please call customer care.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-06-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Credit Alert: ICICI Bank Account",
+   "body": "Credit alert: INR 280.71 has been credited to account *2903 on 26-Jun-2025 (SALARY NEFT). Avl bal INR 4,142.83.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-06-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-May-2025 to 26-Jun-2025",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card XX0591 statement for the period 27-May-2025 to 26-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-27",
+   "attachments": [
+    {
+     "filename": "0591_26062025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Refer and earn",
+   "body": "Dear Gaurav,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2025-07-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 505.36 done on your ICICI Bank Credit Card xx7683 at APOLLO PHARMACY on 03-Jul-2025. Available credit limit is INR 1,31,528.23.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 663.98 done on your ICICI Bank Credit Card XX7683 at LENSKART on 09-Jul-2025. Available credit limit is INR 3,839.42.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 0591 has been used for a transaction of INR 192.93 on 09-Jul-2025 at 02:43:00. Info: BESCOM.\nIf you did not do this, please call customer care.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 23,071.73 done on your ICICI Bank Credit Card XX8568 at MAKEMYTRIP on 10-Jul-2025. Available credit limit is INR 1,70,155.43.",
+   "date": "2025-07-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Rubyx Credit Card ending 8568 has been used for a transaction of INR 2,994.12 on 14-Jul-2025 at 14:44:53. Info: EASEMYTRIP.\nIf you did not do this, please call customer care.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 122.55 done on your MakeMyTrip ICICI Bank Signature Credit Card XX0591 at SWIGGY on 15-Jul-2025. Available credit limit is INR 67,991.14.",
+   "date": "2025-07-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Jun-2025 to 16-Jul-2025",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card ending 8568 statement for the period 17-Jun-2025 to 16-Jul-2025. Total amount due Rs.60,526.80, due 02-Aug-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nGAURAV DESAI\nFLAT 340, LAKESHORE APARTMENTS\n2TH CROSS, KOTHRUD\nGURUGRAM - 611041\nCARD TYPE: ICICI Bank Rubyx Credit Card\nCREDIT CARD NO: 536572XXXXXX8568\nStatement Period : 17-Jun-2025 to 16-Jul-2025\nStatement Date : 16-Jul-2025\nPayment Due Date : 02-Aug-2025\nTotal Amount due : Rs.60,526.80\nMinimum Amount due : Rs.3,026.34\nCredit Limit (Including cash) : Rs.2,00,000.00\nAvailable Credit Limit (Including cash) : Rs.1,59,317.57\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n17-06-2025 3771871590 ZOMATO BENGALURU 49 2,553.06\n18-06-2025 8229009451 DECATHLON KOCHI 7 16,014.11\n18-06-2025 1726851984 MEDPLUS MUMBAI 37 13,501.72\n26-06-2025 2301384641 DOMINOS JAIPUR 33 1,208.61\n27-06-2025 7330046134 PHONEPE PUNE 56 974.88\n28-06-2025 7114721711 MAKEMYTRIP KOLKATA 26 13,953.95\n29-06-2025 5511974516 TATA POWER PUNE 52 491.84\n01-07-2025 9683484693 JIO RECHARGE GURUGRAM 38 2,213.68\n05-07-2025 8252990211 ZEPTO JAIPUR 25 6,792.96\n06-07-2025 9098435106 IXIGO MUMBAI 6 1,518.10\n10-07-2025 9624138091 SPOTIFY BENGALURU 7 642.72\n16-07-2025 3425712344 DMART PUNE 2 661.17\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Jun-2025 to 16-Jul-2025",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card XX7683 statement for Jul 2025 is ready. Total amount due Rs.1,882.24, minimum amount due Rs.200.00, payable by 03-Aug-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-07-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.827.28 has been transferred from your A/c *2903 to Lata Tutor A/c XX5198 (Bandhan Bank) via IMPS on 17-Jul-2025. Ref no 985887296308.",
+   "date": "2025-07-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Jun-2025 to 26-Jul-2025",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card ending 0591 statement for the period 27-Jun-2025 to 26-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-07-27",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.583.29 has been transferred from your A/c xx2903 to Lata Tutor A/c XX5198 (Bandhan Bank) via IMPS on 27-Jul-2025. Ref no 407142703992.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "ICICI Bank festive offers",
+   "body": "Dear Gaurav,\nGet up to 10% cashback on partner brands.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-30",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Your ICICI Bank Credit Card has been replaced",
+   "body": "Dear Gaurav Desai,\nYour ICICI Bank Rubyx Credit Card xx8568 has been blocked and replaced. A new card ending 0602 has been dispatched to your address on record. Please use the new card xx0602 from now on. Your old card ending 8568 can no longer be used.\n\n",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Credit Alert: ICICI Bank Account",
+   "body": "Your A/c xx2903 is credited with INR 311.93 on 08-Aug-2025 - UPI. Bal INR 1,41,006.06. -ICICI Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "ICICI Bank Account Statement - Aug 2025",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank *2903 statement for the period 09-Jul-2025 to 08-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-08-09",
+   "attachments": [
+    {
+     "filename": "eStatement_202508.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx7683 has been used for a transaction of INR 9,363.55 on 09-Aug-2025 at 09:53:07. Info: BATA INDIA.\nIf you did not do this, please call customer care.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 493843305702. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-08-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-Jul-2025 to 10-Aug-2025",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card XX0602 statement for the period 11-Jul-2025 to 10-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-11",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Jul-2025 to 16-Aug-2025",
+   "body": "Dear Gaurav,\nPlease find attached your Amazon Pay ICICI Bank Credit Card XX7683 statement for the period 17-Jul-2025 to 16-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-17",
+   "attachments": [
+    {
+     "filename": "7683_16082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "OTP for your transaction",
+   "body": "726642 is the OTP for your transaction of Rs.173.39 at SPOTIFY. Valid for 10 minutes. Do not share.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 1,021.14 done on your ICICI Bank Credit Card XX0602 at AMAZON PAY INDIA on 04-Sep-2025. Available credit limit is INR 41,840.25.",
+   "date": "2025-09-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "ICICI Bank Account Statement - Sep 2025",
+   "body": "Dear Gaurav,\nYour ICICI Bank XX2903 account statement for Sep 2025 is ready. Closing balance Rs.502.78.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-Aug-2025 to 10-Sep-2025",
+   "body": "Dear Gaurav,\nYour ICICI Bank Rubyx Credit Card ending 0602 statement for Sep 2025 is ready. Total amount due Rs.886.40, minimum amount due Rs.200.00, payable by 28-Sep-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-11",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 1,318.13 done on your ICICI Bank Rubyx Credit Card XX0602 at STARBUCKS on 15-Sep-2025. Available credit limit is INR 1,00,143.33.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Aug-2025 to 16-Sep-2025",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card XX7683 statement for Sep 2025 is ready. Total amount due Rs.6,178.81, minimum amount due Rs.308.94, payable by 04-Oct-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 5,311.77 done on your ICICI Bank Rubyx Credit Card ending 0602 at FLIPKART on 20-Sep-2025. Available credit limit is INR 2,516.73.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Dear Customer,\nINR 263.91 has been debited from your ICICI Bank A/c XXXXXX2903 on 20-Sep-2025 (NEFT SWIGGY). Avl bal INR 6,090.75.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-09-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Aug-2025 to 26-Sep-2025",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for the period 27-Aug-2025 to 26-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-27",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 24,076.63 done on your ICICI Bank Credit Card xx0591 at EASEMYTRIP on 29-Sep-2025. Available credit limit is INR 32,920.88.",
+   "date": "2025-09-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.26,133.85 for Union Bank of India Credit Card ending 1101 (cardholder: SANJAY DESAI) was successful from your A/c XX2903 on 03-Oct-2025.",
+   "date": "2025-10-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 856.30 done on your ICICI Bank Credit Card XX0602 at EASEMYTRIP on 08-Oct-2025. Available credit limit is INR 6,743.51.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-Sep-2025 to 10-Oct-2025",
+   "body": "Dear Gaurav,\nYour ICICI Bank Rubyx Credit Card xx0602 statement for Oct 2025 is ready. Total amount due Rs.37,023.77, minimum amount due Rs.1,851.19, payable by 28-Oct-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Sep-2025 to 16-Oct-2025",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card XX7683 statement for Oct 2025 is ready. Total amount due Rs.968.37, minimum amount due Rs.200.00, payable by 03-Nov-2025.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Update your KYC",
+   "body": "Dear Gaurav,\nAs per RBI guidelines please complete re-KYC for your ICICI Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Sep-2025 to 26-Oct-2025",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for the period 27-Sep-2025 to 26-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-10-27",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx0591 has been used for a transaction of INR 1,282.70 on 31-Oct-2025 at 13:46:07. Info: CROMA.\nIf you did not do this, please call customer care.",
+   "date": "2025-10-31",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.865.77 has been transferred from your A/c XX2903 to Mohan Landlord A/c XX6755 (IndusInd Bank) via IMPS on 08-Nov-2025. Ref no 367160642943.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "ICICI Bank Account Statement - Nov 2025",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank XX2903 statement for the period 09-Oct-2025 to 08-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-11-09",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Oct-2025 to 16-Nov-2025",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card ending 7683 statement for Nov 2025 is ready. Total amount due Rs.14,939.85, minimum amount due Rs.746.99, payable by 04-Dec-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour MakeMyTrip ICICI Bank Signature Credit Card XX0591 has been used for a transaction of INR 21,591.13 on 24-Nov-2025 at 14:43:53. Info: TATA PLAY.\nIf you did not do this, please call customer care.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "ICICI Bank: funds transferred",
+   "body": "Dear Customer,\nRs.6,375.59 has been transferred from your A/c *2903 to Lata Tutor A/c XX5198 (Bandhan Bank) via IMPS on 24-Nov-2025. Ref no 457553776525.",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX7683 has been used for a transaction of INR 342.36 on 26-Nov-2025 at 21:10:34. Info: PHONEPE.\nIf you did not do this, please call customer care.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Oct-2025 to 26-Nov-2025",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card XX0591 statement for the period 27-Oct-2025 to 26-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-11-27",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Earn more with your card",
+   "body": "Dear Gaurav,\nConvert big spends to EMI at low interest.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "INR debit alert: INR 7,581.83 debited from account XXXXXX2903 on 01-Dec-2025. Narration: NEFT/APOLLO PHARMACY. Available balance INR 87,099.91.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 7683 has been used for a transaction of INR 4,330.47 on 10-Dec-2025 at 00:34:37. Info: IXIGO.\nIf you did not do this, please call customer care.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-Nov-2025 to 10-Dec-2025",
+   "body": "Dear Gaurav,\nYour ICICI Bank Rubyx Credit Card XX0602 statement for Dec 2025 is ready. Total amount due Rs.658.42, minimum amount due Rs.200.00, payable by 28-Dec-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-11",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 17,861.55 on 14-Dec-2025 for your ICICI Bank Credit Card xx0591. Available credit limit has been updated.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Nov-2025 to 16-Dec-2025",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card XX7683 statement for Dec 2025 is ready. Total amount due Rs.6,971.34, minimum amount due Rs.348.57, payable by 03-Jan-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-12-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Nov-2025 to 26-Dec-2025",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for the period 27-Nov-2025 to 26-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-27",
+   "attachments": [
+    {
+     "filename": "0591_26122025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Gaurav,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2025-12-30",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 0602 has been used for a transaction of INR 3,279.42 on 05-Jan-2026 at 05:27:33. Info: URBAN COMPANY.\nIf you did not do this, please call customer care.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Your A/c xx2903 is debited for INR 15,223.64 on 05-Jan-2026 - NEFT DOMINOS. Bal INR 18,775.69. -ICICI Bank",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "ICICI Bank Account Statement - Jan 2026",
+   "body": "Dear Gaurav,\nYour ICICI Bank xx2903 account statement for Jan 2026 is ready. Closing balance Rs.31,240.80.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-Dec-2025 to 10-Jan-2026",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card XX0602 statement for the period 11-Dec-2025 to 10-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-11",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Dec-2025 to 16-Jan-2026",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card XX7683 statement for Jan 2026 is ready. Total amount due Rs.4,485.14, minimum amount due Rs.224.26, payable by 03-Feb-2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 130.33 done on your MakeMyTrip ICICI Bank Signature Credit Card xx0591 at PVR INOX on 17-Jan-2026. Available credit limit is INR 77,951.93.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 2,323.69 done on your ICICI Bank Credit Card XX0602 at MCDONALDS on 27-Jan-2026. Available credit limit is INR 1,69,392.33.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Update your KYC",
+   "body": "Dear Gaurav,\nAs per RBI guidelines please complete re-KYC for your ICICI Bank relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 4,225.87 done on your ICICI Bank Credit Card ending 0602 at AMAZON PAY INDIA on 01-Feb-2026. Available credit limit is INR 96,664.07.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "ICICI Bank Account Statement - Feb 2026",
+   "body": "Dear Gaurav,\nYour ICICI Bank xx2903 account statement for Feb 2026 is ready. Closing balance Rs.764.64.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-Jan-2026 to 10-Feb-2026",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card XX0602 statement for the period 11-Jan-2026 to 10-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-11",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 691.82 done on your Amazon Pay ICICI Bank Credit Card XX7683 at PHONEPE on 12-Feb-2026. Available credit limit is INR 44,795.85.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour MakeMyTrip ICICI Bank Signature Credit Card XX0591 has been used for a transaction of INR 1,447.52 on 12-Feb-2026 at 04:15:13. Info: DMART.\nIf you did not do this, please call customer care.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Dear Customer,\nINR 2,550.35 has been debited from your ICICI Bank A/c XXXXXX2903 on 13-Feb-2026 (UPI ZOMATO). Avl bal INR 40,780.45.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Jan-2026 to 16-Feb-2026",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card ending 7683 statement for Feb 2026 is ready. Total amount due Rs.437.76, minimum amount due Rs.200.00, payable by 06-Mar-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 1,031.92 done on your ICICI Bank Credit Card XX0602 at BLINKIT on 21-Feb-2026. Available credit limit is INR 5,495.50.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX7683 has been used for a transaction of INR 297.75 on 03-Mar-2026 at 22:43:20. Info: EASEMYTRIP.\nIf you did not do this, please call customer care.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 1,088.43 done on your ICICI Bank Rubyx Credit Card XX0602 at MAKEMYTRIP on 06-Mar-2026. Available credit limit is INR 22,387.31.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX0602 has been used for a transaction of INR 103.29 on 07-Mar-2026 at 17:28:37. Info: HPCL PETROL.\nIf you did not do this, please call customer care.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Credit Alert: ICICI Bank Account",
+   "body": "Dear Customer,\nINR 6,533.73 credited to your ICICI Bank A/c XX2903 on 07-Mar-2026 by SALARY NEFT. Ref 425218191552.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "ICICI Bank Account Statement - Mar 2026",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank *2903 statement for the period 09-Feb-2026 to 08-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-09",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Earn more with your card",
+   "body": "Dear Gaurav,\nGet up to 10% cashback on partner brands.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-Feb-2026 to 10-Mar-2026",
+   "body": "Dear Gaurav,\nYour ICICI Bank Rubyx Credit Card xx0602 statement for Mar 2026 is ready. Total amount due Rs.6,722.90, minimum amount due Rs.336.14, payable by 28-Mar-2026.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 650.00 done on your MakeMyTrip ICICI Bank Signature Credit Card XX0591 at ZOMATO on 12-Mar-2026. Available credit limit is INR 30,170.94.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Feb-2026 to 16-Mar-2026",
+   "body": "Dear Gaurav,\nPlease find attached your Amazon Pay ICICI Bank Credit Card xx7683 statement for the period 17-Feb-2026 to 16-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "Update your KYC",
+   "body": "Dear Gaurav,\nAs per RBI guidelines please complete re-KYC for your ICICI Bank relationship. Visit a branch or use the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Feb-2026 to 26-Mar-2026",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card XX0591 statement for the period 27-Feb-2026 to 26-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-27",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 378.72 done on your Amazon Pay ICICI Bank Credit Card XX7683 at MAKEMYTRIP on 29-Mar-2026. Available credit limit is INR 6,366.69.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Your A/c *2903 is debited for INR 81.04 on 29-Mar-2026 - ECOM MEDPLUS. Bal INR 1,48,782.48. -ICICI Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Credit Alert: ICICI Bank Account",
+   "body": "Credit alert: INR 87.27 has been credited to account XX2903 on 31-Mar-2026 (INTEREST CREDIT). Avl bal INR 2,790.08.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-31",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Credit Alert: ICICI Bank Account",
+   "body": "Dear Customer,\nINR 150.09 credited to your ICICI Bank A/c *2903 on 31-Mar-2026 by NEFT. Ref 751489250937.\nThank you for banking with us.",
+   "date": "2026-03-31",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Credit Alert: ICICI Bank Account",
+   "body": "Credit alert: INR 29,912.14 has been credited to account *2903 on 01-Apr-2026 (REFUND). Avl bal INR 4,585.73.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "ICICI Bank Account Statement - Apr 2026",
+   "body": "Dear Gaurav,\nYour ICICI Bank XX2903 account statement for Apr 2026 is ready. Closing balance Rs.3,675.16.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Payment of INR 4,892.72 has been received towards your MakeMyTrip ICICI Bank Signature Credit Card ending 0591 on 09-Apr-2026. Thank you for the payment.",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 1,263.74 done on your ICICI Bank Credit Card xx7683 at BPCL FUEL on 10-Apr-2026. Available credit limit is INR 44,273.99.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour MakeMyTrip ICICI Bank Signature Credit Card XX0591 has been used for a transaction of INR 201.05 on 11-Apr-2026 at 15:29:16. Info: BIG BAZAAR.\nIf you did not do this, please call customer care.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Rubyx Credit Card xx0602 has been used for a transaction of INR 10,431.00 on 11-Apr-2026 at 11:30:37. Info: IKEA.\nIf you did not do this, please call customer care.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "OTP for your transaction",
+   "body": "185048 is the OTP for your transaction of Rs.1,089.57 at GOOGLE PLAY. Valid for 10 minutes. Do not share.",
+   "date": "2026-04-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 469.34 on 16-Apr-2026 for your ICICI Bank Credit Card XX0591. Available credit limit has been updated.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Mar-2026 to 16-Apr-2026",
+   "body": "Dear Gaurav,\nPlease find attached your Amazon Pay ICICI Bank Credit Card XX7683 statement for the period 17-Mar-2026 to 16-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-04-17",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Mar-2026 to 26-Apr-2026",
+   "body": "Dear Gaurav,\nYour MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for Apr 2026 is ready. Total amount due Rs.465.28, minimum amount due Rs.200.00, payable by 14-May-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX7683 has been used for a transaction of INR 1,771.56 on 05-May-2026 at 15:37:48. Info: HPCL PETROL.\nIf you did not do this, please call customer care.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "ICICI Bank festive offers",
+   "body": "Dear Gaurav,\nUse your card on UPI and earn extra rewards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "ICICI Bank Account Statement - May 2026",
+   "body": "Dear Gaurav,\nYour ICICI Bank *2903 account statement for May 2026 is ready. Closing balance Rs.985.16.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m238",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-Apr-2026 to 10-May-2026",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card XX0602 statement for the period 11-Apr-2026 to 10-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-11",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx7683 has been used for a transaction of INR 84.15 on 13-May-2026 at 10:39:04. Info: IKEA.\nIf you did not do this, please call customer care.",
+   "date": "2026-05-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 100.21 done on your ICICI Bank Rubyx Credit Card XX0602 at MCDONALDS on 23-May-2026. Available credit limit is INR 20,242.22.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Apr-2026 to 26-May-2026",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card ending 0591 statement for the period 27-Apr-2026 to 26-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-27",
+   "attachments": [
+    {
+     "filename": "eStatement_202605.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 0591 has been used for a transaction of INR 4,148.66 on 01-Jun-2026 at 20:47:15. Info: BESCOM.\nIf you did not do this, please call customer care.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX7683 has been used for a transaction of INR 238.33 on 02-Jun-2026 at 02:21:28. Info: BATA INDIA.\nIf you did not do this, please call customer care.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour MakeMyTrip ICICI Bank Signature Credit Card xx0591 has been used for a transaction of INR 21,806.26 on 04-Jun-2026 at 12:57:13. Info: PVR INOX.\nIf you did not do this, please call customer care.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 9,682.99 done on your ICICI Bank Credit Card xx0591 at DECATHLON on 05-Jun-2026. Available credit limit is INR 92,319.01.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX0602 has been used for a transaction of INR 2,678.85 on 05-Jun-2026 at 02:06:52. Info: TATA PLAY.\nIf you did not do this, please call customer care.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m247",
+   "subject": "ICICI Bank Account Statement - Jun 2026",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank *2903 statement for the period 09-May-2026 to 08-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-06-09",
+   "attachments": [
+    {
+     "filename": "2903_08062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-May-2026 to 10-Jun-2026",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card ending 0602 statement for the period 11-May-2026 to 10-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-06-11",
+   "attachments": [
+    {
+     "filename": "0602_10062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 181.60 done on your ICICI Bank Credit Card XX7683 at AIRTEL PREPAID on 13-Jun-2026. Available credit limit is INR 15,915.89.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 132.77 done on your MakeMyTrip ICICI Bank Signature Credit Card ending 0591 at SODEXO on 14-Jun-2026. Available credit limit is INR 6,291.09.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-May-2026 to 16-Jun-2026",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card ending 7683 statement for Jun 2026 is ready. Total amount due Rs.889.89, minimum amount due Rs.200.00, payable by 04-Jul-2026.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m252",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx7683 has been used for a transaction of INR 180.54 on 17-Jun-2026 at 23:02:58. Info: AMAZON PAY INDIA.\nIf you did not do this, please call customer care.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m253",
+   "subject": "ICICI Bank festive offers",
+   "body": "Dear Gaurav,\nConvert big spends to EMI at low interest.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m254",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-May-2026 to 26-Jun-2026",
+   "body": "Dear Gaurav,\nYour MakeMyTrip ICICI Bank Signature Credit Card XX0591 statement for Jun 2026 is ready. Total amount due Rs.582.57, minimum amount due Rs.200.00, payable by 14-Jul-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m255",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 4,877.12 done on your Amazon Pay ICICI Bank Credit Card ending 7683 at APOLLO PHARMACY on 28-Jun-2026. Available credit limit is INR 9,047.22.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m256",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 0602 has been used for a transaction of INR 5,086.86 on 01-Jul-2026 at 22:20:42. Info: AMAZON PAY INDIA.\nIf you did not do this, please call customer care.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m257",
+   "subject": "ICICI Bank Account Statement - Jul 2026",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank xx2903 statement for the period 09-Jun-2026 to 08-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-09",
+   "attachments": [
+    {
+     "filename": "2903_08072026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m258",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX9768 has been updated on 02-Aug-2025. If not requested by you, call customer care.",
+   "date": "2026-07-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m259",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-Jun-2026 to 10-Jul-2026",
+   "body": "Dear Gaurav,\nYour ICICI Bank Rubyx Credit Card XX0602 statement for Jul 2026 is ready. Total amount due Rs.17,349.77, minimum amount due Rs.867.49, payable by 28-Jul-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-07-11",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m260",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Gaurav,\nYour order #291-6649709-6699872 is confirmed. Total Rs.17,987.70. Estimated delivery in 2 days.",
+   "date": "2026-07-11",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m261",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX0602 has been used for a transaction of INR 652.23 on 12-Jul-2026 at 12:13:12. Info: IRCTC.\nIf you did not do this, please call customer care.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m262",
+   "subject": "OTP for your transaction",
+   "body": "860497 is the OTP for your transaction of Rs.16,352.77 at ZEPTO. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m263",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 1,281.87 done on your ICICI Bank Credit Card XX7683 at IRCTC on 13-Jul-2026. Available credit limit is INR 4,658.26.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m264",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Jun-2026 to 16-Jul-2026",
+   "body": "Dear Gaurav,\nPlease find attached your Amazon Pay ICICI Bank Credit Card XX7683 statement for the period 17-Jun-2026 to 16-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-17",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m265",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Your A/c xx2903 is debited for INR 2,281.44 on 21-Jul-2026 - ECOM NYKAA. Bal INR 38,037.71. -ICICI Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m266",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Jun-2026 to 26-Jul-2026",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card XX0591 statement for the period 27-Jun-2026 to 26-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-27",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m267",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Payment of INR 5,429.04 has been received towards your ICICI Bank Rubyx Credit Card XX0602 on 29-Jul-2026. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m268",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Gaurav,\nGet up to 10% cashback on partner brands.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-30",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m269",
+   "subject": "ICICI Bank Account Statement - Aug 2026",
+   "body": "Dear Gaurav,\nYour ICICI Bank xx2903 account statement for Aug 2026 is ready. Closing balance Rs.30,183.02.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-08-09",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m270",
+   "subject": "OTP for your transaction",
+   "body": "180734 is the OTP for your transaction of Rs.3,587.55 at ZOMATO. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m271",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-Jul-2026 to 10-Aug-2026",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank Rubyx Credit Card ending 0602 statement for the period 11-Jul-2026 to 10-Aug-2026. Total amount due Rs.73,346.56, due 25-Aug-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-11",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nGAURAV DESAI\nFLAT 855, SUNRISE APARTMENTS\n10TH CROSS, KOTHRUD\nKOCHI - 508124\nCARD TYPE: ICICI Bank Rubyx Credit Card\nCREDIT CARD NO: 583477XXXXXX0602\nStatement Period : 11-Jul-2026 to 10-Aug-2026\nStatement Date : 10-Aug-2026\nPayment Due Date : 25-Aug-2026\nTotal Amount due : Rs.73,346.56\nMinimum Amount due : Rs.3,667.33\nCredit Limit (Including cash) : Rs.5,85,000.00\nAvailable Credit Limit (Including cash) : Rs.5,63,566.55\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n14-07-2026 8409016975 APOLLO PHARMACY BENGALURU 39 17,650.90\n16-07-2026 3473735752 BESCOM KOLKATA 39 133.34\n17-07-2026 8554956941 AIRTEL PREPAID PUNE 57 17,618.52\n19-07-2026 4842337146 BESCOM CHENNAI 60 380.93\n21-07-2026 8725473127 BATA INDIA GURUGRAM 2 4,487.53\n24-07-2026 6624988298 AIRTEL PREPAID CHENNAI 5 6,493.41\n24-07-2026 1233176328 MAKEMYTRIP MUMBAI 49 21,300.05\n02-08-2026 7612658695 PHONEPE MUMBAI 40 3,316.63\n07-08-2026 3522311331 IKEA HYDERABAD 39 1,965.25\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m272",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Jul-2026 to 16-Aug-2026",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card XX7683 statement for Aug 2026 is ready. Total amount due Rs.2,143.83, minimum amount due Rs.200.00, payable by 03-Sep-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m273",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Dear Customer,\nINR 647.80 has been debited from your ICICI Bank A/c XXXXXX2903 on 19-Aug-2026 (ECOM MAKEMYTRIP). Avl bal INR 29,656.75.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m274",
+   "subject": "Credit Alert: ICICI Bank Account",
+   "body": "Dear Customer,\nINR 10,753.51 credited to your ICICI Bank A/c xx2903 on 25-Aug-2026 by INTEREST CREDIT. Ref 952236396557.\nThank you for banking with us.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m275",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "INR debit alert: INR 335.65 debited from account *2903 on 26-Aug-2026. Narration: IMPS/AMAZON PAY INDIA. Available balance INR 63,552.27.",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m276",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Jul-2026 to 26-Aug-2026",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for the period 27-Jul-2026 to 26-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-08-27",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m277",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "INR debit alert: INR 30,884.65 debited from account xx2903 on 30-Aug-2026. Narration: ECOM/SWIGGY. Available balance INR 18,807.46.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-30",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m278",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 508225035384. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-08-31",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m279",
+   "subject": "OTP for your transaction",
+   "body": "846340 is the OTP for your transaction of Rs.312.67 at IKEA. Valid for 10 minutes. Do not share.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m280",
+   "subject": "Update your KYC",
+   "body": "Dear Gaurav,\nAs per RBI guidelines please complete re-KYC for your ICICI Bank relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m281",
+   "subject": "ICICI Bank Account Statement - Sep 2026",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank xx2903 statement for the period 09-Aug-2026 to 08-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-09",
+   "attachments": [
+    {
+     "filename": "2903_08092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m282",
+   "subject": "Refer and earn",
+   "body": "Dear Gaurav,\nConvert big spends to EMI at low interest.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m283",
+   "subject": "ICICI Bank festive offers",
+   "body": "Dear Gaurav,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m284",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-Aug-2026 to 10-Sep-2026",
+   "body": "Dear Gaurav,\nYour ICICI Bank Rubyx Credit Card XX0602 statement for Sep 2026 is ready. Total amount due Rs.1,547.65, minimum amount due Rs.200.00, payable by 28-Sep-2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m285",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 4,143.49 done on your Amazon Pay ICICI Bank Credit Card XX7683 at MCDONALDS on 11-Sep-2026. Available credit limit is INR 13,767.36.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m286",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Aug-2026 to 16-Sep-2026",
+   "body": "Dear Gaurav,\nPlease find attached your Amazon Pay ICICI Bank Credit Card ending 7683 statement for the period 17-Aug-2026 to 16-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-17",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m287",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "Dear Customer,\nINR 534.31 has been debited from your ICICI Bank A/c xx2903 on 17-Sep-2026 (ECOM STARBUCKS). Avl bal INR 2,442.85.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m288",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "INR debit alert: INR 2,822.23 debited from account *2903 on 19-Sep-2026. Narration: NEFT/AMAZON PAY INDIA. Available balance INR 96,287.10.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m289",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX0602 has been used for a transaction of INR 2,596.09 on 23-Sep-2026 at 06:13:47. Info: BESCOM.\nIf you did not do this, please call customer care.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m290",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx0591 has been used for a transaction of INR 6,423.48 on 26-Sep-2026 at 00:48:08. Info: HPCL PETROL.\nIf you did not do this, please call customer care.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m291",
+   "subject": "Transaction alert for your ICICI Bank Account",
+   "body": "INR debit alert: INR 12,041.69 debited from account *2903 on 26-Sep-2026. Narration: ECOM/LENSKART. Available balance INR 2,787.51.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m292",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Aug-2026 to 26-Sep-2026",
+   "body": "Dear Gaurav,\nPlease find attached your MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for the period 27-Aug-2026 to 26-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-09-27",
+   "attachments": [
+    {
+     "filename": "0591_26092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m293",
+   "subject": "ICICI Bank Account Statement - Oct 2026",
+   "body": "Dear Gaurav,\nPlease find attached your ICICI Bank *2903 statement for the period 09-Sep-2026 to 08-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-09",
+   "attachments": [
+    {
+     "filename": "ICICI_Acct_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m294",
+   "subject": "ICICI Bank Credit Card Statement for the period 11-Sep-2026 to 10-Oct-2026",
+   "body": "Dear Gaurav,\nYour ICICI Bank Rubyx Credit Card XX0602 statement for Oct 2026 is ready. Total amount due Rs.6,474.10, minimum amount due Rs.323.71, payable by 28-Oct-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m295",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX7683 has been used for a transaction of INR 16,680.37 on 11-Oct-2026 at 02:30:57. Info: TATA PLAY.\nIf you did not do this, please call customer care.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m296",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 1,707.73 done on your ICICI Bank Credit Card xx0602 at IRCTC on 11-Oct-2026. Available credit limit is INR 1,32,068.19.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m297",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour MakeMyTrip ICICI Bank Signature Credit Card xx0591 has been used for a transaction of INR 300.30 on 14-Oct-2026 at 14:04:39. Info: EAZYDINER.\nIf you did not do this, please call customer care.",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m298",
+   "subject": "ICICI Bank Credit Card Statement for the period 17-Sep-2026 to 16-Oct-2026",
+   "body": "Dear Gaurav,\nYour Amazon Pay ICICI Bank Credit Card xx7683 statement for Oct 2026 is ready. Total amount due Rs.9,601.15, minimum amount due Rs.480.06, payable by 03-Nov-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m299",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Payment of INR 19,750.86 has been received towards your MakeMyTrip ICICI Bank Signature Credit Card xx0591 on 23-Oct-2026. Thank you for the payment.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m300",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 14,505.79 done on your MakeMyTrip ICICI Bank Signature Credit Card XX0591 at OLA CABS on 23-Oct-2026. Available credit limit is INR 13,199.95.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m301",
+   "subject": "ICICI Bank Credit Card Statement for the period 27-Sep-2026 to 26-Oct-2026",
+   "body": "Dear Gaurav,\nYour MakeMyTrip ICICI Bank Signature Credit Card xx0591 statement for Oct 2026 is ready. Total amount due Rs.18,704.73, minimum amount due Rs.935.24, payable by 13-Nov-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m302",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 367.88 on 28-Oct-2026 for your ICICI Bank Credit Card xx7683. Available credit limit has been updated.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "7683",
+    "kind": "CREDIT_CARD",
+    "variant": "Amazon Pay",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "0591",
+    "kind": "CREDIT_CARD",
+    "variant": "MakeMyTrip",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "3-5L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "8568",
+    "kind": "CREDIT_CARD",
+    "variant": "Rubyx",
+    "lifecycle": "REPLACED",
+    "lifecyclePartnerLast4": "0602",
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "0602",
+    "kind": "CREDIT_CARD",
+    "variant": "Rubyx",
+    "lifecycle": "REPLACEMENT",
+    "lifecyclePartnerLast4": "8568",
+    "minEvidence": "STRONG",
+    "limitBucket": "5-10L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "2903",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "6755",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "5198",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "9358",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "2698",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "8448",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "9768",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "5384",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "6322",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "5702",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "1101",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

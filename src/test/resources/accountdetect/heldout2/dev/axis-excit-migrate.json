@@ -1,0 +1,2877 @@
+{
+ "mailbox": "axis-excit-migrate",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Citibank Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction of INR 18,775.10 done on your Citibank Credit Card XX5869 at CROMA on 11-11-2023. Available credit limit is INR 1,72,248.51.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2023-11-11",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "Your HSBC Live+ Credit Card statement - Nov 2023",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card ending 8209 statement for the period 16-Oct-2023 to 15-Nov-2023.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2023-11-16",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Nov2023.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m003",
+   "subject": "Punjab National Bank Account Statement - Nov 2023",
+   "body": "Dear Sneha,\nYour Punjab National Bank XX1122 account statement for Nov 2023 is ready. Closing balance Rs.5,543.01.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2023-11-19",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Nov 2023",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card ending 7233 statement for the period 22/10/23 to 21/11/23.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2023-11-22",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Nov2023.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Your Citibank Credit Card e-Statement - Nov 2023",
+   "body": "Dear Sneha,\nYour Citi Rewards Credit Card ending 5869 statement for Nov 2023 is ready. Total amount due Rs.6,779.93, minimum amount due Rs.338.100, payable by 09-Dec-2023.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2023-11-22",
+   "attachments": [],
+   "from": "Citibank <citistatements@citibank.co.in>"
+  },
+  {
+   "id": "m006",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.724.07 debited from account XXXXXX1122 on 28-11-2023. Narration: NEFT/BLINKIT. Available balance Rs.1,43,043.46.\n\nDownload our mobile app for instant alerts.",
+   "date": "2023-11-28",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XXXXXX1122 is debited for Rs.828.78 on 29-11-2023 - NEFT BESCOM. Bal Rs.21,477.22. -Punjab National Bank\n\nOpt for e-statements and go green.",
+   "date": "2023-11-29",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "Payment received - Citibank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 206.65 on 06-12-2023 for your Citibank Credit Card XX5869. Available credit limit has been updated.\n\nOpt for e-statements and go green.",
+   "date": "2023-12-06",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "Citibank Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction of INR 10,801.49 done on your Citi Rewards Credit Card XX5869 at BLINKIT on 13-12-2023. Available credit limit is INR 9,120.79.",
+   "date": "2023-12-13",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "Your HSBC Live+ Credit Card statement - Dec 2023",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card xx8209 statement for Dec 2023 is ready. Total amount due Rs.52,639.44, minimum amount due Rs.2,631.97, payable by 02-Jan-2024.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2023-12-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Dec 2023",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card XX7233 statement for the period 22/11/23 to 21/12/23.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2023-12-22",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Dec2023.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Your Citibank Credit Card e-Statement - Dec 2023",
+   "body": "Dear Sneha,\nPlease find attached your Citi Rewards Credit Card XX5869 statement for the period 22-Nov-2023 to 21-Dec-2023.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2023-12-22",
+   "attachments": [
+    {
+     "filename": "5869_21122023_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Citibank <citistatements@citibank.co.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,446.84 was spent on your HSBC Live+ Credit Card XX8209 at BLINKIT on 05-Jan-2024.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-01-05",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m014",
+   "subject": "Your HSBC Live+ Credit Card statement - Jan 2024",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card ending 8209 statement for the period 16-Dec-2023 to 15-Jan-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-01-16",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Jan2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m015",
+   "subject": "Citibank Credit Card transaction alert",
+   "body": "Dear Customer,\nYour Citi Rewards Credit Card ending 5869 has been used for a transaction of INR 5,856.19 on 19-01-2024 at 20:44:51. Info: PHONEPE.\nIf you did not do this, please call customer care.",
+   "date": "2024-01-19",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "Citibank Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction of INR 9,662.76 done on your Citi Rewards Credit Card xx5869 at PHONEPE on 20-01-2024. Available credit limit is INR 61,474.10.\n\nOpt for e-statements and go green.",
+   "date": "2024-01-20",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m017",
+   "subject": "Transaction alert",
+   "body": "Spent INR 163.26 on your Credit Card xx7233 at MYNTRA, 20-Jan-2024. Avl Lmt INR 80,812.36. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2024-01-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Your Citibank Credit Card e-Statement - Jan 2024",
+   "body": "Dear Sneha,\nPlease find attached your Citi Rewards Credit Card XX5869 statement for the period 22-Dec-2023 to 21-Jan-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-01-22",
+   "attachments": [
+    {
+     "filename": "Citibank_Statement_Jan2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Citibank <citistatements@citibank.co.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Jan 2024",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card xx7233 statement for the period 22/12/23 to 21/01/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-01-22",
+   "attachments": [
+    {
+     "filename": "7233_21012024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.26,953.27 has been transferred from your A/c XXXXXX1122 to Ganesh Maid Service A/c XX3517 (Bandhan Bank) via IMPS on 01-02-2024. Ref no 924128499111.",
+   "date": "2024-02-01",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m021",
+   "subject": "Transaction alert",
+   "body": "Spent INR 9,398.72 on your Credit Card XX7233 at BIG BAZAAR, 11-Feb-2024. Avl Lmt INR 4,899.86. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-02-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Your HSBC Live+ Credit Card statement - Feb 2024",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card XX8209 statement for Feb 2024 is ready. Total amount due Rs.10,755.22, minimum amount due Rs.537.76, payable by 04-Mar-2024.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-02-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "Important: your Citibank credit card is moving to Axis Bank",
+   "body": "Dear Sneha Shetty,\nYour Citibank Credit Card ending 5869 will be migrated to Axis Bank. You will receive a new card ending 9524. Please start using the new card once received.",
+   "date": "2024-02-17",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "Punjab National Bank Account Statement - Feb 2024",
+   "body": "Dear Sneha,\nYour Punjab National Bank XXXXXX1122 account statement for Feb 2024 is ready. Closing balance Rs.1,905.58.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-02-19",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m025",
+   "subject": "Punjab National Bank: funds transferred",
+   "body": "Dear Customer,\nRs.721.37 has been transferred from your A/c *1122 to S K Enterprises A/c XX5745 (IDFC FIRST Bank) via IMPS on 21-02-2024. Ref no 503262566479.",
+   "date": "2024-02-21",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "Your Citibank credit card has moved to Axis Bank",
+   "body": "Dear Sneha Shetty,\nAs part of the integration of Citi India's consumer business with Axis Bank, your Citi Rewards Credit Card card ending 5869 has been migrated to a new Axis Bank Axis Bank Rewards Credit Card. Your new card number ends with 9524. Your old card ending 5869 will no longer work after 08-Mar-2024.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-02-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Your Citibank Credit Card e-Statement - Feb 2024",
+   "body": "Dear Sneha,\nYour Citi Rewards Credit Card xx5869 statement for Feb 2024 is ready. Total amount due Rs.1,412.31, minimum amount due Rs.200.00, payable by 10-Mar-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-02-22",
+   "attachments": [],
+   "from": "Citibank <citistatements@citibank.co.in>"
+  },
+  {
+   "id": "m028",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Feb 2024",
+   "body": "Dear Sneha,\nYour Credit Card XX7233 statement for Feb 2024 is ready. Total amount due Rs.5,696.52, minimum amount due Rs.284.83, payable by 10/03/24.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-02-22",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Feb 2024",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card xx9524 statement for the period 26/01/24 to 25/02/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-02-26",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Feb2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. XX7233 for INR 298.95 at MYNTRA on 05-Mar-2024 13:22:33. Available limit: INR 98,397.90.\n\nOpt for e-statements and go green.",
+   "date": "2024-03-05",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. XX7233 for INR 1,839.12 at BIG BAZAAR on 10-Mar-2024 09:43:05. Available limit: INR 7,225.06.",
+   "date": "2024-03-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Your HSBC Live+ Credit Card statement - Mar 2024",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card xx8209 statement for Mar 2024 is ready. Total amount due Rs.887.00, minimum amount due Rs.200.00, payable by 02-Apr-2024.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2024-03-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Sneha,\nPlease find attached the updated MITC for your Axis Bank credit cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-03-19",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 488.40 was spent on your HSBC Live+ Credit Card ending 8209 at BOOKMYSHOW on 21-Mar-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-03-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Mar 2024",
+   "body": "Dear Sneha,\nYour Credit Card ending 7233 statement for Mar 2024 is ready. Total amount due Rs.2,175.32, minimum amount due Rs.200.00, payable by 08/04/24.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2024-03-22",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. xx7233 for INR 14,991.55 at RELIANCE DIGITAL on 24-Mar-2024 09:01:33. Available limit: INR 2,508.51.",
+   "date": "2024-03-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Mar 2024",
+   "body": "Dear Sneha,\nYour Axis Bank Rewards Credit Card XX9524 statement for Mar 2024 is ready. Total amount due Rs.38,796.59, minimum amount due Rs.1,939.83, payable by 12/04/24.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-03-26",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.802.22 has been debited from your Punjab National Bank A/c xx1122 on 10-04-2024 (NEFT BOOKMYSHOW). Avl bal Rs.87,051.53.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-04-10",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "Your HSBC Live+ Credit Card statement - Apr 2024",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Mar-2024 to 15-Apr-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-04-16",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Apr2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Apr 2024",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card XX7233 statement for the period 22/03/24 to 21/04/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-04-22",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Apr2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Update your KYC",
+   "body": "Dear Sneha,\nAs per RBI guidelines please complete re-KYC for your Axis Bank relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-04-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,391.49 was spent on your HSBC Live+ Credit Card XX8209 at BLINKIT on 24-Apr-2024.",
+   "date": "2024-04-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Apr 2024",
+   "body": "Dear Sneha,\nYour Axis Bank Rewards Credit Card XX9524 statement for Apr 2024 is ready. Total amount due Rs.1,571.71, minimum amount due Rs.200.00, payable by 13/05/24.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-04-26",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX9524 for INR 3,616.40 at NYKAA on 01-May-2024 08:51:13. Available limit: INR 10,575.48.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-05-01",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 14,749.72 spent on your HSBC Credit Card XX8209 at SWIGGY on 06-May-2024 15:10:02.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-05-06",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m046",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 820.36 was spent on your HSBC Credit Card XX8209 at APOLLO PHARMACY on 07-May-2024.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-05-07",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m047",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c *1122 is debited for Rs.4,068.83 on 11-05-2024 - IMPS TATA POWER. Bal Rs.67,065.75. -Punjab National Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-05-11",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Ganesh Maid Service (A/c XXXXXX4839, Union Bank of India) has been added to your account XX1122. It will be active after 30 minutes.",
+   "date": "2024-05-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Refer and earn",
+   "body": "Dear Sneha,\nConvert big spends to EMI at low interest.\n\nOpt for e-statements and go green.",
+   "date": "2024-05-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Punjab National Bank Account Statement - May 2024",
+   "body": "Dear Sneha,\nYour Punjab National Bank *1122 account statement for May 2024 is ready. Closing balance Rs.3,340.24.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-05-19",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m051",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - May 2024",
+   "body": "Dear Sneha,\nYour Credit Card ending 7233 statement for May 2024 is ready. Total amount due Rs.5,133.19, minimum amount due Rs.256.66, payable by 08/06/24.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-05-22",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 93.13 was spent on your HSBC Live+ Credit Card ending 8209 at BIG BAZAAR on 22-May-2024.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-05-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m053",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - May 2024",
+   "body": "Dear Sneha,\nYour Axis Bank Rewards Credit Card xx9524 statement for May 2024 is ready. Total amount due Rs.10,428.97, minimum amount due Rs.521.45, payable by 12/06/24.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-05-26",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Rewards Credit Card no. XX9524 for INR 833.11 at BLINKIT on 29-May-2024 14:48:18. Available limit: INR 1,71,913.04.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-29",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 860.76 was spent on your HSBC Live+ Credit Card XX8209 at NETFLIX on 29-May-2024.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-05-29",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m056",
+   "subject": "Transaction alert",
+   "body": "Spent INR 145.36 on your Credit Card XX7233 at EAZYDINER, 07-Jun-2024. Avl Lmt INR 1,42,783.82. SMS BLOCK to 5676782 if not you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-06-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Earn more with your card",
+   "body": "Dear Sneha,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2024-06-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from xx1122 to Ganesh Maid Service A/c XX4839 on 14-06-2024. Rent for the month.",
+   "date": "2024-06-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "Your HSBC Live+ Credit Card statement - Jun 2024",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card xx8209 statement for Jun 2024 is ready. Total amount due Rs.13,068.65, minimum amount due Rs.653.43, payable by 03-Jul-2024.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-06-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Jun 2024",
+   "body": "Dear Sneha,\nYour Credit Card xx7233 statement for Jun 2024 is ready. Total amount due Rs.423.76, minimum amount due Rs.200.00, payable by 09/07/24.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-06-22",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Jun 2024",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card ending 9524 statement for the period 26/05/24 to 25/06/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-06-26",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Jun2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Transaction alert",
+   "body": "Spent INR 1,413.08 on your Credit Card XX7233 at RELIANCE DIGITAL, 27-Jun-2024. Avl Lmt INR 4,342.82. SMS BLOCK to 5676782 if not you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-06-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. XX7233 for INR 2,002.92 at IXIGO on 28-Jun-2024 14:12:06. Available limit: INR 8,546.03.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-06-28",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. XX7233 for INR 1,163.93 at BESCOM on 03-Jul-2024 15:20:57. Available limit: INR 35,092.95.",
+   "date": "2024-07-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Transaction alert",
+   "body": "Spent INR 14,897.31 on your Credit Card XX7233 at ZOMATO, 07-Jul-2024. Avl Lmt INR 1,16,141.53. SMS BLOCK to 5676782 if not you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-07-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.95.83 debited from account xx1122 on 08-07-2024. Narration: ECOM/PHONEPE. Available balance Rs.5,083.08.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-07-08",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX1560 has been updated on 03-May-2025. If not requested by you, call customer care.",
+   "date": "2024-07-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "Transaction alert",
+   "body": "Spent INR 1,028.47 on your Credit Card ending 7233 at DOMINOS, 09-Jul-2024. Avl Lmt INR 1,36,229.59. SMS BLOCK to 5676782 if not you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 86.14 spent on your HSBC Credit Card XX8209 at EASEMYTRIP on 09-Jul-2024 05:17:00.",
+   "date": "2024-07-09",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m070",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c xx1122 is debited for Rs.28,636.75 on 12-07-2024 - NEFT NYKAA. Bal Rs.25,975.59. -Punjab National Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-07-12",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from XXXXXX1122 to Ganesh Maid Service A/c XX4839 on 14-07-2024. Rent for the month.",
+   "date": "2024-07-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Your HSBC Live+ Credit Card statement - Jul 2024",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Jun-2024 to 15-Jul-2024. Total amount due Rs.52,668.85, due 01-Aug-2024.\n\nOpt for e-statements and go green.",
+   "date": "2024-07-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202407.pdf",
+     "protected": false,
+     "pdfText": "HSBC Credit Card Statement\nSNEHA SHETTY\nFLAT 196, ORCHID APARTMENTS\n21TH CROSS, ADYAR\nPUNE - 527279\nCard Name: HSBC Live+ Credit Card\nCredit Card Number: 438827XXXXXX8209\nStatement Period: 16/06/24 - 15/07/24\nStatement Date: 15/07/24\nPayment Summary\nTotal Amount Due: Rs.52,668.85\nMinimum Amount Due: Rs.2,633.44\nPayment Due Date: 01/08/24\nAccount Summary\nCredit Limit: Rs.2,90,000.00\nAvailable Credit Limit: Rs.2,73,511.95\nAvailable Cash Limit: Rs.58,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n20/06/24 CROMA BENGALURU 141.58 Dr\n22/06/24 BOOKMYSHOW KOLKATA 336.77 Dr\n23/06/24 DMART GURUGRAM 253.77 Dr\n24/06/24 STARBUCKS MUMBAI 12,437.44 Dr\n27/06/24 TATA POWER KOCHI 14,648.13 Dr\n28/06/24 HPCL PETROL KOCHI 9,559.22 Dr\n29/06/24 AMAZON PAY INDIA BENGALURU 5,310.63 Dr\n02/07/24 STARBUCKS JAIPUR 4,429.90 Dr\n06/07/24 MCDONALDS BENGALURU 4,819.41 Dr\n15/07/24 AMAZON PAY INDIA AHMEDABAD 732.00 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m073",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Jul 2024",
+   "body": "Dear Sneha,\nYour Credit Card ending 7233 statement for Jul 2024 is ready. Total amount due Rs.648.74, minimum amount due Rs.200.00, payable by 08/08/24.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2024-07-22",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Jul 2024",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card ending 9524 statement for the period 26/06/24 to 25/07/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202407.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Your A/c XXXXXX1122 is credited with Rs.309.87 on 02-08-2024 - UPI. Bal Rs.71,640.67. -Punjab National Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-08-02",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 9524 for INR 6,393.29 at NYKAA on 09-Aug-2024 21:54:49. Available limit: INR 3,546.92.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-08-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,952.50 spent on your HSBC Credit Card XX8209 at RELIANCE DIGITAL on 09-Aug-2024 17:59:26.",
+   "date": "2024-08-09",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m078",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from XX1122 to Ganesh Maid Service A/c XX4839 on 14-08-2024. Rent for the month.",
+   "date": "2024-08-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m079",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX9524 for INR 4,054.42 at DECATHLON on 15-Aug-2024 06:52:16. Available limit: INR 3,161.43.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-08-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Spent INR 1,060.01 on your Axis Bank Rewards Credit Card XX9524 at BESCOM, 15-Aug-2024. Avl Lmt INR 8,173.60. SMS BLOCK to 5676782 if not you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-08-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Your HSBC Live+ Credit Card statement - Aug 2024",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Jul-2024 to 15-Aug-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-08-16",
+   "attachments": [
+    {
+     "filename": "8209_15082024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 564.28 on 16-Aug-2024 for your HSBC Credit Card xx8209. Available credit limit has been updated.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-08-16",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Aug 2024",
+   "body": "Dear Sneha,\nYour Credit Card xx7233 statement for Aug 2024 is ready. Total amount due Rs.640.92, minimum amount due Rs.200.00, payable by 08/09/24.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-08-22",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #173-6382166-8808842 is confirmed. Total Rs.4,640.59. Estimated delivery in 2 days.",
+   "date": "2024-08-24",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Aug 2024",
+   "body": "Dear Sneha,\nYour Axis Bank Rewards Credit Card XX9524 statement for Aug 2024 is ready. Total amount due Rs.1,993.55, minimum amount due Rs.200.00, payable by 12/09/24.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-08-26",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.13,543.69 debited from account xx1122 on 27-08-2024. Narration: NEFT/DECATHLON. Available balance Rs.9,605.43.\n\nOpt for e-statements and go green.",
+   "date": "2024-08-27",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "Payment received",
+   "body": "Payment of INR 598.87 has been received towards your Credit Card XX7233 on 02-Sep-2024. Thank you for the payment.",
+   "date": "2024-09-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "OTP for your transaction",
+   "body": "855258 is the OTP for your transaction of Rs.1,316.49 at BIGBASKET. Valid for 10 minutes. Do not share.",
+   "date": "2024-09-11",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "Your HSBC Live+ Credit Card statement - Sep 2024",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card XX8209 statement for Sep 2024 is ready. Total amount due Rs.446.19, minimum amount due Rs.200.00, payable by 03-Oct-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-09-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "OTP for your transaction",
+   "body": "730953 is the OTP for your transaction of Rs.1,243.58 at NYKAA. Valid for 10 minutes. Do not share.",
+   "date": "2024-09-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. xx7233 for INR 1,808.56 at OLA CABS on 19-Sep-2024 13:33:24. Available limit: INR 4,416.31.",
+   "date": "2024-09-19",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Sep 2024",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card ending 7233 statement for the period 22/08/24 to 21/09/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-09-22",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Sep2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Sep 2024",
+   "body": "Dear Sneha,\nYour Axis Bank Rewards Credit Card XX9524 statement for Sep 2024 is ready. Total amount due Rs.1,642.89, minimum amount due Rs.200.00, payable by 13/10/24.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-09-26",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.247.08 has been credited to account XXXXXX1122 on 26-09-2024 (IMPS). Avl bal Rs.3,262.27.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-09-26",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Sneha,\nGet up to 10% cashback on partner brands.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-06",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m096",
+   "subject": "Transaction alert",
+   "body": "Spent INR 172.81 on your Credit Card xx7233 at AMAZON PAY INDIA, 07-Oct-2024. Avl Lmt INR 80,557.18. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-10-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.19,049.03 for SBI Card Credit Card ending 4189 (cardholder: PRIYA SHETTY) was successful from your A/c XXXXXX1122 on 07-10-2024.",
+   "date": "2024-10-07",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XXXXXX1122 is debited for Rs.11,319.06 on 10-10-2024 - POS URBAN COMPANY. Bal Rs.1,30,175.85. -Punjab National Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-10",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m099",
+   "subject": "Refer and earn",
+   "body": "Dear Sneha,\nGet up to 10% cashback on partner brands.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-17",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,108.23 was spent on your HSBC Credit Card XX8209 at FLIPKART on 19-Oct-2024.\n\nOpt for e-statements and go green.",
+   "date": "2024-10-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Oct 2024",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card XX7233 statement for the period 22/09/24 to 21/10/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-22",
+   "attachments": [
+    {
+     "filename": "eStatement_202410.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Oct 2024",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card XX9524 statement for the period 26/09/24 to 25/10/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-10-26",
+   "attachments": [
+    {
+     "filename": "9524_25102024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 292.74 spent on your HSBC Credit Card ending 8209 at DMART on 27-Oct-2024 17:36:37.",
+   "date": "2024-10-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m104",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.7,901.25 debited from account XX1122 on 14-11-2024. Narration: POS/PAYTM. Available balance Rs.4,509.99.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-11-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XXXXXX1122 is debited for Rs.143.58 on 17-11-2024 - NEFT BIG BAZAAR. Bal Rs.1,91,415.07. -Punjab National Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-17",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Punjab National Bank Account Statement - Nov 2024",
+   "body": "Dear Sneha,\nPlease find attached your Punjab National Bank XX1122 statement for the period 19-Oct-2024 to 18-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-19",
+   "attachments": [
+    {
+     "filename": "1122_18112024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Nov 2024",
+   "body": "Dear Sneha,\nYour Credit Card xx7233 statement for Nov 2024 is ready. Total amount due Rs.27,381.92, minimum amount due Rs.1,369.10, payable by 09/12/24.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-22",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Nov 2024",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card XX9524 statement for the period 26/10/24 to 25/11/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202411.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Spent INR 301.23 on your Axis Bank Credit Card XX9524 at HPCL PETROL, 29-Nov-2024. Avl Lmt INR 1,34,384.12. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-11-29",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX9524 for INR 1,681.75 at BESCOM on 30-Nov-2024 01:26:29. Available limit: INR 88,545.23.",
+   "date": "2024-11-30",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 9,988.99 spent on your HSBC Live+ Credit Card ending 8209 at MAKEMYTRIP on 01-Dec-2024 12:42:33.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-01",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX9524 for INR 414.83 at HPCL PETROL on 11-Dec-2024 15:25:51. Available limit: INR 1,49,250.78.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-12-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Earn more with your card",
+   "body": "Dear Sneha,\nConvert big spends to EMI at low interest.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-13",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.189.30 has been credited to account *1122 on 14-12-2024 (UPI). Avl bal Rs.1,05,667.35.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-12-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "Your HSBC Live+ Credit Card statement - Dec 2024",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Nov-2024 to 15-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-12-16",
+   "attachments": [
+    {
+     "filename": "8209_15122024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m116",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX9524 for INR 133.05 at DMART on 17-Dec-2024 05:13:47. Available limit: INR 18,214.83.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Spent INR 4,720.82 on your Axis Bank Credit Card XX9524 at RELIANCE DIGITAL, 18-Dec-2024. Avl Lmt INR 12,299.56. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-12-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 441.80 spent on your HSBC Credit Card xx8209 at MAKEMYTRIP on 18-Dec-2024 13:44:22.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-18",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m119",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Dec 2024",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card XX7233 statement for the period 22/11/24 to 21/12/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-22",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Dec2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Dec 2024",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card xx9524 statement for the period 26/11/24 to 25/12/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-26",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Dec2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. ending 7233 for INR 10,649.07 at APPLE SERVICES on 31-Dec-2024 01:31:17. Available limit: INR 58,723.06.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-31",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.1,708.45 has been transferred from your A/c XX1122 to Mohan Landlord A/c XX8761 (IDBI Bank) via IMPS on 31-12-2024. Ref no 160166047258.",
+   "date": "2024-12-31",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m123",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 3,559.06 spent on your HSBC Live+ Credit Card XX8209 at GOOGLE PLAY on 04-Jan-2025 14:47:45.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-04",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.1,209.13 has been credited to account *1122 on 09-01-2025 (SALARY NEFT). Avl bal Rs.1,69,837.29.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-09",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,136.54 was spent on your HSBC Live+ Credit Card xx8209 at TATA PLAY on 11-Jan-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-01-11",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Sneha,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-13",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "Your HSBC Live+ Credit Card statement - Jan 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Dec-2024 to 15-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-16",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m128",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 137.55 was spent on your HSBC Credit Card XX8209 at RELIANCE DIGITAL on 23-Jan-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m129",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Jan 2025",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card XX9524 statement for the period 26/12/24 to 25/01/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-01-26",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 206841203369. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-01-26",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 2,744.87 was spent on your HSBC Credit Card ending 8209 at APPLE SERVICES on 27-Jan-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 18,159.10 spent on your HSBC Live+ Credit Card ending 8209 at ZOMATO on 05-Feb-2025 01:55:23.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-05",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m133",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.34,226.92 has been transferred from your A/c XXXXXX1122 to Mohan Landlord A/c XX8761 (IDBI Bank) via IMPS on 09-02-2025. Ref no 414357789049.",
+   "date": "2025-02-09",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m134",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. XX7233 for INR 915.33 at DMART on 10-Feb-2025 01:58:31. Available limit: INR 39,557.21.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 587.14 was spent on your HSBC Live+ Credit Card XX8209 at DOMINOS on 12-Feb-2025.",
+   "date": "2025-02-12",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m136",
+   "subject": "Your HSBC Live+ Credit Card statement - Feb 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Jan-2025 to 15-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-16",
+   "attachments": [
+    {
+     "filename": "8209_15022025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m137",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Spent INR 590.79 on your Axis Bank Credit Card XX9524 at DOMINOS, 16-Feb-2025. Avl Lmt INR 21,655.66. SMS BLOCK to 5676782 if not you.",
+   "date": "2025-02-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Punjab National Bank Account Statement - Feb 2025",
+   "body": "Dear Sneha,\nPlease find attached your Punjab National Bank *1122 statement for the period 19-Jan-2025 to 18-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-02-19",
+   "attachments": [
+    {
+     "filename": "Punjab_Acct_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m139",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #201-9627683-5600485 is confirmed. Total Rs.2,409.82. Estimated delivery in 2 days.",
+   "date": "2025-02-19",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Feb 2025",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card XX7233 statement for the period 22/01/25 to 21/02/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-22",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Rewards Credit Card no. xx9524 for INR 8,458.36 at JIO RECHARGE on 24-Feb-2025 11:18:42. Available limit: INR 73,013.56.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Refer and earn",
+   "body": "Dear Sneha,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nOpt for e-statements and go green.",
+   "date": "2025-02-25",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m143",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Feb 2025",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card XX9524 statement for the period 26/01/25 to 25/02/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-02-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202502.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.5,183.23 has been credited to account XXXXXX1122 on 26-02-2025 (IMPS). Avl bal Rs.5,025.33.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-26",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m145",
+   "subject": "Transaction alert",
+   "body": "Spent INR 228.52 on your Credit Card xx7233 at BIGBASKET, 27-Feb-2025. Avl Lmt INR 1,13,918.83. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Spent INR 725.26 on your Axis Bank Credit Card XX9524 at MEDPLUS, 28-Feb-2025. Avl Lmt INR 9,233.78. SMS BLOCK to 5676782 if not you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-02-28",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX9524 for INR 3,832.35 at BATA INDIA on 02-Mar-2025 19:06:25. Available limit: INR 3,161.27.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Your HSBC Live+ Credit Card statement - Mar 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card xx8209 statement for the period 16-Feb-2025 to 15-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-16",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m149",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Mar 2025",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card XX7233 statement for the period 22/02/25 to 21/03/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-22",
+   "attachments": [
+    {
+     "filename": "7233_21032025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Transaction alert",
+   "body": "Spent INR 3,175.55 on your Credit Card xx7233 at PVR INOX, 25-Mar-2025. Avl Lmt INR 1,07,256.83. SMS BLOCK to 5676782 if not you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-03-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Mar 2025",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card ending 9524 statement for the period 26/02/25 to 25/03/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XX1122 is debited for Rs.15,947.49 on 06-04-2025 - IMPS MCDONALDS. Bal Rs.1,97,065.68. -Punjab National Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-04-06",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m153",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #764-1164876-7908780 is confirmed. Total Rs.247.41. Estimated delivery in 2 days.",
+   "date": "2025-04-08",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XXXXXX1122 is debited for Rs.284.09 on 11-04-2025 - UPI PVR INOX. Bal Rs.10,750.67. -Punjab National Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-11",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m155",
+   "subject": "Your HSBC Live+ Credit Card statement - Apr 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Mar-2025 to 15-Apr-2025. Total amount due Rs.47,565.60, due 02-May-2025.\n\n",
+   "date": "2025-04-16",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Apr2025.pdf",
+     "protected": false,
+     "pdfText": "HSBC Credit Card Statement\nSNEHA SHETTY\nFLAT 710, GREEN VALLEY APARTMENTS\n7TH CROSS, KOTHRUD\nKOLKATA - 502445\nCard Name: HSBC Live+ Credit Card\nCredit Card Number: 438827XXXXXX8209\nStatement Period: 16/03/25 - 15/04/25\nStatement Date: 15/04/25\nPayment Summary\nTotal Amount Due: Rs.47,565.60\nMinimum Amount Due: Rs.2,378.28\nPayment Due Date: 02/05/25\nAccount Summary\nCredit Limit: Rs.2,90,000.00\nAvailable Credit Limit: Rs.2,62,318.32\nAvailable Cash Limit: Rs.58,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n16/03/25 APOLLO PHARMACY AHMEDABAD 8,827.18 Dr\n19/03/25 BIG BAZAAR JAIPUR 10,487.41 Dr\n26/03/25 EASEMYTRIP GURUGRAM 241.95 Dr\n27/03/25 IXIGO KOLKATA 1,144.05 Dr\n01/04/25 IRCTC MUMBAI 2,604.30 Dr\n04/04/25 OLA CABS JAIPUR 1,311.48 Dr\n10/04/25 INDIGO AIRLINES CHENNAI 14,346.33 Dr\n12/04/25 OLA CABS KOCHI 8,602.90 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m156",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Apr 2025",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card ending 7233 statement for the period 22/03/25 to 21/04/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-22",
+   "attachments": [
+    {
+     "filename": "7233_21042025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Apr 2025",
+   "body": "Dear Sneha,\nYour Axis Bank Rewards Credit Card XX9524 statement for Apr 2025 is ready. Total amount due Rs.20,989.19, minimum amount due Rs.1,049.46, payable by 13/05/25.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-26",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Spent INR 938.33 on your Axis Bank Credit Card XX9524 at IKEA, 03-May-2025. Avl Lmt INR 2,071.23. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2025-05-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Update your KYC",
+   "body": "Dear Sneha,\nAs per RBI guidelines please complete re-KYC for your Axis Bank relationship. Visit a branch or use the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #636-4351619-8719960 is confirmed. Total Rs.5,943.32. Estimated delivery in 2 days.",
+   "date": "2025-05-07",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m161",
+   "subject": "Update your KYC",
+   "body": "Dear Sneha,\nAs per RBI guidelines please complete re-KYC for your Axis Bank relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #459-4409790-8185693 is confirmed. Total Rs.250.31. Estimated delivery in 2 days.",
+   "date": "2025-05-14",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Your HSBC Live+ Credit Card statement - May 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card ending 8209 statement for the period 16-Apr-2025 to 15-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m164",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Rewards Credit Card no. XX9524 for INR 144.42 at PHONEPE on 17-May-2025 11:20:38. Available limit: INR 80,923.11.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 90.12 spent on your HSBC Live+ Credit Card XX8209 at EAZYDINER on 18-May-2025 03:13:04.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-18",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m166",
+   "subject": "Punjab National Bank Account Statement - May 2025",
+   "body": "Dear Sneha,\nPlease find attached your Punjab National Bank xx1122 statement for the period 19-Apr-2025 to 18-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-19",
+   "attachments": [
+    {
+     "filename": "1122_18052025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m167",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - May 2025",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card ending 7233 statement for the period 22/04/25 to 21/05/25. Total amount due Rs.92,889.73, due 07/06/25.\n\n",
+   "date": "2025-05-22",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_May2025.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nSNEHA SHETTY\nFLAT 805, GREEN VALLEY APARTMENTS\n28TH CROSS, INDIRANAGAR\nCHENNAI - 548711\nCard Name: Axis Bank Atlas Credit Card\nCredit Card Number: 438210XXXXXX7233\nStatement Period: 22/04/25 - 21/05/25\nStatement Generation Date: 21/05/25\nPayment Summary\nTotal Payment Due: Rs.92,889.73\nMinimum Payment Due: Rs.4,644.49\nPayment Due Date: 07/06/25\nAccount Summary\nCredit Limit: Rs.8,20,000.00\nAvailable Credit Limit: Rs.7,46,139.17\nAvailable Cash Limit: Rs.1,64,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n22/04/25 DECATHLON BENGALURU 21,362.67 Dr\n22/04/25 FLIPKART AHMEDABAD 18,221.04 Dr\n28/04/25 TATA PLAY MUMBAI 112.33 Dr\n02/05/25 LENSKART HYDERABAD 645.73 Dr\n06/05/25 APPLE SERVICES KOLKATA 19,870.50 Dr\n06/05/25 SPOTIFY CHENNAI 1,285.79 Dr\n12/05/25 NETFLIX HYDERABAD 530.11 Dr\n13/05/25 HPCL PETROL GURUGRAM 1,310.33 Dr\n14/05/25 APPLE SERVICES MUMBAI 2,386.90 Dr\n14/05/25 TATA PLAY BENGALURU 1,015.26 Dr\n16/05/25 PHONEPE AHMEDABAD 21,257.29 Dr\n18/05/25 DOMINOS KOCHI 4,891.78 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - May 2025",
+   "body": "Dear Sneha,\nYour Axis Bank Rewards Credit Card XX9524 statement for May 2025 is ready. Total amount due Rs.8,315.42, minimum amount due Rs.415.77, payable by 12/06/25.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-26",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 163.30 on 10-Jun-2025 for your HSBC Live+ Credit Card XX8209. Available credit limit has been updated.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-10",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m170",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #366-6121130-9090633 is confirmed. Total Rs.1,358.80. Estimated delivery in 2 days.",
+   "date": "2025-06-13",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m171",
+   "subject": "Payment received",
+   "body": "Payment of INR 413.91 has been received towards your Credit Card XX7233 on 15-Jun-2025. Thank you for the payment.",
+   "date": "2025-06-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "OTP for your transaction",
+   "body": "928993 is the OTP for your transaction of Rs.244.51 at SWIGGY. Valid for 10 minutes. Do not share.",
+   "date": "2025-06-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Jun 2025",
+   "body": "Dear Sneha,\nYour Credit Card xx7233 statement for Jun 2025 is ready. Total amount due Rs.13,946.37, minimum amount due Rs.697.32, payable by 09/07/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-06-22",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.534.21 has been debited from your Punjab National Bank A/c xx1122 on 23-06-2025 (ECOM SWIGGY). Avl bal Rs.3,425.12.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-23",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m175",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Jun 2025",
+   "body": "Dear Sneha,\nYour Axis Bank Rewards Credit Card XX9524 statement for Jun 2025 is ready. Total amount due Rs.444.37, minimum amount due Rs.200.00, payable by 13/07/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-06-26",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 85.49 was spent on your HSBC Credit Card ending 8209 at SWIGGY on 27-Jun-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m177",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Spent INR 9,824.79 on your Axis Bank Rewards Credit Card XX9524 at ZOMATO, 05-Jul-2025. Avl Lmt INR 50,840.73. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-05",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Your HSBC Live+ Credit Card statement - Jul 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Jun-2025 to 15-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m179",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Jul 2025",
+   "body": "Dear Sneha,\nYour Credit Card XX7233 statement for Jul 2025 is ready. Total amount due Rs.3,211.15, minimum amount due Rs.200.00, payable by 08/08/25.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-07-22",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Payment received",
+   "body": "Payment of INR 1,286.46 has been received towards your Credit Card ending 7233 on 24-Jul-2025. Thank you for the payment.",
+   "date": "2025-07-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Transaction alert",
+   "body": "Spent INR 22,730.78 on your Credit Card XX7233 at INDIAN OIL, 25-Jul-2025. Avl Lmt INR 10,493.77. SMS BLOCK to 5676782 if not you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XXXXXX1122 is debited for Rs.366.86 on 25-07-2025 - IMPS JIO RECHARGE. Bal Rs.11,084.47. -Punjab National Bank",
+   "date": "2025-07-25",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m183",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Jul 2025",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card ending 9524 statement for the period 26/06/25 to 25/07/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-26",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.1,310.21 has been credited to account *1122 on 29-07-2025 (NEFT). Avl bal Rs.27,441.30.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-29",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m185",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. XX7233 for INR 159.60 at BESCOM on 04-Aug-2025 16:23:13. Available limit: INR 5,503.92.",
+   "date": "2025-08-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Refer and earn",
+   "body": "Dear Sneha,\nConvert big spends to EMI at low interest.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-08",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m187",
+   "subject": "Your HSBC Live+ Credit Card statement - Aug 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Jul-2025 to 15-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202508.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m188",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Dear Customer,\nRs.21,514.67 credited to your Punjab National Bank A/c xx1122 on 18-08-2025 by SALARY NEFT. Ref 813790565166.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-18",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m189",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 1,732.70 on 20-Aug-2025 for your HSBC Live+ Credit Card XX8209. Available credit limit has been updated.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m190",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Aug 2025",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card xx7233 statement for the period 22/07/25 to 21/08/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-08-22",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Transaction alert",
+   "body": "Spent INR 8,362.29 on your Credit Card xx7233 at FLIPKART, 22-Aug-2025. Avl Lmt INR 99,854.97. SMS BLOCK to 5676782 if not you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Aug 2025",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card XX9524 statement for the period 26/07/25 to 25/08/25. Total amount due Rs.44,378.26, due 14/09/25.\n\n",
+   "date": "2025-08-26",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nSNEHA SHETTY\nFLAT 257, LAKESHORE APARTMENTS\n23TH CROSS, KOTHRUD\nKOLKATA - 519512\nCard Name: Axis Bank Rewards Credit Card\nCredit Card Number: 408898XXXXXX9524\nStatement Period: 26/07/25 - 25/08/25\nStatement Generation Date: 25/08/25\nPayment Summary\nTotal Payment Due: Rs.44,378.26\nMinimum Payment Due: Rs.2,218.91\nPayment Due Date: 14/09/25\nAccount Summary\nCredit Limit: Rs.2,10,000.00\nAvailable Credit Limit: Rs.1,77,779.21\nAvailable Cash Limit: Rs.42,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n31/07/25 LENSKART HYDERABAD 403.66 Dr\n03/08/25 EASEMYTRIP PUNE 14,512.35 Dr\n10/08/25 INDIGO AIRLINES MUMBAI 147.54 Dr\n11/08/25 LENSKART KOCHI 2,176.72 Dr\n12/08/25 BIGBASKET MUMBAI 175.97 Dr\n12/08/25 INDIGO AIRLINES AHMEDABAD 106.70 Dr\n17/08/25 SWIGGY HYDERABAD 2,217.26 Dr\n23/08/25 PHONEPE PUNE 17,578.93 Dr\n24/08/25 IKEA CHENNAI 7,059.13 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.982.38 has been transferred from your A/c XXXXXX1122 to Sunil Plumber A/c XX8698 (Punjab National Bank) via IMPS on 06-09-2025. Ref no 315743657804.",
+   "date": "2025-09-06",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m194",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 10,354.13 spent on your HSBC Live+ Credit Card ending 8209 at IKEA on 07-Sep-2025 05:39:04.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m195",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c xx1122 is debited for Rs.9,836.17 on 07-09-2025 - NEFT PVR INOX. Bal Rs.5,071.09. -Punjab National Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m196",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.1,120.65 has been debited from your Punjab National Bank A/c *1122 on 08-09-2025 (NEFT APOLLO PHARMACY). Avl bal Rs.1,85,234.19.",
+   "date": "2025-09-08",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m197",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 407091740325. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m198",
+   "subject": "Your HSBC Live+ Credit Card statement - Sep 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card xx8209 statement for the period 16-Aug-2025 to 15-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-16",
+   "attachments": [
+    {
+     "filename": "8209_15092025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m199",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 3,537.90 spent on your HSBC Live+ Credit Card XX8209 at UBER INDIA on 18-Sep-2025 03:15:18.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-18",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m200",
+   "subject": "Payment received",
+   "body": "Dear Customer,\nWe have received your payment of INR 275.10 on 21-Sep-2025 for your Credit Card XX7233. Available credit limit has been updated.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Spent INR 138.35 on your Axis Bank Rewards Credit Card XX9524 at CROMA, 22-Sep-2025. Avl Lmt INR 10,010.78. SMS BLOCK to 5676782 if not you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 143.96 was spent on your HSBC Live+ Credit Card ending 8209 at BPCL FUEL on 23-Sep-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m203",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Sep 2025",
+   "body": "Dear Sneha,\nYour Axis Bank Rewards Credit Card XX9524 statement for Sep 2025 is ready. Total amount due Rs.4,585.75, minimum amount due Rs.229.29, payable by 13/10/25.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-26",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 574.69 was spent on your HSBC Credit Card XX8209 at NYKAA on 06-Oct-2025.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m205",
+   "subject": "Axis Bank festive offers",
+   "body": "Dear Sneha,\nUse your card on UPI and earn extra rewards.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Your HSBC Live+ Credit Card statement - Oct 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card ending 8209 statement for the period 16-Sep-2025 to 15-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202510.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m207",
+   "subject": "Transaction alert",
+   "body": "Spent INR 2,905.86 on your Credit Card XX7233 at IKEA, 17-Oct-2025. Avl Lmt INR 2,748.71. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Oct 2025",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card xx7233 statement for the period 22/09/25 to 21/10/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-22",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Oct 2025",
+   "body": "Dear Sneha,\nYour Axis Bank Rewards Credit Card ending 9524 statement for Oct 2025 is ready. Total amount due Rs.12,440.42, minimum amount due Rs.622.02, payable by 12/11/25.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 3,251.08 on 27-Oct-2025 for your HSBC Credit Card XX8209. Available credit limit has been updated.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m211",
+   "subject": "Transaction alert",
+   "body": "Spent INR 1,173.88 on your Credit Card XX7233 at INDIAN OIL, 04-Nov-2025. Avl Lmt INR 2,430.15. SMS BLOCK to 5676782 if not you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. XX7233 for INR 14,053.15 at DOMINOS on 06-Nov-2025 08:16:59. Available limit: INR 3,824.97.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.17,859.96 debited from account XX1122 on 11-11-2025. Narration: ECOM/BIGBASKET. Available balance Rs.2,935.03.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m214",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 9524 for INR 594.26 at APPLE SERVICES on 12-Nov-2025 11:54:02. Available limit: INR 1,06,719.36.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Sneha,\nUse your card on UPI and earn extra rewards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-13",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m216",
+   "subject": "Your HSBC Live+ Credit Card statement - Nov 2025",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card XX8209 statement for Nov 2025 is ready. Total amount due Rs.16,195.87, minimum amount due Rs.809.79, payable by 03-Dec-2025.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m217",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #801-9270729-1913685 is confirmed. Total Rs.4,076.73. Estimated delivery in 2 days.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.2,380.55 debited from account xx1122 on 18-11-2025. Narration: IMPS/APPLE SERVICES. Available balance Rs.69,588.36.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m219",
+   "subject": "Punjab National Bank Account Statement - Nov 2025",
+   "body": "Dear Sneha,\nYour Punjab National Bank *1122 account statement for Nov 2025 is ready. Closing balance Rs.24,721.79.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m220",
+   "subject": "Punjab National Bank: funds transferred",
+   "body": "Dear Customer,\nRs.6,516.60 has been transferred from your A/c XX1122 to S K Enterprises A/c XX5745 (IDFC FIRST Bank) via IMPS on 20-11-2025. Ref no 986133332204.",
+   "date": "2025-11-20",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m221",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Nov 2025",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card ending 7233 statement for the period 22/10/25 to 21/11/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-22",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Nov 2025",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card XX9524 statement for the period 26/10/25 to 25/11/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-26",
+   "attachments": [
+    {
+     "filename": "9524_25112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Transaction alert",
+   "body": "Spent INR 2,543.93 on your Credit Card XX7233 at PVR INOX, 07-Dec-2025. Avl Lmt INR 51,839.38. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Rewards Credit Card no. XX9524 for INR 6,149.97 at NETFLIX on 13-Dec-2025 23:42:10. Available limit: INR 1,62,705.25.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 138.57 spent on your HSBC Credit Card xx8209 at ZOMATO on 15-Dec-2025 02:20:30.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-15",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m226",
+   "subject": "Your HSBC Live+ Credit Card statement - Dec 2025",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card XX8209 statement for Dec 2025 is ready. Total amount due Rs.1,339.61, minimum amount due Rs.200.00, payable by 02-Jan-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-12-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m227",
+   "subject": "Transaction alert",
+   "body": "Spent INR 16,861.07 on your Credit Card XX7233 at BATA INDIA, 18-Dec-2025. Avl Lmt INR 23,560.62. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Dec 2025",
+   "body": "Dear Sneha,\nYour Credit Card XX7233 statement for Dec 2025 is ready. Total amount due Rs.964.81, minimum amount due Rs.200.00, payable by 08/01/26.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-12-22",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Dec 2025",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card ending 9524 statement for the period 26/11/25 to 25/12/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-12-26",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 19,373.69 was spent on your HSBC Credit Card XX8209 at DMART on 30-Dec-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-30",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m231",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XXXXXX1122 is debited for Rs.1,159.99 on 07-01-2026 - IMPS URBAN COMPANY. Bal Rs.1,05,849.26. -Punjab National Bank",
+   "date": "2026-01-07",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m232",
+   "subject": "Your HSBC Live+ Credit Card statement - Jan 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Dec-2025 to 15-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-16",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m233",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.226.53 debited from account *1122 on 18-01-2026. Narration: NEFT/IKEA. Available balance Rs.1,22,922.79.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m234",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. ending 7233 for INR 1,288.36 at FLIPKART on 20-Jan-2026 17:40:06. Available limit: INR 81,969.39.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Transaction alert",
+   "body": "Spent INR 410.67 on your Credit Card ending 7233 at DOMINOS, 21-Jan-2026. Avl Lmt INR 20,163.31. SMS BLOCK to 5676782 if not you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Jan 2026",
+   "body": "Dear Sneha,\nYour Credit Card XX7233 statement for Jan 2026 is ready. Total amount due Rs.3,654.93, minimum amount due Rs.200.00, payable by 08/02/26.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #190-8931147-6934741 is confirmed. Total Rs.4,082.85. Estimated delivery in 2 days.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m238",
+   "subject": "OTP for your transaction",
+   "body": "258968 is the OTP for your transaction of Rs.1,469.40 at SPOTIFY. Valid for 10 minutes. Do not share.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Rewards Credit Card no. xx9524 for INR 3,774.10 at TATA POWER on 07-Feb-2026 23:08:39. Available limit: INR 2,074.68.",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Rewards Credit Card no. XX9524 for INR 95.04 at DECATHLON on 10-Feb-2026 04:24:44. Available limit: INR 1,96,547.08.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.10,440.38 has been debited from your Punjab National Bank A/c xx1122 on 13-02-2026 (ECOM DECATHLON). Avl bal Rs.3,378.59.",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m242",
+   "subject": "Refer and earn",
+   "body": "Dear Sneha,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m243",
+   "subject": "Punjab National Bank Account Statement - Feb 2026",
+   "body": "Dear Sneha,\nPlease find attached your Punjab National Bank XXXXXX1122 statement for the period 19-Jan-2026 to 18-Feb-2026. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-19",
+   "attachments": [
+    {
+     "filename": "Punjab_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "PUNJAB NATIONAL BANK\nSTATEMENT OF ACCOUNT\nAccount Name : SNEHA SHETTY\nFLAT 192, SUNRISE APARTMENTS\n16TH CROSS, KOTHRUD\nPUNE - 688936\nAccount Number : xx1122\nAccount Type : SAVINGS ACCOUNT\nIFSC : PNBX0177823\nStatement Period : 19-01-2026 to 18-02-2026\nOpening Balance : Rs.42,196.37\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n19-01-2026 NEFT DR/DOMINOS 210152531 5,206.71 - 36,989.66\n21-01-2026 ATM WDL/BATA INDIA 453682137 8,001.44 - 28,988.22\n23-01-2026 ATM WDL/BOOKMYSHOW 810022850 342.60 - 28,645.62\n25-01-2026 IMPS/CR 474277234 - 2,641.86 31,287.48\n27-01-2026 POS/APPLE SERVICES 636669815 2,638.48 - 28,649.00\n28-01-2026 UPI/JIO RECHARGE 924643960 13,049.73 - 15,599.27\n28-01-2026 POS/NYKAA 689467853 115.17 - 15,484.10\n28-01-2026 ATM WDL/IXIGO 714075189 183.11 - 15,300.99\nClosing Balance : Rs.15,300.99\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m244",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Feb 2026",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card XX7233 statement for the period 22/01/26 to 21/02/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-02-22",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Feb 2026",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card XX9524 statement for the period 26/01/26 to 25/02/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-02-26",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.22,721.87 has been debited from your Punjab National Bank A/c *1122 on 26-02-2026 (UPI BATA INDIA). Avl bal Rs.58,602.20.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m247",
+   "subject": "Your HSBC Live+ Credit Card statement - Mar 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Feb-2026 to 15-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-16",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m248",
+   "subject": "Transaction alert",
+   "body": "Spent INR 462.60 on your Credit Card ending 7233 at MAKEMYTRIP, 17-Mar-2026. Avl Lmt INR 46,529.30. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Mar 2026",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card ending 7233 statement for the period 22/02/26 to 21/03/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-22",
+   "attachments": [
+    {
+     "filename": "7233_21032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Mar 2026",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card ending 9524 statement for the period 26/02/26 to 25/03/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-26",
+   "attachments": [
+    {
+     "filename": "9524_25032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 1,688.02 on 27-Mar-2026 for your HSBC Credit Card XX8209. Available credit limit has been updated.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m252",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Spent INR 16,509.64 on your Axis Bank Credit Card XX9524 at MYNTRA, 31-Mar-2026. Avl Lmt INR 4,278.08. SMS BLOCK to 5676782 if not you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-31",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m253",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Spent INR 6,477.57 on your Axis Bank Credit Card XX9524 at NYKAA, 13-Apr-2026. Avl Lmt INR 2,225.23. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m254",
+   "subject": "Your HSBC Live+ Credit Card statement - Apr 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Mar-2026 to 15-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-16",
+   "attachments": [
+    {
+     "filename": "8209_15042026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m255",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Apr 2026",
+   "body": "Dear Sneha,\nYour Credit Card xx7233 statement for Apr 2026 is ready. Total amount due Rs.805.49, minimum amount due Rs.200.00, payable by 09/05/26.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m256",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. xx7233 for INR 455.19 at ZEPTO on 23-Apr-2026 14:16:29. Available limit: INR 32,042.32.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m257",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Apr 2026",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card xx9524 statement for the period 26/03/26 to 25/04/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-26",
+   "attachments": [
+    {
+     "filename": "9524_25042026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m258",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 8,026.61 on 03-May-2026 for your HSBC Credit Card xx8209. Available credit limit has been updated.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m259",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XXXXXX1122 is debited for Rs.9,543.23 on 11-05-2026 - IMPS RELIANCE DIGITAL. Bal Rs.17,320.19. -Punjab National Bank",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m260",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.718.84 debited from account *1122 on 13-05-2026. Narration: ECOM/ZEPTO. Available balance Rs.1,09,015.14.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m261",
+   "subject": "Your HSBC Live+ Credit Card statement - May 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card ending 8209 statement for the period 16-Apr-2026 to 15-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-05-16",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m262",
+   "subject": "Punjab National Bank Account Statement - May 2026",
+   "body": "Dear Sneha,\nPlease find attached your Punjab National Bank xx1122 statement for the period 19-Apr-2026 to 18-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-05-19",
+   "attachments": [
+    {
+     "filename": "1122_18052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m263",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx9524 for INR 20,650.56 at IKEA on 21-May-2026 08:48:03. Available limit: INR 2,868.19.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m264",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - May 2026",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card XX7233 statement for the period 22/04/26 to 21/05/26. Total amount due Rs.67,732.12, due 10/06/26.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-22",
+   "attachments": [
+    {
+     "filename": "7233_21052026_stmt.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nSNEHA SHETTY\nFLAT 582, GREEN VALLEY APARTMENTS\n12TH CROSS, INDIRANAGAR\nMUMBAI - 554259\nCard Name: Axis Bank Atlas Credit Card\nCredit Card Number: 438210XXXXXX7233\nStatement Period: 22/04/26 - 21/05/26\nStatement Generation Date: 21/05/26\nPayment Summary\nTotal Payment Due: Rs.67,732.12\nMinimum Payment Due: Rs.3,386.61\nPayment Due Date: 10/06/26\nAccount Summary\nCredit Limit: Rs.8,20,000.00\nAvailable Credit Limit: Rs.8,01,941.45\nAvailable Cash Limit: Rs.1,64,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n22/04/26 IXIGO BENGALURU 987.96 Dr\n29/04/26 BESCOM JAIPUR 4,194.92 Dr\n29/04/26 HPCL PETROL KOLKATA 153.74 Dr\n01/05/26 CROMA MUMBAI 16,238.66 Dr\n04/05/26 PAYTM MUMBAI 924.79 Dr\n06/05/26 BESCOM KOLKATA 4,692.37 Dr\n09/05/26 RELIANCE DIGITAL HYDERABAD 5,221.97 Dr\n13/05/26 BESCOM HYDERABAD 8,121.23 Dr\n14/05/26 SWIGGY CHENNAI 18,889.30 Dr\n15/05/26 MAKEMYTRIP KOCHI 299.84 Dr\n15/05/26 TATA PLAY AHMEDABAD 7,867.31 Dr\n21/05/26 INDIGO AIRLINES CHENNAI 140.03 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m265",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 525.34 has been received towards your Axis Bank Rewards Credit Card ending 9524 on 24-May-2026. Thank you for the payment.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m266",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - May 2026",
+   "body": "Dear Sneha,\nYour Axis Bank Rewards Credit Card XX9524 statement for May 2026 is ready. Total amount due Rs.530.87, minimum amount due Rs.200.00, payable by 12/06/26.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m267",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX9524 for INR 11,341.47 at DMART on 27-May-2026 16:23:59. Available limit: INR 78,187.42.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m268",
+   "subject": "Transaction alert",
+   "body": "Spent INR 1,354.85 on your Credit Card XX7233 at MEDPLUS, 03-Jun-2026. Avl Lmt INR 31,163.10. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m269",
+   "subject": "Update your KYC",
+   "body": "Dear Sneha,\nAs per RBI guidelines please complete re-KYC for your Axis Bank relationship. Visit a branch or use the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m270",
+   "subject": "Your HSBC Live+ Credit Card statement - Jun 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-May-2026 to 15-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-16",
+   "attachments": [
+    {
+     "filename": "8209_15062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m271",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. ending 7233 for INR 115.41 at EASEMYTRIP on 22-Jun-2026 00:03:02. Available limit: INR 1,81,291.13.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m272",
+   "subject": "HSBC: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 4574 has been successfully linked/verified for your HSBC relationship. If this was not you, contact us.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m273",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Dear Customer,\nRs.770.59 credited to your Punjab National Bank A/c XXXXXX1122 on 01-07-2026 by NEFT. Ref 432840077014.\nThank you for banking with us.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m274",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.100.80 debited from account *1122 on 02-07-2026. Narration: IMPS/BPCL FUEL. Available balance Rs.2,864.74.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-02",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m275",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.21,742.07 has been credited to account *1122 on 04-07-2026 (UPI). Avl bal Rs.2,006.51.",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m276",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 9524 for INR 7,095.92 at GOOGLE PLAY on 07-Jul-2026 06:25:15. Available limit: INR 1,09,049.63.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m277",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 119.49 spent on your HSBC Live+ Credit Card XX8209 at APPLE SERVICES on 08-Jul-2026 16:59:57.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m278",
+   "subject": "Your HSBC Live+ Credit Card statement - Jul 2026",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card ending 8209 statement for Jul 2026 is ready. Total amount due Rs.2,226.27, minimum amount due Rs.200.00, payable by 02-Aug-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m279",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.1,013.55 has been debited from your Punjab National Bank A/c xx1122 on 21-07-2026 (IMPS SODEXO). Avl bal Rs.2,302.36.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m280",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Jul 2026",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card ending 7233 statement for the period 22/06/26 to 21/07/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-07-22",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m281",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX9524 for INR 4,799.30 at HPCL PETROL on 23-Jul-2026 21:05:42. Available limit: INR 51,741.70.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m282",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Jul 2026",
+   "body": "Dear Sneha,\nYour Axis Bank Rewards Credit Card XX9524 statement for Jul 2026 is ready. Total amount due Rs.1,940.62, minimum amount due Rs.200.00, payable by 12/08/26.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m283",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,595.87 spent on your HSBC Credit Card XX8209 at MYNTRA on 27-Jul-2026 21:33:16.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m284",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Rewards Credit Card no. XX9524 for INR 17,992.82 at GOOGLE PLAY on 08-Aug-2026 13:01:26. Available limit: INR 45,937.04.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m285",
+   "subject": "Your HSBC Live+ Credit Card statement - Aug 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Jul-2026 to 15-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-16",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m286",
+   "subject": "Punjab National Bank Account Statement - Aug 2026",
+   "body": "Dear Sneha,\nYour Punjab National Bank XX1122 account statement for Aug 2026 is ready. Closing balance Rs.8,131.39.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-08-19",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m287",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Aug 2026",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card XX7233 statement for the period 22/07/26 to 21/08/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-08-22",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m288",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Rewards Credit Card no. xx9524 for INR 487.74 at BLINKIT on 24-Aug-2026 18:21:37. Available limit: INR 1,01,406.57.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m289",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Aug 2026",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card ending 9524 statement for the period 26/07/26 to 25/08/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-26",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m290",
+   "subject": "Update your KYC",
+   "body": "Dear Sneha,\nAs per RBI guidelines please complete re-KYC for your Axis Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m291",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.26,842.41 has been debited from your Punjab National Bank A/c xx1122 on 28-08-2026 (POS APOLLO PHARMACY). Avl bal Rs.20,649.62.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m292",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #663-9515082-4513983 is confirmed. Total Rs.236.28. Estimated delivery in 2 days.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m293",
+   "subject": "Your HSBC Live+ Credit Card statement - Sep 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX8209 statement for the period 16-Aug-2026 to 15-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-16",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m294",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Sep 2026",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card ending 9524 statement for the period 26/08/26 to 25/09/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-26",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m295",
+   "subject": "Transaction alert",
+   "body": "Dear Customer,\nThank you for using your Credit Card no. ending 7233 for INR 2,508.44 at FLIPKART on 28-Sep-2026 21:12:50. Available limit: INR 1,63,495.50.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m296",
+   "subject": "Update your KYC",
+   "body": "Dear Sneha,\nAs per RBI guidelines please complete re-KYC for your Punjab National Bank relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-30",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m297",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx9524",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx9524 for INR 23,009.89 at NYKAA on 07-Oct-2026 03:15:48. Available limit: INR 19,046.32.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m298",
+   "subject": "Your HSBC Live+ Credit Card statement - Oct 2026",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card XX8209 statement for Oct 2026 is ready. Total amount due Rs.831.23, minimum amount due Rs.200.00, payable by 02-Nov-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m299",
+   "subject": "Axis Bank Credit Card Statement ending 7233 - Oct 2026",
+   "body": "Dear Sneha,\nPlease find attached your Credit Card XX7233 statement for the period 22/09/26 to 21/10/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-22",
+   "attachments": [
+    {
+     "filename": "7233_21102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m300",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 6,243.39 was spent on your HSBC Live+ Credit Card xx8209 at SODEXO on 24-Oct-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m301",
+   "subject": "Axis Bank Credit Card Statement ending 9524 - Oct 2026",
+   "body": "Dear Sneha,\nPlease find attached your Axis Bank Rewards Credit Card XX9524 statement for the period 26/09/26 to 25/10/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202610.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "citibank.co.in",
+    "last4": "5869",
+    "kind": "CREDIT_CARD",
+    "variant": "Rewards",
+    "lifecycle": "REPLACED",
+    "lifecyclePartnerLast4": "9524",
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "9524",
+    "kind": "CREDIT_CARD",
+    "variant": "Rewards",
+    "lifecycle": "REPLACEMENT",
+    "lifecyclePartnerLast4": "5869",
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "7233",
+    "kind": "CREDIT_CARD",
+    "variant": "Atlas",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "5-10L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "8209",
+    "kind": "CREDIT_CARD",
+    "variant": "Live+",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "1122",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "3517",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "5745",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "8761",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "8698",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "4839",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "4574",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "1560",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "3369",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "0325",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "4189",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

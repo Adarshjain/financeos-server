@@ -1,0 +1,1510 @@
+{
+ "mailbox": "onecard-jupiter-fi-slice",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "You spent Rs.Rs.128.07 using slice",
+   "body": "Hey Vikram,\nyou spent Rs.128.07 at CROMA using your slice Super Card XX4423. Pay in 3 instalments from the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-09",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Your OneCard statement for Jul 2025",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card xx1629 statement for the period 12-Jun-2025 to 11-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "1629_11072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m003",
+   "subject": "Your Jupiter Edge statement for Jul 2025",
+   "body": "Dear Vikram,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card XX1878 statement for the period 16-Jun-2025 to 15-Jul-2025. Total amount due Rs.34,827.31, due 31-Jul-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": false,
+     "pdfText": "Jupiter Credit Card Statement\nVIKRAM MENON\nFLAT 477, GREEN VALLEY APARTMENTS\n4TH CROSS, ADYAR\nCHENNAI - 519982\nCard Name: Jupiter Edge CSB Bank RuPay Credit Card\nCredit Card Number: 692418XXXXXX1878\nBilling Cycle: 16/06/25 - 15/07/25\nStatement Date: 15/07/25\nPayment Summary\nTotal Amount Due: Rs.34,827.31\nMinimum Amount Due: Rs.1,741.37\nDue Date: 31/07/25\nAccount Summary\nCredit Limit: Rs.1,75,000.00\nAvailable Credit Limit: Rs.1,54,822.32\nAvailable Cash Limit: Rs.35,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n16/06/25 MCDONALDS BENGALURU 537.33 Dr\n25/06/25 AIRTEL PREPAID BENGALURU 9,332.98 Dr\n02/07/25 SPOTIFY GURUGRAM 3,819.39 Dr\n05/07/25 IXIGO BENGALURU 4,095.97 Dr\n06/07/25 APOLLO PHARMACY AHMEDABAD 329.15 Dr\n09/07/25 BIG BAZAAR MUMBAI 282.15 Dr\n09/07/25 TATA PLAY CHENNAI 1,221.53 Dr\n10/07/25 JIO RECHARGE MUMBAI 469.66 Dr\n11/07/25 GOOGLE PLAY AHMEDABAD 874.51 Dr\n12/07/25 STARBUCKS KOLKATA 5,851.07 Dr\n13/07/25 SPOTIFY CHENNAI 6,016.11 Dr\n15/07/25 SPOTIFY JAIPUR 1,997.46 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m004",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nYou paid Rs.1,181.46 to BOOKMYSHOW from your OneCard Credit Card XX1629. ",
+   "date": "2025-07-17",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m005",
+   "subject": "Debit alert: Fi",
+   "body": "INR debit alert: Rs.897.74 debited from account XX7235 on 18-07-2025. Narration: POS/SWIGGY. Available balance Rs.2,181.26.",
+   "date": "2025-07-18",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m006",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nYou paid Rs.1,778.99 to NYKAA from your OneCard Credit Card xx1629. Check your cashback in the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-19",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m007",
+   "subject": "You spent Rs.Rs.289.49 using slice",
+   "body": "Hey Vikram,\nYou paid Rs.289.49 to AIRTEL PREPAID from your slice Super Card xx4423. 5X coins on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-20",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Your slice statement for Jul 2025",
+   "body": "Dear Vikram,\nYour slice Super Card xx4423 statement for Jul 2025 is ready. Total amount due Rs.3,524.05, minimum amount due Rs.200.00, payable by 07-Aug-2025.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-21",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Credit alert: Fi",
+   "body": "Dear Customer,\nRs.1,420.48 credited to your Fi A/c *7235 on 09-08-2025 by UPI. Ref 886427893704.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m010",
+   "subject": "You spent Rs.Rs.3,318.41 using slice",
+   "body": "Hey Vikram,\nYou paid Rs.3,318.41 to APOLLO PHARMACY from your slice Super Card XX4423. 5X coins on partner brands.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-10",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Payment of Rs.Rs.1,888.52 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nyou spent Rs.1,888.52 at HPCL PETROL using your Jupiter Edge CSB Bank RuPay Credit Card ending 1878. Rewards are on the way.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-11",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m012",
+   "subject": "Your OneCard statement for Aug 2025",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card xx1629 statement for the period 12-Jul-2025 to 11-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "1629_11082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m013",
+   "subject": "Your Jupiter Edge statement for Aug 2025",
+   "body": "Dear Vikram,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card ending 1878 statement for the period 16-Jul-2025 to 15-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-16",
+   "attachments": [
+    {
+     "filename": "Jupiter_CC_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m014",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nyou spent Rs.7,647.97 at NETFLIX using your OneCard Credit Card ending 1629. Check your cashback in the app.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m015",
+   "subject": "Your slice statement for Aug 2025",
+   "body": "Dear Vikram,\nYour slice Super Card XX4423 statement for Aug 2025 is ready. Total amount due Rs.2,909.12, minimum amount due Rs.200.00, payable by 07-Sep-2025.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-21",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "OTP for your transaction",
+   "body": "962693 is the OTP for your transaction of Rs.281.41 at DECATHLON. Valid for 10 minutes. Do not share.",
+   "date": "2025-08-24",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "You spent Rs.Rs.4,590.89 using slice",
+   "body": "Hey Vikram,\nYou paid Rs.4,590.89 to MAKEMYTRIP from your slice Super Card ending 4423. 5X coins on partner brands.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-30",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Vikram,\nPlease find attached the updated MITC for your Jupiter credit cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-31",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "JUPITER CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m019",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Sunil Plumber (A/c XXXXXX8840, Union Bank of India) has been added to your account XXXXXX7235. It will be active after 30 minutes.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m020",
+   "subject": "Debit alert: Fi",
+   "body": "Your A/c XX7235 is debited for Rs.7,668.47 on 07-09-2025 - UPI MYNTRA. Bal Rs.3,929.20. -Fi\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m021",
+   "subject": "Your OneCard statement for Sep 2025",
+   "body": "Dear Vikram,\nYour OneCard Credit Card XX1629 statement for Sep 2025 is ready. Total amount due Rs.11,156.45, minimum amount due Rs.557.82, payable by 29-Sep-2025.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m022",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nYou paid Rs.3,513.67 to AIRTEL PREPAID from your OneCard Credit Card ending 1629. 5X coins on partner brands.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-13",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m023",
+   "subject": "Your Jupiter Edge statement for Sep 2025",
+   "body": "Dear Vikram,\nYour Jupiter Edge CSB Bank RuPay Credit Card ending 1878 statement for Sep 2025 is ready. Total amount due Rs.31,170.25, minimum amount due Rs.1,558.51, payable by 03-Oct-2025.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-16",
+   "attachments": [],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m024",
+   "subject": "You spent Rs.Rs.6,298.63 using slice",
+   "body": "Hey Vikram,\nYou paid Rs.6,298.63 to CROMA from your slice Super Card ending 4423. Check your cashback in the app.",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "You spent Rs.Rs.276.36 using slice",
+   "body": "Hey Vikram,\nYou paid Rs.276.36 to PVR INOX from your slice Super Card XX4423. \n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-20",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Your slice statement for Sep 2025",
+   "body": "Dear Vikram,\nPlease find attached your slice Super Card xx4423 statement for the period 21-Aug-2025 to 20-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-09-21",
+   "attachments": [
+    {
+     "filename": "slice_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Vikram,\nYour order #362-6862218-8198030 is confirmed. Total Rs.13,151.11. Estimated delivery in 2 days.",
+   "date": "2025-09-29",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Credit alert: Fi",
+   "body": "Dear Customer,\nRs.6,770.61 credited to your Fi A/c *7235 on 02-10-2025 by INTEREST CREDIT. Ref 400187707390.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-02",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m029",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from *7235 to Sunil Plumber A/c XX8840 on 02-10-2025. Rent for the month.",
+   "date": "2025-10-02",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m030",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nYou paid Rs.80.58 to APOLLO PHARMACY from your OneCard Credit Card ending 1629. 5X coins on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m031",
+   "subject": "Debit alert: Fi",
+   "body": "Your A/c XX7235 is debited for Rs.286.54 on 08-10-2025 - POS CROMA. Bal Rs.6,660.77. -Fi\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-08",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m032",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nYou paid Rs.5,244.54 to UBER INDIA from your OneCard Credit Card XX1629. Check your cashback in the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-09",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m033",
+   "subject": "Your OneCard statement for Oct 2025",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card XX1629 statement for the period 12-Sep-2025 to 11-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "OneCard_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m034",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nYou paid Rs.2,238.92 to RELIANCE DIGITAL from your OneCard Credit Card ending 1629. Rewards are on the way.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m035",
+   "subject": "Your Jupiter Edge statement for Oct 2025",
+   "body": "Dear Vikram,\nYour Jupiter Edge CSB Bank RuPay Credit Card XX1878 statement for Oct 2025 is ready. Total amount due Rs.13,836.64, minimum amount due Rs.691.83, payable by 02-Nov-2025.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m036",
+   "subject": "Your slice statement for Oct 2025",
+   "body": "Dear Vikram,\nPlease find attached your slice Super Card XX4423 statement for the period 21-Sep-2025 to 20-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-21",
+   "attachments": [
+    {
+     "filename": "4423_20102025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX4286 has been updated on 03-Mar-2026. If not requested by you, call customer care.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "You spent Rs.Rs.674.48 using slice",
+   "body": "Hey Vikram,\nyou spent Rs.674.48 at DMART using your slice Super Card xx4423. Pay in 3 instalments from the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from xx7235 to Sunil Plumber A/c XX8840 on 02-11-2025. Rent for the month.",
+   "date": "2025-11-02",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m040",
+   "subject": "Payment of Rs.Rs.329.27 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nyou spent Rs.329.27 at RELIANCE DIGITAL using your Jupiter Edge CSB Bank RuPay Credit Card XX1878. Rewards are on the way.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m041",
+   "subject": "Your OneCard statement for Nov 2025",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card XX1629 statement for the period 12-Oct-2025 to 11-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "1629_11112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m042",
+   "subject": "Your Jupiter Edge statement for Nov 2025",
+   "body": "Dear Vikram,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card ending 1878 statement for the period 16-Oct-2025 to 15-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m043",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nyou spent Rs.2,026.32 at PVR INOX using your OneCard Credit Card XX1629. 5X coins on partner brands.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m044",
+   "subject": "You spent Rs.Rs.1,617.77 using slice",
+   "body": "Hey Vikram,\nyou spent Rs.1,617.77 at BOOKMYSHOW using your slice Super Card XX4423. Check your cashback in the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Credit alert: Fi",
+   "body": "Dear Customer,\nRs.16,765.28 credited to your Fi A/c *7235 on 20-11-2025 by REFUND. Ref 156876861012.\nThank you for banking with us.",
+   "date": "2025-11-20",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m046",
+   "subject": "Credit alert: Fi",
+   "body": "Your A/c xx7235 is credited with Rs.4,222.57 on 20-11-2025 - IMPS. Bal Rs.25,512.87. -Fi\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-20",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m047",
+   "subject": "Your slice statement for Nov 2025",
+   "body": "Dear Vikram,\nYour slice Super Card ending 4423 statement for Nov 2025 is ready. Total amount due Rs.11,079.23, minimum amount due Rs.553.96, payable by 08-Dec-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-21",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "OTP for your transaction",
+   "body": "226431 is the OTP for your transaction of Rs.1,834.65 at MCDONALDS. Valid for 10 minutes. Do not share.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m049",
+   "subject": "You spent Rs.Rs.3,787.17 using slice",
+   "body": "Hey Vikram,\nyou spent Rs.3,787.17 at EAZYDINER using your slice Super Card XX4423. Pay in 3 instalments from the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from XXXXXX7235 to Sunil Plumber A/c XX8840 on 02-12-2025. Rent for the month.",
+   "date": "2025-12-02",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m051",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nYou paid Rs.2,625.68 to IRCTC from your OneCard Credit Card XX1629. \n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m052",
+   "subject": "Your OneCard statement for Dec 2025",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card XX1629 statement for the period 12-Nov-2025 to 11-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "1629_11122025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m053",
+   "subject": "Your Jupiter Edge statement for Dec 2025",
+   "body": "Dear Vikram,\nYour Jupiter Edge CSB Bank RuPay Credit Card XX1878 statement for Dec 2025 is ready. Total amount due Rs.8,817.75, minimum amount due Rs.440.89, payable by 02-Jan-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-12-16",
+   "attachments": [],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m054",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.23,390.50 has been transferred from your A/c *7235 to Lata Tutor A/c XX0703 (ICICI Bank) via IMPS on 17-12-2025. Ref no 549499137827.",
+   "date": "2025-12-17",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m055",
+   "subject": "Credit alert: Fi",
+   "body": "Credit alert: Rs.19,758.48 has been credited to account *7235 on 19-12-2025 (REFUND). Avl bal Rs.7,650.15.",
+   "date": "2025-12-19",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m056",
+   "subject": "Credit alert: Fi",
+   "body": "Your A/c XXXXXX7235 is credited with Rs.25,449.99 on 19-12-2025 - INTEREST CREDIT. Bal Rs.64,380.12. -Fi\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-19",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m057",
+   "subject": "Your slice statement for Dec 2025",
+   "body": "Dear Vikram,\nYour slice Super Card xx4423 statement for Dec 2025 is ready. Total amount due Rs.13,392.75, minimum amount due Rs.669.64, payable by 07-Jan-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Payment of Rs.Rs.646.44 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nYou paid Rs.646.44 to SODEXO from your Jupiter Edge CSB Bank RuPay Credit Card xx1878. 5X coins on partner brands.",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m059",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nyou spent Rs.7,011.18 at BLINKIT using your OneCard Credit Card XX1629. 5X coins on partner brands.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m060",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from *7235 to Sunil Plumber A/c XX8840 on 02-01-2026. Rent for the month.",
+   "date": "2026-01-02",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m061",
+   "subject": "Debit alert: Fi",
+   "body": "Dear Customer,\nRs.14,601.29 has been debited from your Fi A/c XXXXXX7235 on 10-01-2026 (UPI MAKEMYTRIP). Avl bal Rs.10,892.98.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m062",
+   "subject": "Your OneCard statement for Jan 2026",
+   "body": "Dear Vikram,\nYour OneCard Credit Card xx1629 statement for Jan 2026 is ready. Total amount due Rs.3,481.74, minimum amount due Rs.200.00, payable by 29-Jan-2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m063",
+   "subject": "Your Jupiter Edge statement for Jan 2026",
+   "body": "Dear Vikram,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card xx1878 statement for the period 16-Dec-2025 to 15-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-16",
+   "attachments": [
+    {
+     "filename": "Jupiter_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m064",
+   "subject": "Fi festive offers",
+   "body": "Dear Vikram,\nGet up to 10% cashback on partner brands.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-16",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m065",
+   "subject": "Your slice statement for Jan 2026",
+   "body": "Dear Vikram,\nPlease find attached your slice Super Card ending 4423 statement for the period 21-Dec-2025 to 20-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-21",
+   "attachments": [
+    {
+     "filename": "eStatement_202601.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Fi: funds transferred",
+   "body": "Dear Customer,\nRs.4,546.37 has been transferred from your A/c *7235 to Anil Traders A/c XX6440 (Bandhan Bank) via IMPS on 21-01-2026. Ref no 801122156577.",
+   "date": "2026-01-21",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m067",
+   "subject": "Payment of Rs.Rs.4,401.18 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nyou spent Rs.4,401.18 at BATA INDIA using your Jupiter Edge CSB Bank RuPay Credit Card XX1878. \n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-25",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m068",
+   "subject": "Debit alert: Fi",
+   "body": "Dear Customer,\nRs.18,137.66 has been debited from your Fi A/c XX7235 on 27-01-2026 (NEFT DMART). Avl bal Rs.20,050.35.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m069",
+   "subject": "Payment of Rs.Rs.2,039.44 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nYou paid Rs.2,039.44 to UBER INDIA from your Jupiter Edge CSB Bank RuPay Credit Card ending 1878. 5X coins on partner brands.\n\nOpt for e-statements and go green.",
+   "date": "2026-01-31",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m070",
+   "subject": "Payment of Rs.Rs.1,356.19 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nyou spent Rs.1,356.19 at JIO RECHARGE using your Jupiter Edge CSB Bank RuPay Credit Card XX1878. Check your cashback in the app.",
+   "date": "2026-01-31",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m071",
+   "subject": "Your OneCard statement for Feb 2026",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card xx1629 statement for the period 12-Jan-2026 to 11-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "OneCard_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m072",
+   "subject": "Your Jupiter Edge statement for Feb 2026",
+   "body": "Dear Vikram,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card xx1878 statement for the period 16-Jan-2026 to 15-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-02-16",
+   "attachments": [
+    {
+     "filename": "Jupiter_CC_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m073",
+   "subject": "You spent Rs.Rs.226.91 using slice",
+   "body": "Hey Vikram,\nYou paid Rs.226.91 to EAZYDINER from your slice Super Card ending 4423. Check your cashback in the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-18",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Payment received on your Edge CSB Bank RuPay Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.169.86 on 19-Feb-2026 for your Jupiter Edge CSB Bank RuPay Credit Card xx1878. Available credit limit has been updated.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-19",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m075",
+   "subject": "You spent Rs.Rs.184.56 using slice",
+   "body": "Hey Vikram,\nyou spent Rs.184.56 at SWIGGY using your slice Super Card XX4423. 5X coins on partner brands.",
+   "date": "2026-02-20",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Your slice statement for Feb 2026",
+   "body": "Dear Vikram,\nYour slice Super Card ending 4423 statement for Feb 2026 is ready. Total amount due Rs.23,647.52, minimum amount due Rs.1,182.38, payable by 10-Mar-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Payment of Rs.Rs.1,577.01 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nYou paid Rs.1,577.01 to PHONEPE from your Jupiter Edge CSB Bank RuPay Credit Card XX1878. 5X coins on partner brands.",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m078",
+   "subject": "Payment of Rs.Rs.141.45 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nyou spent Rs.141.45 at JIO RECHARGE using your Jupiter Edge CSB Bank RuPay Credit Card ending 1878. Check your cashback in the app.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m079",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nYou paid Rs.13,474.77 to NETFLIX from your OneCard Credit Card XX1629. Pay in 3 instalments from the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m080",
+   "subject": "Payment of Rs.Rs.1,035.54 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nYou paid Rs.1,035.54 to BESCOM from your Jupiter Edge CSB Bank RuPay Credit Card XX1878. Check your cashback in the app.",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m081",
+   "subject": "Payment received on your OneCard",
+   "body": "Payment of Rs.8,502.66 has been received towards your OneCard Credit Card ending 1629 on 07-Mar-2026. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m082",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nyou spent Rs.13,865.43 at TATA POWER using your OneCard Credit Card ending 1629. Pay in 3 instalments from the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your OneCard statement for Mar 2026",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card XX1629 statement for the period 12-Feb-2026 to 11-Mar-2026. Total amount due Rs.46,108.57, due 30-Mar-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": false,
+     "pdfText": "OneCard Credit Card Statement\nVIKRAM MENON\nFLAT 360, GREEN VALLEY APARTMENTS\n21TH CROSS, KOTHRUD\nJAIPUR - 641840\nCard Name: OneCard Credit Card\nCredit Card Number: 443108XXXXXX1629\nBilling Cycle: 12/02/26 - 11/03/26\nStatement Date: 11/03/26\nPayment Summary\nTotal Amount Due: Rs.46,108.57\nMinimum Amount Due: Rs.2,305.43\nDue Date: 30/03/26\nAccount Summary\nCredit Limit: Rs.3,55,000.00\nAvailable Credit Limit: Rs.3,40,618.70\nAvailable Cash Limit: Rs.71,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n12/02/26 OLA CABS GURUGRAM 4,252.47 Dr\n13/02/26 CROMA PUNE 1,149.65 Dr\n13/02/26 SODEXO KOLKATA 2,800.64 Dr\n17/02/26 BIG BAZAAR CHENNAI 1,305.33 Dr\n18/02/26 OLA CABS PUNE 279.95 Dr\n23/02/26 IRCTC HYDERABAD 15,019.16 Dr\n26/02/26 DMART KOCHI 346.29 Dr\n26/02/26 IRCTC CHENNAI 3,364.45 Dr\n04/03/26 APPLE SERVICES BENGALURU 2,336.04 Dr\n04/03/26 BIG BAZAAR GURUGRAM 2,673.60 Dr\n08/03/26 APOLLO PHARMACY MUMBAI 651.47 Dr\n09/03/26 APOLLO PHARMACY CHENNAI 11,929.52 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m084",
+   "subject": "Your Jupiter Edge statement for Mar 2026",
+   "body": "Dear Vikram,\nYour Jupiter Edge CSB Bank RuPay Credit Card XX1878 statement for Mar 2026 is ready. Total amount due Rs.38,002.00, minimum amount due Rs.1,900.10, payable by 02-Apr-2026.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m085",
+   "subject": "Payment of Rs.Rs.868.02 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nYou paid Rs.868.02 to PAYTM from your Jupiter Edge CSB Bank RuPay Credit Card XX1878. Rewards are on the way.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m086",
+   "subject": "Your slice statement for Mar 2026",
+   "body": "Dear Vikram,\nPlease find attached your slice Super Card xx4423 statement for the period 21-Feb-2026 to 20-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-21",
+   "attachments": [
+    {
+     "filename": "4423_20032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Payment of Rs.Rs.796.53 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nyou spent Rs.796.53 at FLIPKART using your Jupiter Edge CSB Bank RuPay Credit Card XX1878. 5X coins on partner brands.",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m088",
+   "subject": "Debit alert: Fi",
+   "body": "Your A/c xx7235 is debited for Rs.126.74 on 23-03-2026 - UPI MAKEMYTRIP. Bal Rs.8,804.19. -Fi\n\nOpt for e-statements and go green.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m089",
+   "subject": "You spent Rs.Rs.110.96 using slice",
+   "body": "Hey Vikram,\nyou spent Rs.110.96 at EAZYDINER using your slice Super Card XX4423. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.2,925.21 has been transferred from your A/c xx7235 to Lata Tutor A/c XX0703 (ICICI Bank) via IMPS on 24-03-2026. Ref no 442794877668.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m091",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Vikram,\nUse your card on UPI and earn extra rewards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m092",
+   "subject": "Payment received on your OneCard",
+   "body": "Payment of Rs.676.39 has been received towards your OneCard Credit Card XX1629 on 29-Mar-2026. Thank you for the payment.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m093",
+   "subject": "Earn more with your card",
+   "body": "Dear Vikram,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-08",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m094",
+   "subject": "Payment of Rs.Rs.543.95 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nYou paid Rs.543.95 to FLIPKART from your Jupiter Edge CSB Bank RuPay Credit Card ending 1878. 5X coins on partner brands.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m095",
+   "subject": "Your OneCard statement for Apr 2026",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card XX1629 statement for the period 12-Mar-2026 to 11-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "1629_11042026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m096",
+   "subject": "You spent Rs.Rs.81.60 using slice",
+   "body": "Hey Vikram,\nYou paid Rs.81.60 to EASEMYTRIP from your slice Super Card xx4423. Rewards are on the way.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Fi festive offers",
+   "body": "Dear Vikram,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m098",
+   "subject": "Your Jupiter Edge statement for Apr 2026",
+   "body": "Dear Vikram,\nYour Jupiter Edge CSB Bank RuPay Credit Card xx1878 statement for Apr 2026 is ready. Total amount due Rs.3,049.23, minimum amount due Rs.200.00, payable by 03-May-2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m099",
+   "subject": "You spent Rs.Rs.3,701.73 using slice",
+   "body": "Hey Vikram,\nyou spent Rs.3,701.73 at PVR INOX using your slice Super Card xx4423. 5X coins on partner brands.",
+   "date": "2026-04-17",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Your slice Credit Card has been closed",
+   "body": "Dear Vikram Menon,\nThis is to confirm that your slice Super Card XX4423 has been closed on 20-Apr-2026 at your request. No dues are pending.\nThank you for banking with us.",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Your slice statement for Apr 2026",
+   "body": "Dear Vikram,\nPlease find attached your slice Super Card ending 4423 statement for the period 21-Mar-2026 to 20-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-21",
+   "attachments": [
+    {
+     "filename": "slice_CC_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Credit alert: Fi",
+   "body": "Credit alert: Rs.21,206.10 has been credited to account XXXXXX7235 on 26-04-2026 (REFUND). Avl bal Rs.5,440.97.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m103",
+   "subject": "Payment received on your OneCard",
+   "body": "Payment of Rs.2,832.15 has been received towards your OneCard Credit Card ending 1629 on 27-Apr-2026. Thank you for the payment.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m104",
+   "subject": "Fi: funds transferred",
+   "body": "Dear Customer,\nRs.16,205.37 has been transferred from your A/c XXXXXX7235 to Ganesh Maid Service A/c XX0545 (IDBI Bank) via IMPS on 29-04-2026. Ref no 565334067704.",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m105",
+   "subject": "Payment of Rs.Rs.222.14 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nYou paid Rs.222.14 to MYNTRA from your Jupiter Edge CSB Bank RuPay Credit Card XX1878. ",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m106",
+   "subject": "Payment received on your OneCard",
+   "body": "Dear Customer,\nWe have received your payment of Rs.327.63 on 07-May-2026 for your OneCard Credit Card XX1629. Available credit limit has been updated.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m107",
+   "subject": "Payment of Rs.Rs.1,587.63 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nyou spent Rs.1,587.63 at BATA INDIA using your Jupiter Edge CSB Bank RuPay Credit Card XX1878. Pay in 3 instalments from the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m108",
+   "subject": "Payment successful",
+   "body": "Hi Vikram,\nYou paid Rs.24,206.89 to IDFC FIRST Bank Credit Card ending 0537 (of Arjun Menon) on 10-May-2026. Ref 6931517328.",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m109",
+   "subject": "Your OneCard statement for May 2026",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card ending 1629 statement for the period 12-Apr-2026 to 11-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "OneCard_CC_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m110",
+   "subject": "OneCard: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 9017 has been successfully linked/verified for your OneCard relationship. If this was not you, contact us.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m111",
+   "subject": "Your Jupiter Edge statement for May 2026",
+   "body": "Dear Vikram,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card XX1878 statement for the period 16-Apr-2026 to 15-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-16",
+   "attachments": [
+    {
+     "filename": "eStatement_202605.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m112",
+   "subject": "Earn more with your card",
+   "body": "Dear Vikram,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m113",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.19,093.78 has been transferred from your A/c xx7235 to Ganesh Maid Service A/c XX0545 (IDBI Bank) via IMPS on 17-05-2026. Ref no 251788771762.",
+   "date": "2026-05-17",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m114",
+   "subject": "Update your KYC",
+   "body": "Dear Vikram,\nAs per RBI guidelines please complete re-KYC for your Jupiter relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m115",
+   "subject": "Debit alert: Fi",
+   "body": "Your A/c *7235 is debited for Rs.7,541.68 on 19-05-2026 - NEFT DOMINOS. Bal Rs.29,232.33. -Fi\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m116",
+   "subject": "OTP for your transaction",
+   "body": "797907 is the OTP for your transaction of Rs.5,426.66 at INDIAN OIL. Valid for 10 minutes. Do not share.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m117",
+   "subject": "Update your KYC",
+   "body": "Dear Vikram,\nAs per RBI guidelines please complete re-KYC for your OneCard relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m118",
+   "subject": "Payment received on your OneCard",
+   "body": "Dear Customer,\nWe have received your payment of Rs.13,194.92 on 30-May-2026 for your OneCard Credit Card XX1629. Available credit limit has been updated.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-30",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m119",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nyou spent Rs.1,128.00 at SODEXO using your OneCard Credit Card XX1629. Pay in 3 instalments from the app.",
+   "date": "2026-06-10",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m120",
+   "subject": "Your OneCard statement for Jun 2026",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card XX1629 statement for the period 12-May-2026 to 11-Jun-2026. Total amount due Rs.32,849.12, due 27-Jun-2026.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": false,
+     "pdfText": "OneCard Credit Card Statement\nVIKRAM MENON\nFLAT 752, SUNRISE APARTMENTS\n13TH CROSS, INDIRANAGAR\nGURUGRAM - 478648\nCard Name: OneCard Credit Card\nCredit Card Number: 443108XXXXXX1629\nBilling Cycle: 12/05/26 - 11/06/26\nStatement Date: 11/06/26\nPayment Summary\nTotal Amount Due: Rs.32,849.12\nMinimum Amount Due: Rs.1,642.46\nDue Date: 27/06/26\nAccount Summary\nCredit Limit: Rs.3,55,000.00\nAvailable Credit Limit: Rs.3,46,386.76\nAvailable Cash Limit: Rs.71,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n14/05/26 BIGBASKET CHENNAI 4,522.67 Dr\n17/05/26 MYNTRA JAIPUR 298.14 Dr\n18/05/26 EASEMYTRIP KOLKATA 20,207.11 Dr\n21/05/26 GOOGLE PLAY JAIPUR 241.63 Dr\n25/05/26 IRCTC PUNE 6,141.00 Dr\n31/05/26 MAKEMYTRIP HYDERABAD 91.80 Dr\n01/06/26 PAYTM CHENNAI 1,185.54 Dr\n09/06/26 ZOMATO KOLKATA 161.23 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m121",
+   "subject": "Payment of Rs.Rs.24,522.99 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nyou spent Rs.24,522.99 at MYNTRA using your Jupiter Edge CSB Bank RuPay Credit Card XX1878. Pay in 3 instalments from the app.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m122",
+   "subject": "Your Jupiter Edge statement for Jun 2026",
+   "body": "Dear Vikram,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card ending 1878 statement for the period 16-May-2026 to 15-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-16",
+   "attachments": [
+    {
+     "filename": "Jupiter_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m123",
+   "subject": "Payment of Rs.Rs.1,815.07 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nyou spent Rs.1,815.07 at IRCTC using your Jupiter Edge CSB Bank RuPay Credit Card ending 1878. \n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-18",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m124",
+   "subject": "Payment of Rs.Rs.149.06 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nYou paid Rs.149.06 to ZOMATO from your Jupiter Edge CSB Bank RuPay Credit Card XX1878. Rewards are on the way.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m125",
+   "subject": "Debit alert: Fi",
+   "body": "Your A/c *7235 is debited for Rs.1,093.49 on 20-06-2026 - ECOM BATA INDIA. Bal Rs.42,343.89. -Fi",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m126",
+   "subject": "Payment received on your Edge CSB Bank RuPay Credit Card",
+   "body": "Payment of Rs.413.93 has been received towards your Jupiter Edge CSB Bank RuPay Credit Card XX1878 on 28-Jun-2026. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m127",
+   "subject": "Credit alert: Fi",
+   "body": "Dear Customer,\nRs.4,392.69 credited to your Fi A/c XXXXXX7235 on 03-07-2026 by UPI. Ref 536646837196.\nThank you for banking with us.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m128",
+   "subject": "Your OneCard statement for Jul 2026",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card XX1629 statement for the period 12-Jun-2026 to 11-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m129",
+   "subject": "Payment of Rs.Rs.162.54 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nYou paid Rs.162.54 to ZEPTO from your Jupiter Edge CSB Bank RuPay Credit Card xx1878. 5X coins on partner brands.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m130",
+   "subject": "Your Jupiter Edge statement for Jul 2026",
+   "body": "Dear Vikram,\nYour Jupiter Edge CSB Bank RuPay Credit Card XX1878 statement for Jul 2026 is ready. Total amount due Rs.4,203.08, minimum amount due Rs.210.15, payable by 02-Aug-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m131",
+   "subject": "OTP for your transaction",
+   "body": "379769 is the OTP for your transaction of Rs.120.33 at MYNTRA. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m132",
+   "subject": "Payment of Rs.Rs.8,467.36 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nyou spent Rs.8,467.36 at EAZYDINER using your Jupiter Edge CSB Bank RuPay Credit Card xx1878. 5X coins on partner brands.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m133",
+   "subject": "Update your KYC",
+   "body": "Dear Vikram,\nAs per RBI guidelines please complete re-KYC for your slice relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Vikram,\nYour order #104-9673220-4478432 is confirmed. Total Rs.2,571.22. Estimated delivery in 2 days.",
+   "date": "2026-07-30",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Payment of Rs.Rs.422.17 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nyou spent Rs.422.17 at DOMINOS using your Jupiter Edge CSB Bank RuPay Credit Card XX1878. Pay in 3 instalments from the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-11",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m136",
+   "subject": "Your OneCard statement for Aug 2026",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card XX1629 statement for the period 12-Jul-2026 to 11-Aug-2026. Total amount due Rs.64,251.57, due 29-Aug-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "OneCard_CC_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "OneCard Credit Card Statement\nVIKRAM MENON\nFLAT 435, LAKESHORE APARTMENTS\n26TH CROSS, KOTHRUD\nBENGALURU - 473773\nCard Name: OneCard Credit Card\nCredit Card Number: 443108XXXXXX1629\nBilling Cycle: 12/07/26 - 11/08/26\nStatement Date: 11/08/26\nPayment Summary\nTotal Amount Due: Rs.64,251.57\nMinimum Amount Due: Rs.3,212.58\nDue Date: 29/08/26\nAccount Summary\nCredit Limit: Rs.3,55,000.00\nAvailable Credit Limit: Rs.3,39,563.01\nAvailable Cash Limit: Rs.71,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n13/07/26 RELIANCE DIGITAL BENGALURU 9,312.19 Dr\n17/07/26 HPCL PETROL GURUGRAM 10,457.86 Dr\n21/07/26 OLA CABS PUNE 3,014.75 Dr\n23/07/26 CROMA MUMBAI 5,153.24 Dr\n31/07/26 LENSKART KOLKATA 14,443.73 Dr\n31/07/26 TATA POWER PUNE 354.51 Dr\n02/08/26 PVR INOX GURUGRAM 3,985.69 Dr\n03/08/26 ZOMATO AHMEDABAD 2,576.65 Dr\n06/08/26 TATA POWER GURUGRAM 11,547.15 Dr\n10/08/26 STARBUCKS MUMBAI 3,078.09 Dr\n11/08/26 EASEMYTRIP BENGALURU 327.71 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m137",
+   "subject": "Payment received on your OneCard",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,031.16 on 15-Aug-2026 for your OneCard Credit Card ending 1629. Available credit limit has been updated.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m138",
+   "subject": "Your Jupiter Edge statement for Aug 2026",
+   "body": "Dear Vikram,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card ending 1878 statement for the period 16-Jul-2026 to 15-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-16",
+   "attachments": [
+    {
+     "filename": "1878_15082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m139",
+   "subject": "Debit alert: Fi",
+   "body": "Your A/c XX7235 is debited for Rs.23,812.40 on 16-08-2026 - ECOM MCDONALDS. Bal Rs.43,742.37. -Fi\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m140",
+   "subject": "Debit alert: Fi",
+   "body": "Your A/c *7235 is debited for Rs.135.23 on 18-08-2026 - UPI SWIGGY. Bal Rs.93,628.49. -Fi\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-18",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m141",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 426264552146. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nyou spent Rs.9,777.61 at OLA CABS using your OneCard Credit Card ending 1629. Check your cashback in the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m143",
+   "subject": "Debit alert: Fi",
+   "body": "Your A/c xx7235 is debited for Rs.32,060.81 on 11-09-2026 - NEFT EAZYDINER. Bal Rs.5,590.10. -Fi\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m144",
+   "subject": "Your OneCard statement for Sep 2026",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card XX1629 statement for the period 12-Aug-2026 to 11-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m145",
+   "subject": "Your Jupiter Edge statement for Sep 2026",
+   "body": "Dear Vikram,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card ending 1878 statement for the period 16-Aug-2026 to 15-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-16",
+   "attachments": [
+    {
+     "filename": "Jupiter_CC_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m146",
+   "subject": "Fi festive offers",
+   "body": "Dear Vikram,\nConvert big spends to EMI at low interest.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m147",
+   "subject": "Credit alert: Fi",
+   "body": "Credit alert: Rs.163.47 has been credited to account XX7235 on 03-10-2026 (INTEREST CREDIT). Avl bal Rs.10,835.87.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-03",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m148",
+   "subject": "Payment of Rs.Rs.2,509.77 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Vikram,\nYou paid Rs.2,509.77 to CROMA from your Jupiter Edge CSB Bank RuPay Credit Card ending 1878. 5X coins on partner brands.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m149",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Vikram,\nUse your card on UPI and earn extra rewards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m150",
+   "subject": "Your OneCard statement for Oct 2026",
+   "body": "Dear Vikram,\nPlease find attached your OneCard Credit Card xx1629 statement for the period 12-Sep-2026 to 11-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "OneCard_CC_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m151",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nyou spent Rs.211.40 at ZEPTO using your OneCard Credit Card xx1629. Pay in 3 instalments from the app.",
+   "date": "2026-10-12",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m152",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nyou spent Rs.980.29 at APOLLO PHARMACY using your OneCard Credit Card ending 1629. \n\nOpt for e-statements and go green.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m153",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.7,973.30 has been transferred from your A/c xx7235 to Lata Tutor A/c XX0703 (ICICI Bank) via IMPS on 13-10-2026. Ref no 272531350997.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m154",
+   "subject": "Your Jupiter Edge statement for Oct 2026",
+   "body": "Dear Vikram,\nYour Jupiter Edge CSB Bank RuPay Credit Card XX1878 statement for Oct 2026 is ready. Total amount due Rs.53,831.59, minimum amount due Rs.2,691.58, payable by 02-Nov-2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m155",
+   "subject": "Debit alert: Fi",
+   "body": "Dear Customer,\nRs.17,885.30 has been debited from your Fi A/c XX7235 on 18-10-2026 (NEFT IXIGO). Avl bal Rs.3,416.91.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m156",
+   "subject": "Debit alert: Fi",
+   "body": "Your A/c XXXXXX7235 is debited for Rs.163.41 on 23-10-2026 - UPI IXIGO. Bal Rs.8,444.50. -Fi\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m157",
+   "subject": "Credit alert: Fi",
+   "body": "Credit alert: Rs.117.61 has been credited to account *7235 on 28-10-2026 (REFUND). Avl bal Rs.1,13,475.64.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "Fi <no-reply@fi.money>"
+  },
+  {
+   "id": "m158",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Vikram,\nyou spent Rs.1,388.32 at PVR INOX using your OneCard Credit Card XX1629. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-30",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "getonecard.app",
+    "last4": "1629",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "3-5L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "jupiter.money",
+    "last4": "1878",
+    "kind": "CREDIT_CARD",
+    "variant": "Edge",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "fi.money",
+    "last4": "7235",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sliceit.com",
+    "last4": "4423",
+    "kind": "CREDIT_CARD",
+    "variant": "Super",
+    "lifecycle": "CLOSED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "0545",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "0703",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "6440",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "8840",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "getonecard.app",
+    "last4": "9017",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "sliceit.com",
+    "last4": "4286",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "sliceit.com",
+    "last4": "2146",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "0537",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

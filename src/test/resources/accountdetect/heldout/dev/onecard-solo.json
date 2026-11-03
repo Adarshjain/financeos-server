@@ -1,0 +1,959 @@
+{
+ "mailbox": "onecard-solo",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "You spent Rs.4,784.30 at HOTSTAR",
+   "body": "Hi Vikram,\nYou've just spent Rs.4,784.30 at HOTSTAR using your OneCard ending 5521. Reward points will be credited when the transction is settled.\nManage your card in the OneCard app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m002",
+   "subject": "payment successful",
+   "body": "नमस्ते,\nHi&nbsp;Vikram,\nYour&nbsp;payment&nbsp;of Rs.4,784.30 to HOTSTAR was successful using your OneCard Credit Card XX5521.\n\nNever share your OTP, PIN, CVV or password with anyone. Your bank will never ask for these.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m003",
+   "subject": "You spent Rs.244.01 at BLINKIT",
+   "body": "Hi Vikram,\nYou've just spent Rs.244.01 at BLINKIT using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m004",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.244.01 to BLINKIT was successful using your OneCard Credit Card ending 5521.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m005",
+   "subject": "You spent Rs.8,395.72 at THIRD WAVE COFFEE",
+   "body": "Hi Vikram,\nYou've just spent Rs.8,395.72 at THIRD WAVE COFFEE using your OneCard no. XXXXXXXXXXXX5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m006",
+   "subject": "payment successful",
+   "body": "Hi Vikram,<br>\nYour payment of Rs.8,395.72 to THIRD WAVE COFFEE was successful using your OneCard Credit Card ending 5521.<br>\n\nT&C apply. Visit www.bank.in for more details.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m007",
+   "subject": "Your March bill is ready",
+   "body": "Hi Vikram,\nYour OneCard bill of Rs.3,455.51 is ready. Pay by 30 Mar to avoid late fees. Minimum due Rs.200.00. Card ending 5521\nPay now in the app.\n\nNever share your OTP, PIN, CVV or password with anyone. OneCard will never ask for these.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "ONECARD_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "ONECARD - CREDIT CARD STATEMENT\nName: VIKRAM GUPTA\nCredit Card Number: XXXX XXXX XXXX 5521\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 3,455.51\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,83,732.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/02/2026  CROMA KOCHI   31,571.01 Dr\n18/02/2026  STARBUCKS BANGALORE   3,251.93 Dr\n10/03/2026  LENSKART MUMBAI   114.28 Dr\n18/02/2026  AMAZON PAY INDIA BANGALORE   13,632.83 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   2,073.31 Cr\n\nReward Points Summary: Opening 2391  Earned 413  Closing 6108\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 3960019925819  IFSC ONEC0000488"
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m008",
+   "subject": "You spent Rs.372.80 at SHELL PETROL",
+   "body": "Hi&nbsp;Vikram,\nYou've&nbsp;just&nbsp;spent Rs.372.80 at SHELL PETROL using your OneCard ending 5521. Reward points will be credited when the transction is settled.\nManage your card in the OneCard app.\n\nNever share your OTP, PIN, CVV or password with anyone. OneCard will never ask for these.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-18",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m009",
+   "subject": "You spent Rs.239.25 at BATA INDIA",
+   "body": "Hi&nbsp;Vikram,\nYou've&nbsp;just&nbsp;spent Rs.239.25 at BATA INDIA using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m010",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,455.51 on 22-03-2026 towards your OneCard Credit Card ending 5521. Thank you.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m011",
+   "subject": "Payment reminder: OneCard Credit Card XX5521",
+   "body": "Dear Customer,\nThis is a reminder that Rs.3,455.51 (minimum Rs.200.00) is due on 30-Mar-2026 on your OneCard Credit Card XX5521. Pay on time to avoid late payment charges.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "OneCard <support@getonecard.app>"
+  },
+  {
+   "id": "m012",
+   "subject": "You spent Rs.38,124.07 at PVR INOX",
+   "body": "नमस्ते,\nHi Vikram,\nYou've just spent Rs.38,124.07 at PVR INOX using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m013",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.38,124.07 to PVR INOX was successful using your OneCard Credit Card **5521.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m014",
+   "subject": "You spent Rs.817.02 at ZOMATO",
+   "body": "Hi Vikram,\nYou've just spent Rs.817.02 at ZOMATO using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m015",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.817.02 to ZOMATO was successful using your OneCard Credit Card xx5521.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m016",
+   "subject": "Pay your bills and earn on Regalia Gold Credit Card",
+   "body": "नमस्ते,\nApply now for Regalia Gold, Millennia or Swiggy HDFC Bank Credit Card. Pre-approved. Offer code 4309\nT&C apply.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "HDFC Bank <offers@hdfcbank.net>"
+  },
+  {
+   "id": "m017",
+   "subject": "You spent Rs.6,815.66 at LENSKART",
+   "body": "Hi Vikram,<br>\nYou've just spent Rs.6,815.66 at LENSKART using your OneCard ending 5521. Reward points will be credited when the transaction is settled.<br>\nManage your card in the OneCard app.",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m018",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.6,815.66 to LENSKART was successful using your OneCard Credit Card ending 5521.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m019",
+   "subject": "Your April bill is ready",
+   "body": "Hi Vikram,\nYour OneCard bill of Rs.5,064.96 is ready. Pay by 30 Apr to avoid late fees. Minimum due Rs.253.25. Card ending 5521\nPay now in the app.\n\nT&C apply. Visit www.getonecard.app for more details.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "ONECARD_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "ONECARD - CREDIT CARD STATEMENT\nName: VIKRAM GUPTA\nCredit Card Number: XXXX XXXX XXXX 5521\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 5,064.96\nMinimum Amount Due: Rs. 253.25\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,90,744.00\n\nDate        Transaction Details                        Amount (Rs.)\n17/03/2026  LICIOUS HYDERABAD   1,817.28 Dr\n13/03/2026  AMAZON PAY INDIA BANGALORE   2,887.84 Dr\n04/04/2026  DMART PUNE   2,405.41 Dr\n03/04/2026  BATA INDIA GURGAON   2,531.44 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   3,038.98 Cr\n\nReward Points Summary: Opening 927  Earned 678  Closing 2517\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 3960019925819  IFSC ONEC0000885"
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m020",
+   "subject": "You spent Rs.8,756.05 at PVR INOX",
+   "body": "Hi Vikram,\nYou've just spent Rs.8,756.05 at PVR INOX using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m021",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.8,756.05 to PVR INOX was successful using your OneCard Credit Card ending 5521.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m022",
+   "subject": "You spent Rs.821.89 at MEDPLUS",
+   "body": "Hi Vikram,<br>\nYou've just spent Rs.821.89 at MEDPLUS using your OneCard ending 5521. Reward points will be credited when the transaction is settled.<br>\nManage your card in the OneCard app.\n\nThis is a system generated email. Please do not reply to this message.\nT&C apply. Visit www.getonecard.app for more details.",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m023",
+   "subject": "Payment reminder: OneCard Credit Card ending 5521",
+   "body": "Dear Customer,\nThis is a reminder that Rs.5,064.96 (minimum Rs.253.25) is due on 30-Apr-2026 on your OneCard Credit Card ending 5521. Pay on time to avoid late payment charges.\n\nNever share your OTP, PIN, CVV or password with anyone. OneCard will never ask for these.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "OneCard <support@getonecard.app>"
+  },
+  {
+   "id": "m024",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.5,064.96 on 29-04-2026 towards your OneCard Credit Card ending 5521. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m025",
+   "subject": "You spent Rs.2,816.62 at ZOMATO",
+   "body": "Hi Vikram,\nYou've just spent Rs.2,816.62 at ZOMATO using your OneCard XXXX XXXX XXXX 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nNever share your OTP, PIN, CVV or password with anyone. OneCard will never ask for these.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m026",
+   "subject": "You spent Rs.638.04 at LENSKART",
+   "body": "Hi Vikram,\nYou've just spent Rs.638.04 at LENSKART using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m027",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.638.04 to LENSKART was successful using your OneCard Credit Card no. XXXXXXXXXXXX5521.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m028",
+   "subject": "You spent Rs.35,788.27 at INDIGO AIRLINES",
+   "body": "Hi Vikram,\nYou've just spent Rs.35,788.27 at INDIGO AIRLINES using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m029",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.35,788.27 to INDIGO AIRLINES was successful using your OneCard Credit Card ending 5521.\n\nT&C apply. Visit www.bank.in for more details.",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m030",
+   "subject": "You spent Rs.27,679.30 at AMAZON PAY INDIA",
+   "body": "Hi Vikram,<br>\nYou've just spent Rs.27,679.30 at AMAZON PAY INDIA using your OneCard XXXX XXXX XXXX 5521. Reward points will be credited when the transaction is settled.<br>\nManage your card in the OneCard app.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m031",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.27,679.30 to AMAZON PAY INDIA was successful using your OneCard Credit Card ending 5521.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nT&C apply. Visit www.bank.in for more details.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m032",
+   "subject": "Your May bill is ready",
+   "body": "Hi Vikram,\nYour OneCard bill of Rs.14,804.27 is ready. Pay by 30 May to avoid late fees. Minimum due Rs.740.21. Card **5521\nPay now in the app.\n\nT&C apply. Visit www.getonecard.app for more details.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "ONECARD_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "ONECARD - CREDIT CARD STATEMENT\nName: VIKRAM GUPTA\nCard No: 4770 21XX XXXX 5521\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 14,804.27\nMinimum Amount Due: Rs. 740.21\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,90,156.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/04/2026  THIRD WAVE COFFEE KOCHI   8,643.65 Dr\n03/05/2026  TATA 1MG BANGALORE   24,924.72 Dr\n01/05/2026  ZEPTO CHENNAI   38,440.14 Dr\n21/04/2026  DMART PUNE   871.52 Dr\n27/04/2026  TATA 1MG KOCHI   404.74 Dr\n24/04/2026  BOOKMYSHOW BANGALORE   379.21 Dr\n14/04/2026  BLINKIT GURGAON   1,947.65 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   8,882.56 Cr\n\nReward Points Summary: Opening 8457  Earned 128  Closing 8880\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 3960019925819  IFSC ONEC0000984"
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m033",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have recieved your payment of Rs.14,804.27 on 23-05-2026 towards your OneCard Credit Card XXXX XXXX XXXX 5521. Thank you.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nT&C apply. Visit www.getonecard.app for more details.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m034",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Vikram, a gentle nudge: Rs.14,804.27 due on 30 May for card ending 5521. Ignore if already paid. Kripya samay par bhugtan karein.\n\nT&C apply. Visit www.getonecard.app for more details.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "OneCard <support@getonecard.app>"
+  },
+  {
+   "id": "m035",
+   "subject": "OTP for online transaction",
+   "body": "259529 is the One Time Password (OTP) for your online transction of INR 302.68 at CAFE COFFEE DAY. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m036",
+   "subject": "You spent Rs.7,186.24 at URBAN COMPANY",
+   "body": "Hi Vikram,\nYou've just spent Rs.7,186.24 at URBAN COMPANY using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m037",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.7,186.24 to URBAN COMPANY was successful using your OneCard Credit Card xx5521.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m038",
+   "subject": "You spent Rs.3,907.04 at SHELL PETROL",
+   "body": "Hi Vikram,\nYou've just spent Rs.3,907.04 at SHELL PETROL using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m039",
+   "subject": "Secure your family with term insurance",
+   "body": "Plans from Rs 500/month. Policy no. will be shared post issuance. Quote ref 8927\nT&C apply.",
+   "date": "2026-06-02",
+   "attachments": [],
+   "from": "Tata AIA Life <news@tataaia.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "You spent Rs.38,181.28 at JIO PREPAID",
+   "body": "नमस्ते,\nHi Vikram,\nYou've just spent Rs.38,181.28 at JIO PREPAID using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-08",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m041",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.38,181.28 to JIO PREPAID was successful using your OneCard Credit Card no. XXXXXXXXXXXX5521.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-08",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m042",
+   "subject": "You spent Rs.2,420.23 at THIRD WAVE COFFEE",
+   "body": "Hi Vikram,\nYou've just spent Rs.2,420.23 at THIRD WAVE COFFEE using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-10",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m043",
+   "subject": "Your June bill is ready",
+   "body": "Hi Vikram,\nYour OneCard bill of Rs.9,089.17 is ready. Pay by 30 Jun to avoid late fees. Minimum due Rs.454.46. Card ending 5521\nPay now in the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "ONECARD_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "ONECARD - CREDIT CARD STATEMENT\nName: VIKRAM GUPTA\nCard No: 4109 25XX XXXX 5521\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 9,089.17\nMinimum Amount Due: Rs. 454.46\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 93,333.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/05/2026  DECATHLON KOCHI   1,991.78 Dr\n18/05/2026  NETFLIX.COM MUMBAI   303.25 Dr\n04/06/2026  UBER INDIA BANGALORE   26,990.14 Dr\n09/06/2026  IRCTC BANGALORE   754.53 Dr\n06/06/2026  THIRD WAVE COFFEE MUMBAI   3,248.50 Dr\n01/06/2026  APOLLO PHARMACY HYDERABAD   781.20 Dr\n30/05/2026  AMAZON PAY INDIA MUMBAI   639.81 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   5,453.50 Cr\n\nReward Points Summary: Opening 5984  Earned 69  Closing 4849\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 3960019925819  IFSC ONEC0000121"
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m044",
+   "subject": "You spent Rs.8,436.09 at URBAN COMPANY",
+   "body": "Hi Vikram,<br>\nYou've just spent Rs.8,436.09 at URBAN COMPANY using your OneCard ending 5521. Reward points will be credited when the transaction is settled.<br>\nManage your card in the OneCard app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m045",
+   "subject": "You spent Rs.17,071.61 at AIRBNB",
+   "body": "Hi Vikram,\nYou've just spent Rs.17,071.61 at AIRBNB using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m046",
+   "subject": "OTP for online transaction",
+   "body": "770269 is the One Time Password (OTP) for your online transaction of INR 375.68 at GOOGLE PLAY. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m047",
+   "subject": "You spent Rs.2,739.94 at DECATHLON",
+   "body": "Hi Vikram,<br>\nYou've just spent Rs.2,739.94 at DECATHLON using your OneCard ending 5521. Reward points will be credited when the transaction is settled.<br>\nManage your card in the OneCard app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m048",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.2,739.94 to DECATHLON was successful using your OneCard Credit Card ending 5521.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m049",
+   "subject": "You spent Rs.1,729.09 at ZEPTO",
+   "body": "नमस्ते,\nHi Vikram,\nYou've just spent Rs.1,729.09 at ZEPTO using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-23",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m050",
+   "subject": "Secure your family with term insurance",
+   "body": "Plans from Rs 500/month. Policy no. will be shared post issuance. Quote ref 3652\nT&C apply.",
+   "date": "2026-06-23",
+   "attachments": [],
+   "from": "Tata AIA Life <news@tataaia.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.9,089.17 on 25-06-2026 towards your OneCard Credit Card ending 5521. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m052",
+   "subject": "Your reward points summary",
+   "body": "नमस्ते,\nDear Customer,\nYou have 3838 reward points on your OneCard Credit Card **5521. Redeem them on the rewards portal before they expire.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "OneCard <support@getonecard.app>"
+  },
+  {
+   "id": "m053",
+   "subject": "You spent Rs.666.09 at UBER INDIA",
+   "body": "Hi Vikram,<br>\nYou've just spent Rs.666.09 at UBER INDIA using your OneCard ending 5521. Reward points will be credited when the transaction is settled.<br>\nManage your card in the OneCard app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m054",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.666.09 to UBER INDIA was successful using your OneCard Credit Card ending 5521.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m055",
+   "subject": "Your July bill is ready",
+   "body": "Hi Vikram,\nYour OneCard bill of Rs.70,007.92 is ready. Pay by 30 Jul to avoid late fees. Minimum due Rs.3,500.40. Card ending 5521\nPay now in the app.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "ONECARD_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "ONECARD - CREDIT CARD STATEMENT\nName: VIKRAM GUPTA\nCard No: 4674 58XX XXXX 5521\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 70,007.92\nMinimum Amount Due: Rs. 3,500.40\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,89,990.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/06/2026  CAFE COFFEE DAY BANGALORE   157.89 Dr\n07/07/2026  LENSKART BANGALORE   5,488.44 Dr\n21/06/2026  AMAZON PAY INDIA GURGAON   467.18 Dr\n25/06/2026  DECATHLON CHENNAI   8,028.97 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   42,004.75 Cr\n\nReward Points Summary: Opening 7266  Earned 707  Closing 7452\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 3960019925819  IFSC ONEC0000198"
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m056",
+   "subject": "You spent Rs.331.02 at LICIOUS",
+   "body": "Hi Vikram,\nYou've just spent Rs.331.02 at LICIOUS using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m057",
+   "subject": "You spent Rs.2,867.94 at NETFLIX.COM",
+   "body": "Hi Vikram,\nYou've just spent Rs.2,867.94 at NETFLIX.COM using your OneCard XXXX XXXX XXXX 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m058",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.2,867.94 to NETFLIX.COM was successful using your OneCard Credit Card ending 5521.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m059",
+   "subject": "OTP for online transaction",
+   "body": "448833 is the One Time Password (OTP) for your online transaction of INR 3,497.50 at PVR INOX. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nT&C apply. Visit www.getonecard.app for more details.",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m060",
+   "subject": "You spent Rs.2,377.63 at UBER INDIA",
+   "body": "Hi Vikram,\nYou've just spent Rs.2,377.63 at UBER INDIA using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m061",
+   "subject": "You spent Rs.554.50 at THIRD WAVE COFFEE",
+   "body": "Hi Vikram,\nYou've just spent Rs.554.50 at THIRD WAVE COFFEE using your OneCard ending 5521. Reward points will be credited when the transction is settled.\nManage your card in the OneCard app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m062",
+   "subject": "Payment reminder: OneCard Credit Card ending 5521",
+   "body": "Dear Customer,\nThis is a reminder that Rs.70,007.92 (minimum Rs.3,500.40) is due on 30-Jul-2026 on your OneCard Credit Card ending 5521. Pay on time to avoid late payment charges.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nNever share your OTP, PIN, CVV or password with anyone. OneCard will never ask for these.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "OneCard <support@getonecard.app>"
+  },
+  {
+   "id": "m063",
+   "subject": "You spent Rs.34,318.40 at URBAN COMPANY",
+   "body": "Hi Vikram,\nYou've just spent Rs.34,318.40 at URBAN COMPANY using your OneCard XX5521. Reward points will be credited when the transction is settled.\nManage your card in the OneCard app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m064",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.34,318.40 to URBAN COMPANY was successful using your OneCard Credit Card **5521.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m065",
+   "subject": "You spent Rs.580.74 at REDBUS",
+   "body": "Hi Vikram,\nYou've just spent Rs.580.74 at REDBUS using your OneCard ending 5521. Reward points will be credited when the transction is settled.\nManage your card in the OneCard app.\n\nThis is a system generated email. Please do not reply to this message.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m066",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.580.74 to REDBUS was successful using your OneCard Credit Card ending 5521.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m067",
+   "subject": "You spent Rs.1,821.66 at HOTSTAR",
+   "body": "Hi&nbsp;Vikram,\nYou've&nbsp;just&nbsp;spent Rs.1,821.66 at HOTSTAR using your OneCard no. XXXXXXXXXXXX5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m068",
+   "subject": "You spent Rs.6,210.99 at BOOKMYSHOW",
+   "body": "Hi Vikram,\nYou've just spent Rs.6,210.99 at BOOKMYSHOW using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m069",
+   "subject": "You spent Rs.37,562.03 at IRCTC",
+   "body": "Hi Vikram,\nYou've just spent Rs.37,562.03 at IRCTC using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m070",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.37,562.03 to IRCTC was successful using your OneCard Credit Card XXXX XXXX XXXX 5521.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m071",
+   "subject": "You spent Rs.5,035.06 at JIO PREPAID",
+   "body": "Hi Vikram,\nYou've just spent Rs.5,035.06 at JIO PREPAID using your OneCard ending 5521. Reward points will be credited when the transction is settled.\nManage your card in the OneCard app.\n\nT&C apply. Visit www.getonecard.app for more details.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m072",
+   "subject": "Your August bill is ready",
+   "body": "Hi Vikram,<br>\nYour OneCard bill of Rs.25,251.15 is ready. Pay by 30 Aug to avoid late fees. Minimum due Rs.1,262.56. Card ending 5521<br>\nPay now in the app.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "ONECARD_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "ONECARD - CREDIT CARD STATEMENT\nName: VIKRAM GUPTA\nCredit Card Number: XXXX XXXX XXXX 5521\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 25,251.15\nMinimum Amount Due: Rs. 1,262.56\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,43,778.00\n\nDate        Transaction Details                        Amount (Rs.)\n20/07/2026  UBER INDIA CHENNAI   655.83 Dr\n09/08/2026  NETFLIX.COM PUNE   35,470.11 Dr\n07/08/2026  BIGBASKET CHENNAI   160.48 Dr\n29/07/2026  BOOKMYSHOW PUNE   229.21 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   15,150.69 Cr\n\nReward Points Summary: Opening 1253  Earned 576  Closing 5069\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m073",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transction of Rs.8,116.48 on card ending 5521 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "OneCard <support@getonecard.app>"
+  },
+  {
+   "id": "m074",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.25,251.15 on 23-08-2026 towards your OneCard Credit Card ending 5521. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m075",
+   "subject": "You spent Rs.1,994.88 at SPOTIFY",
+   "body": "Hi Vikram,\nYou've just spent Rs.1,994.88 at SPOTIFY using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m076",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Vikram, a gentle nudge: Rs.25,251.15 due on 30 August for card ending 5521. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "OneCard <support@getonecard.app>"
+  },
+  {
+   "id": "m077",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card XX5521 has been processed. Tenure 12 months. First EMI will appear on your next statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "OneCard <support@getonecard.app>"
+  },
+  {
+   "id": "m078",
+   "subject": "We have received your request",
+   "body": "Dear Customer,\nYour service request is registered. Reference No. SR202657541722. We will resolve it within 3 working days.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "OneCard <support@getonecard.app>"
+  },
+  {
+   "id": "m079",
+   "subject": "You spent Rs.5,416.25 at HOTSTAR",
+   "body": "Hi Vikram,\nYou've just spent Rs.5,416.25 at HOTSTAR using your OneCard XXXX XXXX XXXX 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m080",
+   "subject": "Your September bill is ready",
+   "body": "नमस्ते,\nHi Vikram,\nYour OneCard bill of Rs.15,501.58 is ready. Pay by 30 Sep to avoid late fees. Minimum due Rs.775.08. Card ending 5521\nPay now in the app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "ONECARD_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "ONECARD - CREDIT CARD STATEMENT\nName: VIKRAM GUPTA\nCredit Card Number: XXXX XXXX XXXX 5521\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 15,501.58\nMinimum Amount Due: Rs. 775.08\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 70,587.00\n\nDate        Transaction Details                        Amount (Rs.)\n23/08/2026  CAFE COFFEE DAY HYDERABAD   803.21 Dr\n08/09/2026  BLINKIT HYDERABAD   1,561.63 Dr\n08/09/2026  RELIANCE SMART GURGAON   8,173.21 Dr\n09/09/2026  SHELL PETROL GURGAON   549.33 Dr\n15/08/2026  WESTSIDE BANGALORE   5,665.03 Dr\n17/08/2026  SHELL PETROL KOCHI   31,707.93 Dr\n31/08/2026  LICIOUS MUMBAI   27,155.83 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   9,300.95 Cr\n\nReward Points Summary: Opening 4191  Earned 505  Closing 4683\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 3960019925819  IFSC ONEC0000573"
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m081",
+   "subject": "You spent Rs.20,191.22 at DECATHLON",
+   "body": "Hi Vikram,\nYou've just spent Rs.20,191.22 at DECATHLON using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m082",
+   "subject": "payment successful",
+   "body": "Hi Vikram,<br>\nYour payment of Rs.20,191.22 to DECATHLON was successful using your OneCard Credit Card ending 5521.<br>\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m083",
+   "subject": "You spent Rs.1,364.17 at ZOMATO",
+   "body": "Hi Vikram,<br>\nYou've just spent Rs.1,364.17 at ZOMATO using your OneCard ending 5521. Reward points will be credited when the transaction is settled.<br>\nManage your card in the OneCard app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m084",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.1,364.17 to ZOMATO was successful using your OneCard Credit Card ending 5521.",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m085",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF9870\nT&C apply.",
+   "date": "2026-09-16",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m086",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your OneCard Credit Card XX5521 has been increased to Rs.2,00,000.00 effective 17-09-2026.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "OneCard <support@getonecard.app>"
+  },
+  {
+   "id": "m087",
+   "subject": "You spent Rs.876.06 at AIRBNB",
+   "body": "Hi Vikram,\nYou've just spent Rs.876.06 at AIRBNB using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m088",
+   "subject": "payment successful",
+   "body": "नमस्ते,\nHi Vikram,<br>\nYour payment of Rs.876.06 to AIRBNB was successful using your OneCard Credit Card ending 5521.",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m089",
+   "subject": "You spent Rs.8,447.67 at HOTSTAR",
+   "body": "Hi Vikram,\nYou've just spent Rs.8,447.67 at HOTSTAR using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m090",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR9488<br>\nT&C apply.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "You spent Rs.688.11 at BIGBASKET",
+   "body": "Hi Vikram,\nYou've just spent Rs.688.11 at BIGBASKET using your OneCard XXXX XXXX XXXX 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m092",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.688.11 to BIGBASKET was successful using your OneCard Credit Card no. XXXXXXXXXXXX5521.\n\nNever share your OTP, PIN, CVV or password with anyone. Your bank will never ask for these.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m093",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.15,501.58 on 25-09-2026 towards your OneCard Credit Card ending 5521. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m094",
+   "subject": "Payment reminder: OneCard Credit Card ending 5521",
+   "body": "Dear&nbsp;Customer,<br>\nThis&nbsp;is&nbsp;a reminder that Rs.15,501.58 (minimum Rs.775.08) is due on 30-Sep-2026 on your OneCard Credit Card ending 5521. Pay on time to avoid late payment charges.<br>\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "OneCard <support@getonecard.app>"
+  },
+  {
+   "id": "m095",
+   "subject": "You spent Rs.217.47 at APOLLO PHARMACY",
+   "body": "Hi Vikram,\nYou've just spent Rs.217.47 at APOLLO PHARMACY using your OneCard **5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nNever share your OTP, PIN, CVV or password with anyone. OneCard will never ask for these.",
+   "date": "2026-10-02",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m096",
+   "subject": "Your October bill is ready",
+   "body": "Hi Vikram,\nYour OneCard bill of Rs.3,482.86 is ready. Pay by 30 Oct to avoid late fees. Minimum due Rs.200.00. Card ending 5521\nPay now in the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "ONECARD_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "ONECARD - CREDIT CARD STATEMENT\nName: VIKRAM GUPTA\nCard No: 4217 61XX XXXX 5521\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 3,482.86\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,31,718.00\n\nDate        Transaction Details                        Amount (Rs.)\n13/09/2026  MAKEMYTRIP CHENNAI   506.09 Dr\n01/10/2026  CAFE COFFEE DAY PUNE   6,827.90 Dr\n07/10/2026  IRCTC HYDERABAD   38,572.81 Dr\n10/10/2026  BIGBASKET KOCHI   40,124.07 Dr\n10/10/2026  GOOGLE PLAY PUNE   27,657.28 Dr\n12/09/2026  DMART GURGAON   807.28 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   2,089.72 Cr\n\nReward Points Summary: Opening 8949  Earned 801  Closing 6350\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 3960019925819  IFSC ONEC0000272"
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m097",
+   "subject": "You spent Rs.12,971.90 at APOLLO PHARMACY",
+   "body": "Hi Vikram,<br>\nYou've just spent Rs.12,971.90 at APOLLO PHARMACY using your OneCard ending 5521. Reward points will be credited when the transaction is settled.<br>\nManage your card in the OneCard app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m098",
+   "subject": "Pay your bills and earn on Regalia Gold Credit Card",
+   "body": "Apply now for Regalia Gold, Millennia or Swiggy HDFC Bank Credit Card. Pre-approved. Offer code 9543\nT&C apply.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "HDFC Bank <offers@hdfcbank.net>"
+  },
+  {
+   "id": "m099",
+   "subject": "You spent Rs.806.82 at ZOMATO",
+   "body": "Hi Vikram,\nYou've just spent Rs.806.82 at ZOMATO using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m100",
+   "subject": "payment successful",
+   "body": "नमस्ते,\nHi Vikram,\nYour payment of Rs.806.82 to ZOMATO was successful using your OneCard Credit Card **5521.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m101",
+   "subject": "You spent Rs.7,667.44 at HOTSTAR",
+   "body": "नमस्ते,\nHi Vikram,\nYou've just spent Rs.7,667.44 at HOTSTAR using your OneCard **5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-20",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m102",
+   "subject": "You spent Rs.30,052.82 at DMART",
+   "body": "Hi&nbsp;Vikram,\nYou've&nbsp;just&nbsp;spent Rs.30,052.82 at DMART using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m103",
+   "subject": "payment successful",
+   "body": "Hi Vikram,\nYour payment of Rs.30,052.82 to DMART was successful using your OneCard Credit Card ending 5521.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m104",
+   "subject": "OTP for online transaction",
+   "body": "735157 is the One Time Password (OTP) for your online transaction of INR 3,339.55 at BLINKIT. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m105",
+   "subject": "You spent Rs.312.16 at WESTSIDE",
+   "body": "Hi Vikram,\nYou've just spent Rs.312.16 at WESTSIDE using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m106",
+   "subject": "payment successful",
+   "body": "Hi&nbsp;Vikram,\nYour&nbsp;payment&nbsp;of Rs.312.16 to WESTSIDE was successful using your OneCard Credit Card ending 5521.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m107",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,482.86 on 25-10-2026 towards your OneCard Credit Card ending 5521. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. OneCard will never ask for these.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m108",
+   "subject": "OTP for online transaction",
+   "body": "550451 is the One Time Password (OTP) for your online transaction of INR 170.27 at MEDPLUS. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m109",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Vikram, a gentle nudge: Rs.3,482.86 due on 30 October for card ending 5521. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "OneCard <support@getonecard.app>"
+  },
+  {
+   "id": "m110",
+   "subject": "You spent Rs.326.99 at RELIANCE SMART",
+   "body": "Hi Vikram,\nYou've just spent Rs.326.99 at RELIANCE SMART using your OneCard ending 5521. Reward points will be credited when the transaction is settled.\nManage your card in the OneCard app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-11-02",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "getonecard.app",
+    "last4": "5521",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "getonecard.app",
+    "last4": "5819",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "getonecard.app",
+    "last4": "1722",
+    "why": "service request / reference number"
+   }
+  ]
+ }
+}

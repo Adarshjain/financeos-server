@@ -1,0 +1,2735 @@
+{
+ "mailbox": "icici-sbi-same4-nohdr",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 393.11 on Apr 06, 2025 at 16:44:19. Info: SHELL PETROL.\nThe Available Credit Limit on your card is INR 2,18,404.00 and Total Credit Limit is INR 2,48,404.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-04-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transction of INR 477.90 on Apr 09, 2025 at 08:07:55. Info: AMAZON PAY INDIA.\nThe Available Credit Limit on your card is INR 1,11,949.00 and Total Credit Limit is INR 1,41,949.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-04-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "नमस्ते,\nDear Pooja Singh,\nThe statement of your ICICI Bank Rubyx Credit Card XX3416 for Apr 2025 is ready. Total due Rs.7,540.19, pay by 30 Apr 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-04-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Apr 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-Apr-2025. Total amount due Rs.3,869.69; minimum Rs.200.00; due 30-Apr-2025.\nSBI/BOB style auto pay available on request.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Apr2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nCard Type: Prime\nStatement Date: 12/04/2025\nStatement Period: 13/03/2025 - 12/04/2025\nPayment Due Date: 30/04/2025\nTotal Amount Due: Rs. 3,869.69\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,35,304.00\n\nDate        Transaction Details                        Amount (Rs.)\n03/04/2025  UBER INDIA MUMBAI   28,026.13 Dr\n19/03/2025  DECATHLON KOCHI   204.21 Dr\n09/04/2025  MEDPLUS CHENNAI   17,679.50 Dr\n22/03/2025  NETFLIX.COM PUNE   377.28 Dr\n07/04/2025  BLINKIT CHENNAI   4,526.53 Dr\n19/03/2025  REDBUS BANGALORE   8,162.02 Dr\n03/04/2025  PAYMENT RECEIVED - THANK YOU   2,321.81 Cr\n\nReward Points Summary: Opening 7844  Earned 535  Closing 2798\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1888485216973  IFSC SBI 0000831"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statment of your ICICI Bank Credit Card XX9873 for Apr 2025 is ready. Total due Rs.24,841.52, pay by 30 Apr 2025.\nView it in the app or NetBanking under Cards.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-04-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Apr2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard No: 4631 12XX XXXX 9873\nStatement Date: 12/04/2025\nStatement Period: 13/03/2025 - 12/04/2025\nPayment Due Date: 30/04/2025\nTotal Amount Due: Rs. 24,841.52\nMinimum Amount Due: Rs. 1,242.08\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 90,663.00\n\nDate        Transaction Details                        Amount (Rs.)\n22/03/2025  MEDPLUS PUNE   268.08 Dr\n25/03/2025  MAKEMYTRIP HYDERABAD   1,341.42 Dr\n13/03/2025  AMAZON PAY INDIA GURGAON   858.25 Dr\n05/04/2025  OLA CABS MUMBAI   41,606.26 Dr\n01/04/2025  OLA CABS MUMBAI   7,333.68 Dr\n03/04/2025  PAYMENT RECEIVED - THANK YOU   14,904.91 Cr\n\nReward Points Summary: Opening 3200  Earned 660  Closing 1879\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.667.46 spent on your SBI Credit Card ending 3416 at ZEPTO on 22/04/25. Your available limit is Rs.46,548.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2025-04-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,540.19 on 23-04-2025 towards your ICICI Bank Credit Card XX3416. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-04-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.451.80&nbsp;spent&nbsp;on your SBI Credit Card ending 3416 at BATA INDIA on 24/04/25. Your available limit is Rs.1,66,108.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-04-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.24,841.52 on 25-04-2025 towards your ICICI Bank Credit Card XX9873. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-04-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,869.69 on 26-04-2025 towards your SBI Card Credit Card. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.667.51 spent on your SBI Credit Card ending 3416 at AIRBNB on 27/04/25. Your available limit is Rs.2,04,740.00.<br>\nContact 1860 180 1290 if this transction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.3,869.69 due on 30 April. Ignore if already paid. Kripya samay par bhugtan karein.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 7,751.32 on May 03, 2025 at 12:41:22. Info: LENSKART.\nThe Available Credit Limit on your card is INR 64,159.00 and Total Credit Limit is INR 94,159.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-05-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card no. XXXXXXXXXXXX9873 has been used for a transaction of INR 472.36 on May 04, 2025 at 11:45:01. Info: MEDPLUS.\nThe Available Credit Limit on your card is INR 2,27,335.00 and Total Credit Limit is INR 2,57,335.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,167.03 spent on your SBI Credit Card XX3416 at BLINKIT on 06/05/25. Your available limit is Rs.2,59,267.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-06",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transction of INR 2,734.28 on May 08, 2025 at 05:59:41. Info: UBER INDIA.\nThe Available Credit Limit on your card is INR 22,829.00 and Total Credit Limit is INR 52,829.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-05-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - May 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment. Statement date: 12-May-2025. Total amount due Rs.6,149.20; minimum Rs.307.46; due 30-May-2025.\nSBI/BOB style auto pay available on request.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-05-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_May2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nCard Type: Prime\nStatement Date: 12/05/2025\nStatement Period: 12/04/2025 - 12/05/2025\nPayment Due Date: 30/05/2025\nTotal Amount Due: Rs. 6,149.20\nMinimum Amount Due: Rs. 307.46\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,05,659.00\n\nDate        Transaction Details                        Amount (Rs.)\n15/04/2025  STARBUCKS BANGALORE   6,379.05 Dr\n03/05/2025  CROMA GURGAON   431.02 Dr\n10/05/2025  BOOKMYSHOW PUNE   348.36 Dr\n27/04/2025  LENSKART GURGAON   8,483.32 Dr\n27/04/2025  TATA 1MG GURGAON   632.55 Dr\n03/05/2025  PAYMENT RECEIVED - THANK YOU   3,689.52 Cr\n\nReward Points Summary: Opening 6709  Earned 782  Closing 6466\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1888485216973  IFSC SBI 0000190"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for May 2025 is ready. Total due Rs.10,197.92, pay by 30 May 2025.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-05-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_May2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard No: 4986 69XX XXXX 9873\nStatement Date: 12/05/2025\nStatement Period: 12/04/2025 - 12/05/2025\nPayment Due Date: 30/05/2025\nTotal Amount Due: Rs. 10,197.92\nMinimum Amount Due: Rs. 509.90\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,10,029.00\n\nDate        Transaction Details                        Amount (Rs.)\n13/04/2025  PVR INOX HYDERABAD   31,959.17 Dr\n28/04/2025  MEDPLUS HYDERABAD   2,702.17 Dr\n13/04/2025  APOLLO PHARMACY KOCHI   2,311.88 Dr\n06/05/2025  BATA INDIA KOCHI   1,626.48 Dr\n21/04/2025  BOOKMYSHOW KOCHI   106.62 Dr\n07/05/2025  ZOMATO KOCHI   1,090.54 Dr\n04/05/2025  BIGBASKET MUMBAI   1,790.35 Dr\n17/04/2025  RELIANCE SMART GURGAON   151.11 Dr\n01/05/2025  MEDPLUS GURGAON   25,432.29 Dr\n03/05/2025  PAYMENT RECEIVED - THANK YOU   6,118.75 Cr\n\nReward Points Summary: Opening 2752  Earned 686  Closing 8167\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 589.16 on May 15, 2025 at 07:56:00. Info: URBAN COMPANY.\nThe Available Credit Limit on your card is INR 3,36,580.00 and Total Credit Limit is INR 3,66,580.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-05-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 1,486.27 on May 22, 2025 at 02:32:48. Info: DECATHLON.\nThe Available Credit Limit on your card is INR 3,34,413.00 and Total Credit Limit is INR 3,64,413.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.6,490.10 spent on your SBI Credit Card XXXX XXXX XXXX 3416 at WESTSIDE on 24/05/25. Your available limit is Rs.2,96,616.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2025-05-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.10,197.92 on 24-05-2025 towards your ICICI Bank Credit Card XX9873. Thank you.\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-05-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.6,149.20 on 26-05-2025 towards your SBI Card Credit Card. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-05-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Payment reminder: SBI Card Credit Card",
+   "body": "Dear&nbsp;Customer,\nThis&nbsp;is&nbsp;a reminder that Rs.6,149.20 (minimum Rs.307.46) is due on 30-May-2025 on your SBI Card Credit Card. Pay on time to avoid late payment charges.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2025-05-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 1,538.67 on Jun 04, 2025 at 23:51:23. Info: AMAZON PAY INDIA.\nThe Available Credit Limit on your card is INR 1,38,263.00 and Total Credit Limit is INR 1,68,263.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-06-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 9873 has been used for a transaction of INR 734.07 on Jun 05, 2025 at 19:52:56. Info: ZEPTO.\nThe Available Credit Limit on your card is INR 26,559.00 and Total Credit Limit is INR 56,559.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Jun 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-Jun-2025. Total amount due Rs.16,736.44; minimum Rs.836.82; due 30-Jun-2025.\nSBI/BOB style auto pay available on request.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jun2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nStatement Date: 12/06/2025\nStatement Period: 13/05/2025 - 12/06/2025\nPayment Due Date: 30/06/2025\nTotal Amount Due: Rs. 16,736.44\nMinimum Amount Due: Rs. 836.82\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 95,446.00\n\nDate        Transaction Details                        Amount (Rs.)\n13/05/2025  OLA CABS GURGAON   5,301.02 Dr\n04/06/2025  AMAZON PAY INDIA GURGAON   4,336.52 Dr\n03/06/2025  INDIGO AIRLINES MUMBAI   2,037.45 Dr\n31/05/2025  RELIANCE SMART GURGAON   331.84 Dr\n20/05/2025  UBER INDIA KOCHI   334.63 Dr\n03/06/2025  PAYMENT RECEIVED - THANK YOU   10,041.86 Cr\n\nReward Points Summary: Opening 1425  Earned 838  Closing 3159\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1888485216973  IFSC SBI 0000295"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for Jun 2025 is ready. Total due Rs.4,084.51, pay by 30 Jun 2025.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jun2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard No: 4941 79XX XXXX 9873\nStatement Date: 12/06/2025\nStatement Period: 13/05/2025 - 12/06/2025\nPayment Due Date: 30/06/2025\nTotal Amount Due: Rs. 4,084.51\nMinimum Amount Due: Rs. 204.23\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 22,612.00\n\nDate        Transaction Details                        Amount (Rs.)\n03/06/2025  STARBUCKS CHENNAI   17,526.55 Dr\n15/05/2025  BIGBASKET KOCHI   1,354.11 Dr\n20/05/2025  SPOTIFY HYDERABAD   37,593.63 Dr\n19/05/2025  CAFE COFFEE DAY HYDERABAD   690.11 Dr\n01/06/2025  CAFE COFFEE DAY BANGALORE   39,311.56 Dr\n08/06/2025  REDBUS BANGALORE   483.81 Dr\n03/06/2025  PAYMENT RECEIVED - THANK YOU   2,450.71 Cr\n\nReward Points Summary: Opening 5045  Earned 238  Closing 5330\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 30,409.07 on Jun 13, 2025 at 07:14:10. Info: ZEPTO.\nThe Available Credit Limit on your card is INR 22,674.00 and Total Credit Limit is INR 52,674.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card XX3416 has been used for a transaction of INR 10,163.74 on Jun 18, 2025 at 08:08:14. Info: GOOGLE PLAY.\nThe Available Credit Limit on your card is INR 2,11,765.00 and Total Credit Limit is INR 2,41,765.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-06-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Your contract note",
+   "body": "नमस्ते,\nContract&nbsp;note&nbsp;for&nbsp;trades done today is attached. Client ID ZR2296\nT&C apply.",
+   "date": "2025-06-20",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.7,628.06 spent on your SBI Credit Card ending 3416 at ZOMATO on 23/06/25. Your available limit is Rs.2,61,443.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-06-23",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.4,084.51 on 24-06-2025 towards your ICICI Bank Credit Card XX9873. Thank you.",
+   "date": "2025-06-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Payment reminder: SBI Card Credit Card",
+   "body": "Dear Customer,\nThis is a reminder that Rs.16,736.44 (minimum Rs.836.82) is due on 30-Jun-2025 on your SBI Card Credit Card. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.9,348.56&nbsp;spent&nbsp;on your SBI Credit Card XX3416 at PVR INOX on 02/07/25. Your available limit is Rs.1,71,033.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-07-02",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 2555\nT&C apply.",
+   "date": "2025-07-02",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 8,047.90 on Jul 04, 2025 at 20:10:43. Info: ZEPTO.\nThe Available Credit Limit on your card is INR 54,904.00 and Total Credit Limit is INR 84,904.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-07-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,<br>\nYour&nbsp;ICICI&nbsp;Bank Credit Card **9873 has been used for a transaction of INR 13,819.89 on Jul 04, 2025 at 15:58:35. Info: HOTSTAR.<br>\nThe Available Credit Limit on your card is INR 2,81,380.00 and Total Credit Limit is INR 3,11,380.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 890.71 on Jul 06, 2025 at 09:16:58. Info: RELIANCE SMART.<br>\nThe Available Credit Limit on your card is INR 79,352.00 and Total Credit Limit is INR 1,09,352.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.751.89 spent on your SBI Credit Card ending 3416 at URBAN COMPANY on 09/07/25. Your available limit is Rs.1,99,962.00.\nContact 1860 180 1290 if this transction was not done by you.",
+   "date": "2025-07-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Jul 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-Jul-2025. Total amount due Rs.1,22,717.34; minimum Rs.6,135.87; due 30-Jul-2025.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nStatement Date: 12/07/2025\nStatement Period: 12/06/2025 - 12/07/2025\nPayment Due Date: 30/07/2025\nTotal Amount Due: Rs. 1,22,717.34\nMinimum Amount Due: Rs. 6,135.87\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 63,076.00\n\nDate        Transaction Details                        Amount (Rs.)\n03/07/2025  THIRD WAVE COFFEE PUNE   763.37 Dr\n28/06/2025  CAFE COFFEE DAY PUNE   8,152.85 Dr\n18/06/2025  CROMA KOCHI   8,609.10 Dr\n18/06/2025  CROMA MUMBAI   8,510.41 Dr\n29/06/2025  ZEPTO KOCHI   277.62 Dr\n29/06/2025  THIRD WAVE COFFEE BANGALORE   321.83 Dr\n03/07/2025  PAYMENT RECEIVED - THANK YOU   73,630.40 Cr\n\nReward Points Summary: Opening 6421  Earned 771  Closing 1934\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1888485216973  IFSC SBI 0000896"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for Jul 2025 is ready. Total due Rs.7,993.09, pay by 30 Jul 2025.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard No: 4135 53XX XXXX 9873\nStatement Date: 12/07/2025\nStatement Period: 12/06/2025 - 12/07/2025\nPayment Due Date: 30/07/2025\nTotal Amount Due: Rs. 7,993.09\nMinimum Amount Due: Rs. 399.65\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 79,032.00\n\nDate        Transaction Details                        Amount (Rs.)\n20/06/2025  BIGBASKET MUMBAI   648.22 Dr\n10/07/2025  HOTSTAR HYDERABAD   1,595.13 Dr\n04/07/2025  NETFLIX.COM PUNE   557.83 Dr\n27/06/2025  DECATHLON MUMBAI   1,409.19 Dr\n27/06/2025  AIRBNB MUMBAI   2,616.67 Dr\n26/06/2025  THIRD WAVE COFFEE HYDERABAD   3,666.22 Dr\n19/06/2025  DMART CHENNAI   664.76 Dr\n04/07/2025  NETFLIX.COM HYDERABAD   450.96 Dr\n24/06/2025  HOTSTAR CHENNAI   6,593.09 Dr\n03/07/2025  PAYMENT RECEIVED - THANK YOU   4,795.85 Cr\n\nReward Points Summary: Opening 8905  Earned 510  Closing 1169\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5822554240485  IFSC ICIC0000220"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 1,094.11 on Jul 13, 2025 at 15:48:58. Info: STARBUCKS.\nThe Available Credit Limit on your card is INR 1,98,508.00 and Total Credit Limit is INR 2,28,508.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.27,566.65 spent on your SBI Credit Card **3416 at CAFE COFFEE DAY on 14/07/25. Your available limit is Rs.2,75,940.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-07-14",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.337.08&nbsp;spent&nbsp;on your SBI Credit Card ending 3416 at HOTSTAR on 16/07/25. Your available limit is Rs.2,52,184.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-07-16",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 30,390.95 on Jul 19, 2025 at 03:21:26. Info: BIGBASKET.\nThe Available Credit Limit on your card is INR 70,960.00 and Total Credit Limit is INR 1,00,960.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-07-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 3901 reward points on your SBI Card Prime Credit Card. Redeem them on the rewards portal before they expire.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-07-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,<br>\nYou have 7901 reward points on your ICICI Bank Credit Card XXXX XXXX XXXX 9873. Redeem them on the rewards portal before they expire.<br>\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-07-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.1,22,717.34 due on 30 July. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX9873",
+   "body": "Dear Customer,\nThis is a reminder that Rs.7,993.09 (minimum Rs.399.65) is due on 30-Jul-2025 on your ICICI Bank Credit Card XX9873. Pay on time to avoid late payment charges.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,993.09 on 28-07-2025 towards your ICICI Bank Credit Card XX9873. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,22,717.34 on 29-07-2025 towards your SBI Card Credit Card. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.33,982.59 spent on your SBI Credit Card ending 3416 at APOLLO PHARMACY on 01/08/25. Your available limit is Rs.1,62,381.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 540.86 on Aug 04, 2025 at 13:44:17. Info: DECATHLON.\nThe Available Credit Limit on your card is INR 2,16,418.00 and Total Credit Limit is INR 2,46,418.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 8,123.70 on Aug 06, 2025 at 22:36:56. Info: SPOTIFY.\nThe Available Credit Limit on your card is INR 2,18,139.00 and Total Credit Limit is INR 2,48,139.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,765.08 spent on your SBI Credit Card XX3416 at APOLLO PHARMACY on 09/08/25. Your available limit is Rs.3,69,484.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Rubyx Credit Card XX3416 for Aug 2025 is ready. Total due Rs.42,971.26, pay by 30 Aug 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Aug 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-Aug-2025. Total amount due Rs.14,933.57; minimum Rs.746.68; due 30-Aug-2025.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nCard Type: Prime\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 14,933.57\nMinimum Amount Due: Rs. 746.68\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,81,564.00\n\nDate        Transaction Details                        Amount (Rs.)\n06/08/2025  ZOMATO PUNE   851.20 Dr\n09/08/2025  REDBUS MUMBAI   471.63 Dr\n25/07/2025  BATA INDIA GURGAON   492.51 Dr\n20/07/2025  AMAZON PAY INDIA HYDERABAD   1,522.59 Dr\n31/07/2025  THIRD WAVE COFFEE HYDERABAD   5,494.40 Dr\n22/07/2025  LICIOUS KOCHI   7,015.56 Dr\n15/07/2025  IRCTC MUMBAI   774.06 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   8,960.14 Cr\n\nReward Points Summary: Opening 2434  Earned 767  Closing 7811\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,<br>\nThe statement of your ICICI Bank Credit Card XX9873 for Aug 2025 is ready. Total due Rs.1,404.79, pay by 30 Aug 2025.<br>\nView it in the app or NetBanking under Cards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard No: 4412 53XX XXXX 9873\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 1,404.79\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,82,073.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/07/2025  THIRD WAVE COFFEE MUMBAI   27,602.61 Dr\n06/08/2025  AIRBNB GURGAON   6,823.94 Dr\n23/07/2025  STARBUCKS CHENNAI   2,131.65 Dr\n17/07/2025  BOOKMYSHOW CHENNAI   5,528.94 Dr\n14/07/2025  DMART GURGAON   30,846.78 Dr\n14/07/2025  JIO PREPAID PUNE   7,803.88 Dr\n14/07/2025  STARBUCKS HYDERABAD   578.20 Dr\n14/07/2025  BOOKMYSHOW MUMBAI   1,168.54 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   842.87 Cr\n\nReward Points Summary: Opening 299  Earned 222  Closing 1359\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 41,770.05 on Aug 21, 2025 at 08:19:27. Info: CROMA.\nThe Available Credit Limit on your card is INR 1,37,035.00 and Total Credit Limit is INR 1,67,035.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2025-08-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "OTP for online transaction",
+   "body": "814221 is the One Time Password (OTP) for your online transaction of INR 3,127.66 at TATA 1MG. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2025-08-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 654.33 on Aug 23, 2025 at 17:53:25. Info: NETFLIX.COM.<br>\nThe Available Credit Limit on your card is INR 3,07,771.00 and Total Credit Limit is INR 3,37,771.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-08-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,404.79 on 24-08-2025 towards your ICICI Bank Credit Card XX9873. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-08-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,121.20 spent on your SBI Credit Card ending 3416 at OLA CABS on 25/08/25. Your available limit is Rs.2,70,159.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.14,933.57 on 25-08-2025 towards your SBI Card Credit Card. Thank you.",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.42,971.26 due on 30 August for card XX3416. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,637.27 spent on your SBI Credit Card ending 3416 at CAFE COFFEE DAY on 09/09/25. Your available limit is Rs.55,448.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 1,388.28 on Sep 12, 2025 at 12:07:10. Info: NETFLIX.COM.\nThe Available Credit Limit on your card is INR 52,484.00 and Total Credit Limit is INR 82,484.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear&nbsp;Pooja&nbsp;Singh,\nThe&nbsp;statement of your ICICI Bank Rubyx Credit Card XX3416 for Sep 2025 is ready. Total due Rs.87,647.47, pay by 30 Sep 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Sep 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-Sep-2025. Total amount due Rs.1,005.52; minimum Rs.200.00; due 30-Sep-2025.\nSBI/BOB style auto pay available on request.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nCard Type: Prime\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 1,005.52\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,58,103.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/08/2025  DMART MUMBAI   1,391.41 Dr\n08/09/2025  ZOMATO HYDERABAD   897.67 Dr\n02/09/2025  LENSKART KOCHI   6,566.33 Dr\n24/08/2025  BLINKIT CHENNAI   689.77 Dr\n30/08/2025  URBAN COMPANY CHENNAI   219.92 Dr\n02/09/2025  INDIGO AIRLINES MUMBAI   39,155.71 Dr\n29/08/2025  CAFE COFFEE DAY MUMBAI   7,862.33 Dr\n07/09/2025  DECATHLON GURGAON   24,007.74 Dr\n04/09/2025  BPCL FUEL KOCHI   422.41 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   603.31 Cr\n\nReward Points Summary: Opening 6415  Earned 472  Closing 3104\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1888485216973  IFSC SBI 0000409"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for Sep 2025 is ready. Total due Rs.31,953.18, pay by 30 Sep 2025.\nView it in the app or NetBanking under Cards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard No: 4424 94XX XXXX 9873\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 31,953.18\nMinimum Amount Due: Rs. 1,597.66\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,58,587.00\n\nDate        Transaction Details                        Amount (Rs.)\n30/08/2025  JIO PREPAID CHENNAI   716.91 Dr\n08/09/2025  SPOTIFY MUMBAI   3,450.76 Dr\n05/09/2025  BOOKMYSHOW BANGALORE   816.24 Dr\n01/09/2025  CROMA KOCHI   21,834.79 Dr\n31/08/2025  NETFLIX.COM BANGALORE   6,522.53 Dr\n27/08/2025  ZOMATO GURGAON   6,533.90 Dr\n24/08/2025  SPOTIFY KOCHI   35,263.79 Dr\n14/08/2025  WESTSIDE GURGAON   450.07 Dr\n07/09/2025  ZOMATO PUNE   2,978.72 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   19,171.91 Cr\n\nReward Points Summary: Opening 8962  Earned 743  Closing 8328\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.400.22 spent on your SBI Credit Card ending 3416 at SHELL PETROL on 17/09/25. Your available limit is Rs.41,509.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.6,841.53 spent on your SBI Credit Card **3416 at LICIOUS on 26/09/25. Your available limit is Rs.2,54,314.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 902.75 on Sep 26, 2025 at 23:34:50. Info: MAKEMYTRIP.\nThe Available Credit Limit on your card is INR 2,87,826.00 and Total Credit Limit is INR 3,17,826.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2025-09-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Payment reminder: SBI Card Credit Card",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,005.52 (minimum Rs.200.00) is due on 30-Sep-2025 on your SBI Card Credit Card. Pay on time to avoid late payment charges.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.87,647.47 on 28-09-2025 towards your ICICI Bank Credit Card XX3416. Thank you.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.1,005.52 on 29-09-2025 towards your SBI Card Credit Card. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2025-09-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 20,747.83 on Oct 02, 2025 at 02:51:00. Info: THIRD WAVE COFFEE.\nThe Available Credit Limit on your card is INR 64,746.00 and Total Credit Limit is INR 94,746.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.31,428.85 spent on your SBI Credit Card ending 3416 at AMAZON PAY INDIA on 06/10/25. Your available limit is Rs.1,21,730.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 863.04 on Oct 08, 2025 at 17:05:26. Info: THIRD WAVE COFFEE.\nThe Available Credit Limit on your card is INR 3,13,002.00 and Total Credit Limit is INR 3,43,002.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.",
+   "date": "2025-10-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 218.91 on Oct 09, 2025 at 08:19:15. Info: MEDPLUS.\nThe Available Credit Limit on your card is INR 1,71,191.00 and Total Credit Limit is INR 2,01,191.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 10,071.52 on Oct 11, 2025 at 07:12:12. Info: DECATHLON.\nThe Available Credit Limit on your card is INR 1,87,287.00 and Total Credit Limit is INR 2,17,287.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.8,020.32 spent on your SBI Credit Card ending 3416 at BPCL FUEL on 11/10/25. Your available limit is Rs.3,08,050.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,<br>\nThe statment of your ICICI Bank Rubyx Credit Card XX3416 for Oct 2025 is ready. Total due Rs.54,529.22, pay by 30 Oct 2025.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Oct 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-Oct-2025. Total amount due Rs.1,45,188.04; minimum Rs.7,259.40; due 30-Oct-2025.\nSBI/BOB style auto pay available on request.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nCard Type: Prime\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 1,45,188.04\nMinimum Amount Due: Rs. 7,259.40\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 92,227.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/09/2025  CROMA HYDERABAD   3,122.41 Dr\n19/09/2025  ZOMATO MUMBAI   40,874.61 Dr\n16/09/2025  BATA INDIA KOCHI   8,186.53 Dr\n09/10/2025  AMAZON PAY INDIA CHENNAI   7,795.21 Dr\n24/09/2025  DECATHLON HYDERABAD   8,210.33 Dr\n10/10/2025  MAKEMYTRIP MUMBAI   8,930.29 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   87,112.82 Cr\n\nReward Points Summary: Opening 886  Earned 429  Closing 825\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for Oct 2025 is ready. Total due Rs.2,124.99, pay by 30 Oct 2025.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCredit Card Number: XXXX XXXX XXXX 9873\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 2,124.99\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,97,417.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/09/2025  OLA CABS BANGALORE   1,153.15 Dr\n30/09/2025  PVR INOX GURGAON   151.61 Dr\n20/09/2025  CAFE COFFEE DAY MUMBAI   2,113.55 Dr\n03/10/2025  PVR INOX BANGALORE   21,619.30 Dr\n12/09/2025  UBER INDIA PUNE   9,238.72 Dr\n08/10/2025  WESTSIDE GURGAON   5,390.99 Dr\n24/09/2025  APOLLO PHARMACY MUMBAI   323.50 Dr\n10/10/2025  MEDPLUS MUMBAI   8,334.96 Dr\n24/09/2025  ZEPTO CHENNAI   5,623.18 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   1,274.99 Cr\n\nReward Points Summary: Opening 664  Earned 886  Closing 4041\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.39,525.00 spent on your SBI Credit Card XX3416 at DMART on 14/10/25. Your available limit is Rs.2,90,177.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-10-14",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 635.05 on Oct 16, 2025 at 20:33:49. Info: THIRD WAVE COFFEE.\nThe Available Credit Limit on your card is INR 1,28,913.00 and Total Credit Limit is INR 1,58,913.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 805.28 on Oct 20, 2025 at 23:15:10. Info: RELIANCE SMART.\nThe Available Credit Limit on your card is INR 2,21,710.00 and Total Credit Limit is INR 2,51,710.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.1,45,188.04 on 22-10-2025 towards your SBI Card Credit Card. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.54,529.22 on 23-10-2025 towards your ICICI Bank Credit Card ending 3416. Thank you.<br>\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.454.54 spent on your SBI Credit Card **3416 at PVR INOX on 24/10/25. Your available limit is Rs.2,53,865.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 3,420.97 on Oct 24, 2025 at 22:08:07. Info: INDIGO AIRLINES.\nThe Available Credit Limit on your card is INR 3,22,159.00 and Total Credit Limit is INR 3,52,159.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.54,529.22 due on 30 October for card XX3416. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.2,124.99 due on 30 October for card XX9873. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,124.99 on 28-10-2025 towards your ICICI Bank Credit Card **9873. Thank you.",
+   "date": "2025-10-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 241.14 on Nov 01, 2025 at 01:06:55. Info: ZEPTO.<br>\nThe Available Credit Limit on your card is INR 99,131.00 and Total Credit Limit is INR 1,29,131.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card ending 9873 has been used for a transaction of INR 8,353.68 on Nov 04, 2025 at 01:09:22. Info: MAKEMYTRIP.\nThe Available Credit Limit on your card is INR 1,07,848.00 and Total Credit Limit is INR 1,37,848.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 3,807.35 on Nov 07, 2025 at 13:33:05. Info: OLA CABS.\nThe Available Credit Limit on your card is INR 28,154.00 and Total Credit Limit is INR 58,154.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card **9873 has been used for a transaction of INR 2,735.29 on Nov 10, 2025 at 09:16:42. Info: LENSKART.\nThe Available Credit Limit on your card is INR 1,75,355.00 and Total Credit Limit is INR 2,05,355.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Rubyx Credit Card XX3416 for Nov 2025 is ready. Total due Rs.7,194.53, pay by 30 Nov 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "3416_12112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Nov 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment. Statement date: 12-Nov-2025. Total amount due Rs.40,042.41; minimum Rs.2,002.12; due 30-Nov-2025.\nSBI/BOB style auto pay available on request.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nCard Type: Prime\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 40,042.41\nMinimum Amount Due: Rs. 2,002.12\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,87,706.00\n\nDate        Transaction Details                        Amount (Rs.)\n29/10/2025  CROMA BANGALORE   8,820.00 Dr\n08/11/2025  MEDPLUS HYDERABAD   14,952.48 Dr\n15/10/2025  BLINKIT GURGAON   247.89 Dr\n19/10/2025  AIRBNB GURGAON   25,605.86 Dr\n01/11/2025  INDIGO AIRLINES PUNE   373.26 Dr\n09/11/2025  HOTSTAR KOCHI   625.87 Dr\n15/10/2025  INDIGO AIRLINES GURGAON   103.34 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   24,025.45 Cr\n\nReward Points Summary: Opening 5228  Earned 690  Closing 5341\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for Nov 2025 is ready. Total due Rs.3,218.61, pay by 30 Nov 2025.\nView it in the app or NetBanking under Cards.\n\nThis is a system generated email. Please do not reply to this message.\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCredit Card Number: XXXX XXXX XXXX 9873\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 3,218.61\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,90,655.00\n\nDate        Transaction Details                        Amount (Rs.)\n10/11/2025  AMAZON PAY INDIA HYDERABAD   1,842.69 Dr\n19/10/2025  IRCTC HYDERABAD   5,633.92 Dr\n28/10/2025  DMART CHENNAI   264.56 Dr\n04/11/2025  APOLLO PHARMACY GURGAON   575.53 Dr\n04/11/2025  ZOMATO KOCHI   695.21 Dr\n20/10/2025  NETFLIX.COM CHENNAI   7,334.25 Dr\n19/10/2025  TATA 1MG GURGAON   7,267.63 Dr\n27/10/2025  DMART MUMBAI   2,307.57 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   1,931.17 Cr\n\nReward Points Summary: Opening 4989  Earned 697  Closing 6272\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx9873 has been used for a transaction of INR 17,487.07 on Nov 13, 2025 at 19:16:42. Info: APOLLO PHARMACY.\nThe Available Credit Limit on your card is INR 64,118.00 and Total Credit Limit is INR 94,118.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.6,865.71 spent on your SBI Credit Card ending 3416 at BOOKMYSHOW on 18/11/25. Your available limit is Rs.2,70,947.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 31,889.00 on Nov 23, 2025 at 09:33:24. Info: MEDPLUS.\nThe Available Credit Limit on your card is INR 3,32,303.00 and Total Credit Limit is INR 3,62,303.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.2,059.28&nbsp;spent&nbsp;on your SBI Credit Card ending 3416 at BIGBASKET on 26/11/25. Your available limit is Rs.1,48,442.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,<br>\nYour ICICI Bank Credit Card ending 3416 has been used for a transaction of INR 593.03 on Nov 27, 2025 at 16:58:03. Info: BOOKMYSHOW.<br>\nThe Available Credit Limit on your card is INR 45,087.00 and Total Credit Limit is INR 75,087.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "नमस्ते,\nHi Pooja, a gentle nudge: Rs.3,218.61 due on 30 November for card XX9873. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,194.53 on 28-11-2025 towards your ICICI Bank Credit Card XX3416. Thank you.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.40,042.41 on 28-11-2025 towards your SBI Card Credit Card. Thank you.\n\nT&C apply. Visit www.sbicard.com for more details.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,218.61 on 29-11-2025 towards your ICICI Bank Credit Card XX9873. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-11-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx3416 has been used for a transaction of INR 3,503.68 on Dec 01, 2025 at 23:02:13. Info: WESTSIDE.\nThe Available Credit Limit on your card is INR 3,92,016.00 and Total Credit Limit is INR 4,22,016.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 17,851.37 on Dec 03, 2025 at 22:33:49. Info: BPCL FUEL.\nThe Available Credit Limit on your card is INR 29,789.00 and Total Credit Limit is INR 59,789.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Your Swiggy order receipt",
+   "body": "Order #2578 delivered. Paid via UPI. Rate your meal!\nT&C apply.",
+   "date": "2025-12-11",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m116",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Rubyx Credit Card XX3416 for Dec 2025 is ready. Total due Rs.1,32,967.67, pay by 30 Dec 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Dec 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-Dec-2025. Total amount due Rs.308.75; minimum Rs.200.00; due 30-Dec-2025.\nSBI/BOB style auto pay available on request.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 308.75\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,69,014.00\n\nDate        Transaction Details                        Amount (Rs.)\n12/11/2025  BATA INDIA KOCHI   18,527.02 Dr\n30/11/2025  BOOKMYSHOW MUMBAI   671.85 Dr\n09/12/2025  SHELL PETROL MUMBAI   1,473.64 Dr\n19/11/2025  MEDPLUS KOCHI   416.32 Dr\n08/12/2025  BIGBASKET HYDERABAD   528.62 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   185.25 Cr\n\nReward Points Summary: Opening 312  Earned 479  Closing 2084\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1888485216973  IFSC SBI 0000743"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card xx9873 for Dec 2025 is ready. Total due Rs.7,187.58, pay by 30 Dec 2025.\nView it in the app or NetBanking under Cards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCredit Card Number: XXXX XXXX XXXX 9873\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 7,187.58\nMinimum Amount Due: Rs. 359.38\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 70,976.00\n\nDate        Transaction Details                        Amount (Rs.)\n15/11/2025  BIGBASKET BANGALORE   2,463.37 Dr\n04/12/2025  MEDPLUS GURGAON   8,442.79 Dr\n27/11/2025  STARBUCKS CHENNAI   1,373.30 Dr\n13/11/2025  BIGBASKET BANGALORE   3,014.58 Dr\n05/12/2025  SPOTIFY GURGAON   2,427.99 Dr\n30/11/2025  LICIOUS BANGALORE   883.38 Dr\n24/11/2025  STARBUCKS GURGAON   303.30 Dr\n05/12/2025  BPCL FUEL KOCHI   2,798.33 Dr\n29/11/2025  HOTSTAR PUNE   139.33 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   4,312.55 Cr\n\nReward Points Summary: Opening 619  Earned 54  Closing 4442\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5822554240485  IFSC ICIC0000988"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,031.56 spent on your SBI Credit Card no. XXXXXXXXXXXX3416 at JIO PREPAID on 15/12/25. Your available limit is Rs.84,994.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-12-15",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 546.97 on Dec 15, 2025 at 17:27:40. Info: SHELL PETROL.\nThe Available Credit Limit on your card is INR 62,631.00 and Total Credit Limit is INR 92,631.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "OTP for online transaction",
+   "body": "543844 is the One Time Password (OTP) for your online transaction of INR 8,304.16 at TATA 1MG. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 2,363.38 on Dec 21, 2025 at 04:09:18. Info: INDIGO AIRLINES.\nThe Available Credit Limit on your card is INR 3,46,526.00 and Total Credit Limit is INR 3,76,526.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 7427 reward points on your ICICI Bank Rubyx Credit Card XX3416. Redeem them on the rewards portal before they expire.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Your reward points summary",
+   "body": "नमस्ते,\nDear Customer,\nYou have 1864 reward points on your SBI Card Prime Credit Card. Redeem them on the rewards portal before they expire.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 11867 reward points on your ICICI Bank Credit Card XX9873. Redeem them on the rewards portal before they expire.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,<br>\nYour&nbsp;ICICI&nbsp;Bank Credit Card XX3416 has been used for a transaction of INR 774.09 on Dec 26, 2025 at 23:10:13. Info: BATA INDIA.<br>\nThe Available Credit Limit on your card is INR 3,37,664.00 and Total Credit Limit is INR 3,67,664.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.",
+   "date": "2025-12-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.1,32,967.67 on 26-12-2025 towards your ICICI Bank Credit Card XX3416. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-12-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.308.75 on 26-12-2025 towards your SBI Card Credit Card. Thank you.",
+   "date": "2025-12-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX3416",
+   "body": "Dear Customer,<br>\nThis is a reminder that Rs.1,32,967.67 (minimum Rs.6,648.38) is due on 30-Dec-2025 on your ICICI Bank Credit Card XX3416. Pay on time to avoid late payment charges.<br>\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.7,187.58 due on 30 December for card XX9873. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,187.58 on 29-12-2025 towards your ICICI Bank Credit Card XX9873. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx3416 has been used for a transaction of INR 23,029.03 on Jan 02, 2026 at 13:27:26. Info: CAFE COFFEE DAY.\nThe Available Credit Limit on your card is INR 2,37,777.00 and Total Credit Limit is INR 2,67,777.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transction of INR 1,353.75 on Jan 04, 2026 at 09:19:27. Info: CAFE COFFEE DAY.\nThe Available Credit Limit on your card is INR 65,485.00 and Total Credit Limit is INR 95,485.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-01-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transction of INR 678.62 on Jan 05, 2026 at 17:37:14. Info: AMAZON PAY INDIA.\nThe Available Credit Limit on your card is INR 3,46,813.00 and Total Credit Limit is INR 3,76,813.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 7,672.58 on Jan 06, 2026 at 01:39:32. Info: APOLLO PHARMACY.\nThe Available Credit Limit on your card is INR 2,87,872.00 and Total Credit Limit is INR 3,17,872.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.",
+   "date": "2026-01-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.5,550.29 spent on your SBI Credit Card ending 3416 at BOOKMYSHOW on 09/01/26. Your available limit is Rs.3,41,052.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transction of INR 6,686.17 on Jan 12, 2026 at 12:11:53. Info: LICIOUS.\nThe Available Credit Limit on your card is INR 1,15,603.00 and Total Credit Limit is INR 1,45,603.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Rubyx Credit Card XX3416 for Jan 2026 is ready. Total due Rs.713.91, pay by 30 Jan 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Jan 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-Jan-2026. Total amount due Rs.11,205.29; minimum Rs.560.26; due 30-Jan-2026.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 11,205.29\nMinimum Amount Due: Rs. 560.26\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,35,819.00\n\nDate        Transaction Details                        Amount (Rs.)\n05/01/2026  DMART HYDERABAD   36,098.97 Dr\n29/12/2025  NETFLIX.COM MUMBAI   3,415.95 Dr\n03/01/2026  GOOGLE PLAY GURGAON   6,473.86 Dr\n07/01/2026  DECATHLON GURGAON   19,133.27 Dr\n13/12/2025  WESTSIDE KOCHI   657.47 Dr\n06/01/2026  SPOTIFY KOCHI   5,563.17 Dr\n25/12/2025  GOOGLE PLAY CHENNAI   32,099.60 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   6,723.17 Cr\n\nReward Points Summary: Opening 7312  Earned 151  Closing 5542\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1888485216973  IFSC SBI 0000184"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear&nbsp;Pooja&nbsp;Singh,\nThe&nbsp;statement of your ICICI Bank Credit Card **9873 for Jan 2026 is ready. Total due Rs.775.38, pay by 30 Jan 2026.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard No: 4215 84XX XXXX 9873\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 775.38\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 79,612.00\n\nDate        Transaction Details                        Amount (Rs.)\n06/01/2026  BIGBASKET MUMBAI   1,933.84 Dr\n09/01/2026  AIRBNB GURGAON   2,427.21 Dr\n04/01/2026  RELIANCE SMART GURGAON   5,427.39 Dr\n19/12/2025  ZOMATO PUNE   744.24 Dr\n01/01/2026  BATA INDIA GURGAON   41,679.04 Dr\n05/01/2026  RELIANCE SMART HYDERABAD   2,414.00 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   465.23 Cr\n\nReward Points Summary: Opening 3655  Earned 484  Closing 2357\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5822554240485  IFSC ICIC0000282"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transction of INR 10,060.13 on Jan 16, 2026 at 10:43:10. Info: BLINKIT.\nThe Available Credit Limit on your card is INR 3,54,687.00 and Total Credit Limit is INR 3,84,687.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.10,951.33 spent on your SBI Credit Card ending 3416 at MEDPLUS on 26/01/26. Your available limit is Rs.88,195.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card **3416 has been used for a transaction of INR 33,183.60 on Jan 27, 2026 at 11:52:50. Info: HOTSTAR.\nThe Available Credit Limit on your card is INR 2,68,235.00 and Total Credit Limit is INR 2,98,235.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.11,205.29 due on 30 January. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.578.22&nbsp;spent&nbsp;on your SBI Credit Card ending 3416 at IRCTC on 28/01/26. Your available limit is Rs.1,12,995.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.775.38 on 28-01-2026 towards your ICICI Bank Credit Card XX9873. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transction of INR 7,077.42 on Feb 02, 2026 at 19:59:45. Info: THIRD WAVE COFFEE.\nThe Available Credit Limit on your card is INR 2,78,297.00 and Total Credit Limit is INR 3,08,297.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 3,022.31 on Feb 02, 2026 at 21:28:55. Info: BIGBASKET.\nThe Available Credit Limit on your card is INR 1,29,871.00 and Total Credit Limit is INR 1,59,871.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 1,162.31 on Feb 06, 2026 at 10:00:44. Info: IRCTC.\nThe Available Credit Limit on your card is INR 3,16,274.00 and Total Credit Limit is INR 3,46,274.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-02-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.6,815.92 spent on your SBI Credit Card ending 3416 at REDBUS on 06/02/26. Your available limit is Rs.1,16,445.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-06",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 10,891.10 on Feb 07, 2026 at 17:01:05. Info: APOLLO PHARMACY.<br>\nThe Available Credit Limit on your card is INR 58,515.00 and Total Credit Limit is INR 88,515.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "E-mandate cancelled",
+   "body": "Dear Customer,<br>\nThe e-mandate for NETFLIX.COM registered on your ICICI Bank card XX3416 has been cancelled as requested. No further auto-debits will happen. Your card remains active.<br>\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Rubyx Credit Card XX3416 for Feb 2026 is ready. Total due Rs.16,059.00, pay by 02 Mar 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Feb 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-Feb-2026. Total amount due Rs.63,806.20; minimum Rs.3,190.31; due 02-Mar-2026.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nCard Type: Prime\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 63,806.20\nMinimum Amount Due: Rs. 3,190.31\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 37,949.00\n\nDate        Transaction Details                        Amount (Rs.)\n21/01/2026  JIO PREPAID BANGALORE   250.48 Dr\n28/01/2026  URBAN COMPANY MUMBAI   2,476.23 Dr\n01/02/2026  INDIGO AIRLINES PUNE   878.97 Dr\n31/01/2026  ZOMATO HYDERABAD   2,468.35 Dr\n22/01/2026  GOOGLE PLAY BANGALORE   31,682.66 Dr\n15/01/2026  LICIOUS KOCHI   4,283.61 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   38,283.72 Cr\n\nReward Points Summary: Opening 6635  Earned 819  Closing 951\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "नमस्ते,\nDear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for Feb 2026 is ready. Total due Rs.35,224.10, pay by 02 Mar 2026.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCredit Card Number: XXXX XXXX XXXX 9873\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 35,224.10\nMinimum Amount Due: Rs. 1,761.20\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 60,683.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/01/2026  HOTSTAR CHENNAI   34,644.54 Dr\n24/01/2026  TATA 1MG MUMBAI   804.78 Dr\n27/01/2026  HOTSTAR GURGAON   7,821.55 Dr\n19/01/2026  OLA CABS PUNE   1,744.34 Dr\n21/01/2026  URBAN COMPANY CHENNAI   362.04 Dr\n16/01/2026  ZEPTO BANGALORE   10,254.40 Dr\n03/02/2026  AIRBNB HYDERABAD   36,731.79 Dr\n07/02/2026  ZEPTO MUMBAI   2,807.20 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   21,134.46 Cr\n\nReward Points Summary: Opening 3695  Earned 439  Closing 2743\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 361.33 on Feb 16, 2026 at 22:35:26. Info: STARBUCKS.\nThe Available Credit Limit on your card is INR 1,16,037.00 and Total Credit Limit is INR 1,46,037.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 6,266.34 on Feb 20, 2026 at 02:46:50. Info: DECATHLON.\nThe Available Credit Limit on your card is INR 2,93,124.00 and Total Credit Limit is INR 3,23,124.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 1,551.90 on Feb 21, 2026 at 17:41:05. Info: DMART.<br>\nThe Available Credit Limit on your card is INR 49,163.00 and Total Credit Limit is INR 79,163.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.3,305.46&nbsp;spent&nbsp;on your SBI Credit Card ending 3416 at IRCTC on 22/02/26. Your available limit is Rs.2,07,988.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.16,059.00 on 24-02-2026 towards your ICICI Bank Credit Card XX3416. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.33,733.20 spent on your SBI Credit Card **3416 at LICIOUS on 24/02/26. Your available limit is Rs.3,30,994.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.2,032.03 spent on your SBI Credit Card ending 3416 at DMART on 25/02/26. Your available limit is Rs.1,30,096.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX3416",
+   "body": "Dear Customer,\nThis is a reminder that Rs.16,059.00 (minimum Rs.802.95) is due on 02-Mar-2026 on your ICICI Bank Credit Card XX3416. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.35,224.10 due on 02 March for card XX9873. Ignore if already paid. Kripya samay par bhugtan karein.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.63,806.20 on 01-03-2026 towards your SBI Card Credit Card. Thank you.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card **9873 has been used for a transaction of INR 3,259.45 on Mar 04, 2026 at 13:38:25. Info: WESTSIDE.\nThe Available Credit Limit on your card is INR 3,30,028.00 and Total Credit Limit is INR 3,60,028.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.565.76 spent on your SBI Credit Card ending 3416 at LENSKART on 09/03/26. Your available limit is Rs.3,62,480.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 3,011.39 on Mar 09, 2026 at 23:45:05. Info: BLINKIT.<br>\nThe Available Credit Limit on your card is INR 2,41,970.00 and Total Credit Limit is INR 2,71,970.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Rubyx Credit Card XX3416 for Mar 2026 is ready. Total due Rs.8,385.29, pay by 30 Mar 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "3416_12032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Mar 2026",
+   "body": "Dear&nbsp;Cardholder,\nPlease&nbsp;find&nbsp;enclosed your monthly statement. Statement date: 12-Mar-2026. Total amount due Rs.43,898.87; minimum Rs.2,194.94; due 30-Mar-2026.\nSBI/BOB style auto pay available on request.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 43,898.87\nMinimum Amount Due: Rs. 2,194.94\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 90,455.00\n\nDate        Transaction Details                        Amount (Rs.)\n28/02/2026  NETFLIX.COM PUNE   9,644.05 Dr\n01/03/2026  DMART BANGALORE   233.51 Dr\n07/03/2026  ZEPTO GURGAON   461.52 Dr\n22/02/2026  ZEPTO GURGAON   383.78 Dr\n22/02/2026  JIO PREPAID PUNE   416.85 Dr\n18/02/2026  RELIANCE SMART PUNE   33,155.34 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   26,339.32 Cr\n\nReward Points Summary: Opening 1094  Earned 647  Closing 4276\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for Mar 2026 is ready. Total due Rs.1,41,580.40, pay by 30 Mar 2026.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard No: 4413 74XX XXXX 9873\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 1,41,580.40\nMinimum Amount Due: Rs. 7,079.02\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,56,849.00\n\nDate        Transaction Details                        Amount (Rs.)\n06/03/2026  ZOMATO BANGALORE   574.38 Dr\n15/02/2026  HOTSTAR PUNE   557.02 Dr\n26/02/2026  UBER INDIA KOCHI   26,813.43 Dr\n12/02/2026  AIRBNB PUNE   362.42 Dr\n19/02/2026  URBAN COMPANY KOCHI   17,379.44 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   84,948.24 Cr\n\nReward Points Summary: Opening 8918  Earned 51  Closing 7828\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5822554240485  IFSC ICIC0000921"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Your EMI request has been cancelled",
+   "body": "Your request to convert transaction of Rs.46,565.28 on card XX3416 to EMI has been cancelled. The transaction stays on your regular bill.",
+   "date": "2026-03-14",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 4861\nT&C apply.",
+   "date": "2026-03-14",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transction of INR 1,639.22 on Mar 20, 2026 at 22:01:54. Info: APOLLO PHARMACY.\nThe Available Credit Limit on your card is INR 28,976.00 and Total Credit Limit is INR 58,976.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card **3416 has been used for a transaction of INR 5,342.14 on Mar 21, 2026 at 19:09:00. Info: IRCTC.\nThe Available Credit Limit on your card is INR 76,981.00 and Total Credit Limit is INR 1,06,981.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,161.92 spent on your SBI Credit Card **3416 at RELIANCE SMART on 21/03/26. Your available limit is Rs.1,18,234.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,41,580.40 on 23-03-2026 towards your ICICI Bank Credit Card XX9873. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.8,385.29 on 24-03-2026 towards your ICICI Bank Credit Card no. XXXXXXXXXXXX3416. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 7,724.76 on Mar 24, 2026 at 06:11:10. Info: LENSKART.\nThe Available Credit Limit on your card is INR 78,826.00 and Total Credit Limit is INR 1,08,826.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.12,614.04 spent on your SBI Credit Card ending 3416 at BATA INDIA on 26/03/26. Your available limit is Rs.1,93,955.00.<br>\nContact 1860 180 1290 if this transction was not done by you.",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "नमस्ते,\nHi Pooja, a gentle nudge: Rs.8,385.29 due on 30 March for card XX3416. Ignore if already paid. Kripya samay par bhugtan karein.\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.43,898.87 due on 30 March. Ignore if already paid. Kripya samay par bhugtan karein.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX9873",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,41,580.40 (minimum Rs.7,079.02) is due on 30-Mar-2026 on your ICICI Bank Credit Card XX9873. Pay on time to avoid late payment charges.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "KYC update: Aadhaar verification",
+   "body": "Dear Customer,\nYour Aadhaar (XXXX XXXX 3711) has been successfully verified for e-KYC. PAN status: linked. No further action needed.",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card xx3416 has been used for a transaction of INR 146.03 on Apr 04, 2026 at 21:05:22. Info: TATA 1MG.\nThe Available Credit Limit on your card is INR 43,683.00 and Total Credit Limit is INR 73,683.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 3416 has been used for a transaction of INR 1,458.48 on Apr 06, 2026 at 23:11:27. Info: BIGBASKET.\nThe Available Credit Limit on your card is INR 77,420.00 and Total Credit Limit is INR 1,07,420.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 9873 has been used for a transction of INR 739.71 on Apr 11, 2026 at 00:07:30. Info: BPCL FUEL.\nThe Available Credit Limit on your card is INR 88,114.00 and Total Credit Limit is INR 1,18,114.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Rubyx Credit Card XX3416 for Apr 2026 is ready. Total due Rs.2,356.45, pay by 30 Apr 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "3416_12042026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.713.73 spent on your SBI Credit Card ending 3416 at CROMA on 12/04/26. Your available limit is Rs.1,36,337.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-04-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Apr 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment. Statement date: 12-Apr-2026. Total amount due Rs.3,457.97; minimum Rs.200.00; due 30-Apr-2026.\nSBI/BOB style auto pay available on request.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nCard Type: Prime\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 3,457.97\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 30,860.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/03/2026  BOOKMYSHOW GURGAON   293.46 Dr\n25/03/2026  BIGBASKET GURGAON   270.80 Dr\n29/03/2026  RELIANCE SMART GURGAON   20,055.83 Dr\n31/03/2026  NETFLIX.COM CHENNAI   623.83 Dr\n28/03/2026  HOTSTAR CHENNAI   4,253.33 Dr\n17/03/2026  BPCL FUEL HYDERABAD   519.85 Dr\n20/03/2026  LICIOUS MUMBAI   8,869.51 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   2,074.78 Cr\n\nReward Points Summary: Opening 2004  Earned 143  Closing 6515\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1888485216973  IFSC SBI 0000427"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for Apr 2026 is ready. Total due Rs.34,893.75, pay by 30 Apr 2026.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCredit Card Number: XXXX XXXX XXXX 9873\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 34,893.75\nMinimum Amount Due: Rs. 1,744.69\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,81,962.00\n\nDate        Transaction Details                        Amount (Rs.)\n10/04/2026  GOOGLE PLAY GURGAON   424.32 Dr\n18/03/2026  THIRD WAVE COFFEE BANGALORE   1,348.79 Dr\n18/03/2026  SPOTIFY GURGAON   19,339.94 Dr\n05/04/2026  BIGBASKET GURGAON   38,354.77 Dr\n21/03/2026  BOOKMYSHOW MUMBAI   1,524.87 Dr\n25/03/2026  REDBUS KOCHI   7,086.25 Dr\n30/03/2026  GOOGLE PLAY PUNE   406.48 Dr\n19/03/2026  DMART BANGALORE   1,480.12 Dr\n13/03/2026  DMART GURGAON   20,060.98 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   20,936.25 Cr\n\nReward Points Summary: Opening 7690  Earned 571  Closing 6971\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5822554240485  IFSC ICIC0000514"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "OTP for online transaction",
+   "body": "735126 is the One Time Password (OTP) for your online transaction of INR 3,342.18 at NETFLIX.COM. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-14",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transction of INR 1,602.58 on Apr 19, 2026 at 23:52:39. Info: BATA INDIA.\nThe Available Credit Limit on your card is INR 2,65,682.00 and Total Credit Limit is INR 2,95,682.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "Your Swiggy order receipt",
+   "body": "Order #1211 delivered. Paid via UPI. Rate your meal!\nT&C apply.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m195",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.34,893.75 on 24-04-2026 towards your ICICI Bank Credit Card XX9873. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.3,457.97 on 29-04-2026 towards your SBI Card Credit Card. Thank you.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 3,037.08 on May 04, 2026 at 01:11:31. Info: INDIGO AIRLINES.\nThe Available Credit Limit on your card is INR 3,75,874.00 and Total Credit Limit is INR 4,05,874.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 135.25 on May 11, 2026 at 02:04:36. Info: STARBUCKS.\nThe Available Credit Limit on your card is INR 1,49,544.00 and Total Credit Limit is INR 1,79,544.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statment of your ICICI Bank Rubyx Credit Card XX3416 for May 2026 is ready. Total due Rs.528.74, pay by 30 May 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - May 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-May-2026. Total amount due Rs.1,739.91; minimum Rs.200.00; due 30-May-2026.\nSBI/BOB style auto pay available on request.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nCard Type: Prime\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 1,739.91\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 79,228.00\n\nDate        Transaction Details                        Amount (Rs.)\n25/04/2026  JIO PREPAID PUNE   5,870.18 Dr\n22/04/2026  APOLLO PHARMACY MUMBAI   1,104.61 Dr\n12/04/2026  AIRBNB CHENNAI   532.49 Dr\n02/05/2026  CAFE COFFEE DAY MUMBAI   6,599.68 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   1,043.95 Cr\n\nReward Points Summary: Opening 7235  Earned 849  Closing 1993\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1888485216973  IFSC SBI 0000874"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for May 2026 is ready. Total due Rs.1,174.02, pay by 30 May 2026.\nView it in the app or NetBanking under Cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard No: 4605 24XX XXXX 9873\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 1,174.02\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,66,801.00\n\nDate        Transaction Details                        Amount (Rs.)\n01/05/2026  UBER INDIA HYDERABAD   4,639.88 Dr\n23/04/2026  HOTSTAR BANGALORE   7,409.13 Dr\n28/04/2026  BIGBASKET KOCHI   35,420.53 Dr\n07/05/2026  REDBUS BANGALORE   31,251.61 Dr\n29/04/2026  CROMA BANGALORE   2,587.93 Dr\n23/04/2026  URBAN COMPANY CHENNAI   38,230.66 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   704.41 Cr\n\nReward Points Summary: Opening 6428  Earned 285  Closing 3755\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 8,505.43 on May 19, 2026 at 01:49:25. Info: LICIOUS.\nThe Available Credit Limit on your card is INR 3,66,429.00 and Total Credit Limit is INR 3,96,429.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 3,246.41 on May 20, 2026 at 01:01:40. Info: UBER INDIA.\nThe Available Credit Limit on your card is INR 1,80,048.00 and Total Credit Limit is INR 2,10,048.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.1,739.91 on 22-05-2026 towards your SBI Card Credit Card. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.1,174.02 on 22-05-2026 towards your ICICI Bank Credit Card XX9873. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.528.74 on 24-05-2026 towards your ICICI Bank Credit Card XX3416. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 1887 reward points on your ICICI Bank Rubyx Credit Card XX3416. Redeem them on the rewards portal before they expire.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 4756 reward points on your SBI Card Prime Credit Card. Redeem them on the rewards portal before they expire.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 9803 reward points on your ICICI Bank Credit Card XX9873. Redeem them on the rewards portal before they expire.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,826.18 spent on your SBI Credit Card ending 3416 at BPCL FUEL on 26/05/26. Your available limit is Rs.1,38,196.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.528.74 due on 30 May for card XXXX XXXX XXXX 3416. Ignore if already paid. Kripya samay par bhugtan karein.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX9873",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,174.02 (minimum Rs.200.00) is due on 30-May-2026 on your ICICI Bank Credit Card XX9873. Pay on time to avoid late payment charges.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.8,062.13 spent on your SBI Credit Card ending 3416 at BPCL FUEL on 07/06/26. Your available limit is Rs.2,10,596.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-06-07",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statment of your ICICI Bank Rubyx Credit Card XX3416 for Jun 2026 is ready. Total due Rs.2,518.77, pay by 30 Jun 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Jun 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment. Statement date: 12-Jun-2026. Total amount due Rs.4,089.24; minimum Rs.204.46; due 30-Jun-2026.\nSBI/BOB style auto pay available on request.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nCard Type: Prime\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 4,089.24\nMinimum Amount Due: Rs. 204.46\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,78,512.00\n\nDate        Transaction Details                        Amount (Rs.)\n13/05/2026  STARBUCKS KOCHI   959.16 Dr\n15/05/2026  DECATHLON HYDERABAD   21,760.35 Dr\n08/06/2026  ZOMATO KOCHI   750.52 Dr\n21/05/2026  SHELL PETROL GURGAON   508.59 Dr\n10/06/2026  LENSKART HYDERABAD   17,386.97 Dr\n15/05/2026  AIRBNB BANGALORE   1,577.22 Dr\n18/05/2026  LENSKART PUNE   448.03 Dr\n09/06/2026  MAKEMYTRIP KOCHI   2,813.87 Dr\n05/06/2026  CROMA PUNE   7,652.97 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   2,453.54 Cr\n\nReward Points Summary: Opening 4544  Earned 889  Closing 6418\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for Jun 2026 is ready. Total due Rs.32,126.07, pay by 30 Jun 2026.\nView it in the app or NetBanking under Cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard No: 4761 58XX XXXX 9873\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 32,126.07\nMinimum Amount Due: Rs. 1,606.30\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 56,716.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/05/2026  BOOKMYSHOW PUNE   176.29 Dr\n14/05/2026  LICIOUS CHENNAI   536.39 Dr\n01/06/2026  THIRD WAVE COFFEE GURGAON   8,450.82 Dr\n05/06/2026  OLA CABS KOCHI   24,354.13 Dr\n07/06/2026  RELIANCE SMART CHENNAI   14,955.79 Dr\n24/05/2026  PVR INOX PUNE   16,276.10 Dr\n14/05/2026  NETFLIX.COM CHENNAI   1,584.47 Dr\n29/05/2026  OLA CABS CHENNAI   37,361.20 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   19,275.64 Cr\n\nReward Points Summary: Opening 6681  Earned 77  Closing 7453\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.22,164.90 spent on your SBI Credit Card ending 3416 at PVR INOX on 13/06/26. Your available limit is Rs.3,14,297.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card **3416 has been used for a transaction of INR 3,409.17 on Jun 14, 2026 at 05:40:04. Info: DMART.\nThe Available Credit Limit on your card is INR 87,600.00 and Total Credit Limit is INR 1,17,600.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 893.59 on Jun 14, 2026 at 09:24:17. Info: UBER INDIA.\nThe Available Credit Limit on your card is INR 2,59,611.00 and Total Credit Limit is INR 2,89,611.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.32,126.07 on 23-06-2026 towards your ICICI Bank Credit Card XX9873. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-06-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.2,518.77 on 24-06-2026 towards your ICICI Bank Credit Card XX3416. Thank you.",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 5,249.64 on Jun 26, 2026 at 01:50:33. Info: INDIGO AIRLINES.<br>\nThe Available Credit Limit on your card is INR 41,888.00 and Total Credit Limit is INR 71,888.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "नमस्ते,\nHi Pooja, a gentle nudge: Rs.2,518.77 due on 30 June for card XX3416. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.4,089.24 due on 30 June. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.4,089.24 on 27-06-2026 towards your SBI Card Credit Card. Thank you.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 2,256.75 on Jul 01, 2026 at 05:12:10. Info: ZEPTO.<br>\nThe Available Credit Limit on your card is INR 29,738.00 and Total Credit Limit is INR 59,738.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transction of INR 6,137.29 on Jul 07, 2026 at 06:40:44. Info: URBAN COMPANY.\nThe Available Credit Limit on your card is INR 3,96,404.00 and Total Credit Limit is INR 4,26,404.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.8,116.78 spent on your SBI Credit Card **3416 at ZEPTO on 08/07/26. Your available limit is Rs.2,80,883.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-07-08",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Rubyx Credit Card XX3416 for Jul 2026 is ready. Total due Rs.3,929.32, pay by 30 Jul 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Jul 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment. Statement date: 12-Jul-2026. Total amount due Rs.3,097.65; minimum Rs.200.00; due 30-Jul-2026.\nSBI/BOB style auto pay available on request.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nCard Type: Prime\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 3,097.65\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,91,953.00\n\nDate        Transaction Details                        Amount (Rs.)\n27/06/2026  LICIOUS MUMBAI   2,314.14 Dr\n04/07/2026  APOLLO PHARMACY GURGAON   2,188.52 Dr\n10/07/2026  CROMA CHENNAI   4,440.30 Dr\n08/07/2026  CROMA MUMBAI   8,825.20 Dr\n02/07/2026  GOOGLE PLAY MUMBAI   681.85 Dr\n06/07/2026  AMAZON PAY INDIA BANGALORE   140.80 Dr\n30/06/2026  AMAZON PAY INDIA BANGALORE   2,572.96 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   1,858.59 Cr\n\nReward Points Summary: Opening 2813  Earned 119  Closing 7310\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1888485216973  IFSC SBI 0000933"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for Jul 2026 is ready. Total due Rs.23,485.23, pay by 30 Jul 2026.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard No: 4137 37XX XXXX 9873\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 23,485.23\nMinimum Amount Due: Rs. 1,174.26\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 89,780.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/06/2026  BIGBASKET KOCHI   34,355.36 Dr\n02/07/2026  DECATHLON HYDERABAD   538.82 Dr\n29/06/2026  INDIGO AIRLINES PUNE   2,893.07 Dr\n20/06/2026  CAFE COFFEE DAY GURGAON   38,662.98 Dr\n03/07/2026  LENSKART KOCHI   814.29 Dr\n05/07/2026  SHELL PETROL KOCHI   263.85 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   14,091.14 Cr\n\nReward Points Summary: Opening 6750  Earned 521  Closing 4232\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5822554240485  IFSC ICIC0000181"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XXXX XXXX XXXX 3416 has been used for a transaction of INR 689.39 on Jul 18, 2026 at 11:25:09. Info: LENSKART.\nThe Available Credit Limit on your card is INR 3,10,478.00 and Total Credit Limit is INR 3,40,478.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx3416 has been used for a transaction of INR 8,959.60 on Jul 20, 2026 at 21:00:20. Info: UBER INDIA.\nThe Available Credit Limit on your card is INR 80,898.00 and Total Credit Limit is INR 1,10,898.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 39,552.04 on Jul 23, 2026 at 04:40:27. Info: GOOGLE PLAY.\nThe Available Credit Limit on your card is INR 1,41,957.00 and Total Credit Limit is INR 1,71,957.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.23,485.23 on 23-07-2026 towards your ICICI Bank Credit Card XX9873. Thank you.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,929.32 on 25-07-2026 towards your ICICI Bank Credit Card ending 3416. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,726.56 spent on your SBI Credit Card ending 3416 at BATA INDIA on 26/07/26. Your available limit is Rs.3,03,071.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m238",
+   "subject": "Payment reminder: SBI Card Credit Card",
+   "body": "Dear Customer,<br>\nThis is a reminder that Rs.3,097.65 (minimum Rs.200.00) is due on 30-Jul-2026 on your SBI Card Credit Card. Pay on time to avoid late payment charges.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.23,485.23 due on 30 July for card XX9873. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.5,695.83 spent on your SBI Credit Card no. XXXXXXXXXXXX3416 at RELIANCE SMART on 06/08/26. Your available limit is Rs.1,41,485.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 3,485.79 on Aug 07, 2026 at 06:53:09. Info: GOOGLE PLAY.\nThe Available Credit Limit on your card is INR 3,72,635.00 and Total Credit Limit is INR 4,02,635.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card no. XXXXXXXXXXXX9873 has been used for a transaction of INR 18,149.45 on Aug 10, 2026 at 00:41:13. Info: WESTSIDE.\nThe Available Credit Limit on your card is INR 2,09,705.00 and Total Credit Limit is INR 2,39,705.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Rubyx Credit Card XX3416 for Aug 2026 is ready. Total due Rs.11,045.99, pay by 30 Aug 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Aug 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-Aug-2026. Total amount due Rs.7,556.49; minimum Rs.377.82; due 30-Aug-2026.\nSBI/BOB style auto pay available on request.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nCard Type: Prime\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 7,556.49\nMinimum Amount Due: Rs. 377.82\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,98,297.00\n\nDate        Transaction Details                        Amount (Rs.)\n07/08/2026  THIRD WAVE COFFEE PUNE   751.68 Dr\n31/07/2026  URBAN COMPANY MUMBAI   429.81 Dr\n07/08/2026  BATA INDIA PUNE   3,164.08 Dr\n03/08/2026  INDIGO AIRLINES GURGAON   15,058.40 Dr\n01/08/2026  DMART GURGAON   6,282.87 Dr\n04/08/2026  NETFLIX.COM KOCHI   893.14 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   4,533.89 Cr\n\nReward Points Summary: Opening 3421  Earned 141  Closing 5777\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,<br>\nThe statement of your ICICI Bank Credit Card XX9873 for Aug 2026 is ready. Total due Rs.11,847.71, pay by 30 Aug 2026.<br>\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCredit Card Number: XXXX XXXX XXXX 9873\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 11,847.71\nMinimum Amount Due: Rs. 592.39\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,32,794.00\n\nDate        Transaction Details                        Amount (Rs.)\n04/08/2026  CAFE COFFEE DAY CHENNAI   2,441.54 Dr\n31/07/2026  REDBUS PUNE   17,244.38 Dr\n09/08/2026  AIRBNB MUMBAI   3,525.09 Dr\n09/08/2026  JIO PREPAID CHENNAI   6,015.81 Dr\n15/07/2026  DECATHLON GURGAON   1,621.06 Dr\n28/07/2026  UBER INDIA BANGALORE   2,790.32 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   7,108.63 Cr\n\nReward Points Summary: Opening 4819  Earned 396  Closing 6910\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.717.69 spent on your SBI Credit Card ending 3416 at PVR INOX on 14/08/26. Your available limit is Rs.2,74,391.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-14",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m247",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 3,554.88 on Aug 18, 2026 at 03:36:42. Info: AIRBNB.\nThe Available Credit Limit on your card is INR 2,65,453.00 and Total Credit Limit is INR 2,95,453.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.",
+   "date": "2026-08-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 9873 has been used for a transaction of INR 505.94 on Aug 18, 2026 at 15:46:21. Info: DECATHLON.\nThe Available Credit Limit on your card is INR 2,06,813.00 and Total Credit Limit is INR 2,36,813.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.11,045.99 on 22-08-2026 towards your ICICI Bank Credit Card XX3416. Thank you.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.39,086.15 on card XX3416 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.7,556.49 on 22-08-2026 towards your SBI Card Credit Card. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m252",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.36,583.23 on card XX3416 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m253",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;recieved your payment of Rs.11,847.71 on 22-08-2026 towards your ICICI Bank Credit Card XX9873. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m254",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.11,618.10 on card XX9873 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m255",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 158.49 on Aug 24, 2026 at 20:30:48. Info: DECATHLON.<br>\nThe Available Credit Limit on your card is INR 3,91,036.00 and Total Credit Limit is INR 4,21,036.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m256",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.11,045.99 due on 30 August for card XX3416. Ignore if already paid. Kripya samay par bhugtan karein.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m257",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.7,556.49 due on 30 August. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m258",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.11,847.71 due on 30 August for card **9873. Ignore if already paid. Kripya samay par bhugtan karein.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m259",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 243.96 on Sep 02, 2026 at 16:52:00. Info: ZEPTO.\nThe Available Credit Limit on your card is INR 1,16,827.00 and Total Credit Limit is INR 1,46,827.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m260",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card xx3416 has been processed. Tenure 9 months. First EMI will appear on your next statement.\n\nT&C apply. Visit www.icicibank.com for more details.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m261",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card no. XXXXXXXXXXXX3416 has been processed. Tenure 12 months. First EMI will appear on your next statement.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m262",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card XX9873 has been processed. Tenure 12 months. First EMI will appear on your next statement.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m263",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 2,125.97 on Sep 06, 2026 at 15:41:11. Info: LICIOUS.\nThe Available Credit Limit on your card is INR 2,27,062.00 and Total Credit Limit is INR 2,57,062.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m264",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 26,677.91 on Sep 07, 2026 at 17:41:26. Info: INDIGO AIRLINES.\nThe Available Credit Limit on your card is INR 1,34,328.00 and Total Credit Limit is INR 1,64,328.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m265",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 10,985.92 on Sep 07, 2026 at 12:34:18. Info: HOTSTAR.\nThe Available Credit Limit on your card is INR 1,48,790.00 and Total Credit Limit is INR 1,78,790.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m266",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,959.70 spent on your SBI Credit Card ending 3416 at INDIGO AIRLINES on 11/09/26. Your available limit is Rs.2,22,215.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m267",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Rubyx Credit Card XX3416 for Sep 2026 is ready. Total due Rs.29,898.43, pay by 30 Sep 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m268",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Sep 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-Sep-2026. Total amount due Rs.654.86; minimum Rs.200.00; due 30-Sep-2026.\nSBI/BOB style auto pay available on request.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 654.86\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 86,190.00\n\nDate        Transaction Details                        Amount (Rs.)\n21/08/2026  NETFLIX.COM PUNE   3,355.98 Dr\n30/08/2026  ZOMATO MUMBAI   422.69 Dr\n01/09/2026  BOOKMYSHOW KOCHI   3,158.85 Dr\n01/09/2026  THIRD WAVE COFFEE CHENNAI   394.05 Dr\n30/08/2026  CAFE COFFEE DAY KOCHI   680.10 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   392.92 Cr\n\nReward Points Summary: Opening 4218  Earned 433  Closing 3055\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1888485216973  IFSC SBI 0000131"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m269",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card XX9873 for Sep 2026 is ready. Total due Rs.4,530.82, pay by 30 Sep 2026.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard No: 4617 79XX XXXX 9873\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 4,530.82\nMinimum Amount Due: Rs. 226.54\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,87,375.00\n\nDate        Transaction Details                        Amount (Rs.)\n02/09/2026  AIRBNB GURGAON   3,067.56 Dr\n23/08/2026  REDBUS HYDERABAD   1,498.53 Dr\n08/09/2026  BATA INDIA MUMBAI   1,096.13 Dr\n18/08/2026  ZEPTO GURGAON   704.52 Dr\n29/08/2026  LICIOUS HYDERABAD   41,786.42 Dr\n06/09/2026  MAKEMYTRIP GURGAON   423.26 Dr\n15/08/2026  LENSKART GURGAON   8,332.03 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   2,718.49 Cr\n\nReward Points Summary: Opening 5620  Earned 417  Closing 5560\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5822554240485  IFSC ICIC0000468"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m270",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your ICICI Bank Rubyx Credit Card XX3416 has been increased to Rs.4,50,000.00 effective 17-09-2026.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m271",
+   "subject": "Credit limit change on your card",
+   "body": "Dear&nbsp;Customer,<br>\nBased&nbsp;on&nbsp;your profile, the credit limit on your SBI Card Prime Credit Card has been increased to Rs.3,00,000.00 effective 17-09-2026.<br>\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m272",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your ICICI Bank Credit Card XX9873 has been increased to Rs.4,50,000.00 effective 17-09-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m273",
+   "subject": "OTP for online transaction",
+   "body": "370685 is the One Time Password (OTP) for your online transaction of INR 604.53 at BOOKMYSHOW. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m274",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.4,530.82 on 24-09-2026 towards your ICICI Bank Credit Card ending 9873. Thank you.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m275",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 2,377.57 on Sep 25, 2026 at 03:24:23. Info: SPOTIFY.\nThe Available Credit Limit on your card is INR 27,873.00 and Total Credit Limit is INR 57,873.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m276",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card XX9873 has been used for a transction of INR 10,218.75 on Sep 25, 2026 at 05:39:28. Info: MAKEMYTRIP.\nThe Available Credit Limit on your card is INR 1,63,915.00 and Total Credit Limit is INR 1,93,915.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m277",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX9873 has been used for a transaction of INR 34,836.69 on Sep 26, 2026 at 15:06:45. Info: IRCTC.<br>\nThe Available Credit Limit on your card is INR 3,20,627.00 and Total Credit Limit is INR 3,50,627.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m278",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.654.86 due on 30 September. Ignore if already paid. Kripya samay par bhugtan karein.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m279",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.654.86 on 28-09-2026 towards your SBI Card Credit Card. Thank you.",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m280",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,387.50 spent on your SBI Credit Card ending 3416 at SHELL PETROL on 01/10/26. Your available limit is Rs.1,16,998.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m281",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transaction of INR 23,557.00 on Oct 02, 2026 at 11:45:30. Info: STARBUCKS.\nThe Available Credit Limit on your card is INR 73,022.00 and Total Credit Limit is INR 1,03,022.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-10-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m282",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX3416 has been used for a transction of INR 6,353.00 on Oct 03, 2026 at 19:49:42. Info: BIGBASKET.\nThe Available Credit Limit on your card is INR 2,98,744.00 and Total Credit Limit is INR 3,28,744.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 3416 to 9215676766.",
+   "date": "2026-10-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m283",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.7,804.09 spent on your SBI Credit Card ending 3416 at STARBUCKS on 07/10/26. Your available limit is Rs.3,49,619.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m284",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.27,485.90 spent on your SBI Credit Card no. XXXXXXXXXXXX3416 at UBER INDIA on 10/10/26. Your available limit is Rs.2,52,618.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m285",
+   "subject": "Your ICICI Bank Rubyx Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Rubyx Credit Card XX3416 for Oct 2026 is ready. Total due Rs.18,489.45, pay by 30 Oct 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.icicibank.com for more details.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m286",
+   "subject": "SBI Card Prime Credit Card Monthly Statement - Oct 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement. Statement date: 12-Oct-2026. Total amount due Rs.2,434.79; minimum Rs.200.00; due 30-Oct-2026.\nSBI/BOB style auto pay available on request.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCard Number: (see covering email)\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 2,434.79\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,70,985.00\n\nDate        Transaction Details                        Amount (Rs.)\n25/09/2026  RELIANCE SMART HYDERABAD   16,572.04 Dr\n06/10/2026  PVR INOX HYDERABAD   461.42 Dr\n13/09/2026  JIO PREPAID CHENNAI   457.84 Dr\n25/09/2026  THIRD WAVE COFFEE GURGAON   589.18 Dr\n09/10/2026  HOTSTAR MUMBAI   20,596.71 Dr\n17/09/2026  THIRD WAVE COFFEE GURGAON   347.14 Dr\n08/10/2026  APOLLO PHARMACY MUMBAI   6,230.01 Dr\n07/10/2026  IRCTC BANGALORE   4,818.86 Dr\n30/09/2026  BLINKIT BANGALORE   1,394.72 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   1,460.87 Cr\n\nReward Points Summary: Opening 4264  Earned 286  Closing 1107\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m287",
+   "subject": "Your ICICI Bank Credit Card statement is ready",
+   "body": "Dear Pooja Singh,\nThe statement of your ICICI Bank Credit Card xx9873 for Oct 2026 is ready. Total due Rs.2,776.32, pay by 30 Oct 2026.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: POOJA SINGH\nCredit Card Number: XXXX XXXX XXXX 9873\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 2,776.32\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,84,237.00\n\nDate        Transaction Details                        Amount (Rs.)\n09/10/2026  ZEPTO HYDERABAD   1,477.82 Dr\n02/10/2026  REDBUS PUNE   3,173.81 Dr\n18/09/2026  THIRD WAVE COFFEE MUMBAI   3,486.56 Dr\n27/09/2026  HOTSTAR GURGAON   823.68 Dr\n28/09/2026  THIRD WAVE COFFEE KOCHI   533.99 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   1,665.79 Cr\n\nReward Points Summary: Opening 162  Earned 75  Closing 6993\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5822554240485  IFSC ICIC0000601"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m288",
+   "subject": "We have received your request",
+   "body": "नमस्ते,\nDear Customer,\nYour service request is registered. Reference No. SR202675037150. We will resolve it within 3 working days.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m289",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 9873 has been used for a transaction of INR 3,022.09 on Oct 17, 2026 at 08:21:15. Info: NETFLIX.COM.\nThe Available Credit Limit on your card is INR 1,49,792.00 and Total Credit Limit is INR 1,79,792.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9873 to 9215676766.",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m290",
+   "subject": "Transaction cancelled / refund initiated",
+   "body": "Dear Customer,\nYour transction at MEDPLUS for Rs.2,252.14 has been cancelled by the merchant. A refund will be credited to your card XX3416 in 5-7 working days.\n\nThis is a system generated email. Please do not reply to this message.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m291",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.2,434.79 on 22-10-2026 towards your SBI Card Credit Card. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m292",
+   "subject": "Your reward points summary",
+   "body": "Dear&nbsp;Customer,\nYou&nbsp;have&nbsp;10110 reward points on your ICICI Bank Rubyx Credit Card XX3416. Redeem them on the rewards portal before they expire.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m293",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 3203 reward points on your SBI Card Prime Credit Card. Redeem them on the rewards portal before they expire.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m294",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 5249 reward points on your ICICI Bank Credit Card XX9873. Redeem them on the rewards portal before they expire.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m295",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.18,489.45 due on 30 October for card XX3416. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m296",
+   "subject": "Payment reminder: ICICI Bank Credit Card XXXX XXXX XXXX 9873",
+   "body": "Dear Customer,\nThis is a reminder that Rs.2,776.32 (minimum Rs.200.00) is due on 30-Oct-2026 on your ICICI Bank Credit Card XXXX XXXX XXXX 9873. Pay on time to avoid late payment charges.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "3416",
+    "kind": "CREDIT_CARD",
+    "variant": "Rubyx",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "3416",
+    "kind": "CREDIT_CARD",
+    "variant": "Prime",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "9873",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "6973",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "0485",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "7150",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "3711",
+    "why": "masked Aadhaar number"
+   }
+  ]
+ }
+}

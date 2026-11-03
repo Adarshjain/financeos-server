@@ -1,0 +1,2352 @@
+{
+ "mailbox": "sbi-bpcl-irctc-elite",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.5,864.56 spent on SBI Card Credit Card XXXX XXXX XXXX 5742 at IXIGO on 07/09/24.",
+   "date": "2024-09-07",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Canara Bank Account Statement - Sep 2024",
+   "body": "Dear Rohit,\nPlease find attached your Canara Bank XXXXXX4884 statement for the period 08-Aug-2024 to 07-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-09-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202409.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Your BPCL SBI Card Monthly Statement - Sep 2024",
+   "body": "Dear Rohit,\nYour BPCL SBI Card XXXX XXXX XXXX 8062 statement for Sep 2024 is ready. Total amount due Rs.58,745.77, minimum amount due Rs.2,937.29, payable by 27-Sep-2024.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-09-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Canara Bank: credit alert",
+   "body": "Your A/c xx4884 is credited with Rs.86.13 on 11-09-2024 - INTEREST CREDIT. Bal Rs.95,772.84. -Canara Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-11",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Your SBI Card PRIME Monthly Statement - Sep 2024",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 5742 statement for the period 18-Aug-2024 to 17-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-09-18",
+   "attachments": [
+    {
+     "filename": "5742_17092024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Update your KYC",
+   "body": "Dear Rohit,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-09-21",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.445.47 debited from account *4884 on 25-09-2024. Narration: POS/AMAZON PAY INDIA. Available balance Rs.11,245.00.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-09-25",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Sep 2024",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Sep 2024 is ready. Total amount due Rs.24,365.55, minimum amount due Rs.1,218.28, payable by 13-Oct-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-09-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.966.16 spent on SBI Card Credit Card XXXX XXXX XXXX 8062 at LENSKART on 28/09/24.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-09-28",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,358.66 spent on your SBI Card Credit Card XXXX XXXX XXXX 5742 at GOOGLE PLAY on 28/09/24. Your available limit is Rs.1,37,754.67.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2024-09-28",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Your BPCL SBI Card Monthly Statement - Oct 2024",
+   "body": "Dear Rohit,\nYour BPCL SBI Card XXXX XXXX XXXX 8062 statement for Oct 2024 is ready. Total amount due Rs.1,845.29, minimum amount due Rs.200.00, payable by 27-Oct-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-10-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.16,945.09 spent on your BPCL SBI Card XXXX XXXX XXXX 8062 at NETFLIX on 13/10/24. Your available limit is Rs.1,20,516.17.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2024-10-13",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Your SBI Card PRIME Monthly Statement - Oct 2024",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 5742 statement for the period 18-Sep-2024 to 17-Oct-2024. Total amount due Rs.23,941.20, due 04-Nov-2024.\n\n",
+   "date": "2024-10-18",
+   "attachments": [
+    {
+     "filename": "5742_17102024_stmt.pdf",
+     "protected": false,
+     "pdfText": "SBI Card Credit Card Statement\nFor Statement Period 18-Sep-2024 to 17-Oct-2024\nROHIT IYER\nFLAT 399, GREEN VALLEY APARTMENTS\n19TH CROSS, BANJARA HILLS\nGURUGRAM - 505368\nCard Product: SBI Card PRIME\nCredit Card Number XXXX XXXX XXXX 5742\nStatement Date: 17-Oct-2024\nPayment Due Date: 04-Nov-2024\nTotal Amount Due: Rs.23,941.20\nMinimum Amount Due: Rs.1,197.06\nCredit Limit: Rs.5,60,000.00\nAvailable Credit Limit: Rs.5,44,784.81\nAvailable Cash Limit: Rs.1,12,000.00\nTRANSACTIONS FOR ROHIT IYER\nDate Transaction Details Amount\n19-Sep-2024 INDIAN OIL HYDERABAD 199.49 D\n26-Sep-2024 NETFLIX CHENNAI 239.31 D\n27-Sep-2024 OLA CABS MUMBAI 1,259.29 D\n01-Oct-2024 AMAZON PAY INDIA JAIPUR 93.71 D\n01-Oct-2024 IKEA GURUGRAM 15,442.70 D\n03-Oct-2024 ZEPTO MUMBAI 117.69 D\n04-Oct-2024 MCDONALDS HYDERABAD 730.57 D\n07-Oct-2024 BPCL FUEL MUMBAI 1,767.47 D\n08-Oct-2024 EASEMYTRIP HYDERABAD 222.49 D\n08-Oct-2024 ZEPTO HYDERABAD 2,858.35 D\n10-Oct-2024 EAZYDINER CHENNAI 90.18 D\n12-Oct-2024 STARBUCKS AHMEDABAD 919.95 D\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rohit,\nYour order #246-3082440-3699802 is confirmed. Total Rs.253.71. Estimated delivery in 2 days.",
+   "date": "2024-10-23",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Oct 2024",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Oct 2024 is ready. Total amount due Rs.14,144.93, minimum amount due Rs.707.25, payable by 12-Nov-2024.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Sita Devi (A/c XXXXXX2091, ICICI Bank) has been added to your account xx4884. It will be active after 30 minutes.",
+   "date": "2024-10-30",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Canara Bank Account Statement - Nov 2024",
+   "body": "Dear Rohit,\nYour Canara Bank XX4884 account statement for Nov 2024 is ready. Closing balance Rs.12,915.69.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-08",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Your BPCL SBI Card Monthly Statement - Nov 2024",
+   "body": "Dear Rohit,\nYour BPCL SBI Card XXXX XXXX XXXX 8062 statement for Nov 2024 is ready. Total amount due Rs.8,618.96, minimum amount due Rs.430.95, payable by 27-Nov-2024.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.11,170.77 spent on your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at ZOMATO on 12/11/24. Your available limit is Rs.72,030.93.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2024-11-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Payment Received - SBI Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.14,059.10 on 17/11/24 for your SBI Card Credit Card XXXX XXXX XXXX 4069. Available credit limit has been updated.\n\nOpt for e-statements and go green.",
+   "date": "2024-11-17",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rohit,\nYour order #622-8223021-7526988 is confirmed. Total Rs.1,366.33. Estimated delivery in 2 days.",
+   "date": "2024-11-17",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "Your SBI Card PRIME Monthly Statement - Nov 2024",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 5742 statement for the period 18-Oct-2024 to 17-Nov-2024. Total amount due Rs.47,382.56, due 03-Dec-2024.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202411.pdf",
+     "protected": false,
+     "pdfText": "SBI Card Credit Card Statement\nFor Statement Period 18-Oct-2024 to 17-Nov-2024\nROHIT IYER\nFLAT 656, GREEN VALLEY APARTMENTS\n17TH CROSS, INDIRANAGAR\nPUNE - 546943\nCard Product: SBI Card PRIME\nCredit Card Number XXXX XXXX XXXX 5742\nStatement Date: 17-Nov-2024\nPayment Due Date: 03-Dec-2024\nTotal Amount Due: Rs.47,382.56\nMinimum Amount Due: Rs.2,369.13\nCredit Limit: Rs.5,60,000.00\nAvailable Credit Limit: Rs.5,37,011.88\nAvailable Cash Limit: Rs.1,12,000.00\nTRANSACTIONS FOR ROHIT IYER\nDate Transaction Details Amount\n18-Oct-2024 JIO RECHARGE PUNE 598.65 D\n20-Oct-2024 DMART PUNE 184.64 D\n24-Oct-2024 MEDPLUS GURUGRAM 20,605.72 D\n26-Oct-2024 DECATHLON BENGALURU 1,241.64 D\n02-Nov-2024 BATA INDIA KOCHI 122.94 D\n02-Nov-2024 MEDPLUS BENGALURU 1,063.34 D\n03-Nov-2024 JIO RECHARGE AHMEDABAD 5,091.78 D\n03-Nov-2024 JIO RECHARGE PUNE 91.17 D\n05-Nov-2024 BLINKIT KOCHI 405.65 D\n16-Nov-2024 CROMA HYDERABAD 6,915.02 D\n17-Nov-2024 AIRTEL PREPAID JAIPUR 10,533.80 D\n17-Nov-2024 BLINKIT HYDERABAD 528.21 D\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.13,135.63 debited from account XX4884 on 24-11-2024. Narration: POS/BESCOM. Available balance Rs.4,871.50.\n\nOpt for e-statements and go green.",
+   "date": "2024-11-24",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.8,180.23 has been debited from your Canara Bank A/c xx4884 on 25-11-2024 (ECOM TATA POWER). Avl bal Rs.3,895.32.\n\nOpt for e-statements and go green.",
+   "date": "2024-11-25",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Canara Bank festive offers",
+   "body": "Dear Rohit,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2024-11-25",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Nov 2024",
+   "body": "Dear Rohit,\nPlease find attached your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for the period 26-Oct-2024 to 25-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-26",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from xx4884 to Sita Devi A/c XX2091 on 28-11-2024. Rent for the month.",
+   "date": "2024-11-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Your BPCL SBI Card Monthly Statement - Dec 2024",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Nov-2024 to 09-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-12-10",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Dec2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.22,775.71 spent on SBI Card Credit Card XXXX XXXX XXXX 5742 at NETFLIX on 10/12/24.",
+   "date": "2024-12-10",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,611.66 spent on your SBI Card PRIME XXXX XXXX XXXX 5742 at IRCTC on 14/12/24. Your available limit is Rs.16,990.08.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-12-14",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Your SBI Card PRIME Monthly Statement - Dec 2024",
+   "body": "Dear Rohit,\nYour SBI Card PRIME XXXX XXXX XXXX 5742 statement for Dec 2024 is ready. Total amount due Rs.2,357.53, minimum amount due Rs.200.00, payable by 04-Jan-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-12-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.103.31 debited from account *4884 on 18-12-2024. Narration: ECOM/EAZYDINER. Available balance Rs.3,748.98.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-18",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,507.42 spent on your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at DECATHLON on 25/12/24. Your available limit is Rs.43,028.76.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2024-12-25",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.7,942.21 has been transferred from your A/c XXXXXX4884 to Mohan Landlord A/c XX5783 (ICICI Bank) via IMPS on 28-12-2024. Ref no 459581235242.",
+   "date": "2024-12-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from *4884 to Sita Devi A/c XX2091 on 28-12-2024. Rent for the month.",
+   "date": "2024-12-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.95.23 spent on IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at BPCL FUEL on 06/01/25.",
+   "date": "2025-01-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Canara Bank Account Statement - Jan 2025",
+   "body": "Dear Rohit,\nYour Canara Bank XX4884 account statement for Jan 2025 is ready. Closing balance Rs.52,925.45.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-01-08",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Your BPCL SBI Card Monthly Statement - Jan 2025",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Dec-2024 to 09-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-01-10",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "OTP for your transaction",
+   "body": "244513 is the OTP for your transaction of Rs.5,904.03 at MEDPLUS. Valid for 10 minutes. Do not share.",
+   "date": "2025-01-15",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Your SBI Card PRIME Monthly Statement - Jan 2025",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 5742 statement for the period 18-Dec-2024 to 17-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-01-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202501.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.2,486.97 has been transferred from your A/c *4884 to Priya Tailors A/c XX7022 (IndusInd Bank) via IMPS on 18-01-2025. Ref no 958421318809.",
+   "date": "2025-01-18",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.931.98 spent on your BPCL SBI Card XXXX XXXX XXXX 8062 at TATA POWER on 20/01/25. Your available limit is Rs.32,077.70.\nContact 1860 180 1290 if this transaction was not done by you.\n\nOpt for e-statements and go green.",
+   "date": "2025-01-20",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.422.98 spent on your SBI Card Credit Card XXXX XXXX XXXX 4069 at MEDPLUS on 21/01/25. Your available limit is Rs.2,237.67.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-01-21",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.1,778.70 has been debited from your Canara Bank A/c XX4884 on 21-01-2025 (NEFT GOOGLE PLAY). Avl bal Rs.3,728.53.",
+   "date": "2025-01-21",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Jan 2025",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Jan 2025 is ready. Total amount due Rs.43,200.82, minimum amount due Rs.2,160.04, payable by 12-Feb-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from xx4884 to Sita Devi A/c XX2091 on 28-01-2025. Rent for the month.",
+   "date": "2025-01-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.4,227.27 spent on BPCL SBI Card XXXX XXXX XXXX 8062 at URBAN COMPANY on 06/02/25.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Your BPCL SBI Card Monthly Statement - Feb 2025",
+   "body": "Dear Rohit,\nYour BPCL SBI Card XXXX XXXX XXXX 8062 statement for Feb 2025 is ready. Total amount due Rs.38,825.91, minimum amount due Rs.1,941.30, payable by 27-Feb-2025.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Your SBI Card PRIME Monthly Statement - Feb 2025",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 5742 statement for the period 18-Jan-2025 to 17-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-02-18",
+   "attachments": [
+    {
+     "filename": "5742_17022025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Feb 2025",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Feb 2025 is ready. Total amount due Rs.3,318.52, minimum amount due Rs.200.00, payable by 15-Mar-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from XX4884 to Sita Devi A/c XX2091 on 28-02-2025. Rent for the month.",
+   "date": "2025-02-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.367.18 spent on BPCL SBI Card XXXX XXXX XXXX 8062 at INDIAN OIL on 02/03/25.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-02",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.8,374.64 spent on SBI Card PRIME XXXX XXXX XXXX 5742 at OLA CABS on 03/03/25.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-03",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Canara Bank Account Statement - Mar 2025",
+   "body": "Dear Rohit,\nPlease find attached your Canara Bank XX4884 statement for the period 08-Feb-2025 to 07-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-08",
+   "attachments": [
+    {
+     "filename": "4884_07032025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX9196 has been updated on 02/10/25. If not requested by you, call customer care.",
+   "date": "2025-03-08",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.682.61 spent on your SBI Card Credit Card XXXX XXXX XXXX 5742 at PAYTM on 09/03/25. Your available limit is Rs.56,697.27.\nContact 1860 180 1290 if this transaction was not done by you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Your BPCL SBI Card Monthly Statement - Mar 2025",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Feb-2025 to 09-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-10",
+   "attachments": [
+    {
+     "filename": "8062_09032025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.402.70 spent on SBI Card PRIME XXXX XXXX XXXX 5742 at BESCOM on 13/03/25.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-03-13",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.14,192.40 spent on SBI Card Credit Card XXXX XXXX XXXX 4069 at MYNTRA on 14/03/25.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-14",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.11,849.69 spent on SBI Card Credit Card XXXX XXXX XXXX 8062 at EAZYDINER on 17/03/25.",
+   "date": "2025-03-17",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Your SBI Card PRIME Monthly Statement - Mar 2025",
+   "body": "Dear Rohit,\nYour SBI Card PRIME XXXX XXXX XXXX 5742 statement for Mar 2025 is ready. Total amount due Rs.5,840.93, minimum amount due Rs.292.05, payable by 04-Apr-2025.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-03-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.1,889.61 spent on IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at BATA INDIA on 21/03/25.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-21",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.1,658.02 spent on SBI Card Credit Card XXXX XXXX XXXX 8062 at AIRTEL PREPAID on 25/03/25.",
+   "date": "2025-03-25",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Mar 2025",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Mar 2025 is ready. Total amount due Rs.457.85, minimum amount due Rs.200.00, payable by 12-Apr-2025.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-03-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.186.03 spent on BPCL SBI Card XXXX XXXX XXXX 8062 at MEDPLUS on 26/03/25.",
+   "date": "2025-03-26",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from *4884 to Sita Devi A/c XX2091 on 28-03-2025. Rent for the month.",
+   "date": "2025-03-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Payment Received - SBI Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.144.23 on 09/04/25 for your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069. Available credit limit has been updated.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.184.19 spent on SBI Card Credit Card XXXX XXXX XXXX 4069 at TATA PLAY on 09/04/25.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Your BPCL SBI Card Monthly Statement - Apr 2025",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Mar-2025 to 09-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-04-10",
+   "attachments": [
+    {
+     "filename": "8062_09042025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.16,922.47 spent on IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at IKEA on 11/04/25.",
+   "date": "2025-04-11",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.249.33 spent on your BPCL SBI Card XXXX XXXX XXXX 8062 at GOOGLE PLAY on 12/04/25. Your available limit is Rs.27,080.27.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-04-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Your SBI Card PRIME Monthly Statement - Apr 2025",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 5742 statement for the period 18-Mar-2025 to 17-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202504.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Update your KYC",
+   "body": "Dear Rohit,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-18",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.1,085.19 spent on SBI Card Credit Card XXXX XXXX XXXX 8062 at NETFLIX on 22/04/25.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-22",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Apr 2025",
+   "body": "Dear Rohit,\nPlease find attached your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for the period 26-Mar-2025 to 25-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-26",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from *4884 to Sita Devi A/c XX2091 on 28-04-2025. Rent for the month.",
+   "date": "2025-04-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.775.67 spent on SBI Card Credit Card XXXX XXXX XXXX 4069 at APOLLO PHARMACY on 30/04/25.",
+   "date": "2025-04-30",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.1,304.04 spent on SBI Card Credit Card XXXX XXXX XXXX 5742 at TATA POWER on 02/05/25.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-02",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.8,508.21 spent on your BPCL SBI Card XXXX XXXX XXXX 8062 at RELIANCE DIGITAL on 04/05/25. Your available limit is Rs.35,424.77.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-05-04",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.7,467.58 spent on your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at MAKEMYTRIP on 06/05/25. Your available limit is Rs.1,28,750.76.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Canara Bank Account Statement - May 2025",
+   "body": "Dear Rohit,\nPlease find attached your Canara Bank XX4884 statement for the period 08-Apr-2025 to 07-May-2025. \n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": false,
+     "pdfText": "CANARA BANK\nSTATEMENT OF ACCOUNT\nAccount Name : ROHIT IYER\nFLAT 667, LAKESHORE APARTMENTS\n8TH CROSS, INDIRANAGAR\nCHENNAI - 638019\nAccount Number : XXXXXX4884\nAccount Type : SAVINGS ACCOUNT\nIFSC : CANA0864881\nStatement Period : 08-04-2025 to 07-05-2025\nOpening Balance : Rs.66,029.83\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n09-04-2025 NEFT DR/APOLLO PHARMACY 295843413 15,405.87 - 50,623.96\n11-04-2025 UPI/CROMA 189325528 202.21 - 50,421.75\n11-04-2025 UPI/CR 548980755 - 151.42 50,573.17\n12-04-2025 INTEREST 928161759 - 1,350.17 51,923.34\n14-04-2025 POS/APPLE SERVICES 543735853 221.15 - 51,702.19\n14-04-2025 SALARY NEFT 593202403 - 5,895.92 57,598.11\n17-04-2025 NEFT DR/APPLE SERVICES 295062516 8,309.65 - 49,288.46\n18-04-2025 SALARY NEFT 228469735 - 16,002.01 65,290.47\n18-04-2025 POS/FLIPKART 494726551 5,031.83 - 60,258.64\n20-04-2025 POS/BATA INDIA 599607938 532.49 - 59,726.15\n21-04-2025 SALARY NEFT 561740871 - 537.74 60,263.89\nClosing Balance : Rs.60,263.89\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Your BPCL SBI Card Monthly Statement - May 2025",
+   "body": "Dear Rohit,\nYour BPCL SBI Card XXXX XXXX XXXX 8062 statement for May 2025 is ready. Total amount due Rs.1,936.61, minimum amount due Rs.200.00, payable by 27-May-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rohit,\nYour order #235-3235166-7342576 is confirmed. Total Rs.15,507.66. Estimated delivery in 2 days.",
+   "date": "2025-05-11",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m084",
+   "subject": "Your SBI Card PRIME Monthly Statement - May 2025",
+   "body": "Dear Rohit,\nYour SBI Card PRIME XXXX XXXX XXXX 5742 statement for May 2025 is ready. Total amount due Rs.48,144.39, minimum amount due Rs.2,407.22, payable by 04-Jun-2025.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.234.31 spent on your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at TATA PLAY on 20/05/25. Your available limit is Rs.29,565.05.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Rohit,\nConvert big spends to EMI at low interest.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rohit,\nYour order #572-8953181-7555220 is confirmed. Total Rs.8,815.15. Estimated delivery in 2 days.",
+   "date": "2025-05-21",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.161.32 spent on SBI Card Credit Card XXXX XXXX XXXX 4069 at OLA CABS on 22/05/25.",
+   "date": "2025-05-22",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Canara Bank: credit alert",
+   "body": "Your A/c XXXXXX4884 is credited with Rs.18,491.02 on 23-05-2025 - SALARY NEFT. Bal Rs.5,734.55. -Canara Bank\n\nOpt for e-statements and go green.",
+   "date": "2025-05-23",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "SBI Card festive offers",
+   "body": "Dear Rohit,\nConvert big spends to EMI at low interest.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-24",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - May 2025",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for May 2025 is ready. Total amount due Rs.55,142.54, minimum amount due Rs.2,757.13, payable by 12-Jun-2025.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-05-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.85.00 debited from account *4884 on 01-06-2025. Narration: NEFT/BESCOM. Available balance Rs.86,208.86.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-01",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Rohit,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-06-01",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.34,195.81 has been transferred from your A/c XXXXXX4884 to Ganesh Maid Service A/c XX7391 (SBI Card) via IMPS on 03-06-2025. Ref no 208714352874.",
+   "date": "2025-06-03",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rohit,\nYour order #651-3829948-6445969 is confirmed. Total Rs.299.20. Estimated delivery in 2 days.",
+   "date": "2025-06-03",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m096",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,179.00 spent on your SBI Card PRIME XXXX XXXX XXXX 5742 at PAYTM on 04/06/25. Your available limit is Rs.11,867.24.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-04",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.251.62 spent on your SBI Card Credit Card XXXX XXXX XXXX 4069 at DMART on 05/06/25. Your available limit is Rs.16,140.75.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Your BPCL SBI Card Monthly Statement - Jun 2025",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-May-2025 to 09-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-10",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.85.04 debited from account *4884 on 15-06-2025. Narration: POS/BOOKMYSHOW. Available balance Rs.45,648.33.",
+   "date": "2025-06-15",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Your SBI Card PRIME Monthly Statement - Jun 2025",
+   "body": "Dear Rohit,\nYour SBI Card PRIME XXXX XXXX XXXX 5742 statement for Jun 2025 is ready. Total amount due Rs.16,935.12, minimum amount due Rs.846.76, payable by 05-Jul-2025.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-06-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.22,424.93 debited from account *4884 on 20-06-2025. Narration: ECOM/DOMINOS. Available balance Rs.1,17,773.20.",
+   "date": "2025-06-20",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.136.04 spent on your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at IXIGO on 23/06/25. Your available limit is Rs.16,874.02.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-06-23",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Jun 2025",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Jun 2025 is ready. Total amount due Rs.8,017.32, minimum amount due Rs.400.87, payable by 13-Jul-2025.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Update your KYC",
+   "body": "Dear Rohit,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-26",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Canara Bank Account Statement - Jul 2025",
+   "body": "Dear Rohit,\nYour Canara Bank xx4884 account statement for Jul 2025 is ready. Closing balance Rs.24,176.17.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-07-08",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Your BPCL SBI Card Monthly Statement - Jul 2025",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Jun-2025 to 09-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-10",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.229.38 spent on SBI Card Credit Card XXXX XXXX XXXX 8062 at BESCOM on 15/07/25.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-15",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Your SBI Card PRIME Monthly Statement - Jul 2025",
+   "body": "Dear Rohit,\nYour SBI Card PRIME XXXX XXXX XXXX 5742 statement for Jul 2025 is ready. Total amount due Rs.5,752.68, minimum amount due Rs.287.63, payable by 04-Aug-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.5,123.72 has been debited from your Canara Bank A/c XXXXXX4884 on 18-07-2025 (UPI BPCL FUEL). Avl bal Rs.14,812.15.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-18",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Jul 2025",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Jul 2025 is ready. Total amount due Rs.35,422.78, minimum amount due Rs.1,771.14, payable by 12-Aug-2025.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.151.66 spent on SBI Card Credit Card XXXX XXXX XXXX 5742 at IRCTC on 26/07/25.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-26",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.6,278.35 spent on IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at ZEPTO on 29/07/25.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-29",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Canara Bank: credit alert",
+   "body": "Credit alert: Rs.137.28 has been credited to account XX4884 on 07-08-2025 (IMPS). Avl bal Rs.84,702.10.",
+   "date": "2025-08-07",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.410.31 spent on SBI Card PRIME XXXX XXXX XXXX 5742 at PHONEPE on 09/08/25.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Your BPCL SBI Card Monthly Statement - Aug 2025",
+   "body": "Dear Rohit,\nYour BPCL SBI Card XXXX XXXX XXXX 8062 statement for Aug 2025 is ready. Total amount due Rs.535.76, minimum amount due Rs.200.00, payable by 27-Aug-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.168.29 spent on IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at URBAN COMPANY on 12/08/25.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Payment Received - SBI Card",
+   "body": "Payment of Rs.402.37 has been received towards your SBI Card Credit Card XXXX XXXX XXXX 5742 on 12/08/25. Thank you for the payment.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Payment Received - SBI Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.147.42 on 16/08/25 for your SBI Card PRIME XXXX XXXX XXXX 5742. Available credit limit has been updated.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-16",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.106.52 debited from account *4884 on 16-08-2025. Narration: POS/BPCL FUEL. Available balance Rs.6,763.41.",
+   "date": "2025-08-16",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Your SBI Card PRIME Monthly Statement - Aug 2025",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 5742 statement for the period 18-Jul-2025 to 17-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-18",
+   "attachments": [
+    {
+     "filename": "5742_17082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.217.93 credited to your Canara Bank A/c xx4884 on 18-08-2025 by NEFT. Ref 468531327792.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-18",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Aug 2025",
+   "body": "Dear Rohit,\nPlease find attached your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for the period 26-Jul-2025 to 25-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-26",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Canara Bank: funds transferred",
+   "body": "Dear Customer,\nRs.13,115.58 has been transferred from your A/c XXXXXX4884 to Priya Tailors A/c XX7022 (IndusInd Bank) via IMPS on 31-08-2025. Ref no 721078009271.",
+   "date": "2025-08-31",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.18,990.11 debited from account xx4884 on 01-09-2025. Narration: POS/JIO RECHARGE. Available balance Rs.74,517.40.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.135.14 spent on your SBI Card Credit Card XXXX XXXX XXXX 5742 at MYNTRA on 06/09/25. Your available limit is Rs.6,465.04.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Canara Bank Account Statement - Sep 2025",
+   "body": "Dear Rohit,\nPlease find attached your Canara Bank XXXXXX4884 statement for the period 08-Aug-2025 to 07-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-09-08",
+   "attachments": [
+    {
+     "filename": "4884_07092025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Your BPCL SBI Card Monthly Statement - Sep 2025",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Aug-2025 to 09-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-10",
+   "attachments": [
+    {
+     "filename": "8062_09092025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.480.17 debited from account xx4884 on 11-09-2025. Narration: NEFT/BPCL FUEL. Available balance Rs.96,241.78.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-09-11",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Canara Bank: credit alert",
+   "body": "Your A/c XXXXXX4884 is credited with Rs.88.06 on 13-09-2025 - REFUND. Bal Rs.76,264.17. -Canara Bank\n\nOpt for e-statements and go green.",
+   "date": "2025-09-13",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Your SBI Card PRIME Monthly Statement - Sep 2025",
+   "body": "Dear Rohit,\nYour SBI Card PRIME XXXX XXXX XXXX 5742 statement for Sep 2025 is ready. Total amount due Rs.28,256.62, minimum amount due Rs.1,412.83, payable by 05-Oct-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-09-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.226.57 spent on IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at STARBUCKS on 19/09/25.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-19",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "SBI Card festive offers",
+   "body": "Dear Rohit,\nUse your card on UPI and earn extra rewards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Sep 2025",
+   "body": "Dear Rohit,\nPlease find attached your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for the period 26-Aug-2025 to 25-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-26",
+   "attachments": [
+    {
+     "filename": "4069_25092025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.8,837.62 spent on BPCL SBI Card XXXX XXXX XXXX 8062 at PHONEPE on 30/09/25.",
+   "date": "2025-09-30",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Your SBI Card Credit Card has been upgraded",
+   "body": "Dear Rohit Iyer,\nCongratulations! Your SBI Card PRIME XXXX XXXX XXXX 5742 has been upgraded to the SBI Card ELITE. Your card number remains the same. Your new benefits are effective from 02/10/25.\n\n",
+   "date": "2025-10-02",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.358.34 has been debited from your Canara Bank A/c *4884 on 02-10-2025 (UPI IRCTC). Avl bal Rs.2,674.44.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-02",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.1,981.40 debited from account *4884 on 04-10-2025. Narration: IMPS/IRCTC. Available balance Rs.46,325.78.",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Your BPCL SBI Card Monthly Statement - Oct 2025",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Sep-2025 to 09-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-10-10",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.3,224.87 spent on SBI Card ELITE XXXX XXXX XXXX 5742 at MEDPLUS on 11/10/25.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.2,132.29 spent on SBI Card Credit Card XXXX XXXX XXXX 5742 at IRCTC on 12/10/25.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Your SBI Card ELITE Monthly Statement - Oct 2025",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card ELITE XXXX XXXX XXXX 5742 statement for the period 18-Sep-2025 to 17-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-10-18",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.145.30 spent on SBI Card ELITE XXXX XXXX XXXX 5742 at EAZYDINER on 22/10/25.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Oct 2025",
+   "body": "Dear Rohit,\nPlease find attached your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for the period 26-Sep-2025 to 25-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-26",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.125.59 debited from account XX4884 on 01-11-2025. Narration: UPI/BOOKMYSHOW. Available balance Rs.36,423.24.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.4,118.91 spent on your SBI Card Credit Card XXXX XXXX XXXX 8062 at ZOMATO on 02/11/25. Your available limit is Rs.1,68,621.68.\nContact 1860 180 1290 if this transaction was not done by you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-02",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Payment Received - SBI Card",
+   "body": "Payment of Rs.1,669.09 has been received towards your SBI Card Credit Card XXXX XXXX XXXX 8062 on 07/11/25. Thank you for the payment.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Canara Bank Account Statement - Nov 2025",
+   "body": "Dear Rohit,\nPlease find attached your Canara Bank XXXXXX4884 statement for the period 08-Oct-2025 to 07-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-08",
+   "attachments": [
+    {
+     "filename": "Canara_Acct_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Update your KYC",
+   "body": "Dear Rohit,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.456.46 spent on your SBI Card ELITE XXXX XXXX XXXX 5742 at BATA INDIA on 09/11/25. Your available limit is Rs.52,606.75.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Your BPCL SBI Card Monthly Statement - Nov 2025",
+   "body": "Dear Rohit,\nYour BPCL SBI Card XXXX XXXX XXXX 8062 statement for Nov 2025 is ready. Total amount due Rs.2,616.96, minimum amount due Rs.200.00, payable by 27-Nov-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.5,922.03 spent on SBI Card ELITE XXXX XXXX XXXX 5742 at BOOKMYSHOW on 12/11/25.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Your SBI Card ELITE Monthly Statement - Nov 2025",
+   "body": "Dear Rohit,\nYour SBI Card ELITE XXXX XXXX XXXX 5742 statement for Nov 2025 is ready. Total amount due Rs.404.09, minimum amount due Rs.200.00, payable by 05-Dec-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c XX4884 is debited for Rs.5,232.43 on 20-11-2025 - UPI IRCTC. Bal Rs.4,384.56. -Canara Bank",
+   "date": "2025-11-20",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rohit,\nYour order #918-1184484-6551235 is confirmed. Total Rs.9,522.02. Estimated delivery in 2 days.",
+   "date": "2025-11-22",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Earn more with your card",
+   "body": "Dear Rohit,\nGet up to 10% cashback on partner brands.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Nov 2025",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Nov 2025 is ready. Total amount due Rs.450.88, minimum amount due Rs.200.00, payable by 13-Dec-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,833.02 spent on your SBI Card Credit Card XXXX XXXX XXXX 4069 at DMART on 05/12/25. Your available limit is Rs.1,09,029.92.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.322.27 spent on your SBI Card Credit Card XXXX XXXX XXXX 5742 at BIG BAZAAR on 08/12/25. Your available limit is Rs.3,621.39.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.292.77 spent on your SBI Card Credit Card XXXX XXXX XXXX 4069 at BIG BAZAAR on 09/12/25. Your available limit is Rs.8,598.65.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.355.26 debited from account *4884 on 09-12-2025. Narration: IMPS/MCDONALDS. Available balance Rs.34,456.01.",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Your BPCL SBI Card Monthly Statement - Dec 2025",
+   "body": "Dear Rohit,\nYour BPCL SBI Card XXXX XXXX XXXX 8062 statement for Dec 2025 is ready. Total amount due Rs.1,177.35, minimum amount due Rs.200.00, payable by 27-Dec-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Canara Bank: credit alert",
+   "body": "Credit alert: Rs.8,081.42 has been credited to account XXXXXX4884 on 10-12-2025 (UPI). Avl bal Rs.39,305.66.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.11,163.85 spent on BPCL SBI Card XXXX XXXX XXXX 8062 at APOLLO PHARMACY on 12/12/25.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.1,419.73 spent on BPCL SBI Card XXXX XXXX XXXX 8062 at TATA POWER on 12/12/25.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Your SBI Card ELITE Monthly Statement - Dec 2025",
+   "body": "Dear Rohit,\nYour SBI Card ELITE XXXX XXXX XXXX 5742 statement for Dec 2025 is ready. Total amount due Rs.40,448.62, minimum amount due Rs.2,022.43, payable by 04-Jan-2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.331.64 debited from account xx4884 on 23-12-2025. Narration: ECOM/DMART. Available balance Rs.2,304.75.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Dec 2025",
+   "body": "Dear Rohit,\nPlease find attached your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for the period 26-Nov-2025 to 25-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Canara Bank: funds transferred",
+   "body": "Dear Customer,\nRs.32,015.23 has been transferred from your A/c XXXXXX4884 to Mohan Landlord A/c XX5783 (ICICI Bank) via IMPS on 26-12-2025. Ref no 425960081957.",
+   "date": "2025-12-26",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.647.45 spent on your SBI Card Credit Card XXXX XXXX XXXX 8062 at BATA INDIA on 06/01/26. Your available limit is Rs.4,419.03.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Canara Bank Account Statement - Jan 2026",
+   "body": "Dear Rohit,\nPlease find attached your Canara Bank XX4884 statement for the period 08-Dec-2025 to 07-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-08",
+   "attachments": [
+    {
+     "filename": "Canara_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Your BPCL SBI Card Monthly Statement - Jan 2026",
+   "body": "Dear Rohit,\nYour BPCL SBI Card XXXX XXXX XXXX 8062 statement for Jan 2026 is ready. Total amount due Rs.670.30, minimum amount due Rs.200.00, payable by 27-Jan-2026.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Your SBI Card ELITE Monthly Statement - Jan 2026",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card ELITE XXXX XXXX XXXX 5742 statement for the period 18-Dec-2025 to 17-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-18",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Jan 2026",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Jan 2026 is ready. Total amount due Rs.22,773.60, minimum amount due Rs.1,138.68, payable by 12-Feb-2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.2,100.51 spent on SBI Card Credit Card XXXX XXXX XXXX 4069 at BPCL FUEL on 30/01/26.\n\nOpt for e-statements and go green.",
+   "date": "2026-01-30",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,171.50 spent on your SBI Card ELITE XXXX XXXX XXXX 5742 at IRCTC on 08/02/26. Your available limit is Rs.13,850.08.\nContact 1860 180 1290 if this transaction was not done by you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-08",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Your BPCL SBI Card Monthly Statement - Feb 2026",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Jan-2026 to 09-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-10",
+   "attachments": [
+    {
+     "filename": "8062_09022026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Your SBI Card ELITE Monthly Statement - Feb 2026",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card ELITE XXXX XXXX XXXX 5742 statement for the period 18-Jan-2026 to 17-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.88.69 spent on your SBI Card Credit Card XXXX XXXX XXXX 8062 at UBER INDIA on 18/02/26. Your available limit is Rs.2,701.59.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-02-18",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Feb 2026",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Feb 2026 is ready. Total amount due Rs.2,243.65, minimum amount due Rs.200.00, payable by 15-Mar-2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.2,814.92 has been transferred from your A/c XX4884 to Priya Tailors A/c XX7022 (IndusInd Bank) via IMPS on 01-03-2026. Ref no 431941370765.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.296.92 spent on SBI Card Credit Card XXXX XXXX XXXX 4069 at IXIGO on 03/03/26.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-03",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "OTP for your transaction",
+   "body": "847060 is the OTP for your transaction of Rs.551.51 at BOOKMYSHOW. Valid for 10 minutes. Do not share.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Canara Bank Account Statement - Mar 2026",
+   "body": "Dear Rohit,\nYour Canara Bank xx4884 account statement for Mar 2026 is ready. Closing balance Rs.951.23.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-08",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Your BPCL SBI Card Monthly Statement - Mar 2026",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Feb-2026 to 09-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-10",
+   "attachments": [
+    {
+     "filename": "8062_09032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Your SBI Card ELITE Monthly Statement - Mar 2026",
+   "body": "Dear Rohit,\nYour SBI Card ELITE XXXX XXXX XXXX 5742 statement for Mar 2026 is ready. Total amount due Rs.15,301.58, minimum amount due Rs.765.08, payable by 04-Apr-2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.744.17 spent on SBI Card ELITE XXXX XXXX XXXX 5742 at JIO RECHARGE on 18/03/26.",
+   "date": "2026-03-18",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Rohit,\nPlease find attached the updated MITC for your SBI Card credit cards.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-23",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "OTP for your transaction",
+   "body": "830289 is the OTP for your transaction of Rs.191.35 at APOLLO PHARMACY. Valid for 10 minutes. Do not share.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Mar 2026",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Mar 2026 is ready. Total amount due Rs.23,240.78, minimum amount due Rs.1,162.04, payable by 12-Apr-2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.115.05 spent on IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at MYNTRA on 27/03/26.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.1,010.17 credited to your Canara Bank A/c *4884 on 06-04-2026 by IMPS. Ref 340162877422.\nThank you for banking with us.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Your BPCL SBI Card Monthly Statement - Apr 2026",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Mar-2026 to 09-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-10",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Your SBI Card ELITE Monthly Statement - Apr 2026",
+   "body": "Dear Rohit,\nYour SBI Card ELITE XXXX XXXX XXXX 5742 statement for Apr 2026 is ready. Total amount due Rs.59,589.46, minimum amount due Rs.2,979.47, payable by 05-May-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.6,328.49 spent on your SBI Card Credit Card XXXX XXXX XXXX 5742 at SWIGGY on 18/04/26. Your available limit is Rs.12,674.64.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-04-18",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rohit,\nYour order #260-1684713-1361583 is confirmed. Total Rs.4,054.59. Estimated delivery in 2 days.",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m196",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Apr 2026",
+   "body": "Dear Rohit,\nPlease find attached your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for the period 26-Mar-2026 to 25-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-26",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.1,087.64 spent on SBI Card Credit Card XXXX XXXX XXXX 8062 at INDIAN OIL on 02/05/26.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.20,585.58 spent on SBI Card Credit Card XXXX XXXX XXXX 4069 at LENSKART on 02/05/26.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Canara Bank Account Statement - May 2026",
+   "body": "Dear Rohit,\nPlease find attached your Canara Bank xx4884 statement for the period 08-Apr-2026 to 07-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-08",
+   "attachments": [
+    {
+     "filename": "Canara_Acct_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Your BPCL SBI Card Monthly Statement - May 2026",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Apr-2026 to 09-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-10",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c xx4884 is debited for Rs.280.96 on 11-05-2026 - IMPS BIGBASKET. Bal Rs.1,51,811.82. -Canara Bank",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.419.26 spent on your BPCL SBI Card XXXX XXXX XXXX 8062 at DOMINOS on 14/05/26. Your available limit is Rs.5,578.21.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-14",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Your SBI Card ELITE Monthly Statement - May 2026",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card ELITE XXXX XXXX XXXX 5742 statement for the period 18-Apr-2026 to 17-May-2026. Total amount due Rs.22,092.98, due 05-Jun-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-18",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "SBI Card Credit Card Statement\nFor Statement Period 18-Apr-2026 to 17-May-2026\nROHIT IYER\nFLAT 356, GREEN VALLEY APARTMENTS\n14TH CROSS, INDIRANAGAR\nAHMEDABAD - 510537\nCard Product: SBI Card ELITE\nCredit Card Number XXXX XXXX XXXX 5742\nStatement Date: 17-May-2026\nPayment Due Date: 05-Jun-2026\nTotal Amount Due: Rs.22,092.98\nMinimum Amount Due: Rs.1,104.65\nCredit Limit: Rs.5,60,000.00\nAvailable Credit Limit: Rs.5,45,604.52\nAvailable Cash Limit: Rs.1,12,000.00\nTRANSACTIONS FOR ROHIT IYER\nDate Transaction Details Amount\n19-Apr-2026 TATA POWER PUNE 115.86 D\n20-Apr-2026 SWIGGY CHENNAI 219.96 D\n24-Apr-2026 RELIANCE DIGITAL JAIPUR 1,747.27 D\n26-Apr-2026 MCDONALDS JAIPUR 227.04 D\n09-May-2026 DECATHLON KOLKATA 19,686.66 D\n16-May-2026 SODEXO MUMBAI 96.19 D\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.785.82 spent on SBI Card Credit Card XXXX XXXX XXXX 5742 at ZEPTO on 18/05/26.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.4,007.85 spent on IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at AIRTEL PREPAID on 21/05/26.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Earn more with your card",
+   "body": "Dear Rohit,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - May 2026",
+   "body": "Dear Rohit,\nPlease find attached your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for the period 26-Apr-2026 to 25-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-26",
+   "attachments": [
+    {
+     "filename": "4069_25052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.1,142.18 spent on SBI Card ELITE XXXX XXXX XXXX 5742 at RELIANCE DIGITAL on 28/05/26.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "Update your KYC",
+   "body": "Dear Rohit,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-29",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,411.86 spent on your SBI Card Credit Card XXXX XXXX XXXX 8062 at BIGBASKET on 07/06/26. Your available limit is Rs.86,367.15.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-07",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.238.07 spent on your SBI Card Credit Card XXXX XXXX XXXX 5742 at DECATHLON on 08/06/26. Your available limit is Rs.1,74,834.49.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-08",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Your BPCL SBI Card Monthly Statement - Jun 2026",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-May-2026 to 09-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-06-10",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Your SBI Card ELITE Monthly Statement - Jun 2026",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card ELITE XXXX XXXX XXXX 5742 statement for the period 18-May-2026 to 17-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-06-18",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Jun 2026",
+   "body": "Dear Rohit,\nPlease find attached your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for the period 26-May-2026 to 25-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.7,240.54 spent on SBI Card Credit Card XXXX XXXX XXXX 8062 at MYNTRA on 30/06/26.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-30",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 320539459150. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-07-02",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Canara Bank Account Statement - Jul 2026",
+   "body": "Dear Rohit,\nYour Canara Bank xx4884 account statement for Jul 2026 is ready. Closing balance Rs.2,114.35.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-08",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "OTP for your transaction",
+   "body": "701564 is the OTP for your transaction of Rs.9,739.94 at DECATHLON. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "Your BPCL SBI Card Monthly Statement - Jul 2026",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Jun-2026 to 09-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c XXXXXX4884 is debited for Rs.118.85 on 13-07-2026 - UPI BLINKIT. Bal Rs.1,93,148.67. -Canara Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Your SBI Card ELITE Monthly Statement - Jul 2026",
+   "body": "Dear Rohit,\nYour SBI Card ELITE XXXX XXXX XXXX 5742 statement for Jul 2026 is ready. Total amount due Rs.5,073.65, minimum amount due Rs.253.68, payable by 04-Aug-2026.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Payment Received - SBI Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.12,469.87 on 18/07/26 for your BPCL SBI Card XXXX XXXX XXXX 8062. Available credit limit has been updated.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Jul 2026",
+   "body": "Dear Rohit,\nPlease find attached your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for the period 26-Jun-2026 to 25-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-26",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Payment Received - SBI Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,516.17 on 28/07/26 for your SBI Card Credit Card XXXX XXXX XXXX 5742. Available credit limit has been updated.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Payment successful",
+   "body": "Hi Rohit,\nYou paid Rs.4,747.36 to Punjab National Bank Credit Card ending 9826 (of Gaurav Iyer) on 31-Jul-2026. Ref 1404602514.",
+   "date": "2026-07-31",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m226",
+   "subject": "Canara Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 9049 has been successfully linked/verified for your Canara Bank relationship. If this was not you, contact us.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.5,488.49 spent on your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at HPCL PETROL on 05/08/26. Your available limit is Rs.7,635.70.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Your BPCL SBI Card Monthly Statement - Aug 2026",
+   "body": "Dear Rohit,\nYour BPCL SBI Card XXXX XXXX XXXX 8062 statement for Aug 2026 is ready. Total amount due Rs.1,750.15, minimum amount due Rs.200.00, payable by 27-Aug-2026.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.893.86 spent on your BPCL SBI Card XXXX XXXX XXXX 8062 at HPCL PETROL on 15/08/26. Your available limit is Rs.50,362.23.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "Your SBI Card ELITE Monthly Statement - Aug 2026",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card ELITE XXXX XXXX XXXX 5742 statement for the period 18-Jul-2026 to 17-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-18",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.113.82 spent on your SBI Card Credit Card XXXX XXXX XXXX 4069 at BATA INDIA on 23/08/26. Your available limit is Rs.15,467.34.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "SBI Card festive offers",
+   "body": "Dear Rohit,\nUse your card on UPI and earn extra rewards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,485.02 spent on your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 at OLA CABS on 25/08/26. Your available limit is Rs.10,013.03.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Aug 2026",
+   "body": "Dear Rohit,\nPlease find attached your IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for the period 26-Jul-2026 to 25-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-26",
+   "attachments": [
+    {
+     "filename": "4069_25082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Canara Bank: credit alert",
+   "body": "Credit alert: Rs.153.62 has been credited to account *4884 on 01-09-2026 (REFUND). Avl bal Rs.32,483.15.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "Canara Bank Account Statement - Sep 2026",
+   "body": "Dear Rohit,\nPlease find attached your Canara Bank XX4884 statement for the period 08-Aug-2026 to 07-Sep-2026. \n\n",
+   "date": "2026-09-08",
+   "attachments": [
+    {
+     "filename": "Canara_Acct_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "CANARA BANK\nSTATEMENT OF ACCOUNT\nAccount Name : ROHIT IYER\nFLAT 902, GREEN VALLEY APARTMENTS\n14TH CROSS, BANJARA HILLS\nMUMBAI - 624791\nAccount Number : XX4884\nAccount Type : SAVINGS ACCOUNT\nIFSC : CANA0517089\nStatement Period : 08-08-2026 to 07-09-2026\nOpening Balance : Rs.7,307.10\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n08-08-2026 NEFT DR/BESCOM 994591041 1,295.68 - 6,011.42\n09-08-2026 NEFT DR/SODEXO 140537142 9,890.86 - -3,879.44\n11-08-2026 INTEREST 883350848 - 9,583.88 5,704.44\n14-08-2026 UPI/TATA PLAY 827683311 2,704.79 - 2,999.65\n17-08-2026 UPI/MAKEMYTRIP 429279246 176.18 - 2,823.47\n17-08-2026 POS/TATA POWER 324755897 1,095.79 - 1,727.68\n19-08-2026 ATM WDL/BLINKIT 721606874 9,264.96 - -7,537.28\n22-08-2026 ATM WDL/TATA POWER 734037693 186.83 - -7,724.11\n22-08-2026 ATM WDL/EASEMYTRIP 463603548 976.78 - -8,700.89\n25-08-2026 IMPS/CR 161074380 - 141.48 -8,559.41\n26-08-2026 INTEREST 322629035 - 749.13 -7,810.28\n28-08-2026 UPI/INDIAN OIL 906334068 527.11 - -8,337.39\n30-08-2026 ATM WDL/BIGBASKET 264152631 2,314.48 - -10,651.87\nClosing Balance : -Rs.10,651.87\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "Your BPCL SBI Card Monthly Statement - Sep 2026",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Aug-2026 to 09-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-10",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m238",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c xx4884 is debited for Rs.416.49 on 12-09-2026 - UPI PAYTM. Bal Rs.2,948.46. -Canara Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-12",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.196.32 spent on SBI Card ELITE XXXX XXXX XXXX 5742 at IRCTC on 13/09/26.",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Your SBI Card ELITE Monthly Statement - Sep 2026",
+   "body": "Dear Rohit,\nPlease find attached your SBI Card ELITE XXXX XXXX XXXX 5742 statement for the period 18-Aug-2026 to 17-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-18",
+   "attachments": [
+    {
+     "filename": "5742_17092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Sep 2026",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Sep 2026 is ready. Total amount due Rs.3,590.88, minimum amount due Rs.200.00, payable by 13-Oct-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "Update your KYC",
+   "body": "Dear Rohit,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.3,859.70 spent on SBI Card Credit Card XXXX XXXX XXXX 8062 at APOLLO PHARMACY on 07/10/26.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.566.94 spent on your SBI Card Credit Card XXXX XXXX XXXX 8062 at BIG BAZAAR on 09/10/26. Your available limit is Rs.23,497.46.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Your BPCL SBI Card Monthly Statement - Oct 2026",
+   "body": "Dear Rohit,\nPlease find attached your BPCL SBI Card XXXX XXXX XXXX 8062 statement for the period 10-Sep-2026 to 09-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-10",
+   "attachments": [
+    {
+     "filename": "8062_09102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Your SBI Card ELITE Monthly Statement - Oct 2026",
+   "body": "Dear Rohit,\nYour SBI Card ELITE XXXX XXXX XXXX 5742 statement for Oct 2026 is ready. Total amount due Rs.1,709.61, minimum amount due Rs.200.00, payable by 04-Nov-2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m247",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.403.85 spent on your SBI Card Credit Card XXXX XXXX XXXX 5742 at BPCL FUEL on 21/10/26. Your available limit is Rs.1,51,312.28.\nContact 1860 180 1290 if this transaction was not done by you.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-21",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "Your IRCTC SBI Platinum Card Monthly Statement - Oct 2026",
+   "body": "Dear Rohit,\nYour IRCTC SBI Platinum Card XXXX XXXX XXXX 4069 statement for Oct 2026 is ready. Total amount due Rs.574.53, minimum amount due Rs.200.00, payable by 12-Nov-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.927.61 spent on SBI Card Credit Card XXXX XXXX XXXX 8062 at PAYTM on 28/10/26.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.1,185.82 spent on SBI Card Credit Card XXXX XXXX XXXX 8062 at IXIGO on 30/10/26.",
+   "date": "2026-10-30",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "8062",
+    "kind": "CREDIT_CARD",
+    "variant": "BPCL",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "4069",
+    "kind": "CREDIT_CARD",
+    "variant": "IRCTC",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "5742",
+    "kind": "CREDIT_CARD",
+    "variant": "Elite",
+    "lifecycle": "UPGRADED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "5-10L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "4884",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "5783",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "7391",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "7022",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "2091",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "9049",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "9196",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "9150",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "9826",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

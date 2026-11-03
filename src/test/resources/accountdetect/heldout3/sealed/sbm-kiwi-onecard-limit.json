@@ -1,0 +1,1486 @@
+{
+ "mailbox": "sbm-kiwi-onecard-limit",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "You spent at APOLLO PHARMACY with Kiwi",
+   "body": "Hey Rohit,\nYou paid Rs.197.03 to APOLLO PHARMACY from your Kiwi SBM Bank RuPay Credit Card xx0006. ",
+   "date": "2025-06-08",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nYou paid Rs.20,163.16 to PHONEPE from your OneCard Credit Card ending 0397. Rewards are on the way.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-13",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m003",
+   "subject": "SBM Bank: credit alert",
+   "body": "Credit alert: Rs.286.55 has been credited to account xx4320 on 15-Jun-2025 (INTEREST CREDIT). Avl bal Rs.4,940.62.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-15",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "SBM Bank: credit alert",
+   "body": "Your A/c *4320 is credited with Rs.653.10 on 18-Jun-2025 - IMPS. Bal Rs.77,083.75. -SBM Bank India\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-18",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m005",
+   "subject": "Payment received on your OneCard",
+   "body": "Thank you! We have credited Rs.107.24 to your OneCard Credit Card XX0397 on 21-Jun-2025.",
+   "date": "2025-06-21",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m006",
+   "subject": "OTP for your transaction",
+   "body": "367429 is the OTP for your transaction of Rs.213.89 at NETFLIX. Valid for 10 minutes. Do not share.",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m007",
+   "subject": "Your OneCard statement for Jul 2025",
+   "body": "Dear Rohit,\nPlease find attached your OneCard Credit Card ending 0397 statement for the period 03-Jun-2025 to 02-Jul-2025. Total amount due Rs.40,842.25, due 17-Jul-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-03",
+   "attachments": [
+    {
+     "filename": "0397_02072025_stmt.pdf",
+     "protected": false,
+     "pdfText": "OneCard Credit Card Statement\nROHIT GUPTA\nFLAT 551, LAKESHORE APARTMENTS\n2TH CROSS, KOTHRUD\nMUMBAI - 698461\nCard Name: OneCard Credit Card\nCredit Card Number: 499150XXXXXX0397\nBilling Cycle: 03/06/25 - 02/07/25\nStatement Date: 02/07/25\nPayment Summary\nTotal Amount Due: Rs.40,842.25\nMinimum Amount Due: Rs.2,042.11\nDue Date: 17/07/25\nAccount Summary\nCredit Limit: Rs.80,000.00\nAvailable Credit Limit: Rs.53,218.73\nAvailable Cash Limit: Rs.16,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n06/06/25 BOOKMYSHOW BENGALURU 7,431.33 Dr\n07/06/25 AIRTEL PREPAID AHMEDABAD 11,463.41 Dr\n10/06/25 INDIAN OIL CHENNAI 7,158.79 Dr\n20/06/25 EASEMYTRIP JAIPUR 1,582.47 Dr\n21/06/25 TATA PLAY AHMEDABAD 675.35 Dr\n22/06/25 BESCOM PUNE 1,028.32 Dr\n23/06/25 BIGBASKET BENGALURU 6,996.93 Dr\n23/06/25 NYKAA JAIPUR 1,055.90 Dr\n24/06/25 BIGBASKET CHENNAI 3,173.54 Dr\n25/06/25 DECATHLON BENGALURU 276.21 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m008",
+   "subject": "Your Kiwi statement - Jul 2025",
+   "body": "Dear Rohit,\nStatement generated for Kiwi SBM Bank RuPay Credit Card xx0006: amount payable Rs.5,917.82, last date 21-Jul-2025. Sign in to download.",
+   "date": "2025-07-04",
+   "attachments": [],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "Update your KYC",
+   "body": "Dear Rohit,\nAs per RBI guidelines please complete re-KYC for your SBM Bank India relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-07-06",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "SBM Bank: debit alert",
+   "body": "Your A/c XXXXXX4320 is debited for Rs.4,447.64 on 08-Jul-2025 - ECOM LENSKART. Bal Rs.4,750.49. -SBM Bank India\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-08",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "Payment received on your OneCard",
+   "body": "Payment of Rs.541.90 has been received towards your OneCard Credit Card xx0397 on 12-Jul-2025. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-12",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m012",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nYou paid Rs.10,765.49 to SODEXO from your OneCard Credit Card XX0397. Check your cashback in the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m013",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.737.17 has been debited from your SBM Bank India A/c XX4320 on 14-Jul-2025 (POS ZOMATO). Avl bal Rs.86,813.80.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-14",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m014",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nYou paid Rs.17,381.60 to STARBUCKS from your OneCard Credit Card XX0397. Rewards are on the way.\n\nOpt for e-statements and go green.",
+   "date": "2025-07-14",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m015",
+   "subject": "SBM Bank: credit alert",
+   "body": "Credit alert: Rs.29,801.08 has been credited to account xx4320 on 28-Jul-2025 (IMPS). Avl bal Rs.2,747.28.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-28",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "Your OneCard statement for Aug 2025",
+   "body": "Hi Rohit,\nYour OneCard Credit Card XX0397 e-statement for Aug 2025 is now available. Pay Rs.540.51 by 20-Aug-2025 to avoid late fees.",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m017",
+   "subject": "SBM Bank: debit alert",
+   "body": "Rs.1,676.08 withdrawn from XXXXXX4320 on 03-Aug-2025 via NEFT to TATA PLAY. Closing balance Rs.12,588.77.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "Your Kiwi statement - Aug 2025",
+   "body": "Dear Rohit,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX0006 statement for the period 04-Jul-2025 to 03-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-04",
+   "attachments": [
+    {
+     "filename": "SBM_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Transaction alert on your OneCard",
+   "body": "OneCard Credit Card xx0397: purchase of Rs.2,466.85 at UBER INDIA on 09-Aug-2025 00:38:00. Available limit Rs.2,971.08.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m020",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Card alert | Rs.147.08 | INDIGO AIRLINES | 15-Aug-2025 | OneCard Credit Card xx0397\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-15",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m021",
+   "subject": "Update your KYC",
+   "body": "Dear Rohit,\nAs per RBI guidelines please complete re-KYC for your SBM Bank India relationship. Visit a branch or use the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-15",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "You spent at BATA INDIA with Kiwi",
+   "body": "Card alert | Rs.19,633.10 | BATA INDIA | 26-Aug-2025 | Kiwi SBM Bank RuPay Credit Card XX0006\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "SBM Bank: credit alert",
+   "body": "Credit alert: Rs.110.20 has been credited to account XX4320 on 26-Aug-2025 (NEFT). Avl bal Rs.5,400.66.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nYou paid Rs.667.73 to ZOMATO from your OneCard Credit Card XX0397. Pay in 3 instalments from the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m025",
+   "subject": "Payment received on your OneCard",
+   "body": "Payment of Rs.182.30 has been received towards your OneCard Credit Card xx0397 on 29-Aug-2025. Thank you for the payment.",
+   "date": "2025-08-29",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m026",
+   "subject": "SBM Bank: credit alert",
+   "body": "SBM Bank India: *4320 credited with Rs.12,514.59 on 30-Aug-2025. Source: IMPS. Balance Rs.3,186.63.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-30",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m027",
+   "subject": "Your OneCard statement for Sep 2025",
+   "body": "Dear Rohit,\nStatement generated for OneCard Credit Card ending 0397: amount payable Rs.7,123.97, last date 20-Sep-2025. Sign in to download.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m028",
+   "subject": "Your Kiwi statement - Sep 2025",
+   "body": "Dear Rohit,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card xx0006 statement for the period 04-Aug-2025 to 03-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-04",
+   "attachments": [
+    {
+     "filename": "SBM_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Priya Tailors (A/c XXXXXX3133, Bandhan Bank) has been added to your account XXXXXX4320. It will be active after 30 minutes.",
+   "date": "2025-09-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.3,034.03 has been debited from your SBM Bank India A/c XXXXXX4320 on 11-Sep-2025 (POS BIGBASKET). Avl bal Rs.2,046.41.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-11",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.24,620.30 has been transferred from your A/c XXXXXX4320 to S K Enterprises A/c XX8901 (IndusInd Bank) via IMPS on 12-Sep-2025. Ref no 344941746162.",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rohit,\nYour order #390-3846945-1141335 is confirmed. Total Rs.239.98. Estimated delivery in 2 days.",
+   "date": "2025-09-19",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 563377505274. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m034",
+   "subject": "Payment received on your Kiwi card",
+   "body": "Thank you! We have credited Rs.494.87 to your Kiwi SBM Bank RuPay Credit Card XX0006 on 30-Sep-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-09-30",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "Your OneCard statement for Oct 2025",
+   "body": "Dear Rohit,\nYour OneCard Credit Card XX0397 statement for Oct 2025 is ready. Total amount due Rs.55,625.94, minimum amount due Rs.2,781.30, payable by 20-Oct-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-03",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m036",
+   "subject": "Your Kiwi statement - Oct 2025",
+   "body": "Dear Rohit,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card xx0006 statement for the period 04-Sep-2025 to 03-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-04",
+   "attachments": [
+    {
+     "filename": "0006_03102025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "You spent at INDIAN OIL with Kiwi",
+   "body": "Hey Rohit,\nyou spent Rs.94.30 at INDIAN OIL using your Kiwi SBM Bank RuPay Credit Card XX0006. Check your cashback in the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from xx4320 to Priya Tailors A/c XX3133 on 04-Oct-2025. Rent for the month.",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "You spent at ZEPTO with Kiwi",
+   "body": "Kiwi SBM Bank RuPay Credit Card xx0006: purchase of Rs.3,218.12 at ZEPTO on 11-Oct-2025 04:09:20. Available limit Rs.1,25,720.46.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "You spent at EASEMYTRIP with Kiwi",
+   "body": "Hey Rohit,\nYou paid Rs.3,706.99 to EASEMYTRIP from your Kiwi SBM Bank RuPay Credit Card XX0006. Check your cashback in the app.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Rohit,\nUse your card on UPI and earn extra rewards.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m042",
+   "subject": "SBM Bank: debit alert",
+   "body": "INR debit alert: Rs.722.66 debited from account XX4320 on 18-Oct-2025. Narration: IMPS/INDIGO AIRLINES. Available balance Rs.1,63,669.17.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.21,620.12 has been transferred from your A/c xx4320 to Mohan Landlord A/c XX3652 (Canara Bank) via IMPS on 18-Oct-2025. Ref no 168992293833.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "Transaction alert on your OneCard",
+   "body": "OneCard Credit Card xx0397: purchase of Rs.487.18 at PAYTM on 19-Oct-2025 09:35:50. Available limit Rs.1,93,454.45.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m045",
+   "subject": "You spent at OLA CABS with Kiwi",
+   "body": "Hey Rohit,\nyou spent Rs.4,414.31 at OLA CABS using your Kiwi SBM Bank RuPay Credit Card ending 0006. Pay in 3 instalments from the app.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m046",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nyou spent Rs.95.72 at TATA POWER using your OneCard Credit Card XX0397. 5X coins on partner brands.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m047",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rohit,\nYour order #195-8792140-8184749 is confirmed. Total Rs.123.85. Estimated delivery in 2 days.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Transaction alert on your OneCard",
+   "body": "OneCard Credit Card XX0397: purchase of Rs.259.58 at RELIANCE DIGITAL on 29-Oct-2025 01:59:19. Available limit Rs.34,170.18.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-29",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m049",
+   "subject": "You spent at PAYTM with Kiwi",
+   "body": "Hey Rohit,\nyou spent Rs.2,759.23 at PAYTM using your Kiwi SBM Bank RuPay Credit Card XX0006. 5X coins on partner brands.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m050",
+   "subject": "Your OneCard statement for Nov 2025",
+   "body": "Dear Rohit,\nYour OneCard Credit Card XX0397 statement for Nov 2025 is ready. Total amount due Rs.55,259.53, minimum amount due Rs.2,762.98, payable by 20-Nov-2025.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-03",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m051",
+   "subject": "Your Kiwi statement - Nov 2025",
+   "body": "Dear Rohit,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card ending 0006 statement for the period 04-Oct-2025 to 03-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-04",
+   "attachments": [
+    {
+     "filename": "SBM_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from XXXXXX4320 to Priya Tailors A/c XX3133 on 04-Nov-2025. Rent for the month.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m053",
+   "subject": "You spent at BESCOM with Kiwi",
+   "body": "Card alert | Rs.1,456.74 | BESCOM | 05-Nov-2025 | Kiwi SBM Bank RuPay Credit Card ending 0006\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m054",
+   "subject": "SBM Bank India: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 9444 has been successfully linked/verified for your SBM Bank India relationship. If this was not you, contact us.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "You spent at TATA PLAY with Kiwi",
+   "body": "Kiwi SBM Bank RuPay Credit Card XX0006: purchase of Rs.1,256.94 at TATA PLAY on 08-Nov-2025 01:06:54. Available limit Rs.77,326.20.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m056",
+   "subject": "Payment received on your OneCard",
+   "body": "Payment confirmation: Rs.335.72 posted to OneCard Credit Card ending 0397 on 10-Nov-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m057",
+   "subject": "You spent at MYNTRA with Kiwi",
+   "body": "Card alert | Rs.490.77 | MYNTRA | 18-Nov-2025 | Kiwi SBM Bank RuPay Credit Card XX0006",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nyou spent Rs.14,901.09 at INDIAN OIL using your OneCard Credit Card XX0397. 5X coins on partner brands.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m059",
+   "subject": "OTP for your transaction",
+   "body": "158721 is the OTP for your transaction of Rs.353.40 at APOLLO PHARMACY. Valid for 10 minutes. Do not share.",
+   "date": "2025-11-20",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m060",
+   "subject": "You spent at NYKAA with Kiwi",
+   "body": "Hey Rohit,\nYou paid Rs.3,289.40 to NYKAA from your Kiwi SBM Bank RuPay Credit Card ending 0006. Rewards are on the way.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Your OneCard statement for Dec 2025",
+   "body": "Dear Rohit,\nPlease find attached your OneCard Credit Card ending 0397 statement for the period 03-Nov-2025 to 02-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-03",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m062",
+   "subject": "Your Kiwi statement - Dec 2025",
+   "body": "Hi Rohit,\nYour Kiwi SBM Bank RuPay Credit Card XX0006 e-statement for Dec 2025 is now available. Pay Rs.9,115.66 by 21-Dec-2025 to avoid late fees.",
+   "date": "2025-12-04",
+   "attachments": [],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from *4320 to Priya Tailors A/c XX3133 on 04-Dec-2025. Rent for the month.",
+   "date": "2025-12-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.567.70 has been debited from your SBM Bank India A/c XXXXXX4320 on 05-Dec-2025 (NEFT MCDONALDS). Avl bal Rs.43,447.48.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "You spent at BIG BAZAAR with Kiwi",
+   "body": "Card alert | Rs.470.38 | BIG BAZAAR | 09-Dec-2025 | Kiwi SBM Bank RuPay Credit Card ending 0006\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Rohit,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "Transaction alert on your OneCard",
+   "body": "OneCard Credit Card XX0397: purchase of Rs.894.07 at RELIANCE DIGITAL on 18-Dec-2025 14:30:28. Available limit Rs.10,271.87.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m068",
+   "subject": "SBM Bank: debit alert",
+   "body": "INR debit alert: Rs.526.75 debited from account XX4320 on 19-Dec-2025. Narration: IMPS/BLINKIT. Available balance Rs.3,381.03.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-19",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "Transaction alert on your OneCard",
+   "body": "OneCard Credit Card XX0397: purchase of Rs.832.10 at IKEA on 25-Dec-2025 08:45:14. Available limit Rs.1,42,862.10.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m070",
+   "subject": "Your OneCard statement for Jan 2026",
+   "body": "Dear Rohit,\nPlease find attached your OneCard Credit Card xx0397 statement for the period 03-Dec-2025 to 02-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-03",
+   "attachments": [
+    {
+     "filename": "OneCard_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m071",
+   "subject": "Your Kiwi statement - Jan 2026",
+   "body": "Dear Rohit,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card ending 0006 statement for the period 04-Dec-2025 to 03-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-04",
+   "attachments": [
+    {
+     "filename": "eStatement_202601.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Transaction alert on your OneCard",
+   "body": "OneCard Credit Card ending 0397: purchase of Rs.276.07 at STARBUCKS on 04-Jan-2026 00:02:30. Available limit Rs.6,267.63.",
+   "date": "2026-01-04",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m073",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from XX4320 to Priya Tailors A/c XX3133 on 04-Jan-2026. Rent for the month.",
+   "date": "2026-01-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "SBM Bank: debit alert",
+   "body": "Your A/c XXXXXX4320 is debited for Rs.22,883.23 on 13-Jan-2026 - POS OLA CABS. Bal Rs.2,485.00. -SBM Bank India\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nyou spent Rs.21,659.39 at APPLE SERVICES using your OneCard Credit Card ending 0397. 5X coins on partner brands.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-21",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m076",
+   "subject": "SBM Bank: debit alert",
+   "body": "INR debit alert: Rs.127.01 debited from account *4320 on 28-Jan-2026. Narration: POS/HPCL PETROL. Available balance Rs.52,528.39.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "Your OneCard statement for Feb 2026",
+   "body": "Dear Rohit,\nStatement generated for OneCard Credit Card xx0397: amount payable Rs.24,705.98, last date 20-Feb-2026. Sign in to download.",
+   "date": "2026-02-03",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m078",
+   "subject": "Your Kiwi statement - Feb 2026",
+   "body": "Dear Rohit,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card xx0006 statement for the period 04-Jan-2026 to 03-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-04",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m079",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from XXXXXX4320 to Priya Tailors A/c XX3133 on 04-Feb-2026. Rent for the month.",
+   "date": "2026-02-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Your credit limit has been increased",
+   "body": "Dear Rohit Gupta,\nWe have revised the limit on your OneCard Credit Card xx0397. Your new credit limit is Rs.2,00,000.00 from 16-Feb-2026.",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m081",
+   "subject": "SBM Bank: debit alert",
+   "body": "Rs.110.14 withdrawn from xx4320 on 16-Feb-2026 via IMPS to BPCL FUEL. Closing balance Rs.47,989.55.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.137.61 has been debited from your SBM Bank India A/c xx4320 on 18-Feb-2026 (POS PHONEPE). Avl bal Rs.20,213.19.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-18",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "SBM Bank: debit alert",
+   "body": "Rs.37,176.58 withdrawn from XXXXXX4320 on 24-Feb-2026 via NEFT to PVR INOX. Closing balance Rs.51,028.57.",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m084",
+   "subject": "You spent at DOMINOS with Kiwi",
+   "body": "Hey Rohit,\nyou spent Rs.7,116.98 at DOMINOS using your Kiwi SBM Bank RuPay Credit Card XX0006. Pay in 3 instalments from the app.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nYou paid Rs.671.36 to BLINKIT from your OneCard Credit Card XX0397. Pay in 3 instalments from the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m086",
+   "subject": "You spent at ZOMATO with Kiwi",
+   "body": "Hey Rohit,\nyou spent Rs.7,901.19 at ZOMATO using your Kiwi SBM Bank RuPay Credit Card ending 0006. Check your cashback in the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-02",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "Your OneCard statement for Mar 2026",
+   "body": "Hi Rohit,\nYour OneCard Credit Card xx0397 e-statement for Mar 2026 is now available. Pay Rs.7,345.68 by 20-Mar-2026 to avoid late fees.",
+   "date": "2026-03-03",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m088",
+   "subject": "Your Kiwi statement - Mar 2026",
+   "body": "Dear Rohit,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card ending 0006 statement for the period 04-Feb-2026 to 03-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-04",
+   "attachments": [
+    {
+     "filename": "SBM_CC_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,500.00 transferred from xx4320 to Priya Tailors A/c XX3133 on 04-Mar-2026. Rent for the month.",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Card alert | Rs.4,086.46 | SPOTIFY | 05-Mar-2026 | OneCard Credit Card XX0397\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m091",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.3,133.96 has been debited from your SBM Bank India A/c *4320 on 06-Mar-2026 (IMPS BOOKMYSHOW). Avl bal Rs.20,688.67.",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "You spent at SPOTIFY with Kiwi",
+   "body": "Card alert | Rs.3,452.98 | SPOTIFY | 07-Mar-2026 | Kiwi SBM Bank RuPay Credit Card ending 0006\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "Transaction alert on your OneCard",
+   "body": "OneCard Credit Card ending 0397: purchase of Rs.97.46 at BLINKIT on 16-Mar-2026 14:49:12. Available limit Rs.1,13,648.88.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m094",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Rohit,\nConvert big spends to EMI at low interest.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m095",
+   "subject": "You spent at PHONEPE with Kiwi",
+   "body": "Hey Rohit,\nYou paid Rs.4,364.08 to PHONEPE from your Kiwi SBM Bank RuPay Credit Card XX0006. \n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m096",
+   "subject": "Payment received on your Kiwi card",
+   "body": "Payment of Rs.144.45 has been received towards your Kiwi SBM Bank RuPay Credit Card xx0006 on 30-Mar-2026. Thank you for the payment.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-30",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m097",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nYou paid Rs.883.79 to NETFLIX from your OneCard Credit Card ending 0397. Pay in 3 instalments from the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m098",
+   "subject": "Your OneCard statement for Apr 2026",
+   "body": "Hi Rohit,\nYour OneCard Credit Card XX0397 e-statement for Apr 2026 is now available. Pay Rs.12,036.36 by 20-Apr-2026 to avoid late fees.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m099",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.5,891.60 has been debited from your SBM Bank India A/c *4320 on 03-Apr-2026 (NEFT DECATHLON). Avl bal Rs.12,741.01.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "Your Kiwi statement - Apr 2026",
+   "body": "Dear Rohit,\nYour Kiwi SBM Bank RuPay Credit Card xx0006 statement for Apr 2026 is ready. Total amount due Rs.10,931.14, minimum amount due Rs.546.56, payable by 21-Apr-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "You spent at EASEMYTRIP with Kiwi",
+   "body": "Hey Rohit,\nYou paid Rs.830.34 to EASEMYTRIP from your Kiwi SBM Bank RuPay Credit Card XX0006. 5X coins on partner brands.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m102",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rohit,\nYour order #563-1989428-5532186 is confirmed. Total Rs.3,816.46. Estimated delivery in 2 days.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "SBM Bank: credit alert",
+   "body": "Dear Customer,\nRs.84.16 credited to your SBM Bank India A/c xx4320 on 08-Apr-2026 by UPI. Ref 277264212145.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-08",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m104",
+   "subject": "SBM Bank: debit alert",
+   "body": "INR debit alert: Rs.179.53 debited from account XXXXXX4320 on 09-Apr-2026. Narration: ECOM/CROMA. Available balance Rs.5,400.58.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nYou paid Rs.18,035.79 to ZOMATO from your OneCard Credit Card xx0397. Rewards are on the way.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-12",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m106",
+   "subject": "You spent at SWIGGY with Kiwi",
+   "body": "Card alert | Rs.124.39 | SWIGGY | 19-Apr-2026 | Kiwi SBM Bank RuPay Credit Card XX0006",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "Payment received on your Kiwi card",
+   "body": "Thank you! We have credited Rs.169.14 to your Kiwi SBM Bank RuPay Credit Card ending 0006 on 21-Apr-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "SBM Bank: credit alert",
+   "body": "Credit alert: Rs.2,901.08 has been credited to account *4320 on 21-Apr-2026 (IMPS). Avl bal Rs.11,293.80.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m109",
+   "subject": "You spent at EAZYDINER with Kiwi",
+   "body": "Card alert | Rs.1,642.24 | EAZYDINER | 25-Apr-2026 | Kiwi SBM Bank RuPay Credit Card XX0006",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Your OneCard statement for May 2026",
+   "body": "Dear Rohit,\nYour OneCard Credit Card xx0397 statement for May 2026 is ready. Total amount due Rs.2,848.94, minimum amount due Rs.200.00, payable by 20-May-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m111",
+   "subject": "Your Kiwi statement - May 2026",
+   "body": "Hi Rohit,\nYour Kiwi SBM Bank RuPay Credit Card ending 0006 e-statement for May 2026 is now available. Pay Rs.10,657.45 by 21-May-2026 to avoid late fees.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Transaction alert on your OneCard",
+   "body": "OneCard Credit Card XX0397: purchase of Rs.94.59 at MAKEMYTRIP on 05-May-2026 18:37:38. Available limit Rs.2,379.06.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m113",
+   "subject": "You spent at TATA POWER with Kiwi",
+   "body": "Hey Rohit,\nyou spent Rs.5,308.69 at TATA POWER using your Kiwi SBM Bank RuPay Credit Card xx0006. \n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Payment received on your OneCard",
+   "body": "Payment confirmation: Rs.260.45 posted to OneCard Credit Card XX0397 on 12-May-2026.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m115",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.772.48 has been transferred from your A/c XX4320 to S K Enterprises A/c XX8901 (IndusInd Bank) via IMPS on 02-Jun-2026. Ref no 879780153003.",
+   "date": "2026-06-02",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m116",
+   "subject": "Your OneCard statement for Jun 2026",
+   "body": "Dear Rohit,\nPlease find attached your OneCard Credit Card ending 0397 statement for the period 03-May-2026 to 02-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-06-03",
+   "attachments": [
+    {
+     "filename": "OneCard_CC_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m117",
+   "subject": "Your Kiwi statement - Jun 2026",
+   "body": "Hi Rohit,\nYour Kiwi SBM Bank RuPay Credit Card xx0006 e-statement for Jun 2026 is now available. Pay Rs.4,084.94 by 21-Jun-2026 to avoid late fees.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "You spent at MEDPLUS with Kiwi",
+   "body": "Hey Rohit,\nYou paid Rs.346.35 to MEDPLUS from your Kiwi SBM Bank RuPay Credit Card XX0006. \n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m119",
+   "subject": "Transaction alert on your OneCard",
+   "body": "OneCard Credit Card XX0397: purchase of Rs.292.37 at NYKAA on 06-Jun-2026 16:38:37. Available limit Rs.4,174.73.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-06",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m120",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Rohit,\nConvert big spends to EMI at low interest.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-07",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m121",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 205998040910. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-06-10",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m122",
+   "subject": "You spent at STARBUCKS with Kiwi",
+   "body": "Hey Rohit,\nYou paid Rs.937.58 to STARBUCKS from your Kiwi SBM Bank RuPay Credit Card ending 0006. Check your cashback in the app.",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m123",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nYou paid Rs.7,263.19 to SWIGGY from your OneCard Credit Card XX0397. Pay in 3 instalments from the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m124",
+   "subject": "SBM Bank: credit alert",
+   "body": "Deposit alert - Rs.3,407.93 received in account XXXXXX4320 on 17-Jun-2026 (UPI) Ref 829206585584.",
+   "date": "2026-06-17",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "Payment received on your OneCard",
+   "body": "Payment of Rs.7,525.34 has been received towards your OneCard Credit Card xx0397 on 20-Jun-2026. Thank you for the payment.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m126",
+   "subject": "Payment successful",
+   "body": "Hi Rohit,\nYou paid Rs.6,618.55 to HDFC Bank Credit Card ending 5170 (of Gaurav Gupta) on 24-Jun-2026. Ref 4221775122.",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m127",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.1,344.38 has been transferred from your A/c xx4320 to Mohan Landlord A/c XX3652 (Canara Bank) via IMPS on 01-Jul-2026. Ref no 440445910172.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m128",
+   "subject": "Your OneCard statement for Jul 2026",
+   "body": "Dear Rohit,\nPlease find attached your OneCard Credit Card ending 0397 statement for the period 03-Jun-2026 to 02-Jul-2026. Total amount due Rs.38,686.04, due 18-Jul-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-03",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": false,
+     "pdfText": "OneCard Credit Card Statement\nROHIT GUPTA\nFLAT 546, GREEN VALLEY APARTMENTS\n20TH CROSS, SECTOR 21\nKOLKATA - 434289\nCard Name: OneCard Credit Card\nCredit Card Number: 499150XXXXXX0397\nBilling Cycle: 03/06/26 - 02/07/26\nStatement Date: 02/07/26\nPayment Summary\nTotal Amount Due: Rs.38,686.04\nMinimum Amount Due: Rs.1,934.30\nDue Date: 18/07/26\nAccount Summary\nCredit Limit: Rs.2,00,000.00\nAvailable Credit Limit: Rs.1,73,256.09\nAvailable Cash Limit: Rs.40,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n04/06/26 PAYTM KOCHI 9,919.78 Dr\n06/06/26 BIG BAZAAR CHENNAI 5,454.59 Dr\n06/06/26 BIG BAZAAR GURUGRAM 14,178.55 Dr\n06/06/26 EASEMYTRIP HYDERABAD 94.16 Dr\n11/06/26 PVR INOX AHMEDABAD 113.36 Dr\n12/06/26 SPOTIFY MUMBAI 2,875.57 Dr\n14/06/26 PHONEPE CHENNAI 1,478.60 Dr\n26/06/26 INDIGO AIRLINES HYDERABAD 3,547.86 Dr\n01/07/26 LENSKART CHENNAI 804.49 Dr\n02/07/26 BESCOM CHENNAI 219.08 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m129",
+   "subject": "Payment received on your Kiwi card",
+   "body": "Thank you! We have credited Rs.91.73 to your Kiwi SBM Bank RuPay Credit Card ending 0006 on 03-Jul-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m130",
+   "subject": "Your Kiwi statement - Jul 2026",
+   "body": "Dear Rohit,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX0006 statement for the period 04-Jun-2026 to 03-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-04",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m131",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Rohit,\nPlease find attached the updated MITC for your SBM Bank India credit cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-06",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "SBM BANK INDIA CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "OTP for your transaction",
+   "body": "979016 is the OTP for your transaction of Rs.1,291.47 at BPCL FUEL. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m133",
+   "subject": "Your OneCard statement for Aug 2026",
+   "body": "Dear Rohit,\nPlease find attached your OneCard Credit Card ending 0397 statement for the period 03-Jul-2026 to 02-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-08-03",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m134",
+   "subject": "Your Kiwi statement - Aug 2026",
+   "body": "Dear Rohit,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX0006 statement for the period 04-Jul-2026 to 03-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-08-04",
+   "attachments": [
+    {
+     "filename": "SBM_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m135",
+   "subject": "SBM Bank: debit alert",
+   "body": "Rs.39,727.44 withdrawn from *4320 on 10-Aug-2026 via NEFT to DECATHLON. Closing balance Rs.7,837.90.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m136",
+   "subject": "SBM Bank: credit alert",
+   "body": "Credit alert: Rs.11,769.19 has been credited to account XXXXXX4320 on 12-Aug-2026 (NEFT). Avl bal Rs.22,498.13.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-12",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m137",
+   "subject": "Update your KYC",
+   "body": "Dear Rohit,\nAs per RBI guidelines please complete re-KYC for your SBM Bank India relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-13",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m138",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX7504 has been updated on 16-Feb-2026. If not requested by you, call customer care.",
+   "date": "2026-08-14",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m139",
+   "subject": "You spent at APPLE SERVICES with Kiwi",
+   "body": "Hey Rohit,\nYou paid Rs.660.73 to APPLE SERVICES from your Kiwi SBM Bank RuPay Credit Card XX0006. Pay in 3 instalments from the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "Transaction alert on your OneCard",
+   "body": "OneCard Credit Card XX0397: purchase of Rs.120.00 at APOLLO PHARMACY on 17-Aug-2026 04:05:46. Available limit Rs.53,596.21.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-17",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m141",
+   "subject": "You spent at AMAZON PAY INDIA with Kiwi",
+   "body": "Hey Rohit,\nyou spent Rs.1,297.24 at AMAZON PAY INDIA using your Kiwi SBM Bank RuPay Credit Card XX0006. \n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m142",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nyou spent Rs.900.85 at DMART using your OneCard Credit Card XX0397. Rewards are on the way.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m143",
+   "subject": "OTP for your transaction",
+   "body": "943150 is the OTP for your transaction of Rs.1,436.77 at MEDPLUS. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m144",
+   "subject": "Your OneCard statement for Sep 2026",
+   "body": "Dear Rohit,\nPlease find attached your OneCard Credit Card xx0397 statement for the period 03-Aug-2026 to 02-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-03",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m145",
+   "subject": "Your Kiwi statement - Sep 2026",
+   "body": "Dear Rohit,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX0006 statement for the period 04-Aug-2026 to 03-Sep-2026. Total amount due Rs.38,484.81, due 19-Sep-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-04",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": false,
+     "pdfText": "SBM Bank India Credit Card Statement\nROHIT GUPTA\nFLAT 480, SUNRISE APARTMENTS\n4TH CROSS, BANJARA HILLS\nHYDERABAD - 401714\nCard Name: Kiwi SBM Bank RuPay Credit Card\nCredit Card Number: 623333XXXXXX0006\nBilling Cycle: 04/08/26 - 03/09/26\nStatement Date: 03/09/26\nPayment Summary\nTotal Amount Due: Rs.38,484.81\nMinimum Amount Due: Rs.1,924.24\nDue Date: 19/09/26\nAccount Summary\nCredit Limit: Rs.50,000.00\nAvailable Credit Limit: Rs.32,652.49\nAvailable Cash Limit: Rs.10,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n05/08/26 BESCOM CHENNAI 93.69 Dr\n06/08/26 UBER INDIA KOLKATA 382.22 Dr\n14/08/26 HPCL PETROL BENGALURU 3,993.18 Dr\n21/08/26 SODEXO GURUGRAM 491.02 Dr\n22/08/26 MAKEMYTRIP BENGALURU 19,614.00 Dr\n29/08/26 DOMINOS CHENNAI 13,910.70 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m146",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.969.00 has been debited from your SBM Bank India A/c XX4320 on 09-Sep-2026 (POS NETFLIX). Avl bal Rs.60,029.74.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m147",
+   "subject": "You spent at INDIGO AIRLINES with Kiwi",
+   "body": "Kiwi SBM Bank RuPay Credit Card ending 0006: purchase of Rs.2,884.56 at INDIGO AIRLINES on 13-Sep-2026 07:33:01. Available limit Rs.92,231.51.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m148",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Card alert | Rs.223.00 | JIO RECHARGE | 18-Sep-2026 | OneCard Credit Card ending 0397\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m149",
+   "subject": "SBM Bank: debit alert",
+   "body": "INR debit alert: Rs.2,778.47 debited from account XX4320 on 24-Sep-2026. Narration: UPI/BIGBASKET. Available balance Rs.73,053.92.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m150",
+   "subject": "SBM Bank: debit alert",
+   "body": "Rs.6,403.57 withdrawn from xx4320 on 25-Sep-2026 via UPI to BIGBASKET. Closing balance Rs.3,361.50.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m151",
+   "subject": "SBM Bank: credit alert",
+   "body": "SBM Bank India: XX4320 credited with Rs.92.62 on 02-Oct-2026. Source: SALARY NEFT. Balance Rs.4,249.00.",
+   "date": "2026-10-02",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m152",
+   "subject": "Your OneCard statement for Oct 2026",
+   "body": "Dear Rohit,\nPlease find attached your OneCard Credit Card ending 0397 statement for the period 03-Sep-2026 to 02-Oct-2026. Total amount due Rs.9,686.45, due 20-Oct-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-03",
+   "attachments": [
+    {
+     "filename": "OneCard_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "OneCard Credit Card Statement\nROHIT GUPTA\nFLAT 207, LAKESHORE APARTMENTS\n23TH CROSS, SECTOR 21\nCHENNAI - 492739\nCard Name: OneCard Credit Card\nCredit Card Number: 499150XXXXXX0397\nBilling Cycle: 03/09/26 - 02/10/26\nStatement Date: 02/10/26\nPayment Summary\nTotal Amount Due: Rs.9,686.45\nMinimum Amount Due: Rs.484.32\nDue Date: 20/10/26\nAccount Summary\nCredit Limit: Rs.2,00,000.00\nAvailable Credit Limit: Rs.1,97,031.12\nAvailable Cash Limit: Rs.40,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n12/09/26 NETFLIX MUMBAI 260.47 Dr\n16/09/26 MYNTRA PUNE 1,430.34 Dr\n22/09/26 AMAZON PAY INDIA KOCHI 397.66 Dr\n22/09/26 BLINKIT PUNE 141.52 Dr\n29/09/26 JIO RECHARGE HYDERABAD 1,513.70 Dr\n30/09/26 SPOTIFY HYDERABAD 4,772.60 Dr\n01/10/26 IKEA HYDERABAD 1,170.16 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "OneCard <statements@getonecard.app>"
+  },
+  {
+   "id": "m153",
+   "subject": "Your Kiwi statement - Oct 2026",
+   "body": "Dear Rohit,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX0006 statement for the period 04-Sep-2026 to 03-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-04",
+   "attachments": [
+    {
+     "filename": "SBM_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m154",
+   "subject": "You spent at SODEXO with Kiwi",
+   "body": "Hey Rohit,\nyou spent Rs.4,352.15 at SODEXO using your Kiwi SBM Bank RuPay Credit Card ending 0006. \n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m155",
+   "subject": "Transaction alert on your OneCard",
+   "body": "Hey Rohit,\nyou spent Rs.8,724.31 at IRCTC using your OneCard Credit Card XX0397. Rewards are on the way.",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m156",
+   "subject": "Update your KYC",
+   "body": "Dear Rohit,\nAs per RBI guidelines please complete re-KYC for your OneCard relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "OneCard <no-reply@getonecard.app>"
+  },
+  {
+   "id": "m157",
+   "subject": "Update your KYC",
+   "body": "Dear Rohit,\nAs per RBI guidelines please complete re-KYC for your SBM Bank India relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m158",
+   "subject": "SBM Bank: credit alert",
+   "body": "Your A/c xx4320 is credited with Rs.198.34 on 14-Oct-2026 - NEFT. Bal Rs.1,76,059.85. -SBM Bank India",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m159",
+   "subject": "You spent at FLIPKART with Kiwi",
+   "body": "Card alert | Rs.209.82 | FLIPKART | 19-Oct-2026 | Kiwi SBM Bank RuPay Credit Card ending 0006\n\nOpt for e-statements and go green.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m160",
+   "subject": "You spent at MCDONALDS with Kiwi",
+   "body": "Hey Rohit,\nyou spent Rs.5,693.03 at MCDONALDS using your Kiwi SBM Bank RuPay Credit Card XX0006. Check your cashback in the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m161",
+   "subject": "SBM Bank: debit alert",
+   "body": "Your A/c XX4320 is debited for Rs.16,500.26 on 23-Oct-2026 - UPI RELIANCE DIGITAL. Bal Rs.41,057.68. -SBM Bank India\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m162",
+   "subject": "SBM Bank: credit alert",
+   "body": "SBM Bank India: XX4320 credited with Rs.18,546.64 on 27-Oct-2026. Source: REFUND. Balance Rs.80,643.84.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "0006",
+    "kind": "CREDIT_CARD",
+    "variant": "Kiwi",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "<1L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "4320",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "getonecard.app",
+    "last4": "0397",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "8901",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "3652",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "3133",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "9444",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "7504",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "0910",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "5274",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "5170",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

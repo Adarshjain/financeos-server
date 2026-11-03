@@ -1,0 +1,1346 @@
+{
+ "mailbox": "sbm-bandhan-kiwi",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Bandhan Bank Account Statement - Oct 2025",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank XXXXXX7571 statement for the period 07-Sep-2025 to 06-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202510.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.19,980.40 has been debited from your SBM Bank India A/c XXXXXX2329 on 08-Oct-2025 (ECOM CROMA). Avl bal Rs.20,588.39.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-08",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m003",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c XXXXXX7571 is debited for Rs.363.70 on 09-Oct-2025 - NEFT LENSKART. Bal Rs.42,806.30. -Bandhan Bank",
+   "date": "2025-10-09",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.6,641.93 spent on your Bandhan Bank Everyday Credit Card xx7681 at MYNTRA on 14-Oct-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-14",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.189.04 spent on your Bandhan Bank Everyday Credit Card XX7681 at INDIAN OIL on 16-Oct-2025.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "SBM Bank India festive offers",
+   "body": "Dear Rahul,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\n",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "Bandhan Bank statement - Oct 2025",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank Everyday Credit Card XX7681 statement for the period 23-Sep-2025 to 22-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202510.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "SBM Bank India: funds transferred",
+   "body": "Dear Customer,\nRs.5,534.40 has been transferred from your A/c xx2329 to S K Enterprises A/c XX7900 (ICICI Bank) via IMPS on 25-Oct-2025. Ref no 200142441011.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "Your Kiwi statement - Oct 2025",
+   "body": "Dear Rahul,\nYour Kiwi SBM Bank RuPay Credit Card XX1782 statement for Oct 2025 is ready. Total amount due Rs.9,811.61, minimum amount due Rs.490.58, payable by 12-Nov-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c *7571 is debited for Rs.9,446.04 on 31-Oct-2025 - POS ZEPTO. Bal Rs.51,192.09. -Bandhan Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-31",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.123.38 has been debited from your SBM Bank India A/c XX2329 on 02-Nov-2025 (IMPS DOMINOS). Avl bal Rs.60,669.78.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-02",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "Bandhan Bank Account Statement - Nov 2025",
+   "body": "Dear Rahul,\nYour Bandhan Bank XX7571 account statement for Nov 2025 is ready. Closing balance Rs.2,001.13.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Dear Customer,\nRs.5,060.32 credited to your Bandhan Bank A/c *7571 on 10-Nov-2025 by UPI. Ref 674280385510.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Refer and earn",
+   "body": "Dear Rahul,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.920.01 spent on your Bandhan Bank Credit Card XX7681 at DMART on 21-Nov-2025.",
+   "date": "2025-11-21",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Bandhan Bank statement - Nov 2025",
+   "body": "Dear Rahul,\nYour Bandhan Bank Everyday Credit Card xx7681 statement for Nov 2025 is ready. Total amount due Rs.1,112.89, minimum amount due Rs.200.00, payable by 10-Dec-2025.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Your Kiwi statement - Nov 2025",
+   "body": "Dear Rahul,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX1782 statement for the period 26-Oct-2025 to 25-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-26",
+   "attachments": [
+    {
+     "filename": "SBM_CC_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "You spent at PHONEPE with Kiwi",
+   "body": "Hey Rahul,\nYou paid Rs.23,134.66 to PHONEPE from your Kiwi SBM Bank RuPay Credit Card xx1782. Check your cashback in the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Bandhan Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 2889 has been successfully linked/verified for your Bandhan Bank relationship. If this was not you, contact us.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Dr. Rao Clinic (A/c XXXXXX5914, IndusInd Bank) has been added to your account xx7571. It will be active after 30 minutes.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "SBM Bank: debit alert",
+   "body": "Your A/c XX2329 is debited for Rs.313.56 on 30-Nov-2025 - NEFT LENSKART. Bal Rs.26,579.34. -SBM Bank India\n\nOpt for e-statements and go green.",
+   "date": "2025-11-30",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "SBM Bank: debit alert",
+   "body": "Your A/c XXXXXX2329 is debited for Rs.501.03 on 01-Dec-2025 - IMPS OLA CABS. Bal Rs.4,003.56. -SBM Bank India",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "Bandhan Bank Account Statement - Dec 2025",
+   "body": "Dear Rahul,\nYour Bandhan Bank *7571 account statement for Dec 2025 is ready. Closing balance Rs.510.23.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "OTP for your transaction",
+   "body": "257867 is the OTP for your transaction of Rs.13,361.39 at INDIAN OIL. Valid for 10 minutes. Do not share.",
+   "date": "2025-12-12",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m025",
+   "subject": "SBM Bank: credit alert",
+   "body": "Dear Customer,\nRs.33,658.63 credited to your SBM Bank India A/c xx2329 on 16-Dec-2025 by UPI. Ref 107616624939.\nThank you for banking with us.",
+   "date": "2025-12-16",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "SBM Bank India: funds transferred",
+   "body": "Dear Customer,\nRs.672.15 has been transferred from your A/c xx2329 to S K Enterprises A/c XX7900 (ICICI Bank) via IMPS on 19-Dec-2025. Ref no 829795719294.",
+   "date": "2025-12-19",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m027",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer, transaction of Rs.6,207.53 at INDIAN OIL on 22-Dec-2025 on Bandhan Bank Credit Card XX7681.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-22",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Bandhan Bank statement - Dec 2025",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank Everyday Credit Card XX7681 statement for the period 23-Nov-2025 to 22-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-12-23",
+   "attachments": [
+    {
+     "filename": "7681_22122025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "You spent at URBAN COMPANY with Kiwi",
+   "body": "Hey Rahul,\nyou spent Rs.124.69 at URBAN COMPANY using your Kiwi SBM Bank RuPay Credit Card XX1782. Pay in 3 instalments from the app.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "Your Kiwi statement - Dec 2025",
+   "body": "Dear Rahul,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX1782 statement for the period 26-Nov-2025 to 25-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-26",
+   "attachments": [
+    {
+     "filename": "SBM_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from *7571 to Dr. Rao Clinic A/c XX5914 on 28-Dec-2025. Rent for the month.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 881837603501. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rahul,\nYour order #905-6740243-7599552 is confirmed. Total Rs.229.12. Estimated delivery in 2 days.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.2,045.24 has been transferred from your A/c *7571 to Sunil Plumber A/c XX1173 (Canara Bank) via IMPS on 02-Jan-2026. Ref no 402816736625.",
+   "date": "2026-01-02",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Bandhan Bank Account Statement - Jan 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank *7571 statement for the period 07-Dec-2025 to 06-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202601.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "You spent at LENSKART with Kiwi",
+   "body": "Hey Rahul,\nYou paid Rs.10,998.06 to LENSKART from your Kiwi SBM Bank RuPay Credit Card ending 1782. Pay in 3 instalments from the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-07",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.1,492.00 debited from account *7571 on 14-Jan-2026. Narration: IMPS/MEDPLUS. Available balance Rs.78,293.87.",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "SBM Bank: debit alert",
+   "body": "Your A/c XXXXXX2329 is debited for Rs.1,233.73 on 15-Jan-2026 - ECOM IRCTC. Bal Rs.3,334.41. -SBM Bank India",
+   "date": "2026-01-15",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "Update your KYC",
+   "body": "Dear Rahul,\nAs per RBI guidelines please complete re-KYC for your SBM Bank India relationship. Visit a branch or use the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer, transaction of Rs.5,000.10 at MCDONALDS on 18-Jan-2026 on Bandhan Bank Credit Card XX7681.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Bandhan Bank statement - Jan 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank Everyday Credit Card XX7681 statement for the period 23-Dec-2025 to 22-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-23",
+   "attachments": [
+    {
+     "filename": "7681_22012026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "You spent at AIRTEL PREPAID with Kiwi",
+   "body": "Hey Rahul,\nyou spent Rs.18,289.69 at AIRTEL PREPAID using your Kiwi SBM Bank RuPay Credit Card XX1782. Check your cashback in the app.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "Your Kiwi statement - Jan 2026",
+   "body": "Dear Rahul,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card ending 1782 statement for the period 26-Dec-2025 to 25-Jan-2026. Total amount due Rs.5,096.46, due 09-Feb-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202601.pdf",
+     "protected": false,
+     "pdfText": "SBM Bank India Credit Card Statement\nRAHUL JOSHI\nFLAT 583, LAKESHORE APARTMENTS\n26TH CROSS, SECTOR 21\nJAIPUR - 634501\nCard Name: Kiwi SBM Bank RuPay Credit Card\nCredit Card Number: 695530XXXXXX1782\nBilling Cycle: 26/12/25 - 25/01/26\nStatement Date: 25/01/26\nPayment Summary\nTotal Amount Due: Rs.5,096.46\nMinimum Amount Due: Rs.254.82\nDue Date: 09/02/26\nAccount Summary\nCredit Limit: Rs.1,30,000.00\nAvailable Credit Limit: Rs.1,26,048.85\nAvailable Cash Limit: Rs.26,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n26/12/25 DOMINOS KOLKATA 148.33 Dr\n29/12/25 APPLE SERVICES BENGALURU 790.58 Dr\n29/12/25 IXIGO PUNE 1,578.65 Dr\n01/01/26 NETFLIX GURUGRAM 732.98 Dr\n04/01/26 APPLE SERVICES CHENNAI 133.72 Dr\n14/01/26 AMAZON PAY INDIA AHMEDABAD 91.97 Dr\n17/01/26 DOMINOS PUNE 1,620.23 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from XXXXXX7571 to Dr. Rao Clinic A/c XX5914 on 28-Jan-2026. Rent for the month.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Bandhan Bank Account Statement - Feb 2026",
+   "body": "Dear Rahul,\nYour Bandhan Bank XX7571 account statement for Feb 2026 is ready. Closing balance Rs.1,698.19.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Bandhan Bank statement - Feb 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank Everyday Credit Card xx7681 statement for the period 23-Jan-2026 to 22-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.473.24 has been debited from your SBM Bank India A/c XXXXXX2329 on 25-Feb-2026 (POS HPCL PETROL). Avl bal Rs.62,623.01.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Your Kiwi statement - Feb 2026",
+   "body": "Dear Rahul,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card ending 1782 statement for the period 26-Jan-2026 to 25-Feb-2026. Total amount due Rs.49,937.83, due 15-Mar-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-26",
+   "attachments": [
+    {
+     "filename": "SBM_CC_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "SBM Bank India Credit Card Statement\nRAHUL JOSHI\nFLAT 329, SUNRISE APARTMENTS\n18TH CROSS, KOTHRUD\nCHENNAI - 624784\nCard Name: Kiwi SBM Bank RuPay Credit Card\nCredit Card Number: 695530XXXXXX1782\nBilling Cycle: 26/01/26 - 25/02/26\nStatement Date: 25/02/26\nPayment Summary\nTotal Amount Due: Rs.49,937.83\nMinimum Amount Due: Rs.2,496.89\nDue Date: 15/03/26\nAccount Summary\nCredit Limit: Rs.1,30,000.00\nAvailable Credit Limit: Rs.1,01,481.53\nAvailable Cash Limit: Rs.26,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n26/01/26 DOMINOS CHENNAI 8,907.56 Dr\n01/02/26 INDIGO AIRLINES BENGALURU 530.46 Dr\n03/02/26 TATA PLAY PUNE 15,689.05 Dr\n10/02/26 IXIGO KOLKATA 8,084.83 Dr\n16/02/26 NETFLIX CHENNAI 4,888.18 Dr\n18/02/26 LENSKART CHENNAI 353.37 Dr\n19/02/26 APOLLO PHARMACY PUNE 2,793.60 Dr\n21/02/26 INDIAN OIL KOCHI 3,497.21 Dr\n22/02/26 SPOTIFY CHENNAI 2,029.76 Dr\n24/02/26 MAKEMYTRIP AHMEDABAD 1,413.88 Dr\n25/02/26 LENSKART CHENNAI 1,749.93 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from xx7571 to Dr. Rao Clinic A/c XX5914 on 28-Feb-2026. Rent for the month.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Update your KYC",
+   "body": "Dear Rahul,\nAs per RBI guidelines please complete re-KYC for your Bandhan Bank relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Bandhan Bank: funds transferred",
+   "body": "Dear Customer,\nRs.36,456.36 has been transferred from your A/c *7571 to Sunil Plumber A/c XX3287 (Axis Bank) via IMPS on 05-Mar-2026. Ref no 439055790222.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Bandhan Bank Account Statement - Mar 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank XX7571 statement for the period 07-Feb-2026 to 06-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-07",
+   "attachments": [
+    {
+     "filename": "7571_06032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Payment successful",
+   "body": "Hi Rahul,\nYou paid Rs.7,635.98 to YES BANK Credit Card ending 2982 (of Sneha Joshi) on 10-Mar-2026. Ref 7803148039.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m054",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.29,323.26 has been transferred from your A/c xx2329 to S K Enterprises A/c XX7900 (ICICI Bank) via IMPS on 18-Mar-2026. Ref no 838823823553.",
+   "date": "2026-03-18",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "You spent at SPOTIFY with Kiwi",
+   "body": "Hey Rahul,\nYou paid Rs.122.74 to SPOTIFY from your Kiwi SBM Bank RuPay Credit Card XX1782. Pay in 3 instalments from the app.",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m056",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rahul,\nYour order #894-9111412-3605803 is confirmed. Total Rs.6,390.73. Estimated delivery in 2 days.",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m057",
+   "subject": "Bandhan Bank statement - Mar 2026",
+   "body": "Dear Rahul,\nYour Bandhan Bank Everyday Credit Card xx7681 statement for Mar 2026 is ready. Total amount due Rs.41,614.06, minimum amount due Rs.2,080.70, payable by 09-Apr-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "SBM Bank: credit alert",
+   "body": "Your A/c XXXXXX2329 is credited with Rs.16,916.00 on 24-Mar-2026 - REFUND. Bal Rs.2,680.56. -SBM Bank India\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "SBM Bank India: funds transferred",
+   "body": "Dear Customer,\nRs.685.13 has been transferred from your A/c *2329 to Lata Tutor A/c XX1483 (Axis Bank) via IMPS on 24-Mar-2026. Ref no 666408965147.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "Your Kiwi statement - Mar 2026",
+   "body": "Dear Rahul,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card ending 1782 statement for the period 26-Feb-2026 to 25-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-26",
+   "attachments": [
+    {
+     "filename": "SBM_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from xx7571 to Dr. Rao Clinic A/c XX5914 on 28-Mar-2026. Rent for the month.",
+   "date": "2026-03-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.109.18 spent on your Bandhan Bank Everyday Credit Card ending 7681 at IRCTC on 29-Mar-2026.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.3,065.09 debited from account XXXXXX7571 on 04-Apr-2026. Narration: NEFT/BIG BAZAAR. Available balance Rs.12,399.18.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "SBM Bank: debit alert",
+   "body": "Your A/c XX2329 is debited for Rs.982.84 on 04-Apr-2026 - NEFT LENSKART. Bal Rs.4,624.23. -SBM Bank India\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer, transaction of Rs.105.98 at JIO RECHARGE on 05-Apr-2026 on Bandhan Bank Everyday Credit Card XX7681.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "SBM Bank: debit alert",
+   "body": "Your A/c xx2329 is debited for Rs.14,925.20 on 05-Apr-2026 - NEFT BATA INDIA. Bal Rs.8,959.98. -SBM Bank India",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "Bandhan Bank Account Statement - Apr 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank *7571 statement for the period 07-Mar-2026 to 06-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-04-07",
+   "attachments": [
+    {
+     "filename": "7571_06042026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "You spent at URBAN COMPANY with Kiwi",
+   "body": "Hey Rahul,\nYou paid Rs.582.98 to URBAN COMPANY from your Kiwi SBM Bank RuPay Credit Card XX1782. Pay in 3 instalments from the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "SBM Bank: credit alert",
+   "body": "Dear Customer,\nRs.818.05 credited to your SBM Bank India A/c XX2329 on 08-Apr-2026 by UPI. Ref 286123979994.\nThank you for banking with us.",
+   "date": "2026-04-08",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m070",
+   "subject": "SBM Bank: credit alert",
+   "body": "Credit alert: Rs.7,066.66 has been credited to account XXXXXX2329 on 16-Apr-2026 (SALARY NEFT). Avl bal Rs.2,015.29.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "You spent at BIG BAZAAR with Kiwi",
+   "body": "Hey Rahul,\nYou paid Rs.155.87 to BIG BAZAAR from your Kiwi SBM Bank RuPay Credit Card ending 1782. 5X coins on partner brands.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Bandhan Bank statement - Apr 2026",
+   "body": "Dear Rahul,\nYour Bandhan Bank Everyday Credit Card XX7681 statement for Apr 2026 is ready. Total amount due Rs.13,802.16, minimum amount due Rs.690.11, payable by 10-May-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.2,307.83 spent on your Bandhan Bank Credit Card ending 7681 at APPLE SERVICES on 23-Apr-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.1,202.03 has been transferred from your A/c *7571 to Sunil Plumber A/c XX3287 (Axis Bank) via IMPS on 24-Apr-2026. Ref no 326470681657.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 521471179651. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Your Kiwi statement - Apr 2026",
+   "body": "Dear Rahul,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX1782 statement for the period 26-Mar-2026 to 25-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-26",
+   "attachments": [
+    {
+     "filename": "SBM_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.3,571.15 has been debited from your Bandhan Bank A/c XXXXXX7571 on 27-Apr-2026 (ECOM CROMA). Avl bal Rs.4,604.08.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,500.00 transferred from xx7571 to Dr. Rao Clinic A/c XX5914 on 28-Apr-2026. Rent for the month.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "OTP for your transaction",
+   "body": "820359 is the OTP for your transaction of Rs.162.53 at EAZYDINER. Valid for 10 minutes. Do not share.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Dear Customer,\nRs.437.39 credited to your Bandhan Bank A/c XXXXXX7571 on 30-Apr-2026 by NEFT. Ref 385004692180.\nThank you for banking with us.",
+   "date": "2026-04-30",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Bandhan Bank Account Statement - May 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank *7571 statement for the period 07-Apr-2026 to 06-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-05-07",
+   "attachments": [
+    {
+     "filename": "Bandhan_Acct_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.6,627.78 spent on your Bandhan Bank Credit Card ending 7681 at PHONEPE on 07-May-2026.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.605.90 spent on your Bandhan Bank Everyday Credit Card ending 7681 at STARBUCKS on 09-May-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.108.20 has been debited from your Bandhan Bank A/c XX7571 on 10-May-2026 (UPI BLINKIT). Avl bal Rs.2,456.57.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Dear Customer,\nRs.1,700.44 credited to your Bandhan Bank A/c xx7571 on 15-May-2026 by SALARY NEFT. Ref 337837471725.\nThank you for banking with us.",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX5549 has been updated on 18-Apr-2026. If not requested by you, call customer care.",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.12,287.71 spent on your Bandhan Bank Everyday Credit Card ending 7681 at TATA POWER on 20-May-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer, transaction of Rs.1,112.85 at JIO RECHARGE on 21-May-2026 on Bandhan Bank Everyday Credit Card ending 7681.",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "SBM Bank: credit alert",
+   "body": "Dear Customer,\nRs.92.79 credited to your SBM Bank India A/c xx2329 on 22-May-2026 by SALARY NEFT. Ref 237287032650.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "Bandhan Bank statement - May 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank Everyday Credit Card XX7681 statement for the period 23-Apr-2026 to 22-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202605.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer, transaction of Rs.12,713.62 at BPCL FUEL on 24-May-2026 on Bandhan Bank Everyday Credit Card XX7681.",
+   "date": "2026-05-24",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Your Kiwi statement - May 2026",
+   "body": "Dear Rahul,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX1782 statement for the period 26-Apr-2026 to 25-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-26",
+   "attachments": [
+    {
+     "filename": "1782_25052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.326.47 has been credited to account XX7571 on 03-Jun-2026 (NEFT). Avl bal Rs.22,176.06.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Rahul,\nYour order #238-8558101-7967464 is confirmed. Total Rs.14,652.60. Estimated delivery in 2 days.",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Bandhan Bank Account Statement - Jun 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank XX7571 statement for the period 07-May-2026 to 06-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "SBM Bank: debit alert",
+   "body": "Your A/c *2329 is debited for Rs.3,991.80 on 07-Jun-2026 - ECOM SPOTIFY. Bal Rs.28,594.38. -SBM Bank India\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-07",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m097",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.13,948.60 has been debited from your SBM Bank India A/c XXXXXX2329 on 11-Jun-2026 (UPI MEDPLUS). Avl bal Rs.2,242.04.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-11",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "Bandhan Bank statement - Jun 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank Everyday Credit Card XX7681 statement for the period 23-May-2026 to 22-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-23",
+   "attachments": [
+    {
+     "filename": "7681_22062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.2,527.93 debited from account XXXXXX7571 on 25-Jun-2026. Narration: UPI/INDIGO AIRLINES. Available balance Rs.1,39,052.49.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Your Kiwi statement - Jun 2026",
+   "body": "Dear Rahul,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX1782 statement for the period 26-May-2026 to 25-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-06-26",
+   "attachments": [
+    {
+     "filename": "SBM_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Rahul,\nPlease find attached the updated MITC for your SBM Bank India credit cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-27",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "SBM BANK INDIA CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m102",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.5,608.08 has been transferred from your A/c XXXXXX7571 to Sunil Plumber A/c XX3287 (Axis Bank) via IMPS on 27-Jun-2026. Ref no 259134713641.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Bandhan Bank Account Statement - Jul 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank xx7571 statement for the period 07-Jun-2026 to 06-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "You spent at MCDONALDS with Kiwi",
+   "body": "Hey Rahul,\nyou spent Rs.4,011.59 at MCDONALDS using your Kiwi SBM Bank RuPay Credit Card XX1782. ",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Rahul,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer, transaction of Rs.853.37 at TATA PLAY on 22-Jul-2026 on Bandhan Bank Everyday Credit Card XX7681.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Bandhan Bank statement - Jul 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank Everyday Credit Card XX7681 statement for the period 23-Jun-2026 to 22-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-23",
+   "attachments": [
+    {
+     "filename": "Bandhan_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.1,872.81 debited from account XXXXXX7571 on 23-Jul-2026. Narration: IMPS/INDIGO AIRLINES. Available balance Rs.1,36,182.39.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Your Kiwi statement - Jul 2026",
+   "body": "Dear Rahul,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX1782 statement for the period 26-Jun-2026 to 25-Jul-2026. Total amount due Rs.23,723.87, due 12-Aug-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": false,
+     "pdfText": "SBM Bank India Credit Card Statement\nRAHUL JOSHI\nFLAT 539, LAKESHORE APARTMENTS\n9TH CROSS, KOTHRUD\nKOLKATA - 588598\nCard Name: Kiwi SBM Bank RuPay Credit Card\nCredit Card Number: 695530XXXXXX1782\nBilling Cycle: 26/06/26 - 25/07/26\nStatement Date: 25/07/26\nPayment Summary\nTotal Amount Due: Rs.23,723.87\nMinimum Amount Due: Rs.1,186.19\nDue Date: 12/08/26\nAccount Summary\nCredit Limit: Rs.1,30,000.00\nAvailable Credit Limit: Rs.1,21,672.49\nAvailable Cash Limit: Rs.26,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n28/06/26 RELIANCE DIGITAL AHMEDABAD 802.94 Dr\n30/06/26 APOLLO PHARMACY PUNE 123.77 Dr\n30/06/26 UBER INDIA PUNE 986.65 Dr\n04/07/26 SPOTIFY PUNE 594.11 Dr\n05/07/26 EASEMYTRIP PUNE 138.17 Dr\n09/07/26 URBAN COMPANY KOLKATA 161.17 Dr\n14/07/26 MAKEMYTRIP JAIPUR 13,874.97 Dr\n14/07/26 RELIANCE DIGITAL KOLKATA 1,192.93 Dr\n16/07/26 DECATHLON CHENNAI 588.18 Dr\n18/07/26 BATA INDIA GURUGRAM 696.49 Dr\n25/07/26 PVR INOX GURUGRAM 4,564.49 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Update your KYC",
+   "body": "Dear Rahul,\nAs per RBI guidelines please complete re-KYC for your SBM Bank India relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-31",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m111",
+   "subject": "Bandhan Bank Account Statement - Aug 2026",
+   "body": "Dear Rahul,\nYour Bandhan Bank xx7571 account statement for Aug 2026 is ready. Closing balance Rs.6,486.53.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.4,371.67 has been transferred from your A/c XX2329 to Lata Tutor A/c XX1483 (Axis Bank) via IMPS on 16-Aug-2026. Ref no 786460324512.",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m113",
+   "subject": "You spent at NYKAA with Kiwi",
+   "body": "Hey Rahul,\nYou paid Rs.9,975.81 to NYKAA from your Kiwi SBM Bank RuPay Credit Card XX1782. 5X coins on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-20",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "You spent at MYNTRA with Kiwi",
+   "body": "Hey Rahul,\nyou spent Rs.640.22 at MYNTRA using your Kiwi SBM Bank RuPay Credit Card XX1782. Rewards are on the way.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Rahul,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Bandhan Bank statement - Aug 2026",
+   "body": "Dear Rahul,\nYour Bandhan Bank Everyday Credit Card xx7681 statement for Aug 2026 is ready. Total amount due Rs.8,904.70, minimum amount due Rs.445.24, payable by 09-Sep-2026.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "You spent at DMART with Kiwi",
+   "body": "Hey Rahul,\nYou paid Rs.11,297.12 to DMART from your Kiwi SBM Bank RuPay Credit Card XX1782. Pay in 3 instalments from the app.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "Your Kiwi statement - Aug 2026",
+   "body": "Dear Rahul,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card ending 1782 statement for the period 26-Jul-2026 to 25-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-26",
+   "attachments": [
+    {
+     "filename": "1782_25082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m119",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.14,266.32 has been transferred from your A/c XX2329 to Lata Tutor A/c XX1483 (Axis Bank) via IMPS on 02-Sep-2026. Ref no 895216011240.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m120",
+   "subject": "Bandhan Bank Account Statement - Sep 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank xx7571 statement for the period 07-Aug-2026 to 06-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-07",
+   "attachments": [
+    {
+     "filename": "Bandhan_Acct_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.4,211.09 has been debited from your Bandhan Bank A/c xx7571 on 09-Sep-2026 (UPI GOOGLE PLAY). Avl bal Rs.1,60,311.73.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 716958975219. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Bandhan Bank statement - Sep 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank Everyday Credit Card xx7681 statement for the period 23-Aug-2026 to 22-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-23",
+   "attachments": [
+    {
+     "filename": "7681_22092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Your Kiwi statement - Sep 2026",
+   "body": "Dear Rahul,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card ending 1782 statement for the period 26-Aug-2026 to 25-Sep-2026. Total amount due Rs.74,085.05, due 13-Oct-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-26",
+   "attachments": [
+    {
+     "filename": "SBM_CC_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "SBM Bank India Credit Card Statement\nRAHUL JOSHI\nFLAT 160, GREEN VALLEY APARTMENTS\n14TH CROSS, ADYAR\nBENGALURU - 670724\nCard Name: Kiwi SBM Bank RuPay Credit Card\nCredit Card Number: 695530XXXXXX1782\nBilling Cycle: 26/08/26 - 25/09/26\nStatement Date: 25/09/26\nPayment Summary\nTotal Amount Due: Rs.74,085.05\nMinimum Amount Due: Rs.3,704.25\nDue Date: 13/10/26\nAccount Summary\nCredit Limit: Rs.1,30,000.00\nAvailable Credit Limit: Rs.96,385.60\nAvailable Cash Limit: Rs.26,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n27/08/26 INDIGO AIRLINES GURUGRAM 17,045.08 Dr\n28/08/26 MAKEMYTRIP GURUGRAM 113.78 Dr\n31/08/26 SWIGGY PUNE 1,247.65 Dr\n01/09/26 JIO RECHARGE PUNE 5,255.78 Dr\n05/09/26 BLINKIT JAIPUR 3,438.61 Dr\n13/09/26 DMART JAIPUR 559.80 Dr\n14/09/26 INDIGO AIRLINES HYDERABAD 611.96 Dr\n19/09/26 HPCL PETROL CHENNAI 9,747.84 Dr\n20/09/26 GOOGLE PLAY BENGALURU 2,292.59 Dr\n22/09/26 APPLE SERVICES PUNE 12,339.14 Dr\n22/09/26 FLIPKART KOLKATA 20,284.39 Dr\n25/09/26 CROMA MUMBAI 1,148.43 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "You spent at APPLE SERVICES with Kiwi",
+   "body": "Hey Rahul,\nyou spent Rs.3,211.75 at APPLE SERVICES using your Kiwi SBM Bank RuPay Credit Card ending 1782. Rewards are on the way.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "Bandhan Bank Account Statement - Oct 2026",
+   "body": "Dear Rahul,\nPlease find attached your Bandhan Bank XXXXXX7571 statement for the period 07-Sep-2026 to 06-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-07",
+   "attachments": [
+    {
+     "filename": "7571_06102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c XX7571 is debited for Rs.11,591.37 on 07-Oct-2026 - NEFT BIGBASKET. Bal Rs.6,605.43. -Bandhan Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Your A/c xx7571 is credited with Rs.2,949.13 on 10-Oct-2026 - REFUND. Bal Rs.26,886.20. -Bandhan Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Rahul,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "You spent at SWIGGY with Kiwi",
+   "body": "Hey Rahul,\nyou spent Rs.7,498.70 at SWIGGY using your Kiwi SBM Bank RuPay Credit Card XX1782. Rewards are on the way.",
+   "date": "2026-10-20",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m131",
+   "subject": "You spent at IRCTC with Kiwi",
+   "body": "Hey Rahul,\nYou paid Rs.9,098.20 to IRCTC from your Kiwi SBM Bank RuPay Credit Card XX1782. Pay in 3 instalments from the app.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "Bandhan Bank statement - Oct 2026",
+   "body": "Dear Rahul,\nYour Bandhan Bank Everyday Credit Card XX7681 statement for Oct 2026 is ready. Total amount due Rs.422.26, minimum amount due Rs.200.00, payable by 09-Nov-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Your Kiwi statement - Oct 2026",
+   "body": "Dear Rahul,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card ending 1782 statement for the period 26-Sep-2026 to 25-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-26",
+   "attachments": [
+    {
+     "filename": "1782_25102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m134",
+   "subject": "You spent at RELIANCE DIGITAL with Kiwi",
+   "body": "Hey Rahul,\nYou paid Rs.3,375.53 to RELIANCE DIGITAL from your Kiwi SBM Bank RuPay Credit Card XX1782. Rewards are on the way.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m135",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.7,906.95 spent on your Bandhan Bank Credit Card XX7681 at AIRTEL PREPAID on 28-Oct-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "1782",
+    "kind": "CREDIT_CARD",
+    "variant": "Kiwi",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "7681",
+    "kind": "CREDIT_CARD",
+    "variant": "Everyday",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "7571",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "2329",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "3287",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "1173",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "7900",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "1483",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "5914",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "2889",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "5549",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "5219",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "3501",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "9651",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "yesbank.in",
+    "last4": "2982",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

@@ -1,0 +1,2386 @@
+{
+ "mailbox": "axis-reserve-same4",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 980.93 at HOTSTAR on 10-03-25 18:45:25 IST.\nAvailable limit INR 1,43,806.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-03-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 731.24 at DECATHLON on 10-03-25 16:47:52 IST.\nAvailable limit INR 2,40,238.00. If this was not you, SMS BLOCK 2477 to 5676782.",
+   "date": "2025-03-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Transaction alert on Axis Bank Credit Card ending 2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card ending 2477 for INR 563.08 at DMART on 11-03-25 04:48:33 IST.\nAvailable limit INR 2,13,568.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-03-11",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Axis Bank Select Credit Card Statement - Mar 2025",
+   "body": "Dear Customer,\nYour Axis Bank Select Credit Card XXXX XXXX XXXX 2477 Statement for the period 10/02/2025 to 12/03/2025 is attached.\nTotal Amount Due: Rs. 18,622.99\nMinimum Amount Due: Rs. 931.15\nPayment Due Date: 30/03/2025\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-03-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Mar2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4880 78XX XXXX 2477\nStatement Date: 12/03/2025\nStatement Period: 10/02/2025 - 12/03/2025\nPayment Due Date: 30/03/2025\nTotal Amount Due: Rs. 18,622.99\nMinimum Amount Due: Rs. 931.15\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,79,752.00\n\nDate        Transaction Details                        Amount (Rs.)\n12/02/2025  IRCTC HYDERABAD   11,884.08 Dr\n20/02/2025  SPOTIFY PUNE   626.32 Dr\n15/02/2025  TATA 1MG MUMBAI   3,412.56 Dr\n18/02/2025  APOLLO PHARMACY CHENNAI   3,453.20 Dr\n13/02/2025  WESTSIDE PUNE   32,817.21 Dr\n10/02/2025  BLINKIT KOCHI   10,367.77 Dr\n22/02/2025  THIRD WAVE COFFEE PUNE   22,128.22 Dr\n03/03/2025  PAYMENT RECEIVED - THANK YOU   11,173.79 Cr\n\nReward Points Summary: Opening 5190  Earned 504  Closing 4861\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2477 for Mar 2025 is ready. Total due Rs.7,701.23, pay by 30 Mar 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-03-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 30,358.19 on Mar 20, 2025 at 15:54:52. Info: SHELL PETROL.\nThe Available Credit Limit on your card is INR 55,529.00 and Total Credit Limit is INR 85,529.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-03-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 3,135.72 on Mar 23, 2025 at 09:04:33. Info: TATA 1MG.\nThe Available Credit Limit on your card is INR 1,63,175.00 and Total Credit Limit is INR 1,93,175.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-03-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have recieved your payment of Rs.18,622.99 on 24-03-2025 towards your Axis Bank Credit Card XX2477. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-03-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,701.23 on 24-03-2025 towards your ICICI Bank Credit Card XX2477. Thank you.\n\nT&C apply. Visit www.icicibank.com for more details.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-03-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "We have received your request",
+   "body": "नमस्ते,\nDear Customer,\nYour service request is registered. Reference No. SR202673927983. We will resolve it within 3 working days.",
+   "date": "2025-03-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Payment reminder: Axis Bank Credit Card **2477",
+   "body": "Dear Customer,\nThis is a reminder that Rs.18,622.99 (minimum Rs.931.15) is due on 30-Mar-2025 on your Axis Bank Credit Card **2477. Pay on time to avoid late payment charges.",
+   "date": "2025-03-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.7,701.23 due on 30 March for card XX2477. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Axis Bank Select Credit Card Statement - Apr 2025",
+   "body": "Dear Customer,\nYour Axis Bank Select Credit Card **2477 Statement for the period 13/03/2025 to 12/04/2025 is attached.\nTotal Amount Due: Rs. 9,865.72\nMinimum Amount Due: Rs. 493.29\nPayment Due Date: 30/04/2025\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2025-04-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Apr2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4484 33XX XXXX 2477\nStatement Date: 12/04/2025\nStatement Period: 13/03/2025 - 12/04/2025\nPayment Due Date: 30/04/2025\nTotal Amount Due: Rs. 9,865.72\nMinimum Amount Due: Rs. 493.29\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,66,422.00\n\nDate        Transaction Details                        Amount (Rs.)\n07/04/2025  MAKEMYTRIP MUMBAI   8,556.21 Dr\n24/03/2025  BATA INDIA KOCHI   5,657.64 Dr\n24/03/2025  WESTSIDE BANGALORE   18,172.70 Dr\n07/04/2025  BLINKIT MUMBAI   4,789.12 Dr\n03/04/2025  BPCL FUEL MUMBAI   809.31 Dr\n21/03/2025  SHELL PETROL MUMBAI   387.68 Dr\n25/03/2025  CROMA GURGAON   674.03 Dr\n24/03/2025  OLA CABS MUMBAI   1,236.46 Dr\n08/04/2025  JIO PREPAID MUMBAI   892.55 Dr\n03/04/2025  PAYMENT RECEIVED - THANK YOU   5,919.43 Cr\n\nReward Points Summary: Opening 8569  Earned 835  Closing 2807\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6428196331403  IFSC AXIS0000315"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 1,968.75 on Apr 12, 2025 at 15:33:03. Info: APOLLO PHARMACY.\nThe Available Credit Limit on your card is INR 1,42,918.00 and Total Credit Limit is INR 1,72,918.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.",
+   "date": "2025-04-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card ending 2477 for Apr 2025 is ready. Total due Rs.34,604.72, pay by 30 Apr 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nThis is a system generated email. Please do not reply to this message.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-04-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 13,612.82 on Apr 18, 2025 at 16:50:42. Info: AIRBNB.\nThe Available Credit Limit on your card is INR 1,79,218.00 and Total Credit Limit is INR 2,09,218.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-04-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Transaction alert on Axis Bank Credit Card **2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card **2477 for INR 4,160.57 at DMART on 24-04-25 13:53:38 IST.\nAvailable limit INR 2,25,319.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.34,604.72 on 27-04-2025 towards your ICICI Bank Credit Card XX2477. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.9,865.72 on 28-04-2025 towards your Axis Bank Credit Card XX2477. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-04-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Your Axis Bank Reserve Credit Card is on its way",
+   "body": "Dear Divya Pillai,\nCongratulations! Your Axis Bank Reserve Credit Card XX8120 has been dispatched via Blue Dart, AWB 90480080723. Expected delivery in 3-5 working days.\nKindly find the welcome kit attached.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-05-02",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Add-on card issued",
+   "body": "Dear Divya Pillai,\nAs requested, an add-on card for Vikram Pillai has been issued on your Axis Bank Reserve Credit Card (primary card XX2477). The add-on card XX8120 will reach the address on record. Spends on the add-on card are billed to your primary statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-05-04",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 24,028.80 at CROMA on 05-05-25 18:45:45 IST.\nAvailable limit INR 2,18,620.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-05-05",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Your card has been delivered",
+   "body": "Dear Customer,\nYour card XX8120 was delivered on 06-05-2025. Activate it using the app to start spending.",
+   "date": "2025-05-06",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Card activated / PIN set successfully",
+   "body": "Dear Customer,\nYour card no. XXXXXXXXXXXX8120 is now active. PIN has been set successfully on 08/05/2025.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2025-05-08",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 2,663.69 on May 11, 2025 at 12:31:14. Info: CROMA.\nThe Available Credit Limit on your card is INR 2,37,289.00 and Total Credit Limit is INR 2,67,289.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-05-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Add-on card activated",
+   "body": "The&nbsp;add-on&nbsp;card&nbsp;XX8120 is now activated. Set PIN in app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-05-11",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Axis Bank Select Credit Card Statement - May 2025",
+   "body": "Dear Customer,\nYour Axis Bank Select Credit Card XX2477 Statement for the period 12/04/2025 to 12/05/2025 is attached.\nTotal Amount Due: Rs. 6,658.74\nMinimum Amount Due: Rs. 332.94\nPayment Due Date: 30/05/2025\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-05-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_May2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCredit Card Number: XXXX XXXX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/05/2025\nStatement Period: 12/04/2025 - 12/05/2025\nPayment Due Date: 30/05/2025\nTotal Amount Due: Rs. 6,658.74\nMinimum Amount Due: Rs. 332.94\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,27,508.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/04/2025  CROMA KOCHI   17,519.58 Dr\n12/04/2025  DMART PUNE   1,584.92 Dr\n13/04/2025  BIGBASKET PUNE   8,821.65 Dr\n05/05/2025  BLINKIT GURGAON   3,760.77 Dr\n19/04/2025  BLINKIT KOCHI   1,415.02 Dr\n07/05/2025  ZEPTO PUNE   7,627.25 Dr\n19/04/2025  BOOKMYSHOW KOCHI   26,642.15 Dr\n12/04/2025  WESTSIDE HYDERABAD   3,203.28 Dr\n03/05/2025  PAYMENT RECEIVED - THANK YOU   3,995.24 Cr\n\nReward Points Summary: Opening 4889  Earned 788  Closing 5247\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2477 for May 2025 is ready. Total due Rs.63,145.01, pay by 30 May 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-05-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 6,689.05 at HOTSTAR on 20-05-25 09:15:07 IST.\nAvailable limit INR 2,77,285.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nT&C apply. Visit www.axisbank.com for more details.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card no. XXXXXXXXXXXX2477 has been used for a transaction of INR 6,083.66 on May 21, 2025 at 10:39:17. Info: BLINKIT.\nThe Available Credit Limit on your card is INR 2,50,378.00 and Total Credit Limit is INR 2,80,378.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 40,350.35 at CROMA on 26-05-25 13:50:50 IST.\nAvailable limit INR 80,446.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.6,658.74 due on 30 May for card XX2477. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2025-05-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 3,363.77 on Jun 05, 2025 at 08:46:41. Info: RELIANCE SMART.<br>\nThe Available Credit Limit on your card is INR 2,22,679.00 and Total Credit Limit is INR 2,52,679.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 3,274.90 at AMAZON PAY INDIA on 08-06-25 05:36:48 IST.\nAvailable limit INR 3,64,052.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-08",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card no. XXXXXXXXXXXX2477 has been used for a transction of INR 272.68 on Jun 10, 2025 at 20:07:26. Info: BOOKMYSHOW.\nThe Available Credit Limit on your card is INR 1,66,898.00 and Total Credit Limit is INR 1,96,898.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-06-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Axis Bank Select Credit Card Statement - Jun 2025",
+   "body": "Dear Customer,\nYour Axis Bank Select Credit Card xx2477 Statement for the period 13/05/2025 to 12/06/2025 is attached.\nTotal Amount Due: Rs. 40,320.39\nMinimum Amount Due: Rs. 2,016.02\nPayment Due Date: 30/06/2025\nPay via NetBanking, UPI or auto-debit.\n\nThis is a system generated email. Please do not reply to this message.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Jun2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4560 30XX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/06/2025\nStatement Period: 13/05/2025 - 12/06/2025\nPayment Due Date: 30/06/2025\nTotal Amount Due: Rs. 40,320.39\nMinimum Amount Due: Rs. 2,016.02\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 90,578.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/05/2025  THIRD WAVE COFFEE BANGALORE   5,539.45 Dr\n23/05/2025  TATA 1MG KOCHI   6,570.37 Dr\n15/05/2025  APOLLO PHARMACY GURGAON   2,485.69 Dr\n25/05/2025  AMAZON PAY INDIA GURGAON   5,897.13 Dr\n22/05/2025  LICIOUS CHENNAI   16,550.54 Dr\n03/06/2025  PAYMENT RECEIVED - THANK YOU   24,192.23 Cr\n\nReward Points Summary: Opening 3099  Earned 719  Closing 5805\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6428196331403  IFSC AXIS0000163"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2477 for Jun 2025 is ready. Total due Rs.2,041.23, pay by 30 Jun 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "2477_12062025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transction of INR 438.55 on Jun 13, 2025 at 13:19:17. Info: ZOMATO.\nThe Available Credit Limit on your card is INR 2,13,214.00 and Total Credit Limit is INR 2,43,214.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.",
+   "date": "2025-06-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 4,395.89 at STARBUCKS on 13-06-25 02:08:32 IST.\nAvailable limit INR 2,58,941.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-06-13",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Transaction alert on Axis Bank Credit Card ending 2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card ending 2477 for INR 361.92 at OLA CABS on 14-06-25 12:22:20 IST.\nAvailable limit INR 3,27,979.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-14",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 32,149.35 at LICIOUS on 20-06-25 07:03:32 IST.\nAvailable limit INR 3,32,074.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-06-20",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 9235 reward points on your Axis Bank Select Credit Card XX2477. Redeem them on the rewards portal before they expire.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-25",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 7300 reward points on your ICICI Bank Sapphiro Credit Card XX2477. Redeem them on the rewards portal before they expire.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-06-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,041.23 on 26-06-2025 towards your ICICI Bank Credit Card XXXX XXXX XXXX 2477. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-06-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 2,730.67 at MEDPLUS on 26-06-25 08:51:34 IST.\nAvailable limit INR 3,18,105.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-06-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThis is a reminder that Rs.2,041.23 (minimum Rs.200.00) is due on 30-Jun-2025 on your ICICI Bank Credit Card XX2477. Pay on time to avoid late payment charges.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 5,341.18 on Jun 28, 2025 at 17:55:46. Info: BOOKMYSHOW.\nThe Available Credit Limit on your card is INR 3,01,227.00 and Total Credit Limit is INR 3,31,227.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-06-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Transaction alert on Axis Bank Credit Card ending 2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card ending 2477 for INR 899.47 at GOOGLE PLAY on 01-07-25 06:51:28 IST.\nAvailable limit INR 3,69,086.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 5,946.07 at AIRBNB on 03-07-25 10:07:35 IST.\nAvailable limit INR 3,37,629.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-07-03",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR5347\nT&C apply.",
+   "date": "2025-07-03",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 386.74 at MAKEMYTRIP on 04-07-25 20:08:28 IST.\nAvailable limit INR 68,836.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2025-07-04",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 3,024.77 at AIRBNB on 05-07-25 01:05:36 IST.\nAvailable limit INR 1,32,316.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-07-05",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Axis Bank Select Credit Card Statement - Jul 2025",
+   "body": "Dear Customer,\nYour Axis Bank Select Credit Card XX2477 Statement for the period 12/06/2025 to 12/07/2025 is attached.\nTotal Amount Due: Rs. 2,555.88\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/07/2025\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4874 26XX XXXX 2477\nStatement Date: 12/07/2025\nStatement Period: 12/06/2025 - 12/07/2025\nPayment Due Date: 30/07/2025\nTotal Amount Due: Rs. 2,555.88\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 68,660.00\n\nDate        Transaction Details                        Amount (Rs.)\n09/07/2025  LENSKART CHENNAI   266.83 Dr\n22/06/2025  ZEPTO HYDERABAD   1,699.90 Dr\n03/07/2025  CROMA MUMBAI   668.77 Dr\n10/07/2025  DECATHLON CHENNAI   3,283.91 Dr\n08/07/2025  URBAN COMPANY MUMBAI   35,513.03 Dr\n03/07/2025  WESTSIDE KOCHI   20,300.79 Dr\n03/07/2025  PAYMENT RECEIVED - THANK YOU   1,533.53 Cr\n\nReward Points Summary: Opening 3828  Earned 448  Closing 5998\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2477 for Jul 2025 is ready. Total due Rs.9,667.70, pay by 30 Jul 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "2477_12072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 354.92 on Jul 15, 2025 at 16:40:48. Info: DMART.\nThe Available Credit Limit on your card is INR 3,72,414.00 and Total Credit Limit is INR 4,02,414.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 769.04 at LICIOUS on 19-07-25 19:30:52 IST.<br>\nAvailable limit INR 3,15,962.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2025-07-19",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 39,056.54 at OLA CABS on 20-07-25 06:56:27 IST.\nAvailable limit INR 1,33,962.00. If this was not you, SMS BLOCK 2477 to 5676782.",
+   "date": "2025-07-20",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XXXXXXXXXXXX8120",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Add-on Credit Card no. XXXXXXXXXXXX8120 for INR 1,958.19 at DECATHLON on 25-07-25 06:06:32 IST.\nAvailable limit INR 68,385.00. If this was not you, SMS BLOCK 8120 to 5676782.",
+   "date": "2025-07-25",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,555.88 on 26-07-2025 towards your Axis Bank Credit Card XX2477. Thank you.",
+   "date": "2025-07-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.9,667.70 on 26-07-2025 towards your ICICI Bank Credit Card **2477. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-07-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.9,667.70 due on 30 July for card XXXX XXXX XXXX 2477. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Axis Bank Select Credit Card Statement - Aug 2025",
+   "body": "नमस्ते,\nDear Customer,\nYour Axis Bank Select Credit Card XX2477 Statement for the period 13/07/2025 to 12/08/2025 is attached.\nTotal Amount Due: Rs. 43,330.95\nMinimum Amount Due: Rs. 2,166.55\nPayment Due Date: 30/08/2025\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4876 95XX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 43,330.95\nMinimum Amount Due: Rs. 2,166.55\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 77,821.00\n\nDate        Transaction Details                        Amount (Rs.)\n03/08/2025  MEDPLUS BANGALORE   1,316.55 Dr\n17/07/2025  HOTSTAR BANGALORE   335.41 Dr\n21/07/2025  GOOGLE PLAY HYDERABAD   555.90 Dr\n09/08/2025  NETFLIX.COM PUNE   7,184.22 Dr\n21/07/2025  AMAZON PAY INDIA KOCHI   745.23 Dr\n19/07/2025  ZEPTO HYDERABAD   1,610.10 Dr\n30/07/2025  TATA 1MG CHENNAI   5,774.67 Dr\n24/07/2025  JIO PREPAID HYDERABAD   3,997.10 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   25,998.57 Cr\n\nReward Points Summary: Opening 1914  Earned 235  Closing 7965\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card no. XXXXXXXXXXXX2477 for Aug 2025 is ready. Total due Rs.986.82, pay by 30 Aug 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "2477_12082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 239.35 at NETFLIX.COM on 13-08-25 09:30:32 IST.\nAvailable limit INR 1,62,886.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 32,923.42 on Aug 13, 2025 at 03:08:52. Info: SHELL PETROL.\nThe Available Credit Limit on your card is INR 1,62,953.00 and Total Credit Limit is INR 1,92,953.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 709.93 at MAKEMYTRIP on 14-08-25 08:51:54 IST.\nAvailable limit INR 1,14,548.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-08-14",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "OTP for online transaction",
+   "body": "858936 is the One Time Password (OTP) for your online transction of INR 31,891.19 at DECATHLON. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have recieved your payment of Rs.43,330.95 on 26-08-2025 towards your Axis Bank Credit Card XXXX XXXX XXXX 2477. Thank you.<br>\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.986.82 on 26-08-2025 towards your ICICI Bank Credit Card XX2477. Thank you.",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Payment reminder: Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThis is a reminder that Rs.43,330.95 (minimum Rs.2,166.55) is due on 30-Aug-2025 on your Axis Bank Credit Card XX2477. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX2477",
+   "body": "Dear Customer,<br>\nThis is a reminder that Rs.986.82 (minimum Rs.200.00) is due on 30-Aug-2025 on your ICICI Bank Credit Card XX2477. Pay on time to avoid late payment charges.<br>\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 30,074.41 at APOLLO PHARMACY on 08-09-25 14:12:45 IST.\nAvailable limit INR 3,69,279.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-09-08",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Transaction alert on Axis Bank Credit Card ending 2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card ending 2477 for INR 340.19 at UBER INDIA on 09-09-25 00:17:57 IST.\nAvailable limit INR 2,82,969.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 7,263.37 at DMART on 09-09-25 20:13:23 IST.\nAvailable limit INR 2,55,939.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Congratulations! Your card is now Reserve",
+   "body": "Dear Divya Pillai,\nWe are delighted to upgrade your Select Credit Card to the Axis Bank Reserve. Your card number XX2477 remains the same; new benefits are live from 10 Sep 2025. A new card with the same number will be sent to you.",
+   "date": "2025-09-10",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Axis Bank Reserve Credit Card Statement - Sep 2025",
+   "body": "Dear Customer,\nYour Axis Bank Reserve Credit Card XX2477 Statement for the period 13/08/2025 to 12/09/2025 is attached.\nTotal Amount Due: Rs. 31,468.80\nMinimum Amount Due: Rs. 1,573.44\nPayment Due Date: 30/09/2025\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4496 76XX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 31,468.80\nMinimum Amount Due: Rs. 1,573.44\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,72,157.00\n\nDate        Transaction Details                        Amount (Rs.)\n28/08/2025  URBAN COMPANY CHENNAI   626.79 Dr\n22/08/2025  TATA 1MG KOCHI   487.91 Dr\n01/09/2025  BOOKMYSHOW CHENNAI   6,870.19 Dr\n30/08/2025  IRCTC PUNE   2,312.96 Dr\n13/08/2025  MEDPLUS GURGAON   13,207.72 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   18,881.28 Cr\n\nReward Points Summary: Opening 2753  Earned 675  Closing 1013\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card ending 2477 for Sep 2025 is ready. Total due Rs.50,095.99, pay by 30 Sep 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 5046\nT&C apply.",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "KYC update: Aadhaar verification",
+   "body": "Dear Customer,\nYour Aadhaar (XXXX XXXX 5421) has been successfully verified for e-KYC. PAN status: linked. No further action needed.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-13",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 775.93 at INDIGO AIRLINES on 19-09-25 21:17:45 IST.\nAvailable limit INR 1,68,708.00. If this was not you, SMS BLOCK 2477 to 5676782.",
+   "date": "2025-09-19",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 4,826.09 on Sep 22, 2025 at 18:03:10. Info: SPOTIFY.\nThe Available Credit Limit on your card is INR 3,29,313.00 and Total Credit Limit is INR 3,59,313.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.50,095.99 on 25-09-2025 towards your ICICI Bank Credit Card XX2477. Thank you.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.31,468.80 due on 30 September for card XX2477. Ignore if already paid. Kripya samay par bhugtan karein.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.31,468.80 on 27-09-2025 towards your Axis Bank Credit Card no. XXXXXXXXXXXX2477. Thank you.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card **2477 has been used for a transaction of INR 23,444.37 on Sep 28, 2025 at 19:12:48. Info: OLA CABS.\nThe Available Credit Limit on your card is INR 1,69,491.00 and Total Credit Limit is INR 1,99,491.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Transaction alert on Axis Bank Credit Card **8120",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Add-on Credit Card **8120 for INR 715.14 at LENSKART on 01-10-25 04:11:53 IST.<br>\nAvailable limit INR 1,14,096.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Transaction alert on Axis Bank Credit Card XXXX XXXX XXXX 2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XXXX XXXX XXXX 2477 for INR 2,037.31 at JIO PREPAID on 06-10-25 21:07:42 IST.\nAvailable limit INR 2,65,936.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Axis Bank Reserve Credit Card Statement - Oct 2025",
+   "body": "Dear Customer,\nYour Axis Bank Reserve Credit Card **2477 Statement for the period 12/09/2025 to 12/10/2025 is attached.\nTotal Amount Due: Rs. 3,094.71\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/10/2025\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4555 23XX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 3,094.71\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 95,988.00\n\nDate        Transaction Details                        Amount (Rs.)\n25/09/2025  MEDPLUS BANGALORE   368.41 Dr\n28/09/2025  AIRBNB CHENNAI   431.55 Dr\n17/09/2025  THIRD WAVE COFFEE BANGALORE   1,285.99 Dr\n07/10/2025  LICIOUS BANGALORE   389.02 Dr\n17/09/2025  SPOTIFY MUMBAI   712.88 Dr\n25/09/2025  TATA 1MG CHENNAI   2,522.16 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   1,856.83 Cr\n\nReward Points Summary: Opening 726  Earned 430  Closing 3986\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6428196331403  IFSC AXIS0000989"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 579.88 on Oct 12, 2025 at 20:28:30. Info: SPOTIFY.\nThe Available Credit Limit on your card is INR 2,07,296.00 and Total Credit Limit is INR 2,37,296.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2477 for Oct 2025 is ready. Total due Rs.78,369.10, pay by 30 Oct 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "OTP for online transaction",
+   "body": "293106 is the One Time Password (OTP) for your online transaction of INR 3,408.54 at SPOTIFY. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "नमस्ते,\nDear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 20,977.96 at URBAN COMPANY on 15-10-25 00:19:17 IST.\nAvailable limit INR 1,77,076.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-10-15",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transction of INR 3,162.82 on Oct 15, 2025 at 12:19:18. Info: RELIANCE SMART.\nThe Available Credit Limit on your card is INR 1,29,907.00 and Total Credit Limit is INR 1,59,907.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-10-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Transaction alert on Axis Bank Credit Card **2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card **2477 for INR 855.73 at RELIANCE SMART on 16-10-25 06:41:56 IST.\nAvailable limit INR 2,41,266.00. If this was not you, SMS BLOCK 2477 to 5676782.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 3,315.98 on Oct 17, 2025 at 09:46:32. Info: THIRD WAVE COFFEE.\nThe Available Credit Limit on your card is INR 2,21,304.00 and Total Credit Limit is INR 2,51,304.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 1,611.43 at MEDPLUS on 20-10-25 12:03:42 IST.<br>\nAvailable limit INR 3,85,494.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,094.71 on 22-10-2025 towards your Axis Bank Credit Card XX2477. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "नमस्ते,\nDear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 5,297.99 at BOOKMYSHOW on 23-10-25 20:58:37 IST.\nAvailable limit INR 2,95,960.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.78,369.10 on 24-10-2025 towards your ICICI Bank Credit Card ending 2477. Thank you.<br>\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 351.16 on Oct 25, 2025 at 09:38:17. Info: MEDPLUS.\nThe Available Credit Limit on your card is INR 1,96,177.00 and Total Credit Limit is INR 2,26,177.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 9094\nT&C apply.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 6,571.24 at CAFE COFFEE DAY on 04-11-25 17:03:48 IST.\nAvailable limit INR 27,524.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Add-on Credit Card XX8120 for INR 1,951.33 at BIGBASKET on 10-11-25 23:18:02 IST.\nAvailable limit INR 2,16,869.00. If this was not you, SMS BLOCK 8120 to 5676782.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Axis Bank Reserve Credit Card Statement - Nov 2025",
+   "body": "Dear Customer,\nYour Axis Bank Reserve Credit Card no. XXXXXXXXXXXX2477 Statement for the period 13/10/2025 to 12/11/2025 is attached.\nTotal Amount Due: Rs. 6,481.96\nMinimum Amount Due: Rs. 324.10\nPayment Due Date: 30/11/2025\nPay via NetBanking, UPI or auto-debit.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCredit Card Number: XXXX XXXX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 6,481.96\nMinimum Amount Due: Rs. 324.10\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 78,345.00\n\nDate        Transaction Details                        Amount (Rs.)\n03/11/2025  IRCTC CHENNAI   8,071.79 Dr\n14/10/2025  WESTSIDE PUNE   110.83 Dr\n21/10/2025  DECATHLON GURGAON   1,122.76 Dr\n28/10/2025  INDIGO AIRLINES MUMBAI   29,214.86 Dr\n08/11/2025  ZEPTO GURGAON   416.89 Dr\n17/10/2025  APOLLO PHARMACY BANGALORE   8,954.91 Dr\n24/10/2025  SPOTIFY MUMBAI   21,945.45 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   3,889.18 Cr\n\nReward Points Summary: Opening 8170  Earned 475  Closing 8776\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6428196331403  IFSC AXIS0000856"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card no. XXXXXXXXXXXX2477 has been used for a transaction of INR 1,082.50 on Nov 12, 2025 at 22:59:49. Info: BIGBASKET.\nThe Available Credit Limit on your card is INR 27,854.00 and Total Credit Limit is INR 57,854.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card ending 2477 for Nov 2025 is ready. Total due Rs.1,05,763.44, pay by 30 Nov 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "2477_12112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 1,216.57 on Nov 15, 2025 at 01:36:46. Info: LICIOUS.\nThe Available Credit Limit on your card is INR 72,190.00 and Total Credit Limit is INR 1,02,190.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Add-on Credit Card XX8120 for INR 386.20 at LENSKART on 20-11-25 14:42:05 IST.\nAvailable limit INR 32,053.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-11-20",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.6,481.96 on 23-11-2025 towards your Axis Bank Credit Card XX2477. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 2855 reward points on your Axis Bank Reserve Credit Card XX2477. Redeem them on the rewards portal before they expire.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 522 reward points on your ICICI Bank Sapphiro Credit Card **2477. Redeem them on the rewards portal before they expire.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.1,05,763.44 on 26-11-2025 towards your ICICI Bank Credit Card XX2477. Thank you.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.6,481.96 due on 30 November for card **2477. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 6,536.10 on Nov 27, 2025 at 08:19:44. Info: INDIGO AIRLINES.\nThe Available Credit Limit on your card is INR 1,15,636.00 and Total Credit Limit is INR 1,45,636.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Transaction alert on Axis Bank Credit Card ending 8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card ending 8120 for INR 593.29 at OLA CABS on 27-11-25 11:00:38 IST.\nAvailable limit INR 20,161.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 21,042.40 at CROMA on 01-12-25 11:45:37 IST.\nAvailable limit INR 2,48,235.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 2477 has been used for a transaction of INR 11,295.53 on Dec 05, 2025 at 02:38:02. Info: AIRBNB.\nThe Available Credit Limit on your card is INR 1,10,541.00 and Total Credit Limit is INR 1,40,541.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 1,326.83 on Dec 06, 2025 at 20:03:11. Info: MAKEMYTRIP.\nThe Available Credit Limit on your card is INR 2,73,785.00 and Total Credit Limit is INR 3,03,785.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Credit Card XX2477 for INR 4,241.80 at DECATHLON on 10-12-25 17:22:45 IST.<br>\nAvailable limit INR 75,067.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR4669\nT&C apply.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Axis Bank Reserve Credit Card Statement - Dec 2025",
+   "body": "Dear Customer,\nYour Axis Bank Reserve Credit Card XXXX XXXX XXXX 2477 Statement for the period 12/11/2025 to 12/12/2025 is attached.\nTotal Amount Due: Rs. 2,483.91\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/12/2025\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4621 98XX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 2,483.91\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,70,549.00\n\nDate        Transaction Details                        Amount (Rs.)\n06/12/2025  ZEPTO HYDERABAD   849.88 Dr\n16/11/2025  AIRBNB PUNE   17,570.92 Dr\n12/11/2025  UBER INDIA KOCHI   1,992.33 Dr\n13/11/2025  NETFLIX.COM HYDERABAD   1,815.28 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   1,490.35 Cr\n\nReward Points Summary: Opening 8603  Earned 241  Closing 8091\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear&nbsp;Divya&nbsp;Pillai,\nThe&nbsp;statement of your ICICI Bank Sapphiro Credit Card XX2477 for Dec 2025 is ready. Total due Rs.13,003.47, pay by 30 Dec 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 2,137.93 at STARBUCKS on 13-12-25 05:47:06 IST.\nAvailable limit INR 1,46,416.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 8,727.46 on Dec 15, 2025 at 20:23:17. Info: BPCL FUEL.<br>\nThe Available Credit Limit on your card is INR 2,26,303.00 and Total Credit Limit is INR 2,56,303.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "नमस्ते,\nDear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 8,885.28 at IRCTC on 16-12-25 17:18:21 IST.\nAvailable limit INR 3,84,285.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-16",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 10,921.10 at LENSKART on 18-12-25 02:06:03 IST.\nAvailable limit INR 1,65,448.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 3,258.22 on Dec 25, 2025 at 16:55:47. Info: SPOTIFY.\nThe Available Credit Limit on your card is INR 3,48,099.00 and Total Credit Limit is INR 3,78,099.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,483.91 on 26-12-2025 towards your Axis Bank Credit Card XX2477. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThis is a reminder that Rs.13,003.47 (minimum Rs.650.17) is due on 30-Dec-2025 on your ICICI Bank Credit Card XX2477. Pay on time to avoid late payment charges.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 6,120.25 at OLA CABS on 28-12-25 01:27:31 IST.\nAvailable limit INR 2,00,757.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Transaction alert on Axis Bank Credit Card xx2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card xx2477 for INR 292.36 at HOTSTAR on 28-12-25 23:15:55 IST.\nAvailable limit INR 1,55,784.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nThis is a system generated email. Please do not reply to this message.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 1,888.22 at LENSKART on 03-01-26 07:00:33 IST.\nAvailable limit INR 2,65,468.00. If this was not you, SMS BLOCK 2477 to 5676782.",
+   "date": "2026-01-03",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Credit Card XX2477 for INR 6,467.62 at BATA INDIA on 05-01-26 23:11:43 IST.\nAvailable limit INR 2,24,115.00. If this was not you, SMS BLOCK 2477 to 5676782.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 27,284.62 on Jan 07, 2026 at 06:35:24. Info: WESTSIDE.\nThe Available Credit Limit on your card is INR 3,44,980.00 and Total Credit Limit is INR 3,74,980.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Transaction alert on Axis Bank Credit Card **8120",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Add-on Credit Card **8120 for INR 16,612.96 at BOOKMYSHOW on 07-01-26 11:50:38 IST.<br>\nAvailable limit INR 3,28,737.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-07",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 2477 has been used for a transaction of INR 440.94 on Jan 09, 2026 at 16:54:29. Info: LENSKART.\nThe Available Credit Limit on your card is INR 2,72,360.00 and Total Credit Limit is INR 3,02,360.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "E-mandate cancelled",
+   "body": "Dear Customer,\nThe e-mandate for NETFLIX.COM registered on your Axis Bank card XX2477 has been cancelled as requested. No further auto-debits will happen. Your card remains active.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Axis Bank Reserve Credit Card Statement - Jan 2026",
+   "body": "Dear Customer,\nYour Axis Bank Reserve Credit Card XX2477 Statement for the period 13/12/2025 to 12/01/2026 is attached.\nTotal Amount Due: Rs. 36,215.51\nMinimum Amount Due: Rs. 1,810.78\nPayment Due Date: 30/01/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCredit Card Number: XXXX XXXX XXXX 2477\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 36,215.51\nMinimum Amount Due: Rs. 1,810.78\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 64,652.00\n\nDate        Transaction Details                        Amount (Rs.)\n02/01/2026  CROMA HYDERABAD   8,285.98 Dr\n04/01/2026  SHELL PETROL MUMBAI   11,815.67 Dr\n22/12/2025  MEDPLUS PUNE   3,431.56 Dr\n03/01/2026  CROMA MUMBAI   677.86 Dr\n15/12/2025  LENSKART GURGAON   7,012.43 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   21,729.31 Cr\n\nReward Points Summary: Opening 2425  Earned 432  Closing 8951\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6428196331403  IFSC AXIS0000166"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card no. XXXXXXXXXXXX2477 for Jan 2026 is ready. Total due Rs.821.58, pay by 30 Jan 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 12,177.06 on Jan 14, 2026 at 23:30:18. Info: BPCL FUEL.\nThe Available Credit Limit on your card is INR 50,369.00 and Total Credit Limit is INR 80,369.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XXXX XXXX XXXX 2477 has been used for a transaction of INR 2,063.07 on Jan 22, 2026 at 04:16:25. Info: DMART.\nThe Available Credit Limit on your card is INR 2,83,841.00 and Total Credit Limit is INR 3,13,841.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.821.58 on 27-01-2026 towards your ICICI Bank Credit Card **2477. Thank you.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.36,215.51 on 29-01-2026 towards your Axis Bank Credit Card xx2477. Thank you.",
+   "date": "2026-01-29",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Credit Card XX2477 for INR 1,982.76 at LICIOUS on 01-02-26 05:48:21 IST.<br>\nAvailable limit INR 3,47,823.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Add-on Credit Card XX8120 for INR 1,211.78 at GOOGLE PLAY on 01-02-26 13:52:11 IST.\nAvailable limit INR 3,67,722.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card no. XXXXXXXXXXXX2477 has been used for a transaction of INR 389.38 on Feb 02, 2026 at 06:34:33. Info: AIRBNB.\nThe Available Credit Limit on your card is INR 1,47,124.00 and Total Credit Limit is INR 1,77,124.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Transaction alert on Axis Bank Credit Card XXXX XXXX XXXX 2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XXXX XXXX XXXX 2477 for INR 3,240.34 at JIO PREPAID on 08-02-26 01:53:03 IST.\nAvailable limit INR 1,30,141.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-08",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 26,638.48 on Feb 08, 2026 at 19:21:05. Info: HOTSTAR.\nThe Available Credit Limit on your card is INR 87,102.00 and Total Credit Limit is INR 1,17,102.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-02-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 811.60 at ZOMATO on 10-02-26 11:15:20 IST.\nAvailable limit INR 2,48,898.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Axis Bank Reserve Credit Card Statement - Feb 2026",
+   "body": "Dear Customer,\nYour Axis Bank Reserve Credit Card XX2477 Statement for the period 13/01/2026 to 12/02/2026 is attached.\nTotal Amount Due: Rs. 9,380.63\nMinimum Amount Due: Rs. 469.03\nPayment Due Date: 02/03/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCredit Card Number: XXXX XXXX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 9,380.63\nMinimum Amount Due: Rs. 469.03\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,43,127.00\n\nDate        Transaction Details                        Amount (Rs.)\n28/01/2026  IRCTC HYDERABAD   883.25 Dr\n01/02/2026  GOOGLE PLAY KOCHI   2,859.54 Dr\n26/01/2026  PVR INOX MUMBAI   1,472.53 Dr\n03/02/2026  SPOTIFY MUMBAI   1,268.63 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   5,628.38 Cr\n\nReward Points Summary: Opening 6605  Earned 366  Closing 662\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statment of your ICICI Bank Sapphiro Credit Card XX2477 for Feb 2026 is ready. Total due Rs.782.91, pay by 02 Mar 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Your EMI request has been cancelled",
+   "body": "Your request to convert transaction of Rs.34,118.58 on card XX2477 to EMI has been cancelled. The transaction stays on your regular bill.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transction of INR 1,811.41 on Feb 19, 2026 at 22:16:38. Info: AIRBNB.\nThe Available Credit Limit on your card is INR 1,82,765.00 and Total Credit Limit is INR 2,12,765.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.",
+   "date": "2026-02-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear&nbsp;Customer,<br>\nYour&nbsp;ICICI&nbsp;Bank Credit Card XX2477 has been used for a transaction of INR 4,882.43 on Feb 21, 2026 at 17:45:16. Info: REDBUS.<br>\nThe Available Credit Limit on your card is INR 3,33,575.00 and Total Credit Limit is INR 3,63,575.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 2,926.47 at LENSKART on 22-02-26 20:40:40 IST.\nAvailable limit INR 2,32,896.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.782.91 on 26-02-2026 towards your ICICI Bank Credit Card XX2477. Thank you.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Payment reminder: Axis Bank Credit Card xx2477",
+   "body": "Dear Customer,\nThis is a reminder that Rs.9,380.63 (minimum Rs.469.03) is due on 02-Mar-2026 on your Axis Bank Credit Card xx2477. Pay on time to avoid late payment charges.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Transaction alert on Axis Bank Credit Card ending 8120",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Add-on Credit Card ending 8120 for INR 675.02 at DMART on 27-02-26 05:56:17 IST.<br>\nAvailable limit INR 3,12,126.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 2,022.36 at CROMA on 28-02-26 09:42:40 IST.\nAvailable limit INR 91,174.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 647.98 at BPCL FUEL on 01-03-26 18:00:54 IST.\nAvailable limit INR 2,24,683.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Axis Bank Reserve Credit Card Statement - Mar 2026",
+   "body": "Dear Customer,\nYour Axis Bank Reserve Credit Card no. XXXXXXXXXXXX2477 Statement for the period 10/02/2026 to 12/03/2026 is attached.\nTotal Amount Due: Rs. 3,398.86\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/03/2026\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4225 89XX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 3,398.86\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,24,593.00\n\nDate        Transaction Details                        Amount (Rs.)\n11/02/2026  BPCL FUEL CHENNAI   397.68 Dr\n26/02/2026  BIGBASKET BANGALORE   2,465.90 Dr\n26/02/2026  ZOMATO HYDERABAD   160.90 Dr\n23/02/2026  JIO PREPAID GURGAON   543.38 Dr\n06/03/2026  HOTSTAR CHENNAI   744.52 Dr\n27/02/2026  WESTSIDE GURGAON   483.43 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   2,039.32 Cr\n\nReward Points Summary: Opening 3404  Earned 651  Closing 5711\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6428196331403  IFSC AXIS0000578"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2477 for Mar 2026 is ready. Total due Rs.7,254.29, pay by 30 Mar 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 28,596.61 on Mar 13, 2026 at 13:05:45. Info: OLA CABS.\nThe Available Credit Limit on your card is INR 1,66,634.00 and Total Credit Limit is INR 1,96,634.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Transaction alert on Axis Bank Credit Card xx8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card xx8120 for INR 282.88 at BOOKMYSHOW on 20-03-26 19:42:34 IST.\nAvailable limit INR 3,27,349.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 1,558.06 on Mar 21, 2026 at 11:28:26. Info: AMAZON PAY INDIA.<br>\nThe Available Credit Limit on your card is INR 1,02,201.00 and Total Credit Limit is INR 1,32,201.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 1,028.58 at LENSKART on 21-03-26 17:50:31 IST.\nAvailable limit INR 3,69,449.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,254.29 on 22-03-2026 towards your ICICI Bank Credit Card XX2477. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 10,048.59 at IRCTC on 23-03-26 21:27:05 IST.\nAvailable limit INR 2,96,491.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,398.86 on 23-03-2026 towards your Axis Bank Credit Card XX2477. Thank you.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 39,612.72 at PVR INOX on 24-03-26 15:32:50 IST.\nAvailable limit INR 1,85,117.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Payment reminder: Axis Bank Credit Card xx2477",
+   "body": "Dear Customer,\nThis is a reminder that Rs.3,398.86 (minimum Rs.200.00) is due on 30-Mar-2026 on your Axis Bank Credit Card xx2477. Pay on time to avoid late payment charges.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Transaction alert on Axis Bank Credit Card **2477",
+   "body": "नमस्ते,\nDear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Credit Card **2477 for INR 24,419.72 at LENSKART on 02-04-26 19:27:23 IST.\nAvailable limit INR 1,50,216.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "OTP for online transaction",
+   "body": "783882 is the One Time Password (OTP) for your online transaction of INR 651.30 at SHELL PETROL. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Axis Bank Reserve Credit Card Statement - Apr 2026",
+   "body": "नमस्ते,\nDear Customer,\nYour Axis Bank Reserve Credit Card XX2477 Statement for the period 13/03/2026 to 12/04/2026 is attached.\nTotal Amount Due: Rs. 26,739.30\nMinimum Amount Due: Rs. 1,336.97\nPayment Due Date: 30/04/2026\nPay via NetBanking, UPI or auto-debit.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCredit Card Number: XXXX XXXX XXXX 2477\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 26,739.30\nMinimum Amount Due: Rs. 1,336.97\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,78,709.00\n\nDate        Transaction Details                        Amount (Rs.)\n10/04/2026  SHELL PETROL KOCHI   7,862.54 Dr\n19/03/2026  ZOMATO KOCHI   628.58 Dr\n03/04/2026  CAFE COFFEE DAY HYDERABAD   2,129.59 Dr\n16/03/2026  SPOTIFY PUNE   1,707.01 Dr\n31/03/2026  LENSKART HYDERABAD   869.17 Dr\n16/03/2026  HOTSTAR HYDERABAD   39,662.14 Dr\n30/03/2026  BATA INDIA CHENNAI   3,450.63 Dr\n14/03/2026  CROMA CHENNAI   628.40 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   16,043.58 Cr\n\nReward Points Summary: Opening 8119  Earned 700  Closing 4562\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6428196331403  IFSC AXIS0000630"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,<br>\nThe statement of your ICICI Bank Sapphiro Credit Card XX2477 for Apr 2026 is ready. Total due Rs.5,331.92, pay by 30 Apr 2026.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 7,420.65 on Apr 13, 2026 at 06:10:44. Info: CROMA.<br>\nThe Available Credit Limit on your card is INR 2,03,388.00 and Total Credit Limit is INR 2,33,388.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 37,279.27 on Apr 14, 2026 at 03:51:42. Info: BPCL FUEL.\nThe Available Credit Limit on your card is INR 3,94,571.00 and Total Credit Limit is INR 4,24,571.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 8,641.98 at INDIGO AIRLINES on 16-04-26 00:21:06 IST.\nAvailable limit INR 2,35,703.00. If this was not you, SMS BLOCK 8120 to 5676782.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "नमस्ते,\nDear&nbsp;Customer,<br>\nThank&nbsp;you&nbsp;for using your Axis Bank Add-on Credit Card XX8120 for INR 110.48 at LICIOUS on 21-04-26 17:55:02 IST.<br>\nAvailable limit INR 3,67,064.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 1,532.13 on Apr 24, 2026 at 04:04:24. Info: AIRBNB.\nThe Available Credit Limit on your card is INR 98,105.00 and Total Credit Limit is INR 1,28,105.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 4862 reward points on your Axis Bank Reserve Credit Card XX2477. Redeem them on the rewards portal before they expire.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 10316 reward points on your ICICI Bank Sapphiro Credit Card **2477. Redeem them on the rewards portal before they expire.\n\nT&C apply. Visit www.icicibank.com for more details.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThis is a reminder that Rs.5,331.92 (minimum Rs.266.60) is due on 30-Apr-2026 on your ICICI Bank Credit Card XX2477. Pay on time to avoid late payment charges.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.26,739.30 on 28-04-2026 towards your Axis Bank Credit Card XX2477. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 2,458.70 on Apr 28, 2026 at 14:23:59. Info: REDBUS.\nThe Available Credit Limit on your card is INR 3,38,758.00 and Total Credit Limit is INR 3,68,758.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Transaction alert on Axis Bank Credit Card XXXX XXXX XXXX 2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XXXX XXXX XXXX 2477 for INR 340.79 at RELIANCE SMART on 09-05-26 18:24:47 IST.\nAvailable limit INR 3,93,796.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Axis Bank Reserve Credit Card Statement - May 2026",
+   "body": "Dear Customer,\nYour Axis Bank Reserve Credit Card XX2477 Statement for the period 12/04/2026 to 12/05/2026 is attached.\nTotal Amount Due: Rs. 29,301.62\nMinimum Amount Due: Rs. 1,465.08\nPayment Due Date: 30/05/2026\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4602 52XX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 29,301.62\nMinimum Amount Due: Rs. 1,465.08\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,08,351.00\n\nDate        Transaction Details                        Amount (Rs.)\n07/05/2026  OLA CABS GURGAON   401.94 Dr\n08/05/2026  SHELL PETROL CHENNAI   2,667.26 Dr\n29/04/2026  BIGBASKET BANGALORE   2,504.61 Dr\n01/05/2026  LICIOUS BANGALORE   291.73 Dr\n06/05/2026  IRCTC HYDERABAD   266.07 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   17,580.97 Cr\n\nReward Points Summary: Opening 3268  Earned 232  Closing 5039\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6428196331403  IFSC AXIS0000888"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2477 for May 2026 is ready. Total due Rs.8,171.88, pay by 30 May 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XXXXXXXXXXXX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card no. XXXXXXXXXXXX8120 for INR 815.40 at REDBUS on 18-05-26 08:42:37 IST.\nAvailable limit INR 2,64,448.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,<br>\nYour&nbsp;ICICI&nbsp;Bank Credit Card XX2477 has been used for a transaction of INR 733.02 on May 19, 2026 at 02:36:07. Info: MAKEMYTRIP.<br>\nThe Available Credit Limit on your card is INR 1,45,866.00 and Total Credit Limit is INR 1,75,866.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Payment reminder: Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThis is a reminder that Rs.29,301.62 (minimum Rs.1,465.08) is due on 30-May-2026 on your Axis Bank Credit Card XX2477. Pay on time to avoid late payment charges.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.29,301.62 on 29-05-2026 towards your Axis Bank Credit Card XX2477. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-29",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.8,171.88 on 29-05-2026 towards your ICICI Bank Credit Card no. XXXXXXXXXXXX2477. Thank you.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-05-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "Transaction alert on Axis Bank Credit Card XXXX XXXX XXXX 2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XXXX XXXX XXXX 2477 for INR 633.36 at APOLLO PHARMACY on 01-06-26 05:41:07 IST.\nAvailable limit INR 2,37,665.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nThis is a system generated email. Please do not reply to this message.\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Axis Bank Reserve Credit Card Statement - Jun 2026",
+   "body": "Dear Customer,\nYour Axis Bank Reserve Credit Card XX2477 Statement for the period 13/05/2026 to 12/06/2026 is attached.\nTotal Amount Due: Rs. 19,270.61\nMinimum Amount Due: Rs. 963.53\nPayment Due Date: 30/06/2026\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4826 36XX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 19,270.61\nMinimum Amount Due: Rs. 963.53\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,68,013.00\n\nDate        Transaction Details                        Amount (Rs.)\n25/05/2026  HOTSTAR MUMBAI   1,430.86 Dr\n21/05/2026  SPOTIFY HYDERABAD   11,635.94 Dr\n10/06/2026  PVR INOX GURGAON   8,979.19 Dr\n14/05/2026  AMAZON PAY INDIA BANGALORE   25,324.63 Dr\n03/06/2026  DECATHLON KOCHI   32,083.91 Dr\n03/06/2026  APOLLO PHARMACY KOCHI   784.53 Dr\n14/05/2026  ZOMATO GURGAON   6,265.55 Dr\n14/05/2026  IRCTC MUMBAI   287.06 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   11,562.37 Cr\n\nReward Points Summary: Opening 4597  Earned 518  Closing 6392\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6428196331403  IFSC AXIS0000626"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card XXXX XXXX XXXX 2477 for Jun 2026 is ready. Total due Rs.13,022.61, pay by 30 Jun 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Add-on Credit Card XX8120 for INR 3,095.87 at BLINKIT on 13-06-26 12:27:51 IST.\nAvailable limit INR 2,01,071.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 35,083.95 at INDIGO AIRLINES on 16-06-26 03:28:47 IST.\nAvailable limit INR 46,146.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 39,173.59 on Jun 17, 2026 at 07:32:49. Info: LENSKART.\nThe Available Credit Limit on your card is INR 3,76,853.00 and Total Credit Limit is INR 4,06,853.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-06-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.19,270.61 on 22-06-2026 towards your Axis Bank Credit Card XX2477. Thank you.",
+   "date": "2026-06-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 5,633.17 at IRCTC on 24-06-26 13:15:21 IST.\nAvailable limit INR 3,51,999.00. If this was not you, SMS BLOCK 2477 to 5676782.",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Credit Card XX2477 for INR 875.92 at AIRBNB on 25-06-26 17:21:40 IST.\nAvailable limit INR 3,17,955.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Payment reminder: Axis Bank Credit Card XX2477",
+   "body": "नमस्ते,\nDear Customer,\nThis is a reminder that Rs.19,270.61 (minimum Rs.963.53) is due on 30-Jun-2026 on your Axis Bank Credit Card XX2477. Pay on time to avoid late payment charges.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 39,096.14 on Jun 28, 2026 at 20:45:40. Info: RELIANCE SMART.\nThe Available Credit Limit on your card is INR 49,339.00 and Total Credit Limit is INR 79,339.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transction of INR 1,801.88 on Jul 05, 2026 at 04:23:34. Info: PVR INOX.\nThe Available Credit Limit on your card is INR 3,51,799.00 and Total Credit Limit is INR 3,81,799.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 20,638.67 on Jul 09, 2026 at 15:32:50. Info: BPCL FUEL.\nThe Available Credit Limit on your card is INR 1,89,970.00 and Total Credit Limit is INR 2,19,970.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-07-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Axis Bank Reserve Credit Card Statement - Jul 2026",
+   "body": "Dear Customer,\nYour Axis Bank Reserve Credit Card XX2477 Statement for the period 12/06/2026 to 12/07/2026 is attached.\nTotal Amount Due: Rs. 1,037.42\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/07/2026\nPay via NetBanking, UPI or auto-debit.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4271 49XX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 1,037.42\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,60,941.00\n\nDate        Transaction Details                        Amount (Rs.)\n06/07/2026  MAKEMYTRIP HYDERABAD   714.27 Dr\n26/06/2026  THIRD WAVE COFFEE PUNE   6,623.22 Dr\n03/07/2026  AMAZON PAY INDIA CHENNAI   1,006.61 Dr\n15/06/2026  MEDPLUS PUNE   5,584.47 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   622.45 Cr\n\nReward Points Summary: Opening 3024  Earned 851  Closing 4560\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6428196331403  IFSC AXIS0000746"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "नमस्ते,\nDear&nbsp;Divya&nbsp;Pillai,\nThe&nbsp;statement of your ICICI Bank Sapphiro Credit Card XX2477 for Jul 2026 is ready. Total due Rs.86,674.26, pay by 30 Jul 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "Transaction alert on Axis Bank Credit Card **2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card **2477 for INR 433.44 at LICIOUS on 15-07-26 02:26:52 IST.\nAvailable limit INR 1,68,437.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 6,503.00 on Jul 15, 2026 at 15:13:25. Info: PVR INOX.\nThe Available Credit Limit on your card is INR 66,925.00 and Total Credit Limit is INR 96,925.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Transaction alert on Axis Bank Credit Card ending 8120",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Add-on Credit Card ending 8120 for INR 28,722.52 at SHELL PETROL on 17-07-26 20:33:09 IST.<br>\nAvailable limit INR 3,75,757.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-07-17",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 473.09 at BOOKMYSHOW on 22-07-26 15:57:51 IST.\nAvailable limit INR 2,61,213.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card no. XXXXXXXXXXXX2477 has been used for a transaction of INR 19,555.13 on Jul 26, 2026 at 20:53:07. Info: DECATHLON.\nThe Available Credit Limit on your card is INR 3,69,045.00 and Total Credit Limit is INR 3,99,045.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Transaction alert on Axis Bank Credit Card ending 2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card ending 2477 for INR 517.40 at PVR INOX on 27-07-26 06:52:20 IST.\nAvailable limit INR 1,26,709.00. If this was not you, SMS BLOCK 2477 to 5676782.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Payment reminder: Axis Bank Credit Card ending 2477",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,037.42 (minimum Rs.200.00) is due on 30-Jul-2026 on your Axis Bank Credit Card ending 2477. Pay on time to avoid late payment charges.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.86,674.26 due on 30 July for card XX2477. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.1,037.42 on 28-07-2026 towards your Axis Bank Credit Card XX2477. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.86,674.26 on 29-07-2026 towards your ICICI Bank Credit Card **2477. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 27,704.92 on Aug 02, 2026 at 12:08:11. Info: THIRD WAVE COFFEE.\nThe Available Credit Limit on your card is INR 3,38,002.00 and Total Credit Limit is INR 3,68,002.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 11,415.25 at DECATHLON on 02-08-26 18:19:30 IST.\nAvailable limit INR 2,44,225.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-02",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 19,566.69 at UBER INDIA on 06-08-26 04:01:19 IST.\nAvailable limit INR 1,76,154.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 8,988.07 on Aug 10, 2026 at 19:12:20. Info: AIRBNB.\nThe Available Credit Limit on your card is INR 51,214.00 and Total Credit Limit is INR 81,214.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Axis Bank Reserve Credit Card Statement - Aug 2026",
+   "body": "Dear Customer,\nYour Axis Bank Reserve Credit Card XX2477 Statement for the period 13/07/2026 to 12/08/2026 is attached.\nTotal Amount Due: Rs. 3,685.76\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/08/2026\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCredit Card Number: XXXX XXXX XXXX 2477\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 3,685.76\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,62,783.00\n\nDate        Transaction Details                        Amount (Rs.)\n01/08/2026  MEDPLUS PUNE   7,363.00 Dr\n27/07/2026  THIRD WAVE COFFEE PUNE   672.34 Dr\n10/08/2026  BATA INDIA GURGAON   5,826.77 Dr\n24/07/2026  RELIANCE SMART GURGAON   14,203.46 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   2,211.46 Cr\n\nReward Points Summary: Opening 7428  Earned 533  Closing 7621\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2477 for Aug 2026 is ready. Total due Rs.54,241.17, pay by 30 Aug 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 465.39 at HOTSTAR on 21-08-26 01:45:09 IST.\nAvailable limit INR 2,95,532.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.11,773.90 on card XX2477 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.11,785.64 on card XX2477 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Credit Card XX2477 for INR 1,841.43 at MAKEMYTRIP on 24-08-26 03:07:42 IST.<br>\nAvailable limit INR 85,312.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XXXXXXXXXXXX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XXXXXXXXXXXX2477 for INR 534.61 at PVR INOX on 24-08-26 04:51:05 IST.\nAvailable limit INR 60,183.00. If this was not you, SMS BLOCK 2477 to 5676782.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "Payment reminder: Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThis is a reminder that Rs.3,685.76 (minimum Rs.200.00) is due on 30-Aug-2026 on your Axis Bank Credit Card XX2477. Pay on time to avoid late payment charges.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.54,241.17 due on 30 August for card XX2477. Ignore if already paid. Kripya samay par bhugtan karein.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 823.32 at GOOGLE PLAY on 28-08-26 19:29:16 IST.\nAvailable limit INR 2,07,190.00. If this was not you, SMS BLOCK 8120 to 5676782.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,685.76 on 29-08-2026 towards your Axis Bank Credit Card XXXX XXXX XXXX 2477. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-29",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 15,709.87 on Sep 01, 2026 at 19:43:53. Info: SHELL PETROL.\nThe Available Credit Limit on your card is INR 3,69,408.00 and Total Credit Limit is INR 3,99,408.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR1403\nT&C apply.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card XX2477 has been processed. Tenure 6 months. First EMI will appear on your next statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "EMI conversion successful",
+   "body": "Your&nbsp;request&nbsp;for&nbsp;EMI conversion on card XX2477 has been processed. Tenure 6 months. First EMI will appear on your next statment.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m238",
+   "subject": "Axis Bank Reserve Credit Card Statement - Sep 2026",
+   "body": "Dear Customer,\nYour Axis Bank Reserve Credit Card XX2477 Statement for the period 13/08/2026 to 12/09/2026 is attached.\nTotal Amount Due: Rs. 35,317.83\nMinimum Amount Due: Rs. 1,765.89\nPayment Due Date: 30/09/2026\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCard No: 4874 54XX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 35,317.83\nMinimum Amount Due: Rs. 1,765.89\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,11,912.00\n\nDate        Transaction Details                        Amount (Rs.)\n27/08/2026  MEDPLUS MUMBAI   1,080.18 Dr\n07/09/2026  TATA 1MG GURGAON   5,276.09 Dr\n07/09/2026  STARBUCKS PUNE   606.37 Dr\n22/08/2026  SHELL PETROL GURGAON   323.97 Dr\n24/08/2026  BATA INDIA MUMBAI   108.66 Dr\n29/08/2026  SHELL PETROL KOCHI   20,701.65 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   21,190.70 Cr\n\nReward Points Summary: Opening 6885  Earned 755  Closing 718\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "नमस्ते,\nDear Divya Pillai,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2477 for Sep 2026 is ready. Total due Rs.744.04, pay by 30 Sep 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Credit limit change on your card",
+   "body": "नमस्ते,\nDear Customer,<br>\nBased on your profile, the credit limit on your Axis Bank Reserve Credit Card XX2477 has been increased to Rs.4,50,000.00 effective 17-09-2026.<br>\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 7,336.88 on Sep 17, 2026 at 02:38:12. Info: ZEPTO.\nThe Available Credit Limit on your card is INR 2,72,093.00 and Total Credit Limit is INR 3,02,093.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your ICICI Bank Sapphiro Credit Card XX2477 has been increased to Rs.3,00,000.00 effective 17-09-2026.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX2477 for INR 6,239.34 at URBAN COMPANY on 24-09-26 11:57:25 IST.\nAvailable limit INR 3,06,897.00. If this was not you, SMS BLOCK 2477 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 3351 reward points on your Axis Bank Reserve Credit Card XX2477. Redeem them on the rewards portal before they expire.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.744.04 on 25-09-2026 towards your ICICI Bank Credit Card xx2477. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 9274 reward points on your ICICI Bank Sapphiro Credit Card XX2477. Redeem them on the rewards portal before they expire.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m247",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.35,317.83 due on 30 September for card XX2477. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.744.04 due on 30 September for card XX2477. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "Transaction alert on Axis Bank Credit Card **8120",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Add-on Credit Card **8120 for INR 1,343.45 at APOLLO PHARMACY on 27-09-26 05:59:08 IST.\nAvailable limit INR 58,817.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Transaction alert on Axis Bank Credit Card XX2477",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Credit Card XX2477 for INR 3,197.57 at ZOMATO on 03-10-26 06:18:38 IST.<br>\nAvailable limit INR 3,15,746.00. If this was not you, SMS BLOCK 2477 to 5676782.",
+   "date": "2026-10-03",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 7,066.57 on Oct 05, 2026 at 16:49:14. Info: REDBUS.\nThe Available Credit Limit on your card is INR 3,36,962.00 and Total Credit Limit is INR 3,66,962.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m252",
+   "subject": "OTP for online transaction",
+   "body": "476418 is the One Time Password (OTP) for your online transaction of INR 34,017.03 at TATA 1MG. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m253",
+   "subject": "Axis Bank Reserve Credit Card Statement - Oct 2026",
+   "body": "Dear Customer,<br>\nYour Axis Bank Reserve Credit Card XX2477 Statement for the period 12/09/2026 to 12/10/2026 is attached.<br>\nTotal Amount Due: Rs. 9,309.01\nMinimum Amount Due: Rs. 465.45\nPayment Due Date: 30/10/2026\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: DIVYA PILLAI\nCredit Card Number: XXXX XXXX XXXX 2477\nCard Type: Reserve\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 9,309.01\nMinimum Amount Due: Rs. 465.45\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 67,309.00\n\nDate        Transaction Details                        Amount (Rs.)\n25/09/2026  BIGBASKET BANGALORE   8,804.33 Dr\n03/10/2026  BPCL FUEL MUMBAI   39,015.95 Dr\n21/09/2026  TATA 1MG MUMBAI   1,116.92 Dr\n07/10/2026  ZEPTO BANGALORE   26,803.06 Dr\n13/09/2026  OLA CABS HYDERABAD   29,122.40 Dr\n15/09/2026  SHELL PETROL PUNE   2,333.99 Dr\n20/09/2026  MEDPLUS KOCHI   5,264.39 Dr\n18/09/2026  THIRD WAVE COFFEE HYDERABAD   20,426.23 Dr\n16/09/2026  ZOMATO MUMBAI   6,928.50 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   5,585.41 Cr\n\nReward Points Summary: Opening 1848  Earned 379  Closing 1698\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6428196331403  IFSC AXIS0000843"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m254",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear&nbsp;Divya&nbsp;Pillai,\nThe&nbsp;statement of your ICICI Bank Sapphiro Credit Card XX2477 for Oct 2026 is ready. Total due Rs.8,098.16, pay by 30 Oct 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m255",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Add-on Credit Card XX8120 for INR 5,418.42 at NETFLIX.COM on 14-10-26 06:00:08 IST.\nAvailable limit INR 1,21,024.00. If this was not you, SMS BLOCK 8120 to 5676782.",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m256",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card **2477 has been used for a transaction of INR 1,885.15 on Oct 15, 2026 at 09:34:55. Info: IRCTC.\nThe Available Credit Limit on your card is INR 89,304.00 and Total Credit Limit is INR 1,19,304.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m257",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 397.67 on Oct 19, 2026 at 03:24:23. Info: WESTSIDE.\nThe Available Credit Limit on your card is INR 2,02,912.00 and Total Credit Limit is INR 2,32,912.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m258",
+   "subject": "Transaction cancelled / refund initiated",
+   "body": "Dear Customer,\nYour transction at BLINKIT for Rs.599.16 has been cancelled by the merchant. A refund will be credited to your card XX2477 in 5-7 working days.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m259",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.8,098.16 on 24-10-2026 towards your ICICI Bank Credit Card no. XXXXXXXXXXXX2477. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m260",
+   "subject": "Transaction alert on Axis Bank Credit Card XX8120",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Add-on Credit Card XX8120 for INR 5,522.56 at HOTSTAR on 26-10-26 11:22:32 IST.\nAvailable limit INR 3,62,922.00. If this was not you, SMS BLOCK 8120 to 5676782.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m261",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.9,309.01 due on 30 October for card XX2477. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m262",
+   "subject": "Payment reminder: ICICI Bank Credit Card xx2477",
+   "body": "Dear Customer,\nThis is a reminder that Rs.8,098.16 (minimum Rs.404.91) is due on 30-Oct-2026 on your ICICI Bank Credit Card xx2477. Pay on time to avoid late payment charges.\n\nT&C apply. Visit www.icicibank.com for more details.\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m263",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.9,309.01 on 28-10-2026 towards your Axis Bank Credit Card XX2477. Thank you.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m264",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2477 has been used for a transaction of INR 435.17 on Oct 28, 2026 at 22:47:54. Info: STARBUCKS.\nThe Available Credit Limit on your card is INR 2,20,973.00 and Total Credit Limit is INR 2,50,973.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2477 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "2477",
+    "kind": "CREDIT_CARD",
+    "variant": "Reserve",
+    "lifecycle": "UPGRADED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "2477",
+    "kind": "CREDIT_CARD",
+    "variant": "Sapphiro",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "8120",
+    "kind": "CREDIT_CARD",
+    "variant": "Reserve",
+    "lifecycle": "ADDON",
+    "lifecyclePartnerLast4": "2477",
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "1403",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "5421",
+    "why": "masked Aadhaar number"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "7983",
+    "why": "service request / reference number"
+   }
+  ]
+ }
+}

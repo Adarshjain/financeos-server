@@ -1,0 +1,1250 @@
+{
+ "mailbox": "paytm-pnb-wallet-card",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Punjab National Bank Account Statement - Sep 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your Punjab National Bank *2801 statement for the period 07-Aug-2025 to 06-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-07",
+   "attachments": [
+    {
+     "filename": "2801_06092025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.137.25 debited from account XX7642 on 07-Sep-2025. Narration: POS/BIGBASKET. Available balance Rs.7,427.38.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Punjab National Bank statement - Sep 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your PNB Platinum Credit Card xx5938 statement for the period 17-Aug-2025 to 16-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202509.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Rs.27,276.25 withdrawn from XX2235 on 17-Sep-2025 via ECOM to BESCOM. Closing balance Rs.80,989.29.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Paytm Payments Bank Account Statement - Sep 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your Paytm Payments Bank *7642 statement for the period 22-Aug-2025 to 21-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-22",
+   "attachments": [
+    {
+     "filename": "eStatement_202509.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c XX7642 is debited for Rs.172.29 on 24-Sep-2025 - IMPS DOMINOS. Bal Rs.5,878.11. -Paytm Payments Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-24",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c xx2235 is debited for Rs.33,902.69 on 03-Oct-2025 - POS BIGBASKET. Bal Rs.2,689.21. -Paytm Payments Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-03",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Update your KYC",
+   "body": "Dear Lakshmi,\nAs per RBI guidelines please complete re-KYC for your Paytm Payments Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Punjab National Bank Account Statement - Oct 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your Punjab National Bank xx2801 statement for the period 07-Sep-2025 to 06-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202510.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "Punjab National Bank statement - Oct 2025",
+   "body": "Dear Lakshmi,\nStatement generated for PNB Platinum Credit Card xx5938: amount payable Rs.22,890.79, last date 03-Nov-2025. Sign in to download.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Lakshmi,\nYour order #770-8645216-9579850 is confirmed. Total Rs.5,376.63. Estimated delivery in 2 days.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "Punjab National Bank: funds transferred",
+   "body": "Dear Customer,\nRs.526.38 has been transferred from your A/c *2801 to Priya Tailors A/c XX5837 (IDFC FIRST Bank) via IMPS on 18-10-2025. Ref no 550271738961.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Deposit alert - Rs.360.93 received in account xx2801 on 25-10-2025 (SALARY NEFT) Ref 982513679333.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m014",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary S K Enterprises (A/c XXXXXX4376, Union Bank of India) has been added to your account XX7642. It will be active after 30 minutes.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.19,521.26 has been credited to account xx7642 on 03-Nov-2025 (IMPS). Avl bal Rs.10,871.20.",
+   "date": "2025-11-03",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.906.47 has been debited from your Paytm Payments Bank A/c XX7642 on 06-Nov-2025 (UPI NETFLIX). Avl bal Rs.52,979.76.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Punjab National Bank Account Statement - Nov 2025",
+   "body": "Dear Lakshmi,\nYour Punjab National Bank *2801 account statement for Nov 2025 is ready. Closing balance Rs.4,952.92.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "Punjab National Bank statement - Nov 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your PNB Platinum Credit Card XX5938 statement for the period 17-Oct-2025 to 16-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-11-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Alert: Paytm Payments Bank A/c xx7642 debited Rs.540.98 on 18-Nov-2025. Mode: ECOM. Details: PHONEPE. Balance Rs.22,150.90.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Paytm Payments Bank Account Statement - Nov 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your Paytm Payments Bank XXXXXX7642 statement for the period 22-Oct-2025 to 21-Nov-2025. \n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-22",
+   "attachments": [
+    {
+     "filename": "Paytm_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "PAYTM PAYMENTS BANK\nSTATEMENT OF ACCOUNT\nAccount Name : LAKSHMI BANERJEE\nFLAT 380, SUNRISE APARTMENTS\n18TH CROSS, BANJARA HILLS\nPUNE - 524842\nCustomer ID : 62525927\nAccount Number : xx7642\nAccount Type : SAVINGS ACCOUNT\nIFSC : PAYT0696467\nStatement Period : 22-10-2025 to 21-11-2025\nOpening Balance : Rs.57,991.19\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n24-10-2025 NEFT DR/BLINKIT 103619988 1,836.22 - 56,154.97\n27-10-2025 NEFT DR/MAKEMYTRIP 561851209 1,201.85 - 54,953.12\n27-10-2025 POS/UBER INDIA 120006678 10,266.92 - 44,686.20\n27-10-2025 POS/NETFLIX 406671281 14,091.24 - 30,594.96\n28-10-2025 IMPS/CR 125637079 - 1,609.95 32,204.91\n29-10-2025 UPI/BOOKMYSHOW 818618391 16,775.17 - 15,429.74\n31-10-2025 UPI/CR 763305817 - 1,909.23 17,338.97\n01-11-2025 NEFT DR/URBAN COMPANY 761184275 212.44 - 17,126.53\n02-11-2025 INTEREST 233592925 - 168.42 17,294.95\n02-11-2025 ATM WDL/BOOKMYSHOW 315006444 15,517.67 - 1,777.28\n02-11-2025 NEFT DR/ZOMATO 430706585 686.07 - 1,091.21\nClosing Balance : Rs.1,091.21\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.16,391.28 | PVR INOX | 29-11-2025 | Punjab National Bank Credit Card xx5938",
+   "date": "2025-11-29",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.647.08 spent on your Punjab National Bank Credit Card ending 5938 at LENSKART on 30-11-2025.",
+   "date": "2025-11-30",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from XXXXXX7642 to S K Enterprises A/c XX4376 on 01-Dec-2025. Rent for the month.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.264.19 debited from account xx2235 on 03-Dec-2025. Narration: NEFT/BOOKMYSHOW. Available balance Rs.8,397.80.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Your A/c *7642 is credited with Rs.108.67 on 04-Dec-2025 - INTEREST CREDIT. Bal Rs.3,382.15. -Paytm Payments Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-04",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.23,395.92 has been debited from your Paytm Payments Bank A/c XXXXXX7642 on 06-Dec-2025 (IMPS INDIAN OIL). Avl bal Rs.3,969.21.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Punjab National Bank Account Statement - Dec 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your Punjab National Bank XXXXXX2801 statement for the period 07-Nov-2025 to 06-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m028",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.164.58 at AIRTEL PREPAID on 13-12-2025 on Punjab National Bank Credit Card XX5938.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "Punjab National Bank statement - Dec 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your PNB Platinum Credit Card XX5938 statement for the period 17-Nov-2025 to 16-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-12-17",
+   "attachments": [
+    {
+     "filename": "Punjab_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "Paytm Payments Bank wallet: Rs.101.58 added",
+   "body": "Dear Lakshmi,\nRs.101.58 has been added to your Paytm Wallet wallet no. 2235 on 17-Dec-2025. Wallet balance: Rs.114.76.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2025-12-17",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.6,877.90 has been transferred from your A/c XXXXXX2801 to Dr. Rao Clinic A/c XX7398 (IndusInd Bank) via IMPS on 19-12-2025. Ref no 310959930345.",
+   "date": "2025-12-19",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Rs.286.31 withdrawn from xx2801 on 23-12-2025 via UPI to UBER INDIA. Closing balance Rs.40,896.30.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.11,736.29 | MYNTRA | 26-12-2025 | Punjab National Bank Credit Card xx5938\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-12-26",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m034",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from *7642 to S K Enterprises A/c XX4376 on 01-Jan-2026. Rent for the month.",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Your Paytm Wallet has been topped up",
+   "body": "Dear Lakshmi,\nRs.565.36 has been added to your Paytm Wallet ID ending 2235 on 03-Jan-2026. Wallet balance: Rs.1,519.30.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-01-03",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Punjab National Bank Account Statement - Jan 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Punjab National Bank xx2801 statement for the period 07-Dec-2025 to 06-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-01-07",
+   "attachments": [
+    {
+     "filename": "2801_06012026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.3,044.54 has been transferred from your A/c *2801 to Priya Tailors A/c XX5837 (IDFC FIRST Bank) via IMPS on 14-01-2026. Ref no 876319395215.",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "Punjab National Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 6751 has been successfully linked/verified for your Punjab National Bank relationship. If this was not you, contact us.",
+   "date": "2026-01-16",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "Punjab National Bank statement - Jan 2026",
+   "body": "Hi Lakshmi,\nYour PNB Platinum Credit Card XX5938 e-statement for Jan 2026 is now available. Pay Rs.35,760.18 by 03-Feb-2026 to avoid late fees.",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Rs.1,349.64 withdrawn from *2801 on 17-01-2026 via NEFT to NETFLIX. Closing balance Rs.72,990.90.",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "Paytm Payments Bank Account Statement - Jan 2026",
+   "body": "Dear Lakshmi,\nYour Paytm Payments Bank xx7642 account statement for Jan 2026 is ready. Closing balance Rs.29,326.54.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,465.94 debited from account XXXXXX2235 on 23-Jan-2026. Narration: ECOM/HPCL PETROL. Available balance Rs.1,98,464.62.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Lakshmi,\nYour order #293-2896130-4527623 is confirmed. Total Rs.8,661.43. Estimated delivery in 2 days.",
+   "date": "2026-01-25",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "PNB Platinum Credit Card ending 5938: purchase of Rs.10,942.48 at IXIGO on 28-01-2026 15:35:42. Available limit Rs.1,20,883.36.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from xx7642 to S K Enterprises A/c XX4376 on 01-Feb-2026. Rent for the month.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Paytm Payments Bank: *2235 credited with Rs.147.32 on 03-Feb-2026. Source: IMPS. Balance Rs.29,144.47.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-03",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Punjab National Bank Account Statement - Feb 2026",
+   "body": "Dear Lakshmi,\nYour Punjab National Bank XXXXXX2801 account statement for Feb 2026 is ready. Closing balance Rs.7,475.09.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XXXXXX2801 is debited for Rs.1,142.04 on 13-02-2026 - NEFT MYNTRA. Bal Rs.43,081.85. -Punjab National Bank",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Punjab National Bank statement - Feb 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your PNB Platinum Credit Card ending 5938 statement for the period 17-Jan-2026 to 16-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-17",
+   "attachments": [
+    {
+     "filename": "Punjab_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m050",
+   "subject": "Update your KYC",
+   "body": "Dear Lakshmi,\nAs per RBI guidelines please complete re-KYC for your Punjab National Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-02-19",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m051",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.11,317.92 has been debited from your Paytm Payments Bank A/c xx7642 on 21-Feb-2026 (UPI AIRTEL PREPAID). Avl bal Rs.58,956.53.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Lakshmi,\nYour order #227-9970568-8101993 is confirmed. Total Rs.4,897.84. Estimated delivery in 2 days.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c XX2235 is debited for Rs.1,803.97 on 01-Mar-2026 - ECOM AIRTEL PREPAID. Bal Rs.14,225.49. -Paytm Payments Bank",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,500.00 transferred from XXXXXX7642 to S K Enterprises A/c XX4376 on 01-Mar-2026. Rent for the month.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Your A/c *7642 is credited with Rs.1,311.61 on 03-Mar-2026 - NEFT. Bal Rs.2,864.84. -Paytm Payments Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-03-03",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.263.17 has been credited to account XXXXXX2235 on 04-Mar-2026 (INTEREST CREDIT). Avl bal Rs.1,20,994.01.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Alert: Paytm Payments Bank A/c XXXXXX2235 debited Rs.17,401.75 on 06-Mar-2026. Mode: ECOM. Details: IKEA. Balance Rs.14,581.94.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Punjab National Bank Account Statement - Mar 2026",
+   "body": "Dear Lakshmi,\nYour Punjab National Bank *2801 account statement for Mar 2026 is ready. Closing balance Rs.27,719.08.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 281330167041. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.514.94 | INDIAN OIL | 10-03-2026 | PNB Platinum Credit Card XX5938\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.158.85 spent on your Punjab National Bank Credit Card XX5938 at BATA INDIA on 12-03-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-12",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m062",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c xx2801 is debited for Rs.7,469.88 on 16-03-2026 - IMPS IXIGO. Bal Rs.18,801.34. -Punjab National Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "Punjab National Bank statement - Mar 2026",
+   "body": "Dear Lakshmi,\nStatement generated for PNB Platinum Credit Card xx5938: amount payable Rs.16,454.74, last date 03-Apr-2026. Sign in to download.",
+   "date": "2026-03-17",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Paytm Payments Bank Account Statement - Mar 2026",
+   "body": "Dear Lakshmi,\nYour Paytm Payments Bank xx7642 account statement for Mar 2026 is ready. Closing balance Rs.5,580.12.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.2,450.90 spent on your Punjab National Bank Credit Card XX5938 at OLA CABS on 05-04-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "Punjab National Bank: funds transferred",
+   "body": "Dear Customer,\nRs.23,002.48 has been transferred from your A/c XX2801 to Dr. Rao Clinic A/c XX7398 (IndusInd Bank) via IMPS on 06-04-2026. Ref no 587404809417.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "Punjab National Bank Account Statement - Apr 2026",
+   "body": "Dear Lakshmi,\nYour Punjab National Bank xx2801 account statement for Apr 2026 is ready. Closing balance Rs.1,227.64.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "Paytm Payments Bank: funds transferred",
+   "body": "Dear Customer,\nRs.23,058.55 has been transferred from your A/c xx7642 to Priya Tailors A/c XX3436 (Canara Bank) via IMPS on 08-Apr-2026. Ref no 263067846090.",
+   "date": "2026-04-08",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Rs.1,913.33 withdrawn from *2801 on 10-04-2026 via IMPS to PAYTM. Closing balance Rs.8,015.56.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m070",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.17,994.98 has been credited to account XXXXXX2235 on 15-Apr-2026 (SALARY NEFT). Avl bal Rs.13,444.26.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Punjab National Bank statement - Apr 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your PNB Platinum Credit Card ending 5938 statement for the period 17-Mar-2026 to 16-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-04-17",
+   "attachments": [
+    {
+     "filename": "5938_16042026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c xx7642 is debited for Rs.229.20 on 18-Apr-2026 - ECOM BPCL FUEL. Bal Rs.47,192.91. -Paytm Payments Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-18",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Your Paytm Wallet has been topped up",
+   "body": "Dear Lakshmi,\nRs.458.73 has been added to your Paytm Wallet XXXXXX2235 on 01-May-2026. Wallet balance: Rs.2,202.27.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Punjab National Bank Account Statement - May 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Punjab National Bank XX2801 statement for the period 07-Apr-2026 to 06-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-05-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202605.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "Paytm Payments Bank wallet: Rs.1,447.02 added",
+   "body": "Dear Lakshmi,\nRs.1,447.02 has been added to your Paytm Wallet ID ending 2235 on 13-May-2026. Wallet balance: Rs.59.86.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-05-13",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Punjab National Bank statement - May 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your PNB Platinum Credit Card XX5938 statement for the period 17-Apr-2026 to 16-May-2026. Total amount due Rs.43,546.86, due 05-Jun-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-17",
+   "attachments": [
+    {
+     "filename": "Punjab_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "Punjab National Bank Credit Card Statement\nLAKSHMI BANERJEE\nFLAT 330, LAKESHORE APARTMENTS\n12TH CROSS, KOTHRUD\nKOCHI - 408929\nCard Name: PNB Platinum Credit Card\nCredit Card Number: 418641XXXXXX5938\nStatement Period: 17/04/26 - 16/05/26\nStatement Date: 16/05/26\nPayment Summary\nTotal Amount Due: Rs.43,546.86\nMinimum Amount Due: Rs.2,177.34\nPayment Due Date: 05/06/26\nAccount Summary\nCredit Limit: Rs.55,000.00\nAvailable Credit Limit: Rs.19,307.30\nAvailable Cash Limit: Rs.11,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n20/04/26 UBER INDIA PUNE 257.67 Dr\n24/04/26 URBAN COMPANY AHMEDABAD 16,214.15 Dr\n25/04/26 IRCTC GURUGRAM 6,539.50 Dr\n25/04/26 UBER INDIA KOLKATA 4,020.70 Dr\n28/04/26 BOOKMYSHOW KOCHI 258.29 Dr\n28/04/26 INDIGO AIRLINES MUMBAI 405.96 Dr\n30/04/26 RELIANCE DIGITAL KOCHI 2,527.47 Dr\n02/05/26 MCDONALDS GURUGRAM 7,320.24 Dr\n02/05/26 RELIANCE DIGITAL BENGALURU 387.60 Dr\n05/05/26 STARBUCKS CHENNAI 213.86 Dr\n07/05/26 BLINKIT CHENNAI 3,422.89 Dr\n08/05/26 TATA POWER CHENNAI 1,978.53 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.17,573.31 for Canara Bank Credit Card ending 8827 (cardholder: YASH BANERJEE) was successful from your A/c xx7642 on 18-May-2026.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Your Paytm Wallet has been topped up",
+   "body": "Dear Lakshmi,\nRs.3,682.56 has been added to your Paytm Wallet XXXXXX2235 on 21-May-2026. Wallet balance: Rs.113.71.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Paytm Payments Bank Account Statement - May 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Paytm Payments Bank xx7642 statement for the period 22-Apr-2026 to 21-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-22",
+   "attachments": [
+    {
+     "filename": "Paytm_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Punjab National Bank Account Statement - Jun 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Punjab National Bank xx2801 statement for the period 07-May-2026 to 06-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-07",
+   "attachments": [
+    {
+     "filename": "Punjab_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.894.51 | BATA INDIA | 09-06-2026 | PNB Platinum Credit Card ending 5938\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Alert: Punjab National Bank A/c XXXXXX2801 debited Rs.455.78 on 09-06-2026. Mode: NEFT. Details: UBER INDIA. Balance Rs.6,716.72.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Punjab National Bank statement - Jun 2026",
+   "body": "Dear Lakshmi,\nYour PNB Platinum Credit Card ending 5938 statement for Jun 2026 is ready. Total amount due Rs.5,340.57, minimum amount due Rs.267.03, payable by 04-Jul-2026.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-17",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m084",
+   "subject": "Paytm Payments Bank wallet statement - Jun 2026",
+   "body": "Your wallet statement is attached.",
+   "date": "2026-06-26",
+   "attachments": [
+    {
+     "filename": "Wallet_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "PAYTM PAYMENTS BANK\nWALLET STATEMENT\nWallet Holder : LAKSHMI BANERJEE\nWallet ID : XXXXXX2235\nWallet Type : MINIMUM-KYC PREPAID WALLET\nPeriod : 26-05-2026 to 26-06-2026\nDate Description Credit Debit Balance\n26-05-2026 CASHBACK 2,750.22 - 587.52\n29-05-2026 PAID TO HPCL PETROL 991.22 - 657.18\n01-06-2026 CASHBACK 68.17 - 114.85\n04-06-2026 ADD MONEY 732.38 - 202.86\n07-06-2026 CASHBACK 1,769.86 - 292.02\n10-06-2026 ADD MONEY 133.19 - 107.69\n13-06-2026 ADD MONEY 394.42 - 118.52"
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c xx2235 is debited for Rs.5,738.98 on 28-Jun-2026 - POS IRCTC. Bal Rs.88,627.24. -Paytm Payments Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Punjab National Bank festive offers",
+   "body": "Dear Lakshmi,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-29",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "Punjab National Bank Account Statement - Jul 2026",
+   "body": "Dear Lakshmi,\nYour Punjab National Bank XX2801 account statement for Jul 2026 is ready. Closing balance Rs.1,181.24.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c *7642 is debited for Rs.6,058.57 on 07-Jul-2026 - POS FLIPKART. Bal Rs.10,575.55. -Paytm Payments Bank",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.34,746.79 credited to your Paytm Payments Bank A/c *2235 on 15-Jul-2026 by REFUND. Ref 541498182228.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Punjab National Bank statement - Jul 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your PNB Platinum Credit Card ending 5938 statement for the period 17-Jun-2026 to 16-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-07-17",
+   "attachments": [
+    {
+     "filename": "Punjab_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m091",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Alert: Paytm Payments Bank A/c xx2235 debited Rs.3,219.68 on 18-Jul-2026. Mode: UPI. Details: PAYTM. Balance Rs.38,659.47.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XXXXXX2801 is debited for Rs.14,209.69 on 18-07-2026 - IMPS BLINKIT. Bal Rs.2,294.41. -Punjab National Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX1077 has been updated on 03-04-2026. If not requested by you, call customer care.",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.1,464.13 spent on your Punjab National Bank Credit Card ending 5938 at DECATHLON on 21-07-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "Paytm Payments Bank Account Statement - Jul 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Paytm Payments Bank xx7642 statement for the period 22-Jun-2026 to 21-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-22",
+   "attachments": [
+    {
+     "filename": "Paytm_Acct_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Payment received on Punjab National Bank Credit Card",
+   "body": "Payment confirmation: Rs.9,139.09 posted to Punjab National Bank Credit Card XX5938 on 24-07-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m097",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.182.05 has been credited to account XXXXXX2801 on 27-07-2026 (REFUND). Avl bal Rs.67,209.48.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "OTP for your transaction",
+   "body": "706510 is the OTP for your transaction of Rs.7,995.13 at MYNTRA. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Punjab National Bank: xx2801 credited with Rs.13,532.07 on 28-07-2026. Source: NEFT. Balance Rs.15,139.90.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "Punjab National Bank Account Statement - Aug 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Punjab National Bank xx2801 statement for the period 07-Jul-2026 to 06-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-07",
+   "attachments": [
+    {
+     "filename": "Punjab_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.122.57 debited from account *2235 on 13-Aug-2026. Narration: NEFT/IXIGO. Available balance Rs.7,111.57.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-13",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Rs.5,273.12 withdrawn from xx2801 on 13-08-2026 via POS to STARBUCKS. Closing balance Rs.1,34,048.33.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 120057201463. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-08-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m104",
+   "subject": "Punjab National Bank statement - Aug 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your PNB Platinum Credit Card XX5938 statement for the period 17-Jul-2026 to 16-Aug-2026. Total amount due Rs.39,755.36, due 05-Sep-2026.\n\n",
+   "date": "2026-08-17",
+   "attachments": [
+    {
+     "filename": "5938_16082026_stmt.pdf",
+     "protected": false,
+     "pdfText": "Punjab National Bank Credit Card Statement\nLAKSHMI BANERJEE\nFLAT 363, SUNRISE APARTMENTS\n29TH CROSS, KOTHRUD\nMUMBAI - 529177\nCard Name: PNB Platinum Credit Card\nCredit Card Number: 418641XXXXXX5938\nStatement Period: 17/07/26 - 16/08/26\nStatement Date: 16/08/26\nPayment Summary\nTotal Amount Due: Rs.39,755.36\nMinimum Amount Due: Rs.1,987.77\nPayment Due Date: 05/09/26\nAccount Summary\nCredit Limit: Rs.55,000.00\nAvailable Credit Limit: Rs.28,555.48\nAvailable Cash Limit: Rs.11,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n20/07/26 PAYTM JAIPUR 11,099.22 Dr\n21/07/26 APOLLO PHARMACY JAIPUR 384.14 Dr\n21/07/26 MYNTRA CHENNAI 327.05 Dr\n23/07/26 AIRTEL PREPAID MUMBAI 1,726.03 Dr\n25/07/26 MAKEMYTRIP MUMBAI 1,540.83 Dr\n04/08/26 INDIAN OIL KOLKATA 15,811.16 Dr\n07/08/26 AMAZON PAY INDIA GURUGRAM 7,168.86 Dr\n07/08/26 BIG BAZAAR PUNE 126.02 Dr\n15/08/26 BIG BAZAAR KOLKATA 1,572.05 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "OTP for your transaction",
+   "body": "852568 is the OTP for your transaction of Rs.266.22 at PHONEPE. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-19",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.446.13 spent on your PNB Platinum Credit Card XX5938 at PAYTM on 22-08-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Alert: Punjab National Bank A/c XXXXXX2801 debited Rs.193.27 on 23-08-2026. Mode: POS. Details: GOOGLE PLAY. Balance Rs.1,22,485.32.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Rs.31,750.10 withdrawn from *2235 on 27-Aug-2026 via UPI to BPCL FUEL. Closing balance Rs.1,51,113.19.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Lakshmi,\nConvert big spends to EMI at low interest.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Paytm Payments Bank: *7642 credited with Rs.16,646.51 on 06-Sep-2026. Source: NEFT. Balance Rs.1,21,781.91.\n\nOpt for e-statements and go green.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Punjab National Bank Account Statement - Sep 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Punjab National Bank XX2801 statement for the period 07-Aug-2026 to 06-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-07",
+   "attachments": [
+    {
+     "filename": "2801_06092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.3,249.01 at SPOTIFY on 07-09-2026 on PNB Platinum Credit Card XX5938.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m113",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Rs.101.82 withdrawn from *7642 on 08-Sep-2026 via NEFT to INDIAN OIL. Closing balance Rs.29,411.50.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.3,401.25 has been transferred from your A/c XX2801 to Priya Tailors A/c XX5837 (IDFC FIRST Bank) via IMPS on 09-09-2026. Ref no 788449716185.",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "Update your KYC",
+   "body": "Dear Lakshmi,\nAs per RBI guidelines please complete re-KYC for your Paytm Payments Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Rs.170.60 withdrawn from *2235 on 16-Sep-2026 via IMPS to AIRTEL PREPAID. Closing balance Rs.14,221.93.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-16",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Punjab National Bank statement - Sep 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your PNB Platinum Credit Card XX5938 statement for the period 17-Aug-2026 to 16-Sep-2026. Total amount due Rs.78,312.19, due 05-Oct-2026.\n\n",
+   "date": "2026-09-17",
+   "attachments": [
+    {
+     "filename": "Punjab_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "Punjab National Bank Credit Card Statement\nLAKSHMI BANERJEE\nFLAT 181, ORCHID APARTMENTS\n7TH CROSS, ADYAR\nGURUGRAM - 430912\nCard Name: PNB Platinum Credit Card\nCredit Card Number: 418641XXXXXX5938\nStatement Period: 17/08/26 - 16/09/26\nStatement Date: 16/09/26\nPayment Summary\nTotal Amount Due: Rs.78,312.19\nMinimum Amount Due: Rs.3,915.61\nPayment Due Date: 05/10/26\nAccount Summary\nCredit Limit: Rs.55,000.00\nAvailable Credit Limit: Rs.16,653.60\nAvailable Cash Limit: Rs.11,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n21/08/26 DMART BENGALURU 15,630.58 Dr\n22/08/26 BIGBASKET KOLKATA 1,277.13 Dr\n23/08/26 BATA INDIA BENGALURU 295.31 Dr\n25/08/26 BATA INDIA CHENNAI 976.18 Dr\n28/08/26 BPCL FUEL GURUGRAM 14,605.43 Dr\n01/09/26 BOOKMYSHOW HYDERABAD 134.95 Dr\n03/09/26 APPLE SERVICES GURUGRAM 11,589.47 Dr\n03/09/26 DOMINOS AHMEDABAD 5,222.45 Dr\n06/09/26 ZOMATO KOLKATA 1,891.98 Dr\n08/09/26 INDIAN OIL KOCHI 21,170.35 Dr\n14/09/26 GOOGLE PLAY JAIPUR 4,433.35 Dr\n16/09/26 INDIAN OIL BENGALURU 1,085.01 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "Paytm Payments Bank Account Statement - Sep 2026",
+   "body": "Dear Lakshmi,\nYour Paytm Payments Bank XXXXXX7642 account statement for Sep 2026 is ready. Closing balance Rs.680.57.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.600.20 debited from account *7642 on 22-Sep-2026. Narration: ECOM/STARBUCKS. Available balance Rs.7,268.97.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.96.12 at STARBUCKS on 22-09-2026 on PNB Platinum Credit Card ending 5938.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m121",
+   "subject": "Update your KYC",
+   "body": "Dear Lakshmi,\nAs per RBI guidelines please complete re-KYC for your Punjab National Bank relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m122",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XXXXXX2801 is debited for Rs.820.08 on 23-09-2026 - NEFT BIGBASKET. Bal Rs.91,793.24. -Punjab National Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m123",
+   "subject": "Punjab National Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.5,977.72 spent on your PNB Platinum Credit Card xx5938 at BPCL FUEL on 25-09-2026.\n\nOpt for e-statements and go green.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Lakshmi,\nYour order #921-9277561-6615337 is confirmed. Total Rs.6,815.62. Estimated delivery in 2 days.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.34,917.41 debited from account XXXXXX2801 on 28-09-2026. Narration: ECOM/APPLE SERVICES. Available balance Rs.29,289.38.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "Punjab National Bank Account Statement - Oct 2026",
+   "body": "Dear Lakshmi,\nYour Punjab National Bank *2801 account statement for Oct 2026 is ready. Closing balance Rs.38,108.79.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "Punjab National Bank statement - Oct 2026",
+   "body": "Dear Lakshmi,\nStatement generated for PNB Platinum Credit Card XX5938: amount payable Rs.6,755.99, last date 03-Nov-2026. Sign in to download.",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m128",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Lakshmi,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-21",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.2,513.35 has been debited from your Punjab National Bank A/c XXXXXX2801 on 30-10-2026 (IMPS STARBUCKS). Avl bal Rs.1,06,080.80.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-30",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m130",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Your A/c *7642 is credited with Rs.18,734.51 on 31-Oct-2026 - IMPS. Bal Rs.6,323.35. -Paytm Payments Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-31",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "paytmbank.com",
+    "last4": "7642",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "5938",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "<1L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "2801",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "paytmbank.com",
+    "last4": "2235",
+    "why": "payments-bank wallet id, not a card or bank account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "5837",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "7398",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "3436",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "4376",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "6751",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "1077",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "7041",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "1463",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "8827",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

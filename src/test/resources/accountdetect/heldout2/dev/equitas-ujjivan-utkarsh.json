@@ -1,0 +1,2500 @@
+{
+ "mailbox": "equitas-ujjivan-utkarsh",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Priya,\nYour order #220-5277212-3788067 is confirmed. Total Rs.6,168.69. Estimated delivery in 2 days.",
+   "date": "2024-05-07",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "Ujjivan Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.884.17 has been credited to account XXXX6363 on 09-May-2024 (SALARY NEFT). Avl bal Rs.2,575.70.",
+   "date": "2024-05-09",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m003",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.918.70 has been debited from your Equitas Small Finance Bank A/c XX8638 on 10-May-2024 (IMPS IXIGO). Avl bal Rs.5,106.70.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-05-10",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Utkarsh Small Finance Bank Account Statement - May 2024",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank xx0354 statement for the period 13-Apr-2024 to 12-May-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-05-13",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Statement_May2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m005",
+   "subject": "Equitas Small Finance Bank Account Statement - May 2024",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XX8638 statement for the period 14-Apr-2024 to 13-May-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-14",
+   "attachments": [
+    {
+     "filename": "8638_13052024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Ujjivan Small Finance Bank Account Statement - May 2024",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXX2618 statement for the period 17-Apr-2024 to 16-May-2024. \n\n",
+   "date": "2024-05-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202405.pdf",
+     "protected": false,
+     "pdfText": "UJJIVAN SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : PRIYA JOSHI\nFLAT 394, SUNRISE APARTMENTS\n28TH CROSS, ADYAR\nAHMEDABAD - 556179\nCustomer ID : 79413747\nAccount Number : XXXX2618\nAccount Type : SAVINGS ACCOUNT\nIFSC : UJJI0380334\nStatement Period : 17-04-2024 to 16-05-2024\nOpening Balance : Rs.86,566.09\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n17-04-2024 UPI/BIG BAZAAR 839816662 1,190.34 - 85,375.75\n20-04-2024 ATM WDL/DECATHLON 143051787 10,393.10 - 74,982.65\n21-04-2024 IMPS/CR 102394747 - 834.05 75,816.70\n24-04-2024 IMPS/CR 345546437 - 350.87 76,167.57\n25-04-2024 UPI/OLA CABS 440231169 102.00 - 76,065.57\n26-04-2024 ATM WDL/URBAN COMPANY 581543517 4,025.20 - 72,040.37\n27-04-2024 ATM WDL/HPCL PETROL 956335363 3,004.19 - 69,036.18\n30-04-2024 POS/IRCTC 262425741 1,363.36 - 67,672.82\n03-05-2024 NEFT DR/STARBUCKS 342956836 101.34 - 67,571.48\n03-05-2024 SALARY NEFT 656571706 - 368.87 67,940.35\nClosing Balance : Rs.67,940.35\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "Ujjivan Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.15,755.29 credited to your Ujjivan Small Finance Bank A/c XXXX6363 on 17-May-2024 by SALARY NEFT. Ref 435894488476.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2024-05-17",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "Equitas Small Finance Bank Account Statement - May 2024",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank XX2693 account statement for May 2024 is ready. Closing balance Rs.6,894.16.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-05-25",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.479.12 debited from account xx0354 on 29-May-2024. Narration: POS/LENSKART. Available balance Rs.1,55,066.38.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-05-29",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m010",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jun 2024",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank xx0354 statement for the period 13-May-2024 to 12-Jun-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-06-13",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Acct_Jun2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m011",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.222.22 debited from account xx8638 on 21-Jun-2024. Narration: ECOM/MEDPLUS. Available balance Rs.1,67,972.70.",
+   "date": "2024-06-21",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Equitas Small Finance Bank Debit Card transaction alert",
+   "body": "Your Equitas Small Finance Bank Debit Card XX7116 was used for Rs.13,233.93 at SODEXO on 23-Jun-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-06-23",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Equitas Small Finance Bank Account Statement - Jun 2024",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank XXXXXX2693 account statement for Jun 2024 is ready. Closing balance Rs.4,183.13.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-06-25",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.824.55 has been debited from your Ujjivan Small Finance Bank A/c XXXXXXXX2618 on 26-Jun-2024 (UPI IRCTC). Avl bal Rs.26,980.99.",
+   "date": "2024-06-26",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m015",
+   "subject": "Update your KYC",
+   "body": "Dear Priya,\nAs per RBI guidelines please complete re-KYC for your Utkarsh Small Finance Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2024-07-06",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m016",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jul 2024",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank XXXXXX0354 statement for the period 13-Jun-2024 to 12-Jul-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-07-13",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Statement_Jul2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m017",
+   "subject": "Equitas Small Finance Bank Account Statement - Jul 2024",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank xx8638 account statement for Jul 2024 is ready. Closing balance Rs.512.00.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-07-14",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.12,082.09 debited from account XX2693 on 15-Jul-2024. Narration: ECOM/LENSKART. Available balance Rs.2,546.42.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-07-15",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Jul 2024",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXXXXXX2618 statement for the period 17-Jun-2024 to 16-Jul-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-07-17",
+   "attachments": [
+    {
+     "filename": "2618_16072024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m020",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.8,230.24 has been transferred from your A/c XXXXXXXX6363 to Lata Tutor A/c XX9298 (IDFC FIRST Bank) via IMPS on 22-Jul-2024. Ref no 688308479948.",
+   "date": "2024-07-22",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m021",
+   "subject": "Equitas Small Finance Bank Account Statement - Jul 2024",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XX2693 statement for the period 25-Jun-2024 to 24-Jul-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-07-25",
+   "attachments": [
+    {
+     "filename": "Equitas_Statement_Jul2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.683.72 has been debited from your Ujjivan Small Finance Bank A/c XXXX2618 on 01-Aug-2024 (POS DECATHLON). Avl bal Rs.22,848.60.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-08-01",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX2693 is debited for Rs.215.77 on 02-Aug-2024 - UPI TATA PLAY. Bal Rs.14,832.90. -Equitas Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-08-02",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Ujjivan Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.593.28 has been credited to account XXXX6363 on 03-Aug-2024 (NEFT). Avl bal Rs.13,385.31.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-08-03",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m025",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXX6363 is debited for Rs.209.16 on 04-Aug-2024 - NEFT TATA POWER. Bal Rs.68,770.10. -Ujjivan Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-08-04",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.240.65 debited from account XXXXXXXX2618 on 09-Aug-2024. Narration: IMPS/ZOMATO. Available balance Rs.59,833.08.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-08-09",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m027",
+   "subject": "Equitas Small Finance Bank Debit Card transaction alert",
+   "body": "Rs.1,722.52 withdrawn using your Equitas Small Finance Bank Debit Card xx7116 at ATM INDIAN OIL on 13-Aug-2024.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-08-13",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Ujjivan Small Finance Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 7113 has been successfully linked/verified for your Ujjivan Small Finance Bank relationship. If this was not you, contact us.",
+   "date": "2024-08-13",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Your A/c XXXXXX2693 is credited with Rs.466.20 on 16-Aug-2024 - REFUND. Bal Rs.8,894.27. -Equitas Small Finance Bank",
+   "date": "2024-08-16",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Aug 2024",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXXXXXX6363 statement for the period 22-Jul-2024 to 21-Aug-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-08-22",
+   "attachments": [
+    {
+     "filename": "6363_21082024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.23,345.82 debited from account XXXXXX8638 on 22-Aug-2024. Narration: UPI/APPLE SERVICES. Available balance Rs.6,762.66.",
+   "date": "2024-08-22",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.4,492.37 debited from account *2693 on 23-Aug-2024. Narration: IMPS/INDIGO AIRLINES. Available balance Rs.21,970.77.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-08-23",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.6,360.02 has been debited from your Ujjivan Small Finance Bank A/c XXXXXXXX6363 on 23-Aug-2024 (UPI ZOMATO). Avl bal Rs.1,64,459.01.",
+   "date": "2024-08-23",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m034",
+   "subject": "Equitas Small Finance Bank Account Statement - Aug 2024",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank xx2693 statement for the period 25-Jul-2024 to 24-Aug-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-08-25",
+   "attachments": [
+    {
+     "filename": "Equitas_Acct_Aug2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Earn more with your card",
+   "body": "Dear Priya,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2024-09-03",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m036",
+   "subject": "OTP for your transaction",
+   "body": "648894 is the OTP for your transaction of Rs.1,691.25 at TATA PLAY. Valid for 10 minutes. Do not share.",
+   "date": "2024-09-06",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.1,969.87 has been transferred from your A/c XXXXXXXX6363 to Dr. Rao Clinic A/c XX6138 (Bandhan Bank) via IMPS on 07-Sep-2024. Ref no 253158729716.",
+   "date": "2024-09-07",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.85.99 has been debited from your Utkarsh Small Finance Bank A/c xx0354 on 09-Sep-2024 (IMPS PAYTM). Avl bal Rs.14,734.67.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-09",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m039",
+   "subject": "Refer and earn",
+   "body": "Dear Priya,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2024-09-09",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Mohan Landlord (A/c XXXXXX2798, Canara Bank) has been added to your account XX0354. It will be active after 30 minutes.",
+   "date": "2024-09-11",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m041",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Sep 2024",
+   "body": "Dear Priya,\nYour Utkarsh Small Finance Bank *0354 account statement for Sep 2024 is ready. Closing balance Rs.742.32.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-09-13",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m042",
+   "subject": "Equitas Small Finance Bank Account Statement - Sep 2024",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XXXXXX8638 statement for the period 14-Aug-2024 to 13-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-09-14",
+   "attachments": [
+    {
+     "filename": "Equitas_Statement_Sep2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Earn more with your card",
+   "body": "Dear Priya,\nConvert big spends to EMI at low interest.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-09-16",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Sep 2024",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXXXXXX2618 statement for the period 17-Aug-2024 to 16-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-09-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202409.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "Equitas Small Finance Bank Account Statement - Sep 2024",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XXXXXX2693 statement for the period 25-Aug-2024 to 24-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-09-25",
+   "attachments": [
+    {
+     "filename": "2693_24092024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.4,787.77 has been debited from your Equitas Small Finance Bank A/c xx2693 on 28-Sep-2024 (IMPS GOOGLE PLAY). Avl bal Rs.8,587.56.",
+   "date": "2024-09-28",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.136.29 debited from account XXXXXX2693 on 28-Sep-2024. Narration: IMPS/PAYTM. Available balance Rs.56,893.38.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-09-28",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXXXX6363 is debited for Rs.20,411.55 on 02-Oct-2024 - ECOM APPLE SERVICES. Bal Rs.33,365.90. -Ujjivan Small Finance Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-02",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Equitas Small Finance Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.2,484.37 spent on your Equitas Small Finance Bank Debit Card ending 7116 at NYKAA on 05-Oct-2024 08:45:21. Avl bal Rs.8,878.73.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-05",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.3,009.44 debited from account XXXXXX0354 on 08-Oct-2024. Narration: IMPS/PHONEPE. Available balance Rs.4,095.98.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-08",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m051",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from XX0354 to Mohan Landlord A/c XX2798 on 11-Oct-2024. Rent for the month.",
+   "date": "2024-10-11",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m052",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Oct 2024",
+   "body": "Dear Priya,\nYour Utkarsh Small Finance Bank *0354 account statement for Oct 2024 is ready. Closing balance Rs.5,660.25.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-10-13",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m053",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.22,782.00 debited from account XXXXXX0354 on 13-Oct-2024. Narration: IMPS/ZOMATO. Available balance Rs.16,272.69.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-13",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m054",
+   "subject": "Equitas Small Finance Bank Account Statement - Oct 2024",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XX2693 statement for the period 25-Sep-2024 to 24-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202410.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Priya,\nYour order #276-4933892-2316623 is confirmed. Total Rs.7,940.66. Estimated delivery in 2 days.",
+   "date": "2024-10-25",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "OTP for your transaction",
+   "body": "110659 is the OTP for your transaction of Rs.532.36 at TATA PLAY. Valid for 10 minutes. Do not share.",
+   "date": "2024-10-28",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m057",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.172.30 debited from account XXXXXXXX2618 on 02-Nov-2024. Narration: ECOM/APOLLO PHARMACY. Available balance Rs.15,952.45.",
+   "date": "2024-11-02",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from *0354 to Mohan Landlord A/c XX2798 on 11-Nov-2024. Rent for the month.",
+   "date": "2024-11-11",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m059",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Nov 2024",
+   "body": "Dear Priya,\nYour Utkarsh Small Finance Bank XXXXXX0354 account statement for Nov 2024 is ready. Closing balance Rs.1,079.70.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2024-11-13",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m060",
+   "subject": "Equitas Small Finance Bank Account Statement - Nov 2024",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank XX8638 account statement for Nov 2024 is ready. Closing balance Rs.57,103.53.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-14",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.7,147.55 has been debited from your Ujjivan Small Finance Bank A/c XXXXXXXX2618 on 16-Nov-2024 (IMPS MAKEMYTRIP). Avl bal Rs.5,204.93.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-16",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m062",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Nov 2024",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXXXXXX2618 statement for the period 17-Oct-2024 to 16-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-11-17",
+   "attachments": [
+    {
+     "filename": "Ujjivan_Acct_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Nov 2024",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXXXXXX6363 statement for the period 22-Oct-2024 to 21-Nov-2024. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-11-22",
+   "attachments": [
+    {
+     "filename": "6363_21112024_stmt.pdf",
+     "protected": false,
+     "pdfText": "UJJIVAN SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : PRIYA JOSHI\nFLAT 111, LAKESHORE APARTMENTS\n28TH CROSS, INDIRANAGAR\nHYDERABAD - 685133\nCustomer ID : 31394934\nAccount Number : XXXX6363\nAccount Type : CURRENT ACCOUNT\nIFSC : UJJI0518532\nStatement Period : 22-10-2024 to 21-11-2024\nOpening Balance : Rs.86,688.13\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n24-10-2024 ATM WDL/GOOGLE PLAY 619152113 19,258.31 - 67,429.82\n24-10-2024 POS/BATA INDIA 759406039 3,069.53 - 64,360.29\n27-10-2024 UPI/MYNTRA 308978348 118.45 - 64,241.84\n29-10-2024 UPI/CR 930394449 - 520.67 64,762.51\n01-11-2024 INTEREST 342157981 - 542.69 65,305.20\n04-11-2024 UPI/MEDPLUS 783075190 1,188.18 - 64,117.02\n04-11-2024 NEFT DR/BLINKIT 295494803 292.20 - 63,824.82\n04-11-2024 NEFT DR/HPCL PETROL 334283933 172.61 - 63,652.21\n05-11-2024 POS/BIGBASKET 114739752 351.08 - 63,301.13\n05-11-2024 UPI/IKEA 164087288 316.13 - 62,985.00\nClosing Balance : Rs.62,985.00\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.27,155.88 debited from account XXXX2618 on 30-Nov-2024. Narration: UPI/MAKEMYTRIP. Available balance Rs.15,611.54.\n\nOpt for e-statements and go green.",
+   "date": "2024-11-30",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "Ujjivan Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.657.90 credited to your Ujjivan Small Finance Bank A/c XXXX6363 on 09-Dec-2024 by NEFT. Ref 738264974613.\nThank you for banking with us.",
+   "date": "2024-12-09",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from xx0354 to Mohan Landlord A/c XX2798 on 11-Dec-2024. Rent for the month.",
+   "date": "2024-12-11",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m067",
+   "subject": "Refer and earn",
+   "body": "Dear Priya,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-21",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m068",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.13,087.17 debited from account XXXXXXXX6363 on 22-Dec-2024. Narration: UPI/PVR INOX. Available balance Rs.81,651.63.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-12-22",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "Equitas Small Finance Bank Account Statement - Dec 2024",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XXXXXX2693 statement for the period 25-Nov-2024 to 24-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-12-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Ujjivan Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.4,284.50 has been credited to account XXXX6363 on 26-Dec-2024 (NEFT). Avl bal Rs.21,621.10.",
+   "date": "2024-12-26",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "Update your KYC",
+   "body": "Dear Priya,\nAs per RBI guidelines please complete re-KYC for your Ujjivan Small Finance Bank relationship. Visit a branch or use the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-26",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "OTP for your transaction",
+   "body": "821068 is the OTP for your transaction of Rs.383.56 at IXIGO. Valid for 10 minutes. Do not share.",
+   "date": "2025-01-02",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m073",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,130.87 debited from account *8638 on 06-Jan-2025. Narration: IMPS/IXIGO. Available balance Rs.8,397.70.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-01-06",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from xx0354 to Mohan Landlord A/c XX2798 on 11-Jan-2025. Rent for the month.",
+   "date": "2025-01-11",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m075",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.926.92 debited from account XXXXXX0354 on 12-Jan-2025. Narration: UPI/APOLLO PHARMACY. Available balance Rs.1,02,182.61.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-12",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m076",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jan 2025",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank xx0354 statement for the period 13-Dec-2024 to 12-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-01-13",
+   "attachments": [
+    {
+     "filename": "eStatement_202501.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m077",
+   "subject": "Equitas Small Finance Bank Account Statement - Jan 2025",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank xx8638 account statement for Jan 2025 is ready. Closing balance Rs.2,263.90.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-01-14",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.688.38 has been credited to account xx0354 on 16-Jan-2025 (IMPS). Avl bal Rs.4,485.58.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-16",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m079",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Jan 2025",
+   "body": "Dear Priya,\nYour Ujjivan Small Finance Bank XXXX2618 account statement for Jan 2025 is ready. Closing balance Rs.1,525.63.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-01-17",
+   "attachments": [],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Equitas Small Finance Bank Account Statement - Jan 2025",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank xx2693 statement for the period 25-Dec-2024 to 24-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-01-25",
+   "attachments": [
+    {
+     "filename": "Equitas_Statement_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Ujjivan Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.6,726.98 credited to your Ujjivan Small Finance Bank A/c XXXX6363 on 26-Jan-2025 by UPI. Ref 189766778754.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2025-01-26",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Update your KYC",
+   "body": "Dear Priya,\nAs per RBI guidelines please complete re-KYC for your Ujjivan Small Finance Bank relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-01-30",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Feb 2025",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank XX0354 statement for the period 13-Jan-2025 to 12-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-13",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Statement_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m084",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.412.60 debited from account XXXXXX8638 on 18-Feb-2025. Narration: UPI/CROMA. Available balance Rs.46,288.51.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-18",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Equitas Small Finance Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.7,428.89 spent on your Equitas Small Finance Bank Debit Card XX7116 at PAYTM on 20-Feb-2025 14:07:09. Avl bal Rs.9,668.68.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-20",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Feb 2025",
+   "body": "Dear Priya,\nYour Ujjivan Small Finance Bank XXXXXXXX6363 account statement for Feb 2025 is ready. Closing balance Rs.1,063.54.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-22",
+   "attachments": [],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "Equitas Small Finance Bank Account Statement - Feb 2025",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank XX2693 account statement for Feb 2025 is ready. Closing balance Rs.1,536.57.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-25",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Update your KYC",
+   "body": "Dear Priya,\nAs per RBI guidelines please complete re-KYC for your Equitas Small Finance Bank relationship. Visit a branch or use the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-28",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Mar 2025",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank XXXXXX0354 statement for the period 13-Feb-2025 to 12-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-13",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m090",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.2,891.82 has been credited to account XXXXXX2693 on 13-Mar-2025 (REFUND). Avl bal Rs.26,335.40.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-13",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "OTP for your transaction",
+   "body": "766063 is the OTP for your transaction of Rs.375.79 at HPCL PETROL. Valid for 10 minutes. Do not share.",
+   "date": "2025-03-13",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Equitas Small Finance Bank Account Statement - Mar 2025",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank XX8638 account statement for Mar 2025 is ready. Closing balance Rs.12,799.86.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-14",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Mar 2025",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXX2618 statement for the period 17-Feb-2025 to 16-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-17",
+   "attachments": [
+    {
+     "filename": "Ujjivan_Acct_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXX6363 is debited for Rs.5,800.06 on 19-Mar-2025 - ECOM LENSKART. Bal Rs.58,912.18. -Ujjivan Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-03-19",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "Equitas Small Finance Bank Account Statement - Mar 2025",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank *2693 account statement for Mar 2025 is ready. Closing balance Rs.2,731.85.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-25",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.20,451.40 has been debited from your Equitas Small Finance Bank A/c XXXXXX8638 on 30-Mar-2025 (POS STARBUCKS). Avl bal Rs.2,664.09.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-30",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Priya,\nYour order #460-7750423-6770541 is confirmed. Total Rs.330.06. Estimated delivery in 2 days.",
+   "date": "2025-03-31",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.4,370.83 has been credited to account XXXXXX8638 on 04-Apr-2025 (REFUND). Avl bal Rs.6,229.94.",
+   "date": "2025-04-04",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Update your KYC",
+   "body": "Dear Priya,\nAs per RBI guidelines please complete re-KYC for your Equitas Small Finance Bank relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-04",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Apr 2025",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank xx0354 statement for the period 13-Mar-2025 to 12-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-04-13",
+   "attachments": [
+    {
+     "filename": "eStatement_202504.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m101",
+   "subject": "Equitas Small Finance Bank Account Statement - Apr 2025",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank *2693 statement for the period 25-Mar-2025 to 24-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-25",
+   "attachments": [
+    {
+     "filename": "Equitas_Acct_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXXXX6363 is debited for Rs.19,130.64 on 25-Apr-2025 - POS MYNTRA. Bal Rs.7,604.43. -Ujjivan Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-25",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.144.69 credited to your Equitas Small Finance Bank A/c *2693 on 29-Apr-2025 by IMPS. Ref 466156508974.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-29",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Update your KYC",
+   "body": "Dear Priya,\nAs per RBI guidelines please complete re-KYC for your Ujjivan Small Finance Bank relationship. Visit a branch or use the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-06",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "Payment successful",
+   "body": "Hi Priya,\nYou paid Rs.4,620.74 to Punjab National Bank Credit Card ending 9490 (of Farhan Joshi) on 08-May-2025. Ref 3887586263.",
+   "date": "2025-05-08",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m106",
+   "subject": "Utkarsh Small Finance Bank Account Statement - May 2025",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank XXXXXX0354 statement for the period 13-Apr-2025 to 12-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-13",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m107",
+   "subject": "Equitas Small Finance Bank Account Statement - May 2025",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XX8638 statement for the period 14-Apr-2025 to 13-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-14",
+   "attachments": [
+    {
+     "filename": "Equitas_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Equitas Small Finance Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.266.09 spent on your Equitas Small Finance Bank Debit Card ending 7116 at CROMA on 14-May-2025 03:16:38. Avl bal Rs.1,05,822.00.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-14",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.396.83 has been credited to account XX0354 on 15-May-2025 (SALARY NEFT). Avl bal Rs.3,041.23.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-15",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m110",
+   "subject": "Ujjivan Small Finance Bank Account Statement - May 2025",
+   "body": "Dear Priya,\nYour Ujjivan Small Finance Bank XXXX2618 account statement for May 2025 is ready. Closing balance Rs.9,362.43.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m111",
+   "subject": "Ujjivan Small Finance Bank Account Statement - May 2025",
+   "body": "Dear Priya,\nYour Ujjivan Small Finance Bank XXXX6363 account statement for May 2025 is ready. Closing balance Rs.2,285.78.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-22",
+   "attachments": [],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Equitas Small Finance Bank Account Statement - May 2025",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank *2693 account statement for May 2025 is ready. Closing balance Rs.31,044.15.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Ujjivan Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.119.91 credited to your Ujjivan Small Finance Bank A/c XXXXXXXX2618 on 02-Jun-2025 by REFUND. Ref 589384520187.\nThank you for banking with us.",
+   "date": "2025-06-02",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXXXX2618 is debited for Rs.1,644.31 on 09-Jun-2025 - NEFT BPCL FUEL. Bal Rs.3,068.12. -Ujjivan Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-09",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jun 2025",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank XX0354 statement for the period 13-May-2025 to 12-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-06-13",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Acct_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m116",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.391.59 debited from account XX2693 on 21-Jun-2025. Narration: NEFT/BESCOM. Available balance Rs.6,468.16.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-06-21",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Equitas Small Finance Bank Account Statement - Jun 2025",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XX2693 statement for the period 25-May-2025 to 24-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.2,136.27 debited from account XXXXXXXX2618 on 26-Jun-2025. Narration: UPI/AIRTEL PREPAID. Available balance Rs.1,81,457.33.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-26",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m119",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.81.95 has been debited from your Ujjivan Small Finance Bank A/c XXXXXXXX6363 on 04-Jul-2025 (UPI AMAZON PAY INDIA). Avl bal Rs.13,604.11.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-04",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m120",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Priya,\nYour order #570-3520005-3206010 is confirmed. Total Rs.130.41. Estimated delivery in 2 days.",
+   "date": "2025-07-08",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m121",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jul 2025",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank XX0354 statement for the period 13-Jun-2025 to 12-Jul-2025. \n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-13",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Acct_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "UTKARSH SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : PRIYA JOSHI\nFLAT 479, GREEN VALLEY APARTMENTS\n21TH CROSS, SECTOR 21\nJAIPUR - 562733\nCustomer ID : 88369191\nAccount Number : XX0354\nAccount Type : SAVINGS ACCOUNT\nIFSC : UTKA0945642\nStatement Period : 13-06-2025 to 12-07-2025\nOpening Balance : Rs.59,696.47\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n15-06-2025 INTEREST 535104907 - 399.91 60,096.38\n18-06-2025 IMPS/CR 710247023 - 4,380.87 64,477.25\n21-06-2025 NEFT DR/AIRTEL PREPAID 218610244 165.47 - 64,311.78\n24-06-2025 ATM WDL/NETFLIX 403342086 522.62 - 63,789.16\n24-06-2025 SALARY NEFT 554896084 - 13,993.39 77,782.55\n25-06-2025 NEFT DR/BIG BAZAAR 157491922 131.91 - 77,650.64\n27-06-2025 UPI/URBAN COMPANY 958242943 2,153.93 - 75,496.71\n27-06-2025 NEFT DR/INDIGO AIRLINES 451128010 10,235.64 - 65,261.07\n27-06-2025 NEFT DR/OLA CABS 881662598 6,396.11 - 58,864.96\nClosing Balance : Rs.58,864.96\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m122",
+   "subject": "Equitas Small Finance Bank Account Statement - Jul 2025",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank xx8638 statement for the period 14-Jun-2025 to 13-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-07-14",
+   "attachments": [
+    {
+     "filename": "Equitas_Acct_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Jul 2025",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXXXXXX2618 statement for the period 17-Jun-2025 to 16-Jul-2025. \n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-17",
+   "attachments": [
+    {
+     "filename": "2618_16072025_stmt.pdf",
+     "protected": false,
+     "pdfText": "UJJIVAN SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : PRIYA JOSHI\nFLAT 809, GREEN VALLEY APARTMENTS\n18TH CROSS, KOTHRUD\nMUMBAI - 568756\nCustomer ID : 80597906\nAccount Number : XXXX2618\nAccount Type : SAVINGS ACCOUNT\nIFSC : UJJI0812233\nStatement Period : 17-06-2025 to 16-07-2025\nOpening Balance : Rs.61,176.88\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n18-06-2025 INTEREST 956505550 - 337.00 61,513.88\n21-06-2025 INTEREST 768168088 - 442.55 61,956.43\n22-06-2025 NEFT DR/BIG BAZAAR 198150528 2,003.92 - 59,952.51\n24-06-2025 NEFT DR/TATA POWER 973711166 269.82 - 59,682.69\n27-06-2025 INTEREST 763837305 - 307.50 59,990.19\n30-06-2025 UPI/MCDONALDS 455248310 17,306.46 - 42,683.73\n01-07-2025 UPI/TATA PLAY 637661662 157.75 - 42,525.98\n03-07-2025 ATM WDL/MAKEMYTRIP 995154778 124.71 - 42,401.27\n06-07-2025 ATM WDL/STARBUCKS 556711358 211.24 - 42,190.03\n09-07-2025 SALARY NEFT 561662047 - 168.40 42,358.43\n10-07-2025 INTEREST 942962276 - 2,142.48 44,500.91\n12-07-2025 UPI/EAZYDINER 610529055 17,691.64 - 26,809.27\n13-07-2025 UPI/CR 611528306 - 120.25 26,929.52\nClosing Balance : Rs.26,929.52\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XX8638 is debited for Rs.4,848.01 on 20-Jul-2025 - NEFT EASEMYTRIP. Bal Rs.1,75,235.08. -Equitas Small Finance Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-20",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Equitas Small Finance Bank Account Statement - Jul 2025",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank xx2693 statement for the period 25-Jun-2025 to 24-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Your A/c *2693 is credited with Rs.85.48 on 29-Jul-2025 - SALARY NEFT. Bal Rs.35,249.22. -Equitas Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-29",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.6,986.16 has been debited from your Ujjivan Small Finance Bank A/c XXXX6363 on 02-Aug-2025 (ECOM STARBUCKS). Avl bal Rs.1,77,148.69.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m128",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.2,062.31 has been debited from your Ujjivan Small Finance Bank A/c XXXXXXXX6363 on 03-Aug-2025 (UPI MEDPLUS). Avl bal Rs.1,12,345.60.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m129",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 451225684168. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m130",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.2,412.87 has been debited from your Ujjivan Small Finance Bank A/c XXXXXXXX2618 on 07-Aug-2025 (IMPS MAKEMYTRIP). Avl bal Rs.14,689.36.",
+   "date": "2025-08-07",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m131",
+   "subject": "Ujjivan Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.80.09 credited to your Ujjivan Small Finance Bank A/c XXXX2618 on 12-Aug-2025 by IMPS. Ref 581923332394.\nThank you for banking with us.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Aug 2025",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank xx0354 statement for the period 13-Jul-2025 to 12-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-13",
+   "attachments": [
+    {
+     "filename": "eStatement_202508.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m133",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Aug 2025",
+   "body": "Dear Priya,\nYour Ujjivan Small Finance Bank XXXX6363 account statement for Aug 2025 is ready. Closing balance Rs.1,329.30.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m134",
+   "subject": "Equitas Small Finance Bank Account Statement - Aug 2025",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank xx2693 account statement for Aug 2025 is ready. Closing balance Rs.31,751.10.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.3,360.15 debited from account *2693 on 31-Aug-2025. Narration: ECOM/EASEMYTRIP. Available balance Rs.7,836.00.",
+   "date": "2025-08-31",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.533.43 debited from account XXXXXXXX2618 on 08-Sep-2025. Narration: ECOM/FLIPKART. Available balance Rs.28,133.04.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-08",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m137",
+   "subject": "Equitas Small Finance Bank Account Statement - Sep 2025",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank *8638 account statement for Sep 2025 is ready. Closing balance Rs.1,768.17.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-14",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.2,258.29 has been debited from your Ujjivan Small Finance Bank A/c XXXXXXXX6363 on 14-Sep-2025 (POS OLA CABS). Avl bal Rs.2,677.02.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-14",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m139",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.9,148.35 has been debited from your Ujjivan Small Finance Bank A/c XXXX6363 on 14-Sep-2025 (POS PVR INOX). Avl bal Rs.84,666.85.",
+   "date": "2025-09-14",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Sep 2025",
+   "body": "Dear Priya,\nYour Ujjivan Small Finance Bank XXXXXXXX2618 account statement for Sep 2025 is ready. Closing balance Rs.2,483.73.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m141",
+   "subject": "Equitas Small Finance Bank Account Statement - Sep 2025",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank XXXXXX2693 account statement for Sep 2025 is ready. Closing balance Rs.9,230.52.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Priya,\nYour order #640-8472228-2225127 is confirmed. Total Rs.5,299.10. Estimated delivery in 2 days.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m143",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.109.25 debited from account xx0354 on 30-Sep-2025. Narration: ECOM/DECATHLON. Available balance Rs.13,705.16.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-30",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m144",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.347.36 credited to your Equitas Small Finance Bank A/c XX2693 on 01-Oct-2025 by IMPS. Ref 775207090563.\nThank you for banking with us.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.189.75 debited from account XX0354 on 05-Oct-2025. Narration: ECOM/NYKAA. Available balance Rs.2,288.44.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m146",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Oct 2025",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank XX0354 statement for the period 13-Sep-2025 to 12-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-10-13",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Acct_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m147",
+   "subject": "Equitas Small Finance Bank Debit Card transaction alert",
+   "body": "Rs.3,377.87 withdrawn using your Equitas Small Finance Bank Debit Card XX7116 at ATM MAKEMYTRIP on 13-Oct-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-10-13",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXX2618 is debited for Rs.6,878.05 on 15-Oct-2025 - POS APPLE SERVICES. Bal Rs.54,158.79. -Ujjivan Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-15",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m149",
+   "subject": "Equitas Small Finance Bank Account Statement - Oct 2025",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XXXXXX2693 statement for the period 25-Sep-2025 to 24-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-25",
+   "attachments": [
+    {
+     "filename": "Equitas_Acct_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXXXX2618 is debited for Rs.81.84 on 28-Oct-2025 - NEFT BATA INDIA. Bal Rs.24,628.29. -Ujjivan Small Finance Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-28",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m151",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Nov 2025",
+   "body": "Dear Priya,\nYour Utkarsh Small Finance Bank XXXXXX0354 account statement for Nov 2025 is ready. Closing balance Rs.1,219.21.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-13",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m152",
+   "subject": "Equitas Small Finance Bank Account Statement - Nov 2025",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank XXXXXX8638 account statement for Nov 2025 is ready. Closing balance Rs.5,183.80.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-14",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Nov 2025",
+   "body": "Dear Priya,\nYour Ujjivan Small Finance Bank XXXXXXXX2618 account statement for Nov 2025 is ready. Closing balance Rs.15,813.43.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m154",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.99.26 debited from account *0354 on 18-Nov-2025. Narration: UPI/PHONEPE. Available balance Rs.11,054.55.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m155",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,201.64 has been debited from your Ujjivan Small Finance Bank A/c XXXX2618 on 20-Nov-2025 (IMPS BIGBASKET). Avl bal Rs.1,08,907.97.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-20",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m156",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Nov 2025",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXXXXXX6363 statement for the period 22-Oct-2025 to 21-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-22",
+   "attachments": [
+    {
+     "filename": "Ujjivan_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m157",
+   "subject": "Equitas Small Finance Bank Account Statement - Nov 2025",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank xx2693 account statement for Nov 2025 is ready. Closing balance Rs.5,357.93.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Your A/c XX2693 is credited with Rs.761.92 on 03-Dec-2025 - IMPS. Bal Rs.2,121.42. -Equitas Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XX8638 is debited for Rs.1,413.38 on 07-Dec-2025 - ECOM BPCL FUEL. Bal Rs.3,529.59. -Equitas Small Finance Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Ujjivan Small Finance Bank: funds transferred",
+   "body": "Dear Customer,\nRs.4,417.08 has been transferred from your A/c XXXX6363 to Dr. Rao Clinic A/c XX6138 (Bandhan Bank) via IMPS on 07-Dec-2025. Ref no 859024212286.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m161",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Dec 2025",
+   "body": "Dear Priya,\nYour Utkarsh Small Finance Bank XXXXXX0354 account statement for Dec 2025 is ready. Closing balance Rs.1,487.65.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m162",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.21,878.63 debited from account XX8638 on 14-Dec-2025. Narration: NEFT/INDIGO AIRLINES. Available balance Rs.1,84,201.95.",
+   "date": "2025-12-14",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Equitas Small Finance Bank Account Statement - Dec 2025",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XXXXXX2693 statement for the period 25-Nov-2025 to 24-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-25",
+   "attachments": [
+    {
+     "filename": "Equitas_Acct_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.8,302.43 debited from account *0354 on 25-Dec-2025. Narration: UPI/TATA PLAY. Available balance Rs.1,61,943.84.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m165",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 156283741800. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jan 2026",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank xx0354 statement for the period 13-Dec-2025 to 12-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-13",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m167",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.21,469.25 has been credited to account XXXXXX8638 on 13-Jan-2026 (NEFT). Avl bal Rs.15,120.47.\n\nOpt for e-statements and go green.",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Equitas Small Finance Bank Account Statement - Jan 2026",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XX8638 statement for the period 14-Dec-2025 to 13-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-14",
+   "attachments": [
+    {
+     "filename": "Equitas_Acct_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c xx8638 is debited for Rs.319.54 on 15-Jan-2026 - NEFT DOMINOS. Bal Rs.1,12,108.19. -Equitas Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-15",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Jan 2026",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXXXXXX2618 statement for the period 17-Dec-2025 to 16-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-17",
+   "attachments": [
+    {
+     "filename": "2618_16012026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m171",
+   "subject": "Equitas Small Finance Bank Account Statement - Jan 2026",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank *2693 statement for the period 25-Dec-2025 to 24-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202601.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.297.98 debited from account XX8638 on 01-Feb-2026. Narration: NEFT/UBER INDIA. Available balance Rs.19,677.24.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.3,970.94 credited to your Equitas Small Finance Bank A/c *2693 on 02-Feb-2026 by IMPS. Ref 488307305228.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 115528264576. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-02-06",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m175",
+   "subject": "Ujjivan Small Finance Bank: credit alert on your account",
+   "body": "Your A/c XXXXXXXX6363 is credited with Rs.644.22 on 10-Feb-2026 - SALARY NEFT. Bal Rs.12,053.33. -Ujjivan Small Finance Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m176",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.2,427.39 credited to your Utkarsh Small Finance Bank A/c XX0354 on 11-Feb-2026 by UPI. Ref 192179939742.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-11",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m177",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Feb 2026",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank *0354 statement for the period 13-Jan-2026 to 12-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-02-13",
+   "attachments": [
+    {
+     "filename": "0354_12022026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m178",
+   "subject": "Equitas Small Finance Bank Debit Card transaction alert",
+   "body": "Your Equitas Small Finance Bank Debit Card XX7116 was used for Rs.2,891.10 at SPOTIFY on 14-Feb-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Equitas Small Finance Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.174.51 spent on your Equitas Small Finance Bank Debit Card XX7116 at STARBUCKS on 14-Feb-2026 13:55:37. Avl bal Rs.12,426.74.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Ujjivan Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.150.17 credited to your Ujjivan Small Finance Bank A/c XXXXXXXX6363 on 16-Feb-2026 by REFUND. Ref 725401200898.\nThank you for banking with us.",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m181",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.272.23 debited from account XX2693 on 17-Feb-2026. Narration: UPI/MEDPLUS. Available balance Rs.12,765.98.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.3,419.62 has been credited to account XXXXXX2693 on 20-Feb-2026 (NEFT). Avl bal Rs.31,206.24.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-20",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Feb 2026",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXXXXXX6363 statement for the period 22-Jan-2026 to 21-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-22",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m184",
+   "subject": "Equitas Small Finance Bank Account Statement - Feb 2026",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XX2693 statement for the period 25-Jan-2026 to 24-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-25",
+   "attachments": [
+    {
+     "filename": "2693_24022026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c xx2693 is debited for Rs.128.31 on 06-Mar-2026 - NEFT LENSKART. Bal Rs.13,547.23. -Equitas Small Finance Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Mar 2026",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank xx0354 statement for the period 13-Feb-2026 to 12-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-13",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m187",
+   "subject": "Equitas Small Finance Bank Account Statement - Mar 2026",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XXXXXX8638 statement for the period 14-Feb-2026 to 13-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-14",
+   "attachments": [
+    {
+     "filename": "Equitas_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Mar 2026",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXX2618 statement for the period 17-Feb-2026 to 16-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-17",
+   "attachments": [
+    {
+     "filename": "2618_16032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m189",
+   "subject": "Equitas Small Finance Bank Account Statement - Mar 2026",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank xx2693 account statement for Mar 2026 is ready. Closing balance Rs.1,133.60.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Update your KYC",
+   "body": "Dear Priya,\nAs per RBI guidelines please complete re-KYC for your Equitas Small Finance Bank relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.160.34 debited from account XX8638 on 28-Mar-2026. Narration: POS/AMAZON PAY INDIA. Available balance Rs.4,468.34.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-28",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.593.51 has been debited from your Utkarsh Small Finance Bank A/c *0354 on 30-Mar-2026 (NEFT PVR INOX). Avl bal Rs.1,44,912.32.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-30",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m193",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.402.14 credited to your Utkarsh Small Finance Bank A/c XXXXXX0354 on 30-Mar-2026 by SALARY NEFT. Ref 972134188402.\nThank you for banking with us.",
+   "date": "2026-03-30",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m194",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.815.93 has been debited from your Equitas Small Finance Bank A/c XX8638 on 31-Mar-2026 (POS FLIPKART). Avl bal Rs.6,372.24.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-31",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.4,328.51 has been debited from your Equitas Small Finance Bank A/c xx2693 on 03-Apr-2026 (NEFT TATA POWER). Avl bal Rs.53,493.41.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Ujjivan Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.11,461.76 has been credited to account XXXX6363 on 03-Apr-2026 (INTEREST CREDIT). Avl bal Rs.5,396.07.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m197",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.15,178.87 has been debited from your Equitas Small Finance Bank A/c xx8638 on 04-Apr-2026 (IMPS NETFLIX). Avl bal Rs.3,681.35.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XX8638 is debited for Rs.9,173.29 on 07-Apr-2026 - POS EASEMYTRIP. Bal Rs.8,383.97. -Equitas Small Finance Bank",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Your A/c XX8638 is credited with Rs.309.21 on 11-Apr-2026 - IMPS. Bal Rs.9,353.95. -Equitas Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.16,340.87 has been debited from your Utkarsh Small Finance Bank A/c XX0354 on 12-Apr-2026 (POS SWIGGY). Avl bal Rs.6,817.19.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-12",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m201",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.6,319.50 has been debited from your Equitas Small Finance Bank A/c *8638 on 15-Apr-2026 (UPI INDIAN OIL). Avl bal Rs.63,667.81.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.5,952.87 has been credited to account XXXXXX2693 on 21-Apr-2026 (UPI). Avl bal Rs.5,966.87.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Equitas Small Finance Bank Account Statement - Apr 2026",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank XXXXXX2693 account statement for Apr 2026 is ready. Closing balance Rs.16,912.79.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.7,431.26 has been debited from your Utkarsh Small Finance Bank A/c xx0354 on 25-Apr-2026 (ECOM RELIANCE DIGITAL). Avl bal Rs.42,016.53.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m205",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX7279 has been updated on 02-Aug-2025. If not requested by you, call customer care.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m206",
+   "subject": "Ujjivan Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.417.55 credited to your Ujjivan Small Finance Bank A/c XXXX2618 on 26-Apr-2026 by UPI. Ref 621471478253.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m207",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Your A/c xx0354 is debited for Rs.271.65 on 26-Apr-2026 - NEFT MAKEMYTRIP. Bal Rs.18,736.13. -Utkarsh Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m208",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.757.88 has been transferred from your A/c *0354 to Ramesh Kumar A/c XX2037 (Bandhan Bank) via IMPS on 29-Apr-2026. Ref no 542936890027.",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m209",
+   "subject": "Utkarsh Small Finance Bank Account Statement - May 2026",
+   "body": "Dear Priya,\nYour Utkarsh Small Finance Bank xx0354 account statement for May 2026 is ready. Closing balance Rs.12,027.86.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-13",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m210",
+   "subject": "Equitas Small Finance Bank Account Statement - May 2026",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XXXXXX8638 statement for the period 14-Apr-2026 to 13-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-14",
+   "attachments": [
+    {
+     "filename": "eStatement_202605.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Ujjivan Small Finance Bank Account Statement - May 2026",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXXXXXX2618 statement for the period 17-Apr-2026 to 16-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-17",
+   "attachments": [
+    {
+     "filename": "Ujjivan_Acct_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m212",
+   "subject": "Ujjivan Small Finance Bank Account Statement - May 2026",
+   "body": "Dear Priya,\nPlease find attached your Ujjivan Small Finance Bank XXXX6363 statement for the period 22-Apr-2026 to 21-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-22",
+   "attachments": [
+    {
+     "filename": "Ujjivan_Acct_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m213",
+   "subject": "Equitas Small Finance Bank Account Statement - May 2026",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XX2693 statement for the period 25-Apr-2026 to 24-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-05-25",
+   "attachments": [
+    {
+     "filename": "2693_24052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.138.69 has been debited from your Ujjivan Small Finance Bank A/c XXXXXXXX2618 on 29-May-2026 (ECOM SWIGGY). Avl bal Rs.4,574.31.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-29",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m215",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,930.08 debited from account XXXX2618 on 02-Jun-2026. Narration: NEFT/TATA POWER. Available balance Rs.1,05,813.00.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-02",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m216",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXXXX2618 is debited for Rs.10,895.11 on 08-Jun-2026 - UPI FLIPKART. Bal Rs.12,667.61. -Ujjivan Small Finance Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-08",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m217",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jun 2026",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank xx0354 statement for the period 13-May-2026 to 12-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-13",
+   "attachments": [
+    {
+     "filename": "0354_12062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m218",
+   "subject": "Equitas Small Finance Bank Account Statement - Jun 2026",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank xx2693 account statement for Jun 2026 is ready. Closing balance Rs.48,046.09.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XX0354 is debited for Rs.30,050.00 on 30-Jun-2026 - UPI URBAN COMPANY. Bal Rs.18,263.62. -Utkarsh Small Finance Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-30",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m220",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.922.86 has been credited to account *2693 on 07-Jul-2026 (UPI). Avl bal Rs.1,59,256.09.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jul 2026",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank *0354 statement for the period 13-Jun-2026 to 12-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-13",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m222",
+   "subject": "Equitas Small Finance Bank Account Statement - Jul 2026",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank *8638 statement for the period 14-Jun-2026 to 13-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-14",
+   "attachments": [
+    {
+     "filename": "Equitas_Acct_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXX6363 is debited for Rs.19,419.53 on 14-Jul-2026 - IMPS LENSKART. Bal Rs.19,988.94. -Ujjivan Small Finance Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m224",
+   "subject": "Earn more with your card",
+   "body": "Dear Priya,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m225",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Your A/c XX0354 is credited with Rs.12,639.24 on 15-Jul-2026 - SALARY NEFT. Bal Rs.5,006.45. -Utkarsh Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m226",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Jul 2026",
+   "body": "Dear Priya,\nYour Ujjivan Small Finance Bank XXXX2618 account statement for Jul 2026 is ready. Closing balance Rs.857.28.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-07-17",
+   "attachments": [],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m227",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.235.52 debited from account *0354 on 17-Jul-2026. Narration: POS/OLA CABS. Available balance Rs.9,400.66.",
+   "date": "2026-07-17",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m228",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXX2618 is debited for Rs.108.76 on 20-Jul-2026 - IMPS BOOKMYSHOW. Bal Rs.2,043.19. -Ujjivan Small Finance Bank",
+   "date": "2026-07-20",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m229",
+   "subject": "Equitas Small Finance Bank Account Statement - Jul 2026",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank *2693 statement for the period 25-Jun-2026 to 24-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.927.59 has been transferred from your A/c XXXX6363 to Lata Tutor A/c XX9298 (IDFC FIRST Bank) via IMPS on 25-Jul-2026. Ref no 437804722516.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m231",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,115.26 debited from account XXXXXX8638 on 01-Aug-2026. Narration: UPI/BESCOM. Available balance Rs.6,888.62.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "Update your KYC",
+   "body": "Dear Priya,\nAs per RBI guidelines please complete re-KYC for your Ujjivan Small Finance Bank relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m233",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,651.25 has been debited from your Ujjivan Small Finance Bank A/c XXXX6363 on 05-Aug-2026 (UPI DMART). Avl bal Rs.2,913.65.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m234",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.715.69 debited from account XX8638 on 07-Aug-2026. Narration: ECOM/RELIANCE DIGITAL. Available balance Rs.1,49,453.70.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "OTP for your transaction",
+   "body": "490299 is the OTP for your transaction of Rs.544.31 at PVR INOX. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-12",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m236",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Aug 2026",
+   "body": "Dear Priya,\nYour Utkarsh Small Finance Bank XXXXXX0354 account statement for Aug 2026 is ready. Closing balance Rs.497.49.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-13",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m237",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.97.20 debited from account XXXXXXXX2618 on 14-Aug-2026. Narration: IMPS/EASEMYTRIP. Available balance Rs.9,904.39.",
+   "date": "2026-08-14",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m238",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.21,951.40 has been debited from your Equitas Small Finance Bank A/c xx2693 on 15-Aug-2026 (NEFT GOOGLE PLAY). Avl bal Rs.3,229.92.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Refer and earn",
+   "body": "Dear Priya,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Ujjivan Small Finance Bank Account Statement - Aug 2026",
+   "body": "Dear Priya,\nYour Ujjivan Small Finance Bank XXXX6363 account statement for Aug 2026 is ready. Closing balance Rs.1,064.19.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "Ujjivan SFB <estatement@ujjivansfb.in>"
+  },
+  {
+   "id": "m241",
+   "subject": "Equitas Small Finance Bank Account Statement - Aug 2026",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XX2693 statement for the period 25-Jul-2026 to 24-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-25",
+   "attachments": [
+    {
+     "filename": "2693_24082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "OTP for your transaction",
+   "body": "927687 is the OTP for your transaction of Rs.152.00 at BOOKMYSHOW. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m243",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.37,146.11 debited from account XXXX6363 on 30-Aug-2026. Narration: IMPS/NYKAA. Available balance Rs.16,835.24.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-30",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m244",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.4,288.42 debited from account XX2693 on 31-Aug-2026. Narration: UPI/DECATHLON. Available balance Rs.19,159.60.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-31",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Equitas Small Finance Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.3,569.66 spent on your Equitas Small Finance Bank Debit Card XX7116 at BIG BAZAAR on 10-Sep-2026 15:17:38. Avl bal Rs.17,197.31.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XX0354 is debited for Rs.13,257.60 on 11-Sep-2026 - ECOM PVR INOX. Bal Rs.3,335.06. -Utkarsh Small Finance Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m247",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Your A/c XXXXXX8638 is credited with Rs.756.69 on 12-Sep-2026 - IMPS. Bal Rs.41,786.41. -Equitas Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-12",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Sep 2026",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank XXXXXX0354 statement for the period 13-Aug-2026 to 12-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-13",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Acct_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m249",
+   "subject": "Equitas Small Finance Bank Account Statement - Sep 2026",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank xx8638 statement for the period 14-Aug-2026 to 13-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-14",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.687.28 debited from account XXXXXXXX2618 on 23-Sep-2026. Narration: POS/AMAZON PAY INDIA. Available balance Rs.5,410.95.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m251",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.10,656.28 debited from account XXXXXX2693 on 24-Sep-2026. Narration: UPI/AIRTEL PREPAID. Available balance Rs.18,341.10.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m252",
+   "subject": "Equitas Small Finance Bank Account Statement - Sep 2026",
+   "body": "Dear Priya,\nYour Equitas Small Finance Bank XXXXXX2693 account statement for Sep 2026 is ready. Closing balance Rs.529.84.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m253",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Your A/c *0354 is debited for Rs.85.92 on 10-Oct-2026 - UPI APPLE SERVICES. Bal Rs.58,705.69. -Utkarsh Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m254",
+   "subject": "Earn more with your card",
+   "body": "Dear Priya,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-12",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m255",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Oct 2026",
+   "body": "Dear Priya,\nPlease find attached your Utkarsh Small Finance Bank xx0354 statement for the period 13-Sep-2026 to 12-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-10-13",
+   "attachments": [
+    {
+     "filename": "0354_12102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m256",
+   "subject": "Ujjivan Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXXXX2618 is debited for Rs.146.58 on 21-Oct-2026 - UPI MYNTRA. Bal Rs.37,914.15. -Ujjivan Small Finance Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-10-21",
+   "attachments": [],
+   "from": "Ujjivan SFB <alerts@ujjivansfb.in>"
+  },
+  {
+   "id": "m257",
+   "subject": "Equitas Small Finance Bank Account Statement - Oct 2026",
+   "body": "Dear Priya,\nPlease find attached your Equitas Small Finance Bank XXXXXX2693 statement for the period 25-Sep-2026 to 24-Oct-2026. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202610.pdf",
+     "protected": false,
+     "pdfText": "EQUITAS SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : PRIYA JOSHI\nFLAT 844, ORCHID APARTMENTS\n3TH CROSS, BANJARA HILLS\nJAIPUR - 430192\nCustomer ID : 11222603\nAccount Number : XXXXXX2693\nAccount Type : SAVINGS ACCOUNT\nIFSC : EQUI0461381\nStatement Period : 25-09-2026 to 24-10-2026\nOpening Balance : Rs.25,391.17\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n25-09-2026 POS/FLIPKART 633960606 925.76 - 24,465.41\n28-09-2026 UPI/EAZYDINER 500931543 2,041.33 - 22,424.08\n28-09-2026 NEFT DR/PHONEPE 557192579 16,690.77 - 5,733.31\n28-09-2026 UPI/CR 574854725 - 1,620.94 7,354.25\n28-09-2026 INTEREST 940685997 - 2,056.62 9,410.87\n30-09-2026 UPI/DMART 909109351 6,289.56 - 3,121.31\n30-09-2026 POS/BIGBASKET 252729627 8,447.89 - -5,326.58\n02-10-2026 INTEREST 434912325 - 2,069.03 -3,257.55\n03-10-2026 UPI/IKEA 796139952 1,371.55 - -4,629.10\n05-10-2026 INTEREST 222910389 - 11,880.88 7,251.78\n06-10-2026 POS/APOLLO PHARMACY 480019817 2,425.10 - 4,826.68\n06-10-2026 ATM WDL/LENSKART 451998293 300.86 - 4,525.82\n08-10-2026 INTEREST 190829220 - 10,363.57 14,889.39\n09-10-2026 UPI/MEDPLUS 378110475 6,003.48 - 8,885.91\nClosing Balance : Rs.8,885.91\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m258",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.85.89 debited from account XXXXXX8638 on 26-Oct-2026. Narration: POS/BESCOM. Available balance Rs.1,47,414.70.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m259",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.104.22 has been credited to account xx0354 on 31-Oct-2026 (IMPS). Avl bal Rs.2,961.81.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-31",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "2693",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "8638",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "7116",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "ujjivansfb.in",
+    "last4": "2618",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "ujjivansfb.in",
+    "last4": "6363",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "utkarsh.bank",
+    "last4": "0354",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "2037",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "9298",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "6138",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "2798",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "ujjivansfb.in",
+    "last4": "7113",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "utkarsh.bank",
+    "last4": "7279",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "ujjivansfb.in",
+    "last4": "4168",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "ujjivansfb.in",
+    "last4": "4576",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "1800",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "9490",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

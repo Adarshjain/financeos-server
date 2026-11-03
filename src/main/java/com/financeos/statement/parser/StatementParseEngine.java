@@ -384,7 +384,26 @@ public final class StatementParseEngine {
                 summary.append(ln.text()).append('\n');
             }
         }
+        fillDocumentFacts(meta, lines);
         return new ParsedStatement(meta, statementType, summaryFields, derived, parseInfo, results, summary.toString());
+    }
+
+    /** What the document says about itself, into the added meta fields only; never affects rows, signs or the other fields. */
+    private static void fillDocumentFacts(StatementMeta meta, List<Line> lines) {
+        try {
+            List<String> texts = new ArrayList<>();
+            for (Line ln : lines) texts.add(ln.text());
+            DocumentFacts.Facts f = DocumentFacts.extract(texts, DocumentReader.NO_NUMBERS, new java.util.TreeSet<>(), null);
+            meta.issuerId = f.issuer();
+            meta.documentKind = f.kind() == null ? null : f.kind().name();
+            meta.isStatement = f.kind() != null;
+            meta.documentDate = f.periodEnd();
+            meta.productPhrase = f.rawProduct();
+            meta.creditLimit = f.limit();
+            meta.closureStated = f.closure();
+        } catch (RuntimeException | StackOverflowError e) {
+            // the extra facts are optional
+        }
     }
 
     // A page is prose (terms & conditions) when a meaningful share of its lines run

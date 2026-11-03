@@ -1,0 +1,3374 @@
+{
+ "mailbox": "axis-magnus-premiermiles",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Your Kotak Credit Card statement for Nov 2023",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card XX4997 statement for Nov 2023 is ready. Total amount due Rs.678.85, minimum amount due Rs.200.00, payable by 24-Nov-2023.\nLogin to view and download your e-statement.\n\n",
+   "date": "2023-11-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Citibank Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction of INR 13,777.59 done on your Citi PremierMiles Credit Card ending 1614 at RELIANCE DIGITAL on 08-11-2023. Available credit limit is INR 4,083.69.\n\nOpt for e-statements and go green.",
+   "date": "2023-11-08",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m003",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Nov 2023",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card XX4538 statement for Nov 2023 is ready. Total amount due Rs.5,855.91, minimum amount due Rs.292.80, payable by 27/11/23.\nLogin to view and download your e-statement.\n\n",
+   "date": "2023-11-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Your Citibank Credit Card e-Statement - Dec 2023",
+   "body": "Dear Arjun,\nPlease find attached your Citi PremierMiles Credit Card xx1614 statement for the period 06-Nov-2023 to 05-Dec-2023.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2023-12-06",
+   "attachments": [
+    {
+     "filename": "eStatement_202312.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Citibank <citistatements@citibank.co.in>"
+  },
+  {
+   "id": "m005",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #765-5096558-5474043 is confirmed. Total Rs.13,487.70. Estimated delivery in 2 days.",
+   "date": "2023-12-06",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m006",
+   "subject": "Your Kotak Credit Card statement for Dec 2023",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card xx4997 statement for Dec 2023 is ready. Total amount due Rs.2,154.95, minimum amount due Rs.200.00, payable by 24-Dec-2023.\nLogin to view and download your e-statement.\n\n",
+   "date": "2023-12-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 99.49 has been received towards your Axis Bank Magnus Credit Card XX4538 on 08-Dec-2023. Thank you for the payment.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2023-12-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Dec 2023",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card XX4538 statement for Dec 2023 is ready. Total amount due Rs.10,688.66, minimum amount due Rs.534.43, payable by 27/12/23.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2023-12-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Payment received - Citibank Credit Card",
+   "body": "Payment of INR 2,876.88 has been received towards your Citi PremierMiles Credit Card XX1614 on 10-12-2023. Thank you for the payment.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2023-12-10",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 4538 for INR 915.52 at BESCOM on 11-Dec-2023 05:34:07. Available limit: INR 7,830.84.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2023-12-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Add-on card issued",
+   "body": "Dear Arjun Singh,\nAs requested, an add-on card for PRIYA SINGH has been issued on your Axis Bank Magnus Credit Card (primary card XX4538). The add-on card XX8725 will reach the address on record. Spends on the add-on card are billed to your primary statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2023-12-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Citibank Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction of INR 896.60 done on your Citibank Credit Card ending 1614 at IRCTC on 21-12-2023. Available credit limit is INR 1,33,861.71.\n\nDownload our mobile app for instant alerts.",
+   "date": "2023-12-21",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Spent INR 5,705.76 on your Axis Bank Magnus Credit Card XX8725 at ZOMATO, 26-Dec-2023. Avl Lmt INR 41,123.84. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2023-12-26",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Citibank Credit Card transaction alert",
+   "body": "Dear Customer,\nYour Citibank Credit Card ending 1614 has been used for a transaction of INR 1,929.77 on 29-12-2023 at 15:55:03. Info: APOLLO PHARMACY.\nIf you did not do this, please call customer care.\n\nOpt for e-statements and go green.",
+   "date": "2023-12-29",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m015",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 4,213.94 at IXIGO on 31-Dec-2023 11:22:44. Available limit: INR 5,059.41.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2023-12-31",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Spent INR 553.56 on your Axis Bank Magnus Credit Card XX4538 at SWIGGY, 02-Jan-2024. Avl Lmt INR 2,630.10. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-01-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Your Citibank Credit Card e-Statement - Jan 2024",
+   "body": "Dear Arjun,\nPlease find attached your Citi PremierMiles Credit Card ending 1614 statement for the period 06-Dec-2023 to 05-Jan-2024. Total amount due Rs.33,655.79, due 22-Jan-2024.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-01-06",
+   "attachments": [
+    {
+     "filename": "Citibank_Statement_Jan2024.pdf",
+     "protected": false,
+     "pdfText": "CITIBANK CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nARJUN SINGH\nFLAT 772, GREEN VALLEY APARTMENTS\n10TH CROSS, BANJARA HILLS\nCHENNAI - 647134\nCARD TYPE: Citi PremierMiles Credit Card\nCREDIT CARD NO: 487738XXXXXX1614\nStatement Period : 06-Dec-2023 to 05-Jan-2024\nStatement Date : 05-Jan-2024\nPayment Due Date : 22-Jan-2024\nTotal Amount Due : Rs.33,655.79\nMinimum Amount Due : Rs.1,682.79\nCredit Limit (Including cash) : Rs.2,20,000.00\nAvailable Credit Limit (Including cash) : Rs.2,10,863.80\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n08-12-2023 3019147938 MYNTRA PUNE 50 197.43\n15-12-2023 1666107380 SPOTIFY KOCHI 34 1,079.17\n16-12-2023 3506589348 MCDONALDS PUNE 33 1,597.78\n19-12-2023 8893145305 HPCL PETROL HYDERABAD 22 1,466.63\n22-12-2023 4171967232 FLIPKART BENGALURU 48 16,309.97\n01-01-2024 4292469920 INDIAN OIL HYDERABAD 6 1,809.19\n02-01-2024 7690607575 PVR INOX KOCHI 5 425.65\n03-01-2024 4128507787 LENSKART BENGALURU 40 925.37\n05-01-2024 1712875007 GOOGLE PLAY CHENNAI 10 9,844.60\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Citibank <citistatements@citibank.co.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "Your Kotak Credit Card statement for Jan 2024",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card XX4997 statement for Jan 2024 is ready. Total amount due Rs.9,507.85, minimum amount due Rs.475.39, payable by 24-Jan-2024.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-01-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.21,248.13 charged to Kotak Mahindra Bank Credit Card xx4997 - MEDPLUS - 09-Jan-2024.",
+   "date": "2024-01-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Jan 2024",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/12/23 to 09/01/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-01-10",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Jan2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 997.03 on 12-Jan-2024 for your Axis Bank Credit Card XX4538. Available credit limit has been updated.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-01-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 185.35 on your Axis Bank Credit Card ending 4538 at NYKAA, 14-Jan-2024. Avl Lmt INR 11,057.15. SMS BLOCK to 5676782 if not you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-01-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Spent INR 11,518.78 on your Axis Bank Credit Card XX8725 at PHONEPE, 14-Jan-2024. Avl Lmt INR 15,643.58. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-01-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX4538 for INR 2,207.34 at PVR INOX on 19-Jan-2024 18:23:50. Available limit: INR 14,527.45.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-01-19",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.359.67 spent on your Kotak Mahindra Bank Credit Card ending 4997 at LENSKART on 20-Jan-2024. Avl limit Rs.89,014.58.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-01-20",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.1,587.02 charged to Kotak Zen Signature Credit Card XX4997 - EAZYDINER - 23-Jan-2024.",
+   "date": "2024-01-23",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Citibank Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction of INR 112.73 done on your Citi PremierMiles Credit Card ending 1614 at MCDONALDS on 24-01-2024. Available credit limit is INR 8,214.24.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-01-24",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m028",
+   "subject": "Important: your Citibank credit card is moving to Axis Bank",
+   "body": "Dear Arjun Singh,\nYour Citibank Credit Card ending 1614 will be migrated to Axis Bank. You will receive a new card ending 3741. Please start using the new card once received.",
+   "date": "2024-01-26",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX4538 for INR 8,893.35 at AIRTEL PREPAID on 26-Jan-2024 01:56:38. Available limit: INR 97,041.40.",
+   "date": "2024-01-26",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Your Citibank credit card has moved to Axis Bank",
+   "body": "Dear Arjun Singh,\nAs part of the integration of Citi India's consumer business with Axis Bank, your Citi PremierMiles Credit Card card ending 1614 has been migrated to a new Axis Bank Axis Bank Premier Miles Credit Card. Your new card number ends with 3741. Your old card ending 1614 will no longer work after 15-Feb-2024.\n\n",
+   "date": "2024-01-31",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.665.08 spent on your Kotak Mahindra Bank Credit Card xx4997 at PVR INOX on 31-Jan-2024. Avl limit Rs.73,636.71.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-01-31",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.973.00 charged to Kotak Zen Signature Credit Card ending 4997 - BATA INDIA - 01-Feb-2024.",
+   "date": "2024-02-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx3741",
+   "body": "Spent INR 206.29 on your Axis Bank Credit Card xx3741 at SPOTIFY, 02-Feb-2024. Avl Lmt INR 7,262.28. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-02-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Your Kotak Credit Card statement for Feb 2024",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card XX4997 statement for Feb 2024 is ready. Total amount due Rs.9,821.11, minimum amount due Rs.491.06, payable by 24-Feb-2024.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-02-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Feb 2024",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/01/24 to 09/02/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-02-10",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Feb2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Feb 2024",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card xx3741 statement for the period 12/01/24 to 11/02/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-02-12",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Feb2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 11,625.11 on 12-Feb-2024 for your Axis Bank Credit Card ending 8725. Available credit limit has been updated.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-02-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. xx4538 for INR 13,384.74 at TATA PLAY on 18-Feb-2024 05:26:13. Available limit: INR 2,937.27.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-02-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.5,000.60 charged to Kotak Zen Signature Credit Card XX4997 - INDIAN OIL - 18-Feb-2024.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-02-18",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 178.48 on your Axis Bank Credit Card ending 4538 at SWIGGY, 20-Feb-2024. Avl Lmt INR 97,900.96. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-02-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #837-4212602-8205955 is confirmed. Total Rs.4,874.33. Estimated delivery in 2 days.",
+   "date": "2024-02-23",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx4538",
+   "body": "Spent INR 6,239.97 on your Axis Bank Magnus Credit Card xx4538 at INDIGO AIRLINES, 25-Feb-2024. Avl Lmt INR 78,622.53. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-02-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 526.95 at HPCL PETROL on 05-Mar-2024 04:17:13. Available limit: INR 2,653.23.",
+   "date": "2024-03-05",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Your Kotak Credit Card statement for Mar 2024",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card xx4997 statement for Mar 2024 is ready. Total amount due Rs.52,762.71, minimum amount due Rs.2,638.14, payable by 24-Mar-2024.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-03-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx3741",
+   "body": "Spent INR 827.21 on your Axis Bank Premier Miles Credit Card xx3741 at AMAZON PAY INDIA, 09-Mar-2024. Avl Lmt INR 1,05,162.27. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-03-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Mar 2024",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card XX4538 statement for Mar 2024 is ready. Total amount due Rs.8,518.79, minimum amount due Rs.425.94, payable by 27/03/24.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-03-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Mar 2024",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card XX3741 statement for Mar 2024 is ready. Total amount due Rs.3,323.52, minimum amount due Rs.200.00, payable by 29/03/24.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-03-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx3741",
+   "body": "Spent INR 444.30 on your Axis Bank Premier Miles Credit Card xx3741 at NETFLIX, 19-Mar-2024. Avl Lmt INR 1,06,826.19. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-03-19",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Spent INR 2,315.02 on your Axis Bank Magnus Credit Card XX8725 at APPLE SERVICES, 19-Mar-2024. Avl Lmt INR 6,759.45. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2024-03-19",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.373.36 spent on your Kotak Mahindra Bank Credit Card XX4997 at BIGBASKET on 24-Mar-2024. Avl limit Rs.3,694.67.\n\nOpt for e-statements and go green.",
+   "date": "2024-03-24",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 1,606.97 on your Axis Bank Credit Card XX3741 at PVR INOX, 25-Mar-2024. Avl Lmt INR 11,761.66. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-03-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. xx4538 for INR 4,660.20 at SWIGGY on 25-Mar-2024 01:16:47. Available limit: INR 6,227.78.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-03-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Spent INR 10,585.94 on your Axis Bank Magnus Credit Card XX8725 at SODEXO, 25-Mar-2024. Avl Lmt INR 2,202.32. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-03-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.3,356.82 spent on your Kotak Zen Signature Credit Card XX4997 at DECATHLON on 25-Mar-2024. Avl limit Rs.45,296.63.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-03-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 214.67 at HPCL PETROL on 29-Mar-2024 12:54:13. Available limit: INR 36,398.25.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-03-29",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Your Kotak Credit Card statement for Apr 2024",
+   "body": "Dear Arjun,\nPlease find attached your Kotak Zen Signature Credit Card XX4997 statement for the period 07-Mar-2024 to 06-Apr-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-04-07",
+   "attachments": [
+    {
+     "filename": "4997_06042024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx8725",
+   "body": "Spent INR 7,121.86 on your Axis Bank Magnus Credit Card xx8725 at BATA INDIA, 08-Apr-2024. Avl Lmt INR 9,205.89. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-04-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 3,419.44 on 09-Apr-2024 for your Axis Bank Credit Card XX3741. Available credit limit has been updated.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-04-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Apr 2024",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/03/24 to 09/04/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-04-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202404.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Apr 2024",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card XX3741 statement for Apr 2024 is ready. Total amount due Rs.3,317.47, minimum amount due Rs.200.00, payable by 29/04/24.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-04-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.5,278.39 spent on your Kotak Zen Signature Credit Card ending 4997 at MCDONALDS on 21-Apr-2024. Avl limit Rs.97,232.27.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-04-21",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 7,094.23 has been received towards your Axis Bank Magnus Credit Card XX4538 on 23-Apr-2024. Thank you for the payment.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-04-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 8725",
+   "body": "Spent INR 20,391.96 on your Axis Bank Credit Card ending 8725 at SPOTIFY, 23-Apr-2024. Avl Lmt INR 2,236.75. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-04-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.812.01 spent on your Kotak Mahindra Bank Credit Card xx4997 at UBER INDIA on 27-Apr-2024. Avl limit Rs.7,203.50.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-04-27",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Premier Miles Credit Card no. XX3741 for INR 11,184.88 at EAZYDINER on 29-Apr-2024 17:52:07. Available limit: INR 3,302.96.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-04-29",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.2,860.61 spent on your Kotak Zen Signature Credit Card xx4997 at UBER INDIA on 29-Apr-2024. Avl limit Rs.1,88,606.34.\n\nOpt for e-statements and go green.",
+   "date": "2024-04-29",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 3,793.40 on your Axis Bank Premier Miles Credit Card XX3741 at MEDPLUS, 02-May-2024. Avl Lmt INR 82,984.53. SMS BLOCK to 5676782 if not you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Your Kotak Credit Card statement for May 2024",
+   "body": "Dear Arjun,\nPlease find attached your Kotak Zen Signature Credit Card XX4997 statement for the period 07-Apr-2024 to 06-May-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-05-07",
+   "attachments": [
+    {
+     "filename": "Kotak_Statement_May2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 1,016.44 on your Axis Bank Credit Card ending 4538 at MEDPLUS, 08-May-2024. Avl Lmt INR 15,964.86. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-05-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.102.86 charged to Kotak Zen Signature Credit Card ending 4997 - OLA CABS - 08-May-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-08",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - May 2024",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card XX4538 statement for May 2024 is ready. Total amount due Rs.13,997.85, minimum amount due Rs.699.89, payable by 27/05/24.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-05-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Payment received - Kotak Credit Card",
+   "body": "Payment of Rs.780.25 has been received towards your Kotak Mahindra Bank Credit Card XX4997 on 11-May-2024. Thank you for the payment.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-05-11",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - May 2024",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card XX3741 statement for the period 12/04/24 to 11/05/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-05-12",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_May2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 3741 for INR 373.18 at MCDONALDS on 15-May-2024 18:55:01. Available limit: INR 7,420.59.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-05-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "OTP for your transaction",
+   "body": "207261 is the OTP for your transaction of Rs.342.76 at EASEMYTRIP. Valid for 10 minutes. Do not share.",
+   "date": "2024-05-15",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX4538 for INR 105.55 at JIO RECHARGE on 20-May-2024 09:36:32. Available limit: INR 1,70,406.50.",
+   "date": "2024-05-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX4538 for INR 8,510.43 at DECATHLON on 20-May-2024 09:16:36. Available limit: INR 72,671.66.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-05-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.7,171.85 spent on your Kotak Mahindra Bank Credit Card XX4997 at NYKAA on 20-May-2024. Avl limit Rs.1,82,221.59.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-20",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Spent INR 1,272.36 on your Axis Bank Credit Card ending 3741 at FLIPKART, 21-May-2024. Avl Lmt INR 25,615.81. SMS BLOCK to 5676782 if not you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-05-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. xx4538 for INR 1,225.24 at NETFLIX on 25-May-2024 09:43:15. Available limit: INR 4,434.43.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-05-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 2,600.66 on your Axis Bank Magnus Credit Card ending 4538 at PAYTM, 26-May-2024. Avl Lmt INR 52,657.53. SMS BLOCK to 5676782 if not you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-05-26",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx3741",
+   "body": "Spent INR 6,028.39 on your Axis Bank Credit Card xx3741 at LENSKART, 28-May-2024. Avl Lmt INR 1,40,658.85. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-05-28",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 887.50 on your Axis Bank Premier Miles Credit Card XX3741 at DMART, 31-May-2024. Avl Lmt INR 23,508.25. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2024-05-31",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 1,224.46 on 03-Jun-2024 for your Axis Bank Credit Card xx3741. Available credit limit has been updated.",
+   "date": "2024-06-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 4,518.61 on 03-Jun-2024 for your Axis Bank Credit Card XX8725. Available credit limit has been updated.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-06-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Your Kotak Credit Card statement for Jun 2024",
+   "body": "Dear Arjun,\nPlease find attached your Kotak Zen Signature Credit Card xx4997 statement for the period 07-May-2024 to 06-Jun-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-06-07",
+   "attachments": [
+    {
+     "filename": "4997_06062024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.1,392.03 charged to Kotak Zen Signature Credit Card ending 4997 - SODEXO - 09-Jun-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-06-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Jun 2024",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card ending 4538 statement for Jun 2024 is ready. Total amount due Rs.34,744.08, minimum amount due Rs.1,737.20, payable by 27/06/24.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2024-06-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Spent INR 3,948.19 on your Axis Bank Credit Card XX8725 at FLIPKART, 10-Jun-2024. Avl Lmt INR 2,005.80. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-06-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX8725 for INR 182.42 at LENSKART on 10-Jun-2024 07:53:25. Available limit: INR 1,08,423.71.\n\nOpt for e-statements and go green.",
+   "date": "2024-06-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Jun 2024",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card xx3741 statement for the period 12/05/24 to 11/06/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-06-12",
+   "attachments": [
+    {
+     "filename": "3741_11062024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Your Kotak Credit Card statement for Jul 2024",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card XX4997 statement for Jul 2024 is ready. Total amount due Rs.1,240.94, minimum amount due Rs.200.00, payable by 24-Jul-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-07-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Premier Miles Credit Card no. ending 3741 for INR 6,975.45 at PAYTM on 09-Jul-2024 04:09:37. Available limit: INR 7,660.82.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-07-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Jul 2024",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/06/24 to 09/07/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-10",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Jul2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Jul 2024",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card ending 3741 statement for Jul 2024 is ready. Total amount due Rs.560.14, minimum amount due Rs.200.00, payable by 29/07/24.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-07-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.1,077.77 charged to Kotak Mahindra Bank Credit Card XX4997 - BLINKIT - 15-Jul-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-07-15",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 4538 for INR 1,446.82 at PVR INOX on 16-Jul-2024 21:43:03. Available limit: INR 5,547.32.\n\nOpt for e-statements and go green.",
+   "date": "2024-07-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 8725",
+   "body": "Spent INR 9,945.35 on your Axis Bank Credit Card ending 8725 at LENSKART, 17-Jul-2024. Avl Lmt INR 1,74,097.54. SMS BLOCK to 5676782 if not you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-07-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.1,409.00 charged to Kotak Zen Signature Credit Card XX4997 - PAYTM - 18-Jul-2024.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-07-18",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 9,352.45 on 20-Jul-2024 for your Axis Bank Premier Miles Credit Card ending 3741. Available credit limit has been updated.",
+   "date": "2024-07-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.6,119.47 charged to Kotak Zen Signature Credit Card ending 4997 - JIO RECHARGE - 21-Jul-2024.",
+   "date": "2024-07-21",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. xx8725 for INR 185.76 at DMART on 23-Jul-2024 10:28:58. Available limit: INR 24,421.94.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-07-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 7,067.34 at PAYTM on 24-Jul-2024 21:54:14. Available limit: INR 1,56,984.64.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 5,339.56 has been received towards your Axis Bank Credit Card ending 8725 on 24-Jul-2024. Thank you for the payment.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 174.41 has been received towards your Axis Bank Credit Card XX8725 on 25-Jul-2024. Thank you for the payment.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-07-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx4538",
+   "body": "Spent INR 2,197.81 on your Axis Bank Credit Card xx4538 at INDIGO AIRLINES, 03-Aug-2024. Avl Lmt INR 12,186.00. SMS BLOCK to 5676782 if not you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-08-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Your Kotak Credit Card statement for Aug 2024",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card xx4997 statement for Aug 2024 is ready. Total amount due Rs.1,912.22, minimum amount due Rs.200.00, payable by 24-Aug-2024.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-08-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.997.65 spent on your Kotak Zen Signature Credit Card xx4997 at PHONEPE on 09-Aug-2024. Avl limit Rs.11,433.55.\n\nOpt for e-statements and go green.",
+   "date": "2024-08-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Aug 2024",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card ending 4538 statement for Aug 2024 is ready. Total amount due Rs.7,601.71, minimum amount due Rs.380.09, payable by 27/08/24.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-08-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 1,027.05 at AIRTEL PREPAID on 11-Aug-2024 22:16:55. Available limit: INR 20,172.20.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-08-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Aug 2024",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card ending 3741 statement for the period 12/07/24 to 11/08/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-08-12",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Aug2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 4,253.86 on 17-Aug-2024 for your Axis Bank Magnus Credit Card XX4538. Available credit limit has been updated.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-08-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 106.06 on 19-Aug-2024 for your Axis Bank Magnus Credit Card ending 8725. Available credit limit has been updated.",
+   "date": "2024-08-19",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Payment received - Kotak Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.473.44 on 19-Aug-2024 for your Kotak Zen Signature Credit Card xx4997. Available credit limit has been updated.\n\nOpt for e-statements and go green.",
+   "date": "2024-08-19",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Payment received - Kotak Credit Card",
+   "body": "Payment of Rs.8,941.94 has been received towards your Kotak Zen Signature Credit Card xx4997 on 29-Aug-2024. Thank you for the payment.",
+   "date": "2024-08-29",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 420.81 on your Axis Bank Magnus Credit Card ending 4538 at BLINKIT, 30-Aug-2024. Avl Lmt INR 7,589.35. SMS BLOCK to 5676782 if not you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-08-30",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX4538 for INR 17,485.92 at JIO RECHARGE on 01-Sep-2024 11:04:23. Available limit: INR 35,695.97.\n\nOpt for e-statements and go green.",
+   "date": "2024-09-01",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. xx4538 for INR 3,414.35 at OLA CABS on 03-Sep-2024 05:56:24. Available limit: INR 1,32,536.86.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-09-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 1,969.21 at OLA CABS on 04-Sep-2024 18:07:45. Available limit: INR 63,434.63.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-09-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Your Kotak Credit Card statement for Sep 2024",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card xx4997 statement for Sep 2024 is ready. Total amount due Rs.44,897.55, minimum amount due Rs.2,244.88, payable by 24-Sep-2024.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Sep 2024",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/08/24 to 09/09/24. Total amount due Rs.37,112.72, due 27/09/24.\n\n",
+   "date": "2024-09-10",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Sep2024.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nARJUN SINGH\nFLAT 765, SUNRISE APARTMENTS\n26TH CROSS, KOTHRUD\nBENGALURU - 672011\nCard Name: Axis Bank Magnus Credit Card\nCredit Card Number: 451119XXXXXX4538\nStatement Period: 10/08/24 - 09/09/24\nStatement Generation Date: 09/09/24\nPayment Summary\nTotal Payment Due: Rs.37,112.72\nMinimum Payment Due: Rs.1,855.64\nPayment Due Date: 27/09/24\nAccount Summary\nCredit Limit: Rs.6,65,000.00\nAvailable Credit Limit: Rs.6,32,516.40\nAvailable Cash Limit: Rs.1,33,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n11/08/24 MYNTRA BENGALURU 9,760.96 Dr\n14/08/24 MCDONALDS HYDERABAD 7,401.59 Dr\n19/08/24 PAYTM PUNE 15,002.77 Dr\n21/08/24 DMART HYDERABAD 406.82 Dr\n23/08/24 APPLE SERVICES BENGALURU 297.07 Dr\n31/08/24 APOLLO PHARMACY HYDERABAD 1,340.28 Dr\n04/09/24 SWIGGY KOLKATA 2,544.09 Dr\n09/09/24 SWIGGY KOCHI 359.14 Dr\n\nAdd-on Card Transactions\nPRIYA SINGH - 4248 95XX XXXX 8725\n15/08/24 NETFLIX AHMEDABAD 341.76\n18/08/24 SODEXO CHENNAI 308.30\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Sep 2024",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card XX3741 statement for Sep 2024 is ready. Total amount due Rs.3,765.32, minimum amount due Rs.200.00, payable by 29/09/24.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 1,771.07 at TATA POWER on 27-Sep-2024 03:00:28. Available limit: INR 1,00,261.32.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-09-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX3741 for INR 1,140.49 at MAKEMYTRIP on 30-Sep-2024 23:16:01. Available limit: INR 3,318.67.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-30",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Arjun,\nUse your card on UPI and earn extra rewards.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.437.48 charged to Kotak Zen Signature Credit Card ending 4997 - EAZYDINER - 05-Oct-2024.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.248.26 spent on your Kotak Mahindra Bank Credit Card XX4997 at FLIPKART on 06-Oct-2024. Avl limit Rs.1,34,087.63.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-06",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Your Kotak Credit Card statement for Oct 2024",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card XX4997 statement for Oct 2024 is ready. Total amount due Rs.1,370.28, minimum amount due Rs.200.00, payable by 24-Oct-2024.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-10-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Premier Miles Credit Card no. xx3741 for INR 7,620.04 at PAYTM on 08-Oct-2024 10:20:13. Available limit: INR 1,13,433.45.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-10-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #650-8924144-4306662 is confirmed. Total Rs.2,832.98. Estimated delivery in 2 days.",
+   "date": "2024-10-08",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m131",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Oct 2024",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card ending 4538 statement for the period 10/09/24 to 09/10/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-10-10",
+   "attachments": [
+    {
+     "filename": "4538_09102024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Oct 2024",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card xx3741 statement for Oct 2024 is ready. Total amount due Rs.8,756.51, minimum amount due Rs.437.83, payable by 29/10/24.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-10-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. xx8725 for INR 827.59 at BESCOM on 21-Oct-2024 18:13:50. Available limit: INR 2,915.48.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.103.94 charged to Kotak Zen Signature Credit Card XX4997 - JIO RECHARGE - 22-Oct-2024.",
+   "date": "2024-10-22",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx8725 for INR 107.89 at PVR INOX on 23-Oct-2024 20:24:36. Available limit: INR 30,693.31.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Payment received - Kotak Credit Card",
+   "body": "Payment of Rs.3,255.22 has been received towards your Kotak Mahindra Bank Credit Card xx4997 on 29-Oct-2024. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-10-29",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 628.36 has been received towards your Axis Bank Premier Miles Credit Card ending 3741 on 01-Nov-2024. Thank you for the payment.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-01",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Spent INR 1,026.22 on your Axis Bank Credit Card XX4538 at PHONEPE, 02-Nov-2024. Avl Lmt INR 1,56,574.99. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-11-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX4538 for INR 298.61 at SODEXO on 06-Nov-2024 07:50:23. Available limit: INR 37,127.74.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-06",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Your Kotak Credit Card statement for Nov 2024",
+   "body": "Dear Arjun,\nPlease find attached your Kotak Zen Signature Credit Card xx4997 statement for the period 07-Oct-2024 to 06-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-07",
+   "attachments": [
+    {
+     "filename": "4997_06112024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #845-9627309-4961223 is confirmed. Total Rs.3,238.04. Estimated delivery in 2 days.",
+   "date": "2024-11-08",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Nov 2024",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card xx4538 statement for Nov 2024 is ready. Total amount due Rs.8,250.50, minimum amount due Rs.412.53, payable by 27/11/24.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2024-11-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Nov 2024",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card XX3741 statement for the period 12/10/24 to 11/11/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-11-12",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 8725 for INR 233.08 at AIRTEL PREPAID on 13-Nov-2024 00:18:57. Available limit: INR 32,624.21.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your Kotak Mahindra Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2024-11-16",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 6,752.82 has been received towards your Axis Bank Credit Card xx3741 on 20-Nov-2024. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Arjun,\nGet up to 10% cashback on partner brands.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-11-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.162.85 charged to Kotak Zen Signature Credit Card xx4997 - SWIGGY - 29-Nov-2024.",
+   "date": "2024-11-29",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.873.50 charged to Kotak Zen Signature Credit Card xx4997 - APOLLO PHARMACY - 02-Dec-2024.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-02",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 310.91 at BESCOM on 03-Dec-2024 05:41:58. Available limit: INR 2,467.58.\n\nOpt for e-statements and go green.",
+   "date": "2024-12-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX4538 for INR 1,154.41 at NYKAA on 05-Dec-2024 13:56:15. Available limit: INR 1,89,697.90.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-12-05",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Your Kotak Credit Card statement for Dec 2024",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card XX4997 statement for Dec 2024 is ready. Total amount due Rs.42,799.18, minimum amount due Rs.2,139.96, payable by 24-Dec-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-12-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Spent INR 12,059.36 on your Axis Bank Credit Card ending 3741 at DECATHLON, 07-Dec-2024. Avl Lmt INR 14,314.47. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-12-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Dec 2024",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card XX4538 statement for Dec 2024 is ready. Total amount due Rs.1,295.37, minimum amount due Rs.200.00, payable by 27/12/24.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-12-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Dec 2024",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card XX3741 statement for Dec 2024 is ready. Total amount due Rs.16,867.33, minimum amount due Rs.843.37, payable by 29/12/24.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 246.97 at FLIPKART on 13-Dec-2024 23:38:17. Available limit: INR 10,651.37.",
+   "date": "2024-12-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.2,626.49 charged to Kotak Mahindra Bank Credit Card XX4997 - BATA INDIA - 14-Dec-2024.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-12-14",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 299.29 on your Axis Bank Credit Card XX3741 at BLINKIT, 18-Dec-2024. Avl Lmt INR 31,595.48. SMS BLOCK to 5676782 if not you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 4,537.62 at HPCL PETROL on 27-Dec-2024 04:00:59. Available limit: INR 7,278.61.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "OTP for your transaction",
+   "body": "878034 is the OTP for your transaction of Rs.402.52 at GOOGLE PLAY. Valid for 10 minutes. Do not share.",
+   "date": "2025-01-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.1,410.48 spent on your Kotak Mahindra Bank Credit Card xx4997 at OLA CABS on 06-Jan-2025. Avl limit Rs.50,416.37.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-06",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Your Kotak Credit Card statement for Jan 2025",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card XX4997 statement for Jan 2025 is ready. Total amount due Rs.32,052.17, minimum amount due Rs.1,602.61, payable by 24-Jan-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-01-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Jan 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card xx4538 statement for the period 10/12/24 to 09/01/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-10",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Jan 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card xx3741 statement for the period 12/12/24 to 11/01/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-01-12",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Spent INR 492.02 on your Axis Bank Magnus Credit Card XX8725 at STARBUCKS, 24-Jan-2025. Avl Lmt INR 21,786.80. SMS BLOCK to 5676782 if not you.",
+   "date": "2025-01-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 9,541.39 has been received towards your Axis Bank Credit Card XX8725 on 27-Jan-2025. Thank you for the payment.\n\nOpt for e-statements and go green.",
+   "date": "2025-01-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Your Kotak Credit Card statement for Feb 2025",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card ending 4997 statement for Feb 2025 is ready. Total amount due Rs.24,746.25, minimum amount due Rs.1,237.31, payable by 24-Feb-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 489.71 on your Axis Bank Credit Card XX3741 at BIG BAZAAR, 07-Feb-2025. Avl Lmt INR 69,878.13. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Axis Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 6328 has been successfully linked/verified for your Axis Bank relationship. If this was not you, contact us.",
+   "date": "2025-02-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Feb 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card xx4538 statement for the period 10/01/25 to 09/02/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-02-10",
+   "attachments": [
+    {
+     "filename": "4538_09022025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX3741 for INR 1,508.65 at SODEXO on 10-Feb-2025 05:45:40. Available limit: INR 4,147.73.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.3,507.33 spent on your Kotak Zen Signature Credit Card XX4997 at APPLE SERVICES on 10-Feb-2025. Avl limit Rs.2,015.69.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Feb 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card XX3741 statement for the period 12/01/25 to 11/02/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-12",
+   "attachments": [
+    {
+     "filename": "3741_11022025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Premier Miles Credit Card no. XX3741 for INR 19,869.36 at PHONEPE on 14-Feb-2025 11:39:56. Available limit: INR 7,824.62.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Dear Customer,\nRs.5,836.31 spent on your Kotak Mahindra Bank Credit Card XX4997 at MCDONALDS on 14-Feb-2025. Avl limit Rs.2,453.57.",
+   "date": "2025-02-14",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 24,226.12 on 22-Feb-2025 for your Axis Bank Premier Miles Credit Card xx3741. Available credit limit has been updated.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Premier Miles Credit Card no. XX3741 for INR 2,922.86 at MEDPLUS on 23-Feb-2025 08:58:00. Available limit: INR 1,24,129.24.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-02-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Spent INR 17,279.93 on your Axis Bank Magnus Credit Card XX8725 at HPCL PETROL, 24-Feb-2025. Avl Lmt INR 10,135.33. SMS BLOCK to 5676782 if not you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-02-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Arjun,\nPlease find attached the updated MITC for your Axis Bank credit cards.\n\n",
+   "date": "2025-03-01",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Premier Miles Credit Card no. XX3741 for INR 1,446.24 at UBER INDIA on 03-Mar-2025 17:15:57. Available limit: INR 5,389.56.",
+   "date": "2025-03-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Your Kotak Credit Card statement for Mar 2025",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card ending 4997 statement for Mar 2025 is ready. Total amount due Rs.43,025.25, minimum amount due Rs.2,151.26, payable by 24-Mar-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-03-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Arjun,\nUse your card on UPI and earn extra rewards.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-07",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m183",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Mar 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/02/25 to 09/03/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-03-10",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 8725 for INR 998.34 at DECATHLON on 10-Mar-2025 02:43:34. Available limit: INR 34,376.80.",
+   "date": "2025-03-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Mar 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card XX3741 statement for the period 12/02/25 to 11/03/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-12",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Spent INR 94.06 on your Axis Bank Credit Card XX4538 at BESCOM, 14-Mar-2025. Avl Lmt INR 8,418.27. SMS BLOCK to 5676782 if not you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. ending 8725 for INR 22,192.98 at SPOTIFY on 18-Mar-2025 17:18:26. Available limit: INR 49,707.62.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.357.45 charged to Kotak Mahindra Bank Credit Card ending 4997 - SODEXO - 19-Mar-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-19",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 1,337.87 on your Axis Bank Credit Card XX3741 at ZOMATO, 24-Mar-2025. Avl Lmt INR 45,803.54. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2025-03-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 3,051.64 on 25-Mar-2025 for your Axis Bank Magnus Credit Card XX8725. Available credit limit has been updated.\n\nOpt for e-statements and go green.",
+   "date": "2025-03-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.6,309.30 charged to Kotak Mahindra Bank Credit Card XX4997 - LENSKART - 25-Mar-2025.",
+   "date": "2025-03-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. ending 4538 for INR 372.79 at MCDONALDS on 01-Apr-2025 20:20:47. Available limit: INR 11,130.70.",
+   "date": "2025-04-01",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Spent INR 108.58 on your Axis Bank Magnus Credit Card XX8725 at IRCTC, 01-Apr-2025. Avl Lmt INR 5,019.08. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-01",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX8725 for INR 145.42 at AMAZON PAY INDIA on 06-Apr-2025 15:47:33. Available limit: INR 1,35,864.09.",
+   "date": "2025-04-06",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Your Kotak Credit Card statement for Apr 2025",
+   "body": "Dear Arjun,\nPlease find attached your Kotak Zen Signature Credit Card xx4997 statement for the period 07-Mar-2025 to 06-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-04-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202504.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX4538 for INR 10,388.75 at BATA INDIA on 07-Apr-2025 02:01:46. Available limit: INR 45,202.69.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "Axis Bank festive offers",
+   "body": "Dear Arjun,\nUse your card on UPI and earn extra rewards.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-04-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Apr 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/03/25 to 09/04/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-10",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Premier Miles Credit Card no. XX3741 for INR 184.53 at OLA CABS on 11-Apr-2025 15:02:26. Available limit: INR 88,889.22.",
+   "date": "2025-04-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Apr 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card xx3741 statement for the period 12/03/25 to 11/04/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-04-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202504.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx8725 for INR 621.77 at ZOMATO on 14-Apr-2025 02:48:38. Available limit: INR 9,859.11.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-04-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 13,669.56 on 21-Apr-2025 for your Axis Bank Credit Card ending 4538. Available credit limit has been updated.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Spent INR 6,350.39 on your Axis Bank Magnus Credit Card XX8725 at INDIGO AIRLINES, 22-Apr-2025. Avl Lmt INR 63,759.75. SMS BLOCK to 5676782 if not you.",
+   "date": "2025-04-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.647.18 charged to Kotak Zen Signature Credit Card ending 4997 - INDIAN OIL - 25-Apr-2025.",
+   "date": "2025-04-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 9,726.41 has been received towards your Axis Bank Premier Miles Credit Card XX3741 on 26-Apr-2025. Thank you for the payment.",
+   "date": "2025-04-26",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 86.86 has been received towards your Axis Bank Credit Card XX4538 on 29-Apr-2025. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-04-29",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.1,871.16 charged to Kotak Zen Signature Credit Card XX4997 - URBAN COMPANY - 01-May-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-05-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Your Kotak Credit Card statement for May 2025",
+   "body": "Dear Arjun,\nPlease find attached your Kotak Zen Signature Credit Card ending 4997 statement for the period 07-Apr-2025 to 06-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-07",
+   "attachments": [
+    {
+     "filename": "Kotak_CC_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - May 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/04/25 to 09/05/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Spent INR 186.92 on your Axis Bank Credit Card XX8725 at BESCOM, 10-May-2025. Avl Lmt INR 83,789.53. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2025-05-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - May 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card xx3741 statement for the period 12/04/25 to 11/05/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 971.65 on your Axis Bank Credit Card XX3741 at MYNTRA, 12-May-2025. Avl Lmt INR 77,452.56. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Premier Miles Credit Card no. XX3741 for INR 1,662.07 at GOOGLE PLAY on 12-May-2025 10:15:45. Available limit: INR 8,061.23.\n\nOpt for e-statements and go green.",
+   "date": "2025-05-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 4538 for INR 1,177.23 at ZEPTO on 12-May-2025 09:50:54. Available limit: INR 35,346.02.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Payment received - Kotak Credit Card",
+   "body": "Payment of Rs.4,006.13 has been received towards your Kotak Zen Signature Credit Card XX4997 on 12-May-2025. Thank you for the payment.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-12",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 14,643.23 on your Axis Bank Magnus Credit Card ending 4538 at IKEA, 15-May-2025. Avl Lmt INR 3,917.31. SMS BLOCK to 5676782 if not you.",
+   "date": "2025-05-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX4538 for INR 3,641.87 at ZOMATO on 17-May-2025 10:37:02. Available limit: INR 1,61,377.55.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.468.22 charged to Kotak Mahindra Bank Credit Card xx4997 - HPCL PETROL - 17-May-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "Payment received - Kotak Credit Card",
+   "body": "Payment of Rs.2,479.00 has been received towards your Kotak Zen Signature Credit Card xx4997 on 18-May-2025. Thank you for the payment.",
+   "date": "2025-05-18",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 3,348.00 on your Axis Bank Credit Card XX3741 at MEDPLUS, 27-May-2025. Avl Lmt INR 2,648.94. SMS BLOCK to 5676782 if not you.",
+   "date": "2025-05-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 8,958.53 has been received towards your Axis Bank Magnus Credit Card ending 8725 on 04-Jun-2025. Thank you for the payment.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Your Kotak Credit Card statement for Jun 2025",
+   "body": "Dear Arjun,\nPlease find attached your Kotak Zen Signature Credit Card XX4997 statement for the period 07-May-2025 to 06-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-07",
+   "attachments": [
+    {
+     "filename": "4997_06062025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Jun 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card xx4538 statement for the period 10/05/25 to 09/06/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-10",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Jun 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card XX3741 statement for the period 12/05/25 to 11/06/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. xx8725 for INR 2,905.75 at IXIGO on 22-Jun-2025 08:53:18. Available limit: INR 1,69,658.35.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 8,536.35 on your Axis Bank Credit Card ending 4538 at IRCTC, 01-Jul-2025. Avl Lmt INR 92,477.52. SMS BLOCK to 5676782 if not you.",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "OTP for your transaction",
+   "body": "740278 is the OTP for your transaction of Rs.7,473.40 at SWIGGY. Valid for 10 minutes. Do not share.",
+   "date": "2025-07-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Your Kotak Credit Card statement for Jul 2025",
+   "body": "Dear Arjun,\nPlease find attached your Kotak Zen Signature Credit Card XX4997 statement for the period 07-Jun-2025 to 06-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Payment received - Kotak Credit Card",
+   "body": "Payment of Rs.117.04 has been received towards your Kotak Zen Signature Credit Card XX4997 on 07-Jul-2025. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-07",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Spent INR 4,949.68 on your Axis Bank Magnus Credit Card XX4538 at BESCOM, 08-Jul-2025. Avl Lmt INR 33,239.98. SMS BLOCK to 5676782 if not you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Jul 2025",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card xx4538 statement for Jul 2025 is ready. Total amount due Rs.13,224.53, minimum amount due Rs.661.23, payable by 27/07/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-07-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Jul 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card XX3741 statement for the period 12/06/25 to 11/07/25. Total amount due Rs.36,026.27, due 29/07/25.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nARJUN SINGH\nFLAT 167, GREEN VALLEY APARTMENTS\n12TH CROSS, SECTOR 21\nAHMEDABAD - 418083\nCard Name: Axis Bank Premier Miles Credit Card\nCredit Card Number: 423950XXXXXX3741\nStatement Period: 12/06/25 - 11/07/25\nStatement Generation Date: 11/07/25\nPayment Summary\nTotal Payment Due: Rs.36,026.27\nMinimum Payment Due: Rs.1,801.31\nPayment Due Date: 29/07/25\nAccount Summary\nCredit Limit: Rs.2,65,000.00\nAvailable Credit Limit: Rs.2,34,703.01\nAvailable Cash Limit: Rs.53,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n20/06/25 BIG BAZAAR PUNE 4,842.63 Dr\n25/06/25 AMAZON PAY INDIA JAIPUR 12,227.15 Dr\n02/07/25 OLA CABS JAIPUR 1,130.54 Dr\n02/07/25 UBER INDIA AHMEDABAD 9,040.48 Dr\n04/07/25 BLINKIT KOCHI 8,524.64 Dr\n06/07/25 FLIPKART CHENNAI 150.50 Dr\n07/07/25 PHONEPE AHMEDABAD 110.33 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx3741",
+   "body": "Spent INR 1,532.44 on your Axis Bank Credit Card xx3741 at EASEMYTRIP, 14-Jul-2025. Avl Lmt INR 88,012.07. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Spent INR 2,380.07 on your Axis Bank Premier Miles Credit Card ending 3741 at EAZYDINER, 22-Jul-2025. Avl Lmt INR 10,363.14. SMS BLOCK to 5676782 if not you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX4538 for INR 1,676.54 at INDIAN OIL on 30-Jul-2025 05:15:05. Available limit: INR 16,346.26.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-30",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 23,138.48 on your Axis Bank Credit Card XX3741 at EASEMYTRIP, 02-Aug-2025. Avl Lmt INR 1,89,376.02. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "OTP for your transaction",
+   "body": "138584 is the OTP for your transaction of Rs.385.28 at ZOMATO. Valid for 10 minutes. Do not share.",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m238",
+   "subject": "Your Kotak Credit Card statement for Aug 2025",
+   "body": "Dear Arjun,\nYour Kotak Zen Signature Credit Card ending 4997 statement for Aug 2025 is ready. Total amount due Rs.17,515.98, minimum amount due Rs.875.80, payable by 24-Aug-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-08-07",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Aug 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card ending 4538 statement for the period 10/07/25 to 09/08/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-10",
+   "attachments": [
+    {
+     "filename": "4538_09082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx4538 for INR 280.74 at MYNTRA on 11-Aug-2025 18:10:50. Available limit: INR 23,030.36.",
+   "date": "2025-08-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Aug 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card ending 3741 statement for the period 12/07/25 to 11/08/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.279.85 charged to Kotak Zen Signature Credit Card ending 4997 - MEDPLUS - 12-Aug-2025.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Spent INR 1,770.12 on your Axis Bank Premier Miles Credit Card ending 3741 at MAKEMYTRIP, 13-Aug-2025. Avl Lmt INR 3,070.73. SMS BLOCK to 5676782 if not you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 3741 for INR 2,218.20 at AIRTEL PREPAID on 17-Aug-2025 05:16:24. Available limit: INR 85,930.62.",
+   "date": "2025-08-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 1,847.45 on your Axis Bank Premier Miles Credit Card XX3741 at SWIGGY, 18-Aug-2025. Avl Lmt INR 56,352.84. SMS BLOCK to 5676782 if not you.",
+   "date": "2025-08-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Your Kotak Mahindra Bank Credit Card has been closed",
+   "body": "Dear Arjun Singh,\nThis is to confirm that your Kotak Zen Signature Credit Card xx4997 has been closed on 20-Aug-2025 at your request. No dues are pending.\nThank you for banking with us.",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m247",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 262.14 on your Axis Bank Premier Miles Credit Card XX3741 at PVR INOX, 23-Aug-2025. Avl Lmt INR 2,227.89. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Sep 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/08/25 to 09/09/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-09-10",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Sep 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card XX3741 statement for the period 12/08/25 to 11/09/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Axis Bank festive offers",
+   "body": "Dear Arjun,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2025-09-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "OTP for your transaction",
+   "body": "328614 is the OTP for your transaction of Rs.3,470.01 at IRCTC. Valid for 10 minutes. Do not share.",
+   "date": "2025-09-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m252",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your Citibank relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m253",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 97.31 at INDIAN OIL on 04-Oct-2025 22:29:32. Available limit: INR 3,799.63.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m254",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Oct 2025",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card xx4538 statement for Oct 2025 is ready. Total amount due Rs.34,998.06, minimum amount due Rs.1,749.90, payable by 27/10/25.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m255",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Oct 2025",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card xx3741 statement for Oct 2025 is ready. Total amount due Rs.863.31, minimum amount due Rs.200.00, payable by 29/10/25.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m256",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. xx4538 for INR 7,134.11 at EASEMYTRIP on 17-Oct-2025 11:53:41. Available limit: INR 1,03,149.62.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m257",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 1,016.27 on 17-Oct-2025 for your Axis Bank Magnus Credit Card XX8725. Available credit limit has been updated.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m258",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Spent INR 227.44 on your Axis Bank Magnus Credit Card XX4538 at INDIGO AIRLINES, 18-Oct-2025. Avl Lmt INR 72,348.04. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m259",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Arjun,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m260",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX8725 for INR 216.07 at NYKAA on 22-Oct-2025 20:54:45. Available limit: INR 7,098.18.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m261",
+   "subject": "OTP for your transaction",
+   "body": "163231 is the OTP for your transaction of Rs.2,173.08 at PVR INOX. Valid for 10 minutes. Do not share.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m262",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. xx8725 for INR 10,552.91 at MAKEMYTRIP on 09-Nov-2025 18:11:19. Available limit: INR 7,445.07.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m263",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Nov 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/10/25 to 09/11/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m264",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX3365 has been updated on 03-May-2025. If not requested by you, call customer care.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m265",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Nov 2025",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card ending 3741 statement for Nov 2025 is ready. Total amount due Rs.14,805.18, minimum amount due Rs.740.26, payable by 29/11/25.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m266",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Spent INR 2,014.21 on your Axis Bank Magnus Credit Card XX8725 at IRCTC, 13-Nov-2025. Avl Lmt INR 10,830.84. SMS BLOCK to 5676782 if not you.",
+   "date": "2025-11-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m267",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 181.41 has been received towards your Axis Bank Credit Card ending 4538 on 16-Nov-2025. Thank you for the payment.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m268",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 382.23 has been received towards your Axis Bank Magnus Credit Card XX8725 on 22-Nov-2025. Thank you for the payment.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m269",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Spent INR 1,754.20 on your Axis Bank Credit Card XX4538 at MEDPLUS, 24-Nov-2025. Avl Lmt INR 42,811.07. SMS BLOCK to 5676782 if not you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m270",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX4538 for INR 7,477.18 at EASEMYTRIP on 07-Dec-2025 13:44:59. Available limit: INR 13,671.27.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m271",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. ending 4538 for INR 5,124.46 at MAKEMYTRIP on 09-Dec-2025 22:19:02. Available limit: INR 44,093.97.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m272",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Dec 2025",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card XX4538 statement for Dec 2025 is ready. Total amount due Rs.3,698.92, minimum amount due Rs.200.00, payable by 27/12/25.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m273",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Dec 2025",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card ending 3741 statement for the period 12/11/25 to 11/12/25. Total amount due Rs.41,236.94, due 31/12/25.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "3741_11122025_stmt.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nARJUN SINGH\nFLAT 369, GREEN VALLEY APARTMENTS\n9TH CROSS, SECTOR 21\nJAIPUR - 572973\nCard Name: Axis Bank Premier Miles Credit Card\nCredit Card Number: 423950XXXXXX3741\nStatement Period: 12/11/25 - 11/12/25\nStatement Generation Date: 11/12/25\nPayment Summary\nTotal Payment Due: Rs.41,236.94\nMinimum Payment Due: Rs.2,061.85\nPayment Due Date: 31/12/25\nAccount Summary\nCredit Limit: Rs.2,65,000.00\nAvailable Credit Limit: Rs.2,54,800.17\nAvailable Cash Limit: Rs.53,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n13/11/25 IXIGO JAIPUR 6,255.67 Dr\n20/11/25 MEDPLUS BENGALURU 206.39 Dr\n20/11/25 NYKAA HYDERABAD 15,567.94 Dr\n21/11/25 PAYTM HYDERABAD 557.16 Dr\n23/11/25 BIG BAZAAR AHMEDABAD 531.02 Dr\n25/11/25 MCDONALDS BENGALURU 1,101.80 Dr\n27/11/25 NYKAA AHMEDABAD 1,669.77 Dr\n28/11/25 HPCL PETROL JAIPUR 172.24 Dr\n04/12/25 INDIAN OIL CHENNAI 402.15 Dr\n09/12/25 SWIGGY GURUGRAM 14,772.80 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m274",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 131.98 at SPOTIFY on 14-Dec-2025 02:35:00. Available limit: INR 17,751.65.",
+   "date": "2025-12-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m275",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX4538 for INR 1,243.35 at DMART on 16-Dec-2025 04:55:28. Available limit: INR 3,345.05.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m276",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX8725 for INR 1,139.94 at BLINKIT on 17-Dec-2025 20:17:25. Available limit: INR 5,935.55.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m277",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #901-5102123-6080897 is confirmed. Total Rs.1,566.97. Estimated delivery in 2 days.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m278",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx4538 for INR 306.80 at EASEMYTRIP on 31-Dec-2025 07:43:52. Available limit: INR 4,289.64.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-31",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m279",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 10,010.51 on your Axis Bank Credit Card XX3741 at DECATHLON, 02-Jan-2026. Avl Lmt INR 4,193.88. SMS BLOCK to 5676782 if not you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m280",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 8725 for INR 583.45 at IXIGO on 04-Jan-2026 11:00:56. Available limit: INR 25,350.79.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m281",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 150.16 on your Axis Bank Premier Miles Credit Card XX3741 at NYKAA, 05-Jan-2026. Avl Lmt INR 21,939.24. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m282",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Jan 2026",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card xx4538 statement for the period 10/12/25 to 09/01/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202601.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m283",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Jan 2026",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card XX3741 statement for the period 12/12/25 to 11/01/26. Total amount due Rs.3,061.95, due 30/01/26.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nARJUN SINGH\nFLAT 764, ORCHID APARTMENTS\n11TH CROSS, SECTOR 21\nAHMEDABAD - 600636\nCard Name: Axis Bank Premier Miles Credit Card\nCredit Card Number: 423950XXXXXX3741\nStatement Period: 12/12/25 - 11/01/26\nStatement Generation Date: 11/01/26\nPayment Summary\nTotal Payment Due: Rs.3,061.95\nMinimum Payment Due: Rs.200.00\nPayment Due Date: 30/01/26\nAccount Summary\nCredit Limit: Rs.2,65,000.00\nAvailable Credit Limit: Rs.2,64,259.83\nAvailable Cash Limit: Rs.53,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n12/12/25 TATA PLAY CHENNAI 571.06 Dr\n13/12/25 BLINKIT BENGALURU 182.59 Dr\n21/12/25 BPCL FUEL MUMBAI 344.85 Dr\n22/12/25 BIG BAZAAR JAIPUR 883.27 Dr\n28/12/25 DECATHLON GURUGRAM 452.23 Dr\n09/01/26 FLIPKART GURUGRAM 627.95 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m284",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 4538 for INR 414.52 at EASEMYTRIP on 13-Jan-2026 10:39:42. Available limit: INR 97,468.10.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m285",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Spent INR 146.35 on your Axis Bank Credit Card XX4538 at GOOGLE PLAY, 14-Jan-2026. Avl Lmt INR 2,483.54. SMS BLOCK to 5676782 if not you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m286",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX3741 for INR 96.28 at AMAZON PAY INDIA on 17-Jan-2026 05:38:01. Available limit: INR 3,923.18.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m287",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx3741",
+   "body": "Spent INR 9,495.64 on your Axis Bank Credit Card xx3741 at EASEMYTRIP, 19-Jan-2026. Avl Lmt INR 96,578.79. SMS BLOCK to 5676782 if not you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-19",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m288",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 3741 for INR 292.35 at RELIANCE DIGITAL on 23-Jan-2026 19:35:48. Available limit: INR 17,510.54.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m289",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Spent INR 8,166.41 on your Axis Bank Magnus Credit Card XX4538 at BOOKMYSHOW, 24-Jan-2026. Avl Lmt INR 12,303.84. SMS BLOCK to 5676782 if not you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m290",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 149.03 has been received towards your Axis Bank Credit Card XX8725 on 30-Jan-2026. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-30",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m291",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. xx8725 for INR 804.37 at LENSKART on 01-Feb-2026 23:22:38. Available limit: INR 1,99,846.82.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m292",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 1,545.54 on your Axis Bank Magnus Credit Card ending 4538 at STARBUCKS, 09-Feb-2026. Avl Lmt INR 65,057.57. SMS BLOCK to 5676782 if not you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m293",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Feb 2026",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card xx4538 statement for Feb 2026 is ready. Total amount due Rs.923.65, minimum amount due Rs.200.00, payable by 27/02/26.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m294",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Feb 2026",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card xx3741 statement for Feb 2026 is ready. Total amount due Rs.431.11, minimum amount due Rs.200.00, payable by 01/03/26.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m295",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx8725",
+   "body": "Spent INR 12,321.20 on your Axis Bank Magnus Credit Card xx8725 at HPCL PETROL, 12-Feb-2026. Avl Lmt INR 4,282.35. SMS BLOCK to 5676782 if not you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m296",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX3741 for INR 524.10 at OLA CABS on 14-Feb-2026 09:35:28. Available limit: INR 2,886.41.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m297",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX3741 for INR 3,734.69 at JIO RECHARGE on 20-Feb-2026 20:41:30. Available limit: INR 1,80,278.90.",
+   "date": "2026-02-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m298",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX4538 for INR 176.60 at EASEMYTRIP on 20-Feb-2026 17:38:42. Available limit: INR 11,639.07.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m299",
+   "subject": "Axis Bank festive offers",
+   "body": "Dear Arjun,\nConvert big spends to EMI at low interest.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m300",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 99.54 has been received towards your Axis Bank Credit Card ending 3741 on 24-Feb-2026. Thank you for the payment.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m301",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx8725",
+   "body": "Spent INR 19,187.07 on your Axis Bank Credit Card xx8725 at DECATHLON, 05-Mar-2026. Avl Lmt INR 82,344.91. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m302",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Mar 2026",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card ending 4538 statement for the period 10/02/26 to 09/03/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-03-10",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m303",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Mar 2026",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card XX3741 statement for the period 12/02/26 to 11/03/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "3741_11032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m304",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Spent INR 105.88 on your Axis Bank Magnus Credit Card XX8725 at TATA PLAY, 13-Mar-2026. Avl Lmt INR 69,461.41. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m305",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Arjun,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2026-03-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m306",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Apr 2026",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/03/26 to 09/04/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-10",
+   "attachments": [
+    {
+     "filename": "4538_09042026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m307",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Apr 2026",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card xx3741 statement for the period 12/03/26 to 11/04/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m308",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 3741 for INR 1,131.52 at CROMA on 17-Apr-2026 13:11:25. Available limit: INR 8,469.04.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m309",
+   "subject": "Earn more with your card",
+   "body": "Dear Arjun,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-17",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m310",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Premier Miles Credit Card no. xx3741 for INR 1,053.02 at EAZYDINER on 21-Apr-2026 08:15:13. Available limit: INR 1,12,352.75.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m311",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. xx4538 for INR 7,218.68 at FLIPKART on 21-Apr-2026 05:04:11. Available limit: INR 3,606.29.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m312",
+   "subject": "Kotak Mahindra Bank festive offers",
+   "body": "Dear Arjun,\nGet up to 10% cashback on partner brands.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m313",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX4538 for INR 899.58 at IKEA on 30-Apr-2026 21:08:13. Available limit: INR 8,479.51.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-30",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m314",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Premier Miles Credit Card no. ending 3741 for INR 12,938.20 at DMART on 04-May-2026 13:44:40. Available limit: INR 4,527.17.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m315",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Premier Miles Credit Card no. ending 3741 for INR 11,374.75 at PVR INOX on 06-May-2026 12:26:33. Available limit: INR 77,915.36.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-06",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m316",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - May 2026",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card XX4538 statement for May 2026 is ready. Total amount due Rs.439.29, minimum amount due Rs.200.00, payable by 27/05/26.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m317",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - May 2026",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card XX3741 statement for May 2026 is ready. Total amount due Rs.7,837.43, minimum amount due Rs.391.87, payable by 29/05/26.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m318",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 6,120.75 on 12-May-2026 for your Axis Bank Premier Miles Credit Card ending 3741. Available credit limit has been updated.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m319",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 1,470.88 has been received towards your Axis Bank Magnus Credit Card xx4538 on 12-May-2026. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m320",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX4538 for INR 7,350.22 at PHONEPE on 16-May-2026 18:29:09. Available limit: INR 13,708.20.",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m321",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 389.06 has been received towards your Axis Bank Premier Miles Credit Card xx3741 on 20-May-2026. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m322",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 1,827.20 on your Axis Bank Premier Miles Credit Card XX3741 at JIO RECHARGE, 28-May-2026. Avl Lmt INR 47,040.60. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m323",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Spent INR 143.58 on your Axis Bank Credit Card ending 3741 at BPCL FUEL, 28-May-2026. Avl Lmt INR 4,700.14. SMS BLOCK to 5676782 if not you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m324",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #419-8363093-3587446 is confirmed. Total Rs.4,709.41. Estimated delivery in 2 days.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m325",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Spent INR 1,311.45 on your Axis Bank Credit Card XX4538 at BIG BAZAAR, 01-Jun-2026. Avl Lmt INR 19,325.86. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m326",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your Citibank relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-02",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  },
+  {
+   "id": "m327",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX8725 for INR 257.27 at AIRTEL PREPAID on 09-Jun-2026 00:29:37. Available limit: INR 70,780.34.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m328",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Jun 2026",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card ending 4538 statement for Jun 2026 is ready. Total amount due Rs.33,578.59, minimum amount due Rs.1,678.93, payable by 27/06/26.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m329",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Jun 2026",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card XX3741 statement for the period 12/05/26 to 11/06/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m330",
+   "subject": "OTP for your transaction",
+   "body": "151974 is the OTP for your transaction of Rs.133.67 at ZOMATO. Valid for 10 minutes. Do not share.",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m331",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #770-8476928-1367675 is confirmed. Total Rs.2,665.84. Estimated delivery in 2 days.",
+   "date": "2026-06-17",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m332",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your Axis Bank relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m333",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 8725",
+   "body": "Spent INR 84.27 on your Axis Bank Credit Card ending 8725 at BIG BAZAAR, 24-Jun-2026. Avl Lmt INR 1,37,833.86. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m334",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 169.21 on 24-Jun-2026 for your Axis Bank Credit Card xx8725. Available credit limit has been updated.",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m335",
+   "subject": "Payment successful",
+   "body": "Hi Arjun,\nYou paid Rs.3,658.89 to SBI Card Credit Card ending 4533 (of Vikram Singh) on 25-Jun-2026. Ref 8353993943.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m336",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. ending 8725 for INR 16,898.39 at RELIANCE DIGITAL on 28-Jun-2026 07:04:47. Available limit: INR 51,775.46.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m337",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #519-7387488-9508886 is confirmed. Total Rs.924.77. Estimated delivery in 2 days.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m338",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx8725",
+   "body": "Spent INR 1,915.71 on your Axis Bank Credit Card xx8725 at IXIGO, 05-Jul-2026. Avl Lmt INR 46,424.82. SMS BLOCK to 5676782 if not you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m339",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Jul 2026",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card XX4538 statement for Jul 2026 is ready. Total amount due Rs.7,090.92, minimum amount due Rs.354.55, payable by 27/07/26.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m340",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Jul 2026",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Premier Miles Credit Card ending 3741 statement for the period 12/06/26 to 11/07/26. Total amount due Rs.71,014.39, due 31/07/26.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nARJUN SINGH\nFLAT 124, LAKESHORE APARTMENTS\n13TH CROSS, BANJARA HILLS\nGURUGRAM - 574244\nCard Name: Axis Bank Premier Miles Credit Card\nCredit Card Number: 423950XXXXXX3741\nStatement Period: 12/06/26 - 11/07/26\nStatement Generation Date: 11/07/26\nPayment Summary\nTotal Payment Due: Rs.71,014.39\nMinimum Payment Due: Rs.3,550.72\nPayment Due Date: 31/07/26\nAccount Summary\nCredit Limit: Rs.2,65,000.00\nAvailable Credit Limit: Rs.2,50,350.51\nAvailable Cash Limit: Rs.53,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n12/06/26 RELIANCE DIGITAL JAIPUR 253.77 Dr\n14/06/26 BIG BAZAAR BENGALURU 143.34 Dr\n14/06/26 SPOTIFY KOCHI 615.10 Dr\n14/06/26 SPOTIFY MUMBAI 294.05 Dr\n20/06/26 MEDPLUS HYDERABAD 16,021.31 Dr\n21/06/26 APPLE SERVICES MUMBAI 125.93 Dr\n21/06/26 BIGBASKET JAIPUR 21,614.50 Dr\n24/06/26 IXIGO JAIPUR 7,102.98 Dr\n25/06/26 APPLE SERVICES HYDERABAD 292.98 Dr\n06/07/26 IXIGO PUNE 3,780.29 Dr\n08/07/26 IRCTC MUMBAI 20,770.14 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m341",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 106047434373. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m342",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 1,205.46 has been received towards your Axis Bank Credit Card XX3741 on 20-Jul-2026. Thank you for the payment.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m343",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx8725 for INR 286.20 at HPCL PETROL on 31-Jul-2026 14:58:27. Available limit: INR 1,26,315.31.",
+   "date": "2026-07-31",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m344",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 8725 for INR 11,508.52 at OLA CABS on 04-Aug-2026 06:36:05. Available limit: INR 25,958.35.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m345",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Aug 2026",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/07/26 to 09/08/26. Total amount due Rs.33,941.41, due 25/08/26.\n\n",
+   "date": "2026-08-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nARJUN SINGH\nFLAT 559, LAKESHORE APARTMENTS\n24TH CROSS, BANJARA HILLS\nAHMEDABAD - 586950\nCard Name: Axis Bank Magnus Credit Card\nCredit Card Number: 451119XXXXXX4538\nStatement Period: 10/07/26 - 09/08/26\nStatement Generation Date: 09/08/26\nPayment Summary\nTotal Payment Due: Rs.33,941.41\nMinimum Payment Due: Rs.1,697.07\nPayment Due Date: 25/08/26\nAccount Summary\nCredit Limit: Rs.6,65,000.00\nAvailable Credit Limit: Rs.6,43,875.23\nAvailable Cash Limit: Rs.1,33,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n13/07/26 DMART KOCHI 466.76 Dr\n20/07/26 MAKEMYTRIP CHENNAI 2,260.56 Dr\n22/07/26 SPOTIFY GURUGRAM 1,024.61 Dr\n29/07/26 MEDPLUS BENGALURU 224.98 Dr\n30/07/26 IRCTC MUMBAI 98.68 Dr\n04/08/26 DECATHLON KOCHI 177.34 Dr\n05/08/26 SODEXO BENGALURU 7,455.89 Dr\n06/08/26 BLINKIT JAIPUR 1,822.07 Dr\n06/08/26 DECATHLON KOCHI 202.72 Dr\n07/08/26 HPCL PETROL BENGALURU 589.14 Dr\n07/08/26 JIO RECHARGE PUNE 19,134.23 Dr\n08/08/26 APPLE SERVICES KOCHI 484.43 Dr\n\nAdd-on Card Transactions\nPRIYA SINGH - 4248 95XX XXXX 8725\n14/07/26 AIRTEL PREPAID BENGALURU 7,790.32\n21/07/26 DMART AHMEDABAD 8,471.72\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m346",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Aug 2026",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card XX3741 statement for Aug 2026 is ready. Total amount due Rs.495.12, minimum amount due Rs.200.00, payable by 29/08/26.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-08-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m347",
+   "subject": "Refer and earn",
+   "body": "Dear Arjun,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2026-08-13",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m348",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Premier Miles Credit Card no. ending 3741 for INR 6,842.38 at BLINKIT on 14-Aug-2026 04:50:00. Available limit: INR 6,567.55.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m349",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 129.27 on your Axis Bank Magnus Credit Card ending 4538 at NYKAA, 14-Aug-2026. Avl Lmt INR 1,79,132.75. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-08-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m350",
+   "subject": "OTP for your transaction",
+   "body": "522415 is the OTP for your transaction of Rs.2,259.41 at APOLLO PHARMACY. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m351",
+   "subject": "OTP for your transaction",
+   "body": "180715 is the OTP for your transaction of Rs.1,204.72 at BPCL FUEL. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m352",
+   "subject": "OTP for your transaction",
+   "body": "637668 is the OTP for your transaction of Rs.4,408.10 at BATA INDIA. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m353",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Spent INR 404.76 on your Axis Bank Credit Card XX4538 at JIO RECHARGE, 22-Aug-2026. Avl Lmt INR 2,010.18. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m354",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Spent INR 1,109.86 on your Axis Bank Credit Card XX4538 at EAZYDINER, 24-Aug-2026. Avl Lmt INR 9,134.25. SMS BLOCK to 5676782 if not you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m355",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. ending 8725 for INR 732.29 at MYNTRA on 26-Aug-2026 03:34:09. Available limit: INR 12,022.34.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m356",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 24,170.77 on your Axis Bank Credit Card XX3741 at APOLLO PHARMACY, 02-Sep-2026. Avl Lmt INR 4,975.60. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m357",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 1,230.55 on your Axis Bank Credit Card ending 4538 at INDIGO AIRLINES, 03-Sep-2026. Avl Lmt INR 2,710.10. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m358",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Magnus Credit Card no. XX4538 for INR 131.12 at INDIGO AIRLINES on 03-Sep-2026 20:06:07. Available limit: INR 1,29,297.10.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m359",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Spent INR 15,897.36 on your Axis Bank Credit Card XX4538 at BLINKIT, 07-Sep-2026. Avl Lmt INR 19,875.25. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m360",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #324-8882592-9864617 is confirmed. Total Rs.3,596.55. Estimated delivery in 2 days.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m361",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Sep 2026",
+   "body": "Dear Arjun,\nYour Axis Bank Magnus Credit Card ending 4538 statement for Sep 2026 is ready. Total amount due Rs.441.78, minimum amount due Rs.200.00, payable by 27/09/26.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m362",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX3741",
+   "body": "Spent INR 14,057.40 on your Axis Bank Credit Card XX3741 at BIGBASKET, 10-Sep-2026. Avl Lmt INR 1,31,551.57. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m363",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Sep 2026",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card XX3741 statement for Sep 2026 is ready. Total amount due Rs.989.72, minimum amount due Rs.200.00, payable by 29/09/26.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m364",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX4538 for INR 7,993.10 at BOOKMYSHOW on 16-Sep-2026 14:38:10. Available limit: INR 4,128.10.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m365",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 1,103.32 on your Axis Bank Magnus Credit Card ending 4538 at EASEMYTRIP, 19-Sep-2026. Avl Lmt INR 6,647.22. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m366",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Arjun,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m367",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #455-2067922-8046391 is confirmed. Total Rs.5,088.17. Estimated delivery in 2 days.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m368",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 626.06 on 27-Sep-2026 for your Axis Bank Credit Card XX3741. Available credit limit has been updated.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m369",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Arjun,\nGet up to 10% cashback on partner brands.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m370",
+   "subject": "OTP for your transaction",
+   "body": "430661 is the OTP for your transaction of Rs.13,625.96 at MEDPLUS. Valid for 10 minutes. Do not share.",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m371",
+   "subject": "Axis Bank Credit Card Statement ending 4538 - Oct 2026",
+   "body": "Dear Arjun,\nPlease find attached your Axis Bank Magnus Credit Card XX4538 statement for the period 10/09/26 to 09/10/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-10-10",
+   "attachments": [
+    {
+     "filename": "4538_09102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m372",
+   "subject": "Axis Bank Credit Card Statement ending 3741 - Oct 2026",
+   "body": "Dear Arjun,\nYour Axis Bank Premier Miles Credit Card xx3741 statement for Oct 2026 is ready. Total amount due Rs.6,653.65, minimum amount due Rs.332.68, payable by 29/10/26.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m373",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 8725",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 8725 for INR 10,513.91 at AIRTEL PREPAID on 17-Oct-2026 10:36:03. Available limit: INR 98,363.01.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m374",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 3741",
+   "body": "Spent INR 3,496.68 on your Axis Bank Premier Miles Credit Card ending 3741 at SODEXO, 18-Oct-2026. Avl Lmt INR 98,672.01. SMS BLOCK to 5676782 if not you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m375",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 860.92 on your Axis Bank Magnus Credit Card ending 4538 at PHONEPE, 21-Oct-2026. Avl Lmt INR 18,737.63. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-10-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m376",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Spent INR 3,894.48 on your Axis Bank Credit Card ending 4538 at TATA POWER, 24-Oct-2026. Avl Lmt INR 10,048.05. SMS BLOCK to 5676782 if not you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m377",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 4538",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 4538 for INR 458.22 at TATA PLAY on 25-Oct-2026 14:09:58. Available limit: INR 16,928.25.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m378",
+   "subject": "OTP for your transaction",
+   "body": "185256 is the OTP for your transaction of Rs.224.35 at NETFLIX. Valid for 10 minutes. Do not share.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "Citibank <alerts@citibank.co.in>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "citibank.co.in",
+    "last4": "1614",
+    "kind": "CREDIT_CARD",
+    "variant": "PremierMiles",
+    "lifecycle": "REPLACED",
+    "lifecyclePartnerLast4": "3741",
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "3741",
+    "kind": "CREDIT_CARD",
+    "variant": "Premier Miles",
+    "lifecycle": "REPLACEMENT",
+    "lifecyclePartnerLast4": "1614",
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "4538",
+    "kind": "CREDIT_CARD",
+    "variant": "Magnus",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "5-10L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "8725",
+    "kind": "CREDIT_CARD",
+    "variant": "Magnus",
+    "lifecycle": "ADDON",
+    "lifecyclePartnerLast4": "4538",
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": "4538"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "4997",
+    "kind": "CREDIT_CARD",
+    "variant": "Zen",
+    "lifecycle": "CLOSED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "6328",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "3365",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "4373",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "4533",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

@@ -1,0 +1,802 @@
+{
+ "mailbox": "solo-equitas-current",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.122.90 debited from account xx2057 on 07-Feb-2026. Narration: UPI/BIGBASKET. Available balance Rs.30,615.07.",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Equitas Small Finance Bank: XX2057 credited with Rs.4,560.35 on 10-Feb-2026. Source: IMPS. Balance Rs.56,307.46.",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.198.06 debited from account XX2057 on 11-Feb-2026. Narration: POS/INDIAN OIL. Available balance Rs.48,637.36.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-11",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.16,095.39 has been credited to account XX2057 on 12-Feb-2026 (IMPS). Avl bal Rs.12,493.69.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Equitas Small Finance Bank Account Statement - Feb 2026",
+   "body": "Dear Ananya,\nPlease find attached your Equitas Small Finance Bank XXXXXX2057 statement for the period 17-Jan-2026 to 16-Feb-2026. \n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-17",
+   "attachments": [
+    {
+     "filename": "Equitas_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "EQUITAS SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : ANANYA DESAI\nFLAT 772, SUNRISE APARTMENTS\n3TH CROSS, ADYAR\nAHMEDABAD - 589791\nCustomer ID : 35194809\nAccount Number : *2057\nAccount Type : CURRENT ACCOUNT\nIFSC : EQUI0854187\nStatement Period : 17-01-2026 to 16-02-2026\nOpening Balance : Rs.86,133.60\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n18-01-2026 ATM WDL/IKEA 400197541 1,758.30 - 84,375.30\n18-01-2026 POS/LENSKART 411481429 625.09 - 83,750.21\n18-01-2026 IMPS/CR 802120351 - 209.07 83,959.28\n18-01-2026 UPI/BIGBASKET 870310817 715.07 - 83,244.21\n20-01-2026 NEFT DR/LENSKART 453796347 10,165.53 - 73,078.68\n22-01-2026 ATM WDL/STARBUCKS 675898321 3,590.23 - 69,488.45\n25-01-2026 POS/LENSKART 404386308 103.69 - 69,384.76\n25-01-2026 ATM WDL/PVR INOX 298337283 335.94 - 69,048.82\n26-01-2026 UPI/PAYTM 860907077 1,564.36 - 67,484.46\n28-01-2026 SALARY NEFT 390321213 - 9,659.64 77,144.10\n30-01-2026 POS/ZOMATO 921972264 18,994.69 - 58,149.41\n31-01-2026 POS/PHONEPE 476464062 939.04 - 57,210.37\n03-02-2026 ATM WDL/OLA CABS 822723341 466.74 - 56,743.63\nClosing Balance : Rs.56,743.63\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.31,088.35 received in account *2057 on 22-Feb-2026 (INTEREST CREDIT) Ref 254842348733.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Your A/c xx2057 is credited with Rs.5,113.35 on 24-Feb-2026 - IMPS. Bal Rs.17,711.01. -Equitas Small Finance Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Rs.11,318.12 withdrawn from xx2057 on 25-Feb-2026 via POS to PHONEPE. Closing balance Rs.60,162.04.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "OTP for your transaction",
+   "body": "624396 is the OTP for your transaction of Rs.5,405.31 at MEDPLUS. Valid for 10 minutes. Do not share.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.39,853.94 has been transferred from your A/c *2057 to Ramesh Kumar A/c XX9210 (IndusInd Bank) via IMPS on 07-Mar-2026. Ref no 466769539633.",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Equitas Small Finance Bank: funds transferred",
+   "body": "Dear Customer,\nRs.2,750.42 has been transferred from your A/c *2057 to Sunil Plumber A/c XX5896 (IDBI Bank) via IMPS on 08-Mar-2026. Ref no 847593895303.",
+   "date": "2026-03-08",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.2,683.23 has been debited from your Equitas Small Finance Bank A/c *2057 on 11-Mar-2026 (NEFT NYKAA). Avl bal Rs.72,940.05.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Equitas Small Finance Bank Account Statement - Mar 2026",
+   "body": "Dear Ananya,\nPlease find attached your Equitas Small Finance Bank XXXXXX2057 statement for the period 17-Feb-2026 to 16-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-17",
+   "attachments": [
+    {
+     "filename": "Equitas_Acct_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.234.11 debited from account XX2057 on 17-Mar-2026. Narration: POS/HPCL PETROL. Available balance Rs.4,228.42.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-17",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 915388964145. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-03-18",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Your A/c xx2057 is credited with Rs.9,781.93 on 24-Mar-2026 - SALARY NEFT. Bal Rs.7,417.27. -Equitas Small Finance Bank",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Rs.3,911.49 withdrawn from XX2057 on 26-Mar-2026 via IMPS to STARBUCKS. Closing balance Rs.24,557.85.",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Lata Tutor (A/c XXXXXX2938, Kotak Mahindra Bank) has been added to your account XX2057. It will be active after 30 minutes.",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Ananya,\nYour order #988-4299527-5311504 is confirmed. Total Rs.2,860.63. Estimated delivery in 2 days.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Your A/c xx2057 is credited with Rs.29,358.77 on 29-Mar-2026 - UPI. Bal Rs.37,812.63. -Equitas Small Finance Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.449.94 debited from account xx2057 on 04-Apr-2026. Narration: POS/MCDONALDS. Available balance Rs.72,432.83.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Alert: Equitas Small Finance Bank A/c XXXXXX2057 debited Rs.491.60 on 04-Apr-2026. Mode: ECOM. Details: MCDONALDS. Balance Rs.66,383.33.",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.237.77 has been credited to account xx2057 on 16-Apr-2026 (INTEREST CREDIT). Avl bal Rs.66,322.53.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Equitas Small Finance Bank Account Statement - Apr 2026",
+   "body": "Dear Ananya,\nPlease find attached your Equitas Small Finance Bank xx2057 statement for the period 17-Mar-2026 to 16-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX2057 is debited for Rs.31,653.75 on 21-Apr-2026 - ECOM HPCL PETROL. Bal Rs.3,914.32. -Equitas Small Finance Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.9,896.71 has been credited to account XXXXXX2057 on 22-Apr-2026 (REFUND). Avl bal Rs.1,77,989.55.",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.5,379.36 debited from account XX2057 on 22-Apr-2026. Narration: ECOM/BIGBASKET. Available balance Rs.1,12,523.99.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.8,094.36 debited from account XX2057 on 26-Apr-2026. Narration: IMPS/FLIPKART. Available balance Rs.6,121.13.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from *2057 to Lata Tutor A/c XX2938 on 26-Apr-2026. Rent for the month.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,085.85 has been debited from your Equitas Small Finance Bank A/c XXXXXX2057 on 28-Apr-2026 (POS ZOMATO). Avl bal Rs.52,982.43.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c xx2057 is debited for Rs.101.20 on 29-Apr-2026 - ECOM IRCTC. Bal Rs.8,809.85. -Equitas Small Finance Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Rs.1,802.56 withdrawn from XXXXXX2057 on 02-May-2026 via UPI to URBAN COMPANY. Closing balance Rs.6,514.02.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Alert: Equitas Small Finance Bank A/c *2057 debited Rs.17,388.23 on 04-May-2026. Mode: NEFT. Details: ZEPTO. Balance Rs.51,700.49.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.19,796.69 credited to your Equitas Small Finance Bank A/c XX2057 on 05-May-2026 by INTEREST CREDIT. Ref 898307166885.\nThank you for banking with us.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.199.35 has been credited to account xx2057 on 06-May-2026 (REFUND). Avl bal Rs.2,997.16.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-06",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 610011931636. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Equitas Small Finance Bank: funds transferred",
+   "body": "Dear Customer,\nRs.1,226.44 has been transferred from your A/c XX2057 to Sunil Plumber A/c XX5896 (IDBI Bank) via IMPS on 08-May-2026. Ref no 921163599249.",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.196.07 credited to your Equitas Small Finance Bank A/c XX2057 on 09-May-2026 by NEFT. Ref 814238803146.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.27,510.75 debited from account XXXXXX2057 on 15-May-2026. Narration: NEFT/URBAN COMPANY. Available balance Rs.52,431.74.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Equitas Small Finance Bank Account Statement - May 2026",
+   "body": "Dear Ananya,\nPlease find attached your Equitas Small Finance Bank xx2057 statement for the period 17-Apr-2026 to 16-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-17",
+   "attachments": [
+    {
+     "filename": "Equitas_Acct_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.14,805.18 has been credited to account xx2057 on 17-May-2026 (REFUND). Avl bal Rs.4,025.05.",
+   "date": "2026-05-17",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.3,334.07 has been credited to account XX2057 on 23-May-2026 (SALARY NEFT). Avl bal Rs.44,105.87.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Equitas Small Finance Bank: funds transferred",
+   "body": "Dear Customer,\nRs.976.72 has been transferred from your A/c XX2057 to Priya Tailors A/c XX1619 (Bandhan Bank) via IMPS on 24-May-2026. Ref no 280715527289.",
+   "date": "2026-05-24",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.11,228.18 has been debited from your Equitas Small Finance Bank A/c XXXXXX2057 on 26-May-2026 (UPI INDIAN OIL). Avl bal Rs.45,551.06.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from XXXXXX2057 to Lata Tutor A/c XX2938 on 26-May-2026. Rent for the month.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Ananya,\nYour order #280-5633689-1406136 is confirmed. Total Rs.2,878.56. Estimated delivery in 2 days.",
+   "date": "2026-06-06",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Equitas Small Finance Bank Account Statement - Jun 2026",
+   "body": "Dear Ananya,\nYour Equitas Small Finance Bank XXXXXX2057 account statement for Jun 2026 is ready. Closing balance Rs.6,103.41.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-17",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.599.87 has been credited to account XXXXXX2057 on 19-Jun-2026 (IMPS). Avl bal Rs.49,741.21.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.13,949.31 has been debited from your Equitas Small Finance Bank A/c XXXXXX2057 on 22-Jun-2026 (NEFT URBAN COMPANY). Avl bal Rs.2,766.21.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-22",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Payment successful",
+   "body": "Hi Ananya,\nYou paid Rs.8,241.25 to IDFC FIRST Bank Credit Card ending 8989 (of Divya Desai) on 22-Jun-2026. Ref 1378638626.",
+   "date": "2026-06-22",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m051",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c *2057 is debited for Rs.23,910.82 on 24-Jun-2026 - ECOM HPCL PETROL. Bal Rs.3,038.32. -Equitas Small Finance Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from XX2057 to Lata Tutor A/c XX2938 on 26-Jun-2026. Rent for the month.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Rs.219.64 withdrawn from XX2057 on 28-Jun-2026 via IMPS to MEDPLUS. Closing balance Rs.31,738.96.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Ananya,\nYour order #966-7339004-9448058 is confirmed. Total Rs.12,235.99. Estimated delivery in 2 days.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XX2057 is debited for Rs.2,726.72 on 08-Jul-2026 - IMPS NYKAA. Bal Rs.84,533.57. -Equitas Small Finance Bank",
+   "date": "2026-07-08",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.15,670.48 has been debited from your Equitas Small Finance Bank A/c XXXXXX2057 on 13-Jul-2026 (IMPS DOMINOS). Avl bal Rs.3,664.72.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.1,565.93 credited to your Equitas Small Finance Bank A/c xx2057 on 16-Jul-2026 by NEFT. Ref 299516512066.\nThank you for banking with us.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Equitas Small Finance Bank Account Statement - Jul 2026",
+   "body": "Dear Ananya,\nYour Equitas Small Finance Bank XXXXXX2057 account statement for Jul 2026 is ready. Closing balance Rs.2,274.15.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-07-17",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Rs.125.34 withdrawn from XX2057 on 22-Jul-2026 via NEFT to SODEXO. Closing balance Rs.24,179.72.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from XXXXXX2057 to Lata Tutor A/c XX2938 on 26-Jul-2026. Rent for the month.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Rs.4,175.31 withdrawn from xx2057 on 28-Jul-2026 via IMPS to UBER INDIA. Closing balance Rs.11,710.58.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.159.08 received in account xx2057 on 02-Aug-2026 (NEFT) Ref 623151094658.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-02",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Ananya,\nYour order #142-6168477-1080454 is confirmed. Total Rs.973.75. Estimated delivery in 2 days.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Equitas Small Finance Bank: XXXXXX2057 credited with Rs.32,391.01 on 05-Aug-2026. Source: UPI. Balance Rs.7,107.15.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Alert: Equitas Small Finance Bank A/c XXXXXX2057 debited Rs.21,310.30 on 06-Aug-2026. Mode: ECOM. Details: DMART. Balance Rs.43,701.45.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.867.61 has been debited from your Equitas Small Finance Bank A/c XX2057 on 06-Aug-2026 (UPI MEDPLUS). Avl bal Rs.3,599.54.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Alert: Equitas Small Finance Bank A/c *2057 debited Rs.108.10 on 06-Aug-2026. Mode: POS. Details: NYKAA. Balance Rs.3,123.24.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Alert: Equitas Small Finance Bank A/c xx2057 debited Rs.234.75 on 06-Aug-2026. Mode: IMPS. Details: SWIGGY. Balance Rs.13,189.49.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Equitas Small Finance Bank Account Statement - Aug 2026",
+   "body": "Dear Ananya,\nPlease find attached your Equitas Small Finance Bank XX2057 statement for the period 17-Jul-2026 to 16-Aug-2026. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-17",
+   "attachments": [
+    {
+     "filename": "Equitas_Acct_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "EQUITAS SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : ANANYA DESAI\nFLAT 705, ORCHID APARTMENTS\n14TH CROSS, ADYAR\nKOLKATA - 536651\nCustomer ID : 40521814\nAccount Number : xx2057\nAccount Type : CURRENT ACCOUNT\nIFSC : EQUI0278158\nStatement Period : 17-07-2026 to 16-08-2026\nOpening Balance : Rs.65,898.31\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n19-07-2026 ATM WDL/BLINKIT 208874767 12,109.07 - 53,789.24\n20-07-2026 ATM WDL/LENSKART 754524811 500.58 - 53,288.66\n21-07-2026 UPI/CR 281319438 - 274.67 53,563.33\n24-07-2026 INTEREST 100102565 - 17,318.58 70,881.91\n27-07-2026 POS/SWIGGY 446286380 195.35 - 70,686.56\n28-07-2026 INTEREST 534501989 - 2,360.62 73,047.18\n28-07-2026 POS/NETFLIX 466302098 721.70 - 72,325.48\n30-07-2026 SALARY NEFT 776483560 - 194.08 72,519.56\nClosing Balance : Rs.72,519.56\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.503.64 has been transferred from your A/c XXXXXX2057 to Ramesh Kumar A/c XX9210 (IndusInd Bank) via IMPS on 17-Aug-2026. Ref no 562476662266.",
+   "date": "2026-08-17",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from xx2057 to Lata Tutor A/c XX2938 on 26-Aug-2026. Rent for the month.",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Equitas Small Finance Bank: *2057 credited with Rs.12,025.31 on 31-Aug-2026. Source: SALARY NEFT. Balance Rs.70,520.44.",
+   "date": "2026-08-31",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c *2057 is debited for Rs.409.95 on 06-Sep-2026 - ECOM NYKAA. Bal Rs.66,304.58. -Equitas Small Finance Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.82.53 has been debited from your Equitas Small Finance Bank A/c *2057 on 06-Sep-2026 (NEFT JIO RECHARGE). Avl bal Rs.15,143.75.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX2926 has been updated on 18-Jun-2026. If not requested by you, call customer care.",
+   "date": "2026-09-14",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c xx2057 is debited for Rs.224.80 on 15-Sep-2026 - POS SPOTIFY. Bal Rs.35,435.41. -Equitas Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Equitas Small Finance Bank Account Statement - Sep 2026",
+   "body": "Dear Ananya,\nPlease find attached your Equitas Small Finance Bank XX2057 statement for the period 17-Aug-2026 to 16-Sep-2026. \n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-17",
+   "attachments": [
+    {
+     "filename": "Equitas_Acct_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "EQUITAS SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : ANANYA DESAI\nFLAT 747, ORCHID APARTMENTS\n6TH CROSS, ADYAR\nCHENNAI - 407183\nCustomer ID : 61735165\nAccount Number : xx2057\nAccount Type : CURRENT ACCOUNT\nIFSC : EQUI0114246\nStatement Period : 17-08-2026 to 16-09-2026\nOpening Balance : Rs.33,427.07\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n18-08-2026 NEFT DR/BIGBASKET 302624160 6,018.00 - 27,409.07\n20-08-2026 NEFT DR/IXIGO 853204280 11,362.64 - 16,046.43\n21-08-2026 NEFT DR/RELIANCE DIGITAL 717151691 104.32 - 15,942.11\n22-08-2026 POS/ZOMATO 913507375 1,053.91 - 14,888.20\n24-08-2026 UPI/NETFLIX 312609403 564.78 - 14,323.42\n25-08-2026 ATM WDL/UBER INDIA 721271746 1,041.54 - 13,281.88\n26-08-2026 UPI/SWIGGY 264326755 8,904.11 - 4,377.77\n28-08-2026 POS/SPOTIFY 626812735 1,913.12 - 2,464.65\n28-08-2026 ATM WDL/MYNTRA 779258142 2,371.60 - 93.05\n30-08-2026 ATM WDL/APOLLO PHARMACY 985454672 18,761.87 - -18,668.82\nClosing Balance : -Rs.18,668.82\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Rs.189.98 withdrawn from XXXXXX2057 on 19-Sep-2026 via NEFT to MAKEMYTRIP. Closing balance Rs.7,453.65.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.141.42 debited from account XXXXXX2057 on 23-Sep-2026. Narration: NEFT/LENSKART. Available balance Rs.2,727.21.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Equitas Small Finance Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 3230 has been successfully linked/verified for your Equitas Small Finance Bank relationship. If this was not you, contact us.",
+   "date": "2026-09-30",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Update your KYC",
+   "body": "Dear Ananya,\nAs per RBI guidelines please complete re-KYC for your Equitas Small Finance Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Ananya,\nYour order #530-7629309-8905710 is confirmed. Total Rs.175.04. Estimated delivery in 2 days.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Your A/c XX2057 is credited with Rs.2,031.04 on 09-Oct-2026 - SALARY NEFT. Bal Rs.4,759.05. -Equitas Small Finance Bank",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c xx2057 is debited for Rs.344.00 on 14-Oct-2026 - IMPS SWIGGY. Bal Rs.6,853.08. -Equitas Small Finance Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Equitas Small Finance Bank Account Statement - Oct 2026",
+   "body": "Dear Ananya,\nPlease find attached your Equitas Small Finance Bank XXXXXX2057 statement for the period 17-Sep-2026 to 16-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-17",
+   "attachments": [
+    {
+     "filename": "2057_16102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Alert: Equitas Small Finance Bank A/c XX2057 debited Rs.206.10 on 21-Oct-2026. Mode: ECOM. Details: BPCL FUEL. Balance Rs.17,845.24.",
+   "date": "2026-10-21",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Update your KYC",
+   "body": "Dear Ananya,\nAs per RBI guidelines please complete re-KYC for your Equitas Small Finance Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "2057",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "1619",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "9210",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "5896",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "2938",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "3230",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "2926",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "1636",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "4145",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "8989",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

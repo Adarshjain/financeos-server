@@ -1,0 +1,2228 @@
+{
+ "mailbox": "canara-idbi-royale-limit",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.7,240.09 at TATA PLAY on 05-07-2024 on IDBI Bank Royale Credit Card xx4751.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-07-05",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.3,198.86 withdrawn from xx9067 on 07-07-2024 via UPI to IXIGO. Closing balance Rs.2,354.73.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-07",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.1,477.07 | BOOKMYSHOW | 08-07-2024 | IDBI Bank Credit Card XX4751\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-08",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "Canara Bank Account Statement - Jul 2024",
+   "body": "Dear Sanjay,\nPlease find attached your Canara Bank *9067 statement for the period 09-Jun-2024 to 08-Jul-2024. \n\nOpt for e-statements and go green.",
+   "date": "2024-07-09",
+   "attachments": [
+    {
+     "filename": "Canara_Statement_Jul2024.pdf",
+     "protected": false,
+     "pdfText": "CANARA BANK\nSTATEMENT OF ACCOUNT\nAccount Name : SANJAY BHAT\nFLAT 659, GREEN VALLEY APARTMENTS\n28TH CROSS, ADYAR\nKOCHI - 467065\nAccount Number : xx9067\nAccount Type : SAVINGS ACCOUNT\nIFSC : CANA0595513\nStatement Period : 09-06-2024 to 08-07-2024\nOpening Balance : Rs.41,233.71\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n12-06-2024 POS/LENSKART 346922181 364.09 - 40,869.62\n14-06-2024 UPI/PHONEPE 832933653 729.59 - 40,140.03\n17-06-2024 UPI/TATA POWER 561627145 191.65 - 39,948.38\n19-06-2024 UPI/NETFLIX 561588522 1,818.92 - 38,129.46\n22-06-2024 UPI/CR 445346558 - 1,956.16 40,085.62\n25-06-2024 ATM WDL/STARBUCKS 623307726 12,626.38 - 27,459.24\n27-06-2024 POS/MYNTRA 100436185 523.90 - 26,935.34\nClosing Balance : Rs.26,935.34\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.152.94 debited from account *2091 on 10-07-2024. Narration: UPI/BPCL FUEL. Available balance Rs.2,055.11.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-07-10",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m006",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.179.14 debited from account XXXXXX2091 on 11-07-2024. Narration: POS/GOOGLE PLAY. Available balance Rs.43,849.14.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-07-11",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "Canara Bank: debit alert",
+   "body": "Alert: Canara Bank A/c *9067 debited Rs.838.79 on 13-07-2024. Mode: ECOM. Details: DECATHLON. Balance Rs.39,311.14.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-07-13",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "IDBI Bank Credit Card xx4751: purchase of Rs.3,918.13 at EASEMYTRIP on 13-07-2024 00:22:49. Available limit Rs.9,415.63.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-07-13",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "IDBI Bank Account Statement - Jul 2024",
+   "body": "Dear Sanjay,\nYour IDBI Bank xx2091 account statement for Jul 2024 is ready. Closing balance Rs.5,477.25.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-07-18",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.1,060.74 | APOLLO PHARMACY | 20-07-2024 | IDBI Bank Credit Card XX4751",
+   "date": "2024-07-20",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Alert: IDBI Bank A/c XXXXXX2091 debited Rs.6,121.82 on 22-07-2024. Mode: UPI. Details: BESCOM. Balance Rs.4,308.97.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-07-22",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "Update your KYC",
+   "body": "Dear Sanjay,\nAs per RBI guidelines please complete re-KYC for your IDBI Bank relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-07-22",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.30,602.32 has been debited from your Canara Bank A/c xx9067 on 28-07-2024 (POS APOLLO PHARMACY). Avl bal Rs.6,989.48.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Deposit alert - Rs.26,119.48 received in account *2091 on 31-07-2024 (NEFT) Ref 283983690265.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-07-31",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m015",
+   "subject": "IDBI Bank statement - Aug 2024",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card XX4751 statement for the period 04-Jul-2024 to 03-Aug-2024. Total amount due Rs.32,132.21, due 22-Aug-2024.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-08-04",
+   "attachments": [
+    {
+     "filename": "IDBI_CC_Aug2024.pdf",
+     "protected": false,
+     "pdfText": "IDBI Bank Credit Card Statement\nSANJAY BHAT\nFLAT 810, GREEN VALLEY APARTMENTS\n21TH CROSS, KOTHRUD\nAHMEDABAD - 568697\nCard Name: IDBI Bank Royale Credit Card\nCredit Card Number: 487642XXXXXX4751\nStatement Period: 04/07/24 - 03/08/24\nStatement Date: 03/08/24\nPayment Summary\nTotal Amount Due: Rs.32,132.21\nMinimum Amount Due: Rs.1,606.61\nPayment Due Date: 22/08/24\nAccount Summary\nCredit Limit: Rs.60,000.00\nAvailable Credit Limit: Rs.32,776.33\nAvailable Cash Limit: Rs.12,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n04/07/24 IXIGO AHMEDABAD 3,302.00 Dr\n05/07/24 DOMINOS CHENNAI 3,838.04 Dr\n13/07/24 URBAN COMPANY GURUGRAM 9,104.79 Dr\n18/07/24 INDIAN OIL JAIPUR 2,784.11 Dr\n19/07/24 UBER INDIA HYDERABAD 146.50 Dr\n23/07/24 URBAN COMPANY KOCHI 2,136.17 Dr\n24/07/24 GOOGLE PLAY MUMBAI 6,982.35 Dr\n25/07/24 APOLLO PHARMACY CHENNAI 520.96 Dr\n26/07/24 UBER INDIA MUMBAI 1,442.05 Dr\n29/07/24 MAKEMYTRIP GURUGRAM 360.97 Dr\n02/08/24 BESCOM MUMBAI 1,514.27 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.36,738.58 withdrawn from XXXXXX9067 on 06-08-2024 via ECOM to DMART. Closing balance Rs.2,603.26.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-08-06",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "IDBI Bank: credit alert",
+   "body": "IDBI Bank: xx2091 credited with Rs.2,191.31 on 11-08-2024. Source: UPI. Balance Rs.82,596.97.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-08-11",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.13,091.90 spent on your Canara Bank Debit Card xx8252 at APPLE SERVICES on 13-08-2024 16:55:54. Avl bal Rs.20,515.59.",
+   "date": "2024-08-13",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.83.80 spent on your Canara Bank Debit Card ending 8252 at FLIPKART on 22-08-2024 12:25:21. Avl bal Rs.14,417.14.",
+   "date": "2024-08-22",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c xx2091 is debited for Rs.449.61 on 22-08-2024 - ECOM IRCTC. Bal Rs.14,643.72. -IDBI Bank\n\nOpt for e-statements and go green.",
+   "date": "2024-08-22",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m021",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "IDBI Bank Credit Card XX4751: purchase of Rs.6,164.90 at APOLLO PHARMACY on 26-08-2024 00:25:15. Available limit Rs.14,358.82.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-08-26",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX8315 has been updated on 02-09-2025. If not requested by you, call customer care.",
+   "date": "2024-08-30",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "IDBI Bank statement - Sep 2024",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card ending 4751 statement for the period 04-Aug-2024 to 03-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-04",
+   "attachments": [
+    {
+     "filename": "eStatement_202409.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "Canara Bank: credit alert",
+   "body": "Canara Bank: xx9067 credited with Rs.2,646.51 on 07-09-2024. Source: INTEREST CREDIT. Balance Rs.39,957.00.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-07",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.1,586.67 at IKEA on 08-09-2024 on IDBI Bank Credit Card xx4751.",
+   "date": "2024-09-08",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "Canara Bank Account Statement - Sep 2024",
+   "body": "Dear Sanjay,\nPlease find attached your Canara Bank xx9067 statement for the period 09-Aug-2024 to 08-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-09-09",
+   "attachments": [
+    {
+     "filename": "Canara_Statement_Sep2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.139.88 has been debited from your Canara Bank A/c xx9067 on 15-09-2024 (POS LENSKART). Avl bal Rs.2,842.37.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-09-15",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.5,304.75 spent on your IDBI Bank Credit Card XX4751 at HPCL PETROL on 21-09-2024.",
+   "date": "2024-09-21",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.834.48 | APOLLO PHARMACY | 29-09-2024 | IDBI Bank Royale Credit Card ending 4751\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-09-29",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.879.94 | BATA INDIA | 01-10-2024 | IDBI Bank Credit Card xx4751\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-01",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sanjay,\nYour order #966-1856828-9062865 is confirmed. Total Rs.13,553.69. Estimated delivery in 2 days.",
+   "date": "2024-10-03",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "IDBI Bank statement - Oct 2024",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card XX4751 statement for the period 04-Sep-2024 to 03-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-04",
+   "attachments": [
+    {
+     "filename": "eStatement_202410.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.156.63 | PHONEPE | 07-10-2024 | IDBI Bank Royale Credit Card XX4751\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-07",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m034",
+   "subject": "Canara Bank: funds transferred",
+   "body": "Dear Customer,\nRs.1,266.30 has been transferred from your A/c XX9067 to Ramesh Kumar A/c XX5224 (IDBI Bank) via IMPS on 12-10-2024. Ref no 303992603513.",
+   "date": "2024-10-12",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Update your KYC",
+   "body": "Dear Sanjay,\nAs per RBI guidelines please complete re-KYC for your Canara Bank relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-15",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "IDBI Bank Account Statement - Oct 2024",
+   "body": "Dear Sanjay,\nYour IDBI Bank XXXXXX2091 account statement for Oct 2024 is ready. Closing balance Rs.8,368.88.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-18",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.4,033.31 withdrawn from xx9067 on 20-10-2024 via UPI to IKEA. Closing balance Rs.69,241.25.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-20",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Canara Bank: debit alert",
+   "body": "Alert: Canara Bank A/c xx9067 debited Rs.104.46 on 21-10-2024. Mode: POS. Details: SPOTIFY. Balance Rs.7,163.08.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-21",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "POS purchase of Rs.10,480.38 at OLA CABS on 22-10-2024 with Canara Bank Debit Card XX8252.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-10-22",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.1,108.63 | GOOGLE PLAY | 24-10-2024 | IDBI Bank Credit Card ending 4751",
+   "date": "2024-10-24",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Sanjay,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2024-10-29",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m042",
+   "subject": "IDBI Bank statement - Nov 2024",
+   "body": "Dear Sanjay,\nStatement generated for IDBI Bank Royale Credit Card ending 4751: amount payable Rs.3,132.26, last date 21-Nov-2024. Sign in to download.",
+   "date": "2024-11-04",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.21,238.70 has been debited from your Canara Bank A/c XX9067 on 07-11-2024 (ECOM MAKEMYTRIP). Avl bal Rs.86,246.38.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-11-07",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.3,010.65 | NYKAA | 08-11-2024 | IDBI Bank Royale Credit Card xx4751\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-11-08",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "Canara Bank Account Statement - Nov 2024",
+   "body": "Dear Sanjay,\nPlease find attached your Canara Bank XX9067 statement for the period 09-Oct-2024 to 08-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-09",
+   "attachments": [
+    {
+     "filename": "9067_08112024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.4,094.41 credited to your Canara Bank A/c *9067 on 17-11-2024 by SALARY NEFT. Ref 637587490940.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-11-17",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c XXXXXX2091 is debited for Rs.4,704.81 on 21-11-2024 - UPI IXIGO. Bal Rs.44,081.53. -IDBI Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-21",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.412.78 spent on your Canara Bank Debit Card XX8252 at AIRTEL PREPAID on 29-11-2024 21:13:49. Avl bal Rs.94,650.24.\n\nOpt for e-statements and go green.",
+   "date": "2024-11-29",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Canara Bank: credit alert",
+   "body": "Your A/c *9067 is credited with Rs.652.73 on 03-12-2024 - NEFT. Bal Rs.1,18,299.77. -Canara Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-12-03",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Update your KYC",
+   "body": "Dear Sanjay,\nAs per RBI guidelines please complete re-KYC for your IDBI Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2024-12-03",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m051",
+   "subject": "IDBI Bank statement - Dec 2024",
+   "body": "Dear Sanjay,\nYour IDBI Bank Royale Credit Card XX4751 statement for Dec 2024 is ready. Total amount due Rs.4,424.60, minimum amount due Rs.221.23, payable by 21-Dec-2024.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-04",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sanjay,\nYour order #541-3384822-7150253 is confirmed. Total Rs.4,166.72. Estimated delivery in 2 days.",
+   "date": "2024-12-04",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "OTP for your transaction",
+   "body": "734476 is the OTP for your transaction of Rs.2,252.92 at BATA INDIA. Valid for 10 minutes. Do not share.",
+   "date": "2024-12-05",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.309.49 has been debited from your Canara Bank A/c xx9067 on 12-12-2024 (UPI DECATHLON). Avl bal Rs.1,37,662.26.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-12-12",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Rs.870.91 withdrawn from xx2091 on 20-12-2024 via POS to MYNTRA. Closing balance Rs.1,74,094.19.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-12-20",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m056",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary S K Enterprises (A/c XXXXXX1345, IndusInd Bank) has been added to your account xx2091. It will be active after 30 minutes.",
+   "date": "2024-12-20",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m057",
+   "subject": "IDBI Bank statement - Jan 2025",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card ending 4751 statement for the period 04-Dec-2024 to 03-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-01-04",
+   "attachments": [
+    {
+     "filename": "IDBI_CC_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c xx9067 is debited for Rs.3,243.96 on 07-01-2025 - IMPS IKEA. Bal Rs.22,389.20. -Canara Bank",
+   "date": "2025-01-07",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Canara Bank Account Statement - Jan 2025",
+   "body": "Dear Sanjay,\nPlease find attached your Canara Bank XX9067 statement for the period 09-Dec-2024 to 08-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-01-09",
+   "attachments": [
+    {
+     "filename": "Canara_Acct_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.33,563.21 withdrawn from XXXXXX9067 on 13-01-2025 via UPI to OLA CABS. Closing balance Rs.2,280.62.",
+   "date": "2025-01-13",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Dear Customer,\nRs.1,883.94 credited to your IDBI Bank A/c xx2091 on 13-01-2025 by IMPS. Ref 721217978896.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-01-13",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m062",
+   "subject": "IDBI Bank Account Statement - Jan 2025",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank *2091 statement for the period 18-Dec-2024 to 17-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-01-18",
+   "attachments": [
+    {
+     "filename": "IDBI_Statement_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.18,858.34 has been transferred from your A/c XX2091 to Sita Devi A/c XX9484 (ICICI Bank) via IMPS on 19-01-2025. Ref no 120938295007.",
+   "date": "2025-01-19",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from *2091 to S K Enterprises A/c XX1345 on 20-01-2025. Rent for the month.",
+   "date": "2025-01-20",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.779.62 | INDIAN OIL | 21-01-2025 | IDBI Bank Credit Card xx4751",
+   "date": "2025-01-21",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "Update your KYC",
+   "body": "Dear Sanjay,\nAs per RBI guidelines please complete re-KYC for your IDBI Bank relationship. Visit a branch or use the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-01-22",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "IDBI Bank statement - Feb 2025",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card XX4751 statement for the period 04-Jan-2025 to 03-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-02-04",
+   "attachments": [
+    {
+     "filename": "eStatement_202502.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "IDBI Bank: credit alert",
+   "body": "IDBI Bank: XXXXXX2091 credited with Rs.27,625.52 on 05-02-2025. Source: IMPS. Balance Rs.3,509.65.",
+   "date": "2025-02-05",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Your A/c *2091 is credited with Rs.109.87 on 08-02-2025 - INTEREST CREDIT. Bal Rs.41,062.47. -IDBI Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-08",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m070",
+   "subject": "Canara Bank: credit alert",
+   "body": "Credit alert: Rs.25,534.79 has been credited to account XXXXXX9067 on 14-02-2025 (UPI). Avl bal Rs.22,290.61.",
+   "date": "2025-02-14",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Your A/c XXXXXX2091 is credited with Rs.191.55 on 16-02-2025 - IMPS. Bal Rs.28,747.38. -IDBI Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-02-16",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.148.55 at SPOTIFY on 16-02-2025 on IDBI Bank Credit Card XX4751.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-16",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m073",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from XX2091 to S K Enterprises A/c XX1345 on 20-02-2025. Rent for the month.",
+   "date": "2025-02-20",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.255.58 debited from account XX9067 on 27-02-2025. Narration: ECOM/HPCL PETROL. Available balance Rs.55,876.59.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-27",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "IDBI Bank statement - Mar 2025",
+   "body": "Dear Sanjay,\nStatement generated for IDBI Bank Royale Credit Card XX4751: amount payable Rs.37,964.45, last date 21-Mar-2025. Sign in to download.",
+   "date": "2025-03-04",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Payment received on IDBI Bank Credit Card",
+   "body": "Payment confirmation: Rs.974.44 posted to IDBI Bank Royale Credit Card xx4751 on 06-03-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-06",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.19,058.60 at URBAN COMPANY on 08-03-2025 on IDBI Bank Royale Credit Card ending 4751.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-08",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m078",
+   "subject": "Canara Bank Account Statement - Mar 2025",
+   "body": "Dear Sanjay,\nPlease find attached your Canara Bank xx9067 statement for the period 09-Feb-2025 to 08-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-09",
+   "attachments": [
+    {
+     "filename": "Canara_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.256.01 has been debited from your Canara Bank A/c XX9067 on 09-03-2025 (NEFT CROMA). Avl bal Rs.3,719.71.\n\nOpt for e-statements and go green.",
+   "date": "2025-03-09",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.5,270.74 at BIG BAZAAR on 12-03-2025 on IDBI Bank Credit Card ending 4751.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-12",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.16,529.00 has been transferred from your A/c *9067 to Ramesh Kumar A/c XX5224 (IDBI Bank) via IMPS on 12-03-2025. Ref no 555198264096.",
+   "date": "2025-03-12",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "IDBI Bank Royale Credit Card ending 4751: purchase of Rs.567.30 at CROMA on 17-03-2025 11:37:29. Available limit Rs.87,765.55.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-17",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Payment received on IDBI Bank Credit Card",
+   "body": "Payment of Rs.12,074.60 has been received towards your IDBI Bank Credit Card XX4751 on 20-03-2025. Thank you for the payment.",
+   "date": "2025-03-20",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m084",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from xx2091 to S K Enterprises A/c XX1345 on 20-03-2025. Rent for the month.",
+   "date": "2025-03-20",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c *9067 is debited for Rs.978.57 on 21-03-2025 - UPI PHONEPE. Bal Rs.31,543.30. -Canara Bank",
+   "date": "2025-03-21",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Canara Bank Debit Card XX8252: Rs.1,350.25 debited at OLA CABS (27-03-2025 07:57:29).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-03-27",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "IDBI Bank Credit Card ending 4751: purchase of Rs.1,817.97 at EASEMYTRIP on 28-03-2025 11:58:37. Available limit Rs.44,614.40.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-28",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "IDBI Bank statement - Apr 2025",
+   "body": "Hi Sanjay,\nYour IDBI Bank Royale Credit Card xx4751 e-statement for Apr 2025 is now available. Pay Rs.16,826.87 by 21-Apr-2025 to avoid late fees.",
+   "date": "2025-04-04",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c xx2091 is debited for Rs.24,767.19 on 07-04-2025 - NEFT SWIGGY. Bal Rs.61,171.63. -IDBI Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-07",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "OTP for your transaction",
+   "body": "797587 is the OTP for your transaction of Rs.218.86 at URBAN COMPANY. Valid for 10 minutes. Do not share.",
+   "date": "2025-04-12",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m091",
+   "subject": "IDBI Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 5438 has been successfully linked/verified for your IDBI Bank relationship. If this was not you, contact us.",
+   "date": "2025-04-16",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "IDBI Bank Account Statement - Apr 2025",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank XX2091 statement for the period 18-Mar-2025 to 17-Apr-2025. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-18",
+   "attachments": [
+    {
+     "filename": "IDBI_Acct_Apr2025.pdf",
+     "protected": false,
+     "pdfText": "IDBI BANK\nSTATEMENT OF ACCOUNT\nAccount Name : SANJAY BHAT\nFLAT 113, GREEN VALLEY APARTMENTS\n19TH CROSS, ADYAR\nKOLKATA - 491021\nAccount Number : *2091\nAccount Type : SAVINGS ACCOUNT\nIFSC : IDBI0552859\nStatement Period : 18-03-2025 to 17-04-2025\nOpening Balance : Rs.33,462.93\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n19-03-2025 NEFT DR/BATA INDIA 502087389 4,883.45 - 28,579.48\n22-03-2025 POS/BOOKMYSHOW 357409685 246.55 - 28,332.93\n25-03-2025 POS/INDIAN OIL 914250668 6,245.85 - 22,087.08\n25-03-2025 NEFT DR/GOOGLE PLAY 400363893 595.46 - 21,491.62\n28-03-2025 POS/HPCL PETROL 807370027 143.47 - 21,348.15\n29-03-2025 INTEREST 829029182 - 168.08 21,516.23\n29-03-2025 POS/ZEPTO 216927370 125.06 - 21,391.17\n01-04-2025 ATM WDL/APOLLO PHARMACY 946543074 18,305.20 - 3,085.97\nClosing Balance : Rs.3,085.97\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.10,898.24 at PHONEPE on 19-04-2025 on IDBI Bank Royale Credit Card xx4751.",
+   "date": "2025-04-19",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,500.00 transferred from xx2091 to S K Enterprises A/c XX1345 on 20-04-2025. Rent for the month.",
+   "date": "2025-04-20",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "Canara Bank: debit alert",
+   "body": "Alert: Canara Bank A/c xx9067 debited Rs.454.00 on 25-04-2025. Mode: UPI. Details: RELIANCE DIGITAL. Balance Rs.38,864.14.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-25",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "IDBI Bank statement - May 2025",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card XX4751 statement for the period 04-Apr-2025 to 03-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-04",
+   "attachments": [
+    {
+     "filename": "IDBI_CC_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m097",
+   "subject": "Canara Bank: credit alert",
+   "body": "Deposit alert - Rs.1,623.27 received in account *9067 on 05-05-2025 (INTEREST CREDIT) Ref 557540501468.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-05",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c *9067 is debited for Rs.702.97 on 07-05-2025 - IMPS RELIANCE DIGITAL. Bal Rs.26,546.44. -Canara Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-07",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Canara Bank Account Statement - May 2025",
+   "body": "Dear Sanjay,\nPlease find attached your Canara Bank *9067 statement for the period 09-Apr-2025 to 08-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-09",
+   "attachments": [
+    {
+     "filename": "Canara_Acct_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "OTP for your transaction",
+   "body": "563001 is the OTP for your transaction of Rs.1,433.33 at NYKAA. Valid for 10 minutes. Do not share.",
+   "date": "2025-05-11",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "OTP for your transaction",
+   "body": "696163 is the OTP for your transaction of Rs.1,072.43 at DOMINOS. Valid for 10 minutes. Do not share.",
+   "date": "2025-05-13",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m102",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.2,018.75 at NETFLIX on 15-05-2025 on IDBI Bank Credit Card xx4751.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-15",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Rs.116.94 withdrawn from XXXXXX2091 on 16-05-2025 via IMPS to PHONEPE. Closing balance Rs.11,441.31.",
+   "date": "2025-05-16",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m104",
+   "subject": "IDBI Bank: credit alert",
+   "body": "IDBI Bank: xx2091 credited with Rs.259.53 on 20-05-2025. Source: UPI. Balance Rs.2,973.85.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from *2091 to S K Enterprises A/c XX1345 on 20-05-2025. Rent for the month.",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "POS purchase of Rs.154.59 at IRCTC on 26-05-2025 with Canara Bank Debit Card xx8252.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-26",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.359.24 spent on your Canara Bank Debit Card XX8252 at AMAZON PAY INDIA on 30-05-2025 17:48:19. Avl bal Rs.3,152.92.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-30",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.35,705.59 has been debited from your IDBI Bank A/c xx2091 on 02-06-2025 (UPI PVR INOX). Avl bal Rs.5,551.68.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-02",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m109",
+   "subject": "IDBI Bank statement - Jun 2025",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card xx4751 statement for the period 04-May-2025 to 03-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-04",
+   "attachments": [
+    {
+     "filename": "IDBI_CC_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Earn more with your card",
+   "body": "Dear Sanjay,\nGet up to 10% cashback on partner brands.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-06",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m111",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.321.76 has been debited from your IDBI Bank A/c *2091 on 07-06-2025 (ECOM INDIGO AIRLINES). Avl bal Rs.3,768.65.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-06-07",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sanjay,\nYour order #228-3132275-7051814 is confirmed. Total Rs.14,558.44. Estimated delivery in 2 days.",
+   "date": "2025-06-17",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Update your KYC",
+   "body": "Dear Sanjay,\nAs per RBI guidelines please complete re-KYC for your IDBI Bank relationship. Visit a branch or use the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-06-21",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Canara Bank: credit alert",
+   "body": "Credit alert: Rs.181.78 has been credited to account xx9067 on 22-06-2025 (NEFT). Avl bal Rs.22,514.58.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-06-22",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.82.27 spent on your IDBI Bank Credit Card ending 4751 at LENSKART on 26-06-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-26",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m116",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.1,591.82 has been debited from your Canara Bank A/c XXXXXX9067 on 28-06-2025 (NEFT BIGBASKET). Avl bal Rs.30,718.67.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.8,126.41 spent on your IDBI Bank Credit Card ending 4751 at STARBUCKS on 29-06-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-06-29",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Canara Bank Debit Card ending 8252: Rs.15,541.64 debited at PAYTM (01-07-2025 00:44:24).",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "IDBI Bank statement - Jul 2025",
+   "body": "Dear Sanjay,\nStatement generated for IDBI Bank Royale Credit Card XX4751: amount payable Rs.2,572.41, last date 21-Jul-2025. Sign in to download.",
+   "date": "2025-07-04",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m120",
+   "subject": "Canara Bank Account Statement - Jul 2025",
+   "body": "Dear Sanjay,\nPlease find attached your Canara Bank XX9067 statement for the period 09-Jun-2025 to 08-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-09",
+   "attachments": [
+    {
+     "filename": "9067_08072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Canara Bank: credit alert",
+   "body": "Credit alert: Rs.18,206.73 has been credited to account *9067 on 11-07-2025 (REFUND). Avl bal Rs.3,173.01.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-11",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.29,003.88 for Kotak Mahindra Bank Credit Card ending 9809 (cardholder: MANOJ BHAT) was successful from your A/c *9067 on 13-07-2025.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "POS purchase of Rs.1,009.99 at PVR INOX on 14-07-2025 with Canara Bank Debit Card xx8252.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-14",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "IDBI Bank Account Statement - Jul 2025",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank XX2091 statement for the period 18-Jun-2025 to 17-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-18",
+   "attachments": [
+    {
+     "filename": "IDBI_Acct_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Dear Customer,\nRs.20,130.31 credited to your IDBI Bank A/c xx2091 on 29-07-2025 by IMPS. Ref 393054724380.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-29",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "IDBI Bank statement - Aug 2025",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card XX4751 statement for the period 04-Jul-2025 to 03-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-04",
+   "attachments": [
+    {
+     "filename": "eStatement_202508.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "Update your KYC",
+   "body": "Dear Sanjay,\nAs per RBI guidelines please complete re-KYC for your Canara Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Canara Bank: credit alert",
+   "body": "Credit alert: Rs.82.32 has been credited to account *9067 on 07-08-2025 (IMPS). Avl bal Rs.75,392.35.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-07",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.1,006.94 spent on your IDBI Bank Royale Credit Card xx4751 at DMART on 11-08-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-11",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m130",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c xx9067 is debited for Rs.19,237.39 on 13-08-2025 - UPI IKEA. Bal Rs.3,898.18. -Canara Bank",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.6,429.56 has been transferred from your A/c xx2091 to S K Enterprises A/c XX4367 (Union Bank of India) via IMPS on 13-08-2025. Ref no 544735520456.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.635.35 debited from account *2091 on 23-08-2025. Narration: ECOM/MAKEMYTRIP. Available balance Rs.2,151.13.",
+   "date": "2025-08-23",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m133",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.135.42 at BPCL FUEL on 25-08-2025 on IDBI Bank Credit Card xx4751.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m134",
+   "subject": "Your credit limit has been increased",
+   "body": "Dear Sanjay Bhat,\nWe have revised the limit on your IDBI Bank Royale Credit Card XX4751. Your new credit limit is Rs.1,60,000.00 from 02-09-2025.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m135",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "IDBI Bank Credit Card XX4751: purchase of Rs.1,752.48 at OLA CABS on 03-09-2025 10:59:56. Available limit Rs.38,990.22.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m136",
+   "subject": "IDBI Bank statement - Sep 2025",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card XX4751 statement for the period 04-Aug-2025 to 03-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-04",
+   "attachments": [
+    {
+     "filename": "IDBI_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m137",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Credit alert: Rs.104.27 has been credited to account XXXXXX2091 on 05-09-2025 (REFUND). Avl bal Rs.8,283.78.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-05",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m138",
+   "subject": "Canara Bank Account Statement - Sep 2025",
+   "body": "Dear Sanjay,\nYour Canara Bank *9067 account statement for Sep 2025 is ready. Closing balance Rs.54,375.22.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.159.59 has been debited from your Canara Bank A/c XXXXXX9067 on 18-09-2025 (ECOM TATA PLAY). Avl bal Rs.1,30,597.01.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-18",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "IDBI Bank: funds transferred",
+   "body": "Dear Customer,\nRs.5,418.10 has been transferred from your A/c XXXXXX2091 to Sita Devi A/c XX9484 (ICICI Bank) via IMPS on 22-09-2025. Ref no 182154101666.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m141",
+   "subject": "Update your KYC",
+   "body": "Dear Sanjay,\nAs per RBI guidelines please complete re-KYC for your IDBI Bank relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m142",
+   "subject": "Canara Bank: credit alert",
+   "body": "Your A/c XX9067 is credited with Rs.341.03 on 23-09-2025 - NEFT. Bal Rs.41,795.90. -Canara Bank",
+   "date": "2025-09-23",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "IDBI Bank statement - Oct 2025",
+   "body": "Dear Sanjay,\nStatement generated for IDBI Bank Royale Credit Card XX4751: amount payable Rs.52,750.55, last date 21-Oct-2025. Sign in to download.",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m144",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "IDBI Bank Royale Credit Card XX4751: purchase of Rs.1,885.10 at APOLLO PHARMACY on 05-10-2025 06:37:10. Available limit Rs.43,557.95.\n\nOpt for e-statements and go green.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m145",
+   "subject": "OTP for your transaction",
+   "body": "705033 is the OTP for your transaction of Rs.1,284.46 at NETFLIX. Valid for 10 minutes. Do not share.",
+   "date": "2025-10-14",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "IDBI Bank Account Statement - Oct 2025",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank *2091 statement for the period 18-Sep-2025 to 17-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202510.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m147",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.6,880.66 has been debited from your IDBI Bank A/c *2091 on 20-10-2025 (POS URBAN COMPANY). Avl bal Rs.58,757.23.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m148",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.8,738.18 spent on your Canara Bank Debit Card ending 8252 at BIG BAZAAR on 26-10-2025 22:53:36. Avl bal Rs.34,813.16.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Rs.207.74 withdrawn from XX2091 on 30-10-2025 via POS to IKEA. Closing balance Rs.3,304.32.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-30",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m150",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Deposit alert - Rs.1,617.39 received in account XX2091 on 03-11-2025 (INTEREST CREDIT) Ref 538537040947.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-03",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m151",
+   "subject": "IDBI Bank statement - Nov 2025",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card XX4751 statement for the period 04-Oct-2025 to 03-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-04",
+   "attachments": [
+    {
+     "filename": "4751_03112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m152",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "IDBI Bank Royale Credit Card XX4751: purchase of Rs.230.94 at GOOGLE PLAY on 05-11-2025 18:04:00. Available limit Rs.93,621.55.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m153",
+   "subject": "Canara Bank Account Statement - Nov 2025",
+   "body": "Dear Sanjay,\nPlease find attached your Canara Bank XXXXXX9067 statement for the period 09-Oct-2025 to 08-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-11-09",
+   "attachments": [
+    {
+     "filename": "Canara_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.246.21 | APPLE SERVICES | 10-11-2025 | IDBI Bank Royale Credit Card xx4751\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m155",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Deposit alert - Rs.11,791.59 received in account XXXXXX2091 on 14-11-2025 (SALARY NEFT) Ref 112349627511.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-14",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m156",
+   "subject": "Canara Bank: credit alert",
+   "body": "Credit alert: Rs.677.90 has been credited to account xx9067 on 15-11-2025 (SALARY NEFT). Avl bal Rs.44,298.43.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-15",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Rs.784.97 withdrawn from xx2091 on 16-11-2025 via UPI to BPCL FUEL. Closing balance Rs.19,046.44.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m158",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.1,231.60 has been debited from your IDBI Bank A/c *2091 on 19-11-2025 (ECOM APOLLO PHARMACY). Avl bal Rs.29,450.41.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m159",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.3,596.80 spent on your IDBI Bank Credit Card xx4751 at TATA PLAY on 21-11-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-21",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m160",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.264.95 has been debited from your Canara Bank A/c *9067 on 27-11-2025 (UPI PHONEPE). Avl bal Rs.11,472.74.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "IDBI Bank statement - Dec 2025",
+   "body": "Dear Sanjay,\nYour IDBI Bank Royale Credit Card XX4751 statement for Dec 2025 is ready. Total amount due Rs.4,096.95, minimum amount due Rs.204.85, payable by 21-Dec-2025.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-12-04",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m162",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.800.16 has been transferred from your A/c xx9067 to Ramesh Kumar A/c XX5224 (IDBI Bank) via IMPS on 08-12-2025. Ref no 807601745361.",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Payment received on IDBI Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.301.58 on 14-12-2025 for your IDBI Bank Credit Card XX4751. Available credit limit has been updated.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-14",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m164",
+   "subject": "IDBI Bank: funds transferred",
+   "body": "Dear Customer,\nRs.9,194.66 has been transferred from your A/c XXXXXX2091 to Anil Traders A/c XX2307 (IDFC FIRST Bank) via IMPS on 21-12-2025. Ref no 459903100121.",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m165",
+   "subject": "Canara Bank: credit alert",
+   "body": "Credit alert: Rs.112.66 has been credited to account XX9067 on 27-12-2025 (IMPS). Avl bal Rs.5,612.25.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "IDBI Bank Credit Card XX4751: purchase of Rs.3,564.26 at GOOGLE PLAY on 31-12-2025 06:33:04. Available limit Rs.1,54,122.75.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-31",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m167",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Sanjay,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "IDBI Bank statement - Jan 2026",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card XX4751 statement for the period 04-Dec-2025 to 03-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-04",
+   "attachments": [
+    {
+     "filename": "IDBI_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m169",
+   "subject": "Canara Bank: credit alert",
+   "body": "Canara Bank: XX9067 credited with Rs.6,947.97 on 05-01-2026. Source: UPI. Balance Rs.88,048.89.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Canara Bank Account Statement - Jan 2026",
+   "body": "Dear Sanjay,\nYour Canara Bank *9067 account statement for Jan 2026 is ready. Closing balance Rs.499.88.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.766.85 debited from account XXXXXX2091 on 11-01-2026. Narration: ECOM/TATA POWER. Available balance Rs.20,247.89.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m172",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.34,991.71 has been debited from your Canara Bank A/c XXXXXX9067 on 13-01-2026 (UPI INDIAN OIL). Avl bal Rs.4,818.12.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "IDBI Bank Account Statement - Jan 2026",
+   "body": "Dear Sanjay,\nYour IDBI Bank *2091 account statement for Jan 2026 is ready. Closing balance Rs.914.31.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m174",
+   "subject": "Update your KYC",
+   "body": "Dear Sanjay,\nAs per RBI guidelines please complete re-KYC for your IDBI Bank relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m175",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 280964955405. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m176",
+   "subject": "Canara Bank: credit alert",
+   "body": "Deposit alert - Rs.10,200.15 received in account *9067 on 29-01-2026 (NEFT) Ref 193138142813.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-29",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.389.98 has been debited from your Canara Bank A/c XX9067 on 02-02-2026 (UPI IKEA). Avl bal Rs.2,320.32.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "IDBI Bank: credit alert",
+   "body": "IDBI Bank: xx2091 credited with Rs.222.36 on 03-02-2026. Source: REFUND. Balance Rs.36,454.56.",
+   "date": "2026-02-03",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m179",
+   "subject": "IDBI Bank statement - Feb 2026",
+   "body": "Hi Sanjay,\nYour IDBI Bank Royale Credit Card ending 4751 e-statement for Feb 2026 is now available. Pay Rs.1,027.49 by 21-Feb-2026 to avoid late fees.",
+   "date": "2026-02-04",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m180",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Your A/c XXXXXX2091 is credited with Rs.186.93 on 12-02-2026 - REFUND. Bal Rs.5,750.69. -IDBI Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m181",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Canara Bank Debit Card xx8252: Rs.867.81 debited at LENSKART (18-02-2026 03:11:13).\n\nOpt for e-statements and go green.",
+   "date": "2026-02-18",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.566.11 | AIRTEL PREPAID | 01-03-2026 | IDBI Bank Credit Card XX4751\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m183",
+   "subject": "IDBI Bank statement - Mar 2026",
+   "body": "Dear Sanjay,\nStatement generated for IDBI Bank Royale Credit Card xx4751: amount payable Rs.653.97, last date 21-Mar-2026. Sign in to download.",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m184",
+   "subject": "Canara Bank: debit alert",
+   "body": "Alert: Canara Bank A/c XXXXXX9067 debited Rs.22,009.72 on 07-03-2026. Mode: UPI. Details: ZOMATO. Balance Rs.16,931.98.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Canara Bank Account Statement - Mar 2026",
+   "body": "Dear Sanjay,\nPlease find attached your Canara Bank xx9067 statement for the period 09-Feb-2026 to 08-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-09",
+   "attachments": [
+    {
+     "filename": "9067_08032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Alert: IDBI Bank A/c *2091 debited Rs.1,718.95 on 09-03-2026. Mode: IMPS. Details: SPOTIFY. Balance Rs.8,574.45.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m187",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.200.39 credited to your Canara Bank A/c *9067 on 21-03-2026 by REFUND. Ref 848364889453.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sanjay,\nYour order #702-4026267-9252153 is confirmed. Total Rs.3,882.38. Estimated delivery in 2 days.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m189",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.36,302.80 has been debited from your IDBI Bank A/c XX2091 on 24-03-2026 (UPI MEDPLUS). Avl bal Rs.65,209.87.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m190",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.297.49 has been debited from your IDBI Bank A/c XX2091 on 24-03-2026 (POS HPCL PETROL). Avl bal Rs.17,351.82.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m191",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.1,815.66 spent on your Canara Bank Debit Card XX8252 at IXIGO on 27-03-2026 07:28:12. Avl bal Rs.1,03,911.55.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.1,852.71 spent on your IDBI Bank Royale Credit Card ending 4751 at IXIGO on 31-03-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-31",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m193",
+   "subject": "IDBI Bank statement - Apr 2026",
+   "body": "Dear Sanjay,\nYour IDBI Bank Royale Credit Card XX4751 statement for Apr 2026 is ready. Total amount due Rs.1,353.18, minimum amount due Rs.200.00, payable by 21-Apr-2026.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m194",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Dear Customer,\nRs.1,632.48 credited to your IDBI Bank A/c xx2091 on 04-04-2026 by UPI. Ref 998852451547.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m195",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "IDBI Bank Credit Card xx4751: purchase of Rs.24,800.61 at CROMA on 06-04-2026 03:04:54. Available limit Rs.51,561.91.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m196",
+   "subject": "OTP for your transaction",
+   "body": "505364 is the OTP for your transaction of Rs.976.72 at IRCTC. Valid for 10 minutes. Do not share.",
+   "date": "2026-04-12",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "IDBI Bank Account Statement - Apr 2026",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank XX2091 statement for the period 18-Mar-2026 to 17-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-18",
+   "attachments": [
+    {
+     "filename": "IDBI_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m198",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.1,190.90 debited from account XX9067 on 21-04-2026. Narration: IMPS/ZEPTO. Available balance Rs.1,20,077.42.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Rs.2,577.74 withdrawn from XXXXXX2091 on 21-04-2026 via NEFT to SPOTIFY. Closing balance Rs.1,70,798.82.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m200",
+   "subject": "Canara Bank: debit alert",
+   "body": "Alert: Canara Bank A/c xx9067 debited Rs.122.03 on 30-04-2026. Mode: IMPS. Details: BATA INDIA. Balance Rs.93,481.01.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-30",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.18,582.84 at APPLE SERVICES on 01-05-2026 on IDBI Bank Royale Credit Card xx4751.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m202",
+   "subject": "IDBI Bank statement - May 2026",
+   "body": "Hi Sanjay,\nYour IDBI Bank Royale Credit Card XX4751 e-statement for May 2026 is now available. Pay Rs.8,321.99 by 21-May-2026 to avoid late fees.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m203",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c xx2091 is debited for Rs.1,232.37 on 05-05-2026 - ECOM SWIGGY. Bal Rs.90,129.27. -IDBI Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m204",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Alert: IDBI Bank A/c XXXXXX2091 debited Rs.124.74 on 05-05-2026. Mode: POS. Details: DMART. Balance Rs.96,679.11.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m205",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Rs.298.36 withdrawn using your Canara Bank Debit Card XX8252 at ATM PHONEPE on 06-05-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-06",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Canara Bank Account Statement - May 2026",
+   "body": "Dear Sanjay,\nYour Canara Bank XX9067 account statement for May 2026 is ready. Closing balance Rs.32,102.35.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.360.38 spent on your IDBI Bank Credit Card XX4751 at DECATHLON on 09-05-2026.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m208",
+   "subject": "Canara Bank: debit alert",
+   "body": "Alert: Canara Bank A/c *9067 debited Rs.10,661.62 on 22-05-2026. Mode: IMPS. Details: AIRTEL PREPAID. Balance Rs.2,424.27.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Sanjay,\nGet up to 10% cashback on partner brands.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m210",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Your Canara Bank Debit Card ending 8252 was used for Rs.321.66 at BESCOM on 23-05-2026.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Payment received on IDBI Bank Credit Card",
+   "body": "Payment confirmation: Rs.431.54 posted to IDBI Bank Royale Credit Card XX4751 on 26-05-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m212",
+   "subject": "IDBI Bank statement - Jun 2026",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card xx4751 statement for the period 04-May-2026 to 03-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-06-04",
+   "attachments": [
+    {
+     "filename": "IDBI_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m213",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Alert: IDBI Bank A/c *2091 debited Rs.5,576.89 on 14-06-2026. Mode: ECOM. Details: DECATHLON. Balance Rs.64,222.06.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m214",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.88.14 spent on your Canara Bank Debit Card XX8252 at INDIGO AIRLINES on 25-06-2026 07:08:56. Avl bal Rs.6,285.17.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Alert: IDBI Bank A/c xx2091 debited Rs.9,726.00 on 27-06-2026. Mode: NEFT. Details: BATA INDIA. Balance Rs.70,250.35.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m216",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.12,860.93 at UBER INDIA on 03-07-2026 on IDBI Bank Royale Credit Card ending 4751.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m217",
+   "subject": "IDBI Bank statement - Jul 2026",
+   "body": "Dear Sanjay,\nYour IDBI Bank Royale Credit Card XX4751 statement for Jul 2026 is ready. Total amount due Rs.12,773.22, minimum amount due Rs.638.66, payable by 21-Jul-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m218",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c *2091 is debited for Rs.816.51 on 07-07-2026 - IMPS OLA CABS. Bal Rs.13,990.31. -IDBI Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m219",
+   "subject": "Canara Bank Account Statement - Jul 2026",
+   "body": "Dear Sanjay,\nPlease find attached your Canara Bank XX9067 statement for the period 09-Jun-2026 to 08-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-07-09",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "IDBI Bank Account Statement - Jul 2026",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank XX2091 statement for the period 18-Jun-2026 to 17-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m221",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.1,740.93 has been transferred from your A/c *2091 to S K Enterprises A/c XX4367 (Union Bank of India) via IMPS on 21-07-2026. Ref no 810986957870.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m222",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Rs.15,806.53 withdrawn using your Canara Bank Debit Card ending 8252 at ATM LENSKART on 22-07-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.4,677.98 has been transferred from your A/c XX2091 to Anil Traders A/c XX2307 (IDFC FIRST Bank) via IMPS on 01-08-2026. Ref no 182161766367.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m224",
+   "subject": "IDBI Bank statement - Aug 2026",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card xx4751 statement for the period 04-Jul-2026 to 03-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-04",
+   "attachments": [
+    {
+     "filename": "IDBI_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m225",
+   "subject": "Canara Bank: credit alert",
+   "body": "Your A/c xx9067 is credited with Rs.23,060.25 on 06-08-2026 - REFUND. Bal Rs.28,500.75. -Canara Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Your Canara Bank Debit Card xx8252 was used for Rs.627.91 at IKEA on 27-08-2026.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Sanjay,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2026-08-30",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m228",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Alert: IDBI Bank A/c XXXXXX2091 debited Rs.19,846.90 on 31-08-2026. Mode: UPI. Details: FLIPKART. Balance Rs.8,359.56.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-31",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m229",
+   "subject": "IDBI Bank statement - Sep 2026",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card ending 4751 statement for the period 04-Aug-2026 to 03-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-04",
+   "attachments": [
+    {
+     "filename": "IDBI_CC_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m230",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c *9067 is debited for Rs.11,496.70 on 08-09-2026 - ECOM SWIGGY. Bal Rs.89,744.84. -Canara Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Your A/c xx2091 is credited with Rs.110.08 on 08-09-2026 - UPI. Bal Rs.1,00,318.75. -IDBI Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m232",
+   "subject": "Canara Bank Account Statement - Sep 2026",
+   "body": "Dear Sanjay,\nYour Canara Bank *9067 account statement for Sep 2026 is ready. Closing balance Rs.46,568.02.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.29,989.59 withdrawn from xx9067 on 09-09-2026 via ECOM to DMART. Closing balance Rs.26,339.51.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "IDBI Bank Royale Credit Card xx4751: purchase of Rs.109.65 at PAYTM on 09-09-2026 12:42:49. Available limit Rs.4,888.54.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m235",
+   "subject": "IDBI Bank: funds transferred",
+   "body": "Dear Customer,\nRs.1,715.55 has been transferred from your A/c xx2091 to Sita Devi A/c XX9484 (ICICI Bank) via IMPS on 09-09-2026. Ref no 996821863749.",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m236",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Alert: IDBI Bank A/c XXXXXX2091 debited Rs.166.00 on 20-09-2026. Mode: IMPS. Details: PHONEPE. Balance Rs.1,10,261.20.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-20",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m237",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.3,058.95 has been transferred from your A/c XXXXXX2091 to Anil Traders A/c XX2307 (IDFC FIRST Bank) via IMPS on 28-09-2026. Ref no 250191242005.",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m238",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nRs.123.50 spent on your IDBI Bank Credit Card ending 4751 at PHONEPE on 29-09-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m239",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Dear Customer, transaction of Rs.6,131.74 at UBER INDIA on 03-10-2026 on IDBI Bank Credit Card XX4751.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-03",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m240",
+   "subject": "IDBI Bank statement - Oct 2026",
+   "body": "Dear Sanjay,\nPlease find attached your IDBI Bank Royale Credit Card xx4751 statement for the period 04-Sep-2026 to 03-Oct-2026. Total amount due Rs.48,399.53, due 22-Oct-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-04",
+   "attachments": [
+    {
+     "filename": "IDBI_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "IDBI Bank Credit Card Statement\nSANJAY BHAT\nFLAT 601, GREEN VALLEY APARTMENTS\n4TH CROSS, SECTOR 21\nBENGALURU - 671229\nCard Name: IDBI Bank Royale Credit Card\nCredit Card Number: 487642XXXXXX4751\nStatement Period: 04/09/26 - 03/10/26\nStatement Date: 03/10/26\nPayment Summary\nTotal Amount Due: Rs.48,399.53\nMinimum Amount Due: Rs.2,419.98\nPayment Due Date: 22/10/26\nAccount Summary\nCredit Limit: Rs.1,60,000.00\nAvailable Credit Limit: Rs.1,33,359.36\nAvailable Cash Limit: Rs.32,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n09/09/26 APOLLO PHARMACY AHMEDABAD 183.24 Dr\n10/09/26 JIO RECHARGE GURUGRAM 6,635.87 Dr\n15/09/26 DMART AHMEDABAD 4,479.37 Dr\n17/09/26 BESCOM KOCHI 4,397.46 Dr\n18/09/26 STARBUCKS KOCHI 5,497.21 Dr\n20/09/26 MYNTRA HYDERABAD 132.66 Dr\n20/09/26 TATA PLAY JAIPUR 16,083.53 Dr\n23/09/26 STARBUCKS AHMEDABAD 574.32 Dr\n01/10/26 AIRTEL PREPAID GURUGRAM 3,303.32 Dr\n03/10/26 MAKEMYTRIP JAIPUR 4,910.49 Dr\n03/10/26 URBAN COMPANY CHENNAI 2,202.06 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m241",
+   "subject": "IDBI Bank Credit Card transaction alert",
+   "body": "Card alert | Rs.261.78 | PVR INOX | 07-10-2026 | IDBI Bank Royale Credit Card ending 4751\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m242",
+   "subject": "IDBI Bank Account Statement - Oct 2026",
+   "body": "Dear Sanjay,\nYour IDBI Bank xx2091 account statement for Oct 2026 is ready. Closing balance Rs.44,364.76.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m243",
+   "subject": "OTP for your transaction",
+   "body": "888929 is the OTP for your transaction of Rs.136.88 at BIG BAZAAR. Valid for 10 minutes. Do not share.",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.5,788.05 has been debited from your IDBI Bank A/c XX2091 on 26-10-2026 (NEFT GOOGLE PLAY). Avl bal Rs.23,292.23.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m245",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Deposit alert - Rs.927.73 received in account xx2091 on 27-10-2026 (SALARY NEFT) Ref 784220007148.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m246",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.676.47 has been debited from your Canara Bank A/c *9067 on 28-10-2026 (NEFT SPOTIFY). Avl bal Rs.44,585.07.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "9067",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "8252",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "2091",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "4751",
+    "kind": "CREDIT_CARD",
+    "variant": "Royale",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "5224",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "4367",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "2307",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "9484",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "1345",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "5438",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "8315",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "5405",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "9809",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

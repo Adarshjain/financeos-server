@@ -1,0 +1,1392 @@
+{
+ "mailbox": "sc-dbs-vantage",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "DBS digibank: debit alert",
+   "body": "Dear Customer,\nINR 893.92 has been debited from your DBS Bank A/c *7577 on 11-Jul-2025 (POS DMART). Avl bal INR 4,400.21.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-11",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "DBS Bank Account Statement - Jul 2025",
+   "body": "Dear Priya,\nPlease find attached your DBS Bank xx7577 statement for the period 19-Jun-2025 to 18-Jul-2025. \n\nOpt for e-statements and go green.",
+   "date": "2025-07-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": false,
+     "pdfText": "DBS BANK\nSTATEMENT OF ACCOUNT\nAccount Name : PRIYA VERMA\nFLAT 769, LAKESHORE APARTMENTS\n11TH CROSS, KOTHRUD\nKOLKATA - 505294\nAccount Number : *7577\nAccount Type : SAVINGS ACCOUNT\nIFSC : DBSX0111868\nStatement Period : 19-06-2025 to 18-07-2025\nOpening Balance : Rs.80,006.37\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n19-06-2025 UPI/CR 639775088 - 11,651.55 91,657.92\n21-06-2025 POS/PAYTM 205001604 2,905.13 - 88,752.79\n24-06-2025 IMPS/CR 945274583 - 19,087.05 107,839.84\n27-06-2025 UPI/INDIGO AIRLINES 584580506 1,113.98 - 106,725.86\n29-06-2025 POS/ZEPTO 675734114 17,749.05 - 88,976.81\n29-06-2025 NEFT DR/BLINKIT 299033266 921.88 - 88,054.93\n29-06-2025 POS/SPOTIFY 694284695 8,992.13 - 79,062.80\n29-06-2025 UPI/MAKEMYTRIP 233946531 1,060.05 - 78,002.75\nClosing Balance : Rs.78,002.75\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Standard Chartered Credit Card Statement - Jul 2025",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered Ultimate Credit Card XX1603 statement for the period 19-Jun-2025 to 18-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Standard Chartered Account Statement - Jul 2025",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered XXXXXX7131 statement for the period 21-Jun-2025 to 20-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-07-21",
+   "attachments": [
+    {
+     "filename": "Standard_Statement_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,252.82 spent on your DBS Vantage Credit Card ending 4819 at OLA CABS on 25-Jul-2025 16:39:53.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-25",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Sunil Plumber (A/c XXXXXX9505, Canara Bank) has been added to your account XXXXXX7131. It will be active after 30 minutes.",
+   "date": "2025-07-29",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "DBS Bank Credit Card Statement - Aug 2025",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card XX4819 statement for the period 05-Jul-2025 to 04-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-05",
+   "attachments": [
+    {
+     "filename": "DBS_CC_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Standard Chartered: debit alert",
+   "body": "Dear Customer,\nINR 3,713.13 has been debited from your Standard Chartered A/c *7131 on 10-Aug-2025 (ECOM EAZYDINER). Avl bal INR 70,351.89.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-10",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Standard Chartered Credit Card Statement - Aug 2025",
+   "body": "Dear Priya,\nYour Standard Chartered Ultimate Credit Card ending 1603 statement for Aug 2025 is ready. Total amount due Rs.37,771.98, minimum amount due Rs.1,888.60, payable by 05-Sep-2025.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 101.03 was spent on your Standard Chartered Ultimate Credit Card xx1603 at MCDONALDS on 22-Aug-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from XX7131 to Sunil Plumber A/c XX9505 on 28-Aug-2025. Rent for the month.",
+   "date": "2025-08-28",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "DBS digibank: credit alert",
+   "body": "Credit alert: INR 22,570.91 has been credited to account XX7577 on 31-Aug-2025 (IMPS). Avl bal INR 15,344.35.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-31",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 15,808.34 spent on your DBS Bank Credit Card xx4819 at CROMA on 01-Sep-2025 23:50:19.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Standard Chartered: credit alert",
+   "body": "Dear Customer,\nINR 31,938.57 credited to your Standard Chartered A/c xx7131 on 02-Sep-2025 by INTEREST CREDIT. Ref 761623194350.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Standard Chartered: debit alert",
+   "body": "INR debit alert: INR 4,035.00 debited from account XXXXXX7131 on 02-Sep-2025. Narration: ECOM/APPLE SERVICES. Available balance INR 2,215.28.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "DBS Bank Credit Card Statement - Sep 2025",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card XX4819 statement for the period 05-Aug-2025 to 04-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-05",
+   "attachments": [
+    {
+     "filename": "DBS_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 24,263.46 spent on your Standard Chartered Credit Card ending 1603 at AIRTEL PREPAID on 06-Sep-2025 12:09:19.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-06",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 238920986912. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-09-06",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.4,617.92 has been transferred from your A/c XX7131 to S K Enterprises A/c XX1928 (Union Bank of India) via IMPS on 07-Sep-2025. Ref no 955649014150.",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Standard Chartered Credit Card Statement - Sep 2025",
+   "body": "Dear Priya,\nYour Standard Chartered Ultimate Credit Card XX1603 statement for Sep 2025 is ready. Total amount due Rs.26,279.01, minimum amount due Rs.1,313.95, payable by 06-Oct-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-19",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Standard Chartered: debit alert",
+   "body": "Your A/c xx7131 is debited for INR 644.10 on 22-Sep-2025 - IMPS SWIGGY. Bal INR 93,016.15. -Standard Chartered",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 13,435.97 on 23-Sep-2025 for your Standard Chartered Ultimate Credit Card xx1603. Available credit limit has been updated.",
+   "date": "2025-09-23",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 3,965.55 was spent on your DBS Vantage Credit Card XX4819 at APPLE SERVICES on 23-Sep-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-23",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from *7131 to Sunil Plumber A/c XX9505 on 28-Sep-2025. Rent for the month.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 8,653.63 spent on your Standard Chartered Credit Card xx1603 at TATA PLAY on 01-Oct-2025 21:06:40.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "DBS Bank Credit Card Statement - Oct 2025",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card xx4819 statement for the period 05-Sep-2025 to 04-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-10-05",
+   "attachments": [
+    {
+     "filename": "4819_04102025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Standard Chartered: debit alert",
+   "body": "Your A/c XX7131 is debited for INR 303.34 on 05-Oct-2025 - UPI APPLE SERVICES. Bal INR 68,945.33. -Standard Chartered\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.3,816.90 has been transferred from your A/c *7131 to S K Enterprises A/c XX1928 (Union Bank of India) via IMPS on 06-Oct-2025. Ref no 670827778357.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Standard Chartered: debit alert",
+   "body": "Dear Customer,\nINR 727.44 has been debited from your Standard Chartered A/c XX7131 on 16-Oct-2025 (NEFT DECATHLON). Avl bal INR 31,965.19.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 762424126911. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "DBS Bank Account Statement - Oct 2025",
+   "body": "Dear Priya,\nYour DBS Bank XXXXXX7577 account statement for Oct 2025 is ready. Closing balance Rs.15,456.73.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Standard Chartered Credit Card Statement - Oct 2025",
+   "body": "Dear Priya,\nYour Standard Chartered Ultimate Credit Card ending 1603 statement for Oct 2025 is ready. Total amount due Rs.1,142.53, minimum amount due Rs.200.00, payable by 05-Nov-2025.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Standard Chartered Account Statement - Oct 2025",
+   "body": "Dear Priya,\nYour Standard Chartered XXXXXX7131 account statement for Oct 2025 is ready. Closing balance Rs.7,217.62.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Priya,\nConvert big spends to EMI at low interest.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 7,154.84 was spent on your Standard Chartered Credit Card ending 1603 at ZEPTO on 24-Oct-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from XX7131 to Sunil Plumber A/c XX9505 on 28-Oct-2025. Rent for the month.",
+   "date": "2025-10-28",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,906.58 was spent on your Standard Chartered Ultimate Credit Card XX1603 at BATA INDIA on 04-Nov-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "DBS Bank Credit Card Statement - Nov 2025",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card XX4819 statement for the period 05-Oct-2025 to 04-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-05",
+   "attachments": [
+    {
+     "filename": "DBS_CC_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Payment of INR 22,623.87 has been received towards your Standard Chartered Ultimate Credit Card xx1603 on 07-Nov-2025. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "OTP for your transaction",
+   "body": "763951 is the OTP for your transaction of Rs.3,463.68 at MCDONALDS. Valid for 10 minutes. Do not share.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 646.26 was spent on your DBS Bank Credit Card XX4819 at APOLLO PHARMACY on 14-Nov-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-14",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Payment received on your DBS Credit Card",
+   "body": "Payment of INR 637.20 has been received towards your DBS Bank Credit Card XX4819 on 17-Nov-2025. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Standard Chartered Credit Card Statement - Nov 2025",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered Ultimate Credit Card xx1603 statement for the period 19-Oct-2025 to 18-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-19",
+   "attachments": [
+    {
+     "filename": "1603_18112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,343.68 spent on your DBS Bank Credit Card XX4819 at INDIAN OIL on 19-Nov-2025 13:40:37.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Update your KYC",
+   "body": "Dear Priya,\nAs per RBI guidelines please complete re-KYC for your Standard Chartered relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-21",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Standard Chartered: debit alert",
+   "body": "Your A/c *7131 is debited for INR 278.13 on 25-Nov-2025 - IMPS STARBUCKS. Bal INR 41,571.40. -Standard Chartered",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 9,552.47 spent on your DBS Vantage Credit Card xx4819 at APPLE SERVICES on 27-Nov-2025 21:23:18.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from xx7131 to Sunil Plumber A/c XX9505 on 28-Nov-2025. Rent for the month.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "DBS digibank: credit alert",
+   "body": "Credit alert: INR 114.90 has been credited to account XX7577 on 02-Dec-2025 (UPI). Avl bal INR 16,644.30.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-02",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "DBS Bank Credit Card Statement - Dec 2025",
+   "body": "Dear Priya,\nYour DBS Vantage Credit Card ending 4819 statement for Dec 2025 is ready. Total amount due Rs.19,195.79, minimum amount due Rs.959.79, payable by 22-Dec-2025.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Standard Chartered Credit Card Statement - Dec 2025",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered Ultimate Credit Card ending 1603 statement for the period 19-Nov-2025 to 18-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-12-19",
+   "attachments": [
+    {
+     "filename": "Standard_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 545.04 was spent on your Standard Chartered Credit Card XX1603 at BIGBASKET on 20-Dec-2025.",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 339.22 was spent on your Standard Chartered Credit Card xx1603 at EASEMYTRIP on 24-Dec-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-24",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Standard Chartered: debit alert",
+   "body": "Dear Customer,\nINR 1,489.17 has been debited from your Standard Chartered A/c xx7131 on 24-Dec-2025 (UPI GOOGLE PLAY). Avl bal INR 6,389.06.",
+   "date": "2025-12-24",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,788.78 spent on your Standard Chartered Ultimate Credit Card XX1603 at IKEA on 30-Dec-2025 22:20:20.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-30",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 450.96 spent on your DBS Bank Credit Card XX4819 at IKEA on 31-Dec-2025 00:03:28.",
+   "date": "2025-12-31",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "DBS Bank Credit Card Statement - Jan 2026",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card ending 4819 statement for the period 05-Dec-2025 to 04-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-05",
+   "attachments": [
+    {
+     "filename": "DBS_CC_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "DBS digibank: credit alert",
+   "body": "Dear Customer,\nINR 3,094.69 credited to your DBS Bank A/c xx7577 on 07-Jan-2026 by INTEREST CREDIT. Ref 188604214672.\nThank you for banking with us.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-07",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "DBS digibank: debit alert",
+   "body": "Your A/c XXXXXX7577 is debited for INR 14,179.39 on 08-Jan-2026 - IMPS IKEA. Bal INR 5,997.02. -DBS Bank",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Standard Chartered: credit alert",
+   "body": "Your A/c XX7131 is credited with INR 213.56 on 14-Jan-2026 - UPI. Bal INR 2,930.35. -Standard Chartered\n\nOpt for e-statements and go green.",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 4,402.36 spent on your DBS Bank Credit Card ending 4819 at DOMINOS on 17-Jan-2026 16:21:07.",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "DBS Bank Account Statement - Jan 2026",
+   "body": "Dear Priya,\nPlease find attached your DBS Bank *7577 statement for the period 19-Dec-2025 to 18-Jan-2026. \n\n",
+   "date": "2026-01-19",
+   "attachments": [
+    {
+     "filename": "DBS_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "DBS BANK\nSTATEMENT OF ACCOUNT\nAccount Name : PRIYA VERMA\nFLAT 253, GREEN VALLEY APARTMENTS\n29TH CROSS, INDIRANAGAR\nBENGALURU - 517951\nAccount Number : xx7577\nAccount Type : SAVINGS ACCOUNT\nIFSC : DBSX0499272\nStatement Period : 19-12-2025 to 18-01-2026\nOpening Balance : Rs.31,506.68\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n21-12-2025 IMPS/CR 838334749 - 711.46 32,218.14\n21-12-2025 ATM WDL/JIO RECHARGE 618426581 17,170.06 - 15,048.08\n21-12-2025 SALARY NEFT 705375618 - 3,315.16 18,363.24\n23-12-2025 NEFT DR/IXIGO 460636914 12,206.04 - 6,157.20\n25-12-2025 NEFT DR/TATA POWER 772174355 5,937.65 - 219.55\n27-12-2025 IMPS/CR 577897222 - 18,561.12 18,780.67\n27-12-2025 INTEREST 923786764 - 456.55 19,237.22\n30-12-2025 NEFT DR/MEDPLUS 754392419 12,460.93 - 6,776.29\n02-01-2026 SALARY NEFT 295491860 - 3,038.41 9,814.70\nClosing Balance : Rs.9,814.70\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Standard Chartered Credit Card Statement - Jan 2026",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered Ultimate Credit Card xx1603 statement for the period 19-Dec-2025 to 18-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202601.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Standard Chartered Account Statement - Jan 2026",
+   "body": "Dear Priya,\nYour Standard Chartered XX7131 account statement for Jan 2026 is ready. Closing balance Rs.673.76.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-21",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 15,649.72 spent on your DBS Vantage Credit Card ending 4819 at LENSKART on 25-Jan-2026 22:12:59.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-25",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "DBS digibank: debit alert",
+   "body": "Dear Customer,\nINR 33,419.19 has been debited from your DBS Bank A/c XX7577 on 25-Jan-2026 (IMPS IXIGO). Avl bal INR 1,02,180.73.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-25",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Refer and earn",
+   "body": "Dear Priya,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-30",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Standard Chartered: debit alert",
+   "body": "Your A/c XX7131 is debited for INR 24,562.53 on 02-Feb-2026 - NEFT TATA POWER. Bal INR 1,49,407.00. -Standard Chartered\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "DBS Bank Credit Card Statement - Feb 2026",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card xx4819 statement for the period 05-Jan-2026 to 04-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-05",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Standard Chartered Credit Card Statement - Feb 2026",
+   "body": "Dear Priya,\nYour Standard Chartered Ultimate Credit Card XX1603 statement for Feb 2026 is ready. Total amount due Rs.1,539.27, minimum amount due Rs.200.00, payable by 08-Mar-2026.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-19",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "DBS Bank Credit Card Statement - Mar 2026",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card XX4819 statement for the period 05-Feb-2026 to 04-Mar-2026. Total amount due Rs.12,535.28, due 23-Mar-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-05",
+   "attachments": [
+    {
+     "filename": "4819_04032026_stmt.pdf",
+     "protected": false,
+     "pdfText": "DBS Bank Credit Card Statement\nPRIYA VERMA\nFLAT 554, ORCHID APARTMENTS\n21TH CROSS, INDIRANAGAR\nGURUGRAM - 576586\nCard Name: DBS Vantage Credit Card\nCredit Card Number: 491855XXXXXX4819\nStatement Period: 05/02/26 - 04/03/26\nStatement Date: 04/03/26\nPayment Summary\nTotal Amount Due: Rs.12,535.28\nMinimum Amount Due: Rs.626.76\nPayment Due Date: 23/03/26\nAccount Summary\nCredit Limit: Rs.5,60,000.00\nAvailable Credit Limit: Rs.5,50,846.07\nAvailable Cash Limit: Rs.1,12,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n08/02/26 BATA INDIA AHMEDABAD 1,513.11 Dr\n08/02/26 OLA CABS KOCHI 402.35 Dr\n09/02/26 RELIANCE DIGITAL HYDERABAD 1,476.07 Dr\n11/02/26 IKEA JAIPUR 5,419.76 Dr\n19/02/26 BATA INDIA KOLKATA 1,724.76 Dr\n19/02/26 DECATHLON HYDERABAD 579.72 Dr\n21/02/26 APPLE SERVICES PUNE 240.88 Dr\n01/03/26 URBAN COMPANY KOLKATA 165.91 Dr\n03/03/26 FLIPKART GURUGRAM 1,012.72 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Standard Chartered Credit Card Statement - Mar 2026",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered Ultimate Credit Card xx1603 statement for the period 19-Feb-2026 to 18-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-19",
+   "attachments": [
+    {
+     "filename": "1603_18032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.29,066.92 for Union Bank of India Credit Card ending 6588 (cardholder: IMRAN VERMA) was successful from your A/c xx7577 on 19-Mar-2026.",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "OTP for your transaction",
+   "body": "612259 is the OTP for your transaction of Rs.7,404.92 at MYNTRA. Valid for 10 minutes. Do not share.",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Priya,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Priya,\nPlease find attached the updated MITC for your Standard Chartered credit cards.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-31",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "STANDARD CHARTERED CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Payment received on your DBS Credit Card",
+   "body": "Payment of INR 9,927.11 has been received towards your DBS Bank Credit Card XX4819 on 01-Apr-2026. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Standard Chartered: credit alert",
+   "body": "Credit alert: INR 38,474.59 has been credited to account XX7131 on 02-Apr-2026 (UPI). Avl bal INR 83,907.31.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,501.49 spent on your Standard Chartered Credit Card XX1603 at STARBUCKS on 03-Apr-2026 18:14:10.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "DBS Bank Credit Card Statement - Apr 2026",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card xx4819 statement for the period 05-Mar-2026 to 04-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-04-05",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "DBS digibank: credit alert",
+   "body": "Your A/c XX7577 is credited with INR 87.72 on 06-Apr-2026 - NEFT. Bal INR 2,039.43. -DBS Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Update your KYC",
+   "body": "Dear Priya,\nAs per RBI guidelines please complete re-KYC for your Standard Chartered relationship. Visit a branch or use the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Standard Chartered Credit Card Statement - Apr 2026",
+   "body": "Dear Priya,\nYour Standard Chartered Ultimate Credit Card xx1603 statement for Apr 2026 is ready. Total amount due Rs.650.06, minimum amount due Rs.200.00, payable by 06-May-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "DBS Bank Account Statement - Apr 2026",
+   "body": "Dear Priya,\nYour DBS Bank xx7577 account statement for Apr 2026 is ready. Closing balance Rs.1,350.11.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "DBS digibank: debit alert",
+   "body": "Dear Customer,\nINR 124.31 has been debited from your DBS Bank A/c xx7577 on 19-Apr-2026 (POS IRCTC). Avl bal INR 2,852.92.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Standard Chartered Account Statement - Apr 2026",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered XXXXXX7131 statement for the period 21-Mar-2026 to 20-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-21",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 750889196256. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "DBS digibank: debit alert",
+   "body": "Dear Customer,\nINR 345.75 has been debited from your DBS Bank A/c XXXXXX7577 on 02-May-2026 (IMPS INDIGO AIRLINES). Avl bal INR 42,183.63.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "DBS Bank Credit Card Statement - May 2026",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card ending 4819 statement for the period 05-Apr-2026 to 04-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-05",
+   "attachments": [
+    {
+     "filename": "DBS_CC_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Standard Chartered Credit Card Statement - May 2026",
+   "body": "Dear Priya,\nYour Standard Chartered Ultimate Credit Card XX1603 statement for May 2026 is ready. Total amount due Rs.741.90, minimum amount due Rs.200.00, payable by 05-Jun-2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Standard Chartered: debit alert",
+   "body": "Your A/c xx7131 is debited for INR 23,805.05 on 21-May-2026 - POS CROMA. Bal INR 1,59,764.14. -Standard Chartered\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Standard Chartered: debit alert",
+   "body": "Dear Customer,\nINR 2,657.31 has been debited from your Standard Chartered A/c XX7131 on 30-May-2026 (ECOM PAYTM). Avl bal INR 4,195.06.",
+   "date": "2026-05-30",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Priya,\nYour order #489-6984137-8785560 is confirmed. Total Rs.1,191.44. Estimated delivery in 2 days.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Priya,\nYour order #789-3371410-4069424 is confirmed. Total Rs.332.45. Estimated delivery in 2 days.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Priya,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 571.28 spent on your Standard Chartered Credit Card ending 1603 at STARBUCKS on 04-Jun-2026 15:23:06.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 923.58 was spent on your Standard Chartered Credit Card XX1603 at INDIGO AIRLINES on 04-Jun-2026.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Standard Chartered: funds transferred",
+   "body": "Dear Customer,\nRs.2,025.27 has been transferred from your A/c XXXXXX7131 to S K Enterprises A/c XX1928 (Union Bank of India) via IMPS on 04-Jun-2026. Ref no 558851972820.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX4904 has been updated on 03-Mar-2026. If not requested by you, call customer care.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "DBS Bank Credit Card Statement - Jun 2026",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card XX4819 statement for the period 05-May-2026 to 04-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-05",
+   "attachments": [
+    {
+     "filename": "DBS_CC_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 434.59 was spent on your Standard Chartered Credit Card XX1603 at ZEPTO on 07-Jun-2026.",
+   "date": "2026-06-07",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Standard Chartered: debit alert",
+   "body": "Dear Customer,\nINR 1,417.73 has been debited from your Standard Chartered A/c XXXXXX7131 on 13-Jun-2026 (ECOM ZEPTO). Avl bal INR 14,601.84.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Priya,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Standard Chartered: debit alert",
+   "body": "Your A/c XX7131 is debited for INR 2,669.77 on 14-Jun-2026 - IMPS AIRTEL PREPAID. Bal INR 89,629.40. -Standard Chartered\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Standard Chartered Credit Card Statement - Jun 2026",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered Ultimate Credit Card ending 1603 statement for the period 19-May-2026 to 18-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "DBS Bank Credit Card Statement - Jul 2026",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card xx4819 statement for the period 05-Jun-2026 to 04-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-07-05",
+   "attachments": [
+    {
+     "filename": "DBS_CC_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "DBS digibank: debit alert",
+   "body": "Your A/c XXXXXX7577 is debited for INR 92.29 on 12-Jul-2026 - NEFT BATA INDIA. Bal INR 5,799.69. -DBS Bank",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "DBS digibank: debit alert",
+   "body": "Dear Customer,\nINR 2,486.46 has been debited from your DBS Bank A/c xx7577 on 14-Jul-2026 (NEFT BOOKMYSHOW). Avl bal INR 51,604.63.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "DBS digibank: debit alert",
+   "body": "Your A/c *7577 is debited for INR 1,935.48 on 14-Jul-2026 - UPI PVR INOX. Bal INR 1,37,511.65. -DBS Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "DBS digibank: debit alert",
+   "body": "Your A/c XX7577 is debited for INR 229.96 on 14-Jul-2026 - ECOM OLA CABS. Bal INR 54,242.57. -DBS Bank",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Standard Chartered: credit alert",
+   "body": "Credit alert: INR 31,341.62 has been credited to account XXXXXX7131 on 16-Jul-2026 (REFUND). Avl bal INR 5,137.40.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Standard Chartered Credit Card Statement - Jul 2026",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered Ultimate Credit Card XX1603 statement for the period 19-Jun-2026 to 18-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-19",
+   "attachments": [
+    {
+     "filename": "Standard_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "DBS Bank Account Statement - Jul 2026",
+   "body": "Dear Priya,\nPlease find attached your DBS Bank XX7577 statement for the period 19-Jun-2026 to 18-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-19",
+   "attachments": [
+    {
+     "filename": "DBS_Acct_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Standard Chartered Account Statement - Jul 2026",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered XX7131 statement for the period 21-Jun-2026 to 20-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-21",
+   "attachments": [
+    {
+     "filename": "Standard_Acct_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Standard Chartered: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 2669 has been successfully linked/verified for your Standard Chartered relationship. If this was not you, contact us.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Update your KYC",
+   "body": "Dear Priya,\nAs per RBI guidelines please complete re-KYC for your DBS Bank relationship. Visit a branch or use the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 2,511.08 was spent on your Standard Chartered Credit Card xx1603 at INDIAN OIL on 28-Jul-2026.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 7,843.73 on 29-Jul-2026 for your Standard Chartered Ultimate Credit Card ending 1603. Available credit limit has been updated.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-29",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "DBS Bank Credit Card Statement - Aug 2026",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card XX4819 statement for the period 05-Jul-2026 to 04-Aug-2026. Total amount due Rs.28,122.75, due 23-Aug-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-05",
+   "attachments": [
+    {
+     "filename": "4819_04082026_stmt.pdf",
+     "protected": false,
+     "pdfText": "DBS Bank Credit Card Statement\nPRIYA VERMA\nFLAT 489, GREEN VALLEY APARTMENTS\n15TH CROSS, BANJARA HILLS\nJAIPUR - 443865\nCard Name: DBS Vantage Credit Card\nCredit Card Number: 491855XXXXXX4819\nStatement Period: 05/07/26 - 04/08/26\nStatement Date: 04/08/26\nPayment Summary\nTotal Amount Due: Rs.28,122.75\nMinimum Amount Due: Rs.1,406.14\nPayment Due Date: 23/08/26\nAccount Summary\nCredit Limit: Rs.5,60,000.00\nAvailable Credit Limit: Rs.5,37,590.90\nAvailable Cash Limit: Rs.1,12,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n07/07/26 MAKEMYTRIP BENGALURU 3,577.91 Dr\n09/07/26 FLIPKART HYDERABAD 90.40 Dr\n09/07/26 SODEXO CHENNAI 2,843.76 Dr\n19/07/26 INDIAN OIL HYDERABAD 128.94 Dr\n21/07/26 INDIAN OIL CHENNAI 18,439.53 Dr\n26/07/26 GOOGLE PLAY AHMEDABAD 3,042.21 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "DBS digibank: debit alert",
+   "body": "Dear Customer,\nINR 26,199.17 has been debited from your DBS Bank A/c *7577 on 17-Aug-2026 (ECOM CROMA). Avl bal INR 20,022.37.",
+   "date": "2026-08-17",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "DBS digibank: debit alert",
+   "body": "INR debit alert: INR 2,196.39 debited from account XX7577 on 18-Aug-2026. Narration: IMPS/OLA CABS. Available balance INR 17,517.29.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-18",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Standard Chartered Credit Card Statement - Aug 2026",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered Ultimate Credit Card XX1603 statement for the period 19-Jul-2026 to 18-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-19",
+   "attachments": [
+    {
+     "filename": "Standard_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 3,796.64 spent on your DBS Bank Credit Card XX4819 at IRCTC on 02-Sep-2026 09:49:35.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Payment received on your DBS Credit Card",
+   "body": "Payment of INR 177.48 has been received towards your DBS Bank Credit Card XX4819 on 02-Sep-2026. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Priya,\nConvert big spends to EMI at low interest.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 2,001.91 was spent on your DBS Vantage Credit Card ending 4819 at LENSKART on 04-Sep-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-04",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Standard Chartered: debit alert",
+   "body": "INR debit alert: INR 18,280.26 debited from account XX7131 on 04-Sep-2026. Narration: POS/MCDONALDS. Available balance INR 9,130.26.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-04",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "DBS Bank Credit Card Statement - Sep 2026",
+   "body": "Dear Priya,\nYour DBS Vantage Credit Card XX4819 statement for Sep 2026 is ready. Total amount due Rs.9,182.28, minimum amount due Rs.459.11, payable by 22-Sep-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 148.20 was spent on your DBS Vantage Credit Card XX4819 at EAZYDINER on 05-Sep-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "DBS Bank: funds transferred",
+   "body": "Dear Customer,\nRs.4,849.22 has been transferred from your A/c *7577 to Anil Traders A/c XX6106 (IndusInd Bank) via IMPS on 08-Sep-2026. Ref no 728916773567.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Standard Chartered Credit Card Statement - Sep 2026",
+   "body": "Dear Priya,\nYour Standard Chartered Ultimate Credit Card xx1603 statement for Sep 2026 is ready. Total amount due Rs.1,524.03, minimum amount due Rs.200.00, payable by 06-Oct-2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "DBS Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 887.12 spent on your DBS Bank Credit Card XX4819 at BLINKIT on 19-Sep-2026 02:32:09.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.18,771.40 has been transferred from your A/c xx7577 to Anil Traders A/c XX6106 (IndusInd Bank) via IMPS on 19-Sep-2026. Ref no 787209289875.",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "DBS digibank: debit alert",
+   "body": "Dear Customer,\nINR 102.88 has been debited from your DBS Bank A/c *7577 on 23-Sep-2026 (UPI DOMINOS). Avl bal INR 62,007.72.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "DBS Bank Credit Card Statement - Oct 2026",
+   "body": "Dear Priya,\nPlease find attached your DBS Vantage Credit Card xx4819 statement for the period 05-Sep-2026 to 04-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-05",
+   "attachments": [
+    {
+     "filename": "DBS_CC_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 7,196.47 on 08-Oct-2026 for your Standard Chartered Credit Card XX1603. Available credit limit has been updated.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-08",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Payment received on your DBS Credit Card",
+   "body": "Payment of INR 3,268.11 has been received towards your DBS Bank Credit Card xx4819 on 13-Oct-2026. Thank you for the payment.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Update your KYC",
+   "body": "Dear Priya,\nAs per RBI guidelines please complete re-KYC for your DBS Bank relationship. Visit a branch or use the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "DBS Bank Account Statement - Oct 2026",
+   "body": "Dear Priya,\nYour DBS Bank XX7577 account statement for Oct 2026 is ready. Closing balance Rs.16,566.82.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "DBS Bank India <statements@dbs.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Standard Chartered Credit Card Statement - Oct 2026",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered Ultimate Credit Card XX1603 statement for the period 19-Sep-2026 to 18-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-19",
+   "attachments": [
+    {
+     "filename": "Standard_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "DBS digibank: debit alert",
+   "body": "INR debit alert: INR 853.30 debited from account *7577 on 19-Oct-2026. Narration: POS/NETFLIX. Available balance INR 8,087.36.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "DBS Bank India <alerts@dbs.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Standard Chartered Account Statement - Oct 2026",
+   "body": "Dear Priya,\nPlease find attached your Standard Chartered *7131 statement for the period 21-Sep-2026 to 20-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-21",
+   "attachments": [
+    {
+     "filename": "eStatement_202610.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "sc.com",
+    "last4": "1603",
+    "kind": "CREDIT_CARD",
+    "variant": "Ultimate",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "dbs.com",
+    "last4": "4819",
+    "kind": "CREDIT_CARD",
+    "variant": "Vantage",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "5-10L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "dbs.com",
+    "last4": "7577",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sc.com",
+    "last4": "7131",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "6106",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "1928",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "9505",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "sc.com",
+    "last4": "2669",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "dbs.com",
+    "last4": "4904",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "dbs.com",
+    "last4": "6912",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "sc.com",
+    "last4": "6256",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "sc.com",
+    "last4": "6911",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "6588",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

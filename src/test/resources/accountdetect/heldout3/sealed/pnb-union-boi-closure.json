@@ -1,0 +1,2355 @@
+{
+ "mailbox": "pnb-union-boi-closure",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c XXXXXX9112 debited Rs.3,938.98 on 06-05-2024. Mode: ECOM. Details: MAKEMYTRIP. Balance Rs.14,038.49.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-05-06",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.640.89 has been debited from your Union Bank of India A/c *9112 on 17-05-2024 (UPI GOOGLE PLAY). Avl bal Rs.32,660.55.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-05-17",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m003",
+   "subject": "Bank of India: debit alert",
+   "body": "Rs.12,790.52 withdrawn from xx0286 on 17-05-2024 via UPI to DOMINOS. Closing balance Rs.1,82,184.11.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-05-17",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "Punjab National Bank Account Statement - May 2024",
+   "body": "Dear Meera,\nPlease find attached your Punjab National Bank XXXXXX8877 statement for the period 19-Apr-2024 to 18-May-2024. \n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202405.pdf",
+     "protected": false,
+     "pdfText": "PUNJAB NATIONAL BANK\nSTATEMENT OF ACCOUNT\nAccount Name : MEERA SINGH\nFLAT 786, LAKESHORE APARTMENTS\n5TH CROSS, INDIRANAGAR\nJAIPUR - 617292\nAccount Number : XX8877\nAccount Type : SAVINGS ACCOUNT\nIFSC : PNBX0662983\nStatement Period : 19-04-2024 to 18-05-2024\nOpening Balance : Rs.78,077.72\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n21-04-2024 POS/TATA PLAY 338324345 12,335.00 - 65,742.72\n23-04-2024 INTEREST 639141116 - 1,631.58 67,374.30\n26-04-2024 IMPS/CR 544565917 - 5,853.56 73,227.86\n26-04-2024 NEFT DR/DMART 754589060 15,642.84 - 57,585.02\n26-04-2024 UPI/CR 946782452 - 1,443.91 59,028.93\n28-04-2024 NEFT DR/TATA PLAY 468473206 194.82 - 58,834.11\n28-04-2024 UPI/CR 901522126 - 662.91 59,497.02\n30-04-2024 UPI/GOOGLE PLAY 431174819 206.45 - 59,290.57\n30-04-2024 POS/DMART 821537472 15,780.62 - 43,509.95\n01-05-2024 NEFT DR/BLINKIT 612691012 135.78 - 43,374.17\nClosing Balance : Rs.43,374.17\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m005",
+   "subject": "OTP for your transaction",
+   "body": "396477 is the OTP for your transaction of Rs.3,837.27 at NYKAA. Valid for 10 minutes. Do not share.",
+   "date": "2024-05-24",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m006",
+   "subject": "Union Bank of India Account Statement - May 2024",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India XXXXXX9112 statement for the period 27-Apr-2024 to 26-May-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-05-27",
+   "attachments": [
+    {
+     "filename": "eStatement_202405.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "Bank of India Account Statement - May 2024",
+   "body": "Dear Meera,\nPlease find attached your Bank of India *0286 statement for the period 27-Apr-2024 to 26-May-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-27",
+   "attachments": [
+    {
+     "filename": "0286_26052024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.317.33 has been debited from your Union Bank of India A/c XXXXXX9112 on 28-05-2024 (POS NYKAA). Avl bal Rs.47,125.82.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-05-28",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Credit alert: Rs.669.73 has been credited to account xx9112 on 19-06-2024 (UPI). Avl bal Rs.1,79,737.04.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-06-19",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "Union Bank of India Account Statement - Jun 2024",
+   "body": "Dear Meera,\nYour Union Bank of India XX9112 account statement for Jun 2024 is ready. Closing balance Rs.6,243.88.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-06-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "Bank of India: debit alert",
+   "body": "Rs.325.58 withdrawn from XXXXXX0286 on 09-07-2024 via POS to APPLE SERVICES. Closing balance Rs.24,128.43.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-09",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "Punjab National Bank Account Statement - Jul 2024",
+   "body": "Dear Meera,\nPlease find attached your Punjab National Bank xx8877 statement for the period 19-Jun-2024 to 18-Jul-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-07-19",
+   "attachments": [
+    {
+     "filename": "8877_18072024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Alert: Punjab National Bank A/c *8877 debited Rs.1,220.01 on 20-07-2024. Mode: POS. Details: BATA INDIA. Balance Rs.4,226.97.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-07-20",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m014",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Union Bank of India: XXXXXX9112 credited with Rs.143.86 on 20-07-2024. Source: UPI. Balance Rs.14,169.78.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-07-20",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m015",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c xx8877 is debited for Rs.13,754.98 on 21-07-2024 - POS AMAZON PAY INDIA. Bal Rs.1,34,687.99. -Punjab National Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-07-21",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "Union Bank of India Account Statement - Jul 2024",
+   "body": "Dear Meera,\nYour Union Bank of India XX9112 account statement for Jul 2024 is ready. Closing balance Rs.19,089.89.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-07-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m017",
+   "subject": "Bank of India Account Statement - Jul 2024",
+   "body": "Dear Meera,\nYour Bank of India xx0286 account statement for Jul 2024 is ready. Closing balance Rs.3,472.39.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-07-27",
+   "attachments": [],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Dear Customer,\nRs.1,299.66 credited to your Punjab National Bank A/c *8877 on 27-07-2024 by UPI. Ref 231345921355.\nThank you for banking with us.",
+   "date": "2024-07-27",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.7,345.71 has been debited from your Union Bank of India A/c *9112 on 28-07-2024 (IMPS INDIAN OIL). Avl bal Rs.22,911.05.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-07-28",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m020",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Rs.200.24 withdrawn using your Punjab National Bank Debit Card XX2148 at ATM SODEXO on 03-08-2024.",
+   "date": "2024-08-03",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m021",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c XXXXXX9112 debited Rs.5,083.91 on 03-08-2024. Mode: POS. Details: PHONEPE. Balance Rs.97,732.97.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-08-03",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Your A/c *9112 is credited with Rs.7,467.76 on 12-08-2024 - NEFT. Bal Rs.3,629.50. -Union Bank of India\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-08-12",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c *9112 debited Rs.1,931.60 on 17-08-2024. Mode: NEFT. Details: PHONEPE. Balance Rs.1,65,196.04.",
+   "date": "2024-08-17",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "Refer and earn",
+   "body": "Dear Meera,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-08-19",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m025",
+   "subject": "Union Bank of India Account Statement - Aug 2024",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India xx9112 statement for the period 27-Jul-2024 to 26-Aug-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-08-27",
+   "attachments": [
+    {
+     "filename": "9112_26082024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "Bank of India: credit alert",
+   "body": "Bank of India: xx0286 credited with Rs.276.22 on 31-08-2024. Source: SALARY NEFT. Balance Rs.10,462.72.",
+   "date": "2024-08-31",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m027",
+   "subject": "Bank of India: debit alert",
+   "body": "Alert: Bank of India A/c xx0286 debited Rs.13,344.40 on 31-08-2024. Mode: POS. Details: TATA PLAY. Balance Rs.3,089.38.",
+   "date": "2024-08-31",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m028",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.171.03 debited from account XXXXXX0286 on 15-09-2024. Narration: POS/GOOGLE PLAY. Available balance Rs.3,339.30.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-09-15",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Meera,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nOpt for e-statements and go green.",
+   "date": "2024-09-16",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "Punjab National Bank Account Statement - Sep 2024",
+   "body": "Dear Meera,\nYour Punjab National Bank xx8877 account statement for Sep 2024 is ready. Closing balance Rs.7,477.00.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-09-19",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "Union Bank of India Account Statement - Sep 2024",
+   "body": "Dear Meera,\nYour Union Bank of India XX9112 account statement for Sep 2024 is ready. Closing balance Rs.9,068.11.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "Bank of India Account Statement - Sep 2024",
+   "body": "Dear Meera,\nPlease find attached your Bank of India XX0286 statement for the period 27-Aug-2024 to 26-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-09-27",
+   "attachments": [
+    {
+     "filename": "0286_26092024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Lata Tutor (A/c XXXXXX1172, SBI Card) has been added to your account XX8877. It will be active after 30 minutes.",
+   "date": "2024-10-02",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m034",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.37,115.52 has been credited to account xx0286 on 09-10-2024 (INTEREST CREDIT). Avl bal Rs.1,95,745.85.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-09",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XXXXXX8877 is debited for Rs.503.90 on 12-10-2024 - ECOM FLIPKART. Bal Rs.1,17,371.30. -Punjab National Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-12",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m036",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.831.01 debited from account XXXXXX0286 on 15-10-2024. Narration: ECOM/NYKAA. Available balance Rs.1,43,790.47.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-10-15",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.1,579.04 has been credited to account XXXXXX8877 on 16-10-2024 (SALARY NEFT). Avl bal Rs.17,989.22.",
+   "date": "2024-10-16",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.317.33 has been debited from your Bank of India A/c xx0286 on 17-10-2024 (POS MCDONALDS). Avl bal Rs.82,771.39.\n\nOpt for e-statements and go green.",
+   "date": "2024-10-17",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "Union Bank of India: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 2992 has been successfully linked/verified for your Union Bank of India relationship. If this was not you, contact us.",
+   "date": "2024-10-20",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.2,484.21 has been transferred from your A/c *0286 to Mohan Landlord A/c XX2576 (SBI Card) via IMPS on 25-10-2024. Ref no 566130915458.",
+   "date": "2024-10-25",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "Union Bank of India Account Statement - Oct 2024",
+   "body": "Dear Meera,\nYour Union Bank of India xx9112 account statement for Oct 2024 is ready. Closing balance Rs.4,646.28.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m042",
+   "subject": "Bank of India: credit alert",
+   "body": "Deposit alert - Rs.19,829.17 received in account xx0286 on 29-10-2024 (NEFT) Ref 245327999671.",
+   "date": "2024-10-29",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from xx8877 to Lata Tutor A/c XX1172 on 02-11-2024. Rent for the month.",
+   "date": "2024-11-02",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX4823 has been updated on 02-08-2025. If not requested by you, call customer care.",
+   "date": "2024-11-08",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.362.73 debited from account *8877 on 11-11-2024. Narration: ECOM/URBAN COMPANY. Available balance Rs.77,115.38.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-11-11",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m046",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Meera,\nGet up to 10% cashback on partner brands.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-12",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m047",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Credit alert: Rs.107.88 has been credited to account XX9112 on 13-11-2024 (SALARY NEFT). Avl bal Rs.2,231.26.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-13",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Punjab National Bank: *8877 credited with Rs.126.54 on 15-11-2024. Source: UPI. Balance Rs.24,820.99.",
+   "date": "2024-11-15",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Bank of India: debit alert",
+   "body": "Rs.8,806.26 withdrawn from *0286 on 16-11-2024 via POS to OLA CABS. Closing balance Rs.2,485.94.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-16",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m050",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Your Punjab National Bank Debit Card XX2148 was used for Rs.1,135.67 at TATA PLAY on 18-11-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-18",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m051",
+   "subject": "Punjab National Bank Account Statement - Nov 2024",
+   "body": "Dear Meera,\nPlease find attached your Punjab National Bank XXXXXX8877 statement for the period 19-Oct-2024 to 18-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-19",
+   "attachments": [
+    {
+     "filename": "Punjab_Statement_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.500.34 has been debited from your Union Bank of India A/c XXXXXX9112 on 21-11-2024 (UPI NYKAA). Avl bal Rs.1,67,302.94.",
+   "date": "2024-11-21",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m053",
+   "subject": "Refer and earn",
+   "body": "Dear Meera,\nUse your card on UPI and earn extra rewards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-23",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m054",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.4,799.59 has been credited to account xx8877 on 24-11-2024 (REFUND). Avl bal Rs.30,549.96.",
+   "date": "2024-11-24",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "Union Bank of India Account Statement - Nov 2024",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India XXXXXX9112 statement for the period 27-Oct-2024 to 26-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-27",
+   "attachments": [
+    {
+     "filename": "Union_Acct_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m056",
+   "subject": "Bank of India Account Statement - Nov 2024",
+   "body": "Dear Meera,\nPlease find attached your Bank of India *0286 statement for the period 27-Oct-2024 to 26-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-27",
+   "attachments": [
+    {
+     "filename": "0286_26112024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m057",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c xx9112 debited Rs.464.19 on 27-11-2024. Mode: POS. Details: AMAZON PAY INDIA. Balance Rs.3,426.92.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-27",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from xx8877 to Lata Tutor A/c XX1172 on 02-12-2024. Rent for the month.",
+   "date": "2024-12-02",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Your Punjab National Bank Debit Card xx2148 was used for Rs.140.51 at DECATHLON on 17-12-2024.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-17",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Alert: Punjab National Bank A/c xx8877 debited Rs.5,883.32 on 18-12-2024. Mode: NEFT. Details: TATA PLAY. Balance Rs.32,345.69.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-12-18",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.1,551.80 debited from account *0286 on 20-12-2024. Narration: IMPS/CROMA. Available balance Rs.8,346.65.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-20",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m062",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c *9112 debited Rs.813.45 on 22-12-2024. Mode: UPI. Details: LENSKART. Balance Rs.17,025.46.",
+   "date": "2024-12-22",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.32,531.74 has been credited to account xx0286 on 26-12-2024 (INTEREST CREDIT). Avl bal Rs.1,03,083.52.\n\nOpt for e-statements and go green.",
+   "date": "2024-12-26",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Union Bank of India Account Statement - Dec 2024",
+   "body": "Dear Meera,\nYour Union Bank of India XX9112 account statement for Dec 2024 is ready. Closing balance Rs.601.28.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.346.36 debited from account xx9112 on 01-01-2025. Narration: IMPS/NYKAA. Available balance Rs.5,421.02.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-01-01",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from *8877 to Lata Tutor A/c XX1172 on 02-01-2025. Rent for the month.",
+   "date": "2025-01-02",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c XX0286 is debited for Rs.339.31 on 05-01-2025 - POS STARBUCKS. Bal Rs.8,792.66. -Bank of India",
+   "date": "2025-01-05",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Punjab National Bank Debit Card xx2148: Rs.20,710.19 debited at NYKAA (07-01-2025 02:23:23).",
+   "date": "2025-01-07",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.653.44 debited from account xx9112 on 08-01-2025. Narration: UPI/DOMINOS. Available balance Rs.12,287.97.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-08",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m070",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Rs.23,388.31 withdrawn using your Punjab National Bank Debit Card xx2148 at ATM GOOGLE PLAY on 12-01-2025.",
+   "date": "2025-01-12",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.19,901.05 has been debited from your Punjab National Bank A/c xx8877 on 16-01-2025 (UPI AMAZON PAY INDIA). Avl bal Rs.3,525.82.",
+   "date": "2025-01-16",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.293.34 has been debited from your Bank of India A/c XXXXXX0286 on 16-01-2025 (POS EAZYDINER). Avl bal Rs.11,766.37.",
+   "date": "2025-01-16",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m073",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XXXXXX8877 is debited for Rs.109.62 on 17-01-2025 - UPI INDIAN OIL. Bal Rs.28,079.48. -Punjab National Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-01-17",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "Punjab National Bank Account Statement - Jan 2025",
+   "body": "Dear Meera,\nPlease find attached your Punjab National Bank *8877 statement for the period 19-Dec-2024 to 18-Jan-2025. \n\n",
+   "date": "2025-01-19",
+   "attachments": [
+    {
+     "filename": "Punjab_Statement_Jan2025.pdf",
+     "protected": false,
+     "pdfText": "PUNJAB NATIONAL BANK\nSTATEMENT OF ACCOUNT\nAccount Name : MEERA SINGH\nFLAT 293, LAKESHORE APARTMENTS\n23TH CROSS, SECTOR 21\nCHENNAI - 550999\nAccount Number : XXXXXX8877\nAccount Type : SAVINGS ACCOUNT\nIFSC : PNBX0748112\nStatement Period : 19-12-2024 to 18-01-2025\nOpening Balance : Rs.29,082.68\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n22-12-2024 UPI/AIRTEL PREPAID 964489695 12,987.87 - 16,094.81\n23-12-2024 POS/ZOMATO 429623081 115.06 - 15,979.75\n26-12-2024 UPI/BESCOM 985137856 500.82 - 15,478.93\n27-12-2024 ATM WDL/BPCL FUEL 440696363 9,201.06 - 6,277.87\n30-12-2024 NEFT DR/SWIGGY 740417775 8,456.12 - -2,178.25\n02-01-2025 SALARY NEFT 804778583 - 2,197.07 18.82\n03-01-2025 ATM WDL/BOOKMYSHOW 764070909 1,681.83 - -1,663.01\n05-01-2025 ATM WDL/ZEPTO 210668215 1,705.75 - -3,368.76\n08-01-2025 POS/BLINKIT 493933774 1,112.98 - -4,481.74\n10-01-2025 ATM WDL/INDIAN OIL 413649045 539.80 - -5,021.54\nClosing Balance : -Rs.5,021.54\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c xx0286 is debited for Rs.300.29 on 23-01-2025 - ECOM ZEPTO. Bal Rs.65,598.64. -Bank of India\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Union Bank of India Account Statement - Jan 2025",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India XXXXXX9112 statement for the period 27-Dec-2024 to 26-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-27",
+   "attachments": [
+    {
+     "filename": "Union_Statement_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "Bank of India Account Statement - Jan 2025",
+   "body": "Dear Meera,\nPlease find attached your Bank of India xx0286 statement for the period 27-Dec-2024 to 26-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-01-27",
+   "attachments": [
+    {
+     "filename": "Bank_Statement_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m078",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from xx8877 to Lata Tutor A/c XX1172 on 02-02-2025. Rent for the month.",
+   "date": "2025-02-02",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m079",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c XXXXXX9112 is debited for Rs.20,432.38 on 04-02-2025 - POS INDIAN OIL. Bal Rs.1,54,069.65. -Union Bank of India\n\nOpt for e-statements and go green.",
+   "date": "2025-02-04",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Update your KYC",
+   "body": "Dear Meera,\nAs per RBI guidelines please complete re-KYC for your Punjab National Bank relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2025-02-06",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Punjab National Bank Debit Card ending 2148: Rs.1,678.40 debited at URBAN COMPANY (10-02-2025 16:46:45).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Credit alert: Rs.172.39 has been credited to account XXXXXX9112 on 15-02-2025 (IMPS). Avl bal Rs.11,303.66.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-15",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Your Punjab National Bank Debit Card xx2148 was used for Rs.11,893.05 at BIGBASKET on 21-02-2025.",
+   "date": "2025-02-21",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m084",
+   "subject": "Union Bank of India Account Statement - Feb 2025",
+   "body": "Dear Meera,\nYour Union Bank of India XX9112 account statement for Feb 2025 is ready. Closing balance Rs.3,934.65.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from *8877 to Lata Tutor A/c XX1172 on 02-03-2025. Rent for the month.",
+   "date": "2025-03-02",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m086",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.15,061.03 credited to your Union Bank of India A/c xx9112 on 03-03-2025 by UPI. Ref 967700199311.\nThank you for banking with us.",
+   "date": "2025-03-03",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Your A/c XX9112 is credited with Rs.2,859.71 on 03-03-2025 - REFUND. Bal Rs.1,87,425.23. -Union Bank of India\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-03",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "Earn more with your card",
+   "body": "Dear Meera,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2025-03-08",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Dear Customer,\nRs.5,327.05 credited to your Punjab National Bank A/c XX8877 on 12-03-2025 by INTEREST CREDIT. Ref 658185370150.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-12",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Punjab National Bank Debit Card xx2148: Rs.2,029.75 debited at AIRTEL PREPAID (15-03-2025 18:27:48).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-15",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m091",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Your A/c xx9112 is credited with Rs.371.33 on 16-03-2025 - NEFT. Bal Rs.1,72,309.15. -Union Bank of India\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-16",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "Punjab National Bank Account Statement - Mar 2025",
+   "body": "Dear Meera,\nYour Punjab National Bank *8877 account statement for Mar 2025 is ready. Closing balance Rs.11,621.44.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-03-19",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.1,050.46 has been debited from your Bank of India A/c *0286 on 20-03-2025 (IMPS PAYTM). Avl bal Rs.9,465.89.",
+   "date": "2025-03-20",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c XX9112 debited Rs.7,602.36 on 21-03-2025. Mode: UPI. Details: PAYTM. Balance Rs.36,278.39.\n\nOpt for e-statements and go green.",
+   "date": "2025-03-21",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "Bank of India: credit alert",
+   "body": "Bank of India: xx0286 credited with Rs.15,592.41 on 23-03-2025. Source: SALARY NEFT. Balance Rs.25,064.91.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m096",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.434.61 debited from account XX0286 on 25-03-2025. Narration: POS/PAYTM. Available balance Rs.48,161.62.\n\nOpt for e-statements and go green.",
+   "date": "2025-03-25",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m097",
+   "subject": "Union Bank of India Account Statement - Mar 2025",
+   "body": "Dear Meera,\nYour Union Bank of India XX9112 account statement for Mar 2025 is ready. Closing balance Rs.1,981.56.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-03-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "Bank of India Account Statement - Mar 2025",
+   "body": "Dear Meera,\nYour Bank of India XXXXXX0286 account statement for Mar 2025 is ready. Closing balance Rs.1,482.88.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-27",
+   "attachments": [],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m099",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c xx9112 debited Rs.116.13 on 29-03-2025. Mode: UPI. Details: JIO RECHARGE. Balance Rs.2,789.79.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-29",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "OTP for your transaction",
+   "body": "785226 is the OTP for your transaction of Rs.12,745.29 at DECATHLON. Valid for 10 minutes. Do not share.",
+   "date": "2025-04-05",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c *9112 debited Rs.190.46 on 06-04-2025. Mode: NEFT. Details: EAZYDINER. Balance Rs.78,120.60.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-04-06",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m102",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Your Punjab National Bank Debit Card ending 2148 was used for Rs.9,660.96 at TATA POWER on 14-04-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.95.77 has been debited from your Punjab National Bank A/c XX8877 on 15-04-2025 (IMPS PVR INOX). Avl bal Rs.74,383.49.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-15",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m104",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.159.18 has been credited to account XXXXXX0286 on 17-04-2025 (INTEREST CREDIT). Avl bal Rs.1,30,030.29.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-17",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "OTP for your transaction",
+   "body": "644348 is the OTP for your transaction of Rs.150.71 at STARBUCKS. Valid for 10 minutes. Do not share.",
+   "date": "2025-04-20",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.7,859.53 debited from account xx8877 on 22-04-2025. Narration: ECOM/IXIGO. Available balance Rs.3,196.16.",
+   "date": "2025-04-22",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "Union Bank of India Account Statement - Apr 2025",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India xx9112 statement for the period 27-Mar-2025 to 26-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-04-27",
+   "attachments": [
+    {
+     "filename": "Union_Statement_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "Bank of India: credit alert",
+   "body": "Bank of India: xx0286 credited with Rs.14,252.70 on 27-04-2025. Source: INTEREST CREDIT. Balance Rs.47,669.96.",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m109",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.966.35 debited from account XX8877 on 05-05-2025. Narration: ECOM/URBAN COMPANY. Available balance Rs.10,879.76.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-05",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.31,757.38 debited from account XXXXXX9112 on 12-05-2025. Narration: IMPS/SWIGGY. Available balance Rs.1,05,062.60.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-12",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m111",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Your A/c XX8877 is credited with Rs.26,626.71 on 17-05-2025 - REFUND. Bal Rs.15,253.49. -Punjab National Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Punjab National Bank Account Statement - May 2025",
+   "body": "Dear Meera,\nPlease find attached your Punjab National Bank XX8877 statement for the period 19-Apr-2025 to 18-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-19",
+   "attachments": [
+    {
+     "filename": "8877_18052025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m113",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Rs.1,422.06 withdrawn from xx9112 on 20-05-2025 via POS to MYNTRA. Closing balance Rs.58,080.22.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c XX9112 debited Rs.3,907.75 on 24-05-2025. Mode: ECOM. Details: ZEPTO. Balance Rs.1,52,183.27.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-24",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.5,726.15 has been debited from your Punjab National Bank A/c xx8877 on 25-05-2025 (IMPS APOLLO PHARMACY). Avl bal Rs.10,771.11.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m116",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 741357710197. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "Union Bank of India Account Statement - May 2025",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India XXXXXX9112 statement for the period 27-Apr-2025 to 26-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-27",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "Bank of India Account Statement - May 2025",
+   "body": "Dear Meera,\nPlease find attached your Bank of India xx0286 statement for the period 27-Apr-2025 to 26-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-27",
+   "attachments": [
+    {
+     "filename": "0286_26052025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m119",
+   "subject": "Bank of India: debit alert",
+   "body": "Alert: Bank of India A/c XXXXXX0286 debited Rs.30,461.46 on 02-06-2025. Mode: NEFT. Details: FLIPKART. Balance Rs.24,276.50.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-02",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m120",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c xx0286 is debited for Rs.30,983.00 on 05-06-2025 - POS AIRTEL PREPAID. Bal Rs.4,716.27. -Bank of India\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m121",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.24,395.58 debited from account *8877 on 11-06-2025. Narration: UPI/DECATHLON. Available balance Rs.96,456.55.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-11",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m122",
+   "subject": "Bank of India: credit alert",
+   "body": "Your A/c XX0286 is credited with Rs.303.89 on 11-06-2025 - INTEREST CREDIT. Bal Rs.3,364.05. -Bank of India\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-11",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m123",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.1,727.71 has been credited to account XX8877 on 18-06-2025 (UPI). Avl bal Rs.3,128.29.",
+   "date": "2025-06-18",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c *9112 is debited for Rs.1,471.84 on 19-06-2025 - UPI ZOMATO. Bal Rs.84,359.55. -Union Bank of India\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-06-19",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "Bank of India: credit alert",
+   "body": "Your A/c xx0286 is credited with Rs.3,170.00 on 20-06-2025 - NEFT. Bal Rs.9,016.58. -Bank of India\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-20",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "Bank of India: debit alert",
+   "body": "Alert: Bank of India A/c *0286 debited Rs.116.61 on 22-06-2025. Mode: POS. Details: JIO RECHARGE. Balance Rs.27,115.74.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-22",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "Union Bank of India Account Statement - Jun 2025",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India XXXXXX9112 statement for the period 27-May-2025 to 26-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-27",
+   "attachments": [
+    {
+     "filename": "Union_Acct_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m128",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Union Bank of India: *9112 credited with Rs.2,199.21 on 28-06-2025. Source: INTEREST CREDIT. Balance Rs.5,592.10.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-28",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m129",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Punjab National Bank: xx8877 credited with Rs.13,315.93 on 07-07-2025. Source: INTEREST CREDIT. Balance Rs.2,272.67.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-07",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m130",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "POS purchase of Rs.737.09 at DECATHLON on 10-07-2025 with Punjab National Bank Debit Card xx2148.\n\nOpt for e-statements and go green.",
+   "date": "2025-07-10",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m131",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.413.98 has been debited from your Punjab National Bank A/c XXXXXX8877 on 11-07-2025 (ECOM BPCL FUEL). Avl bal Rs.89,203.98.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-11",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Your A/c *8877 is credited with Rs.530.57 on 13-07-2025 - INTEREST CREDIT. Bal Rs.38,691.83. -Punjab National Bank\n\nOpt for e-statements and go green.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m133",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Your Punjab National Bank Debit Card xx2148 was used for Rs.7,995.46 at IKEA on 14-07-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m134",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Rs.301.12 withdrawn from *9112 on 15-07-2025 via NEFT to TATA PLAY. Closing balance Rs.9,846.53.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-15",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m135",
+   "subject": "Punjab National Bank Account Statement - Jul 2025",
+   "body": "Dear Meera,\nYour Punjab National Bank xx8877 account statement for Jul 2025 is ready. Closing balance Rs.9,155.33.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-07-19",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m136",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Meera,\nYour order #865-3889227-5207852 is confirmed. Total Rs.1,081.93. Estimated delivery in 2 days.",
+   "date": "2025-07-19",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Bank of India: debit alert",
+   "body": "Rs.188.70 withdrawn from xx0286 on 24-07-2025 via UPI to SODEXO. Closing balance Rs.3,179.31.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-24",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m138",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Meera,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2025-07-26",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m139",
+   "subject": "Bank of India Account Statement - Jul 2025",
+   "body": "Dear Meera,\nPlease find attached your Bank of India XXXXXX0286 statement for the period 27-Jun-2025 to 26-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-27",
+   "attachments": [
+    {
+     "filename": "Bank_Statement_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "Union Bank of India Account Statement - Jul 2025",
+   "body": "Dear Meera,\nYour Union Bank of India XX9112 account statement for Jul 2025 is ready. Closing balance Rs.1,043.98.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m141",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c XX8877 is debited for Rs.14,654.11 on 27-07-2025 - POS MCDONALDS. Bal Rs.1,26,307.02. -Punjab National Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m142",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c XXXXXX9112 is debited for Rs.1,253.42 on 06-08-2025 - ECOM IXIGO. Bal Rs.88,350.04. -Union Bank of India",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m143",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Punjab National Bank: xx8877 credited with Rs.4,355.05 on 09-08-2025. Source: NEFT. Balance Rs.17,913.24.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m144",
+   "subject": "OTP for your transaction",
+   "body": "190630 is the OTP for your transaction of Rs.2,286.92 at INDIGO AIRLINES. Valid for 10 minutes. Do not share.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m145",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.1,630.72 has been debited from your Punjab National Bank A/c XXXXXX8877 on 14-08-2025 (IMPS BLINKIT). Avl bal Rs.5,088.06.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m146",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.3,369.04 credited to your Union Bank of India A/c *9112 on 24-08-2025 by INTEREST CREDIT. Ref 208215146218.\nThank you for banking with us.",
+   "date": "2025-08-24",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m147",
+   "subject": "Bank of India: debit alert",
+   "body": "Alert: Bank of India A/c xx0286 debited Rs.38,944.66 on 24-08-2025. Mode: IMPS. Details: GOOGLE PLAY. Balance Rs.1,36,402.10.",
+   "date": "2025-08-24",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m148",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c *8877 is debited for Rs.80.41 on 26-08-2025 - ECOM DMART. Bal Rs.3,847.86. -Punjab National Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m149",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.223.48 debited from account xx0286 on 26-08-2025. Narration: NEFT/STARBUCKS. Available balance Rs.11,179.89.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m150",
+   "subject": "Union Bank of India Account Statement - Aug 2025",
+   "body": "Dear Meera,\nYour Union Bank of India XXXXXX9112 account statement for Aug 2025 is ready. Closing balance Rs.3,024.23.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m151",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Punjab National Bank Debit Card xx2148: Rs.159.34 debited at SPOTIFY (31-08-2025 22:45:44).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-31",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m152",
+   "subject": "Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.172.82 credited to your Bank of India A/c XXXXXX0286 on 02-09-2025 by UPI. Ref 646471327877.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m153",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.37,031.49 has been transferred from your A/c xx0286 to Mohan Landlord A/c XX2576 (SBI Card) via IMPS on 05-09-2025. Ref no 203561936483.",
+   "date": "2025-09-05",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m154",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.4,802.66 debited from account XX8877 on 12-09-2025. Narration: NEFT/BIG BAZAAR. Available balance Rs.1,04,924.50.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m155",
+   "subject": "Punjab National Bank Account Statement - Sep 2025",
+   "body": "Dear Meera,\nPlease find attached your Punjab National Bank *8877 statement for the period 19-Aug-2025 to 18-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-19",
+   "attachments": [
+    {
+     "filename": "8877_18092025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m156",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.3,901.66 has been transferred from your A/c XXXXXX0286 to Ganesh Maid Service A/c XX9637 (Punjab National Bank) via IMPS on 23-09-2025. Ref no 857916850924.",
+   "date": "2025-09-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m157",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c *0286 is debited for Rs.2,061.91 on 24-09-2025 - POS STARBUCKS. Bal Rs.2,098.48. -Bank of India\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-24",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m158",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c XX9112 debited Rs.638.15 on 25-09-2025. Mode: ECOM. Details: SWIGGY. Balance Rs.1,37,046.15.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m159",
+   "subject": "Union Bank of India Account Statement - Sep 2025",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India *9112 statement for the period 27-Aug-2025 to 26-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-27",
+   "attachments": [
+    {
+     "filename": "Union_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m160",
+   "subject": "Bank of India Account Statement - Sep 2025",
+   "body": "Dear Meera,\nYour Bank of India *0286 account statement for Sep 2025 is ready. Closing balance Rs.1,996.40.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m161",
+   "subject": "Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.14,497.58 credited to your Bank of India A/c *0286 on 27-09-2025 by IMPS. Ref 307843901279.\nThank you for banking with us.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m162",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 352177780559. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-09-30",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m163",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Your A/c xx8877 is credited with Rs.132.07 on 04-10-2025 - INTEREST CREDIT. Bal Rs.96,975.06. -Punjab National Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m164",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Rs.1,893.01 withdrawn from XX8877 on 10-10-2025 via ECOM to RELIANCE DIGITAL. Closing balance Rs.9,624.25.",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m165",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c xx8877 is debited for Rs.114.60 on 12-10-2025 - IMPS PHONEPE. Bal Rs.58,069.12. -Punjab National Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m166",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.813.51 credited to your Union Bank of India A/c XXXXXX9112 on 14-10-2025 by REFUND. Ref 868480065062.\nThank you for banking with us.",
+   "date": "2025-10-14",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m167",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c XXXXXX9112 is debited for Rs.2,633.17 on 24-10-2025 - POS INDIGO AIRLINES. Bal Rs.1,10,226.11. -Union Bank of India",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m168",
+   "subject": "Union Bank of India Account Statement - Oct 2025",
+   "body": "Dear Meera,\nYour Union Bank of India *9112 account statement for Oct 2025 is ready. Closing balance Rs.23,435.04.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m169",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Union Bank of India: XXXXXX9112 credited with Rs.473.84 on 27-10-2025. Source: NEFT. Balance Rs.1,72,241.60.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m170",
+   "subject": "Bank of India: credit alert",
+   "body": "Bank of India: xx0286 credited with Rs.6,457.38 on 30-10-2025. Source: IMPS. Balance Rs.12,413.34.",
+   "date": "2025-10-30",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m171",
+   "subject": "Bank of India Account Statement - Nov 2025",
+   "body": "Dear Meera,\nPlease find attached your Bank of India XXXXXX0286 statement for the period 02-Oct-2025 to 01-Nov-2025. \n\n",
+   "date": "2025-11-02",
+   "attachments": [
+    {
+     "filename": "0286_01112025_stmt.pdf",
+     "protected": false,
+     "pdfText": "BANK OF INDIA\nSTATEMENT OF ACCOUNT\nAccount Name : MEERA SINGH\nFLAT 387, LAKESHORE APARTMENTS\n2TH CROSS, ADYAR\nKOCHI - 511389\nAccount Number : XX0286\nAccount Type : SAVINGS ACCOUNT\nIFSC : BOIX0658229\nStatement Period : 02-10-2025 to 01-11-2025\nOpening Balance : Rs.87,472.93\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n02-10-2025 SALARY NEFT 794219050 - 5,237.17 92,710.10\n02-10-2025 NEFT DR/SPOTIFY 574604569 17,714.46 - 74,995.64\n04-10-2025 INTEREST 540269071 - 355.05 75,350.69\n04-10-2025 POS/APPLE SERVICES 372151745 259.69 - 75,091.00\n05-10-2025 ATM WDL/IKEA 806282647 199.15 - 74,891.85\n08-10-2025 IMPS/CR 241406949 - 1,250.59 76,142.44\n09-10-2025 UPI/BIG BAZAAR 269608255 558.35 - 75,584.09\n11-10-2025 NEFT DR/CROMA 223118268 137.28 - 75,446.81\n11-10-2025 NEFT DR/UBER INDIA 184226110 16,050.71 - 59,396.10\n14-10-2025 POS/NETFLIX 553720242 2,955.78 - 56,440.32\n16-10-2025 ATM WDL/DECATHLON 106470522 257.23 - 56,183.09\nClosing Balance : Rs.56,183.09\nAccount Status: CLOSED as on 01-11-2025\nThis account has been closed at the customer's request. Balance transferred.\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m172",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.809.48 debited from account XX8877 on 03-11-2025. Narration: ECOM/UBER INDIA. Available balance Rs.12,312.82.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-03",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m173",
+   "subject": "OTP for your transaction",
+   "body": "822182 is the OTP for your transaction of Rs.8,129.80 at PVR INOX. Valid for 10 minutes. Do not share.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m174",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.8,475.67 debited from account xx8877 on 17-11-2025. Narration: IMPS/PHONEPE. Available balance Rs.1,03,448.85.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m175",
+   "subject": "Punjab National Bank Account Statement - Nov 2025",
+   "body": "Dear Meera,\nYour Punjab National Bank xx8877 account statement for Nov 2025 is ready. Closing balance Rs.475.83.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m176",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.509.39 has been credited to account xx8877 on 24-11-2025 (NEFT). Avl bal Rs.25,015.05.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m177",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Union Bank of India: XX9112 credited with Rs.1,381.26 on 24-11-2025. Source: REFUND. Balance Rs.34,225.34.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m178",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Rs.17,447.19 withdrawn from XXXXXX9112 on 25-11-2025 via IMPS to BATA INDIA. Closing balance Rs.8,538.03.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m179",
+   "subject": "Union Bank of India Account Statement - Nov 2025",
+   "body": "Dear Meera,\nYour Union Bank of India XX9112 account statement for Nov 2025 is ready. Closing balance Rs.44,513.27.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m180",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Punjab National Bank Debit Card XX2148: Rs.93.26 debited at INDIAN OIL (27-11-2025 02:47:17).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m181",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Meera,\nYour order #346-5107071-5640104 is confirmed. Total Rs.9,036.38. Estimated delivery in 2 days.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m182",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Meera,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-02",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m183",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Your Punjab National Bank Debit Card xx2148 was used for Rs.128.74 at RELIANCE DIGITAL on 06-12-2025.",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m184",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c *9112 is debited for Rs.119.80 on 07-12-2025 - POS URBAN COMPANY. Bal Rs.4,580.39. -Union Bank of India\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m185",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Alert: Punjab National Bank A/c XXXXXX8877 debited Rs.3,172.85 on 12-12-2025. Mode: POS. Details: ZOMATO. Balance Rs.4,796.10.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-12",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m186",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Punjab National Bank: XXXXXX8877 credited with Rs.681.01 on 16-12-2025. Source: UPI. Balance Rs.52,132.32.",
+   "date": "2025-12-16",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m187",
+   "subject": "Union Bank of India Account Statement - Dec 2025",
+   "body": "Dear Meera,\nYour Union Bank of India xx9112 account statement for Dec 2025 is ready. Closing balance Rs.20,319.36.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m188",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Rs.408.06 withdrawn from *8877 on 27-12-2025 via IMPS to IRCTC. Closing balance Rs.3,137.70.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m189",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Rs.82.41 withdrawn from XXXXXX8877 on 29-12-2025 via NEFT to NYKAA. Closing balance Rs.88,960.58.",
+   "date": "2025-12-29",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m190",
+   "subject": "Refer and earn",
+   "body": "Dear Meera,\nConvert big spends to EMI at low interest.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-30",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m191",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.10,226.30 spent on your Punjab National Bank Debit Card ending 2148 at ZEPTO on 11-01-2026 12:56:58. Avl bal Rs.56,011.79.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m192",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.6,948.99 debited from account XX9112 on 11-01-2026. Narration: POS/OLA CABS. Available balance Rs.6,680.62.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m193",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Rs.1,138.07 withdrawn using your Punjab National Bank Debit Card xx2148 at ATM EASEMYTRIP on 17-01-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m194",
+   "subject": "Punjab National Bank Account Statement - Jan 2026",
+   "body": "Dear Meera,\nPlease find attached your Punjab National Bank *8877 statement for the period 19-Dec-2025 to 18-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-01-19",
+   "attachments": [
+    {
+     "filename": "8877_18012026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m195",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Rs.3,857.77 withdrawn using your Punjab National Bank Debit Card ending 2148 at ATM PHONEPE on 19-01-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-19",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m196",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Punjab National Bank Debit Card ending 2148: Rs.290.44 debited at MCDONALDS (26-01-2026 13:43:59).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m197",
+   "subject": "Union Bank of India Account Statement - Jan 2026",
+   "body": "Dear Meera,\nYour Union Bank of India XXXXXX9112 account statement for Jan 2026 is ready. Closing balance Rs.2,138.79.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m198",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Your Punjab National Bank Debit Card XX2148 was used for Rs.5,737.41 at BATA INDIA on 28-01-2026.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m199",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.359.32 credited to your Union Bank of India A/c xx9112 on 05-02-2026 by NEFT. Ref 130182486478.\nThank you for banking with us.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m200",
+   "subject": "OTP for your transaction",
+   "body": "793157 is the OTP for your transaction of Rs.10,049.80 at UBER INDIA. Valid for 10 minutes. Do not share.",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m201",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Punjab National Bank: XXXXXX8877 credited with Rs.3,163.58 on 10-02-2026. Source: REFUND. Balance Rs.40,859.88.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m202",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.7,084.24 debited from account *9112 on 11-02-2026. Narration: POS/SWIGGY. Available balance Rs.31,134.68.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-11",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m203",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Your A/c *8877 is credited with Rs.9,710.43 on 14-02-2026 - INTEREST CREDIT. Bal Rs.1,16,973.89. -Punjab National Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m204",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.2,103.23 debited from account xx8877 on 24-02-2026. Narration: POS/DMART. Available balance Rs.62,217.76.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m205",
+   "subject": "Union Bank of India Account Statement - Feb 2026",
+   "body": "Dear Meera,\nYour Union Bank of India *9112 account statement for Feb 2026 is ready. Closing balance Rs.41,781.86.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m206",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c *9112 is debited for Rs.2,490.87 on 28-02-2026 - UPI TATA POWER. Bal Rs.7,900.61. -Union Bank of India\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m207",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.7,455.40 has been debited from your Punjab National Bank A/c xx8877 on 01-03-2026 (POS IXIGO). Avl bal Rs.71,040.57.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m208",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Credit alert: Rs.458.62 has been credited to account *9112 on 08-03-2026 (NEFT). Avl bal Rs.9,190.78.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-08",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m209",
+   "subject": "Punjab National Bank Account Statement - Mar 2026",
+   "body": "Dear Meera,\nYour Punjab National Bank *8877 account statement for Mar 2026 is ready. Closing balance Rs.1,738.27.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m210",
+   "subject": "Update your KYC",
+   "body": "Dear Meera,\nAs per RBI guidelines please complete re-KYC for your Bank of India relationship. Visit a branch or use the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m211",
+   "subject": "Union Bank of India Account Statement - Mar 2026",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India XX9112 statement for the period 27-Feb-2026 to 26-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-27",
+   "attachments": [
+    {
+     "filename": "9112_26032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m212",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c XXXXXX9112 debited Rs.27,942.54 on 11-04-2026. Mode: POS. Details: URBAN COMPANY. Balance Rs.4,319.88.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m213",
+   "subject": "Bank of India: funds transferred",
+   "body": "Dear Customer,\nRs.9,265.47 has been transferred from your A/c xx0286 to Mohan Landlord A/c XX2576 (SBI Card) via IMPS on 12-04-2026. Ref no 430633880455.",
+   "date": "2026-04-12",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m214",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.139.27 debited from account XX9112 on 13-04-2026. Narration: POS/MEDPLUS. Available balance Rs.1,73,524.04.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m215",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Your Punjab National Bank Debit Card XX2148 was used for Rs.1,765.54 at IKEA on 14-04-2026.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-14",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m216",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.148.56 debited from account XXXXXX9112 on 23-04-2026. Narration: ECOM/PVR INOX. Available balance Rs.1,11,944.71.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m217",
+   "subject": "Union Bank of India Account Statement - Apr 2026",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India *9112 statement for the period 27-Mar-2026 to 26-Apr-2026. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-27",
+   "attachments": [
+    {
+     "filename": "Union_Acct_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "UNION BANK OF INDIA\nSTATEMENT OF ACCOUNT\nAccount Name : MEERA SINGH\nFLAT 153, SUNRISE APARTMENTS\n11TH CROSS, SECTOR 21\nBENGALURU - 447492\nAccount Number : xx9112\nAccount Type : SAVINGS ACCOUNT\nIFSC : UNIO0815319\nStatement Period : 27-03-2026 to 26-04-2026\nOpening Balance : Rs.4,740.87\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n28-03-2026 ATM WDL/GOOGLE PLAY 261019860 720.73 - 4,020.14\n28-03-2026 ATM WDL/TATA PLAY 373484147 1,908.22 - 2,111.92\n29-03-2026 ATM WDL/NETFLIX 319814875 13,222.56 - -11,110.64\n29-03-2026 UPI/JIO RECHARGE 273910384 10,866.50 - -21,977.14\n29-03-2026 NEFT DR/UBER INDIA 160302484 7,866.68 - -29,843.82\n29-03-2026 NEFT DR/PHONEPE 816085866 11,216.71 - -41,060.53\n30-03-2026 POS/AIRTEL PREPAID 176449499 5,057.12 - -46,117.65\nClosing Balance : -Rs.46,117.65\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m218",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.3,574.98 for SBI Card Credit Card ending 2381 (cardholder: SANJAY SINGH) was successful from your A/c XX8877 on 27-04-2026.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m219",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.11,904.67 has been debited from your Union Bank of India A/c *9112 on 29-04-2026 (ECOM IKEA). Avl bal Rs.16,163.72.",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m220",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "INR debit alert: Rs.202.55 debited from account XX8877 on 16-05-2026. Narration: IMPS/BIGBASKET. Available balance Rs.3,158.02.",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m221",
+   "subject": "Punjab National Bank Account Statement - May 2026",
+   "body": "Dear Meera,\nYour Punjab National Bank xx8877 account statement for May 2026 is ready. Closing balance Rs.3,886.53.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m222",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Your A/c xx8877 is credited with Rs.741.69 on 21-05-2026 - UPI. Bal Rs.24,370.58. -Punjab National Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m223",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.401.26 has been debited from your Punjab National Bank A/c *8877 on 22-05-2026 (ECOM SODEXO). Avl bal Rs.6,816.36.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m224",
+   "subject": "Union Bank of India Account Statement - May 2026",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India XXXXXX9112 statement for the period 27-Apr-2026 to 26-May-2026. \n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-05-27",
+   "attachments": [
+    {
+     "filename": "Union_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "UNION BANK OF INDIA\nSTATEMENT OF ACCOUNT\nAccount Name : MEERA SINGH\nFLAT 523, SUNRISE APARTMENTS\n20TH CROSS, KOTHRUD\nKOCHI - 470662\nAccount Number : xx9112\nAccount Type : SAVINGS ACCOUNT\nIFSC : UNIO0254059\nStatement Period : 27-04-2026 to 26-05-2026\nOpening Balance : Rs.45,840.49\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n27-04-2026 NEFT DR/OLA CABS 385175269 331.39 - 45,509.10\n27-04-2026 INTEREST 126912966 - 520.80 46,029.90\n27-04-2026 ATM WDL/PVR INOX 668013013 3,401.43 - 42,628.47\n29-04-2026 POS/AMAZON PAY INDIA 554614893 410.40 - 42,218.07\n02-05-2026 NEFT DR/MAKEMYTRIP 979461804 885.43 - 41,332.64\n05-05-2026 POS/HPCL PETROL 985734102 1,163.34 - 40,169.30\n05-05-2026 ATM WDL/MCDONALDS 309740083 520.90 - 39,648.40\n08-05-2026 UPI/CR 790865732 - 2,097.04 41,745.44\nClosing Balance : Rs.41,745.44\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m225",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Your A/c XXXXXX8877 is credited with Rs.196.21 on 15-06-2026 - SALARY NEFT. Bal Rs.1,37,873.83. -Punjab National Bank",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m226",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Punjab National Bank: *8877 credited with Rs.38,066.34 on 16-06-2026. Source: IMPS. Balance Rs.48,868.71.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m227",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c XX9112 is debited for Rs.113.87 on 16-06-2026 - IMPS SODEXO. Bal Rs.7,853.24. -Union Bank of India",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m228",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Dear Customer,\nRs.9,235.71 credited to your Punjab National Bank A/c xx8877 on 21-06-2026 by NEFT. Ref 471601056181.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-21",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m229",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Union Bank of India: XXXXXX9112 credited with Rs.5,829.71 on 21-06-2026. Source: UPI. Balance Rs.12,439.85.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-21",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m230",
+   "subject": "Punjab National Bank festive offers",
+   "body": "Dear Meera,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m231",
+   "subject": "Union Bank of India Account Statement - Jun 2026",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India XX9112 statement for the period 27-May-2026 to 26-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-06-27",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m232",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.28,637.72 debited from account *9112 on 03-07-2026. Narration: ECOM/URBAN COMPANY. Available balance Rs.90,317.82.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m233",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Punjab National Bank Debit Card xx2148: Rs.21,070.55 debited at FLIPKART (12-07-2026 14:17:36).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m234",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Dear Customer,\nRs.2,187.10 has been debited from your Punjab National Bank A/c xx8877 on 15-07-2026 (UPI BLINKIT). Avl bal Rs.6,405.11.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m235",
+   "subject": "Punjab National Bank Account Statement - Jul 2026",
+   "body": "Dear Meera,\nPlease find attached your Punjab National Bank XX8877 statement for the period 19-Jun-2026 to 18-Jul-2026. \n\n",
+   "date": "2026-07-19",
+   "attachments": [
+    {
+     "filename": "Punjab_Acct_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "PUNJAB NATIONAL BANK\nSTATEMENT OF ACCOUNT\nAccount Name : MEERA SINGH\nFLAT 649, ORCHID APARTMENTS\n10TH CROSS, ADYAR\nCHENNAI - 597831\nAccount Number : XX8877\nAccount Type : SAVINGS ACCOUNT\nIFSC : PNBX0571060\nStatement Period : 19-06-2026 to 18-07-2026\nOpening Balance : Rs.68,971.06\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n20-06-2026 POS/TATA PLAY 415205483 192.00 - 68,779.06\n21-06-2026 UPI/IRCTC 694877256 3,571.64 - 65,207.42\n21-06-2026 ATM WDL/MAKEMYTRIP 763401997 2,629.68 - 62,577.74\n24-06-2026 ATM WDL/EAZYDINER 354594696 914.63 - 61,663.11\n27-06-2026 NEFT DR/TATA POWER 745702021 330.04 - 61,333.07\n27-06-2026 SALARY NEFT 727924278 - 222.70 61,555.77\n29-06-2026 ATM WDL/OLA CABS 843063022 160.25 - 61,395.52\nClosing Balance : Rs.61,395.52\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m236",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Rs.426.45 withdrawn from XX8877 on 20-07-2026 via UPI to DOMINOS. Closing balance Rs.94,440.88.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-20",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m237",
+   "subject": "Earn more with your card",
+   "body": "Dear Meera,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m238",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Alert: Punjab National Bank A/c XX8877 debited Rs.19,102.49 on 26-07-2026. Mode: POS. Details: RELIANCE DIGITAL. Balance Rs.24,573.54.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m239",
+   "subject": "Union Bank of India Account Statement - Jul 2026",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India XX9112 statement for the period 27-Jun-2026 to 26-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-27",
+   "attachments": [
+    {
+     "filename": "Union_Acct_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m240",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c XX9112 debited Rs.261.87 on 27-07-2026. Mode: ECOM. Details: MEDPLUS. Balance Rs.8,501.47.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m241",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Credit alert: Rs.388.79 has been credited to account *8877 on 02-08-2026 (IMPS). Avl bal Rs.69,131.28.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-02",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m242",
+   "subject": "Refer and earn",
+   "body": "Dear Meera,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m243",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Meera,\nYour order #956-4814956-9762499 is confirmed. Total Rs.13,781.56. Estimated delivery in 2 days.",
+   "date": "2026-08-12",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m244",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Alert: Union Bank of India A/c *9112 debited Rs.1,070.99 on 15-08-2026. Mode: POS. Details: FLIPKART. Balance Rs.2,412.97.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m245",
+   "subject": "Punjab National Bank Debit Card transaction alert",
+   "body": "Punjab National Bank Debit Card ending 2148: Rs.18,518.30 debited at BLINKIT (16-08-2026 16:45:06).\n\nOpt for e-statements and go green.",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m246",
+   "subject": "Update your KYC",
+   "body": "Dear Meera,\nAs per RBI guidelines please complete re-KYC for your Punjab National Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m247",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 357324508671. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m248",
+   "subject": "Union Bank of India Account Statement - Aug 2026",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India XXXXXX9112 statement for the period 27-Jul-2026 to 26-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-27",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m249",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Dear Customer,\nRs.29,188.26 credited to your Punjab National Bank A/c xx8877 on 29-08-2026 by UPI. Ref 334142707139.\nThank you for banking with us.",
+   "date": "2026-08-29",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m250",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Meera,\nYour order #628-7790196-7532003 is confirmed. Total Rs.10,457.51. Estimated delivery in 2 days.",
+   "date": "2026-08-29",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Rs.10,322.15 withdrawn from *9112 on 01-09-2026 via NEFT to DECATHLON. Closing balance Rs.31,372.87.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m252",
+   "subject": "Update your KYC",
+   "body": "Dear Meera,\nAs per RBI guidelines please complete re-KYC for your Union Bank of India relationship. Visit a branch or use the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m253",
+   "subject": "Punjab National Bank Account Statement - Sep 2026",
+   "body": "Dear Meera,\nPlease find attached your Punjab National Bank *8877 statement for the period 19-Aug-2026 to 18-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-09-19",
+   "attachments": [
+    {
+     "filename": "Punjab_Acct_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "PNB <estatement@pnbindia.in>"
+  },
+  {
+   "id": "m254",
+   "subject": "Punjab National Bank: debit alert",
+   "body": "Your A/c *8877 is debited for Rs.1,081.84 on 19-09-2026 - NEFT IRCTC. Bal Rs.4,982.83. -Punjab National Bank",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m255",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Meera,\nConvert big spends to EMI at low interest.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m256",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Punjab National Bank: XXXXXX8877 credited with Rs.258.74 on 22-09-2026. Source: SALARY NEFT. Balance Rs.36,049.97.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m257",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Union Bank of India: *9112 credited with Rs.1,691.53 on 23-09-2026. Source: UPI. Balance Rs.6,028.90.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m258",
+   "subject": "Union Bank of India Account Statement - Sep 2026",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India xx9112 statement for the period 27-Aug-2026 to 26-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-27",
+   "attachments": [
+    {
+     "filename": "Union_Acct_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m259",
+   "subject": "Punjab National Bank: credit alert",
+   "body": "Deposit alert - Rs.831.24 received in account XX8877 on 04-10-2026 (UPI) Ref 243303118534.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-04",
+   "attachments": [],
+   "from": "PNB <alerts@pnbindia.in>"
+  },
+  {
+   "id": "m260",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.30,084.74 has been debited from your Union Bank of India A/c XXXXXX9112 on 14-10-2026 (ECOM AMAZON PAY INDIA). Avl bal Rs.5,717.57.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m261",
+   "subject": "Union Bank of India Account Statement - Oct 2026",
+   "body": "Dear Meera,\nPlease find attached your Union Bank of India *9112 statement for the period 27-Sep-2026 to 26-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-10-27",
+   "attachments": [
+    {
+     "filename": "Union_Acct_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "8877",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "2148",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "9112",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "0286",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": "CLOSED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "9637",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "2576",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "1172",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "2992",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "4823",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "8671",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "0197",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "0559",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "2381",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

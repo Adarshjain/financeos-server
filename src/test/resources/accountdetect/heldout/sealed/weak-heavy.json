@@ -1,0 +1,1945 @@
+{
+ "mailbox": "weak-heavy",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX7120 on 01-08-2025 by SALARY NEFT. Ref 5583533107.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m002",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.1,257.34 at BLINKIT on 03-08-2025 at 23:20:06.\nAvailable limit: Rs.31,132.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m003",
+   "subject": "Your account statement for August 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7120 for Aug 2025 is attached. The PDF is protected; password is your Customer ID.\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2025-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m004",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,<br>\nRs.6,756.10 has been debited from account **7120 on 08-08-25 to VPA paytm.s1@okhdfcbank (UPI Ref No. 884807511210).<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-08-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m005",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.335.59 at RELIANCE SMART on 09-08-2025 at 09:54:47.\nAvailable limit: Rs.3,47,647.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m006",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.40,843.31 has been debited from account **7120 on 10-08-25 to VPA irctcweb@paytm (UPI Ref No. 927377588787).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m007",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Aug 2025",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card ending 5560 Statement for the period 13/07/2025 to 12/08/2025 is attached.\nTotal Amount Due: Rs. 16,626.21\nMinimum Amount Due: Rs. 831.31\nPayment Due Date: 30/08/2025\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4267 20XX XXXX 5560\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 16,626.21\nMinimum Amount Due: Rs. 831.31\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,21,945.00\n\nDate        Transaction Details                        Amount (Rs.)\n08/08/2025  TATA 1MG CHENNAI   710.91 Dr\n15/07/2025  LENSKART GURGAON   16,890.36 Dr\n10/08/2025  CROMA KOCHI   31,199.99 Dr\n31/07/2025  BIGBASKET KOCHI   777.59 Dr\n20/07/2025  MAKEMYTRIP BANGALORE   7,297.88 Dr\n08/08/2025  LENSKART CHENNAI   6,967.44 Dr\n03/08/2025  WESTSIDE HYDERABAD   818.44 Dr\n15/07/2025  MEDPLUS HYDERABAD   305.41 Dr\n26/07/2025  LENSKART HYDERABAD   198.36 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   9,975.73 Cr\n\nReward Points Summary: Opening 8893  Earned 733  Closing 2717\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m008",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card XX5560 for Rs.27,913.63 at DMART on 13-08-2025 at 14:12:21.\nAvailable limit: Rs.3,58,149.00\nIf you have not done this transction, please call us immediately on the number given on your card.\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m009",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nThank&nbsp;you for using your HDFC Bank Credit Card ending 5560 for Rs.539.04 at WESTSIDE on 19-08-2025 at 19:54:34.\nAvailable limit: Rs.2,92,918.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m010",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.792.80 at AIRBNB on 22-08-2025 at 15:58:23.\nAvailable limit: Rs.2,04,205.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m011",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.7,476.45 has been debited from account **7120 on 23-08-25 to VPA irctcweb@ybl (UPI Ref No. 428868796447).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m012",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.16,626.21 on 26-08-2025 towards your HDFC Bank Credit Card no. XXXXXXXXXXXX5560. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m013",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Suresh, a gentle nudge: Rs.16,626.21 due on 30 August for card ending 5560. Ignore if already paid. Kripya samay par bhugtan karein.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m014",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.32,589.54 at URBAN COMPANY on 01-09-2025 at 16:45:28.\nAvailable limit: Rs.2,11,904.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m015",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,<br>\nINR 1,05,000.00 credited to your A/c XX7120 on 01-09-2025 by SALARY NEFT. Ref 5788640862.<br>\nThank you for banking with us.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m016",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Gopal Banerjee (A/c no. XXXXXXXX1572, Canara Bank) has been added to your account XX7120 on 02-09-2025. It will be active after a cooling period of 30 minutes.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m017",
+   "subject": "Your account statement for September 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7120 for Sep 2025 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2025-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m018",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.366.41 has been debited from account **7120 on 04-09-25 to VPA irctcweb@ybl (UPI Ref No. 302610161162).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-09-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m019",
+   "subject": "OTP for online transaction",
+   "body": "892068 is the One Time Password (OTP) for your online transaction of INR 2,912.45 at APOLLO PHARMACY. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-09-06",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Payment successful",
+   "body": "Rs.440.74 paid to SHELL PETROL using Federal Bank Credit Card ending 2208\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-08",
+   "attachments": [],
+   "from": "Paytm <no-reply@paytm.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.8,179.26 at TATA 1MG on 09-09-2025 at 07:47:06.\nAvailable limit: Rs.1,08,299.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m022",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.3,049.43 has been debited from account **7120 on 09-09-25 to VPA irctcweb@ybl (UPI Ref No. 802820862747).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m023",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.24,444.86 has been debited from account **7120 on 10-09-25 to VPA swiggy@okaxis (UPI Ref No. 698781220630).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-09-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m024",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF6935\nT&C apply.",
+   "date": "2025-09-11",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m025",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Sep 2025",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card ending 5560 Statement for the period 13/08/2025 to 12/09/2025 is attached.\nTotal Amount Due: Rs. 5,014.88\nMinimum Amount Due: Rs. 250.74\nPayment Due Date: 30/09/2025\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4553 58XX XXXX 5560\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 5,014.88\nMinimum Amount Due: Rs. 250.74\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 57,656.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/08/2025  TATA 1MG MUMBAI   306.42 Dr\n09/09/2025  AIRBNB BANGALORE   604.60 Dr\n26/08/2025  STARBUCKS KOCHI   8,453.48 Dr\n24/08/2025  GOOGLE PLAY HYDERABAD   20,506.21 Dr\n30/08/2025  INDIGO AIRLINES HYDERABAD   7,308.67 Dr\n19/08/2025  PVR INOX CHENNAI   3,274.91 Dr\n10/09/2025  AMAZON PAY INDIA BANGALORE   6,826.89 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   3,008.93 Cr\n\nReward Points Summary: Opening 4588  Earned 159  Closing 1903\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m026",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.5,856.34 at THIRD WAVE COFFEE on 16-09-2025 at 13:06:11.\nAvailable limit: Rs.75,978.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2025-09-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m027",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.41,170.58 has been debited from account **7120 on 18-09-25 to VPA bigbasket@icici (UPI Ref No. 236562672981).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-09-18",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m028",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.1,413.13 at LICIOUS on 19-09-2025 at 13:07:48.\nAvailable limit: Rs.2,94,426.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m029",
+   "subject": "We have received your request",
+   "body": "Dear Customer,\nYour service request is registered. Reference No. SR202630264421. We will resolve it within 3 working days.",
+   "date": "2025-09-21",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Suresh, a gentle nudge: Rs.5,014.88 due on 30 September for card ending 5560. Ignore if already paid. Kripya samay par bhugtan karein.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m031",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.809.55 has been debited from account **7120 on 28-09-25 to VPA bigbasket@paytm (UPI Ref No. 329854083894).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m032",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7120 on 01-10-2025 by SALARY NEFT. Ref 4755706796.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m033",
+   "subject": "Your account statement for October 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c no. XXXXXXXXXXXX7120 for Oct 2025 is attached. The PDF is protected; password is your Customer ID.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m034",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,<br>\nRs.735.91 has been debited from account **7120 on 05-10-25 to VPA irctcweb@ybl (UPI Ref No. 572006935186).<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m035",
+   "subject": "SI funds transfer alert",
+   "body": "नमस्ते,\nDear Customer,\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-10-25 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 943270404258.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m036",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Oct 2025",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card no. XXXXXXXXXXXX5560 Statement for the period 12/09/2025 to 12/10/2025 is attached.\nTotal Amount Due: Rs. 1,06,610.41\nMinimum Amount Due: Rs. 5,330.52\nPayment Due Date: 30/10/2025\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4701 94XX XXXX 5560\nCard Type: Regalia\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 1,06,610.41\nMinimum Amount Due: Rs. 5,330.52\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 82,517.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/09/2025  BIGBASKET CHENNAI   371.57 Dr\n04/10/2025  BOOKMYSHOW GURGAON   11,500.84 Dr\n10/10/2025  LENSKART KOCHI   2,088.51 Dr\n22/09/2025  BOOKMYSHOW GURGAON   311.26 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   63,966.25 Cr\n\nReward Points Summary: Opening 8252  Earned 603  Closing 3332\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m037",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "नमस्ते,\nDear Card Member,<br>\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.7,019.95 at URBAN COMPANY on 13-10-2025 at 17:32:43.<br>\nAvailable limit: Rs.1,32,324.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m038",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.29,753.79 has been debited from account **7120 on 13-10-25 to VPA paytm.s1@paytm (UPI Ref No. 227263979202).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-10-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m039",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.5,163.49 at BLINKIT on 19-10-2025 at 17:34:47.\nAvailable limit: Rs.49,167.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m040",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,<br>\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.852.84 at THIRD WAVE COFFEE on 22-10-2025 at 21:48:57.<br>\nAvailable limit: Rs.1,98,681.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m041",
+   "subject": "KYC update: Aadhaar verification",
+   "body": "Dear Customer,\nYour Aadhaar (XXXX XXXX 2739) has been successfully verified for e-KYC. PAN status: linked. No further action needed.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.3,091.93 at WESTSIDE on 23-10-2025 at 18:10:31.\nAvailable limit: Rs.92,130.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m043",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.32,488.24 at THIRD WAVE COFFEE on 26-10-2025 at 10:56:14.\nAvailable limit: Rs.36,158.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m044",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,06,610.41 on 26-10-2025 towards your HDFC Bank Credit Card **5560. Thank you.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m045",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear&nbsp;Customer,\nRs.2,570.65&nbsp;has&nbsp;been debited from account **7120 on 26-10-25 to VPA bigbasket@paytm (UPI Ref No. 262668295000).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m046",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.2,171.60 has been debited from account **7120 on 01-11-25 to VPA paytm.s1@ybl (UPI Ref No. 423379694112).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m047",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX7120 on 01-11-2025 by SALARY NEFT. Ref 7476687229.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m048",
+   "subject": "Your account statement for November 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7120 for Nov 2025 is attached. The PDF is protected; password is your Customer ID.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-03",
+   "attachments": [
+    {
+     "filename": "Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m049",
+   "subject": "SI funds transfer alert",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-11-25 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 936503291561.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m050",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,<br>\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.571.01 at URBAN COMPANY on 11-11-2025 at 23:30:54.<br>\nAvailable limit: Rs.3,46,442.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m051",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Nov 2025",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card ending 5560 Statement for the period 13/10/2025 to 12/11/2025 is attached.\nTotal Amount Due: Rs. 1,208.83\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/11/2025\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4574 74XX XXXX 5560\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 1,208.83\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 79,686.00\n\nDate        Transaction Details                        Amount (Rs.)\n07/11/2025  URBAN COMPANY PUNE   11,273.26 Dr\n25/10/2025  AMAZON PAY INDIA GURGAON   3,090.93 Dr\n31/10/2025  IRCTC CHENNAI   12,467.65 Dr\n26/10/2025  DMART PUNE   37,084.09 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   725.30 Cr\n\nReward Points Summary: Opening 5596  Earned 296  Closing 3999\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2995963469525  IFSC HDFC0000740"
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m052",
+   "subject": "NEFT funds transfer alert",
+   "body": "Dear&nbsp;Customer,\nRs.2,948.31&nbsp;has&nbsp;been debited from account **7120 on 12-11-25 to Meera Menon A/c no. XXXXXXXX3036 (Canara Bank), NEFT Ref 523563784770.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m053",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.2,409.50 at THIRD WAVE COFFEE on 22-11-2025 at 17:09:59.\nAvailable limit: Rs.1,93,243.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m054",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.1,731.82 at MAKEMYTRIP on 23-11-2025 at 04:40:20.\nAvailable limit: Rs.3,90,609.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m055",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,208.83 on 23-11-2025 towards your HDFC Bank Credit Card ending 5560. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m056",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 3478 reward points on your HDFC Bank Regalia Credit Card ending 5560. Redeem them on the rewards portal before they expire.\n\nThis is a system generated email. Please do not reply to this message.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m057",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nThank&nbsp;you for using your HDFC Bank Credit Card ending 5560 for Rs.37,855.27 at SPOTIFY on 26-11-2025 at 07:16:47.\nAvailable limit: Rs.1,54,625.00\nIf you have not done this transction, please call us immediately on the number given on your card.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m058",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.18,271.56 has been debited from account **7120 on 26-11-25 to VPA q891713986@ybl (UPI Ref No. 220662513929).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m059",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,<br>\nRs.7,757.97 has been debited from account **7120 on 26-11-25 to VPA zomato@okaxis (UPI Ref No. 542029513790).<br>\nIf you did not authorise, call 18002586161.\nWarm Regrads, HDFC Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m060",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX7120 on 01-12-2025 by SALARY NEFT. Ref 4980673736.\nThank you for banking with us.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m061",
+   "subject": "Your account statement for December 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7120 for Dec 2025 is attached. The PDF is protected; password is your Customer ID.\n\nThis is a system generated email. Please do not reply to this message.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-03",
+   "attachments": [
+    {
+     "filename": "Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m062",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-12-25 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 722744563768.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m063",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.7,806.71 has been debited from account **7120 on 08-12-25 to VPA paytm.s1@ybl (UPI Ref No. 972937498291).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m064",
+   "subject": "OTP for online transaction",
+   "body": "744163 is the One Time Password (OTP) for your online transaction of INR 32,074.16 at BLINKIT. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Dec 2025",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card ending 5560 Statement for the period 12/11/2025 to 12/12/2025 is attached.\nTotal Amount Due: Rs. 1,621.12\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/12/2025\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4116 63XX XXXX 5560\nCard Type: Regalia\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 1,621.12\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,32,633.00\n\nDate        Transaction Details                        Amount (Rs.)\n23/11/2025  OLA CABS BANGALORE   96.77 Dr\n26/11/2025  UBER INDIA KOCHI   432.68 Dr\n14/11/2025  STARBUCKS CHENNAI   679.63 Dr\n29/11/2025  HOTSTAR BANGALORE   773.90 Dr\n09/12/2025  CROMA HYDERABAD   2,884.09 Dr\n17/11/2025  THIRD WAVE COFFEE PUNE   3,401.95 Dr\n02/12/2025  BATA INDIA BANGALORE   873.60 Dr\n27/11/2025  LENSKART PUNE   3,412.23 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   972.67 Cr\n\nReward Points Summary: Opening 432  Earned 333  Closing 4619\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m066",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.12,251.96 at CAFE COFFEE DAY on 17-12-2025 at 10:55:11.\nAvailable limit: Rs.83,236.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m067",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.3,152.27 has been debited from account **7120 on 22-12-25 to VPA paytm.s1@ybl (UPI Ref No. 130484820434).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m068",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.1,621.12 on 23-12-2025 towards your HDFC Bank Credit Card ending 5560. Thank you.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m069",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,<br>\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.884.77 at URBAN COMPANY on 28-12-2025 at 16:07:28.<br>\nAvailable limit: Rs.1,26,014.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m070",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX7120 on 01-01-2026 by SALARY NEFT. Ref 9369933300.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m071",
+   "subject": "Your account statement for January 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7120 for Jan 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-01-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m072",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-01-26 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 391221356518.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m073",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "नमस्ते,\nDear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.1,289.65 at BLINKIT on 10-01-2026 at 05:21:54.\nAvailable limit: Rs.76,316.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m074",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Jan 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card ending 5560 Statement for the period 13/12/2025 to 12/01/2026 is attached.\nTotal Amount Due: Rs. 577.02\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/01/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4755 30XX XXXX 5560\nCard Type: Regalia\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 577.02\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 24,117.00\n\nDate        Transaction Details                        Amount (Rs.)\n21/12/2025  THIRD WAVE COFFEE BANGALORE   787.09 Dr\n22/12/2025  IRCTC CHENNAI   2,635.63 Dr\n18/12/2025  BOOKMYSHOW BANGALORE   11,265.70 Dr\n10/01/2026  TATA 1MG CHENNAI   3,344.63 Dr\n05/01/2026  IRCTC KOCHI   498.29 Dr\n29/12/2025  RELIANCE SMART PUNE   246.85 Dr\n22/12/2025  THIRD WAVE COFFEE GURGAON   30,238.01 Dr\n06/01/2026  TATA 1MG MUMBAI   3,275.27 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   346.21 Cr\n\nReward Points Summary: Opening 2159  Earned 868  Closing 8469\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m075",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.1,707.59 has been debited from account **7120 on 12-01-26 to VPA q364984408@ybl (UPI Ref No. 481236237463).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m076",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.2,942.71 has been debited from account **7120 on 14-01-26 to VPA paytm.s1@okhdfcbank (UPI Ref No. 150144531824).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m077",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.36,373.98 at DMART on 15-01-2026 at 19:43:14.\nAvailable limit: Rs.2,43,321.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m078",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.15,434.22 at BATA INDIA on 24-01-2026 at 19:08:04.\nAvailable limit: Rs.2,07,345.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m079",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.577.02 on 25-01-2026 towards your HDFC Bank Credit Card ending 5560. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-01-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m080",
+   "subject": "Payment reminder: HDFC Bank Credit Card ending 5560",
+   "body": "Dear Customer,\nThis is a reminder that Rs.577.02 (minimum Rs.200.00) is due on 30-Jan-2026 on your HDFC Bank Credit Card ending 5560. Pay on time to avoid late payment charges.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m081",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX7120 on 01-02-2026 by SALARY NEFT. Ref 6828652752.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m082",
+   "subject": "Your account statement for February 2026",
+   "body": "Dear Customer,<br>\nYour e-statement for A/c ending 7120 for Feb 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-02-03",
+   "attachments": [
+    {
+     "filename": "Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m083",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.716.43 has been debited from account **7120 on 05-02-26 to VPA merchant@paytm (UPI Ref No. 594444716440).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m084",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-02-26 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 369777922168.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m085",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,<br>\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.1,413.49 at TATA 1MG on 06-02-2026 at 02:30:30.<br>\nAvailable limit: Rs.3,66,047.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-02-06",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m086",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nThank&nbsp;you for using your HDFC Bank Credit Card no. XXXXXXXXXXXX5560 for Rs.3,247.38 at URBAN COMPANY on 07-02-2026 at 23:21:30.\nAvailable limit: Rs.68,437.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m087",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.3,179.28 at HOTSTAR on 11-02-2026 at 20:03:02.\nAvailable limit: Rs.3,67,304.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m088",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Feb 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card ending 5560 Statement for the period 13/01/2026 to 12/02/2026 is attached.\nTotal Amount Due: Rs. 1,73,285.30\nMinimum Amount Due: Rs. 8,664.26\nPayment Due Date: 02/03/2026\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4295 42XX XXXX 5560\nCard Type: Regalia\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 1,73,285.30\nMinimum Amount Due: Rs. 8,664.26\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,12,747.00\n\nDate        Transaction Details                        Amount (Rs.)\n17/01/2026  CROMA BANGALORE   8,733.73 Dr\n21/01/2026  DMART KOCHI   2,277.19 Dr\n25/01/2026  IRCTC GURGAON   28,947.17 Dr\n23/01/2026  JIO PREPAID PUNE   7,459.74 Dr\n20/01/2026  CROMA GURGAON   10,973.84 Dr\n15/01/2026  UBER INDIA BANGALORE   342.98 Dr\n25/01/2026  LENSKART HYDERABAD   2,071.72 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   1,03,971.18 Cr\n\nReward Points Summary: Opening 3185  Earned 542  Closing 5991\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2995963469525  IFSC HDFC0000434"
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m089",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.8,021.11 has been debited from account **7120 on 13-02-26 to VPA q609577963@paytm (UPI Ref No. 543661682200).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m090",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.109.33 at LICIOUS on 21-02-2026 at 17:33:44.\nAvailable limit: Rs.1,25,628.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m091",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.1,670.39 at URBAN COMPANY on 23-02-2026 at 13:14:18.\nAvailable limit: Rs.2,08,731.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-02-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m092",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.809.81 has been debited from account **7120 on 24-02-26 to VPA paytm.s1@paytm (UPI Ref No. 471471892980).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m093",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.8,776.23 has been debited from account **7120 on 25-02-26 to VPA irctcweb@paytm (UPI Ref No. 180405029361).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m094",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have recieved your payment of Rs.1,73,285.30 on 26-02-2026 towards your HDFC Bank Credit Card ending 5560. Thank you.<br>\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m095",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX7120 on 01-03-2026 by SALARY NEFT. Ref 1513134018.\nThank you for banking with us.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m096",
+   "subject": "Your account statement for March 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7120 for Mar 2026 is attached. The PDF is protected; password is your Customer ID.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-03",
+   "attachments": [
+    {
+     "filename": "Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m097",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.1,029.94 has been debited from account **7120 on 05-03-26 to VPA zomato@ybl (UPI Ref No. 284061923858).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m098",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-03-26 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 900265113138.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m099",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Mar 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card ending 5560 Statement for the period 10/02/2026 to 12/03/2026 is attached.\nTotal Amount Due: Rs. 2,006.84\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/03/2026\nPay via NetBanking, UPI or auto-debit.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4639 12XX XXXX 5560\nCard Type: Regalia\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 2,006.84\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 45,966.00\n\nDate        Transaction Details                        Amount (Rs.)\n22/02/2026  AIRBNB MUMBAI   756.08 Dr\n02/03/2026  APOLLO PHARMACY KOCHI   20,613.08 Dr\n08/03/2026  SPOTIFY MUMBAI   38,680.59 Dr\n06/03/2026  HOTSTAR BANGALORE   1,854.78 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   1,204.10 Cr\n\nReward Points Summary: Opening 2396  Earned 263  Closing 1099\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m100",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.2,102.77 has been debited from account **7120 on 15-03-26 to VPA merchant@paytm (UPI Ref No. 972875249393).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m101",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 3051\nT&C apply.",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "IMPS funds transfer alert",
+   "body": "Dear Customer,\nRs.7,031.36 has been debited from account **7120 on 19-03-26 to Vikram Singh A/c no. XXXXXXXX9417 (Canara Bank), IMPS Ref 557280266819.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m103",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card XX5560 for Rs.3,320.09 at NETFLIX.COM on 20-03-2026 at 06:10:28.\nAvailable limit: Rs.3,31,664.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nThis is a system generated email. Please do not reply to this message.\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m104",
+   "subject": "Pay your bills and earn on Regalia Gold Credit Card",
+   "body": "Apply now for Regalia Gold, Millennia or Swiggy HDFC Bank Credit Card. Pre-approved. Offer code 3060\nT&C apply.",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "HDFC Bank <offers@hdfcbank.net>"
+  },
+  {
+   "id": "m105",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.2,006.84 on 24-03-2026 towards your HDFC Bank Credit Card ending 5560. Thank you.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m106",
+   "subject": "Payment reminder: HDFC Bank Credit Card ending 5560",
+   "body": "Dear Customer,\nThis is a reminder that Rs.2,006.84 (minimum Rs.200.00) is due on 30-Mar-2026 on your HDFC Bank Credit Card ending 5560. Pay on time to avoid late payment charges.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m107",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.695.62 at TATA 1MG on 28-03-2026 at 01:09:54.\nAvailable limit: Rs.3,48,689.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-03-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m108",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.662.75 has been debited from account **7120 on 01-04-26 to VPA merchant@okhdfcbank (UPI Ref No. 915790210488).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m109",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX7120 on 01-04-2026 by SALARY NEFT. Ref 1375296289.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m110",
+   "subject": "Your account statement for April 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7120 for Apr 2026 is attached. The PDF is protected; password is your Customer ID.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-03",
+   "attachments": [
+    {
+     "filename": "Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m111",
+   "subject": "SI funds transfer alert",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-04-26 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 645458096312.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m112",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "नमस्ते,\nDear Customer,\nRs.197.36 has been debited from account **7120 on 11-04-26 to VPA merchant@ybl (UPI Ref No. 395732220238).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m113",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Apr 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card ending 5560 Statement for the period 13/03/2026 to 12/04/2026 is attached.\nTotal Amount Due: Rs. 2,384.08\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/04/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4391 69XX XXXX 5560\nCard Type: Regalia\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 2,384.08\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,38,624.00\n\nDate        Transaction Details                        Amount (Rs.)\n23/03/2026  STARBUCKS HYDERABAD   2,383.40 Dr\n01/04/2026  IRCTC HYDERABAD   1,614.16 Dr\n09/04/2026  NETFLIX.COM PUNE   3,611.81 Dr\n21/03/2026  AMAZON PAY INDIA PUNE   5,823.18 Dr\n19/03/2026  ZOMATO KOCHI   2,624.62 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   1,430.45 Cr\n\nReward Points Summary: Opening 6785  Earned 117  Closing 7551\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2995963469525  IFSC HDFC0000874"
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m114",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card no. XXXXXXXXXXXX5560 for Rs.441.59 at UBER INDIA on 13-04-2026 at 22:52:38.\nAvailable limit: Rs.1,92,437.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nThis is a system generated email. Please do not reply to this message.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m115",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.2,600.06 has been debited from account **7120 on 13-04-26 to VPA paytm.s1@okaxis (UPI Ref No. 172495466499).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m116",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "नमस्ते,\nDear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.360.60 at RELIANCE SMART on 20-04-2026 at 15:32:52.\nAvailable limit: Rs.1,64,709.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m117",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 1001 reward points on your HDFC Bank Regalia Credit Card ending 5560. Redeem them on the rewards portal before they expire.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m118",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "नमस्ते,\nDear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.6,015.53 at PVR INOX on 26-04-2026 at 09:29:00.\nAvailable limit: Rs.1,42,171.00\nIf you have not done this transction, please call us immediately on the number given on your card.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m119",
+   "subject": "Payment reminder: HDFC Bank Credit Card ending 5560",
+   "body": "Dear Customer,\nThis is a reminder that Rs.2,384.08 (minimum Rs.200.00) is due on 30-Apr-2026 on your HDFC Bank Credit Card ending 5560. Pay on time to avoid late payment charges.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m120",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.2,384.08 on 29-04-2026 towards your HDFC Bank Credit Card XXXX XXXX XXXX 5560. Thank you.<br>\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m121",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7120 on 01-05-2026 by SALARY NEFT. Ref 2130775340.\nThank you for banking with us.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m122",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.9,050.60 has been debited from account **7120 on 03-05-26 to VPA merchant@ybl (UPI Ref No. 364753372224).\nIf you did not authorise, call 18002586161.\nWarm Regrads, HDFC Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m123",
+   "subject": "Your account statement for May 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7120 for May 2026 is attached. The PDF is protected; password is your Customer ID.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-03",
+   "attachments": [
+    {
+     "filename": "Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m124",
+   "subject": "SI funds transfer alert",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-05-26 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 603986334592.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m125",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.27,677.29 at APOLLO PHARMACY on 08-05-2026 at 13:55:27.\nAvailable limit: Rs.1,27,458.00\nIf you have not done this transction, please call us immediately on the number given on your card.",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m126",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF3006\nT&C apply.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear&nbsp;Customer,\nRs.7,121.71&nbsp;has&nbsp;been debited from account **7120 on 10-05-26 to VPA irctcweb@icici (UPI Ref No. 616002827758).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m128",
+   "subject": "HDFC Bank Regalia Credit Card Statement - May 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card ending 5560 Statement for the period 12/04/2026 to 12/05/2026 is attached.\nTotal Amount Due: Rs. 45,466.37\nMinimum Amount Due: Rs. 2,273.32\nPayment Due Date: 30/05/2026\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4689 58XX XXXX 5560\nCard Type: Regalia\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 45,466.37\nMinimum Amount Due: Rs. 2,273.32\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,50,009.00\n\nDate        Transaction Details                        Amount (Rs.)\n02/05/2026  THIRD WAVE COFFEE MUMBAI   4,227.89 Dr\n09/05/2026  LICIOUS MUMBAI   654.27 Dr\n03/05/2026  DMART HYDERABAD   2,867.87 Dr\n22/04/2026  BATA INDIA GURGAON   500.29 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   27,279.82 Cr\n\nReward Points Summary: Opening 4160  Earned 862  Closing 7674\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2995963469525  IFSC HDFC0000455"
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m129",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "नमस्ते,\nDear Customer,<br>\nRs.7,597.50 has been debited from account **7120 on 19-05-26 to VPA paytm.s1@paytm (UPI Ref No. 865951862765).<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m130",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.45,466.37 on 22-05-2026 towards your HDFC Bank Credit Card xx5560. Thank you.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m131",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card no. XXXXXXXXXXXX5560 for Rs.30,955.37 at MEDPLUS on 24-05-2026 at 09:12:08.\nAvailable limit: Rs.27,256.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m132",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.2,005.78 at UBER INDIA on 26-05-2026 at 16:53:08.\nAvailable limit: Rs.3,79,001.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m133",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "नमस्ते,\nHi Suresh, a gentle nudge: Rs.45,466.37 due on 30 May for card XX5560. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m134",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.1,915.55 at MEDPLUS on 01-06-2026 at 23:03:35.\nAvailable limit: Rs.2,68,921.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m135",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX7120 on 01-06-2026 by SALARY NEFT. Ref 9566881842.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m136",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.489.03 has been debited from account **7120 on 03-06-26 to VPA irctcweb@okhdfcbank (UPI Ref No. 162453233453).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m137",
+   "subject": "Your account statement for June 2026",
+   "body": "Dear Customer,\nYour e-statment for A/c ending 7120 for Jun 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-06-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m138",
+   "subject": "SI funds transfer alert",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-06-26 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 467673749502.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m139",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,<br>\nRs.822.82 has been debited from account **7120 on 09-06-26 to VPA irctcweb@okhdfcbank (UPI Ref No. 663825072619).<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m140",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Jun 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card ending 5560 Statement for the period 13/05/2026 to 12/06/2026 is attached.\nTotal Amount Due: Rs. 1,939.66\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/06/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCredit Card Number: XXXX XXXX XXXX 5560\nCard Type: Regalia\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 1,939.66\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 25,155.00\n\nDate        Transaction Details                        Amount (Rs.)\n31/05/2026  DMART MUMBAI   28,587.44 Dr\n22/05/2026  AMAZON PAY INDIA CHENNAI   2,000.56 Dr\n14/05/2026  REDBUS CHENNAI   7,331.84 Dr\n03/06/2026  CAFE COFFEE DAY MUMBAI   653.38 Dr\n13/05/2026  IRCTC PUNE   2,402.12 Dr\n17/05/2026  DMART HYDERABAD   3,313.12 Dr\n03/06/2026  STARBUCKS BANGALORE   506.98 Dr\n19/05/2026  ZEPTO MUMBAI   8,570.09 Dr\n17/05/2026  AIRBNB HYDERABAD   602.86 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   1,163.80 Cr\n\nReward Points Summary: Opening 3497  Earned 764  Closing 5158\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2995963469525  IFSC HDFC0000862"
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m141",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.1,401.05 has been debited from account **7120 on 17-06-26 to VPA swiggy@okaxis (UPI Ref No. 902632943077).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-06-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m142",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.13,370.72 has been debited from account **7120 on 18-06-26 to VPA zomato@okaxis (UPI Ref No. 273074396996).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-06-18",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m143",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.646.12 has been debited from account **7120 on 19-06-26 to VPA q902309907@okaxis (UPI Ref No. 201949437793).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m144",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.756.86 at CROMA on 22-06-2026 at 08:56:19.\nAvailable limit: Rs.3,62,458.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m145",
+   "subject": "Secure your family with term insurance",
+   "body": "Plans from Rs 500/month. Policy no. will be shared post issuance. Quote ref 7009\nT&C apply.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "Tata AIA Life <news@tataaia.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Payment reminder: HDFC Bank Credit Card ending 5560",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,939.66 (minimum Rs.200.00) is due on 30-Jun-2026 on your HDFC Bank Credit Card ending 5560. Pay on time to avoid late payment charges.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m147",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.1,939.66 on 28-06-2026 towards your HDFC Bank Credit Card XXXX XXXX XXXX 5560. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m148",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7120 on 01-07-2026 by SALARY NEFT. Ref 4431202581.\nThank you for banking with us.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m149",
+   "subject": "payment successful",
+   "body": "Hi Suresh,<br>\nYour payment of Rs.2,306.69 towards your Axis Bank Credit Card bill was successful. Card paid: Axis Bank **6671. You earned 23 coins.<br>\n\nNever share your OTP, PIN, CVV or password with anyone. Your bank will never ask for these.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m150",
+   "subject": "Your account statement for July 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7120 for Jul 2026 is attached. The PDF is protected; password is your Customer ID.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m151",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.190.60 at OLA CABS on 04-07-2026 at 13:21:19.\nAvailable limit: Rs.3,75,999.00\nIf you have not done this transction, please call us immediately on the number given on your card.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m152",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-07-26 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 554934897258.\nIf you did not authorise, call 18002586161.\nWarm Regrads, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m153",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.4,011.69 at LENSKART on 06-07-2026 at 19:30:38.\nAvailable limit: Rs.3,13,118.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-06",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m154",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card XX5560 for Rs.4,729.92 at IRCTC on 07-07-2026 at 09:06:43.\nAvailable limit: Rs.2,63,746.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m155",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Jul 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card **5560 Statement for the period 12/06/2026 to 12/07/2026 is attached.\nTotal Amount Due: Rs. 6,209.73\nMinimum Amount Due: Rs. 310.49\nPayment Due Date: 30/07/2026\nPay via NetBanking, UPI or auto-debit.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCredit Card Number: XXXX XXXX XXXX 5560\nCard Type: Regalia\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 6,209.73\nMinimum Amount Due: Rs. 310.49\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,56,728.00\n\nDate        Transaction Details                        Amount (Rs.)\n30/06/2026  CROMA GURGAON   20,062.11 Dr\n29/06/2026  NETFLIX.COM HYDERABAD   288.61 Dr\n08/07/2026  WESTSIDE BANGALORE   39,658.15 Dr\n24/06/2026  OLA CABS GURGAON   720.66 Dr\n04/07/2026  SHELL PETROL BANGALORE   5,400.36 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   3,725.84 Cr\n\nReward Points Summary: Opening 7227  Earned 862  Closing 4784\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2995963469525  IFSC HDFC0000432"
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m156",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.179.65 has been debited from account **7120 on 15-07-26 to VPA bigbasket@okhdfcbank (UPI Ref No. 257464983661).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m157",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.14,524.20 has been debited from account **7120 on 15-07-26 to VPA irctcweb@ybl (UPI Ref No. 396949951197).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m158",
+   "subject": "OTP for online transaction",
+   "body": "नमस्ते,\n403937 is the One Time Password (OTP) for your online transaction of INR 5,201.46 at REDBUS. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m159",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.3,000.16 has been debited from account **7120 on 16-07-26 to VPA paytm.s1@ybl (UPI Ref No. 836705491078).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m160",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "नमस्ते,\nDear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.16,824.83 at BATA INDIA on 21-07-2026 at 07:27:05.\nAvailable limit: Rs.54,489.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m161",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.25,610.11 at AIRBNB on 25-07-2026 at 05:50:45.\nAvailable limit: Rs.2,83,375.00\nIf you have not done this transction, please call us immediately on the number given on your card.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m162",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.6,209.73 on 25-07-2026 towards your HDFC Bank Credit Card XX5560. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m163",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.4,492.51 has been debited from account **7120 on 27-07-26 to VPA bigbasket@ybl (UPI Ref No. 471908292989).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m164",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX7120 on 01-08-2026 by SALARY NEFT. Ref 7545407906.\nThank you for banking with us.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m165",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.1,279.03 has been debited from account **7120 on 02-08-26 to VPA merchant@okaxis (UPI Ref No. 464257032214).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m166",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "नमस्ते,\nDear Customer,\nRs.8,935.50 has been debited from account **7120 on 03-08-26 to VPA zomato@ybl (UPI Ref No. 637155976373).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-08-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m167",
+   "subject": "Your account statement for August 2026",
+   "body": "Dear Customer,<br>\nYour e-statement for A/c XX7120 for Aug 2026 is attached. The PDF is protected; password is your Customer ID.<br>\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m168",
+   "subject": "Standing instruction executed",
+   "body": "नमस्ते,\nDear Customer,\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-08-26 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 395442592940.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m169",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card XXXX XXXX XXXX 5560 for Rs.406.20 at NETFLIX.COM on 07-08-2026 at 22:01:49.\nAvailable limit: Rs.1,39,379.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m170",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.33,479.60 at AMAZON PAY INDIA on 09-08-2026 at 15:01:31.\nAvailable limit: Rs.1,83,261.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-08-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m171",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,<br>\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.912.27 at INDIGO AIRLINES on 12-08-2026 at 18:11:52.<br>\nAvailable limit: Rs.2,64,015.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-08-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m172",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Aug 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card ending 5560 Statement for the period 13/07/2026 to 12/08/2026 is attached.\nTotal Amount Due: Rs. 798.05\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/08/2026\nPay via NetBanking, UPI or auto-debit.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4208 45XX XXXX 5560\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 798.05\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,13,399.00\n\nDate        Transaction Details                        Amount (Rs.)\n31/07/2026  JIO PREPAID HYDERABAD   638.61 Dr\n16/07/2026  RELIANCE SMART BANGALORE   13,871.85 Dr\n26/07/2026  IRCTC BANGALORE   764.84 Dr\n15/07/2026  OLA CABS GURGAON   1,067.57 Dr\n10/08/2026  AMAZON PAY INDIA PUNE   2,550.91 Dr\n16/07/2026  WESTSIDE GURGAON   29,512.71 Dr\n10/08/2026  THIRD WAVE COFFEE GURGAON   778.18 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   478.83 Cr\n\nReward Points Summary: Opening 2673  Earned 438  Closing 2163\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m173",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.612.71 has been debited from account **7120 on 21-08-26 to VPA irctcweb@icici (UPI Ref No. 774747613760).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m174",
+   "subject": "Convert to EMI",
+   "body": "Dear&nbsp;Customer,<br>\nYour&nbsp;transaction&nbsp;of Rs.8,436.61 on card ending 5560 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.<br>\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m175",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.798.05 on 23-08-2026 towards your HDFC Bank Credit Card **5560. Thank you.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m176",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.35,521.29 has been debited from account **7120 on 23-08-26 to VPA q770805802@paytm (UPI Ref No. 223186369206).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m177",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Suresh, a gentle nudge: Rs.798.05 due on 30 August for card XX5560. Ignore if already paid. Kripya samay par bhugtan karein.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m178",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.317.12 has been debited from account **7120 on 01-09-26 to VPA merchant@ybl (UPI Ref No. 828925101985).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m179",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX7120 on 01-09-2026 by SALARY NEFT. Ref 9327085856.\nThank you for banking with us.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m180",
+   "subject": "Your account statement for September 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7120 for Sep 2026 is attached. The PDF is protected; password is your Customer ID.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m181",
+   "subject": "OTP for online transaction",
+   "body": "690870 is the One Time Password (OTP) for your online transaction of INR 535.35 at BATA INDIA. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-04",
+   "attachments": [],
+   "from": "Federal Bank <alerts@federalbank.co.in>"
+  },
+  {
+   "id": "m182",
+   "subject": "EMI conversion successful",
+   "body": "Your&nbsp;request&nbsp;for&nbsp;EMI conversion on card ending 5560 has been processed. Tenure 9 months. First EMI will appear on your next statement.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m183",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,<br>\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-09-26 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 477518028162.<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m184",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.5,157.40 at CROMA on 11-09-2026 at 05:19:28.\nAvailable limit: Rs.3,56,017.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m185",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Sep 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Regalia Credit Card ending 5560 Statement for the period 13/08/2026 to 12/09/2026 is attached.\nTotal Amount Due: Rs. 4,591.71\nMinimum Amount Due: Rs. 229.59\nPayment Due Date: 30/09/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4699 51XX XXXX 5560\nCard Type: Regalia\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 4,591.71\nMinimum Amount Due: Rs. 229.59\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,13,467.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/08/2026  THIRD WAVE COFFEE MUMBAI   579.75 Dr\n30/08/2026  PVR INOX GURGAON   384.72 Dr\n20/08/2026  BIGBASKET PUNE   189.03 Dr\n28/08/2026  THIRD WAVE COFFEE CHENNAI   1,617.36 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   2,755.03 Cr\n\nReward Points Summary: Opening 6796  Earned 637  Closing 7073\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2995963469525  IFSC HDFC0000214"
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m186",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.7,573.50 has been debited from account **7120 on 14-09-26 to VPA zomato@icici (UPI Ref No. 380255940362).\nIf you did not authorise, call 18002586161.\nWarm Regrads, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m187",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your HDFC Bank Regalia Credit Card ending 5560 has been increased to Rs.3,00,000.00 effective 17-09-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m188",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.4,418.29 has been debited from account **7120 on 20-09-26 to VPA zomato@icici (UPI Ref No. 119968294901).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-20",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m189",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.3,336.95 at BATA INDIA on 22-09-2026 at 14:47:55.\nAvailable limit: Rs.1,70,879.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m190",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nThank&nbsp;you for using your HDFC Bank Credit Card XX5560 for Rs.900.76 at URBAN COMPANY on 23-09-2026 at 04:56:44.\nAvailable limit: Rs.1,12,054.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m191",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 4606 reward points on your HDFC Bank Regalia Credit Card ending 5560. Redeem them on the rewards portal before they expire.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m192",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Suresh, a gentle nudge: Rs.4,591.71 due on 30 September for card ending 5560. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m193",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.4,591.71 on 27-09-2026 towards your HDFC Bank Credit Card ending 5560. Thank you.<br>\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m194",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "नमस्ते,\nDear Customer,\nINR 1,05,000.00 credited to your A/c XX7120 on 01-10-2026 by SALARY NEFT. Ref 8399075647.\nThank you for banking with us.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m195",
+   "subject": "Your account statement for October 2026",
+   "body": "Dear Customer,\nYour e-statment for A/c **7120 for Oct 2026 is attached. The PDF is protected; password is your Customer ID.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m196",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.22,500.00 has been debited from account **7120 on 05-10-26 to Gopal Banerjee A/c no. XXXXXXXX1572 (Canara Bank), SI Ref 327525168148.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m197",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nThank&nbsp;you for using your HDFC Bank Credit Card ending 5560 for Rs.5,816.66 at RELIANCE SMART on 12-10-2026 at 16:13:35.\nAvailable limit: Rs.3,52,047.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m198",
+   "subject": "HDFC Bank Regalia Credit Card Statement - Oct 2026",
+   "body": "नमस्ते,\nDear Customer,\nYour HDFC Bank Regalia Credit Card XX5560 Statement for the period 12/09/2026 to 12/10/2026 is attached.\nTotal Amount Due: Rs. 1,15,774.39\nMinimum Amount Due: Rs. 5,788.72\nPayment Due Date: 30/10/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK - CREDIT CARD STATEMENT\nName: SURESH BANERJEE\nCard No: 4255 18XX XXXX 5560\nCard Type: Regalia\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 1,15,774.39\nMinimum Amount Due: Rs. 5,788.72\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,03,772.00\n\nDate        Transaction Details                        Amount (Rs.)\n10/10/2026  LICIOUS KOCHI   371.14 Dr\n12/09/2026  HOTSTAR PUNE   6,633.90 Dr\n27/09/2026  DMART KOCHI   3,377.14 Dr\n30/09/2026  TATA 1MG GURGAON   24,520.33 Dr\n02/10/2026  STARBUCKS BANGALORE   2,106.11 Dr\n09/10/2026  BOOKMYSHOW MUMBAI   5,800.30 Dr\n12/09/2026  HOTSTAR KOCHI   2,432.93 Dr\n10/10/2026  BOOKMYSHOW BANGALORE   8,221.77 Dr\n18/09/2026  JIO PREPAID HYDERABAD   2,991.30 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   69,464.63 Cr\n\nReward Points Summary: Opening 4164  Earned 130  Closing 4023\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2995963469525  IFSC HDFC0000735"
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m199",
+   "subject": "IMPS funds transfer alert",
+   "body": "Dear Customer,\nRs.16,844.34 has been debited from account **7120 on 14-10-26 to Priya Chopra A/c no. XXXXXXXX6394 (HDFC Bank), IMPS Ref 502312451619.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m200",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.8,081.09 at HOTSTAR on 16-10-2026 at 13:43:07.\nAvailable limit: Rs.40,102.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m201",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.4,648.53 at MEDPLUS on 16-10-2026 at 23:06:29.\nAvailable limit: Rs.1,96,384.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m202",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,<br>\nRs.7,000.44 has been debited from account **7120 on 16-10-26 to VPA zomato@paytm (UPI Ref No. 400330524335).<br>\nIf you did not authorise, call 18002586161.\nWarm Regrads, HDFC Bank",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m203",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.21,408.40 at STARBUCKS on 17-10-2026 at 18:15:35.\nAvailable limit: Rs.2,16,464.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m204",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,<br>\nRs.5,164.35 has been debited from account **7120 on 18-10-26 to VPA irctcweb@ybl (UPI Ref No. 128814812400).<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m205",
+   "subject": "Pre-approved limit enhancement",
+   "body": "Dear Suresh Banerjee,\nYou are eligible for a limit enhancement on your card xx3984. Click to accept the offer. Offer valid till 31 Dec.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF5332\nT&C apply.",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m207",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 5560 for Rs.3,410.11 at HOTSTAR on 26-10-2026 at 17:47:13.\nAvailable limit: Rs.2,33,269.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m208",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.5,355.09 has been debited from account **7120 on 26-10-26 to VPA q232296041@ybl (UPI Ref No. 373367555363).\nIf you did not authorise, call 18002586161.\nWarm Regrads, HDFC Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m209",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "नमस्ते,\nHi Suresh, a gentle nudge: Rs.1,15,774.39 due on 30 October for card ending 5560. Ignore if already paid. Kripya samay par bhugtan karein.\n\nT&C apply. Visit www.hdfcbank.net for more details.\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m210",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,15,774.39 on 28-10-2026 towards your HDFC Bank Credit Card ending 5560. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m211",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX7120 on 01-11-2026 by SALARY NEFT. Ref 2575171590.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "5560",
+    "kind": "CREDIT_CARD",
+    "variant": "Regalia",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "6671",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "WEAK"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "3984",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "WEAK"
+   },
+   {
+    "issuerDomain": "federalbank.co.in",
+    "last4": "2208",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "WEAK"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "7120",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "9525",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "1572",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "2739",
+    "why": "masked Aadhaar number"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "4421",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "3036",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "9417",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "6394",
+    "why": "UPI/IMPS payee account"
+   }
+  ]
+ }
+}

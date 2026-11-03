@@ -1,0 +1,2140 @@
+{
+ "mailbox": "au-rbl-bob-rename-addon",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,328.97 spent on your AU Altura Credit Card xx1458 at NYKAA on 06-Oct-2024 04:02:21.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-06",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Card alert | INR 11,970.66 | BOOKMYSHOW | 08-Oct-2024 | AU Small Finance Bank Credit Card XX1458\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m003",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Card alert | INR 1,002.39 | AMAZON PAY INDIA | 08-10-2024 | BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147\n\nOpt for e-statements and go green.",
+   "date": "2024-10-08",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 1,955.51 spent on your RBL Bank ShopRite Credit Card at RELIANCE DIGITAL on 09-10-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-09",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 22,133.66 was spent on your AU Small Finance Bank Credit Card ending 1458 at PHONEPE on 13-Oct-2024.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-13",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m006",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "BOBCARD Credit Card XXXX XXXX XXXX 8147: purchase of INR 223.07 at DECATHLON on 15-10-2024 12:52:25. Available limit INR 51,888.54.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-15",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "RBL Bank Credit Card Statement - Oct 2024",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Sep-2024 to 17-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-18",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Oct 2024",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-Sep-2024 to 19-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-10-20",
+   "attachments": [
+    {
+     "filename": "BOBCARD_CC_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Payment of INR 1,317.19 has been received towards your AU Small Finance Bank Credit Card xx1458 on 20-Oct-2024. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-10-20",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 437.49 spent on your BOBCARD Credit Card XXXX XXXX XXXX 8147 at AMAZON PAY INDIA on 24-10-2024 11:30:04.\n\nOpt for e-statements and go green.",
+   "date": "2024-10-24",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Your AU Credit Card statement - Nov 2024",
+   "body": "Dear Kavya,\nYour AU Altura Credit Card XX1458 statement for Nov 2024 is ready. Total amount due Rs.3,092.16, minimum amount due Rs.200.00, payable by 22-Nov-2024.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Card alert | INR 5,482.27 | CROMA | 10-Nov-2024 | AU Small Finance Bank Credit Card xx1458\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-10",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "RBL Bank Credit Card Statement - Nov 2024",
+   "body": "Dear Kavya,\nYour RBL Bank ShopRite Credit Card statement for Nov 2024 is ready. Total amount due Rs.31,050.42, minimum amount due Rs.1,552.52, payable by 05-Dec-2024.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-18",
+   "attachments": [],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "BOBCARD Credit Card XXXX XXXX XXXX 8147: purchase of INR 4,820.30 at MYNTRA on 18-11-2024 01:28:51. Available limit INR 2,378.45.",
+   "date": "2024-11-18",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "AU Altura Credit Card xx1458: purchase of INR 3,724.30 at ZEPTO on 19-Nov-2024 03:52:20. Available limit INR 3,066.45.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-19",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Nov 2024",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-Oct-2024 to 19-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-11-20",
+   "attachments": [
+    {
+     "filename": "eStatement_202411.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "OTP for your transaction",
+   "body": "444438 is the OTP for your transaction of Rs.4,133.61 at BIGBASKET. Valid for 10 minutes. Do not share.",
+   "date": "2024-11-20",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "AU Small Finance Bank Credit Card xx1458: purchase of INR 215.06 at INDIGO AIRLINES on 24-Nov-2024 10:39:39. Available limit INR 4,072.05.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-24",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Kavya,\nYour order #456-2897624-2845506 is confirmed. Total Rs.439.86. Estimated delivery in 2 days.",
+   "date": "2024-11-25",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Payment received on your RBL Bank Credit Card",
+   "body": "Payment of INR 1,247.98 has been received towards your RBL Bank ShopRite Credit Card on 26-11-2024. Thank you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-26",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 17,810.03 spent on your RBL Bank ShopRite Credit Card at SPOTIFY on 01-12-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-12-01",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 711.30 spent on your BOBCARD Credit Card XXXX XXXX XXXX 8147 at SODEXO on 04-12-2024 18:55:06.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-12-04",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Your AU Credit Card statement - Dec 2024",
+   "body": "Dear Kavya,\nStatement generated for AU Altura Credit Card xx1458: amount payable Rs.2,487.56, last date 22-Dec-2024. Sign in to download.",
+   "date": "2024-12-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "AU Small Finance Bank Credit Card XX1458: purchase of INR 9,130.49 at JIO RECHARGE on 13-Dec-2024 18:17:12. Available limit INR 10,991.39.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-13",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m025",
+   "subject": "RBL Bank Credit Card Statement - Dec 2024",
+   "body": "Dear Kavya,\nStatement generated for RBL Bank ShopRite Credit Card: amount payable Rs.17,708.32, last date 04-Jan-2025. Sign in to download.",
+   "date": "2024-12-18",
+   "attachments": [],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Dec 2024",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-Nov-2024 to 19-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-12-20",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 9,739.52 spent on your RBL Bank ShopRite Credit Card at BESCOM on 21-12-2024.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-12-21",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 128.88 spent on your RBL Bank ShopRite Credit Card at BIGBASKET on 28-12-2024.\n\n",
+   "date": "2024-12-28",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 1,943.29 was spent on your AU Altura Credit Card xx1458 at STARBUCKS on 03-Jan-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-01-03",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "Your AU Credit Card statement - Jan 2025",
+   "body": "Dear Kavya,\nPlease find attached your AU Altura Credit Card ending 1458 statement for the period 05-Dec-2024 to 04-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-01-05",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 7,084.64 spent on your AU Small Finance Bank Credit Card XX1458 at GOOGLE PLAY on 11-Jan-2025 03:06:26.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-11",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 627.59 spent on your RBL Bank ShopRite Credit Card at INDIAN OIL on 11-01-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-01-11",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Card alert | INR 20,936.69 | LENSKART | 17-Jan-2025 | AU Altura Credit Card XX1458\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-01-17",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m034",
+   "subject": "RBL Bank Credit Card Statement - Jan 2025",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Dec-2024 to 17-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-01-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202501.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 154.80 was spent on your AU Small Finance Bank Credit Card XX1458 at BIGBASKET on 19-Jan-2025.",
+   "date": "2025-01-19",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m036",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Jan 2025",
+   "body": "Hi Kavya,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 e-statement for Jan 2025 is now available. Pay Rs.37,598.69 by 06-Feb-2025 to avoid late fees.",
+   "date": "2025-01-20",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "OTP for your transaction",
+   "body": "755416 is the OTP for your transaction of Rs.12,702.73 at ZEPTO. Valid for 10 minutes. Do not share.",
+   "date": "2025-01-20",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Transaction alert: INR 971.07 spent at PHONEPE on 04-02-2025 using your RBL Bank ShopRite Credit Card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-04",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Your AU Credit Card statement - Feb 2025",
+   "body": "Hi Kavya,\nYour AU Altura Credit Card ending 1458 e-statement for Feb 2025 is now available. Pay Rs.47,952.07 by 22-Feb-2025 to avoid late fees.",
+   "date": "2025-02-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "BOBCARD Credit Card XXXX XXXX XXXX 8147: purchase of INR 4,523.64 at LENSKART on 06-02-2025 11:42:33. Available limit INR 92,044.18.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-06",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Payment received on your BOBCARD",
+   "body": "Thank you! We have credited INR 19,804.30 to your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 on 13-02-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-02-13",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "RBL Bank Credit Card Statement - Feb 2025",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Jan-2025 to 17-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202502.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Feb 2025",
+   "body": "Dear Kavya,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for Feb 2025 is ready. Total amount due Rs.14,939.47, minimum amount due Rs.746.97, payable by 09-Mar-2025.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-02-20",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 14,953.36 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 at GOOGLE PLAY on 24-02-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-24",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX8361 has been updated on 17-10-2025. If not requested by you, call customer care.",
+   "date": "2025-02-24",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,321.41 spent on your BOBCARD Credit Card XXXX XXXX XXXX 8147 at IXIGO on 25-02-2025 00:53:44.",
+   "date": "2025-02-25",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Your AU Credit Card statement - Mar 2025",
+   "body": "Dear Kavya,\nPlease find attached your AU Altura Credit Card XX1458 statement for the period 05-Feb-2025 to 04-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-05",
+   "attachments": [
+    {
+     "filename": "AU_CC_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Card alert | INR 329.72 | EAZYDINER | 08-03-2025 | BOBCARD Credit Card XXXX XXXX XXXX 8147\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-08",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,533.30 spent on your AU Altura Credit Card xx1458 at JIO RECHARGE on 09-Mar-2025 14:25:44.\n\nOpt for e-statements and go green.",
+   "date": "2025-03-09",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m050",
+   "subject": "Update your KYC",
+   "body": "Dear Kavya,\nAs per RBI guidelines please complete re-KYC for your BOBCARD relationship. Visit a branch or use the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-12",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "RBL Bank Credit Card Statement - Mar 2025",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Feb-2025 to 17-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Mar 2025",
+   "body": "Dear Kavya,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for Mar 2025 is ready. Total amount due Rs.694.63, minimum amount due Rs.200.00, payable by 06-Apr-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-03-20",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147: purchase of INR 852.54 at AIRTEL PREPAID on 24-03-2025 00:11:45. Available limit INR 30,285.76.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-24",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Card alert | INR 1,887.81 | CROMA | 27-Mar-2025 | AU Altura Credit Card xx1458\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-03-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "BOBCARD festive offers",
+   "body": "Dear Kavya,\nUse your card on UPI and earn extra rewards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-28",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Transaction alert: INR 4,085.11 spent at HPCL PETROL on 02-04-2025 using your RBL Bank ShopRite Credit Card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-02",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Your AU Credit Card statement - Apr 2025",
+   "body": "Dear Kavya,\nPlease find attached your AU Altura Credit Card XX1458 statement for the period 05-Mar-2025 to 04-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-04-05",
+   "attachments": [
+    {
+     "filename": "eStatement_202504.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 3,223.69 spent on your RBL Bank ShopRite Credit Card at STARBUCKS on 07-04-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-07",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 785.40 spent on your AU Small Finance Bank Credit Card ending 1458 at INDIGO AIRLINES on 16-Apr-2025 01:45:23.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-04-16",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Transaction alert: INR 341.36 spent at STARBUCKS on 16-04-2025 using your RBL Bank ShopRite Credit Card.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-16",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Card alert | INR 1,109.29 | INDIGO AIRLINES | 16-04-2025 | BOBCARD Credit Card XXXX XXXX XXXX 8147\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-16",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "RBL Bank Credit Card Statement - Apr 2025",
+   "body": "Hi Kavya,\nYour RBL Bank ShopRite Credit Card e-statement for Apr 2025 is now available. Pay Rs.2,450.10 by 05-May-2025 to avoid late fees.",
+   "date": "2025-04-18",
+   "attachments": [],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Apr 2025",
+   "body": "Dear Kavya,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for Apr 2025 is ready. Total amount due Rs.3,027.89, minimum amount due Rs.200.00, payable by 07-May-2025.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-20",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Kavya,\nYour order #602-4167627-1022568 is confirmed. Total Rs.257.26. Estimated delivery in 2 days.",
+   "date": "2025-04-22",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 4,582.53 spent on your AU Small Finance Bank Credit Card XX1458 at RELIANCE DIGITAL on 27-Apr-2025 03:17:07.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 406.23 spent on your AU Small Finance Bank Credit Card XX1458 at INDIAN OIL on 03-May-2025 05:18:53.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-03",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "Your AU Credit Card statement - May 2025",
+   "body": "Dear Kavya,\nYour AU Altura Credit Card XX1458 statement for May 2025 is ready. Total amount due Rs.1,761.54, minimum amount due Rs.200.00, payable by 22-May-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 167.81 was spent on your AU Small Finance Bank Credit Card xx1458 at ZOMATO on 06-May-2025.",
+   "date": "2025-05-06",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "RBL Bank Credit Card Statement - May 2025",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Apr-2025 to 17-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-18",
+   "attachments": [
+    {
+     "filename": "RBL_CC_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - May 2025",
+   "body": "Dear Kavya,\nStatement generated for BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147: amount payable Rs.45,033.15, last date 06-Jun-2025. Sign in to download.",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Transaction alert: INR 663.16 spent at APPLE SERVICES on 20-05-2025 using your RBL Bank ShopRite Credit Card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 1,291.04 spent on your RBL Bank ShopRite Credit Card at IRCTC on 20-05-2025.\n\n",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Update your KYC",
+   "body": "Dear Kavya,\nAs per RBI guidelines please complete re-KYC for your RBL Bank relationship. Visit a branch or use the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-24",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147: purchase of INR 1,009.21 at BLINKIT on 25-05-2025 18:12:49. Available limit INR 25,457.31.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Your AU Credit Card statement - Jun 2025",
+   "body": "Dear Kavya,\nPlease find attached your AU Altura Credit Card XX1458 statement for the period 05-May-2025 to 04-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-06-05",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 9,341.51 spent on your RBL Bank ShopRite Credit Card at NETFLIX on 11-06-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-11",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "RBL Bank Credit Card Statement - Jun 2025",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-May-2025 to 17-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-06-18",
+   "attachments": [
+    {
+     "filename": "RBL_CC_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Jun 2025",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-May-2025 to 19-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-20",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Your AU Credit Card statement - Jul 2025",
+   "body": "Dear Kavya,\nPlease find attached your AU Altura Credit Card xx1458 statement for the period 05-Jun-2025 to 04-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-07-05",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 546.48 spent on your RBL Bank ShopRite Credit Card at DMART on 06-07-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-06",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Card alert | INR 3,298.33 | GOOGLE PLAY | 08-Jul-2025 | AU Small Finance Bank Credit Card ending 1458",
+   "date": "2025-07-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 8,914.57 spent on your RBL Bank ShopRite Credit Card at APPLE SERVICES on 09-07-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-07-09",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 15,591.04 spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 at BATA INDIA on 10-07-2025 07:06:46.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-10",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "RBL Bank Credit Card Statement - Jul 2025",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Jun-2025 to 17-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-18",
+   "attachments": [
+    {
+     "filename": "RBL_CC_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Jul 2025",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-Jun-2025 to 19-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-20",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Transaction alert: INR 1,124.90 spent at BATA INDIA on 25-07-2025 using your RBL Bank ShopRite Credit Card.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-25",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Update: your AU Small Finance Bank Credit Card has a new name",
+   "body": "Dear Kavya Rao,\nYour AU Altura Credit Card ending 1458 is now the AU Altura Plus Credit Card. Your card number, limit and dues are unchanged; the card continues to work as before. New benefits are effective from 02-Aug-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "Your AU Credit Card statement - Aug 2025",
+   "body": "Dear Kavya,\nPlease find attached your AU Altura Plus Credit Card ending 1458 statement for the period 05-Jul-2025 to 04-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-08-05",
+   "attachments": [
+    {
+     "filename": "1458_04082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 381023406382. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-08-10",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 460.70 was spent on your AU Altura Plus Credit Card XX1458 at BIG BAZAAR on 12-Aug-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m091",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 5,639.04 was spent on your AU Small Finance Bank Credit Card xx1458 at APOLLO PHARMACY on 17-Aug-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-17",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "RBL Bank Credit Card Statement - Aug 2025",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Jul-2025 to 17-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-18",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Payment received on your RBL Bank Credit Card",
+   "body": "Payment of INR 13,499.76 has been received towards your RBL Bank ShopRite Credit Card on 19-08-2025. Thank you.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Aug 2025",
+   "body": "Dear Kavya,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for Aug 2025 is ready. Total amount due Rs.8,011.67, minimum amount due Rs.400.58, payable by 06-Sep-2025.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 873452757567. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 4,550.37 spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 at DOMINOS on 02-09-2025 03:33:41.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 14,152.52 spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 at EAZYDINER on 03-09-2025 21:09:23.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Your AU Credit Card statement - Sep 2025",
+   "body": "Dear Kavya,\nPlease find attached your AU Altura Plus Credit Card xx1458 statement for the period 05-Aug-2025 to 04-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-05",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m099",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "AU Altura Plus Credit Card xx1458: purchase of INR 166.65 at INDIAN OIL on 17-Sep-2025 23:56:13. Available limit INR 3,749.06.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "RBL Bank Credit Card Statement - Sep 2025",
+   "body": "Dear Kavya,\nYour RBL Bank ShopRite Credit Card statement for Sep 2025 is ready. Total amount due Rs.8,632.81, minimum amount due Rs.431.64, payable by 05-Oct-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-18",
+   "attachments": [],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Sep 2025",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-Aug-2025 to 19-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-20",
+   "attachments": [
+    {
+     "filename": "BOBCARD_CC_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Payment successful",
+   "body": "Hi Kavya,\nYou paid Rs.7,727.73 to Bank of India Credit Card ending 5743 (of Gaurav Rao) on 20-Sep-2025. Ref 7973350692.",
+   "date": "2025-09-20",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m103",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,799.11 spent on your BOBCARD Credit Card XXXX XXXX XXXX 8147 at STARBUCKS on 24-09-2025 09:11:43.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-24",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Your AU Credit Card statement - Oct 2025",
+   "body": "Dear Kavya,\nStatement generated for AU Altura Plus Credit Card XX1458: amount payable Rs.12,769.32, last date 22-Oct-2025. Sign in to download.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Card alert | INR 6,720.99 | IRCTC | 07-Oct-2025 | AU Altura Plus Credit Card XX1458\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-07",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147: purchase of INR 352.01 at JIO RECHARGE on 11-10-2025 10:48:08. Available limit INR 19,048.25.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "AU Small Finance Bank Credit Card XX1458: purchase of INR 17,648.55 at SPOTIFY on 12-Oct-2025 15:15:45. Available limit INR 3,989.00.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Kavya,\nYour order #572-8527716-8597599 is confirmed. Total Rs.7,737.77. Estimated delivery in 2 days.",
+   "date": "2025-10-13",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m109",
+   "subject": "RBL Bank Credit Card Statement - Oct 2025",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Sep-2025 to 17-Oct-2025. Total amount due Rs.47,650.00, due 02-Nov-2025.\n\n",
+   "date": "2025-10-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202510.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nKAVYA RAO\nFLAT 632, ORCHID APARTMENTS\n27TH CROSS, SECTOR 21\nHYDERABAD - 546063\nCARD TYPE: RBL Bank ShopRite Credit Card\nCREDIT CARD NO: 599387XXXXXX5842\nStatement Period : 18-Sep-2025 to 17-Oct-2025\nStatement Date : 17-Oct-2025\nPayment Due Date : 02-Nov-2025\nTotal Amount Due : Rs.47,650.00\nMinimum Amount Due : Rs.2,382.50\nCredit Limit (Including cash) : Rs.90,000.00\nAvailable Credit Limit (Including cash) : Rs.53,337.99\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n18-09-2025 4664467866 CROMA CHENNAI 38 5,579.39\n22-09-2025 7891644352 TATA PLAY AHMEDABAD 43 1,946.87\n23-09-2025 8188240567 INDIAN OIL MUMBAI 13 117.38\n23-09-2025 5777127968 JIO RECHARGE MUMBAI 60 8,944.68\n27-09-2025 8469396105 EAZYDINER JAIPUR 16 5,279.15\n28-09-2025 1901050411 DECATHLON AHMEDABAD 34 18,520.08\n29-09-2025 5537441358 AMAZON PAY INDIA KOLKATA 17 2,013.51\n30-09-2025 2946086169 URBAN COMPANY BENGALURU 18 735.00\n09-10-2025 1312604620 AIRTEL PREPAID AHMEDABAD 57 1,693.10\n11-10-2025 4241680029 AMAZON PAY INDIA MUMBAI 51 2,011.73\n12-10-2025 6418953644 DECATHLON BENGALURU 16 809.11\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Earn more with your card",
+   "body": "Dear Kavya,\nConvert big spends to EMI at low interest.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Oct 2025",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-Sep-2025 to 19-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-20",
+   "attachments": [
+    {
+     "filename": "BOBCARD_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Transaction alert: INR 2,673.16 spent at AIRTEL PREPAID on 22-10-2025 using your RBL Bank ShopRite Credit Card.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Transaction alert: INR 132.46 spent at IKEA on 29-10-2025 using your RBL Bank ShopRite Credit Card.\n\n",
+   "date": "2025-10-29",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Card alert | INR 3,507.27 | ZEPTO | 31-Oct-2025 | AU Small Finance Bank Credit Card ending 1458\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-31",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 584.18 spent on your BOBCARD Credit Card XXXX XXXX XXXX 8147 at CROMA on 02-11-2025 20:13:47.",
+   "date": "2025-11-02",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Your AU Credit Card statement - Nov 2025",
+   "body": "Dear Kavya,\nPlease find attached your AU Altura Plus Credit Card ending 1458 statement for the period 05-Oct-2025 to 04-Nov-2025. Total amount due Rs.58,126.93, due 24-Nov-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-05",
+   "attachments": [
+    {
+     "filename": "AU_CC_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "AU Small Finance Bank Credit Card Statement\nKAVYA RAO\nFLAT 729, LAKESHORE APARTMENTS\n2TH CROSS, ADYAR\nJAIPUR - 554400\nCard Name: AU Altura Plus Credit Card\nCredit Card Number: 678516XXXXXX1458\nBilling Cycle: 05/10/25 - 04/11/25\nStatement Date: 04/11/25\nPayment Summary\nTotal Amount Due: Rs.58,126.93\nMinimum Amount Due: Rs.2,906.35\nPayment Due Date: 24/11/25\nAccount Summary\nCredit Limit: Rs.1,20,000.00\nAvailable Credit Limit: Rs.65,528.98\nAvailable Cash Limit: Rs.24,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n05/10/25 IXIGO BENGALURU 4,285.89 Dr\n17/10/25 DECATHLON BENGALURU 133.04 Dr\n20/10/25 BESCOM CHENNAI 553.65 Dr\n25/10/25 LENSKART BENGALURU 11,959.43 Dr\n26/10/25 BESCOM CHENNAI 20,930.78 Dr\n03/11/25 EAZYDINER KOCHI 20,264.14 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 340.92 spent on your RBL Bank ShopRite Credit Card at BPCL FUEL on 06-11-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Kavya,\nYour order #239-9559932-4403619 is confirmed. Total Rs.9,732.69. Estimated delivery in 2 days.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m119",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Kavya,\nGet up to 10% cashback on partner brands.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Kavya,\nConvert big spends to EMI at low interest.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "RBL Bank Credit Card Statement - Nov 2025",
+   "body": "Dear Kavya,\nYour RBL Bank ShopRite Credit Card statement for Nov 2025 is ready. Total amount due Rs.1,073.74, minimum amount due Rs.200.00, payable by 05-Dec-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 201.63 spent on your RBL Bank ShopRite Credit Card at AMAZON PAY INDIA on 19-11-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Nov 2025",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-Oct-2025 to 19-Nov-2025. Total amount due Rs.35,311.15, due 07-Dec-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-20",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD Credit Card Statement\nFor Statement Period 20-Oct-2025 to 19-Nov-2025\nKAVYA RAO\nFLAT 516, LAKESHORE APARTMENTS\n26TH CROSS, BANJARA HILLS\nCHENNAI - 532581\nCard Product: BOBCARD ETERNA Credit Card\nCredit Card Number XXXX XXXX XXXX 8147\nStatement Date: 19-Nov-2025\nPayment Due Date: 07-Dec-2025\nTotal Amount Due: Rs.35,311.15\nMinimum Amount Due: Rs.1,765.56\nCredit Limit: Rs.4,55,000.00\nAvailable Credit Limit: Rs.4,37,486.91\nAvailable Cash Limit: Rs.91,000.00\nTRANSACTIONS FOR KAVYA RAO\nDate Transaction Details Amount\n22-Oct-2025 BOOKMYSHOW JAIPUR 5,118.07 D\n23-Oct-2025 JIO RECHARGE BENGALURU 168.08 D\n28-Oct-2025 MYNTRA HYDERABAD 1,418.66 D\n28-Oct-2025 PHONEPE KOCHI 115.89 D\n29-Oct-2025 BIGBASKET PUNE 4,713.18 D\n31-Oct-2025 HPCL PETROL PUNE 1,014.00 D\n01-Nov-2025 HPCL PETROL KOCHI 2,560.26 D\n10-Nov-2025 BIG BAZAAR KOLKATA 6,672.69 D\n11-Nov-2025 INDIGO AIRLINES CHENNAI 13,530.32 D\n\nAdd-on Card Transactions\nANANYA RAO - XXXX XXXX XXXX 5979\n24/10/25 APPLE SERVICES BENGALURU 4,405.42\n24/10/25 JIO RECHARGE PUNE 177.11\n26/10/25 SODEXO PUNE 8,976.23\n06/11/25 SPOTIFY HYDERABAD 91.14\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "AU Altura Plus Credit Card xx1458: purchase of INR 1,934.07 at SPOTIFY on 23-Nov-2025 05:12:35. Available limit INR 10,232.38.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 11,111.18 spent on your RBL Bank ShopRite Credit Card at TATA PLAY on 26-11-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Kavya,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "Your AU Credit Card statement - Dec 2025",
+   "body": "Hi Kavya,\nYour AU Altura Plus Credit Card ending 1458 e-statement for Dec 2025 is now available. Pay Rs.12,888.10 by 22-Dec-2025 to avoid late fees.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m128",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Card alert | INR 7,084.31 | CROMA | 05-12-2025 | BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147: purchase of INR 3,868.57 at GOOGLE PLAY on 17-12-2025 11:21:27. Available limit INR 22,954.90.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-17",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "RBL Bank Credit Card Statement - Dec 2025",
+   "body": "Dear Kavya,\nYour RBL Bank ShopRite Credit Card statement for Dec 2025 is ready. Total amount due Rs.5,521.19, minimum amount due Rs.276.06, payable by 04-Jan-2026.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Dec 2025",
+   "body": "Dear Kavya,\nStatement generated for BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147: amount payable Rs.16,053.68, last date 06-Jan-2026. Sign in to download.",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Card alert | INR 17,712.04 | TATA POWER | 28-12-2025 | BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 1,713.06 spent on your RBL Bank ShopRite Credit Card at JIO RECHARGE on 01-01-2026.\n\n",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Update your KYC",
+   "body": "Dear Kavya,\nAs per RBI guidelines please complete re-KYC for your AU Small Finance Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-01-03",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m135",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Payment of INR 3,211.72 has been received towards your AU Small Finance Bank Credit Card XX1458 on 04-Jan-2026. Thank you for the payment.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-04",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m136",
+   "subject": "Your AU Credit Card statement - Jan 2026",
+   "body": "Dear Kavya,\nStatement generated for AU Altura Plus Credit Card ending 1458: amount payable Rs.465.46, last date 22-Jan-2026. Sign in to download.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m137",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 4,605.76 spent on your AU Small Finance Bank Credit Card XX1458 at EAZYDINER on 11-Jan-2026 01:20:17.",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m138",
+   "subject": "Payment received on your BOBCARD",
+   "body": "Payment confirmation: INR 233.16 posted to BOBCARD Credit Card XXXX XXXX XXXX 8147 on 12-01-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 190.40 spent on your RBL Bank ShopRite Credit Card at APPLE SERVICES on 13-01-2026.\n\n",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "RBL Bank Credit Card Statement - Jan 2026",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Dec-2025 to 17-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-18",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 13,715.34 spent on your RBL Bank ShopRite Credit Card at BATA INDIA on 18-01-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Jan 2026",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-Dec-2025 to 19-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-20",
+   "attachments": [
+    {
+     "filename": "8147_19012026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "RBL Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 8104 has been successfully linked/verified for your RBL Bank relationship. If this was not you, contact us.",
+   "date": "2026-01-29",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 450.74 was spent on your AU Altura Plus Credit Card XX1458 at AIRTEL PREPAID on 30-Jan-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-30",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m145",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 987.92 was spent on your AU Altura Plus Credit Card XX1458 at HPCL PETROL on 31-Jan-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-31",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m146",
+   "subject": "Your AU Credit Card statement - Feb 2026",
+   "body": "Dear Kavya,\nStatement generated for AU Altura Plus Credit Card ending 1458: amount payable Rs.18,482.66, last date 22-Feb-2026. Sign in to download.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m147",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Card alert | INR 135.41 | ZEPTO | 06-02-2026 | BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-06",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Payment received on your BOBCARD",
+   "body": "Payment confirmation: INR 6,070.77 posted to BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 on 13-02-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Payment received on your RBL Bank Credit Card",
+   "body": "Payment of INR 271.89 has been received towards your RBL Bank ShopRite Credit Card on 14-02-2026. Thank you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 324.33 spent on your RBL Bank ShopRite Credit Card at UBER INDIA on 17-02-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "RBL Bank Credit Card Statement - Feb 2026",
+   "body": "Hi Kavya,\nYour RBL Bank ShopRite Credit Card e-statement for Feb 2026 is now available. Pay Rs.2,681.34 by 07-Mar-2026 to avoid late fees.",
+   "date": "2026-02-18",
+   "attachments": [],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "AU Altura Plus Credit Card ending 1458: purchase of INR 788.52 at BOOKMYSHOW on 18-Feb-2026 22:34:25. Available limit INR 1,26,906.31.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m153",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Feb 2026",
+   "body": "Hi Kavya,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 e-statement for Feb 2026 is now available. Pay Rs.1,564.73 by 09-Mar-2026 to avoid late fees.",
+   "date": "2026-02-20",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Update your KYC",
+   "body": "Dear Kavya,\nAs per RBI guidelines please complete re-KYC for your BOBCARD relationship. Visit a branch or use the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 6,461.56 spent on your AU Small Finance Bank Credit Card XX1458 at ZEPTO on 26-Feb-2026 15:24:12.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m156",
+   "subject": "Payment received on your BOBCARD",
+   "body": "Dear Customer,\nWe have received your payment of INR 804.27 on 28-02-2026 for your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147. Available credit limit has been updated.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,848.29 spent on your AU Altura Plus Credit Card XX1458 at FLIPKART on 04-Mar-2026 16:19:37.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m158",
+   "subject": "Your AU Credit Card statement - Mar 2026",
+   "body": "Dear Kavya,\nStatement generated for AU Altura Plus Credit Card xx1458: amount payable Rs.1,637.79, last date 22-Mar-2026. Sign in to download.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m159",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Kavya,\nYour order #704-4245853-3442715 is confirmed. Total Rs.216.52. Estimated delivery in 2 days.",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 213.49 spent on your RBL Bank ShopRite Credit Card at STARBUCKS on 16-03-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "RBL Bank Credit Card Statement - Mar 2026",
+   "body": "Hi Kavya,\nYour RBL Bank ShopRite Credit Card e-statement for Mar 2026 is now available. Pay Rs.611.38 by 04-Apr-2026 to avoid late fees.",
+   "date": "2026-03-18",
+   "attachments": [],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Mar 2026",
+   "body": "Dear Kavya,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for Mar 2026 is ready. Total amount due Rs.3,972.07, minimum amount due Rs.200.00, payable by 06-Apr-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 173.21 spent on your RBL Bank ShopRite Credit Card at OLA CABS on 22-03-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 612.64 spent on your RBL Bank ShopRite Credit Card at OLA CABS on 25-03-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Payment received on your RBL Bank Credit Card",
+   "body": "Payment of INR 1,298.60 has been received towards your RBL Bank ShopRite Credit Card on 28-03-2026. Thank you.\n\n",
+   "date": "2026-03-28",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 504.21 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 at OLA CABS on 29-03-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 15,185.44 spent on your RBL Bank ShopRite Credit Card at LENSKART on 02-04-2026.\n\n",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Your AU Credit Card statement - Apr 2026",
+   "body": "Dear Kavya,\nStatement generated for AU Altura Plus Credit Card xx1458: amount payable Rs.59,746.51, last date 22-Apr-2026. Sign in to download.",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m169",
+   "subject": "OTP for your transaction",
+   "body": "908533 is the OTP for your transaction of Rs.508.14 at MCDONALDS. Valid for 10 minutes. Do not share.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "RBL Bank Credit Card Statement - Apr 2026",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Mar-2026 to 17-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-04-18",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Apr 2026",
+   "body": "Dear Kavya,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for Apr 2026 is ready. Total amount due Rs.5,179.62, minimum amount due Rs.258.98, payable by 07-May-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Your AU Credit Card statement - May 2026",
+   "body": "Dear Kavya,\nYour AU Altura Plus Credit Card xx1458 statement for May 2026 is ready. Total amount due Rs.3,206.42, minimum amount due Rs.200.00, payable by 22-May-2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m173",
+   "subject": "BOBCARD festive offers",
+   "body": "Dear Kavya,\nConvert big spends to EMI at low interest.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 15,291.51 spent on your RBL Bank ShopRite Credit Card at HPCL PETROL on 08-05-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 1,055.94 was spent on your AU Small Finance Bank Credit Card XX1458 at INDIGO AIRLINES on 11-May-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m176",
+   "subject": "RBL Bank Credit Card Statement - May 2026",
+   "body": "Dear Kavya,\nStatement generated for RBL Bank ShopRite Credit Card: amount payable Rs.10,884.59, last date 04-Jun-2026. Sign in to download.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - May 2026",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-Apr-2026 to 19-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-20",
+   "attachments": [
+    {
+     "filename": "BOBCARD_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Transaction alert: INR 17,358.20 spent at IXIGO on 28-05-2026 using your RBL Bank ShopRite Credit Card.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 269.33 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 at DMART on 01-06-2026.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Your AU Credit Card statement - Jun 2026",
+   "body": "Dear Kavya,\nPlease find attached your AU Altura Plus Credit Card ending 1458 statement for the period 05-May-2026 to 04-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-05",
+   "attachments": [
+    {
+     "filename": "1458_04062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m181",
+   "subject": "RBL Bank Credit Card Statement - Jun 2026",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-May-2026 to 17-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-18",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "BOBCARD Credit Card XXXX XXXX XXXX 8147: purchase of INR 232.30 at IXIGO on 18-06-2026 12:21:49. Available limit INR 11,919.27.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-18",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "OTP for your transaction",
+   "body": "477890 is the OTP for your transaction of Rs.205.93 at BLINKIT. Valid for 10 minutes. Do not share.",
+   "date": "2026-06-18",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Jun 2026",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-May-2026 to 19-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-20",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 15,948.63 spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 at TATA POWER on 20-06-2026 17:45:28.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 23,972.05 spent on your AU Altura Plus Credit Card XX1458 at DECATHLON on 21-Jun-2026 12:14:38.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-21",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m187",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Kavya,\nYour order #268-3041812-7687475 is confirmed. Total Rs.2,989.48. Estimated delivery in 2 days.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m188",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 113.03 spent on your AU Small Finance Bank Credit Card ending 1458 at APPLE SERVICES on 03-Jul-2026 00:36:22.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m189",
+   "subject": "Your AU Credit Card statement - Jul 2026",
+   "body": "Dear Kavya,\nStatement generated for AU Altura Plus Credit Card XX1458: amount payable Rs.3,024.40, last date 22-Jul-2026. Sign in to download.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m190",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 96.75 was spent on your BOBCARD Credit Card XXXX XXXX XXXX 8147 at FLIPKART on 05-07-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Transaction alert: INR 6,770.83 spent at BPCL FUEL on 07-07-2026 using your RBL Bank ShopRite Credit Card.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Transaction alert: INR 883.26 spent at PVR INOX on 10-07-2026 using your RBL Bank ShopRite Credit Card.\n\n",
+   "date": "2026-07-10",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 14,933.85 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 at FLIPKART on 12-07-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "RBL Bank Credit Card Statement - Jul 2026",
+   "body": "Dear Kavya,\nYour RBL Bank ShopRite Credit Card statement for Jul 2026 is ready. Total amount due Rs.34,723.69, minimum amount due Rs.1,736.18, payable by 04-Aug-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Card alert | INR 123.58 | APPLE SERVICES | 19-Jul-2026 | AU Small Finance Bank Credit Card ending 1458",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m196",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Jul 2026",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-Jun-2026 to 19-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-20",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "Payment received on your RBL Bank Credit Card",
+   "body": "Payment of INR 580.61 has been received towards your RBL Bank ShopRite Credit Card on 20-07-2026. Thank you.\n\n",
+   "date": "2026-07-20",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "OTP for your transaction",
+   "body": "699815 is the OTP for your transaction of Rs.5,053.01 at HPCL PETROL. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m199",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Customer,\nTransaction alert: INR 153.94 spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 at SPOTIFY on 27-07-2026 16:43:11.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Kavya,\nPlease find attached the updated MITC for your RBL Bank credit cards.\n\n",
+   "date": "2026-07-29",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Payment received on your RBL Bank Credit Card",
+   "body": "Payment of INR 4,303.97 has been received towards your RBL Bank ShopRite Credit Card on 31-07-2026. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-31",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Earn more with your card",
+   "body": "Dear Kavya,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-31",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m203",
+   "subject": "Your AU Credit Card statement - Aug 2026",
+   "body": "Dear Kavya,\nPlease find attached your AU Altura Plus Credit Card xx1458 statement for the period 05-Jul-2026 to 04-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-05",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m204",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Card alert | INR 15,669.12 | MYNTRA | 09-08-2026 | BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-09",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Kavya,\nUse your card on UPI and earn extra rewards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Transaction alert: INR 374.40 spent at NYKAA on 17-08-2026 using your RBL Bank ShopRite Credit Card.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-17",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "RBL Bank Credit Card Statement - Aug 2026",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Jul-2026 to 17-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-18",
+   "attachments": [
+    {
+     "filename": "RBL_CC_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Aug 2026",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-Jul-2026 to 19-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-08-20",
+   "attachments": [
+    {
+     "filename": "BOBCARD_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "BOBCARD Credit Card XXXX XXXX XXXX 8147: purchase of INR 137.91 at DOMINOS on 20-08-2026 10:03:20. Available limit INR 44,711.45.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-20",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "AU Small Finance Bank Credit Card ending 1458: purchase of INR 939.33 at MEDPLUS on 26-Aug-2026 17:38:45. Available limit INR 13,233.70.",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m211",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Card alert | INR 153.66 | JIO RECHARGE | 28-08-2026 | BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "BOBCARD Credit Card XXXX XXXX XXXX 8147: purchase of INR 1,982.37 at EASEMYTRIP on 01-09-2026 06:07:45. Available limit INR 32,778.05.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Your AU Credit Card statement - Sep 2026",
+   "body": "Dear Kavya,\nPlease find attached your AU Altura Plus Credit Card xx1458 statement for the period 05-Aug-2026 to 04-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-05",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m214",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 14,115.79 spent on your AU Small Finance Bank Credit Card XX1458 at EAZYDINER on 08-Sep-2026 16:17:51.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m215",
+   "subject": "RBL Bank Credit Card Statement - Sep 2026",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Aug-2026 to 17-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-18",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Sep 2026",
+   "body": "Dear Kavya,\nYour BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for Sep 2026 is ready. Total amount due Rs.1,946.44, minimum amount due Rs.200.00, payable by 07-Oct-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-09-20",
+   "attachments": [],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Kavya,\nYour order #293-6632215-6811863 is confirmed. Total Rs.359.44. Estimated delivery in 2 days.",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m218",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Card alert | INR 7,267.55 | OLA CABS | 25-09-2026 | BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Transaction alert: INR 663.47 spent at BATA INDIA on 29-09-2026 using your RBL Bank ShopRite Credit Card.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Your AU Credit Card statement - Oct 2026",
+   "body": "Dear Kavya,\nYour AU Altura Plus Credit Card xx1458 statement for Oct 2026 is ready. Total amount due Rs.34,087.18, minimum amount due Rs.1,704.36, payable by 22-Oct-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m221",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147: purchase of INR 557.15 at DECATHLON on 05-10-2026 23:05:30. Available limit INR 17,402.67.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 1,305.31 spent on your RBL Bank ShopRite Credit Card at DECATHLON on 12-10-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-12",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "AU Altura Plus Credit Card XX1458: purchase of INR 8,311.47 at BLINKIT on 14-Oct-2026 13:06:02. Available limit INR 1,63,232.58.",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m224",
+   "subject": "RBL Bank Credit Card Statement - Oct 2026",
+   "body": "Dear Kavya,\nPlease find attached your RBL Bank ShopRite Credit Card statement for the period 18-Sep-2026 to 17-Oct-2026. Total amount due Rs.14,500.54, due 05-Nov-2026.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202610.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nKAVYA RAO\nFLAT 898, ORCHID APARTMENTS\n18TH CROSS, INDIRANAGAR\nMUMBAI - 436121\nCARD TYPE: RBL Bank ShopRite Credit Card\nCREDIT CARD NO: 599387XXXXXX5842\nStatement Period : 18-Sep-2026 to 17-Oct-2026\nStatement Date : 17-Oct-2026\nPayment Due Date : 05-Nov-2026\nTotal Amount Due : Rs.14,500.54\nMinimum Amount Due : Rs.725.03\nCredit Limit (Including cash) : Rs.90,000.00\nAvailable Credit Limit (Including cash) : Rs.77,332.56\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n25-09-2026 7112188387 MEDPLUS AHMEDABAD 19 718.91\n27-09-2026 9734446662 BLINKIT GURUGRAM 34 343.93\n28-09-2026 7909771006 BOOKMYSHOW KOLKATA 5 1,780.98\n28-09-2026 4245823931 IRCTC BENGALURU 57 300.16\n06-10-2026 1339723290 EAZYDINER KOLKATA 11 9,720.88\n07-10-2026 7431453977 JIO RECHARGE BENGALURU 14 613.57\n14-10-2026 8190404360 MEDPLUS KOCHI 20 1,022.11\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "RBL Bank <rblcreditcards.statements@rblbank.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "BOBCARD ETERNA Credit Card Monthly Statement - Oct 2026",
+   "body": "Dear Kavya,\nPlease find attached your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 statement for the period 20-Sep-2026 to 19-Oct-2026. Total amount due Rs.51,051.93, due 04-Nov-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-20",
+   "attachments": [
+    {
+     "filename": "8147_19102026_stmt.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD Credit Card Statement\nFor Statement Period 20-Sep-2026 to 19-Oct-2026\nKAVYA RAO\nFLAT 630, LAKESHORE APARTMENTS\n27TH CROSS, KOTHRUD\nMUMBAI - 600173\nCard Product: BOBCARD ETERNA Credit Card\nCredit Card Number XXXX XXXX XXXX 8147\nStatement Date: 19-Oct-2026\nPayment Due Date: 04-Nov-2026\nTotal Amount Due: Rs.51,051.93\nMinimum Amount Due: Rs.2,552.60\nCredit Limit: Rs.4,55,000.00\nAvailable Credit Limit: Rs.4,26,934.33\nAvailable Cash Limit: Rs.91,000.00\nTRANSACTIONS FOR KAVYA RAO\nDate Transaction Details Amount\n23-Sep-2026 APPLE SERVICES BENGALURU 5,750.32 D\n23-Sep-2026 ZEPTO GURUGRAM 1,122.41 D\n30-Sep-2026 FLIPKART CHENNAI 121.20 D\n30-Sep-2026 TATA PLAY PUNE 18,845.71 D\n03-Oct-2026 NETFLIX HYDERABAD 19,378.50 D\n03-Oct-2026 TATA PLAY KOCHI 3,722.94 D\n11-Oct-2026 BESCOM AHMEDABAD 273.09 D\n11-Oct-2026 LENSKART HYDERABAD 397.21 D\n13-Oct-2026 MCDONALDS BENGALURU 203.07 D\n13-Oct-2026 UBER INDIA CHENNAI 1,059.93 D\n17-Oct-2026 BESCOM GURUGRAM 177.55 D\n\nAdd-on Card Transactions\nANANYA RAO - XXXX XXXX XXXX 5979\n25/09/26 EAZYDINER AHMEDABAD 1,921.87\n10/10/26 BESCOM JAIPUR 914.61\n14/10/26 IXIGO AHMEDABAD 17,512.89\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "BOBCARD <estatements@bobfinancial.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Thank you! We have credited INR 20,000.48 to your AU Altura Plus Credit Card XX1458 on 20-Oct-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-20",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m227",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 588.29 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 at MCDONALDS on 20-10-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-20",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "AU Altura Plus Credit Card xx1458: purchase of INR 6,363.75 at IKEA on 25-Oct-2026 18:43:36. Available limit INR 3,157.27.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m229",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "Dear Cardmember,\nINR 1,294.41 was spent on your BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147 at EAZYDINER on 25-10-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "BOBCARD Transaction Alert",
+   "body": "BOBCARD ETERNA Credit Card XXXX XXXX XXXX 8147: purchase of INR 86.14 at MEDPLUS on 25-10-2026 15:20:51. Available limit INR 45,343.28.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "BOBCARD <cardalerts@bobfinancial.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "Transaction alert on your RBL Bank Credit Card",
+   "body": "Dear Customer,\nINR 234.27 spent on your RBL Bank ShopRite Credit Card at OLA CABS on 29-10-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-29",
+   "attachments": [],
+   "from": "RBL Bank <cards@rblbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "1458",
+    "kind": "CREDIT_CARD",
+    "variant": "Altura Plus",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "rblbank.com",
+    "last4": "5842",
+    "kind": "CREDIT_CARD",
+    "variant": "Shoprite",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "<1L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "8147",
+    "kind": "CREDIT_CARD",
+    "variant": "Eterna",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "3-5L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "5979",
+    "kind": "CREDIT_CARD",
+    "variant": "Eterna",
+    "lifecycle": "ADDON",
+    "lifecyclePartnerLast4": "8147",
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": "8147"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "rblbank.com",
+    "last4": "8104",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "rblbank.com",
+    "last4": "8361",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "6382",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "7567",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "5743",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}
