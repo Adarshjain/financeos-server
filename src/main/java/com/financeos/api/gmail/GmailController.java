@@ -61,6 +61,8 @@ public class GmailController {
     private final JobService jobService;
     private final GmailIngestProperties ingestProperties;
     private final com.financeos.domain.account.AccountIdentifierService accountIdentifierService;
+    /** Background account detection: its stored facts go on disconnect (null in unit tests). */
+    private final com.financeos.gmail.accountdetect.job.AccountDetectTriggers accountDetectTriggers;
 
     @Value("${app.ui-path:http://localhost:3001}")
     private String uiPath;
@@ -78,6 +80,27 @@ public class GmailController {
                            JobService jobService,
                            GmailIngestProperties ingestProperties,
                            com.financeos.domain.account.AccountIdentifierService accountIdentifierService) {
+        this(oauthService, authService, gmailIngestionService, senderAllowlistService, connectionRepository, syncCursorRepository,
+                processedMessageRepository, backfillDemandRepository, accountRepository, transactionRepository, jobService,
+                ingestProperties, accountIdentifierService, null);
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public GmailController(GmailOAuthService oauthService,
+                           AuthService authService,
+                           GmailIngestionService gmailIngestionService,
+                           SenderAllowlistService senderAllowlistService,
+                           GmailConnectionRepository connectionRepository,
+                           GmailSyncCursorRepository syncCursorRepository,
+                           GmailProcessedMessageRepository processedMessageRepository,
+                           GmailBackfillDemandRepository backfillDemandRepository,
+                           AccountRepository accountRepository,
+                           TransactionRepository transactionRepository,
+                           JobService jobService,
+                           GmailIngestProperties ingestProperties,
+                           com.financeos.domain.account.AccountIdentifierService accountIdentifierService,
+                           com.financeos.gmail.accountdetect.job.AccountDetectTriggers accountDetectTriggers) {
+        this.accountDetectTriggers = accountDetectTriggers;
         this.oauthService = oauthService;
         this.authService = authService;
         this.gmailIngestionService = gmailIngestionService;
@@ -180,6 +203,9 @@ public class GmailController {
 
         connection.setIsConnected(false);
         connectionRepository.save(connection);
+        if (accountDetectTriggers != null) {
+            accountDetectTriggers.onDisconnected(currentUser.getId(), connection.getId());
+        }
 
         return ResponseEntity.noContent().build();
     }

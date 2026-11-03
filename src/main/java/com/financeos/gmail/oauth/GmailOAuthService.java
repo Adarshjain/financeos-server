@@ -5,9 +5,11 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.core.oauth.OAuthStateService;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
+import com.financeos.gmail.accountdetect.job.AccountDetectTriggers;
 import com.financeos.gmail.client.GmailApiClient;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailConnectionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,15 +38,27 @@ public class GmailOAuthService {
     private final GmailConnectionRepository connectionRepository;
     private final UserRepository userRepository;
     private final OAuthStateService stateService;
+    /** Background account detection: enqueued on connect, cleared on disconnect (null in unit tests). */
+    private final AccountDetectTriggers accountDetectTriggers;
 
     public GmailOAuthService(GmailApiClient gmailApiClient,
             GmailConnectionRepository connectionRepository,
             UserRepository userRepository,
             OAuthStateService stateService) {
+        this(gmailApiClient, connectionRepository, userRepository, stateService, null);
+    }
+
+    @Autowired
+    public GmailOAuthService(GmailApiClient gmailApiClient,
+            GmailConnectionRepository connectionRepository,
+            UserRepository userRepository,
+            OAuthStateService stateService,
+            AccountDetectTriggers accountDetectTriggers) {
         this.gmailApiClient = gmailApiClient;
         this.connectionRepository = connectionRepository;
         this.userRepository = userRepository;
         this.stateService = stateService;
+        this.accountDetectTriggers = accountDetectTriggers;
     }
 
     /**
@@ -123,6 +137,9 @@ public class GmailOAuthService {
             connection.setReconnectNotifiedAt(null);
 
             GmailConnection savedConnection = connectionRepository.save(connection);
+            if (accountDetectTriggers != null) {
+                accountDetectTriggers.onConnected(userId, savedConnection);
+            }
             log.info("Gmail connection succeeded: email={}, userId={}", email, userId,
                     StructuredArguments.keyValue("event", "oauth.gmail.connected"),
                     StructuredArguments.keyValue("email", email),
@@ -156,5 +173,8 @@ public class GmailOAuthService {
         GmailConnection connection = getConnection(userId);
         connection.setIsConnected(false);
         connectionRepository.save(connection);
+        if (accountDetectTriggers != null) {
+            accountDetectTriggers.onDisconnected(userId, connection.getId());
+        }
     }
 }
