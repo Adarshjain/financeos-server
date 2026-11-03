@@ -7,6 +7,9 @@ import com.financeos.gmail.accountdetect.MailFeature;
 import com.financeos.gmail.accountdetect.StatementContent;
 import com.financeos.gmail.accountdetect.StatementPdfReader;
 import com.financeos.gmail.accountdetect.Vocab.Role;
+import com.financeos.gmail.accountdetect.unlock.PasswordRuleParser;
+import com.financeos.gmail.accountdetect.unlock.PdfUnlocker;
+import com.financeos.gmail.accountdetect.unlock.StatementUnlocker;
 import com.financeos.gmail.internal.GmailAttachment;
 import com.financeos.gmail.internal.GmailMessage;
 
@@ -88,6 +91,8 @@ public final class AccountDetectScan {
 
     private final int alertSample;
     private final int chunkSize;
+    private PdfUnlocker unlocker;
+    private java.util.function.UnaryOperator<String> holderCheck;
 
     /**
      * @param chunkSize mails whose bodies are read per chunk; {@link Integer#MAX_VALUE} reads them all in one go
@@ -95,6 +100,18 @@ public final class AccountDetectScan {
     public AccountDetectScan(int alertSample, int chunkSize) {
         this.alertSample = alertSample;
         this.chunkSize = Math.max(1, chunkSize);
+    }
+
+    /** Tries a protected statement PDF with this unlocker (the user's profile and saved passwords); none by default. */
+    public AccountDetectScan withUnlocker(PdfUnlocker unlocker) {
+        this.unlocker = unlocker;
+        return this;
+    }
+
+    /** The user's holder-name check for statement PDFs that open without a password (see {@link com.financeos.gmail.accountdetect.HolderCheck}). */
+    public AccountDetectScan withHolderCheck(java.util.function.UnaryOperator<String> check) {
+        this.holderCheck = check;
+        return this;
     }
 
     public Result run(MailSource src, Collection<String> tokens, Instant after, Set<String> knownIds, List<Prior> prior, String salt,
@@ -175,7 +192,7 @@ public final class AccountDetectScan {
         // ---- 4 + 5a. full bodies, then open statement PDFs from statement mails, chunk by chunk
         List<StatementContent> statements = Collections.synchronizedList(new ArrayList<>());
         Map<String, AtomicInteger> pdfCounts = new TreeMap<>();
-        for (String k : List.of("seen", "OPENED", "PROTECTED", "FAILED", "NO_TEXT", "NO_BANK", "download failed")) pdfCounts.put(k, new AtomicInteger());
+        for (String k : List.of("seen", "OPENED", "PROTECTED", "UNLOCKED", "UNLOCK_FAILED", "FAILED", "NO_TEXT", "NO_BANK", "download failed")) pdfCounts.put(k, new AtomicInteger());
         Map<String, Integer> pdfFlags = new TreeMap<>();
         Set<String> mailPdfHashes = ConcurrentHashMap.newKeySet();
         int fullFetched = 0;
@@ -222,13 +239,41 @@ public final class AccountDetectScan {
                         }
                         mailPdfHashes.add(sha256(bytes));
                         YearMonth fallback = h.date() == null ? null : YearMonth.from(h.date().atZone(IST));
-                        StatementPdfReader.Result res = StatementPdfReader.read(bytes, "PDF_MAIL", origin.bank(), fallback);
+                        StatementPdfReader.Result res = StatementPdfReader.read(bytes, "PDF_MAIL", origin.bank(), fallback, null, holderCheck);
                         if (res.content() != null) {
                             // the PDF is its mail's evidence: tag it with that mail's layout and date (no id)
                             res = new StatementPdfReader.Result(res.status(), res.content().withOrigin(origin.clusterId(), origin.date()), res.flags());
                         }
-                        pdfCounts.get(res.status().name()).incrementAndGet();
-                        pdfOut[slot] = new ScannedMail.Pdf(job[1], res.status().name());
+                        String status = res.status().name();
+                        String unlockRule = null;
+                        String unlockHint = null;
+                        if (res.status() == StatementPdfReader.Status.PROTECTED) {
+                            // the mail's own password sentences, as rule tokens only; then try to open it for this user
+                            GmailMessage fm = full.get(job[0]);
+                            unlockHint = PasswordRuleParser.hintFromBody(fm == null ? null : fm.getStrippedText());
+                            if (unlocker != null) {
+                                List<String> cards = cardNumbers(h, fm, salt);
+                                StatementUnlocker.Outcome o;
+                                try {
+                                    o = unlocker.unlock(bytes, new StatementUnlocker.Target(origin.bank(), origin.clusterKind(),
+                                            PasswordRuleParser.rulesOf(unlockHint), cards, fallback));
+                                } catch (RuntimeException e) {
+                                    o = new StatementUnlocker.Outcome(StatementUnlocker.State.LOCKED, null, 0, null);   // stays locked, never fails the scan
+                                }
+                                if (o.state() == StatementUnlocker.State.UNLOCKED) {
+                                    unlockRule = o.rule();
+                                    status = ScannedMail.UNLOCKED;
+                                    StatementContent uc = o.read() == null ? null : o.read().content();
+                                    res = new StatementPdfReader.Result(StatementPdfReader.Status.OPENED,
+                                            uc == null ? null : uc.withOrigin(origin.clusterId(), origin.date()).withUnlockRule(unlockRule),
+                                            o.read() == null ? java.util.Set.of() : o.read().flags());
+                                } else if (o.state() == StatementUnlocker.State.FAILED) {
+                                    status = ScannedMail.UNLOCK_FAILED;
+                                }
+                            }
+                        }
+                        pdfCounts.get(status).incrementAndGet();
+                        pdfOut[slot] = new ScannedMail.Pdf(job[1], status, unlockRule, unlockHint);
                         synchronized (pdfFlags) {
                             for (String fl : res.flags()) pdfFlags.merge(fl, 1, Integer::sum);
                         }
@@ -285,6 +330,13 @@ public final class AccountDetectScan {
         if (sink == null && progress != null) progress.update(mails.size(), total);
         List<String> headersMissing = ids.stream().filter(id -> !headers.containsKey(id)).toList();
         return new Result(mails, new ArrayList<>(statements), mailPdfHashes, listing.ids().size(), skipped, headersMissing);
+    }
+
+    /** The numbers a statement mail's own text names (see {@link StatementUnlocker#cardNumbers}). */
+    private static List<String> cardNumbers(MailFeature h, GmailMessage full, String salt) {
+        if (full == null) return List.of();
+        List<String> names = full.attachments() == null ? List.of() : full.attachments().stream().map(GmailAttachment::filename).toList();
+        return StatementUnlocker.cardNumbers(FeatureExtractor.derive(new MailFeature(h.senderDomain(), h.date(), h.subject(), h.snippet(), full.getStrippedText(), names), salt));
     }
 
     /** The mail's features with another role vote (the stored header vote of a mail whose body was read). */

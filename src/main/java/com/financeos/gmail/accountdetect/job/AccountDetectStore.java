@@ -1,5 +1,6 @@
 package com.financeos.gmail.accountdetect.job;
 
+import com.financeos.gmail.accountdetect.StatementContent;
 import com.financeos.gmail.accountdetect.scan.ScannedMail;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +48,115 @@ public class AccountDetectStore {
         return out;
     }
 
+    /** A stored mail whose protected statement PDF is still closed, with what the retry needs to try it again. */
+    public record LockedFact(String messageId, java.time.Instant internalDate, String attachmentId, String unlockHint, FactsCodec.Facts facts) {}
+
+    /** The user's mails with a LOCKED or FAILED statement PDF not yet tried at unlock generation {@code gen}, newest first. */
+    @Transactional(readOnly = true)
+    public List<LockedFact> lockedFacts(UUID userId, int gen) {
+        List<LockedFact> out = new ArrayList<>();
+        for (AccountDetectFact f : factRepository.findStillLockedForUser(userId, gen)) {
+            out.add(new LockedFact(f.getMessageId(), f.getInternalDate(), f.getPdfAttachmentId(), f.getUnlockHint(), FactsCodec.decode(f.getFacts())));
+        }
+        return out;
+    }
+
+    /** A stored mail whose statement PDF opened earlier (no password, or one a rule found). */
+    public record OpenedFact(String messageId, java.time.Instant internalDate, String attachmentId, AccountDetectFact.UnlockState unlockState,
+                             String unlockHint, FactsCodec.Facts facts) {}
+
+    /**
+     * The user's mails whose statement PDF opened and yielded statement content and whose holder flag was not yet recomputed
+     * at holder generation {@code gen}, newest first. Mails with a PDF but no statement content have nothing to recompute and
+     * are stamped as checked here, so they never count as pending.
+     */
+    @Transactional
+    public List<OpenedFact> openedFacts(UUID userId, int gen) {
+        List<OpenedFact> out = new ArrayList<>();
+        for (AccountDetectFact f : factRepository.findOpenedPdfForUser(userId, gen)) {
+            FactsCodec.Facts facts = FactsCodec.decode(f.getFacts());
+            if (facts.statements().isEmpty()) {
+                f.setHolderCheckedGen(gen);
+                factRepository.save(f);
+                continue;
+            }
+            out.add(new OpenedFact(f.getMessageId(), f.getInternalDate(), f.getPdfAttachmentId(), f.getUnlockState(), f.getUnlockHint(), facts));
+        }
+        return out;
+    }
+
+    /** Whether any retry work is left: a locked fact not tried at the current unlock generation, or an opened one not rechecked at the holder generation. */
+    @Transactional(readOnly = true)
+    public boolean retryPending(UUID userId) {
+        return factRepository.countPendingForUser(userId) > 0;
+    }
+
+    /** Stamps a locked fact as tried at this unlock generation (whether or not it opened). */
+    @Transactional
+    public void markUnlockTried(UUID userId, String messageId, int gen) {
+        factRepository.findByUserAndMessage(userId, messageId).ifPresent(f -> {
+            f.setUnlockTriedGen(gen);
+            factRepository.save(f);
+        });
+    }
+
+    /** Stamps an opened fact as holder-checked at this holder generation. */
+    @Transactional
+    public void markHolderChecked(UUID userId, String messageId, int gen) {
+        factRepository.findByUserAndMessage(userId, messageId).ifPresent(f -> {
+            f.setHolderCheckedGen(gen);
+            factRepository.save(f);
+        });
+    }
+
+    /** A trigger: the user's name (nameChanged) or birth date / saved password changed. Adds one generation; a no-op when never scanned. */
+    @Transactional
+    public void requestUnlockRetry(UUID userId, boolean nameChanged) {
+        stateRepository.bumpUnlockGen(userId);
+        if (nameChanged) stateRepository.bumpHolderGen(userId);
+    }
+
+    /** Sets the holder flag (Y, N or null) on every statement of the mail; true when any changed. */
+    @Transactional
+    public boolean applyHolder(UUID userId, String messageId, String holder) {
+        AccountDetectFact f = factRepository.findByUserAndMessage(userId, messageId).orElse(null);
+        if (f == null) return false;
+        FactsCodec.Facts facts = FactsCodec.decode(f.getFacts());
+        boolean changed = false;
+        List<StatementContent> statements = new ArrayList<>();
+        for (StatementContent s : facts.statements()) {
+            if (!java.util.Objects.equals(s.holder(), holder)) changed = true;
+            statements.add(s.withHolder(holder));
+        }
+        if (!changed) return false;
+        f.setFacts(FactsCodec.encode(facts.derived(), statements, facts.bodyFetched(), facts.headerVote(), facts.incompleteRuns()));
+        factRepository.save(f);
+        return true;
+    }
+
+    /**
+     * Records a retry's result on one stored mail: its unlock state and rule and, when the PDF opened and was read, the
+     * statement content added to the mail's facts (replacing an earlier one of the same origin, i.e. the same mail layout and date, from a previous retry).
+     */
+    @Transactional
+    public void applyUnlock(UUID userId, String messageId, AccountDetectFact.UnlockState state, String rule, StatementContent content) {
+        AccountDetectFact f = factRepository.findByUserAndMessage(userId, messageId).orElse(null);
+        if (f == null) return;
+        f.setUnlockState(state);
+        f.setUnlockRule(rule);
+        if (content != null) {
+            FactsCodec.Facts facts = FactsCodec.decode(f.getFacts());
+            List<StatementContent> statements = new ArrayList<>(facts.statements());
+            if (content.originCluster() != null && content.originDate() != null) {
+                statements.removeIf(x -> content.originCluster().equals(x.originCluster()) && content.originDate().equals(x.originDate())
+                        && java.util.Objects.equals(content.last4(), x.last4()));
+            }
+            statements.add(content);
+            f.setFacts(FactsCodec.encode(facts.derived(), statements, facts.bodyFetched(), facts.headerVote(), facts.incompleteRuns()));
+        }
+        factRepository.save(f);
+    }
+
     @Transactional(readOnly = true)
     public Set<String> messageIds(UUID userId) {
         return new HashSet<>(factRepository.findMessageIdsForUser(userId));
@@ -90,12 +200,23 @@ public class AccountDetectStore {
         f.setRole(m.role() == null ? null : m.role().name());
         f.setFacts(FactsCodec.encode(m.derived(), m.statements(), m.bodyFetched(), m.headerVote(), incompleteRuns));
         f.setHasPdf(!m.pdfs().isEmpty());
-        // a protected statement PDF is recorded for a later unlock step; no password is ever tried here
-        ScannedMail.Pdf locked = m.pdfs().stream().filter(p -> "PROTECTED".equals(p.status())).findFirst().orElse(null);
+        // a protected statement PDF is recorded; when a rule opened it, its state and the rule (never a password) are kept
+        ScannedMail.Pdf locked = m.pdfs().stream()
+                .filter(p -> "PROTECTED".equals(p.status()) || ScannedMail.UNLOCKED.equals(p.status()) || ScannedMail.UNLOCK_FAILED.equals(p.status()))
+                .findFirst().orElse(null);
         f.setPdfLocked(locked != null);
         String attachmentId = locked != null ? locked.attachmentId() : m.pdfs().isEmpty() ? null : m.pdfs().get(0).attachmentId();
         f.setPdfAttachmentId(attachmentId != null && attachmentId.length() <= 4000 ? attachmentId : null);
-        f.setUnlockState(locked != null ? AccountDetectFact.UnlockState.LOCKED : AccountDetectFact.UnlockState.NONE);
+        AccountDetectFact.UnlockState state = AccountDetectFact.UnlockState.NONE;
+        if (locked != null) {
+            state = ScannedMail.UNLOCKED.equals(locked.status()) ? AccountDetectFact.UnlockState.UNLOCKED
+                    : ScannedMail.UNLOCK_FAILED.equals(locked.status()) ? AccountDetectFact.UnlockState.FAILED : AccountDetectFact.UnlockState.LOCKED;
+            String hint = locked.unlockHint();
+            f.setUnlockHint(hint != null && hint.length() <= 200 ? hint : null);
+            String rule = locked.unlockRule();
+            f.setUnlockRule(rule != null && rule.length() <= 100 ? rule : null);
+        }
+        f.setUnlockState(state);
         return f;
     }
 

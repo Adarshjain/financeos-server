@@ -65,8 +65,25 @@ public final class StatementPdfReader {
     };
 
     public static Result read(byte[] pdf, String source, String bankHint, YearMonth fallbackPeriod) {
+        return read(pdf, source, bankHint, fallbackPeriod, null);
+    }
+
+    /**
+     * Same, for a protected PDF the caller has the password of (the caller found it; it is used for this call only and
+     * never kept). A null password reads the PDF as the plain overload does.
+     */
+    public static Result read(byte[] pdf, String source, String bankHint, YearMonth fallbackPeriod, String password) {
+        return read(pdf, source, bankHint, fallbackPeriod, password, null);
+    }
+
+    /**
+     * Same, with the user's holder-name check ({@link HolderCheck#forName}; may be null): its answer, Y / N / null, is kept on
+     * the content as {@link StatementContent#holder()}.
+     */
+    public static Result read(byte[] pdf, String source, String bankHint, YearMonth fallbackPeriod, String password,
+                              java.util.function.UnaryOperator<String> holderCheck) {
         Set<String> flags = new TreeSet<>();
-        DocumentReader.Read r = DocumentReader.read(pdf, VOCAB, flags);
+        DocumentReader.Read r = DocumentReader.read(pdf, password, VOCAB, flags, holderCheck);
         switch (r.outcome()) {
             case PROTECTED: return new Result(Status.PROTECTED, null);
             case FAILED: return new Result(Status.FAILED, null);
@@ -75,7 +92,7 @@ public final class StatementPdfReader {
         }
         StatementContent c = map(r.facts(), source, bankHint, fallbackPeriod, flags);
         if (c == null) return new Result(Status.NO_BANK, null, flags);
-        return new Result(Status.OPENED, c, flags);
+        return new Result(Status.OPENED, r.holder() == null ? c : c.withHolder(r.holder()), flags);
     }
 
     /** Derived fields from statement text; null when the bank cannot be told. */
@@ -110,6 +127,7 @@ public final class StatementPdfReader {
         String variant = products.size() == 1 ? products.iterator().next() : null;
 
         String limit = f.limit() == null ? null : StatementContent.bucket(f.limit());
-        return new StatementContent(source, bank, f.last4(), kind, period, variant, limit, f.addOnLast4(), f.closure(), f.periodEnd(), null, null, f.rawProduct());
+        java.math.BigDecimal limitAmount = f.limit() == null || f.limit() <= 0 ? null : java.math.BigDecimal.valueOf(f.limit()).setScale(2, java.math.RoundingMode.HALF_UP);
+        return new StatementContent(source, bank, f.last4(), kind, period, variant, limit, f.addOnLast4(), f.closure(), f.periodEnd(), null, null, f.rawProduct(), limitAmount, null);
     }
 }

@@ -13,6 +13,14 @@ import java.util.UUID;
 public interface AccountDetectStateRepository extends JpaRepository<AccountDetectState, UUID> {
 
     @Modifying
+    @Query("update AccountDetectState s set s.unlockGen = s.unlockGen + 1 where s.userId = :userId")
+    int bumpUnlockGen(@Param("userId") UUID userId);
+
+    @Modifying
+    @Query("update AccountDetectState s set s.holderGen = s.holderGen + 1 where s.userId = :userId")
+    int bumpHolderGen(@Param("userId") UUID userId);
+
+    @Modifying
     @Query("delete from AccountDetectState s where s.userId = :userId")
     int deleteForUser(@Param("userId") UUID userId);
 }

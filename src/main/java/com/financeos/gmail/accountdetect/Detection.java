@@ -44,6 +44,10 @@ public final class Detection {
         public boolean localOnly;
         public String limitBucket;
         public Conf limitConf;
+        /** The exact limit of the latest statement that printed one; kept only when {@link #limitConf} is HIGH or MEDIUM. */
+        public java.math.BigDecimal limitAmount;
+        /** At least two strongly linked statements name a holder and none of them is the user (a card or account that is not theirs). */
+        public boolean notInYourName;
         /** The limit comes from a limit-change mail newer than any statement (never above LOW). */
         public boolean limitFromMail;
         /** A payment app, not coincident with a bank mail, confirmed the kind / the variant. */

@@ -38,10 +38,21 @@ public record ScannedMail(String messageId, Instant internalDate, String senderD
     }
 
     /**
-     * @param status OPENED, PROTECTED, FAILED, NO_TEXT, NO_BANK ({@link com.financeos.gmail.accountdetect.StatementPdfReader.Status})
-     *               or {@link #DOWNLOAD_FAILED}
+     * @param status OPENED, PROTECTED, FAILED, NO_TEXT, NO_BANK ({@link com.financeos.gmail.accountdetect.StatementPdfReader.Status}),
+     *               {@link #UNLOCKED}, {@link #UNLOCK_FAILED} or {@link #DOWNLOAD_FAILED}
+     * @param unlockRule the rule tokens (or "SAVED") that opened a protected PDF; never the password
+     * @param unlockHint the password rules the mail itself named (tokens only, from a protected PDF's mail), or null
      */
-    public record Pdf(String attachmentId, String status) {}
+    public record Pdf(String attachmentId, String status, String unlockRule, String unlockHint) {
+        public Pdf(String attachmentId, String status) {
+            this(attachmentId, status, null, null);
+        }
+    }
+
+    /** A protected statement PDF that a password rule opened. */
+    public static final String UNLOCKED = "UNLOCKED";
+    /** A protected statement PDF that was tried with at least one password and stayed closed. */
+    public static final String UNLOCK_FAILED = "UNLOCK_FAILED";
 
     public static final String DOWNLOAD_FAILED = "DOWNLOAD_FAILED";
 

@@ -2,7 +2,10 @@ package com.financeos.gmail.accountdetect.suggest;
 
 import com.financeos.api.accountdetect.dto.AccountSuggestionsResponse;
 import com.financeos.api.accountdetect.dto.AccountSuggestionsResponse.Item;
+import com.financeos.domain.user.User;
+import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.accountdetect.BankDirectory;
+import com.financeos.gmail.accountdetect.unlock.PasswordRender;
 import com.financeos.gmail.accountdetect.job.AccountDetectState;
 import com.financeos.gmail.accountdetect.job.AccountDetectStore;
 import com.financeos.gmail.accountdetect.suggest.AccountSuggestion.State;
@@ -37,13 +40,16 @@ public class AccountSuggestionQuery {
     private final ExistingAccountsLoader existingLoader;
     private final AccountDetectStore store;
     private final GmailConnectionRepository connectionRepository;
+    private final UserRepository userRepository;
 
     public AccountSuggestionQuery(AccountSuggestionRepository repository, ExistingAccountsLoader existingLoader,
-                                  AccountDetectStore store, GmailConnectionRepository connectionRepository) {
+                                  AccountDetectStore store, GmailConnectionRepository connectionRepository,
+                                  UserRepository userRepository) {
         this.repository = repository;
         this.existingLoader = existingLoader;
         this.store = store;
         this.connectionRepository = connectionRepository;
+        this.userRepository = userRepository;
     }
 
     @Transactional(readOnly = true)
@@ -83,13 +89,20 @@ public class AccountSuggestionQuery {
             }
         }
 
+        User profile = userRepository.findById(userId).orElse(null);
         List<Item> items = new ArrayList<>();
-        for (AccountSuggestion s : top) items.add(item(s, children, accounts, freshIds));
+        for (AccountSuggestion s : top) items.add(item(s, children, accounts, freshIds, profile));
         return new AccountSuggestionsResponse(scan, items);
     }
 
+    /** True when the rule that opened this number's statements renders now for the user's profile (needs the name / birth date it uses). */
+    static boolean passwordFromProfile(AccountSuggestion s, User profile) {
+        return s.getPasswordRule() != null && profile != null
+                && PasswordRender.renderOne(s.getPasswordRule(), profile.getDisplayName(), profile.getBirthDate(), s.getLast4()) != null;
+    }
+
     private Item item(AccountSuggestion s, Map<UUID, List<AccountSuggestion>> children, Map<UUID, ExistingAccounts.Acc> accounts,
-                      Set<UUID> freshIds) {
+                      Set<UUID> freshIds, User profile) {
         List<AccountSuggestionsResponse.Child> kids = new ArrayList<>();
         for (AccountSuggestion c : children.getOrDefault(s.getId(), List.of())) {
             kids.add(new AccountSuggestionsResponse.Child(c.getId(), c.getKind().name(), c.getBand().name(), c.getLast4(),
@@ -105,7 +118,7 @@ public class AccountSuggestionQuery {
         AccountSuggestion.Kind kind = base != null ? base : s.getKind();
         return new Item(s.getId(), kind.name(), s.getKindConf(), s.getBand().name(),
                 new AccountSuggestionsResponse.Bank(s.getBank(), BankDirectory.displayName(s.getBank())), s.getLast4(),
-                s.getVariant(), s.getVariantConf(), candidates, s.getLimitBucket(), s.getLimitConf(), s.getLifecycle(), s.getLifecycleConf(),
+                s.getVariant(), s.getVariantConf(), candidates, s.getLimitBucket(), s.getLimitConf(), s.getLimitAmount(), passwordFromProfile(s, profile), s.isNotInYourName(), s.getLifecycle(), s.getLifecycleConf(),
                 s.getFirstSeenOn(), s.getLastSeenOn(), s.getEvidenceMails(),
                 parent == null ? null : new AccountSuggestionsResponse.ParentAccount(parent.id(), parent.name(), parent.displayLast4()),
                 orphan ? null : s.getParentSuggestionId(),
@@ -119,6 +132,7 @@ public class AccountSuggestionQuery {
      */
     static String caption(AccountSuggestion s, List<String> candidates, List<AccountSuggestion> kids) {
         List<String> parts = new ArrayList<>();
+        if (s.isNotInYourName()) parts.add("Not in your name");
         boolean unsettled = "LOW".equals(s.getVariantConf()) || candidates.size() > 1;
         if (unsettled && !candidates.isEmpty()) parts.add(String.join(" or ", candidates));
         else if (s.getVariant() != null) parts.add(s.getVariant());

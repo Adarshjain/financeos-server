@@ -77,6 +77,22 @@ public class AccountDetectFact {
     @Column(name = "unlock_state", nullable = false, length = 20)
     private UnlockState unlockState = UnlockState.NONE;
 
+    /** Password rule tokens the statement mail itself named (e.g. "NAME4U+DDMM|CARD4"); tokens only, never a password. */
+    @Column(name = "unlock_hint", length = 200)
+    private String unlockHint;
+
+    /** The rule tokens that opened the PDF, or "SAVED"; never a password. */
+    @Column(name = "unlock_rule", length = 100)
+    private String unlockRule;
+
+    /** The state's unlock generation this fact was last tried at (tried or not, opened or not): the retry's progress cursor. */
+    @Column(name = "unlock_tried_gen", nullable = false)
+    private int unlockTriedGen;
+
+    /** The state's holder generation this fact's holder flag was last recomputed at. */
+    @Column(name = "holder_checked_gen", nullable = false)
+    private int holderCheckedGen;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 

@@ -2,6 +2,7 @@ package com.financeos.gmail.accountdetect;
 
 import com.financeos.gmail.accountdetect.Vocab.Kind;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
@@ -19,12 +20,29 @@ import java.util.List;
  *                   catalogue name (if any) is {@code variant}
  * @param originCluster for a PDF taken from a mail: that mail's layout cluster (hashed); null otherwise
  * @param originDate    for a PDF taken from a mail: that mail's date; null otherwise
+ * @param limitAmount   the exact credit limit the document prints (null when not read); the bucket is derived from it
+ * @param holder     "Y" when a word of the user's name is on the statement's first page, "N" when none is, null when unknown (no
+ *                   name or no text); only this flag is kept, never the name or the text
+ * @param unlockRule    for a PDF that was password-protected and opened by a rule: the rule tokens (e.g. "NAME4U+DDMM") or
+ *                      "SAVED"; never the password; null otherwise
  */
 public record StatementContent(String source, String bank, String last4, Kind kind, YearMonth period, String variant,
                                String limitBucket, List<String> addOnLast4, boolean mentionsClosure, LocalDate periodEnd,
-                               String originCluster, LocalDate originDate, String rawProduct) {
+                               String originCluster, LocalDate originDate, String rawProduct, BigDecimal limitAmount, String unlockRule, String holder) {
     public StatementContent {
         addOnLast4 = addOnLast4 == null ? List.of() : List.copyOf(addOnLast4);
+    }
+
+    public StatementContent(String source, String bank, String last4, Kind kind, YearMonth period, String variant,
+                            String limitBucket, List<String> addOnLast4, boolean mentionsClosure, LocalDate periodEnd,
+                            String originCluster, LocalDate originDate, String rawProduct, BigDecimal limitAmount, String unlockRule) {
+        this(source, bank, last4, kind, period, variant, limitBucket, addOnLast4, mentionsClosure, periodEnd, originCluster, originDate, rawProduct, limitAmount, unlockRule, null);
+    }
+
+    public StatementContent(String source, String bank, String last4, Kind kind, YearMonth period, String variant,
+                            String limitBucket, List<String> addOnLast4, boolean mentionsClosure, LocalDate periodEnd,
+                            String originCluster, LocalDate originDate, String rawProduct) {
+        this(source, bank, last4, kind, period, variant, limitBucket, addOnLast4, mentionsClosure, periodEnd, originCluster, originDate, rawProduct, null, null, null);
     }
 
     public StatementContent(String source, String bank, String last4, Kind kind, YearMonth period, String variant,
@@ -45,7 +63,7 @@ public record StatementContent(String source, String bank, String last4, Kind ki
 
     /** The same document, tagged with the mail it came from. */
     public StatementContent withOrigin(String cluster, LocalDate date) {
-        return new StatementContent(source, bank, last4, kind, period, variant, limitBucket, addOnLast4, mentionsClosure, periodEnd, cluster, date, rawProduct);
+        return new StatementContent(source, bank, last4, kind, period, variant, limitBucket, addOnLast4, mentionsClosure, periodEnd, cluster, date, rawProduct, limitAmount, unlockRule, holder);
     }
 
     public boolean fromMail() {
@@ -55,7 +73,19 @@ public record StatementContent(String source, String bank, String last4, Kind ki
     /** The same statement linked to an own number found outside the document. */
     public StatementContent withLast4(String l4) {
         return new StatementContent(source, bank, l4, kind, period, variant, limitBucket, addOnLast4, mentionsClosure, periodEnd,
-                originCluster, originDate, rawProduct);
+                originCluster, originDate, rawProduct, limitAmount, unlockRule, holder);
+    }
+
+    /** The same statement with its holder-name check. */
+    public StatementContent withHolder(String holder) {
+        return new StatementContent(source, bank, last4, kind, period, variant, limitBucket, addOnLast4, mentionsClosure, periodEnd,
+                originCluster, originDate, rawProduct, limitAmount, unlockRule, holder);
+    }
+
+    /** The same statement, read from a PDF that a password rule opened. */
+    public StatementContent withUnlockRule(String rule) {
+        return new StatementContent(source, bank, last4, kind, period, variant, limitBucket, addOnLast4, mentionsClosure, periodEnd,
+                originCluster, originDate, rawProduct, limitAmount, rule, holder);
     }
 
     /** Credit limit as a bucket: <1L, 1-3L, 3-5L, 5-10L, >10L. */
