@@ -9729,15 +9729,142 @@ components:
       - $ref: "#/components/schemas/CreditCardAccountResponse"
       - $ref: "#/components/schemas/BrokerAccountResponse"
       - $ref: "#/components/schemas/GenericAccountResponse"
+    AccountSuggestionBank:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - id
+      - name
+    AccountSuggestionCandidateAccount:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+      required:
+      - id
+      - name
+    AccountSuggestionItem:
+      type: object
+      properties:
+        band:
+          type: string
+        bank:
+          $ref: "#/components/schemas/AccountSuggestionBank"
+        candidateAccount:
+          $ref: "#/components/schemas/AccountSuggestionCandidateAccount"
+        caption:
+          type: string
+        evidenceMails:
+          type: integer
+          format: int32
+        firstSeenOn:
+          type: string
+          format: date
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+        kindConf:
+          type: string
+        last4:
+          type: string
+        lastSeenOn:
+          type: string
+          format: date
+        lifecycle:
+          type: string
+        lifecycleConf:
+          type: string
+        limitBucket:
+          type: string
+        limitConf:
+          type: string
+        parentAccount:
+          $ref: "#/components/schemas/AccountSuggestionParentAccount"
+        parentSuggestionId:
+          type: string
+          format: uuid
+        variant:
+          type: string
+        variantCandidates:
+          type: array
+          items:
+            type: string
+        variantConf:
+          type: string
+      required:
+      - band
+      - bank
+      - candidateAccount
+      - caption
+      - evidenceMails
+      - firstSeenOn
+      - id
+      - kind
+      - kindConf
+      - last4
+      - lastSeenOn
+      - lifecycle
+      - lifecycleConf
+      - limitBucket
+      - limitConf
+      - parentAccount
+      - parentSuggestionId
+      - variant
+      - variantCandidates
+      - variantConf
+    AccountSuggestionParentAccount:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        last4:
+          type: string
+        name:
+          type: string
+      required:
+      - id
+      - last4
+      - name
+    AccountSuggestionScan:
+      type: object
+      properties:
+        firstScanDone:
+          type: boolean
+        gmailConnected:
+          type: boolean
+        mailsSeen:
+          type: integer
+          format: int32
+        mailsTotal:
+          type: integer
+          format: int32
+        status:
+          type: string
+      required:
+      - firstScanDone
+      - gmailConnected
+      - mailsSeen
+      - mailsTotal
+      - status
     AccountSuggestionsResponse:
       type: object
       properties:
         items:
           type: array
           items:
-            $ref: "#/components/schemas/Item"
+            $ref: "#/components/schemas/AccountSuggestionItem"
         scan:
-          $ref: "#/components/schemas/Scan"
+          $ref: "#/components/schemas/AccountSuggestionScan"
       required:
       - items
       - scan
@@ -21080,27 +21207,6 @@ components:
       - datasource
       - definition
       - type
-    Scan:
-      type: object
-      properties:
-        firstScanDone:
-          type: boolean
-        gmailConnected:
-          type: boolean
-        mailsSeen:
-          type: integer
-          format: int32
-        mailsTotal:
-          type: integer
-          format: int32
-        status:
-          type: string
-      required:
-      - firstScanDone
-      - gmailConnected
-      - mailsSeen
-      - mailsTotal
-      - status
     SearchAccountHit:
       type: object
       properties:
