@@ -6,6 +6,7 @@ import com.financeos.domain.job.JobCancelledException;
 import com.financeos.domain.job.JobExecutionContext;
 import com.financeos.domain.job.JobHandler;
 import com.financeos.domain.job.JobType;
+import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.accountdetect.BankDirectory;
 import com.financeos.gmail.accountdetect.Detection;
 import com.financeos.gmail.accountdetect.FeatureExtractor;
@@ -88,6 +89,8 @@ public class AccountDetectJobHandler implements JobHandler {
     private final int chunkSize;
     private final Duration firstScanRetryDelay;
     private final UnlockProfileLoader profiles;
+    @Autowired(required = false)
+    UserRepository users;   // field-injected so the constructors stay as they are; null (tests) means no onboarding gate
     StatementUnlocker unlocker = StatementUnlocker.bundled();   // package-visible so a test can swap it
 
     /** Without a profile loader no protected PDF is ever tried (they stay LOCKED). */
@@ -161,6 +164,9 @@ public class AccountDetectJobHandler implements JobHandler {
         AccountDetectPayload payload = ctx.payload(AccountDetectPayload.class);
         if (userId == null || payload == null || payload.connectionId() == null) {
             throw new ValidationException("ACCOUNT_DETECT needs a user and a Gmail connection");
+        }
+        if (users != null && users.findById(userId).map(u -> u.getHelloDoneAt() == null).orElse(true)) {
+            return result("SKIPPED_ONBOARDING", 0, 0, 0);   // queued before Hello was done: no scan until then
         }
         GmailConnection connection = connectionRepository.findById(payload.connectionId()).orElse(null);
         if (connection == null) {
