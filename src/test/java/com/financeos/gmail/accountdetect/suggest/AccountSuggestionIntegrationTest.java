@@ -92,7 +92,9 @@ class AccountSuggestionIntegrationTest {
         service.apply(userId, detection(e("hdfc", "1111", Kind.ACCOUNT, Conf.HIGH), e("hdfc", "2222", Kind.CREDIT_CARD, Conf.HIGH),
                 e("icici", "3333", Kind.CREDIT_CARD, Conf.HIGH), e("axis", "4444", Kind.CREDIT_CARD, Conf.HIGH)));
         service.notMine(userId, row("hdfc:BANK_ACCOUNT:1111").getId());
-        service.markAdded(userId, row("hdfc:CREDIT_CARD:2222").getId(), null, null);
+        AccountSuggestion added = row("hdfc:CREDIT_CARD:2222");
+        added.setState(State.ADDED);
+        repository.save(added);
         AccountSuggestion belongs = row("icici:CREDIT_CARD:3333");
         belongs.setState(State.BELONGS);
         repository.save(belongs);

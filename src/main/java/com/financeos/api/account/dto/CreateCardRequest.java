@@ -4,10 +4,17 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public record CreateCardRequest(
         @NotBlank(message = "last4 is required")
         @Pattern(regexp = "^[0-9]{4}$", message = "last4 must be exactly 4 digits")
         String last4,
-        LocalDate issuedOn
-) {}
+        LocalDate issuedOn,
+        /** The suggestion this card is added from; null = none. */
+        UUID fromSuggestionId
+) {
+    public CreateCardRequest(String last4, LocalDate issuedOn) {
+        this(last4, issuedOn, null);
+    }
+}

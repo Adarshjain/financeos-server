@@ -9975,6 +9975,11 @@ components:
           enum:
           - asset
           - liability
+        fromSuggestionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
         ingestFromDate:
           type: string
           format: date
@@ -12015,6 +12020,9 @@ components:
     CreateCardRequest:
       type: object
       properties:
+        fromSuggestionId:
+          type: string
+          format: uuid
         issuedOn:
           type: string
           format: date
@@ -12027,6 +12035,9 @@ components:
     CreateCardholderRequest:
       type: object
       properties:
+        fromSuggestionId:
+          type: string
+          format: uuid
         issuedOn:
           type: string
           format: date
@@ -12773,6 +12784,11 @@ components:
           enum:
           - asset
           - liability
+        fromSuggestionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
         ingestFromDate:
           type: string
           format: date
@@ -19359,6 +19375,9 @@ components:
     ReplaceCardRequest:
       type: object
       properties:
+        fromSuggestionId:
+          type: string
+          format: uuid
         issuedOn:
           type: string
           format: date

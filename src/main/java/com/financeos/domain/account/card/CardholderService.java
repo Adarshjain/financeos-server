@@ -14,6 +14,10 @@ import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.ingest.event.AccountIngestChangedEvent;
+import com.financeos.gmail.accountdetect.suggest.AccountSuggestion;
+import com.financeos.gmail.accountdetect.suggest.SuggestionAdoption;
+import com.financeos.gmail.ingest.event.ParkedMailSettleRequestedEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +37,9 @@ public class CardholderService {
     private final RewardRuleRepository rewardRuleRepository;
     private final RewardMilestoneRepository rewardMilestoneRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final SuggestionAdoption suggestionAdoption;
 
+    /** Without suggestion support, for callers that build the service by hand. */
     public CardholderService(CardholderRepository cardholderRepository,
                              CardRepository cardRepository,
                              AccountRepository accountRepository,
@@ -42,6 +48,21 @@ public class CardholderService {
                              RewardRuleRepository rewardRuleRepository,
                              RewardMilestoneRepository rewardMilestoneRepository,
                              ApplicationEventPublisher eventPublisher) {
+        this(cardholderRepository, cardRepository, accountRepository, userRepository, transactionRepository,
+                rewardRuleRepository, rewardMilestoneRepository, eventPublisher, null);
+    }
+
+    @Autowired
+    public CardholderService(CardholderRepository cardholderRepository,
+                             CardRepository cardRepository,
+                             AccountRepository accountRepository,
+                             UserRepository userRepository,
+                             TransactionRepository transactionRepository,
+                             RewardRuleRepository rewardRuleRepository,
+                             RewardMilestoneRepository rewardMilestoneRepository,
+                             ApplicationEventPublisher eventPublisher,
+                             SuggestionAdoption suggestionAdoption) {
+        this.suggestionAdoption = suggestionAdoption;
         this.cardholderRepository = cardholderRepository;
         this.cardRepository = cardRepository;
         this.accountRepository = accountRepository;
@@ -65,8 +86,22 @@ public class CardholderService {
         return account;
     }
 
+    /** The user's NEW suggestion a request names, checked to belong to {@code accountId}; null when it names none. */
+    private AccountSuggestion claimSuggestion(UUID suggestionId, UUID accountId, String last4) {
+        return suggestionId == null ? null
+                : suggestionAdoption.claimForAccount(UserContext.getCurrentUserId(), suggestionId, accountId, last4);
+    }
+
+    /** Marks the suggestion ADDED with the new card and asks for parked mail to be settled once the transaction commits. */
+    private void adopt(AccountSuggestion suggestion, UUID accountId, Card card) {
+        if (suggestion == null) return;
+        suggestionAdoption.resolve(suggestion, accountId, card == null ? null : card.getId());
+        eventPublisher.publishEvent(new ParkedMailSettleRequestedEvent(UserContext.getCurrentUserId()));
+    }
+
     public CardholderResponse addPrimaryWithCard(UUID accountId, CreateCardRequest request) {
         Account account = getAccountAndValidateAccess(accountId);
+        AccountSuggestion suggestion = claimSuggestion(request.fromSuggestionId(), accountId, request.last4());
         if (account.isClosed()) {
             throw new ValidationException("Cannot add cardholder to a closed account. Reopen the account first.");
         }
@@ -106,6 +141,7 @@ public class CardholderService {
         savedCh.getCards().add(card);
 
         eventPublisher.publishEvent(new AccountIngestChangedEvent(userId, card.getLast4(), account.getIngestFromDate()));
+        adopt(suggestion, accountId, card);
 
         return CardholderResponse.from(savedCh, 0L);
     }
@@ -138,6 +174,7 @@ public class CardholderService {
 
     public CardholderResponse addAddon(UUID accountId, CreateCardholderRequest request) {
         Account account = getAccountAndValidateAccess(accountId);
+        AccountSuggestion suggestion = claimSuggestion(request.fromSuggestionId(), accountId, request.last4());
         if (account.isClosed()) {
             throw new ValidationException("Cannot add cardholder to a closed account. Reopen the account first.");
         }
@@ -157,6 +194,7 @@ public class CardholderService {
 
         Cardholder savedCh = cardholderRepository.save(cardholder);
 
+        Card addedCard = null;
         if (request.last4() != null && !request.last4().isBlank()) {
             Optional<Card> existing = cardRepository.findOpenByAccountIdAndLast4(accountId, request.last4());
             if (existing.isPresent()) {
@@ -170,9 +208,11 @@ public class CardholderService {
             card.setIssuedOn(request.issuedOn() != null ? request.issuedOn() : openedOn);
             cardRepository.save(card);
             savedCh.getCards().add(card);
+            addedCard = card;
 
             eventPublisher.publishEvent(new AccountIngestChangedEvent(userId, card.getLast4(), account.getIngestFromDate()));
         }
+        adopt(suggestion, accountId, addedCard);
 
         return CardholderResponse.from(savedCh, 0L);
     }
@@ -262,6 +302,7 @@ public class CardholderService {
 
     public CardholderResponse addCard(UUID accountId, UUID cardholderId, CreateCardRequest request) {
         Cardholder cardholder = getCardholderAndValidateAccess(accountId, cardholderId);
+        AccountSuggestion suggestion = claimSuggestion(request.fromSuggestionId(), accountId, request.last4());
         Account account = cardholder.getAccount();
         if (account.isClosed()) {
             throw new ValidationException("Cannot add card to a closed account. Reopen the account first.");
@@ -292,6 +333,7 @@ public class CardholderService {
         cardholder.getCards().add(0, card);
 
         eventPublisher.publishEvent(new AccountIngestChangedEvent(userId, card.getLast4(), account.getIngestFromDate()));
+        adopt(suggestion, accountId, card);
 
         long count = 0;
         for (Card c : cardholder.getCards()) {
@@ -302,6 +344,7 @@ public class CardholderService {
 
     public CardholderResponse replaceCard(UUID accountId, UUID cardholderId, UUID cardId, ReplaceCardRequest request) {
         Cardholder cardholder = getCardholderAndValidateAccess(accountId, cardholderId);
+        AccountSuggestion suggestion = claimSuggestion(request.fromSuggestionId(), accountId, request.newLast4());
         Account account = cardholder.getAccount();
         if (account.isClosed()) {
             throw new ValidationException("Cannot replace card on a closed account. Reopen the account first.");
@@ -343,6 +386,7 @@ public class CardholderService {
         cardholder.getCards().add(0, newCard);
 
         eventPublisher.publishEvent(new AccountIngestChangedEvent(userId, newCard.getLast4(), account.getIngestFromDate()));
+        adopt(suggestion, accountId, newCard);
 
         long count = 0;
         for (Card c : cardholder.getCards()) {

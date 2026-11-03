@@ -17,6 +17,16 @@ public interface AccountSuggestionRepository extends JpaRepository<AccountSugges
 
     Optional<AccountSuggestion> findByIdAndUserId(UUID id, UUID userId);
 
+    /**
+     * The atomic claim: NEW to ADDED for exactly this user's row. The row lock is held to the end of the caller's
+     * transaction, so two creates from one suggestion cannot both win, and a failed create rolls the claim back.
+     */
+    @Modifying
+    @Query("UPDATE AccountSuggestion s SET s.state = com.financeos.gmail.accountdetect.suggest.AccountSuggestion.State.ADDED, "
+            + "s.updatedAt = :now WHERE s.id = :id AND s.userId = :userId "
+            + "AND s.state = com.financeos.gmail.accountdetect.suggest.AccountSuggestion.State.NEW")
+    int claimNew(@Param("id") UUID id, @Param("userId") UUID userId, @Param("now") java.time.Instant now);
+
     /** The user's suggestions, all of them (e2e reset). */
     @Modifying
     @Query("DELETE FROM AccountSuggestion s WHERE s.userId = :userId")

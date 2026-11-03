@@ -20,6 +20,10 @@ import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.domain.GmailBackfillDemand;
 import com.financeos.gmail.domain.GmailBackfillDemandRepository;
 import com.financeos.gmail.ingest.event.AccountIngestChangedEvent;
+import com.financeos.gmail.accountdetect.suggest.AccountSuggestion;
+import com.financeos.gmail.accountdetect.suggest.SuggestionAdoption;
+import com.financeos.gmail.ingest.event.ParkedMailSettleRequestedEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +49,9 @@ public class AccountService {
     private final HoldingValuationService holdingValuationService;
     private final GmailBackfillDemandRepository backfillDemandRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final SuggestionAdoption suggestionAdoption;
 
+    /** Without suggestion support, for callers that build the service by hand. */
     public AccountService(AccountRepository accountRepository,
             CardholderRepository cardholderRepository,
             CardRepository cardRepository,
@@ -55,6 +61,22 @@ public class AccountService {
             HoldingValuationService holdingValuationService,
             GmailBackfillDemandRepository backfillDemandRepository,
             ApplicationEventPublisher eventPublisher) {
+        this(accountRepository, cardholderRepository, cardRepository, userRepository, statementRepository,
+                transactionRepository, holdingValuationService, backfillDemandRepository, eventPublisher, null);
+    }
+
+    @Autowired
+    public AccountService(AccountRepository accountRepository,
+            CardholderRepository cardholderRepository,
+            CardRepository cardRepository,
+            UserRepository userRepository,
+            StatementRepository statementRepository,
+            TransactionRepository transactionRepository,
+            HoldingValuationService holdingValuationService,
+            GmailBackfillDemandRepository backfillDemandRepository,
+            ApplicationEventPublisher eventPublisher,
+            SuggestionAdoption suggestionAdoption) {
+        this.suggestionAdoption = suggestionAdoption;
         this.accountRepository = accountRepository;
         this.cardholderRepository = cardholderRepository;
         this.cardRepository = cardRepository;
@@ -82,6 +104,8 @@ public class AccountService {
         validateExtraCards(request);
         UUID userId = UserContext.getCurrentUserId();
         User user = userRepository.getReferenceById(userId);
+        AccountSuggestion suggestion = request.fromSuggestionId() == null ? null
+                : suggestionAdoption.claim(userId, request.fromSuggestionId());
 
         Account account = new Account(request.name(), request.type());
         account.setUser(user);
@@ -139,6 +163,24 @@ public class AccountService {
         String last4 = extractLast4(saved);
         if (last4 != null) {
             eventPublisher.publishEvent(new AccountIngestChangedEvent(userId, last4, saved.getIngestFromDate()));
+        }
+
+        if (suggestion != null) {
+            // open cards only, by holder role: closed earlier numbers never stand for a suggestion
+            java.util.Map<String, UUID> primaryCards = new java.util.HashMap<>();
+            java.util.Map<String, UUID> addonCards = new java.util.HashMap<>();
+            if (saved.getCardholders() != null) {
+                for (Cardholder ch : saved.getCardholders()) {
+                    if (ch.getCards() == null) continue;
+                    for (Card c : ch.getCards()) {
+                        if (c.getLast4() == null || c.isClosed()) continue;
+                        (ch.isPrimary() ? primaryCards : addonCards).putIfAbsent(c.getLast4(), c.getId());
+                    }
+                }
+            }
+            suggestionAdoption.resolve(suggestion, saved.getId(), primaryCards.get(suggestion.getLast4()));
+            suggestionAdoption.markChildrenAdded(userId, suggestion, saved.getId(), primaryCards, addonCards);
+            eventPublisher.publishEvent(new ParkedMailSettleRequestedEvent(userId));
         }
 
         return saved;

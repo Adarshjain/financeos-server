@@ -252,17 +252,6 @@ public class AccountSuggestionService {
         repository.save(s);
     }
 
-    /** Phase 4 ("create from suggestion"): the user added it as this account (and card). */
-    @Transactional
-    public void markAdded(UUID userId, UUID suggestionId, UUID accountId, UUID cardId) {
-        AccountSuggestion s = owned(userId, suggestionId);
-        s.setState(State.ADDED);
-        s.setResolvedAccountId(accountId);
-        s.setResolvedCardId(cardId);
-        s.setCandidateAccountId(null);
-        repository.save(s);
-    }
-
     private AccountSuggestion owned(UUID userId, UUID id) {
         return repository.findByIdAndUserId(id, userId).orElseThrow(() -> new ResourceNotFoundException("Account suggestion", id));
     }
