@@ -74,15 +74,34 @@ public class GoogleOAuthClient {
     }
 
     /**
+     * Authorization URL asking for one extra scope on top of what the user already granted
+     * (incremental authorization), with its own redirect URI.
+     */
+    public String buildIncrementalAuthorizationUrl(String state, String scope, String callbackUri) {
+        return String.format(
+                "%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s&include_granted_scopes=true",
+                urls.getAuthorizationUrl(),
+                URLEncoder.encode(clientId, StandardCharsets.UTF_8),
+                URLEncoder.encode(callbackUri, StandardCharsets.UTF_8),
+                URLEncoder.encode(scope, StandardCharsets.UTF_8),
+                URLEncoder.encode(state, StandardCharsets.UTF_8));
+    }
+
+    /**
      * Exchange auth code for tokens.
      */
     public GoogleTokenResponse exchangeCodeForTokens(String code) {
+        return exchangeCodeForTokens(code, redirectUri);
+    }
+
+    /** Exchange an auth code that was issued for {@code callbackUri}. */
+    public GoogleTokenResponse exchangeCodeForTokens(String code, String callbackUri) {
         String requestBody = String.format(
                 "code=%s&client_id=%s&client_secret=%s&redirect_uri=%s&grant_type=authorization_code",
                 URLEncoder.encode(code, StandardCharsets.UTF_8),
                 URLEncoder.encode(clientId, StandardCharsets.UTF_8),
                 URLEncoder.encode(clientSecret, StandardCharsets.UTF_8),
-                URLEncoder.encode(redirectUri, StandardCharsets.UTF_8));
+                URLEncoder.encode(callbackUri, StandardCharsets.UTF_8));
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(urls.getTokenUrl()))
@@ -119,6 +138,25 @@ public class GoogleOAuthClient {
             return objectMapper.readValue(response.body(), GoogleUserInfo.class);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("Error fetching user info from Google", e);
+        }
+    }
+
+    /** The signed-in user's People API birthdays response, as raw JSON. */
+    public String getPeopleBirthdays(String accessToken) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(urls.getPeopleUrl()))
+                .header("Authorization", "Bearer " + accessToken)
+                .GET()
+                .build();
+        try {
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != 200) {
+                // The body can hold personal data; report only the status.
+                throw new ValidationException("Failed to read the Google birthday (status " + response.statusCode() + ")");
+            }
+            return response.body();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException("Error fetching the birthday from Google", e);
         }
     }
 }

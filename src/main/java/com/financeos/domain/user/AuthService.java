@@ -208,7 +208,9 @@ public class AuthService {
                     .orElseGet(() -> userRepository.findByEmail(userInfo.email())
                             .map(existingUser -> {
                                 existingUser.setGoogleId(userInfo.id());
-                                existingUser.setDisplayName(userInfo.name());
+                                if (existingUser.getNameEditedAt() == null) {
+                                    existingUser.setDisplayName(userInfo.name());
+                                }
                                 existingUser.setPictureUrl(userInfo.pictureUrl());
                                 return userRepository.save(existingUser);
                             })

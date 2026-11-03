@@ -14,7 +14,11 @@ public record UserResponse(
         @Nullable String pictureUrl,
         boolean hasPassword,
         Instant createdAt,
-        boolean admin) {
+        boolean admin,
+        @Nullable String birthDate,
+        @Nullable String birthDateSource,
+        boolean helloDone,
+        boolean googleBirthdayAvailable) {
     public static UserResponse from(User user) {
         return from(user, false);
     }
@@ -27,6 +31,16 @@ public record UserResponse(
                 user.getPictureUrl(),
                 user.getPasswordHash() != null && !user.getPasswordHash().isBlank(),
                 user.getCreatedAt(),
-                admin);
+                admin,
+                user.getBirthDate(),
+                user.getBirthDateSource() != null ? user.getBirthDateSource().name() : null,
+                user.getHelloDoneAt() != null,
+                false);
+    }
+
+    /** Only GET /me tells the client whether "Fill from Google" is configured. */
+    public UserResponse withGoogleBirthdayAvailable(boolean available) {
+        return new UserResponse(id, email, displayName, pictureUrl, hasPassword, createdAt, admin,
+                birthDate, birthDateSource, helloDone, available);
     }
 }

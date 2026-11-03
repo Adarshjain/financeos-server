@@ -3310,6 +3310,12 @@ paths:
   /api/v1/gmail/oauth/start:
     get:
       operationId: startOAuth
+      parameters:
+      - in: query
+        name: returnTo
+        required: false
+        schema:
+          type: string
       responses:
         "200":
           content:
@@ -6793,6 +6799,102 @@ paths:
           description: Error response
       tags:
       - loan-controller
+  /api/v1/me/google-birthday/callback:
+    get:
+      operationId: googleBirthdayCallback
+      parameters:
+      - in: query
+        name: code
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: state
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: error
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - profile-controller
+  /api/v1/me/google-birthday/start:
+    get:
+      operationId: startGoogleBirthday
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/GoogleBirthdayStartResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - profile-controller
+  /api/v1/me/hello:
+    post:
+      operationId: hello
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HelloRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - profile-controller
+  /api/v1/me/profile:
+    patch:
+      operationId: updateProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateProfileRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - profile-controller
   /api/v1/notifications/accounts/{accountId}/mute:
     put:
       operationId: muteAccount
@@ -14623,6 +14725,13 @@ components:
           type: string
       required:
       - authorizationUrl
+    GoogleBirthdayStartResponse:
+      type: object
+      properties:
+        url:
+          type: string
+      required:
+      - url
     Group:
       type: object
       properties:
@@ -14886,6 +14995,19 @@ components:
       - currentValue
       - invested
       - unrealised
+    HelloRequest:
+      type: object
+      properties:
+        birthDate:
+          type: string
+          nullable: true
+          x-nullable: true
+        displayName:
+          type: string
+          nullable: true
+          x-nullable: true
+        termsAccepted:
+          type: boolean
     HoldingDetailResponse:
       type: object
       properties:
@@ -15956,6 +16078,7 @@ components:
           - BROKER_RECONCILE_COMMIT
           - RULE_APPLY
           - CATEGORY_BACKFILL
+          - ACCOUNT_DETECT
       required:
       - attempt
       - cancelRequested
@@ -23116,6 +23239,17 @@ components:
           x-required: true
       required:
       - price
+    UpdateProfileRequest:
+      type: object
+      properties:
+        birthDate:
+          type: string
+          nullable: true
+          x-nullable: true
+        displayName:
+          type: string
+          nullable: true
+          x-nullable: true
     UpdateReportRequest:
       type: object
       properties:
@@ -23232,6 +23366,14 @@ components:
       properties:
         admin:
           type: boolean
+        birthDate:
+          type: string
+          nullable: true
+          x-nullable: true
+        birthDateSource:
+          type: string
+          nullable: true
+          x-nullable: true
         createdAt:
           type: string
           format: date-time
@@ -23241,7 +23383,11 @@ components:
           x-nullable: true
         email:
           type: string
+        googleBirthdayAvailable:
+          type: boolean
         hasPassword:
+          type: boolean
+        helloDone:
           type: boolean
         id:
           type: string
@@ -23254,7 +23400,9 @@ components:
       - admin
       - createdAt
       - email
+      - googleBirthdayAvailable
       - hasPassword
+      - helloDone
       - id
     WidgetLayout:
       type: object

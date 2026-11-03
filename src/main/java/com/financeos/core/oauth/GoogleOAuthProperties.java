@@ -19,5 +19,6 @@ public class GoogleOAuthProperties {
     private String authorizationUrl = "https://accounts.google.com/o/oauth2/v2/auth";
     private String tokenUrl = "https://oauth2.googleapis.com/token";
     private String userInfoUrl = "https://www.googleapis.com/oauth2/v2/userinfo";
+    private String peopleUrl = "https://people.googleapis.com/v1/people/me?personFields=birthdays";
     private String revokeUrl = "https://oauth2.googleapis.com/revoke";
 }

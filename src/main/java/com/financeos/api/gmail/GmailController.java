@@ -117,9 +117,9 @@ public class GmailController {
     }
 
     @GetMapping("/api/v1/gmail/oauth/start")
-    public ResponseEntity<OAuthStartResponse> startOAuth() {
+    public ResponseEntity<OAuthStartResponse> startOAuth(@RequestParam(required = false) String returnTo) {
         User currentUser = authService.getCurrentUser();
-        String authUrl = oauthService.buildAuthorizationUrl(currentUser.getId());
+        String authUrl = oauthService.buildAuthorizationUrl(currentUser.getId(), returnTo);
         return ResponseEntity.ok(new OAuthStartResponse(authUrl));
     }
 
@@ -143,7 +143,9 @@ public class GmailController {
             User currentUser = authService.getCurrentUser();
             GmailConnection connection = oauthService.handleCallback(currentUser.getId(), code, state);
 
-            String redirectUrl = uiPath + "/settings/gmail?gmail=success&email=" + URLEncoder.encode(connection.getEmail(), StandardCharsets.UTF_8);
+            String redirectUrl = GmailOAuthService.RETURN_HOME.equals(oauthService.returnTarget(currentUser.getId(), state))
+                    ? uiPath + "/"
+                    : uiPath + "/settings/gmail?gmail=success&email=" + URLEncoder.encode(connection.getEmail(), StandardCharsets.UTF_8);
             return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
         } catch (Exception e) {
             String redirectUrl = uiPath + "/settings/gmail?gmail=error&message=" + URLEncoder.encode(e.getMessage() != null ? e.getMessage() : "callback_failed", StandardCharsets.UTF_8);
