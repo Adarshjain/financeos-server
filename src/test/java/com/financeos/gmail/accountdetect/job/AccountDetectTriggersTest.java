@@ -41,6 +41,7 @@ class AccountDetectTriggersTest {
     private JobService jobService;
     private JobRepository jobRepository;
     private GmailConnectionRepository connections;
+    private com.financeos.domain.user.UserRepository users;
     private InMemoryAccountDetectStore store;
     private GmailConnection connection;
 
@@ -52,6 +53,9 @@ class AccountDetectTriggersTest {
         store = new InMemoryAccountDetectStore();
         User user = new User();
         user.setId(userId);
+        user.setHelloDoneAt(java.time.Instant.now());
+        users = mock(com.financeos.domain.user.UserRepository.class);
+        when(users.findById(userId)).thenReturn(Optional.of(user));
         connection = new GmailConnection();
         connection.setId(connectionId);
         connection.setUser(user);
@@ -73,7 +77,7 @@ class AccountDetectTriggersTest {
     }
 
     private AccountDetectTriggers triggers(boolean enabled) {
-        return new AccountDetectTriggers(jobService, jobRepository, connections, store, new ObjectMapper(),
+        return new AccountDetectTriggers(jobService, jobRepository, connections, users, store, new ObjectMapper(),
                 mock(PlatformTransactionManager.class), enabled);
     }
 

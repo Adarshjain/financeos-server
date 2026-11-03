@@ -10,7 +10,9 @@ import com.financeos.domain.job.JobType;
 import com.financeos.domain.job.handlers.GmailSyncPayload;
 import com.financeos.domain.account.StatementPasswordSavedEvent;
 import com.financeos.domain.notification.job.JobFinishedEvent;
+import com.financeos.domain.user.HelloCompletedEvent;
 import com.financeos.domain.user.ProfileChangedEvent;
+import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailConnectionRepository;
 import org.slf4j.Logger;
@@ -43,17 +45,19 @@ public class AccountDetectTriggers {
     private final JobService jobService;
     private final JobRepository jobRepository;
     private final GmailConnectionRepository connectionRepository;
+    private final UserRepository userRepository;
     private final AccountDetectStore store;
     private final ObjectMapper objectMapper;
     private final TransactionTemplate newTransaction;
     private final boolean enabled;
 
     public AccountDetectTriggers(JobService jobService, JobRepository jobRepository, GmailConnectionRepository connectionRepository,
-                                 AccountDetectStore store, ObjectMapper objectMapper, PlatformTransactionManager transactionManager,
+                                 UserRepository userRepository, AccountDetectStore store, ObjectMapper objectMapper, PlatformTransactionManager transactionManager,
                                  @Value("${financeos.account-detect.enabled:true}") boolean enabled) {
         this.jobService = jobService;
         this.jobRepository = jobRepository;
         this.connectionRepository = connectionRepository;
+        this.userRepository = userRepository;
         this.store = store;
         this.objectMapper = objectMapper;
         this.newTransaction = new TransactionTemplate(transactionManager);
@@ -97,6 +101,24 @@ public class AccountDetectTriggers {
         }
     }
 
+    /** The user finished the Hello screen: the first scan may start now, if Gmail is already connected. */
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT, fallbackExecution = true)
+    public void onHelloCompleted(HelloCompletedEvent event) {
+        if (!enabled || event == null || event.userId() == null) return;
+        try {
+            newTransaction.executeWithoutResult(s -> {
+                GmailConnection target = scanTarget(connectionRepository.findByUserId(event.userId()));
+                if (target != null) enqueueForConnection(event.userId(), target.getId());
+            });
+        } catch (Exception e) {
+            log.warn("Account detect enqueue after Hello failed: {}", e.getClass().getSimpleName());
+        }
+    }
+
+    private boolean helloDone(UUID userId) {
+        return userRepository.findById(userId).map(u -> u.getHelloDoneAt() != null).orElse(false);
+    }
+
     /** The user's name or birth date changed: statement PDFs that stayed locked are tried again. */
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT, fallbackExecution = true)
     public void onProfileChanged(ProfileChangedEvent event) {
@@ -123,6 +145,7 @@ public class AccountDetectTriggers {
      * scan: if a job is already queued the enqueue is dropped, but the persistent flag makes that job end with the retry.
      */
     void enqueueUnlockRetry(UUID userId, boolean recheckHolders) {
+        if (!helloDone(userId)) return;
         GmailConnection target = scanTarget(connectionRepository.findByUserId(userId));
         if (target == null || store.state(userId).isEmpty()) return;
         // the new generation outlives a dropped enqueue (accepted: a trigger arriving while a run is in progress may be deduped
@@ -180,6 +203,7 @@ public class AccountDetectTriggers {
     }
 
     private void enqueueForConnection(UUID userId, UUID connectionId) {
+        if (!helloDone(userId)) return;   // onboarding first: no scan before the Hello screen is done
         GmailConnection connection = connectionRepository.findById(connectionId).orElse(null);
         if (connection == null || connection.getUser() == null || !userId.equals(connection.getUser().getId())
                 || !Boolean.TRUE.equals(connection.getIsConnected())) {

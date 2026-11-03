@@ -36,12 +36,16 @@ public class ProfileService {
         User user = load(userId);
         boolean[] changed = apply(user, displayName == null || displayName.isBlank() ? null : displayName, birthDate);
         Instant now = AppTime.nowInstant();
-        if (user.getHelloDoneAt() == null) {
+        boolean firstHello = user.getHelloDoneAt() == null;
+        if (firstHello) {
             user.setHelloDoneAt(now);
         }
         user.setTermsAcceptedAt(now);
         userRepository.save(user);
         publish(userId, changed);
+        if (firstHello) {
+            events.publishEvent(new HelloCompletedEvent(userId));
+        }
         return user;
     }
 

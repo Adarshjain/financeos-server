@@ -34,6 +34,7 @@ class AccountDetectUnlockTriggersTest {
     private final UUID connectionId = UUID.randomUUID();
     private JobService jobService;
     private GmailConnectionRepository connections;
+    private com.financeos.domain.user.UserRepository users;
     private UnlockTestStore store;
 
     @BeforeEach
@@ -43,6 +44,9 @@ class AccountDetectUnlockTriggersTest {
         store = new UnlockTestStore();
         User user = new User();
         user.setId(userId);
+        user.setHelloDoneAt(java.time.Instant.now());
+        users = mock(com.financeos.domain.user.UserRepository.class);
+        when(users.findById(userId)).thenReturn(java.util.Optional.of(user));
         GmailConnection connection = new GmailConnection();
         connection.setId(connectionId);
         connection.setUser(user);
@@ -53,7 +57,7 @@ class AccountDetectUnlockTriggersTest {
     }
 
     private AccountDetectTriggers triggers(boolean enabled) {
-        return new AccountDetectTriggers(jobService, mock(JobRepository.class), connections, store, new ObjectMapper(),
+        return new AccountDetectTriggers(jobService, mock(JobRepository.class), connections, users, store, new ObjectMapper(),
                 mock(PlatformTransactionManager.class), enabled);
     }
 
