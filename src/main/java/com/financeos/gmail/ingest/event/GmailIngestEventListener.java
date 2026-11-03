@@ -82,6 +82,16 @@ public class GmailIngestEventListener {
         enqueueSyncJobsForUser(event.userId());
     }
 
+    /** Waiting mail lands now rather than at the next sync; a failure here never affects the committed create. */
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void handleParkedMailSettleRequested(ParkedMailSettleRequestedEvent event) {
+        try {
+            parkedMessageSettler.settleAllInNewTransaction(event.userId());
+        } catch (Exception e) {
+            log.warn("Parked mail settle after a suggestion was added failed: {}", e.getClass().getSimpleName());
+        }
+    }
+
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleSenderIngestChanged(SenderIngestChangedEvent event) {
         log.info("Handling SenderIngestChangedEvent for user {}", event.userId());

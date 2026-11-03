@@ -56,6 +56,16 @@ public class ParkedMessageSettler {
                 .toInstant();
     }
 
+    /**
+     * {@link #settleAll} in its own transaction, for callers that run after another transaction committed (where a plain
+     * {@code @Transactional} would join the finished one and never commit). The boundary is this method's, so a caller's
+     * try/catch around it also catches a failed commit.
+     */
+    @Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRES_NEW)
+    public int settleAllInNewTransaction(UUID userId) {
+        return settleAll(userId);
+    }
+
     /** Settles every parked last 4 of the user; the Gmail sync runs it so rows parked before their account existed heal. */
     @Transactional
     public int settleAll(UUID userId) {

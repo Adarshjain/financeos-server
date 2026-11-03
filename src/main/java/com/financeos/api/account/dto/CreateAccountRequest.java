@@ -41,6 +41,12 @@ public sealed interface CreateAccountRequest {
     @Nullable
     String bank();
 
+    /** The account suggestion this account is created from; null = none (always null for brokers and generic accounts). */
+    @Nullable
+    default java.util.UUID fromSuggestionId() {
+        return null;
+    }
+
     record BankAccountRequest(
             @NotBlank(message = "Name is required") String name,
             @NotNull(message = "Account type is required") AccountType type,
@@ -55,14 +61,26 @@ public sealed interface CreateAccountRequest {
             /** The one open debit card of the account's PRIMARY/SELF holder; null = none. */
             @Nullable @Valid DebitCardRequest debitCard,
             /** Earlier (closed) numbers of the debit card; null/empty = none. */
-            @Nullable List<@Valid EarlierCardRequest> earlierCards
+            @Nullable List<@Valid EarlierCardRequest> earlierCards,
+            /** The suggestion this account is added from; it becomes ADDED with the account and card. */
+            @Nullable java.util.UUID fromSuggestionId
     ) implements CreateAccountRequest {
+        /** Without a suggestion, for callers that predate it. */
+        public BankAccountRequest(String name, AccountType type, Boolean excludeFromNetAsset,
+                                  FinancialPosition financialPosition, String description,
+                                  BigDecimal openingBalance, String last4, String statementPassword,
+                                  LocalDate ingestFromDate, @Nullable String bank,
+                                  @Nullable DebitCardRequest debitCard, @Nullable List<EarlierCardRequest> earlierCards) {
+            this(name, type, excludeFromNetAsset, financialPosition, description, openingBalance, last4,
+                    statementPassword, ingestFromDate, bank, debitCard, earlierCards, null);
+        }
+
         public BankAccountRequest(String name, AccountType type, Boolean excludeFromNetAsset,
                                   FinancialPosition financialPosition, String description,
                                   BigDecimal openingBalance, String last4, String statementPassword,
                                   LocalDate ingestFromDate, @Nullable String bank) {
             this(name, type, excludeFromNetAsset, financialPosition, description, openingBalance, last4,
-                    statementPassword, ingestFromDate, bank, null, null);
+                    statementPassword, ingestFromDate, bank, null, null, null);
         }
 
         public BankAccountRequest(String name, AccountType type, Boolean excludeFromNetAsset,
@@ -70,7 +88,7 @@ public sealed interface CreateAccountRequest {
                                   BigDecimal openingBalance, String last4, String statementPassword,
                                   LocalDate ingestFromDate) {
             this(name, type, excludeFromNetAsset, financialPosition, description, openingBalance, last4,
-                    statementPassword, ingestFromDate, null, null, null);
+                    statementPassword, ingestFromDate, null, null, null, null);
         }
     }
 
@@ -99,8 +117,22 @@ public sealed interface CreateAccountRequest {
             /** Add-on cards saved with the account, each on its own ADDON holder; null/empty = none. */
             @Nullable List<@Valid AddonCardRequest> addonCards,
             /** Earlier (closed) numbers of the primary card; null/empty = none. */
-            @Nullable List<@Valid EarlierCardRequest> earlierCards
+            @Nullable List<@Valid EarlierCardRequest> earlierCards,
+            /** The suggestion this card account is added from; it becomes ADDED with the account and card. */
+            @Nullable java.util.UUID fromSuggestionId
     ) implements CreateAccountRequest {
+        /** Without a suggestion, for callers that predate it. */
+        public CreditCardRequest(String name, AccountType type, Boolean excludeFromNetAsset,
+                                 FinancialPosition financialPosition, String description, String last4,
+                                 BigDecimal creditLimit, LocalDate anniversaryDate, String statementPassword,
+                                 LocalDate ingestFromDate, java.util.UUID replacesAccountId, String issuer,
+                                 String productName, CreditLimitPoolRequest limitPool, String bank,
+                                 List<AddonCardRequest> addonCards, List<EarlierCardRequest> earlierCards) {
+            this(name, type, excludeFromNetAsset, financialPosition, description, last4, creditLimit,
+                    anniversaryDate, statementPassword, ingestFromDate, replacesAccountId, issuer, productName,
+                    limitPool, bank, addonCards, earlierCards, null);
+        }
+
         /** Without add-on or earlier cards, for callers that predate them. */
         public CreditCardRequest(String name, AccountType type, Boolean excludeFromNetAsset,
                                  FinancialPosition financialPosition, String description, String last4,
@@ -109,7 +141,7 @@ public sealed interface CreateAccountRequest {
                                  String productName, CreditLimitPoolRequest limitPool, String bank) {
             this(name, type, excludeFromNetAsset, financialPosition, description, last4, creditLimit,
                     anniversaryDate, statementPassword, ingestFromDate, replacesAccountId, issuer, productName,
-                    limitPool, bank, null, null);
+                    limitPool, bank, null, null, null);
         }
 
         /** A card without a bank, for callers that predate it. */
@@ -120,7 +152,7 @@ public sealed interface CreateAccountRequest {
                                  String productName, CreditLimitPoolRequest limitPool) {
             this(name, type, excludeFromNetAsset, financialPosition, description, last4, creditLimit,
                     anniversaryDate, statementPassword, ingestFromDate, replacesAccountId, issuer, productName,
-                    limitPool, null, null, null);
+                    limitPool, null, null, null, null);
         }
 
         /** An unpooled card, for callers that predate shared limits. */
@@ -131,7 +163,7 @@ public sealed interface CreateAccountRequest {
                                  String productName) {
             this(name, type, excludeFromNetAsset, financialPosition, description, last4, creditLimit,
                     anniversaryDate, statementPassword, ingestFromDate, replacesAccountId, issuer, productName,
-                    null, null, null, null);
+                    null, null, null, null, null);
         }
     }
 
