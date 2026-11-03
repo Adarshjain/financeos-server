@@ -133,6 +133,10 @@ public class JobFeedListener {
                     body = JobMessages.plural(applied, "transaction") + " categorised";
                 }
             }
+            case ACCOUNT_DETECT -> {
+                // Runs every 2 hours; its own "found N accounts" notification is the only user-facing signal.
+                return;
+            }
             default -> {
                 return;
             }

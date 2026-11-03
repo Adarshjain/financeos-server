@@ -248,7 +248,8 @@ public class AccountDetectJobHandler implements JobHandler {
         }
         s.setMarkerAt(nextMarker(s.getMarkerAt(), newest, incomplete));
         Instant now = AppTime.nowInstant();
-        if (firstScan && incomplete.partial().isEmpty()) s.setFirstScanDoneAt(now);
+        boolean firstScanCompleted = firstScan && incomplete.partial().isEmpty();
+        if (firstScanCompleted) s.setFirstScanDoneAt(now);
         s.setLastRunAt(now);
         s.setMailsSeen(scan.mails().size());
         s.setMailsTotal(scan.mails().size());
@@ -269,7 +270,7 @@ public class AccountDetectJobHandler implements JobHandler {
         if (!stillScanned(userId, connectionId)) return mailboxGone();
         store.save(s);
 
-        sink.accept(userId, detection, new DetectionContext(connection.getId(), firstScan, mailsStored, scan.mails().size(), statementCount, now));
+        sink.accept(userId, detection, new DetectionContext(connection.getId(), firstScan, firstScanCompleted, mailsStored, scan.mails().size(), statementCount, now));
         log.info("Account detect finished: firstScan={}, firstScanDone={}, listed={}, alreadyStored={}, newMails={}, partialMails={}, givenUpMails={}, mailsStored={}, entities={}, durationMs={}, stageMs={}",
                 firstScan, s.getFirstScanDoneAt() != null, scan.listed(), scan.skippedKnown(), scan.mails().size(), incomplete.partial().size(),
                 incomplete.givenUp(), mailsStored, detection.entities.size(), System.currentTimeMillis() - started, timings);

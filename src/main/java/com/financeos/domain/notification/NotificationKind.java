@@ -30,7 +30,9 @@ public enum NotificationKind {
     /** A reward rule's or bucket's period cap is exhausted for the current window. */
     REWARD_CAP,
     /** A job the user started (import, reconcile, rule apply) finished or failed. */
-    JOB_FINISHED;
+    JOB_FINISHED,
+    /** Background account detection found new accounts and cards in the user's mail. */
+    ACCOUNTS_FOUND;
 
     public boolean defaultEnabled() {
         return true;

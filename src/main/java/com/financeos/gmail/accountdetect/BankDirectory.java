@@ -198,6 +198,24 @@ public final class BankDirectory {
         return out;
     }
 
+    /** A bank's display name: the app's bank list first, else its longest issuer name in title case, else the id. */
+    public static String displayName(String bank) {
+        if (bank == null) return null;
+        var known = com.financeos.domain.account.BankCatalog.find(bank);
+        if (known.isPresent()) return known.get().name();
+        List<String> names = ISSUER_NAMES.get(bank);
+        if (names == null || names.isEmpty()) return bank;
+        StringBuilder out = new StringBuilder();
+        for (String w : names.get(0).split(" ")) {
+            if (w.isEmpty()) continue;
+            if (out.length() > 0) out.append(' ');
+            if (w.equals("of") || w.equals("and")) out.append(w);
+            else if (w.length() <= 3 && !w.equals("bank")) out.append(w.toUpperCase(Locale.ROOT));
+            else out.append(Character.toUpperCase(w.charAt(0))).append(w.substring(1));
+        }
+        return out.toString();
+    }
+
     static List<String> issuerNames(String bank) {
         return ISSUER_NAMES.getOrDefault(bank, List.of());
     }

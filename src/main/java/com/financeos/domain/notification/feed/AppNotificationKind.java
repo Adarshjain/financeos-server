@@ -11,6 +11,7 @@ public final class AppNotificationKind {
     public static final String REWARD_MILESTONE = "reward_milestone";
     public static final String REWARD_CAP = "reward_cap";
     public static final String AUTO_LINKED = "auto_linked";
+    public static final String ACCOUNTS_FOUND = "accounts_found";
 
     private AppNotificationKind() {
     }

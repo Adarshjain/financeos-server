@@ -8,6 +8,93 @@ servers:
 - description: Relative Server
   url: /
 paths:
+  /api/v1/account-suggestions:
+    get:
+      operationId: list_3
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AccountSuggestionsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-suggestion-controller
+  /api/v1/account-suggestions/{id}/is-this:
+    post:
+      operationId: isThis
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IsThisRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-suggestion-controller
+  /api/v1/account-suggestions/{id}/not-mine:
+    post:
+      operationId: notMine
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-suggestion-controller
+  /api/v1/account-suggestions/{id}/undo:
+    post:
+      operationId: undo_1
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-suggestion-controller
   /api/v1/accounts:
     get:
       operationId: getAllAccounts
@@ -9642,6 +9729,18 @@ components:
       - $ref: "#/components/schemas/CreditCardAccountResponse"
       - $ref: "#/components/schemas/BrokerAccountResponse"
       - $ref: "#/components/schemas/GenericAccountResponse"
+    AccountSuggestionsResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Item"
+        scan:
+          $ref: "#/components/schemas/Scan"
+      required:
+      - items
+      - scan
     AddonCardRequest:
       type: object
       properties:
@@ -15926,6 +16025,19 @@ components:
       - totalCharges
       - tradeDate
       - type
+    IsThisRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          x-required: true
+        "yes":
+          type: boolean
+          x-required: true
+      required:
+      - accountId
+      - "yes"
     Item:
       type: object
       properties:
@@ -20949,6 +21061,27 @@ components:
       - datasource
       - definition
       - type
+    Scan:
+      type: object
+      properties:
+        firstScanDone:
+          type: boolean
+        gmailConnected:
+          type: boolean
+        mailsSeen:
+          type: integer
+          format: int32
+        mailsTotal:
+          type: integer
+          format: int32
+        status:
+          type: string
+      required:
+      - firstScanDone
+      - gmailConnected
+      - mailsSeen
+      - mailsTotal
+      - status
     SearchAccountHit:
       type: object
       properties:
