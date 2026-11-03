@@ -65,7 +65,7 @@ class AccountSuggestionNotifierTest {
         when(prefsLoader.load(userId)).thenReturn(prefs(true, true));
         notifier.notifyFound(userId, 5, true, ranAt);
         verify(feed).record(eq(userId), eq(AppNotificationKind.ACCOUNTS_FOUND), eq("We found 5 accounts"), any(), any(), any());
-        assertThat(AccountSuggestionNotifier.title(1, false)).isEqualTo("We found 1 account");
+        assertThat(AccountSuggestionNotifier.title(1)).isEqualTo("We found 1 account");
     }
 
     @Test
@@ -88,10 +88,9 @@ class AccountSuggestionNotifierTest {
     }
 
     @Test
-    void aFirstScanThatFoundNothingStillSaysItIsDone() {
+    void aFirstScanThatFoundNothingSaysNothing() {
         notifier.notifyFound(userId, 0, true, ranAt);
-        verify(feed).record(userId, AppNotificationKind.ACCOUNTS_FOUND, "We didn't find any accounts in your email", null,
-                AppNotificationRefs.NONE, "account-suggestions:" + ranAt.toEpochMilli());
+        verifyNoInteractions(feed, settings, prefsLoader);
     }
 
     @Test
