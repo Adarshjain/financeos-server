@@ -4,12 +4,16 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.FinancialPosition;
+import com.financeos.domain.account.card.CardholderRelationship;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type", visible = true)
 @JsonSubTypes({
@@ -47,14 +51,26 @@ public sealed interface CreateAccountRequest {
             String last4,
             String statementPassword,
             LocalDate ingestFromDate,
-            @Nullable String bank
+            @Nullable String bank,
+            /** The one open debit card of the account's PRIMARY/SELF holder; null = none. */
+            @Nullable @Valid DebitCardRequest debitCard,
+            /** Earlier (closed) numbers of the debit card; null/empty = none. */
+            @Nullable List<@Valid EarlierCardRequest> earlierCards
     ) implements CreateAccountRequest {
+        public BankAccountRequest(String name, AccountType type, Boolean excludeFromNetAsset,
+                                  FinancialPosition financialPosition, String description,
+                                  BigDecimal openingBalance, String last4, String statementPassword,
+                                  LocalDate ingestFromDate, @Nullable String bank) {
+            this(name, type, excludeFromNetAsset, financialPosition, description, openingBalance, last4,
+                    statementPassword, ingestFromDate, bank, null, null);
+        }
+
         public BankAccountRequest(String name, AccountType type, Boolean excludeFromNetAsset,
                                   FinancialPosition financialPosition, String description,
                                   BigDecimal openingBalance, String last4, String statementPassword,
                                   LocalDate ingestFromDate) {
             this(name, type, excludeFromNetAsset, financialPosition, description, openingBalance, last4,
-                    statementPassword, ingestFromDate, null);
+                    statementPassword, ingestFromDate, null, null, null);
         }
     }
 
@@ -79,8 +95,23 @@ public sealed interface CreateAccountRequest {
             String productName,
             /** The shared limit this account draws on; null = not pooled. */
             @Nullable CreditLimitPoolRequest limitPool,
-            @Nullable String bank
+            @Nullable String bank,
+            /** Add-on cards saved with the account, each on its own ADDON holder; null/empty = none. */
+            @Nullable List<@Valid AddonCardRequest> addonCards,
+            /** Earlier (closed) numbers of the primary card; null/empty = none. */
+            @Nullable List<@Valid EarlierCardRequest> earlierCards
     ) implements CreateAccountRequest {
+        /** Without add-on or earlier cards, for callers that predate them. */
+        public CreditCardRequest(String name, AccountType type, Boolean excludeFromNetAsset,
+                                 FinancialPosition financialPosition, String description, String last4,
+                                 BigDecimal creditLimit, LocalDate anniversaryDate, String statementPassword,
+                                 LocalDate ingestFromDate, java.util.UUID replacesAccountId, String issuer,
+                                 String productName, CreditLimitPoolRequest limitPool, String bank) {
+            this(name, type, excludeFromNetAsset, financialPosition, description, last4, creditLimit,
+                    anniversaryDate, statementPassword, ingestFromDate, replacesAccountId, issuer, productName,
+                    limitPool, bank, null, null);
+        }
+
         /** A card without a bank, for callers that predate it. */
         public CreditCardRequest(String name, AccountType type, Boolean excludeFromNetAsset,
                                  FinancialPosition financialPosition, String description, String last4,
@@ -89,7 +120,7 @@ public sealed interface CreateAccountRequest {
                                  String productName, CreditLimitPoolRequest limitPool) {
             this(name, type, excludeFromNetAsset, financialPosition, description, last4, creditLimit,
                     anniversaryDate, statementPassword, ingestFromDate, replacesAccountId, issuer, productName,
-                    limitPool, null);
+                    limitPool, null, null, null);
         }
 
         /** An unpooled card, for callers that predate shared limits. */
@@ -100,9 +131,34 @@ public sealed interface CreateAccountRequest {
                                  String productName) {
             this(name, type, excludeFromNetAsset, financialPosition, description, last4, creditLimit,
                     anniversaryDate, statementPassword, ingestFromDate, replacesAccountId, issuer, productName,
-                    null, null);
+                    null, null, null, null);
         }
     }
+
+    /** An add-on card created with the account: its own ADDON holder plus one card. */
+    record AddonCardRequest(
+            @NotBlank(message = "Add-on last 4 digits are required")
+            @Pattern(regexp = "^[0-9]{4}$", message = "last4 must be exactly 4 digits")
+            String last4,
+            @NotNull(message = "Add-on relationship is required") CardholderRelationship relationship,
+            @Nullable String holderName
+    ) {}
+
+    /** An earlier number of the primary card, saved closed so its old mail and statements land here. */
+    record EarlierCardRequest(
+            @NotBlank(message = "Earlier card last 4 digits are required")
+            @Pattern(regexp = "^[0-9]{4}$", message = "last4 must be exactly 4 digits")
+            String last4,
+            /** Defaults to today (AppTime) when absent. */
+            @Nullable LocalDate closedOn
+    ) {}
+
+    /** A debit card of a bank account's primary holder. */
+    record DebitCardRequest(
+            @NotBlank(message = "Debit card last 4 digits are required")
+            @Pattern(regexp = "^[0-9]{4}$", message = "last4 must be exactly 4 digits")
+            String last4
+    ) {}
 
     record BrokerRequest(
             @NotBlank(message = "Name is required") String name,

@@ -9540,6 +9540,30 @@ components:
       - $ref: "#/components/schemas/CreditCardAccountResponse"
       - $ref: "#/components/schemas/BrokerAccountResponse"
       - $ref: "#/components/schemas/GenericAccountResponse"
+    AddonCardRequest:
+      type: object
+      properties:
+        holderName:
+          type: string
+          nullable: true
+          x-nullable: true
+        last4:
+          type: string
+          pattern: "^[0-9]{4}$"
+          x-required: true
+        relationship:
+          type: string
+          enum:
+          - SELF
+          - SPOUSE
+          - PARENT
+          - CHILD
+          - SIBLING
+          - OTHER
+          x-required: true
+      required:
+      - last4
+      - relationship
     AppLockStatusResponse:
       type: object
       properties:
@@ -9733,8 +9757,16 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        debitCard:
+          $ref: "#/components/schemas/DebitCardRequest"
         description:
           type: string
+        earlierCards:
+          type: array
+          items:
+            $ref: "#/components/schemas/EarlierCardRequest"
+          nullable: true
+          x-nullable: true
         excludeFromNetAsset:
           type: boolean
         financialPosition:
@@ -12507,6 +12539,12 @@ components:
     CreditCardRequest:
       type: object
       properties:
+        addonCards:
+          type: array
+          items:
+            $ref: "#/components/schemas/AddonCardRequest"
+          nullable: true
+          x-nullable: true
         anniversaryDate:
           type: string
           format: date
@@ -12521,6 +12559,12 @@ components:
           x-nullable: true
         description:
           type: string
+        earlierCards:
+          type: array
+          items:
+            $ref: "#/components/schemas/EarlierCardRequest"
+          nullable: true
+          x-nullable: true
         excludeFromNetAsset:
           type: boolean
         financialPosition:
@@ -12687,6 +12731,15 @@ components:
       - absolute
       - cycle
       - relative
+    DebitCardRequest:
+      type: object
+      properties:
+        last4:
+          type: string
+          pattern: "^[0-9]{4}$"
+          x-required: true
+      required:
+      - last4
     DeleteAccountRequest:
       type: object
       properties:
@@ -13112,6 +13165,20 @@ components:
       type: object
       properties:
         draftResult: {}
+    EarlierCardRequest:
+      type: object
+      properties:
+        closedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        last4:
+          type: string
+          pattern: "^[0-9]{4}$"
+          x-required: true
+      required:
+      - last4
     EmergencyFundResponse:
       type: object
       properties:
