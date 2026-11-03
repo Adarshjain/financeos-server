@@ -30,7 +30,7 @@ class AuthServiceBirthdayTest {
     private User signIn(GoogleOAuthClient google, ProfileService profiles) {
         UserRepository users = mock(UserRepository.class);
         OAuthStateService states = new OAuthStateService();
-        GoogleBirthdayService birthday = new GoogleBirthdayService(google, profiles, users, new ObjectMapper(), true);
+        GoogleBirthdayService birthday = new GoogleBirthdayService(google, profiles, users, new ObjectMapper());
         AuthService auth = new AuthService(mock(AuthenticationManager.class), users, mock(PasswordEncoder.class),
                 mock(SecurityContextRepository.class), google, mock(GmailConnectionRepository.class),
                 mock(InviteCodeService.class), states, mock(com.financeos.core.applock.AppLockService.class),

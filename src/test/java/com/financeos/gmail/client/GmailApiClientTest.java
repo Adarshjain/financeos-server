@@ -17,11 +17,10 @@ class GmailApiClientTest {
     }
 
     @Test
-    void birthdayScopeIsAskedOnlyWhenEnabled() {
-        GmailClientProperties props = new GmailClientProperties();
-        GmailApiClient on = new GmailApiClient("cid", "secret", "http://localhost:6969/cb", props, true);
-        assertTrue(on.buildAuthorizationUrl("s").contains("user.birthday.read"));
-        assertFalse(client(props).buildAuthorizationUrl("s").contains("birthday"));
+    void birthdayScopeIsAlwaysAsked() {
+        String url = client(new GmailClientProperties()).buildAuthorizationUrl("s");
+        assertTrue(url.contains("gmail.readonly"), url);
+        assertTrue(url.contains("user.birthday.read"), url);
     }
 
     @Test

@@ -35,7 +35,7 @@ class GmailOAuthBirthdayTest {
         User user = new User();
         user.setId(userId);
         when(users.findById(userId)).thenReturn(Optional.of(user));
-        GoogleBirthdayService birthday = new GoogleBirthdayService(google, profiles, users, new ObjectMapper(), true);
+        GoogleBirthdayService birthday = new GoogleBirthdayService(google, profiles, users, new ObjectMapper());
         OAuthStateService states = new OAuthStateService();
         GmailOAuthService service = new GmailOAuthService(client, connections, users, states, null, birthday);
         when(client.exchangeCodeForTokens("code")).thenReturn(
