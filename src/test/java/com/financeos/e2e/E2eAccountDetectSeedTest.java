@@ -71,7 +71,7 @@ class E2eAccountDetectSeedTest {
                 .andExpect(jsonPath("$.items.length()").value(1))
                 .andExpect(jsonPath("$.items[0].last4").value("1111"))
                 .andExpect(jsonPath("$.items[0].kindConf").value("HIGH"));
-        assertEquals(1, jdbc.queryForObject("SELECT COUNT(*) FROM app_notifications WHERE user_id = ? AND title LIKE 'Done finding%'",
+        assertEquals(1, jdbc.queryForObject("SELECT COUNT(*) FROM app_notifications WHERE user_id = ? AND title = 'We found 1 account'",
                 Integer.class, userId.toString()));
 
         mockMvc.perform(post("/api/e2e/account-detect/seed").cookie(cookies).contentType(MediaType.APPLICATION_JSON)

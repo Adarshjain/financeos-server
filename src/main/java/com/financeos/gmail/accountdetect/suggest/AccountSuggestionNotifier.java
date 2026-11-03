@@ -18,7 +18,7 @@ import java.util.UUID;
 /**
  * The one user-facing signal of a background account-detect run: an in-app feed entry (always) and a push (when the
  * user can receive {@link NotificationKind#ACCOUNTS_FOUND}). Sent when the run marked new suggestions, and always on the run that completes the first scan (the progress card
- * promises it), with the "Done finding your accounts" title.
+ * promises it): "We found N accounts" / "Add them to see your transactions.", or that none were found.
  */
 @Component
 public class AccountSuggestionNotifier {
@@ -39,20 +39,26 @@ public class AccountSuggestionNotifier {
     }
 
     static String title(int count, boolean firstScanCompleted) {
-        if (firstScanCompleted) return count == 0 ? "Done finding your accounts: none found" : "Done finding your accounts: " + count + " found";
-        return count == 1 ? "Found 1 account or card in your email" : "Found " + count + " accounts and cards in your email";
+        if (count <= 0) return "We didn't find any accounts in your email";
+        return count == 1 ? "We found 1 account" : "We found " + count + " accounts";
+    }
+
+    /** The second line: what to do with what was found (none when nothing was). */
+    static String body(int count) {
+        return count > 0 ? "Add them to see your transactions." : null;
     }
 
     /** Never throws: a notification problem must not fail the job. */
     public void notifyFound(UUID userId, int count, boolean firstScanCompleted, Instant ranAt) {
         if (count <= 0 && !firstScanCompleted) return;
         String title = title(count, firstScanCompleted);
+        String body = body(count);
         try {
-            feedService.record(userId, AppNotificationKind.ACCOUNTS_FOUND, title, null, AppNotificationRefs.NONE,
+            feedService.record(userId, AppNotificationKind.ACCOUNTS_FOUND, title, body, AppNotificationRefs.NONE,
                     "account-suggestions:" + ranAt.toEpochMilli());
             NotificationPrefs prefs = prefsLoader.load(userId);
             if (prefs.deliverable(NotificationKind.ACCOUNTS_FOUND)) {
-                int sent = settingsService.deliver(prefs.settings(), new PushMessage(title, "", URL, TAG));
+                int sent = settingsService.deliver(prefs.settings(), new PushMessage(title, body == null ? "" : body, URL, TAG));
                 log.info("Account suggestions notification: count={}, firstScanCompleted={}, devices={}", count, firstScanCompleted, sent);
             }
         } catch (Exception e) {
