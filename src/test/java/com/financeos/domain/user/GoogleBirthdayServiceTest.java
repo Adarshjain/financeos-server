@@ -1,21 +1,16 @@
 package com.financeos.domain.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.financeos.api.auth.dto.GoogleTokenResponse;
-import com.financeos.core.exception.ValidationException;
 import com.financeos.core.oauth.GoogleOAuthClient;
-import com.financeos.core.oauth.OAuthStateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -25,56 +20,72 @@ class GoogleBirthdayServiceTest {
 
     private static final String PEOPLE = """
             {"birthdays":[{"metadata":{"source":{"type":"ACCOUNT"}},"date":{"year":1990,"month":4,"day":5}}]}""";
+    private static final String GRANTED = "openid email " + GoogleBirthdayService.SCOPE;
 
     private final UUID userId = UUID.randomUUID();
     private GoogleOAuthClient google;
     private ProfileService profiles;
-    private GoogleBirthdayService service;
-    private String state;
+    private UserRepository users;
+    private User user;
 
     @BeforeEach
     void setUp() {
         google = mock(GoogleOAuthClient.class);
         profiles = mock(ProfileService.class);
-        service = new GoogleBirthdayService(google, new OAuthStateService(), profiles, new ObjectMapper(), true,
-                "http://localhost/cb");
-        when(google.buildIncrementalAuthorizationUrl(anyString(), anyString(), anyString())).thenReturn("https://g");
-        service.buildAuthorizationUrl(userId);
-        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
-        verify(google).buildIncrementalAuthorizationUrl(captor.capture(), org.mockito.ArgumentMatchers.eq(GoogleBirthdayService.SCOPE), anyString());
-        state = captor.getValue();
+        users = mock(UserRepository.class);
+        user = new User();
+        user.setId(userId);
+        when(users.findById(userId)).thenReturn(Optional.of(user));
         when(google.getPeopleBirthdays("at")).thenReturn(PEOPLE);
     }
 
-    private void granted(String scope) {
-        when(google.exchangeCodeForTokens("code", "http://localhost/cb"))
-                .thenReturn(new GoogleTokenResponse("at", 3600L, null, scope, "Bearer", null));
+    private GoogleBirthdayService service(boolean enabled) {
+        return new GoogleBirthdayService(google, profiles, users, new ObjectMapper(), enabled);
     }
 
     @Test
-    void grantedScopeSavesThePickedDate() {
-        granted("openid " + GoogleBirthdayService.SCOPE);
+    void grantedScopeAndNoBirthDateSavesThePickedDate() {
         when(profiles.saveGoogleBirthDate(userId, "1990-04-05")).thenReturn(true);
-        assertTrue(service.handleCallback(userId, "code", state));
+        assertTrue(service(true).fillFromGoogle(userId, "at", GRANTED));
+        verify(profiles).saveGoogleBirthDate(userId, "1990-04-05");
     }
 
     @Test
-    void aDeniedScopeNeverCallsThePeopleApi() {
-        granted("openid email");
-        assertFalse(service.handleCallback(userId, "code", state));
+    void aScopeThatWasNotGrantedNeverCallsThePeopleApi() {
+        assertFalse(service(true).fillFromGoogle(userId, "at", "openid email"));
+        assertFalse(service(true).fillFromGoogle(userId, "at", null));
         verify(google, never()).getPeopleBirthdays(any());
     }
 
     @Test
-    void anotherUsersStateIsRejected() {
-        assertThrows(ValidationException.class, () -> service.handleCallback(UUID.randomUUID(), "code", state));
-        verify(google, never()).exchangeCodeForTokens(any(), any());
+    void flagOffDoesNothing() {
+        assertFalse(service(false).fillFromGoogle(userId, "at", GRANTED));
+        verify(google, never()).getPeopleBirthdays(any());
+        verify(profiles, never()).saveGoogleBirthDate(any(), any());
     }
 
     @Test
-    void disabledMeansNoFlow() {
-        GoogleBirthdayService off = new GoogleBirthdayService(google, new OAuthStateService(), profiles,
-                new ObjectMapper(), false, "http://localhost/cb");
-        assertThrows(ValidationException.class, () -> off.buildAuthorizationUrl(userId));
+    void anExistingBirthDateIsLeftAlone() {
+        user.setBirthDate("1985-01-01");
+        assertFalse(service(true).fillFromGoogle(userId, "at", GRANTED));
+        verify(google, never()).getPeopleBirthdays(any());
+        verify(profiles, never()).saveGoogleBirthDate(any(), any());
+    }
+
+    @Test
+    void aPeopleApiFailureIsSwallowed() {
+        when(google.getPeopleBirthdays("at")).thenThrow(new RuntimeException("boom"));
+        assertFalse(service(true).fillFromGoogle(userId, "at", GRANTED));
+        verify(profiles, never()).saveGoogleBirthDate(any(), any());
+    }
+    @Test
+    void anInvalidGoogleDateIsDroppedBeforeTheSave() {
+        for (String date : new String[] {"{\"year\":1990,\"month\":2,\"day\":30}", "{\"year\":1800,\"month\":1,\"day\":1}",
+                "{\"year\":2999,\"month\":1,\"day\":1}"}) {
+            when(google.getPeopleBirthdays("at")).thenReturn(
+                    "{\"birthdays\":[{\"metadata\":{\"source\":{\"type\":\"ACCOUNT\"}},\"date\":" + date + "}]}");
+            assertFalse(service(true).fillFromGoogle(userId, "at", GRANTED));
+        }
+        verify(profiles, never()).saveGoogleBirthDate(any(), any());
     }
 }

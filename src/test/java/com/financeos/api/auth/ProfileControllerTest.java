@@ -86,8 +86,7 @@ class ProfileControllerTest {
         mockMvc.perform(get("/api/v1/auth/me").with(user(email)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.helloDone").value(false))
-                .andExpect(jsonPath("$.birthDate").doesNotExist())
-                .andExpect(jsonPath("$.googleBirthdayAvailable").value(false));
+                .andExpect(jsonPath("$.birthDate").doesNotExist());
     }
 
     @Test
@@ -154,10 +153,5 @@ class ProfileControllerTest {
     void profileEndpointsNeedASession() throws Exception {
         mockMvc.perform(patch("/api/v1/me/profile").contentType(MediaType.APPLICATION_JSON).content("{}"))
                 .andExpect(status().is4xxClientError());
-    }
-
-    @Test
-    void googleBirthdayStartIsRefusedWhileDisabled() throws Exception {
-        mockMvc.perform(get("/api/v1/me/google-birthday/start").with(user(email))).andExpect(status().isBadRequest());
     }
 }

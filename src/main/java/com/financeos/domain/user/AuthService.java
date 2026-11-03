@@ -60,6 +60,8 @@ public class AuthService {
     private final OAuthStateService stateService;
     private final AppLockService appLockService;
     private final AppLockDeviceRepository appLockDevices;
+    /** Optional birth date fill (null in unit tests). */
+    private final GoogleBirthdayService googleBirthdayService;
 
     public AuthService(AuthenticationManager authenticationManager,
             UserRepository userRepository,
@@ -71,6 +73,23 @@ public class AuthService {
             OAuthStateService stateService,
             AppLockService appLockService,
             AppLockDeviceRepository appLockDevices) {
+        this(authenticationManager, userRepository, passwordEncoder, securityContextRepository, googleOAuthClient,
+                gmailConnectionRepository, inviteCodeService, stateService, appLockService, appLockDevices, null);
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public AuthService(AuthenticationManager authenticationManager,
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder,
+            SecurityContextRepository securityContextRepository,
+            GoogleOAuthClient googleOAuthClient,
+            GmailConnectionRepository gmailConnectionRepository,
+            InviteCodeService inviteCodeService,
+            OAuthStateService stateService,
+            AppLockService appLockService,
+            AppLockDeviceRepository appLockDevices,
+            GoogleBirthdayService googleBirthdayService) {
+        this.googleBirthdayService = googleBirthdayService;
         this.appLockService = appLockService;
         this.appLockDevices = appLockDevices;
         this.stateService = stateService;
@@ -240,6 +259,9 @@ public class AuthService {
                     user.getEmail(), null, java.util.Collections.emptyList());
             createSession(auth, httpRequest, httpResponse, user.getId());
 
+            if (googleBirthdayService != null) {
+                googleBirthdayService.fillFromGoogle(user.getId(), tokenResponse.accessToken(), tokenResponse.scope());
+            }
             return user;
         } catch (Exception e) {
             log.warn("Google OAuth callback failed: flowId={}, error={}, redirectUri={}", effectiveFlowId, e.getMessage(), googleOAuthClient.getRedirectUri(),

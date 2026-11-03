@@ -6934,54 +6934,6 @@ paths:
           description: Error response
       tags:
       - loan-controller
-  /api/v1/me/google-birthday/callback:
-    get:
-      operationId: googleBirthdayCallback
-      parameters:
-      - in: query
-        name: code
-        required: false
-        schema:
-          type: string
-      - in: query
-        name: state
-        required: false
-        schema:
-          type: string
-      - in: query
-        name: error
-        required: false
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - profile-controller
-  /api/v1/me/google-birthday/start:
-    get:
-      operationId: startGoogleBirthday
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/GoogleBirthdayStartResponse"
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Error response
-      tags:
-      - profile-controller
   /api/v1/me/hello:
     post:
       operationId: hello
@@ -15096,13 +15048,6 @@ components:
           type: string
       required:
       - authorizationUrl
-    GoogleBirthdayStartResponse:
-      type: object
-      properties:
-        url:
-          type: string
-      required:
-      - url
     Group:
       type: object
       properties:
@@ -23770,8 +23715,6 @@ components:
           x-nullable: true
         email:
           type: string
-        googleBirthdayAvailable:
-          type: boolean
         hasPassword:
           type: boolean
         helloDone:
@@ -23787,7 +23730,6 @@ components:
       - admin
       - createdAt
       - email
-      - googleBirthdayAvailable
       - hasPassword
       - helloDone
       - id

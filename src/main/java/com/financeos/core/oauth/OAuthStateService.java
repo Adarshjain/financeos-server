@@ -37,7 +37,7 @@ import java.util.UUID;
 public class OAuthStateService {
 
     /** What a state was issued for; a state never passes for the other purpose. */
-    public enum Purpose { GOOGLE_SSO, GMAIL_CONNECT, GOOGLE_BIRTHDAY }
+    public enum Purpose { GOOGLE_SSO, GMAIL_CONNECT }
 
     static final Duration TTL = Duration.ofMinutes(10);
     private static final String ALGORITHM = "HmacSHA256";

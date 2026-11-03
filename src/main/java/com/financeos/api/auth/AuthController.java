@@ -24,14 +24,11 @@ public class AuthController {
     private final AuthService authService;
     private final AccountDeletionService accountDeletionService;
     private final com.financeos.core.security.AdminService adminService;
-    private final com.financeos.domain.user.GoogleBirthdayService googleBirthdayService;
 
     public AuthController(
             AuthService authService,
             AccountDeletionService accountDeletionService,
-            com.financeos.core.security.AdminService adminService,
-            com.financeos.domain.user.GoogleBirthdayService googleBirthdayService) {
-        this.googleBirthdayService = googleBirthdayService;
+            com.financeos.core.security.AdminService adminService) {
         this.authService = authService;
         this.accountDeletionService = accountDeletionService;
         this.adminService = adminService;
@@ -61,8 +58,7 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUser() {
         User user = authService.getCurrentUserForRead();
-        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user))
-                .withGoogleBirthdayAvailable(googleBirthdayService.isEnabled()));
+        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user)));
     }
 
     @GetMapping("/google/start")
